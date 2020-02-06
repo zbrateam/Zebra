@@ -33,10 +33,18 @@
     UIGraphicsEndImageContext();
 
     self.image = colorImage;
-    [self resize:size applyRadius:YES];
+    [self resize:size applyRadius:NO];
+    
+    self.layer.cornerRadius = size.width / 2;
+    self.clipsToBounds = YES;
 }
 
 - (void)setLeftColor:(UIColor *)leftColor rightColor:(UIColor *)rightColor {
+    if ([leftColor isEqual:rightColor]) {
+        [self setColor:leftColor];
+        return;
+    }
+    
     CGSize size = CGSizeMake(30, 30);
     
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), NO, 0.0);
@@ -63,7 +71,10 @@
     UIGraphicsEndImageContext();
     
     self.image = colorImage;
-    [self resize:size applyRadius:YES];
+    [self resize:size applyRadius:NO];
+    
+    self.layer.cornerRadius = size.width / 2;
+    self.clipsToBounds = YES;
 }
 
 - (void)resize:(CGSize)size applyRadius:(BOOL)radius {

@@ -18,6 +18,7 @@ NSString *const AccentColorKey = @"AccentColor";
 NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
 NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
+NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -34,9 +35,9 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
             case 1:
                 [self setAccentColor:ZBAccentColorCornflowerBlue];
             case 2:
-                [self setAccentColor:ZBAccentColorOrange];
+                [self setAccentColor:ZBAccentColorGoldenTainoi];
             case 3:
-                [self setAccentColor:ZBAccentColorAdaptive];
+                [self setAccentColor:ZBAccentColorMonochrome];
                 
         }
         [defaults removeObjectForKey:tintSelectionKey];
@@ -85,6 +86,23 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:accentColor forKey:AccentColorKey];
+    [defaults synchronize];
+}
+
++ (BOOL)usesSystemAccentColor {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:UsesSystemAccentColorKey]) {
+        [self setUsesSystemAccentColor:false];
+        return false;
+    }
+    return [defaults integerForKey:UsesSystemAccentColorKey];
+}
+
++ (void)setUsesSystemAccentColor:(BOOL)usesSystemAccentColor {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:usesSystemAccentColor forKey:UsesSystemAccentColorKey];
     [defaults synchronize];
 }
 

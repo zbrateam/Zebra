@@ -125,7 +125,7 @@
 + (UIColor *)imageBorderColor {
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
-            return [UIColor colorWithWhite:0.0 alpha:0.2];
+            return [UIColor colorWithWhite:0.0 alpha:0.1];
         case ZBInterfaceStyleDark:
         case ZBInterfaceStylePureBlack:
             return [UIColor colorWithWhite:1.0 alpha:0.2];

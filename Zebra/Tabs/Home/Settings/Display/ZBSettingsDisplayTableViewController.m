@@ -231,7 +231,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
 - (void)changeTint {
     ZBAccentColorTableViewController *controller = [[ZBAccentColorTableViewController alloc] init];
-    controller.title = @"Accent Color";
 
     [self.navigationController pushViewController:controller animated:YES];
 }

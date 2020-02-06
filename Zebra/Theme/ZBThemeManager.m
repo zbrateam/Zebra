@@ -29,19 +29,38 @@
 }
 
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor {
+    return [self getAccentColor:accentColor forInterfaceStyle:[ZBSettings interfaceStyle]];
+}
+
++ (UIColor *)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style {
+    if ([ZBSettings usesSystemAccentColor]) return nil;
+    
+    BOOL darkMode = style >= ZBInterfaceStyleDark;
     switch (accentColor) {
         case ZBAccentColorCornflowerBlue:
             return [UIColor blueCornflowerColor];
-        case ZBAccentColorSystemBlue:
-            return nil;
-        case ZBAccentColorOrange:
-            return [UIColor colorWithRed:1.0 green:0.584 blue:0.0 alpha:1.0];
-        case ZBAccentColorAdaptive: {
-            if ([ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
-                return [UIColor colorWithRed:1 green:1 blue:1 alpha:1];
-            }
-            return [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
-        }
+        case ZBAccentColorMonochrome:
+            return darkMode ? [UIColor whiteColor] : [UIColor blackColor];
+        case ZBAccentColorShark:
+            return darkMode ? [UIColor colorWithRed:0.78 green:0.84 blue:0.90 alpha:1.0] : [UIColor colorWithRed:0.13 green:0.18 blue:0.24 alpha:1.0];
+        case ZBAccentColorGoldenTainoi:
+            return darkMode ? [UIColor colorWithRed:1.00 green:0.62 blue:0.26 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.79 blue:0.34 alpha:1.0];
+        case ZBAccentColorPastelRed:
+            return darkMode ? [UIColor colorWithRed:0.93 green:0.32 blue:0.33 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.42 blue:0.42 alpha:1.0];
+        case ZBAccentColorLotusPink:
+            return darkMode ? [UIColor colorWithRed:0.95 green:0.41 blue:0.88 alpha:1.0] : [UIColor colorWithRed:1.00 green:0.62 blue:0.95 alpha:1.0];
+        case ZBAccentColorIrisBlue:
+            return darkMode ? [UIColor colorWithRed:0.04 green:0.74 blue:0.89 alpha:1.0] : [UIColor colorWithRed:0.28 green:0.86 blue:0.98 alpha:1.0];
+        case ZBAccentColorMountainMeadow:
+            return darkMode ? [UIColor colorWithRed:0.06 green:0.67 blue:0.52 alpha:1.0] : [UIColor colorWithRed:0.11 green:0.82 blue:0.63 alpha:1.0];
+        case ZBAccentColorAquaVelvet:
+            return darkMode ? [UIColor colorWithRed:0.00 green:0.64 blue:0.64 alpha:1.0] : [UIColor colorWithRed:0.00 green:0.82 blue:0.83 alpha:1.0];
+        case ZBAccentColorRoyalBlue:
+            return darkMode ? [UIColor colorWithRed:0.18 green:0.53 blue:0.87 alpha:1.0] : [UIColor colorWithRed:0.33 green:0.63 blue:1.00 alpha:1.0];
+        case ZBAccentColorPurpleHeart:
+            return darkMode ? [UIColor colorWithRed:0.20 green:0.12 blue:0.59 alpha:1.0] : [UIColor colorWithRed:0.37 green:0.15 blue:0.80 alpha:1.0];
+        case ZBAccentColorStorm:
+            return darkMode ? [UIColor colorWithRed:0.34 green:0.40 blue:0.45 alpha:1.0] : [UIColor colorWithRed:0.51 green:0.58 blue:0.65 alpha:1.0];
         default:
             return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
     }
@@ -51,24 +70,39 @@
     switch (accentColor) {
         case ZBAccentColorCornflowerBlue:
             return NSLocalizedString(@"Cornflower Blue", @"");
-        case ZBAccentColorSystemBlue:
-            return NSLocalizedString(@"None", @"");;
-        case ZBAccentColorOrange:
-            return NSLocalizedString(@"Orange", @"");
-        case ZBAccentColorAdaptive: {
-            return NSLocalizedString(@"Monochromatic", @"");
-        }
+        case ZBAccentColorMonochrome:
+            return NSLocalizedString(@"Monochrome", @"");
+        case ZBAccentColorShark:
+            return NSLocalizedString(@"Shark", @"");
+        case ZBAccentColorGoldenTainoi:
+            return NSLocalizedString(@"Golden Tainoi", @"");
+        case ZBAccentColorPastelRed:
+            return NSLocalizedString(@"Pastel Red", @"");
+        case ZBAccentColorLotusPink:
+            return NSLocalizedString(@"Lotus Pink", @"");
+        case ZBAccentColorIrisBlue:
+            return NSLocalizedString(@"Iris Blue", @"");
+        case ZBAccentColorMountainMeadow:
+            return NSLocalizedString(@"Mountain Meadow", @"");
+        case ZBAccentColorAquaVelvet:
+            return NSLocalizedString(@"Aqua Velvet", @"");
+        case ZBAccentColorRoyalBlue:
+            return NSLocalizedString(@"Royal Blue", @"");
+        case ZBAccentColorPurpleHeart:
+            return NSLocalizedString(@"Purple Heart", @"");
+        case ZBAccentColorStorm:
+            return NSLocalizedString(@"Storm", @"");
         default:
             return @"I have no idea";
     }
 }
 
 + (NSArray *)colors {
-    return @[@(ZBAccentColorCornflowerBlue),
-             @(ZBAccentColorOrange),
-             @(ZBAccentColorAdaptive),
-             @(ZBAccentColorSystemBlue)
-    ];
+    NSMutableArray *colors = [NSMutableArray new];
+    for (ZBAccentColor color = ZBAccentColorCornflowerBlue; color <= ZBAccentColorGoldenTainoi; color++) {
+        [colors addObject:@(color)];
+    }
+    return colors;
 }
 
 + (BOOL)useCustomTheming {
@@ -181,11 +215,11 @@
         [[UITableView appearance] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
         
         [[UITableViewCell appearance] setBackgroundColor:[UIColor cellBackgroundColor]];
-//        [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
+        //        [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
         [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
         [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class], [UITableView class]]] setTextColor:[UIColor primaryTextColor]];
-//        [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setFont:[UIFont fontWithName:@"Times" size:17.00]];
-//        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[NSClassFromString(@"UITableViewCellContentView")]] setTextColor:[UIColor primaryTextColor]];
+        //        [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setFont:[UIFont fontWithName:@"Times" size:17.00]];
+        //        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[NSClassFromString(@"UITableViewCellContentView")]] setTextColor:[UIColor primaryTextColor]];
     }
 }
 

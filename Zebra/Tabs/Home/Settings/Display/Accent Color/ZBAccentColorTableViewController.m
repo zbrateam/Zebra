@@ -8,19 +8,39 @@
 
 #import "ZBAccentColorTableViewController.h"
 #import "UIImageView+Zebra.h"
+#import "UIColor+GlobalColors.h"
 #import <ZBThemeManager.h>
+#import <ZBSettings.h>
 
 @interface ZBAccentColorTableViewController () {
     NSArray *colors;
+    ZBAccentColor selectedColor;
 }
 @end
 
 @implementation ZBAccentColorTableViewController
 
+- (id)init {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"accentColorPicker"];
+    
+    if (self) {
+        colors = [ZBThemeManager colors];
+        selectedColor = [ZBSettings accentColor];
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    colors = [ZBThemeManager colors];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 #pragma mark - Table view data source
@@ -37,9 +57,20 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"colorCell"];
     
     ZBAccentColor color = (ZBAccentColor)[colors[indexPath.row] integerValue];
-    [[cell imageView] setColor:[ZBThemeManager getAccentColor:color]];
+    if (color == selectedColor) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
+    UIColor *leftColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleLight];
+    UIColor *rightColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleDark];
+    [[cell imageView] setLeftColor:leftColor rightColor:rightColor];
+    [[cell imageView] applyBorder];
     
     cell.textLabel.text = [ZBThemeManager localizedNameForAccentColor:color];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
     
     return cell;
 }

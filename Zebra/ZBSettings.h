@@ -33,9 +33,17 @@ extern NSString * _Nonnull const PureBlackModeKey;
 
 typedef enum : NSUInteger {
     ZBAccentColorCornflowerBlue,
-    ZBAccentColorSystemBlue,
-    ZBAccentColorOrange,
-    ZBAccentColorAdaptive,
+    ZBAccentColorMonochrome,
+    ZBAccentColorShark,
+    ZBAccentColorPastelRed,
+    ZBAccentColorLotusPink,
+    ZBAccentColorIrisBlue,
+    ZBAccentColorMountainMeadow,
+    ZBAccentColorAquaVelvet,
+    ZBAccentColorRoyalBlue,
+    ZBAccentColorPurpleHeart,
+    ZBAccentColorStorm,
+    ZBAccentColorGoldenTainoi,
 } ZBAccentColor;
 
 #pragma mark - Dark Mode Styles
@@ -64,6 +72,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBAccentColor)accentColor;
 + (void)setAccentColor:(ZBAccentColor)accentColor;
+
++ (BOOL)usesSystemAccentColor;
++ (void)setUsesSystemAccentColor:(BOOL)usesSystemAccentColor;
 
 + (ZBInterfaceStyle)interfaceStyle;
 + (void)setInterfaceStyle:(ZBInterfaceStyle)style;
