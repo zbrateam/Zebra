@@ -57,16 +57,16 @@
 // Accent Colors
 
 "Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
+"Cornflower Blue" = "Kornblå";
 "Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
+"Iris Blue" = "Irisblå";
+"Lotus Pink" = "Lotusrosa";
 "Monochrome" = "Monokrom";
 "Mountain Meadow" = "Mountain Meadow";
 "Pastel Red" = "Pastellröd";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
+"Purple Heart" = "Lila hjärta";
+"Royal Blue" = "Kungsblå";
+"Shark" = "Haj";
 "Storm" = "Storm";
 
 "Dark Mode Style" = "Stil för mörkt läge";
@@ -359,4 +359,4 @@
 "Import Sources" = "Importera källor";
 "Import" = "Importera";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Inga butiker tillgängliga";
