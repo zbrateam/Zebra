@@ -210,12 +210,19 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                         [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
                     }
                 }
+                cell.tintColor = [UIColor accentColor];
+                self.navigationController.navigationBar.tintColor = [UIColor accentColor];
                 [self updateInterfaceStyle];
             }
         }
         default:
             break;
     }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.tintColor = [UIColor accentColor];
+    cell.backgroundColor = [UIColor cellBackgroundColor];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
