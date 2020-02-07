@@ -100,7 +100,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:0]];
+    UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
     [oldCell setAccessoryType:UITableViewCellAccessoryNone];
     
     ZBAccentColor newColor = (ZBAccentColor)[colors[indexPath.row] integerValue];
@@ -133,6 +133,11 @@
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+    
+    [[ZBThemeManager sharedInstance] configureNavigationBar];
+    
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+    [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor];
 }
 
 @end

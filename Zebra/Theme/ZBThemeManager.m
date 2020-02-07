@@ -67,6 +67,7 @@
 }
 
 + (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor {
+    if ([ZBSettings usesSystemAccentColor]) return NSLocalizedString(@"System", @"");
     switch (accentColor) {
         case ZBAccentColorAquaVelvet:
             return NSLocalizedString(@"Aqua Velvet", @"");
