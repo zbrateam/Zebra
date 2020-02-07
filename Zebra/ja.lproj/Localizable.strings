@@ -56,17 +56,17 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
+"Aqua Velvet" = "アクアベルベット";
+"Cornflower Blue" = "コーンフラワーブルー";
+"Golden Tainoi" = "ゴールデンタイノイ";
+"Iris Blue" = "アイリスブルー";
+"Lotus Pink" = "ピンク";
+"Monochrome" = "モノクロ";
+"Mountain Meadow" = "マウンテンメドウ";
+"Pastel Red" = "赤";
+"Purple Heart" = "パープルハート";
+"Royal Blue" = "ロイヤルブルー";
+"Shark" = "サメ色";
 "Storm" = "Storm";
 
 "Dark Mode Style" = "ダークモード";
@@ -359,4 +359,4 @@
 "Import Sources" = "リポジトリを追加する";
 "Import" = "インポート";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "利用できるストアがありません。";
