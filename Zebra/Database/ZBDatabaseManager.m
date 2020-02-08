@@ -256,6 +256,7 @@
 }
 
 - (void)parseSources:(NSArray <ZBBaseSource *> *)sources {
+    NSLog(@"Parsing Sources");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltDatabaseOperations) {
         CLS_LOG(@"Database operations halted.");
@@ -268,6 +269,7 @@
     
     if ([self openDatabase] == SQLITE_OK) {
         createTable(database, 0);
+        createTable(database, 1);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
         sqlite3_int64 currentDate = (int)time(NULL);
