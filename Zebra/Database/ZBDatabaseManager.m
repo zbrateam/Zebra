@@ -289,37 +289,32 @@
                     }
                 }
                 else {
-                    __block NSString *endpointURL;
+                    if (repoID == -1) { // Repo does not exist in database, create it.
+                        repoID = [self nextRepoID];
+                        if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
+                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                        }
+                    } else {
+                        if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
+                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                        }
+                    }
+                    
                     if ([source.repositoryURI hasPrefix:@"https"]) {
-                        dispatch_group_t endpointGroup = dispatch_group_create();
-                        
-                        dispatch_group_enter(endpointGroup);
                         NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
-                        
+
                         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                             NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                             if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
                                 if ([endpoint hasPrefix:@"https"]) {
-                                    endpointURL = endpoint;
+                                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Adding Payment Vendor URL for %@", source.repositoryURI] atLevel:ZBLogLevelDescript];
+                                    addPaymentEndpointForRepo([endpoint UTF8String], self->database, repoID);
                                 }
                             }
-                            dispatch_group_leave(endpointGroup);
                         }];
-                        
+
                         [task resume];
-                        dispatch_group_wait(endpointGroup, DISPATCH_TIME_FOREVER);
-                    }
-                    
-                    if (repoID == -1) { // Repo does not exist in database, create it.
-                        repoID = [self nextRepoID];
-                        if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [endpointURL UTF8String], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
-                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
-                        }
-                    } else {
-                        if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [endpointURL UTF8String], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
-                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
-                        }
                     }
                 }
                 
