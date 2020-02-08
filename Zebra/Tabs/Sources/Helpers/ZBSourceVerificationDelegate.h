@@ -14,12 +14,10 @@
 #define ZBSourceVerificationDelegate_h
 
 @protocol ZBSourceVerificationDelegate <NSObject>
+@optional
 
 - (void)startedSourceVerification:(BOOL)multiple;
 - (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources;
-
-@optional
-
 - (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status;
 - (void)verifyAndAdd:(NSSet *)baseSources;
 
