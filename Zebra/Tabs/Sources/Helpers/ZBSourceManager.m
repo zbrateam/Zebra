@@ -85,7 +85,6 @@
             @"deb http://apt.modmyi.com/ stable main",
             [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
             [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main",
             @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
         ];
     });
