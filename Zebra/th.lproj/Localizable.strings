@@ -56,18 +56,18 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Aqua Velvet" = "ฟ้าฝ้าย";
+"Cornflower Blue" = "น้ำเงินคอร์นฟลาวเวอร์";
+"Golden Tainoi" = "ทองคำหรรษา";
+"Iris Blue" = "น้ำเงินม่านตา";
+"Lotus Pink" = "บัวชมพู";
+"Monochrome" = "ขาวดำ";
+"Mountain Meadow" = "เขียวทุ่งหญ้าภูเขา";
+"Pastel Red" = "แดงพาสเทล";
+"Purple Heart" = "หัวใจสีม่วง";
+"Royal Blue" = "น้ำเงินเข้ม";
+"Shark" = "เทาฉลาม";
+"Storm" = "พายุ";
 
 "Dark Mode Style" = "รูปแบบโหมดมืด";
 "Dark Mode" = "โหมดมืด";
@@ -359,4 +359,4 @@
 "Import Sources" = "นำเข้าซอร์ส";
 "Import" = "นําเข้า";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "ไม่มีหน้าร้านที่ใช้ได้";
