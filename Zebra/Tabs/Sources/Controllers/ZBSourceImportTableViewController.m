@@ -259,11 +259,13 @@
         }
     }
     
-    NSString *message = sources.count > 1 ? [NSString stringWithFormat:@"Are you sure that you want to import %lu sources into Zebra?", sources.count] : [NSString stringWithFormat:@"Are you sure that you want to import %lu source into Zebra?", sources.count];
+    NSString *message = sources.count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to import %d sources into Zebra?", @""), (int)sources.count] : @"Are you sure that you want to import 1 source into Zebra?";
     UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:@"Confirm Import" message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
+        [self dismissViewControllerAnimated:true completion:^{
+            
+        }];
     }];
     [areYouSure addAction:yesAction];
     
