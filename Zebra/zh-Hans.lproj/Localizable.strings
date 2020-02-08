@@ -361,5 +361,5 @@
 
 "No Storefronts Available" = "无可用的店铺";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "你确定要将%d个软件源导入到 Zebra 吗？";
+"Are you sure that you want to import 1 source into Zebra?" = "你确定要将1个软件源导入到 Zebra 吗？";
