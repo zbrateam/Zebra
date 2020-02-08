@@ -16,6 +16,7 @@
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <UIColor+GlobalColors.h>
+#import <Database/ZBRefreshViewController.h>
 
 @interface ZBSourceImportTableViewController () {
     double individualIncrement;
@@ -263,9 +264,11 @@
     UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:@"Confirm Import" message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self dismissViewControllerAnimated:true completion:^{
-            
-        }];
+        [self->sourceManager addBaseSources:sources];
+        ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:sources];
+        
+        [self.navigationController pushViewController:refresh animated:true];
+        [self.navigationController setNavigationBarHidden:true animated:true];
     }];
     [areYouSure addAction:yesAction];
     
