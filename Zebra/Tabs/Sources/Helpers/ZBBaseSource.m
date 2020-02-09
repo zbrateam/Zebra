@@ -372,4 +372,8 @@
     return (archiveTypeEqual && repositoryURIEqual && distributionEqual && componentsEqual);
 }
 
+- (NSUInteger)hash {
+    return [self.archiveType hash] + [self.repositoryURI hash] + [self.distribution hash] + [self.components hash];
+}
+
 @end

@@ -101,8 +101,20 @@
     }
 }
 
+//TODO: This needs error pointers
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
-    [self appendBaseSources:baseSources toFile:[ZBAppDelegate sourcesListPath]];
+    NSError *readError;
+    NSSet <ZBBaseSource *> *currentSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
+    
+    NSMutableSet *sourcesToAdd = [baseSources mutableCopy];
+    for (ZBBaseSource *source in baseSources) {
+        if ([currentSources containsObject:source]) {
+            NSLog(@"%@ Already contained in list", source.repositoryURI);
+            [sourcesToAdd removeObject:source];
+        }
+    }
+    
+    if ([sourcesToAdd count]) [self appendBaseSources:sourcesToAdd toFile:[ZBAppDelegate sourcesListPath]];
 }
 
 - (void)deleteSource:(ZBSource *)source {
