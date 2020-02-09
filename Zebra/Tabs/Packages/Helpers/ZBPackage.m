@@ -68,13 +68,9 @@
         if (!readError) {
             return [contents componentsSeparatedByString:@"\n"];
         }
-        else {
-            return @[readError.localizedDescription];
-        }
+        return @[readError.localizedDescription];
     }
-    else {
-        return @[@"No files found"];
-    }
+    return @[@"No files found"];
 }
 
 + (BOOL)respringRequiredFor:(NSString *)packageID {
