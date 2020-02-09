@@ -150,11 +150,8 @@ typedef enum {
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Cancel", @"")];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
-//    if ([ZBDevice darkModeEnabled]) {
-//        [self setNeedsStatusBarAppearanceUpdate];
-//        [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-//        [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-//    }
+    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)disableCancelButton {
@@ -162,12 +159,11 @@ typedef enum {
     [self setCompleteOrCancelButtonHidden:YES];
 }
 
-//- (UIStatusBarStyle)preferredStatusBarStyle {
-//    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-//}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
     
     if (!messages) {
         databaseManager = [ZBDatabaseManager sharedInstance];
@@ -263,15 +259,15 @@ typedef enum {
         return;
     if (![str hasSuffix:@"\n"])
         str = [str stringByAppendingString:@"\n"];
-//    __block BOOL isDark = [ZBDevice darkModeEnabled];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color = [UIColor whiteColor];
         UIFont *font;
         switch (level) {
             case ZBLogLevelDescript ... ZBLogLevelInfo: {
-//                if (!isDark) {
-//                    color = [UIColor blackColor];
-//                }
+                if ([ZBSettings interfaceStyle] < ZBInterfaceStyleDark) {
+                    color = [UIColor blackColor];
+                }
                 font = [UIFont fontWithName:level == ZBLogLevelDescript ? @"CourierNewPSMT" : @"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
