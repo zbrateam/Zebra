@@ -119,12 +119,11 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)cacheJSON {
     NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
-    NSMutableArray *saveArray = [NSMutableArray new];
+    NSMutableDictionary *featuredItems = [NSMutableDictionary new];
     dispatch_group_t group = dispatch_group_create();
     for (ZBSource *repo in featuredRepos) {
         dispatch_group_enter(group);
         NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.repositoryURI]];
-        NSLog(@"[Zebra] Cached JSON request URL: %@", requestURL.absoluteString);
         NSURL *checkingURL = requestURL;
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:checkingURL
@@ -132,14 +131,13 @@ typedef enum ZBLinksOrder : NSUInteger {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSLog(@"[Zebra] JSON response data: %@", json);
                         if (!repo.supportsFeaturedPackages) {
                             repo.supportsFeaturedPackages = YES;
                         }
                         if ([json objectForKey:@"banners"]) {
                             NSArray *banners = [json objectForKey:@"banners"];
                             if (banners.count) {
-                                [saveArray addObjectsFromArray:banners];
+                                [featuredItems setObject:banners forKey:[repo baseFilename]];
                             }
                         }
                     }
@@ -147,19 +145,19 @@ typedef enum ZBLinksOrder : NSUInteger {
                 }] resume];
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = YES;
-        if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache"] isDirectory:&isDir]) {
-            [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache"] withIntermediateDirectories:NO attributes:nil error:nil];
-        }
-        [saveArray writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+        [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
         [self setupHeaderFromCache];
     });
 }
 
 - (void)setupHeaderFromCache {
     [allFeatured removeAllObjects];
-    [allFeatured addObjectsFromArray:[NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]]];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
+    for (NSArray *arr in [dict allValues]) {
+        [allFeatured addObjectsFromArray:arr];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self createHeader];
     });
