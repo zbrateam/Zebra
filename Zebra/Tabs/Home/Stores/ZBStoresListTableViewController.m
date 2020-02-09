@@ -109,7 +109,9 @@
         else {
             ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
             
-            [self.navigationController pushViewController:accountController animated:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController pushViewController:accountController animated:YES];
+            });
         }
     }];
 }

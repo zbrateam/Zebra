@@ -613,7 +613,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     return self.cellNumber;
 }
 
-
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(263, 148);
 }
