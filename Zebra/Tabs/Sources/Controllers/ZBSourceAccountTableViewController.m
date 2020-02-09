@@ -112,9 +112,11 @@
                     
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         if (self.presentingViewController) {
+                            [self signOut:self];
                             [self dismissViewControllerAnimated:YES completion:nil];
                         }
                         else {
+                            [self signOut:self];
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }];
@@ -152,9 +154,11 @@
                 
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     if (self.presentingViewController) {
+                        [self signOut:self];
                         [self dismissViewControllerAnimated:YES completion:nil];
                     }
                     else {
+                        [self signOut:self];
                         [self.navigationController popViewControllerAnimated:YES];
                     }
                 }];
@@ -218,8 +222,6 @@
                 return cell;
             }
             case 1: {
-                
-                
                 if (!loading) {
                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"accountCell"];
                     
