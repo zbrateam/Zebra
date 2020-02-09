@@ -38,6 +38,7 @@
     BOOL suppressCancel;
     BOOL updateIconCache;
     BOOL zebraRestartRequired;
+    int autoFinishDelay;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelOrCloseButton;
@@ -70,6 +71,7 @@
         installedPackageIdentifiers = [NSMutableArray new];
         respringRequired = NO;
         updateIconCache = NO;
+        autoFinishDelay = 3;
     }
     
     return self;
@@ -445,7 +447,7 @@
 
 - (void)restartSpringBoard {
     if (![ZBDevice needsSimulation]) {
-        [ZBDevice restartSpringBoard ];
+        [ZBDevice restartSpringBoard];
     } else {
         [self close];
     }
@@ -595,13 +597,13 @@
         
         //Adds a newline if there is not already one
         NSString *string = [str copy];
-        NSString *lastChar = [string substringFromIndex:[string length] - 1];
-        if (![lastChar isEqualToString:@"\n"]) {
+        if (![string hasSuffix:@"\n"]) {
             string = [str stringByAppendingString:@"\n"];
         }
         
-        if (string == NULL)
+        if (string == NULL) {
             return;
+        }
         
         [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:string attributes:attrs]];
 
@@ -675,8 +677,7 @@
             };
         }
 
-        int delay = 3;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC));
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self->autoFinishDelay * NSEC_PER_SEC));
         dispatch_after(popTime, dispatch_get_main_queue(), finishBlock);
     } else { // manual finish
         dispatch_async(dispatch_get_main_queue(), ^{
