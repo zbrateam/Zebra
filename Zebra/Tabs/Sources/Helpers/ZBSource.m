@@ -191,7 +191,9 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                     });
                 }
                 else {
-                    completion(NO, error);
+                    if (error.domain != SFAuthenticationErrorDomain && error.code != SFAuthenticationErrorCanceledLogin) {
+                        completion(NO, error);
+                    }
                 }
             }];
             
