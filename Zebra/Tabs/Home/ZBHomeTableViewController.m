@@ -106,7 +106,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [self packagesFromDB];
             });
         } else {
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]]) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self cacheJSON];
                 });
@@ -149,17 +149,17 @@ typedef enum ZBLinksOrder : NSUInteger {
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         NSFileManager *fileManager = [NSFileManager defaultManager];
         BOOL isDir = YES;
-        if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] isDirectory:&isDir]) {
-            [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] withIntermediateDirectories:NO attributes:nil error:nil];
+        if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache"] isDirectory:&isDir]) {
+            [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"cache"] withIntermediateDirectories:NO attributes:nil error:nil];
         }
-        [saveArray writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"] atomically:YES];
+        [saveArray writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
         [self setupHeaderFromCache];
     });
 }
 
 - (void)setupHeaderFromCache {
     [allFeatured removeAllObjects];
-    [allFeatured addObjectsFromArray:[NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]];
+    [allFeatured addObjectsFromArray:[NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]]];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self createHeader];
     });
@@ -565,7 +565,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         });
     } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]]) {
                     [self cacheJSON];
                 } else {
                     [self setupHeaderFromCache];
