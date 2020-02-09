@@ -124,22 +124,22 @@
 
 - (NSArray *)packageManagers {
     NSMutableArray *result = [NSMutableArray new];
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
         NSDictionary *dict = @{@"type" : @"transfer",
                                @"name" : @"Cydia",
                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
                                @"url"  : @"/var/mobile/Library/Caches/com.saurik.Cydia/sources.list",
                                @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
         [result addObject:dict];
-//    }
-//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
         NSDictionary *dict2 = @{@"type" : @"transfer",
                                 @"name" : @"Installer",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
                                 @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
                                 @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict2];
-//    }
+    }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
         NSDictionary *dict3 = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
@@ -228,6 +228,8 @@
     NSURL *iconURL = [NSURL URLWithString:[info objectForKey:@"icon"]];
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
+    [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
+    
     return cell;
 }
 
@@ -273,7 +275,13 @@
         case 1:
         case 2: {
             NSString *url = [info objectForKey:@"url"];
-//            [self addReposWithText:url];
+            ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
+            if (source) {
+                [[ZBSourceManager sharedInstance] addBaseSources:[NSSet setWithObject:source]];
+                ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:[NSSet setWithObject:source]];
+                
+                [self presentViewController:refresh animated:true completion:nil];
+            }
             break;
         }
         default:
