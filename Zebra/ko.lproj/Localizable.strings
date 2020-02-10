@@ -102,7 +102,7 @@
 
 "Featured Sources" = "선정된 소스";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "작업이 완료되면 콘솔 닫기";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
 "Close Zebra" = "Zebra 닫기";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra를 닫는 중...";
 "Restart SpringBoard" = "SpringBoard 재시작";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "SpringBoard를 재시작하는 중...";
 "Downloading" = "다운로드 중";
 "Parsing" = "파싱";
 "Downloading Packages..." = "패키지 다운로드 중...";
@@ -267,12 +267,12 @@
 "Complete" = "완료";
 "Finished!" = "완료!";
 "Return to Queue" = "대기열로 돌아가기";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "대기열로 돌아가는 중...";
 "Importing local packages." = "로컬 패키지 가져오는 중.";
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
-"Done..." = "Done...";
+"Done..." = "완료...";
 
 // Queue Bar
 "%d Packages Queued" = "%d개의 패키지 대기 중";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 소스에서 랜덤으로 패키지를 표시합니다.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
 
 "Community News" = "커뮤니티 뉴스";
 "Import Sources" = "소스 가져오기";
@@ -359,7 +359,7 @@
 "Import Sources" = "소스 가져오기";
 "Import" = "가져오기";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "사용 가능한 스토어 없음";
 
 "Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
