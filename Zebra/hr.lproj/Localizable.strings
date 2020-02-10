@@ -44,7 +44,7 @@
 
 "Settings" = "Postavke";
 "Version" = "Inačica";
-"Display" = "Display";
+"Display" = "Zaslon";
 "Featured" = "Izdvojeno";
 "News" = "Novosti";
 "Miscellaneous" = "Ostalo";
@@ -58,16 +58,16 @@
 
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Golden Tainoi" = "Zlatni Tainoi";
+"Iris Blue" = "Irsko Plava";
+"Lotus Pink" = "Lotus Roza";
+"Monochrome" = "Crno-bijela";
+"Mountain Meadow" = "Planinska livada";
+"Pastel Red" = "Pastelno Crvena";
+"Purple Heart" = "Ljubičasto Srce";
+"Royal Blue" = "Kraljevsko plava";
+"Shark" = "Morski Pas";
+"Storm" = "Oluja";
 
 "Dark Mode Style" = "Tamni stil";
 "Dark Mode" = "Tamni način";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Istaknuti izvori";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Završi Automatski";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Ažuriranje predmemorije ikona asinkrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može srušiti. To je normalno ukoliko se desi.";
 "Close Zebra" = "Zatvori Zebru";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zatvaranje Zebre...";
 "Restart SpringBoard" = "Ponovo pokrenite SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Ponovo pokrenite SpringBoard...";
 "Downloading" = "Preuzimanje";
 "Parsing" = "Rasčlanjivanje";
 "Downloading Packages..." = "Preuzimanje paketa...";
@@ -267,12 +267,12 @@
 "Complete" = "Završeno";
 "Finished!" = "Gotovo!";
 "Return to Queue" = "Povratak u red";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Povratak u red...";
 "Importing local packages." = "Uvoz lokalnih paketa.";
 "Finished importing local packages." = "Dovršen uvoz lokalnih paketa.";
 "One or more packages failed to download." = "Pogreška pri preuzimanju jednog ili više paketa.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Povratak u red\" da biste se vratili u red i pokušali ponovo preuzeti.";
-"Done..." = "Done...";
+"Done..." = "Gotovo...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketa na listi";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "“Nasumično” će prikazivati nasumične pakete sa svih izvora koje ste dodali u Zebru.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori konzolu kada se svi zadatci dovrše.";
 
 "Community News" = "Novosti iz zajednice";
 "Import Sources" = "Uvezite izvore";
@@ -359,7 +359,7 @@
 "Import Sources" = "Uvezite izvore";
 "Import" = "Uvezi";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Nema istaknutih izloga";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Dali ste sigurni da želite uvesti %d izvore u Zebru?";
+"Are you sure that you want to import 1 source into Zebra?" = "Dali ste sigurni da želite uvesti 1 izvor u Zebru?";
