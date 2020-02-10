@@ -56,17 +56,17 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
+"Aqua Velvet" = "Aqua Fluweel";
+"Cornflower Blue" = "Korenbloem Blauw";
+"Golden Tainoi" = "Gouden Tainoi";
+"Iris Blue" = "Iris Blauw";
+"Lotus Pink" = "Lotus Roze";
 "Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
+"Mountain Meadow" = "Bergweide";
+"Pastel Red" = "Pastel Rood";
+"Purple Heart" = "Paar Hart";
+"Royal Blue" = "Koningsblauw";
+"Shark" = "Haai";
 "Storm" = "Storm";
 
 "Dark Mode Style" = "Donkere Modus Stijl";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Uitgelichte Bronnen";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Automatisch Voltooien";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra Sluiten...";
 "Restart SpringBoard" = "Herstart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "SpringBoard Herstarten...";
 "Downloading" = "Aan het downloaden";
 "Parsing" = "Parseren";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
@@ -267,12 +267,12 @@
 "Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Terug naar wachtrij...";
 "Importing local packages." = "Lokale pakketten aan het importeren";
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
-"Done..." = "Done...";
+"Done..." = "Gedaan...";
 
 // Queue Bar
 "%d Packages Queued" = "%d pakketten in de wachtrij";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\\”Willekeurig\\” zal willekeurige pakketten laten zien van alle bronnen die je aan Zebra hebt toegevoegd.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Sluit de console automatisch wanneer alle taken zijn voltooid.";
 
 "Community News" = "Gemeenschapsnieuws";
 "Import Sources" = "Importeer Bronnen";
@@ -359,7 +359,7 @@
 "Import Sources" = "Importeer Bronnen";
 "Import" = "Importeren";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Geen etalages beschikbaar";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
+"Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
