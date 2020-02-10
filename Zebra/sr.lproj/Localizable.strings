@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Istaknuti izvori";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Završi automatski";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Nadogradjujem keš ikona asinhrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može oboriti. To ne predstavlja problem.";
 "Close Zebra" = "Zatvori Zebru";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra se zatvara...";
 "Restart SpringBoard" = "Restartuj SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Restartuje se SpringBoard...";
 "Downloading" = "Preuzimanje";
 "Parsing" = "Parsiram";
 "Downloading Packages..." = "Preuzimanje Paketa...";
@@ -267,12 +267,12 @@
 "Complete" = "Kompletirano";
 "Finished!" = "Završeno!";
 "Return to Queue" = "Vrati se na listu Čekanja";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Povratak na listu Čekanja...";
 "Importing local packages." = "Importovanje lokalnih paketa.";
 "Finished importing local packages." = "Završeno importovanje lokalnih paketa.";
 "One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
-"Done..." = "Done...";
+"Done..." = "Uradjeno...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketa na listi čekanja";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Nasumično\" će prikazati nasumične pakete iz svih repoa dodati u Zebri.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori Konzolu kada se završe svi zadaci.";
 
 "Community News" = "Vesti iz Udruženja";
 "Import Sources" = "Uvezi Izvore";
