@@ -61,13 +61,13 @@
 "Golden Tainoi" = "Golden Tainoi";
 "Iris Blue" = "Iris Blue";
 "Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Monochrome" = "Monocroma";
 "Mountain Meadow" = "Mountain Meadow";
 "Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
+"Purple Heart" = "Corazón Morado";
 "Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Shark" = "Tiburón";
+"Storm" = "Tormenta";
 
 "Dark Mode Style" = "Estilo del Modo Oscuro";
 "Dark Mode" = "Modo oscuro";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Fuentes Destacadas";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Finalizar automáticamente";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Actualizando caché de iconos asincrónicamente...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Esto puede tardar un momento y Zebra puede cerrarse. Es normal si ocurre.";
 "Close Zebra" = "Cerrar Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Cerrando Zebra...";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Reiniciando SpringBoard...";
 "Downloading" = "Descargando";
 "Parsing" = "Analizando";
 "Downloading Packages..." = "Descargando paquetes...";
@@ -267,12 +267,12 @@
 "Complete" = "Completo";
 "Finished!" = "¡Terminado!";
 "Return to Queue" = "Regresar a la cola";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Volviendo a la cola...";
 "Importing local packages." = "Importando paquetes locales.";
 "Finished importing local packages." = "Importación de paquetes locales terminada.";
 "One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
-"Done..." = "Done...";
+"Done..." = "Listo...";
 
 // Queue Bar
 "%d Packages Queued" = "%d paquetes en cola";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Aleatorio\" mostrará paquetes aleatorios de todas las fuentes que has añadido a Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Cerrar automáticamente la Consola cuando se hayan completado todas la tareas.";
 
 "Community News" = "Noticias de la comunidad";
 "Import Sources" = "Importar fuentes";
@@ -361,5 +361,5 @@
 
 "No Storefronts Available" = "No Storefronts Available";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "¿Estás seguro que quieres importar %d fuentes a Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "¿Estás seguro que quieres importar una fuente a Zebra?";
