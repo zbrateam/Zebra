@@ -44,7 +44,7 @@
 
 "Settings" = "Impostazioni";
 "Version" = "Versione";
-"Display" = "Display";
+"Display" = "Schermo";
 "Featured" = "In evidenza";
 "News" = "Notizie";
 "Miscellaneous" = "Misto";
@@ -56,18 +56,18 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
+"Aqua Velvet" = "Turchese";
+"Cornflower Blue" = "Fiore di granturco";
 "Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Iris Blue" = "Blu-Magenta";
+"Lotus Pink" = "Rosa";
+"Monochrome" = "Monocromatico";
 "Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Pastel Red" = "Rosso pastello";
+"Purple Heart" = "Viola cuore";
+"Royal Blue" = "Blu reale";
+"Shark" = "Squalo";
+"Storm" = "Tempesta";
 
 "Dark Mode Style" = "Stile Modalità Scura";
 "Dark Mode" = "Modalità Scura";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Sorgenti in Evidenza";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Termina automaticamente";
 
 // Sources
 
@@ -116,7 +116,7 @@
 "Error verifying sources" = "Errore di verifica sorgenti";
 "Unknown error" = "Errore sconosciuto";
 "Invalid URL" = "URL non valido";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Inserire URL sorgente";
 "Add Sources" = "Aggiungi Sorgenti";
 "Add" = "Aggiungi";
 "Add Multiple" = "Aggiungi Multiple";
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Aggiornamento cache icone in modo asincrono...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Questo potrebbe richiedere del tempo e Zebra potrebbe chiudersi.È ok se lo fa.";
 "Close Zebra" = "Chiudi Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Chiusura di Zebra in corso...";
 "Restart SpringBoard" = "Riavvia SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Sto riavviando la SpringBoard...";
 "Downloading" = "Scaricamento";
 "Parsing" = "Analizzando";
 "Downloading Packages..." = "Scaricamento Pacchetti...";
@@ -267,12 +267,12 @@
 "Complete" = "Completato";
 "Finished!" = "Finito!";
 "Return to Queue" = "Ritorna alla Coda";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Sto ritornando alla coda...";
 "Importing local packages." = "importazione di pacchetti locali.";
 "Finished importing local packages." = "Terminata l'importazione dei pacchetti locali.";
 "One or more packages failed to download." = "Impossibile scaricare uno o più pacchetti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clicca \"Ritorna alla Coda\" per tornare alla Coda e riprovare il dowload.";
-"Done..." = "Done...";
+"Done..." = "Fatto...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pacchetti in Coda";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Casuale\" mostrerà pacchetti casuali di tutte le sorgenti che hai aggiunto a Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Chiudi automaticamente la Console quando tutti i suoi processi sono stati completati.";
 
 "Community News" = "Notizie Community";
 "Import Sources" = "Importa Sorgenti";
@@ -351,15 +351,15 @@
 "Removing Zebra..." = "Disinstallando Zebra...";
 "Installing Zebra..." = "Installando Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Errore nell’aggiunta del sorgente";
+"Failed to add sources" = "Errore nell’aggiunta dei sorgenti";
+"Unable to locate an APT repository at:" = "Nessuna repo APT trovata al link:";
+"Unable to locate APT repositories at:" = "Nessuna repo APT trovata al link:";
 
 "Import Sources" = "Importa Sorgenti";
 "Import" = "Importa";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Nessuna vetrina disponibile";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Sei sicuro di voler importare %d sorgenti su Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Sei sicuro di voler importare 1 sorgente su Zebra?";
