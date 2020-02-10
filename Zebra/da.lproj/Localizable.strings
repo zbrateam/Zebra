@@ -22,8 +22,8 @@
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
 "Utility source for %@" = "Værktøj arkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificerer kilde";
+"Verifying Sources" = "Verificerer kilder";
 "Stores" = "Butikker";
 "Purchases" = "Køb";
 "Wish List" = "Ønskeliste";
@@ -44,7 +44,7 @@
 
 "Settings" = "Indstillinger";
 "Version" = "Udgave";
-"Display" = "Display";
+"Display" = "Udseende";
 "Featured" = "Udvalgte";
 "News" = "Nyheder";
 "Miscellaneous" = "Diverse";
@@ -56,18 +56,18 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Aqua Velvet" = "Isblå";
+"Cornflower Blue" = "Kornblomst blå";
+"Golden Tainoi" = "Tainogylden";
+"Iris Blue" = "Irisblå";
+"Lotus Pink" = "Lotuslyserød";
+"Monochrome" = "Monokrom";
 "Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
+"Pastel Red" = "Pastelrød";
 "Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Royal Blue" = "Kongeblå";
+"Shark" = "Haj";
+"Storm" = "Stromgrå";
 
 "Dark Mode Style" = "Stil for mørkt udseende";
 "Dark Mode" = "Mørke Tilstand";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Udvalgte Kilder";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Færdiggør automatisk";
 
 // Sources
 
@@ -116,7 +116,7 @@
 "Error verifying sources" = "Fejl med at kontrollere kilder";
 "Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Angiv URL for kilde";
 "Add Sources" = "Tilføj kilder";
 "Add" = "Tilføj";
 "Add Multiple" = "Tilføj Flere";
@@ -234,9 +234,9 @@
 
 "Downloads" = "Overførsler";
 "Error while opening sources.list" = "Fejl imens åbning af sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Kilden %@ understøtter ikke din jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan måske fremkalde problemer hvis du tilføjer det til Zebra resultere i potentiel genoprettelse.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Fjern venligst denne kilde fra din sources.list fil.";
 "Incorrect documents permissions." = "Ukorrekt dokument tilladelse.";
 "Could not determine device information." = "Kunne ikke fastslå enheds information.";
 "Could not find a download URL for" = "Kunne ikke finde et overførsels webadresse til";
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Opdaterer ikon cache asynkront...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan tage et øjeblik og Zebra kan nedbryde. Det er okay hvis den gør.";
 "Close Zebra" = "Luk Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Lukker Zebra...";
 "Restart SpringBoard" = "Genstart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Genstarter SpringBoard...";
 "Downloading" = "Overfører";
 "Parsing" = "Parser";
 "Downloading Packages..." = "Overfører Pakker...";
@@ -267,12 +267,12 @@
 "Complete" = "Færdig";
 "Finished!" = "Færdiggjort!";
 "Return to Queue" = "Gå tilbage til Køen";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Fortsætter til køen...";
 "Importing local packages." = "Importere lokale pakker.";
 "Finished importing local packages." = "Færdiggjorde importen af lokale pakker.";
 "One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
-"Done..." = "Done...";
+"Done..." = "Færdig...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Pakker i kø";
@@ -337,29 +337,29 @@
 
 "Change the source of the featured packages on the homepage." = "Ændre kilden til udvalgte arkiver på hjemmeskærmen.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Udvalgte\" vil vise tilfældige pakker fra kilder der understøtter \"Featured Package\" API'en.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Tilfældig\" vil vise tilfældige pakker fra alle kilder du har tilføjet til Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Luk konsollen automatisk når alle opgaver er udført.";
 
 "Community News" = "Fællesskabs Nyheder";
 "Import Sources" = "Importer kilder";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Updating Sources" = "Opdaterer kilder";
+"Would you like to import the following sources?" = "Vil du importere de følgende kilder?";
 "Download Completed" = "Download udført";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
 
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Failed to add source" = "Kunne ikke tilføje kilde";
+"Failed to add sources" = "Kunne ikke tilføje kilder";
+"Unable to locate an APT repository at:" = "Kunne ikke finde et APT arkiv ved:";
+"Unable to locate APT repositories at:" = "Kunne ikke finde APT arkiver ved:";
 
 "Import Sources" = "Importer kilder";
-"Import" = "Import";
+"Import" = "Importer";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Ingen butikker tilgængelige";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importere %d kilder til Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importere 1 kilde til Zebra?";
