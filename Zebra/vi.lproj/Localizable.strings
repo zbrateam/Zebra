@@ -44,7 +44,7 @@
 
 "Settings" = "Cài đặt";
 "Version" = "Phiên bản";
-"Display" = "Display";
+"Display" = "Hiển thị";
 "Featured" = "Tính năng";
 "News" = "Tin tức";
 "Miscellaneous" = "Điều khoản khác";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Nguồn nổi bật";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Tự động kết thúc";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Đang đóng Zebra...";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Đang khởi động lại SpringBoard...";
 "Downloading" = "Đang tải xuống";
 "Parsing" = "Phân tích cú pháp";
 "Downloading Packages..." = "Đang tải xuống gói...";
@@ -267,12 +267,12 @@
 "Complete" = "Hoàn thành";
 "Finished!" = "Kết thúc!";
 "Return to Queue" = "Trở lại hàng đợi";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Quay trở lại hàng đợi...";
 "Importing local packages." = "Nhập gói nội địa.";
 "Finished importing local packages." = "Hoàn tất nhập các gói nội địa.";
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
-"Done..." = "Done...";
+"Done..." = "Xong...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Gói đang chờ";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các nguồn mà bạn đã thêm vào Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
 
 "Community News" = "Tin tức cộng đồng";
 "Import Sources" = "Nhập nguồn";
@@ -353,8 +353,8 @@
 
 "Failed to add source" = "Thêm nguồn thất bại";
 "Failed to add sources" = "Thêm nguồn thất bại";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
+"Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
 
 "Import Sources" = "Nhập nguồn";
 "Import" = "Nhập";
