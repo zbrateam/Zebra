@@ -20,7 +20,7 @@
 "Community Sources" = "Fællesskabskilder";
 "You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
-"Utility repo for %@" = "Utility repo for %@";
+"Utility repo for %@" = "Værktøjsarkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
 "Verifying Source(s)" = "Verificerer Kilde(r)";
 "Stores" = "Butikker";
@@ -57,23 +57,23 @@
 "White" = "Hvid";
 "Black" = "Sort";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "Stil for mørk tilstand";
 "Dark Mode" = "Mørke Tilstand";
 "Default" = "Standard";
 "OLED" = "OLED";
 "iOS 13" = "iOS 13";
 
-"App Icon" = "App Icon";
+"App Icon" = "App-ikon";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "Udvalgte pakker";
 "Repo Featured" = "Udvalgt Arkiv";
 "Random" = "Tilfældig";
 "Feature Type" = "Udvalgt Type";
 "Select Repos to be Featured" = "Vælg arkiver der skal vises";
 
-"News" = "News";
+"News" = "Nyheder";
 
-"Live Search" = "Live Search";
+"Live Search" = "Live søgning";
 
 "Swipe Actions Display As" = "Svirp Handling Vises Som";
 "Text" = "Tekst";
@@ -89,9 +89,9 @@
 
 "Drop Tables" = "Drop Tabeller";
 
-"Alternate Icons" = "Alternate Icons";
+"Alternate Icons" = "Alternative ikoner";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "Udvalgte arkiver";
 
 // Sources
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "Tilføj Flere";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
 "Please Wait..." = "Vent Venligst...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "Verificerer kilde(r)";
 "Unable to verify Repo" = "Ude af stand til at verificerer Arkiv";
 "Refresh" = "opdatere";
 "Log Out" = "Log af";
@@ -131,7 +131,7 @@
 "Show Updates" = "Vis Opdateringer";
 "Ignore Updates" = "Ignorer Opdateringer";
 "Select Version" = "Vælg Udgave";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to upgrade to:" = "Vælg version for opdatering:";
 "Select a version to downgrade to:" = "Vælg version for nedgradering:";
 "Package" = "Pakker";
 "Information" = "Information";
@@ -155,10 +155,10 @@
 "Installed Size" = "Installeret Størrelse";
 
 //<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Aktuel version: %@)";
 
 //<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Aktuel størrelse: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -314,7 +314,7 @@
 
 "Display recent community posts from /r/jailbreak." = "Vis seneste opslag på /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søg efter pakker under indtastning. Slå dette fra hvis din enhed er langsom under søgning.";
 
 "Configure the appearance of table view swipe actions." = "Ændre udseendet når der swipes på tå et table view.";
 
