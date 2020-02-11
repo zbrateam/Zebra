@@ -58,7 +58,7 @@
 
 "Aqua Velvet" = "Isblå";
 "Cornflower Blue" = "Kornblå";
-"Golden Tainoi" = "Gylden tainoi";
+"Golden Tainoi" = "Honninggull";
 "Iris Blue" = "Irisblå";
 "Lotus Pink" = "Lotusrosa";
 "Monochrome" = "Monokrom";
@@ -359,7 +359,7 @@
 "Import Sources" = "Importer kilder";
 "Import" = "Importer";
 
-"No Storefronts Available" = "Ingen butikker tilgjengelig";
+"No Storefronts Available" = "Ingen tilgjengelige butikker";
 
 "Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importere %d kilder til Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importere 1 kilde til Zebra?";
