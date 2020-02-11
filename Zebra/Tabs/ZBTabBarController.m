@@ -268,14 +268,13 @@
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
 }
 
-- (void) handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
+- (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
     if (UIGestureRecognizerStateBegan == gesture.state) {
         UIAlertController *clearQueue = [UIAlertController alertControllerWithTitle:@"Clear Queue" message:@"Are you sure you want to clear the Queue?" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[ZBQueue sharedQueue] clear];
-            });
+            
+            [[ZBQueue sharedQueue] clear];
         }];
         [clearQueue addAction:yesAction];
         
@@ -294,7 +293,7 @@
 - (void)closeQueue {
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
-        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning) {
+        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning || state == LNPopupPresentationStateClosed) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
             [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
