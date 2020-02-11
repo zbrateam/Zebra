@@ -259,7 +259,32 @@
     self.popupInteractionStyle = LNPopupInteractionStyleSnap;
     self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
     
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
+    longPress.minimumPressDuration = 1;
+    longPress.delegate = self;
+    
+    [self.popupBar addGestureRecognizer:longPress];
+    
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
+}
+
+- (void) handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
+    if (UIGestureRecognizerStateBegan == gesture.state) {
+        UIAlertController *clearQueue = [UIAlertController alertControllerWithTitle:@"Clear Queue" message:@"Are you sure you want to clear the Queue?" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[ZBQueue sharedQueue] clear];
+            });
+        }];
+        [clearQueue addAction:yesAction];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+        [clearQueue addAction:noAction];
+        
+        [self presentViewController:clearQueue animated:true completion:nil];
+    }
+    
 }
 
 - (BOOL)isQueueBarAnimating {

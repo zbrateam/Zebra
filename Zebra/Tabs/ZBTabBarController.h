@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate>
+@interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSString *forwardToPackageID;
 @property (nonatomic, strong) NSString *forwardedRepoBaseURL;
 @property (nonatomic, strong) NSMutableDictionary *repoBusyList;
