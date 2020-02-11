@@ -56,18 +56,18 @@
 
 // Accent Colors
 
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Aqua Velvet" = "Vandeninė-violetinė";
+"Cornflower Blue" = "Ryškiai mėlyna";
+"Golden Tainoi" = "Ryškiai auksinė";
+"Iris Blue" = "Šviesiai mėlyna";
+"Lotus Pink" = "Ryškiai rožinė";
+"Monochrome" = "Vienspalvė";
+"Mountain Meadow" = "Kalnų salotinė";
+"Pastel Red" = "Pastelinė raudona";
+"Purple Heart" = "Purpurinė širdies";
+"Royal Blue" = "Tamsiai mėlyna";
+"Shark" = "Ryklio";
+"Storm" = "Audros";
 
 "Dark Mode Style" = "Tamsaus režimo stilius";
 "Dark Mode" = "Tamsus režimas";
@@ -102,7 +102,7 @@
 
 "Featured Sources" = "Rodomiausi šaltiniai";
 
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Baigti automatiškai";
 
 // Sources
 
@@ -250,9 +250,9 @@
 "Updating icon cache asynchronously..." = "Asinchroniškai atnaujinami piktogramų podeliai...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tai gali užtrukti ir Zebra gali užstrigti/išsijungti. Jei taip atsitiks, tai normalu.";
 "Close Zebra" = "Uždaryti Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Uždaroma Zebra...";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Perkraunama SpringBoard...";
 "Downloading" = "Atsiunčiama";
 "Parsing" = "Analizuojama";
 "Downloading Packages..." = "Paketai atsiunčiami...";
@@ -267,12 +267,12 @@
 "Complete" = "Baigta";
 "Finished!" = "Užbaigta!";
 "Return to Queue" = "Grįžti į eilę";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Grįžta į eilę...";
 "Importing local packages." = "Importuojami vietiniai paketai.";
 "Finished importing local packages." = "Pabaigta importuoti vietinius paketus.";
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
-"Done..." = "Done...";
+"Done..." = "Atlikta...";
 
 // Queue Bar
 "%d Packages Queued" = "%d Paketai eilėje";
@@ -341,7 +341,7 @@
 
 "\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Atsitiktiniai\" rodys atsitiktinius paketus iš visų šaltinių, kuriuos pridėjote į Zebra.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatiškai uždaryti konsolę, kai visos jos užduotys įvykdytos.";
 
 "Community News" = "Bendruomenės naujienos";
 "Import Sources" = "Importuojami šaltiniai";
@@ -359,7 +359,7 @@
 "Import Sources" = "Importuojami šaltiniai";
 "Import" = "Importuoti";
 
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Nėra prieinamų parduotuvių";
 
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
