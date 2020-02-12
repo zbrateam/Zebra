@@ -118,11 +118,13 @@
 }
 
 - (void)deleteSource:(ZBSource *)source {
-    [self deleteBaseSource:source];
-    
-    if ([source isKindOfClass:[ZBSource class]]) {
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager deleteRepo:source];
+    if ([source canDelete]) {
+        [self deleteBaseSource:source];
+        
+        if ([source isKindOfClass:[ZBSource class]]) {
+            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+            [databaseManager deleteRepo:source];
+        }
     }
 }
 

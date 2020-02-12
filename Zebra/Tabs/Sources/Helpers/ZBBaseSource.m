@@ -111,7 +111,8 @@
             self->components = components;
         }
         
-        if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
+        if (![distribution isEqualToString:@"./"]) {
+            //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
@@ -119,6 +120,7 @@
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         else {
+            //If the distribution is './' then the repository likely follows a flat repo format
             mainDirectoryURL = [NSURL URLWithString:repositoryURI];
             mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
             
