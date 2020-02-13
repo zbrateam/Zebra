@@ -135,6 +135,11 @@
     [sourcesToWrite removeObject:source];
     
     [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
+    
+    //Delete .list file (if it exists)
+    
+    //Delete files from featured.plist (if they exist)
+    
 }
 
 //TODO: This needs error pointers

@@ -285,7 +285,7 @@
                 if (source.releaseFilePath == NULL) { //We need to create a dummy repo (for repos with no Release file)
                     if (repoID == -1) {
                         repoID = [self nextRepoID];
-                        createDummyRepo([source.packagesFilePath UTF8String], self->database, repoID);
+                        createDummyRepo([ZBDatabaseManager baseSourceStructFromSource:source], self->database, repoID);
                     }
                 }
                 else {

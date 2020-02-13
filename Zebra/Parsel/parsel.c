@@ -245,49 +245,31 @@ enum PARSEL_RETURN_TYPE addPaymentEndpointForRepo(const char *endpointURL, sqlit
 }
 
 //FIXME: This needs to be adapted to new database format
-void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID) {
+void createDummyRepo(struct ZBBaseSource source, sqlite3 *database, int repoID) {
     createTable(database, 0);
     
-    dict *repo = dict_new();
-    
-    multi_tok_t t = init();
-    char *fullfilename = basename((char *)packagesPath);
-    char *baseFilename = multi_tok(fullfilename, &t, "_Packages");
-    dict_add(repo, "BaseFileName", baseFilename);
-    
-    replace_char(baseFilename, '_', '/');
-    if (baseFilename[strlen(baseFilename) - 1] == '.') {
-        baseFilename[strlen(baseFilename) - 1] = 0;
-    }
-    
-    dict_add(repo, "BaseURL", baseFilename);
-    dict_add(repo, "Origin", baseFilename);
-    dict_add(repo, "Label", baseFilename);
-    dict_add(repo, "Description", "No Description Provided");
-    dict_add(repo, "Suite", "./");
-    dict_add(repo, "Version", "1.0");
-    
     sqlite3_stmt *insertStatement;
-    
-    if (sqlite3_prepare_v2(database, "INSERT INTO REPOS(ORIGIN, LABEL, SUITE, VERSION, DESCRIPTION, BASEFILENAME, BASEURL, SECURE, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", -1, &insertStatement, 0) == SQLITE_OK) {
-        sqlite3_bind_text(insertStatement, 1, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 2, dict_get(repo, "Label"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 3, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 4, dict_get(repo, "Version"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 5, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 6, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 7, baseFilename, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 8, dict_get(repo, "BaseURL"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 9, 1);
-        sqlite3_bind_int(insertStatement, 10, repoID);
+    const char *insertQuery = repoInsertQuery;
+    if (sqlite3_prepare_v2(database, insertQuery, -1, &insertStatement, 0) == SQLITE_OK) {
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchiveType, source.archiveType, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnRepositoryURI, source.repositoryURI, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDistribution, source.distribution, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnComponents, source.components, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDescription, "No Release File Provided", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnOrigin, "Unknown", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnLabel, "Unknown", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnVersion, "0.9.0", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, "Unknown", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, "Unknown", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, "iphoneos-arm", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnRepoID, repoID);
         sqlite3_step(insertStatement);
     } else {
         printf("sql error: %s", sqlite3_errmsg(database));
     }
     
     sqlite3_finalize(insertStatement);
-    
-    dict_free(repo);
 }
 
 sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageIdentifier, const char *version, int repoID) {
