@@ -38,6 +38,12 @@ void patch_setuidandplatformize() {
   entitleptr(getpid(), FLAG_PLATFORMIZE);
 }
 
+void isDYLD(launch_data_t value, const char *key, void *ctx) {
+  bool *dyld = ctx;
+  fflush(stdout);
+  if (strncmp(key, "DYLD_", 5) == 0) *dyld = true;
+}
+
 void validator(launch_data_t value, const char *key, void *ctx) {
   launch_data_t jobPID = launch_data_dict_lookup(value, LAUNCH_JOBKEY_PID);
   if (jobPID == NULL || launch_data_get_type(jobPID) != LAUNCH_DATA_INTEGER) return;
@@ -45,6 +51,13 @@ void validator(launch_data_t value, const char *key, void *ctx) {
   pid_t parentProcessID = getppid(); //Get parent process ID
   long long launchDataPID = launch_data_get_integer(jobPID); //Get the process ID from the launch data
   if (parentProcessID != launchDataPID) return; //Filter to exclude process IDs that are not equal to our parent's
+
+  launch_data_t envVariables = launch_data_dict_lookup(value, LAUNCH_JOBKEY_ENVIRONMENTVARIABLES);
+  if (envVariables != NULL && launch_data_get_type(envVariables) == LAUNCH_DATA_DICTIONARY) {
+    bool dyld = false;
+    launch_data_dict_iterate(envVariables, isDYLD, &dyld);
+    if (dyld) return;
+  }
 
   launch_data_t program = launch_data_dict_lookup(value, LAUNCH_JOBKEY_PROGRAM); //Lookup our program
   if (program == NULL || launch_data_get_type(program) != LAUNCH_DATA_STRING) { //If we can't find it, use the program arguemnts to find the executable path
