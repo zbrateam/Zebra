@@ -256,8 +256,8 @@ void createDummyRepo(struct ZBBaseSource source, sqlite3 *database, int repoID) 
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDistribution, source.distribution, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnComponents, source.components, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDescription, "No Release File Provided", -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnOrigin, "Unknown", -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnLabel, "Unknown", -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnOrigin, source.repositoryURI, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnLabel, source.repositoryURI, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnVersion, "0.9.0", -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, "Unknown", -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, "Unknown", -1, SQLITE_TRANSIENT);
