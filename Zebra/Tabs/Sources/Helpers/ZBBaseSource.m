@@ -131,6 +131,7 @@
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         
+        if (!mainDirectoryURL) return NULL;
         NSString *schemeless = [[[mainDirectoryURL absoluteString] stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
         self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     }
