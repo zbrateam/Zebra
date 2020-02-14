@@ -122,7 +122,10 @@
         else {
             //If the distribution is './' then the repository likely follows a flat repo format
             mainDirectoryURL = [NSURL URLWithString:repositoryURI];
-            mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
+            
+            if (![[mainDirectoryURL absoluteString] hasSuffix:@"/"]) { //In case a repo doesn't have a / on the end of it, add it here
+                mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"/"];
+            }
             
             packagesDirectoryURL = mainDirectoryURL;
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
