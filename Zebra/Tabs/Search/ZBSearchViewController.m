@@ -72,7 +72,7 @@ enum ZBSearchSection {
         self.tableView.tableHeaderView = searchController.searchBar;
     }
     self.tableView.tableFooterView = [UIView new];
-    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
