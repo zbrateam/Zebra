@@ -559,10 +559,10 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query;
         if (strict) {
-            query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEURL = \'%@\'", baseURL];
+            query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE URI = \'%@\'", baseURL];
         }
         else {
-            query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE BASEURL LIKE \'%%%@%%\'", baseURL];
+            query = [NSString stringWithFormat:@"SELECT REPOID FROM REPOS WHERE URI LIKE \'%%%@%%\'", baseURL];
         }
         
         sqlite3_stmt *statement;

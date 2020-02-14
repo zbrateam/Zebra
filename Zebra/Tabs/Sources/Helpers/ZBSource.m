@@ -48,11 +48,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 + (BOOL)exists:(NSString *)urlString {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    NSRange dividerRange = [urlString rangeOfString:@"://"];
-    NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseURL = divide > [urlString length] ? urlString : [urlString substringFromIndex:divide];
-    
-    return [databaseManager repoIDFromBaseURL:baseURL strict:NO] > 0;
+    return [databaseManager repoIDFromBaseURL:urlString strict:NO] > 0;
 }
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
