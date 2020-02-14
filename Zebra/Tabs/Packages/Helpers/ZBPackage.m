@@ -378,8 +378,10 @@
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    NSDictionary *token = @{@"token": [keychain stringForKey:[[self repo] repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:token options:(NSJSONWritingOptions)0 error:nil];
+    
+    NSString *token = [keychain stringForKey:[[self repo] repositoryURI]];
+    NSDictionary *requestJSON = @{@"token": token ? token : @"", @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
     
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
