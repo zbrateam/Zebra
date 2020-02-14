@@ -137,6 +137,17 @@
     [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
     
     //Delete .list file (if it exists)
+    NSArray *lists = [self repoLists:source];
+    for (NSString *list in lists) {
+        NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:list];
+        NSError *error;
+        if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
+            BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+            if (!success) {
+                NSLog(@"Error removing file at path: %@", error.localizedDescription);
+            }
+        }
+    }
     
     //Delete files from featured.plist (if they exist)
     
@@ -205,6 +216,12 @@
             }];
         });
     }
+}
+
+- (NSArray <NSString *> *)repoLists:(ZBBaseSource *)source {
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
+    
+    return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", [source baseFilename]]];
 }
 
 @end

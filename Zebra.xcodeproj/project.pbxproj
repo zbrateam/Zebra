@@ -726,12 +726,12 @@
 		896F11C721B231CB0017B581 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				89F213BE23BED9D300F3E5E5 /* ZBBaseSource.h */,
+				89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */,
 				896F11C121B231900017B581 /* ZBSource.h */,
 				896F11C221B231900017B581 /* ZBSource.m */,
 				896F11BB21B231490017B581 /* ZBSourceManager.h */,
 				896F11BC21B231490017B581 /* ZBSourceManager.m */,
-				89F213BE23BED9D300F3E5E5 /* ZBBaseSource.h */,
-				89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */,
 				8958F28823C3C2CC00FB64D9 /* ZBSourceVerification.h */,
 				8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */,
 			);
