@@ -3,7 +3,7 @@
 "Cancel" = "Annuleren";
 "Yes" = "Ja";
 "No" = "Nee";
-"Ok" = "Oké";
+"Ok" = "Ok";
 "Error" = "Fout";
 "Retry" = "Probeer opnieuw";
 "Edit" = "Wijzig";
@@ -13,13 +13,13 @@
 
 // Home
 
-"Home" = "Thuis";
+"Home" = "Startpagina";
 "Info" = "Informatie";
 "Welcome to Zebra!" = "Welkom bij Zebra!";
 "Changelog" = "Wijzigingslogboek";
 "Community Sources" = "Gemeenschaps Bronnen";
 "You’ve added all of the community sources" = "Je hebt alle gemeenschaps bronnen toegevoegd";
-"Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
+"Transfer sources from %@ to Zebra" = "Draag bronnen van %@ over naar Zebra";
 "Utility repo for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
 "Verifying Source(s)" = "Bron(nen) verifiëren";
@@ -57,7 +57,7 @@
 "White" = "Wit";
 "Black" = "Zwart";
 
-"Dark Mode Style" = "Donkere Modus Stijl";
+"Dark Mode Style" = "Stijl Donkere Modus";
 "Dark Mode" = "Donkere modus";
 "Default" = "Standaard";
 "OLED" = "OLED";
