@@ -86,7 +86,6 @@
 
 - (int)openDatabase {
     if (![self isDatabaseOpen] || !database) {
-//        sqlite3_shutdown();
         assert(sqlite3_threadsafe());
         int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
         if (result == SQLITE_OK) {
@@ -204,20 +203,20 @@
         [self setHaltDatabaseOperations:NO];
     }
     
-//    if (!requested) {
-//        NSDate *currentDate = [NSDate date];
-//        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
-//
-//        if (lastUpdatedDate != NULL) {
-//            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-//            NSUInteger unitFlags = NSCalendarUnitMinute;
-//            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
-//
-//            needsUpdate = ([components minute] >= 30);
-//        } else {
-//            needsUpdate = YES;
-//        }
-//    }
+    if (!requested) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
+
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+
+            needsUpdate = ([components minute] >= 30);
+        } else {
+            needsUpdate = YES;
+        }
+    }
     
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
