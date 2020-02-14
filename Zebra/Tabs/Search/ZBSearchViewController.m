@@ -59,7 +59,7 @@ enum ZBSearchSection {
     searchController.delegate = self;
     searchController.searchBar.delegate = self;
     searchController.searchBar.tintColor = [UIColor accentColor];
-    searchController.searchBar.placeholder = NSLocalizedString(@"Packages", @"");
+    searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
     
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
