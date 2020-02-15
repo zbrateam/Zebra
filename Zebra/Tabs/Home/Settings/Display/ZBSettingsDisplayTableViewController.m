@@ -102,7 +102,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.textLabel.text = NSLocalizedString(@"Use System Appearance", @"");
+                cell.textLabel.text = @"Use System Appearance";
                 
                 UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
                 [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
@@ -117,11 +117,11 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             if (@available(iOS 13.0, *)) {
                 if (!usesSystemAppearance) {
                     if (indexPath.row == 0) {
-                        cell.textLabel.text = NSLocalizedString(@"Light", @"");
+                        cell.textLabel.text = @"Light";
                         cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     }
                     else {
-                        cell.textLabel.text = NSLocalizedString(@"Dark", @"");
+                        cell.textLabel.text = @"Dark";
                         cell.accessoryType = interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                     }
                     break;
@@ -129,11 +129,11 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             }
             else if (indexPath.section == 1) {
                 if (indexPath.row == 0) {
-                    cell.textLabel.text = NSLocalizedString(@"Light", @"");
+                    cell.textLabel.text = @"Light";
                     cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 }
                 else {
-                    cell.textLabel.text = NSLocalizedString(@"Dark", @"");
+                    cell.textLabel.text = @"Dark";
                     cell.accessoryType = interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 }
                 break;
@@ -141,7 +141,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         case ZBSectionPureBlack: {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"Pure Black Mode", @"");
+            cell.textLabel.text = @"Pure Black Mode";
             
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             [enableSwitch addTarget:self action:@selector(togglePureBlack:) forControlEvents:UIControlEventValueChanged];

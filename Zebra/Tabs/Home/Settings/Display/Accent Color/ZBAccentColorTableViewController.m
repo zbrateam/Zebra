@@ -61,7 +61,7 @@
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"systemColorCell"];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = NSLocalizedString(@"Use System Accent Color", @"");
+        cell.textLabel.text = @"Use System Accent Color";
         
         UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
         [enableSwitch addTarget:self action:@selector(toggleSystemColor:) forControlEvents:UIControlEventValueChanged];
