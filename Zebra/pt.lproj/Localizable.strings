@@ -17,8 +17,8 @@
 "Info" = "Informações";
 "Welcome to Zebra!" = "Bem-vindo ao Zebra!";
 "Changelog" = "Alterações";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Fontes da Comunidade";
+"You’ve added all of the community sources" = "Adicionaste todas as fontes da comunidade";
 "Transfer sources from %@ to Zebra" = "Transferir fontes de %@ para a Zebra";
 "Utility repo for %@" = "Repo utilitário para %@";
 "Transfer Sources" = "Transferir Fontes";
@@ -71,7 +71,7 @@
 "Feature Type" = "Tipo de Destaque";
 "Select Repos to be Featured" = "Seleciona Repositórios para Destacar";
 
-"News" = "News";
+"News" = "Notícias";
 
 "Live Search" = "Pesquisa ao vivo";
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "Adicionar Multiplos";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
 "Please Wait..." = "Por favor aguarde...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "Verificando a(s) fonte(s)";
 "Unable to verify Repo" = "Não foi possivel verificar o Repo";
 "Refresh" = "Atualidade";
 "Log Out" = "Sair";
@@ -241,7 +241,7 @@
 "Close Zebra" = "Fechar o Zebra";
 "Restart SpringBoard" = "Reiniciar o SpringBoard";
 "Downloading" = "A fazer o download";
-"Parsing" = "Parsing";
+"Parsing" = "Analisando";
 "Downloading Packages..." = "A fazer o download de pacotes...";
 "Installing" = "A instalar";
 "Installing Packages..." = "A instalar pacotes...";
@@ -285,53 +285,53 @@
 "Are you sure?" = "Tem a certeza?";
 "Are you sure you want to clear the queue?" = "Tem a certeza que quer apagar os pacotes em fila?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote necessário. NÃO DEVE ser removido se não sabe o que está a fazer!";
-"Remove from Queue" = "Remove from Queue";
+"Remove from Queue" = "Remover da fila de espera";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório e tem de ser removido porque depende de %@. %@ NÃO deve ser removido a menos que saibas exatamente o que estás a fazer!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Um ou mais dos pacotes na fila de espera para remoção são essenciais ou obrigatórios. Não é recomendado que prossiga a menos que saibas exatamente o que estás a fazer. Remover estes pacotes deverá causar danos irreversíveis no seu dispositivo e poderá resultar numa restauração completa.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra não foi capaz de completar este comando porque não tem as permissões necessárias. Por favor, verifique as permissões localizadas em /usr/libexec/zebra/supersling e reporte este problema no GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Não é possível aceder su/sling. Por favor, verifique se /usr/libexec/zebra/supersling exite.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não é propriedade de root:wheel. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não tem permissão para definir o uid ou gid. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "Ajude a traduzir Zebra!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "O \"respring\" não foi possível. Por favor, faça-o manualmente.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ERRO: Não é possível bloquear o arquivo de estatísticas. Por favor, tente de novo.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ERRO: O processo deve ser reiniciado. Por favor, tente de novo.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "Configurar a aparência de Zebra.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Exibir pacotes em destaque na página inicial.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Exibir postagens da comunidade recentes de /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Pesquisar pacotes enquanto digita. Desativar este recurso deverá reduzir o lag em dispositivos antigos.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Configurar a aparência de ações de deslize da vista de tabelas.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Modificar a cor de destaque exibida em Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Modificar o tema do modo escuro quando este está ativado.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Modificar a origem dos pacotes em destaque exibidos na página de ínicio.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" exibirá pacotes aleatórios de repositórios que suportam a API de Pacotes em destaque.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatório\" exibirá pacotes aleatórios de todos os seus repositórios.";
 
-"Community News" = "Community News";
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Community News" = "Notícias da Comunidade";
+"Import Sources" = "Importar Fontes";
+"Updating Repositories" = "Atualizando os repositórios";
+"Would you like to import the following repositories?" = "Importar os seguintes repositórios?";
+"Download Completed" = "Transferência concluída";
+"Removing Zebra..." = "Removendo Zebra...";
+"Installing Zebra..." = "Instalando Zebra...";
