@@ -71,12 +71,12 @@
 "Royal Blue" = "น้ำเงินเข้ม";
 "Shark" = "เทาฉลาม";
 "Storm" = "พายุ";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "ใช้สีหลักของระบบ";
+"Appearance" = "หน้าตา";
+"Use System Appearance" = "ใช้หน้าตาของระบบ";
+"Light" = "สว่าง";
+"Dark" = "มืด";
+"Pure Black Mode" = "ดำสนิท";
 
 // Featured
 
@@ -100,13 +100,13 @@
 // Stores
 
 "Stores" = "ร้านค้า";
-"Account" = "Account";
+"Account" = "บัญชี";
 "Login" = "ลงชื่อเข้าใช้";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "ลงชื่อออก";
+"Your Purchases" = "รายการซื้อของคุณ";
 "No Storefronts Available" = "ไม่มีหน้าร้านที่ใช้ได้";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
+"Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
 
 // Sources
 
@@ -140,8 +140,8 @@
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Import Sources" = "นำเข้าซอร์ส";
 "Import" = "นําเข้า";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า %d ซอร์สไปยัง Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า 1 ซอร์สไปยัง Zebra?";
 
 
 // Packages
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
 "Restarting SpringBoard..." = "เริ่มการทำงาน SpringBoard ใหม่...";
 "Parsing" = "อ่าน";
-"Starting Download" = "Starting Download";
+"Starting Download" = "เริ่มต้นดาวน์โหลด";
 "Downloading" = "กำลังดาวน์โหลด";
 "Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
 "Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
@@ -319,7 +319,7 @@
 // Search
 
 "Live Search" = "ค้นหาทันที";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "ทวีค, ธีม และอีกมากมาย";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ เป็นโปรแกรมที่จำเป็นต้องติดตั้งไว้บนเครื่อง แต่จะถูกนำออกเนื่องจาก %@ ซึ่ง %@ ไม่ควรถูกลบออกนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร!";
@@ -358,6 +358,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"สุ่ม\" จะแสดงผลโปรแกรมแบบสุ่มจากทุกๆ ซอร์สที่เพิ่มมาไว้ใน Zebra";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "การลงชื่อเข้าใช้ในซอร์สนั้นเพื่อที่จะสามารถดูรายการซื้อจากซอร์สนั้นได้";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "ปิดหน้าต่างคอนโซลอัตโนมัติเมื่อการทำงานเสร็จสมบูรณ์";
