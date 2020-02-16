@@ -7,16 +7,26 @@
 "Error" = "Ошибка";
 "Retry" = "Повторить";
 "Edit" = "Изменить";
-"Login" = "Войти";
 "Close" = "Закрыть";
 "Done" = "Готово";
+"Loading..." = "Загрузка...";
 
 // Home
 
 "Home" = "Главная";
 "Info" = "Информация";
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
+"Report a Bug" = "Сообщить об Ошибке";
 "Changelog" = "Список Изменений";
+"Wish List" = "Список желаний";
+"No items in Wish List" = "Нет пакетов в Списке Желаний";
+"Community" = "Сообщество";
+"Join our Discord" = "Наш Discord";
+"Follow us on Twitter" = "Подпишитесь на нас в Twitter";
+"Help translate Zebra!" = "Помогите перевести Zebra!";
+
+// Community Source
+
 "Community Sources" = "Источники Сообщества";
 "You’ve added all of the community sources" = "Вы добавили все источники сообщества";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Перенести Источники";
 "Verifying Source" = "Проверка Источника";
 "Verifying Sources" = "Проверка Источников";
-"Stores" = "Магазины";
-"Purchases" = "Покупки";
-"Wish List" = "Список желаний";
-"No items in Wish List" = "Нет пакетов в Списке Желаний";
-"Community" = "Сообщество";
-"Join our Discord" = "Наш Discord";
-"Follow us on Twitter" = "Подпишитесь на нас в Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Благодарности";
 "Creators" = "Создатели";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Настройки";
-"Version" = "Версия";
 "Display" = "Дисплей";
-"Featured" = "Избранное";
-"News" = "Новости";
+"App Icon" = "Иконка Приложения";
+"Changes" = "Изменения";
+"Community News" = "Новости Сообщества";
 "Miscellaneous" = "Другое";
-"Advanced" = "Расширенное";
-
-"Report a Bug" = "Сообщить об Ошибке";
-
-"Accent Color" = "Цвет";
+"Swipe Actions Display As" = "Вид Свайп-действий";
+"Text" = "Текст";
+"Icon" = "Иконка";
+"Finish Automatically" = "Завершать Автоматически";
 
 // Accent Colors
 
+"Accent Color" = "Цвет";
 "Aqua Velvet" = "Бирюзовый";
 "Cornflower Blue" = "Васильковый";
 "Golden Tainoi" = "Золотой Тайной";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Королевский Синий";
 "Shark" = "Акула";
 "Storm" = "Шторм";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Стиль Тёмного Режима";
-"Dark Mode" = "Тёмный Режим";
-"Default" = "Обычный";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "Иконка Приложения";
+// Featured
 
 "Featured Packages" = "Избранные Пакеты";
-"Random" = "Случайно";
 "Feature Type" = "Тип Избранного";
-"Select Sources to be Featured" = "Выберите Отображаемые Источники";
+"Repo Featured" = "Избранное из Репозитория";
+"Random" = "Случайно";
+"Select Repos to be Featured" = "Выберите отбражаемые репозитории";
+"Featured Repos" = "Рекомендуемые Репозитории";
 
-"News" = "Новости";
+// Advanced
 
-"Live Search" = "Живой Поиск";
-
-"Swipe Actions Display As" = "Вид Свайп-действий";
-"Text" = "Текст";
-"Icon" = "Иконка";
+"Advanced" = "Расширенное";
+"Drop Tables" = "Очистить Таблицы";
 "Open Documents Directory" = "Открыть Директорию Документов";
 "Clear Image Cache" = "Очистить Кэш Изображений";
 "Clear Keychain" = "Очистить Keychain";
-
-"Loading..." = "Загрузка...";
-
 "Resetting image cache completed" = "Сброс кэша изображений завершен";
 "Clearing keychain completed" = "Очистка Keychain завершена";
 
-"Drop Tables" = "Очистить Таблицы";
+// Stores
 
-"Featured Sources" = "Избранные Источники";
-
-"Finish Automatically" = "Завершать Автоматически";
+"Stores" = "Магазины";
+"Account" = "Account";
+"Login" = "Войти";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "Нет Доступных Магазинов";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Проверка Источника(ов)";
 "Unable to verify source" = "Не удалось проверить источник";
 "Refresh" = "Обновить";
-"Log Out" = "Выйти";
-"Purchased Packages" = "Приобретенные Пакеты";
-"Purchased" = "Покупки";
-
 "All Packages" = "Все Пакеты";
 "Delete" = "Удалить";
+"Import Sources" = "Импортировать Источники";
+"Updating Sources" = "Обновление Источников";
+"Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
+"Failed to add source" = "Не удалось добавить источник";
+"Failed to add sources" = "Не удалось добавить источники";
+"Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
+"Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
+"Import Sources" = "Импортировать Источники";
+"Import" = "Импорт";
+"Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
 
-// Changes
-
-"Changes" = "Изменения";
 
 // Packages
 
+"Version" = "Версия";
 "Packages" = "Пакеты";
 "Show Updates" = "Показать Обновления";
 "Ignore Updates" = "Игнорировать Обновления";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (установленная версия: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Размер После Установки: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Закрытие Zebra...";
 "Restart SpringBoard" = "Перезапустить SpringBoard";
 "Restarting SpringBoard..." = "Перезапуск SpringBoard...";
-"Downloading" = "Загрузка";
 "Parsing" = "Анализ";
+"Starting Download" = "Starting Download";
+"Downloading" = "Загрузка";
 "Downloading Packages..." = "Загрузка Пакетов...";
+"Download Completed" = "Загрузка Завершена";
 "Installing" = "Установка";
 "Installing Packages..." = "Установка Пакетов...";
 "Removing" = "Удаление";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 "Done..." = "Готово...";
+"Removing Zebra..." = "Удаление Zebra...";
+"Installing Zebra..." = "Установка Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Пакетов в Очереди";
 "%d Package Queued" = "%d Пакет в Очереди";
 "Tap to manage" = "Нажмите для управления";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
 "Remove from Queue" = "Удалить из Очереди";
 
+// Search
+
+"Live Search" = "Живой Поиск";
+"Tweaks, Themes, and More" = "Твики, Темы и многое другое";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом и должен быть удален, так как он зависит от %@. %@ НЕ должен быть удален, если вы точно не знаете, что делаете!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не принадлежит root:wheel. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не имеет разрешения на установку uid или gid. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Помогите перевести Zebra!";
 
 "Could not respring. Please respring manually." = "Не удалось перезапустить SpringBoard. Пожалуйста, перезапустите SpringBoard вручную.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Изменить источник рекомендуемых пакетов на главной странице.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Избранное\" будут показывать случайные пакеты из источников, поддерживающих API Рекомендуемых Пакетов.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Избранное из репозитория\" будет показывыть случайные пакеты из репозиториев, которые поддерживают API Рекомендуемых Пакетов.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех источников, которые вы добавили в Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех репозиториев, добавленных в Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
-
-"Community News" = "Новости Сообщества";
-"Import Sources" = "Импортировать Источники";
-"Updating Sources" = "Обновление Источников";
-"Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
-"Download Completed" = "Загрузка Завершена";
-"Removing Zebra..." = "Удаление Zebra...";
-"Installing Zebra..." = "Установка Zebra...";
-
-"Failed to add source" = "Не удалось добавить источник";
-"Failed to add sources" = "Не удалось добавить источники";
-"Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
-"Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
-
-"Import Sources" = "Импортировать Источники";
-"Import" = "Импорт";
-
-"No Storefronts Available" = "Нет Доступных Магазинов";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Твики, Темы и многое другое";
