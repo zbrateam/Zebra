@@ -204,6 +204,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo;
 
+- (NSURL *)paymentVendorURLForRepo:(ZBSource *)repo;
+
 #pragma mark - Package retrieval
 
 /*!

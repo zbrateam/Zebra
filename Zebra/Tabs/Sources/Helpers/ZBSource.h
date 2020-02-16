@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSArray <NSString *> *architectures;
 @property (nonatomic) int repoID;
 
-@property (nonatomic) NSURL *paymentVendorURL;
+@property (nonatomic) NSURL *paymentVendorURI;
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 @property (nonatomic) NSURL *iconURL;
@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSString *)paymentSecret;
 - (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion;
+- (NSURL *)paymentVendorURL;
 @end
 
 NS_ASSUME_NONNULL_END

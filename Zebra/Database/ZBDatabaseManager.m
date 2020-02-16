@@ -778,6 +778,32 @@
     return NULL;
 }
 
+- (NSURL *)paymentVendorURLForRepo:(ZBSource *)repo {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT VENDOR FROM REPOS WHERE REPOID = %d", [repo repoID]];
+        sqlite3_stmt *statement;
+        
+        NSString *vendorURL;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            const char *vendorChars = (const char *)sqlite3_column_text(statement, 0);
+            vendorURL = vendorChars ? [NSString stringWithUTF8String:vendorChars] : NULL;
+        }
+        else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        if (vendorURL) {
+            return [NSURL URLWithString:vendorURL];
+        }
+        else {
+            return NULL;
+        }
+    }
+    return NULL;
+}
+
 #pragma mark - Package management
 
 - (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {

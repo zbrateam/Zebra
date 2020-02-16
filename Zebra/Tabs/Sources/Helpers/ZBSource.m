@@ -23,7 +23,7 @@
 @synthesize codename;
 @synthesize architectures;
 @synthesize repoID;
-@synthesize paymentVendorURL;
+@synthesize paymentVendorURI;
 
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
@@ -84,7 +84,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         
         if (vendorChars != 0) {
             NSString *vendor = [[[NSString alloc] initWithUTF8String:vendorChars] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            [self setPaymentVendorURL:[[NSURL alloc] initWithString:vendor]];
+            [self setPaymentVendorURI:[[NSURL alloc] initWithString:vendor]];
         }
         
         if (architectureChars != 0) {
@@ -145,8 +145,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         return;
     }
     
-    if (paymentVendorURL) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:[paymentVendorURL URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+    if ([self paymentVendorURL]) {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
         if (![components.scheme isEqualToString:@"https"]) {
             return;
         }
@@ -223,6 +223,17 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     
     return paymentSecret;
+}
+
+- (NSURL *)paymentVendorURL {
+    NSLog(@"CUSTOM GET");
+    if (paymentVendorURI) {
+        return paymentVendorURI;
+    }
+    
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
+    return paymentVendorURI;
 }
 
 @end
