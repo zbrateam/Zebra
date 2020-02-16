@@ -50,7 +50,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
     [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.collectionView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -69,6 +69,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)applyLocalization {
