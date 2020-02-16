@@ -71,12 +71,12 @@
 "Royal Blue" = "כחול מלכותי";
 "Shark" = "כריש";
 "Storm" = "סערה";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "השתמש בצבע ההדגשה של המערכת";
+"Appearance" = "מראה";
+"Use System Appearance" = "השתמש במראה המערכת";
+"Light" = "בהיר";
+"Dark" = "כהה";
+"Pure Black Mode" = "מצב שחור טהור";
 
 // Featured
 
@@ -100,13 +100,13 @@
 // Stores
 
 "Stores" = "חנויות";
-"Account" = "Account";
+"Account" = "חשבון";
 "Login" = "התחבר";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "התנתק";
+"Your Purchases" = "הרכישות שלך";
 "No Storefronts Available" = "אין חנויות זמינות";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "לא ניתן להשלים רכישה";
+"Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 
 // Sources
 
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
 "Restarting SpringBoard..." = "מפעיל מחדש את מסך הבית...";
 "Parsing" = "מנתח";
-"Starting Download" = "Starting Download";
+"Starting Download" = "מתחיל הורדה";
 "Downloading" = "מוריד";
 "Downloading Packages..." = "מוריד חבילות...";
 "Download Completed" = "ההורדה הושלמה";
