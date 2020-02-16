@@ -35,12 +35,12 @@
             break;
     }
     
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (credits == NULL) {
