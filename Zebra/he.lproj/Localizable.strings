@@ -7,16 +7,26 @@
 "Error" = "תקלה";
 "Retry" = "נסה שוב";
 "Edit" = "עריכה";
-"Login" = "התחבר";
 "Close" = "סגור";
 "Done" = "סיום";
+"Loading..." = "טוען...";
 
 // Home
 
 "Home" = "בית";
 "Info" = "מידע";
 "Welcome to Zebra!" = "ברוכים הבאים לזברה!";
+"Report a Bug" = "דווח/י על באג";
 "Changelog" = "מה חדש";
+"Wish List" = "רשימת משאלות";
+"No items in Wish List" = "אין פריטים ברשימת המשאלות";
+"Community" = "קהילה";
+"Join our Discord" = "הצטרף/י ל-Discord שלנו";
+"Follow us on Twitter" = "עקוב/י אחרינו ב-Twitter";
+"Help translate Zebra!" = "עזור/י לתרגם את זברה!";
+
+// Community Source
+
 "Community Sources" = "מקורות קהילתיים";
 "You’ve added all of the community sources" = "הוספת את כל המקורות הקהילתיים";
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "ייבוא מקורות";
 "Verifying Source" = "מאמת מקור";
 "Verifying Sources" = "מאמת מקורות";
-"Stores" = "חנויות";
-"Purchases" = "רכישות";
-"Wish List" = "רשימת משאלות";
-"No items in Wish List" = "אין פריטים ברשימת המשאלות";
-"Community" = "קהילה";
-"Join our Discord" = "הצטרף/י ל-Discord שלנו";
-"Follow us on Twitter" = "עקוב/י אחרינו ב-Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "קרדיטים";
 "Creators" = "יוצרים";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "הגדרות";
-"Version" = "גירסה";
 "Display" = "תצוגה";
-"Featured" = "מומלץ";
-"News" = "חדשות";
+"App Icon" = "אייקון היישום";
+"Changes" = "שינויים";
+"Community News" = "חדשות הקהילה";
 "Miscellaneous" = "שונות";
-"Advanced" = "מתקדם";
-
-"Report a Bug" = "דווח/י על באג";
-
-"Accent Color" = "צבע הדגשה";
+"Swipe Actions Display As" = "פעולות החלקה מוצגות בתור";
+"Text" = "טקסט";
+"Icon" = "אייקון";
+"Finish Automatically" = "סיים אוטומטית";
 
 // Accent Colors
 
+"Accent Color" = "צבע הדגשה";
 "Aqua Velvet" = "תכלת קטיפה";
 "Cornflower Blue" = "כחול דרדר";
 "Golden Tainoi" = "כתוב מוזהב";
@@ -68,41 +71,42 @@
 "Royal Blue" = "כחול מלכותי";
 "Shark" = "כריש";
 "Storm" = "סערה";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "סגנון מצב לילה";
-"Dark Mode" = "מצב לילה";
-"Default" = "ברירת מחדל";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "אייקון היישום";
+// Featured
 
 "Featured Packages" = "חבילות מומלצות";
-"Random" = "אקראי";
 "Feature Type" = "סוג המלצה";
-"Select Sources to be Featured" = "בחר/י מקורות שיהיו מומלצים";
+"Repo Featured" = "המלצת מקור";
+"Random" = "אקראי";
+"Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
+"Featured Repos" = "מקורות מומלצים";
 
-"News" = "חדשות";
+// Advanced
 
-"Live Search" = "חיפוש חי";
-
-"Swipe Actions Display As" = "פעולות החלקה מוצגות בתור";
-"Text" = "טקסט";
-"Icon" = "אייקון";
+"Advanced" = "מתקדם";
+"Drop Tables" = "הפל טבלאות";
 "Open Documents Directory" = "פתח תיקיית מסמכים";
 "Clear Image Cache" = "נקה מטמון תמונות";
 "Clear Keychain" = "נקה צרור";
-
-"Loading..." = "טוען...";
-
 "Resetting image cache completed" = "איפוס מטמון תמונות הושלם";
 "Clearing keychain completed" = "ניקוי צרור הושלם";
 
-"Drop Tables" = "הפל טבלאות";
+// Stores
 
-"Featured Sources" = "מקורות מומלצים";
-
-"Finish Automatically" = "סיים אוטומטית";
+"Stores" = "חנויות";
+"Account" = "Account";
+"Login" = "התחבר";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "אין חנויות זמינות";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "מאמת מקור(ות)";
 "Unable to verify source" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
-"Log Out" = "התנתק";
-"Purchased Packages" = "חבילות שנרכשו";
-"Purchased" = "נרכש";
-
 "All Packages" = "כל החבילות";
 "Delete" = "מחק";
+"Import Sources" = "ייבא מקורות";
+"Updating Sources" = "מעדכן מקורות";
+"Would you like to import the following sources?" = "האם ברצונך לייבא את המקורות הבאים?";
+"Failed to add source" = "הוספת מקור נכשלה";
+"Failed to add sources" = "הוספת מקורות נכשלה";
+"Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
+"Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
+"Import Sources" = "ייבא מקורות";
+"Import" = "ייבוא";
+"Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
+"Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
 
-// Changes
-
-"Changes" = "שינויים";
 
 // Packages
 
+"Version" = "גירסה";
 "Packages" = "חבילות";
 "Show Updates" = "הצג עדכונים";
 "Ignore Updates" = "התעלם מעדכונים";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (גירסה מותקנת: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (גודל מותקן: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "סוגר את זברה...";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
 "Restarting SpringBoard..." = "מפעיל מחדש את מסך הבית...";
-"Downloading" = "מוריד";
 "Parsing" = "מנתח";
+"Starting Download" = "Starting Download";
+"Downloading" = "מוריד";
 "Downloading Packages..." = "מוריד חבילות...";
+"Download Completed" = "ההורדה הושלמה";
 "Installing" = "מתקין";
 "Installing Packages..." = "מתקין חבילות...";
 "Removing" = "מסיר";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 "Done..." = "בוצע...";
+"Removing Zebra..." = "מסיר את זברה...";
+"Installing Zebra..." = "מתקין את זברה...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d חבילות בתור";
 "%d Package Queued" = "חבילה %d בתור";
 "Tap to manage" = "לחץ/י לניהול";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
 "Remove from Queue" = "הסר מהתור";
 
+// Search
+
+"Live Search" = "חיפוש חי";
+"Tweaks, Themes, and More" = "טוויקים, ערכות נושא, ועוד";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת ונדרש להסיר אותה מכיוון שהיא מסתמכת על החבילה %@. אין להסיר את %@ אלא אם את/ה יודע/ת מה את/ה עושה!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "הבעלות של su/sling אינה מוגדרת ל-root:wheel. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "אין ל-su/sling הרשאה להגדיר את ה-uid או את ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "עזור/י לתרגם את זברה!";
 
 "Could not respring. Please respring manually." = "לא ניתן להפעיל מחדש את מסך הבית. יש לנסות הפעלה מחדש ידנית.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "שנה את מקור החבילות המומלצות במסך הבית.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"המלצת מקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"המלצת מקור\" יציג חבילות אקראיות ממקורות שתומכים ב-API החבילות המומלצות.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";
-
-"Community News" = "חדשות הקהילה";
-"Import Sources" = "ייבא מקורות";
-"Updating Sources" = "מעדכן מקורות";
-"Would you like to import the following sources?" = "האם ברצונך לייבא את המקורות הבאים?";
-"Download Completed" = "ההורדה הושלמה";
-"Removing Zebra..." = "מסיר את זברה...";
-"Installing Zebra..." = "מתקין את זברה...";
-
-"Failed to add source" = "הוספת מקור נכשלה";
-"Failed to add sources" = "הוספת מקורות נכשלה";
-"Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
-"Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
-
-"Import Sources" = "ייבא מקורות";
-"Import" = "ייבוא";
-
-"No Storefronts Available" = "אין חנויות זמינות";
-
-"Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
-"Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
-
-//New Search String
-"Tweaks, Themes, and More" = "טוויקים, ערכות נושא, ועוד";
