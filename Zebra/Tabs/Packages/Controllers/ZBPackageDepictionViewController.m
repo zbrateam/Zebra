@@ -90,7 +90,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
     
-    [self.tableView.tableHeaderView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.tableView.tableHeaderView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
     infos = [NSMutableDictionary new];
@@ -147,6 +147,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self configureNavButton];
     
     if (@available(iOS 11.0, *)) {
