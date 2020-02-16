@@ -7,16 +7,26 @@
 "Error" = "Chyba";
 "Retry" = "Zkusit znova";
 "Edit" = "Upravit";
-"Login" = "Přihlásit";
 "Close" = "Zavřít";
 "Done" = "Hotovo";
+"Loading..." = "Načítání...";
 
 // Home
 
 "Home" = "Domů";
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
+"Report a Bug" = "Nahlásit Bug";
 "Changelog" = "Seznam změn";
+"Wish List" = "Seznam přání";
+"No items in Wish List" = "Nic tu není.";
+"Community" = "Komunita";
+"Join our Discord" = "Připoj se k našemu Discordu";
+"Follow us on Twitter" = "Sledujte nás na Twitter";
+"Help translate Zebra!" = "Pomozte přeložit Zebru!";
+
+// Community Source
+
 "Community Sources" = "Zdroje Komunity";
 "You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Přenést Zdroje";
 "Verifying Source" = "Ověřování Zdroje";
 "Verifying Sources" = "Ověřování Zdrojů";
-"Stores" = "Obchody";
-"Purchases" = "Nákupy";
-"Wish List" = "Seznam přání";
-"No items in Wish List" = "Nic tu není.";
-"Community" = "Komunita";
-"Join our Discord" = "Připoj se k našemu Discordu";
-"Follow us on Twitter" = "Sledujte nás na Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Kredity";
 "Creators" = "Autoři";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Nastavení";
-"Version" = "Verze";
 "Display" = "Zobrazit";
-"Featured" = "Návrhy";
-"News" = "Novinky";
+"App Icon" = "Ikona aplikace";
+"Changes" = "Změny";
+"Community News" = "Komunitní Novinky";
 "Miscellaneous" = "Různé";
-"Advanced" = "Pokročilé";
-
-"Report a Bug" = "Nahlásit Bug";
-
-"Accent Color" = "Barva zvýraznění";
+"Swipe Actions Display As" = "Akce přejetí prstem zobrazovat jako";
+"Text" = "Text";
+"Icon" = "Ikona";
+"Finish Automatically" = "Automaticky Dokončit";
 
 // Accent Colors
 
+"Accent Color" = "Barva zvýraznění";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Styl tmavého režimu";
-"Dark Mode" = "Tmavý režim";
-"Default" = "Výchozí";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "Ikona aplikace";
+// Featured
 
 "Featured Packages" = "Doporučené balíčky";
-"Random" = "Náhodně";
 "Feature Type" = "Typy Návrhů";
-"Select Sources to be Featured" = "Vyberte zdroje, které mají být doporučeny";
+"Repo Featured" = "Návrhy repozitářů";
+"Random" = "Náhodně";
+"Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
+"Featured Repos" = "Doporučené Repozitáře";
 
-"News" = "Novinky";
+// Advanced
 
-"Live Search" = "Živé Vyhledávání";
-
-"Swipe Actions Display As" = "Akce přejetí prstem zobrazovat jako";
-"Text" = "Text";
-"Icon" = "Ikona";
+"Advanced" = "Pokročilé";
+"Drop Tables" = "Znova načíst data a repozitáře";
 "Open Documents Directory" = "Otevřít adresář dokumentů";
 "Clear Image Cache" = "Vyčistit Image Cache";
 "Clear Keychain" = "Vyčistit klíčenku";
-
-"Loading..." = "Načítání...";
-
 "Resetting image cache completed" = "Resetováví image cache dokončeno";
 "Clearing keychain completed" = "Čištění klíčenky dokončeno";
 
-"Drop Tables" = "Znova načíst data a repozitáře";
+// Stores
 
-"Featured Sources" = "Doporučené zdroje";
-
-"Finish Automatically" = "Automaticky Dokončit";
+"Stores" = "Obchody";
+"Account" = "Account";
+"Login" = "Přihlásit";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Ověřování Repozitáře(ů)";
 "Unable to verify source" = "Zdroj nelze ověřit";
 "Refresh" = "Refreshnout";
-"Log Out" = "Odhlásit se";
-"Purchased Packages" = "Zakoupené balíčky";
-"Purchased" = "Zakoupené";
-
 "All Packages" = "Všechny balíčky";
 "Delete" = "Vymazat";
+"Import Sources" = "Importovat zdroje";
+"Updating Sources" = "Aktualizace zdrojů";
+"Would you like to import the following sources?" = "Chcete importovat následující zdroje?";
+"Failed to add source" = "Přidání zdroje se nezdařilo";
+"Failed to add sources" = "Přidání zdrojů se nezdařilo";
+"Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
+"Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
+"Import Sources" = "Importovat zdroje";
+"Import" = "Importovat";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "Změny";
 
 // Packages
 
+"Version" = "Verze";
 "Packages" = "Balíčky";
 "Show Updates" = "Zobrazit Aktualizace";
 "Ignore Updates" = "Ignorovat Aktualizace";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Nainstalovaná verze: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Nainstalovaná velikost: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Zavírám Zebru...";
 "Restart SpringBoard" = "Restartovat SpringBoard";
 "Restarting SpringBoard..." = "Restartuji SpringBoard...";
-"Downloading" = "Stahování";
 "Parsing" = "Analýza";
+"Starting Download" = "Starting Download";
+"Downloading" = "Stahování";
 "Downloading Packages..." = "Stahování balíčků...";
+"Download Completed" = "Stahování dokončeno";
 "Installing" = "Instalování";
 "Installing Packages..." = "Instalování balíčků...";
 "Removing" = "Odstraňování";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
 "Done..." = "Hotovo...";
+"Removing Zebra..." = "Odstraňuji Zebra...";
+"Installing Zebra..." = "Instalace Zebry...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d balíčků ve frontě";
 "%d Package Queued" = "%d balíček ve frontě";
 "Tap to manage" = "Dotykem spravovat";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček. Neměl by být odstraněn, pokud přesně nevíte, co děláte!";
 "Remove from Queue" = "Odebrat z fronty";
 
+// Search
+
+"Live Search" = "Živé Vyhledávání";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček a musí být odstraněn, protože závisí na %@. %@ by neměl být odstraněn, pokud přesně nevíte, co děláte!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling není vlastněn root:wheel. Prosím ověřte oprávnění souboru umístěného na /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Pomozte přeložit Zebru!";
 
 "Could not respring. Please respring manually." = "Chyba během auto respringu. Proveďte respring ručně.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Změní zdroj doporučených balíčků na domovské stránce.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Doporučený\" bude zobrazovat náhodné balíčky ze zdrojů, které podporují API balíčku.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "„Návrhy repozitáře“ zobrazí náhodné balíčky z repozitářů, které podporují Featured Package API.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Náhodný\" bude zobrazovat náhodné balíčky ze všech zdrojů, které jste přidali do Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovat náhodné balíčky ze všech repozitářů, které jste přidali do Zebry.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automaticky zavře Konzoli po dokončení všech jejích úkolů.";
-
-"Community News" = "Komunitní Novinky";
-"Import Sources" = "Importovat zdroje";
-"Updating Sources" = "Aktualizace zdrojů";
-"Would you like to import the following sources?" = "Chcete importovat následující zdroje?";
-"Download Completed" = "Stahování dokončeno";
-"Removing Zebra..." = "Odstraňuji Zebra...";
-"Installing Zebra..." = "Instalace Zebry...";
-
-"Failed to add source" = "Přidání zdroje se nezdařilo";
-"Failed to add sources" = "Přidání zdrojů se nezdařilo";
-"Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
-"Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
-
-"Import Sources" = "Importovat zdroje";
-"Import" = "Importovat";
-
-"No Storefronts Available" = "No Storefronts Available";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
