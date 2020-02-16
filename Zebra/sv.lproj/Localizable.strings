@@ -7,16 +7,26 @@
 "Error" = "Fel";
 "Retry" = "Försök igen";
 "Edit" = "Ändra";
-"Login" = "Logga in";
 "Close" = "Stäng";
 "Done" = "Klar";
+"Loading..." = "Laddar...";
 
 // Home
 
 "Home" = "Hem";
 "Info" = "Info";
 "Welcome to Zebra!" = "Välkommen till Zebra!";
+"Report a Bug" = "Rapportera en bugg";
 "Changelog" = "Ändringslogg";
+"Wish List" = "Önskelista";
+"No items in Wish List" = "Inga artiklar på önskelistan";
+"Community" = "Gemenskap";
+"Join our Discord" = "Gå med i vår Discord";
+"Follow us on Twitter" = "Följ oss på Twitter";
+"Help translate Zebra!" = "Hjälp till att översätta Zebra!";
+
+// Community Source
+
 "Community Sources" = "Gemenskapskällor";
 "You’ve added all of the community sources" = "Du har lagt till alla gemenskapskällor";
 "Transfer sources from %@ to Zebra" = "Överför källor från %@ till Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Överför källor";
 "Verifying Source" = "Verifierar källa";
 "Verifying Sources" = "Verifierar källor";
-"Stores" = "Butiker";
-"Purchases" = "Köp";
-"Wish List" = "Önskelista";
-"No items in Wish List" = "Inga artiklar på önskelistan";
-"Community" = "Gemenskap";
-"Join our Discord" = "Gå med i vår Discord";
-"Follow us on Twitter" = "Följ oss på Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Medverkande";
 "Creators" = "Skaparna";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Inställningar";
-"Version" = "Version";
 "Display" = "Visning";
-"Featured" = "Utvalt";
-"News" = "Nyheter";
+"App Icon" = "Appikon";
+"Changes" = "Ändringar";
+"Community News" = "Gemenskapsnyheter";
 "Miscellaneous" = "Övrigt";
-"Advanced" = "Avancerat";
-
-"Report a Bug" = "Rapportera en bugg";
-
-"Accent Color" = "Accentfärg";
+"Swipe Actions Display As" = "Svepåtgärder visas som";
+"Text" = "Text";
+"Icon" = "Ikon";
+"Finish Automatically" = "Slutför automatiskt";
 
 // Accent Colors
 
+"Accent Color" = "Accentfärg";
 "Aqua Velvet" = "Isblå";
 "Cornflower Blue" = "Kornblå";
 "Golden Tainoi" = "Gyllene tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Kungsblå";
 "Shark" = "Hajgrå";
 "Storm" = "Stormgrå";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Stil för mörkt läge";
-"Dark Mode" = "Mörkt läge";
-"Default" = "Standard";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "Appikon";
+// Featured
 
 "Featured Packages" = "Utvalda paket";
-"Random" = "Slumpmässigt";
 "Feature Type" = "Metod för utväljning";
-"Select Sources to be Featured" = "Välj källor att välja ut från";
+"Repo Featured" = "Utvalt av förråd";
+"Random" = "Slumpmässigt";
+"Select Repos to be Featured" = "Välj förråd att välja ut från";
+"Featured Repos" = "Utvalda förråd";
 
-"News" = "Nyheter";
+// Advanced
 
-"Live Search" = "Livesökning";
-
-"Swipe Actions Display As" = "Svepåtgärder visas som";
-"Text" = "Text";
-"Icon" = "Ikon";
+"Advanced" = "Avancerat";
+"Drop Tables" = "Släpp tabeller";
 "Open Documents Directory" = "Öppna dokumentkatalog";
 "Clear Image Cache" = "Rensa bildcachen";
 "Clear Keychain" = "Rensa nyckelringen";
-
-"Loading..." = "Laddar...";
-
 "Resetting image cache completed" = "Återställde bildcachen";
 "Clearing keychain completed" = "Rensade nyckelringen";
 
-"Drop Tables" = "Släpp tabeller";
+// Stores
 
-"Featured Sources" = "Utvalda källor";
-
-"Finish Automatically" = "Slutför automatiskt";
+"Stores" = "Butiker";
+"Account" = "Account";
+"Login" = "Logga in";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "Inga butiker tillgängliga";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Verifierar källor";
 "Unable to verify source" = "Kunde inte verifiera källa";
 "Refresh" = "Uppdatera";
-"Log Out" = "Logga ut";
-"Purchased Packages" = "Köpta paket";
-"Purchased" = "Köpt";
-
 "All Packages" = "Alla paket";
 "Delete" = "Ta bort";
+"Import Sources" = "Importera källor";
+"Updating Sources" = "Uppdaterar källor";
+"Would you like to import the following sources?" = "Vill du importera följande källor?";
+"Failed to add source" = "Misslyckades att lägga till källa";
+"Failed to add sources" = "Misslyckades att lägga till källor";
+"Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
+"Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
+"Import Sources" = "Importera källor";
+"Import" = "Importera";
+"Are you sure that you want to import %d sources into Zebra?" = "Är du säker på att du vill importera %d källor till Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Är du säker på att du vill importera 1 källa till Zebra?";
 
-// Changes
-
-"Changes" = "Ändringar";
 
 // Packages
 
+"Version" = "Version";
 "Packages" = "Paket";
 "Show Updates" = "Visa uppdateringar";
 "Ignore Updates" = "Ignorera uppdateringar";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installerad version: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Installerad storlek: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Stänger Zebra...";
 "Restart SpringBoard" = "Starta om SpringBoard";
 "Restarting SpringBoard..." = "Startar om SpringBoard...";
-"Downloading" = "Laddar ner";
 "Parsing" = "Tolkar";
+"Starting Download" = "Starting Download";
+"Downloading" = "Laddar ner";
 "Downloading Packages..." = "Laddar ner paket...";
+"Download Completed" = "Nedladdning slutförd";
 "Installing" = "Installerar";
 "Installing Packages..." = "Installerar paket...";
 "Removing" = "Tar bort";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 "Done..." = "Klar...";
+"Removing Zebra..." = "Tar bort Zebra...";
+"Installing Zebra..." = "Installerar Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d paket köade";
 "%d Package Queued" = "%d paket köat";
 "Tap to manage" = "Tryck för att hantera";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ är ett nödvändigt paket. Det ska INTE tas bort om du inte vet exakt vad du gör!";
 "Remove from Queue" = "Ta bort från kö";
 
+// Search
+
+"Live Search" = "Livesökning";
+"Tweaks, Themes, and More" = "Anpassningar, teman och mer";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ är ett nödvändigt paket och måste tas bort eftersom det beror på %@. %@ ska INTE tas bort om du inte vet exakt vad du gör!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ägs inte av root:wheel. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Hjälpa till att översätta Zebra!";
 
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Ändra källan för de utvalda paketen på startsidan.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Utvalt\" kommer att visa slumpmässiga paket från källor som stöder API:et för utvalda paket.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Utvalt av förråd\" kommer att visa slumpmässiga paket från förråd som stöder API:et för utvalda paket.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla källor som du har lagt till i Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till i Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avfärda konsolen automatiskt när alla uppgifter har slutförts.";
-
-"Community News" = "Gemenskapsnyheter";
-"Import Sources" = "Importera källor";
-"Updating Sources" = "Uppdaterar källor";
-"Would you like to import the following sources?" = "Vill du importera följande källor?";
-"Download Completed" = "Nedladdning slutförd";
-"Removing Zebra..." = "Tar bort Zebra...";
-"Installing Zebra..." = "Installerar Zebra...";
-
-"Failed to add source" = "Misslyckades att lägga till källa";
-"Failed to add sources" = "Misslyckades att lägga till källor";
-"Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
-"Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
-
-"Import Sources" = "Importera källor";
-"Import" = "Importera";
-
-"No Storefronts Available" = "Inga butiker tillgängliga";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Är du säker på att du vill importera %d källor till Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Är du säker på att du vill importera 1 källa till Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Anpassningar, teman och mer";
