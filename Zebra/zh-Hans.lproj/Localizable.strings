@@ -71,12 +71,12 @@
 "Royal Blue" = "深蓝色";
 "Shark" = "鲨鱼";
 "Storm" = "风暴";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "使用系统配色";
+"Appearance" = "外观";
+"Use System Appearance" = "使用系统外观";
+"Light" = "浅色主题";
+"Dark" = "暗色主题";
+"Pure Black Mode" = "纯黑模式";
 
 // Featured
 
@@ -100,13 +100,13 @@
 // Stores
 
 "Stores" = "商店";
-"Account" = "Account";
+"Account" = "账户";
 "Login" = "登录";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "登出";
+"Your Purchases" = "已购买";
 "No Storefronts Available" = "无可用的店铺";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "无法完成购买操作";
+"Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
 
 // Sources
 
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "重启 SpringBoard";
 "Restarting SpringBoard..." = "正在重启 SpringBoard ……";
 "Parsing" = "正在解析";
-"Starting Download" = "Starting Download";
+"Starting Download" = "正在开始下载";
 "Downloading" = "正在下载";
 "Downloading Packages..." = "正在下载软件包……";
 "Download Completed" = "下载完成";
@@ -358,6 +358,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
