@@ -71,12 +71,12 @@
 "Royal Blue" = "Blu mbretërore";
 "Shark" = "Peshkaqen";
 "Storm" = "Stuhi";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Përdorni ngjyrën e theksuar të sistemit";
+"Appearance" = "Pamja";
+"Use System Appearance" = "Përdorni pamjen e sistemit";
+"Light" = "E lehtë";
+"Dark" = "E errët";
+"Pure Black Mode" = "E zezë e errët";
 
 // Featured
 
@@ -100,13 +100,13 @@
 // Stores
 
 "Stores" = "Dyqani";
-"Account" = "Account";
+"Account" = "Llogaria";
 "Login" = "Futu";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Dilni";
+"Your Purchases" = "Pagesat e juaja";
 "No Storefronts Available" = "Asnjë dyqan fronti në dispozicion";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Nuk mund të kryhet pagesa";
+"Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
 
 // Sources
 
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
 "Restarting SpringBoard..." = "Duke rifilluar SpringBoard-in...";
 "Parsing" = "Duke analizuar";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Duke filluar shkarkimin";
 "Downloading" = "Duke u shkarkuar";
 "Downloading Packages..." = "Shkarkimi i Paketave...";
 "Download Completed" = "Shkarkimi Përfundoi";
@@ -319,7 +319,7 @@
 // Search
 
 "Live Search" = "Kërkimi i Drejtpërdrejtë";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaks, Themes, dhe të tjera";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar dhe nuk duhet hequr sepse ajo varet nga %@. %@ nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
@@ -358,6 +358,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"I rastësishëm\" do të shfaq paketat e rastësishme nga të gjitha repot që keni shtuar në Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Duke hyrë në burime lejon që të blihen paketat me pages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
