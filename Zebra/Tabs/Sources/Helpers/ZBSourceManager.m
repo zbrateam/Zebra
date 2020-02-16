@@ -150,7 +150,11 @@
     }
     
     //Delete files from featured.plist (if they exist)
-    
+    NSMutableDictionary *featured = [NSMutableDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
+    if ([featured objectForKey:[source baseFilename]]) {
+        [featured removeObjectForKey:[source baseFilename]];
+    }
+    [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:false];
 }
 
 //TODO: This needs error pointers
