@@ -7,16 +7,26 @@
 "Error" = "오류";
 "Retry" = "재시도";
 "Edit" = "편집";
-"Login" = "로그인";
 "Close" = "닫기";
 "Done" = "완료";
+"Loading..." = "불러오는 중...";
 
 // Home
 
 "Home" = "홈";
 "Info" = "정보";
 "Welcome to Zebra!" = "Zebra에 오신걸 환영합니다!";
+"Report a Bug" = "버그 신고";
 "Changelog" = "변경 사항";
+"Wish List" = "위시 리스트";
+"No items in Wish List" = "위시리스트가 비었습니다.";
+"Community" = "커뮤니티";
+"Join our Discord" = "우리의 Discord에 참여하세요";
+"Follow us on Twitter" = "Twitter에서 우리를 팔로우하세요";
+"Help translate Zebra!" = "Zebra의 번역을 도와주세요!";
+
+// Community Source
+
 "Community Sources" = "커뮤니티 소스";
 "You’ve added all of the community sources" = "모든 커뮤니티 소스를 추가했습니다.";
 "Transfer sources from %@ to Zebra" = "%@에서 Zebra로 소스 가져오기";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "소스 이전";
 "Verifying Source" = "소스 검증 중";
 "Verifying Sources" = "소스 검증 중";
-"Stores" = "스토어";
-"Purchases" = "구매 기록";
-"Wish List" = "위시 리스트";
-"No items in Wish List" = "위시리스트가 비었습니다.";
-"Community" = "커뮤니티";
-"Join our Discord" = "우리의 Discord에 참여하세요";
-"Follow us on Twitter" = "Twitter에서 우리를 팔로우하세요";
 
-//Credits
+// Credits
 
 "Credits" = "크레딧";
 "Creators" = "만든 사람";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "설정";
-"Version" = "버전";
 "Display" = "디스플레이";
-"Featured" = "선정된 패키지";
-"News" = "뉴스";
+"App Icon" = "앱 아이콘";
+"Changes" = "변경";
+"Community News" = "커뮤니티 뉴스";
 "Miscellaneous" = "기타 여러가지 기능";
-"Advanced" = "고급";
-
-"Report a Bug" = "버그 신고";
-
-"Accent Color" = "강조 컬러";
+"Swipe Actions Display As" = "스와이프 동작 표시";
+"Text" = "텍스트";
+"Icon" = "아이콘";
+"Finish Automatically" = "작업이 완료되면 콘솔 닫기";
 
 // Accent Colors
 
+"Accent Color" = "강조 컬러";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "다크 모드 스타일";
-"Dark Mode" = "다크 모드";
-"Default" = "기본";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "앱 아이콘";
+// Featured
 
 "Featured Packages" = "선정된 패키지";
-"Random" = "랜덤";
 "Feature Type" = "선정 방법: ";
-"Select Sources to be Featured" = "선정될 소스 선택";
+"Repo Featured" = "레포에서 선정";
+"Random" = "랜덤";
+"Select Repos to be Featured" = "선정될 레포 선택";
+"Featured Repos" = "선정된 레포";
 
-"News" = "뉴스";
+// Advanced
 
-"Live Search" = "실시간 검색";
-
-"Swipe Actions Display As" = "스와이프 동작 표시";
-"Text" = "텍스트";
-"Icon" = "아이콘";
+"Advanced" = "고급";
+"Drop Tables" = "테이블 버리기";
 "Open Documents Directory" = "문서 디렉토리 열기";
 "Clear Image Cache" = "이미지 캐시 지우기";
 "Clear Keychain" = "키체인 지우기";
-
-"Loading..." = "불러오는 중...";
-
 "Resetting image cache completed" = "이미지 캐시 초기화 완료";
 "Clearing keychain completed" = "키체인 지우기 완료";
 
-"Drop Tables" = "테이블 버리기";
+// Stores
 
-"Featured Sources" = "선정된 소스";
-
-"Finish Automatically" = "작업이 완료되면 콘솔 닫기";
+"Stores" = "스토어";
+"Account" = "Account";
+"Login" = "로그인";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "사용 가능한 스토어 없음";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "소스를 검증하는 중";
 "Unable to verify source" = "소스를 검증할 수 없음";
 "Refresh" = "새로고침";
-"Log Out" = "로그아웃";
-"Purchased Packages" = "구매된 패키지";
-"Purchased" = "구매됨";
-
 "All Packages" = "모든 패키지";
 "Delete" = "제거";
+"Import Sources" = "소스 가져오기";
+"Updating Sources" = "소스 업데이트 중";
+"Would you like to import the following sources?" = "다음 소스들을 가져올까요?";
+"Failed to add source" = "소스 추가를 실패했습니다.";
+"Failed to add sources" = "소스 추가를 실패했습니다.";
+"Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
+"Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
+"Import Sources" = "소스 가져오기";
+"Import" = "가져오기";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "변경";
 
 // Packages
 
+"Version" = "버전";
 "Packages" = "패키지";
 "Show Updates" = "업데이트 표시";
 "Ignore Updates" = "업데이트 무시";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (설치된 버전: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (설치된 크기: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Zebra를 닫는 중...";
 "Restart SpringBoard" = "SpringBoard 재시작";
 "Restarting SpringBoard..." = "SpringBoard를 재시작하는 중...";
-"Downloading" = "다운로드 중";
 "Parsing" = "파싱";
+"Starting Download" = "Starting Download";
+"Downloading" = "다운로드 중";
 "Downloading Packages..." = "패키지 다운로드 중...";
+"Download Completed" = "다운로드 완료";
 "Installing" = "설치 중";
 "Installing Packages..." = "패키지 설치 중...";
 "Removing" = "삭제 중";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
 "Done..." = "완료...";
+"Removing Zebra..." = "Zebra 제거중...";
+"Installing Zebra..." = "Zebra 설치중...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d개의 패키지 대기 중";
 "%d Package Queued" = "%d개의 패키지 대기 중";
 "Tap to manage" = "탭하여 관리하기";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지입니다. 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
 "Remove from Queue" = "대기열에서 제거";
 
+// Search
+
+"Live Search" = "실시간 검색";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지이며 %@에 의존하기 때문에 삭제되어야 합니다. %@ 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling을 root:wheel이 소유하지 않고 있습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
-
-"Help translate Zebra!" = "Zebra의 번역을 도와주세요!";
 
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "홈 화면의 선정된 패키지를 구성할 데이터의 위치를 변경합니다.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"선정된 패키지\"는 선정된 패키지 API를 지원하는 소스의 패키지를 랜덤으로 표시합니다.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"레포에서 선정\"은 선정된 패키지 API를 지원하는 레포의 패키지를 랜덤으로 표시합니다.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 소스에서 랜덤으로 패키지를 표시합니다.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 저장소에서 랜덤으로 패키지를 표시합니다.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
-
-"Community News" = "커뮤니티 뉴스";
-"Import Sources" = "소스 가져오기";
-"Updating Sources" = "소스 업데이트 중";
-"Would you like to import the following sources?" = "다음 소스들을 가져올까요?";
-"Download Completed" = "다운로드 완료";
-"Removing Zebra..." = "Zebra 제거중...";
-"Installing Zebra..." = "Zebra 설치중...";
-
-"Failed to add source" = "소스 추가를 실패했습니다.";
-"Failed to add sources" = "소스 추가를 실패했습니다.";
-"Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
-"Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
-
-"Import Sources" = "소스 가져오기";
-"Import" = "가져오기";
-
-"No Storefronts Available" = "사용 가능한 스토어 없음";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
