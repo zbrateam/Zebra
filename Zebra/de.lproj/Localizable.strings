@@ -71,12 +71,12 @@
 "Royal Blue" = "Königsblau";
 "Shark" = "Hai";
 "Storm" = "Sturm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Systemakzentfarbe verwenden";
+"Appearance" = "Aussehen";
+"Use System Appearance" = "System-Erscheinungsbild verwenden";
+"Light" = "Hell";
+"Dark" = "Dunkel";
+"Pure Black Mode" = "Reiner Schwarzmodus";
 
 // Featured
 
@@ -100,13 +100,13 @@
 // Stores
 
 "Stores" = "Shop";
-"Account" = "Account";
+"Account" = "Benutzerkonto";
 "Login" = "Anmelden";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Abmelden";
+"Your Purchases" = "Ihre Käufe";
 "No Storefronts Available" = "Keine Schaufenstern verfügbar";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Kauf konnte nicht abgeschlossen werden";
+"Could not complete purchase, no payment secret was found" = "Kauf konnte nicht abgeschlossen werden, da kein Zahlungsgeheimnis gefunden wurde";
 
 // Sources
 
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "SpringBoard neu starten";
 "Restarting SpringBoard..." = "SpringBoard wird neu gestartet...";
 "Parsing" = "Wird analysiert";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Download wird gestartet";
 "Downloading" = "Herunterladen";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Download Completed" = "Herunterladen abgeschlossen";
@@ -319,7 +319,7 @@
 // Search
 
 "Live Search" = "Live-Suche";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaks, Themes und mehr";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ ist ein erforderliches Paket und muss entfernt werden, da es von %@ abhängt. %@ sollte NICHT entfernt werden, außer Sie wissen genau, was Sie tun!";
@@ -358,6 +358,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Zufällig\" wird zufällige Pakete aus allen Quellen anzeigen die zu Zebra hinzugefügt wurden.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Das Anmelden in Quellen ermöglicht den Kauf von kostenpflichtigen Paketen.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Konsole automatisch schliessen, wenn alle Aufgaben abgeschlossen sind.";
