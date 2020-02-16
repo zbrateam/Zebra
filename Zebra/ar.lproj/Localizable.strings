@@ -7,16 +7,26 @@
 "Error" = "خطأ";
 "Retry" = "إعادة المحاولة";
 "Edit" = "تعديل";
-"Login" = "تسجيل الدخول";
 "Close" = "إغلاق";
 "Done" = "تم";
+"Loading..." = "جارِ التحميل...";
 
 // Home
 
 "Home" = "الرئيسية";
 "Info" = "معلومات";
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
+"Report a Bug" = "الإبلاغ عن خطأ";
 "Changelog" = "التغييرات";
+"Wish List" = "قائمة الأمنيات";
+"No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
+"Community" = "المجتمع";
+"Join our Discord" = "انضم لنا على Discord";
+"Follow us on Twitter" = "تابعنا على تويتر";
+"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
+
+// Community Source
+
 "Community Sources" = "مصادر المجتمع";
 "You’ve added all of the community sources" = "لقد أضفت كل مصادر المجتمع";
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "تحويل المصادر";
 "Verifying Source" = "جارِ التحقق من المصدر";
 "Verifying Sources" = "جارِ التحقق من المصادر";
-"Stores" = "المتاجر";
-"Purchases" = "المشتريات";
-"Wish List" = "قائمة الأمنيات";
-"No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
-"Community" = "المجتمع";
-"Join our Discord" = "انضم لنا على Discord";
-"Follow us on Twitter" = "تابعنا على تويتر";
 
-//Credits
+// Credits
 
 "Credits" = "الإعتمادات";
 "Creators" = "المنشئون";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "الإعدادات";
-"Version" = "الإصدار";
 "Display" = "عرض";
-"Featured" = "مميز";
-"News" = "الأخبار";
+"App Icon" = "أيقونة التطبيق";
+"Changes" = "التغييرات";
+"Community News" = "أخبار المجتمع";
 "Miscellaneous" = "متنوع";
-"Advanced" = "متقدم";
-
-"Report a Bug" = "الإبلاغ عن خطأ";
-
-"Accent Color" = "اللون الثانوي";
+"Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
+"Text" = "نص";
+"Icon" = "أيقونة";
+"Finish Automatically" = "Finish Automatically";
 
 // Accent Colors
 
+"Accent Color" = "اللون الثانوي";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "نمط الوضع الداكن";
-"Dark Mode" = "الوضع الداكن";
-"Default" = "افتراضي";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "أيقونة التطبيق";
+// Featured
 
 "Featured Packages" = "الحزم المميزة";
-"Random" = "عشوائي";
 "Feature Type" = "نوع الميزة";
-"Select Sources to be Featured" = "حدد المصادر لتمييزها";
+"Repo Featured" = "الحزم المميزة في المصدر";
+"Random" = "عشوائي";
+"Select Repos to be Featured" = "حدد المصادر لتمييزها";
+"Featured Repos" = "المستودعات المميزة";
 
-"News" = "الأخبار";
+// Advanced
 
-"Live Search" = "بحث مباشر";
-
-"Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
-"Text" = "نص";
-"Icon" = "أيقونة";
+"Advanced" = "متقدم";
+"Drop Tables" = "حذف قاعدة البيانات";
 "Open Documents Directory" = "فتح دليل المستندات";
 "Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
 "Clear Keychain" = "مسح بيانات تسجيل الدخول";
-
-"Loading..." = "جارِ التحميل...";
-
 "Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
 "Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
 
-"Drop Tables" = "حذف قاعدة البيانات";
+// Stores
 
-"Featured Sources" = "المصادر المميزة";
-
-"Finish Automatically" = "Finish Automatically";
+"Stores" = "المتاجر";
+"Account" = "Account";
+"Login" = "تسجيل الدخول";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Unable to verify source" = "غير قادر على التحقق من المصدر";
 "Refresh" = "تحديث";
-"Log Out" = "تسجيل خروج";
-"Purchased Packages" = "الحزم المشتراة";
-"Purchased" = "المشتريات";
-
 "All Packages" = "كل الحزم";
 "Delete" = "حذف";
+"Import Sources" = "استيراد المصادر";
+"Updating Sources" = "جارِ تحديث المصادر";
+"Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
+"Failed to add source" = "فشل في إضافة المصدر";
+"Failed to add sources" = "فشل في إضافة المصادر";
+"Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
+"Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
+"Import Sources" = "استيراد المصادر";
+"Import" = "استيراد";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "التغييرات";
 
 // Packages
 
+"Version" = "الإصدار";
 "Packages" = "الحزم";
 "Show Updates" = "إظهار التحديثات";
 "Ignore Updates" = "تجاهل التحديثات";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (الإصدار المثبت: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (الحجم المثبت: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Downloading" = "جارِ التنزيل";
 "Parsing" = "جارِ التحليل";
+"Starting Download" = "Starting Download";
+"Downloading" = "جارِ التنزيل";
 "Downloading Packages..." = "تنزيل الحزم...";
+"Download Completed" = "إكتمل التنزيل";
 "Installing" = "جارِ التثبيت";
 "Installing Packages..." = "تثبيت الحزم...";
 "Removing" = "جارِ الإزالة";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 "Done..." = "Done...";
+"Removing Zebra..." = "جارِ إزالة Zebra...";
+"Installing Zebra..." = "جارِ تثبيت Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d حزم في قائمة الإنتظار";
 "%d Package Queued" = "%d حزمة في قائمة الإنتظار";
 "Tap to manage" = "اضغط للإدارة";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة. لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
 "Remove from Queue" = "إزالة من قائمة الإنتظار";
 
+// Search
+
+"Live Search" = "بحث مباشر";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة ويجب إزالتها لأنها تعتمد على %@. حزمة %@ لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليست مملوكة من قبل root:wheel. يرجى التحقق من أذونات الملف الموجودة في /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
 
 "Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "تغيير مصدر الحزم المميزة على الصفحة الرئيسية.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"مميز\" سيعرض حزم عشوائية من المصادر التي تدعم API الحزمة المميزة.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"المستودع المميز\" سيعرض حزم عشوائية من المستودعات التي تدعم API الحزمة المميزة.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المصادر التي أضفتها إلى Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
-
-"Community News" = "أخبار المجتمع";
-"Import Sources" = "استيراد المصادر";
-"Updating Sources" = "جارِ تحديث المصادر";
-"Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
-"Download Completed" = "إكتمل التنزيل";
-"Removing Zebra..." = "جارِ إزالة Zebra...";
-"Installing Zebra..." = "جارِ تثبيت Zebra...";
-
-"Failed to add source" = "فشل في إضافة المصدر";
-"Failed to add sources" = "فشل في إضافة المصادر";
-"Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
-"Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
-
-"Import Sources" = "استيراد المصادر";
-"Import" = "استيراد";
-
-"No Storefronts Available" = "No Storefronts Available";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
