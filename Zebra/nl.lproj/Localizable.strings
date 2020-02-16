@@ -7,16 +7,26 @@
 "Error" = "Fout";
 "Retry" = "Probeer opnieuw";
 "Edit" = "Wijzig";
-"Login" = "Aanmelden";
 "Close" = "Sluiten";
 "Done" = "Klaar";
+"Loading..." = "Aan het laden...";
 
 // Home
 
 "Home" = "Thuis";
 "Info" = "Informatie";
 "Welcome to Zebra!" = "Welkom bij Zebra!";
+"Report a Bug" = "Meld een fout";
 "Changelog" = "Wijzigingslogboek";
+"Wish List" = "Verlanglijst";
+"No items in Wish List" = "Geen voorwerpen in de verlanglijst";
+"Community" = "Gemeenschap";
+"Join our Discord" = "Treed toe tot onze Discord";
+"Follow us on Twitter" = "Volg ons op Twitter";
+"Help translate Zebra!" = "Help Zebra te vertalen!";
+
+// Community Source
+
 "Community Sources" = "Gemeenschaps Bronnen";
 "You’ve added all of the community sources" = "Je hebt alle gemeenschaps bronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Verplaats Bronnen";
 "Verifying Source" = "Bron verifiëren";
 "Verifying Sources" = "Bronnen verifiëren";
-"Stores" = "Winkel";
-"Purchases" = "Aankopen";
-"Wish List" = "Verlanglijst";
-"No items in Wish List" = "Geen voorwerpen in de verlanglijst";
-"Community" = "Gemeenschap";
-"Join our Discord" = "Treed toe tot onze Discord";
-"Follow us on Twitter" = "Volg ons op Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Met dank aan";
 "Creators" = "Makers";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Instellingen";
-"Version" = "Versie";
 "Display" = "Weergeven";
-"Featured" = "Uitgelicht";
-"News" = "Nieuws";
+"App Icon" = "App Icoon";
+"Changes" = "Veranderingen";
+"Community News" = "Gemeenschapsnieuws";
 "Miscellaneous" = "Diversen";
-"Advanced" = "Geavanceerd";
-
-"Report a Bug" = "Meld een fout";
-
-"Accent Color" = "Accentkleur";
+"Swipe Actions Display As" = "Veeg Acties Weergeven Als";
+"Text" = "Tekst";
+"Icon" = "Icoon";
+"Finish Automatically" = "Automatisch Voltooien";
 
 // Accent Colors
 
+"Accent Color" = "Accentkleur";
 "Aqua Velvet" = "Aqua Fluweel";
 "Cornflower Blue" = "Korenbloem Blauw";
 "Golden Tainoi" = "Gouden Tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Koningsblauw";
 "Shark" = "Haai";
 "Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Donkere Modus Stijl";
-"Dark Mode" = "Donkere modus";
-"Default" = "Standaard";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "App Icoon";
+// Featured
 
 "Featured Packages" = "Uitgelichte Pakketten";
-"Random" = "Willekeurig";
 "Feature Type" = "Uitgelicht type";
-"Select Sources to be Featured" = "Selecteer bronnen om uitgelicht te worden";
+"Repo Featured" = "Uitgelichte Bron";
+"Random" = "Willekeurig";
+"Select Repos to be Featured" = "Selecteer een repo om deze uit te lichten";
+"Featured Repos" = "Aanbevolen Repos";
 
-"News" = "Nieuws";
+// Advanced
 
-"Live Search" = "Live zoeken";
-
-"Swipe Actions Display As" = "Veeg Acties Weergeven Als";
-"Text" = "Tekst";
-"Icon" = "Icoon";
+"Advanced" = "Geavanceerd";
+"Drop Tables" = "Tabellen verwijderen";
 "Open Documents Directory" = "Open Documentenmap";
 "Clear Image Cache" = "Leeg de afbeeldingencache";
 "Clear Keychain" = "Leeg de sleutelhanger";
-
-"Loading..." = "Aan het laden...";
-
 "Resetting image cache completed" = "Legen van de afbeeldingencache is gelukt";
 "Clearing keychain completed" = "Legen van de sleutelhanger is gelukt";
 
-"Drop Tables" = "Tabellen verwijderen";
+// Stores
 
-"Featured Sources" = "Uitgelichte Bronnen";
-
-"Finish Automatically" = "Automatisch Voltooien";
+"Stores" = "Winkel";
+"Account" = "Account";
+"Login" = "Aanmelden";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "Geen etalages beschikbaar";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Bron(nen) verifiëren";
 "Unable to verify source" = "Kan bron niet verifiëren";
 "Refresh" = "Ververs";
-"Log Out" = "Log Uit";
-"Purchased Packages" = "Gekochte pakketten";
-"Purchased" = "Gekocht";
-
 "All Packages" = "Alle pakketten";
 "Delete" = "Verwijder";
+"Import Sources" = "Importeer Bronnen";
+"Updating Sources" = "Bronnen aan het updaten";
+"Would you like to import the following sources?" = "Wilt u de volgende bronnen importeren?";
+"Failed to add source" = "Bron toevoegen mislukt";
+"Failed to add sources" = "Bronnen toevoegen mislukt";
+"Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
+"Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
+"Import Sources" = "Importeer Bronnen";
+"Import" = "Importeren";
+"Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
+"Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
 
-// Changes
-
-"Changes" = "Veranderingen";
 
 // Packages
 
+"Version" = "Versie";
 "Packages" = "Pakketten";
 "Show Updates" = "Toon updates";
 "Ignore Updates" = "Negeer updates";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (geïnstalleerde versie: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Geïnstalleerde grootte: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Zebra Sluiten...";
 "Restart SpringBoard" = "Herstart SpringBoard";
 "Restarting SpringBoard..." = "SpringBoard Herstarten...";
-"Downloading" = "Aan het downloaden";
 "Parsing" = "Parseren";
+"Starting Download" = "Starting Download";
+"Downloading" = "Aan het downloaden";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
+"Download Completed" = "Download Compleet";
 "Installing" = "Aan het installeren";
 "Installing Packages..." = "Pakketten aan het installeren...";
 "Removing" = "Aan het verwijderen";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 "Done..." = "Gedaan...";
+"Removing Zebra..." = "Zebra Verwijderen...";
+"Installing Zebra..." = "Zebra Installeren...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d pakketten in de wachtrij";
 "%d Package Queued" = "%d Pakket In de wachtrij";
 "Tap to manage" = "Tik om te beheren";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket. Het mag NIET verwijderd worden tenzij u precies weet wat u doet!";
 "Remove from Queue" = "Verwijder uit wachtrij";
 
+// Search
+
+"Live Search" = "Live zoeken";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket en moet verwijderd worden omdat het afhankelijk is van %@. %@ mag NIET worden verwijderd tenzij u precies weet wat u doet!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is geen eigendom van root:wheel. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling heeft geen toestemming om de uid of gid in te stellen. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Help Zebra te vertalen!";
 
 "Could not respring. Please respring manually." = "Kon niet herladen. Laad handmatig opnieuw.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\\”Uitgelicht”\\ laat willekeurige pakketten zien van bronnen die de Features Package API ondersteunen.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Repos \" zullen willekeurige pakketten weergeven van repo's die de Featured Package API ondersteunen.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\\”Willekeurig\\” zal willekeurige pakketten laten zien van alle bronnen die je aan Zebra hebt toegevoegd.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Sluit de console automatisch wanneer alle taken zijn voltooid.";
-
-"Community News" = "Gemeenschapsnieuws";
-"Import Sources" = "Importeer Bronnen";
-"Updating Sources" = "Bronnen aan het updaten";
-"Would you like to import the following sources?" = "Wilt u de volgende bronnen importeren?";
-"Download Completed" = "Download Compleet";
-"Removing Zebra..." = "Zebra Verwijderen...";
-"Installing Zebra..." = "Zebra Installeren...";
-
-"Failed to add source" = "Bron toevoegen mislukt";
-"Failed to add sources" = "Bronnen toevoegen mislukt";
-"Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
-"Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
-
-"Import Sources" = "Importeer Bronnen";
-"Import" = "Importeren";
-
-"No Storefronts Available" = "Geen etalages beschikbaar";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
-"Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
