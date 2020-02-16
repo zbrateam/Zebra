@@ -7,16 +7,26 @@
 "Error" = "エラー";
 "Retry" = "再試行";
 "Edit" = "編集";
-"Login" = "ログイン";
 "Close" = "閉じる";
 "Done" = "完了";
+"Loading..." = "読み込み中...";
 
 // Home
 
 "Home" = "ホーム";
 "Info" = "情報";
 "Welcome to Zebra!" = "Zebra へようこそ！";
+"Report a Bug" = "バグを報告";
 "Changelog" = "変更履歴";
+"Wish List" = "ほしいものリスト";
+"No items in Wish List" = "ほしいものリストには何もありません";
+"Community" = "コミュニティ";
+"Join our Discord" = "Discord に参加";
+"Follow us on Twitter" = "Twitter でフォローする";
+"Help translate Zebra!" = "Zebra の翻訳に協力する!";
+
+// Community Source
+
 "Community Sources" = "コミュニティリポジトリ";
 "You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "リポジトリの読み込み";
 "Verifying Source" = "リポジトリを検証中";
 "Verifying Sources" = "リポジトリを検証中";
-"Stores" = "ストア";
-"Purchases" = "購入リスト";
-"Wish List" = "ほしいものリスト";
-"No items in Wish List" = "ほしいものリストには何もありません";
-"Community" = "コミュニティ";
-"Join our Discord" = "Discord に参加";
-"Follow us on Twitter" = "Twitter でフォローする";
 
-//Credits
+// Credits
 
 "Credits" = "クレジット";
 "Creators" = "作成者";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "設定";
-"Version" = "バージョン";
 "Display" = "表示設定";
-"Featured" = "パッケージ特集";
-"News" = "ニュース";
+"App Icon" = "アプリのアイコン";
+"Changes" = "更新履歴";
+"Community News" = "コミュニティニュース";
 "Miscellaneous" = "その他";
-"Advanced" = "高度";
-
-"Report a Bug" = "バグを報告";
-
-"Accent Color" = "アクセントカラー";
+"Swipe Actions Display As" = "スワイプで表示する方法";
+"Text" = "テキスト";
+"Icon" = "アイコン";
+"Finish Automatically" = "自動的に終了";
 
 // Accent Colors
 
+"Accent Color" = "アクセントカラー";
 "Aqua Velvet" = "アクアベルベット";
 "Cornflower Blue" = "コーンフラワーブルー";
 "Golden Tainoi" = "ゴールデンタイノイ";
@@ -68,41 +71,42 @@
 "Royal Blue" = "ロイヤルブルー";
 "Shark" = "サメ色";
 "Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "ダークモード";
-"Dark Mode" = "ダークモード";
-"Default" = "デフォルト";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "アプリのアイコン";
+// Featured
 
 "Featured Packages" = "注目されているパッケージ";
-"Random" = "ランダム";
 "Feature Type" = "表示内容";
-"Select Sources to be Featured" = "リポジトリを選択";
+"Repo Featured" = "注目のリポジトリ";
+"Random" = "ランダム";
+"Select Repos to be Featured" = "リポジトリを選択";
+"Featured Repos" = "注目のリポジトリ";
 
-"News" = "ニュース";
+// Advanced
 
-"Live Search" = "ライブ検索";
-
-"Swipe Actions Display As" = "スワイプで表示する方法";
-"Text" = "テキスト";
-"Icon" = "アイコン";
+"Advanced" = "高度";
+"Drop Tables" = "テーブルの削除";
 "Open Documents Directory" = "ドキュメントディレクトリを開く";
 "Clear Image Cache" = "画像キャッシュをクリア";
 "Clear Keychain" = "キーチェーンをクリア";
-
-"Loading..." = "読み込み中...";
-
 "Resetting image cache completed" = "画像キャッシュをクリアしました";
 "Clearing keychain completed" = "キーチェーンをクリアしました";
 
-"Drop Tables" = "テーブルの削除";
+// Stores
 
-"Featured Sources" = "注目のリポジトリ";
-
-"Finish Automatically" = "自動的に終了";
+"Stores" = "ストア";
+"Account" = "Account";
+"Login" = "ログイン";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "利用できるストアがありません。";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "リポジトリの検証中";
 "Unable to verify source" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
-"Log Out" = "ログアウト";
-"Purchased Packages" = "購入したパッケージ";
-"Purchased" = "購入済み";
-
 "All Packages" = "すべてのパッケージ";
 "Delete" = "削除";
+"Import Sources" = "リポジトリを追加する";
+"Updating Sources" = "リポジトリを更新中";
+"Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
+"Failed to add source" = "リポジトリの追加に失敗しました";
+"Failed to add sources" = "リポジトリの追加に失敗しました";
+"Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
+"Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
+"Import Sources" = "リポジトリを追加する";
+"Import" = "インポート";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "更新履歴";
 
 // Packages
 
+"Version" = "バージョン";
 "Packages" = "パッケージ";
 "Show Updates" = "アップデートを表示";
 "Ignore Updates" = "アップデートを無視";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (インストール済み: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Restarting SpringBoard..." = "SpringBoard を再起動しています...";
-"Downloading" = "ダウンロードしています";
 "Parsing" = "処理中";
+"Starting Download" = "Starting Download";
+"Downloading" = "ダウンロードしています";
 "Downloading Packages..." = "パッケージをダウンロードします...";
+"Download Completed" = "ダウンロード完了";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
 "Removing" = "削除しています";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
 "Done..." = "完了...";
+"Removing Zebra..." = "Zebra を削除しています...";
+"Installing Zebra..." = "Zebra をインストールしています...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d 個のパッケージがキューされてます";
 "%d Package Queued" = "%d 個のパッケージがキューされてます";
 "Tap to manage" = "タップして管理";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
 "Remove from Queue" = "キューから削除";
 
+// Search
+
+"Live Search" = "ライブ検索";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
-
-"Help translate Zebra!" = "Zebra の翻訳に協力する!";
 
 "Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのリポジトリを変更します。";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
-
-"Community News" = "コミュニティニュース";
-"Import Sources" = "リポジトリを追加する";
-"Updating Sources" = "リポジトリを更新中";
-"Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
-"Download Completed" = "ダウンロード完了";
-"Removing Zebra..." = "Zebra を削除しています...";
-"Installing Zebra..." = "Zebra をインストールしています...";
-
-"Failed to add source" = "リポジトリの追加に失敗しました";
-"Failed to add sources" = "リポジトリの追加に失敗しました";
-"Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
-"Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
-
-"Import Sources" = "リポジトリを追加する";
-"Import" = "インポート";
-
-"No Storefronts Available" = "利用できるストアがありません。";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
