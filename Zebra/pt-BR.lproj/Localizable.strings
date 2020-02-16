@@ -71,12 +71,12 @@
 "Royal Blue" = "Azul Real";
 "Shark" = "Tubarão";
 "Storm" = "Tempestade";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Usar modo de cor padrão do sistema";
+"Appearance" = "Aparência";
+"Use System Appearance" = "Usar Aparência do Sistema";
+"Light" = "Claro";
+"Dark" = "Escuro";
+"Pure Black Mode" = "Modo escuro puro";
 
 // Featured
 
@@ -100,12 +100,12 @@
 // Stores
 
 "Stores" = "Lojas";
-"Account" = "Account";
+"Account" = "Conta";
 "Login" = "Iniciar sessão";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Encerrar sessão";
+"Your Purchases" = "Suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
-"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase" = "Não foi possível concluir a compra";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Restarting SpringBoard..." = "Reiniciando o SpringBoard...";
 "Parsing" = "Analisando";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Iniciando Download";
 "Downloading" = "Baixando";
 "Downloading Packages..." = "Baixando Pacotes...";
 "Download Completed" = "Download concluído";
