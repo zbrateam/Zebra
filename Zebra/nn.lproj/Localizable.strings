@@ -7,16 +7,26 @@
 "Error" = "Feil";
 "Retry" = "Prøv på nytt";
 "Edit" = "Endre";
-"Login" = "Logg inn";
 "Close" = "Lukk";
 "Done" = "Ferdig";
+"Loading..." = "Laster...";
 
 // Home
 
 "Home" = "Heim";
 "Info" = "Info";
 "Welcome to Zebra!" = "Velkommen til Zebra!";
+"Report a Bug" = "Rapporter ein feil";
 "Changelog" = "Endringslogg";
+"Wish List" = "Ønskeliste";
+"No items in Wish List" = "Ingen element i ønskelisten";
+"Community" = "Sosialt";
+"Join our Discord" = "Bli med i vår Discord";
+"Follow us on Twitter" = "Følg oss på Twitter";
+"Help translate Zebra!" = "Hjelp til med å omsetja Zebra!";
+
+// Community Source
+
 "Community Sources" = "Felleskjelder";
 "You’ve added all of the community sources" = "Du har lagt til alle felleskjeldene";
 "Transfer sources from %@ to Zebra" = "Overfør kjelder frå %@ til Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Overfør kjelder";
 "Verifying Source" = "Verifiserer kjelde";
 "Verifying Sources" = "Verifiserer kjelder";
-"Stores" = "Butikkar";
-"Purchases" = "Kjøp";
-"Wish List" = "Ønskeliste";
-"No items in Wish List" = "Ingen element i ønskelisten";
-"Community" = "Sosialt";
-"Join our Discord" = "Bli med i vår Discord";
-"Follow us on Twitter" = "Følg oss på Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Bidragsytarar";
 "Creators" = "Utviklarar";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Innstillingar";
-"Version" = "Versjon";
 "Display" = "Utsjåande";
-"Featured" = "Utvalt";
-"News" = "Nyheiter";
+"App Icon" = "App ikon";
+"Changes" = "Endringar";
+"Community News" = "Nyheitene frå fellesskapet";
 "Miscellaneous" = "Diverse";
-"Advanced" = "Avansert";
-
-"Report a Bug" = "Rapporter ein feil";
-
-"Accent Color" = "Aksentfarge";
+"Swipe Actions Display As" = "Sveiphandlingar blir vist som";
+"Text" = "Tekst";
+"Icon" = "Ikon";
+"Finish Automatically" = "Fullfør automatisk";
 
 // Accent Colors
 
+"Accent Color" = "Aksentfarge";
 "Aqua Velvet" = "Isblå";
 "Cornflower Blue" = "Kornblå";
 "Golden Tainoi" = "Honninggull";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Kongeblå";
 "Shark" = "Haigrå";
 "Storm" = "Stormgrå";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Mørk modus stil";
-"Dark Mode" = "Mørk modus";
-"Default" = "Standard";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "App ikon";
+// Featured
 
 "Featured Packages" = "Utvalde pakkar";
-"Random" = "Tilfeldig";
 "Feature Type" = "Utvald type";
-"Select Sources to be Featured" = "Vel utvalde kjelder";
+"Repo Featured" = "Kjelder utvalt";
+"Random" = "Tilfeldig";
+"Select Repos to be Featured" = "Vel utvalde kjelder";
+"Featured Repos" = "Utvalde kjelder";
 
-"News" = "Nyheiter";
+// Advanced
 
-"Live Search" = "Live søk";
-
-"Swipe Actions Display As" = "Sveiphandlingar blir vist som";
-"Text" = "Tekst";
-"Icon" = "Ikon";
+"Advanced" = "Avansert";
+"Drop Tables" = "Slipp tabeller";
 "Open Documents Directory" = "Opne dokument filplassering";
 "Clear Image Cache" = "Taum bildebufferen";
 "Clear Keychain" = "Taum nøkkelring";
-
-"Loading..." = "Laster...";
-
 "Resetting image cache completed" = " Tilbakestilling av bildebuffer fullført";
 "Clearing keychain completed" = "Tilbakestilling av nøkkelring fullført";
 
-"Drop Tables" = "Slipp tabeller";
+// Stores
 
-"Featured Sources" = "Utvalde kjelder";
-
-"Finish Automatically" = "Fullfør automatisk";
+"Stores" = "Butikkar";
+"Account" = "Account";
+"Login" = "Logg inn";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "Ingen tilgjengelege butikkar";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Verifiserer kjelde(r)";
 "Unable to verify source" = "Kan ikkje verifisere kjelde";
 "Refresh" = "Oppdater";
-"Log Out" = "Logg ut";
-"Purchased Packages" = "Kjøpa mine";
-"Purchased" = "Kjøpt";
-
 "All Packages" = "Alle pakkar";
 "Delete" = "Slett";
+"Import Sources" = "Importer kjelder";
+"Updating Sources" = "Oppdaterer kjelder";
+"Would you like to import the following sources?" = "Vil du importera følgjande kjelder?";
+"Failed to add source" = "Kunne ikkje legga til kjelde";
+"Failed to add sources" = "Kunne ikkje legga til kjelder";
+"Unable to locate an APT repository at:" = "Kunne ikkje finna eit APT-kjelde på:";
+"Unable to locate APT repositories at:" = "Kunne ikkje finna APT-kjelder på:";
+"Import Sources" = "Importer kjelder";
+"Import" = "Importer";
+"Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importera %d kjelder til Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importera 1 kjelde til Zebra?";
 
-// Changes
-
-"Changes" = "Endringar";
 
 // Packages
 
+"Version" = "Versjon";
 "Packages" = "Pakkar";
 "Show Updates" = "Vis oppdateringar";
 "Ignore Updates" = "Ignorer oppdateringar";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installert versjon: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Installert storleik: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Lukkar Zebra...";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Restarting SpringBoard..." = "Startar SpringBoard på nytt...";
-"Downloading" = "Lastar ned";
 "Parsing" = "Parsar";
+"Starting Download" = "Starting Download";
+"Downloading" = "Lastar ned";
 "Downloading Packages..." = "Lastar ned pakkar...";
+"Download Completed" = "Nedlasting fullført";
 "Installing" = "Installerer";
 "Installing Packages..." = "Installerer pakkar...";
 "Removing" = "Fjernar";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "Nedlasting av ein eller fleire pakkar feila.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnera til køen og prøva nedlastinga på nytt.";
 "Done..." = "Ferdig...";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Pakkar lagt til i kø";
 "%d Package Queued" = "%d Pakke lagt til i kø";
 "Tap to manage" = "Trykk for å administrera";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke. Han burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
 "Remove from Queue" = "Fjern frå køen";
 
+// Search
+
+"Live Search" = "Live søk";
+"Tweaks, Themes, and More" = "Tweaks, tema og meir";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke og må fjernast fordi han avheng av %@. %@ burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling er ikkje ått av root:wheel. Ver vennleg og stadfest løyva til fila som ligg på /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikkje løyve til å angi uid eller gid. Ver vennleg og stadfest løyva til fila som ligg på /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Hjelp til med å omsetja Zebra!";
 
 "Could not respring. Please respring manually." = "Kunne ikkje starta SpringBoard på nytt. Vennlegast start SpringBoard på nytt sjølv.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Endre kjelda til dei utvalde pakkane som blir viste på heimesida.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Utvalt\" vil visa tilfeldige pakkar frå kjelder som støttar Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Kjelder utvalt\" vil visa tilfeldige pakkar frå kjelder som støttar Featured Package API.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
-
-"Community News" = "Nyheitene frå fellesskapet";
-"Import Sources" = "Importer kjelder";
-"Updating Sources" = "Oppdaterer kjelder";
-"Would you like to import the following sources?" = "Vil du importera følgjande kjelder?";
-"Download Completed" = "Nedlasting fullført";
-"Removing Zebra..." = "Fjerner Zebra...";
-"Installing Zebra..." = "Installerer Zebra...";
-
-"Failed to add source" = "Kunne ikkje legga til kjelde";
-"Failed to add sources" = "Kunne ikkje legga til kjelder";
-"Unable to locate an APT repository at:" = "Kunne ikkje finna eit APT-kjelde på:";
-"Unable to locate APT repositories at:" = "Kunne ikkje finna APT-kjelder på:";
-
-"Import Sources" = "Importer kjelder";
-"Import" = "Importer";
-
-"No Storefronts Available" = "Ingen tilgjengelege butikkar";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importera %d kjelder til Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importera 1 kjelde til Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, tema og meir";
