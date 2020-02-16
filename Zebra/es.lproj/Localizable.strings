@@ -7,16 +7,26 @@
 "Error" = "Error";
 "Retry" = "Reintentar";
 "Edit" = "Editar";
-"Login" = "Iniciar sesión";
 "Close" = "Cerrar";
 "Done" = "Listo";
+"Loading..." = "Cargando...";
 
 // Home
 
 "Home" = "Inicio";
 "Info" = "Información";
 "Welcome to Zebra!" = "¡Bienvenido a Zebra!";
+"Report a Bug" = "Reportar un problema";
 "Changelog" = "Cambios";
+"Wish List" = "Lista de deseos";
+"No items in Wish List" = "No hay artículos en la lista de deseos";
+"Community" = "Comunidad";
+"Join our Discord" = "Únete a nuestro Discord";
+"Follow us on Twitter" = "Síguenos en Twitter";
+"Help translate Zebra!" = "¡Ayuda a traducir Zebra!";
+
+// Community Source
+
 "Community Sources" = "Fuentes de la comunidad";
 "You’ve added all of the community sources" = "Has añadido todas las fuentes de la comunidad";
 "Transfer sources from %@ to Zebra" = "Transferir fuentes de %@ a Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Transferir fuentes";
 "Verifying Source" = "Verificando fuente";
 "Verifying Sources" = "Verificando Fuentes";
-"Stores" = "Tiendas";
-"Purchases" = "Compras";
-"Wish List" = "Lista de deseos";
-"No items in Wish List" = "No hay artículos en la lista de deseos";
-"Community" = "Comunidad";
-"Join our Discord" = "Únete a nuestro Discord";
-"Follow us on Twitter" = "Síguenos en Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Créditos";
 "Creators" = "Creadores";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Ajustes";
-"Version" = "Versión";
 "Display" = "Mostrar";
-"Featured" = "Destacados";
-"News" = "Noticias";
+"App Icon" = "Icono de la aplicación";
+"Changes" = "Cambios";
+"Community News" = "Noticias de la comunidad";
 "Miscellaneous" = "Varios";
-"Advanced" = "Avanzado";
-
-"Report a Bug" = "Reportar un problema";
-
-"Accent Color" = "Color del acentuado";
+"Swipe Actions Display As" = "Acciones de deslice Mostrar como";
+"Text" = "Texto";
+"Icon" = "Icono";
+"Finish Automatically" = "Finalizar automáticamente";
 
 // Accent Colors
 
+"Accent Color" = "Color del acentuado";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Tiburón";
 "Storm" = "Tormenta";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Estilo del Modo Oscuro";
-"Dark Mode" = "Modo oscuro";
-"Default" = "Por defecto";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "Icono de la aplicación";
+// Featured
 
 "Featured Packages" = "Activar paquetes destacados";
-"Random" = "Aleatorio";
 "Feature Type" = "Tipo de destacado";
-"Select Sources to be Featured" = "Seleccione las fuentes a ser destacadas";
+"Repo Featured" = "Repositorio destacado";
+"Random" = "Aleatorio";
+"Select Repos to be Featured" = "Selecciona repositorios para ser destacados";
+"Featured Repos" = "Repositorios destacados";
 
-"News" = "Noticias";
+// Advanced
 
-"Live Search" = "Búsqueda en tiempo real";
-
-"Swipe Actions Display As" = "Acciones de deslice Mostrar como";
-"Text" = "Texto";
-"Icon" = "Icono";
+"Advanced" = "Avanzado";
+"Drop Tables" = "Eliminar Tablas";
 "Open Documents Directory" = "Abrir directorio de Documentos";
 "Clear Image Cache" = "Limpiar caché de imágenes";
 "Clear Keychain" = "Limpiar llavero";
-
-"Loading..." = "Cargando...";
-
 "Resetting image cache completed" = "Reseteo de caché de imagen completado";
 "Clearing keychain completed" = "Limpieza de llavero completada";
 
-"Drop Tables" = "Eliminar Tablas";
+// Stores
 
-"Featured Sources" = "Fuentes Destacadas";
-
-"Finish Automatically" = "Finalizar automáticamente";
+"Stores" = "Tiendas";
+"Account" = "Account";
+"Login" = "Iniciar sesión";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Verificando fuente(s)";
 "Unable to verify source" = "No se puede verificar la fuente";
 "Refresh" = "Actualizar";
-"Log Out" = "Cerrar sesión";
-"Purchased Packages" = "Paquetes comprados";
-"Purchased" = "Comprado";
-
 "All Packages" = "Todos los paquetes";
 "Delete" = "Eliminar";
+"Import Sources" = "Importar fuentes";
+"Updating Sources" = "Actualizando fuentes";
+"Would you like to import the following sources?" = "¿Le gustaría importar las siguientes fuentes?";
+"Failed to add source" = "Error al añadir fuente";
+"Failed to add sources" = "Error al añadir fuentes";
+"Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
+"Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
+"Import Sources" = "Importar fuentes";
+"Import" = "Importar";
+"Are you sure that you want to import %d sources into Zebra?" = "¿Estás seguro que quieres importar %d fuentes a Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "¿Estás seguro que quieres importar una fuente a Zebra?";
 
-// Changes
-
-"Changes" = "Cambios";
 
 // Packages
 
+"Version" = "Versión";
 "Packages" = "Paquetes";
 "Show Updates" = "Mostrar actualizaciones";
 "Ignore Updates" = "Ignorar actualizaciones";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Versión Instalada: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Tamaño Instalado: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Cerrando Zebra...";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Restarting SpringBoard..." = "Reiniciando SpringBoard...";
-"Downloading" = "Descargando";
 "Parsing" = "Analizando";
+"Starting Download" = "Starting Download";
+"Downloading" = "Descargando";
 "Downloading Packages..." = "Descargando paquetes...";
+"Download Completed" = "Descarga Completa";
 "Installing" = "Instalando";
 "Installing Packages..." = "Instalando paquetes...";
 "Removing" = "Quitando";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 "Done..." = "Listo...";
+"Removing Zebra..." = "Desinstalando Zebra...";
+"Installing Zebra..." = "Instalando Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d paquetes en cola";
 "%d Package Queued" = "Paquete %d en cola";
 "Tap to manage" = "Toca para gestionar";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ es un paquete necesario. ¡NO debe ser eliminado a menos que sepas lo que estás haciendo!";
 "Remove from Queue" = "Quitar de la cola";
 
+// Search
+
+"Live Search" = "Búsqueda en tiempo real";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ es un paquete necesario y debe ser eliminado porque depende de %@. ¡%@ NO debe ser eliminado a menos que sepas lo que estás haciendo!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling no es propiedad de root:wheel. Por favor, verifica los permisos del archivo ubicado en /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling no tiene permisos para establecer el uid o el gid. Por favor, comprueba los permisos del archivo ubicado en /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "¡Ayuda a traducir Zebra!";
 
 "Could not respring. Please respring manually." = "No se pudo hacer respring. Por favor, inténtalo manualmente.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Cambie el origen de los paquetes destacados en la página de inicio.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" mostrará paquetes aleatorios de fuentes que soportan la API de paquetes destacados.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repositorio Destacado\" mostrará paquetes aleatorios de repositorios que soportan el API de Repositorio Destacado.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Aleatorio\" mostrará paquetes aleatorios de todas las fuentes que has añadido a Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatorio\" mostrará paquetes aleatorios de todos los repositorios que hayas añadido a Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Cerrar automáticamente la Consola cuando se hayan completado todas la tareas.";
-
-"Community News" = "Noticias de la comunidad";
-"Import Sources" = "Importar fuentes";
-"Updating Sources" = "Actualizando fuentes";
-"Would you like to import the following sources?" = "¿Le gustaría importar las siguientes fuentes?";
-"Download Completed" = "Descarga Completa";
-"Removing Zebra..." = "Desinstalando Zebra...";
-"Installing Zebra..." = "Instalando Zebra...";
-
-"Failed to add source" = "Error al añadir fuente";
-"Failed to add sources" = "Error al añadir fuentes";
-"Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
-"Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
-
-"Import Sources" = "Importar fuentes";
-"Import" = "Importar";
-
-"No Storefronts Available" = "No Storefronts Available";
-
-"Are you sure that you want to import %d sources into Zebra?" = "¿Estás seguro que quieres importar %d fuentes a Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "¿Estás seguro que quieres importar una fuente a Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
