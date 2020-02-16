@@ -133,20 +133,20 @@
         [result addObject:dict];
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
-        NSDictionary *dict2 = @{@"type" : @"transfer",
+        NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Installer",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
                                 @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
                                 @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
-        [result addObject:dict2];
+        [result addObject:dict];
     }
     if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
-        NSDictionary *dict3 = @{@"type" : @"transfer",
+        NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
                                 @"url"  : @"file:///etc/apt/sources.list.d/sileo.sources",
                                 @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
-        [result addObject:dict3];
+        [result addObject:dict];
     }
     return result;
 }
