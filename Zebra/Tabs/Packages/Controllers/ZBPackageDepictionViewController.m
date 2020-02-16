@@ -255,28 +255,23 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [webView evaluateJavaScript:js completionHandler:nil];
     
     if ([webView.URL.absoluteString isEqualToString:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"].absoluteString]) {
-//        if ([ZBDevice darkModeEnabled]) {
-//            NSString *path;
-//            if ([ZBDevice darkModeOledEnabled]) {
-//                path = [[NSBundle mainBundle] pathForResource:@"ios7oled" ofType:@"css"];
-//            } else {
-//                path = [[NSBundle mainBundle] pathForResource:@"ios7dark" ofType:@"css"];
-//            }
-//
-//            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
-//            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-//            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
-//                                  style.innerHTML = '%@'; \
-//                                  document.head.appendChild(style)",
-//                                  cssData];
-//            [webView evaluateJavaScript:jsString
-//                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
-//                          if (error) {
-//                              ZBLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
-//                          }
-//                      }];
-//        }
+        if ([ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
+            NSString *path = [[NSBundle mainBundle] pathForResource:[ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack ? @"ios7oled" : @"ios7dark" ofType:@"css"];
+
+            NSString *cssData = [NSString stringWithContentsOfFile:path encoding:NSASCIIStringEncoding error:nil];
+            cssData = [cssData stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            cssData = [cssData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            NSString *jsString = [NSString stringWithFormat:@"var style = document.createElement('style'); \
+                                  style.innerHTML = '%@'; \
+                                  document.head.appendChild(style)",
+                                  cssData];
+            [webView evaluateJavaScript:jsString
+                      completionHandler:^(id _Nullable result, NSError *_Nullable error) {
+                          if (error) {
+                              ZBLog(@"[Zebra] Error setting web dark mode: %@", error.localizedDescription);
+                          }
+                      }];
+        }
         
         if (![[package shortDescription] isEqualToString:@""] && [package shortDescription] != NULL) {
             [webView evaluateJavaScript:@"var element = document.getElementById('depiction-src').outerHTML = '';" completionHandler:nil];
