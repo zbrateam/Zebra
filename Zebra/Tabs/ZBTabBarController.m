@@ -38,6 +38,13 @@
 @synthesize forwardToPackageID;
 @synthesize repoBusyList;
 
+- (id)init {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];

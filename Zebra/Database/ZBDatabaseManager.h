@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
 
++ (BOOL)needsMigration;
+
 /*!
  @brief The last time the database was updated.
  @return An NSDate that provides the last time that the database was fully updated.

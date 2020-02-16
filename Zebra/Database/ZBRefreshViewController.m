@@ -223,14 +223,19 @@ typedef enum {
     } else {
         [self clearProblems];
         ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
-        [self dismissViewControllerAnimated:YES completion:^{
-            if (self->delegate) {
-                [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
-            }
-            else if ([controller isKindOfClass:[ZBTabBarController class]]) {
-                [controller forwardToPackage]; //this is probably broken now but since this is POC ill fix later
-            }
-        }];
+        if (controller) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (self->delegate) {
+                    [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
+                }
+                else if ([controller isKindOfClass:[ZBTabBarController class]]) {
+                    [controller forwardToPackage]; //this is probably broken now but since this is POC ill fix later
+                }
+            }];
+        }
+        else {
+            [[[UIApplication sharedApplication] windows][0] setRootViewController:[[ZBTabBarController alloc] init]];
+        }
     }
 }
 
@@ -305,10 +310,10 @@ typedef enum {
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
-    if (packageUpdates != -1) {
-        [tabController setPackageUpdateBadgeValue:packageUpdates];
-    }
+//    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
+//    if (packageUpdates != -1) {
+//        [tabController setPackageUpdateBadgeValue:packageUpdates];
+//    }
     if (!hadAProblem) {
         [self goodbye];
     } else {

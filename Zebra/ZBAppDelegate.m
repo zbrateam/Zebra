@@ -22,6 +22,7 @@
 #import <SDImageCache.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
+#import <Database/ZBRefreshViewController.h>
 
 @import FirebaseCore;
 @import Crashlytics;
@@ -171,7 +172,6 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
     
     [self setupSDWebImageCache];
-//    [ZBDevice applyThemeSettings];
     
     if (@available(iOS 10.0, *)) {
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
@@ -197,6 +197,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
     [FIRApp configure];
 #endif
+    
     [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
     
     NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
@@ -224,6 +225,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     }
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
+    
+    if ([ZBDatabaseManager needsMigration]) {
+        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:true];
+    }
     
     return YES;
 }

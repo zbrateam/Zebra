@@ -44,16 +44,21 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [ZBDatabaseManager new];
-        
-        [instance openDatabase];
-        
-        // Checks to see if any of the databases have differing schemes and sets to update them if need be.
-        [instance setNeedsToPresentRefresh:(needsMigration(instance.database, 0) != 0 || needsMigration(instance.database, 1) != 0 || needsMigration(instance.database, 2) != 0)];
-        
-        [instance closeDatabase];
         instance.databaseDelegates = [NSMutableArray new];
     });
     return instance;
+}
+
++ (BOOL)needsMigration {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    [databaseManager openDatabase];
+    
+    // Checks to see if any of the databases have differing schemes and sets to update them if need be.
+    BOOL migration = (needsMigration(databaseManager.database, 0) != 0 || needsMigration(databaseManager.database, 1) != 0 || needsMigration(databaseManager.database, 2) != 0);
+    
+    [databaseManager closeDatabase];
+    
+    return migration;
 }
 
 + (NSDate *)lastUpdated {
