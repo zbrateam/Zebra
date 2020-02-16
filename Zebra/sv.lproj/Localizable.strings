@@ -71,11 +71,11 @@
 "Royal Blue" = "Kungsblå";
 "Shark" = "Hajgrå";
 "Storm" = "Stormgrå";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
+"Use System Accent Color" = "Använd systemets accentfärg";
+"Appearance" = "Utseende";
+"Use System Appearance" = "Använd systemets utseende";
+"Light" = "Ljust";
+"Dark" = "Mörkt";
 "Pure Black Mode" = "Pure Black Mode";
 
 // Featured
@@ -100,13 +100,13 @@
 // Stores
 
 "Stores" = "Butiker";
-"Account" = "Account";
+"Account" = "Konto";
 "Login" = "Logga in";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Logga ut";
+"Your Purchases" = "Dina köp";
 "No Storefronts Available" = "Inga butiker tillgängliga";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Kunde inte slutföra köpet";
+"Could not complete purchase, no payment secret was found" = "Kunde inte slutföra köpet, ingen betalningshemlighet hittades";
 
 // Sources
 
@@ -263,7 +263,7 @@
 "Restart SpringBoard" = "Starta om SpringBoard";
 "Restarting SpringBoard..." = "Startar om SpringBoard...";
 "Parsing" = "Tolkar";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Startar nedladdning";
 "Downloading" = "Laddar ner";
 "Downloading Packages..." = "Laddar ner paket...";
 "Download Completed" = "Nedladdning slutförd";
@@ -358,6 +358,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till i Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Att logga in på källor möjliggör köp av betalpaket.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avfärda konsolen automatiskt när alla uppgifter har slutförts.";
