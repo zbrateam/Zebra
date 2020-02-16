@@ -785,6 +785,8 @@
         
         NSString *vendorURL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_step(statement);
+            
             const char *vendorChars = (const char *)sqlite3_column_text(statement, 0);
             vendorURL = vendorChars ? [NSString stringWithUTF8String:vendorChars] : NULL;
         }
