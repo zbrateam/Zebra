@@ -7,16 +7,26 @@
 "Error" = "错误";
 "Retry" = "重试";
 "Edit" = "编辑";
-"Login" = "登录";
 "Close" = "关闭";
 "Done" = "完成";
+"Loading..." = "加载中……";
 
 // Home
 
 "Home" = "主页";
 "Info" = "信息";
 "Welcome to Zebra!" = "欢迎使用 Zebra ！";
+"Report a Bug" = "报告 Bug";
 "Changelog" = "更新日志";
+"Wish List" = "心愿单";
+"No items in Wish List" = "愿望单中无项目";
+"Community" = "交流";
+"Join our Discord" = "加入我们的 Discord";
+"Follow us on Twitter" = "在 Twitter 上关注我们";
+"Help translate Zebra!" = "帮助翻译 Zebra ！";
+
+// Community Source
+
 "Community Sources" = "第三方软件源";
 "You’ve added all of the community sources" = "您已经添加了所有的第三方软件源";
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "导入软件源";
 "Verifying Source" = "正在验证软件源";
 "Verifying Sources" = "正在验证软件源";
-"Stores" = "商店";
-"Purchases" = "购买";
-"Wish List" = "心愿单";
-"No items in Wish List" = "愿望单中无项目";
-"Community" = "交流";
-"Join our Discord" = "加入我们的 Discord";
-"Follow us on Twitter" = "在 Twitter 上关注我们";
 
-//Credits
+// Credits
 
 "Credits" = "鸣谢";
 "Creators" = "开发者";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "设置";
-"Version" = "版本";
 "Display" = "显示";
-"Featured" = "功能";
-"News" = "新闻";
+"App Icon" = "App 图标";
+"Changes" = "更新";
+"Community News" = "社区新闻";
 "Miscellaneous" = "其它";
-"Advanced" = "高级";
-
-"Report a Bug" = "报告 Bug";
-
-"Accent Color" = "主题颜色";
+"Swipe Actions Display As" = "滑动选项显示为";
+"Text" = "文字";
+"Icon" = "图标";
+"Finish Automatically" = "自动完成";
 
 // Accent Colors
 
+"Accent Color" = "主题颜色";
 "Aqua Velvet" = "水蓝色";
 "Cornflower Blue" = "蓝色";
 "Golden Tainoi" = "金色";
@@ -68,41 +71,42 @@
 "Royal Blue" = "深蓝色";
 "Shark" = "鲨鱼";
 "Storm" = "风暴";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "黑暗模式样式";
-"Dark Mode" = "黑暗模式";
-"Default" = "默认";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "App 图标";
+// Featured
 
 "Featured Packages" = "精选软件包";
-"Random" = "随机";
 "Feature Type" = "推荐类型";
-"Select Sources to be Featured" = "选择会被推荐的精选软件源";
+"Repo Featured" = "推荐的软件源";
+"Random" = "随机";
+"Select Repos to be Featured" = "选择会被推荐的软件源";
+"Featured Repos" = "精选软件源";
 
-"News" = "新闻";
+// Advanced
 
-"Live Search" = "实时搜索";
-
-"Swipe Actions Display As" = "滑动选项显示为";
-"Text" = "文字";
-"Icon" = "图标";
+"Advanced" = "高级";
+"Drop Tables" = "删除所有数据";
 "Open Documents Directory" = "打开文档目录";
 "Clear Image Cache" = "清除图片缓存";
 "Clear Keychain" = "清除 Keychain";
-
-"Loading..." = "加载中……";
-
 "Resetting image cache completed" = "清除图片缓存完成";
 "Clearing keychain completed" = "Keychain 清除完成";
 
-"Drop Tables" = "删除所有数据";
+// Stores
 
-"Featured Sources" = "精选软件源";
-
-"Finish Automatically" = "自动完成";
+"Stores" = "商店";
+"Account" = "Account";
+"Login" = "登录";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "无可用的店铺";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "验证软件源";
 "Unable to verify source" = "无法验证软件源";
 "Refresh" = "刷新";
-"Log Out" = "注销";
-"Purchased Packages" = "已购买软件包";
-"Purchased" = "已购买";
-
 "All Packages" = "所有软件包";
 "Delete" = "删除";
+"Import Sources" = "导入软件源";
+"Updating Sources" = "正在更新软件源";
+"Would you like to import the following sources?" = "你想导入以下软件源吗？";
+"Failed to add source" = "添加软件源失败";
+"Failed to add sources" = "添加软件源失败";
+"Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
+"Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
+"Import Sources" = "导入软件源";
+"Import" = "导入";
+"Are you sure that you want to import %d sources into Zebra?" = "你确定要将%d个软件源导入到 Zebra 吗？";
+"Are you sure that you want to import 1 source into Zebra?" = "你确定要将1个软件源导入到 Zebra 吗？";
 
-// Changes
-
-"Changes" = "更新";
 
 // Packages
 
+"Version" = "版本";
 "Packages" = "软件包";
 "Show Updates" = "显示更新";
 "Ignore Updates" = "忽略更新";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "正在关闭 Zebra ……";
 "Restart SpringBoard" = "重启 SpringBoard";
 "Restarting SpringBoard..." = "正在重启 SpringBoard ……";
-"Downloading" = "正在下载";
 "Parsing" = "正在解析";
+"Starting Download" = "Starting Download";
+"Downloading" = "正在下载";
 "Downloading Packages..." = "正在下载软件包……";
+"Download Completed" = "下载完成";
 "Installing" = "正在安装";
 "Installing Packages..." = "正在安装软件包……";
 "Removing" = "正在移除";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 "Done..." = "完成……";
+"Removing Zebra..." = "正在移除 Zebra ……";
+"Installing Zebra..." = "正在安装 Zebra ……";
 
 // Queue Bar
+
 "%d Packages Queued" = "队列中有%d个软件包";
 "%d Package Queued" = "队列中有%d个软件包";
 "Tap to manage" = "点击以管理";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
 "Remove from Queue" = "从队列移除";
 
+// Search
+
+"Live Search" = "实时搜索";
+"Tweaks, Themes, and More" = "插件、主题和更多";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包，因为它依赖于 %@ 所以必须被移除。除非你知道你在干什么，否则你不能将 %@ 移除！";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 用户权限非 root:wheel 。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
-
-"Help translate Zebra!" = "帮助翻译 Zebra ！";
 
 "Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源。";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包。";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
-
-"Community News" = "社区新闻";
-"Import Sources" = "导入软件源";
-"Updating Sources" = "正在更新软件源";
-"Would you like to import the following sources?" = "你想导入以下软件源吗？";
-"Download Completed" = "下载完成";
-"Removing Zebra..." = "正在移除 Zebra ……";
-"Installing Zebra..." = "正在安装 Zebra ……";
-
-"Failed to add source" = "添加软件源失败";
-"Failed to add sources" = "添加软件源失败";
-"Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
-"Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
-
-"Import Sources" = "导入软件源";
-"Import" = "导入";
-
-"No Storefronts Available" = "无可用的店铺";
-
-"Are you sure that you want to import %d sources into Zebra?" = "你确定要将%d个软件源导入到 Zebra 吗？";
-"Are you sure that you want to import 1 source into Zebra?" = "你确定要将1个软件源导入到 Zebra 吗？";
-
-//New Search String
-"Tweaks, Themes, and More" = "插件、主题和更多";
