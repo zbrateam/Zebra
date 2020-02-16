@@ -375,12 +375,19 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     NSURL *packageInfoURL = [[[self repo] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
+    NSLog(@"Package Info URL: %@", packageInfoURL);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     NSString *token = [keychain stringForKey:[[self repo] repositoryURI]];
-    NSDictionary *requestJSON = @{@"token": token ? token : @"", @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    NSDictionary *requestJSON;
+    if (token) {
+        requestJSON = @{@"token": token, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    }
+    else {
+        requestJSON = @{@"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    }
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
     
     [request setHTTPMethod:@"POST"];
