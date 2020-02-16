@@ -7,16 +7,26 @@
 "Error" = "Error";
 "Retry" = "Retry";
 "Edit" = "Edit";
-"Login" = "Login";
 "Close" = "Close";
 "Done" = "Done";
+"Loading..." = "Loading...";
 
 // Home
 
 "Home" = "Home";
 "Info" = "Info";
 "Welcome to Zebra!" = "Welcome to Zebra!";
+"Report a Bug" = "Report a Bug";
 "Changelog" = "Changelog";
+"Wish List" = "Wish List";
+"No items in Wish List" = "No items in Wish List";
+"Community" = "Community";
+"Join our Discord" = "Join our Discord";
+"Follow us on Twitter" = "Follow us on Twitter";
+"Help translate Zebra!" = "Help translate Zebra!";
+
+// Community Source
+
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Transfer Sources";
 "Verifying Source" = "Verifying Source";
 "Verifying Sources" = "Verifying Sources";
-"Stores" = "Stores";
-"Purchases" = "Purchases";
-"Wish List" = "Wish List";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
 
-//Credits
+// Credits
 
 "Credits" = "Credits";
 "Creators" = "Creators";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Settings";
-"Version" = "Version";
 "Display" = "Display";
-"Featured" = "Featured";
-"News" = "News";
+"App Icon" = "App Icon";
+"Changes" = "Changes";
+"Community News" = "Community News";
 "Miscellaneous" = "Miscellaneous";
-"Advanced" = "Advanced";
-
-"Report a Bug" = "Report a Bug";
-
-"Accent Color" = "Accent Color";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Finish Automatically" = "Finish Automatically";
 
 // Accent Colors
 
+"Accent Color" = "Accent Color";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Dark Mode Style";
-"Dark Mode" = "Dark Mode";
-"Default" = "Default";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "App Icon";
+// Featured
 
 "Featured Packages" = "Featured Packages";
-"Random" = "Random";
 "Feature Type" = "Feature Type";
-"Select Sources to be Featured" = "Select Sources to be Featured";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Select Repos to be Featured" = "Select Repos to be Featured";
+"Featured Repos" = "Featured Repos";
 
-"News" = "News";
+// Advanced
 
-"Live Search" = "Live Search";
-
-"Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
+"Advanced" = "Advanced";
+"Drop Tables" = "Drop Tables";
 "Open Documents Directory" = "Open Documents Directory";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Keychain" = "Clear Keychain";
-
-"Loading..." = "Loading...";
-
 "Resetting image cache completed" = "Resetting image cache completed";
 "Clearing keychain completed" = "Clearing keychain completed";
 
-"Drop Tables" = "Drop Tables";
+// Stores
 
-"Featured Sources" = "Featured Sources";
-
-"Finish Automatically" = "Finish Automatically";
+"Stores" = "Stores";
+"Account" = "Account";
+"Login" = "Login";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Verifying Source(s)";
 "Unable to verify source" = "Unable to verify source";
 "Refresh" = "Refresh";
-"Log Out" = "Log Out";
-"Purchased Packages" = "Purchased Packages";
-"Purchased" = "Purchased";
-
 "All Packages" = "All Packages";
 "Delete" = "Delete";
+"Import Sources" = "Import Sources";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Import Sources" = "Import Sources";
+"Import" = "Import";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "Changes";
 
 // Packages
 
+"Version" = "Version";
 "Packages" = "Packages";
 "Show Updates" = "Show Updates";
 "Ignore Updates" = "Ignore Updates";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Downloading" = "Downloading";
 "Parsing" = "Parsing";
+"Starting Download" = "Starting Download";
+"Downloading" = "Downloading";
 "Downloading Packages..." = "Downloading Packages...";
+"Download Completed" = "Download Completed";
 "Installing" = "Installing";
 "Installing Packages..." = "Installing Packages...";
 "Removing" = "Removing";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 "Done..." = "Done...";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Packages Queued";
 "%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Tap to manage";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 "Remove from Queue" = "Remove from Queue";
 
+// Search
+
+"Live Search" = "Live Search";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Help translate Zebra!";
 
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Featured\" will display random packages from sources that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Random\" will display random packages from all sources that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
-
-"Community News" = "Community News";
-"Import Sources" = "Import Sources";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
-
-"Import Sources" = "Import Sources";
-"Import" = "Import";
-
-"No Storefronts Available" = "No Storefronts Available";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";

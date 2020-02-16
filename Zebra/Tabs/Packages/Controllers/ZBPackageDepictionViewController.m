@@ -423,7 +423,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)showModifyButton:(BOOL)installed {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modiy", @"") style:UIBarButtonItemStylePlain target:self action:installed ? @selector(modifyPackage) : @selector(ignoredModify)];
+        UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:installed ? @selector(modifyPackage) : @selector(ignoredModify)];
         self.navigationItem.rightBarButtonItem = modifyButton;
     });
 }
@@ -516,7 +516,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                         NSInteger status = [result[@"status"] integerValue];
                         switch (status) {
                             case -1: { //Failure
-                                [ZBAppDelegate sendAlertFrom:self message:@"Could not complete purchase"];
+                                [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
                             }
                             case 0: { //Immediate Success
                                 [self configureNavButton];
@@ -531,7 +531,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 [task resume];
             } else {
                 [self setNavigationButtonBusy:NO];
-                [ZBAppDelegate sendAlertFrom:self message:@"Could not complete purchase, no payment secret was found"];
+                [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase, no payment secret was found", @"")];
             }
         }
     }
