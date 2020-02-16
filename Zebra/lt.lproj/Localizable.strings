@@ -7,16 +7,26 @@
 "Error" = "Klaida";
 "Retry" = "Kartoti";
 "Edit" = "Keisti";
-"Login" = "Prisijungti";
 "Close" = "Uždaryti";
 "Done" = "Atlikta";
+"Loading..." = "Kraunasi...";
 
 // Home
 
 "Home" = "Pagrindinis";
 "Info" = "Info";
 "Welcome to Zebra!" = "Sveiki atvykę į Zebra!";
+"Report a Bug" = "Pranešti apie klaidą";
 "Changelog" = "Pakeitimų sąrašas";
+"Wish List" = "Norų sąrašas";
+"No items in Wish List" = "Nėra įrašų norų sąraše";
+"Community" = "Bendruomenė";
+"Join our Discord" = "Prisijunkite prie mūsų Discord";
+"Follow us on Twitter" = "Sekite mus Twitteryje";
+"Help translate Zebra!" = "Padėkite išversti Zebra!";
+
+// Community Source
+
 "Community Sources" = "Bendruomenės šaltiniai";
 "You’ve added all of the community sources" = "Jūs pridėjote visas bendruomenės saugyklas";
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
@@ -24,15 +34,8 @@
 "Transfer Sources" = "Perkelti šaltinius";
 "Verifying Source" = "Tikrinamas šaltinis";
 "Verifying Sources" = "Tikrinami šaltiniai";
-"Stores" = "Parduotuvės";
-"Purchases" = "Pirkimų sąrašas";
-"Wish List" = "Norų sąrašas";
-"No items in Wish List" = "Nėra įrašų norų sąraše";
-"Community" = "Bendruomenė";
-"Join our Discord" = "Prisijunkite prie mūsų Discord";
-"Follow us on Twitter" = "Sekite mus Twitteryje";
 
-//Credits
+// Credits
 
 "Credits" = "Kūrėjų sąrašas";
 "Creators" = "Kūrėjai";
@@ -43,19 +46,19 @@
 // Settings
 
 "Settings" = "Nustatymai";
-"Version" = "Versija";
 "Display" = "Rodyti";
-"Featured" = "Rodomiausi";
-"News" = "Naujienos";
+"App Icon" = "Programos piktograma";
+"Changes" = "Pakeitimai";
+"Community News" = "Bendruomenės naujienos";
 "Miscellaneous" = "Įvairūs";
-"Advanced" = "Išplėstiniai nustatymai";
-
-"Report a Bug" = "Pranešti apie klaidą";
-
-"Accent Color" = "Atspalvis";
+"Swipe Actions Display As" = "Veiksmų braukimo juosta";
+"Text" = "Tekstas";
+"Icon" = "Piktograma";
+"Finish Automatically" = "Baigti automatiškai";
 
 // Accent Colors
 
+"Accent Color" = "Atspalvis";
 "Aqua Velvet" = "Vandeninė-violetinė";
 "Cornflower Blue" = "Ryškiai mėlyna";
 "Golden Tainoi" = "Ryškiai auksinė";
@@ -68,41 +71,42 @@
 "Royal Blue" = "Tamsiai mėlyna";
 "Shark" = "Ryklio";
 "Storm" = "Audros";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Dark Mode Style" = "Tamsaus režimo stilius";
-"Dark Mode" = "Tamsus režimas";
-"Default" = "Numatytas";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "Programos piktograma";
+// Featured
 
 "Featured Packages" = "Rodomiausi paketai";
-"Random" = "Atsitiktiniai";
 "Feature Type" = "Tipas";
-"Select Sources to be Featured" = "Pasirinkite šaltinius, kurie bus rodomiausi";
+"Repo Featured" = "Saugyklų rodomiausi";
+"Random" = "Atsitiktiniai";
+"Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
+"Featured Repos" = "Rodomiausios saugyklos";
 
-"News" = "Naujienos";
+// Advanced
 
-"Live Search" = "Tiesioginė paieška";
-
-"Swipe Actions Display As" = "Veiksmų braukimo juosta";
-"Text" = "Tekstas";
-"Icon" = "Piktograma";
+"Advanced" = "Išplėstiniai nustatymai";
+"Drop Tables" = "Pašalinti lenteles";
 "Open Documents Directory" = "Atidaryti dokumentų katalogą";
 "Clear Image Cache" = "Išvalyti paveikslėlių podėlį";
 "Clear Keychain" = "Išvalyti raktų grandinę";
-
-"Loading..." = "Kraunasi...";
-
 "Resetting image cache completed" = "Paveikslėlių podelio atkūrimas baigtas";
 "Clearing keychain completed" = "Raktų grandinės išvalymas baigtas";
 
-"Drop Tables" = "Pašalinti lenteles";
+// Stores
 
-"Featured Sources" = "Rodomiausi šaltiniai";
-
-"Finish Automatically" = "Baigti automatiškai";
+"Stores" = "Parduotuvės";
+"Account" = "Account";
+"Login" = "Prisijungti";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "Nėra prieinamų parduotuvių";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -125,19 +129,24 @@
 "Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
 "Unable to verify source" = "Nepavyko patikrinti šaltinio";
 "Refresh" = "Atnaujinti";
-"Log Out" = "Atsijungti";
-"Purchased Packages" = "Nupirkti paketai";
-"Purchased" = "Nupirktas";
-
 "All Packages" = "Visi paketai";
 "Delete" = "Ištrinti";
+"Import Sources" = "Importuojami šaltiniai";
+"Updating Sources" = "Atnaujinami šaltiniai";
+"Would you like to import the following sources?" = "Ar norite importuoti šiuos šaltinius?";
+"Failed to add source" = "Nepavyko pridėti šaltinio";
+"Failed to add sources" = "Nepavyko pridėti šaltinių";
+"Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
+"Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
+"Import Sources" = "Importuojami šaltiniai";
+"Import" = "Importuoti";
+"Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
 
-// Changes
-
-"Changes" = "Pakeitimai";
 
 // Packages
 
+"Version" = "Versija";
 "Packages" = "Paketai";
 "Show Updates" = "Rodyti atnaujinimus";
 "Ignore Updates" = "Ignoruoti atnaujinimus";
@@ -168,7 +177,7 @@
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Įdiegta versija: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Įdiegtas dydis: %@)";
 
 //Package size in bytes (no deceimal)
@@ -253,9 +262,11 @@
 "Closing Zebra..." = "Uždaroma Zebra...";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
 "Restarting SpringBoard..." = "Perkraunama SpringBoard...";
-"Downloading" = "Atsiunčiama";
 "Parsing" = "Analizuojama";
+"Starting Download" = "Starting Download";
+"Downloading" = "Atsiunčiama";
 "Downloading Packages..." = "Paketai atsiunčiami...";
+"Download Completed" = "Atsisiuntimas baigtas";
 "Installing" = "Įdiegiama";
 "Installing Packages..." = "Paketai įdiegiami...";
 "Removing" = "Šalinama";
@@ -273,8 +284,11 @@
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
 "Done..." = "Atlikta...";
+"Removing Zebra..." = "Šalinama Zebra...";
+"Installing Zebra..." = "Įdiegiama Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Paketai eilėje";
 "%d Package Queued" = "%d Paketas eilėje";
 "Tap to manage" = "Paspauskite norėdami tvarkyti";
@@ -302,6 +316,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ yra reikalingas paketas. Jis gali būti pašalintas tik tais atvejais, jei tikrai žinote ką darote!";
 "Remove from Queue" = "Pašalinti iš eilės";
 
+// Search
+
+"Live Search" = "Tiesioginė paieška";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ yra reikalingas paketas, bet turi būti pašalintas nes priklauso nuo %@. %@ gali būti pašalintas tik tuo atveju, jei tikrai žinote ką darote!";
 
@@ -314,8 +333,6 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nepriklauso nuo root/wheel. Prašome patikrinti leidimus, kurie randasi /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi /usr/libexec/zebra/supersling.";
-
-"Help translate Zebra!" = "Padėkite išversti Zebra!";
 
 "Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
 
@@ -337,32 +354,10 @@
 
 "Change the source of the featured packages on the homepage." = "Pakeisti šaltinio rodomiausius paketus, pagrindiniame puslapyje.";
 
-"\"Featured\" will display random packages from sources that support the Featured Package API." = "\"Rodomiausi\" rodys atsitiktinius paketus iš šaltinių, kurie palaiko Rodomiausi Paketai API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Saugyklų rodomiausi\" rodys atsitiktinius paketus iš saugyklų, kurios palaiko rodomiausio paketo API.";
 
-"\"Random\" will display random packages from all sources that you have added to Zebra." = "\"Atsitiktiniai\" rodys atsitiktinius paketus iš visų šaltinių, kuriuos pridėjote į Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Atsitiktinis\" rodys atsitiktinius paketus iš visų saugyklų, kurias pridėjote į Zebra.";
+
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatiškai uždaryti konsolę, kai visos jos užduotys įvykdytos.";
-
-"Community News" = "Bendruomenės naujienos";
-"Import Sources" = "Importuojami šaltiniai";
-"Updating Sources" = "Atnaujinami šaltiniai";
-"Would you like to import the following sources?" = "Ar norite importuoti šiuos šaltinius?";
-"Download Completed" = "Atsisiuntimas baigtas";
-"Removing Zebra..." = "Šalinama Zebra...";
-"Installing Zebra..." = "Įdiegiama Zebra...";
-
-"Failed to add source" = "Nepavyko pridėti šaltinio";
-"Failed to add sources" = "Nepavyko pridėti šaltinių";
-"Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
-"Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
-
-"Import Sources" = "Importuojami šaltiniai";
-"Import" = "Importuoti";
-
-"No Storefronts Available" = "Nėra prieinamų parduotuvių";
-
-"Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
-
-//New Search String
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
