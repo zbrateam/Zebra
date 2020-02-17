@@ -227,24 +227,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [s replaceOccurrencesOfString:@"\'" withString:@"\\\'" options:NSLiteralSearch range:NSMakeRange(0, s.length)];
 }
 
-- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSArray *contents = [message.body componentsSeparatedByString:@"~"];
-    NSString *destination = (NSString *)contents[0];
-    NSString *action = contents[1];
-    
-    if ([destination isEqual:@"local"]) {
-        //TODO: Make installed files work again
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        ZBWebViewController *filesController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-//        filesController.navigationDelegate = self;
-//        filesController.navigationItem.title = NSLocalizedString(@"Installed Files", @"");
-//        NSURL *url = [[NSBundle mainBundle] URLForResource:action withExtension:@".html"];
-//        [filesController setValue:url forKey:@"_url"];
-//
-//        [[self navigationController] pushViewController:filesController animated:YES];
-    }
-}
-
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     if (package == nil)
         return;
