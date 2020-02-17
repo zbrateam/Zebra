@@ -19,7 +19,7 @@
 #import "UIImage+UIKitImage.h"
 @import SDWebImage;
 
-@interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate>
+@interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *footerView;

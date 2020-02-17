@@ -485,11 +485,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 //    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
 //    webController.navigationDelegate = webController;
 //    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
-//    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
+    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
 //    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
 //    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
 //    [webController setValue:url forKey:@"_url"];
 //    [[self navigationController] pushViewController:webController animated:YES];
+    
+    [ZBDevice openURL:url delegate:self];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {
