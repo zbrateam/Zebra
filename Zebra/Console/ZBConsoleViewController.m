@@ -18,6 +18,7 @@
 #import <ZBDevice.h>
 #import <ZBLog.h>
 #import <ZBSettings.h>
+#import <UIColor+GlobalColors.h>
 
 #include <sysexits.h>
 
@@ -147,6 +148,7 @@
     progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];
+    [[self progressView] setTintColor:[UIColor accentColor]];
     [self setProgressTextHidden:YES];
     [self updateCancelOrCloseButton];
     
