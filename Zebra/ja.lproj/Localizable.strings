@@ -115,6 +115,7 @@
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 "Unknown" = "不明";
 "No source URLs detected." = "リポジトリ URL が検出されませんでした。";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "このリポジトリはすでに追加されています。";
 "Error verifying source" = "リポジトリの検証エラー";
 "Error verifying sources" = "リポジトリの検証エラー";
