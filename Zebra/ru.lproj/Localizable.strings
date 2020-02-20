@@ -115,6 +115,7 @@
 "Locally installed packages" = "Локально установленные пакеты";
 "Unknown" = "Неизвестно";
 "No source URLs detected." = "URL источников не обнаружено.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Error verifying source" = "Ошибка проверки источника";
 "Error verifying sources" = "Ошибка проверки источников";
