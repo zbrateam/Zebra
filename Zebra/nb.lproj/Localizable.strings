@@ -115,6 +115,7 @@
 "Locally installed packages" = "Lokalt installerte pakker";
 "Unknown" = "Ukjent";
 "No source URLs detected." = "Ingen kildenettadresser oppdaget.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Error verifying source" = "Feil under verifisering av kilde";
 "Error verifying sources" = "Feil under verifisering av kilder";
