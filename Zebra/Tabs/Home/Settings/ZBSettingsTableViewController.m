@@ -94,8 +94,6 @@ enum ZBMiscOrder {
             return NSLocalizedString(@"Miscellaneous", @"");
         case ZBConsole:
             return NSLocalizedString(@"Console", @"");
-        case ZBAdvanced:
-            return NSLocalizedString(@"Advanced", @"");
         default:
             return NULL;
     }
@@ -114,6 +112,7 @@ enum ZBMiscOrder {
         case ZBMisc:
         case ZBSearch:
         case ZBConsole:
+        case ZBAdvanced:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
@@ -133,8 +132,6 @@ enum ZBMiscOrder {
             
             return rows;
         }
-        case ZBAdvanced:
-            return 4;
         default:
             return 0;
     }
@@ -296,18 +293,9 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBAdvanced: {
-            NSString *text = nil;
-            if (indexPath.row == ZBDropTables) {
-                text = NSLocalizedString(@"Drop Tables", @""); // This should probably not be localized since DROP TABLE is a SQL thing
-            } else if (indexPath.row == ZBOpenDocs) {
-                text = NSLocalizedString(@"Open Documents Directory", @"");
-            } else if (indexPath.row == ZBClearImageCache) {
-                text = NSLocalizedString(@"Clear Image Cache", @"");
-            } else if (indexPath.row == ZBClearKeychain) {
-                text = NSLocalizedString(@"Clear Keychain", @"");
-            }
-            cell.textLabel.text = text;
-            cell.textLabel.textColor = [UIColor accentColor];
+            cell.textLabel.text = NSLocalizedString(@"Advanced", @"");
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
         }
     }
@@ -372,21 +360,7 @@ enum ZBMiscOrder {
             break;
         }
         case ZBAdvanced: {
-            ZBAdvancedOrder row = indexPath.row;
-            switch (row) {
-                case ZBDropTables:
-                    [self nukeDatabase];
-                    break;
-                case ZBOpenDocs:
-                    [self openDocumentsDirectory];
-                    break;
-                case ZBClearImageCache:
-                    [self resetImageCache];
-                    break;
-                case ZBClearKeychain:
-                    [self clearKeychain];
-                    break;
-            }
+            [self advancedSettings];
             break;
         }
         default:
@@ -458,29 +432,10 @@ enum ZBMiscOrder {
     [[self navigationController] pushViewController:displayController animated:YES];
 }
 
-- (void)changeMode {
-//    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-//    controller.settingTitle = @"Dark Mode Style";
-//    controller.settingFooter = @[@"Change the style of Zebra's dark mode when it is enabled."];
-//    
-//    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
-//        controller.settingSelectedRow = ZBThirteen;
-//    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
-//        controller.settingSelectedRow = ZBOled;
-//    } else {
-//        controller.settingSelectedRow = ZBDefaultMode;
-//    }
-//    controller.settingOptions = @[@"Default", @"OLED", @"iOS 13"];
-//    controller.settingChanged = ^(NSInteger newValue) {
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        self->selectedMode = (ZBModeSelection)newValue;
-//        [defaults setBool:self->selectedMode == ZBThirteen forKey:thirteenModeKey];
-//        [defaults setBool:self->selectedMode == ZBOled forKey:oledModeKey];
-//        [defaults synchronize];
-//        [ZBDevice hapticButton];
-//        [self oledAnimation];
-//    };
-//    [self.navigationController pushViewController: controller animated:YES];
+- (void)advancedSettings {
+    ZBSettingsDisplayTableViewController *displayController = [[ZBSettingsDisplayTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:displayController animated:YES];
 }
 
 - (void)featureOrRandomToggle {
