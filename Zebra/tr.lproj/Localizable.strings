@@ -115,6 +115,7 @@
 "Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
 "Unknown" = "Bilinmiyor";
 "No source URLs detected." = "Kaynak URL’si Bulunamadı.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Zaten bu kaynakları ekledin.";
 "Error verifying source" = "Kaynağı doğrularken hata oluştu";
 "Error verifying sources" = "Kaynakları doğrularken hata oluştu";
