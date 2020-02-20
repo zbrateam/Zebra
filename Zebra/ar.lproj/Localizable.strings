@@ -115,6 +115,7 @@
 "Locally installed packages" = "الحزم المثبتة محليًا";
 "Unknown" = "غير معروف";
 "No source URLs detected." = "لم يتم اكتشاف عناوين URL المصادر.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Error verifying source" = "خطأ في التحقق من المصدر";
 "Error verifying sources" = "خطأ في التحقق من المصادر";
