@@ -115,6 +115,7 @@
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 "Unknown" = "Onbekend";
 "No source URLs detected." = "Geen bron URLs gedetecteerd.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
 "Error verifying source" = "Fout verifiëren van bron";
 "Error verifying sources" = "Fout verifiëren van bron";
