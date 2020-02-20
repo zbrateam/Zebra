@@ -11,6 +11,7 @@
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Sources/Helpers/ZBSourceManager.h>
+#import <ZBAppDelegate.h>
 
 @implementation ZBBaseSource
 
@@ -377,6 +378,11 @@
 
 - (NSUInteger)hash {
     return [self.archiveType hash] + [self.repositoryURI hash] + [self.distribution hash] + [self.components hash];
+}
+
+- (BOOL)exists {
+    NSSet *sources = [[self class] baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
+    return [sources containsObject:self];
 }
 
 @end

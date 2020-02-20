@@ -86,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)debLine;
 - (BOOL)canDelete;
 - (BOOL)isEqual:(ZBBaseSource *)object;
+- (BOOL)exists;
 @end
 
 NS_ASSUME_NONNULL_END

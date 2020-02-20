@@ -353,11 +353,29 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSURL *sourceURL = [NSURL URLWithString:alertController.textFields[0].text];
+        NSString *urlString = alertController.textFields[0].text;
+        if (![urlString hasSuffix:@"/"]) {
+            urlString = [urlString stringByAppendingString:@"/"];
+        }
+        
+        NSURL *sourceURL = [NSURL URLWithString:urlString];
         
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
-        if (baseSource) {
-            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
+        if ([baseSource exists]) {
+            //You have already added this source.
+            UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Couldn't add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+            [youAlreadyAdded addAction:action];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:youAlreadyAdded animated:true completion:nil];
+            });
+        }
+        else {
+            if (baseSource) {
+                [self verifyAndAdd:[NSSet setWithObject:baseSource]];
+            }
         }
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

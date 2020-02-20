@@ -226,7 +226,6 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (NSURL *)paymentVendorURL {
-    NSLog(@"CUSTOM GET");
     if (paymentVendorURI) {
         return paymentVendorURI;
     }
