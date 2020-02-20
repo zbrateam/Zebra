@@ -434,9 +434,9 @@ enum ZBMiscOrder {
 }
 
 - (void)advancedSettings {
-    ZBSettingsAd *displayController = [[ZBDisplaySettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    ZBAdvancedSettingsTableViewController *advancedController = [[ZBAdvancedSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
-    [[self navigationController] pushViewController:displayController animated:YES];
+    [[self navigationController] pushViewController:advancedController animated:YES];
 }
 
 - (void)featureOrRandomToggle {
