@@ -115,6 +115,7 @@
 "Locally installed packages" = "Lokalt installerade paket";
 "Unknown" = "Okänd";
 "No source URLs detected." = "Inga käll-URL:er upptäcktes.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Du har redan lagt till dessa källor.";
 "Error verifying source" = "Fel när källan verifierades";
 "Error verifying sources" = "Fel när källorna verifierades";
