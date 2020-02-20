@@ -72,11 +72,11 @@
 "Shark" = "Акула";
 "Storm" = "Шторм";
 "Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Appearance" = "Оформление";
+"Use System Appearance" = "Использовать Системное Оформление";
+"Light" = "Светлое";
+"Dark" = "Темное";
+"Pure Black Mode" = "Режим Чистого Чёрного";
 
 // Featured
 
@@ -100,10 +100,10 @@
 // Stores
 
 "Stores" = "Магазины";
-"Account" = "Account";
+"Account" = "Аккаунт";
 "Login" = "Войти";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Выйти";
+"Your Purchases" = "Ваши Покупки";
 "No Storefronts Available" = "Нет Доступных Магазинов";
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
@@ -115,7 +115,7 @@
 "Locally installed packages" = "Локально установленные пакеты";
 "Unknown" = "Неизвестно";
 "No source URLs detected." = "URL источников не обнаружено.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Вы уже добавили этот источник.";
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Error verifying source" = "Ошибка проверки источника";
 "Error verifying sources" = "Ошибка проверки источников";
@@ -359,6 +359,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех репозиториев, добавленных в Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Вход в репозитории позволяет вам покупать платные твики.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
