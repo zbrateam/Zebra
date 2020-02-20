@@ -59,15 +59,15 @@
 // Accent Colors
 
 "Accent Color" = "主题颜色";
-"Aqua Velvet" = "水蓝色";
-"Cornflower Blue" = "蓝色";
+"Aqua Velvet" = "蓝绿色";
+"Cornflower Blue" = "浅紫色";
 "Golden Tainoi" = "金色";
-"Iris Blue" = "紫蓝色";
+"Iris Blue" = "浅蓝色";
 "Lotus Pink" = "粉色";
-"Monochrome" = "单色";
+"Monochrome" = "黑白";
 "Mountain Meadow" = "绿色";
 "Pastel Red" = "红色";
-"Purple Heart" = "紫色";
+"Purple Heart" = "深紫色";
 "Royal Blue" = "深蓝色";
 "Shark" = "鲨鱼";
 "Storm" = "风暴";
@@ -115,7 +115,7 @@
 "Locally installed packages" = "本地已安装软件包";
 "Unknown" = "未知";
 "No source URLs detected." = "未检测到软件源 URL 。";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "你已经添加了这个软件源。";
 "You have already added these sources." = "你已经添加过这些软件源。";
 "Error verifying source" = "验证软件源时出错";
 "Error verifying sources" = "验证软件源时出错";
