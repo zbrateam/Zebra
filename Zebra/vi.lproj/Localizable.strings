@@ -115,6 +115,7 @@
 "Locally installed packages" = "Gói cài đặt cục bộ";
 "Unknown" = "Không xác định";
 "No source URLs detected." = "Không phát hiện URL nguồn.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Error verifying source" = "Lỗi xác minh nguồn";
 "Error verifying sources" = "Lỗi khi xác minh nguồn";
