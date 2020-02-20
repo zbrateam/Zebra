@@ -115,6 +115,7 @@
 "Locally installed packages" = "Pacotes instalados localmente";
 "Unknown" = "Desconhecido";
 "No source URLs detected." = "Nenhuma URL de fonte detetada.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Essas fontes já foram adicionadas.";
 "Error verifying source" = "Erro ao verificar a fonte";
 "Error verifying sources" = "Erro ao verificar as fontes";
