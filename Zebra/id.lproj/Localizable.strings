@@ -115,6 +115,7 @@
 "Locally installed packages" = "Paket Lokal terinstall";
 "Unknown" = "Tidak Diketahui";
 "No source URLs detected." = "Tidak ada URL sumber yang terdeteksi.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Error verifying source" = "Galat memverifikasi sumber";
 "Error verifying sources" = "Galat memverifikasi sumber";
