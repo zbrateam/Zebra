@@ -115,7 +115,7 @@
 "Locally installed packages" = "חבילות שהותקנו מקומית";
 "Unknown" = "לא ידוע";
 "No source URLs detected." = "לא זוהו כתובות מקורות.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "כבר הוספת את המקור הזה.";
 "You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Error verifying source" = "תקלה באימות המקור";
 "Error verifying sources" = "תקלה באימות מקורות";
