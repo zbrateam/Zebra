@@ -115,6 +115,7 @@
 "Locally installed packages" = "Paketat e instaluara në lokalitet";
 "Unknown" = "E panjohur";
 "No source URLs detected." = "Nuk u identifikua asnjë URL e burimit.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
 "Error verifying source" = "Problem në verifikimin e burimit";
 "Error verifying sources" = "Problem në verifikimin e burimeve";
