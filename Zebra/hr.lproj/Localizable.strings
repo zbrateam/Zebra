@@ -115,6 +115,7 @@
 "Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
 "No source URLs detected." = "Nisu detektirani URL-ovi izvora.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Već ste dodali ove izvore.";
 "Error verifying source" = "Greška pri verifikaciji izvora";
 "Error verifying sources" = "Greška pri verifikaciji izvora";
