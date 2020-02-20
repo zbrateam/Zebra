@@ -115,6 +115,7 @@
 "Locally installed packages" = "Įdiegti vietiniai paketai";
 "Unknown" = "Nežinomas";
 "No source URLs detected." = "Šaltinių URL adresai neaptikti.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
 "Error verifying source" = "Ištiko klaida tikrinant šalitnį";
 "Error verifying sources" = "Ištiko klaida tikrinant šaltinius";
