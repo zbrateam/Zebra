@@ -128,7 +128,7 @@
         NSDictionary *dict = @{@"type" : @"transfer",
                                @"name" : @"Cydia",
                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
-                               @"url"  : @"/var/mobile/Library/Caches/com.saurik.Cydia/sources.list",
+                               @"url"  : @"file:///var/mobile/Library/Caches/com.saurik.Cydia/sources.list",
                                @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
         [result addObject:dict];
     }
@@ -265,7 +265,7 @@
     switch ([options indexOfObject:type]) {
         case 0: {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[info objectForKey:@"url"]]];
+                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[NSURL URLWithString:[info objectForKey:@"url"]]]];
                 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
                 [self presentViewController:navController animated:YES completion:nil];
