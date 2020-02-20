@@ -115,6 +115,7 @@
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
 "No source URLs detected." = "Neboli zistené žiadne URL adresy zdrojov.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Error verifying source" = "Chyba pri overovaní repozitára";
 "Error verifying sources" = "Chyba pri overovaní repozitárov";
