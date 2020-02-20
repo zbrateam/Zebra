@@ -471,7 +471,10 @@
     NSString *requestedMIMEType = [self guessMIMETypeForFile:[[response URL] lastPathComponent]];
     NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-xz", @"application/x-bzip2", @"application/x-gzip", @"application/x-lzma", @"application/x-deb", @"application/x-debian-package"];
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
-    if (index == NSNotFound || ![requestedMIMEType isEqualToString:MIMEType]) {
+    if ([packageTasksMap objectForKey:@([downloadTask taskIdentifier])]) {
+        MIMEType = @"application/x-deb";
+    }
+    else if (index == NSNotFound || ![requestedMIMEType isEqualToString:MIMEType]) {
         MIMEType = [self guessMIMETypeForFile:[[response URL] absoluteString]];
         index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
