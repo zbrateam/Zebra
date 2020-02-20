@@ -115,6 +115,7 @@
 "Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
 "Unknown" = "ไม่ทราบ";
 "No source URLs detected." = "ไม่พบ URL ของซอร์ส";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Error verifying source" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
 "Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
