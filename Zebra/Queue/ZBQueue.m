@@ -223,7 +223,7 @@
     [[ZBAppDelegate tabBarController] closeQueue];
 }
 
-- (NSArray *)tasksToPerform:(NSArray <ZBPackage *> *)downloadedPackages {
+- (NSArray *)tasksToPerform {
     NSMutableArray<NSArray *> *commands = [NSMutableArray new];
     NSArray *baseCommand;
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg

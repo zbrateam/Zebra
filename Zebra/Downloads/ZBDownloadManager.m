@@ -122,6 +122,8 @@
 }
 
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages {
+    [downloadDelegate startedDownloads];
+    
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
     
@@ -559,8 +561,6 @@
                 [downloadDelegate finishedPackageDownload:package withError:error];
             }
             else {
-//                ZBPackage *package = self->packageTasksMap[@(taskIdentifier)];
-                
                 NSString *debsPath = [ZBAppDelegate debsLocation];
                 NSString *filename = [NSString stringWithFormat:@"%@_%@.deb", [package identifier], [package version]];
                 NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];

@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addDependency:(ZBPackage *)package;
 - (void)addConflict:(ZBPackage *)package;
 - (void)removePackage:(ZBPackage *)package;
-- (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
+- (NSArray *)tasksToPerform;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (NSArray<NSNumber *> *)actionsToPerform;
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)useIcon;
