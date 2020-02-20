@@ -115,6 +115,7 @@
 "Locally installed packages" = "本地已安裝套件";
 "Unknown" = "未知";
 "No source URLs detected." = "沒有檢測到來源網址。";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "你已經加入過這些來源。";
 "Error verifying source" = "驗證來源時發生錯誤";
 "Error verifying sources" = "驗證來源時發生錯誤";
