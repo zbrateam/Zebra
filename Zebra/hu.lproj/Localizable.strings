@@ -115,6 +115,7 @@
 "Locally installed packages" = "Helyileg telepített csomagok";
 "Unknown" = "Ismeretlen";
 "No source URLs detected." = "No source URLs detected.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "You have already added these sources.";
 "Error verifying source" = "Error verifying source";
 "Error verifying sources" = "Error verifying sources";
