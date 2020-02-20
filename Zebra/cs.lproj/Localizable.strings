@@ -115,6 +115,7 @@
 "Locally installed packages" = "Místně nainstalované balíčky";
 "Unknown" = "Neznámý";
 "No source URLs detected." = "Nebyly zjištěny žádné URL adresy zdrojů.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
 "Error verifying source" = "Chyba při ověřování zdroje";
 "Error verifying sources" = "Chyba při ověřování zdrojů";
