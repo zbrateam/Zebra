@@ -175,8 +175,7 @@
         if (![self.databaseManager isDatabaseBeingUpdated]) {
             NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
             UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                //FIXME: fix me !
-        //           [self.databaseManager updateRepo:repo useCaching:YES];
+                [self.databaseManager updateSource:source useCaching:YES];
             }];
                 
             if ([[UIColor accentColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
