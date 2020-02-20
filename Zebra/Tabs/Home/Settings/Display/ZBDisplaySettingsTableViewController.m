@@ -1,12 +1,12 @@
 //
-//  ZBSettingsDisplayTableViewController.m
+//  ZBDisplaySettingsTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 1/11/20.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSettingsDisplayTableViewController.h"
+#import "ZBDisplaySettingsTableViewController.h"
 #import "ZBSettingsOptionsTableViewController.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionPureBlack,
 };
 
-@interface ZBSettingsDisplayTableViewController () {
+@interface ZBDisplaySettingsTableViewController () {
     BOOL usesSystemAppearance;
     BOOL pureBlackMode;
     ZBAccentColor accentColor;
@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 @end
 
-@implementation ZBSettingsDisplayTableViewController
+@implementation ZBDisplaySettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -12,7 +12,8 @@
 #import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
-#import "ZBSettingsDisplayTableViewController.h"
+#import "ZBDisplaySettingsTableViewController.h"
+#import "ZBAdvancedSettingsTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -427,13 +428,13 @@ enum ZBMiscOrder {
 }
 
 - (void)displaySettings {
-    ZBSettingsDisplayTableViewController *displayController = [[ZBSettingsDisplayTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    ZBDisplaySettingsTableViewController *displayController = [[ZBDisplaySettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [[self navigationController] pushViewController:displayController animated:YES];
 }
 
 - (void)advancedSettings {
-    ZBSettingsDisplayTableViewController *displayController = [[ZBSettingsDisplayTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    ZBSettingsAd *displayController = [[ZBDisplaySettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [[self navigationController] pushViewController:displayController animated:YES];
 }
