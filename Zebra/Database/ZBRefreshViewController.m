@@ -314,6 +314,7 @@ typedef enum {
 //    if (packageUpdates != -1) {
 //        [tabController setPackageUpdateBadgeValue:packageUpdates];
 //    }
+    [databaseManager removeDatabaseDelegate:self];
     if (!hadAProblem) {
         [self goodbye];
     } else {
