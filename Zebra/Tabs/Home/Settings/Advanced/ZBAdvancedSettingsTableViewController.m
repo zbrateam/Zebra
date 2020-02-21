@@ -10,12 +10,9 @@
 
 #import "ZBAdvancedSettingsTableViewController.h"
 #import <UIColor+GlobalColors.h>
+#import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
-
-@interface UIApplication ()
-- (void)suspend;
-@end
 
 @interface ZBAdvancedSettingsTableViewController ()
 
@@ -84,7 +81,7 @@
         case 2:
             switch (indexPath.row) {
                 case 0:
-                    [self resetAllSettings];
+                    [self resetAllSettings:true];
                     break;
                 case 1:
                     [self eraseSourcesAndSettings];
@@ -129,22 +126,38 @@
     }];
 }
 
-- (void)resetAllSettings {
-    [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
+- (void)resetAllSettings:(BOOL)confirm {
+    if (confirm) {
+        [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
+            [self resetAllSettings:false];
+            [ZBDevice exitZebra];
+        }];
+    }
+    else {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *dict = [defaults dictionaryRepresentation];
         for (id key in dict) {
             [defaults removeObjectForKey:key];
         }
         [defaults synchronize];
-    }];
-    [self exitZebra];
+    }
 }
 
 - (void)eraseSourcesAndSettings {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.", @"") callback:^{
         [self confirmationControllerWithTitle:NSLocalizedString(@"Are You Sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
+            [self resetAllSettings:false];
             
+            NSError *error;
+            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
+            [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
+            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
+            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
+            if (error) {
+                NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
+            }
+            
+            [ZBDevice exitZebra];
         }];
     }];
 }
@@ -165,13 +178,6 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:alert animated:true completion:nil];
         });
-}
-
-- (void)exitZebra {
-    [[UIApplication sharedApplication] suspend];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        exit(0);
-    });
 }
 
 @end
