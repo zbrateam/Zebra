@@ -100,9 +100,9 @@
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Är du säker på att du vill uppdatera ikoncachen? Din enhet kan sluta svara tills processen är klar.";
 "Image Cache Reset" = "Återställning av bildcache";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Är du säker på att du vill återställa Zebras källcache? Detta kommer att ta bort all cachad information från Zebras databas och ladda ner den igen. Dina källor kommer inte att tas bort.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Är du säker på att du vill återställa Zebras inställningar? Detta kommer att återställa alla Zebras inställningar till standardvärdena och Zebra kommer att starta om.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Är du säker på att du vill radera alla källor och inställningar? Alla dina källor kommer att tas bort från Zebra och dina inställningar kommer att återställas.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Alla dina källor kommer att tas bort och försvinna för alltid och Zebra kommer att starta om.";
 
 // Stores
 
