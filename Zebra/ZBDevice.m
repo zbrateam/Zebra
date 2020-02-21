@@ -371,6 +371,13 @@
     return @"iPhone/iPod";
 }
 
++ (void)exitZebra {
+    [[UIApplication sharedApplication] suspend];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        exit(0);
+    });
+}
+
 #pragma mark - Theming
 
 + (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {

@@ -12,6 +12,10 @@
 
 @import SafariServices;
 
+@interface UIApplication ()
+- (void)suspend;
+@end
+
 @interface ZBDevice : NSObject
 + (BOOL)needsSimulation;
 + (BOOL)isSlingshotBroken:(NSError *_Nullable*_Nullable)error;
@@ -38,4 +42,6 @@
 + (BOOL)isUncover;
 
 + (BOOL)useIcon;
+
++ (void)exitZebra;
 @end
