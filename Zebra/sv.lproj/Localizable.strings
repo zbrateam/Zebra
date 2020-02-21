@@ -79,8 +79,8 @@
 "Text" = "Text";
 "Icon" = "Ikon";
 "Open Documents Directory" = "Öppna dokumentkatalog";
-"Clear Image Cache" = "Rensa bildcachen";
-"Clear Keychain" = "Rensa nyckelringen";
+"Clear Image Cache" = "Rensa bildcache";
+"Clear Keychain" = "Rensa nyckelring";
 
 "Loading..." = "Laddar...";
 
