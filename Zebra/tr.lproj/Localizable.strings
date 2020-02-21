@@ -71,12 +71,12 @@
 "Royal Blue" = "Kraliyet Mavisi";
 "Shark" = "Köpek Balığı";
 "Storm" = "Fırtına";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Sistem Ton Rengini Kullan";
+"Appearance" = "Görünüm";
+"Use System Appearance" = "Sistem Görünümünü Kullan";
+"Light" = "Açık";
+"Dark" = "Koyu";
+"Pure Black Mode" = "Saf Karanlık Mod";
 
 // Featured
 
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "Market";
-"Account" = "Account";
+"Account" = "Hesap";
 "Login" = "Giriş Yap";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Oturumu Kapat";
+"Your Purchases" = "Satın Aldıklarınız";
 "No Storefronts Available" = "Vitrinde İçerik Bulunamadı";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Satın alma tamamlanamadı";
+"Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
 
 // Sources
 
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
 "Restarting SpringBoard..." = "SpringBoard Yeniden Başlatılıyor...";
 "Parsing" = "Ayrıştırılıyor";
-"Starting Download" = "Starting Download";
+"Starting Download" = "İndirme Başlatılıyor";
 "Downloading" = "İndiriliyor";
 "Downloading Packages..." = "Paketler İndiriliyor...";
 "Download Completed" = "İndirme Tamamlandı";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "Anlık Arama";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweakler, Temalar ve Fazlası";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket ve %@ paketine bağımlı olduğu için kaldırılmalı. Ne yaptığınızı bilmiyorsanız %@, kaldırılmamalı!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Kaynaklarda oturum açmak, ücretli paketlerin satın alınmasına izin verir.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
