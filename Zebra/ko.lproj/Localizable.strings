@@ -90,12 +90,19 @@
 // Advanced
 
 "Advanced" = "고급";
-"Drop Tables" = "테이블 버리기";
-"Open Documents Directory" = "문서 디렉토리 열기";
-"Clear Image Cache" = "이미지 캐시 지우기";
-"Clear Keychain" = "키체인 지우기";
-"Resetting image cache completed" = "이미지 캐시 초기화 완료";
-"Clearing keychain completed" = "키체인 지우기 완료";
+"Refresh Icon Cache" = "Refresh Icon Cache";
+"Reset Image Cache" = "Reset Image Cache";
+"Reset Sources Cache" = "Reset Sources Cache";
+"Reset All Settings" = "Reset All Settings";
+"Erase All Sources and Settings" = "Erase All Sources and Settings";
+
+"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
 
 // Stores
 
