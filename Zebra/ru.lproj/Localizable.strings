@@ -71,7 +71,7 @@
 "Royal Blue" = "Королевский Синий";
 "Shark" = "Акула";
 "Storm" = "Шторм";
-"Use System Accent Color" = "Use System Accent Color";
+"Use System Accent Color" = "Использовать Системный Цвет Акцентов";
 "Appearance" = "Оформление";
 "Use System Appearance" = "Использовать Системное Оформление";
 "Light" = "Светлое";
@@ -112,8 +112,8 @@
 "Sign Out" = "Выйти";
 "Your Purchases" = "Ваши Покупки";
 "No Storefronts Available" = "Нет Доступных Магазинов";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Невозможно завершить покупку";
+"Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 
 // Sources
 
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Перезапустить SpringBoard";
 "Restarting SpringBoard..." = "Перезапуск SpringBoard...";
 "Parsing" = "Анализ";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Начало загрузки";
 "Downloading" = "Загрузка";
 "Downloading Packages..." = "Загрузка Пакетов...";
 "Download Completed" = "Загрузка Завершена";
