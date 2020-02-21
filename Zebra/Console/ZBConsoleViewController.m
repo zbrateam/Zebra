@@ -451,7 +451,7 @@
             [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
         }
     }
-    exit(0);
+    [ZBDevice exitZebra];
 }
 
 - (void)restartSpringBoard {
