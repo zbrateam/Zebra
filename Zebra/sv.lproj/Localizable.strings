@@ -79,8 +79,8 @@
 "Text" = "Text";
 "Icon" = "Ikon";
 "Open Documents Directory" = "Öppna dokumentkatalog";
-"Clear Image Cache" = "Rensa bildcachen";
-"Clear Keychain" = "Rensa nyckelringen";
+"Clear Image Cache" = "Rensa bildcache";
+"Clear Keychain" = "Rensa nyckelring";
 
 "Loading..." = "Laddar...";
 
@@ -300,7 +300,7 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Hjälpa till att översätta Zebra!";
+"Help translate Zebra!" = "Hjälp till att översätta Zebra!";
 
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
 

@@ -17,9 +17,9 @@
 "Info" = "مشخصات";
 "Welcome to Zebra!" = "به سربروس خوش آمدید!";
 "Changelog" = "لیست تغییرات";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Community Sources" = "سورس‌های انجمن";
+"You’ve added all of the community sources" = "شما تمام سورس های انجمن را اضافه کردید";
+"Transfer sources from %@ to Zebra" = "انتقال سورس ها از %@ به زبرا";
 "Utility repo for %@" = "مخرن های نرم افزار های کاربردی برای %@";
 "Transfer Sources" = "جابجایی منابع";
 "Verifying Source(s)" = "در حال تایید کردن مخازن";
@@ -43,7 +43,7 @@
 
 "Settings" = "تنظیمات";
 "Version" = "نسخه";
-"Interface" = "Interface";
+"Interface" = "رابط کاربری";
 "Featured" = "ویژه";
 "News" = "اخبار";
 "Miscellaneous" = "متفرقه";
@@ -71,9 +71,9 @@
 "Feature Type" = "نوع ویژه";
 "Select Repos to be Featured" = "انتخاب مخزن ها برای ویژه شدن";
 
-"News" = "News";
+"News" = "اخبار";
 
-"Live Search" = "Live Search";
+"Live Search" = "جستجوی زنده";
 
 "Swipe Actions Display As" = "کشیدن انگشت بروی صفحه بعنوان";
 "Text" = "متن";

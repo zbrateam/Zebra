@@ -22,7 +22,7 @@
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
 "Utility repo for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Verifying Source(s)" = "リポジトリを検証中";
+"Verifying Source(s)" = "リポジトリの検証中";
 "Stores" = "ストア";
 "Purchases" = "購入リスト";
 "Wish List" = "ほしい物リスト";
@@ -111,7 +111,7 @@
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
 "Please Wait..." = "しばらくお待ちください...";
-"Verifying Source(s)" = "リポジトリを検証中";
+"Verifying Source(s)" = "リポジトリの検証中";
 "Unable to verify Repo" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
 "Log Out" = "ログアウト";
@@ -128,8 +128,8 @@
 // Packages
 
 "Packages" = "パッケージ";
-"Show Updates" = "アップデートを有効にする";
-"Ignore Updates" = "アップデートを無視する";
+"Show Updates" = "アップデートを表示";
+"Ignore Updates" = "アップデートを無視";
 "Select Version" = "バージョンを選択";
 "Select a version to upgrade to:" = "アップグレードしたいバージョンを選択してください";
 "Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択してください";
@@ -149,7 +149,7 @@
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "購入する前に認証してください。";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントで再ログインしてください (おそらく %@ です)";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
 "Installed Version" = "インストール済みのバージョン";
 "Installed Size" = "インストール済みのサイズ";
@@ -181,7 +181,7 @@
 "Carrier Support" = "キャリアサポート";
 "Communication" = "コミュニケーション";
 "Data Storage" = "データ容量";
-"Development" = "開発用途";
+"Development" = "開発";
 "Dictionaries" = "辞書";
 "Education" = "教育";
 "Entertainment" = "エンターテイメント";
@@ -216,7 +216,7 @@
 
 "Search" = "検索";
 "Clear Search" = "検索履歴をクリア";
-"This search query is too short for the full search, please use a longer query." = "入力した検索ワードが短すぎます。";
+"This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
 "No Results Found" = "一致する結果が見つかりませんでした";
 
 // Downloads
@@ -240,16 +240,16 @@
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかる場合があります。Zebra がクラッシュするかもしれませんが問題ありません。";
 "Close Zebra" = "Zebra を閉じる";
 "Restart SpringBoard" = "SpringBoard を再起動";
-"Downloading" = "ダウンロード中";
+"Downloading" = "ダウンロードしています";
 "Parsing" = "処理中";
 "Downloading Packages..." = "パッケージをダウンロードします...";
-"Installing" = "インストール中";
+"Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
-"Removing" = "削除中";
+"Removing" = "削除しています";
 "Removing Packages..." = "パッケージを削除します...";
-"Reinstalling" = "再インストール";
+"Reinstalling" = "再インストールしています";
 "Reinstalling Packages..." = "パッケージを再インストールします...";
-"Upgrading" = "アップグレード中";
+"Upgrading" = "アップグレードしています";
 "Upgrading Packages..." = "パッケージをアップグレードします...";
 "Complete" = "完了";
 "Finished!" = "完了しました";
@@ -277,7 +277,7 @@
 "Continue" = "続行";
 "Download Size" = "サイズ";
 "Confirm" = "実行";
-"%@ must be removed because it depends on %@" = "%@ は %@ に依存しているため削除されます";
+"%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "Required Package" = "変更が必要なパッケージ";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
@@ -302,7 +302,7 @@
 
 "Help translate Zebra!" = "Zebra の翻訳に協力します！";
 
-"Could not respring. Please respring manually." = "リスプリングできませんでした。手動でリスプリングしてください。";
+"Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
@@ -312,17 +312,17 @@
 
 "Display featured packages on the homepage." = "注目のパッケージをホームに表示します。";
 
-"Display recent community posts from /r/jailbreak." = "/r/jailbreak の最近の投稿を表示します。";
+"Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "文字の入力中もパッケージを検索します。 この機能を無効にすると古い端末上での動作が軽くなる可能性があります。";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "入力中もパッケージを検索します。 この機能を無効にすると、古いデバイスの遅延を減らすことができます。";
 
-"Configure the appearance of table view swipe actions." = "パッケージをスワイプした時の表示形式を設定します。";
+"Configure the appearance of table view swipe actions." = "スワイプした後の表示内容を構成します。";
 
-"Change the accent color that displays across Zebra." = "Zebra 全体に適用されるアクセントカラーを変更します。";
+"Change the accent color that displays across Zebra." = "Zebra 全体に表示されるアクセントカラーを変更します。";
 
-"Change the style of Zebra's dark mode when it is enabled." = "ダークモードのスタイルを変更します。これは、 Zebra のダークモードが有効である時に適用されます。";
+"Change the style of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効の場合に、テーマを変更します。";
 
-"Change the source of the featured packages on the homepage." = "ホームに表示される「注目のパッケージ」のリポジトリを変更します。";
+"Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのリポジトリを変更します。";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
