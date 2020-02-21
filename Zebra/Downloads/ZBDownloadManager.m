@@ -186,12 +186,23 @@
     ZBSource *source = [package repo];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    NSDictionary *question = @{ @"token": [keychain stringForKey:[source repositoryURI]],
-                                @"udid": [ZBDevice UDID],
-                                @"device": [ZBDevice deviceModelID],
-                                @"version": package.version,
-                                @"repo": [source repositoryURI]
-    };
+    NSDictionary *question;
+    if ([keychain stringForKey:[source repositoryURI]]) {
+        question = @{ @"token": [keychain stringForKey:[source repositoryURI]],
+                      @"udid": [ZBDevice UDID],
+                      @"device": [ZBDevice deviceModelID],
+                      @"version": package.version,
+                      @"repo": [source repositoryURI]
+        };
+    }
+    else {
+        question = @{ @"token": @"none",
+                      @"udid": [ZBDevice UDID],
+                      @"device": [ZBDevice deviceModelID],
+                      @"version": package.version,
+                      @"repo": [source repositoryURI]
+        };
+    }
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
     
     NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
