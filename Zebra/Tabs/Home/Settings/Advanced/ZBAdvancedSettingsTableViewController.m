@@ -6,6 +6,8 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
+@import SDWebImage;
+
 #import "ZBAdvancedSettingsTableViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBDevice.h>
@@ -91,27 +93,66 @@
 #pragma mark - Button Actions
 
 - (void)restartSpringBoard {
-    [ZBDevice restartSpringBoard];
+    [self confirmationControllerWithTitle:@"Restart SpringBoard" message:@"Are you sure you want to restart the springboard?" callback:^{
+        [ZBDevice restartSpringBoard];
+    }];
 }
 
 - (void)refreshIconCache {
-    [ZBDevice uicache:nil observer:nil];
+    [self confirmationControllerWithTitle:@"Refresh Icon Cache" message:@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." callback:^{
+        [ZBDevice uicache:nil observer:nil];
+    }];
 }
 
 - (void)resetImageCache {
+    [[SDImageCache sharedImageCache] clearMemory];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
     
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Image Cache Reset", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:true completion:nil];
+    });
 }
 
 - (void)resetSourcesCache {
-    
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Reset Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
+        
+    }];
 }
 
 - (void)resetAllSettings {
-    
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
+        
+    }];
 }
 
 - (void)eraseSourcesAndSettings {
-    
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.", @"") callback:^{
+        [self confirmationControllerWithTitle:NSLocalizedString(@"Are You Sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
+            
+        }];
+    }];
+}
+
+- (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback();
+            });
+        }];
+        [alert addAction:yesAction];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:noAction];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:true completion:nil];
+        });
 }
 
 @end
