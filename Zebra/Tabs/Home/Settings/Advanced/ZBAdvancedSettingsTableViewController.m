@@ -7,6 +7,8 @@
 //
 
 #import "ZBAdvancedSettingsTableViewController.h"
+#import <UIColor+GlobalColors.h>
+#import <ZBDevice.h>
 
 @interface ZBAdvancedSettingsTableViewController ()
 
@@ -17,73 +19,99 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.title = @"Advanced";
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    switch (section) {
+        case 0:
+            return 2;
+        case 1:
+            return 2;
+        case 2:
+            return 2;
+        default:
+            return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"advancedSettingsCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsAdvancedCell"];
     
-    cell.textLabel.text = @"Hey!";
-    
+    NSArray <NSArray <NSString *> *> *titles = @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Reset Image Cache", @"Reset Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
+    cell.textLabel.text = titles[indexPath.section][indexPath.row];
+    cell.textLabel.textColor = [UIColor accentColor];
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+                case 0:
+                    [self restartSpringBoard];
+                    break;
+                case 1:
+                    [self refreshIconCache];
+                    break;
+            }
+            break;
+        case 1:
+            switch (indexPath.row) {
+                case 0:
+                    [self resetImageCache];
+                    break;
+                case 1:
+                    [self resetSourcesCache];
+                    break;
+            }
+            break;
+        case 2:
+            switch (indexPath.row) {
+                case 0:
+                    [self resetAllSettings];
+                    break;
+                case 1:
+                    [self eraseSourcesAndSettings];
+                    break;
+            }
+            break;
+    }
+            
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+#pragma mark - Button Actions
+
+- (void)restartSpringBoard {
+    [ZBDevice restartSpringBoard];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)refreshIconCache {
+    [ZBDevice uicache:nil observer:nil];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)resetImageCache {
+    
 }
-*/
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)resetSourcesCache {
+    
 }
-*/
+
+- (void)resetAllSettings {
+    
+}
+
+- (void)eraseSourcesAndSettings {
+    
+}
 
 @end
