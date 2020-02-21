@@ -54,29 +54,29 @@
 "Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
 "Text" = "نص";
 "Icon" = "أيقونة";
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "إنهاء تلقائيًا";
 
 // Accent Colors
 
 "Accent Color" = "اللون الثانوي";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Aqua Velvet" = "أزرق مخملي";
+"Cornflower Blue" = "أزرق شاحب";
+"Golden Tainoi" = "كهرماني";
+"Iris Blue" = "أزرق كلاسيكي";
+"Lotus Pink" = "وردي لوتس";
+"Monochrome" = "أحادي اللون";
+"Mountain Meadow" = "مرجي الجبل";
+"Pastel Red" = "الباستيل الأحمر";
+"Purple Heart" = "قلب بنفسجي";
+"Royal Blue" = "أزرق ملكي";
+"Shark" = "قرش";
+"Storm" = "عاصفة";
+"Use System Accent Color" = "استخدام لون النظام الثانوي";
+"Appearance" = "المظهر";
+"Use System Appearance" = "استخدام مظهر النظام";
+"Light" = "فاتح";
+"Dark" = "داكن";
+"Pure Black Mode" = "وضع الأسود النقي";
 
 // Featured
 
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "المتاجر";
-"Account" = "Account";
+"Account" = "الحساب";
 "Login" = "تسجيل الدخول";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Sign Out" = "تسجيل الخروج";
+"Your Purchases" = "مشترياتك";
+"No Storefronts Available" = "لا توجد واجهات متاحة";
+"Could not complete purchase" = "تعذر إكمال الشراء";
+"Could not complete purchase, no payment secret was found" = "تعذر إكمال الشراء، لم يتم العثور على دفع آمن";
 
 // Sources
 
@@ -122,7 +122,7 @@
 "Locally installed packages" = "الحزم المثبتة محليًا";
 "Unknown" = "غير معروف";
 "No source URLs detected." = "لم يتم اكتشاف عناوين URL المصادر.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "لقد أضفت هذه المصادر بالفعل.";
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Error verifying source" = "خطأ في التحقق من المصدر";
 "Error verifying sources" = "خطأ في التحقق من المصادر";
@@ -148,8 +148,8 @@
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
 "Import Sources" = "استيراد المصادر";
 "Import" = "استيراد";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
+"Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
 
 
 // Packages
@@ -267,11 +267,11 @@
 "Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "جارِ إغلاق Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "جارِ إعادة تشغيل واجهة النظام...";
 "Parsing" = "جارِ التحليل";
-"Starting Download" = "Starting Download";
+"Starting Download" = "جارِ بدء التنزيل";
 "Downloading" = "جارِ التنزيل";
 "Downloading Packages..." = "تنزيل الحزم...";
 "Download Completed" = "إكتمل التنزيل";
@@ -286,12 +286,12 @@
 "Complete" = "إكتمل";
 "Finished!" = "انتهى!";
 "Return to Queue" = "العودة إلى قائمة الإنتظار";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "جارِ العودة إلى قائمة الإنتظار...";
 "Importing local packages." = "استيراد الحزم المحلية.";
 "Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
-"Done..." = "Done...";
+"Done..." = "تم...";
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
 
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "بحث مباشر";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "أدوات، موضوعات، والكثير";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة ويجب إزالتها لأنها تعتمد على %@. حزمة %@ لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "تسجيل الدخول إلى المصادر يسمح بشراء الحزم المدفوعة.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "تجاهل تلقائي لوحدة التحكم عند انتهاء كل مهامها.";
