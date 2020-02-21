@@ -59,24 +59,24 @@
 // Accent Colors
 
 "Accent Color" = "Naglašena boja";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Aqua Velvet" = "Vodeni somot";
+"Cornflower Blue" = "Kukuruzno plava";
+"Golden Tainoi" = "Zlatni Tainoi";
+"Iris Blue" = "Irska plava";
+"Lotus Pink" = "Lotus roze";
+"Monochrome" = "Jednobojna";
+"Mountain Meadow" = "Planinska livada";
+"Pastel Red" = "Pastelno crvena";
+"Purple Heart" = "Purpurno srce";
+"Royal Blue" = "Kraljevska plava";
+"Shark" = "Ajkula";
+"Storm" = "Oluja";
+"Use System Accent Color" = "Koristite sistemsku akcetnu boju";
+"Appearance" = "Izgled";
+"Use System Appearance" = "Koristi izgled sistema";
+"Light" = "Svetlo";
+"Dark" = "Tamno";
+"Pure Black Mode" = "Cisto crni mod";
 
 // Featured
 
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "Prodavnice";
-"Account" = "Account";
+"Account" = "Nalog";
 "Login" = "Prijava";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Sign Out" = "Odjavi se";
+"Your Purchases" = "Vaše kupovine";
+"No Storefronts Available" = "Nema dostupnih prodavnica";
+"Could not complete purchase" = "Nije moguće zavrsiti kupovinu";
+"Could not complete purchase, no payment secret was found" = "Nije moguće završiti kupovinu, nije pronadjen tajni kod";
 
 // Sources
 
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
 "No source URLs detected." = "Ne postoji URL za repo.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Već ste dodali ove repoe.";
 "You have already added these sources." = "Već ste dodali ove repoe.";
 "Error verifying source" = "Greška pri verifikaciji izvora repoa";
 "Error verifying sources" = "Greška pri verifikaciji izvora";
@@ -148,8 +148,8 @@
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
 "Import Sources" = "Uvezi Izvore";
 "Import" = "Uvеzi";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Jeste li sigurni da ćete uvesti %d izvore u Zebru?";
+"Are you sure that you want to import 1 source into Zebra?" = "Jeste li sigurni da ćete uvesti 1 izvor u Zebru?";
 
 
 // Packages
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Restartuj SpringBoard";
 "Restarting SpringBoard..." = "Restartuje se SpringBoard...";
 "Parsing" = "Parsiram";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Preuzimanje";
 "Downloading" = "Preuzimanje";
 "Downloading Packages..." = "Preuzimanje Paketa...";
 "Download Completed" = "Preuzimanje je završeno";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "Pretraga uživo";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tvikovi, teme i jos puno";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ Je neophodan i mora biti uklonjen zato što zavisi od%@. %@ ne bi trebalo ukloniti osim ako znate šta radite!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "“Nasumično” će prikazivati pakete od svih repoa koje ste dodali u Zabri.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Registrovanje na izvorima omogućava kupovinu paketa.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori Konzolu kada se završe svi zadaci.";
