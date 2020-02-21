@@ -47,7 +47,7 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsAdvancedCell"];
     
     NSArray <NSArray <NSString *> *> *titles = @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Reset Image Cache", @"Reset Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
-    cell.textLabel.text = titles[indexPath.section][indexPath.row];
+    cell.textLabel.text = NSLocalizedString(titles[indexPath.section][indexPath.row], @"");
     cell.textLabel.textColor = [UIColor accentColor];
     return cell;
 }
@@ -93,13 +93,13 @@
 #pragma mark - Button Actions
 
 - (void)restartSpringBoard {
-    [self confirmationControllerWithTitle:@"Restart SpringBoard" message:@"Are you sure you want to restart the springboard?" callback:^{
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Restart SpringBoard", @"") message:NSLocalizedString(@"Are you sure you want to restart the SpringBoard?", @"") callback:^{
         [ZBDevice restartSpringBoard];
     }];
 }
 
 - (void)refreshIconCache {
-    [self confirmationControllerWithTitle:@"Refresh Icon Cache" message:@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." callback:^{
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Refresh Icon Cache", @"") message:NSLocalizedString(@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.", @"") callback:^{
         [ZBDevice uicache:nil observer:nil];
     }];
 }
