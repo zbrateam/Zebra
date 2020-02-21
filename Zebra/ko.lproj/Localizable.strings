@@ -71,12 +71,12 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "시스템 강조 색상 사용";
+"Appearance" = "화면 스타일";
+"Use System Appearance" = "시스템 화면 스타일 사용";
+"Light" = "라이트 모드";
+"Dark" = "다크 모드";
+"Pure Black Mode" = "순수 블랙 모드";
 
 // Featured
 
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "스토어";
-"Account" = "Account";
+"Account" = "계정";
 "Login" = "로그인";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "로그아웃";
+"Your Purchases" = "구매 내역";
 "No Storefronts Available" = "사용 가능한 스토어 없음";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "결제를 완료할 수 없습니다.";
+"Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
 
 // Sources
 
@@ -148,8 +148,8 @@
 "Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 "Import Sources" = "소스 가져오기";
 "Import" = "가져오기";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "정말로 %d개의 소스들을 Zebra로 가져올까요?";
+"Are you sure that you want to import 1 source into Zebra?" = "정말로 한개의 소스를 Zebra로 가져올까요?";
 
 
 // Packages
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "SpringBoard 재시작";
 "Restarting SpringBoard..." = "SpringBoard를 재시작하는 중...";
 "Parsing" = "파싱";
-"Starting Download" = "Starting Download";
+"Starting Download" = "다운로드를 시작하는 중";
 "Downloading" = "다운로드 중";
 "Downloading Packages..." = "패키지 다운로드 중...";
 "Download Completed" = "다운로드 완료";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "실시간 검색";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "트윅, 테마. 그리고 더 많은 것";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지이며 %@에 의존하기 때문에 삭제되어야 합니다. %@ 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"랜덤\"은 Zebra에 추가된 모든 저장소에서 랜덤으로 패키지를 표시합니다.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "소스에 로그인하면 유료 패키지를 구매할 수 있습니다.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
