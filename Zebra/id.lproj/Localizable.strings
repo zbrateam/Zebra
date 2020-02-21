@@ -71,12 +71,12 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Gunakan Warna aksen sistem";
+"Appearance" = "Penampilan";
+"Use System Appearance" = "Gunakan Tampilan sistem";
+"Light" = "Cerah";
+"Dark" = "Gelap";
+"Pure Black Mode" = "Mode Hitam asli";
 
 // Featured
 
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "Toko";
-"Account" = "Account";
+"Account" = "Akun";
 "Login" = "Masuk";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Keluar";
+"Your Purchases" = "Pembelian anda";
 "No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
+"Could not complete purchase, no payment secret was found" = "Tidak dapat menyelesaikan pembelian, pembayaran rahasia tidak ditemukan";
 
 // Sources
 
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Mulai ulang SpringBoard";
 "Restarting SpringBoard..." = "Mulai ulang SpringBoard...";
 "Parsing" = "Parsing";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Sedang memulai Unduhan";
 "Downloading" = "Mengunduh";
 "Downloading Packages..." = "Mengunduh paket...";
 "Download Completed" = "Unduhan Selesai";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "Pencarian Live";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweak, Tema, dan Banyak lagi";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ adalah paket yang diperlukan dan harus dihapus karena tergantung pada %@. %@ TIDAK boleh dihapus kecuali Anda tahu persis apa yang Anda lakukan!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Acak\" akan menampilkan paket acak dari semua repositori yang telah Anda tambahkan ke Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Masuk ke sumber memungkinkan untuk pembelian paket berbayar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Secara otomatis mengabaikan Konsol ketika semua tugasnya telah selesai.";
