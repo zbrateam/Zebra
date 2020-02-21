@@ -67,15 +67,15 @@
 "Monochrome" = "Monokrom";
 "Mountain Meadow" = "Mountain Meadow";
 "Pastel Red" = "Pastelrød";
-"Purple Heart" = "Purple Heart";
+"Purple Heart" = "Lavendel lilla";
 "Royal Blue" = "Kongeblå";
 "Shark" = "Haj";
 "Storm" = "Stromgrå";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
+"Use System Accent Color" = "Brug systemets markeringsfarve";
+"Appearance" = "Udseende";
+"Use System Appearance" = "Brug systemets udseende";
+"Light" = "Lys";
+"Dark" = "Mørk";
 "Pure Black Mode" = "Pure Black Mode";
 
 // Featured
@@ -107,12 +107,12 @@
 // Stores
 
 "Stores" = "Butikker";
-"Account" = "Account";
+"Account" = "Konto";
 "Login" = "Log på";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Log ud";
+"Your Purchases" = "Dine køb";
 "No Storefronts Available" = "Ingen butikker tilgængelige";
-"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase" = "Kunne ikke udføre købet";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Lokalt installeret pakker";
 "Unknown" = "Ukendt";
 "No source URLs detected." = "Ingen kilde URL registreret.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Du har allerede tilføjet denne kilde.";
 "You have already added these sources." = "Du har allerede tilføjet disse kilder.";
 "Error verifying source" = "Fejl med at kontrollere kilde";
 "Error verifying sources" = "Fejl med at kontrollere kilder";
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Restarting SpringBoard..." = "Genstarter SpringBoard...";
 "Parsing" = "Parser";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Starter download";
 "Downloading" = "Overfører";
 "Downloading Packages..." = "Overfører Pakker...";
 "Download Completed" = "Download udført";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "Live Søgning";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaks, temaer og mere";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er vigtig og burde ikke fjernes da den er krævet af %@. %@ burde IKKE blive fjernet medmindre du ved præcist hvad du laver!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfældig\" vil vise tilfældige pakker fra alle arkiver du har tilføjet til Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Ved at logge ind på kilderne, er det muligt at købe pakker.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Luk konsollen automatisk når alle opgaver er udført.";
