@@ -59,24 +59,24 @@
 // Accent Colors
 
 "Accent Color" = "Color del acentuado";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
+"Aqua Velvet" = "Terciopelo Agua";
+"Cornflower Blue" = "Maíz en flor azul";
+"Golden Tainoi" = "Tainoi dorado";
+"Iris Blue" = "Iris azul";
+"Lotus Pink" = "Rosa loto";
 "Monochrome" = "Monocroma";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
+"Mountain Meadow" = "Prado de Montaña";
+"Pastel Red" = "Rojo Pastel";
 "Purple Heart" = "Corazón Morado";
-"Royal Blue" = "Royal Blue";
+"Royal Blue" = "Azul real";
 "Shark" = "Tiburón";
 "Storm" = "Tormenta";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Color acentuado del sistema";
+"Appearance" = "Apariencia";
+"Use System Appearance" = "Usar apariencia del sistema";
+"Light" = "Claro";
+"Dark" = "Oscuro";
+"Pure Black Mode" = "Modo negro puro";
 
 // Featured
 
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "Tiendas";
-"Account" = "Account";
+"Account" = "Cuenta";
 "Login" = "Iniciar sesión";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Sign Out" = "Desconectar";
+"Your Purchases" = "Tus compras";
+"No Storefronts Available" = "No hay escaparates disponibles";
+"Could not complete purchase" = "No se pudo completar la compra";
+"Could not complete purchase, no payment secret was found" = "No se pudo completar la compra, no se encontró ninguna clave de pago";
 
 // Sources
 
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Restarting SpringBoard..." = "Reiniciando SpringBoard...";
 "Parsing" = "Analizando";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Iniciando la descarga";
 "Downloading" = "Descargando";
 "Downloading Packages..." = "Descargando paquetes...";
 "Download Completed" = "Descarga Completa";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "Búsqueda en tiempo real";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaks, temas y más";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ es un paquete necesario y debe ser eliminado porque depende de %@. ¡%@ NO debe ser eliminado a menos que sepas lo que estás haciendo!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatorio\" mostrará paquetes aleatorios de todos los repositorios que hayas añadido a Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Iniciar sesión en fuentes permite la compra de paquetes de pago.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Cerrar automáticamente la Consola cuando se hayan completado todas la tareas.";
