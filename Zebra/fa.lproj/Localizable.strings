@@ -27,9 +27,9 @@
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Community Sources" = "سورس‌های انجمن";
+"You’ve added all of the community sources" = "شما تمام سورس های انجمن را اضافه کردید";
+"Transfer sources from %@ to Zebra" = "انتقال سورس ها از %@ به زبرا";
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "جابجایی منابع";
 "Verifying Source" = "Verifying Source";
@@ -326,7 +326,7 @@
 
 // Search
 
-"Live Search" = "Live Search";
+"Live Search" = "جستجوی زنده";
 "Tweaks, Themes, and More" = "Tweaks, Themes, and More";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
