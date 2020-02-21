@@ -202,18 +202,31 @@
 }
 
 + (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer {
-    NSMutableString *command = [@"uicache" mutableCopy];
-    for (NSString *argument in arguments) {
-        [command appendString:@" "];
-        [command appendString:argument];
+    if (!arguments || [arguments count] == 0) {
+        NSString *command = @"uicache -a";
+        
+        @try {
+            [self runCommandInPath:command asRoot:NO observer:observer];
+        }
+        @catch (NSException *e) {
+            CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+            NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+        }
     }
-    
-    @try {
-        [self runCommandInPath:command asRoot:NO observer:observer];
-    }
-    @catch (NSException *e) {
-        CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);
-        NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+    else {
+        NSMutableString *command = [@"uicache" mutableCopy];
+        for (NSString *argument in arguments) {
+            [command appendString:@" "];
+            [command appendString:argument];
+        }
+        
+        @try {
+            [self runCommandInPath:command asRoot:NO observer:observer];
+        }
+        @catch (NSException *e) {
+            CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+            NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+        }
     }
 }
 
