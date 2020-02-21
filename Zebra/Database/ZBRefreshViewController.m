@@ -150,8 +150,8 @@ typedef enum {
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Cancel", @"")];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
-    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [consoleView setBackgroundColor:[UIColor blackColor]];
 }
 
 - (void)disableCancelButton {
@@ -162,8 +162,8 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [consoleView setBackgroundColor:[UIColor blackColor]];
     
     if (!messages) {
         databaseManager = [ZBDatabaseManager sharedInstance];
@@ -271,18 +271,18 @@ typedef enum {
         switch (level) {
             case ZBLogLevelDescript ... ZBLogLevelInfo: {
                 if ([ZBSettings interfaceStyle] < ZBInterfaceStyleDark) {
-                    color = [UIColor blackColor];
+                    color = [UIColor whiteColor];
                 }
                 font = [UIFont fontWithName:level == ZBLogLevelDescript ? @"CourierNewPSMT" : @"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
             case ZBLogLevelError: {
-                color = [UIColor redColor];
+                color = [UIColor systemRedColor];
                 font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
                 break;
             }
             case ZBLogLevelWarning: {
-                color = [UIColor yellowColor];
+                color = [UIColor systemYellowColor];
                 font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
                 break;
             }
