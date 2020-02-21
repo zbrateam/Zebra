@@ -473,6 +473,7 @@
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
     if ([packageTasksMap objectForKey:@([downloadTask taskIdentifier])]) {
         MIMEType = @"application/x-deb";
+        index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
     else if (index == NSNotFound || ![requestedMIMEType isEqualToString:MIMEType]) {
         MIMEType = [self guessMIMETypeForFile:[[response URL] absoluteString]];
@@ -562,6 +563,12 @@
                 NSError *error = [self errorForHTTPStatusCode:responseCode forFile:suggestedFilename];
                 
                 [downloadDelegate finishedPackageDownload:package withError:error];
+                
+                [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
+                
+                if (![self->packageTasksMap count]) {
+                    [self->downloadDelegate finishedAllDownloads];
+                }
             }
             else {
                 NSString *debsPath = [ZBAppDelegate debsLocation];
@@ -593,6 +600,8 @@
         default: { //We couldn't determine the file
             NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Could not parse %@ from %@", @""), [response suggestedFilename], [response URL]];
             [downloadDelegate postStatusUpdate:text atLevel:ZBLogLevelError];
+            
+            [downloadDelegate finishedAllDownloads];
             break;
         }
     }
