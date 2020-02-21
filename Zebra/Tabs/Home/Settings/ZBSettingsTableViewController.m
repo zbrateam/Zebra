@@ -20,8 +20,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBFeatured,
     ZBNews,
     ZBSearch,
-    ZBMisc,
     ZBConsole,
+    ZBMisc,
     ZBAdvanced
 };
 
