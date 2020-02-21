@@ -372,12 +372,21 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 self.package.sileoDownload = YES;
                 self.purchased = info.purchased;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSString *buttonText = info.purchased ? NSLocalizedString(@"Install", @"") : (info.price ? info.price : NSLocalizedString(@"Sign In", @""));
-                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:buttonText style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                    self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                    [self setNavigationButtonBusy:NO];
-                    
-                    self->navButtonsBeingConfigured = NO;
+                    if (info.price && !(info.error || info.recoveryURL)) {
+                        NSString *buttonText = info.purchased ? NSLocalizedString(@"Install", @"") : info.price;
+                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:buttonText style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+                        self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+                        [self setNavigationButtonBusy:NO];
+                        
+                        self->navButtonsBeingConfigured = NO;
+                    }
+                    else {
+                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign In", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signIn)];
+                        self->previousButton.enabled = true;
+                        [self setNavigationButtonBusy:NO];
+                        
+                        self->navButtonsBeingConfigured = NO;
+                    }
                 });
             }
             else {
@@ -445,6 +454,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             self.navigationItem.rightBarButtonItem = self->previousButton;
         }
     });
+}
+
+- (void)signIn {
+    ZBSource *source = [package repo];
+    if (source && [source paymentVendorURL]) {
+        [source authenticate:^(BOOL success, NSError * _Nullable error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self configureNavButton];
+            });
+        }];
+    }
 }
 
 - (void)installPackage {
