@@ -50,6 +50,10 @@
 }
 
 + (BOOL)needsMigration {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[ZBAppDelegate databaseLocation]]) {
+        return YES;
+    }
+    
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager openDatabase];
     
