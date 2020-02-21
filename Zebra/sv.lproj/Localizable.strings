@@ -90,8 +90,8 @@
 // Advanced
 
 "Advanced" = "Avancerat";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
+"Refresh Icon Cache" = "Uppdatera ikoncachen";
+"Reset Image Cache" = "Återställ bildcachen";
 "Reset Sources Cache" = "Reset Sources Cache";
 "Reset All Settings" = "Återställ alla inställningar";
 "Erase All Sources and Settings" = "Erase All Sources and Settings";
