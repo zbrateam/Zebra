@@ -262,10 +262,10 @@
         }
     }
     
-    NSString *message = sources.count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to import %d sources into Zebra?", @""), (int)sources.count] : @"Are you sure that you want to import 1 source into Zebra?";
-    UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:@"Confirm Import" message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    NSString *message = sources.count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"Are you sure that you want to import %d sources into Zebra?", @""), (int)sources.count] : NSLocalizedString(@"Are you sure that you want to import 1 source into Zebra?", @"");
+    UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm Import", @"") message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
-    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self->sourceManager addBaseSources:sources];
         ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:sources];
         
@@ -274,7 +274,7 @@
     }];
     [areYouSure addAction:yesAction];
     
-    UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
     [areYouSure addAction:noAction];
     
     [self presentViewController:areYouSure animated:true completion:nil];
