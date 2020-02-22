@@ -91,14 +91,14 @@
 
 "Advanced" = "Avansert";
 "Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset Image Cache" = "Tilbakestill bildebuffer";
+"Reset Sources Cache" = "Tilbakestill kildebuffer";
+"Reset All Settings" = "Tilbakestill alle innstillinger";
+"Erase All Sources and Settings" = "Tilbakestill alle kilder og innstillinger";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starte SpringBoard på nytt?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatere ikonbufferen? Enheten din kan slutte å svare til prosessen er fullført.";
+"Image Cache Reset" = "Bildebufferen ble tilbakestilt";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Lokalt installerte pakker";
 "Unknown" = "Ukjent";
 "No source URLs detected." = "Ingen kildenettadresser oppdaget.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Du har allerede lagt til denne kilden.";
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Error verifying source" = "Feil under verifisering av kilde";
 "Error verifying sources" = "Feil under verifisering av kilder";
