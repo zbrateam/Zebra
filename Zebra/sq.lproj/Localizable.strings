@@ -108,12 +108,13 @@
 
 "Stores" = "Dyqani";
 "Account" = "Llogaria";
-"Login" = "Futu";
+"Sign In" = "Sign In";
 "Sign Out" = "Dilni";
 "Your Purchases" = "Pagesat e juaja";
 "No Storefronts Available" = "Asnjë dyqan fronti në dispozicion";
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "Importo";
 "Are you sure that you want to import %d sources into Zebra?" = "A jeni të sigurt që dëshironi të importoni %d burime në Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "A jeni të sigurt që dëshironi të importoni 1 burim në Zebra?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Data";
 "Size" = "Madhësia";
 "Clear" = "Pastro";
-"Are you sure you want to clear Queue?" = "A je i sigurt që deshiron të pastrosh Rradhën?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Përditësimet në dispozicion";
 "Ignored Upgrades" = "Përditësimet e injoruara";
 "Recent" = "Së fundmi";
