@@ -108,12 +108,13 @@
 
 "Stores" = "חנויות";
 "Account" = "חשבון";
-"Login" = "התחבר";
+"Sign In" = "Sign In";
 "Sign Out" = "התנתק";
 "Your Purchases" = "הרכישות שלך";
 "No Storefronts Available" = "אין חנויות זמינות";
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "ייבוא";
 "Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
 "Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "תאריך";
 "Size" = "גודל";
 "Clear" = "נקה";
-"Are you sure you want to clear Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
