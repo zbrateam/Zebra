@@ -90,11 +90,11 @@
 // Advanced
 
 "Advanced" = "Προχωρημένα";
-"Refresh Icon Cache" = "Ανανέωσε το Icon Cache";
-"Reset Image Cache" = "Επαναφορά του Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Ανανέωσε το Cache Εικονιδίων";
+"Reset Image Cache" = "Επαναφορά του Cache Εικόνων";
+"Reset Sources Cache" = "Επαναφορά του Cache Πηγών";
+"Reset All Settings" = "Επαναφορά Όλων των Ρυθμίσεων";
+"Erase All Sources and Settings" = "Επαναφορά όλων των Πηγών και Ρυθμίσεων";
 
 "Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
