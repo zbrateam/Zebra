@@ -47,7 +47,7 @@
 "Featured" = "Em destaque";
 "News" = "Notícias";
 "Miscellaneous" = "Diversos";
-"Advanced" = "Advançado";
+"Advanced" = "Avançado";
 
 "Report a Bug" = "Reporte um Bug";
 
@@ -234,7 +234,7 @@
 
 // Console
 
-"Console" = "Consola";
+"Console" = "Console";
 "Performing Actions..." = "Executando ações...";
 "Updating icon cache asynchronously..." = "Atualizando o cache do ícone de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isso pode demorar um pouco e o Zebra pode falhar. Tudo bem se isso acontecer.";
@@ -324,7 +324,7 @@
 
 "Change the source of the featured packages on the homepage." = "Altere a fonte dos pacotes em destaque na página inicial.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" irá exibir pacotes aleatórios de repos que suportam a API de Pacote em Destaque.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" exibirá pacotes aleatórios de repositórios que suportam a API de Pacotes em destaque.";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatório\" irá exibir pacotes aleatórios de todos os repositórios que você adicionou ao Zebra.";
 
