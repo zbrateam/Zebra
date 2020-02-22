@@ -59,13 +59,13 @@
 // Accent Colors
 
 "Accent Color" = "Couleur d'accentuation";
-"Aqua Velvet" = "Aqua Velvet";
+"Aqua Velvet" = "Velours Aquatique";
 "Cornflower Blue" = "Bleu bleuet";
 "Golden Tainoi" = "Tainoi doré";
 "Iris Blue" = "Bleu Iris";
 "Lotus Pink" = "Lotus rose";
 "Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
+"Mountain Meadow" = "Prairies de montagne";
 "Pastel Red" = "Rouge pastel";
 "Purple Heart" = "Coeur violet";
 "Royal Blue" = "Bleu roi";
@@ -90,19 +90,19 @@
 // Advanced
 
 "Advanced" = "Avancé";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Rafraîchir le Cache des Icônes";
+"Reset Image Cache" = "Réinitialiser le Cache des Images";
+"Reset Sources Cache" = "Réinitialiser le Cache des Sources";
+"Reset All Settings" = "Réinitialiser Tous les Réglages";
+"Erase All Sources and Settings" = "Effacer toutes les Sources et Paramètres";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Êtes-vous sûr de vouloir redémarrer le SpringBoard ?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Êtes-vous sûr de vouloir rafraîchir le cache des icônes ? Votre appareil peut ne plus répondre jusqu'à la fin du processus.";
+"Image Cache Reset" = "Réinitialiser le Cache des Images";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Êtes-vous sûr de vouloir réinitialiser le cache des sources de Zebra ? Cela supprimera toutes les informations mises en cache dans la base de données de Zebra et les téléchargera à nouveau. Vos sources ne seront pas supprimées.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Êtes-vous sûr de vouloir réinitialiser les paramètres de Zebra ? Cela réinitialisera tous les paramètres de Zebra à leurs valeurs par défaut et Zebra redémarrera.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Êtes-vous sûr de vouloir effacer toutes les sources et tous les paramètres ? Toutes vos sources seront supprimées de Zebra et vos paramètres seront réinitialisés.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Toutes vos sources seront supprimées définitivement et Zebra redémarrera.";
 
 // Stores
 
@@ -111,7 +111,7 @@
 "Login" = "Connexion";
 "Sign Out" = "Se déconnecter";
 "Your Purchases" = "Vos achats";
-"No Storefronts Available" = "No Storefronts Available";
+"No Storefronts Available" = "Aucune Boutique Disponible";
 "Could not complete purchase" = "Impossible de terminer l'achat";
 "Could not complete purchase, no payment secret was found" = "Impossible de terminer l'achat, aucun moyen de paiement n'a été trouvé";
 
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Paquets installés";
 "Unknown" = "Inconnu";
 "No source URLs detected." = "Aucune URL d'une source détectée.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Vous avez déjà ajouté cette source.";
 "You have already added these sources." = "Vous avez déjà ajouté ces sources.";
 "Error verifying source" = "Erreur lors de la vérification de la source";
 "Error verifying sources" = "Erreur lors de la vérification des sources";
@@ -133,7 +133,7 @@
 "Add" = "Ajouter";
 "Add Multiple" = "Ajouter plusieurs";
 "Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter l'URL de votre presse-papiers ?";
-"Please Wait..." = "Veuillez patienter...";
+"Please Wait..." = "Patientez...";
 "Verifying Source(s)" = "Vérification de la(des) Source(s)";
 "Unable to verify source" = "Impossible de vérifier la Source";
 "Refresh" = "Rafraîchir";
