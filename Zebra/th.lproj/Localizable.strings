@@ -108,12 +108,13 @@
 
 "Stores" = "ร้านค้า";
 "Account" = "บัญชี";
-"Login" = "ลงชื่อเข้าใช้";
+"Sign In" = "Sign In";
 "Sign Out" = "ลงชื่อออก";
 "Your Purchases" = "รายการซื้อของคุณ";
 "No Storefronts Available" = "ไม่มีหน้าร้านที่ใช้ได้";
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
 "Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "นําเข้า";
 "Are you sure that you want to import %d sources into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า %d ซอร์สไปยัง Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า 1 ซอร์สไปยัง Zebra?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "วันที่";
 "Size" = "ขนาด";
 "Clear" = "ล้าง";
-"Are you sure you want to clear Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "รุ่นใหม่ที่มี";
 "Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
 "Recent" = "เร็วๆ นี้";
