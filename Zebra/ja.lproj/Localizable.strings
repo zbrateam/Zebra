@@ -3,95 +3,117 @@
 "Cancel" = "キャンセル";
 "Yes" = "はい";
 "No" = "いいえ";
-"Ok" = "OK";
+"Ok" = "はい";
 "Error" = "エラー";
 "Retry" = "再試行";
 "Edit" = "編集";
-"Login" = "ログイン";
 "Close" = "閉じる";
 "Done" = "完了";
+"Loading..." = "読み込み中...";
 
 // Home
 
 "Home" = "ホーム";
 "Info" = "情報";
 "Welcome to Zebra!" = "Zebra へようこそ！";
+"Report a Bug" = "バグを報告";
 "Changelog" = "変更履歴";
+"Wish List" = "ほしいものリスト";
+"No items in Wish List" = "ほしいものリストには何もありません";
+"Community" = "コミュニティ";
+"Join our Discord" = "Discord に参加";
+"Follow us on Twitter" = "Twitter でフォローする";
+"Help translate Zebra!" = "Zebra の翻訳に協力する!";
+
+// Community Source
+
 "Community Sources" = "コミュニティリポジトリ";
 "You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
-"Utility repo for %@" = "%@ 専用リポジトリ";
+"Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Verifying Source(s)" = "リポジトリの検証中";
-"Stores" = "ストア";
-"Purchases" = "購入リスト";
-"Wish List" = "ほしい物リスト";
-"No items in Wish List" = "ほしい物リストは空です";
-"Community" = "コミュニティ";
-"Join our Discord" = "Discord に参加する";
-"Follow me on Twitter" = "Twitter でフォローする";
+"Verifying Source" = "リポジトリを検証中";
+"Verifying Sources" = "リポジトリを検証中";
 
-//Credits
+// Credits
 
 "Credits" = "クレジット";
 "Creators" = "作成者";
 "Contributors" = "貢献者";
 "Translators" = "翻訳者";
-"Libraries" = "ライブラリ";
+"Libraries" = "ライブラリー";
 
 // Settings
 
 "Settings" = "設定";
-"Version" = "バージョン";
-"Interface" = "インターフェース";
-"Featured" = "パッケージ特集";
-"News" = "ニュース";
-"Miscellaneous" = "その他";
-"Advanced" = "上級者向け";
-
-"Report a Bug" = "バグを報告する";
-
-"Accent Color" = "アクセントカラー";
-"Blue" = "青";
-"Orange" = "オレンジ";
-"White" = "白";
-"Black" = "黒";
-
-"Dark Mode Style" = "ダークモードのスタイル";
-"Dark Mode" = "ダークモード";
-"Default" = "デフォルト";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "表示設定";
 "App Icon" = "アプリのアイコン";
-
-"Featured Packages" = "注目のパッケージ";
-"Repo Featured" = "注目のリポジトリ";
-"Random" = "ランダム";
-"Feature Type" = "表示内容";
-"Select Repos to be Featured" = "リポジトリを選択";
-
-"News" = "ニュース";
-
-"Live Search" = "ライブ検索";
-
-"Swipe Actions Display As" = "スワイプで表示する形式";
+"Changes" = "更新履歴";
+"Community News" = "コミュニティニュース";
+"Miscellaneous" = "その他";
+"Swipe Actions Display As" = "スワイプで表示する方法";
 "Text" = "テキスト";
 "Icon" = "アイコン";
-"Open Documents Directory" = "Zebra のディレクトリを開く";
-"Clear Image Cache" = "画像キャッシュをクリア";
-"Clear Keychain" = "キーチェーンをクリア";
+"Finish Automatically" = "自動的に終了";
 
-"Loading..." = "読み込み中...";
+// Accent Colors
 
-"Resetting image cache completed" = "画像キャッシュをクリアしました";
-"Clearing keychain completed" = "キーチェーンをクリアしました";
+"Accent Color" = "アクセントカラー";
+"Aqua Velvet" = "アクアベルベット";
+"Cornflower Blue" = "コーンフラワーブルー";
+"Golden Tainoi" = "ゴールデンタイノイ";
+"Iris Blue" = "アイリスブルー";
+"Lotus Pink" = "ピンク";
+"Monochrome" = "モノクロ";
+"Mountain Meadow" = "マウンテンメドウ";
+"Pastel Red" = "赤";
+"Purple Heart" = "パープルハート";
+"Royal Blue" = "ロイヤルブルー";
+"Shark" = "サメ色";
+"Storm" = "嵐";
+"Use System Accent Color" = "システム標準のアクセントカラーを使用";
+"Appearance" = "表示設定";
+"Use System Appearance" = "システム設定に合わせる";
+"Light" = "ライト";
+"Dark" = "ダーク";
+"Pure Black Mode" = "ブラックモード";
 
-"Drop Tables" = "リポジトリキャッシュをリセット";
+// Featured
 
-"Alternate Icons" = "アプリのアイコン";
-
+"Featured Packages" = "注目されているパッケージ";
+"Feature Type" = "表示内容";
+"Repo Featured" = "注目のリポジトリ";
+"Random" = "ランダム";
+"Select Repos to be Featured" = "リポジトリを選択";
 "Featured Repos" = "注目のリポジトリ";
+
+// Advanced
+
+"Advanced" = "高度";
+"Refresh Icon Cache" = "キャッシュを更新";
+"Reset Image Cache" = "画像キャッシュをリセット";
+"Reset Sources Cache" = "リポジトリキャッシュをリセット";
+"Reset All Settings" = "すべての設定をリセット";
+"Erase All Sources and Settings" = "すべてのリポジトリと設定を消去する";
+
+"Are you sure you want to restart the SpringBoard?" = "リスプリングしますか?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "アイコンキャッシュを更新してもよろしいですか？ プロセスが完了するまで、デバイスが応答しなくなる場合があります。";
+"Image Cache Reset" = "画像キャッシュをリセットしました";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "リポジトリのキャッシュをリセットしてもよろしいですか？ これにより、Zebra のデータベースからすべてのキャッシュが削除され、再ダウンロードされます。 リポジトリは削除されません。";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra の設定をリセットしてもよろしいですか？ これにより、Zebra のすべての設定がデフォルト値にリセットされ、Zebra が再起動します。";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "すべてのリポジトリと設定を消去してもよろしいですか？ すべてのソースが Zebra から削除され、設定がリセットされます。";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "すべてのリポジトリが削除され、Zebra が再起動します。";
+
+// Stores
+
+"Stores" = "ストア";
+"Account" = "アカウント";
+"Login" = "ログイン";
+"Sign Out" = "サインアウト";
+"Your Purchases" = "購入済みパッケージ";
+"No Storefronts Available" = "利用できるストアがありません。";
+"Could not complete purchase" = "購入を完了できませんでした";
+"Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 
 // Sources
 
@@ -99,43 +121,49 @@
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 "Unknown" = "不明";
-"No repository urls detected." = "指定された URL のリポジトリが見つかりませんでした。";
-"You have already added these repositories." = "このリポジトリは既に追加されています。";
-"Error verifying repository" = "リポジトリの検証エラー";
-"Error verifying repositories" = "リポジトリの検証エラー";
+"No source URLs detected." = "リポジトリ URL が検出されませんでした。";
+"You have already added this source." = "このリポジトリはすでに追加されています。";
+"You have already added these sources." = "これらのリポジトリはすでに追加されています。";
+"Error verifying source" = "リポジトリの検証エラー";
+"Error verifying sources" = "リポジトリの検証エラー";
 "Unknown error" = "不明なエラー";
 "Invalid URL" = "無効なURL";
-"Enter URL" = "URLを入力";
-"Add Repo(s)" = "リポジトリを追加";
+"Enter Source URL" = "リポジトリ URL を入力する";
+"Add Sources" = "リポジトリを追加";
 "Add" = "追加";
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
-"Please Wait..." = "しばらくお待ちください...";
+"Please Wait..." = "お待ちください...";
 "Verifying Source(s)" = "リポジトリの検証中";
-"Unable to verify Repo" = "リポジトリを検証できませんでした";
+"Unable to verify source" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
-"Log Out" = "ログアウト";
-"Purchased Packages" = "購入済みのパッケージ";
-"Purchased" = "購入済み";
-
 "All Packages" = "すべてのパッケージ";
 "Delete" = "削除";
+"Import Sources" = "リポジトリを追加する";
+"Updating Sources" = "リポジトリを更新中";
+"Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
+"Failed to add source" = "リポジトリの追加に失敗しました";
+"Failed to add sources" = "リポジトリの追加に失敗しました";
+"Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
+"Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
+"Import Sources" = "リポジトリを追加する";
+"Import" = "インポート";
+"Are you sure that you want to import %d sources into Zebra?" = "%dリポジトリをZebraにインポートしてもよろしいですか？";
+"Are you sure that you want to import 1 source into Zebra?" = "リポジトリをZebraにインポートしてもよろしいですか？";
 
-// Changes
-
-"Changes" = "更新情報";
 
 // Packages
 
+"Version" = "バージョン";
 "Packages" = "パッケージ";
 "Show Updates" = "アップデートを表示";
 "Ignore Updates" = "アップデートを無視";
 "Select Version" = "バージョンを選択";
-"Select a version to upgrade to:" = "アップグレードしたいバージョンを選択してください";
-"Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択してください";
+"Select a version to upgrade to:" = "アップグレードしたいバージョンを選択:";
+"Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
 "Package" = "パッケージ";
 "Information" = "情報";
-"Upgrade All" = "すべてをアップグレード";
+"Upgrade All" = "すべてアップグレード";
 "Loaded" = "読み込み済み";
 "ABC" = "ABC";
 "Date" = "日付";
@@ -145,19 +173,19 @@
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
-"Repo" = "リポジトリ";
+"Source" = "リポジトリ";
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
-"Authenticate to initiate purchase." = "購入する前に認証してください。";
+"Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
-"Installed Version" = "インストール済みのバージョン";
-"Installed Size" = "インストール済みのサイズ";
+"Installed Version" = "インストール済みバージョン";
+"Installed Size" = "インストール済みサイズ";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (インストール済み:%@)";
+//<Version available from source> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (インストール済み:%@)";
 
 //Package size in bytes (no deceimal)
@@ -170,7 +198,7 @@
 "%.2f MB" = "%.2f MB";
 
 "Add to Wish List" = "ほしい物リストに追加する";
-"Remove from Wish List" = "ほしい物リストから削除する";
+"Remove from Wish List" = "ほしい物リストから削除";
 
 // Package Section Names
 
@@ -204,7 +232,7 @@
 "Social" = "ソーシャル";
 "System" = "システム";
 "Terminal Support" = "ターミナルサポート";
-"Text Editors" = "テキストエディタ";
+"Text Editors" = "テキスト編集";
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
@@ -217,32 +245,36 @@
 "Search" = "検索";
 "Clear Search" = "検索履歴をクリア";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
-"No Results Found" = "一致する結果が見つかりませんでした";
+"No Results Found" = "検索結果が見つかりませんでした。";
 
 // Downloads
 
 "Downloads" = "ダウンロード";
 "Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
-"The repo %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "このまま追加すると深刻な問題を引き起こし、端末を初期化する必要性が出てくる可能性があります。";
-"Please remove this repo from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
-"Incorrect documents permissions." = "不適切なアクセス権限です。";
-"Could not determine device information." = "端末情報を特定できませんでした。";
+"The source %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
+"Please remove this source from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
+"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
+"Could not determine device information." = "デバイス情報を特定できませんでした。";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "%@ hasn't been modified" = "%@ は変更されていません";
-"Could not parse %@ from %@" = "%@ から %@ を処理できませんでした";
+"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
 
 // Console
 
 "Console" = "コンソール";
 "Performing Actions..." = "実行中...";
 "Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかる場合があります。Zebra がクラッシュするかもしれませんが問題ありません。";
+"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
+"Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
-"Downloading" = "ダウンロードしています";
+"Restarting SpringBoard..." = "SpringBoard を再起動しています...";
 "Parsing" = "処理中";
+"Starting Download" = "ダウンロードを開始します。";
+"Downloading" = "ダウンロードしています";
 "Downloading Packages..." = "パッケージをダウンロードします...";
+"Download Completed" = "ダウンロード完了";
 "Installing" = "インストールしています";
 "Installing Packages..." = "パッケージをインストールします...";
 "Removing" = "削除しています";
@@ -252,18 +284,23 @@
 "Upgrading" = "アップグレードしています";
 "Upgrading Packages..." = "パッケージをアップグレードします...";
 "Complete" = "完了";
-"Finished!" = "完了しました";
+"Finished!" = "完了！";
 "Return to Queue" = "キューに戻る";
-"Importing local packages." = "パッケージをインポートしています。";
-"Finished importing local packages." = "パッケージをインポートしました。";
-"One or more packages failed to download." = "パッケージのダウンロードに失敗しました。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、再試行してください";
+"Returning to Queue..." = "キューに戻ります...";
+"Importing local packages." = "ローカルパッケージをインポートしています。";
+"Finished importing local packages." = "ローカルパッケージをインポートしました。";
+"One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Done..." = "完了...";
+"Removing Zebra..." = "Zebra を削除しています...";
+"Installing Zebra..." = "Zebra をインストールしています...";
 
 // Queue Bar
-"%d Packages Queued" = "%d 個のパッケージがキューされています";
-"%d Package Queued" = "%d 個のパッケージがキューされています";
+
+"%d Packages Queued" = "%d 個のパッケージがキューされてます";
+"%d Package Queued" = "%d 個のパッケージがキューされてます";
 "Tap to manage" = "タップして管理";
-"No Packages Queued" = "キューがクリアされました";
+"No Packages Queued" = "パッケージはキューされていません";
 
 // Queue
 
@@ -278,39 +315,40 @@
 "Download Size" = "サイズ";
 "Confirm" = "実行";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
-"Required Package" = "変更が必要なパッケージ";
+"Required Package" = "要求されたパッケージ";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は解決できない以下の問題があります";
-"Are you sure?" = "確認";
+"%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
+"Are you sure?" = "よろしいですか？";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。意味が理解ができない方は削除しないでください！";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
 "Remove from Queue" = "キューから削除";
 
+// Search
+
+"Live Search" = "ライブ検索";
+"Tweaks, Themes, and More" = "検索";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 内容を理解していない場合は、%@ を削除しないでください！";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除しようとしているキュー内のパッケージは必要とされています。内容を理解していない場合、続行することは推奨されません。もしパッケージを削除すると端末を初期化しなければならなくなる可能性があります。";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、デバイスに取り返しのつかない損傷が発生し、完全な復元をしないといけなくなります。";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。\n/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling にアクセスできません。\n/usr/libexec/zebra/supersling が存在することを確認してください。";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "root:wheel が su/sling を所有していません。\n/usr/libexec/zebra/supersling の権限を確認してください。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
-
-"Help translate Zebra!" = "Zebra の翻訳に協力します！";
 
 "Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
-"ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再実行する必要があります。 もう一度やり直してください。";
+"ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
-"Configure the appearance of Zebra." = "Zebra の外観を設定します。";
-
-"Display featured packages on the homepage." = "注目のパッケージをホームに表示します。";
+"Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 
-"Community News" = "コミュニティニュース";
-"Import Sources" = "リポジトリを追加する";
-"Updating Repositories" = "リポジトリを更新中です";
-"Would you like to import the following repositories?" = "以下のリポジトリを追加しますか？";
-"Download Completed" = "ダウンロードが完了しました";
-"Removing Zebra..." = "Zebra を削除しています...";
-"Installing Zebra..." = "Zebra をインストールしています...";
+"Signing in to sources allows for the purchase of paid packages." = "リポジトリにサインインすると、有料パッケージを購入できます。";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";

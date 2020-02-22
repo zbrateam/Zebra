@@ -7,31 +7,35 @@
 "Error" = "תקלה";
 "Retry" = "נסה שוב";
 "Edit" = "עריכה";
-"Login" = "התחבר";
 "Close" = "סגור";
 "Done" = "סיום";
+"Loading..." = "טוען...";
 
 // Home
 
 "Home" = "בית";
 "Info" = "מידע";
 "Welcome to Zebra!" = "ברוכים הבאים לזברה!";
+"Report a Bug" = "דווח/י על באג";
 "Changelog" = "מה חדש";
-"Community Sources" = "מקורות קהילתיים";
-"You’ve added all of the community sources" = "הוספת את כל המקורות הקהילתיים";
-"Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
-"Utility repo for %@" = "מקור כלים עבור %@";
-"Transfer Sources" = "ייבוא מקורות";
-"Verifying Source(s)" = "מאמת מקור(ות)";
-"Stores" = "חנויות";
-"Purchases" = "רכישות";
 "Wish List" = "רשימת משאלות";
 "No items in Wish List" = "אין פריטים ברשימת המשאלות";
 "Community" = "קהילה";
 "Join our Discord" = "הצטרף/י ל-Discord שלנו";
-"Follow me on Twitter" = "עקוב/י אחריי ב-Twitter";
+"Follow us on Twitter" = "עקוב/י אחרינו ב-Twitter";
+"Help translate Zebra!" = "עזור/י לתרגם את זברה!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "מקורות קהילתיים";
+"You’ve added all of the community sources" = "הוספת את כל המקורות הקהילתיים";
+"Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
+"Utility source for %@" = "מקור כלים עבור %@";
+"Transfer Sources" = "ייבוא מקורות";
+"Verifying Source" = "מאמת מקור";
+"Verifying Sources" = "מאמת מקורות";
+
+// Credits
 
 "Credits" = "קרדיטים";
 "Creators" = "יוצרים";
@@ -42,56 +46,74 @@
 // Settings
 
 "Settings" = "הגדרות";
-"Version" = "גירסה";
-"Interface" = "ממשק";
-"Featured" = "מומלץ";
-"News" = "חדשות";
-"Miscellaneous" = "שונות";
-"Advanced" = "מתקדם";
-
-"Report a Bug" = "דווח/י על באג";
-
-"Accent Color" = "צבע הדגשה";
-"Blue" = "כחול";
-"Orange" = "כתום";
-"White" = "לבן";
-"Black" = "שחור";
-
-"Dark Mode Style" = "סגנון מצב לילה";
-"Dark Mode" = "מצב לילה";
-"Default" = "ברירת מחדל";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "תצוגה";
 "App Icon" = "אייקון היישום";
-
-"Featured Packages" = "חבילות מומלצות";
-"Repo Featured" = "המלצת מקור";
-"Random" = "אקראי";
-"Feature Type" = "סוג המלצה";
-"Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
-
-"News" = "חדשות";
-
-"Live Search" = "חיפוש חי";
-
+"Changes" = "שינויים";
+"Community News" = "חדשות הקהילה";
+"Miscellaneous" = "שונות";
 "Swipe Actions Display As" = "פעולות החלקה מוצגות בתור";
 "Text" = "טקסט";
 "Icon" = "אייקון";
-"Open Documents Directory" = "פתח תיקיית מסמכים";
-"Clear Image Cache" = "נקה מטמון תמונות";
-"Clear Keychain" = "נקה צרור";
+"Finish Automatically" = "סיים אוטומטית";
 
-"Loading..." = "טוען...";
+// Accent Colors
 
-"Resetting image cache completed" = "איפוס מטמון תמונות הושלם";
-"Clearing keychain completed" = "ניקוי צרור הושלם";
+"Accent Color" = "צבע הדגשה";
+"Aqua Velvet" = "תכלת קטיפה";
+"Cornflower Blue" = "כחול דרדר";
+"Golden Tainoi" = "כתוב מוזהב";
+"Iris Blue" = "כחול איריס";
+"Lotus Pink" = "ורוד לוטוס";
+"Monochrome" = "שחור-לבן";
+"Mountain Meadow" = "ירוק הרים";
+"Pastel Red" = "אדום פסטל";
+"Purple Heart" = "סגול לב";
+"Royal Blue" = "כחול מלכותי";
+"Shark" = "כריש";
+"Storm" = "סערה";
+"Use System Accent Color" = "השתמש בצבע ההדגשה של המערכת";
+"Appearance" = "מראה";
+"Use System Appearance" = "השתמש במראה המערכת";
+"Light" = "בהיר";
+"Dark" = "כהה";
+"Pure Black Mode" = "מצב שחור טהור";
 
-"Drop Tables" = "הפל טבלאות";
+// Featured
 
-"Alternate Icons" = "אייקוניים חלופיים";
-
+"Featured Packages" = "חבילות מומלצות";
+"Feature Type" = "סוג המלצה";
+"Repo Featured" = "המלצת מקור";
+"Random" = "אקראי";
+"Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
 "Featured Repos" = "מקורות מומלצים";
+
+// Advanced
+
+"Advanced" = "מתקדם";
+"Refresh Icon Cache" = "רענן מטמון אייקונים";
+"Reset Image Cache" = "אפס מטמון תמונות";
+"Reset Sources Cache" = "אפס מטמון מקורות";
+"Reset All Settings" = "אפס את כל ההגדרות";
+"Erase All Sources and Settings" = "מחק את כל המקורות וההגדרות";
+
+"Are you sure you want to restart the SpringBoard?" = "האם את/ה בטוח/ה שברצונך להפעיל מחדש את מסך הבית?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "האם את/ה בטוח/ה שברצונך לרענן את מטמון האייקונים? מכשירך עלול לא להגיב עד סיום התהליך.";
+"Image Cache Reset" = "איפוס מטמון תמונות";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "האם את/ה בטוח/ה שברצונך לאפס את מטמון המקורות של זברה? דבר זה יסיר את כל המידע שנשמר במטמון מבסיס הנתונים של זברה ויוריד אותו מחדש. המקורות שלך לא יימחקו.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "האם את/ה בטוח/ה שברצונך לאפס את ההגדרות של זברה? דבר זה ייאפס את כל ההגדרות של זברה חזרה לערכי ברירת המחדל שלהם וזברה תיפתח מחדש.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "האם את/ה בטוח/ה שברצונך למחוק את כל המקורות וההגדרות? כל המקורות שלך יוסרו מזברה וההגדרות שלך יאופסו.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "כל המקורות שלך יימחקו ללא אפשרות שיחזור וזברה תיפתח מחדש.";
+
+// Stores
+
+"Stores" = "חנויות";
+"Account" = "חשבון";
+"Login" = "התחבר";
+"Sign Out" = "התנתק";
+"Your Purchases" = "הרכישות שלך";
+"No Storefronts Available" = "אין חנויות זמינות";
+"Could not complete purchase" = "לא ניתן להשלים רכישה";
+"Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 
 // Sources
 
@@ -99,34 +121,40 @@
 "Local Repository" = "מקור מקומי";
 "Locally installed packages" = "חבילות שהותקנו מקומית";
 "Unknown" = "לא ידוע";
-"No repository urls detected." = "לא אותרו כתובות מקור.";
-"You have already added these repositories." = "כבר הוספת את מקורות אלו.";
-"Error verifying repository" = "תקלה באימות מקור";
-"Error verifying repositories" = "תקלה באימות מקורות";
+"No source URLs detected." = "לא זוהו כתובות מקורות.";
+"You have already added this source." = "כבר הוספת את המקור הזה.";
+"You have already added these sources." = "כבר הוספת את המקורות האלו.";
+"Error verifying source" = "תקלה באימות המקור";
+"Error verifying sources" = "תקלה באימות מקורות";
 "Unknown error" = "תקלה לא ידועה";
 "Invalid URL" = "כתובת לא תקינה";
-"Enter URL" = "הזן/י כתובת";
-"Add Repo(s)" = "הוסף מקור(ות)";
+"Enter Source URL" = "הזן/י כתובת מקור";
+"Add Sources" = "הוסף מקורות";
 "Add" = "הוסף";
 "Add Multiple" = "הוסף מרובים";
 "Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
 "Please Wait..." = "נא להמתין...";
 "Verifying Source(s)" = "מאמת מקור(ות)";
-"Unable to verify Repo" = "לא ניתן לאמת מקור";
+"Unable to verify source" = "לא ניתן לאמת מקור";
 "Refresh" = "רענן";
-"Log Out" = "התנתק";
-"Purchased Packages" = "חבילות שנרכשו";
-"Purchased" = "נרכש";
-
 "All Packages" = "כל החבילות";
 "Delete" = "מחק";
+"Import Sources" = "ייבא מקורות";
+"Updating Sources" = "מעדכן מקורות";
+"Would you like to import the following sources?" = "האם ברצונך לייבא את המקורות הבאים?";
+"Failed to add source" = "הוספת מקור נכשלה";
+"Failed to add sources" = "הוספת מקורות נכשלה";
+"Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
+"Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
+"Import Sources" = "ייבא מקורות";
+"Import" = "ייבוא";
+"Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
+"Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
 
-// Changes
-
-"Changes" = "שינויים";
 
 // Packages
 
+"Version" = "גירסה";
 "Packages" = "חבילות";
 "Show Updates" = "הצג עדכונים";
 "Ignore Updates" = "התעלם מעדכונים";
@@ -145,7 +173,7 @@
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
-"Repo" = "מקור";
+"Source" = "מקור";
 "Installed Files" = "קבצים מותקנים";
 "Modify" = "נהל";
 "Authenticate to initiate purchase." = "בצע/י אימות כדי להתחיל רכישה.";
@@ -154,10 +182,10 @@
 "Installed Version" = "גירסה מותקנת";
 "Installed Size" = "גודל מותקן";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (גירסה מותקנת: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (גודל מותקן: %@)";
 
 //Package size in bytes (no deceimal)
@@ -223,9 +251,9 @@
 
 "Downloads" = "הורדות";
 "Error while opening sources.list" = "תקלה בפתיחת sources.list";
-"The repo %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
+"The source %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
-"Please remove this repo from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
+"Please remove this source from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
 "Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
 "Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
@@ -239,10 +267,14 @@
 "Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
+"Closing Zebra..." = "סוגר את זברה...";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
-"Downloading" = "מוריד";
+"Restarting SpringBoard..." = "מפעיל מחדש את מסך הבית...";
 "Parsing" = "מנתח";
+"Starting Download" = "מתחיל הורדה";
+"Downloading" = "מוריד";
 "Downloading Packages..." = "מוריד חבילות...";
+"Download Completed" = "ההורדה הושלמה";
 "Installing" = "מתקין";
 "Installing Packages..." = "מתקין חבילות...";
 "Removing" = "מסיר";
@@ -254,12 +286,17 @@
 "Complete" = "הושלם";
 "Finished!" = "הושלם!";
 "Return to Queue" = "חזרה לתור";
+"Returning to Queue..." = "חוזר לתור...";
 "Importing local packages." = "מייבא חבילות מקומיות.";
 "Finished importing local packages." = "ייבוא חבילות מקומיות הושלם.";
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
+"Done..." = "בוצע...";
+"Removing Zebra..." = "מסיר את זברה...";
+"Installing Zebra..." = "מתקין את זברה...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d חבילות בתור";
 "%d Package Queued" = "חבילה %d בתור";
 "Tap to manage" = "לחץ/י לניהול";
@@ -287,6 +324,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
 "Remove from Queue" = "הסר מהתור";
 
+// Search
+
+"Live Search" = "חיפוש חי";
+"Tweaks, Themes, and More" = "טוויקים, ערכות נושא, ועוד";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת ונדרש להסיר אותה מכיוון שהיא מסתמכת על החבילה %@. אין להסיר את %@ אלא אם את/ה יודע/ת מה את/ה עושה!";
 
@@ -300,15 +342,11 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "אין ל-su/sling הרשאה להגדיר את ה-uid או את ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "עזור/י לתרגם את זברה!";
-
 "Could not respring. Please respring manually." = "לא ניתן להפעיל מחדש את מסך הבית. יש לנסות הפעלה מחדש ידנית.";
 
 "ERROR: Unable to lock status file. Please try again." = "תקלה: לא ניתן לנעול קובץ סטטוס. אנא נסה/י שנית.";
 
 "ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
-
-"Configure the appearance of Zebra." = "הגדר את המראה של זברה.";
 
 "Display featured packages on the homepage." = "הצג חבילות מומלצות בדף הבית.";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"אקראי\" יציג חבילות אקראיות מכל המקורות שנוספו לזברה.";
 
-"Community News" = "חדשות הקהילה";
-"Import Sources" = "ייבא מקורות";
-"Updating Repositories" = "מעדכן מקורות";
-"Would you like to import the following repositories?" = "האם ברצונך לייבא את המקורות הבאים?";
-"Download Completed" = "ההורדה הושלמה";
-"Removing Zebra..." = "מסיר את זברה...";
-"Installing Zebra..." = "מתקין את זברה...";
+"Signing in to sources allows for the purchase of paid packages." = "התחברות למקורות מאפשרת רכישה של חבילות בתשלום.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";

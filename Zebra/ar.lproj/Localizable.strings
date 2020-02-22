@@ -7,31 +7,35 @@
 "Error" = "خطأ";
 "Retry" = "إعادة المحاولة";
 "Edit" = "تعديل";
-"Login" = "تسجيل الدخول";
 "Close" = "إغلاق";
 "Done" = "تم";
+"Loading..." = "جارِ التحميل...";
 
 // Home
 
 "Home" = "الرئيسية";
 "Info" = "معلومات";
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
+"Report a Bug" = "الإبلاغ عن خطأ";
 "Changelog" = "التغييرات";
-"Community Sources" = "مصادر المجتمع";
-"You’ve added all of the community sources" = "لقد أضفت كل مصادر المجتمع";
-"Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
-"Utility repo for %@" = "فائدة المستودع لـ %@";
-"Transfer Sources" = "تحويل المصادر";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
-"Stores" = "المتاجر";
-"Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
 "No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
 "Community" = "المجتمع";
 "Join our Discord" = "انضم لنا على Discord";
-"Follow me on Twitter" = "تابعنا على تويتر";
+"Follow us on Twitter" = "تابعنا على تويتر";
+"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "مصادر المجتمع";
+"You’ve added all of the community sources" = "لقد أضفت كل مصادر المجتمع";
+"Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
+"Utility source for %@" = "مصدر الأداة المساعدة لـ %@";
+"Transfer Sources" = "تحويل المصادر";
+"Verifying Source" = "جارِ التحقق من المصدر";
+"Verifying Sources" = "جارِ التحقق من المصادر";
+
+// Credits
 
 "Credits" = "الإعتمادات";
 "Creators" = "المنشئون";
@@ -42,56 +46,74 @@
 // Settings
 
 "Settings" = "الإعدادات";
-"Version" = "الإصدار";
-"Interface" = "الواجهة";
-"Featured" = "مميز";
-"News" = "الأخبار";
-"Miscellaneous" = "متنوع";
-"Advanced" = "متقدم";
-
-"Report a Bug" = "الإبلاغ عن خطأ";
-
-"Accent Color" = "اللون الثانوي";
-"Blue" = "أزرق";
-"Orange" = "برتقالي";
-"White" = "أبيض";
-"Black" = "أسود";
-
-"Dark Mode Style" = "نمط الوضع الداكن";
-"Dark Mode" = "الوضع الداكن";
-"Default" = "افتراضي";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "عرض";
 "App Icon" = "أيقونة التطبيق";
-
-"Featured Packages" = "الحزم المميزة";
-"Repo Featured" = "الحزم المميزة في المصدر";
-"Random" = "عشوائي";
-"Feature Type" = "نوع الميزة";
-"Select Repos to be Featured" = "حدد المصادر لتمييزها";
-
-"News" = "الأخبار";
-
-"Live Search" = "بحث مباشر";
-
+"Changes" = "التغييرات";
+"Community News" = "أخبار المجتمع";
+"Miscellaneous" = "متنوع";
 "Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
 "Text" = "نص";
 "Icon" = "أيقونة";
-"Open Documents Directory" = "فتح دليل المستندات";
-"Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
-"Clear Keychain" = "مسح بيانات تسجيل الدخول";
+"Finish Automatically" = "إنهاء تلقائيًا";
 
-"Loading..." = "جارِ التحميل...";
+// Accent Colors
 
-"Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
-"Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
+"Accent Color" = "اللون الثانوي";
+"Aqua Velvet" = "أزرق مخملي";
+"Cornflower Blue" = "أزرق شاحب";
+"Golden Tainoi" = "كهرماني";
+"Iris Blue" = "أزرق كلاسيكي";
+"Lotus Pink" = "وردي لوتس";
+"Monochrome" = "أحادي اللون";
+"Mountain Meadow" = "مرجي الجبل";
+"Pastel Red" = "الباستيل الأحمر";
+"Purple Heart" = "قلب بنفسجي";
+"Royal Blue" = "أزرق ملكي";
+"Shark" = "قرش";
+"Storm" = "عاصفة";
+"Use System Accent Color" = "استخدام لون النظام الثانوي";
+"Appearance" = "المظهر";
+"Use System Appearance" = "استخدام مظهر النظام";
+"Light" = "فاتح";
+"Dark" = "داكن";
+"Pure Black Mode" = "وضع الأسود النقي";
 
-"Drop Tables" = "حذف قاعدة البيانات";
+// Featured
 
-"Alternate Icons" = "أيقونات بديلة";
-
+"Featured Packages" = "الحزم المميزة";
+"Feature Type" = "نوع الميزة";
+"Repo Featured" = "الحزم المميزة في المصدر";
+"Random" = "عشوائي";
+"Select Repos to be Featured" = "حدد المصادر لتمييزها";
 "Featured Repos" = "المستودعات المميزة";
+
+// Advanced
+
+"Advanced" = "متقدم";
+"Refresh Icon Cache" = "تحديث ذاكرة التخزين المؤقتة";
+"Reset Image Cache" = "إعادة تعين ذاكرة المؤقته للصور";
+"Reset Sources Cache" = "إعادة تعيين ذاكرة المؤقتة للمصادر";
+"Reset All Settings" = "إعادة تعيين جميع الإعدادات";
+"Erase All Sources and Settings" = "محو جميع المصادر وإعدادات";
+
+"Are you sure you want to restart the SpringBoard?" = "هل أنت متأكد أنك تريد إعادة تشغيل واجهة النظام؟";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "هل أنت متأكد أنك تريد تحديث ذاكرة التخزين المؤقت للأيقونة؟ \nقد يصبح جهازك غير قادر على الاستجابة حتى اكتمال العملية.";
+"Image Cache Reset" = "إعادة تعيين ذاكرة التخزين المؤقت للصور";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "هل انت متأكد بأنك تريد محو ذاكرة التخزين المؤقت لمصدر Zebra؟\n  سيؤدي هذا إلى إزالة جميع المعلومات المخزنة مؤقتًا من قاعدة بيانات Zebra وتنزيلها مرة أخرى.  لن يتم حذف مصادرك.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "هل أنت متأكد من أنك تريد إعادة تعيين إعدادات Zebra؟\n سيؤدي ذلك إلى إعادة تعيين جميع إعدادات Zebra إلى قيمها الإفتراضية وسيتم إعادة تشغيل Zebra.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "هل انت متأكد من أنك تريد محو جميع المصادر والإعدادات؟\n ستتم إزالة جميع مصادرك من Zebra وسيتم إعادة تعيين إعداداتك";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف جميع المصادر الخاصة بك وستزول إلى الأبد \nوسيتم إعادة تشغيل Zebra.";
+
+// Stores
+
+"Stores" = "المتاجر";
+"Account" = "الحساب";
+"Login" = "تسجيل الدخول";
+"Sign Out" = "تسجيل الخروج";
+"Your Purchases" = "مشترياتك";
+"No Storefronts Available" = "لا توجد واجهات متاحة";
+"Could not complete purchase" = "تعذر إكمال الشراء";
+"Could not complete purchase, no payment secret was found" = "تعذر إكمال الشراء، لم يتم العثور على دفع آمن";
 
 // Sources
 
@@ -99,34 +121,40 @@
 "Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليًا";
 "Unknown" = "غير معروف";
-"No repository urls detected." = "لم يتم إكتشاف عناوين URL مستودعات.";
-"You have already added these repositories." = "أنت أضفت هذه المستودعات بالفعل.";
-"Error verifying repository" = "تعذر التحقق من المستودع";
-"Error verifying repositories" = "تعذر التحقق من المستودعات";
+"No source URLs detected." = "لم يتم اكتشاف عناوين URL المصادر.";
+"You have already added this source." = "لقد أضفت هذه المصادر بالفعل.";
+"You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
+"Error verifying source" = "خطأ في التحقق من المصدر";
+"Error verifying sources" = "خطأ في التحقق من المصادر";
 "Unknown error" = "خطأ غير معروف";
 "Invalid URL" = "عنوان URL غير صحيح";
-"Enter URL" = "أدخل عنوان URL";
-"Add Repo(s)" = "إضافة مستودع/مستودعات";
+"Enter Source URL" = "أدخل عنوان URL المصدر";
+"Add Sources" = "إضافة مصادر";
 "Add" = "إضافة";
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "التحقق من المصدر/المصادر";
-"Unable to verify Repo" = "تعذر التحقق من المستودع";
+"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
+"Unable to verify source" = "غير قادر على التحقق من المصدر";
 "Refresh" = "تحديث";
-"Log Out" = "تسجيل خروج";
-"Purchased Packages" = "الحزم المشتراة";
-"Purchased" = "المشتريات";
-
 "All Packages" = "كل الحزم";
 "Delete" = "حذف";
+"Import Sources" = "استيراد المصادر";
+"Updating Sources" = "جارِ تحديث المصادر";
+"Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
+"Failed to add source" = "فشل في إضافة المصدر";
+"Failed to add sources" = "فشل في إضافة المصادر";
+"Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
+"Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
+"Import Sources" = "استيراد المصادر";
+"Import" = "استيراد";
+"Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
+"Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
 
-// Changes
-
-"Changes" = "التغييرات";
 
 // Packages
 
+"Version" = "الإصدار";
 "Packages" = "الحزم";
 "Show Updates" = "إظهار التحديثات";
 "Ignore Updates" = "تجاهل التحديثات";
@@ -145,7 +173,7 @@
 "Available Upgrades" = "الترقيات المتاحة";
 "Ignored Upgrades" = "تجاهل الترقيات";
 "Recent" = "مؤخرًا";
-"Repo" = "المستودع";
+"Source" = "المصدر";
 "Installed Files" = "الملفات المثبتة";
 "Modify" = "تعديل";
 "Authenticate to initiate purchase." = "المصادقة لبدء الشراء.";
@@ -154,10 +182,10 @@
 "Installed Version" = "الإصدار المثبت";
 "Installed Size" = "حجم التثبيت";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (الإصدار المثبت: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (الحجم المثبت: %@)";
 
 //Package size in bytes (no deceimal)
@@ -223,9 +251,9 @@
 
 "Downloads" = "التنزيلات";
 "Error while opening sources.list" = "خطأ أثناء فتح قائمة المصادر";
-"The repo %@ is incompatible with your jailbreak." = "هذا المستودع %@ غير متوافق مع الجيلبريك الخاص بك.";
+"The source %@ is incompatible with your jailbreak." = "المصدر %@ غير متوافق مع الجيلبريك الخاص بك.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما يؤدي إلى حدوث عملية استعادة.";
-"Please remove this repo from your sources.list file." = "يرجى إزالة هذا المستودع من ملف قائمة المصادر الخاص بك.";
+"Please remove this source from your sources.list file." = "يرجى إزالة هذا المصدر من ملف sources.list الخاص بك.";
 "Incorrect documents permissions." = "مستندات أذونات غير صحيحة.";
 "Could not determine device information." = "لا يمكن تحديد معلومات الجهاز.";
 "Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
@@ -239,10 +267,14 @@
 "Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
+"Closing Zebra..." = "جارِ إغلاق Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
-"Downloading" = "جارِ التنزيل";
+"Restarting SpringBoard..." = "جارِ إعادة تشغيل واجهة النظام...";
 "Parsing" = "جارِ التحليل";
+"Starting Download" = "جارِ بدء التنزيل";
+"Downloading" = "جارِ التنزيل";
 "Downloading Packages..." = "تنزيل الحزم...";
+"Download Completed" = "إكتمل التنزيل";
 "Installing" = "جارِ التثبيت";
 "Installing Packages..." = "تثبيت الحزم...";
 "Removing" = "جارِ الإزالة";
@@ -254,12 +286,17 @@
 "Complete" = "إكتمل";
 "Finished!" = "انتهى!";
 "Return to Queue" = "العودة إلى قائمة الإنتظار";
+"Returning to Queue..." = "جارِ العودة إلى قائمة الإنتظار...";
 "Importing local packages." = "استيراد الحزم المحلية.";
 "Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
+"Done..." = "تم...";
+"Removing Zebra..." = "جارِ إزالة Zebra...";
+"Installing Zebra..." = "جارِ تثبيت Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d حزم في قائمة الإنتظار";
 "%d Package Queued" = "%d حزمة في قائمة الإنتظار";
 "Tap to manage" = "اضغط للإدارة";
@@ -287,6 +324,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة. لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
 "Remove from Queue" = "إزالة من قائمة الإنتظار";
 
+// Search
+
+"Live Search" = "بحث مباشر";
+"Tweaks, Themes, and More" = "أدوات، موضوعات، والكثير";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة ويجب إزالتها لأنها تعتمد على %@. حزمة %@ لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
 
@@ -300,15 +342,11 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
-
 "Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
 
 "ERROR: Unable to lock status file. Please try again." = "خطأ: غير قادر على قفل ملف الحالة. يرجى المحاولة مرة أخرى.";
 
 "ERROR: Process must be restarted. Please try again." = "خطأ: يجب إعادة تشغيل العملية. يرجى المحاولة مرة أخرى.";
-
-"Configure the appearance of Zebra." = "تكوين مظهر Zebra.";
 
 "Display featured packages on the homepage." = "عرض الحزم المميزة على الصفحة الرئيسية.";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
 
-"Community News" = "أخبار المجتمع";
-"Import Sources" = "استيراد المصادر";
-"Updating Repositories" = "جارِ تحديث المستودعات";
-"Would you like to import the following repositories?" = "هل ترغب في استيراد المستودعات التالية؟";
-"Download Completed" = "إكتمل التنزيل";
-"Removing Zebra..." = "جارِ إزالة Zebra...";
-"Installing Zebra..." = "جارِ تثبيت Zebra...";
+"Signing in to sources allows for the purchase of paid packages." = "تسجيل الدخول إلى المصادر يسمح بشراء الحزم المدفوعة.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "تجاهل تلقائي لوحدة التحكم عند انتهاء كل مهامها.";

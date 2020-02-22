@@ -7,31 +7,35 @@
 "Error" = "错误";
 "Retry" = "重试";
 "Edit" = "编辑";
-"Login" = "登录";
 "Close" = "关闭";
 "Done" = "完成";
+"Loading..." = "加载中……";
 
 // Home
 
 "Home" = "主页";
 "Info" = "信息";
 "Welcome to Zebra!" = "欢迎使用 Zebra ！";
+"Report a Bug" = "报告 Bug";
 "Changelog" = "更新日志";
-"Community Sources" = "第三方软件源";
-"You’ve added all of the community sources" = "您已经添加了所有的第三方软件源";
-"Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
-"Utility repo for %@" = "%@ 的工具软件源";
-"Transfer Sources" = "导入软件源";
-"Verifying Source(s)" = "验证软件源";
-"Stores" = "商店";
-"Purchases" = "购买";
 "Wish List" = "心愿单";
 "No items in Wish List" = "愿望单中无项目";
 "Community" = "交流";
 "Join our Discord" = "加入我们的 Discord";
-"Follow me on Twitter" = "在 Twitter 上关注我们";
+"Follow us on Twitter" = "在 Twitter 上关注我们";
+"Help translate Zebra!" = "帮助翻译 Zebra ！";
 
-//Credits
+// Community Source
+
+"Community Sources" = "第三方软件源";
+"You’ve added all of the community sources" = "您已经添加了所有的第三方软件源";
+"Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
+"Utility source for %@" = "%@ 的工具软件源";
+"Transfer Sources" = "导入软件源";
+"Verifying Source" = "正在验证软件源";
+"Verifying Sources" = "正在验证软件源";
+
+// Credits
 
 "Credits" = "鸣谢";
 "Creators" = "开发者";
@@ -42,56 +46,74 @@
 // Settings
 
 "Settings" = "设置";
-"Version" = "版本";
-"Interface" = "界面";
-"Featured" = "功能";
-"News" = "新闻";
-"Miscellaneous" = "其它";
-"Advanced" = "高级";
-
-"Report a Bug" = "报告 Bug";
-
-"Accent Color" = "主题颜色";
-"Blue" = "蓝色";
-"Orange" = "橙色";
-"White" = "白色";
-"Black" = "黑色";
-
-"Dark Mode Style" = "黑暗模式样式";
-"Dark Mode" = "黑暗模式";
-"Default" = "默认";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "显示";
 "App Icon" = "App 图标";
-
-"Featured Packages" = "精选软件包";
-"Repo Featured" = "推荐的软件源";
-"Random" = "随机";
-"Feature Type" = "推荐类型";
-"Select Repos to be Featured" = "选择会被推荐的软件源";
-
-"News" = "新闻";
-
-"Live Search" = "实时搜索";
-
+"Changes" = "更新";
+"Community News" = "社区新闻";
+"Miscellaneous" = "其它";
 "Swipe Actions Display As" = "滑动选项显示为";
 "Text" = "文字";
 "Icon" = "图标";
-"Open Documents Directory" = "打开文档目录";
-"Clear Image Cache" = "清除图片缓存";
-"Clear Keychain" = "清除 Keychain";
+"Finish Automatically" = "自动完成";
 
-"Loading..." = "加载中……";
+// Accent Colors
 
-"Resetting image cache completed" = "清除图片缓存完成";
-"Clearing keychain completed" = "Keychain 清除完成";
+"Accent Color" = "主题颜色";
+"Aqua Velvet" = "蓝绿色";
+"Cornflower Blue" = "浅紫色";
+"Golden Tainoi" = "金色";
+"Iris Blue" = "浅蓝色";
+"Lotus Pink" = "粉色";
+"Monochrome" = "黑白";
+"Mountain Meadow" = "绿色";
+"Pastel Red" = "红色";
+"Purple Heart" = "深紫色";
+"Royal Blue" = "深蓝色";
+"Shark" = "鲨鱼";
+"Storm" = "风暴";
+"Use System Accent Color" = "使用系统配色";
+"Appearance" = "外观";
+"Use System Appearance" = "使用系统外观";
+"Light" = "浅色主题";
+"Dark" = "暗色主题";
+"Pure Black Mode" = "纯黑模式";
 
-"Drop Tables" = "删除所有数据";
+// Featured
 
-"Alternate Icons" = "备选图标";
-
+"Featured Packages" = "精选软件包";
+"Feature Type" = "推荐类型";
+"Repo Featured" = "推荐的软件源";
+"Random" = "随机";
+"Select Repos to be Featured" = "选择会被推荐的软件源";
 "Featured Repos" = "精选软件源";
+
+// Advanced
+
+"Advanced" = "高级";
+"Refresh Icon Cache" = "刷新图标缓存";
+"Reset Image Cache" = "重置图片缓存";
+"Reset Sources Cache" = "重置软件源缓存";
+"Reset All Settings" = "重置所有设置";
+"Erase All Sources and Settings" = "清除所有软件源和设置";
+
+"Are you sure you want to restart the SpringBoard?" = "确定要重启 SpringBoard 吗？";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "确定要刷新图标缓存吗？你的设备可能会无响应直到操作完成。";
+"Image Cache Reset" = "重置图片缓存";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "确定要重置 Zebra 的软件源缓存吗？所有软件源的数据缓存将被移除并重新下载，你的软件源不会被删除。";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "确定要重置 Zebra 的设置吗？Zebra 的所有设置会恢复为默认值并重启。";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "确定要清除所有软件源和设置吗？ 所有软件源将从 Zebra 中移除，你的设置将被重置。";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "所有软件源将被删除且无法恢复，Zebra 将重新启动。";
+
+// Stores
+
+"Stores" = "商店";
+"Account" = "账户";
+"Login" = "登录";
+"Sign Out" = "登出";
+"Your Purchases" = "已购买";
+"No Storefronts Available" = "无可用的店铺";
+"Could not complete purchase" = "无法完成购买操作";
+"Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
 
 // Sources
 
@@ -99,34 +121,40 @@
 "Local Repository" = "本地软件源";
 "Locally installed packages" = "本地已安装软件包";
 "Unknown" = "未知";
-"No repository urls detected." = "未检测到软件源链接。";
-"You have already added these repositories." = "你已经添加过这些软件源。";
-"Error verifying repository" = "验证软件源失败";
-"Error verifying repositories" = "验证软件源失败";
+"No source URLs detected." = "未检测到软件源 URL 。";
+"You have already added this source." = "你已经添加了这个软件源。";
+"You have already added these sources." = "你已经添加过这些软件源。";
+"Error verifying source" = "验证软件源时出错";
+"Error verifying sources" = "验证软件源时出错";
 "Unknown error" = "未知错误";
 "Invalid URL" = "无效的 URL";
-"Enter URL" = "输入 URL";
-"Add Repo(s)" = "添加软件源";
+"Enter Source URL" = "输入软件源地址";
+"Add Sources" = "添加软件源";
 "Add" = "添加";
 "Add Multiple" = "批量添加";
 "Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
 "Please Wait..." = "请稍候……";
 "Verifying Source(s)" = "验证软件源";
-"Unable to verify Repo" = "无法验证软件源";
+"Unable to verify source" = "无法验证软件源";
 "Refresh" = "刷新";
-"Log Out" = "注销";
-"Purchased Packages" = "已购买软件包";
-"Purchased" = "已购买";
-
 "All Packages" = "所有软件包";
 "Delete" = "删除";
+"Import Sources" = "导入软件源";
+"Updating Sources" = "正在更新软件源";
+"Would you like to import the following sources?" = "你想导入以下软件源吗？";
+"Failed to add source" = "添加软件源失败";
+"Failed to add sources" = "添加软件源失败";
+"Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
+"Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
+"Import Sources" = "导入软件源";
+"Import" = "导入";
+"Are you sure that you want to import %d sources into Zebra?" = "你确定要将%d个软件源导入到 Zebra 吗？";
+"Are you sure that you want to import 1 source into Zebra?" = "你确定要将1个软件源导入到 Zebra 吗？";
 
-// Changes
-
-"Changes" = "更新";
 
 // Packages
 
+"Version" = "版本";
 "Packages" = "软件包";
 "Show Updates" = "显示更新";
 "Ignore Updates" = "忽略更新";
@@ -145,20 +173,20 @@
 "Available Upgrades" = "可更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
-"Repo" = "软件源";
+"Source" = "软件源";
 "Installed Files" = "已安装的文件";
 "Modify" = "修改";
 "Authenticate to initiate purchase." = "登录后购买。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
-"Installed Size" = "占用空间";
+"Installed Size" = "安装大小";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
 
-//<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@（占用空间：%@）";
+//<Download size> (Installed Size: <installed size>)
+"%@ (Installed Size: %@)" = "%@（已安装大小：%@）";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d字节";
@@ -223,9 +251,9 @@
 
 "Downloads" = "下载";
 "Error while opening sources.list" = "打开 sources.list 时错误";
-"The repo %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
+"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
-"Please remove this repo from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
+"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
 "Incorrect documents permissions." = "文档权限不正确。";
 "Could not determine device information." = "无法获取设备信息。";
 "Could not find a download URL for" = "无法获取下载链接";
@@ -239,10 +267,14 @@
 "Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
 "Close Zebra" = "关闭 Zebra";
+"Closing Zebra..." = "正在关闭 Zebra ……";
 "Restart SpringBoard" = "重启 SpringBoard";
-"Downloading" = "正在下载";
+"Restarting SpringBoard..." = "正在重启 SpringBoard ……";
 "Parsing" = "正在解析";
+"Starting Download" = "正在开始下载";
+"Downloading" = "正在下载";
 "Downloading Packages..." = "正在下载软件包……";
+"Download Completed" = "下载完成";
 "Installing" = "正在安装";
 "Installing Packages..." = "正在安装软件包……";
 "Removing" = "正在移除";
@@ -254,12 +286,17 @@
 "Complete" = "完成";
 "Finished!" = "完成！";
 "Return to Queue" = "返回队列";
+"Returning to Queue..." = "正在返回队列……";
 "Importing local packages." = "正在导入本地软件包。";
 "Finished importing local packages." = "导入本地软件包完成。";
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
+"Done..." = "完成……";
+"Removing Zebra..." = "正在移除 Zebra ……";
+"Installing Zebra..." = "正在安装 Zebra ……";
 
 // Queue Bar
+
 "%d Packages Queued" = "队列中有%d个软件包";
 "%d Package Queued" = "队列中有%d个软件包";
 "Tap to manage" = "点击以管理";
@@ -287,6 +324,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
 "Remove from Queue" = "从队列移除";
 
+// Search
+
+"Live Search" = "实时搜索";
+"Tweaks, Themes, and More" = "插件、主题和更多";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包，因为它依赖于 %@ 所以必须被移除。除非你知道你在干什么，否则你不能将 %@ 移除！";
 
@@ -300,15 +342,11 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"Help translate Zebra!" = "帮助翻译 Zebra ！";
-
 "Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
 
 "ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
-
-"Configure the appearance of Zebra." = "配置 Zebra 的外观。";
 
 "Display featured packages on the homepage." = "在主页上显示精选软件包。";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
 
-"Community News" = "社区新闻";
-"Import Sources" = "导入软件源";
-"Updating Repositories" = "正在更新软件源";
-"Would you like to import the following repositories?" = "你想导入以下软件源吗？";
-"Download Completed" = "下载完成";
-"Removing Zebra..." = "正在移除 Zebra ……";
-"Installing Zebra..." = "正在安装 Zebra ……";
+"Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";

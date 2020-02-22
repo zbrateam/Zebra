@@ -7,31 +7,35 @@
 "Error" = "Hiba";
 "Retry" = "Újra";
 "Edit" = "Szerkeszt";
-"Login" = "Bejelentkezés";
 "Close" = "Bezár";
 "Done" = "Kész";
+"Loading..." = "Betöltés...";
 
 // Home
 
 "Home" = "Kezdőlap";
 "Info" = "Információ";
 "Welcome to Zebra!" = "Üdvözöl a Zebra!";
+"Report a Bug" = "Hibajelentés";
 "Changelog" = "Változások listája";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
-"Utility repo for %@" = "Utility repo for %@";
-"Transfer Sources" = "Források átvitele";
-"Verifying Source(s)" = "Forrás(ok) ellenőrzése";
-"Stores" = "Áruházak";
-"Purchases" = "Vásárlások";
 "Wish List" = "Kívánságlista";
 "No items in Wish List" = "A kívánságlista üres";
 "Community" = "Közösség";
 "Join our Discord" = "Csatlakozz a mi Discord szerverünkhöz";
-"Follow me on Twitter" = "Kövessen minket a Twitteren";
+"Follow us on Twitter" = "Follow us on Twitter";
+"Help translate Zebra!" = "Segíts lefordítani a Zebrát!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
+"Utility source for %@" = "Utility source for %@";
+"Transfer Sources" = "Források átvitele";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
+
+// Credits
 
 "Credits" = "Készítők";
 "Creators" = "Alkotók";
@@ -42,56 +46,74 @@
 // Settings
 
 "Settings" = "Beállítások";
-"Version" = "Verzió";
-"Interface" = "Felület";
-"Featured" = "Kiemelt";
-"News" = "Hírek";
-"Miscellaneous" = "Egyebek";
-"Advanced" = "Haladó";
-
-"Report a Bug" = "Hibajelentés";
-
-"Accent Color" = "Kiemelőszín";
-"Blue" = "Kék";
-"Orange" = "Narancssárga";
-"White" = "Fehér";
-"Black" = "Fekete";
-
-"Dark Mode Style" = "Sötét mód stílusa";
-"Dark Mode" = "Sötét mód";
-"Default" = "Alapértelmezett";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "Display";
 "App Icon" = "Alkalmazás ikon";
-
-"Featured Packages" = "Kiemelt csomagok";
-"Repo Featured" = "Repo Featured";
-"Random" = "Véletlenszerű";
-"Feature Type" = "Feature Type";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-
-"News" = "News";
-
-"Live Search" = "Élő keresés";
-
+"Changes" = "Változások";
+"Community News" = "Közösségi hírek";
+"Miscellaneous" = "Egyebek";
 "Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Szöveg";
 "Icon" = "Ikon";
-"Open Documents Directory" = "Dokumentumok mappa megnyitása";
-"Clear Image Cache" = "Gyorsítótári képek törlése";
-"Clear Keychain" = "Kulcskarika tisztítása";
+"Finish Automatically" = "Finish Automatically";
 
-"Loading..." = "Betöltés...";
+// Accent Colors
 
-"Resetting image cache completed" = "Resetting image cache completed";
-"Clearing keychain completed" = "Clearing keychain completed";
+"Accent Color" = "Kiemelőszín";
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
-"Drop Tables" = "Táblák eldobása";
+// Featured
 
-"Alternate Icons" = "Alternatív ikonok";
-
+"Featured Packages" = "Kiemelt csomagok";
+"Feature Type" = "Feature Type";
+"Repo Featured" = "Repo Featured";
+"Random" = "Véletlenszerű";
+"Select Repos to be Featured" = "Select Repos to be Featured";
 "Featured Repos" = "Kiemelt források";
+
+// Advanced
+
+"Advanced" = "Haladó";
+"Refresh Icon Cache" = "Refresh Icon Cache";
+"Reset Image Cache" = "Reset Image Cache";
+"Reset Sources Cache" = "Reset Sources Cache";
+"Reset All Settings" = "Reset All Settings";
+"Erase All Sources and Settings" = "Erase All Sources and Settings";
+
+"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+
+// Stores
+
+"Stores" = "Áruházak";
+"Account" = "Account";
+"Login" = "Bejelentkezés";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -99,34 +121,40 @@
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Helyileg telepített csomagok";
 "Unknown" = "Ismeretlen";
-"No repository urls detected." = "No repository urls detected.";
-"You have already added these repositories." = "Már hozzáadtad ezeket a forrásokat.";
-"Error verifying repository" = "Hiba a forrás ellenőrzésekor";
-"Error verifying repositories" = "Hiba a források ellenőrzésekor";
+"No source URLs detected." = "No source URLs detected.";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "You have already added these sources.";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Unknown error" = "Ismeretlen hiba";
 "Invalid URL" = "Érvénytelen URL";
-"Enter URL" = "URL megadása";
-"Add Repo(s)" = "Forrás(ok) hozzáadása";
+"Enter Source URL" = "Enter Source URL";
+"Add Sources" = "Add Sources";
 "Add" = "Hozzáad";
 "Add Multiple" = "Több hozzáadáasa";
 "Would you like to add the URL from your clipboard?" = "Szeretnéd a vágólapon lévő URL-t hozzáadni?";
 "Please Wait..." = "Kérlek, várj...";
-"Verifying Source(s)" = "Verifying Source(s)";
-"Unable to verify Repo" = "Unable to verify Repo";
+"Verifying Source(s)" = "Forrás(ok) ellenőrzése";
+"Unable to verify source" = "Unable to verify source";
 "Refresh" = "Frissítés";
-"Log Out" = "Kijelentkezés";
-"Purchased Packages" = "Megvásárolt csomagok";
-"Purchased" = "Megvásárolt";
-
 "All Packages" = "Összes csomag";
 "Delete" = "Törlés";
+"Import Sources" = "Import Sources";
+"Updating Sources" = "Updating Sources";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Import Sources" = "Import Sources";
+"Import" = "Import";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "Változások";
 
 // Packages
 
+"Version" = "Verzió";
 "Packages" = "Csomagok";
 "Show Updates" = "Frissítések megjelenítése";
 "Ignore Updates" = "Frissítések mellőzése";
@@ -145,7 +173,7 @@
 "Available Upgrades" = "Elérhető frissítések";
 "Ignored Upgrades" = "Figyelmen kívül hagyott frissítések";
 "Recent" = "Legutóbbi";
-"Repo" = "Forrás";
+"Source" = "Source";
 "Installed Files" = "Telepített fájlok";
 "Modify" = "Módosít";
 "Authenticate to initiate purchase." = "Azonosítsd magad a vásárláshoz.";
@@ -154,10 +182,10 @@
 "Installed Version" = "Telepített verzió";
 "Installed Size" = "Telepített méret";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Telepített verzió: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Telepített méret: %@)";
 
 //Package size in bytes (no deceimal)
@@ -223,9 +251,9 @@
 
 "Downloads" = "Letöltések";
 "Error while opening sources.list" = "Hiba a forráslista megnyitásakor";
-"The repo %@ is incompatible with your jailbreak." = "The repo %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
-"Please remove this repo from your sources.list file." = "Please remove this repo from your sources.list file.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Incorrect documents permissions.";
 "Could not determine device information." = "Could not determine device information.";
 "Could not find a download URL for" = "Could not find a download URL for";
@@ -239,10 +267,14 @@
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Zebra bezárása";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "SpringBoard újraindítása";
-"Downloading" = "Letöltés";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Parsing" = "Parsing";
+"Starting Download" = "Starting Download";
+"Downloading" = "Letöltés";
 "Downloading Packages..." = "Csomagok letöltése...";
+"Download Completed" = "Download Completed";
 "Installing" = "Telepítés";
 "Installing Packages..." = "Csomagok telepítése...";
 "Removing" = "Eltávolítás";
@@ -254,12 +286,17 @@
 "Complete" = "Kész";
 "Finished!" = "Kész!";
 "Return to Queue" = "Vissza a várólistához";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "Helyi csomagok beolvasása.";
 "Finished importing local packages." = "Helyi csomagok beolvasása kész.";
 "One or more packages failed to download." = "Egy vagy több csomag letöltése sikertelen.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Done..." = "Done...";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Packages Queued";
 "%d Package Queued" = "%d Package Queued";
 "Tap to manage" = "Tap to manage";
@@ -287,6 +324,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 "Remove from Queue" = "Remove from Queue";
 
+// Search
+
+"Live Search" = "Élő keresés";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
 
@@ -300,15 +342,11 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Segíts lefordítani a Zebrát!";
-
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
-
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Community News" = "Közösségi hírek";
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";

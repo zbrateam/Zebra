@@ -7,31 +7,35 @@
 "Error" = "Hata";
 "Retry" = "Tekrar Dene";
 "Edit" = "Düzenle";
-"Login" = "Giriş Yap";
 "Close" = "Kapat";
 "Done" = "Tamamla";
+"Loading..." = "Yükleniyor...";
 
 // Home
 
 "Home" = "Ana Sayfa";
 "Info" = "Bilgi";
 "Welcome to Zebra!" = "Zebra'ya hoş geldiniz!";
+"Report a Bug" = "Hata Bildir";
 "Changelog" = "Değişiklikler";
-"Community Sources" = "Topluluk Kaynakları";
-"You’ve added all of the community sources" = "Bütün topluluk kaynaklarını eklediniz";
-"Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
-"Utility repo for %@" = "%@ için araç kaynağı";
-"Transfer Sources" = "Kaynakları Transfer Et";
-"Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Stores" = "Market";
-"Purchases" = "Satın Alımlar";
 "Wish List" = "İstek Listesi";
 "No items in Wish List" = "İstek listesinde öğe yok";
 "Community" = "Topluluk";
 "Join our Discord" = "Discord'umuza katıl!";
-"Follow me on Twitter" = "Beni Twitter'dan takip edin!";
+"Follow us on Twitter" = "Bizi Twitter'da takip edin";
+"Help translate Zebra!" = "Zebra'yı çevirmemize yardım et!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "Topluluk Kaynakları";
+"You’ve added all of the community sources" = "Bütün topluluk kaynaklarını eklediniz";
+"Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
+"Utility source for %@" = "%@ için araç kaynağı";
+"Transfer Sources" = "Kaynakları Transfer Et";
+"Verifying Source" = "Kaynak Onaylanıyor";
+"Verifying Sources" = "Kaynaklar Onaylanıyor";
+
+// Credits
 
 "Credits" = "Emeği Geçenler";
 "Creators" = "Yapımcılar";
@@ -42,56 +46,74 @@
 // Settings
 
 "Settings" = "Ayarlar";
-"Version" = "Versiyon";
-"Interface" = "Arayüz";
-"Featured" = "Öne Çıkanlar";
-"News" = "Haberler";
-"Miscellaneous" = "Diğer";
-"Advanced" = "Gelişmiş";
-
-"Report a Bug" = "Hata Bildir";
-
-"Accent Color" = "Varsayılan Renk";
-"Blue" = "Mavi";
-"Orange" = "Turuncu";
-"White" = "Beyaz";
-"Black" = "Siyah";
-
-"Dark Mode Style" = "Karanlık Mod Stili";
-"Dark Mode" = "Karanlık Mod";
-"Default" = "Orjinal";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "Görünüm";
 "App Icon" = "Uygulama Simgesi";
-
-"Featured Packages" = "Öne Çıkan Paketler";
-"Repo Featured" = "Kaynağın Öne Çıkanları";
-"Random" = "Rastgele";
-"Feature Type" = "Öne Çıkanların Tarzı";
-"Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
-
-"News" = "Haberler";
-
-"Live Search" = "Anlık Arama";
-
+"Changes" = "Değişiklikler";
+"Community News" = "Topluluk Haberleri";
+"Miscellaneous" = "Diğer";
 "Swipe Actions Display As" = "Kaydırma Animasyonlarını Şöyle Göster;";
 "Text" = "Yazı";
 "Icon" = "İkon";
-"Open Documents Directory" = "Dökümanlar Dosya Bölümünü Aç";
-"Clear Image Cache" = "Resim Hafızasını Temizle";
-"Clear Keychain" = "Anahtar Zincirini Temizle";
+"Finish Automatically" = "Otomatik Sonlandır";
 
-"Loading..." = "Yükleniyor...";
+// Accent Colors
 
-"Resetting image cache completed" = "Resim hafızasını temizleme tamamlandı";
-"Clearing keychain completed" = "Anahtar Zincirini temizleme tamamlandı";
+"Accent Color" = "Varsayılan Renk";
+"Aqua Velvet" = "Aqua Kadife";
+"Cornflower Blue" = "Kantaron Mavisi";
+"Golden Tainoi" = "Lekeli Altın Sarısı";
+"Iris Blue" = "İris Mavisi";
+"Lotus Pink" = "Lotus Pembesi";
+"Monochrome" = "Tek Renk";
+"Mountain Meadow" = "Dağ Çayır";
+"Pastel Red" = "Pastel Kırmızı";
+"Purple Heart" = "Mor Kalp";
+"Royal Blue" = "Kraliyet Mavisi";
+"Shark" = "Köpek Balığı";
+"Storm" = "Fırtına";
+"Use System Accent Color" = "Sistem Ton Rengini Kullan";
+"Appearance" = "Görünüm";
+"Use System Appearance" = "Sistem Görünümünü Kullan";
+"Light" = "Açık";
+"Dark" = "Koyu";
+"Pure Black Mode" = "Saf Karanlık Mod";
 
-"Drop Tables" = "Tabloları Çıkart";
+// Featured
 
-"Alternate Icons" = "Alternatif İkonlar";
-
+"Featured Packages" = "Öne Çıkan Paketler";
+"Feature Type" = "Öne Çıkanların Tarzı";
+"Repo Featured" = "Kaynağın Öne Çıkanları";
+"Random" = "Rastgele";
+"Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
 "Featured Repos" = "Öne Çıkan Kaynaklar";
+
+// Advanced
+
+"Advanced" = "Gelişmiş";
+"Refresh Icon Cache" = "Simge Önbelleğini Yenile";
+"Reset Image Cache" = "Resim Önbelleğini Sıfırla";
+"Reset Sources Cache" = "Kaynak Önbelleğini Temizle";
+"Reset All Settings" = "Tüm Ayarları Sıfırla";
+"Erase All Sources and Settings" = "Tüm Kaynakları ve Ayarları Sil";
+
+"Are you sure you want to restart the SpringBoard?" = "SpringBoard’ı yeniden başlatmak istediğinizden emin misiniz?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Simge önbelleğini yenilemek istediğinizden emin misiniz? İşlem tamamlanana kadar cihazınız yanıt vermeyebilir.";
+"Image Cache Reset" = "Resim Önbelleğini Sıfırla";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Zebra'nın kaynak önbelleğini sıfırlamak istediğinizden emin misiniz? Bu, önbelleğe alınan tüm bilgileri Zebra'nın veritabanından kaldıracak ve yeniden indirecektir. Kaynaklarınız silinmeyecek.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra'nın ayarlarını sıfırlamak istediğinizden emin misiniz? Bu, Zebra'nın tüm ayarlarını varsayılan değerlerine sıfırlar ve Zebra'yı yeniden başlatılır.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tüm kaynakları ve ayarları silmek istediğinizden emin misiniz? Tüm kaynaklarınız Zebra'dan kaldırılacak ve ayarlarınız sıfırlanacak.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Tüm kaynaklarınız silinecek ve sonsuza dek yok olacak ve Zebra yeniden başlayacak.";
+
+// Stores
+
+"Stores" = "Market";
+"Account" = "Hesap";
+"Login" = "Giriş Yap";
+"Sign Out" = "Oturumu Kapat";
+"Your Purchases" = "Satın Aldıklarınız";
+"No Storefronts Available" = "Vitrinde İçerik Bulunamadı";
+"Could not complete purchase" = "Satın alma tamamlanamadı";
+"Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
 
 // Sources
 
@@ -99,34 +121,40 @@
 "Local Repository" = "Yüklü Kaynaklar";
 "Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
 "Unknown" = "Bilinmiyor";
-"No repository urls detected." = "Kaynak linki algılanamadı.";
-"You have already added these repositories." = "Zaten bu kaynakları ekledin.";
-"Error verifying repository" = "Kaynağı onaylarken hata oluştu";
-"Error verifying repositories" = "Kaynakları onaylarken hata oluştu";
+"No source URLs detected." = "Kaynak URL’si Bulunamadı.";
+"You have already added this source." = "Bu kaynağı zaten eklediniz.";
+"You have already added these sources." = "Zaten bu kaynakları ekledin.";
+"Error verifying source" = "Kaynağı doğrularken hata oluştu";
+"Error verifying sources" = "Kaynakları doğrularken hata oluştu";
 "Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
-"Enter URL" = "Link Girin";
-"Add Repo(s)" = "Kaynak(ları) Ekle";
+"Enter Source URL" = "Kaynak URL'sini Gir";
+"Add Sources" = "Kaynakları Ekle";
 "Add" = "Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
 "Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
 "Please Wait..." = "Lütfen Bekleyin...";
 "Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Unable to verify Repo" = "Kaynağı Onaylayamıyoruz";
+"Unable to verify source" = "Kaynağı Onaylayamıyoruz";
 "Refresh" = "Yenile";
-"Log Out" = "Çıkış Yap";
-"Purchased Packages" = "Satın Alınan Paketler";
-"Purchased" = "Satın Alındı";
-
 "All Packages" = "Bütün Paketler";
 "Delete" = "Sil";
+"Import Sources" = "Kaynakları İçeri Al";
+"Updating Sources" = "Kaynaklar Güncelleniyor";
+"Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
+"Failed to add source" = "Kaynak eklenemedi";
+"Failed to add sources" = "Kaynaklar eklenemedi";
+"Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
+"Unable to locate APT repositories at:" = "APT deposu şu konumda bulunamadı:";
+"Import Sources" = "Kaynakları İçeri Al";
+"Import" = "İçeri Aktar";
+"Are you sure that you want to import %d sources into Zebra?" = "%d kaynaklarını Zebra'ya eklemek istediğinize emin misiniz?";
+"Are you sure that you want to import 1 source into Zebra?" = "%d kaynağını Zebra'ya eklemek istediğinize emin misiniz?";
 
-// Changes
-
-"Changes" = "Değişiklikler";
 
 // Packages
 
+"Version" = "Versiyon";
 "Packages" = "Paketler";
 "Show Updates" = "Güncellemeleri Göster";
 "Ignore Updates" = "Güncellemeleri Gizle";
@@ -145,7 +173,7 @@
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Yoksayılan Güncellemeler";
 "Recent" = "En Son";
-"Repo" = "Kaynak";
+"Source" = "Kaynak";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
 "Authenticate to initiate purchase." = "İç satın alımı onayla.";
@@ -154,10 +182,10 @@
 "Installed Version" = "Yüklenen Versiyon";
 "Installed Size" = "Yüklü Boyut";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Kurulmuş Sürüm: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Kurulmuş Boyut: %@)";
 
 //Package size in bytes (no deceimal)
@@ -223,9 +251,9 @@
 
 "Downloads" = "İndirmeler";
 "Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
-"The repo %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygun değil.";
+"The source %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygun değil.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
-"Please remove this repo from your sources.list file." = "Lütden bu kaynağı sources.list dosyasından kaldırın.";
+"Please remove this source from your sources.list file." = "Lütden bu kaynağı sources.list dosyasından kaldırın.";
 "Incorrect documents permissions." = "Yanlış döküman yetkileri.";
 "Could not determine device information." = "Cihaz bilgisi alınaması.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
@@ -239,10 +267,14 @@
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
+"Closing Zebra..." = "Zebra Kapatılıyor...";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
-"Downloading" = "İndiriliyor";
+"Restarting SpringBoard..." = "SpringBoard Yeniden Başlatılıyor...";
 "Parsing" = "Ayrıştırılıyor";
+"Starting Download" = "İndirme Başlatılıyor";
+"Downloading" = "İndiriliyor";
 "Downloading Packages..." = "Paketler İndiriliyor...";
+"Download Completed" = "İndirme Tamamlandı";
 "Installing" = "Yükleniyor";
 "Installing Packages..." = "Paketler Yükleniyor...";
 "Removing" = "Kaldırılıyor";
@@ -254,12 +286,17 @@
 "Complete" = "Tamamlandı";
 "Finished!" = "Bitti!";
 "Return to Queue" = "Sıraya Geri Dön";
+"Returning to Queue..." = "Sıraya Dönülüyor...";
 "Importing local packages." = "Lokal paketler içeri alınıyor.";
 "Finished importing local packages." = "Lokal paketleri içeri alma bitti.";
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
+"Done..." = "Tamamlandı...";
+"Removing Zebra..." = "Zebra Kaldırılıyor...";
+"Installing Zebra..." = "Zebra Yükleniyor...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Paket Sıralandı";
 "%d Package Queued" = "%d Paket Sıralandı";
 "Tap to manage" = "Yönetmek için dokunun";
@@ -287,6 +324,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket. Eğer ne yaptığınızı tam olarak bilmiyorsanız kaldırmamalısınız!";
 "Remove from Queue" = "Sıradan çıkar";
 
+// Search
+
+"Live Search" = "Anlık Arama";
+"Tweaks, Themes, and More" = "Tweakler, Temalar ve Fazlası";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket ve %@ paketine bağımlı olduğu için kaldırılmalı. Ne yaptığınızı bilmiyorsanız %@, kaldırılmamalı!";
 
@@ -300,15 +342,11 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "/su/sling in uid veya gid i ayarlama yetkisş yok. Lütfen /usr/libexec/zebra/supersling konumundaki dosyanin yetkilerini kontrol edin.";
 
-"Help translate Zebra!" = "Zebra'yı çevirmemize yardım et!";
-
 "Could not respring. Please respring manually." = "Respring edilemiyor. Lütfen manuel olarak respring edin.";
 
 "ERROR: Unable to lock status file. Please try again." = "HATA: Durum dosyası kilitlenemiyor. Lütfen tekrar deneyin.";
 
 "ERROR: Process must be restarted. Please try again." = "İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
-
-"Configure the appearance of Zebra." = "Zebra'nın görünüşünü düzenle.";
 
 "Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Rastgele\" Zebra’ya eklediğiniz tüm kaynaklardan rastgele paket gösterecek.";
 
-"Community News" = "Topluluk Haberleri";
-"Import Sources" = "Kaynakları İçeri Al";
-"Updating Repositories" = "Kaynaklar Güncelleniyor";
-"Would you like to import the following repositories?" = "Bu kaynakları içeri almak istiyor musunuz?";
-"Download Completed" = "İndirme Tamamlandı";
-"Removing Zebra..." = "Zebra Kaldırılıyor...";
-"Installing Zebra..." = "Zebra Yükleniyor...";
+"Signing in to sources allows for the purchase of paid packages." = "Kaynaklarda oturum açmak, ücretli paketlerin satın alınmasına izin verir.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";

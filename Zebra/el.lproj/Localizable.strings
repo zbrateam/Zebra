@@ -7,31 +7,35 @@
 "Error" = "Σφάλμα";
 "Retry" = "Ξαναπροσπάθησε";
 "Edit" = "Επεξεργασία";
-"Login" = "Σύνδεση";
 "Close" = "Κλείσε";
 "Done" = "Τέλος";
+"Loading..." = "Γίνεται φόρτωση...";
 
 // Home
 
 "Home" = "Αρχική";
 "Info" = "Πληροφορίες";
 "Welcome to Zebra!" = "Καλώς ήλθατε στο Zebra!";
+"Report a Bug" = "Αναφορά σφάλματος";
 "Changelog" = "Καταγραφή Αλλαγών";
-"Community Sources" = "Πηγές της Κοινωνίας";
-"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινωνίας";
-"Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
-"Utility repo for %@" = "Πρακτικό repo για %@";
-"Transfer Sources" = "Μετατόπισε Πηγές";
-"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
-"Stores" = "Καταστήματα";
-"Purchases" = "Αγορές";
 "Wish List" = "Λίστα Επιθυμιών";
 "No items in Wish List" = "Δεν υπάρχουν αντικείμενα στην Λίστα Επιθυμιών";
 "Community" = "Κοινότητα";
 "Join our Discord" = "Γίνε μέλος στο Discord μας";
-"Follow me on Twitter" = "Ακολούθησέ με στο Twitter";
+"Follow us on Twitter" = "Ακολούθησέ μας στο Twitter";
+"Help translate Zebra!" = "Βοηθήστε να μεταφραστεί το Zebra!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "Πηγές της Κοινωνίας";
+"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινωνίας";
+"Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
+"Utility source for %@" = "Πρακτική πηγή για %@";
+"Transfer Sources" = "Μετατόπισε Πηγές";
+"Verifying Source" = "Γίνεται επαλήθευση της Πηγής";
+"Verifying Sources" = "Γίνεται επαλήθευση των Πηγών";
+
+// Credits
 
 "Credits" = "Εύσημα";
 "Creators" = "Δημιουργοί";
@@ -42,56 +46,74 @@
 // Settings
 
 "Settings" = "Ρυθμίσεις";
-"Version" = "Έκδοση";
-"Interface" = "Περιβάλλον";
-"Featured" = "Προτεινόμενα";
-"News" = "Νέα";
-"Miscellaneous" = "Διάφορα";
-"Advanced" = "Προχωρημένα";
-
-"Report a Bug" = "Αναφορά σφάλματος";
-
-"Accent Color" = "Απόχρωση";
-"Blue" = "Μπλε";
-"Orange" = "Πορτοκαλί";
-"White" = "Άσπρο";
-"Black" = "Μαύρο";
-
-"Dark Mode Style" = "Στιλ Σκουρόχρωμης Λειτουργίας";
-"Dark Mode" = "Σκουρόχρωμη Λειτουργία";
-"Default" = "Προεπιλεγμένο";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "Προβολή";
 "App Icon" = "Εικονίδιο εφαρμογής";
-
-"Featured Packages" = "Προτεινόμενα Πακέτα";
-"Repo Featured" = "Προτεινόμενα Repo";
-"Random" = "Τυχαίο";
-"Feature Type" = "Τύπος Προτεινόμενου";
-"Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
-
-"News" = "Νέα";
-
-"Live Search" = "Ζωντανή Αναζήτηση";
-
+"Changes" = "Αλλαγές";
+"Community News" = "Νέα Κοινότητας";
+"Miscellaneous" = "Διάφορα";
 "Swipe Actions Display As" = "Swipe Actions Εμφανίζονται Ως";
 "Text" = "Κείμενο";
 "Icon" = "Εικονίδιο";
-"Open Documents Directory" = "Κατάλογος Ανοιχτών Αρχείων";
-"Clear Image Cache" = "Καθάρισε Κρυφή Μνήμη Εικόνων";
-"Clear Keychain" = "Καθάρισε Keychain";
+"Finish Automatically" = "Αυτόματη Ολοκλήρωση";
 
-"Loading..." = "Γίνεται φόρτωση...";
+// Accent Colors
 
-"Resetting image cache completed" = "Η επαναφορά της κρυφής μνήμης εικόνων ολοκληρώθηκε";
-"Clearing keychain completed" = "Ο καθαρισμός του keychain ολοκληρώθηκε";
+"Accent Color" = "Απόχρωση";
+"Aqua Velvet" = "Υγρό Βελούδο";
+"Cornflower Blue" = "Κενταύριο Μπλε";
+"Golden Tainoi" = "Χρυσό Tainoi";
+"Iris Blue" = "Μπλε της Ίριδας";
+"Lotus Pink" = "Ροζ Νούφαρο";
+"Monochrome" = "Μονόχρωμο";
+"Mountain Meadow" = "Ορεινό Λιβάδι";
+"Pastel Red" = "Παστέλ Κόκκινο";
+"Purple Heart" = "Μωβ Καρδιά";
+"Royal Blue" = "Βασιλικό Μπλε";
+"Shark" = "Καρχαρίας";
+"Storm" = "Καταιγίδα";
+"Use System Accent Color" = "Χρήση απόχρωσης του συστήματος";
+"Appearance" = "Εμφάνιση";
+"Use System Appearance" = "Χρήση εμφάνισης του συστήματος";
+"Light" = "Φωτεινό";
+"Dark" = "Σκούρο";
+"Pure Black Mode" = "Λειτουργία Καθαρού Μαύρου";
 
-"Drop Tables" = "Διαγραφή Πινάκων";
+// Featured
 
-"Alternate Icons" = "Εναλλαγή Εικονιδίων";
-
+"Featured Packages" = "Προτεινόμενα Πακέτα";
+"Feature Type" = "Τύπος Προτεινόμενου";
+"Repo Featured" = "Προτεινόμενα Repo";
+"Random" = "Τυχαίο";
+"Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
 "Featured Repos" = "Προτεινόμενα Repos";
+
+// Advanced
+
+"Advanced" = "Προχωρημένα";
+"Refresh Icon Cache" = "Ανανέωσε το Icon Cache";
+"Reset Image Cache" = "Επαναφορά του Image Cache";
+"Reset Sources Cache" = "Reset Sources Cache";
+"Reset All Settings" = "Reset All Settings";
+"Erase All Sources and Settings" = "Erase All Sources and Settings";
+
+"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+
+// Stores
+
+"Stores" = "Καταστήματα";
+"Account" = "Account";
+"Login" = "Σύνδεση";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 
 // Sources
 
@@ -99,34 +121,40 @@
 "Local Repository" = "Τοπικό Repository";
 "Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 "Unknown" = "Άγνωστο";
-"No repository urls detected." = "Δεν εντοπίστηκαν repository urls.";
-"You have already added these repositories." = "Έχεις ήδη προσθέσει αυτά τα repositories.";
-"Error verifying repository" = "Σφάλμα επαλήθευσης repository";
-"Error verifying repositories" = "Σφάλμα επαλήθευσης repositories";
+"No source URLs detected." = "Δεν εντοπίστηκαν URLs πηγών.";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
+"Error verifying source" = "Σφάλμα επαλήθευσης πηγής";
+"Error verifying sources" = "Σφάλμα επαλήθευσης πηγών";
 "Unknown error" = "Άγνωστο σφάλμα";
 "Invalid URL" = "Λανθασμένο URL";
-"Enter URL" = "Καταχώρισε URL";
-"Add Repo(s)" = "Πρόσθεσε Repo(s)";
+"Enter Source URL" = "Καταχώρησε URL Πηγής";
+"Add Sources" = "Πρόσθεσε Πηγές";
 "Add" = "Πρόσθεσε";
 "Add Multiple" = "Πρόσθεσε Πολλαπλά";
 "Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
 "Please Wait..." = "Παρακαλώ Περιμένετε...";
 "Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
-"Unable to verify Repo" = "Αδυναμία επαλήθευσης Repo";
+"Unable to verify source" = "Αδυναμία επαλήθευσης πηγής";
 "Refresh" = "Ανανέωση";
-"Log Out" = "Αποσύνδεση";
-"Purchased Packages" = "Αγορασμένα Πακέτα";
-"Purchased" = "Πακέτα";
-
 "All Packages" = "Όλα τα Πακέτα";
 "Delete" = "Διαγραφή";
+"Import Sources" = "Εισαγωγή Πηγών";
+"Updating Sources" = "Γίνεται ενημέρωση Πηγών";
+"Would you like to import the following sources?" = "Θα ήθελες να προσθέσεις τις ακόλουθες πηγές;";
+"Failed to add source" = "Αποτυχία προσθήκης πηγής";
+"Failed to add sources" = "Αποτυχία προσθήκης πηγών";
+"Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
+"Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
+"Import Sources" = "Εισαγωγή Πηγών";
+"Import" = "Εισαγωγή";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 
-// Changes
-
-"Changes" = "Αλλαγές";
 
 // Packages
 
+"Version" = "Έκδοση";
 "Packages" = "Πακέτα";
 "Show Updates" = "Εμφάνισε Ενημερώσεις";
 "Ignore Updates" = "Αγνόησε Ενημερώσεις";
@@ -145,7 +173,7 @@
 "Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
 "Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
 "Recent" = "Πρόσφατα";
-"Repo" = "Repo";
+"Source" = "Πηγή";
 "Installed Files" = "Εγκατεστημένα Αρχεία";
 "Modify" = "Τροποποίησε";
 "Authenticate to initiate purchase." = "Επαληθεύσου για να πραγματοποιήσεις την αγορά.";
@@ -154,10 +182,10 @@
 "Installed Version" = "Εγκατεστημένη Έκδοση";
 "Installed Size" = "Εγκατεστημένος Χώρος";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Εγκατεστημένη Έκδοση: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Εγκατεστημένος Χώρος: %@)";
 
 //Package size in bytes (no deceimal)
@@ -223,9 +251,9 @@
 
 "Downloads" = "Λήψεις";
 "Error while opening sources.list" = "Σφάλμα κατά το άνοιγμα του sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Το repo %@ είναι ασύμβατο με το jailbreak σου.";
+"The source %@ is incompatible with your jailbreak." = "Η πηγή %@ είναι ασύμβατη με το jailbreak σου.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
-"Please remove this repo from your sources.list file." = "Παρακαλώ αφαίρεσε αυτό το repo από το sources.list αρχείο σου.";
+"Please remove this source from your sources.list file." = "Παρακαλώ αφαίρεσε αυτή την πηγή από το sources.list αρχείο σου.";
 "Incorrect documents permissions." = "Λανθασμένες άδειες αρχείων.";
 "Could not determine device information." = "Αδυναμία προσδιορισμού πληροφοριών συσκευής.";
 "Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
@@ -239,10 +267,14 @@
 "Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
 "Close Zebra" = "Κλείσε το Zebra";
+"Closing Zebra..." = "Κλείσιμο του Zebra...";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
-"Downloading" = "Γίνεται λήψη";
+"Restarting SpringBoard..." = "Γίνεται επανεκκίνηση του SpringBoard...";
 "Parsing" = "Γίνεται ανάλυση";
+"Starting Download" = "Starting Download";
+"Downloading" = "Γίνεται λήψη";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
+"Download Completed" = "Η Λήψη Ολοκληρώθηκε";
 "Installing" = "Γίνεται εγκατάσταση";
 "Installing Packages..." = "Γίνεται εγκατάσταση Πακέτων...";
 "Removing" = "Γίνεται αφαίρεση";
@@ -254,12 +286,17 @@
 "Complete" = "Ολοκλήρωση";
 "Finished!" = "Ολοκληρώθηκε!";
 "Return to Queue" = "Επιστροφή στην Ουρά";
+"Returning to Queue..." = "Γίνεται επιστροφή στην Ουρά...";
 "Importing local packages." = "Γίνεται εισαγωγή τοπικών πακέτων.";
 "Finished importing local packages." = "Ολοκληρώθηκε η εισαγωγή τοπικών πακέτων.";
 "One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
+"Done..." = "Τέλος...";
+"Removing Zebra..." = "Αφαίρεση του Zebra...";
+"Installing Zebra..." = "Εγκατάσταση του Zebra...";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Πακέτα στην Ουρά";
 "%d Package Queued" = "%d Πακέτο στην Ουρά";
 "Tap to manage" = "Πάτα για διαχείριση";
@@ -287,6 +324,11 @@
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο. ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
 "Remove from Queue" = "Αφαίρεση από την Ουρά";
 
+// Search
+
+"Live Search" = "Ζωντανή Αναζήτηση";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο και πρέπει να αφαιρεθεί γιατί εξαρτάται από το %@. %@ ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
 
@@ -300,15 +342,11 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "Το su/sling δεν έχει δικαίωμα να θέσει τα uid ή gid. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Βοηθήστε να μεταφραστεί το Zebra!";
-
 "Could not respring. Please respring manually." = "Αδυναμία respring. Παρακαλώ κάνε respring χειροκίνητα.";
 
 "ERROR: Unable to lock status file. Please try again." = "ΣΦΑΛΜΑ: Αδυναμία κλειδώματος του αρχείου κατάστασης. Παρακαλώ ξαναπροσπάθησε.";
 
 "ERROR: Process must be restarted. Please try again." = "ΣΦΑΛΜΑ: Η διαδικασία πρέπει να επανεκκινηθεί. Παρακαλώ ξαναπροσπάθησε.";
-
-"Configure the appearance of Zebra." = "Ρύθμισε την εμφάνιση του Zebra.";
 
 "Display featured packages on the homepage." = "Εμφάνισε προτεινόμενα πακέτα στην αρχική οθόνη.";
 
@@ -328,10 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
 
-"Community News" = "Νέα Κοινότητας";
-"Import Sources" = "Εισαγωγή Πηγών";
-"Updating Repositories" = "Ενημέρωση Repositories";
-"Would you like to import the following repositories?" = "Θα ήθελες να προσθέσεις τα ακόλουθα repositories;";
-"Download Completed" = "Η Λήψη Ολοκληρώθηκε";
-"Removing Zebra..." = "Γίνεται αφαίρεση του Zebra...";
-"Installing Zebra..." = "Γίνεται Εγκατάσταση του Zebra...";
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "Αυτόματη αγνόηση της Κονσόλας όταν όλες οι εργασίες έχουν ολοκληρωθεί.";
