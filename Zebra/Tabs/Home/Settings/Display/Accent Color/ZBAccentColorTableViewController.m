@@ -38,6 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = NSLocalizedString(@"Accent Color", @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
