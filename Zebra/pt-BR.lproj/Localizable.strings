@@ -108,13 +108,13 @@
 
 "Stores" = "Lojas";
 "Account" = "Conta";
-"Sign In" = "Sign In";
+"Sign In" = "Iniciar sessão";
 "Sign Out" = "Encerrar sessão";
 "Your Purchases" = "Suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum método de pagamento foi encontrado";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "Nenhum pacote comprado";
 
 // Sources
 
@@ -151,8 +151,8 @@
 "Import" = "Importar";
 "Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "Verificando...";
+"Confirm Import" = "Confirmar Importação";
 
 
 // Packages
@@ -172,7 +172,7 @@
 "Date" = "Data";
 "Size" = "Tamanho";
 "Clear" = "Limpar";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Tem certeza de que deseja limpar a fila?";
 "Available Upgrades" = "Atualizações disponíveis";
 "Ignored Upgrades" = "Atualizações ignoradas";
 "Recent" = "Recentes";
