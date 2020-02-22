@@ -108,12 +108,13 @@
 
 "Stores" = "Магазины";
 "Account" = "Аккаунт";
-"Login" = "Войти";
+"Sign In" = "Sign In";
 "Sign Out" = "Выйти";
 "Your Purchases" = "Ваши Покупки";
 "No Storefronts Available" = "Нет Доступных Магазинов";
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "Импорт";
 "Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Дата";
 "Size" = "Размер";
 "Clear" = "Очистить";
-"Are you sure you want to clear Queue?" = "Вы уверены что хотить очистить Очередь?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";
