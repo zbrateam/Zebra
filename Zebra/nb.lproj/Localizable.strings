@@ -108,12 +108,13 @@
 
 "Stores" = "Butikker";
 "Account" = "Konto";
-"Login" = "Logg inn";
+"Sign In" = "Sign In";
 "Sign Out" = "Logg ut";
 "Your Purchases" = "Dine kjøp";
 "No Storefronts Available" = "Ingen tilgjengelige butikker";
 "Could not complete purchase" = "Kunne ikke fullføre kjøpet";
 "Could not complete purchase, no payment secret was found" = "Kunne ikke fullføre kjøpet, ingen betalingshemmelighet ble funnet";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "Importer";
 "Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importere %d kilder til Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importere 1 kilde til Zebra?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Dato";
 "Size" = "Størrelse";
 "Clear" = "Tøm";
-"Are you sure you want to clear Queue?" = "Er du sikker på at du vil tømme køen?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Tilgjengelige oppdateringer";
 "Ignored Upgrades" = "Ignorerte oppdateringer";
 "Recent" = "Nylig";
