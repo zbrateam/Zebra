@@ -5,7 +5,7 @@
 "No" = "Não";
 "Ok" = "Ok";
 "Error" = "Erro";
-"Retry" = "Tentar de Novo";
+"Retry" = "Repetir";
 "Edit" = "Editar";
 "Close" = "Fechar";
 "Done" = "Concluir";
@@ -39,7 +39,7 @@
 
 "Credits" = "Créditos";
 "Creators" = "Criadores";
-"Contributors" = "Colaboradores";
+"Contributors" = "Contribuintes";
 "Translators" = "Tradutores";
 "Libraries" = "Livrarias";
 
