@@ -96,9 +96,9 @@
 "Reset All Settings" = "Επαναφορά Όλων των Ρυθμίσεων";
 "Erase All Sources and Settings" = "Επαναφορά όλων των Πηγών και Ρυθμίσεων";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to restart the SpringBoard?" = "Είσαι βέβαιος ότι θέλεις να κάνεις επανεκκίνηση του SpringBoard;";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Είσαι βέβαιος ότι θέλεις να ανανεώσεις το cache εικονιδιων; Η συσκευή σου μπορεί να μην ανταποκρίνεται μέχρι η διαδικασία ολοκληρωθεί.";
+"Image Cache Reset" = "Επαναφορά Cache εικονιδίων";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
@@ -107,13 +107,13 @@
 // Stores
 
 "Stores" = "Καταστήματα";
-"Account" = "Account";
+"Account" = "Λογαριασμός";
 "Login" = "Σύνδεση";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Αποσύνδεση";
+"Your Purchases" = "Οι αγορές σου";
 "No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
+"Could not complete purchase, no payment secret was found" = "Αδυναμία ολοκλήρωσης αγοράς, δεν βρέθηκε payment secret";
 
 // Sources
 
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 "Unknown" = "Άγνωστο";
 "No source URLs detected." = "Δεν εντοπίστηκαν URLs πηγών.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Έχεις ήδη προσθέσει αυτή τήν πηγή.";
 "You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
 "Error verifying source" = "Σφάλμα επαλήθευσης πηγής";
 "Error verifying sources" = "Σφάλμα επαλήθευσης πηγών";
@@ -148,8 +148,8 @@
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
 "Import Sources" = "Εισαγωγή Πηγών";
 "Import" = "Εισαγωγή";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις %d πηγές στο Zebra;";
+"Are you sure that you want to import 1 source into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις 1 πηγή στο Zebra;";
 
 
 // Packages
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
 "Restarting SpringBoard..." = "Γίνεται επανεκκίνηση του SpringBoard...";
 "Parsing" = "Γίνεται ανάλυση";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Γίνεται έναρξη Λήψης";
 "Downloading" = "Γίνεται λήψη";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
 "Download Completed" = "Η Λήψη Ολοκληρώθηκε";
@@ -327,7 +327,7 @@
 // Search
 
 "Live Search" = "Ζωντανή Αναζήτηση";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaks, Θέματα, και Άλλα";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο και πρέπει να αφαιρεθεί γιατί εξαρτάται από το %@. %@ ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Με την σύνδεση στις πηγές επιτρέπεται η αγορά πακέτων επί πληρωμή.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Αυτόματη αγνόηση της Κονσόλας όταν όλες οι εργασίες έχουν ολοκληρωθεί.";
