@@ -18,14 +18,6 @@
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
 "Report a Bug" = "الإبلاغ عن خطأ";
 "Changelog" = "التغييرات";
-"Community Sources" = "مصادر المجتمع";
-"You’ve added all of the community sources" = "لقد أضفت كل مصادر المجتمع";
-"Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
-"Utility repo for %@" = "فائدة المستودع لـ %@";
-"Transfer Sources" = "تحويل المصادر";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
-"Stores" = "المتاجر";
-"Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
 "No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
 "Community" = "المجتمع";
@@ -95,38 +87,22 @@
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 "Featured Repos" = "المستودعات المميزة";
 
-"News" = "الأخبار";
-
-"Live Search" = "بحث مباشر";
-
-"Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
-"Text" = "نص";
-"Icon" = "أيقونة";
-"Open Documents Directory" = "فتح دليل المستندات";
-"Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
-"Clear Keychain" = "مسح بيانات تسجيل الدخول";
-
-"Loading..." = "جارِ التحميل...";
-
-"Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
-"Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
-
-"Drop Tables" = "حذف قاعدة البيانات";
+// Advanced
 
 "Advanced" = "متقدم";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "تحديث ذاكرة التخزين المؤقتة";
+"Reset Image Cache" = "إعادة تعين ذاكرة المؤقته للصور";
+"Reset Sources Cache" = "إعادة تعيين ذاكرة المؤقتة للمصادر";
+"Reset All Settings" = "إعادة تعيين جميع الإعدادات";
+"Erase All Sources and Settings" = "محو جميع المصادر وإعدادات";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "هل أنت متأكد أنك تريد إعادة تشغيل واجهة النظام؟";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "هل أنت متأكد أنك تريد تحديث ذاكرة التخزين المؤقت للأيقونة؟ \nقد يصبح جهازك غير قادر على الاستجابة حتى اكتمال العملية.";
+"Image Cache Reset" = "إعادة تعيين ذاكرة التخزين المؤقت للصور";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "هل انت متأكد بأنك تريد محو ذاكرة التخزين المؤقت لمصدر Zebra؟\n  سيؤدي هذا إلى إزالة جميع المعلومات المخزنة مؤقتًا من قاعدة بيانات Zebra وتنزيلها مرة أخرى.  لن يتم حذف مصادرك.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "هل أنت متأكد من أنك تريد إعادة تعيين إعدادات Zebra؟\n سيؤدي ذلك إلى إعادة تعيين جميع إعدادات Zebra إلى قيمها الإفتراضية وسيتم إعادة تشغيل Zebra.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "هل انت متأكد من أنك تريد محو جميع المصادر والإعدادات؟\n ستتم إزالة جميع مصادرك من Zebra وسيتم إعادة تعيين إعداداتك";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف جميع المصادر الخاصة بك وستزول إلى الأبد \nوسيتم إعادة تشغيل Zebra.";
 
 // Stores
 
@@ -158,8 +134,8 @@
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "التحقق من المصدر/المصادر";
-"Unable to verify Repo" = "تعذر التحقق من المستودع";
+"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
+"Unable to verify source" = "غير قادر على التحقق من المصدر";
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
 "Delete" = "حذف";
