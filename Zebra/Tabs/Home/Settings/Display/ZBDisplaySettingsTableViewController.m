@@ -228,7 +228,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBSectionSystemStyle:
-            return @"Appearance";
+            return NSLocalizedString(@"Appearance", @"");
         default:
             return NULL;
     }
