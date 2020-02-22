@@ -108,12 +108,13 @@
 
 "Stores" = "Καταστήματα";
 "Account" = "Λογαριασμός";
-"Login" = "Σύνδεση";
+"Sign In" = "Sign In";
 "Sign Out" = "Αποσύνδεση";
 "Your Purchases" = "Οι αγορές σου";
 "No Storefronts Available" = "Καμία διαθέσιμη βιτρίνα";
 "Could not complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
 "Could not complete purchase, no payment secret was found" = "Αδυναμία ολοκλήρωσης αγοράς, δεν βρέθηκε payment secret";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "Εισαγωγή";
 "Are you sure that you want to import %d sources into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις %d πηγές στο Zebra;";
 "Are you sure that you want to import 1 source into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις 1 πηγή στο Zebra;";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Ημερομηνία";
 "Size" = "Μέγεθος";
 "Clear" = "Εκκαθάριση";
-"Are you sure you want to clear Queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
 "Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
 "Recent" = "Πρόσφατα";
