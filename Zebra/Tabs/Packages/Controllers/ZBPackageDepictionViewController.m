@@ -184,7 +184,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-// FIXME: This is causing crashese with hexStringFromColor for some reason?
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
@@ -850,7 +849,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoRepo:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"Repo", @"");
+            cell.textLabel.text = NSLocalizedString(@"Source", @"");
             cell.detailTextLabel.text = value;
             break;
         case ZBPackageInfoWishList: {
