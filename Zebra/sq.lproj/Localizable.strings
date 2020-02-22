@@ -90,19 +90,19 @@
 // Advanced
 
 "Advanced" = "I avansuar";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Rifreskoni cache-in e ikonave";
+"Reset Image Cache" = "Rivendos cache-n e figurës";
+"Reset Sources Cache" = "Rivendos cache-n e burimeve";
+"Reset All Settings" = "Rikthim në gjendjen fillestare";
+"Erase All Sources and Settings" = "Fshij të gjitha burimet dhe konfigurimet";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "A jeni të sigurt që dëshironi të rifillino SpringBoard-in?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "A jeni të sigurt që dëshironi të rifreskoni cache-n e ikonave? Paisja juaj mund të mos përgjigjet deri sa ky proces të përfundoj.";
+"Image Cache Reset" = "U rivendosën cache-t e figurës";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "A jeni të sigurt që dëshironi të rivendosni cache-t e burimit të Zebras? Kjo do ti fshij të gjitha informacionet e cache-d nga burimi i të dhënave të Zebra-s dhe do ti ri-instaloj ato. Burimet e juaja nuk do të fshihen.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "A jeni të sigurt që dëshironi të rivendosni konfigurimet e Zebra-s? Kjo do të rikthej Zebra-n në gjendjen fillestare dhe Zebra do të rilëshohet.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "A jeni të sigurt që dëshironi të fshini të gjitha burimet dhe konfigurimet? Të gjitha burimet e tua do të largohen nga Zebra dhe konfigurimet do të rikthehen në gjendjen fillestare.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Të gjitha burimet do të fshihen dhe do të largohen për gjithmon dhe Zebra do të rilëshohet.";
 
 // Stores
 
