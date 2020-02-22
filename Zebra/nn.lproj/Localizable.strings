@@ -71,12 +71,12 @@
 "Royal Blue" = "Kongeblå";
 "Shark" = "Haigrå";
 "Storm" = "Stormgrå";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Bruk system aksentfarge";
+"Appearance" = "Utsjåande";
+"Use System Appearance" = "Bruk systemutsjånad";
+"Light" = "Lys";
+"Dark" = "Mørk";
+"Pure Black Mode" = "Fullstendig svart modus";
 
 // Featured
 
@@ -90,30 +90,30 @@
 // Advanced
 
 "Advanced" = "Avansert";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Oppdater ikonbuffer";
+"Reset Image Cache" = "Tilbakestill bildebuffer";
+"Reset Sources Cache" = "Tilbakestill kjeldebuffer";
+"Reset All Settings" = "Tilbakestill alle innstillingar";
+"Erase All Sources and Settings" = "Tilbakestill alle kjelder og innstillingar";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starta SpringBoard på nytt?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatera ikonbufferen? Eininga di kan slutta å svara til prosessen er fullført.";
+"Image Cache Reset" = "Bildebufferen vart tilbakestilt";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil tilbakestille kjeldebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon frå Zebra sin database og lasta det ned på nytt. Kjeldene dine blir ikkje fjerna.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil tilbakestille innstillingane til Zebra? Dette vil tilbakestille alle Zebra innstillingane til standardverdiane, og Zebra vil starta på nytt.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kjelder og innstillingar? Alle kjeldene dine vil bli fjerna frå Zebra, og innstillingane dine tilbakestilt.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kjeldene dine vil bli permanent fjerna, og Zebra vil starta på nytt.";
 
 // Stores
 
 "Stores" = "Butikkar";
-"Account" = "Account";
+"Account" = "Konto";
 "Login" = "Logg inn";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Sign Out" = "Logg ut";
+"Your Purchases" = "Kjøpa dine";
 "No Storefronts Available" = "Ingen tilgjengelege butikkar";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
+"Could not complete purchase, no payment secret was found" = "Kunne ikkje fullføra kjøpet, ingen betalingsløyndom vart funnen";
 
 // Sources
 
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Lokalt installerte pakkar";
 "Unknown" = "Ukjent";
 "No source URLs detected." = "Ingen kjeldenettadresser oppdaga.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Du har allereie lagt til denne kjelda.";
 "You have already added these sources." = "Du har allereie lagt til dei kjeldene.";
 "Error verifying source" = "Feil under verifisering av kjelde";
 "Error verifying sources" = "Feil under verifisering av kjelder";
@@ -271,7 +271,7 @@
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Restarting SpringBoard..." = "Startar SpringBoard på nytt...";
 "Parsing" = "Parsar";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Startar nedlasting";
 "Downloading" = "Lastar ned";
 "Downloading Packages..." = "Lastar ned pakkar...";
 "Download Completed" = "Nedlasting fullført";
@@ -366,6 +366,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Pålogging i kjelder gjer muleg kjøp av betalte pakkar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
