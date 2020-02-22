@@ -18,14 +18,6 @@
 "Welcome to Zebra!" = "Velkommen til Zebra!";
 "Report a Bug" = "Rapporter en Fejl";
 "Changelog" = "Ændringslog";
-"Community Sources" = "Fællesskabskilder";
-"You’ve added all of the community sources" = "Du har tilføjet alle fællesskabskilderne";
-"Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
-"Utility repo for %@" = "Værktøjsarkiv til %@";
-"Transfer Sources" = "Overfør Kilder";
-"Verifying Source(s)" = "Verificerer Kilde(r)";
-"Stores" = "Butikker";
-"Purchases" = "Køb";
 "Wish List" = "Ønskeliste";
 "No items in Wish List" = "Ingen varer på Ønskelisten";
 "Community" = "Fællesskab";
@@ -98,11 +90,11 @@
 // Advanced
 
 "Advanced" = "Avanceret";
-"Refresh Icon Cache" = "Refresh Icon Cache";
+"Refresh Icon Cache" = "Opdater ikoncache";
 "Reset Image Cache" = "Reset Image Cache";
 "Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset All Settings" = "Nulstil alle indstillinger";
+"Erase All Sources and Settings" = "Nulstil alle kilder og indstillinger";
 
 "Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
@@ -110,7 +102,7 @@
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle dine kilder vil blive slettet, og Zebra vil genstarte.";
 
 // Stores
 
@@ -167,7 +159,7 @@
 "Show Updates" = "Vis Opdateringer";
 "Ignore Updates" = "Ignorer Opdateringer";
 "Select Version" = "Vælg Udgave";
-"Select a version to upgrade to:" = "Vælg version for opdatering:";
+"Select a version to upgrade to:" = "Vælg version for opgradering:";
 "Select a version to downgrade to:" = "Vælg version for nedgradering:";
 "Package" = "Pakker";
 "Information" = "Information";
@@ -360,7 +352,7 @@
 
 "Display recent community posts from /r/jailbreak." = "Vis seneste opslag på /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søg efter pakker under indtastning. Slå dette fra hvis din enhed er langsom under søgning.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søg efter pakker imens der søges. Ved at slå dette fra kan det fjerne lag på ældre enheder.";
 
 "Configure the appearance of table view swipe actions." = "Ændre udseendet når der swipes på tå et table view.";
 
