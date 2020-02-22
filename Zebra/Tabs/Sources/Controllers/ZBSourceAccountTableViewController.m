@@ -258,7 +258,7 @@
         else if (![purchases count]) {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonCell"];
             
-            cell.textLabel.text = @"No packages purchased";
+            cell.textLabel.text = NSLocalizedString(@"No packages purchased", @"");
             
             return cell;
         }

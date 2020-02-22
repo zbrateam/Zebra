@@ -114,6 +114,7 @@
 "No Storefronts Available" = "No Storefronts Available";
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
