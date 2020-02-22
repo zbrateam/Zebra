@@ -408,7 +408,7 @@
                 return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterShortStyle];
         }
         if (selectedSortingType == ZBSortingTypeInstalledSize) {
-            return @"Size";
+            return NSLocalizedString(@"Size", @"");
         }
     }
     return nil;
