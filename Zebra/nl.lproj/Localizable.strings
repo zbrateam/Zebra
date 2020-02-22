@@ -90,14 +90,14 @@
 // Advanced
 
 "Advanced" = "Geavanceerd";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Icoon Cache Vernieuwen";
+"Reset Image Cache" = "Afbeelding Cache Resetten";
+"Reset Sources Cache" = "Bronnen Cache Resetten";
+"Reset All Settings" = "Alle instellingen Opnieuw Instellen";
+"Erase All Sources and Settings" = "Alle Bronnen en Instellingen Verwijderen";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Are you sure you want to restart the SpringBoard?" = "Weet je zeker dat je het SpringBoard wilt herstarten?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Weet u zeker dat u de icoon cache wilt vernieuwen? Het kan zijn dat uw apparaat niet reageert totdat het proces voltooid is.";
 "Image Cache Reset" = "Image Cache Reset";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
@@ -108,12 +108,13 @@
 
 "Stores" = "Winkel";
 "Account" = "Account";
-"Login" = "Aanmelden";
+"Sign In" = "Sign In";
 "Sign Out" = "Afmelden";
 "Your Purchases" = "Uw Aankopen";
 "No Storefronts Available" = "Geen etalages beschikbaar";
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "Could not complete purchase, no payment secret was found" = "Aankoop kon niet worden voltooid, er is geen betalingsgeheim gevonden";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -122,7 +123,7 @@
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 "Unknown" = "Onbekend";
 "No source URLs detected." = "Geen bron URLs gedetecteerd.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Je hebt deze bron al toegevoegd.";
 "You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
 "Error verifying source" = "Fout verifiëren van bron";
 "Error verifying sources" = "Fout verifiëren van bron";
@@ -150,6 +151,8 @@
 "Import" = "Importeren";
 "Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
 "Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Datum";
 "Size" = "Grootte";
 "Clear" = "Leeg";
-"Are you sure you want to clear Queue?" = "Weet u zeker dat u de wachtrij wilt legen?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
