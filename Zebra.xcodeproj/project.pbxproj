@@ -377,6 +377,7 @@
 		89AD450E23CA6D260008831F /* ZBSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettings.m; sourceTree = "<group>"; };
 		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
 		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
+		89C112A12400E7A200854713 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89C227CC2371259E001C9C59 /* UITableViewRowAction+Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewRowAction+Image.h"; sourceTree = "<group>"; };
 		89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewRowAction+Image.m"; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1156,6 +1157,7 @@
 				hu,
 				gl,
 				ka,
+				ro,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1403,6 +1405,7 @@
 				89CCC6CC239D696600B7D85C /* hu */,
 				89308E2823FF6F1E00D4641D /* gl */,
 				89308E2923FF6F5500D4641D /* ka */,
+				89C112A12400E7A200854713 /* ro */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
