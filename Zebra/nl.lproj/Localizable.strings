@@ -235,7 +235,7 @@
 "Social" = "Sociaal";
 "System" = "Systeem";
 "Terminal Support" = "Terminal Ondersteuning";
-"Text Editors" = "Tekstverwerkers";
+"Text Editors" = "Tekst Editors";
 "Themes" = "Themas";
 "Toys" = "Speelgoed";
 "Tweaks" = "Aanpassingen";
@@ -246,7 +246,7 @@
 // Search
 
 "Search" = "Zoeken";
-"Clear Search" = "Leeg de zoekbalk";
+"Clear Search" = "Zoekbalk Leegmaken";
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
 
@@ -311,8 +311,8 @@
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";
 "Remove" = "Verwijder";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
+"Upgrade" = "Upgraden";
+"Downgrade" = "Downgraden";
 "Abort" = "Stop";
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
