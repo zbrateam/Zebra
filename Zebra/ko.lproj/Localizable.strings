@@ -108,12 +108,13 @@
 
 "Stores" = "스토어";
 "Account" = "계정";
-"Login" = "로그인";
+"Sign In" = "Sign In";
 "Sign Out" = "로그아웃";
 "Your Purchases" = "구매 내역";
 "No Storefronts Available" = "사용 가능한 스토어 없음";
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
 "Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "가져오기";
 "Are you sure that you want to import %d sources into Zebra?" = "정말로 %d개의 소스들을 Zebra로 가져올까요?";
 "Are you sure that you want to import 1 source into Zebra?" = "정말로 한개의 소스를 Zebra로 가져올까요?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "날짜";
 "Size" = "크기";
 "Clear" = "제거";
-"Are you sure you want to clear Queue?" = "정말 대기열을 지울까요?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "사용 가능한 업그레이드";
 "Ignored Upgrades" = "무시된 업그레이드";
 "Recent" = "최근";
