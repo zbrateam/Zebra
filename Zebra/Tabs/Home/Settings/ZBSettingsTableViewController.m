@@ -145,7 +145,7 @@ enum ZBMiscOrder {
             ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
             cell.backgroundColor = [UIColor cellBackgroundColor];
             
-            cell.label.text = @"App Icon";
+            cell.label.text = NSLocalizedString(@"App Icon", @"");
             
             NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
             UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
