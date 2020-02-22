@@ -90,7 +90,7 @@
 // Advanced
 
 "Advanced" = "Avansert";
-"Refresh Icon Cache" = "Refresh Icon Cache";
+"Refresh Icon Cache" = "Oppdater ikonbuffer";
 "Reset Image Cache" = "Tilbakestill bildebuffer";
 "Reset Sources Cache" = "Tilbakestill kildebuffer";
 "Reset All Settings" = "Tilbakestill alle innstillinger";
@@ -99,10 +99,10 @@
 "Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starte SpringBoard på nytt?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatere ikonbufferen? Enheten din kan slutte å svare til prosessen er fullført.";
 "Image Cache Reset" = "Bildebufferen ble tilbakestilt";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil tilbakestille kildebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon fra Zebra sin database og laste det ned på nytt. Kildene dine blir ikke fjernet.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil tilbakestille innstillingene til Zebra? Dette vil tilbakestille alle Zebra innstillingene til standardverdiene, og Zebra vil starte på nytt.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kilder og innstillinger? Alle kildene dine vil bli fjernet fra Zebra, og innstillingene dine tilbakestilt.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kildene dine vil bli permanent fjernet, og Zebra vil starte på nytt.";
 
 // Stores
 
