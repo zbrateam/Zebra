@@ -89,7 +89,7 @@
 
 // Advanced
 
-"Advanced" = "Advançado";
+"Advanced" = "Avançado";
 "Refresh Icon Cache" = "Atualizar Cache de Ícones";
 "Reset Image Cache" = "Redefinir Cache de Imagem";
 "Reset Sources Cache" = "Redefinir Cache de Fontes";
@@ -362,10 +362,10 @@
 
 "Change the source of the featured packages on the homepage." = "Altere a fonte dos pacotes em destaque na página inicial.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" irá exibir pacotes aleatórios de repos que suportam a API de Pacote em Destaque.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" exibirá pacotes aleatórios de repositórios que suportam a API de Pacotes em destaque.";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatório\" irá exibir pacotes aleatórios de todos os repositórios que você adicionou ao Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "O login em fontes permite a compra de pacotes pagos.";
+"Signing in to sources allows for the purchase of paid packages." = "O login nas lojas permite a compra de pacotes pagos.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Dispensar automaticamente o Console quando todas as suas tarefas forem concluídas.";
