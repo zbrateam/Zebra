@@ -90,19 +90,19 @@
 // Advanced
 
 "Advanced" = "Gelişmiş";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Simge Önbelleğini Yenile";
+"Reset Image Cache" = "Resim Önbelleğini Sıfırla";
+"Reset Sources Cache" = "Kaynak Önbelleğini Temizle";
+"Reset All Settings" = "Tüm Ayarları Sıfırla";
+"Erase All Sources and Settings" = "Tüm Kaynakları ve Ayarları Sil";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "SpringBoard’ı yeniden başlatmak istediğinizden emin misiniz?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Simge önbelleğini yenilemek istediğinizden emin misiniz? İşlem tamamlanana kadar cihazınız yanıt vermeyebilir.";
+"Image Cache Reset" = "Resim Önbelleğini Sıfırla";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Zebra'nın kaynak önbelleğini sıfırlamak istediğinizden emin misiniz? Bu, önbelleğe alınan tüm bilgileri Zebra'nın veritabanından kaldıracak ve yeniden indirecektir. Kaynaklarınız silinmeyecek.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra'nın ayarlarını sıfırlamak istediğinizden emin misiniz? Bu, Zebra'nın tüm ayarlarını varsayılan değerlerine sıfırlar ve Zebra'yı yeniden başlatılır.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tüm kaynakları ve ayarları silmek istediğinizden emin misiniz? Tüm kaynaklarınız Zebra'dan kaldırılacak ve ayarlarınız sıfırlanacak.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Tüm kaynaklarınız silinecek ve sonsuza dek yok olacak ve Zebra yeniden başlayacak.";
 
 // Stores
 
@@ -122,7 +122,7 @@
 "Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
 "Unknown" = "Bilinmiyor";
 "No source URLs detected." = "Kaynak URL’si Bulunamadı.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Bu kaynağı zaten eklediniz.";
 "You have already added these sources." = "Zaten bu kaynakları ekledin.";
 "Error verifying source" = "Kaynağı doğrularken hata oluştu";
 "Error verifying sources" = "Kaynakları doğrularken hata oluştu";
