@@ -33,7 +33,10 @@
 }
 
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style {
-    if ([ZBSettings usesSystemAccentColor]) return nil;
+    if ([ZBSettings usesSystemAccentColor]) {
+        UIView *view = [[UIView alloc] init];
+        return view.tintColor;
+    }
     
     BOOL darkMode = style >= ZBInterfaceStyleDark;
     switch (accentColor) {
