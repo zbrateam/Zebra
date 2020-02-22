@@ -1878,7 +1878,7 @@
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Done %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
-    [completedSources addObject:baseSource];
+    if (baseSource) [completedSources addObject:baseSource];
 }
 
 - (void)finishedAllDownloads {
