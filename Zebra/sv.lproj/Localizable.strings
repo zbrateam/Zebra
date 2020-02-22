@@ -108,7 +108,7 @@
 
 "Stores" = "Butiker";
 "Account" = "Konto";
-"Sign In" = "Sign In";
+"Sign In" = "Logga in";
 "Sign Out" = "Logga ut";
 "Your Purchases" = "Dina köp";
 "No Storefronts Available" = "Inga butiker tillgängliga";
@@ -151,7 +151,7 @@
 "Import" = "Importera";
 "Are you sure that you want to import %d sources into Zebra?" = "Är du säker på att du vill importera %d källor till Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Är du säker på att du vill importera 1 källa till Zebra?";
-"Verifying..." = "Verifying...";
+"Verifying..." = "Verifierar...";
 "Confirm Import" = "Confirm Import";
 
 
@@ -172,7 +172,7 @@
 "Date" = "Datum";
 "Size" = "Storlek";
 "Clear" = "Rensa";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Är du säker på att du vill rensa kön?";
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Nytt";
