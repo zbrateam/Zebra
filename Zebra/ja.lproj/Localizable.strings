@@ -3,7 +3,7 @@
 "Cancel" = "キャンセル";
 "Yes" = "はい";
 "No" = "いいえ";
-"Ok" = "OK";
+"Ok" = "はい";
 "Error" = "エラー";
 "Retry" = "再試行";
 "Edit" = "編集";
@@ -41,7 +41,7 @@
 "Creators" = "作成者";
 "Contributors" = "貢献者";
 "Translators" = "翻訳者";
-"Libraries" = "ライブラリ";
+"Libraries" = "ライブラリー";
 
 // Settings
 
@@ -133,7 +133,7 @@
 "Add" = "追加";
 "Add Multiple" = "複数追加";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
-"Please Wait..." = "しばらくお待ちください...";
+"Please Wait..." = "お待ちください...";
 "Verifying Source(s)" = "リポジトリの検証中";
 "Unable to verify source" = "リポジトリを検証できませんでした";
 "Refresh" = "再読み込み";
@@ -159,11 +159,11 @@
 "Show Updates" = "アップデートを表示";
 "Ignore Updates" = "アップデートを無視";
 "Select Version" = "バージョンを選択";
-"Select a version to upgrade to:" = "アップグレードしたいバージョンを選択してください";
-"Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択してください";
+"Select a version to upgrade to:" = "アップグレードしたいバージョンを選択:";
+"Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
 "Package" = "パッケージ";
 "Information" = "情報";
-"Upgrade All" = "すべてをアップグレード";
+"Upgrade All" = "すべてアップグレード";
 "Loaded" = "読み込み済み";
 "ABC" = "ABC";
 "Date" = "日付";
@@ -176,11 +176,11 @@
 "Source" = "リポジトリ";
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
-"Authenticate to initiate purchase." = "購入する前に認証してください。";
+"Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
 "More by this Developer" = "この開発者による他のパッケージ";
-"Installed Version" = "インストール済みのバージョン";
-"Installed Size" = "インストール済みのサイズ";
+"Installed Version" = "インストール済みバージョン";
+"Installed Size" = "インストール済みサイズ";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
@@ -198,7 +198,7 @@
 "%.2f MB" = "%.2f MB";
 
 "Add to Wish List" = "ほしい物リストに追加する";
-"Remove from Wish List" = "ほしい物リストから削除する";
+"Remove from Wish List" = "ほしい物リストから削除";
 
 // Package Section Names
 
@@ -232,7 +232,7 @@
 "Social" = "ソーシャル";
 "System" = "システム";
 "Terminal Support" = "ターミナルサポート";
-"Text Editors" = "テキストエディタ";
+"Text Editors" = "テキスト編集";
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
 "Tweaks" = "Tweaks";
@@ -245,7 +245,7 @@
 "Search" = "検索";
 "Clear Search" = "検索履歴をクリア";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
-"No Results Found" = "一致する結果が見つかりませんでした";
+"No Results Found" = "検索結果が見つかりませんでした。";
 
 // Downloads
 
@@ -258,14 +258,14 @@
 "Could not determine device information." = "デバイス情報を特定できませんでした。";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "%@ hasn't been modified" = "%@ は変更されていません";
-"Could not parse %@ from %@" = "%@ から %@ を処理できませんでした";
+"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
 
 // Console
 
 "Console" = "コンソール";
 "Performing Actions..." = "実行中...";
 "Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかる場合があります。Zebra がクラッシュするかもしれませんが問題ありません。";
+"This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
 "Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
@@ -284,7 +284,7 @@
 "Upgrading" = "アップグレードしています";
 "Upgrading Packages..." = "パッケージをアップグレードします...";
 "Complete" = "完了";
-"Finished!" = "完了しました";
+"Finished!" = "完了！";
 "Return to Queue" = "キューに戻る";
 "Returning to Queue..." = "キューに戻ります...";
 "Importing local packages." = "ローカルパッケージをインポートしています。";
@@ -300,7 +300,7 @@
 "%d Packages Queued" = "%d 個のパッケージがキューされてます";
 "%d Package Queued" = "%d 個のパッケージがキューされてます";
 "Tap to manage" = "タップして管理";
-"No Packages Queued" = "キューがクリアされました";
+"No Packages Queued" = "パッケージはキューされていません";
 
 // Queue
 
@@ -318,10 +318,10 @@
 "Required Package" = "要求されたパッケージ";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は解決できない以下の問題があります";
-"Are you sure?" = "確認";
+"%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
+"Are you sure?" = "よろしいですか？";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。意味が理解ができない方は削除しないでください！";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
 "Remove from Queue" = "キューから削除";
 
 // Search
@@ -330,15 +330,15 @@
 "Tweaks, Themes, and More" = "検索";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 内容を理解していない場合は、%@ を削除しないでください！";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージであり、%@ に依存するため削除する必要があります。 あなたが何をしているのかを正確に知らない限り、%@ を削除しないでください！";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除しようとしているキュー内のパッケージは必要とされています。内容を理解していない場合、続行することは推奨されません。もしパッケージを削除すると端末を初期化しなければならなくなる可能性があります。";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "削除するキュー内の1つ以上のパッケージは必須です。 あなたが何をしているかを正確に知らない限り、続行することは推奨されません。 これらのパッケージを削除すると、デバイスに取り返しのつかない損傷が発生し、完全な復元をしないといけなくなります。";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。\n/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "適切な権限がないため、Zebra はこのコマンドを完了できませんでした。/usr/libexec/zebra/supersling にある権限を確認し、GitHubでこの問題を報告してください。";
 
 "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Su/sling にアクセスできません。/usr/libexec/zebra/supersling が存在することを確認してください。";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "root:wheel が su/sling を所有していません。\n/usr/libexec/zebra/supersling の権限を確認してください。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling は root:wheel によって所有されていません。/usr/libexec/zebra/supersling の権限を確認してください。";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
 
@@ -346,7 +346,7 @@
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
-"ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再実行する必要があります。 もう一度やり直してください。";
+"ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
 "Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
