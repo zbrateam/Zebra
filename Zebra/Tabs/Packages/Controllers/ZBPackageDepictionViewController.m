@@ -184,6 +184,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
+// FIXME: This is causing crashese with hexStringFromColor for some reason?
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     

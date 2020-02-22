@@ -133,11 +133,11 @@
 }
 
 + (NSString *)hexStringFromColor:(UIColor *)color {
-    const CGFloat *components = CGColorGetComponents(color.CGColor);
+    CGFloat r;
+    CGFloat g;
+    CGFloat b;
     
-    CGFloat r = components[0];
-    CGFloat g = components[1];
-    CGFloat b = components[2];
+    [color getRed:&r green:&g blue:&b alpha:nil];
     
     return [NSString stringWithFormat:@"#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255)];
 }
