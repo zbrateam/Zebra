@@ -101,20 +101,20 @@
 "Image Cache Reset" = "Afbeelding Cache Resetten";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Weet je zeker dat je Zebra's bronnen cache wilt resetten? Dit zal alle opgeslagen informatie uit Zebra's database verwijderen en opnieuw downloaden. Uw bronnen zullen niet worden verwijderd.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Weet je zeker dat je Zebra's instellingen wil herstellen? Dit zal alle Zebra instellingen terugzetten naar hun standaardwaarden en Zebra zal herstarten.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Weet je zeker dat je alle bronnen en instellingen wilt wissen? Al uw bronnen zullen worden verwijderd uit Zebra en uw instellingen worden hersteld.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Al je bronnen zullen permanent verwijderd worden en Zebra zal herstarten.";
 
 // Stores
 
 "Stores" = "Winkel";
 "Account" = "Account";
-"Sign In" = "Sign In";
+"Sign In" = "Aanmelden";
 "Sign Out" = "Afmelden";
 "Your Purchases" = "Uw Aankopen";
 "No Storefronts Available" = "Geen etalages beschikbaar";
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "Could not complete purchase, no payment secret was found" = "Aankoop kon niet worden voltooid, er is geen betalingsgeheim gevonden";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "Geen aangekochte pakketten";
 
 // Sources
 
@@ -151,8 +151,8 @@
 "Import" = "Importeren";
 "Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
 "Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "Verifiëren...";
+"Confirm Import" = "Bevestig Import";
 
 
 // Packages
@@ -172,7 +172,7 @@
 "Date" = "Datum";
 "Size" = "Grootte";
 "Clear" = "Leeg";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Weet u zeker dat u de wachtrij leeg wilt maken?";
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
