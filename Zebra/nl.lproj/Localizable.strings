@@ -254,7 +254,7 @@
 "Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
-"Importing local packages." = "Lokale pakketten aan het importeren";
+"Importing local packages." = "Lokale pakketten aan het importeren.";
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
@@ -268,15 +268,15 @@
 // Queue
 
 "Queue" = "Wachtrij";
-"Install" = "Installeer";
-"Reinstall" = "Installeer opnieuw";
-"Remove" = "Verwijder";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Stop";
+"Install" = "Installeren";
+"Reinstall" = "Opnieuw Installeren";
+"Remove" = "Verwijderen";
+"Upgrade" = "Upgraden";
+"Downgrade" = "Downgraden";
+"Abort" = "Abort";
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
-"Confirm" = "Bevestig";
+"Confirm" = "Bevestigen";
 "%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
 "Required Package" = "Vereist pakket";
 "%@ is required by:" = "%@ is vereist door:";
@@ -328,7 +328,7 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
 
-"Community News" = "Gemeenschapsnieuws";
+"Community News" = "Gemeenschap Nieuws";
 "Import Sources" = "Importeer Bronnen";
 "Updating Repositories" = "Repos Bijwerken";
 "Would you like to import the following repositories?" = "Wilt u de volgende repos importeren?";
