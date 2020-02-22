@@ -277,15 +277,15 @@
 
 - (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
     if (UIGestureRecognizerStateBegan == gesture.state) {
-        UIAlertController *clearQueue = [UIAlertController alertControllerWithTitle:@"Clear Queue" message:@"Are you sure you want to clear the Queue?" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *clearQueue = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Clear Queue", @"") message:NSLocalizedString(@"Are you sure you want to clear the Queue?", @"") preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
             [[ZBQueue sharedQueue] clear];
         }];
         [clearQueue addAction:yesAction];
         
-        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
         [clearQueue addAction:noAction];
         
         [self presentViewController:clearQueue animated:true completion:nil];

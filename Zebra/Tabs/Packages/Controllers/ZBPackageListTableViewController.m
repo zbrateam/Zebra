@@ -238,7 +238,7 @@
 }
 
 - (void)askClearQueue {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:NSLocalizedString(@"Are you sure you want to clear Queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:NSLocalizedString(@"Are you sure you want to clear the Queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *clearAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self clearQueue];
