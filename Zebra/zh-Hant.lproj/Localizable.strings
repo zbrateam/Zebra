@@ -18,14 +18,6 @@
 "Welcome to Zebra!" = "歡迎使用 Zebra！";
 "Report a Bug" = "回報 Bug";
 "Changelog" = "更新記錄";
-"Community Sources" = "社群套件來源";
-"You’ve added all of the community sources" = "您已經加入所有的社群套件來源";
-"Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
-"Utility repo for %@" = "%@ 的工具軟體來源";
-"Transfer Sources" = "轉移來源";
-"Verifying Source(s)" = "驗證來源";
-"Stores" = "商店";
-"Purchases" = "購買項目";
 "Wish List" = "願望清單";
 "No items in Wish List" = "願望清單中沒有項目";
 "Community" = "社群";
