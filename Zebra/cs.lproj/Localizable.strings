@@ -108,12 +108,13 @@
 
 "Stores" = "Obchody";
 "Account" = "Account";
-"Login" = "Přihlásit";
+"Sign In" = "Sign In";
 "Sign Out" = "Sign Out";
 "Your Purchases" = "Your Purchases";
 "No Storefronts Available" = "No Storefronts Available";
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "Importovat";
 "Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Datum";
 "Size" = "Velikost";
 "Clear" = "Vyčistit";
-"Are you sure you want to clear Queue?" = "Jste si jistí, že chcete vyčistit frontu?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Dostupné Aktualizace";
 "Ignored Upgrades" = "Ignorované Aktualizace";
 "Recent" = "Nedávné";
