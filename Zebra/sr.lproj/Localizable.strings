@@ -90,11 +90,11 @@
 // Advanced
 
 "Advanced" = "Napredno";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Osveži keš";
+"Reset Image Cache" = "Ukloni keš slika";
+"Reset Sources Cache" = "Ukloni keš izvora";
+"Reset All Settings" = "Resetuj sva podešavanja";
+"Erase All Sources and Settings" = "Obriši sve izvore i podešavanja";
 
 "Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
