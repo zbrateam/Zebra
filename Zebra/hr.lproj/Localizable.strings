@@ -108,12 +108,13 @@
 
 "Stores" = "Trgovine";
 "Account" = "Račun";
-"Login" = "Prijava";
+"Sign In" = "Sign In";
 "Sign Out" = "Odjavite se";
 "Your Purchases" = "Vaše Kupovine";
 "No Storefronts Available" = "Nema istaknutih izloga";
 "Could not complete purchase" = "Narudžba nije mogla biti izvršena";
 "Could not complete purchase, no payment secret was found" = "Narudžba nije mogla biti izvršena zbog tajne plaćanja";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "Uvezi";
 "Are you sure that you want to import %d sources into Zebra?" = "Dali ste sigurni da želite uvesti %d izvore u Zebru?";
 "Are you sure that you want to import 1 source into Zebra?" = "Dali ste sigurni da želite uvesti 1 izvor u Zebru?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Datum";
 "Size" = "Veličina";
 "Clear" = "Ukloni";
-"Are you sure you want to clear Queue?" = "Jeste li sigurni da želite očistiti popis?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Dostupna Ažuriranja";
 "Ignored Upgrades" = "Ignorirana Ažuriranja";
 "Recent" = "Nedavno";
