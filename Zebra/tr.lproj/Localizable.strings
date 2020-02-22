@@ -108,12 +108,13 @@
 
 "Stores" = "Market";
 "Account" = "Hesap";
-"Login" = "Giriş Yap";
+"Sign In" = "Sign In";
 "Sign Out" = "Oturumu Kapat";
 "Your Purchases" = "Satın Aldıklarınız";
 "No Storefronts Available" = "Vitrinde İçerik Bulunamadı";
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,8 @@
 "Import" = "İçeri Aktar";
 "Are you sure that you want to import %d sources into Zebra?" = "%d kaynaklarını Zebra'ya eklemek istediğinize emin misiniz?";
 "Are you sure that you want to import 1 source into Zebra?" = "%d kaynağını Zebra'ya eklemek istediğinize emin misiniz?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 
 
 // Packages
@@ -169,7 +172,7 @@
 "Date" = "Tarih";
 "Size" = "Boyut";
 "Clear" = "Temizle";
-"Are you sure you want to clear Queue?" = "Sırayı temizlemek istediğine emin misin?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Yoksayılan Güncellemeler";
 "Recent" = "En Son";
