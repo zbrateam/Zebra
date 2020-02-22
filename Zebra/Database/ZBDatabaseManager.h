@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
 
++ (BOOL)needsMigration;
+
 /*!
  @brief The last time the database was updated.
  @return An NSDate that provides the last time that the database was fully updated.
@@ -189,6 +191,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
  */
 - (NSSet <ZBSource *> *)sources;
+- (NSSet <ZBSource *> *)sourcesWithPaymentEndpoint;
 
 /*!
  @brief Deletes the repo and all the packages that have a matching repoID.
@@ -197,24 +200,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteRepo:(ZBSource *)repo;
 
 /*!
- @brief The CydiaIcon for a corresponding repo (if there is one).
- @param repo The corresponding repo.
- */
-- (UIImage *)iconForRepo:(ZBSource *)repo;
-
-/*!
- @brief Save a UIImage into the database for a corresponding repo's Cydia Icon.
- @param icon The UIImage needing to be saved.
- @param repo The corresponding repo.
- */
-- (void)saveIcon:(UIImage *)icon forRepo:(ZBSource *)repo;
-
-/*!
  @brief A list of section names and number of packages in each section.
  @param repo The corresponding repo.
  @return A dictionary of section names and number of packages in a corresponding repo in the format <SectionName: NumberOfPackages>.
  */
 - (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo;
+
+- (NSURL *)paymentVendorURLForRepo:(ZBSource *)repo;
 
 #pragma mark - Package retrieval
 
@@ -269,7 +261,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param requestedPackages (Nullable) An array with package identifiers.
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
-- (NSArray <ZBPackage *> *)purchasedPackages:(NSArray<NSString *> *)requestedPackages;
+- (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
 #pragma mark - Package status
 
 /*!

@@ -60,7 +60,7 @@
 }
 
 - (IBAction)goodbye:(id)sender {
-    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:false];
+    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:NO];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -69,7 +69,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    header.textLabel.textColor = [UIColor primaryTextColor];
     header.tintColor = [UIColor clearColor];
     [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }

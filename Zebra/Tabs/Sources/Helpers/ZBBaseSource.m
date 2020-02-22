@@ -10,6 +10,8 @@
 
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <Sources/Helpers/ZBSourceManager.h>
+#import <ZBAppDelegate.h>
 
 @implementation ZBBaseSource
 
@@ -33,28 +35,62 @@
 
 @synthesize baseFilename;
 
+@synthesize verificationStatus;
+@synthesize label;
+
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
 }
 
-+ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error {
++ (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs {
+    NSMutableSet *baseSources = [NSMutableSet new];
+    
+    for (NSURL *URL in URLs) {
+        ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:URL];
+        
+        if (source) {
+            [baseSources addObject:source];
+        }
+    }
+    
+    return baseSources;
+}
+
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error {
     NSError *readError;
-    NSString *sourceListContents = [NSString stringWithContentsOfFile:listPath encoding:NSUTF8StringEncoding error:&readError];
+    NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];
     if (readError) {
-        NSLog(@"[Zebra] Could not read sources list contents located at %@ reason: %@", listPath, readError.localizedDescription);
+        NSLog(@"[Zebra] Could not read sources list contents located at %@ reason: %@", [listLocation absoluteString], readError.localizedDescription);
         *error = readError;
         return NULL;
     }
     
-    NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
     NSMutableSet *baseRepos = [NSMutableSet new];
-    for (NSString *sourceLine in debLines) {
-        if (![sourceLine isEqualToString:@""]) {
-            if ([sourceLine characterAtIndex:0] == '#') continue;
-            
-            ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
-            if (repo) {
-                [baseRepos addObject:repo];
+    if ([[listLocation pathExtension] isEqualToString:@"list"]) { //Debian source format
+        NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
+        
+        for (NSString *sourceLine in debLines) {
+            if (![sourceLine isEqualToString:@""]) {
+                if ([sourceLine characterAtIndex:0] == '#') continue;
+                
+                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
+                if (repo) {
+                    [baseRepos addObject:repo];
+                }
+            }
+        }
+    }
+    else if ([[listLocation pathExtension] isEqualToString:@"sources"]) { //Sileo source format
+        NSArray *sourceGroups = [sourceListContents componentsSeparatedByString:@"\n\n"];
+        
+        for (NSString *sourceGroup in sourceGroups) {
+            if (![sourceGroup isEqualToString:@""]) {
+                if ([sourceGroup characterAtIndex:0] == '#') continue;
+                
+                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceGroup:sourceGroup];
+                if (repo) {
+                    [baseRepos addObject:repo];
+                }
             }
         }
     }
@@ -66,14 +102,18 @@
     self = [super init];
     
     if (self) {
+        self->verificationStatus = ZBSourceUnverified;
+        
         self->archiveType = archiveType;
         self->repositoryURI = repositoryURI;
+        self->label = repositoryURI;
         self->distribution = distribution;
         if (components && [components count]) {
             self->components = components;
         }
         
-        if (![distribution isEqualToString:@"./"]) { //Set packages and release URLs to follow dist format
+        if (![distribution isEqualToString:@"./"]) {
+            //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
@@ -81,6 +121,7 @@
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         else {
+            //If the distribution is './' then the repository likely follows a flat repo format
             mainDirectoryURL = [NSURL URLWithString:repositoryURI];
             mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
             
@@ -88,6 +129,7 @@
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         
+        if (!mainDirectoryURL) return NULL;
         NSString *schemeless = [[[mainDirectoryURL absoluteString] stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
         self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     }
@@ -96,7 +138,11 @@
 }
 
 - (id)initFromSourceLine:(NSString *)debLine {
+    if (!debLine) return NULL;
+    
     if ([debLine characterAtIndex:0] == '#') return NULL;
+    debLine = [debLine stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    debLine = [debLine stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     
     NSMutableArray *lineComponents = [[debLine componentsSeparatedByString:@" "] mutableCopy];
     [lineComponents removeObject:@""]; //Remove empty strings from the line which exist for some reason
@@ -123,7 +169,49 @@
     return [super init];
 }
 
-- (void)verify:(void (^)(BOOL exists))completion {
+- (id)initFromSourceGroup:(NSString *)sourceGroup {
+    if (!sourceGroup) return NULL;
+    
+    if ([sourceGroup characterAtIndex:0] == '#') return NULL;
+    
+    NSMutableDictionary *source = [NSMutableDictionary new];
+    [sourceGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+        if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+        if (pair.count != 2) return;
+        NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        source[key] = value;
+    }];
+    
+    if ([source count] >= 3) {
+        NSString *archiveType = source[@"Types"];
+        NSString *repositoryURI = source[@"URIs"];
+        NSString *distribution = source[@"Suites"];
+        
+        NSString *components = source[@"Components"];
+        NSArray *sourceComponents = [components componentsSeparatedByString:@" "];
+        
+        ZBBaseSource *baseSource = [self initWithArchiveType:archiveType repositoryURI:repositoryURI distribution:distribution components:sourceComponents];
+        
+        return baseSource;
+    }
+    
+    return [super init];
+}
+
+- (id)initFromURL:(NSURL *)url {
+    return [self initFromSourceLine:[ZBSourceManager debLineForURL:url]];
+}
+
+- (void)verify:(nullable void (^)(ZBSourceVerification status))completion {
+    if (verificationStatus != ZBSourceUnverified && completion) {
+        completion(verificationStatus);
+        return;
+    }
+    
+    completion(ZBSourceVerifying);
+    
     __block int tasks = 5;
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -137,10 +225,13 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
-            completion(YES);
+            
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [xzTask resume];
@@ -152,10 +243,13 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
-            completion(YES);
+            
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [bz2Task resume];
@@ -167,10 +261,13 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
-            completion(YES);
+            
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [gzTask resume];
@@ -182,10 +279,13 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
-            completion(YES);
+            
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [lzmaTask resume];
@@ -197,17 +297,53 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode == 200) {
             [session invalidateAndCancel];
-            completion(YES);
+            
+            self->verificationStatus = ZBSourceExists;
+            if (completion) completion(self->verificationStatus);
         }
         else if (--tasks == 0) {
-            completion(NO);
+            self->verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self->verificationStatus);
         }
     }];
     [uncompressedTask resume];
 }
 
-- (NSString *)label {
-    return self.repositoryURI;
+- (void)getLabel:(void (^)(NSString *label))completion {
+    if (![label isEqualToString:repositoryURI]) completion(label);
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    
+    NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        __block NSString *label = NULL;
+        [releaseFile enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            if ([key isEqualToString:@"Origin"] || [key isEqualToString:@"Label"]) {
+                NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                label = value;
+                return;
+            }
+        }];
+        
+        if (label) {
+            self->label = label;
+            completion(label);
+            return;
+        }
+        
+        self->label = [self->repositoryURI copy];
+        completion(label);
+    }];
+    [releaseTask resume];
 }
 
 - (NSString *)debLine {
@@ -219,7 +355,7 @@
 }
 
 - (BOOL)canDelete {
-    return true;
+    return YES;
 }
 
 - (BOOL)isEqual:(ZBBaseSource *)object {
@@ -238,6 +374,15 @@
     else if ([[object components] isEqual:[self components]]) componentsEqual = YES;
     
     return (archiveTypeEqual && repositoryURIEqual && distributionEqual && componentsEqual);
+}
+
+- (NSUInteger)hash {
+    return [self.archiveType hash] + [self.repositoryURI hash] + [self.distribution hash] + [self.components hash];
+}
+
+- (BOOL)exists {
+    NSSet *sources = [[self class] baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
+    return [sources containsObject:self];
 }
 
 @end

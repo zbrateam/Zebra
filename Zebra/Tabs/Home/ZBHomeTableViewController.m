@@ -11,8 +11,9 @@
 #import "ZBNewsCollectionViewCell.h"
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Community Repos/ZBCommunitySourcesTableViewController.h>
+#import <Community Sources/ZBCommunitySourcesTableViewController.h>
 #import <Changelog/ZBChangelogTableViewController.h>
+#import <Theme/ZBThemeManager.h>
 
 @import FirebaseAnalytics;
 
@@ -55,7 +56,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
@@ -66,19 +67,27 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self setupFeatured];
+    
+    if (@available(iOS 13.0, *)) {
+        UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
+        self.navigationItem.rightBarButtonItems = nil;
+        self.navigationItem.rightBarButtonItem = settingsButton;
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([ZBDevice darkModeEnabled]) {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-    } else {
-        [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-    }
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
-    [self updateTheme];
+    
+    [self configureFooter];
+    [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
+
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
 }
 
 - (void)setupFeatured {
@@ -97,7 +106,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [self packagesFromDB];
             });
         } else {
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]]) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     [self cacheJSON];
                 });
@@ -110,12 +119,11 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)cacheJSON {
     NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
-    NSMutableArray *saveArray = [NSMutableArray new];
+    NSMutableDictionary *featuredItems = [NSMutableDictionary new];
     dispatch_group_t group = dispatch_group_create();
     for (ZBSource *repo in featuredRepos) {
         dispatch_group_enter(group);
         NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.repositoryURI]];
-        NSLog(@"[Zebra] Cached JSON request URL: %@", requestURL.absoluteString);
         NSURL *checkingURL = requestURL;
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:checkingURL
@@ -123,14 +131,13 @@ typedef enum ZBLinksOrder : NSUInteger {
                     NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                     if (data != nil && (long)[httpResponse statusCode] != 404) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSLog(@"[Zebra] JSON response data: %@", json);
                         if (!repo.supportsFeaturedPackages) {
                             repo.supportsFeaturedPackages = YES;
                         }
                         if ([json objectForKey:@"banners"]) {
                             NSArray *banners = [json objectForKey:@"banners"];
                             if (banners.count) {
-                                [saveArray addObjectsFromArray:banners];
+                                [featuredItems setObject:banners forKey:[repo baseFilename]];
                             }
                         }
                     }
@@ -138,19 +145,19 @@ typedef enum ZBLinksOrder : NSUInteger {
                 }] resume];
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        BOOL isDir = YES;
-        if (![fileManager fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] isDirectory:&isDir]) {
-            [fileManager createDirectoryAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache"] withIntermediateDirectories:NO attributes:nil error:nil];
-        }
-        [saveArray writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"] atomically:YES];
+        [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
         [self setupHeaderFromCache];
     });
 }
 
 - (void)setupHeaderFromCache {
     [allFeatured removeAllObjects];
-    [allFeatured addObjectsFromArray:[NSArray arrayWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
+    for (NSArray *arr in [dict allValues]) {
+        [allFeatured addObjectsFromArray:arr];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self createHeader];
     });
@@ -192,7 +199,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)createHeader {
     if (allFeatured.count) {
         [self.tableView beginUpdates];
-        self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
+        self.featuredCollection.backgroundColor = [UIColor groupedTableViewBackgroundColor];
         [self.selectedFeatured removeAllObjects];
         self.cellNumber = [self cellCount];
         
@@ -218,13 +225,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)configureFooter {
-    [self.footerView setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.footerLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [self.footerView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+    [self.footerLabel setTextColor:[UIColor secondaryTextColor]];
     [self.footerLabel setNumberOfLines:1];
     [self.footerLabel setFont:[UIFont systemFontOfSize:13]];
     [self.footerLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION]];
     [self.udidLabel setFont:self.footerLabel.font];
-    [self.udidLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [self.udidLabel setTextColor:[UIColor secondaryTextColor]];
     [self.udidLabel setNumberOfLines:1];
     [self.udidLabel setAdjustsFontSizeToFitWidth:YES];
     [self.udidLabel setText:[ZBDevice UDID]];
@@ -264,8 +271,10 @@ typedef enum ZBLinksOrder : NSUInteger {
                         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
                     }
                     cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
-                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.textLabel.textColor = [UIColor primaryTextColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.backgroundColor = [UIColor cellBackgroundColor];
+                    
                     return cell;
                 }
                 case ZBBug: {
@@ -284,8 +293,9 @@ typedef enum ZBLinksOrder : NSUInteger {
                     [cell.imageView setImage:image];
                     [self setImageSize:cell.imageView];
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                    cell.textLabel.textColor = [UIColor primaryTextColor];
                     [cell.textLabel sizeToFit];
+                    cell.backgroundColor = [UIColor cellBackgroundColor];
                     
                     return cell;
                 }
@@ -325,8 +335,10 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
+            
             return cell;
         }
         case ZBLinks: {
@@ -351,15 +363,17 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBTranslate:
                     text = NSLocalizedString(@"Help translate Zebra!", @"");
                     image = [UIImage imageNamed:@"Translations"];
+                    break;
             }
             [cell.textLabel setText:text];
             [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
-            return cell;
+            cell.backgroundColor = [UIColor cellBackgroundColor];
             
+            return cell;
         }
         case ZBCredits: {
             static NSString *cellIdentifier = @"creditCell";
@@ -373,8 +387,10 @@ typedef enum ZBLinksOrder : NSUInteger {
             [cell.imageView setImage:[UIImage imageNamed:@"Credits"]];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             [cell.textLabel sizeToFit];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
+            
             return cell;
         }
         default:
@@ -464,15 +480,18 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)openBug {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-    webController.navigationDelegate = webController;
-    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
+    //TODO: Make bug report work again
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
+//    webController.navigationDelegate = webController;
+//    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
     NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [webController setValue:url forKey:@"_url"];
-    [[self navigationController] pushViewController:webController animated:YES];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+//    [webController setValue:url forKey:@"_url"];
+//    [[self navigationController] pushViewController:webController animated:YES];
+    
+    [ZBDevice openURL:url delegate:self];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {
@@ -512,60 +531,29 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-#pragma mark Settings
+#pragma mark - Settings
 
 - (IBAction)settingsButtonTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
+    
+    settingsController.presentationController.delegate = self;
 }
 
-#pragma mark darkmode
-- (IBAction)toggleDarkMode:(id)sender {
+#pragma mark - Dark Mode
+
+- (IBAction)toggleTheme:(id)sender {
     [ZBDevice hapticButton];
-    [self darkMode];
-}
-
-- (void)darkMode {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [ZBDevice setDarkModeEnabled:![ZBDevice darkModeEnabled]];
-        if ([ZBDevice darkModeEnabled]) {
-            [ZBDevice configureDarkMode];
-            [self.darkModeButton setImage:[UIImage imageNamed:@"Dark"]];
-            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-        } else {
-            [ZBDevice configureLightMode];
-            [self.darkModeButton setImage:[UIImage imageNamed:@"Light"]];
-            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-        }
-        [self setNeedsStatusBarAppearanceUpdate];
-        [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-        [((ZBTabBarController *)self.tabBarController) updateQueueBarColors];
-        [self updateTheme];
-        [ZBDevice refreshViews];
-    });
-}
-
-- (void)updateTheme {
-    [self.tableView reloadData];
-    [self colorWindow];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.featuredCollection.backgroundColor = [UIColor tableViewBackgroundColor];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
-    [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    _darkModeButton.tintColor = [UIColor tintColor];
-    _settingsButton.tintColor = [UIColor tintColor];
-    [self configureFooter];
+    
+    if ([ZBThemeManager useCustomTheming]) {
+        [[ZBThemeManager sharedInstance] toggleTheme];
+        
+        [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
+    }
+    else {
+        
+    }
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
@@ -577,7 +565,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         });
     } else {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"Cache/Featured.plist"]]) {
+            if (![[NSFileManager defaultManager] fileExistsAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]]) {
                     [self cacheJSON];
                 } else {
                     [self setupHeaderFromCache];
@@ -598,24 +586,21 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-}
-
-- (void)colorWindow {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIWindow *window = UIApplication.sharedApplication.delegate.window;
-        [window setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    });
+- (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController {
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
 }
 
 #pragma mark UICollectionView
+
 - (UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
     if (indexPath.row < selectedFeatured.count) {
         NSDictionary *currentBanner = [selectedFeatured objectAtIndex:indexPath.row];
+        NSString *section = currentBanner[@"section"];
+        if (section == NULL) section = @"Unknown";
+        
         cell.imageView.sd_imageIndicator = nil;
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:currentBanner[@"url"]] placeholderImage:[UIImage imageNamed:currentBanner[@"section"]]];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:currentBanner[@"url"]] placeholderImage:[UIImage imageNamed:section]];
         cell.packageID = currentBanner[@"package"];
         cell.titleLabel.text = currentBanner[@"title"];
     }
@@ -630,7 +615,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     return self.cellNumber;
 }
 
-
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(263, 148);
 }
@@ -641,6 +625,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 #pragma mark - Navigation
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
@@ -648,7 +633,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
         [databaseManager closeDatabase];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
 }
 

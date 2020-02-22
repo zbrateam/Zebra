@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <Database/ZBDatabaseDelegate.h>
 
+#ifndef _TABBAR_H_
+#define _TABBAR_H
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate>
+@interface ZBTabBarController : UITabBarController <ZBDatabaseDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSString *forwardToPackageID;
 @property (nonatomic, strong) NSString *forwardedRepoBaseURL;
 @property (nonatomic, strong) NSMutableDictionary *repoBusyList;
@@ -24,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)forwardToPackage;
 - (void)updateQueueBarPackageCount:(int)count;
 - (void)closeQueue;
+- (BOOL)isQueueBarAnimating;
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

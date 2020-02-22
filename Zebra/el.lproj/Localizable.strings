@@ -18,6 +18,14 @@
 "Welcome to Zebra!" = "Καλώς ήλθατε στο Zebra!";
 "Report a Bug" = "Αναφορά σφάλματος";
 "Changelog" = "Καταγραφή Αλλαγών";
+"Community Sources" = "Πηγές της Κοινωνίας";
+"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινωνίας";
+"Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
+"Utility repo for %@" = "Πρακτικό repo για %@";
+"Transfer Sources" = "Μετατόπισε Πηγές";
+"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
+"Stores" = "Καταστήματα";
+"Purchases" = "Αγορές";
 "Wish List" = "Λίστα Επιθυμιών";
 "No items in Wish List" = "Δεν υπάρχουν αντικείμενα στην Λίστα Επιθυμιών";
 "Community" = "Κοινότητα";
@@ -87,7 +95,23 @@
 "Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
 "Featured Repos" = "Προτεινόμενα Repos";
 
-// Advanced
+"News" = "Νέα";
+
+"Live Search" = "Ζωντανή Αναζήτηση";
+
+"Swipe Actions Display As" = "Swipe Actions Εμφανίζονται Ως";
+"Text" = "Κείμενο";
+"Icon" = "Εικονίδιο";
+"Open Documents Directory" = "Κατάλογος Ανοιχτών Αρχείων";
+"Clear Image Cache" = "Καθάρισε Κρυφή Μνήμη Εικόνων";
+"Clear Keychain" = "Καθάρισε Keychain";
+
+"Loading..." = "Γίνεται φόρτωση...";
+
+"Resetting image cache completed" = "Η επαναφορά της κρυφής μνήμης εικόνων ολοκληρώθηκε";
+"Clearing keychain completed" = "Ο καθαρισμός του keychain ολοκληρώθηκε";
+
+"Drop Tables" = "Διαγραφή Πινάκων";
 
 "Advanced" = "Προχωρημένα";
 "Refresh Icon Cache" = "Refresh Icon Cache";

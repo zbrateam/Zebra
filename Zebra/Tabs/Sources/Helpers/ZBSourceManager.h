@@ -9,6 +9,8 @@
 @class ZBSource;
 @class ZBBaseSource;
 
+#import "ZBSourceVerificationDelegate.h"
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,16 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBSourceManager : NSObject
 @property (nonatomic) NSMutableSet <ZBBaseSource *> *verifiedSources;
 + (id)sharedInstance;
++ (NSString *_Nullable)debLineForURL:(NSURL *)URL;
 - (NSMutableDictionary <NSNumber *, ZBSource *> *)repos;
-- (void)addSourcesFromString:(NSString *)sourcesString response:(void (^)(BOOL success, BOOL multiple, NSString *error, NSArray<NSURL *> *failedURLs))respond;
-- (void)deleteSource:(ZBSource *)delRepo;
-- (void)deleteBaseSource:(ZBBaseSource *)baseSource;
-- (void)addDebLine:(NSString *)sourceLine;
-- (void)transferFromCydia;
-- (void)transferFromSileo;
-- (void)transferFromInstaller;
+- (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
+- (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources;
+- (void)deleteSource:(ZBSource *)source;
 - (void)needRecaching;
-- (void)mergeSourcesFrom:(NSURL *)fromURL into:(NSURL *)destinationURL completion:(void (^)(NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

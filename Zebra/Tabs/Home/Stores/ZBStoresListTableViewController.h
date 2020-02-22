@@ -12,8 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBStoresListTableViewController : UITableViewController <SFSafariViewControllerDelegate>
-@property (nonatomic, retain) NSMutableArray *tableData;
-@property UICKeyChainStore *keychain;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -31,7 +31,8 @@ void createTable(sqlite3 *database, int table);
 int needsMigration(sqlite3 *database, int table);
 enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int repoID);
-void createDummyRepo(const char *packagesPath, sqlite3 *database, int repoID);
+enum PARSEL_RETURN_TYPE addPaymentEndpointForRepo(const char *endpointURL, sqlite3 *database, int repoID);
+void createDummyRepo(struct ZBBaseSource source, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int repoID);
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int repoID, sqlite3_int64 currentDate);
 

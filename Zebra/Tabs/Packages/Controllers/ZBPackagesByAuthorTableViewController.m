@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import <ZBAppDelegate.h>
 #import "ZBPackagesByAuthorTableViewController.h"
 #import <Packages/Helpers/ZBPackageActionsManager.h>
 
@@ -73,7 +74,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {

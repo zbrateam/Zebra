@@ -18,6 +18,8 @@
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import "ZBRedditPosts.h"
+#import <ZBDevice.h>
+
 @import SDWebImage;
 @import FirebaseAnalytics;
 
@@ -48,7 +50,7 @@
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
     [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.collectionView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -67,6 +69,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)applyLocalization {
@@ -104,7 +108,7 @@
     [request setURL:checkingURL];
     [request setHTTPMethod:@"POST"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra %@ iOS:%@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
     NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
     [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
@@ -119,7 +123,7 @@
             [self retrieveNewsJson];
         }
         if (error) {
-            ZBLog(@"[Zebra] Error getting reddit token: %@", error);
+            NSLog(@"[Zebra] Error getting reddit token: %@", error);
         }
     }] resume];
 }
@@ -129,7 +133,7 @@
     NSMutableURLRequest *request = [NSMutableURLRequest new];
     [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
     [request setHTTPMethod:@"GET"];
-    [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
     [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {
@@ -147,7 +151,7 @@
             }
         }
         if (error) {
-            ZBLog(@"[Zebra] Error retrieving news JSON %@", error);
+            NSLog(@"[Zebra] Error retrieving news JSON %@", error);
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self createHeader];
@@ -225,8 +229,7 @@
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
-    return package;
+    return [self objectAtSection:indexPath.section][indexPath.row];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -278,7 +281,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
     header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    header.textLabel.textColor = [UIColor primaryTextColor];
     header.tintColor = [UIColor clearColor];
     [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }
@@ -286,7 +289,7 @@
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -350,7 +353,7 @@
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     
     if ([viewControllerToCommit isKindOfClass:[SFSafariViewController class]]) {
-        [self.navigationController presentViewController:viewControllerToCommit animated:true completion:nil];
+        [self.navigationController presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
     else {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
@@ -359,8 +362,8 @@
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
     [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
@@ -466,9 +469,9 @@
         safariVC.delegate = self;
         if (@available(iOS 10.0, *)) {
             [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
-            [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+            [safariVC setPreferredControlTintColor:[UIColor accentColor]];
         } else {
-            [safariVC.view setTintColor:[UIColor tintColor]];
+            [safariVC.view setTintColor:[UIColor accentColor]];
         }
         [self presentViewController:safariVC animated:YES completion:nil];
     }

@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBBaseSource;
+
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN

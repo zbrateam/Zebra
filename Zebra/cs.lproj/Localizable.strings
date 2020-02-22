@@ -18,6 +18,14 @@
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
 "Report a Bug" = "Nahlásit Bug";
 "Changelog" = "Seznam změn";
+"Community Sources" = "Zdroje Komunity";
+"You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
+"Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
+"Utility repo for %@" = "Repozitář nástrojů pro %@";
+"Transfer Sources" = "Přenést Repozitáře";
+"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
+"Stores" = "Obchody";
+"Purchases" = "Nákupy";
 "Wish List" = "Seznam přání";
 "No items in Wish List" = "Nic tu není.";
 "Community" = "Komunita";
@@ -87,7 +95,23 @@
 "Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
 "Featured Repos" = "Doporučené Repozitáře";
 
-// Advanced
+"News" = "Novinky";
+
+"Live Search" = "Živé Vyhledávání";
+
+"Swipe Actions Display As" = "Akce přejetí prstem zobrazovat jako";
+"Text" = "Text";
+"Icon" = "Ikona";
+"Open Documents Directory" = "Otevřít adresář dokumentů";
+"Clear Image Cache" = "Vyčistit Image Cache";
+"Clear Keychain" = "Vyčistit klíčenku";
+
+"Loading..." = "Načítání...";
+
+"Resetting image cache completed" = "Resetováví image cache dokončeno";
+"Clearing keychain completed" = "Čištění klíčenky dokončeno";
+
+"Drop Tables" = "Znova načíst data a repozitáře";
 
 "Advanced" = "Pokročilé";
 "Refresh Icon Cache" = "Refresh Icon Cache";
@@ -134,8 +158,8 @@
 "Add Multiple" = "Přidat více najednou";
 "Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
 "Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Unable to verify source" = "Zdroj nelze ověřit";
+"Verifying Source(s)" = "Ověřování repozitáře(ů)";
+"Unable to verify Repo" = "Chyba při ověřování repozitáře";
 "Refresh" = "Refreshnout";
 "All Packages" = "Všechny balíčky";
 "Delete" = "Vymazat";
@@ -253,7 +277,7 @@
 "Error while opening sources.list" = "Chyba během otevírání sources.list";
 "The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
+"Please remove this repo from your sources.list file." = "Prosím, odstraňte tento repozitář ze souboru sources.list.";
 "Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
 "Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
@@ -352,7 +376,7 @@
 
 "Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Hledat balíčky při psaní. Zakázání této funkce může snížit zpoždění na starších zařízeních.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Hledá balíčky při psaní. Zakázání této funkce může snížit zpoždění na starších zařízeních.";
 
 "Configure the appearance of table view swipe actions." = "Nastaví vzhled akcí přetažením.";
 

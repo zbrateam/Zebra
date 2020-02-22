@@ -34,12 +34,12 @@
         return @[identifier, @"=", version];
     }
     
-    if (![dependency containsString:@"("] || ![dependency containsString:@")"]) {
-        return @[dependency, @"<=>", @"0:0"];
-    }
-    
     NSUInteger openIndex = [dependency rangeOfString:@"("].location;
     NSUInteger closeIndex = [dependency rangeOfString:@")"].location;
+    
+    if (openIndex == NSNotFound || closeIndex == NSNotFound) {
+        return @[dependency, @"<=>", @"0:0"];
+    }
     
     NSString *packageIdentifier = [[dependency substringToIndex:openIndex] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     packageIdentifier = [packageIdentifier lowercaseString];
@@ -192,7 +192,7 @@
         if ([[queue queuedPackagesList] containsObject:components[0]]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:components[0]];
             if (queuedDependency != NULL) {
-                [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:true];
+                [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:YES];
             }
             return YES;
         }
@@ -204,7 +204,7 @@
         if ([[queue queuedPackagesList] containsObject:dependency]) {
             ZBPackage *queuedDependency = [self packageInDependencyQueue:dependency];
             if (queuedDependency != NULL) {
-                [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:true];
+                [self enqueueDependency:queuedDependency forPackage:package ignoreFurtherDependencies:YES];
             }
             return YES;
         }
@@ -214,7 +214,7 @@
 }
 
 - (BOOL)resolveDependencies:(NSArray *)dependencies forPackage:(ZBPackage *)package {
-    if ([dependencies count] == 0 || dependencies == NULL) return YES;
+    if (dependencies == NULL || [dependencies count] == 0) return YES;
     
     //At this point, we are left with only unresolved dependencies
     for (NSString *dependency in dependencies) {
@@ -236,24 +236,20 @@
                 return YES;
             }
         }
-        
-        return NO;
     }
     else if ([dependency containsString:@"("] || [dependency containsString:@")"]) { //There is a version dependency here
         NSArray *components = [ZBDependencyResolver separateVersionComparison:dependency];
         //We should now have a separate version and a comparison string
         
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2]];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
-        
-        return NO;
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:NO];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
         ZBPackage *dependencyPackage = [databaseManager packageForIdentifier:dependency thatSatisfiesComparison:NULL ofVersion:NULL];
-        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:false];
-        
-        return NO;
+        if (dependencyPackage) return [self enqueueDependency:dependencyPackage forPackage:package ignoreFurtherDependencies:NO];
     }
+    
+    return NO;
 }
 
 - (void)resolveConflicts:(NSArray *)conflicts forPackage:(ZBPackage *)package {
@@ -267,13 +263,13 @@
         NSArray *components = [ZBDependencyResolver separateVersionComparison:conflict];
         //We should now have a separate version and a comparison string
         
-        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:true];
+        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:components[0] thatSatisfiesComparison:components[1] ofVersion:components[2] includeVirtualPackages:YES];
         if (conflictingPackage && ![[conflictingPackage identifier] isEqual:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
     else { //We should just be left as a package ID at this point, lets search for it in the database
-        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL includeVirtualPackages:true];
+        ZBPackage *conflictingPackage = [databaseManager installedPackageForIdentifier:conflict thatSatisfiesComparison:NULL ofVersion:NULL includeVirtualPackages:YES];
         
-        if (conflictingPackage && ![[conflictingPackage identifier] isEqual:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
+        if (conflictingPackage && ![[conflictingPackage identifier] isEqualToString:[package identifier]]) [self enqueueConflict:conflictingPackage forPackage:package];
     }
 }
 
@@ -357,6 +353,7 @@
     NSLog(@"[Zebra] Adding %@ as a conflict for %@", conflict, package);
     [package addDependency:conflict];
     [conflict addDependencyOf:package];
+    [conflict setRemovedBy:package];
     [queue addConflict:conflict removeDependencies:![self isPackage:conflict providedBy:package]];
 }
 

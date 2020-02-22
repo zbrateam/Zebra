@@ -16,6 +16,8 @@
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
+#import "ZBPurchaseInfo.h"
+#import "UICKeyChainStore.h"
 
 @import Crashlytics;
 
@@ -59,20 +61,16 @@
         return @[@"/.", @"/You", @"/You/Are", @"/You/Are/Simulated"];
     }
     
-    NSString *path = [NSString stringWithFormat:@"/Library/dpkg/info/%@.list", packageID];
+    NSString *path = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", packageID];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
         NSError *readError;
         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
         if (!readError) {
             return [contents componentsSeparatedByString:@"\n"];
         }
-        else {
-            return @[readError.localizedDescription];
-        }
+        return @[readError.localizedDescription];
     }
-    else {
-        return @[@"No files found"];
-    }
+    return @[@"No files found"];
 }
 
 + (BOOL)respringRequiredFor:(NSString *)packageID {
@@ -82,7 +80,7 @@
     
     ZBLog(@"[Zebra] Searching %@ for respringable", packageID);
     if ([packageID hasSuffix:@".deb"]) {
-        NSLog(@"[Zebra] I had to use DPKG :(")
+        NSLog(@"[Zebra] I had to use DPKG :(");
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
@@ -152,7 +150,7 @@
     
     ZBLog(@"[Zebra] Searching %@ for app path", packageID);
     if ([packageID hasSuffix:@".deb"]) {
-        NSLog(@"[Zebra] I had to use DPKG :(")
+        NSLog(@"[Zebra] I had to use DPKG :(");
         ZBLog(@"[Zebra] Locating package ID for %@", packageID);
         //We need to look up the *actual* package ID of this deb from the deb's control file
         NSMutableData *output = [NSMutableData new];
@@ -284,10 +282,10 @@
         
         NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
         if (es && [es isEqualToString:@"yes"]) {
-            [self setEssential:true];
+            [self setEssential:YES];
         }
         else if (es && [es isEqualToString:@"no"]) {
-            [self setEssential:false];
+            [self setEssential:NO];
         }
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
@@ -365,6 +363,59 @@
 
 - (BOOL)isPaid {
     return [tags containsObject:@"cydia::commercial"];
+}
+
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
+    //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
+    if (![self isPaid] || [[self repo] repoID] < 1 || ![[self repo] paymentVendorURL]) {
+        completion(NULL);
+        return;
+    }
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    
+    NSURL *packageInfoURL = [[[self repo] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
+    NSLog(@"Package Info URL: %@", packageInfoURL);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
+    NSString *token = [keychain stringForKey:[[self repo] repositoryURI]];
+    NSDictionary *requestJSON;
+    if (token) {
+        requestJSON = @{@"token": token, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    }
+    else {
+        requestJSON = @{@"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    }
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = [httpReponse statusCode];
+        
+        if (statusCode == 200) {
+            NSError *error;
+            ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
+            
+            if (!error) {
+                completion(info);
+                return;
+            }
+            
+            completion(NULL);
+            return;
+        }
+    }];
+    
+    [task resume];
 }
 
 - (NSString *)getField:(NSString *)field {
@@ -510,6 +561,10 @@
         }
     }
     return possibleActions;
+}
+
+- (void)_setPossibleActions:(NSUInteger)actions {
+    possibleActions = actions;
 }
 
 - (NSString *)longDescription {

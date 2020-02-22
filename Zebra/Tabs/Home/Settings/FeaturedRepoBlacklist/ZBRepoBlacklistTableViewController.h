@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Sources/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBSourceListTableViewController.h>
 
-@interface ZBRepoBlacklistTableViewController : ZBRepoListTableViewController
+@interface ZBRepoBlacklistTableViewController : ZBSourceListTableViewController
 @end

@@ -62,7 +62,7 @@
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
     [refreshControl endRefreshing];
     

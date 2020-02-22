@@ -8,6 +8,7 @@
 
 #import "ZBRepoTableViewCell.h"
 #import <UIColor+GlobalColors.h>
+#import <ZBBaseSource.h>
 
 @interface ZBRepoTableViewCell () {
     UIActivityIndicatorView *spinner;
@@ -29,7 +30,8 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
+    //FIXME: Fix pls
+//    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 - (void)clearAccessoryView {
@@ -37,13 +39,15 @@
 }
 
 - (void)setSpinning:(BOOL)spinning {
-    if (spinning) {
-        self.accessoryView = spinner;
-        [spinner startAnimating];
-    } else {
-        [spinner stopAnimating];
-        self.accessoryView = self.chevronView;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (spinning) {
+            self.accessoryView = self->spinner;
+            [self->spinner startAnimating];
+        } else {
+            [self->spinner stopAnimating];
+            self.accessoryView = self.chevronView;
+        }
+    });
 }
 
 @end

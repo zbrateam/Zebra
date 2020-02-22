@@ -18,8 +18,16 @@
 "Welcome to Zebra!" = "Willkommen zu Zebra!";
 "Report a Bug" = "Einen Fehler melden";
 "Changelog" = "Änderungsprotokoll";
+"Community Sources" = "Community-Quellen";
+"You’ve added all of the community sources" = "Du hast alle Community-Quellen hinzugefügt";
+"Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
+"Utility repo for %@" = "Dienstprogrammquelle für %@";
+"Transfer Sources" = "Quellen übertragen";
+"Verifying Source(s)" = "Verifizieren der Quelle(n)";
+"Stores" = "Shop";
+"Purchases" = "Einkäufe";
 "Wish List" = "Wunschliste";
-"No items in Wish List" = "Keine Artikel in der Wunschliste";
+"No items in Wish List" = "Keine Artikel auf der Wunschliste";
 "Community" = "Community";
 "Join our Discord" = "Tritt unserem Discord Server bei";
 "Follow us on Twitter" = "Folgen Sie uns auf Twitter";
@@ -87,7 +95,23 @@
 "Select Repos to be Featured" = "Wähle Quellen aus, die vorgestellt werden sollen";
 "Featured Repos" = "Empfohlene Quellen";
 
-// Advanced
+"News" = "Neuigkeiten";
+
+"Live Search" = "Live-Suche";
+
+"Swipe Actions Display As" = "Wischgesten anzeigen als";
+"Text" = "Text";
+"Icon" = "Symbol";
+"Open Documents Directory" = "Dokumentenverzeichnis öffnen";
+"Clear Image Cache" = "Bildzwischenspeicher leeren";
+"Clear Keychain" = "Schlüsselbund leeren";
+
+"Loading..." = "Laden...";
+
+"Resetting image cache completed" = "Bildzwischenspeicher erfolgreich zurückgesetzt";
+"Clearing keychain completed" = "Schlüsselbund erfolgreich geleert";
+
+"Drop Tables" = "Datenbanktabellen leeren";
 
 "Advanced" = "Fortgeschritten";
 "Refresh Icon Cache" = "Icon-Cache aktualisieren";

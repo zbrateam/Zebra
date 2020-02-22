@@ -18,6 +18,14 @@
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
 "Report a Bug" = "الإبلاغ عن خطأ";
 "Changelog" = "التغييرات";
+"Community Sources" = "مصادر المجتمع";
+"You’ve added all of the community sources" = "لقد أضفت كل مصادر المجتمع";
+"Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
+"Utility repo for %@" = "فائدة المستودع لـ %@";
+"Transfer Sources" = "تحويل المصادر";
+"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
+"Stores" = "المتاجر";
+"Purchases" = "المشتريات";
 "Wish List" = "قائمة الأمنيات";
 "No items in Wish List" = "لا توجد عناصر في قائمة الأمنيات";
 "Community" = "المجتمع";
@@ -87,7 +95,23 @@
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 "Featured Repos" = "المستودعات المميزة";
 
-// Advanced
+"News" = "الأخبار";
+
+"Live Search" = "بحث مباشر";
+
+"Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
+"Text" = "نص";
+"Icon" = "أيقونة";
+"Open Documents Directory" = "فتح دليل المستندات";
+"Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
+"Clear Keychain" = "مسح بيانات تسجيل الدخول";
+
+"Loading..." = "جارِ التحميل...";
+
+"Resetting image cache completed" = "إعادة تعيين ذاكرة التخزين المؤقت للصور مكتملة";
+"Clearing keychain completed" = "اكتمل مسح سلسلة المفاتيح";
+
+"Drop Tables" = "حذف قاعدة البيانات";
 
 "Advanced" = "متقدم";
 "Refresh Icon Cache" = "Refresh Icon Cache";
@@ -134,8 +158,8 @@
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
-"Unable to verify source" = "غير قادر على التحقق من المصدر";
+"Verifying Source(s)" = "التحقق من المصدر/المصادر";
+"Unable to verify Repo" = "تعذر التحقق من المستودع";
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
 "Delete" = "حذف";

@@ -90,7 +90,7 @@
 - (void)updateQueueStatus:(ZBPackage *)package {
     ZBQueueType queue = [[ZBQueue sharedQueue] locate:package];
     if (queue != ZBQueueTypeClear) {
-        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:false];
+        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:NO];
         self.queueStatusLabel.hidden = NO;
         self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
         self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
@@ -105,9 +105,9 @@
 }
 
 - (void)setColors {
-    self.packageLabel.textColor = [UIColor cellPrimaryTextColor];
-    self.descriptionLabel.textColor = [UIColor cellSecondaryTextColor];
-    self.authorAndRepoAndSize.textColor = [UIColor cellSecondaryTextColor];
+    self.packageLabel.textColor = [UIColor primaryTextColor];
+    self.descriptionLabel.textColor = [UIColor secondaryTextColor];
+    self.authorAndRepoAndSize.textColor = [UIColor secondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
 }
 
@@ -124,7 +124,8 @@
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
+    //FIXME: Fix!
+//    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 @end

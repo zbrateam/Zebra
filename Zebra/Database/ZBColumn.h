@@ -51,6 +51,7 @@ typedef enum {
     ZBSourceColumnSuite,
     ZBSourceColumnCodename,
     ZBSourceColumnArchitectures,
+    ZBSourceColumnPaymentVendor,
     ZBSourceColumnBaseFilename,
     ZBSourceColumnRepoID
 } ZBSourceColumn;

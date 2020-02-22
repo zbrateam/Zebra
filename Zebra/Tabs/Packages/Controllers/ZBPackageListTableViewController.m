@@ -55,7 +55,7 @@
     [super viewDidLoad];
     [self applyLocalization];
 
-    selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
+    selectedSortingType = ZBSortingTypeABC;
     if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
@@ -83,6 +83,9 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+
 }
 
 - (void)dealloc {
@@ -132,7 +135,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->repo repoID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages:false];
+            self->packages = [self.databaseManager installedPackages:NO];
             self->updates = [self.databaseManager packagesWithUpdates];
             self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
@@ -256,7 +259,7 @@
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages:false] copy];
+    NSArray *packages = [[self.databaseManager installedPackages:NO] copy];
     NSMutableArray *packageIds = [NSMutableArray new];
     for (ZBPackage *package in packages) {
         if (package.identifier) {
@@ -302,7 +305,14 @@
 
 - (void)upgradeAll {
     ZBQueue *queue = [ZBQueue sharedQueue];
-    [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
+    
+    for (ZBPackage *package in updates) {
+        ZBPackage *upgradeVersion = [[ZBDatabaseManager sharedInstance] topVersionForPackage:package];
+        if (upgradeVersion) {
+            [queue addPackage:upgradeVersion toQueue:ZBQueueTypeUpgrade];
+        }
+    }
+    
     [self presentQueue];
 }
 
@@ -314,16 +324,13 @@
         return [ignoredUpdates objectAtIndex:indexPath.row];
     }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        ZBPackage *package = [self objectAtSection:indexPath.section][indexPath.row];
-        return package;
+        return [self objectAtSection:indexPath.section][indexPath.row];
     }
     return sortedPackages[indexPath.row];
 }
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
-    [[NSUserDefaults standardUserDefaults] setInteger:selectedSortingType forKey:packageSortingKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     [self refreshTable];
 }
 
@@ -429,7 +436,7 @@
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -447,7 +454,8 @@
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    ZBPackage *candidate = [package installableCandidate];
+    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && indexPath.section == 0;
+    ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
     destination.package = candidate ? candidate : package;
     destination.parent = self;
 }
@@ -477,9 +485,9 @@
 
 - (void)darkMode:(NSNotification *)notif {
     [self.tableView reloadData];
-    [ZBDevice refreshViews];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
+//    [ZBDevice refreshViews];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
     [self.navigationController.navigationBar setBarTintColor:nil];
 }
 

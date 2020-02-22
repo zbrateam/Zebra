@@ -55,6 +55,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AUPM</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AUPM</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -214,9 +223,7 @@
 			<string>Zebra</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>sileo</string>
 				<string>zbra</string>
-				<string>cydia</string>
 			</array>
 		</dict>
 	</array>
@@ -231,6 +238,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>pls give face id</string>
 	<key>SBAppUsesLocalNotifications</key>
 	<true/>
 	<key>UIApplicationShortcutItems</key>
@@ -247,7 +256,7 @@
 			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeAdd</string>
 			<key>UIApplicationShortcutItemTitle</key>
-			<string>Add Repo</string>
+			<string>Add Source</string>
 			<key>UIApplicationShortcutItemType</key>
 			<string>Add</string>
 		</dict>

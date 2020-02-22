@@ -76,13 +76,14 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
+    return 30;
 }
 
 @end

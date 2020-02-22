@@ -10,30 +10,33 @@
 #import <UIColor+GlobalColors.h>
 #import <objc/runtime.h>
 #import <ZBDevice.h>
+#import <Theme/ZBThemeManager.h>
 
 @implementation UIAlertController (Theme)
 
 + (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        Class thisClass = self;
-        
-        SEL methodSEL = @selector(viewDidLayoutSubviews);
-        Method og_Method = class_getInstanceMethod(thisClass, methodSEL);
-        IMP methodIMP = method_getImplementation(og_Method);
-        
-        SEL mg_methodSEL = @selector(zb_viewDidLayoutSubviews);
-        Method mg_Method = class_getInstanceMethod(thisClass, mg_methodSEL);
-        IMP mg_methodIMP = method_getImplementation(mg_Method);
-        
-        BOOL wasMethodAdded = class_addMethod(thisClass, methodSEL, mg_methodIMP, method_getTypeEncoding(mg_Method));
-        
-        if (wasMethodAdded) {
-            class_replaceMethod(thisClass, mg_methodSEL, methodIMP, method_getTypeEncoding(og_Method));
-        } else {
-            method_exchangeImplementations(og_Method, mg_Method);
-        }
-    });
+    if ([ZBThemeManager useCustomTheming]) {
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            Class thisClass = self;
+            
+            SEL methodSEL = @selector(viewDidLayoutSubviews);
+            Method og_Method = class_getInstanceMethod(thisClass, methodSEL);
+            IMP methodIMP = method_getImplementation(og_Method);
+            
+            SEL mg_methodSEL = @selector(zb_viewDidLayoutSubviews);
+            Method mg_Method = class_getInstanceMethod(thisClass, mg_methodSEL);
+            IMP mg_methodIMP = method_getImplementation(mg_Method);
+            
+            BOOL wasMethodAdded = class_addMethod(thisClass, methodSEL, mg_methodIMP, method_getTypeEncoding(mg_Method));
+            
+            if (wasMethodAdded) {
+                class_replaceMethod(thisClass, mg_methodSEL, methodIMP, method_getTypeEncoding(og_Method));
+            } else {
+                method_exchangeImplementations(og_Method, mg_Method);
+            }
+        });
+    }
 }
 
 - (void)recursiveSetColor:(UIView *)view {
@@ -44,7 +47,7 @@
             bgView.backgroundColor = [UIColor cellBackgroundColor];
             return;
         } else if ([subview isKindOfClass:[UILabel class]]) {
-            ((UILabel *)subview).textColor = [UIColor cellPrimaryTextColor];
+            ((UILabel *)subview).textColor = [UIColor primaryTextColor];
         }
         [self recursiveSetColor:subview];
     }
@@ -80,7 +83,7 @@
         if (self.title) {
             NSString *title = self.title;
             NSMutableAttributedString *attributedTitle = [[NSMutableAttributedString alloc] initWithString:title];
-            [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, title.length)];
+            [attributedTitle addAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]} range:NSMakeRange(0, title.length)];
             
             [self setValue:attributedTitle forKey:@"attributedTitle"];
         }
@@ -89,7 +92,7 @@
         if (self.message) {
             NSString *message = self.message;
             NSMutableAttributedString *attributedMessage = [[NSMutableAttributedString alloc] initWithString:message];
-            [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor cellPrimaryTextColor]} range:NSMakeRange(0, message.length)];
+            [attributedMessage addAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]} range:NSMakeRange(0, message.length)];
             
             [self setValue:attributedMessage forKey:@"attributedMessage"];
         }
@@ -97,17 +100,9 @@
 }
 
 - (void)zb_viewDidLayoutSubviews {
-    if (@available(iOS 13.0, *)) {
-        if ([ZBDevice darkModeEnabled]) {
-            self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-        }
-    }
-    
+    self.view.tintColor = [UIColor accentColor];
     if (self.preferredStyle == UIAlertControllerStyleActionSheet) {
         [self setTextColor];
-    }
-    else {
-        self.view.tintColor = [UIColor tintColor];
     }
     [self zb_viewDidLayoutSubviews];
     [self setBackgroundColor];

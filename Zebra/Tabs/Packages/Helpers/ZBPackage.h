@@ -10,6 +10,7 @@
 #import <sqlite3.h>
 
 @class ZBSource;
+@class ZBPurchaseInfo;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -53,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sameAs:(ZBPackage *)package;
 - (BOOL)sameAsStricted:(ZBPackage *)package;
 - (BOOL)isPaid;
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion;
 - (NSString *)getField:(NSString *)field;
 - (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
@@ -73,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addIssue:(NSString *)issue;
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
+- (void)_setPossibleActions:(NSUInteger)actions;
 @end
 
 NS_ASSUME_NONNULL_END

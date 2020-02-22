@@ -3,7 +3,7 @@
 "Cancel" = "Annuleren";
 "Yes" = "Ja";
 "No" = "Nee";
-"Ok" = "Oké";
+"Ok" = "Ok";
 "Error" = "Fout";
 "Retry" = "Probeer opnieuw";
 "Edit" = "Wijzig";
@@ -13,7 +13,7 @@
 
 // Home
 
-"Home" = "Thuis";
+"Home" = "Startpagina";
 "Info" = "Informatie";
 "Welcome to Zebra!" = "Welkom bij Zebra!";
 "Report a Bug" = "Meld een fout";

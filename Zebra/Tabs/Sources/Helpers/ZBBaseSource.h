@@ -6,6 +6,8 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
+#import "ZBSourceVerification.h"
+
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
@@ -64,19 +66,27 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief The base filename of the repository, based on the URL */
 @property (nonatomic) NSString *baseFilename;
 
-+ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSString *)listPath error:(NSError **)error;
+@property ZBSourceVerification verificationStatus;
+@property (nonatomic) NSString *label;
+
++ (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components;
 - (id)initFromSourceLine:(NSString *)debLine;
+- (id)initFromSourceGroup:(NSString *)sourceGroup;
+- (id)initFromURL:(NSURL *)url;
 
 /*!
     @brief Verifies that a source exists in a proper format by checking for a Packages file that exists in packagesDirectoryURL
     @discussion First checks Packages.xz, then .bz2, then .gz, then .lzma, then for an uncompressed file to download
     @param completion the completion block to run once verification completes
 */
-- (void)verify:(void (^)(BOOL exists))completion;
+- (void)verify:(nullable void (^)(ZBSourceVerification status))completion;
+- (void)getLabel:(void (^)(NSString *label))completion;
 - (NSString *)debLine;
 - (BOOL)canDelete;
 - (BOOL)isEqual:(ZBBaseSource *)object;
+- (BOOL)exists;
 @end
 
 NS_ASSUME_NONNULL_END

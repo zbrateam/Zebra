@@ -12,18 +12,18 @@
 #import <ZBAppDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
+#import <ZBDevice.h>
 
 @implementation ZBSource
 
 @synthesize sourceDescription;
 @synthesize origin;
-@synthesize label;
 @synthesize version;
 @synthesize suite;
 @synthesize codename;
 @synthesize architectures;
 @synthesize repoID;
-@synthesize supportSileoPay;
+@synthesize paymentVendorURI;
 
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
@@ -48,11 +48,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 + (BOOL)exists:(NSString *)urlString {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    NSRange dividerRange = [urlString rangeOfString:@"://"];
-    NSUInteger divide = NSMaxRange(dividerRange);
-    NSString *baseURL = divide > [urlString length] ? urlString : [urlString substringFromIndex:divide];
-    
-    return [databaseManager repoIDFromBaseURL:baseURL strict:false] > 0;
+    return [databaseManager repoIDFromBaseURL:urlString strict:NO] > 0;
 }
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
@@ -76,6 +72,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *suiteChars         = textColumn(statement, ZBSourceColumnSuite);
         const char *codenameChars      = textColumn(statement, ZBSourceColumnCodename);
         const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
+        const char *vendorChars        = textColumn(statement, ZBSourceColumnPaymentVendor);
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
 
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
@@ -84,6 +81,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setVersion:versionChars != 0 ? [[NSString alloc] initWithUTF8String:versionChars] : NSLocalizedString(@"Unknown", @"")];
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NSLocalizedString(@"Unknown", @"")];
         [self setCodename:codenameChars != 0 ? [[NSString alloc] initWithUTF8String:codenameChars] : NSLocalizedString(@"Unknown", @"")];
+        
+        if (vendorChars != 0) {
+            NSString *vendor = [[[NSString alloc] initWithUTF8String:vendorChars] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            [self setPaymentVendorURI:[[NSURL alloc] initWithString:vendor]];
+        }
         
         if (architectureChars != 0) {
             NSArray *architectures = [[NSString stringWithUTF8String:architectureChars] componentsSeparatedByString:@" "];
@@ -95,42 +97,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setRepoID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
-        
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
-
-        //rewrite eventually
-        if ([self.repositoryURI containsString:@"https"]) {
-            NSString *requestURL;
-            if ([self.repositoryURI hasSuffix:@"/"]) {
-                requestURL = [NSString stringWithFormat:@"%@payment_endpoint", self.repositoryURI];
-            } else {
-                requestURL = [NSString stringWithFormat:@"/%@/payment_endpoint", self.repositoryURI];
-            }
-            NSURL *url = [NSURL URLWithString:requestURL];
-            NSURLSession *session = [NSURLSession sharedSession];
-            [[session dataTaskWithURL:url
-                    completionHandler:^(NSData *data,
-                                        NSURLResponse *response,
-                                        NSError *error) {
-                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-                            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                            keychain[self.repositoryURI] = endpoint;
-                            [self setSupportSileoPay:YES];
-                        }
-                    }] resume];
-        }
+        
         // prevent constant network spam
         if (!self.checkedSupportFeaturedPackages) {
             // Check for featured string
-            NSString *requestURL;
-            if ([self.repositoryURI hasSuffix:@"/"]) {
-                requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", self.repositoryURI];
-            } else {
-                requestURL = [NSString stringWithFormat:@"/%@/sileo-featured.json", self.repositoryURI];
-            }
-            NSURL *checkingURL = [NSURL URLWithString:requestURL];
+            NSURL *checkingURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
             NSURLSession *session = [NSURLSession sharedSession];
             [[session dataTaskWithURL:checkingURL
                     completionHandler:^(NSData *data,
@@ -164,6 +136,103 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (NSString *)description {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.repoID];
+}
+
+- (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion {
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if ([keychain stringForKey:self.repositoryURI]) {
+        completion(YES, nil);
+        return;
+    }
+    
+    if ([self paymentVendorURL]) {
+        NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+        if (![components.scheme isEqualToString:@"https"]) {
+            return;
+        }
+        
+        NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
+        NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
+        NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
+        [queryItems addObject:udid];
+        [queryItems addObject:model];
+        [components setQueryItems:queryItems];
+        
+        NSURL *url = [components URL];
+        if (@available(iOS 11.0, *)) {
+            static SFAuthenticationSession *session;
+            session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                if (callbackURL) {
+                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+                    NSArray *queryItems = urlComponents.queryItems;
+                    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+                    for (NSURLQueryItem *q in queryItems) {
+                        [queryByKeys setValue:[q value] forKey:[q name]];
+                    }
+                    NSString *token = queryByKeys[@"token"];
+                    NSString *payment = queryByKeys[@"payment_secret"];
+                    
+                    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+                    [keychain setString:token forKey:self.repositoryURI];
+                    
+                    NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
+                    [keychain setString:nil forKey:key];
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+                        
+                        [keychain setString:payment forKey:key];
+                        
+                        completion(YES, NULL);
+                    });
+                }
+                else {
+                    if (error.domain != SFAuthenticationErrorDomain && error.code != SFAuthenticationErrorCanceledLogin) {
+                        completion(NO, error);
+                    }
+                }
+            }];
+            
+            [session start];
+        }
+        else {
+//            [ZBDevice openURL:url delegate:nil];
+        }
+    }
+}
+
+- (NSString *)paymentSecret {
+    __block NSString *paymentSecret;
+    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
+        
+        UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+        keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
+        
+        NSError *error;
+        paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&error];
+        if (error) {
+            NSLog(@"Error: %@", error);
+        }
+        
+        dispatch_semaphore_signal(sema);
+    });
+    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    return paymentSecret;
+}
+
+- (NSURL *)paymentVendorURL {
+    if (paymentVendorURI) {
+        return paymentVendorURI;
+    }
+    
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
+    return paymentVendorURI;
 }
 
 @end

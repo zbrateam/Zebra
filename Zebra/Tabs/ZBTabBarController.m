@@ -9,7 +9,7 @@
 #import "ZBTabBarController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Sources/Controllers/ZBRepoListTableViewController.h>
+#import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBAppDelegate.h>
 #import <UITabBarItem.h>
@@ -38,12 +38,19 @@
 @synthesize forwardToPackageID;
 @synthesize repoBusyList;
 
+- (id)init {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];
 
     if (@available(iOS 10.0, *)) {
-        UITabBar.appearance.tintColor = [UIColor tintColor];
+        UITabBar.appearance.tintColor = [UIColor accentColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
     
@@ -63,7 +70,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
     
     NSError *error;
-    if ([ZBDevice isSlingshotBrokenWithError:&error]) { //error should never be null if the function returns YES
+    if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
         [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
     }
 }
@@ -82,7 +89,7 @@
     if ([databaseManager needsToPresentRefresh]) {
         [databaseManager setNeedsToPresentRefresh:NO];
         
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
         [self presentViewController:refreshController animated:YES completion:nil];
     }
     
@@ -149,7 +156,7 @@
     [repoBusyList setObject:@(busy) forKey:bfn];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        ZBRepoListTableViewController *sourcesVC = (ZBRepoListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
+        ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
         [sourcesVC setSpinnerVisible:busy forRepo:bfn];
     });
 }
@@ -200,25 +207,25 @@
 - (void)checkQueueNav {
     if (!queueNav) {
         queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
-        [[LNPopupBar appearance] setTranslucent:true];
+        [[LNPopupBar appearance] setTranslucent:YES];
     }
 }
 
 - (void)updateQueueBarColors {
-    if ([ZBDevice darkModeEnabled]) {
-        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
-        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
-        
-        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    }
-    else {
-        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
-        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
-        
-        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    }
+//    if ([ZBDevice darkModeEnabled]) {
+//        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
+//        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
+//        
+//        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//    }
+//    else {
+//        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+//        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
+//        
+//        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+//        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
+//    }
 }
 
 - (void)updateQueueBar {
@@ -259,13 +266,41 @@
     self.popupInteractionStyle = LNPopupInteractionStyleSnap;
     self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
     
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
+    longPress.minimumPressDuration = 1;
+    longPress.delegate = self;
+    
+    [self.popupBar addGestureRecognizer:longPress];
+    
     [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
+}
+
+- (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
+    if (UIGestureRecognizerStateBegan == gesture.state) {
+        UIAlertController *clearQueue = [UIAlertController alertControllerWithTitle:@"Clear Queue" message:@"Are you sure you want to clear the Queue?" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [[ZBQueue sharedQueue] clear];
+        }];
+        [clearQueue addAction:yesAction];
+        
+        UIAlertAction *noAction = [UIAlertAction actionWithTitle:@"No" style:UIAlertActionStyleCancel handler:nil];
+        [clearQueue addAction:noAction];
+        
+        [self presentViewController:clearQueue animated:true completion:nil];
+    }
+    
+}
+
+- (BOOL)isQueueBarAnimating {
+    return self.popupPresentationState == LNPopupPresentationStateTransitioning;
 }
 
 - (void)closeQueue {
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
-        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning) {
+        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning || state == LNPopupPresentationStateClosed) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
             [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];

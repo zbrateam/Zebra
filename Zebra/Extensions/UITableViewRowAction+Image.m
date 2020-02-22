@@ -16,7 +16,7 @@
     CGFloat width = stockSize.width + 10;
     CGSize actionSize = CGSizeMake(width, height);
     
-    UIGraphicsBeginImageContextWithOptions(actionSize, false, 0.0);
+    UIGraphicsBeginImageContextWithOptions(actionSize, NO, 0.0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextClearRect(context, CGRectMake(0, 0, width, height));
     
@@ -41,7 +41,7 @@
 //    CGFloat iconHeight = height * size;
 //    CGFloat margin = (height - iconHeight) / 2;
 //
-//    UIGraphicsBeginImageContextWithOptions(CGSizeMake(height, height), false, 0.0);
+//    UIGraphicsBeginImageContextWithOptions(CGSizeMake(height, height), NO, 0.0);
 //    CGContextRef context = UIGraphicsGetCurrentContext();
 //
 //    [color setFill];

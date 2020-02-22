@@ -65,6 +65,8 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
     return properties = properties ? properties : @{
         @"items": @"items",
         @"user": @"user",
+        @"error": @"error",
+        @"success": @"success"
     };
 }
 
@@ -121,7 +123,7 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
         @"name": @"name",
-        @"email": @"email",
+        @"email": @"email"
     };
 }
 

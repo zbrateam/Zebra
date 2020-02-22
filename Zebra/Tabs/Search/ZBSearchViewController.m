@@ -58,8 +58,8 @@ enum ZBSearchSection {
     
     searchController.delegate = self;
     searchController.searchBar.delegate = self;
-    searchController.searchBar.tintColor = [UIColor tintColor];
-    searchController.searchBar.placeholder = NSLocalizedString(@"Packages", @"");
+    searchController.searchBar.tintColor = [UIColor accentColor];
+    searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
     
     self.definesPresentationContext = YES;
     if (@available(iOS 9.1, *)) {
@@ -72,7 +72,7 @@ enum ZBSearchSection {
         self.tableView.tableHeaderView = searchController.searchBar;
     }
     self.tableView.tableFooterView = [UIView new];
-    
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     previewing = [self registerForPreviewingWithDelegate:self sourceView:self.tableView];
@@ -101,11 +101,15 @@ enum ZBSearchSection {
     }
     
     if (@available(iOS 13.0, *)) {
-        self.searchController.searchBar.searchTextField.textColor = [UIColor cellPrimaryTextColor];
+        self.searchController.searchBar.searchTextField.textColor = [UIColor primaryTextColor];
     }
     else {
         UITextField *textField = [self.searchController.searchBar valueForKey:@"_searchField"];
-        textField.textColor = [UIColor cellPrimaryTextColor];
+        if (@available(iOS 11.0, *)) {} else {
+            textField.backgroundColor = [UIColor cellBackgroundColor];
+            [searchController.searchBar setBarTintColor:[UIColor tableViewBackgroundColor]];
+        }
+        textField.textColor = [UIColor primaryTextColor];
     }
 }
 
@@ -251,7 +255,7 @@ enum ZBSearchSection {
             cell.textLabel.text = NSLocalizedString(@"No Results Found", @"");
             cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            cell.textLabel.textColor = [UIColor cellSecondaryTextColor];
+            cell.textLabel.textColor = [UIColor secondaryTextColor];
             tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -263,8 +267,8 @@ enum ZBSearchSection {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:recentSearchesID];
             }
             cell.textLabel.text = [recentSearches objectAtIndex:indexPath.row];
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+//            cell.backgroundColor = [UIColor selectedCellBackgroundColor:NO];
             tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             return cell;
@@ -327,7 +331,7 @@ enum ZBSearchSection {
     if (indexPath.section == ZBSearchSectionNotFound) {
         return NO;
     }
-    return YES;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -339,7 +343,7 @@ enum ZBSearchSection {
             }];
         }
         case ZBSearchSectionRecent: {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:true] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:[[ZBQueue sharedQueue] displayableNameForQueueType:ZBQueueTypeRemove useIcon:YES] handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
                 [self->recentSearches removeObjectAtIndex:indexPath.row];
                 [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"searches"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -394,13 +398,19 @@ enum ZBSearchSection {
 
 - (void)darkMode:(NSNotification *)notif {
     [self refreshTable];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    searchController.searchBar.tintColor = [UIColor tintColor];
+    self.tableView.sectionIndexColor = [UIColor accentColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+    searchController.searchBar.tintColor = [UIColor accentColor];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            return UIStatusBarStyleDefault;
+        case ZBInterfaceStyleDark:
+        case ZBInterfaceStylePureBlack:
+            return UIStatusBarStyleLightContent;
+    }
 }
 
 #pragma mark - Analytics
