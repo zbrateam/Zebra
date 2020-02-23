@@ -114,7 +114,7 @@
 "No Storefronts Available" = "Inga butiker tillgängliga";
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "Could not complete purchase, no payment secret was found" = "Kunde inte slutföra köpet, ingen betalningshemlighet hittades";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "Inga köpta paket";
 
 // Sources
 
