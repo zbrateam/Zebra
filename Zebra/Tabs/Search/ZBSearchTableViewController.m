@@ -9,6 +9,7 @@
 #import "ZBSearchTableViewController.h"
 
 #import <Database/ZBDatabaseManager.h>
+#import <Search/ZBSearchResultsTableViewController.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 
@@ -29,7 +30,7 @@
     
     recentSearches = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"];
     if (!recentSearches) {
-        recentSearches = @[@"Do", @"you", @"like", @"pancakes?"];
+        recentSearches = [NSArray new];
     }
     
     if (!databaseManager) {
@@ -37,7 +38,7 @@
     }
     
     if (!searchController) {
-        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] init]];
         searchController.delegate = self;
         searchController.searchBar.delegate = self;
         searchController.searchBar.tintColor = [UIColor accentColor];
@@ -110,16 +111,17 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     
     UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    titleLabel.textColor = [UIColor primaryTextColor];
+    [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [titleLabel setText:[self tableView:tableView titleForHeaderInSection:section]];
+    [titleLabel setTextColor:[UIColor accentColor]];
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];
     
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    clearButton.translatesAutoresizingMaskIntoConstraints = NO;
+    [clearButton setTranslatesAutoresizingMaskIntoConstraints:NO];
     [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+    [clearButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:clearButton];
     
     NSDictionary *views = @{@"left": @10, @"title": titleLabel, @"button": clearButton};
