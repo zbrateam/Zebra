@@ -18,8 +18,6 @@
 #import <UIColor+GlobalColors.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 
-@import FirebaseAnalytics;
-
 @interface ZBSearchViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *results;
@@ -41,9 +39,8 @@ enum ZBSearchSection {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self applyLocalization];
+    self.title = NSLocalizedString(@"Search", @"");
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"searches"] mutableCopy];
     if (!recentSearches) {
         recentSearches = [NSMutableArray new];
@@ -79,16 +76,6 @@ enum ZBSearchSection {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     [self configureClearSearchButton];
     [self refreshTable];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self registerView];
-}
-
-- (void)applyLocalization {
-    // This isn't exactly "best practice", but this way the text in IB isn't useless.
-    self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -394,31 +381,6 @@ enum ZBSearchSection {
         return;
     }
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-}
-
-- (void)darkMode:(NSNotification *)notif {
-    [self refreshTable];
-    self.tableView.sectionIndexColor = [UIColor accentColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
-    searchController.searchBar.tintColor = [UIColor accentColor];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            return UIStatusBarStyleDefault;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            return UIStatusBarStyleLightContent;
-    }
-}
-
-#pragma mark - Analytics
-
-- (void)registerView {
-    NSString *screenName = self.title;
-    NSString *screenClass = [[self classForCoder] description];
-    [FIRAnalytics setScreenName:screenName screenClass:screenClass];
 }
 
 @end
