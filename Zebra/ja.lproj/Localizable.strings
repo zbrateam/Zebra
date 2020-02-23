@@ -108,13 +108,13 @@
 
 "Stores" = "ストア";
 "Account" = "アカウント";
-"Sign In" = "Sign In";
+"Sign In" = "サインイン";
 "Sign Out" = "サインアウト";
 "Your Purchases" = "購入済みパッケージ";
 "No Storefronts Available" = "利用できるストアがありません。";
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "購入したパッケージはありません";
 
 // Sources
 
@@ -151,8 +151,8 @@
 "Import" = "インポート";
 "Are you sure that you want to import %d sources into Zebra?" = "%dリポジトリをZebraにインポートしてもよろしいですか？";
 "Are you sure that you want to import 1 source into Zebra?" = "リポジトリをZebraにインポートしてもよろしいですか？";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "検証中...";
+"Confirm Import" = "インポートの確認";
 
 
 // Packages
@@ -172,7 +172,7 @@
 "Date" = "日付";
 "Size" = "サイズ";
 "Clear" = "クリア";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "キューをクリアしてもよろしいですか？";
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
