@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSearchResultsTableViewController : UITableViewController
-
+@property (nonatomic) NSArray *filteredResults;
 @end
 
 NS_ASSUME_NONNULL_END
