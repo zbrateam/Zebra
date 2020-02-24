@@ -7,6 +7,7 @@
 //
 
 #import "ZBSearchResultsTableViewController.h"
+#import <Packages/Helpers/ZBProxyPackage.h>
 
 @interface ZBSearchResultsTableViewController ()
 
@@ -45,9 +46,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
+    
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"resultCell"];
     
-    cell.textLabel.text = filteredResults[indexPath.row];
+    cell.textLabel.text = proxyPackage.name;
+    cell.imageView.image = [UIImage imageNamed:proxyPackage.section];
     
     return cell;
 }
