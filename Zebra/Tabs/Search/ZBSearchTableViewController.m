@@ -91,7 +91,7 @@
     NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
     switch (selectedIndex) {
         case 0:
-            results = [databaseManager searchForPackageName:strippedString full:false];
+            results = [databaseManager searchForPackageName:strippedString fullSearch:false];
             break;
         case 1:
             break;
