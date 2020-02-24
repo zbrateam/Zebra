@@ -998,25 +998,36 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name full:(BOOL)fullSearch {
+- (NSArray *)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *query;
-        
-        if (!fullSearch) {
-            query = [NSString stringWithFormat:@"SELECT PACKAGE, NAME, VERSION, SECTION, ICONURL FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT 30", name, name, name];
-        } else {
-            query = [NSString stringWithFormat:@"SELECT NAME FROM PACKAGES WHERE (NAME LIKE \'%%%@\%%\') OR (SHORTDESCRIPTION LIKE \'%%%@\%%\') AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name, name];
-        }
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, name, name, name, limit];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-//                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                
-                const char *nameChars = (const char *)sqlite3_column_text(statement, 0);
-                NSString *name = [NSString stringWithUTF8String:nameChars];
-                if (name) [searchResults addObject:name];
+                if (fullSearch) {
+                    ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                    
+                    [searchResults addObject:package];
+                }
+                else {
+                    ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
+                    
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 6);
+                    
+                    NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
+                    NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
+                    NSURL *iconURL = [NSURL URLWithString:iconURLString];
+                    
+                    if (section) proxyPackage.section = section;
+                    if (iconURL) proxyPackage.iconURL = iconURL;
+                    
+                    [searchResults addObject:proxyPackage];
+                }
             }
         } else {
             [self printDatabaseError];

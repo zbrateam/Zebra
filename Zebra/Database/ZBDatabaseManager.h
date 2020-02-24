@@ -252,9 +252,9 @@ NS_ASSUME_NONNULL_BEGIN
  @brief A list of packages that have a name similar to the search term.
  @param name The name of the package.
  @param fullSearch Whether or not we should limit the amount of packages returned (limits to 30 if true)
- @return A cleaned array of packages (no duplicate package IDs) that match the search term.
+ @return A cleaned array of packages (no duplicate package IDs, also could be proxy packages) that match the search term.
  */
-- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name full:(BOOL)fullSearch;
+- (NSArray *)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.
