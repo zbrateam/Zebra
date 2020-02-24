@@ -7,6 +7,7 @@
 //
 
 @class ZBPackage;
+@class ZBProxyPackage;
 @class ZBSource;
 @class UIImage;
 
@@ -250,7 +251,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief A list of packages that have a name similar to the search term.
  @param name The name of the package.
- @param full Whether or not we should limit the amount of packages returned (limits to 30 if true)
+ @param fullSearch Whether or not we should limit the amount of packages returned (limits to 30 if true)
  @return A cleaned array of packages (no duplicate package IDs) that match the search term.
  */
 - (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name full:(BOOL)fullSearch;
@@ -262,6 +263,9 @@ NS_ASSUME_NONNULL_BEGIN
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
+
+- (ZBPackage *)packageFromProxy:(ZBProxyPackage *)proxy;
+
 #pragma mark - Package status
 
 /*!

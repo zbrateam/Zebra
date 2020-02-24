@@ -22,6 +22,7 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
 #import <Queue/ZBQueue.h>
+#import <Packages/Helpers/ZBProxyPackage.h>
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
@@ -1003,7 +1004,7 @@
         NSString *query;
         
         if (!fullSearch) {
-            query = [NSString stringWithFormat:@"SELECT NAME FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT 30", name, name, name];
+            query = [NSString stringWithFormat:@"SELECT PACKAGE, NAME, VERSION, SECTION, ICONURL FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT 30", name, name, name];
         } else {
             query = [NSString stringWithFormat:@"SELECT NAME FROM PACKAGES WHERE (NAME LIKE \'%%%@\%%\') OR (SHORTDESCRIPTION LIKE \'%%%@\%%\') AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name, name];
         }
@@ -1052,6 +1053,35 @@
         [self printDatabaseError];
     }
     return NULL;
+}
+
+- (ZBPackage *)packageFromProxy:(ZBProxyPackage *)proxy {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = \'%@\' AND NAME = \'%@\' AND VERSION = \'%@\' AND REPOID = %d LIMIT 1", proxy.identifier, proxy.name, proxy.version, proxy.repoID];
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_step(statement);
+            
+            ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            sqlite3_finalize(statement);
+            [self closeDatabase];
+            
+            return package;
+        }
+        else {
+            [self printDatabaseError];
+            sqlite3_finalize(statement);
+            [self closeDatabase];
+            
+            return NULL;
+        }
+    }
+    else {
+        [self printDatabaseError];
+        
+        return NULL;
+    }
 }
 
 #pragma mark - Package status
