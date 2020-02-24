@@ -997,23 +997,25 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
+- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name full:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *query;
         
-        if (results && results != -1) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT %d", name, name, name, results];
+        if (!fullSearch) {
+            query = [NSString stringWithFormat:@"SELECT NAME FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT 30", name, name, name];
         } else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE (NAME LIKE \'%%%@\%%\') OR (SHORTDESCRIPTION LIKE \'%%%@\%%\') AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name, name];
+            query = [NSString stringWithFormat:@"SELECT NAME FROM PACKAGES WHERE (NAME LIKE \'%%%@\%%\') OR (SHORTDESCRIPTION LIKE \'%%%@\%%\') AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name, name];
         }
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+//                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 
-                [searchResults addObject:package];
+                const char *nameChars = (const char *)sqlite3_column_text(statement, 0);
+                NSString *name = [NSString stringWithUTF8String:nameChars];
+                if (name) [searchResults addObject:name];
             }
         } else {
             [self printDatabaseError];
@@ -1021,7 +1023,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return [self cleanUpDuplicatePackages:searchResults];
+        return searchResults;
     } else {
         [self printDatabaseError];
     }
