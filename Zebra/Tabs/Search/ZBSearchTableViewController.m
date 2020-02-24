@@ -15,7 +15,7 @@
 
 @interface ZBSearchTableViewController () {
     ZBDatabaseManager *databaseManager;
-    NSArray *recentSearches;
+    NSMutableArray *recentSearches;
     BOOL liveSearch;
 }
 @end
@@ -29,9 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    recentSearches = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"];
+    recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"] mutableCopy];
     if (!recentSearches) {
-        recentSearches = @[@"Do", @"you", @"like", @"pancakes?"];
+        recentSearches = [NSMutableArray new];
     }
     
     if (!databaseManager) {
@@ -76,10 +76,10 @@
 #pragma mark - Helper Methods
 
 - (void)clearSearches {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"searches"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    recentSearches = [NSArray new];
+    [recentSearches removeAllObjects];
     [self.tableView reloadData];
 }
 
@@ -118,10 +118,28 @@
 
 #pragma mark - Search Bar Delegate
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.tableView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self->liveSearch = YES;
+    
+    [self updateSearchResultsForSearchController:searchController];
+}
+
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     
     self->liveSearch = NO;
+    
+    NSString *newSearch = searchBar.text;
+    if ([recentSearches count] >= 5) {
+        [recentSearches removeObjectAtIndex:4];
+    }
+    [recentSearches insertObject:newSearch atIndex:0];
+    [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self updateSearchResultsForSearchController:searchController];
 }
@@ -137,15 +155,15 @@
     
     searchController.searchBar.text = recentSearches[indexPath.row];
     [self updateSearchResultsForSearchController:searchController];
-//    [self searchBarSearchButtonClicked:self.searchController.searchBar];
+    [self searchBarSearchButtonClicked:searchController.searchBar];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return recentSearches.count > 0 ? 1 : 0;
+    return recentSearches.count ? 1 : 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return recentSearches.count;
+    return MIN(recentSearches.count, 5);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
