@@ -1016,8 +1016,8 @@
                 else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
                     
-                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 5);
-                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 6);
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
                     
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
