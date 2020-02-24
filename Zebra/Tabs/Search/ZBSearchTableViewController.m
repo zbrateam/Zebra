@@ -16,6 +16,7 @@
 @interface ZBSearchTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray *recentSearches;
+    BOOL liveSearch;
 }
 @end
 
@@ -91,7 +92,7 @@
     NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
     switch (selectedIndex) {
         case 0:
-            results = [databaseManager searchForPackageName:strippedString fullSearch:false];
+            results = [databaseManager searchForPackageName:strippedString fullSearch:!self->liveSearch];
             break;
         case 1:
             break;
@@ -100,17 +101,25 @@
     }
     
     ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
+    [resultsController setLive:self->liveSearch];
     [resultsController setFilteredResults:results];
-    [resultsController.tableView reloadData];
-    
+    [resultsController refreshTable];
 }
 
 #pragma mark - Search Controller Delegate
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    self->liveSearch = YES;
+}
 
 #pragma mark - Search Bar Delegate
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
+    
+    self->liveSearch = NO;
+    
+    [self updateSearchResultsForSearchController:searchController];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {

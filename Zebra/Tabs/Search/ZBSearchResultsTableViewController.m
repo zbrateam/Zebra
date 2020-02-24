@@ -6,9 +6,13 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
+@import SDWebImage;
+
 #import "ZBSearchResultsTableViewController.h"
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+
+#import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBSearchResultsTableViewController ()
 
@@ -32,6 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -40,6 +46,20 @@
 }
 
 #pragma mark - Table view data source
+
+- (void)refreshTable {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.tableView
+          duration:0.35f
+          options:UIViewAnimationOptionTransitionCrossDissolve
+          animations:^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self setNeedsStatusBarAppearanceUpdate];
+            });
+          } completion:nil];
+    });
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -50,13 +70,23 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
-    ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
-    
-    cell.textLabel.text = proxyPackage.name;
-    cell.imageView.image = [UIImage imageNamed:proxyPackage.section];
-    
-    return cell;
+    if (_live) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
+        ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
+        
+        cell.textLabel.text = proxyPackage.name;
+        
+        [[cell imageView] sd_setImageWithURL:[proxyPackage iconURL] placeholderImage:[UIImage imageNamed:[proxyPackage section]]];
+        [[cell imageView] resize:CGSizeMake(30, 30) applyRadius:false];
+        
+        return cell;
+    }
+    else {
+        ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        
+        [packageCell updateData:filteredResults[indexPath.row]];
+        return packageCell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
