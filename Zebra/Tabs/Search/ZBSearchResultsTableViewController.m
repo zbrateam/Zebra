@@ -7,12 +7,27 @@
 //
 
 #import "ZBSearchResultsTableViewController.h"
+#import <Packages/Helpers/ZBProxyPackage.h>
+#import <Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBSearchResultsTableViewController ()
 
 @end
 
 @implementation ZBSearchResultsTableViewController
+
+@synthesize filteredResults;
+
+- (id)initWithNavigationController:(UINavigationController *)controller {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"searchResultsController"];
+    
+    if (self) {
+        self.navController = controller;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,24 +42,31 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return filteredResults.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
+    ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
     
-    // Configure the cell...
+    cell.textLabel.text = proxyPackage.name;
+    cell.imageView.image = [UIImage imageNamed:proxyPackage.section];
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
+    ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:[proxyPackage loadPackage]];
+    
+    [[self navController] pushViewController:depiction animated:true];
+}
 
 /*
 // Override to support conditional editing of the table view.

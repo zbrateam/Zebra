@@ -30,7 +30,7 @@
     
     recentSearches = [[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"];
     if (!recentSearches) {
-        recentSearches = [NSArray new];
+        recentSearches = @[@"Do", @"you", @"like", @"pancakes?"];
     }
     
     if (!databaseManager) {
@@ -38,11 +38,13 @@
     }
     
     if (!searchController) {
-        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] init]];
+        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] initWithNavigationController:self.navigationController]];
         searchController.delegate = self;
+        searchController.searchResultsUpdater = self;
         searchController.searchBar.delegate = self;
         searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
+        searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
     }
     
     if (@available(iOS 9.1, *)) {
@@ -80,11 +82,50 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - Search Results Updating Protocol
+
+- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
+    NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    NSArray *results;
+    NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
+    switch (selectedIndex) {
+        case 0:
+            results = [databaseManager searchForPackageName:strippedString fullSearch:false];
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+    }
+    
+    ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
+    [resultsController setFilteredResults:results];
+    [resultsController.tableView reloadData];
+    
+}
+
 #pragma mark - Search Controller Delegate
 
 #pragma mark - Search Bar Delegate
 
-#pragma mark - Table View Data Source
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    [self updateSearchResultsForSearchController:searchController];
+}
+
+#pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    searchController.searchBar.text = recentSearches[indexPath.row];
+    [self updateSearchResultsForSearchController:searchController];
+//    [self searchBarSearchButtonClicked:self.searchController.searchBar];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return recentSearches.count > 0 ? 1 : 0;
@@ -113,7 +154,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
     [titleLabel setText:[self tableView:tableView titleForHeaderInSection:section]];
-    [titleLabel setTextColor:[UIColor accentColor]];
+    [titleLabel setTextColor:[UIColor primaryTextColor]];
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];

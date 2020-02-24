@@ -157,7 +157,7 @@ enum ZBSearchSection {
         return;
     }
     if (searchText.length) {
-        results = [databaseManager searchForPackageName:searchText numberOfResults:60];
+        results = @[];//[databaseManager searchForPackageName:searchText numberOfResults:60];
     } else {
         results = nil;
     }
@@ -174,7 +174,7 @@ enum ZBSearchSection {
         [ZBAppDelegate sendErrorToTabController:NSLocalizedString(@"This search query is too short for the full search, please use a longer query.", @"")];
         return;
     }
-    results = [databaseManager searchForPackageName:query numberOfResults:-1];
+    results = @[];//[databaseManager searchForPackageName:query numberOfResults:-1];
     [self refreshTable];
     if ([recentSearches containsObject:query]) {
         [recentSearches removeObject:query];

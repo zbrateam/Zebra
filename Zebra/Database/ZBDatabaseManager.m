@@ -22,6 +22,7 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
 #import <Queue/ZBQueue.h>
+#import <Packages/Helpers/ZBProxyPackage.h>
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
@@ -997,23 +998,36 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> *)searchForPackageName:(NSString *)name numberOfResults:(int)results {
+- (NSArray *)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *query;
-        
-        if (results && results != -1) {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE LIMIT %d", name, name, name, results];
-        } else {
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE (NAME LIKE \'%%%@\%%\') OR (SHORTDESCRIPTION LIKE \'%%%@\%%\') AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE", name, name, name, name];
-        }
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, name, name, name, limit];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-                
-                [searchResults addObject:package];
+                if (fullSearch) {
+                    ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                    
+                    [searchResults addObject:package];
+                }
+                else {
+                    ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
+                    
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
+                    
+                    NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
+                    NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
+                    NSURL *iconURL = [NSURL URLWithString:iconURLString];
+                    
+                    if (section) proxyPackage.section = section;
+                    if (iconURL) proxyPackage.iconURL = iconURL;
+                    
+                    [searchResults addObject:proxyPackage];
+                }
             }
         } else {
             [self printDatabaseError];
@@ -1021,7 +1035,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return [self cleanUpDuplicatePackages:searchResults];
+        return searchResults;
     } else {
         [self printDatabaseError];
     }
@@ -1050,6 +1064,35 @@
         [self printDatabaseError];
     }
     return NULL;
+}
+
+- (ZBPackage *)packageFromProxy:(ZBProxyPackage *)proxy {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = \'%@\' AND NAME = \'%@\' AND VERSION = \'%@\' AND REPOID = %d LIMIT 1", proxy.identifier, proxy.name, proxy.version, proxy.repoID];
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_step(statement);
+            
+            ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+            sqlite3_finalize(statement);
+            [self closeDatabase];
+            
+            return package;
+        }
+        else {
+            [self printDatabaseError];
+            sqlite3_finalize(statement);
+            [self closeDatabase];
+            
+            return NULL;
+        }
+    }
+    else {
+        [self printDatabaseError];
+        
+        return NULL;
+    }
 }
 
 #pragma mark - Package status

@@ -78,6 +78,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     return self;
 }
 
+- (id)initWithPackage:(ZBPackage *)package {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    
+    if (self) {
+        self.package = package;
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];

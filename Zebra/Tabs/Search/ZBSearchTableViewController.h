@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSearchTableViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate>
+@interface ZBSearchTableViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
 @end
 
