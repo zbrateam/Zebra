@@ -8,6 +8,7 @@
 
 #import "ZBSearchResultsTableViewController.h"
 #import <Packages/Helpers/ZBProxyPackage.h>
+#import <Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBSearchResultsTableViewController ()
 
@@ -17,9 +18,13 @@
 
 @synthesize filteredResults;
 
-- (id)init {
+- (id)initWithNavigationController:(UINavigationController *)controller {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"searchResultsController"];
+    
+    if (self) {
+        self.navController = controller;
+    }
     
     return self;
 }
@@ -54,6 +59,15 @@
     cell.imageView.image = [UIImage imageNamed:proxyPackage.section];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
+    ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:[proxyPackage loadPackage]];
+    
+    [[self navController] pushViewController:depiction animated:true];
 }
 
 /*

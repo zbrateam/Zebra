@@ -38,7 +38,7 @@
     }
     
     if (!searchController) {
-        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] init]];
+        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] initWithNavigationController:self.navigationController]];
         searchController.delegate = self;
         searchController.searchResultsUpdater = self;
         searchController.searchBar.delegate = self;

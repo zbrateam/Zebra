@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) ZBPackage *package;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
-- (id)forwardingTargetForSelector:(SEL)selector;
+- (ZBPackage *)loadPackage;
 @end
 
 NS_ASSUME_NONNULL_END

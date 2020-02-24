@@ -41,7 +41,7 @@
     return self;
 }
 
-- (id)forwardingTargetForSelector:(SEL)selector {
+- (ZBPackage *)loadPackage {
     if (package) return package;
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
