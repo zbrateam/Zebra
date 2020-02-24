@@ -94,10 +94,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
-    ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:[proxyPackage loadPackage]];
-    
-    [[self navController] pushViewController:depiction animated:true];
+    if (_live) {
+        ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
+        ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:[proxyPackage loadPackage]];
+        
+        [[self navController] pushViewController:depiction animated:true];
+    }
+    else {
+        ZBPackage *package = filteredResults[indexPath.row];
+         
+        ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+        
+        [[self navController] pushViewController:depiction animated:true];
+    }
 }
 
 /*
