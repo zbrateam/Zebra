@@ -88,6 +88,10 @@
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
     NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
+    if ([strippedString length] <= 1) {
+        return;
+    }
+    
     NSArray *results;
     NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
     switch (selectedIndex) {
