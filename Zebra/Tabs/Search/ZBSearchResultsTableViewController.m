@@ -75,6 +75,7 @@
         ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
         
         cell.textLabel.text = proxyPackage.name;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
         [[cell imageView] sd_setImageWithURL:[proxyPackage iconURL] placeholderImage:[UIImage imageNamed:[proxyPackage section]]];
         [[cell imageView] resize:CGSizeMake(30, 30) applyRadius:false];
@@ -85,6 +86,7 @@
         ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         
         [packageCell updateData:filteredResults[indexPath.row]];
+        
         return packageCell;
     }
 }
