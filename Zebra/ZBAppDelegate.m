@@ -25,6 +25,7 @@
 #import <Database/ZBRefreshViewController.h>
 
 @import FirebaseCore;
+@import FirebaseAnalytics;
 @import Crashlytics;
 @import LocalAuthentication;
 
@@ -214,6 +215,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         jailbreak = @"unc0ver";
     }
     
+    [FIRAnalytics setUserPropertyString:jailbreak forName:@"Jailbreak"];
     [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
     [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
