@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Atcelt";
-"Yes" = "Yes";
+"Yes" = "Jā";
 "No" = "Nē";
 "Ok" = "Ok";
 "Error" = "Kļūda";
@@ -17,8 +17,8 @@
 "Info" = "Informācija";
 "Welcome to Zebra!" = "Laipni lūdzam pie Zebras!";
 "Changelog" = "Izmaiņas žurnāls";
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Kopienas avoti";
+"You’ve added all of the community sources" = "Jūs esat pievienojis visus kopienas avotus";
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
 "Utility repo for %@" = " Darbarīku avots no %@";
 "Transfer Sources" = "Pārvietot avotus";
@@ -71,7 +71,7 @@
 "Feature Type" = "Piedāvāšanas veids";
 "Select Repos to be Featured" = "Izvēlies avotus, kuri piedāvā paketes";
 
-"News" = "News";
+"News" = "Jaunumi";
 
 "Live Search" = "Interaktīva meklēšana";
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "Pievienot vairākus";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
 "Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "Verificē avotu(s)";
 "Unable to verify Repo" = "Nevar verificēt avotu(s)";
 "Refresh" = "Atjaunot";
 "Log Out" = "Izlogoties";
@@ -241,7 +241,7 @@
 "Close Zebra" = "Aizvert Zebra";
 "Restart SpringBoard" = "Restartēt SpringBoard";
 "Downloading" = "Lejupielādē";
-"Parsing" = "Parsing";
+"Parsing" = "Parsē";
 "Downloading Packages..." = "Lejupielādē paketes...";
 "Installing" = "Instalē";
 "Installing Packages..." = "Instalē paketes...";
@@ -329,9 +329,9 @@
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Nejaušs\" parādīs paketes no visām krātuvēm, kuras ir pievienotas Zebra.";
 
 "Community News" = "Kopienas Ziņas";
-"Import Sources" = "Import Sources";
+"Import Sources" = "Importē avotus";
 "Updating Repositories" = "Updating Repositories";
 "Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Download Completed" = "Lejupielāde pabeigta";
+"Removing Zebra..." = "Atinstalē zebra...";
+"Installing Zebra..." = "Instalē zebra...";
