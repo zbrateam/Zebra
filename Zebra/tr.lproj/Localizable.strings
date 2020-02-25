@@ -126,7 +126,7 @@
 "You have already added this source." = "Bu kaynağı zaten eklediniz.";
 "You have already added these sources." = "Zaten bu kaynakları ekledin.";
 "Error verifying source" = "Kaynağı doğrularken hata oluştu";
-"Error verifying sources" = "Kaynakları doğrularken hata oluştu";
+"Error verifying sources" = "Kaynak doğrulanamadı";
 "Unknown error" = "Bilinmeyen Hata";
 "Invalid URL" = "Geçersiz Link";
 "Enter Source URL" = "Kaynak URL'sini Gir";
@@ -254,9 +254,9 @@
 
 "Downloads" = "İndirmeler";
 "Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
-"The source %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygun değil.";
+"The source %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygumlu değil.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
-"Please remove this source from your sources.list file." = "Lütden bu kaynağı sources.list dosyasından kaldırın.";
+"Please remove this source from your sources.list file." = "Lütfen bu kaynağı sources.list dosyasından kaldırın.";
 "Incorrect documents permissions." = "Yanlış döküman yetkileri.";
 "Could not determine device information." = "Cihaz bilgisi alınaması.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
