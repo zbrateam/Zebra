@@ -22,7 +22,7 @@
 "No items in Wish List" = "No items in Wish List";
 "Community" = "Community";
 "Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "გამოგვყევით ტვიტერზე";
 "Help translate Zebra!" = "Help translate Zebra!";
 
 // Community Source
@@ -30,10 +30,10 @@
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "კომუნალური წყარო %@-თვის";
 "Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "გადამოწმება წყაროსი";
+"Verifying Sources" = "გადამოწმება წყაროების";
 
 // Credits
 
@@ -54,29 +54,29 @@
 "Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Text";
 "Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "ავტომატურად დასრულება";
 
 // Accent Colors
 
 "Accent Color" = "Accent Color";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
+"Aqua Velvet" = "აკვა ხავერდი";
+"Cornflower Blue" = "სიმინდის ყვავილი ლურძად";
+"Golden Tainoi" = "ოქროს ტოინოი";
+"Iris Blue" = "ლურჯი ირისი";
+"Lotus Pink" = "ვარდისფერი ლოტუსი";
+"Monochrome" = "შავ-თეთრი";
+"Mountain Meadow" = "მთის მდელოს";
+"Pastel Red" = "წითელი პასტელი";
+"Purple Heart" = "მეწამული გული";
+"Royal Blue" = "სამეფო ლურჟი";
+"Shark" = "ზვიგენი";
+"Storm" = "ქარიშხალი";
+"Use System Accent Color" = "გამოიყენე სისტემის (აქცენტი) ფერი";
+"Appearance" = "გარეგნობა";
+"Use System Appearance" = "გამოიყენე სისტემის გარეგნობა";
 "Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Dark" = "მუქი";
+"Pure Black Mode" = "სუფთა შავი რეჟიმი";
 
 // Featured
 
