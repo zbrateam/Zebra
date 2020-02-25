@@ -90,31 +90,31 @@
 // Advanced
 
 "Advanced" = "고급";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "아이콘 캐시 새로고침";
+"Reset Image Cache" = "이미지 캐시 초기화";
+"Reset Sources Cache" = "소스 캐시 초기화";
+"Reset All Settings" = "모든 설정 초기화";
+"Erase All Sources and Settings" = "모든 소스와 설정 지우기";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "정말로 SpringBoard를 재시작할까요?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "정말로 아이콘 캐시를 새로 고칠까요? 작업이 완료되기 전까지 기기가 응답하지 않을 수 있습니다.";
+"Image Cache Reset" = "이미지 캐시 초기화";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "정말 Zebra의 소스 캐시를 초기화할까요? Zebra의 데이터베이스 안의 모든 캐시된 정보들이 제거되고, 다시 다운로드 됩니다. 소스는 제거되지 않습니다.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "정말로 Zebra의 설정을 초기화할까요? Zebra의 모든 설정이 초기화되고 기본값으로 돌아간 뒤, Zebra가 재시작됩니다.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "정말로 모든 소스와 설정을 삭제할까요? 모든 소스가 Zebra에서 제거되고, 설정이 초기화됩니다.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "모든 소스가 영원히 삭제되고, Zebra가 재시작됩니다.";
 
 // Stores
 
 "Stores" = "스토어";
 "Account" = "계정";
-"Sign In" = "Sign In";
+"Sign In" = "로그인";
 "Sign Out" = "로그아웃";
 "Your Purchases" = "구매 내역";
 "No Storefronts Available" = "사용 가능한 스토어 없음";
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
 "Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
 
 // Sources
 
@@ -123,7 +123,7 @@
 "Locally installed packages" = "내부에서 설치된 패키지";
 "Unknown" = "알 수 없음";
 "No source URLs detected." = "소스 URL이 감지되지 않았습니다.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "이미 해당 소스를 추가했습니다.";
 "You have already added these sources." = "이미 해당 소스들을 추가했습니다.";
 "Error verifying source" = "소스 검증 오류";
 "Error verifying sources" = "소스 검증 오류";
@@ -151,8 +151,8 @@
 "Import" = "가져오기";
 "Are you sure that you want to import %d sources into Zebra?" = "정말로 %d개의 소스들을 Zebra로 가져올까요?";
 "Are you sure that you want to import 1 source into Zebra?" = "정말로 한개의 소스를 Zebra로 가져올까요?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "확인 중...";
+"Confirm Import" = "가져오기 확인";
 
 
 // Packages
@@ -172,7 +172,7 @@
 "Date" = "날짜";
 "Size" = "크기";
 "Clear" = "제거";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "정말로 대기열을 지울까요?";
 "Available Upgrades" = "사용 가능한 업그레이드";
 "Ignored Upgrades" = "무시된 업그레이드";
 "Recent" = "최근";
