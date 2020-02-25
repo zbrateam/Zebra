@@ -395,10 +395,10 @@
     BOOL hasDataInSection = !isUpdateSection && !isIgnoredUpdateSection && [[self objectAtSection:section] count];
     if (isUpdateSection || isIgnoredUpdateSection || hasDataInSection) {
         if (isUpdateSection) {
-            return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Available Upgrades", @""), (unsigned long)updates.count];
+            return NSLocalizedString(@"Available Upgrades", @"");
         }
         if (isIgnoredUpdateSection) {
-            return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Ignored Upgrades", @""), (unsigned long)ignoredUpdates.count];
+            return NSLocalizedString(@"Ignored Upgrades", @"");
         }
         if (hasDataInSection) {
             NSInteger trueSection = [self trueSection:section];
