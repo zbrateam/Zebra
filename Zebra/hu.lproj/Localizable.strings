@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "Mégse";
-"Yes" = "Yes";
+"Yes" = "Igen";
 "No" = "Nem";
 "Ok" = "Ok";
 "Error" = "Hiba";
@@ -27,8 +27,8 @@
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Community Sources" = "Közösségi források";
+"You’ve added all of the community sources" = "Ön már hozzáadta az összes közösségi forrást";
 "Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
 "Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Források átvitele";
@@ -312,7 +312,7 @@
 "Reinstall" = "Újratelepítés";
 "Remove" = "Eltávolítás";
 "Upgrade" = "Frissítés";
-"Downgrade" = "Downgrade";
+"Downgrade" = "Visszafejlesztés";
 "Abort" = "Megszakít";
 "Continue" = "Folytatás";
 "Download Size" = "Letöltési méret";
