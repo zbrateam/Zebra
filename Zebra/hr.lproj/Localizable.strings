@@ -122,7 +122,7 @@
 "Local Repository" = "Lokalno Spremište";
 "Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
-"No source URLs detected." = "Nisu detektirani URL-ovi izvora.";
+"No source URLs detected." = "Nisu otkriveni URL-ovi izvora.";
 "You have already added this source." = "Ovaj izvor je već dodan.";
 "You have already added these sources." = "Već ste dodali ove izvore.";
 "Error verifying source" = "Greška pri verifikaciji izvora";
