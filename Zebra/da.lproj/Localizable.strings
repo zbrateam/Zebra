@@ -125,8 +125,8 @@
 "No source URLs detected." = "Ingen kilde URL registreret.";
 "You have already added this source." = "Du har allerede tilføjet denne kilde.";
 "You have already added these sources." = "Du har allerede tilføjet disse kilder.";
-"Error verifying source" = "Fejl med at kontrollere kilde";
-"Error verifying sources" = "Fejl med at kontrollere kilder";
+"Error verifying source" = "Fejl under verificering af kilde";
+"Error verifying sources" = "Fejl under verificering af kilder";
 "Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
 "Enter Source URL" = "Angiv URL for kilde";
