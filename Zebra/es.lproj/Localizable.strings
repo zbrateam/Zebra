@@ -108,13 +108,13 @@
 
 "Stores" = "Tiendas";
 "Account" = "Cuenta";
-"Sign In" = "Sign In";
+"Sign In" = "Iniciar sesión";
 "Sign Out" = "Desconectar";
 "Your Purchases" = "Tus compras";
 "No Storefronts Available" = "No hay escaparates disponibles";
 "Could not complete purchase" = "No se pudo completar la compra";
 "Could not complete purchase, no payment secret was found" = "No se pudo completar la compra, no se encontró ninguna clave de pago";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "No hay paquetes comprados";
 
 // Sources
 
@@ -129,8 +129,8 @@
 "Error verifying sources" = "Error al verificar las fuentes";
 "Unknown error" = "Error desconocido";
 "Invalid URL" = "Dirección URL Invalida";
-"Enter Source URL" = "Introduce la fuente URL";
-"Add Sources" = "Añadir fuentes";
+"Enter Source URL" = "Introduce la Fuente URL";
+"Add Sources" = "Añadir Fuentes";
 "Add" = "Añadir";
 "Add Multiple" = "Añadir múltiples";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
@@ -151,8 +151,8 @@
 "Import" = "Importar";
 "Are you sure that you want to import %d sources into Zebra?" = "¿Estás seguro que quieres importar %d fuentes a Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "¿Estás seguro que quieres importar una fuente a Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "Verificando...";
+"Confirm Import" = "Confirmar entrada";
 
 
 // Packages
@@ -172,7 +172,7 @@
 "Date" = "Fecha";
 "Size" = "Tamaño";
 "Clear" = "Limpiar";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "¿Seguro que quieres borrar la cola?";
 "Available Upgrades" = "Actualizaciones disponibles";
 "Ignored Upgrades" = "Actualizaciones ignoradas";
 "Recent" = "Recientes";
@@ -256,7 +256,7 @@
 "Error while opening sources.list" = "Error al abrir sources.list";
 "The source %@ is incompatible with your jailbreak." = "El origen %@ es incompatible con tu jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Puede causar problemas si lo agregas a Zebra, resultando en una posible restauración.";
-"Please remove this source from your sources.list file." = "Por favor, elimine esta fuente de su archivo sources.list.";
+"Please remove this source from your sources.list file." = "Por favor, elimine esta fuente de sources.list.";
 "Incorrect documents permissions." = "Permisos incorrectos de documentos.";
 "Could not determine device information." = "No se pudo determinar la información del dispositivo.";
 "Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
