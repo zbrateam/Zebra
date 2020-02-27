@@ -360,7 +360,17 @@
         NSURL *sourceURL = [NSURL URLWithString:urlString];
         
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
-        if ([baseSource exists]) {
+        if (!baseSource) {
+            UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+            [malformed addAction:ok];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:malformed animated:true completion:nil];
+            });
+        }
+        else if ([baseSource exists]) {
             //You have already added this source.
             UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
             
