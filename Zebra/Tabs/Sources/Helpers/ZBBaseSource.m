@@ -99,6 +99,8 @@
 }
 
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components {
+    if (!archiveType || !repositoryURI || !distribution) return NULL;
+    
     self = [super init];
     
     if (self) {

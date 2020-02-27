@@ -92,6 +92,8 @@
 }
 
 + (NSString *_Nullable)debLineForURL:(NSURL *)URL {
+    if (!URL) return NULL;
+    
     NSUInteger index = [[self knownDistURLs] indexOfObject:[URL host]];
     if (index != NSNotFound) {
         return [[self knownDebLines] objectAtIndex:index];
