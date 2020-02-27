@@ -277,6 +277,7 @@
     UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
     [areYouSure addAction:noAction];
     
+    areYouSure.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     [self presentViewController:areYouSure animated:true completion:nil];
 }
 
