@@ -153,6 +153,8 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Czy na pewno chcesz zaimportować 1 źródło do Zebry?";
 "Verifying..." = "Weryfikowanie...";
 "Confirm Import" = "Potwierdź import";
+"Invalid URL" = "Błędny URL";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 
 // Packages
