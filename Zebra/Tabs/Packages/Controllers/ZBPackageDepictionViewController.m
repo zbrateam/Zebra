@@ -23,6 +23,7 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBPurchaseInfo.h"
+#import <Extensions/UINavigationBar+Progress.h>
 
 @import SDWebImage;
 @import Crashlytics;
@@ -42,7 +43,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 @interface ZBPackageDepictionViewController () {
     NSMutableDictionary<NSNumber *, NSString *> *infos;
-    UIProgressView *progressView;
     WKWebView *webView;
     BOOL presented;
     BOOL navButtonsBeingConfigured;
@@ -50,6 +50,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     UIBarButtonItem *busyButton;
     UIBarButtonItem *previousButton;
+    
+    UIProgressView *navProgressBar;
 }
 @end
 
@@ -91,6 +93,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
     if (presented) {
@@ -127,32 +130,32 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
     
-    progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
-    progressView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [self.tableView.tableHeaderView addSubview:progressView];
     [self.tableView setTableFooterView:webView];
     
-    // Progress View Layout
-    [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
-    [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
-    [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
-    
-    [progressView setTintColor:[UIColor accentColor]];
-    
     webView.navigationDelegate = self;
-    webView.opaque = NO;
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
+//    webView.opaque = NO;
+//    webView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    
+    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
+    
+    navProgressBar.progress = 0;
+    navProgressBar.tintColor = [UIColor accentColor];
+    
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    NSLog(@"Nav: %@", self.navigationController);
+    navProgressBar = self.navigationController.navigationBar.navProgressView;
     
     if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
     } else {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
-    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
-    
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -203,14 +206,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
-        [progressView setAlpha:1.0f];
-        [progressView setProgress:webView.estimatedProgress animated:YES];
+        [navProgressBar setAlpha:1.0f];
+        [navProgressBar setProgress:webView.estimatedProgress animated:YES];
         
         if (webView.estimatedProgress >= 1.0f) {
             [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                [self->progressView setAlpha:0.0f];
+                [self->navProgressBar setAlpha:0.0f];
             } completion:^(BOOL finished) {
-                [self->progressView setProgress:0.0f animated:NO];
+                [self->navProgressBar setProgress:0.0f animated:NO];
             }];
         }
     } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
