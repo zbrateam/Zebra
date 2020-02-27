@@ -153,6 +153,8 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importere 1 kilde til Zebra?";
 "Verifying..." = "Verifiserer...";
 "Confirm Import" = "Bekreft importering";
+"Invalid URL" = "Ugyldig nettadresse";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 
 // Packages
