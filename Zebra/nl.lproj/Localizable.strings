@@ -153,6 +153,8 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
 "Verifying..." = "Verifiëren...";
 "Confirm Import" = "Bevestig Import";
+"Invalid URL" = "Ongeldige URL";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 
 // Packages
@@ -246,7 +248,7 @@
 // Search
 
 "Search" = "Zoeken";
-"Clear Search" = "Zoekbalk Leegmaken";
+"Clear Search" = "Zoekbalk Wissen";
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
 
@@ -257,21 +259,21 @@
 "The source %@ is incompatible with your jailbreak." = "De bron %@ is niet compatibel met uw jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
 "Please remove this source from your sources.list file." = "Verwijder alstublieft deze bron van uw sources.list bestand.";
-"Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
+"Incorrect documents permissions." = "Incorrecte permissie voor documenten.";
 "Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
-"Could not find a download URL for" = "Kan geen downloadlink vinden voor ";
+"Could not find a download URL for" = "Kan geen download link vinden voor";
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
-"Could not parse %@ from %@" = "Kan %@ niet verwerken van %@";
+"Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
 
 // Console
 
 "Console" = "Console";
 "Performing Actions..." = "Acties uitvoeren...";
-"Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
+"Updating icon cache asynchronously..." = "De icoon cache asynchroon aan het updaten...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
 "Closing Zebra..." = "Zebra Sluiten...";
-"Restart SpringBoard" = "Herstart SpringBoard";
+"Restart SpringBoard" = "SpringBoard Herstarten";
 "Restarting SpringBoard..." = "SpringBoard Herstarten...";
 "Parsing" = "Parseren";
 "Starting Download" = "Download Starten";
