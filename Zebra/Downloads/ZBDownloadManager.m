@@ -45,6 +45,10 @@
     return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
 
+- (NSDictionary *)headers {
+    //For tweak compatibility...ugh...
+    return [[self class] headers];
+}
 
 - (id)init {
     self = [super init];
