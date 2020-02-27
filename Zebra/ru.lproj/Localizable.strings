@@ -154,7 +154,7 @@
 "Verifying..." = "Проверка...";
 "Confirm Import" = "Подтвердите Импорт";
 "Invalid URL" = "Неверный URL";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
 
 // Packages
