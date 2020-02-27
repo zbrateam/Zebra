@@ -149,6 +149,7 @@
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];
     [[self progressView] setTintColor:[UIColor accentColor]];
+    [[self completeButton] setBackgroundColor:[UIColor accentColor]];
     [self setProgressTextHidden:YES];
     [self updateCancelOrCloseButton];
     
