@@ -16,7 +16,6 @@
 #import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
-#import <Search/ZBSearchViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
@@ -330,8 +329,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 4: {
                     [tabController setSelectedIndex:ZBTabSearch];
                     
-                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    [searchController handleURL:url];
+                    //FIXME: Make url scheme work again
+//                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//                    [searchController handleURL:url];
                     break;
                 }
             }
@@ -350,8 +350,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
         
-        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        [searchController handleURL:NULL];
+        //FIXME: Fix 3D Touch action
+//        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//        [searchController handleURL:NULL];
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
