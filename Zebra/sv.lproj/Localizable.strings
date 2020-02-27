@@ -154,7 +154,7 @@
 "Verifying..." = "Verifierar...";
 "Confirm Import" = "Bekräfta importering";
 "Invalid URL" = "Ogiltig URL";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
 
 
 // Packages
