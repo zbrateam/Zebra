@@ -153,6 +153,8 @@
 "Are you sure that you want to import 1 source into Zebra?" = "您確定要將1個來源導入到 Zebra 嗎？";
 "Verifying..." = "正在驗證……";
 "Confirm Import" = "確認導入";
+"Invalid URL" = "無效的網址";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 
 // Packages
