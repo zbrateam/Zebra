@@ -352,7 +352,7 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *urlString = alertController.textFields[0].text;
+        NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (![urlString hasSuffix:@"/"]) {
             urlString = [urlString stringByAppendingString:@"/"];
         }
