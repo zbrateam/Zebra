@@ -148,7 +148,7 @@
     progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];
-    [[self progressView] setTintColor:[UIColor accentColor]];
+    [[self progressView] setProgressTintColor:[UIColor accentColor]];
     [[self completeButton] setBackgroundColor:[UIColor accentColor]];
     [self setProgressTextHidden:YES];
     [self updateCancelOrCloseButton];
