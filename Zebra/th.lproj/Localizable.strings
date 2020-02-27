@@ -153,6 +153,8 @@
 "Are you sure that you want to import 1 source into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า 1 ซอร์สไปยัง Zebra?";
 "Verifying..." = "Verifying...";
 "Confirm Import" = "Confirm Import";
+"Invalid URL" = "URL ผิด";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 
 // Packages
