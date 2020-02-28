@@ -291,13 +291,13 @@
                 
                 //Deal with the repo first
                 int repoID = [self repoIDFromBaseFileName:[source baseFilename]];
-                if (source.releaseFilePath == NULL) { //We need to create a dummy repo (for repos with no Release file)
+                if (!source.releaseFilePath && source.packagesFilePath) { //We need to create a dummy repo (for repos with no Release file)
                     if (repoID == -1) {
                         repoID = [self nextRepoID];
                         createDummyRepo([ZBDatabaseManager baseSourceStructFromSource:source], self->database, repoID);
                     }
                 }
-                else {
+                else if (source.releaseFilePath) {
                     if (repoID == -1) { // Repo does not exist in database, create it.
                         repoID = [self nextRepoID];
                         if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
@@ -335,7 +335,7 @@
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
                 else if (!source.packagesFilePath) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
+                    NSLog(@"No problems here");//[self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
                 }
                 
                 [self bulkSetRepo:[source baseFilename] busy:NO];
