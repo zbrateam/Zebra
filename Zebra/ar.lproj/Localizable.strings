@@ -153,7 +153,7 @@
 "Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
 "Verifying..." = "جار التحقق...";
 "Confirm Import" = "تأكيد الإستيراد";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "الـURL الذي أدخلته غير صالح. يرجى التحقق من ذلك وحاول مرة أخرى.";
 "Tap to learn more" = "Tap to learn more";
 "Invalid Source" = "Invalid Source";
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
