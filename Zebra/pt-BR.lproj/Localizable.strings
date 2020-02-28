@@ -154,7 +154,10 @@
 "Verifying..." = "Verificando...";
 "Confirm Import" = "Confirmar Importação";
 "The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
-"Tap to learn more" = "Tap to learn more";
+"Tap to learn more" = "Toque para saber mais";
+"Invalid Source" = "Invalid Source";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Remove Source" = "Remove Source";
 
 
 // Packages
