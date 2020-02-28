@@ -108,12 +108,13 @@
 
 "Stores" = "商店";
 "Account" = "账户";
-"Login" = "登录";
+"Sign In" = "登录";
 "Sign Out" = "登出";
 "Your Purchases" = "已购买";
 "No Storefronts Available" = "无可用的店铺";
 "Could not complete purchase" = "无法完成购买操作";
 "Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
+"No packages purchased" = "无已购买软件包";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "导入";
 "Are you sure that you want to import %d sources into Zebra?" = "你确定要将%d个软件源导入到 Zebra 吗？";
 "Are you sure that you want to import 1 source into Zebra?" = "你确定要将1个软件源导入到 Zebra 吗？";
+"Verifying..." = "正在验证……";
+"Confirm Import" = "确认导入";
+"The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
+"Tap to learn more" = "点击了解更多";
+"Invalid Source" = "无效的软件源";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 无法下载在 %@ 软件源。该软件源可能暂时无法访问，或添加方式不正确。";
+"Remove Source" = "删除软件源";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "日期";
 "Size" = "大小";
 "Clear" = "清除";
-"Are you sure you want to clear Queue?" = "确定要清除队列吗？";
+"Are you sure you want to clear the Queue?" = "确定要清除队列吗？";
 "Available Upgrades" = "可更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";

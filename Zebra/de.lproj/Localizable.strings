@@ -54,7 +54,7 @@
 "Swipe Actions Display As" = "Wischgesten anzeigen als";
 "Text" = "Text";
 "Icon" = "Symbol";
-"Finish Automatically" = "Automatisch abschliessen";
+"Finish Automatically" = "Automatisch beenden";
 
 // Accent Colors
 
@@ -108,12 +108,13 @@
 
 "Stores" = "Shop";
 "Account" = "Benutzerkonto";
-"Login" = "Anmelden";
+"Sign In" = "Anmelden";
 "Sign Out" = "Abmelden";
 "Your Purchases" = "Ihre Käufe";
 "No Storefronts Available" = "Keine Schaufenstern verfügbar";
 "Could not complete purchase" = "Kauf konnte nicht abgeschlossen werden";
 "Could not complete purchase, no payment secret was found" = "Kauf konnte nicht abgeschlossen werden, da kein Zahlungsgeheimnis gefunden wurde";
+"No packages purchased" = "Keine Pakete erworben";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "Importieren";
 "Are you sure that you want to import %d sources into Zebra?" = "Sind Sie sicher, dass Sie %d Quellen nach Zebra importieren möchten?";
 "Are you sure that you want to import 1 source into Zebra?" = "Sind Sie sicher, dass Sie eine Quelle nach Zebra importieren möchten?";
+"Verifying..." = "Wird überprüft …";
+"Confirm Import" = "Import bestätigen";
+"The URL you entered is not valid. Please check it and try again." = "Die URL die Sie eingegeben haben ist ungültig. Bitte überprüfen Sie sie und versuchen Sie es nochmals.";
+"Tap to learn more" = "Tippen Sie um mehr zu erfahren";
+"Invalid Source" = "Ungültige Quelle";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra konnte die Quelle unter %@ nicht herunterladen. Sie könnte temporär unerreichbar sein oder wurde möglicherweise fehlerhaft hinzugefügt.";
+"Remove Source" = "Quelle entfernen";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Datum";
 "Size" = "Größe";
 "Clear" = "Leeren";
-"Are you sure you want to clear Queue?" = "Willst du die Warteschlange wirklich leeren?";
+"Are you sure you want to clear the Queue?" = "Möchten Sie die Warteschlange wirklich leeren?";
 "Available Upgrades" = "Verfügbare Aktualisierungen";
 "Ignored Upgrades" = "Ignorierte Aktualiserungen";
 "Recent" = "Kürzlich";

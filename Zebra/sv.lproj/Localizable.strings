@@ -98,7 +98,7 @@
 
 "Are you sure you want to restart the SpringBoard?" = "Är du säker på att du vill starta om SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Är du säker på att du vill uppdatera ikoncachen? Din enhet kan sluta svara tills processen är klar.";
-"Image Cache Reset" = "Återställning av bildcache";
+"Image Cache Reset" = "Återställde bildcachen";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Är du säker på att du vill återställa Zebras källcache? Detta kommer att ta bort all cachad information från Zebras databas och ladda ner den igen. Dina källor kommer inte att tas bort.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Är du säker på att du vill återställa Zebras inställningar? Detta kommer att återställa alla Zebras inställningar till standardvärdena och Zebra kommer att starta om.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Är du säker på att du vill radera alla källor och inställningar? Alla dina källor kommer att tas bort från Zebra och dina inställningar kommer att återställas.";
@@ -108,12 +108,13 @@
 
 "Stores" = "Butiker";
 "Account" = "Konto";
-"Login" = "Logga in";
+"Sign In" = "Logga in";
 "Sign Out" = "Logga ut";
 "Your Purchases" = "Dina köp";
 "No Storefronts Available" = "Inga butiker tillgängliga";
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "Could not complete purchase, no payment secret was found" = "Kunde inte slutföra köpet, ingen betalningshemlighet hittades";
+"No packages purchased" = "Inga köpta paket";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "Importera";
 "Are you sure that you want to import %d sources into Zebra?" = "Är du säker på att du vill importera %d källor till Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Är du säker på att du vill importera 1 källa till Zebra?";
+"Verifying..." = "Verifierar...";
+"Confirm Import" = "Bekräfta importering";
+"The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
+"Tap to learn more" = "Tryck för mer information";
+"Invalid Source" = "Ogiltig källa";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
+"Remove Source" = "Ta bort källa";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Datum";
 "Size" = "Storlek";
 "Clear" = "Rensa";
-"Are you sure you want to clear Queue?" = "Är du säker på att du vill rensa kön?";
+"Are you sure you want to clear the Queue?" = "Är du säker på att du vill rensa kön?";
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Nytt";

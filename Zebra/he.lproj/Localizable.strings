@@ -108,12 +108,13 @@
 
 "Stores" = "חנויות";
 "Account" = "חשבון";
-"Login" = "התחבר";
+"Sign In" = "התחבר/י";
 "Sign Out" = "התנתק";
 "Your Purchases" = "הרכישות שלך";
 "No Storefronts Available" = "אין חנויות זמינות";
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
+"No packages purchased" = "אין חבילות שנרכשו";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "ייבוא";
 "Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
 "Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
+"Verifying..." = "מאמת...";
+"Confirm Import" = "אשר ייבוא";
+"The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
+"Tap to learn more" = "לחץ/י למידע נוסף";
+"Invalid Source" = "מקור לא תקין";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "זברה נכשלה בהורדת המקור שהוגדר ב-%@. ייתכן שהוא אינו נגיש זמנית או שהוזן באופן שגוי.";
+"Remove Source" = "הסר מקור";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "תאריך";
 "Size" = "גודל";
 "Clear" = "נקה";
-"Are you sure you want to clear Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
+"Are you sure you want to clear the Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";

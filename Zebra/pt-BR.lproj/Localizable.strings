@@ -89,7 +89,7 @@
 
 // Advanced
 
-"Advanced" = "Advançado";
+"Advanced" = "Avançado";
 "Refresh Icon Cache" = "Atualizar Cache de Ícones";
 "Reset Image Cache" = "Redefinir Cache de Imagem";
 "Reset Sources Cache" = "Redefinir Cache de Fontes";
@@ -108,12 +108,13 @@
 
 "Stores" = "Lojas";
 "Account" = "Conta";
-"Login" = "Iniciar sessão";
+"Sign In" = "Iniciar sessão";
 "Sign Out" = "Encerrar sessão";
 "Your Purchases" = "Suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum método de pagamento foi encontrado";
+"No packages purchased" = "Nenhum pacote comprado";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "Importar";
 "Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
+"Verifying..." = "Verificando...";
+"Confirm Import" = "Confirmar Importação";
+"The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
+"Tap to learn more" = "Toque para saber mais";
+"Invalid Source" = "Fonte Inválida";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "O Zebra não foi capaz de baixar a fonte especificada em %@. Ela pode estar temporariamente inacessível ou ser adicionado incorretamente.";
+"Remove Source" = "Remover fonte";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Data";
 "Size" = "Tamanho";
 "Clear" = "Limpar";
-"Are you sure you want to clear Queue?" = "Tem certeza de que deseja limpar a Fila?";
+"Are you sure you want to clear the Queue?" = "Tem certeza de que deseja limpar a fila?";
 "Available Upgrades" = "Atualizações disponíveis";
 "Ignored Upgrades" = "Atualizações ignoradas";
 "Recent" = "Recentes";
@@ -362,10 +370,10 @@
 
 "Change the source of the featured packages on the homepage." = "Altere a fonte dos pacotes em destaque na página inicial.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" irá exibir pacotes aleatórios de repos que suportam a API de Pacote em Destaque.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo em destaque\" exibirá pacotes aleatórios de repositórios que suportam a API de Pacotes em destaque.";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatório\" irá exibir pacotes aleatórios de todos os repositórios que você adicionou ao Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "O login em fontes permite a compra de pacotes pagos.";
+"Signing in to sources allows for the purchase of paid packages." = "O login nas lojas permite a compra de pacotes pagos.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Dispensar automaticamente o Console quando todas as suas tarefas forem concluídas.";

@@ -32,7 +32,7 @@
 "Transfer sources from %@ to Zebra" = "Transferir fontes de %@ para a Zebra";
 "Utility source for %@" = "Repo utilitário para %@";
 "Transfer Sources" = "Transferir Fontes";
-"Verifying Source" = "A Verificar Fonte(s";
+"Verifying Source" = "Verificando a Fonte";
 "Verifying Sources" = "Verificando as Fontes";
 
 // Credits
@@ -54,29 +54,29 @@
 "Swipe Actions Display As" = "Mostrar Ações de Deslizar como";
 "Text" = "Texto";
 "Icon" = "Ícone";
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Acabar automaticamente";
 
 // Accent Colors
 
 "Accent Color" = "Côr acentuada";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Aqua Velvet" = "Aveludado d'água";
+"Cornflower Blue" = "Milho azul";
+"Golden Tainoi" = "Tainoi Dourado";
+"Iris Blue" = "Azul Iris";
+"Lotus Pink" = "Rosa Lótus";
+"Monochrome" = "Monocromático";
+"Mountain Meadow" = "Prado da Montanha";
+"Pastel Red" = "Vermelho pastel";
+"Purple Heart" = "Coração Roxo";
+"Royal Blue" = "Azul real";
+"Shark" = "Tubarão";
+"Storm" = "Tempestade";
+"Use System Accent Color" = "Usar cor de destaque do sistema";
+"Appearance" = "Aparência";
+"Use System Appearance" = "Usar Aparência do Sistema";
+"Light" = "Claro";
+"Dark" = "Escuro";
+"Pure Black Mode" = "Modo Escuro Puro";
 
 // Featured
 
@@ -90,30 +90,31 @@
 // Advanced
 
 "Advanced" = "Avançado";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Atualizar cache";
+"Reset Image Cache" = "Limpar Cache das Imagens";
+"Reset Sources Cache" = "Limpar cache das fontes";
+"Reset All Settings" = "Repor todas as configurações";
+"Erase All Sources and Settings" = "Apagar todas as Fontes e Configurações";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Tem a certeza que quer reiniciar o SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Tem a certeza de que pretende limpar a cache dos icons? O seu dispositivo pode ficar irrespondível até que o processo acabe.";
+"Image Cache Reset" = "Limpar cache de imagens";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Tem certeza de que deseja limpar a cache de fontes do Zebra? Todas as informações armazenadas em cache da base de dados do Zebra serão removidas e o zebre será reinstalado. As suas fontes não serão removidas.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Tem a certeza de que deseja limpar as configurações do Zebra? Todas as configurações do Zebra irão ser redefinidas de volta aos seus valores padrão e o Zebra será reiniciado.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tem certeza de que deseja apagar todas as fontes e configurações? Todas as suas fontes serão removidas do Zebra e suas configurações serão redefinidas.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas as suas fontes serão excluídas e o Zebra será reiniciado.";
 
 // Stores
 
 "Stores" = "Lojas";
-"Account" = "Account";
-"Login" = "Entrar";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Account" = "Conta";
+"Sign In" = "Iniciar Sessão";
+"Sign Out" = "Terminar Sessão";
+"Your Purchases" = "As suas compras";
+"No Storefronts Available" = "Nenhuma loja disponível";
+"Could not complete purchase" = "Não foi possível concluir a compra";
+"Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum segredo de pagamento foi encontrado";
+"No packages purchased" = "Nenhum pacote comprado";
 
 // Sources
 
@@ -122,7 +123,7 @@
 "Locally installed packages" = "Pacotes instalados localmente";
 "Unknown" = "Desconhecido";
 "No source URLs detected." = "Nenhuma URL de fonte detetada.";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Esta fonte ja foi adicionada.";
 "You have already added these sources." = "Essas fontes já foram adicionadas.";
 "Error verifying source" = "Erro ao verificar a fonte";
 "Error verifying sources" = "Erro ao verificar as fontes";
@@ -148,8 +149,15 @@
 "Unable to locate APT repositories at:" = "Não foi possível localizar os repositórios de APT em:";
 "Import Sources" = "Importar Fontes";
 "Import" = "Importar";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
+"Verifying..." = "A verificar...";
+"Confirm Import" = "Confirmar Importação";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Invalid Source";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Remove Source" = "Remove Source";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Data";
 "Size" = "Tamanho";
 "Clear" = "Apagar";
-"Are you sure you want to clear Queue?" = "Tens a certeza que queres apagar a Fila?";
+"Are you sure you want to clear the Queue?" = "Tem a certeza que quer apagar a Fila?";
 "Available Upgrades" = "Atualizações Disponíveis";
 "Ignored Upgrades" = "Atualizações Ignoradas";
 "Recent" = "Recente";
@@ -267,11 +275,11 @@
 "Updating icon cache asynchronously..." = "A atualizar o cache do ícon de forma assíncrona...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isto pode demorar e o Zebra pode crashar. Não ha problema se isso acontecer.";
 "Close Zebra" = "Fechar o Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Fechar o Zebra...";
 "Restart SpringBoard" = "Reiniciar o SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Reiniciar o SpringBoard...";
 "Parsing" = "Analisando";
-"Starting Download" = "Starting Download";
+"Starting Download" = "A iniciar a transferência";
 "Downloading" = "A fazer o download";
 "Downloading Packages..." = "A fazer o download de pacotes...";
 "Download Completed" = "Transferência concluída";
@@ -286,12 +294,12 @@
 "Complete" = "Completo";
 "Finished!" = "Feito!";
 "Return to Queue" = "Voltar à Fila";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Retornando à Fila...";
 "Importing local packages." = "A importar pacotes locais.";
 "Finished importing local packages." = "Importação de pacotes locais terminado.";
 "One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
-"Done..." = "Done...";
+"Done..." = "Concluído...";
 "Removing Zebra..." = "Removendo Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
 
@@ -327,7 +335,7 @@
 // Search
 
 "Live Search" = "Pesquisa ao vivo";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaks, temas, e mais";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório e tem de ser removido porque depende de %@. %@ NÃO deve ser removido a menos que saibas exatamente o que estás a fazer!";
@@ -366,6 +374,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatório\" exibirá pacotes aleatórios de todos os seus repositórios.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Iniciar sessão nas repos autoriza a compra de pacotes pagos.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Fechar a consola automaticamente após todas as suas tarefas forem concluídas.";

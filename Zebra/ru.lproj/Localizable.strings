@@ -46,7 +46,7 @@
 // Settings
 
 "Settings" = "Настройки";
-"Display" = "Дисплей";
+"Display" = "Экран";
 "App Icon" = "Иконка Приложения";
 "Changes" = "Изменения";
 "Community News" = "Новости Сообщества";
@@ -108,12 +108,13 @@
 
 "Stores" = "Магазины";
 "Account" = "Аккаунт";
-"Login" = "Войти";
+"Sign In" = "Войти";
 "Sign Out" = "Выйти";
 "Your Purchases" = "Ваши Покупки";
 "No Storefronts Available" = "Нет Доступных Магазинов";
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
+"No packages purchased" = "Нет купленных пакетов";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "Импорт";
 "Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
+"Verifying..." = "Проверка...";
+"Confirm Import" = "Подтвердите Импорт";
+"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
+"Tap to learn more" = "Нажмите, чтобы узнать больше";
+"Invalid Source" = "Неверный Источник";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra не удалось загрузить источник, указанный в %@. Возможно, он добавлен неправильно или временно недоступен.";
+"Remove Source" = "Удалить Источник";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Дата";
 "Size" = "Размер";
 "Clear" = "Очистить";
-"Are you sure you want to clear Queue?" = "Вы уверены что хотить очистить Очередь?";
+"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить Очередь?";
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";

@@ -59,24 +59,24 @@
 // Accent Colors
 
 "Accent Color" = "強調色";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Aqua Velvet" = "藍綠色";
+"Cornflower Blue" = "淺紫色";
+"Golden Tainoi" = "金色";
+"Iris Blue" = "淺藍色";
+"Lotus Pink" = "粉色";
+"Monochrome" = "黑白";
+"Mountain Meadow" = "綠色";
+"Pastel Red" = "紅色";
+"Purple Heart" = "深紫色";
+"Royal Blue" = "深藍色";
+"Shark" = "鯊魚";
+"Storm" = "風暴";
+"Use System Accent Color" = "使用系統強調色";
+"Appearance" = "外觀";
+"Use System Appearance" = "使用系統外觀";
+"Light" = "淺色";
+"Dark" = "深色";
+"Pure Black Mode" = "純黑模式";
 
 // Featured
 
@@ -90,30 +90,31 @@
 // Advanced
 
 "Advanced" = "進階設定";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "刷新圖片快取";
+"Reset Image Cache" = "重置圖片快取";
+"Reset Sources Cache" = "重置來源快取";
+"Reset All Settings" = "重置所有設定";
+"Erase All Sources and Settings" = "清除所有來源和設定";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "您確定要重新啟動主畫面嗎?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "您確定要刷新圖片快取嗎? 您的設備可能會無響應直到操作完成。";
+"Image Cache Reset" = "重置圖片快取";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "您確定要重置 Zebra 的來源快取嗎？所有來源的數據快取將被移除並重新下載，您的來源不會被刪除。";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "您確定要重置 Zebra 的設定嗎？ Zebra 的所有設定會恢復為預設值並重啟。";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "您確定要清除所有來源和設定嗎？所有來源將從 Zebra 中移除，你的設定將被重置。";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "您所有的來源將被刪除且無法恢復，Zebra 將重新啟動。";
 
 // Stores
 
 "Stores" = "商店";
-"Account" = "Account";
-"Login" = "登入";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Account" = "帳戶";
+"Sign In" = "登入";
+"Sign Out" = "登出";
+"Your Purchases" = "已購買";
+"No Storefronts Available" = "不可用的店鋪";
+"Could not complete purchase" = "無法完成購買操作";
+"Could not complete purchase, no payment secret was found" = "無法完成購買操作，未找到付款密鑰";
+"No packages purchased" = "無已購買套件";
 
 // Sources
 
@@ -122,7 +123,7 @@
 "Locally installed packages" = "本地已安裝套件";
 "Unknown" = "未知";
 "No source URLs detected." = "沒有檢測到來源網址。";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "您已經添加了這個來源。";
 "You have already added these sources." = "你已經加入過這些來源。";
 "Error verifying source" = "驗證來源時發生錯誤";
 "Error verifying sources" = "驗證來源時發生錯誤";
@@ -148,8 +149,15 @@
 "Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
 "Import Sources" = "匯入來源";
 "Import" = "匯入";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "您確定要將%d個來源導入到 Zebra 嗎？";
+"Are you sure that you want to import 1 source into Zebra?" = "您確定要將1個來源導入到 Zebra 嗎？";
+"Verifying..." = "正在驗證……";
+"Confirm Import" = "確認導入";
+"The URL you entered is not valid. Please check it and try again." = "您輸入的網址無效，請檢查後重試。";
+"Tap to learn more" = "點擊了解更多";
+"Invalid Source" = "無效的來源";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 無法下載在 %@ 來源。該來源可能暫時無法訪問，或添加方式不正確。";
+"Remove Source" = "移除來源";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "日期";
 "Size" = "大小";
 "Clear" = "清除";
-"Are you sure you want to clear Queue?" = "確定要清除佇列嗎？";
+"Are you sure you want to clear the Queue?" = "確定要清除佇列嗎？";
 "Available Upgrades" = "可用的更新";
 "Ignored Upgrades" = "已忽略的更新";
 "Recent" = "最近";
@@ -271,7 +279,7 @@
 "Restart SpringBoard" = "重新啟動主畫面";
 "Restarting SpringBoard..." = "正在重新啟動主畫面...";
 "Parsing" = "正在解析";
-"Starting Download" = "Starting Download";
+"Starting Download" = "正在開始下載";
 "Downloading" = "正在下載";
 "Downloading Packages..." = "正在下載套件...";
 "Download Completed" = "下載完成";
@@ -327,7 +335,7 @@
 // Search
 
 "Live Search" = "即時搜尋";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "插件、主題和更多";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "由於套件相依性，必要的套件 %@ 會隨著 %@ 一同被移除。%@ 不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
@@ -366,6 +374,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "在各個來源登入後可以購買付費套件。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";

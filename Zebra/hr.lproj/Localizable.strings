@@ -108,12 +108,13 @@
 
 "Stores" = "Trgovine";
 "Account" = "Račun";
-"Login" = "Prijava";
+"Sign In" = "Prijavite se";
 "Sign Out" = "Odjavite se";
 "Your Purchases" = "Vaše Kupovine";
 "No Storefronts Available" = "Nema istaknutih izloga";
 "Could not complete purchase" = "Narudžba nije mogla biti izvršena";
 "Could not complete purchase, no payment secret was found" = "Narudžba nije mogla biti izvršena zbog tajne plaćanja";
+"No packages purchased" = "Nema kupljenih proizvoda";
 
 // Sources
 
@@ -121,7 +122,7 @@
 "Local Repository" = "Lokalno Spremište";
 "Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
-"No source URLs detected." = "Nisu detektirani URL-ovi izvora.";
+"No source URLs detected." = "Nisu otkriveni URL-ovi izvora.";
 "You have already added this source." = "Ovaj izvor je već dodan.";
 "You have already added these sources." = "Već ste dodali ove izvore.";
 "Error verifying source" = "Greška pri verifikaciji izvora";
@@ -150,6 +151,13 @@
 "Import" = "Uvezi";
 "Are you sure that you want to import %d sources into Zebra?" = "Dali ste sigurni da želite uvesti %d izvore u Zebru?";
 "Are you sure that you want to import 1 source into Zebra?" = "Dali ste sigurni da želite uvesti 1 izvor u Zebru?";
+"Verifying..." = "Provjeravanje...";
+"Confirm Import" = "Potvrda uvoza";
+"The URL you entered is not valid. Please check it and try again." = "Uneseni URL nije ispravan. Molimo pokušajte ponovno.";
+"Tap to learn more" = "Želite li saznati više?";
+"Invalid Source" = "Neispravan izvor";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nije uspjela preuzeti izvor na %@. Izvor je možda neispravan ili trenutno nedostupan.";
+"Remove Source" = "Ukloni izvor";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Datum";
 "Size" = "Veličina";
 "Clear" = "Ukloni";
-"Are you sure you want to clear Queue?" = "Jeste li sigurni da želite očistiti popis?";
+"Are you sure you want to clear the Queue?" = "Jeste li sigurni da želite očistiti red?";
 "Available Upgrades" = "Dostupna Ažuriranja";
 "Ignored Upgrades" = "Ignorirana Ažuriranja";
 "Recent" = "Nedavno";

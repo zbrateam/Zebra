@@ -108,12 +108,13 @@
 
 "Stores" = "Parduotuvės";
 "Account" = "Account";
-"Login" = "Prisijungti";
+"Sign In" = "Sign In";
 "Sign Out" = "Sign Out";
 "Your Purchases" = "Your Purchases";
 "No Storefronts Available" = "Nėra prieinamų parduotuvių";
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "Importuoti";
 "Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
 "Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Invalid Source";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Remove Source" = "Remove Source";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "Data";
 "Size" = "Dydis";
 "Clear" = "Išvalyti";
-"Are you sure you want to clear Queue?" = "Ar tikrai norite išvalyti eilę?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Prieinami atnaujinimai";
 "Ignored Upgrades" = "Praignoruoti atnaujinimai";
 "Recent" = "Naujausi";

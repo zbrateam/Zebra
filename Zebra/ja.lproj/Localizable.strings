@@ -21,7 +21,7 @@
 "Wish List" = "ほしいものリスト";
 "No items in Wish List" = "ほしいものリストには何もありません";
 "Community" = "コミュニティ";
-"Join our Discord" = "Discord に参加";
+"Join our Discord" = "Discord に参加する";
 "Follow us on Twitter" = "Twitter でフォローする";
 "Help translate Zebra!" = "Zebra の翻訳に協力する!";
 
@@ -69,9 +69,9 @@
 "Pastel Red" = "赤";
 "Purple Heart" = "パープルハート";
 "Royal Blue" = "ロイヤルブルー";
-"Shark" = "サメ色";
+"Shark" = "サメ";
 "Storm" = "嵐";
-"Use System Accent Color" = "システム標準のアクセントカラーを使用";
+"Use System Accent Color" = "システム標準のアクセントカラー";
 "Appearance" = "表示設定";
 "Use System Appearance" = "システム設定に合わせる";
 "Light" = "ライト";
@@ -108,12 +108,13 @@
 
 "Stores" = "ストア";
 "Account" = "アカウント";
-"Login" = "ログイン";
+"Sign In" = "サインイン";
 "Sign Out" = "サインアウト";
 "Your Purchases" = "購入済みパッケージ";
 "No Storefronts Available" = "利用できるストアがありません。";
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
+"No packages purchased" = "購入したパッケージはありません";
 
 // Sources
 
@@ -150,6 +151,13 @@
 "Import" = "インポート";
 "Are you sure that you want to import %d sources into Zebra?" = "%dリポジトリをZebraにインポートしてもよろしいですか？";
 "Are you sure that you want to import 1 source into Zebra?" = "リポジトリをZebraにインポートしてもよろしいですか？";
+"Verifying..." = "検証中...";
+"Confirm Import" = "インポートの確認";
+"The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
+"Tap to learn more" = "タップして詳細を表示";
+"Invalid Source" = "無効なリポジトリ";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra は %@ で指定されたリポジトリをダウンロードできませんでした。 一時的にアクセスできないか、誤って追加された可能性があります。";
+"Remove Source" = "リポジトリを削除";
 
 
 // Packages
@@ -169,7 +177,7 @@
 "Date" = "日付";
 "Size" = "サイズ";
 "Clear" = "クリア";
-"Are you sure you want to clear Queue?" = "キューをクリアしてもよろしいですか？";
+"Are you sure you want to clear the Queue?" = "キューをクリアしてもよろしいですか？";
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
