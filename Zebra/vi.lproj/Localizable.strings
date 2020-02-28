@@ -59,12 +59,12 @@
 // Accent Colors
 
 "Accent Color" = "Màu đậm";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Aqua Velvet" = "Nhung thuỷ";
+"Cornflower Blue" = "Xanh bông bắp";
+"Golden Tainoi" = "Vàng Tainoi";
+"Iris Blue" = "Xanh mống mắt";
+"Lotus Pink" = "Hồng cánh sen";
+"Monochrome" = "Đơn sắc";
 "Mountain Meadow" = "Mountain Meadow";
 "Pastel Red" = "Pastel Red";
 "Purple Heart" = "Purple Heart";
@@ -279,7 +279,7 @@
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
 "Restarting SpringBoard..." = "Đang khởi động lại SpringBoard...";
 "Parsing" = "Phân tích cú pháp";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Bắt đầu tải xuống";
 "Downloading" = "Đang tải xuống";
 "Downloading Packages..." = "Đang tải xuống gói...";
 "Download Completed" = "Tải về hoàn tất";
@@ -335,7 +335,7 @@
 // Search
 
 "Live Search" = "Tìm kiếm nhanh";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Các tinh chỉnh, Giao diện và nhiều hơn nữa";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc và phải được xóa vì phụ thuộc vào %@. %@ KHÔNG nên bị xóa trừ khi bạn biết chính xác những gì bạn đang làm!";
@@ -374,6 +374,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các kho lưu trữ mà bạn đã thêm vào Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Đăng nhập vào nguồn để cho phép mua các gói trả phí.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
