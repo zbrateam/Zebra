@@ -165,7 +165,8 @@
     if ([baseSource isKindOfClass:[ZBSource class]]) {
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            NSString *title = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
                 [self refreshTable];
