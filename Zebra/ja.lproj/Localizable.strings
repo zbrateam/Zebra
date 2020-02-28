@@ -155,9 +155,9 @@
 "Confirm Import" = "インポートの確認";
 "The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
 "Tap to learn more" = "タップして詳細を表示";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
+"Invalid Source" = "無効なリポジトリ";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra は %@ で指定されたリポジトリをダウンロードできませんでした。 一時的にアクセスできないか、誤って追加された可能性があります。";
+"Remove Source" = "リポジトリを削除";
 
 
 // Packages
