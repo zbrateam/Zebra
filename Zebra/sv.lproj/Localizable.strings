@@ -154,9 +154,9 @@
 "Verifying..." = "Verifierar...";
 "Confirm Import" = "Bekräfta importering";
 "The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
-"Tap to learn more" = "Tap to learn more";
+"Tap to learn more" = "Tryck för mer information";
 "Invalid Source" = "Ogiltig källa";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
 "Remove Source" = "Ta bort källa";
 
 
