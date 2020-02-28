@@ -131,7 +131,7 @@
         
         cell.repoLabel.text = [baseSource repositoryURI];
         
-        cell.urlLabel.text = @"Tap to learn more";
+        cell.urlLabel.text = NSLocalizedString(@"Tap to learn more", @"");
         cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
         
         cell.repoLabel.textColor = [UIColor systemPinkColor];
@@ -165,7 +165,8 @@
     if ([baseSource isKindOfClass:[ZBSource class]]) {
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            NSString *title = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
+            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
                 [self refreshTable];
@@ -259,7 +260,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+    NSObject *source = [self sourceAtIndexPath:indexPath];
+    if ([source isKindOfClass:[ZBSource class]]) {
+        [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+    }
+    else {
+        ZBBaseSource *baseSource = (ZBBaseSource *)source;
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.", @""), [baseSource repositoryURI]];
+        UIAlertController *invalidSourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid Source", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self->sources removeObject:source];
+            [self->sourceManager deleteSource:(ZBSource *)baseSource];
+            [self refreshTable];
+        }];
+        [invalidSourceAlert addAction:deleteAction];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [invalidSourceAlert addAction:okAction];
+        
+        [self presentViewController:invalidSourceAlert animated:true completion:nil];
+    }
 }
 
 #pragma mark - Navigation Buttons
@@ -352,7 +373,7 @@
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *urlString = alertController.textFields[0].text;
+        NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (![urlString hasSuffix:@"/"]) {
             urlString = [urlString stringByAppendingString:@"/"];
         }
@@ -360,9 +381,19 @@
         NSURL *sourceURL = [NSURL URLWithString:urlString];
         
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
-        if ([baseSource exists]) {
+        if (!baseSource) {
+            UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+            [malformed addAction:ok];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:malformed animated:true completion:nil];
+            });
+        }
+        else if ([baseSource exists]) {
             //You have already added this source.
-            UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Couldn't add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
             [youAlreadyAdded addAction:action];

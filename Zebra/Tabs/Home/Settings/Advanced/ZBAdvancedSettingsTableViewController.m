@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Advanced";
+    self.title = NSLocalizedString(@"Advanced", @"");
 }
 
 #pragma mark - Table view data source

@@ -16,6 +16,7 @@
     UIProgressView *progress = objc_getAssociatedObject(self, "navProgressView");
     if (!progress) {
         progress = [UIProgressView.alloc initWithProgressViewStyle:UIProgressViewStyleBar];
+        progress.progress = 0;
         [self addSubview:progress];
         
         [progress.leadingAnchor constraintEqualToAnchor:self.leadingAnchor].active = YES;

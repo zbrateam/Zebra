@@ -397,4 +397,8 @@
     return [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey];
 }
 
++ (BOOL)darkModeEnabled {
+    return [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark;
+}
+
 @end

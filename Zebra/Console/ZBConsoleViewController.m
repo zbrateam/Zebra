@@ -148,13 +148,24 @@
     progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];
-    [[self progressView] setTintColor:[UIColor accentColor]];
+    [[self progressView] setProgressTintColor:[UIColor accentColor]];
+    [[self completeButton] setBackgroundColor:[UIColor accentColor]];
     [self setProgressTextHidden:YES];
     [self updateCancelOrCloseButton];
     
-    [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    if (@available(iOS 13.0, *)) {
+        UINavigationBarAppearance *app = [self.navigationController.navigationBar.standardAppearance copy];
+        [app setBackgroundEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemMaterialDark]];
+        [app setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        [self.navigationController.navigationBar setStandardAppearance:app];
+        [self.navigationController.navigationBar setScrollEdgeAppearance:app];
+    }
+    else {
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    }
     
     [[[[ZBAppDelegate tabBarController] popupContentView] popupInteractionGestureRecognizer] setDelegate:self];
 }

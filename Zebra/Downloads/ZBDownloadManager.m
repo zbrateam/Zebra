@@ -45,6 +45,10 @@
     return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
 
+- (NSDictionary *)headers {
+    //For tweak compatibility...ugh...
+    return [[self class] headers];
+}
 
 - (id)init {
     self = [super init];
@@ -584,6 +588,7 @@
             else {
                 NSString *debsPath = [ZBAppDelegate debsLocation];
                 NSString *filename = [NSString stringWithFormat:@"%@_%@.deb", [package identifier], [package version]];
+                if ([filename containsString:@":"]) filename = [filename stringByReplacingOccurrencesOfString:@":" withString:@"e"]; //Replace : with e (for epoch) because apt doesn't like colons much
                 NSString *finalPath = [debsPath stringByAppendingPathComponent:filename];
                 
                 [self moveFileFromLocation:location to:finalPath completion:^(NSError *error) {
