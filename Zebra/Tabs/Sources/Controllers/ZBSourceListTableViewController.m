@@ -131,7 +131,7 @@
         
         cell.repoLabel.text = [baseSource repositoryURI];
         
-        cell.urlLabel.text = @"Tap to learn more";
+        cell.urlLabel.text = NSLocalizedString(@"Tap to learn more", @"");
         cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
         
         cell.repoLabel.textColor = [UIColor systemPinkColor];
