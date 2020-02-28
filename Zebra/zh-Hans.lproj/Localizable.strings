@@ -155,9 +155,9 @@
 "Confirm Import" = "确认导入";
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 "Tap to learn more" = "点击了解更多";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
+"Invalid Source" = "无效的软件源";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 无法下载在 %@ 软件源。该软件源可能暂时无法访问，或添加方式不正确。";
+"Remove Source" = "删除软件源";
 
 
 // Packages
