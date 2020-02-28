@@ -153,11 +153,11 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importera 1 kjelde til Zebra?";
 "Verifying..." = "Verifiserer...";
 "Confirm Import" = "Stadfest importering";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
+"The URL you entered is not valid. Please check it and try again." = "Nettadressa du gav opp er ikkje gyldig. Kontroller ho og prøv igjen.";
+"Tap to learn more" = "Trykk for meir informasjon";
+"Invalid Source" = "Ugyldig kjelde";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikkje lasta ned kjelda som er angitt i %@. Ho kan vera mellombels utilgjengeleg eller kunne vorte lagt til feil.";
+"Remove Source" = "Fjern kjelde";
 
 
 // Packages
