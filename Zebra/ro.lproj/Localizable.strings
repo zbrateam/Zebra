@@ -22,7 +22,7 @@
 "No items in Wish List" = "Nu exista obiecte in Lista de Dorinte";
 "Community" = "Comunitate";
 "Join our Discord" = "Intrati pe serverul nostru de Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Urmareste-ne pe Twitter";
 "Help translate Zebra!" = "Ajuta la traducerea Zebra!";
 
 // Community Source
@@ -30,10 +30,10 @@
 "Community Sources" = "Sursele comunitatii";
 "You’ve added all of the community sources" = "Ai adaugat toate sursele comunitatii";
 "Transfer sources from %@ to Zebra" = "Transfera sursele din %@ la Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Sursă de utilitate pentru %@";
 "Transfer Sources" = "Transfera sursele";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificare Sursă";
+"Verifying Sources" = "Verificare Surse";
 
 // Credits
 
@@ -46,7 +46,7 @@
 // Settings
 
 "Settings" = "Configurari";
-"Display" = "Display";
+"Display" = "Afișează";
 "App Icon" = "Iconita aplicatie";
 "Changes" = "Changes";
 "Community News" = "Community News";
@@ -54,29 +54,29 @@
 "Swipe Actions Display As" = "Glisati actiunile afisate ca";
 "Text" = "Text";
 "Icon" = "Iconita";
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Termină Automat";
 
 // Accent Colors
 
 "Accent Color" = "Culoare accent";
 "Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
+"Cornflower Blue" = "Albastru Porumbiu";
 "Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Iris Blue" = "Albastru Iris";
+"Lotus Pink" = "Roz Lotus";
+"Monochrome" = "Monocrom";
+"Mountain Meadow" = "Lunca de munte";
+"Pastel Red" = "Rosu Pastel";
+"Purple Heart" = "Inima Violet";
+"Royal Blue" = "Albastru Regal";
+"Shark" = "Rechin";
+"Storm" = "Furtuna";
+"Use System Accent Color" = "Folosește accentele de culoare ale sistemului";
+"Appearance" = "Aspect";
+"Use System Appearance" = "Folosește schema de afișaj a Sistemului";
+"Light" = "Luminos";
+"Dark" = "Întunecat";
+"Pure Black Mode" = "Mod Negru Pur";
 
 // Featured
 
@@ -90,31 +90,31 @@
 // Advanced
 
 "Advanced" = "Avansat";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Reactualizează cache-ul iconițelor";
+"Reset Image Cache" = "Resetează cache-ul imaginilor";
+"Reset Sources Cache" = "Resetează cache-ul surselor";
+"Reset All Settings" = "Resetează toate setările";
+"Erase All Sources and Settings" = "Resetează toate sursele si setările";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Ești sigur că dorești să restartezi SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Confirmi reîmprospătarea cache-ului iconițelor? Dispozitivul dvs. ar putea să ignore comenzile până la terminarea procesului.";
+"Image Cache Reset" = "Resetează cache-ul iconițelor";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Confirmi că dorești să ștergi cache-ul surselor din Zebra? Această acțiune va șterge toate informațiile din cache-ul Zebra și le va redescărca. Sursele vor fi păstrate.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Confirmi că dorești resetarea setărilor Zebra? Această acțiune va readuce Zebra la setările inițiale iar aplicația va reporni.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Confirmi că dorești să ștergi toate sursele și setările? Toate sursele din Zebra vor fi șterse iar setările vor revenii la valorile inițiale.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Toate sursele vor fi șterse permanent iar Zebra va reporni.";
 
 // Stores
 
 "Stores" = "Magazine";
-"Account" = "Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
-"No packages purchased" = "No packages purchased";
+"Account" = "Cont";
+"Sign In" = "Autentificare";
+"Sign Out" = "Delogare";
+"Your Purchases" = "Achizițiile mele";
+"No Storefronts Available" = "Nu sunt disponibile surse cu plată";
+"Could not complete purchase" = "Achiziția nu a putut fi completată";
+"Could not complete purchase, no payment secret was found" = "Achiziția nu a fost completată, payment secret nu a fost găsit";
+"No packages purchased" = "Nu există achiziții";
 
 // Sources
 
@@ -122,38 +122,39 @@
 "Local Repository" = "Depozit local";
 "Locally installed packages" = "Pachete instalate local";
 "Unknown" = "Necunoscut";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
+"No source URLs detected." = "Nu au fost detectate adrese URL pentru o sursă.";
+"You have already added this source." = "Ai adaugat deja această sursă.";
+"You have already added these sources." = "Ai adăugat deja aceste surse.";
+"Error verifying source" = "Nu am putut verifica sursa";
+"Error verifying sources" = "Nu am putut verifica sursele";
 "Unknown error" = "Unknown error";
 "Invalid URL" = "Invalid URL";
-"Enter Source URL" = "Enter Source URL";
-"Add Sources" = "Add Sources";
+"Enter Source URL" = "Introdu URL-ul sursei";
+"Add Sources" = "Adaugă surse";
 "Add" = "Add";
 "Add Multiple" = "Add Multiple";
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 "Please Wait..." = "Please Wait...";
 "Verifying Source(s)" = "Verific sursa(sursele)";
-"Unable to verify source" = "Unable to verify source";
+"Unable to verify source" = "Imposibil de verificat sursa";
 "Refresh" = "Refresh";
 "All Packages" = "All Packages";
 "Delete" = "Delete";
 "Import Sources" = "Import Sources";
-"Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Updating Sources" = "Actualizare surse";
+"Would you like to import the following sources?" = "Ai vrea sa importezi urmatoarele surse?";
+"Failed to add source" = "Nu am putut adauga sursa";
+"Failed to add sources" = "Nu am putut adauga sursele";
+"Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
+"Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
 "Import Sources" = "Import Sources";
-"Import" = "Import";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Import" = "Importa";
+"Are you sure that you want to import %d sources into Zebra?" = "Esti sigur ca vrei sa importezi %d surse in Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Esti sigur ca vrei sa importezi 1 sursa in Zebra?";
+"Verifying..." = "Verificare...";
+"Confirm Import" = "Confirmă Importul";
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"Tap to learn more" = "Tap to learn more";
 
 
 // Packages
@@ -173,11 +174,11 @@
 "Date" = "Date";
 "Size" = "Size";
 "Clear" = "Clear";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Ești sigur că dorești să golești coada?";
 "Available Upgrades" = "Available Upgrades";
 "Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
-"Source" = "Source";
+"Source" = "Sursa";
 "Installed Files" = "Installed Files";
 "Modify" = "Modify";
 "Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
@@ -255,9 +256,9 @@
 
 "Downloads" = "Descarcari";
 "Error while opening sources.list" = "S-a produs o eroare in timpul deschiderii sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Sursa %@ nu este compatibila cu acest jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Aceasta actiunea poate cauza probleme rezultand intr-o posibila restaurare a sistemului.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Te rog scoate aceasta sursa din fisierul sources.list .";
 "Incorrect documents permissions." = "Incorrect documents permissions.";
 "Could not determine device information." = "Could not determine device information.";
 "Could not find a download URL for" = "Could not find a download URL for";
@@ -271,11 +272,11 @@
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Close Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra se inchide...";
 "Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "Springboard-ul se reporneste...";
 "Parsing" = "Parsing";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Descarcarea se porneste";
 "Downloading" = "Downloading";
 "Downloading Packages..." = "Downloading Packages...";
 "Download Completed" = "Download Completed";
@@ -290,12 +291,12 @@
 "Complete" = "Complete";
 "Finished!" = "Finished!";
 "Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Se revine la coada...";
 "Importing local packages." = "Importing local packages.";
 "Finished importing local packages." = "Finished importing local packages.";
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Done..." = "Done...";
+"Done..." = "Gata...";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
 
@@ -331,7 +332,7 @@
 // Search
 
 "Live Search" = "Cautare Live";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Ajustari, Teme, si multe altele";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ este un pachet necesat si trebuie sters deoarece depinde de %@. %@ NU ar trebui sa fie sters decat daca stii exact ce faci!";
@@ -370,6 +371,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Inregistrarea in surse permite cumpararea pachetelor platite.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Inchide automat consola atunci cand toate sarcinile au fost completate.";
