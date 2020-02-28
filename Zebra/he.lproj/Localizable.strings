@@ -154,10 +154,10 @@
 "Verifying..." = "מאמת...";
 "Confirm Import" = "אשר ייבוא";
 "The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
+"Tap to learn more" = "לחץ/י למידע נוסף";
+"Invalid Source" = "מקור לא תקין";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "זברה נכשלה בהורדת המקור שהוגדר ב-%@. ייתכן שהוא אינו נגיש זמנית או שהוזן באופן שגוי.";
+"Remove Source" = "הסר מקור";
 
 
 // Packages
