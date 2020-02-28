@@ -259,7 +259,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+    NSObject *source = [self sourceAtIndexPath:indexPath];
+    if ([source isKindOfClass:[ZBSource class]]) {
+        [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+    }
+    else {
+        ZBBaseSource *baseSource = (ZBBaseSource *)source;
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.", @""), [baseSource repositoryURI]];
+        UIAlertController *invalidSourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid Source", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self->sources removeObject:source];
+            [self->sourceManager deleteSource:(ZBSource *)baseSource];
+            [self refreshTable];
+        }];
+        [invalidSourceAlert addAction:deleteAction];
+        
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [invalidSourceAlert addAction:okAction];
+        
+        [self presentViewController:invalidSourceAlert animated:true completion:nil];
+    }
 }
 
 #pragma mark - Navigation Buttons
