@@ -252,13 +252,13 @@
     NSMutableArray *baseFilenames = [NSMutableArray new];
     for (NSString *baseFilename in [self->selectedSources allKeys]) {
         if ([[self->selectedSources objectForKey:baseFilename] boolValue]) {
-            [baseFilenames addObject:baseFilename];
+            if (baseFilename) [baseFilenames addObject:baseFilename];
         }
     }
     
     for (ZBBaseSource *source in self->baseSources) {
         if ([baseFilenames containsObject:[source baseFilename]]) {
-            [sources addObject:source];
+            if (source) [sources addObject:source];
         }
     }
     
