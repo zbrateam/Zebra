@@ -155,6 +155,9 @@
 "Confirm Import" = "确认导入";
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 "Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Invalid Source";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Remove Source" = "Remove Source";
 
 
 // Packages
