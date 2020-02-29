@@ -7,6 +7,7 @@
 //
 
 #import "ZBProxyPackage.h"
+#import "ZBPackage.h"
 
 #import <Database/ZBDatabaseManager.h>
 
@@ -48,6 +49,10 @@
     package = [databaseManager packageFromProxy:self];
     
     return package;
+}
+
+- (BOOL)sameAs:(ZBProxyPackage *)package {
+    return [self.identifier isEqualToString:package.identifier];
 }
 
 @end

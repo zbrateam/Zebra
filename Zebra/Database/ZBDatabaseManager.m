@@ -1036,7 +1036,7 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
         
-        return searchResults;
+        return [self cleanUpDuplicatePackages:searchResults];
     } else {
         [self printDatabaseError];
     }
