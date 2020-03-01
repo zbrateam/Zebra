@@ -45,6 +45,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+}
+
 #pragma mark - Table view data source
 
 - (void)refreshTable {

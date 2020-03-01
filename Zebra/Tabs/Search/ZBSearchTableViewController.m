@@ -71,6 +71,8 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
+    
+    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 #pragma mark - Helper Methods
