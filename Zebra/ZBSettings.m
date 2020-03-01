@@ -213,7 +213,9 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 }
 
 + (BOOL)liveSearch {
-    return YES;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults boolForKey:liveSearchKey];
 }
 
 #pragma clang diagnostic pop
