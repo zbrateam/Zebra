@@ -23,7 +23,6 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBPurchaseInfo.h"
-#import <Extensions/UINavigationBar+Progress.h>
 
 @import SDWebImage;
 @import Crashlytics;
@@ -43,6 +42,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 @interface ZBPackageDepictionViewController () {
     NSMutableDictionary<NSNumber *, NSString *> *infos;
+    UIProgressView *progressView;
     WKWebView *webView;
     BOOL presented;
     BOOL navButtonsBeingConfigured;
@@ -50,8 +50,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     UIBarButtonItem *busyButton;
     UIBarButtonItem *previousButton;
-    
-    UIProgressView *navProgressBar;
 }
 @end
 
@@ -93,7 +91,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
     if (presented) {
@@ -126,31 +123,32 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
     
+    progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+    progressView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.tableView.tableHeaderView addSubview:progressView];
     [self.tableView setTableFooterView:webView];
     
+    // Progress View Layout
+    [progressView.trailingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.trailingAnchor].active = YES;
+    [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
+    [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
+    
+    [progressView setTintColor:[UIColor accentColor] ? [UIColor accentColor] : [UIColor systemBlueColor]];
+    
     webView.navigationDelegate = self;
-//    webView.opaque = NO;
-//    webView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    
-    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
-    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
-    
-    navProgressBar.progress = 0;
-    navProgressBar.tintColor = [UIColor accentColor];
-    
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    navProgressBar = self.navigationController.navigationBar.navProgressView;
+    webView.opaque = NO;
+    webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
     } else {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
     }
+    [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
+    [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
+    
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -162,12 +160,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    navProgressBar.progress = 0.0;
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -199,6 +191,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
+// FIXME: This is causing crashese with hexStringFromColor for some reason?
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
@@ -207,14 +200,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
-        [navProgressBar setAlpha:1.0f];
-        [navProgressBar setProgress:webView.estimatedProgress animated:YES];
+        [progressView setAlpha:1.0f];
+        [progressView setProgress:webView.estimatedProgress animated:YES];
         
         if (webView.estimatedProgress >= 1.0f) {
             [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                [self->navProgressBar setAlpha:0.0f];
+                [self->progressView setAlpha:0.0f];
             } completion:^(BOOL finished) {
-                [self->navProgressBar setProgress:0.0f animated:NO];
+                [self->progressView setProgress:0.0f animated:NO];
             }];
         }
     } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
@@ -864,7 +857,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoRepo:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"Source", @"");
+            cell.textLabel.text = NSLocalizedString(@"Repo", @"");
             cell.detailTextLabel.text = value;
             break;
         case ZBPackageInfoWishList: {
