@@ -144,7 +144,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    NSLog(@"Nav: %@", self.navigationController);
     navProgressBar = self.navigationController.navigationBar.navProgressView;
     
     if ([package depictionURL]) {
@@ -163,6 +162,12 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    navProgressBar.progress = 0.0;
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
