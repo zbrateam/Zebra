@@ -286,9 +286,10 @@
 "Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Parsing" = "Parsing";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Starting Download";
 "Downloading" = "Downloading";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Downloading Packages...";
 "Download Completed" = "Download Completed";
 "Installing" = "Installing";
@@ -308,8 +309,10 @@
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 "Done..." = "Done...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
