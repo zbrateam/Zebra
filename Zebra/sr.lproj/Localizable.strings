@@ -10,6 +10,7 @@
 "Close" = "Zatvori";
 "Done" = "Uradjeno";
 "Loading..." = "Učitavanje...";
+"Clear" = "Obriši";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Prebaci izvore";
 "Verifying Source" = "Verifikacija izvora";
 "Verifying Sources" = "Verifikacija izvora";
+"Import" = "Uvеzi";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"Import Sources" = "Uvezi Izvore";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Da li želite uvesti sledeće ozvore?";
+"Are you sure that you want to import 1 source into Zebra?" = "Jeste li sigurni da ćete uvesti 1 izvor u Zebru?";
+"Are you sure that you want to import %d sources into Zebra?" = "Jeste li sigurni da ćete uvesti %d izvore u Zebru?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Izvori";
-"Local Repository" = "Lokalni Repo";
-"Locally installed packages" = "Lokalno instalirani paketi";
 "Unknown" = "Nepoznato";
-"No source URLs detected." = "Ne postoji URL za repo.";
-"You have already added this source." = "Već ste dodali ove repoe.";
-"You have already added these sources." = "Već ste dodali ove repoe.";
-"Error verifying source" = "Greška pri verifikaciji izvora repoa";
-"Error verifying sources" = "Greška pri verifikaciji izvora";
-"Unknown error" = "Nepoznata greška";
-"Invalid URL" = "Nepravilan URL";
-"Enter Source URL" = "Unesite URL Repoa";
-"Add Sources" = "Dodaj Repo";
-"Add" = "Dodaj";
-"Add Multiple" = "Dodaj više";
-"Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
-"Please Wait..." = "Molimo vas sačekajte...";
-"Verifying Source(s)" = "Verifikacija izvora";
-"Unable to verify source" = "Nismo u mogućnosti da verifikujemo izvore";
+"Delete" = "Izbriši";
 "Refresh" = "Osveži";
 "All Packages" = "Svi paketi";
-"Delete" = "Izbriši";
-"Import Sources" = "Uvezi Izvore";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Lokalni Repo";
+"Locally installed packages" = "Lokalno instalirani paketi";
+
+"Add" = "Dodaj";
+"Add Sources" = "Dodaj Repo";
+"Add Multiple" = "Dodaj više";
+"Enter Source URL" = "Unesite URL Repoa";
+"Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
+
+"Please Wait..." = "Molimo vas sačekajte...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Nadograđivanje izvora";
-"Would you like to import the following sources?" = "Da li želite uvesti sledeće ozvore?";
+
+"Unknown error" = "Nepoznata greška";
+"Invalid URL" = "Nepravilan URL";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "Ne postoji URL za repo.";
+"Unable to verify source" = "Nismo u mogućnosti da verifikujemo izvore";
+"Error verifying source" = "Greška pri verifikaciji izvora repoa";
+"Error verifying sources" = "Greška pri verifikaciji izvora";
 "Failed to add source" = "Neuspelo dodavanje repoa";
 "Failed to add sources" = "Neuspelo dodavnje repoa";
+"You have already added this source." = "Već ste dodali ove repoe.";
+"You have already added these sources." = "Već ste dodali ove repoe.";
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
-"Import Sources" = "Uvezi Izvore";
-"Import" = "Uvеzi";
-"Are you sure that you want to import %d sources into Zebra?" = "Jeste li sigurni da ćete uvesti %d izvore u Zebru?";
-"Are you sure that you want to import 1 source into Zebra?" = "Jeste li sigurni da ćete uvesti 1 izvor u Zebru?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Veličina";
-"Clear" = "Obriši";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Dostupne nadogradnje";
 "Ignored Upgrades" = "Ignorisanje nadogradnje";
 "Recent" = "Skorašnji";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Pretraga";
-"Clear Search" = "Izbriši pretragu";
 "This search query is too short for the full search, please use a longer query." = "Molimo vas unesite veću recč za pretragu.";
 "No Results Found" = "Nema rezultata";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
 "%@ hasn't been modified" = "%@ nije izmenjen";
 "Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Zebra se zatvara...";
 "Restart SpringBoard" = "Restartuj SpringBoard";
 "Restarting SpringBoard..." = "Restartuje se SpringBoard...";
-"Parsing" = "Parsiram";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Preuzimanje";
 "Downloading" = "Preuzimanje";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Preuzimanje Paketa...";
 "Download Completed" = "Preuzimanje je završeno";
 "Installing" = "Instaliranje";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
 "Done..." = "Uradjeno...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Uklanjam Zerbu...";
 "Installing Zebra..." = "Instaliram Zebru...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Nastavi";
 "Download Size" = "Veličina preuzimanja";
 "Confirm" = "Potvrdi";
-"%@ must be removed because it depends on %@" = "%@ more se ukloniti zato što zavisi od %@";
-"Required Package" = "Potrebno Pakovanje";
-"%@ is required by:" = "%@ je neophodno za:";
 "Issues" = "Problemi";
-"%@ has issues that cannot be resolved:" = "%@ ima probleme koji nisu rešivi:";
+"Required Package" = "Potrebno Pakovanje";
 "Are you sure?" = "Da li ste sigurni?";
+"Remove from Queue" = "Ukloni iz liste čekanja";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ je neophodno za:";
+"%@ must be removed because it depends on %@" = "%@ more se ukloniti zato što zavisi od %@";
+"%@ has issues that cannot be resolved:" = "%@ ima probleme koji nisu rešivi:";
 "Are you sure you want to clear the queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ je neophodan paket. Nije poželjno ukloniti ga osim ako znate šta radite!";
-"Remove from Queue" = "Ukloni iz liste čekanja";
+
 
 // Search
 
