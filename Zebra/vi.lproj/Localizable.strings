@@ -10,6 +10,7 @@
 "Close" = "Đóng";
 "Done" = "Xong";
 "Loading..." = "Đang tải...";
+"Clear" = "Xoá bỏ";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Chuyển nguồn";
 "Verifying Source" = "Đang xác minh nguồn";
 "Verifying Sources" = "Đang xác minh nguồn";
+"Import" = "Nhập";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"Import Sources" = "Nhập nguồn";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Bạn có muốn nhập các nguồn sau đây?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Nguồn";
-"Local Repository" = "Kho lưu trữ cục bộ";
-"Locally installed packages" = "Gói cài đặt cục bộ";
 "Unknown" = "Không xác định";
-"No source URLs detected." = "Không phát hiện URL nguồn.";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "Bạn đã thêm các nguồn này.";
-"Error verifying source" = "Lỗi xác minh nguồn";
-"Error verifying sources" = "Lỗi khi xác minh nguồn";
-"Unknown error" = "Lỗi không xác định";
-"Invalid URL" = "URL không hợp lệ";
-"Enter Source URL" = "Nhập liên kết của nguồn";
-"Add Sources" = "Thêm nguồn";
-"Add" = "Thêm";
-"Add Multiple" = "Thêm nhiều";
-"Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
-"Please Wait..." = "Vui lòng chờ...";
-"Verifying Source(s)" = "Xác minh nguồn(s)";
-"Unable to verify source" = "Không thể xác minh nguồn";
+"Delete" = "Xóa bỏ";
 "Refresh" = "Làm mới";
 "All Packages" = "Tất cả các gói";
-"Delete" = "Xóa bỏ";
-"Import Sources" = "Nhập nguồn";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Kho lưu trữ cục bộ";
+"Locally installed packages" = "Gói cài đặt cục bộ";
+
+"Add" = "Thêm";
+"Add Sources" = "Thêm nguồn";
+"Add Multiple" = "Thêm nhiều";
+"Enter Source URL" = "Nhập liên kết của nguồn";
+"Would you like to add the URL from your clipboard?" = "Bạn có muốn thêm URL từ clipboard của bạn?";
+
+"Please Wait..." = "Vui lòng chờ...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Đang cập nhật nguồn";
-"Would you like to import the following sources?" = "Bạn có muốn nhập các nguồn sau đây?";
+
+"Unknown error" = "Lỗi không xác định";
+"Invalid URL" = "URL không hợp lệ";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "Không phát hiện URL nguồn.";
+"Unable to verify source" = "Không thể xác minh nguồn";
+"Error verifying source" = "Lỗi xác minh nguồn";
+"Error verifying sources" = "Lỗi khi xác minh nguồn";
 "Failed to add source" = "Thêm nguồn thất bại";
 "Failed to add sources" = "Thêm nguồn thất bại";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
-"Import Sources" = "Nhập nguồn";
-"Import" = "Nhập";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Ngày";
 "Size" = "Kích thước";
-"Clear" = "Xoá bỏ";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Nâng cấp có sẵn";
 "Ignored Upgrades" = "Bỏ qua Nâng cấp";
 "Recent" = "Gần đây";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Tìm kiếm";
-"Clear Search" = "Xóa bỏ tìm kiếm";
 "This search query is too short for the full search, please use a longer query." = "Truy vấn tìm kiếm này quá ngắn cho tìm kiếm đầy đủ, vui lòng sử dụng truy vấn dài hơn.";
 "No Results Found" = "Không có kết quả nào được tìm thấy";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
 "%@ hasn't been modified" = "%@ chưa được sửa đổi";
 "Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Đang đóng Zebra...";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
 "Restarting SpringBoard..." = "Đang khởi động lại SpringBoard...";
-"Parsing" = "Phân tích cú pháp";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Bắt đầu tải xuống";
 "Downloading" = "Đang tải xuống";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Đang tải xuống gói...";
 "Download Completed" = "Tải về hoàn tất";
 "Installing" = "Đang cài đặt";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
 "Done..." = "Xong...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Tiếp tục";
 "Download Size" = "Kích thước tải xuống";
 "Confirm" = "Xác nhận";
-"%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
-"Required Package" = "Gói cần thiết";
-"%@ is required by:" = "%@ được yêu cầu bởi:";
 "Issues" = "Các vấn đề";
-"%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
+"Required Package" = "Gói cần thiết";
 "Are you sure?" = "Bạn có chắc không?";
+"Remove from Queue" = "Xóa khỏi hàng đợi";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ được yêu cầu bởi:";
+"%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
+"%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
 "Are you sure you want to clear the queue?" = "Bạn có chắc chắn muốn xóa hàng đợi?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc. Nó KHÔNG nên được loại bỏ trừ khi bạn biết chính xác những gì bạn đang làm!";
-"Remove from Queue" = "Xóa khỏi hàng đợi";
+
 
 // Search
 
