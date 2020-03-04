@@ -36,10 +36,10 @@
 "Verifying Source" = "Tikrinamas šaltinis";
 "Verifying Sources" = "Tikrinami šaltiniai";
 "Import" = "Importuoti";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "Tikrinama...";
+"Confirm Import" = "Patvirtinkite importavimą";
 "Import Sources" = "Importuojami šaltiniai";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Nėra šaltinių, kuriuos galima importuoti";
 "Would you like to import the following sources?" = "Ar norite importuoti šiuos šaltinius?";
 "Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
@@ -81,12 +81,12 @@
 "Royal Blue" = "Tamsiai mėlyna";
 "Shark" = "Ryklio";
 "Storm" = "Audros";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Naudoti sistemos atspalvį";
+"Appearance" = "Išvaizda";
+"Use System Appearance" = "Naudoti sistemos išvaizdą";
+"Light" = "Šviesus";
+"Dark" = "Tamsus";
+"Pure Black Mode" = "Grynai juodas režimas";
 
 // Featured
 
@@ -100,31 +100,31 @@
 // Advanced
 
 "Advanced" = "Išplėstiniai nustatymai";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Atnaujinti piktogramų podelį";
+"Reset Image Cache" = "Atkurti vaizdų podelį";
+"Reset Sources Cache" = "Atkurti šaltinių podelį";
+"Reset All Settings" = "Atkurti visus nustatymus";
+"Erase All Sources and Settings" = "Ištrinti visus šaltinius ir nustatymus";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Ar esate įsitikinę, kad norite perkrauti SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Ar esate įsitikinę, kad norite atnaujinti piktogramų podelį? Jūsų prietaisas gali nereaguoti kol procesas baigsis.";
+"Image Cache Reset" = "Vaizdų podelio atstatymas";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Ar esate įsitikinę, kad norite atstatyti Zebra šaltinių podėlį? Tai pašalins visą podelio informaciją iš Zebra duomenų bazės ir pakartotinai jį atsiųs. Jūsų šaltiniai nebus pašalinti.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Ar esate įsitikinę, kad norite atstatyti Zebra nustatymus? Tai atstatys Zebra į gamyklinius nustatymus ir Zebra persikraus.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Ar esate įsitikinę, kad norite pašalinti visus šaltinius ir nustatymus? Visi jūsų šaltiniai bus pašalinti iš Zebra ir nustatymai bus atstatyti į gamyklinius.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsų šaltiniai bus pašalinti negrįžtamai ir Zebra persikraus.";
 
 // Stores
 
 "Stores" = "Parduotuvės";
-"Account" = "Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"Account" = "Paskyra";
+"Sign In" = "Prisijungti";
+"Sign Out" = "Atsijungti";
+"Your Purchases" = "Jūsų pirkiniai";
 "No Storefronts Available" = "Nėra prieinamų parduotuvių";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
-"No packages purchased" = "No packages purchased";
+"Could not complete purchase" = "Nepavyko baigti pirkimo";
+"Could not complete purchase, no payment secret was found" = "Nepavyko baigti pirkimo, apmokėjimas neįvyko";
+"No packages purchased" = "Nėra nupirktų paketų";
 
 // Sources
 
@@ -133,7 +133,7 @@
 "Delete" = "Ištrinti";
 "Refresh" = "Atnaujinti";
 "All Packages" = "Visi paketai";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Pašalinti šaltinį";
 "Local Repository" = "Vietinė saugykla";
 "Locally installed packages" = "Įdiegti vietiniai paketai";
 
@@ -144,28 +144,28 @@
 "Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
 
 "Please Wait..." = "Prašome palaukti...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Tikrinamas šaltinis";
+"Verifying Sources" = "Tikrinami šaltiniai";
 "Updating Sources" = "Atnaujinami šaltiniai";
 
 "Unknown error" = "Nežinoma klaida";
 "Invalid URL" = "Netinkamas šaltinio adresas";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Klaidingas šaltinis";
+"Tap to learn more" = "Bakstelkite, kad sužinotumėte daugiau";
 "No source URLs detected." = "Šaltinių URL adresai neaptikti.";
 "Unable to verify source" = "Nepavyko patikrinti šaltinio";
 "Error verifying source" = "Ištiko klaida tikrinant šalitnį";
 "Error verifying sources" = "Ištiko klaida tikrinant šaltinius";
 "Failed to add source" = "Nepavyko pridėti šaltinio";
 "Failed to add sources" = "Nepavyko pridėti šaltinių";
-"You have already added this source." = "You have already added this source.";
+"You have already added this source." = "Jūs jau pridėjote šį šaltinį.";
 "You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Įvestas adresas klaidingas. Prašom jį patikrinti ir bandyti iš naujo.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebrai nepavyko atsiųsti nurodyto %@ šaltinio. Jis gali būti laikinai nepasiekiamas arba neteisingai pridėtas.";
 
 // Packages
 
@@ -258,9 +258,9 @@
 "Search" = "Paieška";
 "This search query is too short for the full search, please use a longer query." = "Ši paieškos užklausa per trumpa pilnai paieškai, prašom naudoti ilgesnę užklausą.";
 "No Results Found" = "Nieko nerasta";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Vardas";
+"Description" = "Aprašymas";
+"Author" = "Autorius";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
 "%@ hasn't been modified" = "%@ nebuvo modifikuotas";
 "Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Iš viso bus atsiųsti %d failai";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Uždaroma Zebra...";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
 "Restarting SpringBoard..." = "Perkraunama SpringBoard...";
-"Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
+"Parsing %@" = "Analizuojama %@";
+"Starting Download" = "Pradedamas atsiuntimas";
 "Downloading" = "Atsiunčiama";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Atsiunčiama %@";
 "Downloading Packages..." = "Paketai atsiunčiami...";
 "Download Completed" = "Atsisiuntimas baigtas";
 "Installing" = "Įdiegiama";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
 "Done..." = "Atlikta...";
-"Done %@" = "Done %@";
+"Done %@" = "Atlikta %@";
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Pridedamas pardavėjo mokėjimo adresas %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "Reikalingas paketas";
 "Are you sure?" = "Ar esate įsitikinę?";
 "Remove from Queue" = "Pašalinti iš eilės";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Išvalyti eilę";
 "%@ is required by:" = "%@ reikalauja:";
 "%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
@@ -348,7 +348,7 @@
 // Search
 
 "Live Search" = "Tiesioginė paieška";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Pataisymai, apipavidalinimai ir daugiau";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ yra reikalingas paketas, bet turi būti pašalintas nes priklauso nuo %@. %@ gali būti pašalintas tik tuo atveju, jei tikrai žinote ką darote!";
@@ -387,6 +387,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Atsitiktinis\" rodys atsitiktinius paketus iš visų saugyklų, kurias pridėjote į Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Prisijungimas prie šaltinių leidžia pirkti mokamus paketus.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatiškai uždaryti konsolę, kai visos jos užduotys įvykdytos.";
