@@ -201,7 +201,7 @@
     
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [clearButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+    [clearButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:clearButton];
     
