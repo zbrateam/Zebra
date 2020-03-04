@@ -10,6 +10,7 @@
 "Close" = "Uždaryti";
 "Done" = "Atlikta";
 "Loading..." = "Kraunasi...";
+"Clear" = "Išvalyti";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Perkelti šaltinius";
 "Verifying Source" = "Tikrinamas šaltinis";
 "Verifying Sources" = "Tikrinami šaltiniai";
+"Import" = "Importuoti";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"Import Sources" = "Importuojami šaltiniai";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Ar norite importuoti šiuos šaltinius?";
+"Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Šaltiniai";
-"Local Repository" = "Vietinė saugykla";
-"Locally installed packages" = "Įdiegti vietiniai paketai";
 "Unknown" = "Nežinomas";
-"No source URLs detected." = "Šaltinių URL adresai neaptikti.";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
-"Error verifying source" = "Ištiko klaida tikrinant šalitnį";
-"Error verifying sources" = "Ištiko klaida tikrinant šaltinius";
-"Unknown error" = "Nežinoma klaida";
-"Invalid URL" = "Netinkamas šaltinio adresas";
-"Enter Source URL" = "Parašykite šaltinio adresą";
-"Add Sources" = "Pridėti šaltinius";
-"Add" = "Pridėti";
-"Add Multiple" = "Pridėti kelis";
-"Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
-"Please Wait..." = "Prašome palaukti...";
-"Verifying Source(s)" = "Tikrinamas šaltinis(iai)";
-"Unable to verify source" = "Nepavyko patikrinti šaltinio";
+"Delete" = "Ištrinti";
 "Refresh" = "Atnaujinti";
 "All Packages" = "Visi paketai";
-"Delete" = "Ištrinti";
-"Import Sources" = "Importuojami šaltiniai";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Vietinė saugykla";
+"Locally installed packages" = "Įdiegti vietiniai paketai";
+
+"Add" = "Pridėti";
+"Add Sources" = "Pridėti šaltinius";
+"Add Multiple" = "Pridėti kelis";
+"Enter Source URL" = "Parašykite šaltinio adresą";
+"Would you like to add the URL from your clipboard?" = "Ar norite pridėti šaltinio adresą iš iškarpinės?";
+
+"Please Wait..." = "Prašome palaukti...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Atnaujinami šaltiniai";
-"Would you like to import the following sources?" = "Ar norite importuoti šiuos šaltinius?";
+
+"Unknown error" = "Nežinoma klaida";
+"Invalid URL" = "Netinkamas šaltinio adresas";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "Šaltinių URL adresai neaptikti.";
+"Unable to verify source" = "Nepavyko patikrinti šaltinio";
+"Error verifying source" = "Ištiko klaida tikrinant šalitnį";
+"Error verifying sources" = "Ištiko klaida tikrinant šaltinius";
 "Failed to add source" = "Nepavyko pridėti šaltinio";
 "Failed to add sources" = "Nepavyko pridėti šaltinių";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
-"Import Sources" = "Importuojami šaltiniai";
-"Import" = "Importuoti";
-"Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Dydis";
-"Clear" = "Išvalyti";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Prieinami atnaujinimai";
 "Ignored Upgrades" = "Praignoruoti atnaujinimai";
 "Recent" = "Naujausi";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Paieška";
-"Clear Search" = "Išvalyti paiešką";
 "This search query is too short for the full search, please use a longer query." = "Ši paieškos užklausa per trumpa pilnai paieškai, prašom naudoti ilgesnę užklausą.";
 "No Results Found" = "Nieko nerasta";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
 "%@ hasn't been modified" = "%@ nebuvo modifikuotas";
 "Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Uždaroma Zebra...";
 "Restart SpringBoard" = "Perkrauti SpringBoard";
 "Restarting SpringBoard..." = "Perkraunama SpringBoard...";
-"Parsing" = "Analizuojama";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Starting Download";
 "Downloading" = "Atsiunčiama";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Paketai atsiunčiami...";
 "Download Completed" = "Atsisiuntimas baigtas";
 "Installing" = "Įdiegiama";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
 "Done..." = "Atlikta...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Tęsti";
 "Download Size" = "Atsiuntimo dydis";
 "Confirm" = "Patvirtinti";
-"%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
-"Required Package" = "Reikalingas paketas";
-"%@ is required by:" = "%@ reikalauja:";
 "Issues" = "Problemos";
-"%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
+"Required Package" = "Reikalingas paketas";
 "Are you sure?" = "Ar esate įsitikinę?";
+"Remove from Queue" = "Pašalinti iš eilės";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ reikalauja:";
+"%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
+"%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
 "Are you sure you want to clear the queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ yra reikalingas paketas. Jis gali būti pašalintas tik tais atvejais, jei tikrai žinote ką darote!";
-"Remove from Queue" = "Pašalinti iš eilės";
+
 
 // Search
 
