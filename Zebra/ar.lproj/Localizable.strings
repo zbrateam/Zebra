@@ -10,6 +10,7 @@
 "Close" = "إغلاق";
 "Done" = "تم";
 "Loading..." = "جارِ التحميل...";
+"Clear" = "مسح";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "تحويل المصادر";
 "Verifying Source" = "جارِ التحقق من المصدر";
 "Verifying Sources" = "جارِ التحقق من المصادر";
+"Import" = "استيراد";
+"Verifying..." = "جار التحقق...";
+"Confirm Import" = "تأكيد الإستيراد";
+"Import Sources" = "استيراد المصادر";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
+"Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
+"Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "المصادر";
-"Local Repository" = "مستودع محلي";
-"Locally installed packages" = "الحزم المثبتة محليًا";
 "Unknown" = "غير معروف";
-"No source URLs detected." = "لم يتم اكتشاف عناوين URL المصادر.";
-"You have already added this source." = "لقد أضفت هذه المصادر بالفعل.";
-"You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
-"Error verifying source" = "خطأ في التحقق من المصدر";
-"Error verifying sources" = "خطأ في التحقق من المصادر";
-"Unknown error" = "خطأ غير معروف";
-"Invalid URL" = "عنوان URL غير صحيح";
-"Enter Source URL" = "أدخل عنوان URL المصدر";
-"Add Sources" = "إضافة مصادر";
-"Add" = "إضافة";
-"Add Multiple" = "إضافة متعددة";
-"Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
-"Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
-"Unable to verify source" = "غير قادر على التحقق من المصدر";
+"Delete" = "حذف";
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
-"Delete" = "حذف";
-"Import Sources" = "استيراد المصادر";
+"Remove Source" = "مصدر محذوف";
+"Local Repository" = "مستودع محلي";
+"Locally installed packages" = "الحزم المثبتة محليًا";
+
+"Add" = "إضافة";
+"Add Sources" = "إضافة مصادر";
+"Add Multiple" = "إضافة متعددة";
+"Enter Source URL" = "أدخل عنوان URL المصدر";
+"Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
+
+"Please Wait..." = "يرجى الإنتظار...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "جارِ تحديث المصادر";
-"Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
+
+"Unknown error" = "خطأ غير معروف";
+"Invalid URL" = "عنوان URL غير صحيح";
+"Invalid Source" = "مصدر خاطئ";
+"Tap to learn more" = "انقر لمعرفة المزيد";
+"No source URLs detected." = "لم يتم اكتشاف عناوين URL المصادر.";
+"Unable to verify source" = "غير قادر على التحقق من المصدر";
+"Error verifying source" = "خطأ في التحقق من المصدر";
+"Error verifying sources" = "خطأ في التحقق من المصادر";
 "Failed to add source" = "فشل في إضافة المصدر";
 "Failed to add sources" = "فشل في إضافة المصادر";
+"You have already added this source." = "لقد أضفت هذه المصادر بالفعل.";
+"You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
-"Import Sources" = "استيراد المصادر";
-"Import" = "استيراد";
-"Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
-"Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
-"Verifying..." = "جار التحقق...";
-"Confirm Import" = "تأكيد الإستيراد";
-"The URL you entered is not valid. Please check it and try again." = "الـURL الذي أدخلته غير صالح. يرجى التحقق من ذلك وحاول مرة أخرى.";
-"Tap to learn more" = "انقر لمعرفة المزيد";
-"Invalid Source" = "مصدر خاطئ";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زيبرا لم يستطِع تنزيل الملف المحدد في %@. لا يمكن الوصول له مؤقتاً أو تم إضافته بالخطأ.";
-"Remove Source" = "مصدر محذوف";
 
+"The URL you entered is not valid. Please check it and try again." = "الـURL الذي أدخلته غير صالح. يرجى التحقق من ذلك وحاول مرة أخرى.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زيبرا لم يستطِع تنزيل الملف المحدد في %@. لا يمكن الوصول له مؤقتاً أو تم إضافته بالخطأ.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "أبجديًا";
 "Date" = "زمنيًا";
 "Size" = "الحجم";
-"Clear" = "مسح";
-"Are you sure you want to clear the Queue?" = "هل أنت متأكد أنك تريد مسح قائمة انتظار؟";
 "Available Upgrades" = "الترقيات المتاحة";
 "Ignored Upgrades" = "تجاهل الترقيات";
 "Recent" = "مؤخرًا";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "بحث";
-"Clear Search" = "مسح البحث";
 "This search query is too short for the full search, please use a longer query." = "الإستعلام هذا قصير جدًا للبحث الكامل ، يرجى استخدام استعلام أطول.";
 "No Results Found" = "لاتوجد نتائج";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
 "Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "جارِ إغلاق Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
 "Restarting SpringBoard..." = "جارِ إعادة تشغيل واجهة النظام...";
-"Parsing" = "جارِ التحليل";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "جارِ بدء التنزيل";
 "Downloading" = "جارِ التنزيل";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "تنزيل الحزم...";
 "Download Completed" = "إكتمل التنزيل";
 "Installing" = "جارِ التثبيت";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 "Done..." = "تم...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "استمرار";
 "Download Size" = "حجم التنزيل";
 "Confirm" = "تأكيد";
-"%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
-"Required Package" = "حزمة مطلوبة";
-"%@ is required by:" = "%@ مطلوبة بواسطة:";
 "Issues" = "أخطاء";
-"%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
+"Required Package" = "حزمة مطلوبة";
 "Are you sure?" = "هل أنت متأكد؟";
+"Remove from Queue" = "إزالة من قائمة الإنتظار";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ مطلوبة بواسطة:";
+"%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
+"%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
 "Are you sure you want to clear the queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة. لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
-"Remove from Queue" = "إزالة من قائمة الإنتظار";
+
 
 // Search
 
