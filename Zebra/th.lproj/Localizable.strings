@@ -10,6 +10,7 @@
 "Close" = "ปิด";
 "Done" = "เสร็จสิ้น";
 "Loading..." = "กำลังโหลด...";
+"Clear" = "ล้าง";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
 "Verifying Source" = "กำลังตรวจสอบซอร์ส";
 "Verifying Sources" = "Verifikacija izvora";
+"Import" = "นําเข้า";
+"Verifying..." = "กำลังตรวจสอบ...";
+"Confirm Import" = "ยืนยันการนำเข้า";
+"Import Sources" = "นำเข้าซอร์ส";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "คุณต้องการเพิ่มซอร์สเหล่านี้หรือไม่?";
+"Are you sure that you want to import 1 source into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า 1 ซอร์สไปยัง Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า %d ซอร์สไปยัง Zebra?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "ซอร์ส";
-"Local Repository" = "ซอร์สในเครื่อง";
-"Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
 "Unknown" = "ไม่ทราบ";
-"No source URLs detected." = "ไม่พบ URL ของซอร์ส";
-"You have already added this source." = "คุณได้เพิ่มซอร์สนี้ไปแล้ว";
-"You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
-"Error verifying source" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
-"Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
-"Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
-"Invalid URL" = "URL ผิด";
-"Enter Source URL" = "Masukkan URL Sumber";
-"Add Sources" = "เพิ่มซอร์ส";
-"Add" = "เพิ่ม";
-"Add Multiple" = "เพิ่มหลายอัน";
-"Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
-"Please Wait..." = "โปรดรอ...";
-"Verifying Source(s)" = "กำลังตรวจสอบซอร์ส";
-"Unable to verify source" = "ไม่สามารถตรวจสอบซอร์สได้";
+"Delete" = "ลบ";
 "Refresh" = "โหลดใหม่";
 "All Packages" = "โปรแกรมทั้งหมด";
-"Delete" = "ลบ";
-"Import Sources" = "นำเข้าซอร์ส";
+"Remove Source" = "ลบซอร์ส";
+"Local Repository" = "ซอร์สในเครื่อง";
+"Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
+
+"Add" = "เพิ่ม";
+"Add Sources" = "เพิ่มซอร์ส";
+"Add Multiple" = "เพิ่มหลายอัน";
+"Enter Source URL" = "Masukkan URL Sumber";
+"Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
+
+"Please Wait..." = "โปรดรอ...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "อัพเดตซอร์ส";
-"Would you like to import the following sources?" = "คุณต้องการเพิ่มซอร์สเหล่านี้หรือไม่?";
+
+"Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
+"Invalid URL" = "URL ผิด";
+"Invalid Source" = "ซอร์สไม่ถูกต้อง";
+"Tap to learn more" = "แตะเพื่ออ่านเพิ่มเติม";
+"No source URLs detected." = "ไม่พบ URL ของซอร์ส";
+"Unable to verify source" = "ไม่สามารถตรวจสอบซอร์สได้";
+"Error verifying source" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
+"Error verifying sources" = "เกิดปัญหาระหว่างตรวจสอบซอร์ส";
 "Failed to add source" = "ไม่สามารถเพิ่มไฟล์";
 "Failed to add sources" = "ไม่สามารถเพิ่มซอร์สได้";
+"You have already added this source." = "คุณได้เพิ่มซอร์สนี้ไปแล้ว";
+"You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
-"Import Sources" = "นำเข้าซอร์ส";
-"Import" = "นําเข้า";
-"Are you sure that you want to import %d sources into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า %d ซอร์สไปยัง Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า 1 ซอร์สไปยัง Zebra?";
-"Verifying..." = "กำลังตรวจสอบ...";
-"Confirm Import" = "ยืนยันการนำเข้า";
-"The URL you entered is not valid. Please check it and try again." = "URL ที่คุณใส่นั้นไม่ถูกต้อง กรุณาตรวจสอบและลองอีกครั้ง";
-"Tap to learn more" = "แตะเพื่ออ่านเพิ่มเติม";
-"Invalid Source" = "ซอร์สไม่ถูกต้อง";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra ไม่สามารถดาวน์โหลดซอร์ส %@ ซึ่งอาจจะไม่สามารถเข้าถึงได้ชั่วขณะ หรือถูกเพิ่มมาแบบไม่ถูกต้อง";
-"Remove Source" = "ลบซอร์ส";
 
+"The URL you entered is not valid. Please check it and try again." = "URL ที่คุณใส่นั้นไม่ถูกต้อง กรุณาตรวจสอบและลองอีกครั้ง";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra ไม่สามารถดาวน์โหลดซอร์ส %@ ซึ่งอาจจะไม่สามารถเข้าถึงได้ชั่วขณะ หรือถูกเพิ่มมาแบบไม่ถูกต้อง";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "กขค";
 "Date" = "วันที่";
 "Size" = "ขนาด";
-"Clear" = "ล้าง";
-"Are you sure you want to clear the Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
 "Available Upgrades" = "รุ่นใหม่ที่มี";
 "Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
 "Recent" = "เร็วๆ นี้";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "ค้นหา";
-"Clear Search" = "ลบผลการค้นหา";
 "This search query is too short for the full search, please use a longer query." = "ข้อความค้นหาสั้นเกินไปสำหรับการค้นหาเต็มรูปแบบ กรุณาใช้ความยาวมากกว่านี้";
 "No Results Found" = "ไม่พบรายการ";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
 "%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
 "Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "ปิด Zebra...";
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
 "Restarting SpringBoard..." = "เริ่มการทำงาน SpringBoard ใหม่...";
-"Parsing" = "อ่าน";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "เริ่มต้นดาวน์โหลด";
 "Downloading" = "กำลังดาวน์โหลด";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
 "Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
 "Installing" = "กำลังติดตั้ง";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
 "Done..." = "เสร็จสิ้น...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "ทำต่อ";
 "Download Size" = "ขนาดดาวน์โหลด";
 "Confirm" = "ยืนยัน";
-"%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
-"Required Package" = "โปรแกรมที่จำเป็น";
-"%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
 "Issues" = "ปัญหา";
-"%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
+"Required Package" = "โปรแกรมที่จำเป็น";
 "Are you sure?" = "คุณแน่ใจหรือไม่?";
+"Remove from Queue" = "เอาออกจากคิว";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
+"%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
+"%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
 "Are you sure you want to clear the queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ เป็นโปรแกรมที่จำเป็นต้องติดตั้งไว้บนเครื่อง ไม่ควรถูกลบออกนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร!";
-"Remove from Queue" = "เอาออกจากคิว";
+
 
 // Search
 
