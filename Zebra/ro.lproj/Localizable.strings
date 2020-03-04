@@ -10,6 +10,7 @@
 "Close" = "Inchide";
 "Done" = "Gata";
 "Loading..." = "Se încarca...";
+"Clear" = "Clear";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Transfera sursele";
 "Verifying Source" = "Verificare Sursă";
 "Verifying Sources" = "Verificare Surse";
+"Import" = "Importa";
+"Verifying..." = "Verificare...";
+"Confirm Import" = "Confirmă Importul";
+"Import Sources" = "Import Sources";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Ai vrea sa importezi urmatoarele surse?";
+"Are you sure that you want to import 1 source into Zebra?" = "Esti sigur ca vrei sa importezi 1 sursa in Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Esti sigur ca vrei sa importezi %d surse in Zebra?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Surse";
-"Local Repository" = "Depozit local";
-"Locally installed packages" = "Pachete instalate local";
 "Unknown" = "Necunoscut";
-"No source URLs detected." = "Nu au fost detectate adrese URL pentru o sursă.";
-"You have already added this source." = "Ai adaugat deja această sursă.";
-"You have already added these sources." = "Ai adăugat deja aceste surse.";
-"Error verifying source" = "Nu am putut verifica sursa";
-"Error verifying sources" = "Nu am putut verifica sursele";
-"Unknown error" = "Unknown error";
-"Invalid URL" = "Invalid URL";
-"Enter Source URL" = "Introdu URL-ul sursei";
-"Add Sources" = "Adaugă surse";
-"Add" = "Add";
-"Add Multiple" = "Add Multiple";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
-"Please Wait..." = "Please Wait...";
-"Verifying Source(s)" = "Verific sursa(sursele)";
-"Unable to verify source" = "Imposibil de verificat sursa";
+"Delete" = "Delete";
 "Refresh" = "Refresh";
 "All Packages" = "All Packages";
-"Delete" = "Delete";
-"Import Sources" = "Import Sources";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Depozit local";
+"Locally installed packages" = "Pachete instalate local";
+
+"Add" = "Add";
+"Add Sources" = "Adaugă surse";
+"Add Multiple" = "Add Multiple";
+"Enter Source URL" = "Introdu URL-ul sursei";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
+
+"Please Wait..." = "Please Wait...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Actualizare surse";
-"Would you like to import the following sources?" = "Ai vrea sa importezi urmatoarele surse?";
+
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "Nu au fost detectate adrese URL pentru o sursă.";
+"Unable to verify source" = "Imposibil de verificat sursa";
+"Error verifying source" = "Nu am putut verifica sursa";
+"Error verifying sources" = "Nu am putut verifica sursele";
 "Failed to add source" = "Nu am putut adauga sursa";
 "Failed to add sources" = "Nu am putut adauga sursele";
+"You have already added this source." = "Ai adaugat deja această sursă.";
+"You have already added these sources." = "Ai adăugat deja aceste surse.";
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
-"Import Sources" = "Import Sources";
-"Import" = "Importa";
-"Are you sure that you want to import %d sources into Zebra?" = "Esti sigur ca vrei sa importezi %d surse in Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Esti sigur ca vrei sa importezi 1 sursa in Zebra?";
-"Verifying..." = "Verificare...";
-"Confirm Import" = "Confirmă Importul";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Date";
 "Size" = "Size";
-"Clear" = "Clear";
-"Are you sure you want to clear the Queue?" = "Ești sigur că dorești să golești coada?";
 "Available Upgrades" = "Available Upgrades";
 "Ignored Upgrades" = "Ignored Upgrades";
 "Recent" = "Recent";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Cautare";
-"Clear Search" = "Stergeti cautarea";
 "This search query is too short for the full search, please use a longer query." = "Aceasta cautare este prea scurta pentru o cautare completa, va rugam sa folositi mai multi termeni.";
 "No Results Found" = "Niciun rezultat";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Could not find a download URL for";
 "%@ hasn't been modified" = "%@ hasn't been modified";
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Zebra se inchide...";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Restarting SpringBoard..." = "Springboard-ul se reporneste...";
-"Parsing" = "Parsing";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Descarcarea se porneste";
 "Downloading" = "Downloading";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Downloading Packages...";
 "Download Completed" = "Download Completed";
 "Installing" = "Installing";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 "Done..." = "Gata...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Continue";
 "Download Size" = "Download Size";
 "Confirm" = "Confirm";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"Required Package" = "Required Package";
-"%@ is required by:" = "%@ is required by:";
 "Issues" = "Issues";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Required Package" = "Required Package";
 "Are you sure?" = "Are you sure?";
+"Remove from Queue" = "Elimină din coada";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ is required by:";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
 "Are you sure you want to clear the queue?" = "Esti sigur ca vrei sa elimini coada?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ este un pachet necesar. Nu ar trebuii sa fie eliminat decat in cazul in care stii exact ce faci!";
-"Remove from Queue" = "Elimină din coada";
+
 
 // Search
 
