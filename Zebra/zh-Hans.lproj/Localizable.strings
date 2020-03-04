@@ -39,7 +39,7 @@
 "Verifying..." = "正在验证……";
 "Confirm Import" = "确认导入";
 "Import Sources" = "导入软件源";
-"No sources to import" = "No sources to import";
+"No sources to import" = "没有软件源要导入";
 "Would you like to import the following sources?" = "你想导入以下软件源吗？";
 "Are you sure that you want to import 1 source into Zebra?" = "你确定要将1个软件源导入到 Zebra 吗？";
 "Are you sure that you want to import %d sources into Zebra?" = "你确定要将%d个软件源导入到 Zebra 吗？";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
 
 "Please Wait..." = "请稍候……";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "正在验证软件源";
+"Verifying Sources" = "正在验证软件源";
 "Updating Sources" = "正在更新软件源";
 
 "Unknown error" = "未知错误";
@@ -258,9 +258,9 @@
 "Search" = "搜索";
 "This search query is too short for the full search, please use a longer query." = "你输入的文字太短，无法进行搜索。请使用更长的文字。";
 "No Results Found" = "未找到结果";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "名称";
+"Description" = "说明";
+"Author" = "作者";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "无法获取下载链接";
 "%@ hasn't been modified" = "%@ 未被修改";
 "Could not parse %@ from %@" = "无法解析 %@ 自 %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "总共将下载%d个文件";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "正在关闭 Zebra ……";
 "Restart SpringBoard" = "重启 SpringBoard";
 "Restarting SpringBoard..." = "正在重启 SpringBoard ……";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "正在解析 %@";
 "Starting Download" = "正在开始下载";
 "Downloading" = "正在下载";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "正在下载 %@";
 "Downloading Packages..." = "正在下载软件包……";
 "Download Completed" = "下载完成";
 "Installing" = "正在安装";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
 "Done..." = "完成……";
-"Done %@" = "Done %@";
+"Done %@" = "%@ 已完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "正在为 %@ 添加付款服务 URL";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "需要的软件包";
 "Are you sure?" = "是否确定？";
 "Remove from Queue" = "从队列移除";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "清空队列";
 "%@ is required by:" = "需要 %@ 依赖包：";
 "%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
