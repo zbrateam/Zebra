@@ -10,6 +10,7 @@
 "Close" = "Zavrieť";
 "Done" = "Hotovo";
 "Loading..." = "Načítanie...";
+"Clear" = "Vyčistiť";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Prenos Repozitárov";
 "Verifying Source" = "Overovanie Zdroja";
 "Verifying Sources" = "Overovanie Zdrojov";
+"Import" = "Importovať";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"Import Sources" = "Importovať Zdroje";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Chcete importovať nasledujúce zdroje?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Zdroje";
-"Local Repository" = "Miestné repozitára";
-"Locally installed packages" = "Lokálne nainštalované balíčky";
 "Unknown" = "Neznámy";
-"No source URLs detected." = "Neboli zistené žiadne URL adresy zdrojov.";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "Tieto repozitáre ste už pridali.";
-"Error verifying source" = "Chyba pri overovaní repozitára";
-"Error verifying sources" = "Chyba pri overovaní repozitárov";
-"Unknown error" = "Neznáma chyba";
-"Invalid URL" = "Chybné URL";
-"Enter Source URL" = "Zadajte URL adresu zdroja";
-"Add Sources" = "Pridaj Zdroj";
-"Add" = "Pridať";
-"Add Multiple" = "Pridať viac";
-"Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
-"Please Wait..." = "Prosím čakajťe...";
-"Verifying Source(s)" = "Overovánie Repozitáre(ov)";
-"Unable to verify source" = "Nepodarilo sa overiť zdoj";
+"Delete" = "Zmazať";
 "Refresh" = "Refreshút";
 "All Packages" = "Všetky balíčky";
-"Delete" = "Zmazať";
-"Import Sources" = "Importovať Zdroje";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Miestné repozitára";
+"Locally installed packages" = "Lokálne nainštalované balíčky";
+
+"Add" = "Pridať";
+"Add Sources" = "Pridaj Zdroj";
+"Add Multiple" = "Pridať viac";
+"Enter Source URL" = "Zadajte URL adresu zdroja";
+"Would you like to add the URL from your clipboard?" = "Chcete pridať adresu URL zo schránky?";
+
+"Please Wait..." = "Prosím čakajťe...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Zdroje sa aktualizujú\n\n";
-"Would you like to import the following sources?" = "Chcete importovať nasledujúce zdroje?";
+
+"Unknown error" = "Neznáma chyba";
+"Invalid URL" = "Chybné URL";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "Neboli zistené žiadne URL adresy zdrojov.";
+"Unable to verify source" = "Nepodarilo sa overiť zdoj";
+"Error verifying source" = "Chyba pri overovaní repozitára";
+"Error verifying sources" = "Chyba pri overovaní repozitárov";
 "Failed to add source" = "Pridanie zdroja zlyhalo";
 "Failed to add sources" = "Pridanie zdrojov zlyhalo";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Unable to locate an APT repository at:" = "Nemožno nájsť úložisko APT na:";
 "Unable to locate APT repositories at:" = "Nemožno nájsť úložiska APT na:";
-"Import Sources" = "Importovať Zdroje";
-"Import" = "Importovať";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Dátum";
 "Size" = "Veľkosť";
-"Clear" = "Vyčistiť";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Dostupné aktualizácie";
 "Ignored Upgrades" = "Ignorované aktualizácie";
 "Recent" = "Nedávne";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Hľadanie";
-"Clear Search" = "Vyčistiť hľadanie";
 "This search query is too short for the full search, please use a longer query." = "Tento vyhľadávací dopyt je príliš krátky na úplné vyhľadávanie. Použite dlhší dopyt.";
 "No Results Found" = "Neboli nájdené žiadne výsledky";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Nepodarilo sa nájsť webovú adresu pre stiahnutie súboru";
 "%@ hasn't been modified" = "%@ nebol zmenený";
 "Could not parse %@ from %@" = "Nepodarilo sa analyzovať %@ z %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Zatváram Zebru...";
 "Restart SpringBoard" = "Reštart SpringBoardu";
 "Restarting SpringBoard..." = "Reštartujem Springboard...";
-"Parsing" = "Analyzovanie...";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Starting Download";
 "Downloading" = "Stahovanie";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Sťahujú sa balíčky ...";
 "Download Completed" = "Sťahovanie dokončené";
 "Installing" = "Inštalovanie";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Nepodarilo sa stiahnuť jeden alebo viac balíčkov.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do fronty\" pre vrátenie do fronty a opakujte sťahovanie";
 "Done..." = "Hotovo...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Odstraniť Zebru...";
 "Installing Zebra..." = "Inštalácia zebry...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Ďalej";
 "Download Size" = "Veľkosť sťahovania";
 "Confirm" = "Potvrdiť";
-"%@ must be removed because it depends on %@" = "%@ musí byť odstránený, pretože to závisí na %@";
-"Required Package" = "Požadovaný balíček";
-"%@ is required by:" = "%@ je vyžadovaný:";
 "Issues" = "Problémy";
-"%@ has issues that cannot be resolved:" = "%@ má problémy, ktoré sa nedajú vyriešiť:";
+"Required Package" = "Požadovaný balíček";
 "Are you sure?" = "Ste si tým istý?";
+"Remove from Queue" = "Odstrániť z fronty";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ je vyžadovaný:";
+"%@ must be removed because it depends on %@" = "%@ musí byť odstránený, pretože to závisí na %@";
+"%@ has issues that cannot be resolved:" = "%@ má problémy, ktoré sa nedajú vyriešiť:";
 "Are you sure you want to clear the queue?" = "Naozaj chcete vymazať frontu?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "94/5000\n\n94/5000\n%@ je požadovaný balíček. Nemal by sa odstrániť, pokiaľ presne neviete, čo robíte!";
-"Remove from Queue" = "Odstrániť z fronty";
+
 
 // Search
 
