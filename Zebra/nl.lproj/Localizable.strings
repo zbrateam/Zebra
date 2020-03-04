@@ -10,6 +10,7 @@
 "Close" = "Sluiten";
 "Done" = "Klaar";
 "Loading..." = "Aan het laden...";
+"Clear" = "Leeg";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Verplaats Bronnen";
 "Verifying Source" = "Bron verifiëren";
 "Verifying Sources" = "Bronnen verifiëren";
+"Import" = "Importeren";
+"Verifying..." = "Verifiëren...";
+"Confirm Import" = "Bevestig Import";
+"Import Sources" = "Importeer Bronnen";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Wilt u de volgende bronnen importeren?";
+"Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
+"Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Bronnen";
-"Local Repository" = "Lokale bron";
-"Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 "Unknown" = "Onbekend";
-"No source URLs detected." = "Geen bron URLs gedetecteerd.";
-"You have already added this source." = "Je hebt deze bron al toegevoegd.";
-"You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
-"Error verifying source" = "Fout verifiëren van bron";
-"Error verifying sources" = "Fout verifiëren van bron";
-"Unknown error" = "Onbekende fout";
-"Invalid URL" = "Ongeldige URL";
-"Enter Source URL" = "Voer de bron-URL in";
-"Add Sources" = "Bronnen Toevoegen";
-"Add" = "Voeg toe";
-"Add Multiple" = "Voeg meerdere toe";
-"Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
-"Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source(s)" = "Bron(nen) verifiëren";
-"Unable to verify source" = "Kan bron niet verifiëren";
+"Delete" = "Verwijder";
 "Refresh" = "Ververs";
 "All Packages" = "Alle pakketten";
-"Delete" = "Verwijder";
-"Import Sources" = "Importeer Bronnen";
+"Remove Source" = "Verwijder Bron";
+"Local Repository" = "Lokale bron";
+"Locally installed packages" = "Lokaal geïnstalleerde pakketten";
+
+"Add" = "Voeg toe";
+"Add Sources" = "Bronnen Toevoegen";
+"Add Multiple" = "Voeg meerdere toe";
+"Enter Source URL" = "Voer de bron-URL in";
+"Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
+
+"Please Wait..." = "Een ogenblik geduld alstublieft...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Bronnen aan het updaten";
-"Would you like to import the following sources?" = "Wilt u de volgende bronnen importeren?";
+
+"Unknown error" = "Onbekende fout";
+"Invalid URL" = "Ongeldige URL";
+"Invalid Source" = "Ongeldige Bron";
+"Tap to learn more" = "Tik om meer te leren";
+"No source URLs detected." = "Geen bron URLs gedetecteerd.";
+"Unable to verify source" = "Kan bron niet verifiëren";
+"Error verifying source" = "Fout verifiëren van bron";
+"Error verifying sources" = "Fout verifiëren van bron";
 "Failed to add source" = "Bron toevoegen mislukt";
 "Failed to add sources" = "Bronnen toevoegen mislukt";
+"You have already added this source." = "Je hebt deze bron al toegevoegd.";
+"You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
 "Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
 "Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
-"Import Sources" = "Importeer Bronnen";
-"Import" = "Importeren";
-"Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
-"Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
-"Verifying..." = "Verifiëren...";
-"Confirm Import" = "Bevestig Import";
-"The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer dit en probeer het opnieuw.";
-"Tap to learn more" = "Tik om meer te leren";
-"Invalid Source" = "Ongeldige Bron";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kon de bron die is opgegeven bij %@ niet downloaden. Het kan tijdelijk ontoegankelijk zijn of kan onjuist zijn toegevoegd.";
-"Remove Source" = "Verwijder Bron";
 
+"The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer dit en probeer het opnieuw.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kon de bron die is opgegeven bij %@ niet downloaden. Het kan tijdelijk ontoegankelijk zijn of kan onjuist zijn toegevoegd.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
-"Clear" = "Leeg";
-"Are you sure you want to clear the Queue?" = "Weet u zeker dat u de wachtrij leeg wilt maken?";
 "Available Upgrades" = "Beschikbare upgrades";
 "Ignored Upgrades" = "Genegeerde upgrades";
 "Recent" = "Recent";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Zoeken";
-"Clear Search" = "Zoekbalk Wissen";
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Kan geen download link vinden voor";
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
 "Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Zebra Sluiten...";
 "Restart SpringBoard" = "SpringBoard Herstarten";
 "Restarting SpringBoard..." = "SpringBoard Herstarten...";
-"Parsing" = "Parseren";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Download Starten";
 "Downloading" = "Aan het downloaden";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
 "Download Completed" = "Download Compleet";
 "Installing" = "Aan het installeren";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 "Done..." = "Gedaan...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
 "Confirm" = "Bevestig";
-"%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
-"Required Package" = "Vereist pakket";
-"%@ is required by:" = "%@ is vereist door:";
 "Issues" = "Problemen";
-"%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
+"Required Package" = "Vereist pakket";
 "Are you sure?" = "Weet u het zeker?";
+"Remove from Queue" = "Verwijder uit wachtrij";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ is vereist door:";
+"%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
+"%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
 "Are you sure you want to clear the queue?" = "Weet u zeker dat u de wachtrij wilt legen?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket. Het mag NIET verwijderd worden tenzij u precies weet wat u doet!";
-"Remove from Queue" = "Verwijder uit wachtrij";
+
 
 // Search
 
