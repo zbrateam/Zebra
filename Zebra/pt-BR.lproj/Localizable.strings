@@ -10,6 +10,7 @@
 "Close" = "Fechar";
 "Done" = "Feito";
 "Loading..." = "Carregando...";
+"Clear" = "Limpar";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Transferir Fontes";
 "Verifying Source" = "Verificando Fonte";
 "Verifying Sources" = "Verificando Fontes";
+"Import" = "Importar";
+"Verifying..." = "Verificando...";
+"Confirm Import" = "Confirmar Importação";
+"Import Sources" = "Importar Fontes";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Gostaria de importar as seguintes fontes?";
+"Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Fontes";
-"Local Repository" = "Repositório local";
-"Locally installed packages" = "Pacotes instalados localmente";
 "Unknown" = "Desconhecido";
-"No source URLs detected." = "Nenhuma URL de origem detectada.";
-"You have already added this source." = "Você já adicionou esta fonte.";
-"You have already added these sources." = "Você já adicionou estas fontes.";
-"Error verifying source" = "Erro ao verificar a fonte";
-"Error verifying sources" = "Erro ao verificar as fontes";
-"Unknown error" = "Erro desconhecido";
-"Invalid URL" = "URL inválida";
-"Enter Source URL" = "Digite a URL da fonte";
-"Add Sources" = "Adicionar Fontes";
-"Add" = "Adicionar";
-"Add Multiple" = "Adicionar Múltiplos";
-"Would you like to add the URL from your clipboard?" = "Deseja adicionar o URL da sua área de transferência?";
-"Please Wait..." = "Por favor, aguarde...";
-"Verifying Source(s)" = "Verificando Fonte(s)";
-"Unable to verify source" = "Não foi possível verificar a fonte";
+"Delete" = "Deletar";
 "Refresh" = "Atualizar";
 "All Packages" = "Todos os Pacotes";
-"Delete" = "Deletar";
-"Import Sources" = "Importar Fontes";
+"Remove Source" = "Remover fonte";
+"Local Repository" = "Repositório local";
+"Locally installed packages" = "Pacotes instalados localmente";
+
+"Add" = "Adicionar";
+"Add Sources" = "Adicionar Fontes";
+"Add Multiple" = "Adicionar Múltiplos";
+"Enter Source URL" = "Digite a URL da fonte";
+"Would you like to add the URL from your clipboard?" = "Deseja adicionar o URL da sua área de transferência?";
+
+"Please Wait..." = "Por favor, aguarde...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Atualizando Fontes";
-"Would you like to import the following sources?" = "Gostaria de importar as seguintes fontes?";
+
+"Unknown error" = "Erro desconhecido";
+"Invalid URL" = "URL inválida";
+"Invalid Source" = "Fonte Inválida";
+"Tap to learn more" = "Toque para saber mais";
+"No source URLs detected." = "Nenhuma URL de origem detectada.";
+"Unable to verify source" = "Não foi possível verificar a fonte";
+"Error verifying source" = "Erro ao verificar a fonte";
+"Error verifying sources" = "Erro ao verificar as fontes";
 "Failed to add source" = "Falha ao adicionar fonte";
 "Failed to add sources" = "Falha ao adicionar fontes";
+"You have already added this source." = "Você já adicionou esta fonte.";
+"You have already added these sources." = "Você já adicionou estas fontes.";
 "Unable to locate an APT repository at:" = "Não foi possível localizar um repositório APT em:";
 "Unable to locate APT repositories at:" = "Não foi possível localizar os repositórios de APT em:";
-"Import Sources" = "Importar Fontes";
-"Import" = "Importar";
-"Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
-"Verifying..." = "Verificando...";
-"Confirm Import" = "Confirmar Importação";
-"The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
-"Tap to learn more" = "Toque para saber mais";
-"Invalid Source" = "Fonte Inválida";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "O Zebra não foi capaz de baixar a fonte especificada em %@. Ela pode estar temporariamente inacessível ou ser adicionado incorretamente.";
-"Remove Source" = "Remover fonte";
 
+"The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "O Zebra não foi capaz de baixar a fonte especificada em %@. Ela pode estar temporariamente inacessível ou ser adicionado incorretamente.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Tamanho";
-"Clear" = "Limpar";
-"Are you sure you want to clear the Queue?" = "Tem certeza de que deseja limpar a fila?";
 "Available Upgrades" = "Atualizações disponíveis";
 "Ignored Upgrades" = "Atualizações ignoradas";
 "Recent" = "Recentes";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Buscar";
-"Clear Search" = "Limpar Pesquisa";
 "This search query is too short for the full search, please use a longer query." = "Este termo é muito curto para a pesquisa completa, por favor, utilize um termo mais longo.";
 "No Results Found" = "Nenhum resultado encontrado";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
 "%@ hasn't been modified" = "%@ não foi modificado";
 "Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Fechando Zebra...";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Restarting SpringBoard..." = "Reiniciando o SpringBoard...";
-"Parsing" = "Analisando";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Iniciando Download";
 "Downloading" = "Baixando";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Baixando Pacotes...";
 "Download Completed" = "Download concluído";
 "Installing" = "Instalando";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Um ou mais pacotes falharam ao baixar.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clique em \"Retorne a Fila\" para retornar à fila e tentar novamente o download.";
 "Done..." = "Feito...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Removendo Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Continuar";
 "Download Size" = "Tamanho do Download";
 "Confirm" = "Confirmar";
-"%@ must be removed because it depends on %@" = "%@ deve ser removido porque depende de %@";
-"Required Package" = "Pacote Requerido";
-"%@ is required by:" = "%@ é requerido por:";
 "Issues" = "Problemas";
-"%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
+"Required Package" = "Pacote Requerido";
 "Are you sure?" = "Você tem certeza?";
+"Remove from Queue" = "Remover da fila";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ é requerido por:";
+"%@ must be removed because it depends on %@" = "%@ deve ser removido porque depende de %@";
+"%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
 "Are you sure you want to clear the queue?" = "Você tem certeza que deseja limpar a fila?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório. NÃO deve ser removido a menos que você saiba exatamente o que está fazendo!";
-"Remove from Queue" = "Remover da fila";
+
 
 // Search
 
