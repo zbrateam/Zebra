@@ -10,6 +10,7 @@
 "Close" = "Κλείσε";
 "Done" = "Τέλος";
 "Loading..." = "Γίνεται φόρτωση...";
+"Clear" = "Εκκαθάριση";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Μετατόπισε Πηγές";
 "Verifying Source" = "Γίνεται επαλήθευση της Πηγής";
 "Verifying Sources" = "Γίνεται επαλήθευση των Πηγών";
+"Import" = "Εισαγωγή";
+"Verifying..." = "Γίνεται επιβεβαίωση...";
+"Confirm Import" = "Επιβεβαίωση Εισαγωγής";
+"Import Sources" = "Εισαγωγή Πηγών";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Θα ήθελες να προσθέσεις τις ακόλουθες πηγές;";
+"Are you sure that you want to import 1 source into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις 1 πηγή στο Zebra;";
+"Are you sure that you want to import %d sources into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις %d πηγές στο Zebra;";
+
 
 // Credits
 
@@ -119,46 +129,43 @@
 // Sources
 
 "Sources" = "Πηγές";
-"Local Repository" = "Τοπικό Repository";
-"Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 "Unknown" = "Άγνωστο";
-"No source URLs detected." = "Δεν εντοπίστηκαν URLs πηγών.";
-"You have already added this source." = "Έχεις ήδη προσθέσει αυτή τήν πηγή.";
-"You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
-"Error verifying source" = "Σφάλμα επαλήθευσης πηγής";
-"Error verifying sources" = "Σφάλμα επαλήθευσης πηγών";
-"Unknown error" = "Άγνωστο σφάλμα";
-"Invalid URL" = "Λανθασμένο URL";
-"Enter Source URL" = "Καταχώρησε URL Πηγής";
-"Add Sources" = "Πρόσθεσε Πηγές";
-"Add" = "Πρόσθεσε";
-"Add Multiple" = "Πρόσθεσε Πολλαπλά";
-"Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
-"Please Wait..." = "Παρακαλώ Περιμένετε...";
-"Verifying Source(s)" = "Γίνεται επαλήθευση της(ων) Πηγής(ών)";
-"Unable to verify source" = "Αδυναμία επαλήθευσης πηγής";
+"Delete" = "Διαγραφή";
 "Refresh" = "Ανανέωση";
 "All Packages" = "Όλα τα Πακέτα";
-"Delete" = "Διαγραφή";
-"Import Sources" = "Εισαγωγή Πηγών";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Τοπικό Repository";
+"Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
+
+"Add" = "Πρόσθεσε";
+"Add Sources" = "Πρόσθεσε Πηγές";
+"Add Multiple" = "Πρόσθεσε Πολλαπλά";
+"Enter Source URL" = "Καταχώρησε URL Πηγής";
+"Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
+
+"Please Wait..." = "Παρακαλώ Περιμένετε...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Γίνεται ενημέρωση Πηγών";
-"Would you like to import the following sources?" = "Θα ήθελες να προσθέσεις τις ακόλουθες πηγές;";
+
+"Unknown error" = "Άγνωστο σφάλμα";
+"Invalid URL" = "Λανθασμένο URL";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "Δεν εντοπίστηκαν URLs πηγών.";
+"Unable to verify source" = "Αδυναμία επαλήθευσης πηγής";
+"Error verifying source" = "Σφάλμα επαλήθευσης πηγής";
+"Error verifying sources" = "Σφάλμα επαλήθευσης πηγών";
 "Failed to add source" = "Αποτυχία προσθήκης πηγής";
 "Failed to add sources" = "Αποτυχία προσθήκης πηγών";
+"You have already added this source." = "Έχεις ήδη προσθέσει αυτή τήν πηγή.";
+"You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
 "Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
-"Import Sources" = "Εισαγωγή Πηγών";
-"Import" = "Εισαγωγή";
-"Are you sure that you want to import %d sources into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις %d πηγές στο Zebra;";
-"Are you sure that you want to import 1 source into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις 1 πηγή στο Zebra;";
-"Verifying..." = "Γίνεται επιβεβαίωση...";
-"Confirm Import" = "Επιβεβαίωση Εισαγωγής";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +183,6 @@
 "ABC" = "ΑΒΓ";
 "Date" = "Ημερομηνία";
 "Size" = "Μέγεθος";
-"Clear" = "Εκκαθάριση";
-"Are you sure you want to clear the Queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
 "Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
 "Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
 "Recent" = "Πρόσφατα";
@@ -251,9 +256,11 @@
 // Search
 
 "Search" = "Αναζήτηση";
-"Clear Search" = "Καθάρισε την Αναζήτηση";
 "This search query is too short for the full search, please use a longer query." = "Αυτό το ερώτημα αναζήτησης είναι πολύ μικρό για την πλήρη αναζήτηση, παρακαλώ χρησιμοποίησε ένα μεγαλύτερο ερώτημα.";
 "No Results Found" = "Δεν βρέθηκαν αποτελέσματα";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +274,7 @@
 "Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
 "%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
 "Could not parse %@ from %@" = "Αδυναμία ανάλυσης %@ από %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +286,10 @@
 "Closing Zebra..." = "Κλείσιμο του Zebra...";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
 "Restarting SpringBoard..." = "Γίνεται επανεκκίνηση του SpringBoard...";
-"Parsing" = "Γίνεται ανάλυση";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Γίνεται έναρξη Λήψης";
 "Downloading" = "Γίνεται λήψη";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
 "Download Completed" = "Η Λήψη Ολοκληρώθηκε";
 "Installing" = "Γίνεται εγκατάσταση";
@@ -300,8 +309,10 @@
 "One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
 "Done..." = "Τέλος...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Αφαίρεση του Zebra...";
 "Installing Zebra..." = "Εγκατάσταση του Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +333,17 @@
 "Continue" = "Συνέχεια";
 "Download Size" = "Μέγεθος Λήψης";
 "Confirm" = "Επιβεβαίωση";
-"%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
-"Required Package" = "Απαιτούμενο Πακέτο";
-"%@ is required by:" = "%@ απαιτείται από:";
 "Issues" = "Προβλήματα";
-"%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
+"Required Package" = "Απαιτούμενο Πακέτο";
 "Are you sure?" = "Είσαι σίγουρος;";
+"Remove from Queue" = "Αφαίρεση από την Ουρά";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ απαιτείται από:";
+"%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
+"%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
 "Are you sure you want to clear the queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο. ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
-"Remove from Queue" = "Αφαίρεση από την Ουρά";
+
 
 // Search
 
