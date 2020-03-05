@@ -39,7 +39,7 @@
 "Verifying..." = "検証中...";
 "Confirm Import" = "インポートの確認";
 "Import Sources" = "リポジトリを追加する";
-"No sources to import" = "No sources to import";
+"No sources to import" = "インポートするレポジトリがありません";
 "Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
 "Are you sure that you want to import 1 source into Zebra?" = "リポジトリをZebraにインポートしてもよろしいですか？";
 "Are you sure that you want to import %d sources into Zebra?" = "%dリポジトリをZebraにインポートしてもよろしいですか？";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
 
 "Please Wait..." = "お待ちください...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "リポジトリを検証中";
+"Verifying Sources" = "リポジトリを検証中";
 "Updating Sources" = "リポジトリを更新中";
 
 "Unknown error" = "不明なエラー";
@@ -258,9 +258,9 @@
 "Search" = "検索";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
 "No Results Found" = "検索結果が見つかりませんでした。";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "名前";
+"Description" = "概要";
+"Author" = "作者";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "%@ hasn't been modified" = "%@ は変更されていません";
 "Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Restarting SpringBoard..." = "SpringBoard を再起動しています...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "%@を解析中";
 "Starting Download" = "ダウンロードを開始します。";
 "Downloading" = "ダウンロードしています";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "%@ をダウンロード中";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Download Completed" = "ダウンロード完了";
 "Installing" = "インストールしています";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
 "Done..." = "完了...";
-"Done %@" = "Done %@";
+"Done %@" = "%@ を完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "支払いベンダーのURL (%@) を追加しています";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "要求されたパッケージ";
 "Are you sure?" = "よろしいですか？";
 "Remove from Queue" = "キューから削除";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "キューをクリア";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
