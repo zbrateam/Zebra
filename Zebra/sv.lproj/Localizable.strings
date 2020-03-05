@@ -312,7 +312,7 @@
 "Done %@" = "Klar %@";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Lägger till betalningsleverantörens URL för %@";
 
 // Queue Bar
 
