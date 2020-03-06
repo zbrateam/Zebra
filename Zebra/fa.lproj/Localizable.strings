@@ -51,21 +51,21 @@
 
 "Report a Bug" = "گزارش باگ نرم افزاری";
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "رنگ تاکیدی";
 "Blue" = "آبی";
 "Orange" = "نارنجی";
 "White" = "سفید";
 "Black" = "مشکی";
 
-"Dark Mode Style" = "Dark Mode Style";
+"Dark Mode Style" = "حالت تاریک";
 "Dark Mode" = "حالت تیره";
 "Default" = "پیشفرض";
 "OLED" = "نمایشگرهای ال ای دی ";
 "iOS 13" = "آی او اس ۱۳";
 
-"App Icon" = "App Icon";
+"App Icon" = "آیکون برنامه";
 
-"Featured Packages" = "Featured Packages";
+"Featured Packages" = "پکیج‌های ویژه";
 "Repo Featured" = "مخزن های ویژه";
 "Random" = "رندوم";
 "Feature Type" = "نوع ویژه";
@@ -91,7 +91,7 @@
 
 "Alternate Icons" = "آیکون های جایگزین";
 
-"Featured Repos" = "Featured Repos";
+"Featured Repos" = "سورس‌های ویژه";
 
 // Sources
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "اضافه کردن چندتایی";
 "Would you like to add the URL from your clipboard?" = "میخواهید آدرسی که کپی کرده اید را اضافه کنید؟";
 "Please Wait..." = "...منتظر بمانید";
-"Verifying Source(s)" = "Verifying Source(s)";
+"Verifying Source(s)" = "درحال تایید سورس(ها)";
 "Unable to verify Repo" = "تایید کردن مخزن امکانپذیر نیست";
 "Refresh" = "ریفرش کردن";
 "Log Out" = "خروج از حساب";
@@ -199,7 +199,7 @@
 "Productivity" = "بهره وری";
 "Repositories" = "مخزن ها";
 "Ringtones" = "آهنگ های زنگ ";
-"Scripting" = "Scripting";
+"Scripting" = "برنامه نویسی";
 "Security" = "امنیت";
 "Social" = "اجتماعی";
 "System" = "سیستم";
@@ -241,7 +241,7 @@
 "Close Zebra" = "بستن زبرا";
 "Restart SpringBoard" = "ری استارت جزءی";
 "Downloading" = "در حال دانلود";
-"Parsing" = "Parsing";
+"Parsing" = "تجریه";
 "Downloading Packages..." = "در حال دانلود پکیج ها";
 "Installing" = "در حال نصب";
 "Installing Packages..." = "در حال نصب پکیج ها";
@@ -284,54 +284,54 @@
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure?" = "مطمین هستید؟";
 "Are you sure you want to clear the queue?" = "میخواهید صف را پاک کنید؟";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ بسته مورد نیاز است. نباید حذف شود مگر اینکه شما می دانید که دقیقا چه کار میکنید!";
 "Remove from Queue" = "حذف از صف";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ بسته مورد نیاز است و نباید حذف شود زیرا به %@ بستگی دارد. %@ نباید حذف شود مگر اینکه شما می دانید که دقیقا چه کاری انجام می دهند!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "یک یا چند بسته مورد نیاز، در صف حذف است. ادامه کار توصیه نمی شود مگر اینکه دقیقاً بدانید که چه کاری انجام می دهید. حذف این بسته ها می تواند صدمه جبران ناپذیری به دستگاه شما وارد کند و باعث بازگردانی کامل آن می شود.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "زبرا نتوانست این فرمان را انجام دهد زیرا مجوزهای مناسب را ندارد. لطفاً مجوزهای واقع در /usr/libexec/zebra supersling را بررسی کنید و این موضوع را در GitHub گزارش دهید.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "دسترسی به su/sling امکان پذیر نیست. لطفاً تأیید کنید که /usr/libexec/zebra/supersling وجود دارد.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling متعلق به root: wheel نیست. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "کمک برای ترجمه زبرا!";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "ریسپرینگ نشد، لطفا بصورت دستی ریسپرینگ کنید.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "خطا: نمی توان پرونده وضعیت را قفل کرد. لطفا دوباره تلاش کنید.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "خطا: فرآیند باید دوباره شروع شود. لطفا دوباره تلاش کنید.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Configure the appearance of Zebra." = "پیکربندی ظاهری زبرا.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "بسته های ویژه را در صفحه اصلی نمایش دهید.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "نمایش پست های اخیر انجمن r/jailbreak/.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "بسته ها را هنگام تایپ جستجو کنید. غیرفعال کردن این ویژگی ممکن است باعث کاهش تأخیر دستگاههای قدیمی شود.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "حرکت کشیدن در نمای جدول را پیکربندی کنید.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "رنگ تاکیدی که در سراسر زبرا نمایش داده می شود، را تغییر دهید.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "حالت تاریک زبرا را هنگام فعال کردن تغییر دهید.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "سورس، بسته های ویژه در صفحه اصلی را تغییر دهید.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"سورس‌های ویژه\" بسته های تصادفی از سورس هایی که از API بسته بندی ویژه پشتیبانی می کنند، نمایش میدهد.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"تصادفی\" بسته های تصادفی را از تمام سورس‌های اضافه شده به زبرا نمایش می دهد.";
 
-"Community News" = "Community News";
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Community News" = "اخبار انجمن";
+"Import Sources" = "وارد کردن سورس‌ها";
+"Updating Repositories" = "بروزرسانی سورس‌ها";
+"Would you like to import the following repositories?" = "دوست دارید سورس‌های زیر را وارد کنید؟";
+"Download Completed" = "بارگیری انجام شد";
+"Removing Zebra..." = "حدف زبرا...";
+"Installing Zebra..." = "نصب زبرا...";
