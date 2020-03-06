@@ -39,7 +39,7 @@
 "Verifying..." = "Проверка...";
 "Confirm Import" = "Подтвердите Импорт";
 "Import Sources" = "Импортировать Источники";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Нет источников для импортирования";
 "Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
 "Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
 
 "Please Wait..." = "Пожалуйста, подождите...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Проверка Источника";
+"Verifying Sources" = "Проверка Источников";
 "Updating Sources" = "Обновление Источников";
 
 "Unknown error" = "Неизвестная ошибка";
@@ -258,9 +258,9 @@
 "Search" = "Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
 "No Results Found" = "Результаты Не Найдены";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Имя";
+"Description" = "Описание";
+"Author" = "Автор";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Невозможно найти URL загрузки для";
 "%@ hasn't been modified" = "%@ не был изменен";
 "Could not parse %@ from %@" = "Невозможно получить %@ из %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Закрытие Zebra...";
 "Restart SpringBoard" = "Перезапустить SpringBoard";
 "Restarting SpringBoard..." = "Перезапуск SpringBoard...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Анализ %@";
 "Starting Download" = "Начало загрузки";
 "Downloading" = "Загрузка";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Загрузка %@";
 "Downloading Packages..." = "Загрузка Пакетов...";
 "Download Completed" = "Загрузка Завершена";
 "Installing" = "Установка";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 "Done..." = "Готово...";
-"Done %@" = "Done %@";
+"Done %@" = "Завершено %@";
 "Removing Zebra..." = "Удаление Zebra...";
 "Installing Zebra..." = "Установка Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Добавление URL Поставщика Платежа для %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "Требуемый Пакет";
 "Are you sure?" = "Вы уверены?";
 "Remove from Queue" = "Удалить из Очереди";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Очистить Очередь";
 "%@ is required by:" = "%@ требуется пактом:";
 "%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
