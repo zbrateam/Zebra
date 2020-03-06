@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "Möchtest du die URL aus der Zwischenablage hinzufügen?";
 
 "Please Wait..." = "Bitte warten...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Quelle wird verifiziert";
+"Verifying Sources" = "Quellen werden verifiziert";
 "Updating Sources" = "Quellen werden aktualisiert";
 
 "Unknown error" = "Unbekannter Fehler";
@@ -259,8 +259,8 @@
 "This search query is too short for the full search, please use a longer query." = "Die Suchanfrage ist für die vollständige Suche zu kurz. Bitte verwende eine längere Suchanfrage.";
 "No Results Found" = "Keine Ergebnisse gefunden";
 "Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Description" = "Beschreibung";
+"Author" = "Ersteller";
 
 // Downloads
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Zebra schließen...";
 "Restart SpringBoard" = "SpringBoard neu starten";
 "Restarting SpringBoard..." = "SpringBoard wird neu gestartet...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "%@ wird analysiert";
 "Starting Download" = "Download wird gestartet";
 "Downloading" = "Herunterladen";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "%@ wird heruntergeladen";
 "Downloading Packages..." = "Pakete werden heruntergeladen...";
 "Download Completed" = "Herunterladen abgeschlossen";
 "Installing" = "Wird installiert";
@@ -309,7 +309,7 @@
 "One or more packages failed to download." = "Ein oder mehrere Paket/e konnte/n nicht heruntergeladen werden.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tippe auf \"Zurück zur Warteschlange\", um zur Warteschlange zurückzukehren und versuche es erneut.";
 "Done..." = "Fertigstellen...";
-"Done %@" = "Done %@";
+"Done %@" = "%@ ist abgeschlossen";
 "Removing Zebra..." = "Zebra wird entfernt …";
 "Installing Zebra..." = "Zebra wird installiert …";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
@@ -337,7 +337,7 @@
 "Required Package" = "Benötigtes Paket";
 "Are you sure?" = "Bist du sicher?";
 "Remove from Queue" = "Aus der Warteschlange entfernen";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Warteschlage leeren";
 "%@ is required by:" = "%@ wird benötigt von:";
 "%@ must be removed because it depends on %@" = "%@ muss entfernt werden weil es von %@ abhängt";
 "%@ has issues that cannot be resolved:" = "%@ hat Probleme die nicht gelöst werden konnten:";
