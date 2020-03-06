@@ -133,7 +133,7 @@
 "Delete" = "Διαγραφή";
 "Refresh" = "Ανανέωση";
 "All Packages" = "Όλα τα Πακέτα";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Αφαίρεσε την Πηγή";
 "Local Repository" = "Τοπικό Repository";
 "Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 
@@ -144,14 +144,14 @@
 "Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
 
 "Please Wait..." = "Παρακαλώ Περιμένετε...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Γίνεται επαλήθευση της Πηγής";
+"Verifying Sources" = "Γίνεται επαλήθευση των Πηγών";
 "Updating Sources" = "Γίνεται ενημέρωση Πηγών";
 
 "Unknown error" = "Άγνωστο σφάλμα";
 "Invalid URL" = "Λανθασμένο URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Άκυρη Πηγή";
+"Tap to learn more" = "Πάτα για να μάθεις περισσότερα";
 "No source URLs detected." = "Δεν εντοπίστηκαν URLs πηγών.";
 "Unable to verify source" = "Αδυναμία επαλήθευσης πηγής";
 "Error verifying source" = "Σφάλμα επαλήθευσης πηγής";
@@ -163,7 +163,7 @@
 "Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Το URL που έβαλες δεν είναι έγκυρο. Παρακαλώ επαλήθευσε και προσπάθησε ξανά.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
@@ -258,9 +258,9 @@
 "Search" = "Αναζήτηση";
 "This search query is too short for the full search, please use a longer query." = "Αυτό το ερώτημα αναζήτησης είναι πολύ μικρό για την πλήρη αναζήτηση, παρακαλώ χρησιμοποίησε ένα μεγαλύτερο ερώτημα.";
 "No Results Found" = "Δεν βρέθηκαν αποτελέσματα";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Όνομα";
+"Description" = "Περιγραφή";
+"Author" = "Δημιουργός";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
 "%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
 "Could not parse %@ from %@" = "Αδυναμία ανάλυσης %@ από %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Ένα σύνολο από %d αρχεία θα ληφθεί";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Κλείσιμο του Zebra...";
 "Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
 "Restarting SpringBoard..." = "Γίνεται επανεκκίνηση του SpringBoard...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Γίνεται ανάλυση %@";
 "Starting Download" = "Γίνεται έναρξη Λήψης";
 "Downloading" = "Γίνεται λήψη";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Γίνεται λήψη %@";
 "Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
 "Download Completed" = "Η Λήψη Ολοκληρώθηκε";
 "Installing" = "Γίνεται εγκατάσταση";
@@ -309,7 +309,7 @@
 "One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
 "Done..." = "Τέλος...";
-"Done %@" = "Done %@";
+"Done %@" = "Τέλος %@";
 "Removing Zebra..." = "Αφαίρεση του Zebra...";
 "Installing Zebra..." = "Εγκατάσταση του Zebra...";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
@@ -337,7 +337,7 @@
 "Required Package" = "Απαιτούμενο Πακέτο";
 "Are you sure?" = "Είσαι σίγουρος;";
 "Remove from Queue" = "Αφαίρεση από την Ουρά";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Εκκαθάριση Ουράς";
 "%@ is required by:" = "%@ απαιτείται από:";
 "%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
 "%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
