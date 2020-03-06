@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "إلغاء";
-"Yes" = "Yes";
+"Yes" = "نعم";
 "No" = "لا";
 "Ok" = "حسنًا";
 "Error" = "خطأ";
@@ -39,7 +39,7 @@
 "Verifying..." = "جار التحقق...";
 "Confirm Import" = "تأكيد الإستيراد";
 "Import Sources" = "استيراد المصادر";
-"No sources to import" = "No sources to import";
+"No sources to import" = "لا توجد مصادر لاستيرادها";
 "Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
 "Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
 "Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "جارِ التحقق من المصدر";
+"Verifying Sources" = "جارِ التحقق من المصادر";
 "Updating Sources" = "جارِ تحديث المصادر";
 
 "Unknown error" = "خطأ غير معروف";
@@ -258,9 +258,9 @@
 "Search" = "بحث";
 "This search query is too short for the full search, please use a longer query." = "الإستعلام هذا قصير جدًا للبحث الكامل ، يرجى استخدام استعلام أطول.";
 "No Results Found" = "لاتوجد نتائج";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "الاسم";
+"Description" = "الوصف";
+"Author" = "المؤلف";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
 "Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "سيتم تنزيل %d من الملفات";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "جارِ إغلاق Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
 "Restarting SpringBoard..." = "جارِ إعادة تشغيل واجهة النظام...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "جارِ التحليل %@";
 "Starting Download" = "جارِ بدء التنزيل";
 "Downloading" = "جارِ التنزيل";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "جارِ تنزيل %@";
 "Downloading Packages..." = "تنزيل الحزم...";
 "Download Completed" = "إكتمل التنزيل";
 "Installing" = "جارِ التثبيت";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 "Done..." = "تم...";
-"Done %@" = "Done %@";
+"Done %@" = "تم %@";
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "إضافة عنوان URL لمورد الدفع لـ %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "حزمة مطلوبة";
 "Are you sure?" = "هل أنت متأكد؟";
 "Remove from Queue" = "إزالة من قائمة الإنتظار";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "مسح قائمة الانتظار";
 "%@ is required by:" = "%@ مطلوبة بواسطة:";
 "%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
 "%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
