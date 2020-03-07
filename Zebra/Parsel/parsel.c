@@ -96,6 +96,10 @@ char *updatesSchema() {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION VARCHAR(16) NOT NULL, IGNORE INTEGER DEFAULT 0)";
 }
 
+char *packagesFilterSchema() {
+    return "PACKAGES_FILTER(SECTION STRING PRIMARY KEY, ENABLED BOOLEAN)";
+}
+
 char *schemaForTable(int table) {
     switch (table) {
         case 0:
@@ -104,16 +108,18 @@ char *schemaForTable(int table) {
             return packagesSchema();
         case 2:
             return updatesSchema();
+        case 3:
+            return packagesFilterSchema();
     }
     
     return NULL;
 }
 
 int needsMigration(sqlite3 *database, int table) {
-    if (table < 0 || table > 2)
+    if (table < 0 || table > 3)
         return 0;
     char query[65];
-    char *tableNames[10] = { "REPOS", "PACKAGES", "UPDATES" };
+    char *tableNames[10] = { "REPOS", "PACKAGES", "UPDATES", "PACKAGES_FILTER" };
     snprintf(query, sizeof(query), "SELECT sql FROM sqlite_master WHERE name = \"%s\";", tableNames[table]);
     char *schema = NULL;
     
@@ -153,6 +159,9 @@ void createTable(sqlite3 *database, int table) {
         case 2:
             strcat(sql, updatesSchema());
             break;
+        case 3:
+            strcat(sql, packagesFilterSchema());
+            break;
     }
     
     sqlite3_exec(database, sql, NULL, 0, NULL);
@@ -162,6 +171,9 @@ void createTable(sqlite3 *database, int table) {
     } else if (table == 2) {
         char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
         sqlite3_exec(database, updateIndex, NULL, 0, NULL);
+    } else if (table == 3) {
+        char *filterIndex = "CREATE INDEX IF NOT EXISTS tag_SECTION ON PACKAGES_FILTER (SECTION);";
+        sqlite3_exec(database, filterIndex, NULL, 0, NULL);
     }
 }
 

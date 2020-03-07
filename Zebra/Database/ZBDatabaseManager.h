@@ -188,6 +188,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
+ @brief Overload of -numberOfPackagesInRepo:section:
+ @param enableFiltering Show or hide the packages with sections filtered out.
+ */
+- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
+
+/*!
  @brief All of the sources that are in the database.
  @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
  */
@@ -209,6 +215,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSURL *)paymentVendorURLForRepo:(ZBSource *)repo;
 
+/*!
+ @brief Determine whether a package section is enabled.
+ @param section The section name to determine.
+ @return A boolean value telling whether the package section is enabled.
+ */
+- (BOOL)isSectionEnabled:(NSString *)section;
+
+/*!
+ @brief Filter in or filter out the given package section.
+ @param section The section name to filter.
+ @param enabled Enable or disable the filter.
+ */
+- (void)filterSection:(NSString *)section enabled:(BOOL)enabled;
+
 #pragma mark - Package retrieval
 
 /*!
@@ -221,6 +241,12 @@ NS_ASSUME_NONNULL_BEGIN
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
 - (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+
+/*!
+ @brief Overload of -packagesFromRepo:inSection:numberOfPackages:startingAt:
+ @param enableFiltering Show or hide the packages with sections filtered out.
+ */
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
 
 /*!
  @brief A list of packages that the user has installed on their device.

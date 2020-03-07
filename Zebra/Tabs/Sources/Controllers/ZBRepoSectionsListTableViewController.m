@@ -23,6 +23,7 @@
     CGSize bannerSize;
     UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
+    UIBarButtonItem *filterButton;
 }
 @property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) NSArray *featuredPackages;
@@ -46,9 +47,13 @@
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
+    filterButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", @"") style:UIBarButtonItemStylePlain target:self action:@selector(filterButtonPressed:)];
+    
     if ([repo paymentVendorURL]) {
         UIBarButtonItem *accountButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain target:self action:@selector(accountButtonPressed:)];
-        self.navigationItem.rightBarButtonItem = accountButton;
+        self.navigationItem.rightBarButtonItems = @[filterButton, accountButton];
+    } else {
+        self.navigationItem.rightBarButtonItem = filterButton;
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
@@ -75,6 +80,8 @@
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
     self.title = [repo label];
+    self.tableView.allowsSelectionDuringEditing = YES;
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
     
     if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -94,6 +101,20 @@
     
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+}
+
+- (void)filterButtonPressed:(id)sender {
+    self.editing = !self.editing;
+    filterButton.title = NSLocalizedString(self.editing ? @"Done" : @"Edit", @"");
+    if (self.editing) {
+        for (NSInteger i = 1; i < sectionNames.count + 1; ++i) {
+            NSString *section = [sectionNames objectAtIndex:i - 1];
+            if ([databaseManager isSectionEnabled:section]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            }
+        }
+    }
 }
 
 - (void)accountButtonPressed:(id)sender {
@@ -268,6 +289,10 @@
     return [sectionNames count] + 1;
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.row != 0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
@@ -281,16 +306,34 @@
         
         NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = NSLocalizedString(section, @"");
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editing || indexPath.row == 0) return;
+    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    [databaseManager filterSection:section enabled:YES];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editing || indexPath.row == 0) return;
+    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    [databaseManager filterSection:section enabled:NO];
+}
+
 #pragma mark - Navigation
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    return !self.editing;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
@@ -363,7 +406,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-   ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    self.editing = NO;
+    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
 }
 

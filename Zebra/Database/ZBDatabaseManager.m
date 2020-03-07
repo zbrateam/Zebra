@@ -649,7 +649,7 @@
     return -1;
 }
 
-- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section {
+- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering {
     if ([self openDatabase] == SQLITE_OK) {
         int packages = 0;
         NSString *query;
@@ -657,7 +657,8 @@
         if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         } else {
-            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE %@", repoPart];
+            NSString *filterPart = enableFiltering ? @"AND SECTION NOT IN (SELECT SECTION FROM PACKAGES_FILTER WHERE ENABLED = 0)" : @"";
+            query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE %@ %@", repoPart, filterPart];
         }
         
         sqlite3_stmt *statement;
@@ -676,6 +677,10 @@
         [self printDatabaseError];
     }
     return -1;
+}
+
+- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section {
+    return [self numberOfPackagesInRepo:repo section:section enableFiltering:NO];
 }
 
 - (NSSet <ZBSource *> *)sources {
@@ -735,12 +740,58 @@
     return NULL;
 }
 
+- (BOOL)isSectionEnabled:(NSString *)section {
+    if (section == nil) return NO;
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *filterQuery = [NSString stringWithFormat:@"SELECT ENABLED FROM PACKAGES_FILTER WHERE SECTION = \'%@\'", section];
+        BOOL enabled = YES;
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [filterQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                enabled = sqlite3_column_int(statement, 0);
+                break;
+            }
+        } else {
+            return enabled;
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        return enabled;
+    }
+    [self printDatabaseError];
+    return NO;
+}
+
+- (void)filterSection:(NSString *)section enabled:(BOOL)enabled {
+    if (section == nil) return;
+    if ([self openDatabase] == SQLITE_OK) {
+        createTable(database, 3);
+        NSString *filterQuery = [NSString stringWithFormat:@"REPLACE INTO PACKAGES_FILTER(SECTION, ENABLED) VALUES(\'%@\', %d);", section, enabled];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [filterQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+    } else {
+        [self printDatabaseError];
+    }
+}
+
 - (void)deleteRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
+        NSString *filterToRemoveQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES_FILTER WHERE SECTION IN (SELECT DISTINCT(SECTION) FROM PACKAGES WHERE REPOID = %d EXCEPT SELECT DISTINCT(SECTION) FROM PACKAGES WHERE REPOID != %d)", [repo repoID], [repo repoID]];
         NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
         NSString *repoQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [repo repoID]];
         
         sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
+        sqlite3_exec(database, [filterToRemoveQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, [packageQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, [repoQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
@@ -819,14 +870,15 @@
 
 #pragma mark - Package management
 
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query;
         
         if (section == NULL) {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"WHERE REPOID = %d", [repo repoID]] : @"WHERE REPOID > 0";
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ ORDER BY LASTSEEN DESC LIMIT %d OFFSET %d", repoPart, limit, start];
+            NSString *filterPart = enableFiltering ? @"AND SECTION NOT IN (SELECT SECTION FROM PACKAGES_FILTER WHERE ENABLED = 0)" : @"";
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ %@ ORDER BY LASTSEEN DESC LIMIT %d OFFSET %d", repoPart, filterPart, limit, start];
         } else {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' %@ LIMIT %d OFFSET %d", section, repoPart, limit, start];
@@ -850,6 +902,10 @@
         [self printDatabaseError];
     }
     return NULL;
+}
+
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+    return [self packagesFromRepo:repo inSection:section numberOfPackages:limit startingAt:start enableFiltering:NO];
 }
 
 - (NSMutableArray <ZBPackage *> *)installedPackages:(BOOL)includeVirtualDependencies {
