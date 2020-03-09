@@ -634,6 +634,12 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
 }
 
+// Haptic Touch Actions
+
+- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath {
+    return [ZBPackageActionsManager contextMenuActionsForPackage:package indexPath:indexPath viewController:self parent:_parent];
+}
+
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
     // Load finished
 }

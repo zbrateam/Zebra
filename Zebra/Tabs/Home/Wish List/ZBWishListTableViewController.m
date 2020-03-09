@@ -13,7 +13,7 @@
 #import <Extensions/UITableViewRowAction+Image.h>
 
 @interface ZBWishListTableViewController ()
-
+@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBWishListTableViewController
@@ -136,6 +136,28 @@
         destination.package = [wishedPackages objectAtIndex:indexPath.row];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageDepictionVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        if (weakSelf == nil) {
+            return nil;
+        }
+        typeof(self) __strong strongSelf = weakSelf;
+        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        weakSelf.previewPackageDepictionVC.package = [strongSelf.wishedPackages objectAtIndex:indexPath.row];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+    }];
 }
 
 @end
