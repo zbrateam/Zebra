@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak) UIViewController *parent;
 - (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo;
 - (id)initWithPackage:(ZBPackage *)package;
+- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

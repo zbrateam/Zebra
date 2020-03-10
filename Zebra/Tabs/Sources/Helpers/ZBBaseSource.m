@@ -132,7 +132,8 @@
         }
         
         if (!mainDirectoryURL) return NULL;
-        NSString *schemeless = [[[mainDirectoryURL absoluteString] stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3]; //Removes scheme and ://
+        NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
+        NSString *schemeless = [mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
         self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     }
     
