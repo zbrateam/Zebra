@@ -46,7 +46,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 @interface ZBHomeTableViewController (){
     NSMutableArray *redditPosts;
 }
-
+@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBHomeTableViewController
@@ -628,14 +628,39 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 #pragma mark - Navigation
 
+- (void)setPackageOnDestinationVC:(ZBPackageDepictionViewController *)destination withPackage:(NSString *)packageID {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    destination.package = [databaseManager topVersionForPackageID:packageID];
+    [databaseManager closeDatabase];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        NSString *packageID = sender;
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        destination.package = [databaseManager topVersionForPackageID:packageID];
-        [databaseManager closeDatabase];
+        [self setPackageOnDestinationVC:destination withPackage:sender];
     }
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageDepictionVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        
+        ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+        [weakSelf setPackageOnDestinationVC:weakSelf.previewPackageDepictionVC withPackage:cell.packageID];
+        weakSelf.previewPackageDepictionVC.parent = weakSelf;
+        
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+    }];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+    }];
 }
 
 @end
