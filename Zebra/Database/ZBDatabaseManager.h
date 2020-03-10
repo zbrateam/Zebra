@@ -216,18 +216,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSURL *)paymentVendorURLForRepo:(ZBSource *)repo;
 
 /*!
- @brief Determine whether a package section is enabled.
+ @brief Determine whether a package section is enabled for a given repo.
  @param section The section name to determine.
- @return A boolean value telling whether the package section is enabled.
+ @param repo The repo to determine.
+ @return A boolean value telling whether the package section is enabled for the repo.
  */
-- (BOOL)isSectionEnabled:(NSString *)section;
+- (BOOL)isSectionEnabled:(NSString *)section forRepo:(ZBSource *)repo;
 
 /*!
- @brief Filter in or filter out the given package section.
+ @brief Filter in or filter out the given package section for the given repo.
  @param section The section name to filter.
+ @param repo The repo to filter the section.
  @param enabled Enable or disable the filter.
  */
-- (void)filterSection:(NSString *)section enabled:(BOOL)enabled;
+- (void)filterSection:(NSString *)section forRepo:(ZBSource *)repo enabled:(BOOL)enabled;
 
 #pragma mark - Package retrieval
 

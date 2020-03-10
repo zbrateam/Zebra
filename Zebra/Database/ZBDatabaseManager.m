@@ -99,6 +99,7 @@
         assert(sqlite3_threadsafe());
         int result = sqlite3_open_v2([[ZBAppDelegate databaseLocation] UTF8String], &database, SQLITE_OPEN_READWRITE | SQLITE_OPEN_FULLMUTEX | SQLITE_OPEN_CREATE, NULL);
         if (result == SQLITE_OK) {
+            sqlite3_exec(database, "PRAGMA foreign_keys = ON;", NULL, NULL, NULL);
             [self increment];
         }
         return result;
@@ -278,6 +279,7 @@
     
     if ([self openDatabase] == SQLITE_OK) {
         createTable(database, 0);
+        createTable(database, 3);
         createTable(database, 1);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
@@ -657,7 +659,7 @@
         if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         } else {
-            NSString *filterPart = enableFiltering ? @"AND SECTION NOT IN (SELECT SECTION FROM PACKAGES_FILTER WHERE ENABLED = 0)" : @"";
+            NSString *filterPart = enableFiltering ? [NSString stringWithFormat:@"AND SECTION NOT IN (SELECT SECTION FROM PACKAGES_FILTER WHERE REPOID = %d AND ENABLED = 0)", [repo repoID]] : @"";
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE %@ %@", repoPart, filterPart];
         }
         
@@ -740,10 +742,10 @@
     return NULL;
 }
 
-- (BOOL)isSectionEnabled:(NSString *)section {
+- (BOOL)isSectionEnabled:(NSString *)section forRepo:(ZBSource *)repo {
     if (section == nil) return NO;
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *filterQuery = [NSString stringWithFormat:@"SELECT ENABLED FROM PACKAGES_FILTER WHERE SECTION = \'%@\'", section];
+        NSString *filterQuery = [NSString stringWithFormat:@"SELECT ENABLED FROM PACKAGES_FILTER WHERE REPOID = %d AND SECTION = \'%@\'", [repo repoID], section];
         BOOL enabled = YES;
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [filterQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -763,11 +765,10 @@
     return NO;
 }
 
-- (void)filterSection:(NSString *)section enabled:(BOOL)enabled {
-    if (section == nil) return;
+- (void)filterSection:(NSString *)section forRepo:(ZBSource *)repo enabled:(BOOL)enabled {
+    if (section == nil || [repo repoID] <= 0) return;
     if ([self openDatabase] == SQLITE_OK) {
-        createTable(database, 3);
-        NSString *filterQuery = [NSString stringWithFormat:@"REPLACE INTO PACKAGES_FILTER(SECTION, ENABLED) VALUES(\'%@\', %d);", section, enabled];
+        NSString *filterQuery = [NSString stringWithFormat:@"REPLACE INTO PACKAGES_FILTER(SECTION, ENABLED, REPOID) VALUES(\'%@\', %d, %d);", section, enabled, [repo repoID]];
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [filterQuery UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -786,12 +787,10 @@
 
 - (void)deleteRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *filterToRemoveQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES_FILTER WHERE SECTION IN (SELECT DISTINCT(SECTION) FROM PACKAGES WHERE REPOID = %d EXCEPT SELECT DISTINCT(SECTION) FROM PACKAGES WHERE REPOID != %d)", [repo repoID], [repo repoID]];
         NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [repo repoID]];
         NSString *repoQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [repo repoID]];
         
         sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
-        sqlite3_exec(database, [filterToRemoveQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, [packageQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, [repoQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
@@ -877,7 +876,7 @@
         
         if (section == NULL) {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"WHERE REPOID = %d", [repo repoID]] : @"WHERE REPOID > 0";
-            NSString *filterPart = enableFiltering ? @"AND SECTION NOT IN (SELECT SECTION FROM PACKAGES_FILTER WHERE ENABLED = 0)" : @"";
+            NSString *filterPart = enableFiltering ? [NSString stringWithFormat:@"AND SECTION NOT IN (SELECT SECTION FROM PACKAGES_FILTER WHERE REPOID = %d AND ENABLED = 0)", [repo repoID]] : @"";
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ %@ ORDER BY LASTSEEN DESC LIMIT %d OFFSET %d", repoPart, filterPart, limit, start];
         } else {
             NSString *repoPart = repo ? [NSString stringWithFormat:@"AND REPOID = %d", [repo repoID]] : @"AND REPOID > 0";

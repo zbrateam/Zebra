@@ -79,7 +79,7 @@ int isRepoSecure(const char *sourcePath, char *repoURL) {
 }
 
 char *reposSchema() {
-    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, DESCRIPTION STRING, ORIGIN STRING, LABEL STRING, VERSION VARCHAR(16), SUITE STRING, CODENAME STRING, ARCHITECTURES STRING, VENDOR STRING, BASEFILENAME STRING, REPOID INTEGER)";
+    return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, DESCRIPTION STRING, ORIGIN STRING, LABEL STRING, VERSION VARCHAR(16), SUITE STRING, CODENAME STRING, ARCHITECTURES STRING, VENDOR STRING, BASEFILENAME STRING, REPOID INTEGER PRIMARY KEY)";
 }
 
 const char *repoInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME, REPOID) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -97,7 +97,7 @@ char *updatesSchema() {
 }
 
 char *packagesFilterSchema() {
-    return "PACKAGES_FILTER(SECTION STRING PRIMARY KEY, ENABLED BOOLEAN)";
+    return "PACKAGES_FILTER(SECTION STRING, ENABLED BOOLEAN, REPOID INTEGER, FOREIGN KEY(REPOID) REFERENCES REPOS(REPOID) ON DELETE CASCADE)";
 }
 
 char *schemaForTable(int table) {
@@ -118,8 +118,8 @@ char *schemaForTable(int table) {
 int needsMigration(sqlite3 *database, int table) {
     if (table < 0 || table > 3)
         return 0;
-    char query[65];
-    char *tableNames[10] = { "REPOS", "PACKAGES", "UPDATES", "PACKAGES_FILTER" };
+    char query[100];
+    char *tableNames[20] = { "REPOS", "PACKAGES", "UPDATES", "PACKAGES_FILTER" };
     snprintf(query, sizeof(query), "SELECT sql FROM sqlite_master WHERE name = \"%s\";", tableNames[table]);
     char *schema = NULL;
     
@@ -172,7 +172,7 @@ void createTable(sqlite3 *database, int table) {
         char *updateIndex = "CREATE INDEX IF NOT EXISTS tag_PACKAGE ON UPDATES (PACKAGE);";
         sqlite3_exec(database, updateIndex, NULL, 0, NULL);
     } else if (table == 3) {
-        char *filterIndex = "CREATE INDEX IF NOT EXISTS tag_SECTION ON PACKAGES_FILTER (SECTION);";
+        char *filterIndex = "CREATE UNIQUE INDEX IF NOT EXISTS tag_REPOIDSECTION ON PACKAGES_FILTER (REPOID, SECTION);";
         sqlite3_exec(database, filterIndex, NULL, 0, NULL);
     }
 }
@@ -186,6 +186,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
     char line[256];
     
     createTable(database, 0);
+    createTable(database, 3);
     
     dict *repo = dict_new();
     while (fgets(line, sizeof(line), file) != NULL) {
@@ -259,6 +260,7 @@ enum PARSEL_RETURN_TYPE addPaymentEndpointForRepo(const char *endpointURL, sqlit
 //FIXME: This needs to be adapted to new database format
 void createDummyRepo(struct ZBBaseSource source, sqlite3 *database, int repoID) {
     createTable(database, 0);
+    createTable(database, 3);
     
     sqlite3_stmt *insertStatement;
     const char *insertQuery = repoInsertQuery;

@@ -109,7 +109,7 @@
     if (self.editing) {
         for (NSInteger i = 1; i < sectionNames.count + 1; ++i) {
             NSString *section = [sectionNames objectAtIndex:i - 1];
-            if ([databaseManager isSectionEnabled:section]) {
+            if ([databaseManager isSectionEnabled:section forRepo:repo]) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
             }
@@ -289,7 +289,7 @@
     return [sectionNames count] + 1;
 }
 
-- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
     return indexPath.row != 0;
 }
 
@@ -320,13 +320,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-    [databaseManager filterSection:section enabled:YES];
+    [databaseManager filterSection:section forRepo:repo enabled:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-    [databaseManager filterSection:section enabled:NO];
+    [databaseManager filterSection:section forRepo:repo enabled:NO];
 }
 
 #pragma mark - Navigation
