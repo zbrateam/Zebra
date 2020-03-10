@@ -15,7 +15,7 @@
 #import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBSearchResultsTableViewController ()
-
+@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBSearchResultsTableViewController
@@ -92,22 +92,42 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:true];
-    
+- (ZBPackageDepictionViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
     if (_live) {
         ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
         ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:[proxyPackage loadPackage]];
         
-        [[self navController] pushViewController:depiction animated:true];
-    }
-    else {
+        return depiction;
+    } else {
         ZBPackage *package = filteredResults[indexPath.row];
-         
+        
         ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
         
-        [[self navController] pushViewController:depiction animated:true];
+        return depiction;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    [[self navController] pushViewController:[self getPackageDepictionVC:indexPath] animated:true];
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageDepictionVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [[weakSelf navController] pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+    }];
 }
 
 @end
