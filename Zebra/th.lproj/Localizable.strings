@@ -39,7 +39,7 @@
 "Verifying..." = "กำลังตรวจสอบ...";
 "Confirm Import" = "ยืนยันการนำเข้า";
 "Import Sources" = "นำเข้าซอร์ส";
-"No sources to import" = "No sources to import";
+"No sources to import" = "ไม่มีซอร์สเพื่อนำเข้า";
 "Would you like to import the following sources?" = "คุณต้องการเพิ่มซอร์สเหล่านี้หรือไม่?";
 "Are you sure that you want to import 1 source into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า 1 ซอร์สไปยัง Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "คุณแน่ใจใช่หรือไม่ที่จะนำเข้า %d ซอร์สไปยัง Zebra?";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "คุณต้องการเพิ่มซอร์สจากคลิปบอร์ดของคุณหรือไม่?";
 
 "Please Wait..." = "โปรดรอ...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "กำลังตรวจสอบซอร์ส";
+"Verifying Sources" = "กำลังตรวจสอบซอร์ส";
 "Updating Sources" = "อัพเดตซอร์ส";
 
 "Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
@@ -258,9 +258,9 @@
 "Search" = "ค้นหา";
 "This search query is too short for the full search, please use a longer query." = "ข้อความค้นหาสั้นเกินไปสำหรับการค้นหาเต็มรูปแบบ กรุณาใช้ความยาวมากกว่านี้";
 "No Results Found" = "ไม่พบรายการ";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "ชื่อ";
+"Description" = "คำอธิบาย";
+"Author" = "ผู้เขียน";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
 "%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
 "Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "ปิด Zebra...";
 "Restart SpringBoard" = "เริ่มการทำงาน SpringBoard ใหม่";
 "Restarting SpringBoard..." = "เริ่มการทำงาน SpringBoard ใหม่...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "อ่าน %@";
 "Starting Download" = "เริ่มต้นดาวน์โหลด";
 "Downloading" = "กำลังดาวน์โหลด";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "กำลังดาวน์โหลด %@";
 "Downloading Packages..." = "กำลังดาวน์โหลดโปรแกรม...";
 "Download Completed" = "การดาวน์โหลดเสร็จสิ้น";
 "Installing" = "กำลังติดตั้ง";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
 "Done..." = "เสร็จสิ้น...";
-"Done %@" = "Done %@";
+"Done %@" = "เสร็จสิ้น %@";
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "เพิ่ม URL ของผู้วางขายสำหรับ %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "โปรแกรมที่จำเป็น";
 "Are you sure?" = "คุณแน่ใจหรือไม่?";
 "Remove from Queue" = "เอาออกจากคิว";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "ล้างคิว";
 "%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
 "%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
 "%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
