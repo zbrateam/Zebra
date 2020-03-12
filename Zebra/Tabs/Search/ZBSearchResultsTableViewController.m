@@ -119,6 +119,7 @@
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
+        weakSelf.previewPackageDepictionVC.parent = weakSelf;
         return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
     }];
 }

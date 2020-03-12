@@ -333,7 +333,7 @@
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
+        ZBChildData *post = [weakSelf.redditPosts objectAtIndex:indexPath.row];
         
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
         weakSelf.previewSafariVC = (SFSafariViewController *)[[SFSafariViewController alloc] initWithURL:url];
@@ -354,8 +354,8 @@
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        [self setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
+        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
         return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
     }];
 }
