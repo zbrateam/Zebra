@@ -2,12 +2,12 @@
 
 "Cancel" = "إلغاء";
 "Yes" = "نعم";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Login" = "Login";
+"No" = "لا";
+"Ok" = "حسنًا";
+"Error" = "خطأ";
+"Retry" = "إعادة المحاولة";
+"Edit" = "تعديل";
+"Login" = "تسجيل الدخول";
 "Close" = "إغلاق";
 "Done" = "تم";
 
@@ -16,12 +16,12 @@
 "Home" = "الرئيسية";
 "Info" = "معلومات";
 "Welcome to Zebra!" = "مرحبًا بك في Zebra!";
-"Changelog" = "Changelog";
+"Changelog" = "التغييرات";
 "Community Sources" = "مصادر المجتمع";
 "You’ve added all of the community sources" = "لقد أضفت كل مصادر المجتمع";
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
 "Utility repo for %@" = "فائدة المستودع لـ %@";
-"Transfer Sources" = "Transfer Sources";
+"Transfer Sources" = "نقل المصادر";
 "Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Stores" = "المتاجر";
 "Purchases" = "المشتريات";
