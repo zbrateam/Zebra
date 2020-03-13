@@ -14,9 +14,11 @@
 #import "ZBRightIconTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
 #import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBFilterSettingsTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
+    ZBFilters,
     ZBFeatured,
     ZBNews,
     ZBSearch,
@@ -103,12 +105,13 @@ enum ZBMiscOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
+        case ZBFilters:
         case ZBNews:
         case ZBMisc:
         case ZBSearch:
@@ -206,6 +209,13 @@ enum ZBMiscOrder {
             
             cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
+        }
+        case ZBFilters: {
+            cell.textLabel.text = NSLocalizedString(@"Filters and Blocks", @"");
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             return cell;
@@ -318,6 +328,10 @@ enum ZBMiscOrder {
             }
             break;
         }
+        case ZBFilters: {
+            [self filterSettings];
+            break;
+        }
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
@@ -396,6 +410,12 @@ enum ZBMiscOrder {
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:[dropTables boolValue]];
         [self presentViewController:refreshController animated:YES completion:nil];
     }
+}
+
+- (void)filterSettings {
+    ZBFilterSettingsTableViewController *filterController = [[ZBFilterSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:filterController animated:YES];
 }
 
 - (void)displaySettings {
