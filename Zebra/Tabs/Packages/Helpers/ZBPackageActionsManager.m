@@ -224,7 +224,7 @@
     return [self actions:1 forPackage:package indexPath:nil viewController:vc parent:parent completion:NULL];
 }
 
-+ (NSMutableArray <UIMenuElement *> *)contextMenuActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent  API_AVAILABLE(ios(13.0)){
++ (NSMutableArray <UIMenuElement *> *)contextMenuActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent  API_AVAILABLE(ios(13.0)) {
     return [self actions:3 forPackage:package indexPath:indexPath viewController:vc parent:parent completion:NULL];
 }
 

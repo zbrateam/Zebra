@@ -636,7 +636,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 // Haptic Touch Actions
 
-- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath {
+- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
     return [ZBPackageActionsManager contextMenuActionsForPackage:package indexPath:indexPath viewController:self parent:_parent];
 }
 
