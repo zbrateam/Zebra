@@ -100,7 +100,7 @@
     }
     
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
 - (void)filterButtonPressed:(id)sender {
@@ -144,8 +144,7 @@
 
 - (void)checkFeaturedPackages {
     [self.featuredCollection removeFromSuperview];
-    UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-    self.tableView.tableHeaderView = blankHeader;
+    self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
     if (repo.supportsFeaturedPackages) {
         NSString *requestURL;
@@ -187,7 +186,7 @@
     // [self.featuredCollection setNeedsLayout];
     // [self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 10);
+        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 30);
     }];
     [self.tableView endUpdates];
     // [self.tableView reloadData];
