@@ -133,7 +133,7 @@
 "Delete" = "حذف";
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
-"Remove Source" = "مصدر محذوف";
+"Remove Source" = "إحذف المصدر";
 "Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
