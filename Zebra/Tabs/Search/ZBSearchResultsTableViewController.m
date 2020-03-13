@@ -71,6 +71,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row >= filteredResults.count) return NULL;
     if (_live) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
         ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
