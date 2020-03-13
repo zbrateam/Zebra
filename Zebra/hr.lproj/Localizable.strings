@@ -39,7 +39,7 @@
 "Verifying..." = "Provjeravanje...";
 "Confirm Import" = "Potvrda uvoza";
 "Import Sources" = "Uvezite izvore";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Nema izvora za uvoz";
 "Would you like to import the following sources?" = "Dali bi voljeli uvesti sljedeće izvore?";
 "Are you sure that you want to import 1 source into Zebra?" = "Dali ste sigurni da želite uvesti 1 izvor u Zebru?";
 "Are you sure that you want to import %d sources into Zebra?" = "Dali ste sigurni da želite uvesti %d izvore u Zebru?";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "Dali želite dodati URL iz Vašeg međuspremnika?";
 
 "Please Wait..." = "Molimo pričekajte...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verifikacija izvora";
+"Verifying Sources" = "Verifikacija izvora";
 "Updating Sources" = "Nadogradnja izvora";
 
 "Unknown error" = "Nepoznata pogreška";
@@ -258,9 +258,9 @@
 "Search" = "Pretraga";
 "This search query is too short for the full search, please use a longer query." = "Ovaj je upit za pretraživanje prekratak za cjelovito pretraživanje. Molimo, koristite dulji upit.";
 "No Results Found" = "Nema pronađenih rezultata";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Ime";
+"Description" = "Opis";
+"Author" = "Autor";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Ne mogu pronaći URL preuzimanje za";
 "%@ hasn't been modified" = "%@ nije izmjenjeno";
 "Could not parse %@ from %@" = "Ne može rasčlaniti %@ iz %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Datoteka za preuzimanje: %d";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Zatvaranje Zebre...";
 "Restart SpringBoard" = "Ponovo pokrenite SpringBoard";
 "Restarting SpringBoard..." = "Ponovo pokrenite SpringBoard...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Rasčlanjivanje %@";
 "Starting Download" = "Početak Preuzimanja";
 "Downloading" = "Preuzimanje";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Preuzimanje %@";
 "Downloading Packages..." = "Preuzimanje paketa...";
 "Download Completed" = "Preuzimanje završeno";
 "Installing" = "Instaliranje";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "Pogreška pri preuzimanju jednog ili više paketa.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Povratak u red\" da biste se vratili u red i pokušali ponovo preuzeti.";
 "Done..." = "Gotovo...";
-"Done %@" = "Done %@";
+"Done %@" = "Dovršeno %@";
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Dodavanje URL-a dobavljača plaćanja za %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "Potreban Paket";
 "Are you sure?" = "Jeste li sigurni?";
 "Remove from Queue" = "Ukloni iz Liste";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Očisti red čekanja";
 "%@ is required by:" = "%@ je potreban od strane:";
 "%@ must be removed because it depends on %@" = "%@ mora biti uklonjeno jer ovisi o %@";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji se ne mogu riješiti:";
