@@ -21,6 +21,8 @@ NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
+NSString *const FilteredSourcesKey = @"FilteredSources";
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 
@@ -219,29 +221,40 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
     return [defaults boolForKey:liveSearchKey];
 }
 
-+ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
++ (NSDictionary *)filteredSources {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSArray *filteredSections = [defaults objectForKey:[source baseFilename]];
+    return [defaults objectForKey:FilteredSourcesKey] ?: [NSDictionary new];
+}
+
++ (void)setFilteredSources:(NSDictionary *)filteredSources {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:filteredSources forKey:FilteredSourcesKey];
+}
+
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
+    NSDictionary *filteredSources = [self filteredSources];
+    NSArray *filteredSections = [filteredSources objectForKey:[source baseFilename]];
     if (!filteredSections) return NO;
     
     return [filteredSections containsObject:section];
 }
 
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    NSMutableArray *filteredSections = [[defaults objectForKey:[source baseFilename]] mutableCopy];
+    NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
+    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source baseFilename]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
-    if (filtered) {
+    if (filtered && ![filteredSections containsObject:section]) {
         [filteredSections addObject:section];
     }
-    else {
+    else if (!filtered) {
         [filteredSections removeObject:section];
     }
     
-    [defaults setObject:filteredSections forKey:[source baseFilename]];
+    [filteredSources setObject:filteredSections forKey:[source baseFilename]];
+    [self setFilteredSources:filteredSources];
 }
 
 #pragma clang diagnostic pop

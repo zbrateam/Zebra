@@ -31,6 +31,8 @@ extern NSString * _Nonnull const UseSystemAppearanceKey;
 extern NSString * _Nonnull const InterfaceStyleKey;
 extern NSString * _Nonnull const PureBlackModeKey;
 
+extern NSString * _Nonnull const FilteredSourcesKey;
+
 #pragma mark - Accent Colors
 
 typedef enum : NSUInteger {
@@ -103,8 +105,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)liveSearch;
 
-+ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
++ (NSDictionary *)filteredSources;
++ (void)setFilteredSources:(NSDictionary *)filteredSources;
 
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
 
 @end
