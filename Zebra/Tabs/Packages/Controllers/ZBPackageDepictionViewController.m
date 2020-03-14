@@ -370,7 +370,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         }
         else {
             navButtonsBeingConfigured = NO;
-            [self showRemoveButton];
+            [self showModifyButton:YES];
         }
     }
     else if ([package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
