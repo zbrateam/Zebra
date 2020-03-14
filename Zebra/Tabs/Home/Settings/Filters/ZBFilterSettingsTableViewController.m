@@ -19,9 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    filteredSources = [defaults objectForKey:@""];
-    if (!filteredSources) filteredSources = [NSMutableArray new];
+    if (!filteredSources) filteredSources = [[[ZBSettings filteredSources] allKeys] mutableCopy];
     
     self.navigationItem.title = NSLocalizedString(@"Filters", @"");
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -30,15 +28,47 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    switch (section) {
+        case 0:
+            return 1;
+        case 1:
+            return [filteredSources count] + 1;
+        case 2:
+            return 1;
+        case 3:
+            return 1;
+        default:
+            return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"filterCell"];
+    
+    switch (indexPath.section) {
+        case 0: {
+            break;
+        }
+        case 1: {
+            if (indexPath.row < [filteredSources count]) {
+                cell.textLabel.text = filteredSources[indexPath.row];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                return cell;
+            }
+            break;
+        }
+        case 2: {
+            break;
+        }
+        case 3: {
+            break;
+        }
+    }
     
     cell.textLabel.text = @"Add Filter";
     cell.textLabel.textColor = [UIColor accentColor];
@@ -49,9 +79,13 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return @"Filtered Sections";
+            return NSLocalizedString(@"Sections", @"");
         case 1:
-            return @"Blocked Authors";
+            return NSLocalizedString(@"Sources", @"");
+        case 2:
+            return NSLocalizedString(@"Ignored Updates", @"");
+        case 3:
+            return NSLocalizedString(@"Blocked Authors", @"");
     }
     return NULL;
 }
@@ -59,9 +93,13 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return @"Exclude packages that are in this section.";
+            return NSLocalizedString(@"Hide packages in these sections.", @"");
         case 1:
-            return @"Exclude packages created by these authors.";
+            return NSLocalizedString(@"Hide packages in these sections from specific sources.", @"");
+        case 2:
+            return NSLocalizedString(@"Ignore any future updates from these packages.", @"");
+        case 3:
+            return NSLocalizedString(@"Hide all packages from these authors.", @"");
     }
     return NULL;
 }
