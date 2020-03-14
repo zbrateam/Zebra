@@ -214,7 +214,7 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBFilters: {
-            cell.textLabel.text = NSLocalizedString(@"Filters and Blocks", @"");
+            cell.textLabel.text = NSLocalizedString(@"Filters", @"");
             cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             

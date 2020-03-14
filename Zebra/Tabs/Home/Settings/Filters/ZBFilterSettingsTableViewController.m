@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = NSLocalizedString(@"Filters and Blocks", @"");
+    self.navigationItem.title = NSLocalizedString(@"Filters", @"");
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
@@ -56,10 +56,26 @@
         case 0:
             return @"Exclude packages that are in this section.";
         case 1:
-            return @"Exclude packages created by these users.";
+            return @"Exclude packages created by these authors.";
     }
     return NULL;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    UIAlertController *addFilter = [UIAlertController alertControllerWithTitle:@"Add Filter" message:@"Add a Filter" preferredStyle:UIAlertControllerStyleAlert];
+    
+    [addFilter addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Enter Filter";
+    }];
+    
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:nil];
+    [addFilter addAction:action];
+    
+    [self presentViewController:addFilter animated:true completion:nil];
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
