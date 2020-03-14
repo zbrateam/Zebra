@@ -41,13 +41,12 @@
     if (recachingNeeded) {
         recachingNeeded = NO;
         repos = [NSMutableDictionary new];
-        NSString *query = @"SELECT * FROM REPOS;";
 
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
 
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS;", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 repos[@(source.repoID)] = source;

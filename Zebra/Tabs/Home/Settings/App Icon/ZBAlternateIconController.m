@@ -122,7 +122,7 @@
     [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:YES];
     if (border) [cell.imageView applyBorder];
 
-    NSString *iconSelected;
+    NSString *iconSelected = nil;
     if (@available(iOS 10.3, *)) {
         iconSelected = [[UIApplication sharedApplication] alternateIconName];
     }

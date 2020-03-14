@@ -472,9 +472,7 @@ enum ZBMiscOrder {
 - (void)toggle:(id)sender preference:(NSString *)preferenceKey notification:(NSString *)notificationKey {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     UISwitch *switcher = (UISwitch *)sender;
-    BOOL value = [defaults boolForKey:preferenceKey];
-    value = switcher.isOn;
-    [defaults setBool:value forKey:preferenceKey];
+    [defaults setBool:switcher.isOn forKey:preferenceKey];
     [defaults synchronize];
     [ZBDevice hapticButton];
     if (notificationKey) {
@@ -544,11 +542,7 @@ enum ZBMiscOrder {
 
 - (void)misc {
     ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
-        controller.selectedRow = 1;
-    } else {
-        controller.selectedRow = 0;
-    }
+    controller.selectedRow = [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey] ? 1 : 0;
     controller.title = @"Swipe Actions Display As";
     controller.options = @[@"Text", @"Icon"];
     controller.settingChanged = ^(NSInteger newValue) {
