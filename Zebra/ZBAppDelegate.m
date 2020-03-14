@@ -22,6 +22,7 @@
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
 #import <Database/ZBRefreshViewController.h>
+#import <Search/ZBSearchTableViewController.h>
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
@@ -329,9 +330,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 4: {
                     [tabController setSelectedIndex:ZBTabSearch];
                     
-                    //FIXME: Make url scheme work again
-//                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//                    [searchController handleURL:url];
+                    ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [searchController handleURL:url];
                     break;
                 }
             }
@@ -350,9 +350,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
         
-        //FIXME: Fix 3D Touch action
-//        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//        [searchController handleURL:NULL];
+        ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [searchController handleURL:NULL];
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         

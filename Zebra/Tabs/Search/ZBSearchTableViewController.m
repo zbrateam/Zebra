@@ -31,28 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"] mutableCopy];
-    if (!recentSearches) {
-        recentSearches = [NSMutableArray new];
-    }
-    
-    if (!databaseManager) {
-        databaseManager = [ZBDatabaseManager sharedInstance];
-    }
-    
-    if (!searchController) {
-        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] initWithNavigationController:self.navigationController]];
-        searchController.delegate = self;
-        searchController.searchResultsUpdater = self;
-        searchController.searchBar.delegate = self;
-        searchController.searchBar.tintColor = [UIColor accentColor];
-        searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
-        searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
-    }
-    
-    if (@available(iOS 9.1, *)) {
-        searchController.obscuresBackgroundDuringPresentation = NO;
-    }
+    [self setupView];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.searchController = searchController;
@@ -75,6 +54,31 @@
     }
     
     [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+}
+
+- (void)setupView {
+    recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"] mutableCopy];
+    if (!recentSearches) {
+        recentSearches = [NSMutableArray new];
+    }
+    
+    if (!databaseManager) {
+        databaseManager = [ZBDatabaseManager sharedInstance];
+    }
+    
+    if (!searchController) {
+        searchController = [[UISearchController alloc] initWithSearchResultsController:[[ZBSearchResultsTableViewController alloc] initWithNavigationController:self.navigationController]];
+        searchController.delegate = self;
+        searchController.searchResultsUpdater = self;
+        searchController.searchBar.delegate = self;
+        searchController.searchBar.tintColor = [UIColor accentColor];
+        searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
+        searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
+    }
+    
+    if (@available(iOS 9.1, *)) {
+        searchController.obscuresBackgroundDuringPresentation = NO;
+    }
 }
 
 #pragma mark - Helper Methods
@@ -211,6 +215,27 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[button]-0-|" options:0 metrics:nil views:views]];
  
     return headerView;
+}
+
+#pragma mark - URL Handling
+
+- (void)handleURL:(NSURL *_Nullable)url {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (url == NULL) {
+            [self setupView];
+            
+            [self->searchController.searchBar becomeFirstResponder];
+        } else {
+            NSArray *path = [url pathComponents];
+            if ([path count] == 2) {
+                [self setupView];
+                
+                NSString *searchTerm = path[1];
+                [self->searchController.searchBar becomeFirstResponder];
+                [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
+            }
+        }
+    });
 }
 
 @end
