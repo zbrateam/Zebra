@@ -399,12 +399,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 });
             }
             else {
+                self->navButtonsBeingConfigured = NO;
                 [self showInstallButton];
             }
         }];
     }
     else {
         // Show the modify button as a last resort
+        self->navButtonsBeingConfigured = NO;
         [self showModifyButton:NO];
     }
 }
