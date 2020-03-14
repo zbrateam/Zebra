@@ -23,11 +23,11 @@
     CGSize bannerSize;
     UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
-    UIBarButtonItem *filterButton;
 }
 @property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) NSArray *featuredPackages;
 @property (nonatomic, strong) NSArray *sectionNames;
+@property (nonatomic, strong) NSMutableArray *filteredSections;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
 @end
 
@@ -36,6 +36,7 @@
 @synthesize repo;
 @synthesize sectionNames;
 @synthesize sectionReadout;
+@synthesize filteredSections;
 
 #pragma mark - View Controller Lifecycle
 
@@ -47,14 +48,11 @@
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    filterButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Edit", @"") style:UIBarButtonItemStylePlain target:self action:@selector(filterButtonPressed:)];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    filteredSections = [[defaults objectForKey:[repo baseFilename]] mutableCopy];
+    if (!filteredSections) filteredSections = [NSMutableArray new];
     
-    if ([repo paymentVendorURL]) {
-        UIBarButtonItem *accountButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain target:self action:@selector(accountButtonPressed:)];
-        self.navigationItem.rightBarButtonItems = @[filterButton, accountButton];
-    } else {
-        self.navigationItem.rightBarButtonItem = filterButton;
-    }
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil]; // For iOS 9 and 10 Sileo Purchases
@@ -103,13 +101,13 @@
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
 }
 
-- (void)filterButtonPressed:(id)sender {
-    self.editing = !self.editing;
-    filterButton.title = NSLocalizedString(self.editing ? @"Done" : @"Edit", @"");
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
     if (self.editing) {
         for (NSInteger i = 1; i < sectionNames.count + 1; ++i) {
             NSString *section = [sectionNames objectAtIndex:i - 1];
-            if ([databaseManager isSectionEnabled:section forRepo:repo]) {
+            if (![filteredSections containsObject:section]) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
                 [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
             }
@@ -305,27 +303,29 @@
         
         NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     } else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = NSLocalizedString(section, @"");
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
+    
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-    [databaseManager filterSection:section forRepo:repo enabled:YES];
+    [filteredSections removeObject:section];
+    [ZBSettings setSection:section filtered:false forSource:self.repo];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
+    
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-    [databaseManager filterSection:section forRepo:repo enabled:NO];
+    [filteredSections addObject:section];
+    [ZBSettings setSection:section filtered:true forSource:self.repo];
 }
 
 #pragma mark - Navigation

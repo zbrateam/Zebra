@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBSource;
+
 #import <Foundation/Foundation.h>
 
 #pragma mark - Settings Keys
@@ -100,6 +102,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
 
 + (BOOL)liveSearch;
+
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
+
++ (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
 
 @end
 

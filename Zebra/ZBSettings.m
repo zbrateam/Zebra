@@ -11,6 +11,7 @@
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIWindow.h>
+#import <Sources/Helpers/ZBSource.h>
 
 @implementation ZBSettings
 
@@ -216,6 +217,31 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     return [defaults boolForKey:liveSearchKey];
+}
+
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSArray *filteredSections = [defaults objectForKey:[source baseFilename]];
+    if (!filteredSections) return NO;
+    
+    return [filteredSections containsObject:section];
+}
+
++ (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray *filteredSections = [[defaults objectForKey:[source baseFilename]] mutableCopy];
+    if (!filteredSections) filteredSections = [NSMutableArray new];
+    
+    if (filtered) {
+        [filteredSections addObject:section];
+    }
+    else {
+        [filteredSections removeObject:section];
+    }
+    
+    [defaults setObject:filteredSections forKey:[source baseFilename]];
 }
 
 #pragma clang diagnostic pop
