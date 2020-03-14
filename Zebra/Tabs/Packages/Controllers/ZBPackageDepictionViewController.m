@@ -134,7 +134,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
     
-    [progressView setTintColor:[UIColor accentColor] ? [UIColor accentColor] : [UIColor systemBlueColor]];
+    [progressView setTintColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     
     webView.navigationDelegate = self;
     webView.opaque = NO;
