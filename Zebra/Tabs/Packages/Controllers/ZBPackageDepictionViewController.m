@@ -404,8 +404,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         }];
     }
     else {
-        //Show the install button as a last resort
-        [self showInstallButton];
+        // Show the modify button as a last resort
+        [self showModifyButton:NO];
     }
 }
 
