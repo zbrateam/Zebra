@@ -939,7 +939,7 @@
                 }
                 if (![self packageIDIsInstalled:identifier version:nil]) {
                     // We don't need ignored updates from packages we don't have them installed
-                    [irrelevantPackages addObject:identifier];
+                    [irrelevantPackages addObject:[NSString stringWithFormat:@"'%@'", identifier]];
                     if (package) {
                         [packagesWithIgnoredUpdates removeObject:package];
                     }
