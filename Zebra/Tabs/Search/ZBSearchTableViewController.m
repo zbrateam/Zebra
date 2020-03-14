@@ -13,6 +13,8 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 
+#define MAX_SEARCH_RECENT_COUNT 5
+
 @interface ZBSearchTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSMutableArray *recentSearches;
@@ -91,28 +93,25 @@
     ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
     [resultsController setLive:self->shouldPerformSearching];
     
-    if (!self->shouldPerformSearching) {
-        [resultsController setFilteredResults:@[]];
-        [resultsController refreshTable];
-        return;
-    }
+    NSArray *results = nil;
     
-    NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    if ([strippedString length] <= 1) {
-        return;
-    }
-    
-    NSArray *results;
-    NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
-    switch (selectedIndex) {
-        case 0:
-            results = [databaseManager searchForPackageName:strippedString fullSearch:!self->shouldPerformSearching];
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
+    if (self->shouldPerformSearching) {
+        NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        if ([strippedString length] <= 1) {
+            return;
+        }
+        
+        NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
+        switch (selectedIndex) {
+            case 0:
+                results = [databaseManager searchForPackageName:strippedString fullSearch:!self->shouldPerformSearching];
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
     }
     
     [resultsController setFilteredResults:results];
@@ -143,8 +142,8 @@
     self->shouldPerformSearching = YES;
     
     NSString *newSearch = searchBar.text;
-    if ([recentSearches count] >= 5) {
-        [recentSearches removeObjectAtIndex:4];
+    if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
+        [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
     }
     [recentSearches insertObject:newSearch atIndex:0];
     [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
@@ -172,7 +171,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return MIN(recentSearches.count, 5);
+    return MIN(recentSearches.count, MAX_SEARCH_RECENT_COUNT);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
