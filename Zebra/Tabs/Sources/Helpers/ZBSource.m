@@ -46,6 +46,10 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [[ZBDatabaseManager sharedInstance] repoFromBaseURL:baseURL];
 }
 
++ (ZBSource *)sourceFromBaseFilename:(NSString *)baseFilename {
+    return [[ZBDatabaseManager sharedInstance] repoFromBaseFilename:baseFilename];
+}
+
 + (BOOL)exists:(NSString *)urlString {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     return [databaseManager repoIDFromBaseURL:urlString strict:NO] > 0;

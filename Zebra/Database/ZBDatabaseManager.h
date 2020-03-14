@@ -175,6 +175,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
 
 /*!
+@brief Get a ZBSource instance  from a base filename
+@param baseFilename the base filename
+@return A ZBSource instance for the matching base filename
+*/
+- (ZBSource *)repoFromBaseFilename:(NSString *)baseFilename;
+
+/*!
  @brief The next repoID in the database.
  @return The next repoID.
  */

@@ -618,6 +618,29 @@
     return nil;
 }
 
+- (ZBSource *)repoFromBaseFilename:(NSString *)baseFilename {
+    if ([self openDatabase] == SQLITE_OK) {
+        sqlite3_stmt *statement;
+        ZBSource *repo = nil;
+        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE BASEFILENAME = ?", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [baseFilename UTF8String], -1, SQLITE_TRANSIENT);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                repo = [[ZBSource alloc] initWithSQLiteStatement:statement];
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        return repo;
+    } else {
+        [self printDatabaseError];
+    }
+    return nil;
+}
+
 - (int)nextRepoID {
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement;

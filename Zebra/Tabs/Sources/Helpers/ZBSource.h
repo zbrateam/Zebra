@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSource *)repoMatchingRepoID:(int)repoID;
 + (ZBSource *)localRepo:(int)repoID;
 + (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
++ (ZBSource *)sourceFromBaseFilename:(NSString *)baseFilename;
 + (BOOL)exists:(NSString *)urlString;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSString *)paymentSecret;
