@@ -220,7 +220,8 @@
                 self.navigationItem.rightBarButtonItem = loadButton;
             }
         } else {
-            self.navigationItem.rightBarButtonItem = nil;
+            UIBarButtonItem *installAllButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install All", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installAll)];
+            self.navigationItem.rightBarButtonItem = installAllButton;
         }
     });
 }
@@ -235,6 +236,16 @@
         [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
         self.navigationItem.titleView = segmentedControl;
     });
+}
+
+- (void)installAll {
+    NSMutableArray *installablePackages = [NSMutableArray new];
+    for (ZBPackage *package in packages) {
+        if ([package isInstalled:NO] || ![package isReinstallable])
+            continue;
+        [installablePackages addObject:package];
+    }
+    [[ZBQueue sharedQueue] addPackages:installablePackages toQueue:ZBQueueTypeInstall];
 }
 
 - (void)presentQueue {
