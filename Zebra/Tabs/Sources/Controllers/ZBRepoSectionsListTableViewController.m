@@ -48,8 +48,7 @@
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    filteredSections = [[defaults objectForKey:[repo baseFilename]] mutableCopy];
+    filteredSections = [[[ZBSettings filteredSources] objectForKey:[repo baseFilename]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     self.navigationItem.rightBarButtonItem = self.editButtonItem;

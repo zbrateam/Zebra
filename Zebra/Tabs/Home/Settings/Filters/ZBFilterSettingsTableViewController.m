@@ -9,14 +9,19 @@
 #import "ZBFilterSettingsTableViewController.h"
 #import <UIColor+GlobalColors.h>
 
-@interface ZBFilterSettingsTableViewController ()
-
+@interface ZBFilterSettingsTableViewController () {
+    NSMutableArray *filteredSources;
+}
 @end
 
 @implementation ZBFilterSettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    filteredSources = [defaults objectForKey:@""];
+    if (!filteredSources) filteredSources = [NSMutableArray new];
     
     self.navigationItem.title = NSLocalizedString(@"Filters", @"");
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
