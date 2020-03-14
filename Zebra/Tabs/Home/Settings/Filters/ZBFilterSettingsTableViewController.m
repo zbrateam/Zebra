@@ -6,11 +6,16 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
+@import SDWebImage;
+
 #import "ZBFilterSettingsTableViewController.h"
 #import <UIColor+GlobalColors.h>
+#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Helpers/ZBSource.h>
 
 @interface ZBFilterSettingsTableViewController () {
-    NSMutableArray *filteredSources;
+    NSMutableArray <NSString *> *baseFilenames;
+    NSDictionary <NSString *, NSArray *> *filteredSources;
 }
 @end
 
@@ -19,10 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (!filteredSources) filteredSources = [[[ZBSettings filteredSources] allKeys] mutableCopy];
+    if (!filteredSources) filteredSources = [[ZBSettings filteredSources] mutableCopy];
+    if (!baseFilenames) baseFilenames = [[filteredSources allKeys] mutableCopy];
     
     self.navigationItem.title = NSLocalizedString(@"Filters", @"");
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
 }
 
 #pragma mark - Table View Data Source
@@ -55,10 +63,18 @@
         }
         case 1: {
             if (indexPath.row < [filteredSources count]) {
-                cell.textLabel.text = filteredSources[indexPath.row];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                ZBRepoTableViewCell *repoCell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+                NSString *baseFilename = baseFilenames[indexPath.row];
+                ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
                 
-                return cell;
+                repoCell.repoLabel.text = [source label];
+                
+                unsigned long numberOfSections = (unsigned long)[filteredSources[baseFilename] count];
+                repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Filtered", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
+                
+                [repoCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+                
+                return repoCell;
             }
             break;
         }
