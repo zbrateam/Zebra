@@ -16,7 +16,7 @@
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 @interface ZBFilterSettingsTableViewController () {
-    NSMutableArray <NSString *> *baseFilenames;
+    NSMutableArray <ZBSource *> *sources;
     NSDictionary <NSString *, NSArray *> *filteredSources;
 }
 @end
@@ -35,7 +35,13 @@
 
 - (void)refreshTable {
     filteredSources = [[ZBSettings filteredSources] mutableCopy];
-    baseFilenames = [[filteredSources allKeys] mutableCopy];
+    NSArray *baseFilenames = [filteredSources allKeys];
+    
+    sources = [NSMutableArray new];
+    for (NSString *baseFilename in baseFilenames) {
+        [sources addObject:[ZBSource sourceFromBaseFilename:baseFilename]];
+    }
+    [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
     
     [[self tableView] reloadData];
 }
@@ -55,7 +61,7 @@
         case 2:
             return 1;
         case 3:
-            return 2;
+            return 1;
         default:
             return 1;
     }
@@ -71,13 +77,12 @@
         case 1: {
             if (indexPath.row < [filteredSources count]) {
                 ZBRepoTableViewCell *repoCell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
-                NSString *baseFilename = baseFilenames[indexPath.row];
-                ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+                ZBSource *source = sources[indexPath.row];
                 
                 repoCell.repoLabel.text = [source label];
                 repoCell.repoLabel.textColor = [UIColor primaryTextColor];
                 
-                unsigned long numberOfSections = (unsigned long)[filteredSources[baseFilename] count];
+                unsigned long numberOfSections = (unsigned long)[filteredSources[[source baseFilename]] count];
                 repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Filtered", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
                 repoCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
@@ -158,6 +163,11 @@
         case 3:
             break;
     }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
+    return indexPath.row != rowCount - 1;
 }
 
 @end
