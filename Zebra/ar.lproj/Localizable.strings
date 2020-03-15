@@ -92,7 +92,7 @@
 
 "Featured Packages" = "الحزم المميزة";
 "Feature Type" = "نوع الميزة";
-"Repo Featured" = "الحزم المميزة في المصدر";
+"Repo Featured" = "Repo Featured";
 "Random" = "عشوائي";
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 "Featured Repos" = "المستودعات المميزة";
@@ -110,21 +110,21 @@
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
 "Image Cache Reset" = "Image Cache Reset";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "هل أنت متأكد من أنك تريد إعادة تعيين إعدادات Zebra؟\n سيؤدي ذلك إلى إعادة تعيين جميع إعدادات Zebra إلى قيمها الإفتراضية وسيتم إعادة تشغيل Zebra.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "هل انت متأكد من أنك تريد محو جميع المصادر والإعدادات؟\n ستتم إزالة جميع مصادرك من Zebra وسيتم إعادة تعيين إعداداتك";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف جميع المصادر الخاصة بك وستزول إلى الأبد \nوسيتم إعادة تشغيل Zebra.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
 
 // Stores
 
 "Stores" = "المتاجر";
-"Account" = "الحساب";
-"Sign In" = "تسجيل الدخول";
-"Sign Out" = "تسجيل الخروج";
-"Your Purchases" = "مشترياتك";
-"No Storefronts Available" = "لا توجد واجهات متاحة";
-"Could not complete purchase" = "تعذر إكمال الشراء";
-"Could not complete purchase, no payment secret was found" = "تعذر إكمال الشراء، لم يتم العثور على دفع آمن";
-"No packages purchased" = "لا يوجد حزم مشترية";
+"Account" = "Account";
+"Sign In" = "Sign In";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not complete purchase" = "Could not complete purchase";
+"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"No packages purchased" = "No packages purchased";
 
 // Sources
 
@@ -133,7 +133,7 @@
 "Delete" = "حذف";
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
-"Remove Source" = "إحذف المصدر";
+"Remove Source" = "Remove Source";
 "Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
@@ -144,28 +144,28 @@
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source" = "جارِ التحقق من المصدر";
-"Verifying Sources" = "جارِ التحقق من المصادر";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "جارِ تحديث المصادر";
 
 "Unknown error" = "خطأ غير معروف";
 "Invalid URL" = "عنوان URL غير صحيح";
-"Invalid Source" = "مصدر خاطئ";
-"Tap to learn more" = "انقر لمعرفة المزيد";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
 "No source URLs detected." = "لم يتم اكتشاف عناوين URL المصادر.";
 "Unable to verify source" = "غير قادر على التحقق من المصدر";
 "Error verifying source" = "خطأ في التحقق من المصدر";
 "Error verifying sources" = "خطأ في التحقق من المصادر";
 "Failed to add source" = "فشل في إضافة المصدر";
 "Failed to add sources" = "فشل في إضافة المصادر";
-"You have already added this source." = "لقد أضفت هذه المصادر بالفعل.";
+"You have already added this source." = "You have already added this source.";
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
 
-"The URL you entered is not valid. Please check it and try again." = "الـURL الذي أدخلته غير صالح. يرجى التحقق من ذلك وحاول مرة أخرى.";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زيبرا لم يستطِع تنزيل الملف المحدد في %@. لا يمكن الوصول له مؤقتاً أو تم إضافته بالخطأ.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -258,9 +258,9 @@
 "Search" = "بحث";
 "This search query is too short for the full search, please use a longer query." = "الإستعلام هذا قصير جدًا للبحث الكامل ، يرجى استخدام استعلام أطول.";
 "No Results Found" = "لاتوجد نتائج";
-"Name" = "الاسم";
-"Description" = "الوصف";
-"Author" = "المؤلف";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
 "Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
-"A total of %d files will be downloaded" = "سيتم تنزيل %d من الملفات";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -283,13 +283,13 @@
 "Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
-"Closing Zebra..." = "جارِ إغلاق Zebra...";
+"Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "إعادة تشغيل واجهة النظام";
-"Restarting SpringBoard..." = "جارِ إعادة تشغيل واجهة النظام...";
-"Parsing %@" = "جارِ التحليل %@";
-"Starting Download" = "جارِ بدء التنزيل";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Parsing %@" = "Parsing %@";
+"Starting Download" = "Starting Download";
 "Downloading" = "جارِ التنزيل";
-"Downloading %@" = "جارِ تنزيل %@";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "تنزيل الحزم...";
 "Download Completed" = "إكتمل التنزيل";
 "Installing" = "جارِ التثبيت";
@@ -303,16 +303,16 @@
 "Complete" = "إكتمل";
 "Finished!" = "انتهى!";
 "Return to Queue" = "العودة إلى قائمة الإنتظار";
-"Returning to Queue..." = "جارِ العودة إلى قائمة الإنتظار...";
+"Returning to Queue..." = "Returning to Queue...";
 "Importing local packages." = "استيراد الحزم المحلية.";
 "Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
-"Done..." = "تم...";
-"Done %@" = "تم %@";
+"Done..." = "Done...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
-"Adding Payment Vendor URL for %@" = "إضافة عنوان URL لمورد الدفع لـ %@";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "حزمة مطلوبة";
 "Are you sure?" = "هل أنت متأكد؟";
 "Remove from Queue" = "إزالة من قائمة الإنتظار";
-"Clear Queue" = "مسح قائمة الانتظار";
+"Clear Queue" = "Clear Queue";
 "%@ is required by:" = "%@ مطلوبة بواسطة:";
 "%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
 "%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
@@ -348,7 +348,7 @@
 // Search
 
 "Live Search" = "بحث مباشر";
-"Tweaks, Themes, and More" = "أدوات، موضوعات، والكثير";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة ويجب إزالتها لأنها تعتمد على %@. حزمة %@ لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
@@ -387,6 +387,6 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"عشوائي\" سيعرض حزم عشوائية من جميع المستودعات التي أضفتها إلى Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "تسجيل الدخول إلى المصادر يسمح بشراء الحزم المدفوعة.";
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "تجاهل تلقائي لوحدة التحكم عند انتهاء كل مهامها.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
