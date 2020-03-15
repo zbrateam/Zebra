@@ -35,14 +35,14 @@
 "Transfer Sources" = "تحويل المصادر";
 "Verifying Source" = "جارِ التحقق من المصدر";
 "Verifying Sources" = "جارِ التحقق من المصادر";
-"Import" = "استيراد";
-"Verifying..." = "جار التحقق...";
-"Confirm Import" = "تأكيد الإستيراد";
+"Import" = "Import";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 "Import Sources" = "استيراد المصادر";
-"No sources to import" = "لا توجد مصادر لاستيرادها";
+"No sources to import" = "No sources to import";
 "Would you like to import the following sources?" = "هل ترغب في استيراد المصادر التالية؟";
-"Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
-"Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 
 
 // Credits
@@ -64,29 +64,29 @@
 "Swipe Actions Display As" = "إظهار إجراءات السحب كـ";
 "Text" = "نص";
 "Icon" = "أيقونة";
-"Finish Automatically" = "إنهاء تلقائيًا";
+"Finish Automatically" = "Finish Automatically";
 
 // Accent Colors
 
 "Accent Color" = "اللون الثانوي";
-"Aqua Velvet" = "أزرق مخملي";
-"Cornflower Blue" = "أزرق شاحب";
-"Golden Tainoi" = "كهرماني";
-"Iris Blue" = "أزرق كلاسيكي";
-"Lotus Pink" = "وردي لوتس";
-"Monochrome" = "أحادي اللون";
-"Mountain Meadow" = "مرجي الجبل";
-"Pastel Red" = "الباستيل الأحمر";
-"Purple Heart" = "قلب بنفسجي";
-"Royal Blue" = "أزرق ملكي";
-"Shark" = "قرش";
-"Storm" = "عاصفة";
-"Use System Accent Color" = "استخدام لون النظام الثانوي";
-"Appearance" = "المظهر";
-"Use System Appearance" = "استخدام مظهر النظام";
-"Light" = "فاتح";
-"Dark" = "داكن";
-"Pure Black Mode" = "وضع الأسود النقي";
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
 // Featured
 
@@ -100,16 +100,16 @@
 // Advanced
 
 "Advanced" = "متقدم";
-"Refresh Icon Cache" = "تحديث ذاكرة التخزين المؤقتة";
-"Reset Image Cache" = "إعادة تعين ذاكرة المؤقته للصور";
-"Reset Sources Cache" = "إعادة تعيين ذاكرة المؤقتة للمصادر";
-"Reset All Settings" = "إعادة تعيين جميع الإعدادات";
-"Erase All Sources and Settings" = "محو جميع المصادر وإعدادات";
+"Refresh Icon Cache" = "Refresh Icon Cache";
+"Reset Image Cache" = "Reset Image Cache";
+"Reset Sources Cache" = "Reset Sources Cache";
+"Reset All Settings" = "Reset All Settings";
+"Erase All Sources and Settings" = "Erase All Sources and Settings";
 
-"Are you sure you want to restart the SpringBoard?" = "هل أنت متأكد أنك تريد إعادة تشغيل واجهة النظام؟";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "هل أنت متأكد أنك تريد تحديث ذاكرة التخزين المؤقت للأيقونة؟ \nقد يصبح جهازك غير قادر على الاستجابة حتى اكتمال العملية.";
-"Image Cache Reset" = "إعادة تعيين ذاكرة التخزين المؤقت للصور";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "هل انت متأكد بأنك تريد محو ذاكرة التخزين المؤقت لمصدر Zebra؟\n  سيؤدي هذا إلى إزالة جميع المعلومات المخزنة مؤقتًا من قاعدة بيانات Zebra وتنزيلها مرة أخرى.  لن يتم حذف مصادرك.";
+"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "هل أنت متأكد من أنك تريد إعادة تعيين إعدادات Zebra؟\n سيؤدي ذلك إلى إعادة تعيين جميع إعدادات Zebra إلى قيمها الإفتراضية وسيتم إعادة تشغيل Zebra.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "هل انت متأكد من أنك تريد محو جميع المصادر والإعدادات؟\n ستتم إزالة جميع مصادرك من Zebra وسيتم إعادة تعيين إعداداتك";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف جميع المصادر الخاصة بك وستزول إلى الأبد \nوسيتم إعادة تشغيل Zebra.";
