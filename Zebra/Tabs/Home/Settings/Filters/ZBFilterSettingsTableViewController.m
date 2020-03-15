@@ -50,7 +50,7 @@
         case 2:
             return 1;
         case 3:
-            return 1;
+            return 2;
         default:
             return 1;
     }
@@ -70,9 +70,11 @@
                 ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
                 
                 repoCell.repoLabel.text = [source label];
+                repoCell.repoLabel.textColor = [UIColor primaryTextColor];
                 
                 unsigned long numberOfSections = (unsigned long)[filteredSources[baseFilename] count];
                 repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Filtered", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
+                repoCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
                 [repoCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
                 
@@ -103,7 +105,7 @@
         case 2:
             return NSLocalizedString(@"Ignored Updates", @"");
         case 3:
-            return NSLocalizedString(@"Blocked Authors", @"");
+            return NSLocalizedString(@"Ignored Authors", @"");
     }
     return NULL;
 }
