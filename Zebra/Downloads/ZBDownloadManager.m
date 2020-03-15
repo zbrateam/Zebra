@@ -726,7 +726,7 @@
             
             [output writeToFile:[path stringByDeletingPathExtension] atomically:NO];
             
-            NSError *removeError;
+            NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
                 *error = removeError;
