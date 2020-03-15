@@ -9,9 +9,11 @@
 @import SDWebImage;
 
 #import "ZBFilterSettingsTableViewController.h"
+
 #import <UIColor+GlobalColors.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
+#import <Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <NSString *> *baseFilenames;
@@ -123,16 +125,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    UIAlertController *addFilter = [UIAlertController alertControllerWithTitle:@"Add Filter" message:@"Add a Filter" preferredStyle:UIAlertControllerStyleAlert];
-    
-    [addFilter addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"Enter Filter";
-    }];
-    
-    UIAlertAction *action = [UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:nil];
-    [addFilter addAction:action];
-    
-    [self presentViewController:addFilter animated:true completion:nil];
+    switch (indexPath.section) {
+        case 0:
+            break;
+        case 1: {
+            ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
+            
+            [self presentViewController:nav animated:true completion:nil];
+            break;
+        }
+        case 2:
+            break;
+        case 3:
+            break;
+    }
 }
 
 /*
