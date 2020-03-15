@@ -52,11 +52,19 @@
 - (void)layoutNavigationButtonsNormal {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(layoutNavigationButtonsNormal)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
     self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
 }
 
 - (void)checkClipboard {}
+
+- (void)addFilters {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.sourcesSelected(self->selectedSources);
+    });
+    
+    [self goodbye];
+}
 
 - (void)goodbye {
     [self dismissViewControllerAnimated:true completion:nil];
