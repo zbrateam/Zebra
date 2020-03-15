@@ -66,7 +66,7 @@
 "App Icon" = "أيقونة التطبيق";
 
 "Featured Packages" = "الحزم المميزة";
-"Repo Featured" = "الحزم المميزة في المصدر";
+"Repo Featured" = "المستودع المميز";
 "Random" = "عشوائي";
 "Feature Type" = "نوع الميزة";
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
@@ -80,7 +80,7 @@
 "Icon" = "أيقونة";
 "Open Documents Directory" = "فتح دليل المستندات";
 "Clear Image Cache" = "مسح ذاكرة الصور المؤقتة";
-"Clear Keychain" = "مسح بيانات تسجيل الدخول";
+"Clear Keychain" = "مسح سلسلة المفاتيح";
 
 "Loading..." = "جارِ التحميل...";
 
@@ -111,7 +111,7 @@
 "Add Multiple" = "إضافة متعددة";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 "Please Wait..." = "يرجى الإنتظار...";
-"Verifying Source(s)" = "التحقق من المصدر/المصادر";
+"Verifying Source(s)" = "جارِ التحقق من المصدر/المصادر";
 "Unable to verify Repo" = "تعذر التحقق من المستودع";
 "Refresh" = "تحديث";
 "Log Out" = "تسجيل خروج";
@@ -138,7 +138,7 @@
 "Upgrade All" = "ترقية الكل";
 "Loaded" = "تم التحميل";
 "ABC" = "أبجديًا";
-"Date" = "زمنيًا";
+"Date" = "التاريخ";
 "Size" = "الحجم";
 "Clear" = "مسح";
 "Are you sure you want to clear Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
@@ -300,7 +300,7 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "ساعد في ترجمة Zebra!";
+"Help translate Zebra!" = "ساهم في ترجمة Zebra!";
 
 "Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
 
