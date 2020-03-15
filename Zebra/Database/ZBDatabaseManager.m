@@ -1073,7 +1073,7 @@
 
 - (ZBPackage *)packageFromProxy:(ZBProxyPackage *)proxy {
     if ([self openDatabase] == SQLITE_OK) {
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = \'%@\' AND NAME = \'%@\' AND VERSION = \'%@\' AND REPOID = %d LIMIT 1", proxy.identifier, proxy.name, proxy.version, proxy.repoID];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID = %d LIMIT 1", proxy.identifier, proxy.version, proxy.repoID];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {

@@ -49,7 +49,7 @@
 @synthesize section;
 
 - (BOOL)useBatchLoad {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad {

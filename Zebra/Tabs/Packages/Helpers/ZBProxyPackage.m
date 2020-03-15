@@ -34,7 +34,7 @@
         int repoID                   =               sqlite3_column_int(statement, 3);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
-        [self setName:packageNameChars != 0 ? [NSString stringWithUTF8String:packageNameChars] : (self.identifier ? self.identifier : @"Unknown")]; // fall back to ID if NULL, or Unknown if things get worse
+        [self setName:packageNameChars != 0 ? ([NSString stringWithUTF8String:packageNameChars] ?: [NSString stringWithCString:packageNameChars encoding:NSASCIIStringEncoding]) : (self.identifier ?: @"Unknown")];
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
         [self setRepoID:repoID];
     }
