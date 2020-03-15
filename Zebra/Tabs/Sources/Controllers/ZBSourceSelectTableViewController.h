@@ -10,10 +10,19 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    ZBSourceSelectionTypeNormal,
+    ZBSourceSelectionTypeInverse,
+} ZBSourceSelectionType;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceSelectTableViewController : ZBSourceListTableViewController
+@property void (^newSourceSelected)(NSArray *selectedSources);
+@property ZBSourceSelectionType selectionType;
+@property int limit;
 
+- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)limit;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -131,7 +131,7 @@
         case 0:
             break;
         case 1: {
-            ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] init];
+            ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:1];
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
             
             [self presentViewController:nav animated:true completion:nil];
