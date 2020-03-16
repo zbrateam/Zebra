@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "搜索条件";
+"Add Filter" = "添加条件";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1个软件源已隐藏";
+"%lu Sources Hidden" = "%lu个软件源已隐藏";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "分类";
+"Hide packages in these sections." = "隐藏这些分类的软件包";
 
-"Sources" = "软件源";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Sources" = "Sources";
+"Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "更新";
+"Hide future updates from these packages." = "隐藏这些软件包的更新。";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "开发者";
+"Hide packages from these authors." = "隐藏这些开发者的软件包。";
