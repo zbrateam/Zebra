@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Фильтры";
+"Add Filter" = "Добавить Фильтр";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 Раздел Скрыт";
+"%lu Sources Hidden" = "%lu Источников Скрыто";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Разделы";
+"Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
 
 "Sources" = "Источники";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Обновления";
+"Hide future updates from these packages." = "Скрыть будущие обновления этих пакетов.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Авторы";
+"Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
