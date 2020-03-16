@@ -390,3 +390,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
+
+// Filters
+"Filters" = "Filters";
+"Add Filter" = "Add Filter";
+
+"1 Section Hidden" = "1 Section Hidden";
+"%lu Sources Hidden" = "%lu Sources Hidden";
+
+"Sections" = "Sections";
+"Hide packages in these sections." = "Hide packages in these sections.";
+
+"Sources" = "软件源";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+
+"Updates" = "Updates";
+"Hide future updates from these packages." = "Hide future updates from these packages.";
+
+"Authors" = "Authors";
+"Hide packages from these authors." = "Hide packages from these authors.";
