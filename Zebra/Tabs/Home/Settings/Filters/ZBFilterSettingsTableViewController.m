@@ -14,6 +14,7 @@
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
+#import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
@@ -100,7 +101,7 @@
         }
     }
     
-    cell.textLabel.text = @"Add Filter";
+    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
     cell.textLabel.textColor = [UIColor accentColor];
     
     return cell;
@@ -137,25 +138,36 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
+    NSUInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
+    BOOL lastRow = indexPath.row == rowCount - 1;
+    
     switch (indexPath.section) {
         case 0:
             break;
         case 1: {
-            ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:1];
-            [sourcePicker setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
-                NSMutableDictionary *sources = [self->filteredSources mutableCopy];
+            if (!lastRow) {
+                ZBRepoSectionsListTableViewController *sections = [[ZBRepoSectionsListTableViewController alloc] init];
+                sections.repo = sources[indexPath.row];
                 
-                for (ZBSource *source in selectedSources) {
-                    [sources setObject:@[] forKey:[source baseFilename]];
-                }
+                [[self navigationController] pushViewController:sections animated:true];
+            }
+            else {
+                ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:1];
+                [sourcePicker setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
+                    NSMutableDictionary *sources = [self->filteredSources mutableCopy];
+                    
+                    for (ZBSource *source in selectedSources) {
+                        [sources setObject:@[] forKey:[source baseFilename]];
+                    }
+                    
+                    [ZBSettings setFilteredSources:sources];
+                    [self refreshTable];
+                }];
                 
-                [ZBSettings setFilteredSources:sources];
-                [self refreshTable];
-            }];
-            
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
-            
-            [self presentViewController:nav animated:true completion:nil];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
+                
+                [self presentViewController:nav animated:true completion:nil];
+            }
             break;
         }
         case 2:
