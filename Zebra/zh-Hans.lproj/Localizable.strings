@@ -95,7 +95,7 @@
 
 // Sources
 
-"Sources" = "软件源";
+"Sources" = "Sources";
 "Local Repository" = "本地软件源";
 "Locally installed packages" = "本地已安装软件包";
 "Unknown" = "未知";
