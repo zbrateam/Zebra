@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Αυτόματη αγνόηση της Κονσόλας όταν όλες οι εργασίες έχουν ολοκληρωθεί.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Φίλτρα";
+"Add Filter" = "Προσθήκη Φίλτρου";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 Ενότητα Κρύφτηκε";
+"%lu Sources Hidden" = "%lu Ενότητες Κρύφτηκαν";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Ενότητες";
+"Hide packages in these sections." = "Κρύψε πακέτα σε αυτές τις ενότητες.";
 
 "Sources" = "Πηγές";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Κρύψε πακέτα σε αυτές τις ενότητες από συγκεκριμένες πηγές.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Ενημερώσεις";
+"Hide future updates from these packages." = "Κρύψε μελλοντικές ενημερώσεις από αυτά τα πακέτα.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Δημιουργοί";
+"Hide packages from these authors." = "Κρύψε πακέτα από αυτούς τους δημιουργούς.";
