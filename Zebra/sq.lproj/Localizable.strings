@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filter";
+"Add Filter" = "Shto Filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 seksion i fshehur";
+"%lu Sources Hidden" = "%lu Burime të fshehura";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Seksione";
+"Hide packages in these sections." = "Fsheh paketat në këto seksione.";
 
 "Sources" = "Burimet";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Përditësime";
+"Hide future updates from these packages." = "Fsheh përditësimet e ardhshme nga këto paketa.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autorët";
+"Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
