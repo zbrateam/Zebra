@@ -39,7 +39,7 @@
 "Verifying..." = "Wird überprüft …";
 "Confirm Import" = "Import bestätigen";
 "Import Sources" = "Quellen importieren";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Keine Quellen zum importieren gefunden";
 "Would you like to import the following sources?" = "Möchten Sie die folgenden Quellen importieren?";
 "Are you sure that you want to import 1 source into Zebra?" = "Sind Sie sicher, dass Sie eine Quelle nach Zebra importieren möchten?";
 "Are you sure that you want to import %d sources into Zebra?" = "Sind Sie sicher, dass Sie %d Quellen nach Zebra importieren möchten?";
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Konnte keine Download-URL finden für";
 "%@ hasn't been modified" = "%@ wurde nicht bearbeitet";
 "Could not parse %@ from %@" = "Konnte %@ von %@ nicht analysieren";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Es werden insgesamt %d Dateien runtergeladen";
 
 // Console
 
@@ -312,7 +312,7 @@
 "Done %@" = "%@ ist abgeschlossen";
 "Removing Zebra..." = "Zebra wird entfernt …";
 "Installing Zebra..." = "Zebra wird installiert …";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "URL des Zahlungsdienstleisters für %@ hinzufügen";
 
 // Queue Bar
 
