@@ -146,8 +146,7 @@
             break;
         case 1: {
             if (!lastRow) {
-                ZBRepoSectionsListTableViewController *sections = [[ZBRepoSectionsListTableViewController alloc] init];
-                sections.repo = sources[indexPath.row];
+                ZBRepoSectionsListTableViewController *sections = [[ZBRepoSectionsListTableViewController alloc] initWithSource:sources[indexPath.row]];
                 
                 [[self navigationController] pushViewController:sections animated:true];
             }

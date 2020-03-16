@@ -38,6 +38,19 @@
 @synthesize sectionReadout;
 @synthesize filteredSections;
 
+#pragma mark - Initializers
+
+- (id)initWithSource:(ZBSource *)source {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"repoSectionsController"];
+    
+    if (self) {
+        self.repo = source;
+    }
+    
+    return self;
+}
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {

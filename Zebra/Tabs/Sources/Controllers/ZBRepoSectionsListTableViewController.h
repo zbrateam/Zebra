@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBRepoSectionsListTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) ZBSource *repo;
+- (id)initWithSource:(ZBSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END
