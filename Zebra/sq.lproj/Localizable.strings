@@ -390,3 +390,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Duke hyrë në burime lejon që të blihen paketat me pages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
+
+// Filters
+"Filters" = "Filters";
+"Add Filter" = "Add Filter";
+
+"1 Section Hidden" = "1 Section Hidden";
+"%lu Sources Hidden" = "%lu Sources Hidden";
+
+"Sections" = "Sections";
+"Hide packages in these sections." = "Hide packages in these sections.";
+
+"Sources" = "Burimet";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+
+"Updates" = "Updates";
+"Hide future updates from these packages." = "Hide future updates from these packages.";
+
+"Authors" = "Authors";
+"Hide packages from these authors." = "Hide packages from these authors.";
