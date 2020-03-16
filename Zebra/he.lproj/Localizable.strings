@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "מסננים";
+"Add Filter" = "הוסף מסנן";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "קטגוריה אחת מוסתרת";
+"%lu Sources Hidden" = "%lu מקורות מוסתרים";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "קטגוריות";
+"Hide packages in these sections." = "הסתר חבילות בקטגוריות אלו.";
 
 "Sources" = "מקורות";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "עדכונים";
+"Hide future updates from these packages." = "הסתר עדכונים עתידיים מחבילות אלו.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "יוצרים";
+"Hide packages from these authors." = "הסתר חבילות מיוצרים אלו.";
