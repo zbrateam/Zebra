@@ -23,6 +23,7 @@
     CGSize bannerSize;
     UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
+    BOOL editOnly;
 }
 @property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) NSArray *featuredPackages;
@@ -46,9 +47,14 @@
     
     if (self) {
         self.repo = source;
+        editOnly = true;
     }
     
     return self;
+}
+
+- (BOOL)showFeaturedSection {
+    return !editOnly;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -59,12 +65,12 @@
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     filteredSections = [[[ZBSettings filteredSources] objectForKey:[repo baseFilename]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    if (!editOnly) self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil]; // For iOS 9 and 10 Sileo Purchases
@@ -98,8 +104,15 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
-    [self checkFeaturedPackages];
+    if (!editOnly) {
+        [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+        [self checkFeaturedPackages];
+    }
+    else {
+        [self.featuredCollection removeFromSuperview];
+        self.tableView.tableHeaderView = nil;
+        [self.tableView layoutIfNeeded];
+    }
 }
 
 
@@ -111,6 +124,12 @@
     
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (editOnly) [self setEditing:true animated:true];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
