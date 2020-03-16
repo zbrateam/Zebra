@@ -84,7 +84,7 @@
                 repoCell.repoLabel.textColor = [UIColor primaryTextColor];
                 
                 unsigned long numberOfSections = (unsigned long)[filteredSources[[source baseFilename]] count];
-                repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Filtered", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
+                repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
                 repoCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
                 [repoCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -114,9 +114,9 @@
         case 1:
             return NSLocalizedString(@"Sources", @"");
         case 2:
-            return NSLocalizedString(@"Ignored Updates", @"");
+            return NSLocalizedString(@"Updates", @"");
         case 3:
-            return NSLocalizedString(@"Ignored Authors", @"");
+            return NSLocalizedString(@"Authors", @"");
     }
     return NULL;
 }
@@ -128,9 +128,9 @@
         case 1:
             return NSLocalizedString(@"Hide packages in these sections from specific sources.", @"");
         case 2:
-            return NSLocalizedString(@"Ignore any future updates from these packages.", @"");
+            return NSLocalizedString(@"Hide future updates from these packages.", @"");
         case 3:
-            return NSLocalizedString(@"Hide all packages from these authors.", @"");
+            return NSLocalizedString(@"Hide packages from these authors.", @"");
     }
     return NULL;
 }
