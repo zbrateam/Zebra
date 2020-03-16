@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Dispensar automaticamente o Console quando todas as suas tarefas forem concluídas.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtros";
+"Add Filter" = "Adicionar filtro";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 seção oculta";
+"%lu Sources Hidden" = "%lu Fontes ocultas";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Seções";
+"Hide packages in these sections." = "Ocultar pacotes dessas seções.";
 
 "Sources" = "Fontes";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Ocultar pacotes nessas seções de fontes específicas.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Atualizações";
+"Hide future updates from these packages." = "Ocultar atualizações futuras destes pacotes.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autores";
+"Hide packages from these authors." = "Ocultar pacotes destes autores.";
