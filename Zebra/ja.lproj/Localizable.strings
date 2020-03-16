@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "フィルター";
+"Add Filter" = "フィルターを追加";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "一つのセクションが非表示になっています";
+"%lu Sources Hidden" = "%lu のレポジトリが非表示になっています";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "セクション";
+"Hide packages in these sections." = "このセクションでパッケージを非表示にします";
 
 "Sources" = "リポジトリ";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "アップデート";
+"Hide future updates from these packages." = "これらのパッケージのアップデートを非表示にします。";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "作者";
+"Hide packages from these authors." = "これらの作者からのパッケージを非表示にします";
