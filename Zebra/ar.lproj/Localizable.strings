@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "تجاهل تلقائي لوحدة التحكم عند انتهاء كل مهامها.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "الفلاتر";
+"Add Filter" = "إضافة فلتر";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "قسم واحد مخفي";
+"%lu Sources Hidden" = "%lu مصدر مخفي";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "الأقسام";
+"Hide packages in these sections." = "إخفاء الحزم في هذه الأقسام.";
 
 "Sources" = "المصادر";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "إخفاء الحزم في هذه الأقسام من مصادر محددة.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "التحديثات";
+"Hide future updates from these packages." = "إخفاء التحديثات المستقبلية من هذه الحزم.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "المؤلفون";
+"Hide packages from these authors." = "إخفاء الحزم من هؤلاء المؤلفين.";
