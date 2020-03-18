@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtre";
+"Add Filter" = "Legg til filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 seksjon skjult";
+"%lu Sources Hidden" = "%lu kjelder skjult";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Seksjonar";
+"Hide packages in these sections." = "Skjul pakkane i desse seksjonane.";
 
 "Sources" = "Kjelder";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Skjul pakkane i desse seksjonane frå spesifikke kjelder.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Oppdateringar";
+"Hide future updates from these packages." = "Skjul framtidige oppdateringar for desse pakka.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Forfattarar";
+"Hide packages from these authors." = "Skjul pakkane frå desse forfattarane.";
