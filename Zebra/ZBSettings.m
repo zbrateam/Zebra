@@ -223,6 +223,8 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
 }
 
 + (NSArray *)filteredSections {
+    return @[@"Tweaks", @"Themes"];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     return [defaults objectForKey:FilteredSectionsKey] ?: [NSArray new];

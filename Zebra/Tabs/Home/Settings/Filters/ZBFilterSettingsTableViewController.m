@@ -11,6 +11,7 @@
 #import "ZBFilterSettingsTableViewController.h"
 
 #import <UIColor+GlobalColors.h>
+#import <UIImageView+Zebra.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
@@ -19,6 +20,7 @@
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
     NSDictionary <NSString *, NSArray *> *filteredSources;
+    NSArray <NSString *> *filteredSections;
 }
 @end
 
@@ -35,6 +37,8 @@
 }
 
 - (void)refreshTable {
+    filteredSections = [[ZBSettings filteredSections] mutableCopy];
+    
     filteredSources = [[ZBSettings filteredSources] mutableCopy];
     NSArray *baseFilenames = [filteredSources allKeys];
     
@@ -56,7 +60,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return 1;
+            return [filteredSections count] + 1;
         case 1:
             return [filteredSources count] + 1;
         case 2:
@@ -73,6 +77,17 @@
     
     switch (indexPath.section) {
         case 0: {
+            if (indexPath.row < [filteredSections count]) {
+                cell.textLabel.text = filteredSections[indexPath.row];
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+                
+                cell.imageView.image = [UIImage imageNamed:filteredSections[indexPath.row]];
+                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+                
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                
+                return cell;
+            }
             break;
         }
         case 1: {
