@@ -532,15 +532,15 @@
 		367D80EF22C3D17F00581D60 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				89EA4ECA241B1624008DFE15 /* Filters */,
-				89308E1F23FF4BA200D4641D /* Advanced */,
-				8916AC2923CAB0DD008BA02C /* Cells */,
-				8916AC2823CAB0D4008BA02C /* Options */,
-				8916AC2423CAAF07008BA02C /* Display */,
-				8916AC1823CAAE51008BA02C /* App Icon */,
-				36200B6422D2B38400C13F6D /* FeaturedRepoBlacklist */,
 				367D80F422C3D1CF00581D60 /* ZBSettingsTableViewController.h */,
 				367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */,
+				89308E1F23FF4BA200D4641D /* Advanced */,
+				8916AC1823CAAE51008BA02C /* App Icon */,
+				8916AC2923CAB0DD008BA02C /* Cells */,
+				8916AC2423CAAF07008BA02C /* Display */,
+				89EA4ECA241B1624008DFE15 /* Filters */,
+				36200B6422D2B38400C13F6D /* FeaturedRepoBlacklist */,
+				8916AC2823CAB0D4008BA02C /* Options */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -939,11 +939,11 @@
 				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
 				8916AC2023CAAECC008BA02C /* Changelog */,
 				8916AC1C23CAAE5C008BA02C /* Community Sources */,
+				895A808023637C3F00C166AC /* Credits */,
+				3639D19622CC61400012E18F /* Helpers */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
 				369F9E9D22BC850000D6CCF3 /* Wish List */,
-				895A808023637C3F00C166AC /* Credits */,
-				3639D19622CC61400012E18F /* Helpers */,
 			);
 			path = Home;
 			sourceTree = "<group>";
