@@ -21,6 +21,7 @@ NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
+NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
 
 #pragma clang diagnostic push
@@ -219,6 +220,18 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     return [defaults boolForKey:liveSearchKey];
+}
+
++ (NSArray *)filteredSections {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults objectForKey:FilteredSectionsKey] ?: [NSArray new];
+}
+
++ (void)setFilteredSections:(NSArray *)filteredSections {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:filteredSections forKey:FilteredSectionsKey];
 }
 
 + (NSDictionary *)filteredSources {

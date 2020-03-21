@@ -32,6 +32,7 @@ extern NSString * _Nonnull const InterfaceStyleKey;
 extern NSString * _Nonnull const PureBlackModeKey;
 
 extern NSString * _Nonnull const FilteredSourcesKey;
+extern NSString * _Nonnull const FilteredSectionsKey;
 
 #pragma mark - Accent Colors
 
@@ -104,6 +105,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
 
 + (BOOL)liveSearch;
+
+#pragma mark - Filters
+
++ (NSArray *)filteredSections;
++ (void)setFilteredSections:(NSArray *)filteredSources;
 
 + (NSDictionary *)filteredSources;
 + (void)setFilteredSources:(NSDictionary *)filteredSources;
