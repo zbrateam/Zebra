@@ -39,7 +39,7 @@
 "Verifying..." = "Verificando...";
 "Confirm Import" = "Confirmar entrada";
 "Import Sources" = "Importar fuentes";
-"No sources to import" = "No sources to import";
+"No sources to import" = "No hay fuentes para importar";
 "Would you like to import the following sources?" = "¿Le gustaría importar las siguientes fuentes?";
 "Are you sure that you want to import 1 source into Zebra?" = "¿Estás seguro que quieres importar una fuente a Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "¿Estás seguro que quieres importar %d fuentes a Zebra?";
@@ -133,7 +133,7 @@
 "Delete" = "Eliminar";
 "Refresh" = "Actualizar";
 "All Packages" = "Todos los paquetes";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Eliminar Fuente";
 "Local Repository" = "Repositorio local";
 "Locally installed packages" = "Paquetes instalados localmente";
 
@@ -144,14 +144,14 @@
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
 
 "Please Wait..." = "Por favor espere...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificando Fuente";
+"Verifying Sources" = "Verificando Fuentes";
 "Updating Sources" = "Actualizando fuentes";
 
 "Unknown error" = "Error desconocido";
 "Invalid URL" = "Dirección URL Invalida";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Fuente no válida";
+"Tap to learn more" = "Toca para obtener más información";
 "No source URLs detected." = "No se han detectado URLs de origen.";
 "Unable to verify source" = "No se puede verificar la fuente";
 "Error verifying source" = "Error al verificar la fuente";
@@ -163,9 +163,9 @@
 "Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
 "Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "La URL introducida no es válida. Por favor, compruébela e inténtelo de nuevo.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra no pudo descargar la fuente especificada en %@. Puede ser que este temporalmente inaccesible o pudo haber sido añadida incorrectamente.";
 
 // Packages
 
@@ -258,9 +258,9 @@
 "Search" = "Buscar";
 "This search query is too short for the full search, please use a longer query." = "Esta consulta es muy corta para realizar la búsqueda, por favor usa una mas larga";
 "No Results Found" = "No se encontró ningún resultado";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Nombre";
+"Description" = "Descripción";
+"Author" = "Autor";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
 "%@ hasn't been modified" = "%@ no ha sido modificado";
 "Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Se descargarán un total de %d archivos";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Cerrando Zebra...";
 "Restart SpringBoard" = "Reiniciar SpringBoard";
 "Restarting SpringBoard..." = "Reiniciando SpringBoard...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Analizando %@";
 "Starting Download" = "Iniciando la descarga";
 "Downloading" = "Descargando";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Descargando %@";
 "Downloading Packages..." = "Descargando paquetes...";
 "Download Completed" = "Descarga Completa";
 "Installing" = "Instalando";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
 "Done..." = "Listo...";
-"Done %@" = "Done %@";
+"Done %@" = "%@ Completado";
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Añadiendo URL del proveedor de pago para %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "Paquete requerido";
 "Are you sure?" = "¿Estás seguro/a?";
 "Remove from Queue" = "Quitar de la cola";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Vaciar cola";
 "%@ is required by:" = "%@ es requerido por:";
 "%@ must be removed because it depends on %@" = "%@ debe ser eliminado, porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tiene problemas que no se pueden resolver:";
@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Cerrar automáticamente la Consola cuando se hayan completado todas la tareas.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtros";
+"Add Filter" = "Añadir filtro";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "Una sección oculta";
+"%lu Sources Hidden" = "Fuentes %lu ocultas";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Secciones";
+"Hide packages in these sections." = "Ocultar paquetes en estas secciones.";
 
 "Sources" = "Fuentes";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Ocultar paquetes de fuentes específicas en estas secciones.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Actualizaciones";
+"Hide future updates from these packages." = "Ocultar actualizaciones futuras de estos paquetes.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autores";
+"Hide packages from these authors." = "Ocultar paquetes de estos autores.";
