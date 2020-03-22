@@ -16,6 +16,7 @@
 #import "UIBarButtonItem+blocks.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
+#import "ZBSourcesAccountBanner.h"
 
 @import SDWebImage;
 
@@ -112,6 +113,20 @@
         [self.featuredCollection removeFromSuperview];
         self.tableView.tableHeaderView = nil;
         [self.tableView layoutIfNeeded];
+    }
+    
+    if ([repo paymentVendorURL]) { // If the repo supports payments/external accounts
+        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
+        [self.view addSubview:accountBanner];
+        
+        accountBanner.translatesAutoresizingMaskIntoConstraints = false;
+        [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+        [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
+        [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
+        [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
+
+        accountBanner.layer.zPosition = 100;
+        self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
     }
 }
 
