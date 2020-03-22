@@ -431,29 +431,15 @@ enum ZBMiscOrder {
 }
 
 - (void)featureOrRandomToggle {
-    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSettingsKey:randomFeaturedKey selectionType:ZBSettingsSelectionTypeNormal limit:1 options:@[@"Repo Featured", @"Random"]];
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSelectionType:ZBSettingsSelectionTypeNormal limit:1 options:@[@"Repo Featured", @"Random"] getter:@selector(featuredPackagesType) setter:@selector(setFeaturedPackagesType:)];
     
     [controller setTitle:@"Feature Type"];
     [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
     
     [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
-        NSUInteger selection = [options indexOfObject:selections[0]];
-        
-        BOOL selectedMode = [[NSNumber numberWithInteger:selection] boolValue];
-        [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        [self.tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
-        
-        CATransition *transition = [CATransition animation];
-        transition.type = kCATransitionFade;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.fillMode = kCAFillModeForwards;
-        transition.duration = 0.35;
-        transition.subtype = kCATransitionFromTop;
-        [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
     }];
     
     [self.navigationController pushViewController: controller animated:YES];
@@ -541,21 +527,21 @@ enum ZBMiscOrder {
 }
 
 - (void)misc {
-    NSArray *options = @[@"Text", @"Icon"];
-    
-    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithSettingsKey:iconActionKey selectionType:ZBSettingsSelectionTypeNormal limit:1 options:options];
-    [controller setTitle:@"Swipe Actions Display As"];
-    
-    [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
-        NSUInteger selection = [options indexOfObject:selections[0]];
-        
-        BOOL useIcon = selection == 1;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:useIcon forKey:iconActionKey];
-        [defaults synchronize];
-    }];
-    
-    [self.navigationController pushViewController: controller animated:YES];
+//    NSArray *options = @[@"Text", @"Icon"];
+//    
+//    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithSettingsKey:iconActionKey selectionType:ZBSettingsSelectionTypeNormal limit:1 options:options];
+//    [controller setTitle:@"Swipe Actions Display As"];
+//    
+//    [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
+//        NSUInteger selection = [options indexOfObject:selections[0]];
+//        
+//        BOOL useIcon = selection == 1;
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        [defaults setBool:useIcon forKey:iconActionKey];
+//        [defaults synchronize];
+//    }];
+//    
+//    [self.navigationController pushViewController: controller animated:YES];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

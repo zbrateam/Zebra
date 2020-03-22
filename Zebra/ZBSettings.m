@@ -24,6 +24,11 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
 
+NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
+NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
+
+NSString *const SwipeActionStyleKey = @"SwipeActionsStyle";
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 
@@ -74,6 +79,8 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
     }
     
     [defaults synchronize];
+
+    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 }
 
 + (ZBAccentColor)accentColor {
@@ -209,16 +216,18 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:FeaturedPackagesTypeKey]) {
-        [self setFeaturedPackagesType:ZBFeaturedTypeSource];
+        [self setFeaturedPackagesType:@(ZBFeaturedTypeSource)];
         return ZBFeaturedTypeSource;
     }
     return (ZBFeaturedType)[defaults integerForKey:FeaturedPackagesTypeKey];
 }
 
-+ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType {
++ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType {
+    ZBFeaturedType type = featuredPackagesType.intValue;
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setInteger:featuredPackagesType forKey:FeaturedPackagesTypeKey];
+    [defaults setInteger:type forKey:FeaturedPackagesTypeKey];
     [defaults synchronize];
 }
 

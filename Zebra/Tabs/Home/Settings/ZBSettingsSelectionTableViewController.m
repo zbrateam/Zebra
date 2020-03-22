@@ -14,6 +14,8 @@
 @interface ZBSettingsSelectionTableViewController () {
     NSMutableArray <NSString *>    *selectedOptions;
     NSMutableArray <NSIndexPath *> *selectedIndexes;
+    SEL settingsGetter;
+    SEL settingsSetter;
 }
 @end
 
@@ -26,14 +28,17 @@
 @synthesize footerText;
 @synthesize options;
 
-- (id)initWithSettingsKey:(NSString *)key selectionType:(ZBSettingsSelectionType)type limit:(int)optionLimit options:(NSArray *)selectionOptions {
+- (id)initWithSelectionType:(ZBSettingsSelectionType)type limit:(int)optionLimit options:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter {
     self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
-        settingsKey = key;
         selectionType = type;
         limit = optionLimit;
         options = selectionOptions;
+        
+        settingsGetter = getter;
+        settingsSetter = setter;
+        
         selectedOptions = [NSMutableArray new];
         selectedIndexes = [NSMutableArray new];
     }
@@ -47,8 +52,8 @@
     self.title = NSLocalizedString(self.title, @"");
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger selectedValue = [defaults integerForKey:settingsKey];
+    
+    NSInteger selectedValue = (NSInteger)[ZBSettings performSelector:settingsGetter];
     
     NSIndexPath *selectedIndex = [NSIndexPath indexPathForRow:selectedValue inSection:0];
     NSString *selectedOption = [options objectAtIndex:selectedValue];
@@ -122,6 +127,18 @@
         
         [selectedIndexes addObject:indexPath];
         [selectedOptions addObject:option];
+    }
+    
+    if (limit == 1) {
+        [ZBSettings performSelector:settingsSetter withObject:@(selectedIndexes[0].row)];
+    }
+    else {
+        NSMutableArray *selectedValues = [NSMutableArray new];
+        for (NSIndexPath *path in selectedIndexes) {
+            [selectedValues addObject:@(path.row)];
+        }
+        
+        [ZBSettings performSelector:settingsSetter withObject:selectedValues];
     }
     
     [[self tableView] reloadData];

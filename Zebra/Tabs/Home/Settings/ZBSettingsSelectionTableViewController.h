@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <NSString *> *footerText;
 @property NSArray <NSString *> *options;
 
-- (id)initWithSettingsKey:(NSString *)key selectionType:(ZBSettingsSelectionType)type limit:(int)optionLimit options:(NSArray *)selectionOptions;
+- (id)initWithSelectionType:(ZBSettingsSelectionType)type limit:(int)optionLimit options:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter;
 @end
 
 NS_ASSUME_NONNULL_END

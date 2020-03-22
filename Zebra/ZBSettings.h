@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages;
 
 + (ZBFeaturedType)featuredPackagesType;
-+ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType;
++ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType;
 
 + (NSArray *)sourceBlacklist;
 
