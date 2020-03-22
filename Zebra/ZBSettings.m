@@ -68,9 +68,19 @@ NSString *const SwipeActionStyleKey = @"SwipeActionsStyle";
     if (![defaults objectForKey:liveSearchKey]) {
         [defaults setBool:YES forKey:liveSearchKey];
     }
-    if (![defaults objectForKey:wantsFeaturedKey]) {
-        [defaults setBool:YES forKey:wantsFeaturedKey];
+    
+    if ([defaults objectForKey:wantsFeaturedKey]) {
+        BOOL wantsFeatured = [defaults boolForKey:wantsFeaturedKey];
+        
+        [self setWantsFeaturedPackages:wantsFeatured];
+        [defaults removeObjectForKey:wantsFeaturedKey];
+        
+        BOOL randomFeatured = [defaults boolForKey:randomFeaturedKey];
+        
+        [self setFeaturedPackagesType:randomFeatured ? @(ZBFeaturedTypeRandom) : @(ZBFeaturedTypeSource)];
+        [defaults removeObjectForKey:randomFeaturedKey];
     }
+    
     if (![defaults objectForKey:wantsNewsKey]) {
         [defaults setBool:YES forKey:wantsNewsKey];
     }
@@ -79,8 +89,6 @@ NSString *const SwipeActionStyleKey = @"SwipeActionsStyle";
     }
     
     [defaults synchronize];
-
-    NSLog(@"%@", [[NSUserDefaults standardUserDefaults] dictionaryRepresentation]);
 }
 
 + (ZBAccentColor)accentColor {

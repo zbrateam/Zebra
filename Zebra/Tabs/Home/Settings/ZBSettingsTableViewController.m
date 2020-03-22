@@ -125,7 +125,7 @@ enum ZBMiscOrder {
             return 1;
         case ZBFeatured: {
             int rows = 1;
-            BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
+            BOOL wantsFeatured = [ZBSettings wantsFeaturedPackages];
             if (wantsFeatured) {
                 BOOL randomFeatured = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
                 if (randomFeatured) {
