@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "المتاجر";
-"Account" = "الحساب";
+"My Account" = "My Account";
 "Sign In" = "تسجيل الدخول";
 "Sign Out" = "تسجيل الخروج";
 "Your Purchases" = "مشترياتك";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "تعذر إكمال الشراء";
 "Could not complete purchase, no payment secret was found" = "تعذر إكمال الشراء، لم يتم العثور على دفع آمن";
 "No packages purchased" = "لا توجد حزم مشتراة";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
