@@ -10,28 +10,48 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZBSourcesAccountBanner">
             <rect key="frame" x="0.0" y="0.0" width="323" height="53"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jPZ-a3-EO8">
-                    <rect key="frame" x="140.5" y="15" width="42" height="23"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlQ-3U-Lt0">
+                    <rect key="frame" x="0.0" y="20" width="323" height="13"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Icc-zW-gpw">
+                            <rect key="frame" x="0.0" y="0.0" width="281" height="13"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxd-4V-JPn">
+                            <rect key="frame" x="281" y="0.0" width="42" height="13"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                </stackView>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" systemColor="systemBrownColor" red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="jPZ-a3-EO8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="MFe-3V-M0h"/>
-                <constraint firstItem="jPZ-a3-EO8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="MK7-hh-Eah"/>
-                <constraint firstAttribute="bottom" secondItem="jPZ-a3-EO8" secondAttribute="bottom" constant="15" id="XDP-aD-CBe"/>
+                <constraint firstItem="wlQ-3U-Lt0" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="3Zz-Iz-7Ze"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="wlQ-3U-Lt0" secondAttribute="trailing" id="Jvj-g7-pvP"/>
+                <constraint firstItem="wlQ-3U-Lt0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" symbolic="YES" id="RFl-Aw-UIf"/>
+                <constraint firstAttribute="bottom" secondItem="wlQ-3U-Lt0" secondAttribute="bottom" constant="20" symbolic="YES" id="sV6-cE-dzd"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="button" destination="Icc-zW-gpw" id="tGs-Q4-yO6"/>
+                <outlet property="descriptionLabel" destination="Gxd-4V-JPn" id="z5D-Xc-GMA"/>
+            </connections>
             <point key="canvasLocation" x="52.898550724637687" y="-228.68303571428569"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WrH-vn-O8g">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="Button"/>
+            <point key="canvasLocation" x="40.579710144927539" y="-118.52678571428571"/>
+        </button>
     </objects>
 </document>

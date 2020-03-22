@@ -114,10 +114,9 @@
         self.tableView.tableHeaderView = nil;
         [self.tableView layoutIfNeeded];
     }
-
+    
     if ([repo paymentVendorURL]) { // If the repo supports payments/external accounts
-        ZBSourcesAccountBanner *accountBanner = [[[NSBundle mainBundle] loadNibNamed:@"ZBSourcesAccountBanner" owner:self options:nil] objectAtIndex:0];
-
+        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
         [self.view addSubview:accountBanner];
         
         accountBanner.translatesAutoresizingMaskIntoConstraints = false;
