@@ -143,8 +143,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion {
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([keychain stringForKey:self.repositoryURI]) {
+    if ([self isSignedIn]) {
         completion(YES, nil);
         return;
     }
@@ -207,7 +206,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:[self paymentVendorURL]];
+    return [keychain stringForKey:self.repositoryURI];
 }
 
 - (NSString *)paymentSecret {
