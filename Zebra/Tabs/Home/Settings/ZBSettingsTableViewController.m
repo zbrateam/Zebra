@@ -225,7 +225,7 @@ enum ZBMiscOrder {
             switch (row) {
                 case ZBFeaturedEnable: {
                     UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
+                    enableSwitch.on = [ZBSettings wantsFeaturedPackages];
                     [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
                     [enableSwitch setOnTintColor:[UIColor accentColor]];
                     cell.accessoryView = enableSwitch;
