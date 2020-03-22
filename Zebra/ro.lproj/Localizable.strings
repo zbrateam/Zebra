@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Magazine";
-"Account" = "Cont";
+"My Account" = "My Account";
 "Sign In" = "Autentificare";
 "Sign Out" = "Delogare";
 "Your Purchases" = "Achizițiile mele";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
 "Could not complete purchase, no payment secret was found" = "Achiziția nu a fost completată, payment secret nu a fost găsit";
 "No packages purchased" = "Nu există achiziții";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
