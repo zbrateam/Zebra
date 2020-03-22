@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Dyqani";
-"Account" = "Llogaria";
+"My Account" = "My Account";
 "Sign In" = "Hyr";
 "Sign Out" = "Dilni";
 "Your Purchases" = "Pagesat e juaja";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
 "No packages purchased" = "Nuk keni asnjë paketë të paguar";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
