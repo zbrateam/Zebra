@@ -8,23 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum : NSUInteger {
-    ZBSettingsSelectionTypeNormal,
-    ZBSettingsSelectionTypeInverse,
-} ZBSettingsSelectionType;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSettingsSelectionTableViewController : UITableViewController
-@property void (^selectionChanged)(NSArray *options, NSArray *selections);
-@property ZBSettingsSelectionType selectionType;
-@property int limit;
+@property void (^settingChanged)(void);
 
 @property NSString *settingsKey;
 @property NSArray <NSString *> *footerText;
 @property NSArray <NSString *> *options;
 
-- (id)initWithSelectionType:(ZBSettingsSelectionType)type limit:(int)optionLimit options:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter;
+- (id)initWithOptions:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter settingChangedCallback:(void (^)(void))callback;
 @end
 
 NS_ASSUME_NONNULL_END

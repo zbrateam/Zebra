@@ -431,16 +431,14 @@ enum ZBMiscOrder {
 }
 
 - (void)featureOrRandomToggle {
-    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSelectionType:ZBSettingsSelectionTypeNormal limit:1 options:@[@"Repo Featured", @"Random"] getter:@selector(featuredPackagesType) setter:@selector(setFeaturedPackagesType:)];
-    
-    [controller setTitle:@"Feature Type"];
-    [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
-    
-    [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Repo Featured", @"Random"] getter:@selector(featuredPackagesType) setter:@selector(setFeaturedPackagesType:) settingChangedCallback:^{
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
     }];
+    
+    [controller setTitle:@"Feature Type"];
+    [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
     
     [self.navigationController pushViewController: controller animated:YES];
 }

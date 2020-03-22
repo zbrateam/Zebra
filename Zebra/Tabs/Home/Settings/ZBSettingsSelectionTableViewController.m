@@ -12,35 +12,32 @@
 #import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBSettingsSelectionTableViewController () {
-    NSMutableArray <NSString *>    *selectedOptions;
-    NSMutableArray <NSIndexPath *> *selectedIndexes;
+    NSString *selectedOption;
+    NSIndexPath *selectedIndex;
     SEL settingsGetter;
     SEL settingsSetter;
+    NSInteger selectedValue;
 }
 @end
 
 @implementation ZBSettingsSelectionTableViewController
 
-@synthesize selectionType;
-@synthesize limit;
+@synthesize settingChanged;
 
 @synthesize settingsKey;
 @synthesize footerText;
 @synthesize options;
 
-- (id)initWithSelectionType:(ZBSettingsSelectionType)type limit:(int)optionLimit options:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter {
+- (id)initWithOptions:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter settingChangedCallback:(void (^)(void))callback {
     self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
-        selectionType = type;
-        limit = optionLimit;
         options = selectionOptions;
         
         settingsGetter = getter;
         settingsSetter = setter;
         
-        selectedOptions = [NSMutableArray new];
-        selectedIndexes = [NSMutableArray new];
+        settingChanged = callback;
     }
     
     return self;
@@ -52,18 +49,17 @@
     self.title = NSLocalizedString(self.title, @"");
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     
-    
-    NSInteger selectedValue = (NSInteger)[ZBSettings performSelector:settingsGetter];
+    selectedValue = (NSInteger)[ZBSettings performSelector:settingsGetter];
     
     NSIndexPath *selectedIndex = [NSIndexPath indexPathForRow:selectedValue inSection:0];
     NSString *selectedOption = [options objectAtIndex:selectedValue];
     
-    [selectedIndexes addObject:selectedIndex];
-    [selectedOptions addObject:selectedOption];
+    self->selectedIndex = selectedIndex;
+    self->selectedOption = selectedOption;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    self.selectionChanged(options, selectedOptions);
+    if (selectedIndex.row != selectedValue) self.settingChanged();
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -82,18 +78,8 @@
     cell.tintColor = [UIColor accentColor];
     cell.textLabel.textColor = [UIColor primaryTextColor];
     
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    
-    BOOL sectionSelected = [selectedIndexes containsObject:indexPath];
-    switch (selectionType) {
-        case ZBSettingsSelectionTypeNormal:
-            if (sectionSelected) cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            break;
-        case ZBSettingsSelectionTypeInverse:
-            if (!sectionSelected) cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            break;
-    }
-    
+    cell.accessoryType = [selectedIndex isEqual:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+
     return cell;
 }
 
@@ -114,34 +100,14 @@
 - (void)addOptionAtIndexPath:(NSIndexPath *)indexPath {
     NSString *option = options[indexPath.row];
     
-    if ([selectedIndexes containsObject:indexPath]) {
-        [selectedIndexes removeObject:indexPath];
-        [selectedOptions removeObject:option];
-    }
-    else {
-        if (limit > 0 && [selectedIndexes count] >= limit) {
-            // Remove the first object selected
-            [selectedIndexes removeObjectAtIndex:0];
-            [selectedOptions removeObjectAtIndex:0];
-        }
+    if (![selectedIndex isEqual:indexPath]) {
+        self->selectedIndex = indexPath;
+        self->selectedOption = option;
         
-        [selectedIndexes addObject:indexPath];
-        [selectedOptions addObject:option];
-    }
-    
-    if (limit == 1) {
-        [ZBSettings performSelector:settingsSetter withObject:@(selectedIndexes[0].row)];
-    }
-    else {
-        NSMutableArray *selectedValues = [NSMutableArray new];
-        for (NSIndexPath *path in selectedIndexes) {
-            [selectedValues addObject:@(path.row)];
-        }
+        [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
         
-        [ZBSettings performSelector:settingsSetter withObject:selectedValues];
+        [[self tableView] reloadData];
     }
-    
-    [[self tableView] reloadData];
 }
 
 @end
