@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <ZBSource.h>
+#import "ZBSourceInfo.h"
 #import "ZBRepoSectionsListTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourcesAccountBanner : UIView
 @property (nonatomic, strong) ZBSource *source;
+@property (nonatomic, strong) ZBSourceInfo *sourceInfo;
 @property (nonatomic, assign) ZBRepoSectionsListTableViewController* owner;
 - (id)initWithSource:(ZBSource *)source andOwner:(ZBRepoSectionsListTableViewController *)owner;
 @property (weak, nonatomic) IBOutlet UIButton *button;

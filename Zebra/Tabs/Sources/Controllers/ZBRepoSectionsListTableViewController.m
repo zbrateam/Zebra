@@ -175,6 +175,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
                 ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
                 

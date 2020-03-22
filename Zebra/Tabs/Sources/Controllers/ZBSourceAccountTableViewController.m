@@ -55,7 +55,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     
-    self.navigationItem.title = NSLocalizedString(@"Account", @"");
+    self.navigationItem.title = NSLocalizedString(@"My Account", @"");
     
     if (self.presentingViewController) {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
@@ -238,7 +238,8 @@
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         [keychain removeItemForKey:[source repositoryURI]];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+
         if (self.presentingViewController) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }

@@ -13,6 +13,7 @@
 
 @synthesize source;
 @synthesize owner;
+@synthesize sourceInfo;
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -23,11 +24,23 @@
     self.source = source;
     self.owner = owner;
     
-//    self.descriptionLabel.text = source.label;
     [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchDown];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateText) name:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
     
+    [self updateText];
     [self applyStyle];
+    
     return self;
+}
+
+- (void) updateText {
+    if ([source isSignedIn]) {
+        self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@).", @""), @"Name", @"Email"];
+        [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
+    } else {
+        self.descriptionLabel.text = sourceInfo.authenticationBanner.message;
+        [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
+    }
 }
 
 - (void) applyStyle {
@@ -43,6 +56,10 @@
     self.button.tintColor = [UIColor accentColor];
     self.button.layer.cornerRadius = 14;
     self.seperatorView.backgroundColor = [UIColor cellSeparatorColor];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
 }
 
 @end
