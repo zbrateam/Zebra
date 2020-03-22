@@ -27,7 +27,7 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 
-NSString *const SwipeActionStyleKey = @"SwipeActionsStyle";
+NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -79,6 +79,13 @@ NSString *const SwipeActionStyleKey = @"SwipeActionsStyle";
         
         [self setFeaturedPackagesType:randomFeatured ? @(ZBFeaturedTypeRandom) : @(ZBFeaturedTypeSource)];
         [defaults removeObjectForKey:randomFeaturedKey];
+    }
+    
+    if ([defaults objectForKey:iconActionKey]) {
+        NSInteger value = [defaults integerForKey:iconActionKey];
+        
+        [self setSwipeActionStyle:@(value)];
+        [defaults removeObjectForKey:iconActionKey];
     }
     
     if (![defaults objectForKey:wantsNewsKey]) {
@@ -303,6 +310,25 @@ NSString *const SwipeActionStyleKey = @"SwipeActionsStyle";
     
     [filteredSources setObject:filteredSections forKey:[source baseFilename]];
     [self setFilteredSources:filteredSources];
+}
+
++ (ZBSwipeActionStyle)swipeActionStyle {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:SwipeActionStyleKey]) {
+        [self setSwipeActionStyle:@(ZBSwipeActionStyleText)];
+        return ZBSwipeActionStyleText;
+    }
+    return [defaults boolForKey:SwipeActionStyleKey];
+}
+
++ (void)setSwipeActionStyle:(NSNumber *)newStyle {
+    ZBFeaturedType style = newStyle.intValue;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:style forKey:SwipeActionStyleKey];
+    [defaults synchronize];
 }
 
 #pragma clang diagnostic pop

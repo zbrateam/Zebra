@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <NSString *> *footerText;
 @property NSArray <NSString *> *options;
 
-- (id)initWithOptions:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter settingChangedCallback:(void (^)(void))callback;
+- (id)initWithOptions:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter settingChangedCallback:(nullable void (^)(void))callback;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -100,8 +100,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)startFeaturedPackages {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([self.defaults boolForKey:wantsFeaturedKey]) {
-        if ([self.defaults boolForKey:randomFeaturedKey]) {
+    if ([ZBSettings wantsFeaturedPackages]) {
+        if ([ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self packagesFromDB];
             });
@@ -559,7 +559,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
-    BOOL selected = [self.defaults boolForKey:randomFeaturedKey];
+    BOOL selected = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
     [allFeatured removeAllObjects];
     if (selected) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -579,7 +579,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)toggleFeatured {
     [allFeatured removeAllObjects];
     [self setupFeatured];
-    if ([self.defaults boolForKey:wantsFeaturedKey]) {
+    if ([ZBSettings wantsFeaturedPackages]) {
         [self refreshCollection:nil];
     } else {
         [self.tableView beginUpdates];

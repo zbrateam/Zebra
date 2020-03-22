@@ -280,8 +280,8 @@ enum ZBMiscOrder {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
                 text = NSLocalizedString(@"Swipe Actions Display As", @"");
-                NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue];
-                if (selected == 0) {
+                ZBSwipeActionStyle selected = [ZBSettings swipeActionStyle];
+                if (selected == ZBSwipeActionStyleText) {
                     cell.detailTextLabel.text = NSLocalizedString(@"Text", @"");
                 } else {
                     cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
@@ -460,14 +460,6 @@ enum ZBMiscOrder {
     if (notificationKey) {
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:self];
     }
-    
-    if ([preferenceKey isEqualToString:wantsFeaturedKey]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView beginUpdates];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView endUpdates];
-        });
-    }
 }
 
 - (void)toggleFeatured:(id)sender {
@@ -534,21 +526,10 @@ enum ZBMiscOrder {
 }
 
 - (void)misc {
-//    NSArray *options = @[@"Text", @"Icon"];
-//    
-//    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithSettingsKey:iconActionKey selectionType:ZBSettingsSelectionTypeNormal limit:1 options:options];
-//    [controller setTitle:@"Swipe Actions Display As"];
-//    
-//    [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
-//        NSUInteger selection = [options indexOfObject:selections[0]];
-//        
-//        BOOL useIcon = selection == 1;
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        [defaults setBool:useIcon forKey:iconActionKey];
-//        [defaults synchronize];
-//    }];
-//    
-//    [self.navigationController pushViewController: controller animated:YES];
+    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Text", @"Icon"] getter:@selector(swipeActionStyle) setter:@selector(setSwipeActionStyle:) settingChangedCallback:nil];
+    [controller setTitle:@"Swipe Actions Display As"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

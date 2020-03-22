@@ -71,6 +71,12 @@ typedef enum : NSUInteger {
     ZBFeaturedTypeRandom,
 } ZBFeaturedType;
 
+#pragma mark - Swipe Action Style
+
+typedef enum : NSUInteger {
+    ZBSwipeActionStyleText,
+    ZBSwipeActionStyleIcon,
+} ZBSwipeActionStyle;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -125,6 +131,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Search Settings
 
 + (BOOL)liveSearch;
+
+#pragma mark - Swipe Action Settings
+
++ (ZBSwipeActionStyle)swipeActionStyle;
++ (void)setSwipeActionStyle:(NSNumber *)style;
 
 @end
 
