@@ -36,10 +36,10 @@
 "Verifying Source" = "Verificerer kilde";
 "Verifying Sources" = "Verificerer kilder";
 "Import" = "Importer";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "Verificerer...";
+"Confirm Import" = "Bekræft importering";
 "Import Sources" = "Importer kilder";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Ingen kilder at importere";
 "Would you like to import the following sources?" = "Vil du importere de følgende kilder?";
 "Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importere 1 kilde til Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importere %d kilder til Zebra?";
@@ -80,13 +80,13 @@
 "Purple Heart" = "Lavendel lilla";
 "Royal Blue" = "Kongeblå";
 "Shark" = "Haj";
-"Storm" = "Storm";
+"Storm" = "Stormgrå";
 "Use System Accent Color" = "Brug systemets markeringsfarve";
 "Appearance" = "Udseende";
 "Use System Appearance" = "Brug systemets udseende";
 "Light" = "Lys";
 "Dark" = "Mørk";
-"Pure Black Mode" = "Pure Black Mode";
+"Pure Black Mode" = "Sort tilstand";
 
 // Featured
 
@@ -101,30 +101,30 @@
 
 "Advanced" = "Avanceret";
 "Refresh Icon Cache" = "Opdater ikoncache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
+"Reset Image Cache" = "Nulstil billedecache";
+"Reset Sources Cache" = "Nulstil kildecache";
 "Reset All Settings" = "Nulstil alle indstillinger";
 "Erase All Sources and Settings" = "Nulstil alle kilder og indstillinger";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil genstarte SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil nulstille ikoncache? Din enhed vil ikke svare indtil processen er udført.";
+"Image Cache Reset" = "Billedecache nulstilling";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil nulstille Zebras kildecache? Dette vil fjerne alt gemt information fra Zebras database og hente det igen. Dine kilder vil ikke blive fjernet.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil nulstille Zebras indstillinger? The vil nulstille alle Zebras indstillinger til deres standarder og Zebra vil genstarte.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kilder og indstillinger? Alle dine kilder vil blive fjernet fra Zebra og dine indstillinger vil blive nulstillet.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle dine kilder vil blive slettet, og Zebra vil genstarte.";
 
 // Stores
 
 "Stores" = "Butikker";
 "Account" = "Konto";
-"Sign In" = "Sign In";
+"Sign In" = "Log ind";
 "Sign Out" = "Log ud";
 "Your Purchases" = "Dine køb";
 "No Storefronts Available" = "Ingen butikker tilgængelige";
 "Could not complete purchase" = "Kunne ikke udføre købet";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "Ingen købte pakker";
 
 // Sources
 
@@ -133,7 +133,7 @@
 "Delete" = "Slet";
 "Refresh" = "opdatere";
 "All Packages" = "Alle Pakker";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Fjern kilde";
 "Local Repository" = "Lokalt Arkiv";
 "Locally installed packages" = "Lokalt installeret pakker";
 
@@ -144,14 +144,14 @@
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
 
 "Please Wait..." = "Vent Venligst...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificerer kilde";
+"Verifying Sources" = "Verificerer kilder";
 "Updating Sources" = "Opdaterer kilder";
 
 "Unknown error" = "Ukendt fejl";
 "Invalid URL" = "Ugyldig Webadresse";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Ugyldig kilde";
+"Tap to learn more" = "Tryk for mere";
 "No source URLs detected." = "Ingen kilde URL registreret.";
 "Unable to verify source" = "Kunne ikke bekræfte kilde";
 "Error verifying source" = "Fejl under verificering af kilde";
@@ -163,9 +163,9 @@
 "Unable to locate an APT repository at:" = "Kunne ikke finde et APT arkiv ved:";
 "Unable to locate APT repositories at:" = "Kunne ikke finde APT arkiver ved:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Den indtastede URL er ikke gyldig. Tjek venligst og prøv igen.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikke downloade kilden ved %@. Den kan være midlertidigt utilgængelig eller være tilføjet forkert.";
 
 // Packages
 
@@ -258,9 +258,9 @@
 "Search" = "Søgning";
 "This search query is too short for the full search, please use a longer query." = "Denne søgeforespørgsel er for kort til den fulde søgning. Brug en længere forespørgsel.";
 "No Results Found" = "Ingen Resultater Fundet";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Navn";
+"Description" = "Beskrivelse";
+"Author" = "Udvikler";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Kunne ikke finde et overførsels webadresse til";
 "%@ hasn't been modified" = "%@ er ikke blevet modificeret";
 "Could not parse %@ from %@" = "Kunne ikke fortolke %@ fra %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "%d filer vil blive downloadet";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Lukker Zebra...";
 "Restart SpringBoard" = "Genstart SpringBoard";
 "Restarting SpringBoard..." = "Genstarter SpringBoard...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Parser %@";
 "Starting Download" = "Starter download";
 "Downloading" = "Overfører";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Downloader %@";
 "Downloading Packages..." = "Overfører Pakker...";
 "Download Completed" = "Download udført";
 "Installing" = "Installerer";
@@ -309,7 +309,7 @@
 "One or more packages failed to download." = "En eller flere pakker fejlede at overfører.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Gå tilbage til Køen\" for at gå tilbage til køen og prøve at gennemføre overførslen.";
 "Done..." = "Færdig...";
-"Done %@" = "Done %@";
+"Done %@" = "Færdig %@";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
@@ -337,7 +337,7 @@
 "Required Package" = "Påkrævet Pakke";
 "Are you sure?" = "Er du sikker?";
 "Remove from Queue" = "Fjern fra kø";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Ryd kø";
 "%@ is required by:" = "%@ er påkrævet af:";
 "%@ must be removed because it depends on %@" = "%@ skal fjernes, fordi det afhænger af %@";
 "%@ has issues that cannot be resolved:" = "%@ har problemer der ikke kan blive løst:";
