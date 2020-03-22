@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Winkel";
-"Account" = "Account";
+"My Account" = "My Account";
 "Sign In" = "Aanmelden";
 "Sign Out" = "Afmelden";
 "Your Purchases" = "Uw Aankopen";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "Could not complete purchase, no payment secret was found" = "Aankoop kon niet worden voltooid, er is geen betalingsgeheim gevonden";
 "No packages purchased" = "Geen aangekochte pakketten";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
