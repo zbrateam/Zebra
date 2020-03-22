@@ -94,15 +94,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [self addOptionAtIndexPath:indexPath];
-}
-
-- (void)addOptionAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *option = options[indexPath.row];
-    
     if (![selectedIndex isEqual:indexPath]) {
         self->selectedIndex = indexPath;
-        self->selectedOption = option;
+        self->selectedOption = options[indexPath.row];;
         
         [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
         
