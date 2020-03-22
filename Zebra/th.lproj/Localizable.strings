@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "ปิดหน้าต่างคอนโซลอัตโนมัติเมื่อการทำงานเสร็จสมบูรณ์";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "ตัวกรอง";
+"Add Filter" = "เพิ่มตัวกรอง";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 ซอร์สที่ถูกซ่อน";
+"%lu Sources Hidden" = "%lu ซอร์สที่ถูกซ่อน";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "ประเภท";
+"Hide packages in these sections." = "ซ่อนแพ็กเกจจากประเภทเหล่านี้";
 
 "Sources" = "ซอร์ส";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "อัพเดต";
+"Hide future updates from these packages." = "ซ่อนการอัพเดตของแพ็กเกจเหล่านี้";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "ผู้สร้าง";
+"Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
