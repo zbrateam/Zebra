@@ -39,7 +39,7 @@
 "Verifying..." = "Memverifikasi...";
 "Confirm Import" = "Konfirmasi impor";
 "Import Sources" = "Import Sumber";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Tidak ada sumber untuk diimpor";
 "Would you like to import the following sources?" = "Apakah Anda ingin mengimpor sumber berikut?";
 "Are you sure that you want to import 1 source into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport 1 sumber ke Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport %d sumber ke Zebra?";
@@ -133,7 +133,7 @@
 "Delete" = "Hapus";
 "Refresh" = "Segarkan";
 "All Packages" = "Semua Paket";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Hapus Sumber";
 "Local Repository" = "Repositori Lokal";
 "Locally installed packages" = "Paket Lokal terinstall";
 
@@ -144,14 +144,14 @@
 "Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
 
 "Please Wait..." = "Tunggu Sebentar...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Memverifikasi Sumber";
+"Verifying Sources" = "Memverifikasi Sumber";
 "Updating Sources" = "Memperbarui Sumber";
 
 "Unknown error" = "Kesalahan tidak diketahui";
 "Invalid URL" = "URL tidak valid";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Sumber Tidak Valid";
+"Tap to learn more" = "Ketuk untuk mempelajari lebih lanjut";
 "No source URLs detected." = "Tidak ada URL sumber yang terdeteksi.";
 "Unable to verify source" = "Tidak dapat memverifikasi sumber";
 "Error verifying source" = "Galat memverifikasi sumber";
@@ -163,9 +163,9 @@
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "URL yang Anda masukkan tidak valid. Silakan periksa dan coba lagi.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra tidak dapat mengunduh sumber yang ditentukan di %@. Mungkin sementara tidak dapat diakses atau mungkin ditambahkan secara tidak benar.";
 
 // Packages
 
@@ -258,8 +258,8 @@
 "Search" = "Pencarian";
 "This search query is too short for the full search, please use a longer query." = "Pencarian pertanyaan ini terlalu pendek untuk pencarian lengkap, silakan gunakan pertanyaan yang lebih panjang.";
 "No Results Found" = "Tidak Ada Hasil Yang Ditemukan";
-"Name" = "Name";
-"Description" = "Description";
+"Name" = "Nama";
+"Description" = "Deskripsi";
 "Author" = "Author";
 
 // Downloads
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
 "%@ hasn't been modified" = "%@ belum dimodifikasi";
 "Could not parse %@ from %@" = "Tidak dapat mengurai %@ dari %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Total %d file akan diunduh";
 
 // Console
 
@@ -289,7 +289,7 @@
 "Parsing %@" = "Parsing %@";
 "Starting Download" = "Sedang memulai Unduhan";
 "Downloading" = "Mengunduh";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Mengunduh %@";
 "Downloading Packages..." = "Mengunduh paket...";
 "Download Completed" = "Unduhan Selesai";
 "Installing" = "Memasang";
@@ -309,10 +309,10 @@
 "One or more packages failed to download." = "Satu atau lebih paket gagal untuk diunduh.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Kembali ke Antrian\" untuk kembali ke antrian dan coba download ulang.";
 "Done..." = "Selesai...";
-"Done %@" = "Done %@";
+"Done %@" = "Selesai %@";
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Menambahkan URL Vendor Pembayaran untuk %@";
 
 // Queue Bar
 
@@ -337,7 +337,7 @@
 "Required Package" = "Paket yang Dibutuhkan";
 "Are you sure?" = "Apakah Anda yakin?";
 "Remove from Queue" = "Hapus dari Antrian";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Hapus Antrian";
 "%@ is required by:" = "%@ diperlukan oleh:";
 "%@ must be removed because it depends on %@" = "%@ harus dihapus karena tergantung pada %@";
 "%@ has issues that cannot be resolved:" = "%@ memiliki masalah yang tidak dapat diselesaikan:";
@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Secara otomatis mengabaikan Konsol ketika semua tugasnya telah selesai.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filter";
+"Add Filter" = "Tambahkan Filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 Bagian Tersembunyi";
+"%lu Sources Hidden" = "%lu Sumber Tersembunyi";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Bagian";
+"Hide packages in these sections." = "Sembunyikan paket di bagian ini.";
 
 "Sources" = "Sumber";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Sembunyikan paket di bagian ini dari sumber tertentu.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Pembaruan";
+"Hide future updates from these packages." = "Sembunyikan pembaruan di masa mendatang dari paket-paket ini.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Penulis";
+"Hide packages from these authors." = "Sembunyikan paket dari penulis ini.";
