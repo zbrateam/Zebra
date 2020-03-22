@@ -39,7 +39,7 @@
 "Verifying..." = "Verifiëren...";
 "Confirm Import" = "Bevestig Import";
 "Import Sources" = "Importeer Bronnen";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Geen bronnen om te importeren";
 "Would you like to import the following sources?" = "Wilt u de volgende bronnen importeren?";
 "Are you sure that you want to import 1 source into Zebra?" = "Weet je zeker dat je 1 bron in Zebra wilt importeren?";
 "Are you sure that you want to import %d sources into Zebra?" = "Weet je zeker dat je %d bronnen in Zebra wilt importeren?";
@@ -144,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "Wil je de URL uit uw klembord toevoegen?";
 
 "Please Wait..." = "Een ogenblik geduld alstublieft...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Bron Verifiëren";
+"Verifying Sources" = "Bronnen verifiëren";
 "Updating Sources" = "Bronnen aan het updaten";
 
 "Unknown error" = "Onbekende fout";
@@ -259,8 +259,8 @@
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
 "Name" = "Naam";
-"Description" = "Description";
-"Author" = "Author";
+"Description" = "Beschrijving";
+"Author" = "Auteur";
 
 // Downloads
 
@@ -274,7 +274,7 @@
 "Could not find a download URL for" = "Kan geen download link vinden voor";
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
 "Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Er worden in totaal %d bestanden gedownload";
 
 // Console
 
@@ -286,10 +286,10 @@
 "Closing Zebra..." = "Zebra Sluiten...";
 "Restart SpringBoard" = "SpringBoard Herstarten";
 "Restarting SpringBoard..." = "SpringBoard Herstarten...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Parseren %@";
 "Starting Download" = "Download Starten";
 "Downloading" = "Aan het downloaden";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Downloaden %@";
 "Downloading Packages..." = "Pakketten aan het downloaden...";
 "Download Completed" = "Download Compleet";
 "Installing" = "Aan het installeren";
@@ -312,7 +312,7 @@
 "Done %@" = "Voltooid %@";
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "URL van Betalingsleverancier toevoegen voor %@";
 
 // Queue Bar
 
@@ -402,10 +402,10 @@
 "Hide packages in these sections." = "Verberg pakketten in deze secties.";
 
 "Sources" = "Bronnen";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Verberg pakketten in deze secties van specifieke bronnen.";
 
 "Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Hide future updates from these packages." = "Verberg toekomstige updates van deze pakketten.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Auteurs";
+"Hide packages from these authors." = "Verberg pakketten van deze auteurs.";
