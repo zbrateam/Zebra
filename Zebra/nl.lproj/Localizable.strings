@@ -258,7 +258,7 @@
 "Search" = "Zoeken";
 "This search query is too short for the full search, please use a longer query." = "Deze zoekopdracht is te kort, gebruik meer zoektermen.";
 "No Results Found" = "Geen resultaten gevonden.";
-"Name" = "Name";
+"Name" = "Naam";
 "Description" = "Description";
 "Author" = "Author";
 
@@ -309,7 +309,7 @@
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 "Done..." = "Gedaan...";
-"Done %@" = "Done %@";
+"Done %@" = "Voltooid %@";
 "Removing Zebra..." = "Zebra Verwijderen...";
 "Installing Zebra..." = "Zebra Installeren...";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
@@ -337,7 +337,7 @@
 "Required Package" = "Vereist pakket";
 "Are you sure?" = "Weet u het zeker?";
 "Remove from Queue" = "Verwijder uit wachtrij";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Wachtrij Wissen";
 "%@ is required by:" = "%@ is vereist door:";
 "%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
 "%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
@@ -393,13 +393,13 @@
 
 // Filters
 "Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Add Filter" = "Filter Toevoegen";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 Sectie Verborgen";
+"%lu Sources Hidden" = "%lu Bronnen Verborgen";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Secties";
+"Hide packages in these sections." = "Verberg pakketten in deze secties.";
 
 "Sources" = "Bronnen";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
