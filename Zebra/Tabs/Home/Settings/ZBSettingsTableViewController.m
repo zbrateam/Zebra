@@ -127,7 +127,7 @@ enum ZBMiscOrder {
             int rows = 1;
             BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
             if (wantsFeatured) {
-                BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
+                BOOL randomFeatured = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
                 if (randomFeatured) {
                     return 3;
                 }
@@ -234,9 +234,9 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBFeatureOrRandomToggle: {
-                    NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
+                    ZBFeaturedType type = [ZBSettings featuredPackagesType];
 
-                    if (selected == 0) {
+                    if (type == ZBFeaturedTypeSource) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Repo Featured", @"");
                     } else {
                         cell.detailTextLabel.text = NSLocalizedString(@"Random", @"");
@@ -432,8 +432,6 @@ enum ZBMiscOrder {
 
 - (void)featureOrRandomToggle {
     ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Repo Featured", @"Random"] getter:@selector(featuredPackagesType) setter:@selector(setFeaturedPackagesType:) settingChangedCallback:^{
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
     }];
     
