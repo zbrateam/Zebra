@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Butiker";
-"Account" = "Konto";
+"My Account" = "My Account";
 "Sign In" = "Logga in";
 "Sign Out" = "Logga ut";
 "Your Purchases" = "Dina köp";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "Could not complete purchase, no payment secret was found" = "Kunde inte slutföra köpet, ingen betalningshemlighet hittades";
 "No packages purchased" = "Inga köpta paket";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
