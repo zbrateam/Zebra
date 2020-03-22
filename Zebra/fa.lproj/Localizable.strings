@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "فروشگاه ها";
-"Account" = "حساب کاربری";
+"My Account" = "My Account";
 "Sign In" = "ورود";
 "Sign Out" = "خروج";
 "Your Purchases" = "خریدهای شما";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "قادر به تکمیل خرید نیست";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "هیچ پکیجی خریداری نشده است.";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
