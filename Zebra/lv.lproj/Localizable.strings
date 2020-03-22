@@ -23,7 +23,7 @@
 "No items in Wish List" = "Vēlmju sarakstā nav paketes";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Seko mūms Twitterī";
 "Help translate Zebra!" = "Palīdzi tulkot Zebra!";
 
 // Community Source
@@ -31,10 +31,10 @@
 "Community Sources" = "Kopienas avoti";
 "You’ve added all of the community sources" = "Jūs esat pievienojis visus kopienas avotus";
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@ darbarīku avots";
 "Transfer Sources" = "Pārvietot avotus";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificējam Avotu";
+"Verifying Sources" = "Verificējam Avotus";
 "Import" = "Import";
 "Verifying..." = "Verifying...";
 "Confirm Import" = "Confirm Import";
