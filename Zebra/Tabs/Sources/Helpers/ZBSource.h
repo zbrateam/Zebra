@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSString *)paymentSecret;
 - (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion;
+- (BOOL)isSignedIn;
 - (NSURL *)paymentVendorURL;
 @end
 

@@ -205,6 +205,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     }
 }
 
+- (BOOL)isSignedIn {
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    return [keychain stringForKey:[self paymentVendorURL]];
+}
+
 - (NSString *)paymentSecret {
     __block NSString *paymentSecret;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
