@@ -59,7 +59,7 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    if (selectedIndex.row != selectedValue) self.settingChanged();
+    if (selectedIndex.row != selectedValue && settingChanged) self.settingChanged();
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
