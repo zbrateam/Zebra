@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Магазины";
-"Account" = "Аккаунт";
+"My Account" = "My Account";
 "Sign In" = "Войти";
 "Sign Out" = "Выйти";
 "Your Purchases" = "Ваши Покупки";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 "No packages purchased" = "Нет купленных пакетов";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
