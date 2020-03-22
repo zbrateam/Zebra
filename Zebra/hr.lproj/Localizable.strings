@@ -392,20 +392,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori konzolu kada se svi zadatci dovrše.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filteri";
+"Add Filter" = "Dodaj filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 sakriveni odjeljak";
+"%lu Sources Hidden" = "%lu sakrivenih izvora";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Odjeljci";
+"Hide packages in these sections." = "Sakrij proizvode u ovim odjeljcima.";
 
 "Sources" = "Izvori";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Sakrij proizvode u ovim odjeljcima od specifičnih izvora.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Ažuriranja";
+"Hide future updates from these packages." = "Sakrij buduće nadogradnje za ove proizvode.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autori";
+"Hide packages from these authors." = "Sakrij proizvode od ovih autora.";
