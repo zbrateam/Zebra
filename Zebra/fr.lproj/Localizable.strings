@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Magasins";
-"Account" = "Compte";
+"My Account" = "My Account";
 "Sign In" = "Se connecter";
 "Sign Out" = "Se déconnecter";
 "Your Purchases" = "Vos achats";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Impossible de terminer l'achat";
 "Could not complete purchase, no payment secret was found" = "Impossible de terminer l'achat, aucun moyen de paiement n'a été trouvé";
 "No packages purchased" = "No packages purchased";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
