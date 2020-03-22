@@ -7,6 +7,7 @@
 //
 
 @class ZBUserInfo;
+@class ZBSourceInfo;
 
 #import "ZBBaseSource.h"
 
@@ -40,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isSignedIn;
 - (NSURL *)paymentVendorURL;
 - (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion;
+- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

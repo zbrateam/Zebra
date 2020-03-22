@@ -14,6 +14,7 @@
 #import <Database/ZBColumn.h>
 #import <ZBDevice.h>
 #import <ZBUserInfo.h>
+#import <ZBSourceInfo.h>
 
 @implementation ZBSource
 
@@ -245,7 +246,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
-    if (![self isSignedIn]) return;
+    if (![self paymentVendorURL] || ![self isSignedIn]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
@@ -276,6 +277,45 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             }
             
             completion(userInfo, nil);
+        }
+        else if (error) {
+            completion(nil, error);
+        }
+    }];
+    
+    [task resume];
+}
+
+- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion {
+    if (![self paymentVendorURL]) return;
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"info"]];
+    
+    NSDictionary *requestJSON = @{@"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = [httpReponse statusCode];
+        
+        if (statusCode == 200 && !error) {
+            NSError *parseError;
+            ZBSourceInfo *sourceInfo = [ZBSourceInfo fromData:data error:&parseError];
+            
+            if (parseError || sourceInfo.error) {
+                parseError ? completion(nil, parseError) : completion(nil, [NSError errorWithDomain:NSURLErrorDomain code:343 userInfo:@{NSLocalizedDescriptionKey: sourceInfo.error}]);
+                return;
+            }
+            
+            completion(sourceInfo, nil);
         }
         else if (error) {
             completion(nil, error);
