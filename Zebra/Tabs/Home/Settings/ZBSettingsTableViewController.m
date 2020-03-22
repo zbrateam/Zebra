@@ -7,7 +7,7 @@
 //
 
 #import "ZBSettingsTableViewController.h"
-#import "ZBSettingsOptionsTableViewController.h"
+#import "ZBSettingsSelectionTableViewController.h"
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
@@ -431,23 +431,28 @@ enum ZBMiscOrder {
 }
 
 - (void)featureOrRandomToggle {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Feature Type";
-    controller.footerText = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."];
-    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
-        controller.selectedRow = 1;
-    } else {
-        controller.selectedRow = 0;
-    }
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSelectionType:ZBSettingsSelectionTypeNormal limit:1 options:@[@"Repo Featured", @"Random"]];
     
-    controller.options = @[@"Repo Featured", @"Random"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        BOOL selectedMode = [[NSNumber numberWithInteger:newValue] boolValue];
+    [controller setTitle:@"Feature Type"];
+    [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
+    
+//    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
+//
+//    } else {
+//        controller.selectedRow = 0;
+//    }
+    
+    [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
+        NSUInteger selection = [options indexOfObject:selections[0]];
+        
+        BOOL selectedMode = [[NSNumber numberWithInteger:selection] boolValue];
         [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        [ZBDevice hapticButton];
+        
         [self.tableView reloadData];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
+        
         CATransition *transition = [CATransition animation];
         transition.type = kCATransitionFade;
         transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
@@ -455,7 +460,8 @@ enum ZBMiscOrder {
         transition.duration = 0.35;
         transition.subtype = kCATransitionFromTop;
         [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    };
+    }];
+    
     [self.navigationController pushViewController: controller animated:YES];
 }
 
@@ -541,16 +547,21 @@ enum ZBMiscOrder {
 }
 
 - (void)misc {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.selectedRow = [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey] ? 1 : 0;
-    controller.title = @"Swipe Actions Display As";
-    controller.options = @[@"Text", @"Icon"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        BOOL useIcon = newValue == 1;
+    NSArray *options = @[@"Text", @"Icon"];
+    
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSelectionType:ZBSettingsSelectionTypeNormal limit:1 options:options];
+//    controller.selectedRow = [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey] ? 1 : 0;
+    [controller setTitle:@"Swipe Actions Display As"];
+    
+    [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
+        NSUInteger selection = [options indexOfObject:selections[0]];
+        
+        BOOL useIcon = selection == 1;
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setBool:useIcon forKey:iconActionKey];
         [defaults synchronize];
-    };
+    }];
+    
     [self.navigationController pushViewController: controller animated:YES];
 }
 
