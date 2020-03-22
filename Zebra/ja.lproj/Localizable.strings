@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "ストア";
-"Account" = "アカウント";
+"My Account" = "My Account";
 "Sign In" = "サインイン";
 "Sign Out" = "サインアウト";
 "Your Purchases" = "購入済みパッケージ";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 "No packages purchased" = "購入したパッケージはありません";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
