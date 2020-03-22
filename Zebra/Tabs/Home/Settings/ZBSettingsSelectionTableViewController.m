@@ -78,12 +78,14 @@
     cell.textLabel.textColor = [UIColor primaryTextColor];
     
     cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    BOOL sectionSelected = [selectedIndexes containsObject:indexPath];
     switch (selectionType) {
         case ZBSettingsSelectionTypeNormal:
-            if ([selectedIndexes containsObject:indexPath]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if (sectionSelected) cell.accessoryType = UITableViewCellAccessoryCheckmark;
             break;
         case ZBSettingsSelectionTypeInverse:
-            if (![selectedIndexes containsObject:indexPath]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if (!sectionSelected) cell.accessoryType = UITableViewCellAccessoryCheckmark;
             break;
     }
     
