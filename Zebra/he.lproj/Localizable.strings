@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "חנויות";
-"Account" = "חשבון";
+"My Account" = "My Account";
 "Sign In" = "התחבר/י";
 "Sign Out" = "התנתק";
 "Your Purchases" = "הרכישות שלך";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
