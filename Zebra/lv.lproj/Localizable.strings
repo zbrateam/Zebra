@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Veikali";
-"Account" = "Account";
+"My Account" = "My Account";
 "Sign In" = "Sign In";
 "Sign Out" = "Sign Out";
 "Your Purchases" = "Your Purchases";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
