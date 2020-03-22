@@ -15,35 +15,45 @@
 @synthesize owner;
 @synthesize sourceInfo;
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
 - (id)initWithSource:(ZBSource *)source andOwner:(ZBRepoSectionsListTableViewController *)owner {
     self = [[[NSBundle mainBundle] loadNibNamed: NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
+    [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
+        if (info && !error) {
+            self.sourceInfo = info;
+        }
+        
+        [self updateText];
+    }];
+    
+    
     self.owner = owner;
     
     [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchDown];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateText) name:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
     
-    [self updateText];
     [self applyStyle];
     
     return self;
 }
 
-- (void) updateText {
-    if ([source isSignedIn]) {
-        self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@).", @""), @"Name", @"Email"];
-        [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
-    } else {
-        self.descriptionLabel.text = sourceInfo.authenticationBanner.message;
-        [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
-    }
+- (void)updateText {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self->source isSignedIn]) {
+            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@).", @""), @"Name", @"Email"];
+            [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
+        } else if (self->sourceInfo) {
+            self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
+            [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
+        }
+        else {
+            self.descriptionLabel.text = NSLocalizedString(@"An Error Ocurred", @"");
+            [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
+        }
+    });
 }
 
-- (void) applyStyle {
+- (void)applyStyle {
     self.backgroundColor = [[UIColor tableViewBackgroundColor] colorWithAlphaComponent:0.6];
     if (@available(iOS 10.0, *)) {
         UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
