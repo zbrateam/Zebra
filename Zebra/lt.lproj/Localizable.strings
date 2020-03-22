@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Parduotuvės";
-"Account" = "Paskyra";
+"My Account" = "My Account";
 "Sign In" = "Prisijungti";
 "Sign Out" = "Atsijungti";
 "Your Purchases" = "Jūsų pirkiniai";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Nepavyko baigti pirkimo";
 "Could not complete purchase, no payment secret was found" = "Nepavyko baigti pirkimo, apmokėjimas neįvyko";
 "No packages purchased" = "Nėra nupirktų paketų";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
