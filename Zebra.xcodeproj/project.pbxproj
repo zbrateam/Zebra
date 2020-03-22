@@ -380,6 +380,7 @@
 		899203B622490D4C0098AC7B /* dict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
 		899229FB242815E90086E2F4 /* ZBSourceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceInfo.h; sourceTree = "<group>"; };
 		899229FC242815E90086E2F4 /* ZBSourceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceInfo.m; sourceTree = "<group>"; };
+		89922A0A24281C030086E2F4 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8997843F2242D25800C1138C /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		8997A9F024031007001894BF /* ZBSearchResultsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchResultsTableViewController.h; sourceTree = "<group>"; };
 		8997A9F124031007001894BF /* ZBSearchResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchResultsTableViewController.m; sourceTree = "<group>"; };
@@ -1191,6 +1192,7 @@
 				gl,
 				ka,
 				ro,
+				bg,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
@@ -1446,6 +1448,7 @@
 				89308E2823FF6F1E00D4641D /* gl */,
 				89308E2923FF6F5500D4641D /* ka */,
 				89C112A12400E7A200854713 /* ro */,
+				89922A0A24281C030086E2F4 /* bg */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
