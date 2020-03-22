@@ -41,8 +41,8 @@
 "Import Sources" = "Quellen importieren";
 "No sources to import" = "Keine Quellen zum importieren gefunden";
 "Would you like to import the following sources?" = "Möchten Sie die folgenden Quellen importieren?";
-"Are you sure that you want to import 1 source into Zebra?" = "Sind Sie sicher, dass Sie eine Quelle nach Zebra importieren möchten?";
-"Are you sure that you want to import %d sources into Zebra?" = "Sind Sie sicher, dass Sie %d Quellen nach Zebra importieren möchten?";
+"Are you sure that you want to import 1 source into Zebra?" = "Möchten Sie wirklich 1 Quelle in Zebra importieren?";
+"Are you sure that you want to import %d sources into Zebra?" = "Möchten Sie wirklich %d Quellen in Zebra importieren?";
 
 
 // Credits
@@ -100,14 +100,14 @@
 // Advanced
 
 "Advanced" = "Fortgeschritten";
-"Refresh Icon Cache" = "Icon-Cache aktualisieren";
+"Refresh Icon Cache" = "Symbolcache aktualisieren";
 "Reset Image Cache" = "Bild-Cache zurücksetzen";
 "Reset Sources Cache" = "Quellen-Cache zurücksetzen";
 "Reset All Settings" = "Alle Einstellungen zurücksetzen";
 "Erase All Sources and Settings" = "Alle Quellen und Einstellungen löschen";
 
 "Are you sure you want to restart the SpringBoard?" = "Möchten Sie SpringBoard wirklich neu starten?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Möchten Sie den Icon-Cache wirklich aktualisieren? Ihr Gerät reagiert möglicherweise nicht mehr, bis der Prozess abgeschlossen ist.";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Möchten Sie den Symbol-Cache wirklich aktualisieren? Ihr Gerät reagiert möglicherweise nicht mehr, bis der Prozess abgeschlossen ist.";
 "Image Cache Reset" = "Bild-Cache zurücksetzen";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Möchten Sie den Quellen-Cache von Zebra wirklich zurücksetzen? Dadurch werden alle zwischengespeicherten Informationen aus der Datenbank von Zebra entfernt und erneut heruntergeladen. Ihre Quellen werden nicht gelöscht.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Möchten Sie die Einstellungen von Zebra wirklich zurücksetzen? Dadurch werden alle Einstellungen von Zebra auf ihre Standardwerte zurückgesetzt und Zebra neu gestartet.";
@@ -407,5 +407,5 @@
 "Updates" = "Updates";
 "Hide future updates from these packages." = "Verstecke zukünftige Updates von diesen Paketen.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Ersteller";
+"Hide packages from these authors." = "Pakete von diesen Erstellern ausblenden.";
