@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "商店";
-"Account" = "账户";
+"My Account" = "My Account";
 "Sign In" = "登录";
 "Sign Out" = "登出";
 "Your Purchases" = "已购买";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "无法完成购买操作";
 "Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
 "No packages purchased" = "无已购买软件包";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
