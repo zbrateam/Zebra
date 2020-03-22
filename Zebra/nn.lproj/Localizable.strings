@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Butikkar";
-"Account" = "Konto";
+"My Account" = "My Account";
 "Sign In" = "Logg inn";
 "Sign Out" = "Logg ut";
 "Your Purchases" = "Kjøpa dine";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
 "Could not complete purchase, no payment secret was found" = "Kunne ikkje fullføra kjøpet, ingen betalingsløyndom vart funnen";
 "No packages purchased" = "Ingen kjøpte pakkar";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
