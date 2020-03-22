@@ -401,7 +401,7 @@
 "Sections" = "分类";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
-"Sources" = "Sources";
+"Sources" = "资料来源";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
 "Updates" = "更新";
