@@ -189,19 +189,37 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
 }
 
 + (BOOL)wantsFeaturedPackages {
-    return NO;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsFeaturedPackagesKey]) {
+        [self setWantsFeaturedPackages:YES];
+        return YES;
+    }
+    return [defaults boolForKey:WantsFeaturedPackagesKey];
 }
 
 + (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:wantsFeaturedPackages forKey:WantsFeaturedPackagesKey];
+    [defaults synchronize];
 }
 
 + (ZBFeaturedType)featuredPackagesType {
-    return ZBFeaturedTypeSource;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:FeaturedPackagesTypeKey]) {
+        [self setFeaturedPackagesType:ZBFeaturedTypeSource];
+        return ZBFeaturedTypeSource;
+    }
+    return (ZBFeaturedType)[defaults integerForKey:FeaturedPackagesTypeKey];
 }
 
 + (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setInteger:featuredPackagesType forKey:FeaturedPackagesTypeKey];
+    [defaults synchronize];
 }
 
 + (NSArray *)sourceBlacklist {
@@ -223,8 +241,6 @@ NSString *const FilteredSourcesKey = @"FilteredSources";
 }
 
 + (NSArray *)filteredSections {
-    return @[@"Tweaks", @"Themes"];
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     return [defaults objectForKey:FilteredSectionsKey] ?: [NSArray new];

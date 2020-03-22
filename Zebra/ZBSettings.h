@@ -26,13 +26,18 @@
 #define finishAutomaticallyKey @"finishAutomatically"
 
 //New settings keys
-extern NSString * _Nonnull const AccentColorKey;
-extern NSString * _Nonnull const UseSystemAppearanceKey;
-extern NSString * _Nonnull const InterfaceStyleKey;
-extern NSString * _Nonnull const PureBlackModeKey;
+extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
+extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
+extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
+extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
 
-extern NSString * _Nonnull const FilteredSourcesKey;
-extern NSString * _Nonnull const FilteredSectionsKey;
+extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
+extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
+
+extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
+extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
+
+extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
 
 #pragma mark - Accent Colors
 
@@ -51,7 +56,7 @@ typedef enum : NSUInteger {
     ZBAccentColorStorm,
 } ZBAccentColor;
 
-#pragma mark - Dark Mode Styles
+#pragma mark - Interface Styles
 
 typedef enum : NSUInteger {
     ZBInterfaceStyleLight,
@@ -68,8 +73,6 @@ typedef enum : NSUInteger {
 
 
 NS_ASSUME_NONNULL_BEGIN
-
-#pragma mark -
 
 @interface ZBSettings : NSObject
 
@@ -93,19 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
 
-+ (BOOL)wantsFeaturedPackages;
-+ (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages;
-
-+ (ZBFeaturedType)featuredPackagesType;
-+ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType;
-
-+ (NSArray *)sourceBlacklist;
-
-+ (BOOL)wantsCommunityNews;
-+ (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
-
-+ (BOOL)liveSearch;
-
 #pragma mark - Filters
 
 + (NSArray *)filteredSections;
@@ -116,6 +106,25 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
+
+#pragma mark - Homepage settings
+
++ (BOOL)wantsFeaturedPackages;
++ (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages;
+
++ (ZBFeaturedType)featuredPackagesType;
++ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType;
+
++ (NSArray *)sourceBlacklist;
+
+#pragma mark - Changes Settings
+
++ (BOOL)wantsCommunityNews;
++ (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
+
+#pragma mark - Search Settings
+
++ (BOOL)liveSearch;
 
 @end
 
