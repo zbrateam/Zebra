@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Market";
-"Account" = "Hesap";
+"My Account" = "My Account";
 "Sign In" = "Oturum Aç";
 "Sign Out" = "Oturumu Kapat";
 "Your Purchases" = "Satın Aldıklarınız";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
 "No packages purchased" = "Hiç Paket Satın Alınmadı";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
