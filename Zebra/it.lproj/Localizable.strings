@@ -392,10 +392,10 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Chiudi automaticamente la Console quando tutti i suoi processi sono stati completati.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtri";
+"Add Filter" = "Aggiungi Filtro";
 
-"1 Section Hidden" = "1 Section Hidden";
+"1 Section Hidden" = "1 Sezione Nascosta";
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
 "Sections" = "Sections";
