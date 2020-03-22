@@ -471,7 +471,18 @@ enum ZBMiscOrder {
 }
 
 - (void)toggleFeatured:(id)sender {
-    [self toggle:sender preference:wantsFeaturedKey notification:@"toggleFeatured"];
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsFeaturedPackages:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)toggleNews:(id)sender {
