@@ -8,6 +8,10 @@
 
 #import "ZBSourcesAccountBanner.h"
 #import "UIColor+GlobalColors.h"
+#import <ZBSource.h>
+#import <ZBSourceInfo.h>
+#import <ZBUserInfo.h>
+#import "ZBRepoSectionsListTableViewController.h"
 
 @implementation ZBSourcesAccountBanner
 
@@ -16,7 +20,7 @@
 @synthesize sourceInfo;
 
 - (id)initWithSource:(ZBSource *)source andOwner:(ZBRepoSectionsListTableViewController *)owner {
-    self = [[[NSBundle mainBundle] loadNibNamed: NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
+    self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
         if (info && !error) {
@@ -40,8 +44,19 @@
 - (void)updateText {
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->source isSignedIn]) {
-            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@).", @""), @"Name", @"Email"];
-            [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
+            [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (info && !error) {
+                        self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@)", @""), info.user.name, info.user.email];
+                        [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
+                    }
+                    else {
+                        self.descriptionLabel.text = NSLocalizedString(@"An Error Ocurred", @"");
+                        [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
+                    }
+                });
+            }];
+
         } else if (self->sourceInfo) {
             self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
             [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
