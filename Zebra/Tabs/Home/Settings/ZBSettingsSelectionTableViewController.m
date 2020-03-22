@@ -46,6 +46,15 @@
     
     self.title = NSLocalizedString(self.title, @"");
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSInteger selectedValue = [defaults integerForKey:settingsKey];
+    
+    NSIndexPath *selectedIndex = [NSIndexPath indexPathForRow:selectedValue inSection:0];
+    NSString *selectedOption = [options objectAtIndex:selectedValue];
+    
+    [selectedIndexes addObject:selectedIndex];
+    [selectedOptions addObject:selectedOption];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

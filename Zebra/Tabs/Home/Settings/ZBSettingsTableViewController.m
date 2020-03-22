@@ -431,16 +431,10 @@ enum ZBMiscOrder {
 }
 
 - (void)featureOrRandomToggle {
-    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSelectionType:ZBSettingsSelectionTypeNormal limit:1 options:@[@"Repo Featured", @"Random"]];
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSettingsKey:randomFeaturedKey selectionType:ZBSettingsSelectionTypeNormal limit:1 options:@[@"Repo Featured", @"Random"]];
     
     [controller setTitle:@"Feature Type"];
     [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
-    
-//    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
-//
-//    } else {
-//        controller.selectedRow = 0;
-//    }
     
     [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
         NSUInteger selection = [options indexOfObject:selections[0]];
@@ -549,8 +543,7 @@ enum ZBMiscOrder {
 - (void)misc {
     NSArray *options = @[@"Text", @"Icon"];
     
-    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithSelectionType:ZBSettingsSelectionTypeNormal limit:1 options:options];
-//    controller.selectedRow = [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey] ? 1 : 0;
+    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithSettingsKey:iconActionKey selectionType:ZBSettingsSelectionTypeNormal limit:1 options:options];
     [controller setTitle:@"Swipe Actions Display As"];
     
     [controller setSelectionChanged:^(NSArray *options, NSArray *selections) {
