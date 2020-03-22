@@ -310,8 +310,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             NSError *parseError;
             ZBSourceInfo *sourceInfo = [ZBSourceInfo fromData:data error:&parseError];
             
-            if (parseError || sourceInfo.error) {
-                parseError ? completion(nil, parseError) : completion(nil, [NSError errorWithDomain:NSURLErrorDomain code:343 userInfo:@{NSLocalizedDescriptionKey: sourceInfo.error}]);
+            if (parseError) {
+                completion(nil, parseError);
                 return;
             }
             
