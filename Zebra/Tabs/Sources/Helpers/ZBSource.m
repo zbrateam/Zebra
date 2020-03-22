@@ -13,6 +13,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 #import <ZBDevice.h>
+#import <ZBUserInfo.h>
 
 @implementation ZBSource
 
@@ -78,7 +79,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
         const char *vendorChars        = textColumn(statement, ZBSourceColumnPaymentVendor);
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
-
+        
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NSLocalizedString(@"Unknown", @"")];
         [self setLabel:labelChars != 0 ? [[NSString alloc] initWithUTF8String:labelChars] : NSLocalizedString(@"Unknown", @"")];
@@ -112,11 +113,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                     completionHandler:^(NSData *data,
                                         NSURLResponse *response,
                                         NSError *error) {
-                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        if (data != nil && (long)[httpResponse statusCode] != 404) {
-                            [self setSupportsFeaturedPackages:YES];
-                        }
-                    }] resume];
+                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                if (data != nil && (long)[httpResponse statusCode] != 404) {
+                    [self setSupportsFeaturedPackages:YES];
+                }
+            }] resume];
             [self setCheckedSupportFeaturedPackages:YES];
         }
     }
@@ -182,7 +183,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                     [keychain setString:nil forKey:key];
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                         [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+                              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
                         
                         [keychain setString:payment forKey:key];
                         
@@ -199,7 +200,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             [session start];
         }
         else {
-//            [ZBDevice openURL:url delegate:nil];
+            //            [ZBDevice openURL:url delegate:nil];
         }
     }
 }
@@ -241,6 +242,47 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
     return paymentVendorURI;
+}
+
+- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
+    if (![self isSignedIn]) return;
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
+    NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[self repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = [httpReponse statusCode];
+        
+        if (statusCode == 200 && !error) {
+            NSError *parseError;
+            ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
+            
+            if (parseError || userInfo.error) {
+                parseError ? completion(nil, parseError) : completion(nil, [NSError errorWithDomain:NSURLErrorDomain code:343 userInfo:@{NSLocalizedDescriptionKey: userInfo.error}]);
+                return;
+            }
+            
+            completion(userInfo, nil);
+        }
+        else if (error) {
+            completion(nil, error);
+        }
+    }];
+    
+    [task resume];
 }
 
 @end

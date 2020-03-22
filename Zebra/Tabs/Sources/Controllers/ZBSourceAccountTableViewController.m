@@ -83,72 +83,8 @@
 - (void)getPurchases {
     loading = YES;
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
-    
-    NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:requestData];
-
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-        NSInteger statusCode = [httpReponse statusCode];
-        
-        if (statusCode == 200 && !error) {
-            NSError *parseError;
-            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"%@", str);
-            ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
-            
-            if (parseError || userInfo.error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:parseError ? parseError.localizedDescription : userInfo.error preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        if (self.presentingViewController) {
-                            [self signOut:self];
-                            [self dismissViewControllerAnimated:YES completion:nil];
-                        }
-                        else {
-                            [self signOut:self];
-                            [self.navigationController popViewControllerAnimated:YES];
-                        }
-                    }];
-                    [errorAlert addAction:okAction];
-                    
-                    [self presentViewController:errorAlert animated:YES completion:nil];
-                });
-            }
-            else {
-                NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
-                for (NSString *packageIdentifier in userInfo.items) {
-                    [purchasedPackageIdentifiers addObject:[packageIdentifier lowercaseString]];
-                }
-                
-                self->purchases = [self->databaseManager packagesFromIdentifiers:purchasedPackageIdentifiers];
-                if (userInfo.user.name) {
-                    self->userName = userInfo.user.name;
-                }
-                if (userInfo.user.email) {
-                    self->userEmail = userInfo.user.email;
-                }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self->loading = NO;
-                    
-                    [self.tableView beginUpdates];
-                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationFade];
-                    [self.tableView endUpdates];
-                });
-            }
-        }
-        else if (error) {
+    [source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+        if (error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
                 
@@ -167,9 +103,29 @@
                 [self presentViewController:errorAlert animated:YES completion:nil];
             });
         }
+        else if (info) {
+            NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
+            for (NSString *packageIdentifier in info.items) {
+                [purchasedPackageIdentifiers addObject:[packageIdentifier lowercaseString]];
+            }
+            
+            self->purchases = [self->databaseManager packagesFromIdentifiers:purchasedPackageIdentifiers];
+            if (info.user.name) {
+                self->userName = info.user.name;
+            }
+            if (info.user.email) {
+                self->userEmail = info.user.email;
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self->loading = NO;
+                
+                [self.tableView beginUpdates];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView endUpdates];
+            });
+        }
     }];
-    
-    [task resume];
 }
 
 - (void)signOut:(id)sender {
