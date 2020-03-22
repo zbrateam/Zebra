@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSource:(ZBSource *)source andOwner:(ZBRepoSectionsListTableViewController *)owner;
 @property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIView *seperatorView;
 @end
 
 NS_ASSUME_NONNULL_END
