@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Butikker";
-"Account" = "Konto";
+"My Account" = "My Account";
 "Sign In" = "Log ind";
 "Sign Out" = "Log ud";
 "Your Purchases" = "Dine køb";
@@ -125,6 +125,7 @@
 "Could not complete purchase" = "Kunne ikke udføre købet";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "Ingen købte pakker";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
