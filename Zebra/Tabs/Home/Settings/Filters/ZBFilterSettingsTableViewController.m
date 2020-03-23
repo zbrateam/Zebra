@@ -52,6 +52,8 @@
     }
     [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
     
+    blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
+    
     [[self tableView] reloadData];
 }
 
@@ -112,7 +114,7 @@
         }
         case 2: {
             if (indexPath.row < [blockedAuthors count]) {
-                cell.textLabel.text = blockedAuthors[indexPath.row];
+                cell.textLabel.text = [self stripEmailFrom:blockedAuthors[indexPath.row]];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
                 return cell;
@@ -208,6 +210,9 @@
             if (lastRow) {
                 ZBAuthorSelectorTableViewController *authorPicker = [[ZBAuthorSelectorTableViewController alloc] init];
                 [authorPicker setAuthorsSelected:^(NSArray * _Nonnull selectedAuthors) {
+                    [self->blockedAuthors addObject:selectedAuthors[0]];
+                    [ZBSettings setBlockedAuthors:self->blockedAuthors];
+                    
                     [self refreshTable];
                 }];
                 
@@ -219,6 +224,23 @@
             break;
         case 3:
             break;
+    }
+}
+
+- (NSString *)stripEmailFrom:(NSString *)author {
+    if (author != NULL && author.length > 0) {
+        if ([author containsString:@"<"] && [author containsString:@">"]) {
+            NSArray *components = [author componentsSeparatedByString:@" <"];
+            if ([components count] <= 1) components = [author componentsSeparatedByString:@"<"];
+            if ([components count] > 1) {
+                return components[0];
+            }
+        }
+        
+        return author;
+    }
+    else {
+        return NULL;
     }
 }
 

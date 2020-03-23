@@ -13,13 +13,18 @@
 #import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBAuthorSelectorTableViewController () {
+    ZBDatabaseManager *databaseManager;
+    
     NSArray *authors;
     NSString *selectedAuthor;
-    NSIndexPath *selectedIndex;
+    
+    BOOL shouldPerformSearching;
 }
 @end
 
 @implementation ZBAuthorSelectorTableViewController
+
+@synthesize searchController;
 
 #pragma mark - View Controller Lifecycle
 
@@ -36,7 +41,48 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"Select an Author", @"");
+    [self setupView];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.searchController = searchController;
+        self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    }
+    else {
+        self.tableView.tableHeaderView = searchController.searchBar;
+    }
+    
+    self.title = NSLocalizedString(@"Search", @"");
+    self.definesPresentationContext = YES;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    }
+    
+//    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+}
+
+- (void)setupView {
+    if (!databaseManager) {
+        databaseManager = [ZBDatabaseManager sharedInstance];
+    }
+    
+    if (!searchController) {
+        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        searchController.delegate = self;
+        searchController.searchResultsUpdater = self;
+        searchController.searchBar.delegate = self;
+        searchController.searchBar.tintColor = [UIColor systemPinkColor];
+        searchController.searchBar.placeholder = NSLocalizedString(@"Search for an Author", @"");
+    }
+    
+    if (@available(iOS 9.1, *)) {
+        searchController.obscuresBackgroundDuringPresentation = NO;
+    }
     
     [self layoutNaviationButtons];
 }
@@ -44,16 +90,17 @@
 #pragma mark - Bar Button Actions
 
 - (void)layoutNaviationButtons {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addSections)];
-    self.navigationItem.rightBarButtonItem.enabled = selectedAuthor;
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
 }
 
-- (void)addSections {
+- (void)addAuthors {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.authorsSelected(@[self->selectedAuthor]);
     });
+    
+    if (searchController.active) {
+        [self goodbye]; // Have to dismiss twice
+    }
     
     [self goodbye];
 }
@@ -62,7 +109,68 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+#pragma mark - Search Results Updating Protocol
+
+- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
+    
+    if (self->shouldPerformSearching) {
+        NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        if ([strippedString length] <= 1) {
+            return;
+        }
+        
+        authors = [databaseManager searchForAuthor:strippedString fullSearch:!self->shouldPerformSearching];
+    }
+    
+    [self refreshTable];
+}
+
+#pragma mark - Search Controller Delegate
+
+- (void)didPresentSearchController:(UISearchController *)searchController {
+    self->shouldPerformSearching = [ZBSettings liveSearch];
+}
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [self.tableView reloadData];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    self->shouldPerformSearching = [ZBSettings liveSearch];
+    
+    [self updateSearchResultsForSearchController:searchController];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [searchBar resignFirstResponder];
+    
+    self->shouldPerformSearching = YES;
+    
+    [self updateSearchResultsForSearchController:searchController];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
+    [self updateSearchResultsForSearchController:searchController];
+}
+
 #pragma mark - Table View Data Source
+
+- (void)refreshTable {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:self.tableView
+          duration:0.35f
+          options:UIViewAnimationOptionTransitionCrossDissolve
+          animations:^(void) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+                [self setNeedsStatusBarAppearanceUpdate];
+            });
+          } completion:nil];
+    });
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -75,29 +183,35 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sectionSelectorCell"];
     
-    cell.textLabel.text = authors[indexPath.row];
-    
-    cell.accessoryType = [selectedIndex isEqual:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    NSString *author = authors[indexPath.row];
+    cell.textLabel.text = [self stripEmailFrom:author];
     
     return cell;
+}
+
+- (NSString *)stripEmailFrom:(NSString *)author {
+    if (author != NULL && author.length > 0) {
+        if ([author containsString:@"<"] && [author containsString:@">"]) {
+            NSArray *components = [author componentsSeparatedByString:@" <"];
+            if ([components count] <= 1) components = [author componentsSeparatedByString:@"<"];
+            if ([components count] > 1) {
+                return components[0];
+            }
+        }
+        
+        return author;
+    }
+    else {
+        return NULL;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    NSString *author = authors[indexPath.row];
+    selectedAuthor = authors[indexPath.row];
     
-    if ([selectedIndex isEqual:indexPath]) {
-        selectedIndex = NULL;
-        selectedAuthor = NULL;
-    }
-    else {
-        selectedIndex = indexPath;
-        selectedAuthor = author;
-    }
-    
-    [[self tableView] reloadData];
-    [self layoutNaviationButtons];
+    [self addAuthors];
 }
 
 @end
