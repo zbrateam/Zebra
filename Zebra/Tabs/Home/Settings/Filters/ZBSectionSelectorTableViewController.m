@@ -59,6 +59,11 @@
 }
 
 - (void)addSections {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.sectionsSelected(self->selectedSections);
+    });
+    
+    [self goodbye];
 }
 
 - (void)goodbye {

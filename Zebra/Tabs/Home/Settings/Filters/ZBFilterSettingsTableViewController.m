@@ -85,8 +85,6 @@
                 cell.imageView.image = [UIImage imageNamed:filteredSections[indexPath.row]];
                 [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
                 
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
                 return cell;
             }
             break;
@@ -161,6 +159,10 @@
         case 0: {
             if (lastRow) {
                 ZBSectionSelectorTableViewController *sectionPicker = [[ZBSectionSelectorTableViewController alloc] init];
+                [sectionPicker setSectionsSelected:^(NSArray * _Nonnull selectedSections) {
+                    [ZBSettings setFilteredSections:selectedSections];
+                    [self refreshTable];
+                }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sectionPicker];
                 
