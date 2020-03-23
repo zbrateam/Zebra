@@ -1096,6 +1096,35 @@
     return NULL;
 }
 
+- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *searchResults = [NSMutableArray new];
+        NSString *columns = fullSearch ? @"*" : @"AUTHOR";
+        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHOR LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHOR ORDER BY (CASE WHEN AUTHOR = \'%@\' THEN 1 WHEN AUTHOR LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, authorName, authorName, authorName, limit];
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
+                
+                NSString *author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
+                
+                if (author) [searchResults addObject:author];
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        return searchResults;
+    } else {
+        [self printDatabaseError];
+    }
+    return NULL;
+}
+
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];

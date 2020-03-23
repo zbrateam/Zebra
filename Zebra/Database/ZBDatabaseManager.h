@@ -278,6 +278,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch;
 
 /*!
+ @brief A list of authors that have a name similar to the search term.
+ @param authorName The name of the author.
+ @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
+ @return A cleaned array of authors (no duplicates) that match the search term.
+ */
+- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+
+/*!
  @brief Get a certain number of packages from package identifiers list.
  @discussion Queries the database for packages from package identifiers list. Will then clean up the packages (remove duplicate packages) and then return an array.
  @param requestedPackages (Nullable) An array with package identifiers.
