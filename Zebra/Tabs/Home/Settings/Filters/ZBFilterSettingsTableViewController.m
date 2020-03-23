@@ -9,6 +9,7 @@
 @import SDWebImage;
 
 #import "ZBFilterSettingsTableViewController.h"
+#import "ZBSectionSelectorTableViewController.h"
 
 #import <UIColor+GlobalColors.h>
 #import <UIImageView+Zebra.h>
@@ -157,8 +158,14 @@
     BOOL lastRow = indexPath.row == rowCount - 1;
     
     switch (indexPath.section) {
-        case 0:
+        case 0: {
+            if (lastRow) {
+                ZBSectionSelectorTableViewController *sections = [[ZBSectionSelectorTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                
+                [[self navigationController] pushViewController:sections animated:true];
+            }
             break;
+        }
         case 1: {
             if (!lastRow) {
                 ZBRepoSectionsListTableViewController *sections = [[ZBRepoSectionsListTableViewController alloc] initWithSource:sources[indexPath.row]];
