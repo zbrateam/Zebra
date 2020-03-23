@@ -160,7 +160,7 @@
     switch (indexPath.section) {
         case 0: {
             if (lastRow) {
-                ZBSectionSelectorTableViewController *sectionPicker = [[ZBSectionSelectorTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                ZBSectionSelectorTableViewController *sectionPicker = [[ZBSectionSelectorTableViewController alloc] init];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sectionPicker];
                 

@@ -10,13 +10,29 @@
 
 #import <ZBSettings.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBSectionSelectorTableViewController () {
     NSArray *sections;
+    NSMutableArray *selectedSections;
+    NSMutableArray *selectedIndexes;
 }
 @end
 
 @implementation ZBSectionSelectorTableViewController
+
+#pragma mark - View Controller Lifecycle
+
+- (id)init {
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    
+    if (self) {
+        selectedSections = [NSMutableArray new];
+        selectedIndexes = [NSMutableArray new];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,9 +45,27 @@
     [allSections removeObjectsInArray:filteredSections];
     
     sections = (NSArray *)allSections;
+    
+    [self layoutNaviationButtons];
 }
 
-#pragma mark - Table view data source
+#pragma mark - Bar Button Actions
+
+- (void)layoutNaviationButtons {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addSections)];
+    self.navigationItem.rightBarButtonItem.enabled = [selectedIndexes count];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+}
+
+- (void)addSections {
+}
+
+- (void)goodbye {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -46,51 +80,30 @@
     
     cell.textLabel.text = sections[indexPath.row];
     
+    cell.imageView.image = [UIImage imageNamed:sections[indexPath.row]] ?: [UIImage imageNamed:@"Other"];
+    [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+    
+    cell.accessoryType = [selectedIndexes containsObject:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    
+    NSString *section = sections[indexPath.row];
+    
+    if ([selectedIndexes containsObject:indexPath]) {
+        [selectedIndexes removeObject:indexPath];
+        [selectedSections removeObject:section];
+    }
+    else {
+        [selectedIndexes addObject:indexPath];
+        [selectedSections addObject:section];
+    }
+    
+    [[self tableView] reloadData];
+    [self layoutNaviationButtons];
 }
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
