@@ -125,7 +125,7 @@
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 "No packages purchased" = "購入したパッケージはありません";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "%@ としてログイン中 (%@)";
 
 // Sources
 
