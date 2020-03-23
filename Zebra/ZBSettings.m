@@ -290,11 +290,14 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 }
 
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
-    NSDictionary *filteredSources = [self filteredSources];
-    NSArray *filteredSections = [filteredSources objectForKey:[source baseFilename]];
-    if (!filteredSections) return NO;
+    NSArray *filteredSections = [self filteredSections];
+    if ([filteredSections containsObject:section]) return YES;
     
-    return [filteredSections containsObject:section];
+    NSDictionary *filteredSources = [self filteredSources];
+    NSArray *filteredSourceSections = [filteredSources objectForKey:[source baseFilename]];
+    if (!filteredSourceSections) return NO;
+    
+    return [filteredSourceSections containsObject:section];
 }
 
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source {
