@@ -128,9 +128,9 @@
         case 1:
             return NSLocalizedString(@"Sources", @"");
         case 2:
-            return NSLocalizedString(@"Updates", @"");
-        case 3:
             return NSLocalizedString(@"Authors", @"");
+        case 3:
+            return NSLocalizedString(@"Updates", @"");
     }
     return NULL;
 }
@@ -142,9 +142,9 @@
         case 1:
             return NSLocalizedString(@"Hide packages in these sections from specific sources.", @"");
         case 2:
-            return NSLocalizedString(@"Hide future updates from these packages.", @"");
-        case 3:
             return NSLocalizedString(@"Hide packages from these authors.", @"");
+        case 3:
+            return NSLocalizedString(@"Hide future updates from these packages.", @"");
     }
     return NULL;
 }
