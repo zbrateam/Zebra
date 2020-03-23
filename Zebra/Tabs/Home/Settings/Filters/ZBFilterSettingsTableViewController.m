@@ -171,7 +171,9 @@
             if (lastRow) {
                 ZBSectionSelectorTableViewController *sectionPicker = [[ZBSectionSelectorTableViewController alloc] init];
                 [sectionPicker setSectionsSelected:^(NSArray * _Nonnull selectedSections) {
-                    [ZBSettings setFilteredSections:selectedSections];
+                    [self->filteredSections addObjectsFromArray:selectedSections];
+                    [ZBSettings setFilteredSections:self->filteredSections];
+                    
                     [self refreshTable];
                 }];
                 
