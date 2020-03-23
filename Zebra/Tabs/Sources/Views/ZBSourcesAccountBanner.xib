@@ -14,14 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="336" height="100"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Log in with your account to purchase and download paid tweaks." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxd-4V-JPn">
-                    <rect key="frame" x="16" y="8" width="225" height="84"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gxd-4V-JPn">
+                    <rect key="frame" x="16" y="8" width="0.0" height="84"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ea5-uB-dUs">
-                    <rect key="frame" x="273" y="35" width="47" height="30"/>
+                    <rect key="frame" x="48" y="35" width="272" height="30"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="Sign In"/>
                 </button>
@@ -32,9 +32,14 @@
                         <constraint firstAttribute="height" constant="0.5" id="c70-J9-m04"/>
                     </constraints>
                 </view>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="coJ-gx-KmF">
+                    <rect key="frame" x="16" y="40" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
+                <constraint firstItem="coJ-gx-KmF" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="2rE-do-WX9"/>
+                <constraint firstItem="coJ-gx-KmF" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="82X-tX-cS9"/>
                 <constraint firstAttribute="bottom" secondItem="Gxd-4V-JPn" secondAttribute="bottom" constant="8" id="9Gi-hI-ZPy"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ea5-uB-dUs" secondAttribute="trailing" constant="16" id="CeL-KV-lye"/>
                 <constraint firstItem="Gxd-4V-JPn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="fC0-wB-1bC"/>
@@ -50,6 +55,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="activityIndicatorView" destination="coJ-gx-KmF" id="Dzr-Ae-gec"/>
                 <outlet property="button" destination="ea5-uB-dUs" id="mHW-23-0Xd"/>
                 <outlet property="descriptionLabel" destination="Gxd-4V-JPn" id="z5D-Xc-GMA"/>
                 <outlet property="seperatorView" destination="gtC-sx-vgw" id="aFT-Z3-5tK"/>
