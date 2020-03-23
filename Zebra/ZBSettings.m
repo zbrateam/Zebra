@@ -23,6 +23,7 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
 NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
+NSString *const BlockedAuthorsKey = @"BlockedAuthors";
 
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
@@ -310,6 +311,18 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     
     [filteredSources setObject:filteredSections forKey:[source baseFilename]];
     [self setFilteredSources:filteredSources];
+}
+
++ (NSArray *)blockedAuthors {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults objectForKey:BlockedAuthorsKey] ?: [NSArray new];
+}
+
++ (void)setBlockedAuthors:(NSArray *)blockedAuthors {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:blockedAuthors forKey:BlockedAuthorsKey];
 }
 
 + (ZBSwipeActionStyle)swipeActionStyle {

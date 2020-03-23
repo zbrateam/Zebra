@@ -33,6 +33,7 @@ extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
 
 extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
 extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
+extern NSString * _Nonnull const BlockedAuthorsKey; // Stored as NSArray
 
 extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
 extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
@@ -112,6 +113,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
+
++ (NSArray *)blockedAuthors;
++ (void)setBlockedAuthors:(NSArray *)blockedAuthors;
 
 #pragma mark - Homepage settings
 
