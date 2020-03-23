@@ -128,6 +128,7 @@
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
 		89DD26862201571900CD31A0 /* ZBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DD26852201571900CD31A0 /* ZBQueue.m */; };
 		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
+		89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */; };
 		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
 		89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637621D5AFA90081E485 /* package_depiction.html */; };
 		89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637721D5AFA90081E485 /* ios7.min.js */; };
@@ -429,6 +430,8 @@
 		89DD26872201576500CD31A0 /* ZBQueueType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueType.h; sourceTree = "<group>"; };
 		89E3BD952428565100BF81A4 /* ZBSectionSelectorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSectionSelectorTableViewController.h; sourceTree = "<group>"; };
 		89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSectionSelectorTableViewController.m; sourceTree = "<group>"; };
+		89E3BD9824285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAuthorSelectorTableViewController.h; sourceTree = "<group>"; };
+		89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAuthorSelectorTableViewController.m; sourceTree = "<group>"; };
 		89E8633C21D5A8C00081E485 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		89E8637621D5AFA90081E485 /* package_depiction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = package_depiction.html; sourceTree = "<group>"; };
 		89E8637721D5AFA90081E485 /* ios7.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ios7.min.js; sourceTree = "<group>"; };
@@ -1030,6 +1033,8 @@
 				89EA4ED1241B166D008DFE15 /* ZBFilterSettingsTableViewController.m */,
 				89E3BD952428565100BF81A4 /* ZBSectionSelectorTableViewController.h */,
 				89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */,
+				89E3BD9824285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.h */,
+				89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -1403,6 +1408,7 @@
 				8916AC1B23CAAE51008BA02C /* ZBAlternateIconController.m in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
+				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */,
 			);

@@ -10,6 +10,7 @@
 
 #import "ZBFilterSettingsTableViewController.h"
 #import "ZBSectionSelectorTableViewController.h"
+#import "ZBAuthorSelectorTableViewController.h"
 
 #import <UIColor+GlobalColors.h>
 #import <UIImageView+Zebra.h>
@@ -110,6 +111,12 @@
             break;
         }
         case 2: {
+            if (indexPath.row < [blockedAuthors count]) {
+                cell.textLabel.text = blockedAuthors[indexPath.row];
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+                
+                return cell;
+            }
             break;
         }
         case 3: {
@@ -198,6 +205,17 @@
             break;
         }
         case 2:
+            if (lastRow) {
+                ZBAuthorSelectorTableViewController *authorPicker = [[ZBAuthorSelectorTableViewController alloc] init];
+                [authorPicker setAuthorsSelected:^(NSArray * _Nonnull selectedAuthors) {
+                    [self refreshTable];
+                }];
+                
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:authorPicker];
+                
+                [self presentViewController:nav animated:true completion:nil];
+            }
+            break;
             break;
         case 3:
             break;
