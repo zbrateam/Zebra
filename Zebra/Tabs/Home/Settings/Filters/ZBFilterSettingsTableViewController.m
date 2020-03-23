@@ -21,7 +21,9 @@
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
     NSDictionary <NSString *, NSArray *> *filteredSources;
-    NSArray <NSString *> *filteredSections;
+    NSMutableArray <NSString *> *filteredSections;
+    NSMutableArray <NSString *> *blockedAuthors;
+    NSMutableArray <ZBPackage *> *ignoredUpdates;
 }
 @end
 
@@ -55,7 +57,7 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+    return [ignoredUpdates count] ? 4 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -65,9 +67,9 @@
         case 1:
             return [filteredSources count] + 1;
         case 2:
-            return 1;
+            return [blockedAuthors count] + 1;
         case 3:
-            return 1;
+            return [ignoredUpdates count];
         default:
             return 1;
     }
