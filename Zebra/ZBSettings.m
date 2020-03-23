@@ -12,6 +12,7 @@
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIWindow.h>
 #import <Sources/Helpers/ZBSource.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation ZBSettings
 
@@ -328,6 +329,10 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     [defaults setObject:blockedAuthors forKey:BlockedAuthorsKey];
 }
 
++ (BOOL)isAuthorBlocked:(NSString *)author {
+    return [[self blockedAuthors] containsObject:author];
+}
+
 + (ZBSwipeActionStyle)swipeActionStyle {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -345,6 +350,10 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     
     [defaults setInteger:style forKey:SwipeActionStyleKey];
     [defaults synchronize];
+}
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package {
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.author];
 }
 
 #pragma clang diagnostic pop

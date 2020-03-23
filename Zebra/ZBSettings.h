@@ -7,6 +7,7 @@
 //
 
 @class ZBSource;
+@class ZBPackage;
 
 #import <Foundation/Foundation.h>
 
@@ -116,6 +117,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)blockedAuthors;
 + (void)setBlockedAuthors:(NSArray *)blockedAuthors;
++ (BOOL)isAuthorBlocked:(NSString *)author;
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package;
 
 #pragma mark - Homepage settings
 
