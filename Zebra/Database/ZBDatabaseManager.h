@@ -213,6 +213,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)deleteRepo:(ZBSource *)repo;
 
+- (NSArray *)sectionReadout;
+
 /*!
  @brief A list of section names and number of packages in each section.
  @param repo The corresponding repo.

@@ -789,6 +789,32 @@
     [self removeDatabaseDelegate:delegate];
 }
 
+- (NSArray *)sectionReadout {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *sections = [NSMutableArray new];
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, "SELECT SECTION from packages GROUP BY SECTION ORDER BY SECTION", -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
+                if (sectionChars != 0) {
+                    NSString *section = [[NSString stringWithUTF8String:sectionChars] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+                    if (section) [sections addObject:section];
+                }
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        return sections;
+    } else {
+        [self printDatabaseError];
+    }
+    return NULL;
+}
+
 - (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo {
     if (![repo respondsToSelector:@selector(repoID)]) return NULL;
     
