@@ -115,7 +115,7 @@
         [self.tableView layoutIfNeeded];
     }
     
-    if ([repo paymentVendorURL]) { // If the repo supports payments/external accounts
+    if (!editOnly && [repo paymentVendorURL]) { // If the repo supports payments/external accounts
         ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
         [self.view addSubview:accountBanner];
         
