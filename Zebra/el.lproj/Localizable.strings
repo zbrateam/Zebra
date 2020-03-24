@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Καταστήματα";
-"My Account" = "My Account";
+"My Account" = "Ο Λογαριασμός μου";
 "Sign In" = "Σύνδεση";
 "Sign Out" = "Αποσύνδεση";
 "Your Purchases" = "Οι αγορές σου";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
 "Could not complete purchase, no payment secret was found" = "Αδυναμία ολοκλήρωσης αγοράς, δεν βρέθηκε payment secret";
 "No packages purchased" = "Κανένα αγορασμένο πακέτο";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Συνδεδεμένος ως %@ (%@).";
 
 // Sources
 
