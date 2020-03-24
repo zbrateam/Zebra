@@ -175,6 +175,8 @@
                     [ZBSettings setFilteredSections:self->filteredSections];
                     
                     [self refreshTable];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sectionPicker];
@@ -216,6 +218,8 @@
                     [ZBSettings setBlockedAuthors:self->blockedAuthors];
                     
                     [self refreshTable];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:authorPicker];
