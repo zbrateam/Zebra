@@ -673,7 +673,7 @@
         if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         } else {
-            query = [NSString stringWithFormat:@"SELECT SECTION, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", repoPart];
+            query = [NSString stringWithFormat:@"SELECT SECTION, AUTHOR, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", repoPart];
         }
         
         sqlite3_stmt *statement;
@@ -684,8 +684,9 @@
                         ++packages;
                     } else {
                         const char *packageSection = (const char *)sqlite3_column_text(statement, 1);
-                        int repoID = sqlite3_column_int(statement, 2);
-                        if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:repoID]])
+                        const char *packageAuthor = (const char *)sqlite3_column_text(statement, 2);
+                        int repoID = sqlite3_column_int(statement, 3);
+                        if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:repoID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor]])
                             ++packages;
                     }
                 } else {
