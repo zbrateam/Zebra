@@ -894,7 +894,7 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 
-                if (section == NULL && enableFiltering && [ZBSettings isSectionFiltered:[package section] forSource:[package repo]])
+                if (section == NULL && enableFiltering && [ZBSettings isPackageFiltered:package])
                     continue;
                 
                 [packages addObject:package];
