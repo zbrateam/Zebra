@@ -30,7 +30,7 @@
 
 "Community Sources" = "Community-Quellen";
 "You’ve added all of the community sources" = "Du hast alle Community-Quellen hinzugefügt";
-"Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ zu Zebra";
+"Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ nach Zebra";
 "Utility source for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
 "Verifying Source" = "Quelle wird verifiziert";
@@ -39,9 +39,9 @@
 "Verifying..." = "Wird überprüft …";
 "Confirm Import" = "Import bestätigen";
 "Import Sources" = "Quellen importieren";
-"No sources to import" = "Keine Quellen zum importieren gefunden";
+"No sources to import" = "Keine Quellen zum Importieren gefunden";
 "Would you like to import the following sources?" = "Möchten Sie die folgenden Quellen importieren?";
-"Are you sure that you want to import 1 source into Zebra?" = "Möchten Sie wirklich 1 Quelle in Zebra importieren?";
+"Are you sure that you want to import 1 source into Zebra?" = "Möchten Sie wirklich eine Quelle nach Zebra importieren?";
 "Are you sure that you want to import %d sources into Zebra?" = "Möchten Sie wirklich %d Quellen in Zebra importieren?";
 
 
@@ -71,7 +71,7 @@
 "Accent Color" = "Akzentfarbe";
 "Aqua Velvet" = "Eisblau";
 "Cornflower Blue" = "Kornblumenblau";
-"Golden Tainoi" = "Golden Tainoi";
+"Golden Tainoi" = "Goldene Tainoi";
 "Iris Blue" = "Schwertlilien-Blau";
 "Lotus Pink" = "Rosa Lotus";
 "Monochrome" = "Schwarzweiß";
@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Shop";
-"My Account" = "My Account";
+"My Account" = "Mein Account";
 "Sign In" = "Anmelden";
 "Sign Out" = "Abmelden";
 "Your Purchases" = "Ihre Käufe";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "Kauf konnte nicht abgeschlossen werden";
 "Could not complete purchase, no payment secret was found" = "Kauf konnte nicht abgeschlossen werden, da kein Zahlungsgeheimnis gefunden wurde";
 "No packages purchased" = "Keine Pakete erworben";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Angemeldet als %@(%@).";
 
 // Sources
 
