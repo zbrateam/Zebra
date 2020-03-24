@@ -21,7 +21,7 @@
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
-    NSDictionary <NSString *, NSArray *> *filteredSources;
+    NSMutableDictionary <NSString *, NSArray *> *filteredSources;
     NSMutableArray <NSString *> *filteredSections;
     NSMutableArray <NSString *> *blockedAuthors;
     NSMutableArray <ZBPackage *> *ignoredUpdates;
@@ -253,6 +253,36 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
     return indexPath.row != rowCount - 1;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0: {
+            NSString *section = filteredSections[indexPath.row];
+            [filteredSections removeObject:section];
+            
+            [ZBSettings setFilteredSections:filteredSections];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+        case 1: {
+            ZBSource *source = sources[indexPath.row];
+            [filteredSources removeObjectForKey:[source baseFilename]];
+            [sources removeObjectAtIndex:indexPath.row];
+            
+            [ZBSettings setFilteredSources:filteredSources];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+        case 2: {
+            NSString *author = blockedAuthors[indexPath.row];
+            [blockedAuthors removeObject:author];
+            
+            [ZBSettings setBlockedAuthors:blockedAuthors];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+    }
 }
 
 @end
