@@ -41,6 +41,8 @@ extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeature
 
 extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
 
+extern NSString * _Nonnull const WishlistKey; // Stored as NSArray
+
 #pragma mark - Accent Colors
 
 typedef enum : NSUInteger {
@@ -144,6 +146,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBSwipeActionStyle)swipeActionStyle;
 + (void)setSwipeActionStyle:(NSNumber *)style;
+
+#pragma mark - Wishlist
+
++ (NSArray *)wishlist;
++ (void)setWishlist:(NSArray *)wishlist;
 
 @end
 

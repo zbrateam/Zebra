@@ -31,6 +31,8 @@ NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 
 NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
+NSString *const WishlistKey = @"Wishlist";
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 
@@ -99,8 +101,12 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     if (![defaults objectForKey:wantsNewsKey]) {
         [defaults setBool:YES forKey:wantsNewsKey];
     }
-    if (![defaults objectForKey:wishListKey]) {
-        [defaults setObject:[NSArray new] forKey:wishListKey];
+    
+    if ([defaults objectForKey:wishListKey]) {
+        NSArray *oldWishlist = [defaults arrayForKey:wishListKey];
+        
+        [self setWishlist:oldWishlist];
+        [defaults removeObjectForKey:wishListKey];
     }
     
     [defaults synchronize];
@@ -360,6 +366,18 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
     return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.author];
+}
+
++ (NSArray *)wishlist {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults arrayForKey:WishlistKey] ?: [NSArray new];
+}
+
++ (void)setWishlist:(NSArray *)wishlist {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:wishlist forKey:WishlistKey];
 }
 
 #pragma clang diagnostic pop
