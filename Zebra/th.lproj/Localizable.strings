@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "ร้านค้า";
-"My Account" = "My Account";
+"My Account" = "บัญชีของฉัน";
 "Sign In" = "ลงชื่อเข้าใช้";
 "Sign Out" = "ลงชื่อออก";
 "Your Purchases" = "รายการซื้อของคุณ";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
 "Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
 "No packages purchased" = "ไม่มีโปรแกรมที่ซื้อไว้";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "ลงชื่อเข้าใช้แล้วในชื่อ %@ (%@).";
 
 // Sources
 
