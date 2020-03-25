@@ -1,114 +1,114 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
+"Cancel" = "Cancelar\nComún";
+"Yes" = "Si";
 "No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
+"Ok" = "Vale";
+"Error" = "Erro";
+"Retry" = "Reintentar";
+"Edit" = "Editar";
+"Close" = "Pechar";
+"Done" = "Feito";
+"Loading..." = "Cargando...";
+"Clear" = "Limpar";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Home" = "Inicio";
+"Info" = "Información";
+"Welcome to Zebra!" = "Benvido a Zebra!";
+"Report a Bug" = "Informar dun erro";
+"Changelog" = "Rexistro de cambios";
+"Wish List" = "Lista de desexos";
+"No items in Wish List" = "Non hai elementos na lista de desexos";
+"Community" = "Comunidade";
+"Join our Discord" = "Únete á noso Discord";
+"Follow us on Twitter" = "Síguenos no Twitter";
+"Help translate Zebra!" = "Axuda a traducir Zebra!";
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
-"Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Community Sources" = "Fontes da comunidade";
+"You’ve added all of the community sources" = "Xa engadiches todas as fontes da comunidade";
+"Transfer sources from %@ to Zebra" = "Transfiere as fontes de %@ a Zebra";
+"Utility source for %@" = "Fonte util pra %@";
+"Transfer Sources" = "Tranferir fonte";
+"Verifying Source" = "Verificando fonte";
+"Verifying Sources" = "Verificando fonte";
+"Import" = "Importar";
+"Verifying..." = "Verificando...";
+"Confirm Import" = "Comfirmar importación";
+"Import Sources" = "Importar fontes";
+"No sources to import" = "Non hai fontes para importar";
+"Would you like to import the following sources?" = "Gustaríache importar as seguintes fontes?";
+"Are you sure that you want to import 1 source into Zebra?" = "Está seguro de que quere importar 1 fonte en Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Está seguro de que quere importar %d fontes en Zebra?";
 
 
 // Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "Créditos";
+"Creators" = "Creadores";
+"Contributors" = "Colaboradores";
+"Translators" = "Traductores";
+"Libraries" = "Librarías";
 
 // Settings
 
-"Settings" = "Settings";
-"Display" = "Display";
-"App Icon" = "App Icon";
-"Changes" = "Changes";
-"Community News" = "Community News";
-"Miscellaneous" = "Miscellaneous";
+"Settings" = "Axustes";
+"Display" = "Mostrar";
+"App Icon" = "Icono da app";
+"Changes" = "Cambios";
+"Community News" = "Novedades da comunidade";
+"Miscellaneous" = "Misceláneo";
 "Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
+"Text" = "Texto";
+"Icon" = "Icono";
+"Finish Automatically" = "Rematado automaticamente";
 
 // Accent Colors
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Cores acentuados";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
 "Iris Blue" = "Iris Blue";
 "Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Monochrome" = "Monocromático";
 "Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
+"Pastel Red" = "Vermello pastel";
+"Purple Heart" = "Corazón morado";
 "Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Shark" = "Tiburón";
+"Storm" = "Tomenta";
 "Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Appearance" = "Aparencia";
+"Use System Appearance" = "Usar aparencia de sistema";
+"Light" = "Luz";
+"Dark" = "Escuro";
+"Pure Black Mode" = "Modo negro puro";
 
 // Featured
 
-"Featured Packages" = "Featured Packages";
-"Feature Type" = "Feature Type";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
+"Featured Packages" = "Paquetes destacados";
+"Feature Type" = "Tipo de característica";
+"Repo Featured" = "Repo destacada";
+"Random" = "Aleatorio";
+"Select Repos to be Featured" = "Selecciona repos para ser destacadas";
+"Featured Repos" = "Repos destacados";
 
 // Advanced
 
-"Advanced" = "Advanced";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Advanced" = "Avanzado";
+"Refresh Icon Cache" = "Actualizar caché dos iconos";
+"Reset Image Cache" = "Reiniciar caché da imaxe";
+"Reset Sources Cache" = "Reiniciar caché das fontes";
+"Reset All Settings" = "Restabelecer todos os axustes";
+"Erase All Sources and Settings" = "Eliminar todas as fontes e axustes";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to restart the SpringBoard?" = "Está seguro de que quere reiniciar o SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Está seguro de que quere actualizar o caché dos iconos? É posible que o teu dispositivo non responda ata que o proceso finalice.";
+"Image Cache Reset" = "Restablecer caché das imaxes";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
