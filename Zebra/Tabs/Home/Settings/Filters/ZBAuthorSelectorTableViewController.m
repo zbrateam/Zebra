@@ -11,6 +11,7 @@
 #import <ZBSettings.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBAuthorSelectorTableViewController () {
     ZBDatabaseManager *databaseManager;
@@ -76,7 +77,7 @@
         searchController.delegate = self;
         searchController.searchResultsUpdater = self;
         searchController.searchBar.delegate = self;
-        searchController.searchBar.tintColor = [UIColor systemPinkColor];
+        searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Search for an Author", @"");
     }
     
