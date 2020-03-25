@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Trgovine";
-"My Account" = "My Account";
+"My Account" = "Moj račun";
 "Sign In" = "Prijavite se";
 "Sign Out" = "Odjavite se";
 "Your Purchases" = "Vaše Kupovine";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "Narudžba nije mogla biti izvršena";
 "Could not complete purchase, no payment secret was found" = "Narudžba nije mogla biti izvršena zbog tajne plaćanja";
 "No packages purchased" = "Nema kupljenih proizvoda";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Prijavljeni kao %@ (%@).";
 
 // Sources
 
