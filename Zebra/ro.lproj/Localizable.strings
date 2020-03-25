@@ -10,7 +10,7 @@
 "Close" = "Inchide";
 "Done" = "Gata";
 "Loading..." = "Se încarca...";
-"Clear" = "Clear";
+"Clear" = "Șterge";
 
 // Home
 
@@ -38,8 +38,8 @@
 "Import" = "Importa";
 "Verifying..." = "Verificare...";
 "Confirm Import" = "Confirmă Importul";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
+"Import Sources" = "Importă Surse";
+"No sources to import" = "Nu există surse de importat";
 "Would you like to import the following sources?" = "Ai vrea sa importezi urmatoarele surse?";
 "Are you sure that you want to import 1 source into Zebra?" = "Esti sigur ca vrei sa importezi 1 sursa in Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Esti sigur ca vrei sa importezi %d surse in Zebra?";
@@ -58,8 +58,8 @@
 "Settings" = "Configurari";
 "Display" = "Afișează";
 "App Icon" = "Iconita aplicatie";
-"Changes" = "Changes";
-"Community News" = "Community News";
+"Changes" = "Modificări";
+"Community News" = "Știri Comunitare";
 "Miscellaneous" = "Diverse";
 "Swipe Actions Display As" = "Glisati actiunile afisate ca";
 "Text" = "Text";
@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Magazine";
-"My Account" = "My Account";
+"My Account" = "Contul Meu";
 "Sign In" = "Autentificare";
 "Sign Out" = "Delogare";
 "Your Purchases" = "Achizițiile mele";
@@ -125,34 +125,34 @@
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
 "Could not complete purchase, no payment secret was found" = "Achiziția nu a fost completată, payment secret nu a fost găsit";
 "No packages purchased" = "Nu există achiziții";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Autentificat ca %@ (%@).";
 
 // Sources
 
 "Sources" = "Surse";
 "Unknown" = "Necunoscut";
-"Delete" = "Delete";
-"Refresh" = "Refresh";
-"All Packages" = "All Packages";
-"Remove Source" = "Remove Source";
+"Delete" = "Șterge";
+"Refresh" = "Reîmprospătează";
+"All Packages" = "Toate Pachetele";
+"Remove Source" = "Elimină Sursă";
 "Local Repository" = "Depozit local";
 "Locally installed packages" = "Pachete instalate local";
 
-"Add" = "Add";
+"Add" = "Adaugă";
 "Add Sources" = "Adaugă surse";
-"Add Multiple" = "Add Multiple";
+"Add Multiple" = "Adaugă mai multe";
 "Enter Source URL" = "Introdu URL-ul sursei";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
+"Would you like to add the URL from your clipboard?" = "Doriți să adăugați URL-ul din clipboard?";
 
-"Please Wait..." = "Please Wait...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Please Wait..." = "Așteptați...";
+"Verifying Source" = "Verificare Sursă";
+"Verifying Sources" = "Verificare Surse";
 "Updating Sources" = "Actualizare surse";
 
-"Unknown error" = "Unknown error";
-"Invalid URL" = "Invalid URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Unknown error" = "Eroare Necunoscută";
+"Invalid URL" = "URL invalid";
+"Invalid Source" = "Sursă Invalidă";
+"Tap to learn more" = "Atinge pentru a afla mai multe";
 "No source URLs detected." = "Nu au fost detectate adrese URL pentru o sursă.";
 "Unable to verify source" = "Imposibil de verificat sursa";
 "Error verifying source" = "Nu am putut verifica sursa";
@@ -164,46 +164,46 @@
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "URL introdus nu este valid. Te rugăm să îl verifici și să încerci din nou.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nu a putut descărca sursa specificată la %@. Ar putea fi inaccesibilă momentan sau ar fi putut fi adăugată incorect.";
 
 // Packages
 
 "Version" = "Versiune";
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Ignore Updates" = "Ignore Updates";
-"Select Version" = "Select Version";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
+"Packages" = "Pachete";
+"Show Updates" = "Afișare Actualizări";
+"Ignore Updates" = "Ignoră Actualizări";
+"Select Version" = "Selectați Versiunea";
+"Select a version to upgrade to:" = "Selectați o versiune la care să se facă upgrade:";
+"Select a version to downgrade to:" = "Selectați o versiune la care să se facă downgrade:";
+"Package" = "Pachet";
+"Information" = "Informații";
+"Upgrade All" = "Actualizează Tot";
+"Loaded" = "Încărcat";
 "ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
+"Date" = "Dată";
+"Size" = "Dimensiune";
+"Available Upgrades" = "Actualizări Disponibile";
+"Ignored Upgrades" = "Actualizări Ignorate";
+"Recent" = "Recente";
 "Source" = "Sursa";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
+"Installed Files" = "Fișiere Instalate";
+"Modify" = "Modifică";
+"Authenticate to initiate purchase." = "Autentifică-te pentru a începe achiziția.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Te rugăm să te reconectezi la contul care este folosit la cumpărarea acestui pachet (Probabil %@)";
+"More by this Developer" = "Mai multe de la acest Dezvoltator";
+"Installed Version" = "Versiunea Instalată";
+"Installed Size" = "Dimensiunea Fișierelor Instalate";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Versiunea Instalată: %@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Dimensiunea Fișierelor Instalate %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d octeți";
 //Package size in Kilobytes (no decimal)
 "%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
@@ -259,7 +259,7 @@
 "Search" = "Cautare";
 "This search query is too short for the full search, please use a longer query." = "Aceasta cautare este prea scurta pentru o cautare completa, va rugam sa folositi mai multi termeni.";
 "No Results Found" = "Niciun rezultat";
-"Name" = "Name";
+"Name" = "Nume";
 "Description" = "Description";
 "Author" = "Author";
 
@@ -332,7 +332,7 @@
 "Downgrade" = "Downgrade";
 "Abort" = "Abort";
 "Continue" = "Continue";
-"Download Size" = "Download Size";
+"Download Size" = "Dimensiune Descărcare";
 "Confirm" = "Confirm";
 "Issues" = "Issues";
 "Required Package" = "Required Package";
