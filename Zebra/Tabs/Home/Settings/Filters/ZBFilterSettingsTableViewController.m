@@ -202,8 +202,6 @@
                     
                     [ZBSettings setFilteredSources:sources];
                     [self refreshTable];
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
