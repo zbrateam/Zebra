@@ -10,6 +10,7 @@
 "Close" = "Stäng";
 "Done" = "Klar";
 "Loading..." = "Laddar...";
+"Clear" = "Rensa";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Överför källor";
 "Verifying Source" = "Verifierar källa";
 "Verifying Sources" = "Verifierar källor";
+"Import" = "Importera";
+"Verifying..." = "Verifierar...";
+"Confirm Import" = "Bekräfta importering";
+"Import Sources" = "Importera källor";
+"No sources to import" = "Inga källor att importera";
+"Would you like to import the following sources?" = "Vill du importera följande källor?";
+"Are you sure that you want to import 1 source into Zebra?" = "Är du säker på att du vill importera 1 källa till Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Är du säker på att du vill importera %d källor till Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Butiker";
-"Account" = "Konto";
+"My Account" = "Mitt konto";
 "Sign In" = "Logga in";
 "Sign Out" = "Logga ut";
 "Your Purchases" = "Dina köp";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "Could not complete purchase, no payment secret was found" = "Kunde inte slutföra köpet, ingen betalningshemlighet hittades";
 "No packages purchased" = "Inga köpta paket";
+"Logged in as %@ (%@)." = "Inloggad som %@ (%@).";
 
 // Sources
 
 "Sources" = "Källor";
-"Local Repository" = "Lokalt förråd";
-"Locally installed packages" = "Lokalt installerade paket";
 "Unknown" = "Okänd";
-"No source URLs detected." = "Inga käll-URL:er upptäcktes.";
-"You have already added this source." = "Du har redan lagt till denna källa.";
-"You have already added these sources." = "Du har redan lagt till dessa källor.";
-"Error verifying source" = "Fel när källan verifierades";
-"Error verifying sources" = "Fel när källorna verifierades";
-"Unknown error" = "Okänt fel";
-"Invalid URL" = "Ogiltig URL";
-"Enter Source URL" = "Ange käll-URL";
-"Add Sources" = "Lägg till källor";
-"Add" = "Lägg till";
-"Add Multiple" = "Lägg till flera";
-"Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
-"Please Wait..." = "Vänta...";
-"Verifying Source(s)" = "Verifierar källor";
-"Unable to verify source" = "Kunde inte verifiera källa";
+"Delete" = "Ta bort";
 "Refresh" = "Uppdatera";
 "All Packages" = "Alla paket";
-"Delete" = "Ta bort";
-"Import Sources" = "Importera källor";
+"Remove Source" = "Ta bort källa";
+"Local Repository" = "Lokalt förråd";
+"Locally installed packages" = "Lokalt installerade paket";
+
+"Add" = "Lägg till";
+"Add Sources" = "Lägg till källor";
+"Add Multiple" = "Lägg till flera";
+"Enter Source URL" = "Ange käll-URL";
+"Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
+
+"Please Wait..." = "Vänta...";
+"Verifying Source" = "Verifierar källa";
+"Verifying Sources" = "Verifierar källor";
 "Updating Sources" = "Uppdaterar källor";
-"Would you like to import the following sources?" = "Vill du importera följande källor?";
+
+"Unknown error" = "Okänt fel";
+"Invalid URL" = "Ogiltig URL";
+"Invalid Source" = "Ogiltig källa";
+"Tap to learn more" = "Tryck för mer information";
+"No source URLs detected." = "Inga käll-URL:er upptäcktes.";
+"Unable to verify source" = "Kunde inte verifiera källa";
+"Error verifying source" = "Fel när källan verifierades";
+"Error verifying sources" = "Fel när källorna verifierades";
 "Failed to add source" = "Misslyckades att lägga till källa";
 "Failed to add sources" = "Misslyckades att lägga till källor";
+"You have already added this source." = "Du har redan lagt till denna källa.";
+"You have already added these sources." = "Du har redan lagt till dessa källor.";
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
-"Import Sources" = "Importera källor";
-"Import" = "Importera";
-"Are you sure that you want to import %d sources into Zebra?" = "Är du säker på att du vill importera %d källor till Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Är du säker på att du vill importera 1 källa till Zebra?";
-"Verifying..." = "Verifierar...";
-"Confirm Import" = "Bekräfta importering";
-"The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
-"Tap to learn more" = "Tryck för mer information";
-"Invalid Source" = "Ogiltig källa";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
-"Remove Source" = "Ta bort källa";
 
+"The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Storlek";
-"Clear" = "Rensa";
-"Are you sure you want to clear the Queue?" = "Är du säker på att du vill rensa kön?";
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
 "Recent" = "Nytt";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Sök";
-"Clear Search" = "Rensa sökning";
 "This search query is too short for the full search, please use a longer query." = "Det här sökordet är för kort för fullständig sökning, använd ett längre sökord.";
 "No Results Found" = "Inga resultat hittades";
+"Name" = "Namn";
+"Description" = "Beskrivning";
+"Author" = "Skapare";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
 "%@ hasn't been modified" = "%@ har inte ändrats";
 "Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
+"A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Stänger Zebra...";
 "Restart SpringBoard" = "Starta om SpringBoard";
 "Restarting SpringBoard..." = "Startar om SpringBoard...";
-"Parsing" = "Tolkar";
+"Parsing %@" = "Tolkar %@";
 "Starting Download" = "Startar nedladdning";
 "Downloading" = "Laddar ner";
+"Downloading %@" = "Laddar ner %@";
 "Downloading Packages..." = "Laddar ner paket...";
 "Download Completed" = "Nedladdning slutförd";
 "Installing" = "Installerar";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
 "Done..." = "Klar...";
+"Done %@" = "Klar %@";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
+"Adding Payment Vendor URL for %@" = "Lägger till betalningsleverantörens URL för %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Fortsätt";
 "Download Size" = "Nedladdningsstorlek";
 "Confirm" = "Bekräfta";
-"%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
-"Required Package" = "Nödvändigt paket";
-"%@ is required by:" = "%@ krävs av:";
 "Issues" = "Problem";
-"%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
+"Required Package" = "Nödvändigt paket";
 "Are you sure?" = "Är du säker?";
+"Remove from Queue" = "Ta bort från kö";
+"Clear Queue" = "Rensa kö";
+"%@ is required by:" = "%@ krävs av:";
+"%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
+"%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
 "Are you sure you want to clear the queue?" = "Är du säker på att du vill rensa kön?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ är ett nödvändigt paket. Det ska INTE tas bort om du inte vet exakt vad du gör!";
-"Remove from Queue" = "Ta bort från kö";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Att logga in på källor möjliggör köp av betalpaket.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avfärda konsolen automatiskt när alla uppgifter har slutförts.";
+
+// Filters
+"Filters" = "Filter";
+"Add Filter" = "Lägg till filter";
+
+"1 Section Hidden" = "1 sektion dold";
+"%lu Sources Hidden" = "%lu källor dolda";
+
+"Sections" = "Sektioner";
+"Hide packages in these sections." = "Dölj paket i dessa sektioner.";
+
+"Sources" = "Källor";
+"Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
+
+"Updates" = "Uppdateringar";
+"Hide future updates from these packages." = "Dölj framtida uppdateringar från dessa paket.";
+
+"Authors" = "Skapare";
+"Hide packages from these authors." = "Dölj paket från dessa skapare.";

@@ -10,6 +10,7 @@
 "Close" = "Fechar";
 "Done" = "Concluir";
 "Loading..." = "A Carregar...";
+"Clear" = "Apagar";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Transferir Fontes";
 "Verifying Source" = "Verificando a Fonte";
 "Verifying Sources" = "Verificando as Fontes";
+"Import" = "Importar";
+"Verifying..." = "A verificar...";
+"Confirm Import" = "Confirmar Importação";
+"Import Sources" = "Importar Fontes";
+"No sources to import" = "Sem fontes para importar";
+"Would you like to import the following sources?" = "Importar as seguintes fontes?";
+"Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Lojas";
-"Account" = "Conta";
+"My Account" = "Minha conta";
 "Sign In" = "Iniciar Sessão";
 "Sign Out" = "Terminar Sessão";
 "Your Purchases" = "As suas compras";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum segredo de pagamento foi encontrado";
 "No packages purchased" = "Nenhum pacote comprado";
+"Logged in as %@ (%@)." = "Conectado como %@ (%@).";
 
 // Sources
 
 "Sources" = "Fontes";
-"Local Repository" = "Repositório Local";
-"Locally installed packages" = "Pacotes instalados localmente";
 "Unknown" = "Desconhecido";
-"No source URLs detected." = "Nenhuma URL de fonte detetada.";
-"You have already added this source." = "Esta fonte ja foi adicionada.";
-"You have already added these sources." = "Essas fontes já foram adicionadas.";
-"Error verifying source" = "Erro ao verificar a fonte";
-"Error verifying sources" = "Erro ao verificar as fontes";
-"Unknown error" = "Erro desconhecido";
-"Invalid URL" = "URL inválido";
-"Enter Source URL" = "Digite a URL da Fonte";
-"Add Sources" = "Adicionar Fontes";
-"Add" = "Adicionar";
-"Add Multiple" = "Adicionar Multiplos";
-"Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
-"Please Wait..." = "Por favor aguarde...";
-"Verifying Source(s)" = "A Verificar Fonte(s)";
-"Unable to verify source" = "Não foi possível verificar a fonte";
+"Delete" = "Apagar";
 "Refresh" = "Atualidade";
 "All Packages" = "Todos os Pacotes";
-"Delete" = "Apagar";
-"Import Sources" = "Importar Fontes";
+"Remove Source" = "Remover fonte";
+"Local Repository" = "Repositório Local";
+"Locally installed packages" = "Pacotes instalados localmente";
+
+"Add" = "Adicionar";
+"Add Sources" = "Adicionar Fontes";
+"Add Multiple" = "Adicionar Multiplos";
+"Enter Source URL" = "Digite a URL da Fonte";
+"Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
+
+"Please Wait..." = "Por favor aguarde...";
+"Verifying Source" = "A Verificar a Fonte";
+"Verifying Sources" = "A Verificar Fontes";
 "Updating Sources" = "Atualizando as Fontes";
-"Would you like to import the following sources?" = "Importar as seguintes fontes?";
+
+"Unknown error" = "Erro desconhecido";
+"Invalid URL" = "URL inválido";
+"Invalid Source" = "Fonte Inválida";
+"Tap to learn more" = "Toque para saber mais";
+"No source URLs detected." = "Nenhuma URL de fonte detetada.";
+"Unable to verify source" = "Não foi possível verificar a fonte";
+"Error verifying source" = "Erro ao verificar a fonte";
+"Error verifying sources" = "Erro ao verificar as fontes";
 "Failed to add source" = "Falha ao adicionar a fonte";
 "Failed to add sources" = "Falha ao adicionar as fontes";
+"You have already added this source." = "Esta fonte ja foi adicionada.";
+"You have already added these sources." = "Essas fontes já foram adicionadas.";
 "Unable to locate an APT repository at:" = "Não foi possível localizar um repositório APT em:";
 "Unable to locate APT repositories at:" = "Não foi possível localizar os repositórios de APT em:";
-"Import Sources" = "Importar Fontes";
-"Import" = "Importar";
-"Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
-"Verifying..." = "A verificar...";
-"Confirm Import" = "Confirmar Importação";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "O endereço de email que inseriu não é válido. Por favor verifique e tente novamente.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "O Zebra não foi capaz de transferir a fonte especificada em %@. Pode estar temporariamente inacessível ou ter sido adicionada incorretamente.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Tamanho";
-"Clear" = "Apagar";
-"Are you sure you want to clear the Queue?" = "Tem a certeza que quer apagar a Fila?";
 "Available Upgrades" = "Atualizações Disponíveis";
 "Ignored Upgrades" = "Atualizações Ignoradas";
 "Recent" = "Recente";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Procurar";
-"Clear Search" = "Apagar Procura";
 "This search query is too short for the full search, please use a longer query." = "Esta consulta é muito curta, por favor usa uma consulta mais longa";
 "No Results Found" = "0 Resultados Encontrados";
+"Name" = "Nome";
+"Description" = "Descrição";
+"Author" = "Autor";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
 "%@ hasn't been modified" = "%@ não foi modificado";
 "Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
+"A total of %d files will be downloaded" = "Um total de %d arquivos serão transferidos";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Fechar o Zebra...";
 "Restart SpringBoard" = "Reiniciar o SpringBoard";
 "Restarting SpringBoard..." = "Reiniciar o SpringBoard...";
-"Parsing" = "Analisando";
+"Parsing %@" = "A analisar %@";
 "Starting Download" = "A iniciar a transferência";
 "Downloading" = "A fazer o download";
+"Downloading %@" = "A transferir %@";
 "Downloading Packages..." = "A fazer o download de pacotes...";
 "Download Completed" = "Transferência concluída";
 "Installing" = "A instalar";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
 "Done..." = "Concluído...";
+"Done %@" = "Concluído %@";
 "Removing Zebra..." = "Removendo Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
+"Adding Payment Vendor URL for %@" = "A adicionar URL do operador de pagamento para %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Continuar";
 "Download Size" = "Tamanho do Download";
 "Confirm" = "Confirmar";
-"%@ must be removed because it depends on %@" = "%@ precisa de ser removido porque depende de %@";
-"Required Package" = "Pacote necessário";
-"%@ is required by:" = "%@ é necessário para:";
 "Issues" = "Problemas";
-"%@ has issues that cannot be resolved:" = "%@ tem problemas que não conseguem ser resolvidos:";
+"Required Package" = "Pacote necessário";
 "Are you sure?" = "Tem a certeza?";
+"Remove from Queue" = "Remover da fila de espera";
+"Clear Queue" = "Limpar Lista";
+"%@ is required by:" = "%@ é necessário para:";
+"%@ must be removed because it depends on %@" = "%@ precisa de ser removido porque depende de %@";
+"%@ has issues that cannot be resolved:" = "%@ tem problemas que não conseguem ser resolvidos:";
 "Are you sure you want to clear the queue?" = "Tem a certeza que quer apagar os pacotes em fila?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote necessário. NÃO DEVE ser removido se não sabe o que está a fazer!";
-"Remove from Queue" = "Remover da fila de espera";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Iniciar sessão nas repos autoriza a compra de pacotes pagos.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Fechar a consola automaticamente após todas as suas tarefas forem concluídas.";
+
+// Filters
+"Filters" = "Filtros";
+"Add Filter" = "Adicionar Filtro";
+
+"1 Section Hidden" = "1 seção oculta";
+"%lu Sources Hidden" = "%lu Fontes ocultas";
+
+"Sections" = "Secções";
+"Hide packages in these sections." = "Ocultar pacotes nestas seções.";
+
+"Sources" = "Fontes";
+"Hide packages in these sections from specific sources." = "Ocultar pacotes nessas seções de fontes específicas.";
+
+"Updates" = "Atualizações";
+"Hide future updates from these packages." = "Ocultar atualizações futuras destes pacotes.";
+
+"Authors" = "Autores";
+"Hide packages from these authors." = "Ocultar pacotes destes autores.";

@@ -10,6 +10,7 @@
 "Close" = "Mbyll";
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
+"Clear" = "Pastro";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Transfero Burimet";
 "Verifying Source" = "Duke verifikuar burimin";
 "Verifying Sources" = "Duke verifikuar burimet";
+"Import" = "Importo";
+"Verifying..." = "Duke verifikuar...";
+"Confirm Import" = "Konfirmo Importin";
+"Import Sources" = "Importo Burimet";
+"No sources to import" = "Asnjë burim për tu importuar";
+"Would you like to import the following sources?" = "A dëshironi të importoni burimet e mëposhtme?";
+"Are you sure that you want to import 1 source into Zebra?" = "A jeni të sigurt që dëshironi të importoni 1 burim në Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "A jeni të sigurt që dëshironi të importoni %d burime në Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Dyqani";
-"Account" = "Llogaria";
+"My Account" = "Llogaria ime";
 "Sign In" = "Hyr";
 "Sign Out" = "Dilni";
 "Your Purchases" = "Pagesat e juaja";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
 "No packages purchased" = "Nuk keni asnjë paketë të paguar";
+"Logged in as %@ (%@)." = "Keni hyrë si %@ (%@).";
 
 // Sources
 
 "Sources" = "Burimet";
-"Local Repository" = "Repo lokale";
-"Locally installed packages" = "Paketat e instaluara në lokalitet";
 "Unknown" = "E panjohur";
-"No source URLs detected." = "Nuk u identifikua asnjë URL e burimit.";
-"You have already added this source." = "Ti tashmë ke shtuar këtë burim.";
-"You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
-"Error verifying source" = "Problem në verifikimin e burimit";
-"Error verifying sources" = "Problem në verifikimin e burimeve";
-"Unknown error" = "Problem i panjohur";
-"Invalid URL" = "Adrese e gabuar";
-"Enter Source URL" = "Shkruaj URL-në e burimit";
-"Add Sources" = "Shto burimet";
-"Add" = "Shto";
-"Add Multiple" = "Shto disa";
-"Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
-"Please Wait..." = "Të Lutem Prit...";
-"Verifying Source(s)" = "Duke verifikuar burimin(et)";
-"Unable to verify source" = "E pamundur që të verifikoj burimin";
+"Delete" = "Fshije";
 "Refresh" = "Rifresko";
 "All Packages" = "Të gjitha paketat";
-"Delete" = "Fshije";
-"Import Sources" = "Importo Burimet";
+"Remove Source" = "Largo burimin";
+"Local Repository" = "Repo lokale";
+"Locally installed packages" = "Paketat e instaluara në lokalitet";
+
+"Add" = "Shto";
+"Add Sources" = "Shto burimet";
+"Add Multiple" = "Shto disa";
+"Enter Source URL" = "Shkruaj URL-në e burimit";
+"Would you like to add the URL from your clipboard?" = "A dëshironi të shtoni URL nga clipboardi i juaj?";
+
+"Please Wait..." = "Të Lutem Prit...";
+"Verifying Source" = "Duke verifikuar burimin";
+"Verifying Sources" = "Duke verifikuar burimet";
 "Updating Sources" = "Duke përditsuar burimet";
-"Would you like to import the following sources?" = "A dëshironi të importoni burimet e mëposhtme?";
+
+"Unknown error" = "Problem i panjohur";
+"Invalid URL" = "Adrese e gabuar";
+"Invalid Source" = "Burim i gabuar";
+"Tap to learn more" = "Kliko për të mësuar më shumë";
+"No source URLs detected." = "Nuk u identifikua asnjë URL e burimit.";
+"Unable to verify source" = "E pamundur që të verifikoj burimin";
+"Error verifying source" = "Problem në verifikimin e burimit";
+"Error verifying sources" = "Problem në verifikimin e burimeve";
 "Failed to add source" = "Dështoj në shtimin e burimit";
 "Failed to add sources" = "Dështoj në shtimin e burimeve";
+"You have already added this source." = "Ti tashmë ke shtuar këtë burim.";
+"You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
-"Import Sources" = "Importo Burimet";
-"Import" = "Importo";
-"Are you sure that you want to import %d sources into Zebra?" = "A jeni të sigurt që dëshironi të importoni %d burime në Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "A jeni të sigurt që dëshironi të importoni 1 burim në Zebra?";
-"Verifying..." = "Duke verifikuar...";
-"Confirm Import" = "Konfirmo Importin";
-"The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
-"Tap to learn more" = "Kliko për të mësuar më shumë";
-"Invalid Source" = "Burim i gabuar";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nuk ishte në gjendje të shkarkonte burimin e specifikuar në %@. Mund të jetë përkohësisht e paarritshme ose mund të ishte shtuar gabimisht.";
-"Remove Source" = "Largo burimin";
 
+"The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nuk ishte në gjendje të shkarkonte burimin e specifikuar në %@. Mund të jetë përkohësisht e paarritshme ose mund të ishte shtuar gabimisht.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Madhësia";
-"Clear" = "Pastro";
-"Are you sure you want to clear the Queue?" = "A jeni i sigurt që dëshironi ta zbrazni radhën?";
 "Available Upgrades" = "Përditësimet në dispozicion";
 "Ignored Upgrades" = "Përditësimet e injoruara";
 "Recent" = "Së fundmi";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Kërko";
-"Clear Search" = "Pastro kërkimin";
 "This search query is too short for the full search, please use a longer query." = "Kjo pyetje e kërkimit është shumë e shkurtër për kërkimin e plotë, ju lutemi përdorni një pyetje më të gjatë.";
 "No Results Found" = "Nuk janë gjetur rezultate";
+"Name" = "Emri";
+"Description" = "Përshkrimi";
+"Author" = "Autori";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
 "%@ hasn't been modified" = "%@ nuk është modifikuar";
 "Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
+"A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Duke mbyllur Zebran...";
 "Restart SpringBoard" = "Rifillo SpringBoard-in";
 "Restarting SpringBoard..." = "Duke rifilluar SpringBoard-in...";
-"Parsing" = "Duke analizuar";
+"Parsing %@" = "Duke analizuar %@";
 "Starting Download" = "Duke filluar shkarkimin";
 "Downloading" = "Duke u shkarkuar";
+"Downloading %@" = "Duke shkarkuar %@";
 "Downloading Packages..." = "Shkarkimi i Paketave...";
 "Download Completed" = "Shkarkimi Përfundoi";
 "Installing" = "Instalimi";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Një ose më shumë paketa dështuan në shkarkim.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Ktheu tek Rradha\" për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
 "Done..." = "Përfundoi...";
+"Done %@" = "Përfundoi %@";
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
+"Adding Payment Vendor URL for %@" = "Duke shtuar URL-n e Pagesave për %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Vazhdo";
 "Download Size" = "Madhësia e shkarkimit";
 "Confirm" = "Konfirmo";
-"%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
-"Required Package" = "Paket e kërkuar";
-"%@ is required by:" = "%@ kërkohet nga:";
 "Issues" = "Problem";
-"%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
+"Required Package" = "Paket e kërkuar";
 "Are you sure?" = "A je i sigurt?";
+"Remove from Queue" = "Hiq nga Radha";
+"Clear Queue" = "Pastro radhën";
+"%@ is required by:" = "%@ kërkohet nga:";
+"%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
+"%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
 "Are you sure you want to clear the queue?" = "Je i sigurt që dëshiron ta zbrazësh radhën?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar. Ajo nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
-"Remove from Queue" = "Hiq nga Radha";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Duke hyrë në burime lejon që të blihen paketat me pages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
+
+// Filters
+"Filters" = "Filter";
+"Add Filter" = "Shto Filter";
+
+"1 Section Hidden" = "1 seksion i fshehur";
+"%lu Sources Hidden" = "%lu Burime të fshehura";
+
+"Sections" = "Seksione";
+"Hide packages in these sections." = "Fsheh paketat në këto seksione.";
+
+"Sources" = "Burimet";
+"Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
+
+"Updates" = "Përditësime";
+"Hide future updates from these packages." = "Fsheh përditësimet e ardhshme nga këto paketa.";
+
+"Authors" = "Autorët";
+"Hide packages from these authors." = "Fsheh paketat nga këto autorë.";

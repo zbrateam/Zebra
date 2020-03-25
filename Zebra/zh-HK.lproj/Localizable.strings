@@ -17,7 +17,7 @@
 "Home" = "首頁";
 "Info" = "資訊";
 "Welcome to Zebra!" = "歡迎使用 Zebra！";
-"Report a Bug" = "回報 Bug";
+"Report a Bug" = "回報問題";
 "Changelog" = "更新記錄";
 "Wish List" = "願望清單";
 "No items in Wish List" = "願望清單中沒有項目";
@@ -32,17 +32,17 @@
 "You’ve added all of the community sources" = "您已經加入所有的社群套件來源";
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility source for %@" = "%@ 的工具軟體來源";
-"Transfer Sources" = "匯入來源";
+"Transfer Sources" = "轉移來源";
 "Verifying Source" = "正在驗證來源";
 "Verifying Sources" = "正在驗證來源";
 "Import" = "匯入";
 "Verifying..." = "正在驗證……";
 "Confirm Import" = "確認導入";
 "Import Sources" = "匯入來源";
-"No sources to import" = "沒有要匯入的來源";
+"No sources to import" = "No sources to import";
 "Would you like to import the following sources?" = "您想要匯入以下的來源嗎？";
-"Are you sure that you want to import 1 source into Zebra?" = "您確定要將 1 個來源導入到 Zebra 嗎？";
-"Are you sure that you want to import %d sources into Zebra?" = "您確定要將 %d 個來源導入到 Zebra 嗎？";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 
 
 // Credits
@@ -107,7 +107,7 @@
 "Erase All Sources and Settings" = "清除所有來源和設定";
 
 "Are you sure you want to restart the SpringBoard?" = "您確定要重新啟動主畫面嗎?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "您確定要刷新圖示快取嗎? 您的裝置可能會暫時沒有回應，直到程序完成。";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
 "Image Cache Reset" = "重置圖片快取";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "您確定要重置 Zebra 的來源快取嗎？所有來源的數據快取將被移除並重新下載，您的來源不會被刪除。";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "您確定要重置 Zebra 的設定嗎？ Zebra 的所有設定會恢復為預設值並重啟。";
@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "商店";
-"My Account" = "我的帳號";
+"Account" = "帳戶";
 "Sign In" = "登入";
 "Sign Out" = "登出";
 "Your Purchases" = "已購買";
@@ -125,7 +125,6 @@
 "Could not complete purchase" = "無法完成購買操作";
 "Could not complete purchase, no payment secret was found" = "無法完成購買操作，未找到付款密鑰";
 "No packages purchased" = "無已購買套件";
-"Logged in as %@ (%@)." = "以 %@ (%@) 登入";
 
 // Sources
 
@@ -135,7 +134,7 @@
 "Refresh" = "重新整理";
 "All Packages" = "所有套件";
 "Remove Source" = "移除來源";
-"Local Repository" = "本地來源";
+"Local Repository" = "本地套件來源";
 "Locally installed packages" = "本地已安裝套件";
 
 "Add" = "新增";
@@ -145,8 +144,8 @@
 "Would you like to add the URL from your clipboard?" = "是否要新增剪貼簿中的網址？";
 
 "Please Wait..." = "請稍候…";
-"Verifying Source" = "正在驗證來源";
-"Verifying Sources" = "正在驗證來源";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "正在更新來源";
 
 "Unknown error" = "未知錯誤";
@@ -259,9 +258,9 @@
 "Search" = "搜尋";
 "This search query is too short for the full search, please use a longer query." = "您輸入的關鍵字太短，因此無法搜尋。請使用更長的關鍵字進行搜尋。";
 "No Results Found" = "找不到相符的結果";
-"Name" = "名稱";
-"Description" = "說明";
-"Author" = "作者";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -275,7 +274,7 @@
 "Could not find a download URL for" = "無法獲得下載網址";
 "%@ hasn't been modified" = "%@ 未被修改";
 "Could not parse %@ from %@" = "無法解析 %@ 自 %@";
-"A total of %d files will be downloaded" = "總共將下載 %d 個檔案";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -287,10 +286,10 @@
 "Closing Zebra..." = "正在關閉 Zebra...";
 "Restart SpringBoard" = "重新啟動主畫面";
 "Restarting SpringBoard..." = "正在重新啟動主畫面...";
-"Parsing %@" = "正在解析 %@";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "正在開始下載";
 "Downloading" = "正在下載";
-"Downloading %@" = "正在下載 %@";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "正在下載套件...";
 "Download Completed" = "下載完成";
 "Installing" = "正在安裝";
@@ -310,10 +309,10 @@
 "One or more packages failed to download." = "一個或多個套件下載失敗。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點選「返回佇列」以回到佇列並重新嘗試下載。";
 "Done..." = "完成...";
-"Done %@" = "已完成 %@";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "正在移除 Zebra...";
 "Installing Zebra..." = "正在安裝 Zebra...";
-"Adding Payment Vendor URL for %@" = "正在為 %@ 新增付款服務網址";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -338,7 +337,7 @@
 "Required Package" = "必要的套件";
 "Are you sure?" = "您確定嗎？";
 "Remove from Queue" = "從佇列中移除";
-"Clear Queue" = "清除佇列";
+"Clear Queue" = "Clear Queue";
 "%@ is required by:" = "%@ 被依賴於：";
 "%@ must be removed because it depends on %@" = "%@ 需要被移除因為它依賴 %@";
 "%@ has issues that cannot be resolved:" = "%@ 存在無法解決的問題：";
@@ -391,22 +390,3 @@
 "Signing in to sources allows for the purchase of paid packages." = "在各個來源登入後可以購買付費套件。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
-
-// Filters
-"Filters" = "篩選條件";
-"Add Filter" = "新增篩選條件";
-
-"1 Section Hidden" = "已隱藏 1 個類別";
-"%lu Sources Hidden" = "已隱藏 %lu 個來源";
-
-"Sections" = "類別";
-"Hide packages in these sections." = "隱藏這些類別的套件";
-
-"Sources" = "來源";
-"Hide packages in these sections from specific sources." = "從特定來源隱藏這些類別的套件";
-
-"Updates" = "更新";
-"Hide future updates from these packages." = "隱藏這些套件的未來更新";
-
-"Authors" = "作者";
-"Hide packages from these authors." = "隱藏來自這些作者的套件";

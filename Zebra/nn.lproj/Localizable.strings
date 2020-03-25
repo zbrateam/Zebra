@@ -10,6 +10,7 @@
 "Close" = "Lukk";
 "Done" = "Ferdig";
 "Loading..." = "Laster...";
+"Clear" = "Taum";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Overfør kjelder";
 "Verifying Source" = "Verifiserer kjelde";
 "Verifying Sources" = "Verifiserer kjelder";
+"Import" = "Importer";
+"Verifying..." = "Verifiserer...";
+"Confirm Import" = "Stadfest importering";
+"Import Sources" = "Importer kjelder";
+"No sources to import" = "Ingen kjelder å importera";
+"Would you like to import the following sources?" = "Vil du importera følgjande kjelder?";
+"Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importera 1 kjelde til Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importera %d kjelder til Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Butikkar";
-"Account" = "Konto";
+"My Account" = "Kontoen min";
 "Sign In" = "Logg inn";
 "Sign Out" = "Logg ut";
 "Your Purchases" = "Kjøpa dine";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
 "Could not complete purchase, no payment secret was found" = "Kunne ikkje fullføra kjøpet, ingen betalingsløyndom vart funnen";
 "No packages purchased" = "Ingen kjøpte pakkar";
+"Logged in as %@ (%@)." = "Logga inn som %@ (%@).";
 
 // Sources
 
 "Sources" = "Kjelder";
-"Local Repository" = "Lokal kjelde";
-"Locally installed packages" = "Lokalt installerte pakkar";
 "Unknown" = "Ukjent";
-"No source URLs detected." = "Ingen kjeldenettadresser oppdaga.";
-"You have already added this source." = "Du har allereie lagt til denne kjelda.";
-"You have already added these sources." = "Du har allereie lagt til dei kjeldene.";
-"Error verifying source" = "Feil under verifisering av kjelde";
-"Error verifying sources" = "Feil under verifisering av kjelder";
-"Unknown error" = "Ukjend Feil";
-"Invalid URL" = "Ugyldig nettadresse";
-"Enter Source URL" = "Skriv inn kjeldenettadresse";
-"Add Sources" = "Legg til kjelder";
-"Add" = "Legg til";
-"Add Multiple" = "Legg til fleire";
-"Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
-"Please Wait..." = "Ver vennleg og vent...";
-"Verifying Source(s)" = "Verifiserer kjelde(r)";
-"Unable to verify source" = "Kan ikkje verifisere kjelde";
+"Delete" = "Slett";
 "Refresh" = "Oppdater";
 "All Packages" = "Alle pakkar";
-"Delete" = "Slett";
-"Import Sources" = "Importer kjelder";
+"Remove Source" = "Fjern kjelde";
+"Local Repository" = "Lokal kjelde";
+"Locally installed packages" = "Lokalt installerte pakkar";
+
+"Add" = "Legg til";
+"Add Sources" = "Legg til kjelder";
+"Add Multiple" = "Legg til fleire";
+"Enter Source URL" = "Skriv inn kjeldenettadresse";
+"Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
+
+"Please Wait..." = "Ver vennleg og vent...";
+"Verifying Source" = "Verifiserer kjelde";
+"Verifying Sources" = "Verifiserer kjelder";
 "Updating Sources" = "Oppdaterer kjelder";
-"Would you like to import the following sources?" = "Vil du importera følgjande kjelder?";
+
+"Unknown error" = "Ukjend Feil";
+"Invalid URL" = "Ugyldig nettadresse";
+"Invalid Source" = "Ugyldig kjelde";
+"Tap to learn more" = "Trykk for meir informasjon";
+"No source URLs detected." = "Ingen kjeldenettadresser oppdaga.";
+"Unable to verify source" = "Kan ikkje verifisere kjelde";
+"Error verifying source" = "Feil under verifisering av kjelde";
+"Error verifying sources" = "Feil under verifisering av kjelder";
 "Failed to add source" = "Kunne ikkje legga til kjelde";
 "Failed to add sources" = "Kunne ikkje legga til kjelder";
+"You have already added this source." = "Du har allereie lagt til denne kjelda.";
+"You have already added these sources." = "Du har allereie lagt til dei kjeldene.";
 "Unable to locate an APT repository at:" = "Kunne ikkje finna eit APT-kjelde på:";
 "Unable to locate APT repositories at:" = "Kunne ikkje finna APT-kjelder på:";
-"Import Sources" = "Importer kjelder";
-"Import" = "Importer";
-"Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importera %d kjelder til Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importera 1 kjelde til Zebra?";
-"Verifying..." = "Verifiserer...";
-"Confirm Import" = "Stadfest importering";
-"The URL you entered is not valid. Please check it and try again." = "Nettadressa du gav opp er ikkje gyldig. Kontroller ho og prøv igjen.";
-"Tap to learn more" = "Trykk for meir informasjon";
-"Invalid Source" = "Ugyldig kjelde";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikkje lasta ned kjelda som er angitt i %@. Ho kan vera mellombels utilgjengeleg eller kunne vorte lagt til feil.";
-"Remove Source" = "Fjern kjelde";
 
+"The URL you entered is not valid. Please check it and try again." = "Nettadressa du gav opp er ikkje gyldig. Kontroller ho og prøv igjen.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikkje lasta ned kjelda som er angitt i %@. Ho kan vera mellombels utilgjengeleg eller kunne vorte lagt til feil.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Dato";
 "Size" = "Storleik";
-"Clear" = "Taum";
-"Are you sure you want to clear the Queue?" = "Er du sikker på at du vil tømma køen?";
 "Available Upgrades" = "Tilgjengelege oppdateringar";
 "Ignored Upgrades" = "Ignorerte oppdateringar";
 "Recent" = "Nyleg";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Søk";
-"Clear Search" = "Taum søkeloggen";
 "This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for eit komplett søk. Vennlegast bruk eit lengre søkeord.";
 "No Results Found" = "Ingen resultat funne";
+"Name" = "Namn";
+"Description" = "Skildring";
+"Author" = "Forfattar";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Kunne ikkje finna ein nedlastingsnettadresse for";
 "%@ hasn't been modified" = "%@ har ikkje vorte modifisert";
 "Could not parse %@ from %@" = "Kunne ikkje parse %@ frå %@";
+"A total of %d files will be downloaded" = "%d filer vil lastast ned";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Lukkar Zebra...";
 "Restart SpringBoard" = "Start SpringBoard på nytt";
 "Restarting SpringBoard..." = "Startar SpringBoard på nytt...";
-"Parsing" = "Parsar";
+"Parsing %@" = "Parsar %@";
 "Starting Download" = "Startar nedlasting";
 "Downloading" = "Lastar ned";
+"Downloading %@" = "Lastar ned %@";
 "Downloading Packages..." = "Lastar ned pakkar...";
 "Download Completed" = "Nedlasting fullført";
 "Installing" = "Installerer";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Nedlasting av ein eller fleire pakkar feila.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnera til køen og prøva nedlastinga på nytt.";
 "Done..." = "Ferdig...";
+"Done %@" = "Ferdig %@";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
+"Adding Payment Vendor URL for %@" = "Legg til nettadressa til betalingsleverandøra for %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Fortset";
 "Download Size" = "Nedlasting storleik";
 "Confirm" = "Stadfest";
-"%@ must be removed because it depends on %@" = "%@ må fjernast fordi det avheng av %@";
-"Required Package" = "Påkrevd pakke";
-"%@ is required by:" = "%@ blir kravd av:";
 "Issues" = "Problem";
-"%@ has issues that cannot be resolved:" = "%@ har problem som ikkje kan løysast:";
+"Required Package" = "Påkrevd pakke";
 "Are you sure?" = "Er du sikker?";
+"Remove from Queue" = "Fjern frå køen";
+"Clear Queue" = "Tøm kø";
+"%@ is required by:" = "%@ blir kravd av:";
+"%@ must be removed because it depends on %@" = "%@ må fjernast fordi det avheng av %@";
+"%@ has issues that cannot be resolved:" = "%@ har problem som ikkje kan løysast:";
 "Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømma køen?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke. Han burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
-"Remove from Queue" = "Fjern frå køen";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Pålogging i kjelder gjer muleg kjøp av betalte pakkar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
+
+// Filters
+"Filters" = "Filtre";
+"Add Filter" = "Legg til filter";
+
+"1 Section Hidden" = "1 seksjon skjult";
+"%lu Sources Hidden" = "%lu kjelder skjult";
+
+"Sections" = "Seksjonar";
+"Hide packages in these sections." = "Skjul pakkane i desse seksjonane.";
+
+"Sources" = "Kjelder";
+"Hide packages in these sections from specific sources." = "Skjul pakkane i desse seksjonane frå spesifikke kjelder.";
+
+"Updates" = "Oppdateringar";
+"Hide future updates from these packages." = "Skjul framtidige oppdateringar for desse pakka.";
+
+"Authors" = "Forfattarar";
+"Hide packages from these authors." = "Skjul pakkane frå desse forfattarane.";

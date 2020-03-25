@@ -10,6 +10,7 @@
 "Close" = "Aizvērt";
 "Done" = "Gatavs";
 "Loading..." = "Tiek ielādēts...";
+"Clear" = "Notīrīt";
 
 // Home
 
@@ -22,7 +23,7 @@
 "No items in Wish List" = "Vēlmju sarakstā nav paketes";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
-"Follow us on Twitter" = "Follow us on Twitter";
+"Follow us on Twitter" = "Seko mūms Twitterī";
 "Help translate Zebra!" = "Palīdzi tulkot Zebra!";
 
 // Community Source
@@ -30,10 +31,19 @@
 "Community Sources" = "Kopienas avoti";
 "You’ve added all of the community sources" = "Jūs esat pievienojis visus kopienas avotus";
 "Transfer sources from %@ to Zebra" = "Pārsūtiet avotus no %@ uz Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "%@ darbarīku avots";
 "Transfer Sources" = "Pārvietot avotus";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "Verificējam Avotu";
+"Verifying Sources" = "Verificējam Avotus";
+"Import" = "Import";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"Import Sources" = "Importē avotus";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Veikali";
-"Account" = "Account";
+"My Account" = "My Account";
 "Sign In" = "Sign In";
 "Sign Out" = "Sign Out";
 "Your Purchases" = "Your Purchases";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
 "Sources" = "Avoti";
-"Local Repository" = "Lokālais avots";
-"Locally installed packages" = "Lokāli instalētas paketes";
 "Unknown" = "Nezināms";
-"No source URLs detected." = "No source URLs detected.";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
-"Unknown error" = "Nezināma kļūda";
-"Invalid URL" = "Nederīga URL";
-"Enter Source URL" = "Enter Source URL";
-"Add Sources" = "Add Sources";
-"Add" = "Pievienot";
-"Add Multiple" = "Pievienot vairākus";
-"Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
-"Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source(s)" = "Verificējam avotu(s)";
-"Unable to verify source" = "Unable to verify source";
+"Delete" = "Dzēst";
 "Refresh" = "Atjaunot";
 "All Packages" = "Visas pakas";
-"Delete" = "Dzēst";
-"Import Sources" = "Importē avotus";
+"Remove Source" = "Remove Source";
+"Local Repository" = "Lokālais avots";
+"Locally installed packages" = "Lokāli instalētas paketes";
+
+"Add" = "Pievienot";
+"Add Sources" = "Add Sources";
+"Add Multiple" = "Pievienot vairākus";
+"Enter Source URL" = "Enter Source URL";
+"Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
+
+"Please Wait..." = "Lūdzu, uzgaidi...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Updating Sources";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
+
+"Unknown error" = "Nezināma kļūda";
+"Invalid URL" = "Nederīga URL";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "No source URLs detected.";
+"Unable to verify source" = "Unable to verify source";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
 "Failed to add source" = "Failed to add source";
 "Failed to add sources" = "Failed to add sources";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "You have already added these sources.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
-"Import Sources" = "Importē avotus";
-"Import" = "Import";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Datums";
 "Size" = "Lielums";
-"Clear" = "Notīrīt";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Pieejamie atjauninājumi";
 "Ignored Upgrades" = "Ignorētie atjauninājumi";
 "Recent" = "Nesen";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Meklēt";
-"Clear Search" = "Notīrīt meklēšanu";
 "This search query is too short for the full search, please use a longer query." = "Šis meklēšānas veicinājums ir pārāk īss, lai veiktu pilnīgu meklēšanu, izmantojiet garāku veicinājumu.";
 "No Results Found" = "Neviens rezultāts atrasts";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
 "%@ hasn't been modified" = "%@ nav modificēts";
 "Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restartēt SpringBoard";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Parsing" = "Parsē";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Starting Download";
 "Downloading" = "Lejupielādē";
+"Downloading %@" = "Downloading %@";
 "Downloading Packages..." = "Lejupielādē paketes...";
 "Download Completed" = "Lejupielāde pabeigta";
 "Installing" = "Instalē";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
 "Done..." = "Done...";
+"Done %@" = "Done %@";
 "Removing Zebra..." = "Atinstalē zebra...";
 "Installing Zebra..." = "Instalē zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Turpināt";
 "Download Size" = "Lejupielādes lielums";
 "Confirm" = "Apstiprināt";
-"%@ must be removed because it depends on %@" = "%@ ir jānoņem, jo tas ir atkarīgs no %@";
-"Required Package" = "Nepieciešama Pakete";
-"%@ is required by:" = "%@ pieprasa:";
 "Issues" = "Problēmas";
-"%@ has issues that cannot be resolved:" = "%@ ir problēmas, kuras nevar atrisināt:";
+"Required Package" = "Nepieciešama Pakete";
 "Are you sure?" = "Vai esi pārliecināts?";
+"Remove from Queue" = "Noņemt no rindas";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ pieprasa:";
+"%@ must be removed because it depends on %@" = "%@ ir jānoņem, jo tas ir atkarīgs no %@";
+"%@ has issues that cannot be resolved:" = "%@ ir problēmas, kuras nevar atrisināt:";
 "Are you sure you want to clear the queue?" = "Vai tiešām vēlies notīrīt rindu?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ ir nepieciešama pakete. To NEDRĪKST noņemt, ja vien precīzi nezini, ko dari!";
-"Remove from Queue" = "Noņemt no rindas";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+
+// Filters
+"Filters" = "Filters";
+"Add Filter" = "Add Filter";
+
+"1 Section Hidden" = "1 Section Hidden";
+"%lu Sources Hidden" = "%lu Sources Hidden";
+
+"Sections" = "Sections";
+"Hide packages in these sections." = "Hide packages in these sections.";
+
+"Sources" = "Avoti";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+
+"Updates" = "Updates";
+"Hide future updates from these packages." = "Hide future updates from these packages.";
+
+"Authors" = "Authors";
+"Hide packages from these authors." = "Hide packages from these authors.";
