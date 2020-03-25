@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Toko";
-"My Account" = "My Account";
+"My Account" = "Akun Saya";
 "Sign In" = "Masuk";
 "Sign Out" = "Keluar";
 "Your Purchases" = "Pembelian anda";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
 "Could not complete purchase, no payment secret was found" = "Tidak dapat menyelesaikan pembelian, pembayaran rahasia tidak ditemukan";
 "No packages purchased" = "Tidak ada paket yang dibeli";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Masuk sebagai %@ (%@).";
 
 // Sources
 
