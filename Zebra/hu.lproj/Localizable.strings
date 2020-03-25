@@ -31,17 +31,17 @@
 "Community Sources" = "Közösségi források";
 "You’ve added all of the community sources" = "Ön már hozzáadta az összes közösségi forrást";
 "Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "Forrás a %@";
 "Transfer Sources" = "Források átvitele";
 "Verifying Source" = "Forrás ellenőrzése";
 "Verifying Sources" = "Források ellenőrzése";
 "Import" = "Importálás";
 "Verifying..." = "Ellenőrzés...";
 "Confirm Import" = "Importálás jóváhagyása";
-"Import Sources" = "Import Sources";
+"Import Sources" = "Források importálása";
 "No sources to import" = "Nincs importálható forrás";
 "Would you like to import the following sources?" = "Importálod a következő forrásokat?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Biztos vagy benne hogy 1 forrást szeretnél a Zebrába importálni?";
 "Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 
 
