@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Cửa hàng";
-"My Account" = "My Account";
+"My Account" = "Tài khoản của tôi";
 "Sign In" = "Đăng nhập";
 "Sign Out" = "Đăng xuất";
 "Your Purchases" = "Đã mua";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "Không thể hoàn tất mua";
 "Could not complete purchase, no payment secret was found" = "Không thể hoàn thành thanh toán, không khoản thanh toán nào được tìm thấy";
 "No packages purchased" = "Không có gói đã mua";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Đăng nhập bằng %@ (%@).";
 
 // Sources
 
