@@ -56,14 +56,20 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     
     if ([defaults boolForKey:thirteenModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStyleDark];
+        
+        [defaults removeObjectForKey:thirteenModeKey];
     }
     
     if ([defaults boolForKey:oledModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStylePureBlack];
+        
+        [defaults removeObjectForKey:oledModeKey];
     }
     
     if ([defaults boolForKey:darkModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStyleDark];
+        
+        [defaults removeObjectForKey:darkModeKey];
     }
     
     //Set other defaults
