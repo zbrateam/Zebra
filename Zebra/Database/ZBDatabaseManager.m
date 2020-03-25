@@ -685,9 +685,14 @@
                     } else {
                         const char *packageSection = (const char *)sqlite3_column_text(statement, 1);
                         const char *packageAuthor = (const char *)sqlite3_column_text(statement, 2);
-                        int repoID = sqlite3_column_int(statement, 3);
-                        if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:repoID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor]])
-                            ++packages;
+                        if (packageSection != 0 && packageAuthor != 0) {
+                            int repoID = sqlite3_column_int(statement, 3);
+                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:repoID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor]])
+                                ++packages;
+                        }
+                        else {
+                            ++packages; // We can't filter this package as it has no section or no author
+                        }
                     }
                 } else {
                     packages = sqlite3_column_int(statement, 0);
