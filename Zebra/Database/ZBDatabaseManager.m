@@ -1134,8 +1134,9 @@
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE IN ('\%@') ORDER BY NAME COLLATE NOCASE ASC", [requestedPackages componentsJoinedByString:@"','"]];
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE IN (?) ORDER BY NAME COLLATE NOCASE ASC", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [[requestedPackages componentsJoinedByString:@"','"] UTF8String], -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
