@@ -71,6 +71,44 @@
             }];
             break;
         }
+        case 3: { // contextMenuAction
+            if (@available(iOS 13.0, *)) {
+                NSString *imageName;
+                switch (queue) {
+                    case ZBQueueTypeReinstall:
+                        imageName = @"arrow.clockwise";
+                        break;
+                    case ZBQueueTypeUpgrade:
+                        imageName = @"arrow.up";
+                        break;
+                    case ZBQueueTypeRemove:
+                        imageName = @"trash";
+                        break;
+                    case ZBQueueTypeInstall:
+                        imageName = @"icloud.and.arrow.down";
+                        break;
+                    case ZBQueueTypeDowngrade:
+                        imageName = @"arrow.down";
+                        break;
+                        
+                    default:
+                        break;
+                }
+                UIImageSymbolConfiguration *imgConfig = [UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightHeavy];
+                UIImage *image = [UIImage systemImageNamed:imageName withConfiguration:imgConfig];
+                
+                UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                    handler();
+                }];
+                
+                if (queue == ZBQueueTypeRemove) {
+                    uiAction.attributes = UIMenuElementAttributesDestructive;
+                }
+                
+                action = uiAction;
+            }
+            break;
+        }
         default:
             break;
     }
@@ -168,7 +206,7 @@
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
         if ([self isActionAllowed:possibleActions forPackage:package queue:q]) {
             NSString *title = [queue displayableNameForQueueType:q useIcon:(type == 0)];
-            void (^handler)(void) = [self getHandler:type package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
+            void (^handler)(void) = [self getHandler:(type == 3 ? 1 : type) package:package indexPath:indexPath queue:q to:queue viewController:vc parent:parent completion:completion];
             id action = [self getAction:type title:title queue:q handler:handler];
             [actions addObject:action];
         }
@@ -184,6 +222,10 @@
 
 + (NSMutableArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent {
     return [self actions:1 forPackage:package indexPath:nil viewController:vc parent:parent completion:NULL];
+}
+
++ (NSMutableArray <UIMenuElement *> *)contextMenuActionsForPackage:(ZBPackage *)package indexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent  API_AVAILABLE(ios(13.0)) {
+    return [self actions:3 forPackage:package indexPath:indexPath viewController:vc parent:parent completion:NULL];
 }
 
 + (NSMutableArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent {

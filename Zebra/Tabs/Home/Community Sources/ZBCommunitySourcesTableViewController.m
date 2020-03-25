@@ -246,13 +246,9 @@
                 return NSLocalizedString(@"Utilities", @"");
             case 2:
                 return NSLocalizedString(@"Community Sources", @"");
-            default:
-                return nil;
         }
     }
-    else {
-        return nil;
-    }
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

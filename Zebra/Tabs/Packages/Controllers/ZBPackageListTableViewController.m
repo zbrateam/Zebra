@@ -40,6 +40,7 @@
     int numberOfPackages;
     int databaseRow;
 }
+@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBPackageListTableViewController
@@ -48,7 +49,7 @@
 @synthesize section;
 
 - (BOOL)useBatchLoad {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad {
@@ -63,8 +64,11 @@
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    if (@available(iOS 13.0, *)) {
+    } else {        
+        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
+            [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     
@@ -405,7 +409,7 @@
             if (selectedSortingType == ZBSortingTypeABC)
                 return [self sectionIndexTitlesForTableView:tableView][trueSection];
             if (selectedSortingType == ZBSortingTypeDate)
-                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterShortStyle];
+                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
         }
         if (selectedSortingType == ZBSortingTypeInstalledSize) {
             return NSLocalizedString(@"Size", @"");
@@ -467,6 +471,24 @@
         [self setDestinationVC:indexPath destination:destination];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     }
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageDepictionVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+    }];
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {

@@ -112,9 +112,9 @@
 }
 
 - (NSString *)stripEmailFromAuthor:(NSString *)name {
-    NSArray *authorName = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSArray *tokens = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for (NSString *cut in authorName) {
+    for (NSString *cut in tokens) {
         if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
             [cleanedStrings addObject:cut];
         }

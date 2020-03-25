@@ -214,7 +214,7 @@
     NSMutableSet *baseSourcesSet = [NSMutableSet new];
 
     for (NSURL *sourcesLocation in sourceFilesToImport) {
-        NSError *error;
+        NSError *error = nil;
         [baseSourcesSet unionSet:[ZBBaseSource baseSourcesFromList:sourcesLocation error:&error]];
         
         if (error) {

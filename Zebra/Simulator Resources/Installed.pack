@@ -3796,82 +3796,24 @@ Homepage: http://tukaani.org/lzma/
 Name: XZ Utils
 Tag: purpose::console, role::hacker
 
-Package: com.pixelomer.tweakreviews-db
 Status: install ok installed
-Version: 0.4.2
+Package: ws.hbang.common
+Name: Cephei
+Depends: com.rpetrich.rocketbootstrap, firmware (>= 13.0) | jp.ashikase.techsupport
 Architecture: iphoneos-arm
-Maintainer: PixelOmer
-Installed-Size: 620
-Depends: mobilesubstrate, firmware (>=8.0)
-Conflicts: bz.jed.tweakcompatible, org.coolstar.sileo (<<1.4.1)
-Filename: debs/com.pixelomer.tweakreviews-db_0.4.2_iphoneos-arm.deb
-Size: 101098
-MD5sum: 22bde7253fe409caf0e1250f2301ade6
-SHA1: 8b9d6fda4508b7e39358328decd6226d9aab6524
-SHA256: 0bcab38cc9af565c91441e9fb544654e14da6ace9be82d7e7f19c12579d22488
-Section: Tweaks
-Description: Review and rate packages!
-  TweakReviewsDB is a tweak that lets you review packages and mark them as working or broken in seconds! You can use this tweak to share what you think about a package for others to see.
-  This is a direct replacement for tweakCompatible which supports Cydia, Sileo and Zebra.
-  Requires iOS 8.0 or higher.
-Author: PixelOmer
-Name: TweakReviewsDB
-
-Package: com.samgisaninja.tweakcompatible-zebra
-Status: install ok installed
-Version: 1.1.5
-Architecture: iphoneos-arm
-Maintainer: Samg_is_a_Ninja
-Installed-Size: 332
-Depends: mobilesubstrate, xyz.willy.zebra
-Filename: ./debs/com.samgisaninja.tweakcompatible-zebra_1.1.5_iphoneos-arm.deb
-Size: 97558
-MD5sum: 8e6e5b4159dbd2e04a8a04b90af50cba
-SHA1: 3f5265a1b7213678be1d23ee6f9f11dd250eaac8
-SHA256: 6b3ae3409faf19676fd5522b8a42be82694d55dcad80b56e998978c7697d8cd3
-Section: Tweaks
-Description: Adds TweakCompatible to Zebra!
-Author: Samg_is_a_Ninja
-Depiction: https://samgisaninja.github.io/depictions/?p=com.samgisaninja.tweakcompatible-zebra
-Icon: file:///Library/tweakcompatible-zebra/icon.png
-Name: TweakCompatible for Zebra
-
-Package: com.saurik.substrate.safemode
-Status: install ok installed
-Version: 1.1.5
-Architecture: iphoneos-arm
-Maintainer: Samg_is_a_Ninja
-Installed-Size: 332
-Depends: mobilesubstrate, xyz.willy.zebra
-Filename: ./debs/com.samgisaninja.tweakcompatible-zebra_1.1.5_iphoneos-arm.deb
-Size: 97558
-MD5sum: 8e6e5b4159dbd2e04a8a04b90af50cba
-SHA1: 3f5265a1b7213678be1d23ee6f9f11dd250eaac8
-SHA256: 6b3ae3409faf19676fd5522b8a42be82694d55dcad80b56e998978c7697d8cd3
-Section: Tweaks
-Description: Adds TweakCompatible to Zebra!
-Author: Samg_is_a_Ninja
-Depiction: https://samgisaninja.github.io/depictions/?p=com.samgisaninja.tweakcompatible-zebra
-Icon: file:///Library/tweakcompatible-zebra/icon.png
-Name: TweakCompatible for Zebra
-
-Package: mobilesubstrate
-Status: install ok installed
-Version: 1.1.5
-Architecture: iphoneos-arm
-Maintainer: Samg_is_a_Ninja
-Installed-Size: 332
-Depends: mobilesubstrate, xyz.willy.zebra
-Filename: ./debs/com.samgisaninja.tweakcompatible-zebra_1.1.5_iphoneos-arm.deb
-Size: 97558
-MD5sum: 8e6e5b4159dbd2e04a8a04b90af50cba
-SHA1: 3f5265a1b7213678be1d23ee6f9f11dd250eaac8
-SHA256: 6b3ae3409faf19676fd5522b8a42be82694d55dcad80b56e998978c7697d8cd3
-Section: Tweaks
-Description: Adds TweakCompatible to Zebra!
-Author: Samg_is_a_Ninja
-Depiction: https://samgisaninja.github.io/depictions/?p=com.samgisaninja.tweakcompatible-zebra
-Icon: file:///Library/tweakcompatible-zebra/icon.png
-Name: TweakCompatible for Zebra
-
-
+Description: Support library for tweaks
+Maintainer: HASHBANG Productions <support@hbang.ws>
+Author: HASHBANG Productions <support@hbang.ws>
+Section: Development
+Icon: file:///Library/PreferenceBundles/Cephei.bundle/icon@2x.png
+Depiction: https://repo.chariz.com/package/ws.hbang.common/
+Support: https://hashbang.productions/support/
+Tag: role::developer, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
+dev: hbang
+Version: 1.14
+Installed-Size: 1984
+SileoDepiction: https://repo.chariz.com/api/sileo/package/ws.hbang.common/depiction.json
+Filename: debs/ws.hbang.common_1.14_iphoneos-arm.deb
+SHA256: 0dfb13c5ede945a26821b6ad708f49a5ff43b42990cc373401767fcb2834c97c
+MD5sum: 175e38b3300f272d2a59a50f7452c3e0
+Size: 177334

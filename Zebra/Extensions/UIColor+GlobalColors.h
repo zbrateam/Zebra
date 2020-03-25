@@ -12,7 +12,7 @@
 @interface UIColor (GlobalColors)
 + (UIColor *)accentColor;
 + (UIColor *)badgeColor;
-+ (UIColor *)blueCornflowerColor;
++ (UIColor *)cornflowerBlueColor;
 + (UIColor *)tableViewBackgroundColor;
 + (UIColor *)groupedTableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;

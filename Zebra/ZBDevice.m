@@ -394,7 +394,7 @@
 }
 
 + (BOOL)useIcon {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey];
+    return [ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon;
 }
 
 + (BOOL)darkModeEnabled {

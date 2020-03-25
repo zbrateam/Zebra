@@ -23,7 +23,7 @@
     return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }
 
-+ (UIColor *)blueCornflowerColor {
++ (UIColor *)cornflowerBlueColor {
     return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
 

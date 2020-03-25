@@ -16,6 +16,7 @@
 #import "UIBarButtonItem+blocks.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
+#import "ZBSourcesAccountBanner.h"
 
 @import SDWebImage;
 
@@ -23,10 +24,12 @@
     CGSize bannerSize;
     UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
+    BOOL editOnly;
 }
 @property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) NSArray *featuredPackages;
 @property (nonatomic, strong) NSArray *sectionNames;
+@property (nonatomic, strong) NSMutableArray *filteredSections;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
 @end
 
@@ -35,6 +38,25 @@
 @synthesize repo;
 @synthesize sectionNames;
 @synthesize sectionReadout;
+@synthesize filteredSections;
+
+#pragma mark - Initializers
+
+- (id)initWithSource:(ZBSource *)source {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"repoSectionsController"];
+    
+    if (self) {
+        self.repo = source;
+        editOnly = true;
+    }
+    
+    return self;
+}
+
+- (BOOL)showFeaturedSection {
+    return !editOnly;
+}
 
 #pragma mark - View Controller Lifecycle
 
@@ -44,12 +66,12 @@
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForRepo:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-    keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    if ([repo paymentVendorURL]) {
-        UIBarButtonItem *accountButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Account"] style:UIBarButtonItemStylePlain target:self action:@selector(accountButtonPressed:)];
-        self.navigationItem.rightBarButtonItem = accountButton;
-    }
+    filteredSections = [[[ZBSettings filteredSources] objectForKey:[repo baseFilename]] mutableCopy];
+    if (!filteredSections) filteredSections = [NSMutableArray new];
+    
+    if (!editOnly) self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil]; // For iOS 9 and 10 Sileo Purchases
@@ -75,14 +97,37 @@
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
     self.title = [repo label];
+    self.tableView.allowsSelectionDuringEditing = YES;
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
     
     if (@available(iOS 11.0, *)) {} else {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
-    [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
-    [self checkFeaturedPackages];
+    if (!editOnly) {
+        [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
+        [self checkFeaturedPackages];
+    }
+    else {
+        [self.featuredCollection removeFromSuperview];
+        self.tableView.tableHeaderView = nil;
+        [self.tableView layoutIfNeeded];
+    }
+    
+    if (!editOnly && [repo paymentVendorURL]) { // If the repo supports payments/external accounts
+        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
+        [self.view addSubview:accountBanner];
+        
+        accountBanner.translatesAutoresizingMaskIntoConstraints = false;
+        [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+        [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
+        [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
+        [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
+
+        accountBanner.layer.zPosition = 100;
+        self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
+    }
 }
 
 
@@ -93,7 +138,29 @@
     }
     
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (editOnly) [self setEditing:true animated:true];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    if (self.editing) {
+        for (NSInteger i = 1; i < sectionNames.count + 1; ++i) {
+            NSString *section = [sectionNames objectAtIndex:i - 1];
+            if (![filteredSections containsObject:section]) {
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+                [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+            }
+        }
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
+    }
 }
 
 - (void)accountButtonPressed:(id)sender {
@@ -108,6 +175,7 @@
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
                 ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
                 
@@ -123,8 +191,7 @@
 
 - (void)checkFeaturedPackages {
     [self.featuredCollection removeFromSuperview];
-    UIView *blankHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, CGFLOAT_MIN)];
-    self.tableView.tableHeaderView = blankHeader;
+    self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
     if (repo.supportsFeaturedPackages) {
         NSString *requestURL;
@@ -166,7 +233,7 @@
     // [self.featuredCollection setNeedsLayout];
     // [self.featuredCollection reloadData];
     [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 10);
+        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 30);
     }];
     [self.tableView endUpdates];
     // [self.tableView reloadData];
@@ -268,6 +335,10 @@
     return [sectionNames count] + 1;
 }
 
+- (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
+    return indexPath.row != 0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
     
@@ -290,7 +361,27 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editing || indexPath.row == 0) return;
+    
+    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    [filteredSections removeObject:section];
+    [ZBSettings setSection:section filtered:false forSource:self.repo];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editing || indexPath.row == 0) return;
+    
+    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    [filteredSections addObject:section];
+    [ZBSettings setSection:section filtered:true forSource:self.repo];
+}
+
 #pragma mark - Navigation
+
+- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    return !self.editing;
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
@@ -363,7 +454,8 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-   ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    self.editing = NO;
+    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
 }
 

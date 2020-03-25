@@ -190,23 +190,13 @@
     ZBSource *source = [package repo];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    NSDictionary *question;
-    if ([keychain stringForKey:[source repositoryURI]]) {
-        question = @{ @"token": [keychain stringForKey:[source repositoryURI]],
-                      @"udid": [ZBDevice UDID],
-                      @"device": [ZBDevice deviceModelID],
-                      @"version": package.version,
-                      @"repo": [source repositoryURI]
-        };
-    }
-    else {
-        question = @{ @"token": @"none",
-                      @"udid": [ZBDevice UDID],
-                      @"device": [ZBDevice deviceModelID],
-                      @"version": package.version,
-                      @"repo": [source repositoryURI]
-        };
-    }
+    NSDictionary *question = @{
+                    @"token": [keychain stringForKey:[source repositoryURI] ?: @"none"],
+                    @"udid": [ZBDevice UDID],
+                    @"device": [ZBDevice deviceModelID],
+                    @"version": package.version,
+                    @"repo": [source repositoryURI]
+    };
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
     
     NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
@@ -456,7 +446,7 @@
 - (NSString *)lastModifiedDateForFile:(NSString *)filename {
     NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename];
     
-    NSError *fileError;
+    NSError *fileError = nil;
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
     NSDate *date = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
     
@@ -675,7 +665,7 @@
         [availableTypes insertObject:[path pathExtension] atIndex:0];
     }
     
-    NSError *decompressionError;
+    NSError *decompressionError = nil;
     for (NSString *compressionType in availableTypes) {
         NSString *decompressedPath = [self decompressFile:path compressionType:compressionType error:&decompressionError];
         
@@ -736,7 +726,7 @@
             
             [output writeToFile:[path stringByDeletingPathExtension] atomically:NO];
             
-            NSError *removeError;
+            NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
                 *error = removeError;

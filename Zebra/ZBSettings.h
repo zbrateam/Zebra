@@ -6,6 +6,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBSource;
+@class ZBPackage;
+
 #import <Foundation/Foundation.h>
 
 #pragma mark - Settings Keys
@@ -24,10 +27,19 @@
 #define finishAutomaticallyKey @"finishAutomatically"
 
 //New settings keys
-extern NSString * _Nonnull const AccentColorKey;
-extern NSString * _Nonnull const UseSystemAppearanceKey;
-extern NSString * _Nonnull const InterfaceStyleKey;
-extern NSString * _Nonnull const PureBlackModeKey;
+extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
+extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
+extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
+extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
+
+extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
+extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
+extern NSString * _Nonnull const BlockedAuthorsKey; // Stored as NSArray
+
+extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
+extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
+
+extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
 
 #pragma mark - Accent Colors
 
@@ -46,7 +58,7 @@ typedef enum : NSUInteger {
     ZBAccentColorStorm,
 } ZBAccentColor;
 
-#pragma mark - Dark Mode Styles
+#pragma mark - Interface Styles
 
 typedef enum : NSUInteger {
     ZBInterfaceStyleLight,
@@ -61,10 +73,14 @@ typedef enum : NSUInteger {
     ZBFeaturedTypeRandom,
 } ZBFeaturedType;
 
+#pragma mark - Swipe Action Style
+
+typedef enum : NSUInteger {
+    ZBSwipeActionStyleText,
+    ZBSwipeActionStyleIcon,
+} ZBSwipeActionStyle;
 
 NS_ASSUME_NONNULL_BEGIN
-
-#pragma mark -
 
 @interface ZBSettings : NSObject
 
@@ -88,18 +104,46 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
 
+#pragma mark - Filters
+
++ (NSArray *)filteredSections;
++ (void)setFilteredSections:(NSArray *)filteredSources;
+
++ (NSDictionary *)filteredSources;
++ (void)setFilteredSources:(NSDictionary *)filteredSources;
+
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
++ (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
+
++ (NSArray *)blockedAuthors;
++ (void)setBlockedAuthors:(NSArray *)blockedAuthors;
++ (BOOL)isAuthorBlocked:(NSString *)author;
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package;
+
+#pragma mark - Homepage settings
+
 + (BOOL)wantsFeaturedPackages;
 + (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages;
 
 + (ZBFeaturedType)featuredPackagesType;
-+ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType;
++ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType;
 
 + (NSArray *)sourceBlacklist;
+
+#pragma mark - Changes Settings
 
 + (BOOL)wantsCommunityNews;
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
 
+#pragma mark - Search Settings
+
 + (BOOL)liveSearch;
+
+#pragma mark - Swipe Action Settings
+
++ (ZBSwipeActionStyle)swipeActionStyle;
++ (void)setSwipeActionStyle:(NSNumber *)style;
 
 @end
 

@@ -11,6 +11,8 @@
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIWindow.h>
+#import <Sources/Helpers/ZBSource.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation ZBSettings
 
@@ -19,6 +21,15 @@ NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
 NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
+
+NSString *const FilteredSectionsKey = @"FilteredSections";
+NSString *const FilteredSourcesKey = @"FilteredSources";
+NSString *const BlockedAuthorsKey = @"BlockedAuthors";
+
+NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
+NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
+
+NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -59,9 +70,26 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
     if (![defaults objectForKey:liveSearchKey]) {
         [defaults setBool:YES forKey:liveSearchKey];
     }
-    if (![defaults objectForKey:wantsFeaturedKey]) {
-        [defaults setBool:YES forKey:wantsFeaturedKey];
+    
+    if ([defaults objectForKey:wantsFeaturedKey]) {
+        BOOL wantsFeatured = [defaults boolForKey:wantsFeaturedKey];
+        
+        [self setWantsFeaturedPackages:wantsFeatured];
+        [defaults removeObjectForKey:wantsFeaturedKey];
+        
+        BOOL randomFeatured = [defaults boolForKey:randomFeaturedKey];
+        
+        [self setFeaturedPackagesType:randomFeatured ? @(ZBFeaturedTypeRandom) : @(ZBFeaturedTypeSource)];
+        [defaults removeObjectForKey:randomFeaturedKey];
     }
+    
+    if ([defaults objectForKey:iconActionKey]) {
+        NSInteger value = [defaults integerForKey:iconActionKey];
+        
+        [self setSwipeActionStyle:@(value)];
+        [defaults removeObjectForKey:iconActionKey];
+    }
+    
     if (![defaults objectForKey:wantsNewsKey]) {
         [defaults setBool:YES forKey:wantsNewsKey];
     }
@@ -185,19 +213,39 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 }
 
 + (BOOL)wantsFeaturedPackages {
-    return NO;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsFeaturedPackagesKey]) {
+        [self setWantsFeaturedPackages:YES];
+        return YES;
+    }
+    return [defaults boolForKey:WantsFeaturedPackagesKey];
 }
 
 + (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:wantsFeaturedPackages forKey:WantsFeaturedPackagesKey];
+    [defaults synchronize];
 }
 
 + (ZBFeaturedType)featuredPackagesType {
-    return ZBFeaturedTypeSource;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:FeaturedPackagesTypeKey]) {
+        [self setFeaturedPackagesType:@(ZBFeaturedTypeSource)];
+        return ZBFeaturedTypeSource;
+    }
+    return (ZBFeaturedType)[defaults integerForKey:FeaturedPackagesTypeKey];
 }
 
-+ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType {
++ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType {
+    ZBFeaturedType type = featuredPackagesType.intValue;
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:type forKey:FeaturedPackagesTypeKey];
+    [defaults synchronize];
 }
 
 + (NSArray *)sourceBlacklist {
@@ -213,7 +261,99 @@ NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 }
 
 + (BOOL)liveSearch {
-    return YES;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults boolForKey:liveSearchKey];
+}
+
++ (NSArray *)filteredSections {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults objectForKey:FilteredSectionsKey] ?: [NSArray new];
+}
+
++ (void)setFilteredSections:(NSArray *)filteredSections {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:filteredSections forKey:FilteredSectionsKey];
+}
+
++ (NSDictionary *)filteredSources {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults objectForKey:FilteredSourcesKey] ?: [NSDictionary new];
+}
+
++ (void)setFilteredSources:(NSDictionary *)filteredSources {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:filteredSources forKey:FilteredSourcesKey];
+}
+
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
+    NSArray *filteredSections = [self filteredSections];
+    if ([filteredSections containsObject:section]) return YES;
+    
+    NSDictionary *filteredSources = [self filteredSources];
+    NSArray *filteredSourceSections = [filteredSources objectForKey:[source baseFilename]];
+    if (!filteredSourceSections) return NO;
+    
+    return [filteredSourceSections containsObject:section];
+}
+
++ (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source {
+    NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
+    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source baseFilename]] mutableCopy];
+    if (!filteredSections) filteredSections = [NSMutableArray new];
+    
+    if (filtered && ![filteredSections containsObject:section]) {
+        [filteredSections addObject:section];
+    }
+    else if (!filtered) {
+        [filteredSections removeObject:section];
+    }
+    
+    [filteredSources setObject:filteredSections forKey:[source baseFilename]];
+    [self setFilteredSources:filteredSources];
+}
+
++ (NSArray *)blockedAuthors {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults objectForKey:BlockedAuthorsKey] ?: [NSArray new];
+}
+
++ (void)setBlockedAuthors:(NSArray *)blockedAuthors {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:blockedAuthors forKey:BlockedAuthorsKey];
+}
+
++ (BOOL)isAuthorBlocked:(NSString *)author {
+    return [[self blockedAuthors] containsObject:author];
+}
+
++ (ZBSwipeActionStyle)swipeActionStyle {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:SwipeActionStyleKey]) {
+        [self setSwipeActionStyle:@(ZBSwipeActionStyleText)];
+        return ZBSwipeActionStyleText;
+    }
+    return [defaults boolForKey:SwipeActionStyleKey];
+}
+
++ (void)setSwipeActionStyle:(NSNumber *)newStyle {
+    ZBFeaturedType style = newStyle.intValue;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:style forKey:SwipeActionStyleKey];
+    [defaults synchronize];
+}
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package {
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.author];
 }
 
 #pragma clang diagnostic pop

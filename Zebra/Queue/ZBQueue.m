@@ -543,7 +543,7 @@
     for (ZBPackage *package in packages) {
         totalDownloadSize += [package downloadSize];
     }
-    if (totalDownloadSize) {
+    if (totalDownloadSize > 0) {
         NSString *unit = @"bytes";
         if (totalDownloadSize > 1024 * 1024) {
             totalDownloadSize /= 1024 * 1024;
@@ -554,6 +554,9 @@
             unit = @"KB";
         }
         return [NSString stringWithFormat:@"%.2f %@", totalDownloadSize, unit];
+    }
+    else {
+        return NSLocalizedString(@"Unknown", @"");
     }
     
     return NULL;

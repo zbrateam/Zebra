@@ -175,6 +175,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
 
 /*!
+@brief Get a ZBSource instance  from a base filename
+@param baseFilename the base filename
+@return A ZBSource instance for the matching base filename
+*/
+- (ZBSource *)repoFromBaseFilename:(NSString *)baseFilename;
+
+/*!
  @brief The next repoID in the database.
  @return The next repoID.
  */
@@ -188,6 +195,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section;
 
 /*!
+ @brief Overload of -numberOfPackagesInRepo:section:
+ @param enableFiltering Show or hide the packages with sections filtered out.
+ */
+- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
+
+/*!
  @brief All of the sources that are in the database.
  @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
  */
@@ -199,6 +212,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param repo The repo that needs to be deleted.
  */
 - (void)deleteRepo:(ZBSource *)repo;
+
+- (NSArray *)sectionReadout;
 
 /*!
  @brief A list of section names and number of packages in each section.
@@ -221,6 +236,12 @@ NS_ASSUME_NONNULL_BEGIN
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
  */
 - (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+
+/*!
+ @brief Overload of -packagesFromRepo:inSection:numberOfPackages:startingAt:
+ @param enableFiltering Show or hide the packages with sections filtered out.
+ */
+- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
 
 /*!
  @brief A list of packages that the user has installed on their device.
@@ -255,6 +276,14 @@ NS_ASSUME_NONNULL_BEGIN
  @return A cleaned array of packages (no duplicate package IDs, also could be proxy packages) that match the search term.
  */
 - (NSArray *)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch;
+
+/*!
+ @brief A list of authors that have a name similar to the search term.
+ @param authorName The name of the author.
+ @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
+ @return A cleaned array of authors (no duplicates) that match the search term.
+ */
+- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.

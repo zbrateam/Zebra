@@ -13,10 +13,12 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 
+#define MAX_SEARCH_RECENT_COUNT 5
+
 @interface ZBSearchTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSMutableArray *recentSearches;
-    BOOL liveSearch;
+    BOOL shouldPerformSearching;
 }
 @end
 
@@ -29,6 +31,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupView];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.searchController = searchController;
+        self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    }
+    else {
+        self.tableView.tableHeaderView = searchController.searchBar;
+    }
+    
+    self.title = NSLocalizedString(@"Search", @"");
+    self.definesPresentationContext = YES;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    }
+    
+    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+}
+
+- (void)setupView {
     recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"] mutableCopy];
     if (!recentSearches) {
         recentSearches = [NSMutableArray new];
@@ -51,26 +79,6 @@
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = NO;
     }
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.searchController = searchController;
-        self.navigationItem.hidesSearchBarWhenScrolling = NO;
-    }
-    else {
-        self.tableView.tableHeaderView = searchController.searchBar;
-    }
-    
-    self.title = NSLocalizedString(@"Search", @"");
-    self.definesPresentationContext = YES;
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
 }
 
 #pragma mark - Helper Methods
@@ -86,26 +94,30 @@
 #pragma mark - Search Results Updating Protocol
 
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
-    NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    if ([strippedString length] <= 1) {
-        return;
-    }
-    
-    NSArray *results;
-    NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
-    switch (selectedIndex) {
-        case 0:
-            results = [databaseManager searchForPackageName:strippedString fullSearch:!self->liveSearch];
-            break;
-        case 1:
-            break;
-        case 2:
-            break;
-    }
-    
     ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
-    [resultsController setLive:self->liveSearch];
+    [resultsController setLive:self->shouldPerformSearching];
+    
+    NSArray *results = nil;
+    
+    if (self->shouldPerformSearching) {
+        NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        
+        if ([strippedString length] <= 1) {
+            return;
+        }
+        
+        NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
+        switch (selectedIndex) {
+            case 0:
+                results = [databaseManager searchForPackageName:strippedString fullSearch:!self->shouldPerformSearching];
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+    
     [resultsController setFilteredResults:results];
     [resultsController refreshTable];
 }
@@ -113,7 +125,7 @@
 #pragma mark - Search Controller Delegate
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
-    self->liveSearch = YES;
+    self->shouldPerformSearching = [ZBSettings liveSearch];
 }
 
 #pragma mark - Search Bar Delegate
@@ -123,7 +135,7 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self->liveSearch = YES;
+    self->shouldPerformSearching = [ZBSettings liveSearch];
     
     [self updateSearchResultsForSearchController:searchController];
 }
@@ -131,11 +143,11 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
     
-    self->liveSearch = NO;
+    self->shouldPerformSearching = YES;
     
     NSString *newSearch = searchBar.text;
-    if ([recentSearches count] >= 5) {
-        [recentSearches removeObjectAtIndex:4];
+    if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
+        [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
     }
     [recentSearches insertObject:newSearch atIndex:0];
     [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
@@ -163,7 +175,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return MIN(recentSearches.count, 5);
+    return MIN(recentSearches.count, MAX_SEARCH_RECENT_COUNT);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -192,7 +204,7 @@
     
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
     [clearButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+    [clearButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:clearButton];
     
@@ -203,6 +215,27 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[button]-0-|" options:0 metrics:nil views:views]];
  
     return headerView;
+}
+
+#pragma mark - URL Handling
+
+- (void)handleURL:(NSURL *_Nullable)url {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (url == NULL) {
+            [self setupView];
+            
+            [self->searchController.searchBar becomeFirstResponder];
+        } else {
+            NSArray *path = [url pathComponents];
+            if ([path count] == 2) {
+                [self setupView];
+                
+                NSString *searchTerm = path[1];
+                [self->searchController.searchBar becomeFirstResponder];
+                [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
+            }
+        }
+    });
 }
 
 @end

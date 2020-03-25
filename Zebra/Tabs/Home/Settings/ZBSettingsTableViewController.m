@@ -7,16 +7,18 @@
 //
 
 #import "ZBSettingsTableViewController.h"
-#import "ZBSettingsOptionsTableViewController.h"
+#import "ZBSettingsSelectionTableViewController.h"
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
 #import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBFilterSettingsTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
+    ZBFilters,
     ZBFeatured,
     ZBNews,
     ZBSearch,
@@ -103,12 +105,13 @@ enum ZBMiscOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 7;
+    return 8;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
+        case ZBFilters:
         case ZBNews:
         case ZBMisc:
         case ZBSearch:
@@ -122,9 +125,9 @@ enum ZBMiscOrder {
             return 1;
         case ZBFeatured: {
             int rows = 1;
-            BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
+            BOOL wantsFeatured = [ZBSettings wantsFeaturedPackages];
             if (wantsFeatured) {
-                BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
+                BOOL randomFeatured = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
                 if (randomFeatured) {
                     return 3;
                 }
@@ -210,12 +213,19 @@ enum ZBMiscOrder {
             
             return cell;
         }
+        case ZBFilters: {
+            cell.textLabel.text = NSLocalizedString(@"Filters", @"");
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
+        }
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
                 case ZBFeaturedEnable: {
                     UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
+                    enableSwitch.on = [ZBSettings wantsFeaturedPackages];
                     [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
                     [enableSwitch setOnTintColor:[UIColor accentColor]];
                     cell.accessoryView = enableSwitch;
@@ -224,9 +234,9 @@ enum ZBMiscOrder {
                     break;
                 }
                 case ZBFeatureOrRandomToggle: {
-                    NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
+                    ZBFeaturedType type = [ZBSettings featuredPackagesType];
 
-                    if (selected == 0) {
+                    if (type == ZBFeaturedTypeSource) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Repo Featured", @"");
                     } else {
                         cell.detailTextLabel.text = NSLocalizedString(@"Random", @"");
@@ -270,8 +280,8 @@ enum ZBMiscOrder {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
                 text = NSLocalizedString(@"Swipe Actions Display As", @"");
-                NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue];
-                if (selected == 0) {
+                ZBSwipeActionStyle selected = [ZBSettings swipeActionStyle];
+                if (selected == ZBSwipeActionStyleText) {
                     cell.detailTextLabel.text = NSLocalizedString(@"Text", @"");
                 } else {
                     cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
@@ -316,6 +326,10 @@ enum ZBMiscOrder {
                     [self changeIcon];
                     break;
             }
+            break;
+        }
+        case ZBFilters: {
+            [self filterSettings];
             break;
         }
         case ZBFeatured: {
@@ -398,6 +412,12 @@ enum ZBMiscOrder {
     }
 }
 
+- (void)filterSettings {
+    ZBFilterSettingsTableViewController *filterController = [[ZBFilterSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:filterController animated:YES];
+}
+
 - (void)displaySettings {
     ZBDisplaySettingsTableViewController *displayController = [[ZBDisplaySettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
@@ -411,31 +431,13 @@ enum ZBMiscOrder {
 }
 
 - (void)featureOrRandomToggle {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.title = @"Feature Type";
-    controller.footerText = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."];
-    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
-        controller.selectedRow = 1;
-    } else {
-        controller.selectedRow = 0;
-    }
-    
-    controller.options = @[@"Repo Featured", @"Random"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        BOOL selectedMode = [[NSNumber numberWithInteger:newValue] boolValue];
-        [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [ZBDevice hapticButton];
-        [self.tableView reloadData];
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Repo Featured", @"Random"] getter:@selector(featuredPackagesType) setter:@selector(setFeaturedPackagesType:) settingChangedCallback:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
-        CATransition *transition = [CATransition animation];
-        transition.type = kCATransitionFade;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.fillMode = kCAFillModeForwards;
-        transition.duration = 0.35;
-        transition.subtype = kCATransitionFromTop;
-        [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    };
+    }];
+    
+    [controller setTitle:@"Feature Type"];
+    [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
+    
     [self.navigationController pushViewController: controller animated:YES];
 }
 
@@ -452,26 +454,27 @@ enum ZBMiscOrder {
 - (void)toggle:(id)sender preference:(NSString *)preferenceKey notification:(NSString *)notificationKey {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     UISwitch *switcher = (UISwitch *)sender;
-    BOOL value = [defaults boolForKey:preferenceKey];
-    value = switcher.isOn;
-    [defaults setBool:value forKey:preferenceKey];
+    [defaults setBool:switcher.isOn forKey:preferenceKey];
     [defaults synchronize];
     [ZBDevice hapticButton];
     if (notificationKey) {
         [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:self];
     }
-    
-    if ([preferenceKey isEqualToString:wantsFeaturedKey]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView beginUpdates];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView endUpdates];
-        });
-    }
 }
 
 - (void)toggleFeatured:(id)sender {
-    [self toggle:sender preference:wantsFeaturedKey notification:@"toggleFeatured"];
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsFeaturedPackages:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)toggleNews:(id)sender {
@@ -523,21 +526,10 @@ enum ZBMiscOrder {
 }
 
 - (void)misc {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
-        controller.selectedRow = 1;
-    } else {
-        controller.selectedRow = 0;
-    }
-    controller.title = @"Swipe Actions Display As";
-    controller.options = @[@"Text", @"Icon"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        BOOL useIcon = newValue == 1;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:useIcon forKey:iconActionKey];
-        [defaults synchronize];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
+    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Text", @"Icon"] getter:@selector(swipeActionStyle) setter:@selector(setSwipeActionStyle:) settingChangedCallback:nil];
+    [controller setTitle:@"Swipe Actions Display As"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

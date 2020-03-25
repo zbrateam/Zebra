@@ -19,6 +19,7 @@
 #import <ZBLog.h>
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
+#import <ZBThemeManager.h>
 
 #include <sysexits.h>
 
@@ -149,7 +150,18 @@
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];
     [[self progressView] setProgressTintColor:[UIColor accentColor]];
-    [[self completeButton] setBackgroundColor:[UIColor accentColor]];
+    
+    ZBAccentColor color = [ZBSettings accentColor];
+    ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+    if (color == ZBAccentColorMonochrome) {
+        //Flip the colors for readability
+        [[self completeButton] setBackgroundColor:[UIColor whiteColor]];
+        [[self completeButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    else {
+        [[self completeButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style]];
+    }
+    
     [self setProgressTextHidden:YES];
     [self updateCancelOrCloseButton];
     
