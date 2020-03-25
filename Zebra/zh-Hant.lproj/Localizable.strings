@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "商店";
-"My Account" = "My Account";
+"My Account" = "我的帳號";
 "Sign In" = "登入";
 "Sign Out" = "登出";
 "Your Purchases" = "已購買";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "無法完成購買操作";
 "Could not complete purchase, no payment secret was found" = "無法完成購買操作，未找到付款密鑰";
 "No packages purchased" = "無已購買套件";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "以 %@ (%@) 登入";
 
 // Sources
 
@@ -393,20 +393,20 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "篩選條件";
+"Add Filter" = "新增篩選條件";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "已隱藏 1 個類別";
+"%lu Sources Hidden" = "已隱藏 %lu 個來源";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "類別";
+"Hide packages in these sections." = "隱藏這些類別的套件";
 
 "Sources" = "來源";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "從特定來源隱藏這些類別的套件";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "更新";
+"Hide future updates from these packages." = "隱藏這些套件的未來更新";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "作者";
+"Hide packages from these authors." = "隱藏來自這些作者的套件";
