@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "Store";
-"My Account" = "My Account";
+"My Account" = "Il mio Account";
 "Sign In" = "Registrati";
 "Sign Out" = "Esci";
 "Your Purchases" = "I tuoi acquisti";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "Impossibile completare l'acquisto";
 "Could not complete purchase, no payment secret was found" = "Impossibile completare l'acquisto, nessun metodo di pagamento trovato";
 "No packages purchased" = "Nessun pacchetto acquistato";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "Accesso eseguito come %@ (%@).";
 
 // Sources
 
@@ -397,16 +397,16 @@
 "Add Filter" = "Aggiungi Filtro";
 
 "1 Section Hidden" = "1 Sezione Nascosta";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"%lu Sources Hidden" = "%lu Sorgenti Nascoste";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Categorie";
+"Hide packages in these sections." = "Nascondi pacchetti in queste categorie.";
 
 "Sources" = "Sorgenti";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Nascondi i pacchetti in queste categorie da sorgenti specifiche.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Aggiornamenti";
+"Hide future updates from these packages." = "Nascondi futuri aggiornamenti da questi pacchetti.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autori";
+"Hide packages from these authors." = "Nascondi pacchetti di questi autori.";
