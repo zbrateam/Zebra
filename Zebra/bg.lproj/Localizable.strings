@@ -1,30 +1,30 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
+"Cancel" = "Отказ";
+"Yes" = "Да";
+"No" = "Да";
+"Ok" = "Не";
+"Error" = "Грешка";
+"Retry" = "Опитайте отново";
+"Edit" = "Редактиране";
+"Close" = "Затвори";
+"Done" = "Завършено";
+"Loading..." = "Зареждане…";
+"Clear" = "Изчисти";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Home" = "Дом";
+"Info" = "Дом";
+"Welcome to Zebra!" = "Добре дошли в Cerberus!";
+"Report a Bug" = "Доквадвай бъг";
+"Changelog" = "Списък на промените";
+"Wish List" = "Желания";
+"No items in Wish List" = "%1 продукта в Списък с желани продукти";
+"Community" = "Общност";
+"Join our Discord" = "Присъединете се към нашия Дискорд сървър";
+"Follow us on Twitter" = "Последвайте ни в Twitter";
+"Help translate Zebra!" = "Последвайте ни в Twitter";
 
 // Community Source
 
@@ -49,20 +49,20 @@
 
 "Credits" = "Credits";
 "Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Contributors" = "Сътрудници";
+"Translators" = "Преводачи";
+"Libraries" = "Библиотеки";
 
 // Settings
 
-"Settings" = "Settings";
-"Display" = "Display";
-"App Icon" = "App Icon";
-"Changes" = "Changes";
-"Community News" = "Community News";
-"Miscellaneous" = "Miscellaneous";
-"Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
+"Settings" = "Настройки";
+"Display" = "Настройки";
+"App Icon" = "Дисплей";
+"Changes" = "Промени";
+"Community News" = "Общности";
+"Miscellaneous" = "Разни";
+"Swipe Actions Display As" = "Разни";
+"Text" = "Текст";
 "Icon" = "Icon";
 "Finish Automatically" = "Finish Automatically";
 
@@ -106,7 +106,7 @@
 "Reset All Settings" = "Reset All Settings";
 "Erase All Sources and Settings" = "Erase All Sources and Settings";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
+"Are you sure you want to restart the SpringBoard?" = "Сигурни ли сте, че искате да рестартирате играта?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
 "Image Cache Reset" = "Image Cache Reset";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
@@ -117,10 +117,10 @@
 // Stores
 
 "Stores" = "Stores";
-"My Account" = "My Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"My Account" = "Профил";
+"Sign In" = "Влизане";
+"Sign Out" = "Изход";
+"Your Purchases" = "Изход";
 "No Storefronts Available" = "No Storefronts Available";
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
