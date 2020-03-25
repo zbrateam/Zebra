@@ -117,7 +117,7 @@
 // Stores
 
 "Stores" = "스토어";
-"My Account" = "My Account";
+"My Account" = "내 계정";
 "Sign In" = "로그인";
 "Sign Out" = "로그아웃";
 "Your Purchases" = "구매 내역";
@@ -125,7 +125,7 @@
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
 "Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
 "No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)." = "%@ (%@)으로 로그인 됨";
 
 // Sources
 
