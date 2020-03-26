@@ -15,6 +15,7 @@
 #import "ZBDisplaySettingsTableViewController.h"
 #import "ZBAdvancedSettingsTableViewController.h"
 #import "ZBFilterSettingsTableViewController.h"
+#import "ZBLanguageSettingsTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -29,6 +30,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
 typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
     ZBDisplay,
+    ZBLanguage,
     ZBAppIcon
 };
 
@@ -120,7 +122,7 @@ enum ZBMiscOrder {
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
-                return 2;
+                return 3;
             }
             return 1;
         case ZBFeatured: {
@@ -184,6 +186,10 @@ enum ZBMiscOrder {
             switch (row) {
                 case ZBDisplay: {
                     cell.textLabel.text = NSLocalizedString(@"Display", @"");
+                    break;
+                }
+                case ZBLanguage: {
+                    cell.textLabel.text = NSLocalizedString(@"Language", @"");
                     break;
                 }
                 case ZBAppIcon: {
@@ -322,6 +328,9 @@ enum ZBMiscOrder {
                 case ZBDisplay:
                     [self displaySettings];
                     break;
+                case ZBLanguage:
+                    [self chooseLanguage];
+                    break;
                 case ZBAppIcon:
                     [self changeIcon];
                     break;
@@ -422,6 +431,12 @@ enum ZBMiscOrder {
     ZBDisplaySettingsTableViewController *displayController = [[ZBDisplaySettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [[self navigationController] pushViewController:displayController animated:YES];
+}
+
+- (void)chooseLanguage {
+    ZBLanguageSettingsTableViewController *languageController = [[ZBLanguageSettingsTableViewController alloc] init];
+    
+    [[self navigationController] pushViewController:languageController animated:YES];
 }
 
 - (void)advancedSettings {
