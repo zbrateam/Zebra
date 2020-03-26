@@ -412,9 +412,9 @@
 "Hide packages from these authors." = "Ocultar pacotes destes autores.";
 
 //Language Settings
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Idioma";
+"Apply" = "Aplicar";
+"Restart Required" = "Requer reinicialização";
+"Zebra must be closed in order to change preferred language" = "O Zebra deve ser fechado para alterar o idioma";
+"Restart" = "Reiniciar";
+"Use System Language" = "Usar Idioma do Sistema";
