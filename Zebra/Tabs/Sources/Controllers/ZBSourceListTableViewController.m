@@ -328,50 +328,51 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
-    NSLog(@"URL: %@", url.host);
-    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
-                              @"www.youtu.be", @"youtu.be",
-                              @"www.google.com", @"google.com",
-                              @"www.goo.gl", @"goo.gl",
-                              @"www.reddit.com", @"reddit.com",
-                              @"www.twitter.com", @"twitter.com",
-                              @"www.facebook.com", @"facebook.com",
-                              @"www.imgur.com", @"imgur.com",
-                              @"www.discord.com", @"discord.com",
-                              @"www.discord.gg", @"discord.gg",
-                              @"www.apple.com", @"apple.com",
-                              @"www.gmail.com", @"gmail.com"];
-    NSMutableArray *repos = [NSMutableArray new];
+//    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
+//                              @"www.youtu.be", @"youtu.be",
+//                              @"www.google.com", @"google.com",
+//                              @"www.goo.gl", @"goo.gl",
+//                              @"www.reddit.com", @"reddit.com",
+//                              @"www.twitter.com", @"twitter.com",
+//                              @"www.facebook.com", @"facebook.com",
+//                              @"www.imgur.com", @"imgur.com",
+//                              @"www.discord.com", @"discord.com",
+//                              @"www.discord.gg", @"discord.gg",
+//                              @"www.apple.com", @"apple.com",
+//                              @"www.gmail.com", @"gmail.com"];
     
+    NSMutableArray *repos = [NSMutableArray new];
     for (ZBSource *repo in [self.databaseManager sources]) {
         NSString *host = [[NSURL URLWithString:repo.repositoryURI] host];
         if (host) {
             [repos addObject:host];
         }
     }
-    if ((url && url.scheme && url.host)) {
-        if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
-            if (!askedToAddFromClipboard || ![lastPaste isEqualToString:pasteboard.string]) {
-                if (![urlBlacklist containsObject:url.host] && ![repos containsObject:url.host]) {
-                    [self showAddRepoFromClipboardAlert:url];
+    if (![repos containsObject:url.host]) {
+        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
+        if (baseSource) {
+            [baseSource verify:^(ZBSourceVerification status) {
+                if (status == ZBSourceExists) {
+                    if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self showAddRepoFromClipboardAlert:baseSource];
+                        });
+                    }
+                    self->askedToAddFromClipboard = YES;
+                    self->lastPaste = pasteboard.string;
                 }
-            }
-            askedToAddFromClipboard = YES;
-            lastPaste = pasteboard.string;
+            }];
         }
     }
 }
 
-- (void)showAddRepoFromClipboardAlert:(NSURL *)repoURL {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:repoURL.absoluteString preferredStyle:UIAlertControllerStyleAlert];
+- (void)showAddRepoFromClipboardAlert:(ZBBaseSource *)baseSource {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:baseSource.repositoryURI preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor accentColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:repoURL];
-        if (baseSource) {
-            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
-        }
+        [self verifyAndAdd:[NSSet setWithObject:baseSource]];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
