@@ -22,6 +22,9 @@ NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
+NSString *const UseSystemLanguageKey = @"UseSystemLanguage";
+NSString *const SelectedLanguageKey = @"SelectedLanguage";
+
 NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
 NSString *const BlockedAuthorsKey = @"BlockedAuthors";
@@ -378,6 +381,30 @@ NSString *const WishlistKey = @"Wishlist";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:wishlist forKey:WishlistKey];
+}
+
++ (BOOL)usesSystemLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults boolForKey:UseSystemLanguageKey];
+}
+
++ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:usesSystemLanguage forKey:UseSystemLanguageKey];
+}
+
++ (NSString *)selectedLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults stringForKey:SelectedLanguageKey];
+}
+
++ (void)setSelectedLanguage:(NSString *)languageCode {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:languageCode forKey:SelectedLanguageKey];
 }
 
 #pragma clang diagnostic pop

@@ -31,6 +31,10 @@ extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
 extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
 extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
 extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
+extern NSString * _Nonnull const UsesSystemAccentColorKey; // Stored as BOOL
+
+extern NSString * _Nonnull const UseSystemLanguageKey; // Stored as BOOL
+extern NSString * _Nonnull const SelectedLanguageKey; // Stored as NSString
 
 extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
 extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
@@ -105,6 +109,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
+
+#pragma mark - Language
+
++ (BOOL)usesSystemLanguage;
++ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage;
+
++ (NSString *)selectedLanguage;
++ (void)setSelectedLanguage:(NSString *)languageCode;
 
 #pragma mark - Filters
 
