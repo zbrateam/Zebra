@@ -386,6 +386,10 @@ NSString *const WishlistKey = @"Wishlist";
 + (BOOL)usesSystemLanguage {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    if (![defaults objectForKey:UseSystemLanguageKey]) {
+        [self setUsesSystemLanguage:YES];
+        return YES;
+    }
     return [defaults boolForKey:UseSystemLanguageKey];
 }
 
