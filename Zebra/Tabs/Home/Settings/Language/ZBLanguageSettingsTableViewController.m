@@ -63,7 +63,7 @@
 }
 
 - (void)layoutNavigationButtons {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Apply" style:UIBarButtonItemStyleDone target:self action:@selector(applyChanges)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", @"") style:UIBarButtonItemStyleDone target:self action:@selector(applyChanges)];
     self.navigationItem.rightBarButtonItem.enabled = [self differentSettings];
 }
 
