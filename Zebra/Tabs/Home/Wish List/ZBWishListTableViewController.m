@@ -18,27 +18,30 @@
 
 @implementation ZBWishListTableViewController
 
-@synthesize defaults;
 @synthesize wishedPackages;
+@synthesize wishedPackageIdentifiers;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    defaults = [NSUserDefaults standardUserDefaults];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     self.title = NSLocalizedString(@"Wish List", @"");
+    
+    if (!wishedPackages) wishedPackages = [NSMutableArray new];
+    if (!wishedPackageIdentifiers) wishedPackageIdentifiers = [[ZBSettings wishlist] mutableCopy];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    wishedPackages = [NSMutableArray new];
-    NSMutableArray *wishedPackageIDs = [[defaults objectForKey:wishListKey] mutableCopy];
-    NSArray *nullCheck = [wishedPackageIDs copy];
+    
+    NSArray *nullCheck = [wishedPackageIdentifiers copy];
     for (NSString *packageID in nullCheck) {
         ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
         if (package == NULL) {
-            [wishedPackageIDs removeObject:package];
+            [wishedPackageIdentifiers removeObject:package];
         }
         else {
             [wishedPackages addObject:package];
@@ -51,11 +54,7 @@
     }
 }
 
-#pragma mark - Table view data source
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
+#pragma mark - Table View Data Source
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
@@ -108,18 +107,17 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
     UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        ZBPackage *package = [self->wishedPackages objectAtIndex:indexPath.row];
+        
         [self->wishedPackages removeObject:package];
-        NSMutableArray *wishedPackageIDs = [[self->defaults objectForKey:wishListKey] mutableCopy];
-        [wishedPackageIDs removeObject:[package identifier]];
-        [self->defaults setObject:wishedPackageIDs forKey:wishListKey];
-        [self->defaults synchronize];
+        [self->wishedPackageIdentifiers removeObject:[package identifier]];
+        
+        [ZBSettings setWishlist:self->wishedPackageIdentifiers];
         
         [self.tableView reloadData];
     }];
     
-//    [remove setIcon:[UIImage imageNamed:@"Unknown"] withText:NSLocalizedString(@"Remove", @"") color:[UIColor systemPinkColor] rowHeight:65];
     [remove setBackgroundColor:[UIColor systemPinkColor]];
     
     return @[remove];
