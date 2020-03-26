@@ -230,7 +230,6 @@
     }
     else {
         NSArray *actions = [queue tasksToPerform];
-        NSLog(@"[Zebra] Completed Downloads %@", completedDownloads);
         BOOL zebraModification = queue.zebraPath || queue.removingZebra;
         if ([actions count] == 0 && !zebraModification) {
             [self writeToConsole:NSLocalizedString(@"There are no actions to perform", @"") atLevel:ZBLogLevelDescript];
@@ -424,6 +423,10 @@
     ZBLog(@"[Zebra] Finishing tasks");
     [downloadMap removeAllObjects];
     [applicationBundlePaths removeAllObjects];
+    
+    NSMutableArray *wishlist = [[ZBSettings wishlist] mutableCopy];
+    [wishlist removeObjectsInArray:installedPackageIdentifiers];
+    
     [installedPackageIdentifiers removeAllObjects];
     
     [self updateStage:ZBStageFinished];
