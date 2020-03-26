@@ -24,15 +24,22 @@
 
 @implementation ZBLanguageSettingsTableViewController
 
-- (id)init {
+- (id)init API_AVAILABLE(ios(10.0)) {
     self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
         useSystemLanguage = [ZBSettings usesSystemLanguage];
         originalUseSystemLanguage = useSystemLanguage;
         
-        languages = [[[NSBundle mainBundle] localizations] mutableCopy];
-        languages = [[languages sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] mutableCopy];
+        
+        languages = [[[[NSBundle mainBundle] localizations] sortedArrayUsingComparator:^NSComparisonResult(NSString *code1, NSString *code2) {
+            NSString *name1 = [[NSLocale currentLocale] localizedStringForLanguageCode:code1];
+            NSString *name2 = [[NSLocale currentLocale] localizedStringForLanguageCode:code2];
+            
+            return [name1 compare:name2];
+        }] mutableCopy];
+        
+        [languages removeObject:@"Base"];
         
         selectedLanguage = [ZBSettings selectedLanguage];
         originalLanguage = selectedLanguage;
