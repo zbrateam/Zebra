@@ -410,3 +410,11 @@
 
 "Authors" = "Авторы";
 "Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
+
+//Language Settings
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";
