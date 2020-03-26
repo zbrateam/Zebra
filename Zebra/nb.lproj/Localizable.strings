@@ -412,9 +412,9 @@
 "Hide packages from these authors." = "Skjul pakkene fra disse forfatterne.";
 
 //Language Settings
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Språk";
+"Apply" = "Utfør";
+"Restart Required" = "Omstart nødvendig";
+"Zebra must be closed in order to change preferred language" = "For å endre ønsket språk må Zebra må være lukket";
+"Restart" = "Omstart";
+"Use System Language" = "Bruk systemspråk";
