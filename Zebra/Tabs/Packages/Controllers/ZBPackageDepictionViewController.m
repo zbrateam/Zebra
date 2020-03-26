@@ -869,8 +869,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             cell.detailTextLabel.text = value;
             break;
         case ZBPackageInfoWishList: {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
+            BOOL inWishList = [[ZBSettings wishlist] containsObject:package.identifier];
             cell.textLabel.text = NSLocalizedString(inWishList ? @"Remove from Wish List" : @"Add to Wish List", @"");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -926,17 +925,16 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         case ZBPackageInfoRepo:
             break;
         case ZBPackageInfoWishList: {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSMutableArray *wishList = [[defaults objectForKey:wishListKey] mutableCopy];
+            NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
             BOOL inWishList = [wishList containsObject:package.identifier];
             if (inWishList) {
                 [wishList removeObject:package.identifier];
-                [defaults setObject:wishList forKey:wishListKey];
             } else {
                 [wishList addObject:package.identifier];
-                [defaults setObject:wishList forKey:wishListKey];
             }
-            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [ZBSettings setWishlist:wishList];
+            
+            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ZBPackageInfoWishList inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             break;
         } case ZBPackageInfoMoreBy:
             [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
