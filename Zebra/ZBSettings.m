@@ -23,7 +23,7 @@ NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
 NSString *const UseSystemLanguageKey = @"UseSystemLanguage";
-NSString *const SelectedLanguageKey = @"SelectedLanguage";
+NSString *const SelectedLanguageKey = @"AppleLanguages";
 
 NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
@@ -402,13 +402,18 @@ NSString *const WishlistKey = @"Wishlist";
 + (NSString *)selectedLanguage {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    return [defaults stringForKey:SelectedLanguageKey];
+    return [defaults arrayForKey:@"AppleLanguages"][0];
 }
 
-+ (void)setSelectedLanguage:(NSString *)languageCode {
++ (void)setSelectedLanguage:(NSString *_Nullable)languageCode {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:languageCode forKey:SelectedLanguageKey];
+    if (languageCode) {
+        [defaults setObject:@[languageCode] forKey:@"AppleLanguages"];
+    }
+    else {
+        [defaults removeObjectForKey:@"AppleLanguages"];
+    }
 }
 
 #pragma clang diagnostic pop

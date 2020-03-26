@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage;
 
 + (NSString *)selectedLanguage;
-+ (void)setSelectedLanguage:(NSString *)languageCode;
++ (void)setSelectedLanguage:(NSString *_Nullable)languageCode;
 
 #pragma mark - Filters
 

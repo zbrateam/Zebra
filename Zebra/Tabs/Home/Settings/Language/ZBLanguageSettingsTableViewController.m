@@ -72,19 +72,17 @@
 }
 
 - (void)applyChanges {
-    if (![[[NSBundle mainBundle] preferredLocalizations][0] isEqual:selectedLanguage]) {
+    if (![[[NSBundle mainBundle] preferredLocalizations][0] isEqual:selectedLanguage] || self->useSystemLanguage != self->originalUseSystemLanguage) {
         UIAlertController *confirm = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Restart Required", @"") message:NSLocalizedString(@"Zebra must be closed in order to change preferred language", @"") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Restart", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            if (self->useSystemLanguage) {
-                [defaults removeObjectForKey:@"AppleLanguages"];
+            if (self->useSystemLanguage || !self->selectedRow) {
+                [ZBSettings setSelectedLanguage:NULL];
             }
             else {
-                [defaults setObject:@[self->selectedLanguage] forKey:@"AppleLanguages"];
+                [ZBSettings setSelectedLanguage:self->selectedLanguage];
             }
-            
-            [defaults synchronize];
+            [ZBSettings setUsesSystemLanguage:self->useSystemLanguage];
             [ZBDevice exitZebra];
         }];
         [confirm addAction:confirmAction];
