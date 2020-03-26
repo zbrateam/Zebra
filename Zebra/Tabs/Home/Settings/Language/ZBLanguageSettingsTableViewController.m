@@ -8,12 +8,14 @@
 
 #import "ZBLanguageSettingsTableViewController.h"
 
+#import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBLanguageSettingsTableViewController () {
     BOOL useSystemLanguage;
     NSMutableArray *languages;
+    
     NSString *selectedLanguage;
     NSIndexPath *selectedRow;
     
@@ -31,7 +33,6 @@
         useSystemLanguage = [ZBSettings usesSystemLanguage];
         originalUseSystemLanguage = useSystemLanguage;
         
-        
         languages = [[[[NSBundle mainBundle] localizations] sortedArrayUsingComparator:^NSComparisonResult(NSString *code1, NSString *code2) {
             NSString *name1 = [[NSLocale currentLocale] localizedStringForLanguageCode:code1];
             NSString *name2 = [[NSLocale currentLocale] localizedStringForLanguageCode:code2];
@@ -43,6 +44,10 @@
         
         selectedLanguage = [ZBSettings selectedLanguage];
         originalLanguage = selectedLanguage;
+        
+        if (selectedLanguage) {
+            selectedRow = [NSIndexPath indexPathForRow:[languages indexOfObject:selectedLanguage] inSection:1];
+        }
     }
     
     return self;
@@ -63,11 +68,37 @@
 }
 
 - (BOOL)differentSettings {
-    return (useSystemLanguage != originalUseSystemLanguage || (selectedLanguage != originalLanguage && ![selectedLanguage isEqual:originalLanguage]));
+    return (useSystemLanguage != originalUseSystemLanguage || (selectedRow && (selectedLanguage != originalLanguage && ![selectedLanguage isEqual:originalLanguage])));
 }
 
 - (void)applyChanges {
-    
+    if (![[[NSBundle mainBundle] preferredLocalizations][0] isEqual:selectedLanguage]) {
+        UIAlertController *confirm = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Restart Required", @"") message:NSLocalizedString(@"Zebra must be closed in order to change preferred language", @"") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Restart", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            if (self->useSystemLanguage) {
+                [defaults removeObjectForKey:@"AppleLanguages"];
+            }
+            else {
+                [defaults setObject:@[self->selectedLanguage] forKey:@"AppleLanguages"];
+            }
+            
+            [defaults synchronize];
+            [ZBDevice exitZebra];
+        }];
+        [confirm addAction:confirmAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
+        [confirm addAction:cancelAction];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:confirm animated:YES completion:nil];
+        });
+    }
+    else {
+        [[self navigationController] popViewControllerAnimated:true];
+    }
 }
 
 - (void)toggleSystemLanguage:(UISwitch *)sender {
@@ -115,8 +146,8 @@
         NSString *languageCode = languages[indexPath.row];
         NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
         
-        cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = NULL;
+        cell.accessoryType = [indexPath isEqual:selectedRow] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.textLabel.text = [[NSLocale currentLocale] localizedStringForLanguageCode:languageCode] ?: languageCode;
         
@@ -142,54 +173,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
+        NSString *newLanguage = languages[indexPath.row];
+        
+        selectedLanguage = newLanguage;
+        selectedRow = [NSIndexPath indexPathForRow:[languages indexOfObject:selectedLanguage] inSection:1];
         
         [self layoutNavigationButtons];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
