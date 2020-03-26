@@ -24,7 +24,7 @@
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加する";
 "Follow us on Twitter" = "Twitter でフォローする";
-"Help translate Zebra!" = "Zebra の翻訳に協力する!";
+"Help translate Zebra!" = "Zebra の翻訳に協力する";
 
 // Community Source
 
@@ -186,7 +186,7 @@
 "Size" = "サイズ";
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視しているアップグレード";
-"Recent" = "最近";
+"Recent" = "検索履歴";
 "Source" = "リポジトリ";
 "Installed Files" = "インストールされたファイル";
 "Modify" = "変更";
@@ -290,7 +290,7 @@
 "Parsing %@" = "%@ を解析中";
 "Starting Download" = "ダウンロードを開始します。";
 "Downloading" = "ダウンロードしています";
-"Downloading %@" = "%@ をダウンロード中";
+"Downloading %@" = "%@ をダウンロードしています";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Download Completed" = "ダウンロード完了";
 "Installing" = "インストールしています";
@@ -310,7 +310,7 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
 "Done..." = "完了...";
-"Done %@" = "%@ を完了";
+"Done %@" = "%@ のダウンロードを完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
 "Adding Payment Vendor URL for %@" = "支払いベンダーのURL (%@) を追加しています";
