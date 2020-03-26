@@ -410,3 +410,11 @@
 
 "Authors" = "제작자";
 "Hide packages from these authors." = "이 제작자의 패키지 숨기기";
+
+//Language Settings
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";
