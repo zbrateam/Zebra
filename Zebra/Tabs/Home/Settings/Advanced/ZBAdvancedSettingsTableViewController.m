@@ -24,6 +24,8 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Advanced", @"");
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsAdvancedCell"];
 }
 
 #pragma mark - Table view data source
@@ -46,7 +48,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsAdvancedCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAdvancedCell"];
     
     NSArray <NSArray <NSString *> *> *titles = @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Reset Image Cache", @"Reset Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
     cell.textLabel.text = NSLocalizedString(titles[indexPath.section][indexPath.row], @"");
@@ -61,30 +63,30 @@
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    [self restartSpringBoard];
+                    [self restartSpringBoard:indexPath];
                     break;
                 case 1:
-                    [self refreshIconCache];
+                    [self refreshIconCache:indexPath];
                     break;
             }
             break;
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    [self resetImageCache];
+                    [self resetImageCache:indexPath];
                     break;
                 case 1:
-                    [self resetSourcesCache];
+                    [self resetSourcesCache:indexPath];
                     break;
             }
             break;
         case 2:
             switch (indexPath.row) {
                 case 0:
-                    [self resetAllSettings:true];
+                    [self resetAllSettings:true indexPath:indexPath];
                     break;
                 case 1:
-                    [self eraseSourcesAndSettings];
+                    [self eraseSourcesAndSettings:indexPath];
                     break;
             }
             break;
@@ -94,19 +96,19 @@
 
 #pragma mark - Button Actions
 
-- (void)restartSpringBoard {
+- (void)restartSpringBoard:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Restart SpringBoard", @"") message:NSLocalizedString(@"Are you sure you want to restart the SpringBoard?", @"") callback:^{
         [ZBDevice restartSpringBoard];
-    }];
+    } indexPath:indexPath];
 }
 
-- (void)refreshIconCache {
+- (void)refreshIconCache:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Refresh Icon Cache", @"") message:NSLocalizedString(@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.", @"") callback:^{
         [ZBDevice uicache:nil observer:nil];
-    }];
+    } indexPath:indexPath];
 }
 
-- (void)resetImageCache {
+- (void)resetImageCache:(NSIndexPath *)indexPath {
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
     
@@ -119,19 +121,19 @@
     });
 }
 
-- (void)resetSourcesCache {
+- (void)resetSourcesCache:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Reset Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
         [self presentViewController:refreshController animated:YES completion:nil];
-    }];
+    } indexPath:indexPath];
 }
 
-- (void)resetAllSettings:(BOOL)confirm {
+- (void)resetAllSettings:(BOOL)confirm indexPath:(NSIndexPath *)indexPath {
     if (confirm) {
         [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
-            [self resetAllSettings:false];
+            [self resetAllSettings:false indexPath:indexPath];
             [ZBDevice exitZebra];
-        }];
+        } indexPath:indexPath];
     }
     else {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -143,10 +145,10 @@
     }
 }
 
-- (void)eraseSourcesAndSettings {
+- (void)eraseSourcesAndSettings:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.", @"") callback:^{
         [self confirmationControllerWithTitle:NSLocalizedString(@"Are You Sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
-            [self resetAllSettings:false];
+            [self resetAllSettings:false indexPath:indexPath];
             
             NSError *error;
             [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
@@ -158,12 +160,14 @@
             }
             
             [ZBDevice exitZebra];
-        }];
-    }];
+        } indexPath:indexPath];
+    } indexPath:indexPath];
 }
 
-- (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback {
+- (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback indexPath:(NSIndexPath *)indexPath {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    alert.popoverPresentationController.sourceView = [self.tableView cellForRowAtIndexPath:indexPath];
+    alert.popoverPresentationController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         dispatch_async(dispatch_get_main_queue(), ^{
