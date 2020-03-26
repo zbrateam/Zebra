@@ -412,9 +412,9 @@
 "Hide packages from these authors." = "הסתר חבילות מיוצרים אלו.";
 
 //Language Settings
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "שפה";
+"Apply" = "החל";
+"Restart Required" = "דרושה הפעלה מחדש";
+"Zebra must be closed in order to change preferred language" = "על זברה להיסגר כדי להחליף לשפה המבוקשת";
+"Restart" = "הפעל מחדש";
+"Use System Language" = "השתמש בשפת המערכת";
