@@ -11,6 +11,7 @@
 "Done" = "انجام شد";
 "Loading..." = "...در حال بارگذاری";
 "Clear" = "پاک سازی";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "قادر به تکمیل خرید نیست";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "هیچ پکیجی خریداری نشده است.";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "شما این سورس‌ها را قبلا اضافه کرده اید.";
 "Unable to locate an APT repository at:" = "خطا در پیدا کردن یک سورس APT در:";
 "Unable to locate APT repositories at:" = "خطا در پیدا کردن سورس‌های APT در:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ مورد نیاز توسط:";
 "%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
-"Are you sure you want to clear the queue?" = "میخواهید صف را پاک کنید؟";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ بسته مورد نیاز است. نباید حذف شود مگر اینکه شما می دانید که دقیقا چه کار میکنید!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 // Filters
+
 "Filters" = "Filters";
 "Add Filter" = "Add Filter";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
 "Sections" = "Sections";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
 "Sources" = "منابع";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Updates";
@@ -411,7 +418,8 @@
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
