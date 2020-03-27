@@ -11,7 +11,7 @@
 "Done" = "סיום";
 "Loading..." = "טוען...";
 "Clear" = "נקה";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "אירעה שגיאה";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "מחובר/ת בתור %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ חבילות מ-%@. סיבה: %@";
+"Could not download one or more files from %@. Reason: %@" = "לא היה ניתן להוריד קובץ אחד או יותר מ-%@. סיבה: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
 "%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu מקורות מוסתרים";
 
 "Sections" = "קטגוריות";
-"Select a Section" = "Select a Section";
+"Select a Section" = "בחר קטגוריה";
 "Hide packages in these sections." = "הסתר חבילות בקטגוריות אלו.";
 
 "Sources" = "מקורות";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "בחר מקור";
+"Search for an Author" = "חפש יוצר";
 "Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
 
 "Updates" = "עדכונים";
