@@ -11,6 +11,7 @@
 "Done" = "Xong";
 "Loading..." = "Đang tải...";
 "Clear" = "Xoá bỏ";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Không thể hoàn tất mua";
 "Could not complete purchase, no payment secret was found" = "Không thể hoàn thành thanh toán, không khoản thanh toán nào được tìm thấy";
 "No packages purchased" = "Không có gói đã mua";
-"Logged in as %@ (%@)." = "Đăng nhập bằng %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ được yêu cầu bởi:";
 "%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
 "%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
-"Are you sure you want to clear the queue?" = "Bạn có chắc chắn muốn xóa hàng đợi?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc. Nó KHÔNG nên được loại bỏ trừ khi bạn biết chính xác những gì bạn đang làm!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
 
 // Filters
+
 "Filters" = "Bộ lọc";
 "Add Filter" = "Thêm bộ lọc";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu nguồn đã ẩn";
 
 "Sections" = "Phần";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Ẩn gói trong các phần.";
 
 "Sources" = "Nguồn";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
 
 "Updates" = "Cập nhật";
@@ -411,7 +418,8 @@
 "Authors" = "Tác giả";
 "Hide packages from these authors." = "Ẩn gói từ các tác giả này.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
