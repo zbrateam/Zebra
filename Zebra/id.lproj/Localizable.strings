@@ -11,6 +11,7 @@
 "Done" = "Selesai";
 "Loading..." = "Memuat...";
 "Clear" = "Bersihkan";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
 "Could not complete purchase, no payment secret was found" = "Tidak dapat menyelesaikan pembelian, pembayaran rahasia tidak ditemukan";
 "No packages purchased" = "Tidak ada paket yang dibeli";
-"Logged in as %@ (%@)." = "Masuk sebagai %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL yang Anda masukkan tidak valid. Silakan periksa dan coba lagi.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ diperlukan oleh:";
 "%@ must be removed because it depends on %@" = "%@ harus dihapus karena tergantung pada %@";
 "%@ has issues that cannot be resolved:" = "%@ memiliki masalah yang tidak dapat diselesaikan:";
-"Are you sure you want to clear the queue?" = "Apakah Anda yakin ingin membersihkan antrian?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ adalah paket wajib. Seharusnya TIDAK dihapus kecuali Anda tahu persis apa yang Anda lakukan!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Secara otomatis mengabaikan Konsol ketika semua tugasnya telah selesai.";
 
 // Filters
+
 "Filters" = "Filter";
 "Add Filter" = "Tambahkan Filter";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Sumber Tersembunyi";
 
 "Sections" = "Bagian";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Sembunyikan paket di bagian ini.";
 
 "Sources" = "Sumber";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Sembunyikan paket di bagian ini dari sumber tertentu.";
 
 "Updates" = "Pembaruan";
@@ -411,7 +418,8 @@
 "Authors" = "Penulis";
 "Hide packages from these authors." = "Sembunyikan paket dari penulis ini.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
