@@ -11,7 +11,7 @@
 "Done" = "Feito";
 "Loading..." = "Carregando...";
 "Clear" = "Limpar";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Ocorreu um erro";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum método de pagamento foi encontrado";
 "No packages purchased" = "Nenhum pacote comprado";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Conectado como %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "Não foi possível localizar um repositório APT em:";
 "Unable to locate APT repositories at:" = "Não foi possível localizar os repositórios de APT em:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Não foi possível baixar o arquivo de pacotes de %@. Motivo: %@";
+"Could not download one or more files from %@. Reason: %@" = "Não foi possível baixar um ou mais arquivos do %@. Motivo: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ é requerido por:";
 "%@ must be removed because it depends on %@" = "%@ deve ser removido porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Tem certeza de que deseja limpar a fila?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório. NÃO deve ser removido a menos que você saiba exatamente o que está fazendo!";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu Fontes ocultas";
 
 "Sections" = "Seções";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Selecione uma seção";
 "Hide packages in these sections." = "Ocultar pacotes dessas seções.";
 
 "Sources" = "Fontes";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Selecione uma fonte";
+"Search for an Author" = "Procurar um Autor";
 "Hide packages in these sections from specific sources." = "Ocultar pacotes nessas seções de fontes específicas.";
 
 "Updates" = "Atualizações";
