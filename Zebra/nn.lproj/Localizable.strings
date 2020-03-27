@@ -11,6 +11,7 @@
 "Done" = "Ferdig";
 "Loading..." = "Laster...";
 "Clear" = "Taum";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
 "Could not complete purchase, no payment secret was found" = "Kunne ikkje fullføra kjøpet, ingen betalingsløyndom vart funnen";
 "No packages purchased" = "Ingen kjøpte pakkar";
-"Logged in as %@ (%@)." = "Logga inn som %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Du har allereie lagt til dei kjeldene.";
 "Unable to locate an APT repository at:" = "Kunne ikkje finna eit APT-kjelde på:";
 "Unable to locate APT repositories at:" = "Kunne ikkje finna APT-kjelder på:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Nettadressa du gav opp er ikkje gyldig. Kontroller ho og prøv igjen.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ blir kravd av:";
 "%@ must be removed because it depends on %@" = "%@ må fjernast fordi det avheng av %@";
 "%@ has issues that cannot be resolved:" = "%@ har problem som ikkje kan løysast:";
-"Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømma køen?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke. Han burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
 
 // Filters
+
 "Filters" = "Filtre";
 "Add Filter" = "Legg til filter";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu kjelder skjult";
 
 "Sections" = "Seksjonar";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Skjul pakkane i desse seksjonane.";
 
 "Sources" = "Kjelder";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Skjul pakkane i desse seksjonane frå spesifikke kjelder.";
 
 "Updates" = "Oppdateringar";
@@ -411,7 +418,8 @@
 "Authors" = "Forfattarar";
 "Hide packages from these authors." = "Skjul pakkane frå desse forfattarane.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
