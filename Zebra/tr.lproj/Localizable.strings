@@ -11,6 +11,7 @@
 "Done" = "Tamamla";
 "Loading..." = "Yükleniyor...";
 "Clear" = "Temizle";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
 "No packages purchased" = "Hiç Paket Satın Alınmadı";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Zaten bu kaynakları ekledin.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT deposu şu konumda bulunamadı:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Girilen URL doğru değil. Lütfen kontrol edin ve tekrar deneyin.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ şunun tarafından isteniyor:";
 "%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
-"Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket. Eğer ne yaptığınızı tam olarak bilmiyorsanız kaldırmamalısınız!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
 
 // Filters
+
 "Filters" = "Filtreler";
 "Add Filter" = "Filtre Ekle";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
 "Sections" = "Kısımlar";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
 "Sources" = "Kaynaklar";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Güncellemeler";
@@ -411,7 +418,8 @@
 "Authors" = "Authors";
 "Hide packages from these authors." = "Şu geliştiricilerin paketlerini gizle";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
