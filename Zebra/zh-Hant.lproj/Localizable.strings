@@ -11,6 +11,7 @@
 "Done" = "完成";
 "Loading..." = "正在載入...";
 "Clear" = "清除";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "無法完成購買操作";
 "Could not complete purchase, no payment secret was found" = "無法完成購買操作，未找到付款密鑰";
 "No packages purchased" = "無已購買套件";
-"Logged in as %@ (%@)." = "以 %@ (%@) 登入";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "你已經加入過這些來源。";
 "Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
 "Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "您輸入的網址無效，請檢查後重試。";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ 被依賴於：";
 "%@ must be removed because it depends on %@" = "%@ 需要被移除因為它依賴 %@";
 "%@ has issues that cannot be resolved:" = "%@ 存在無法解決的問題：";
-"Are you sure you want to clear the queue?" = "您確定要清除此佇列嗎？";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一個必要的套件。此套件不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
 // Filters
+
 "Filters" = "篩選條件";
 "Add Filter" = "新增篩選條件";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "已隱藏 %lu 個來源";
 
 "Sections" = "類別";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "隱藏這些類別的套件";
 
 "Sources" = "來源";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "從特定來源隱藏這些類別的套件";
 
 "Updates" = "更新";
@@ -411,7 +418,8 @@
 "Authors" = "作者";
 "Hide packages from these authors." = "隱藏來自這些作者的套件";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
