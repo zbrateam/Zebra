@@ -11,6 +11,7 @@
 "Done" = "Klaar";
 "Loading..." = "Aan het laden...";
 "Clear" = "Leeg";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "Could not complete purchase, no payment secret was found" = "Aankoop kon niet worden voltooid, er is geen betalingsgeheim gevonden";
 "No packages purchased" = "Geen aangekochte pakketten";
-"Logged in as %@ (%@)." = "Ingelogd als %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
 "Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
 "Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer dit en probeer het opnieuw.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ is vereist door:";
 "%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
 "%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
-"Are you sure you want to clear the queue?" = "Weet u zeker dat u de wachtrij wilt legen?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket. Het mag NIET verwijderd worden tenzij u precies weet wat u doet!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Sluit de console automatisch wanneer alle taken zijn voltooid.";
 
 // Filters
+
 "Filters" = "Filters";
 "Add Filter" = "Filter Toevoegen";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Bronnen Verborgen";
 
 "Sections" = "Secties";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Verberg pakketten in deze secties.";
 
 "Sources" = "Bronnen";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Verberg pakketten in deze secties van specifieke bronnen.";
 
 "Updates" = "Updates";
@@ -411,7 +418,8 @@
 "Authors" = "Auteurs";
 "Hide packages from these authors." = "Verberg pakketten van deze auteurs.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
