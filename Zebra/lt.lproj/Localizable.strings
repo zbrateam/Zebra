@@ -11,7 +11,7 @@
 "Done" = "Atlikta";
 "Loading..." = "Kraunasi...";
 "Clear" = "Išvalyti";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Įvyko klaida";
 
 // Home
 
@@ -118,7 +118,7 @@
 // Stores
 
 "Stores" = "Parduotuvės";
-"My Account" = "My Account";
+"My Account" = "Mano paskyra";
 "Sign In" = "Prisijungti";
 "Sign Out" = "Atsijungti";
 "Your Purchases" = "Jūsų pirkiniai";
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "Nepavyko baigti pirkimo";
 "Could not complete purchase, no payment secret was found" = "Nepavyko baigti pirkimo, apmokėjimas neįvyko";
 "No packages purchased" = "Nėra nupirktų paketų";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Prisijungta kaip %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Nepavyko atsiųsti paketų failo iš %@. Priežastis: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nepavyko atsiųsti vieno ar kelių failų iš %@. Priežastis: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Įvestas adresas klaidingas. Prašom jį patikrinti ir bandyti iš naujo.";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ reikalauja:";
 "%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ yra reikalingas paketas. Jis gali būti pašalintas tik tais atvejais, jei tikrai žinote ką darote!";
 
 // Search
@@ -397,10 +397,10 @@
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtrai";
+"Add Filter" = "Pridėti filtrą";
 
-"1 Section Hidden" = "1 Section Hidden";
+"1 Section Hidden" = "Paslėptas 1-as skyrius";
 "%lu Sources Hidden" = "%lu paslėpti šaltiniai";
 
 "Sections" = "Skyriai";
@@ -416,13 +416,13 @@
 "Hide future updates from these packages." = "Paslėpti būsimus atnaujinimus iš šių paketų.";
 
 "Authors" = "Autoriai";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Hide packages from these authors." = "Paslėpti paketus iš šių autorių.";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Kalba";
+"Apply" = "Pritaikyti";
+"Restart Required" = "Būtina paleisti iš naujo";
+"Zebra must be closed in order to change preferred language" = "Zebra turi būti uždaryta, pakeitus pasirinktą kalbą";
+"Restart" = "Paleisti iš naujo";
+"Use System Language" = "Naudoti sistemos kalbą";
