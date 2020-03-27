@@ -11,6 +11,7 @@
 "Done" = "Feito";
 "Loading..." = "Carregando...";
 "Clear" = "Limpar";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum método de pagamento foi encontrado";
 "No packages purchased" = "Nenhum pacote comprado";
-"Logged in as %@ (%@)." = "Conectado como %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Você já adicionou estas fontes.";
 "Unable to locate an APT repository at:" = "Não foi possível localizar um repositório APT em:";
 "Unable to locate APT repositories at:" = "Não foi possível localizar os repositórios de APT em:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ é requerido por:";
 "%@ must be removed because it depends on %@" = "%@ deve ser removido porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
-"Are you sure you want to clear the queue?" = "Você tem certeza que deseja limpar a fila?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote obrigatório. NÃO deve ser removido a menos que você saiba exatamente o que está fazendo!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Dispensar automaticamente o Console quando todas as suas tarefas forem concluídas.";
 
 // Filters
+
 "Filters" = "Filtros";
 "Add Filter" = "Adicionar filtro";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Fontes ocultas";
 
 "Sections" = "Seções";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Ocultar pacotes dessas seções.";
 
 "Sources" = "Fontes";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Ocultar pacotes nessas seções de fontes específicas.";
 
 "Updates" = "Atualizações";
@@ -411,7 +418,8 @@
 "Authors" = "Autores";
 "Hide packages from these authors." = "Ocultar pacotes destes autores.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Idioma";
 "Apply" = "Aplicar";
 "Restart Required" = "Requer reinicialização";
