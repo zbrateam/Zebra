@@ -302,9 +302,9 @@
 "Removing" = "جارِ الإزالة";
 "Removing Packages..." = "جارِ إزالة الحزم...";
 "Reinstalling" = "جارِ إعادة التثبيت";
-"Reinstalling Packages..." = "إعادة تثبيت الحزم...";
+"Reinstalling Packages..." = "جارِ إعادة تثبيت الحزم...";
 "Upgrading" = "جارِ الترقية";
-"Upgrading Packages..." = "ترقية الحزم...";
+"Upgrading Packages..." = "جارِ ترقية الحزم...";
 "Complete" = "إكتمل";
 "Finished!" = "انتهى!";
 "Return to Queue" = "العودة إلى قائمة الإنتظار";
