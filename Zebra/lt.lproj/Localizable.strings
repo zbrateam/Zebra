@@ -401,21 +401,21 @@
 "Add Filter" = "Add Filter";
 
 "1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"%lu Sources Hidden" = "%lu paslėpti šaltiniai";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Skyriai";
+"Select a Section" = "Pasirinkti skyrių";
+"Hide packages in these sections." = "Paslėpti paketus, šiuose skyriuose.";
 
 "Sources" = "Šaltiniai";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Pasirinkti šaltinį";
+"Search for an Author" = "Ieškoti autoriaus";
+"Hide packages in these sections from specific sources." = "Paslėpti paketus šiuose skyriuose iš konkrečių šaltinių.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Atnaujinimai";
+"Hide future updates from these packages." = "Paslėpti būsimus atnaujinimus iš šių paketų.";
 
-"Authors" = "Authors";
+"Authors" = "Autoriai";
 "Hide packages from these authors." = "Hide packages from these authors.";
 
 // Language Settings
