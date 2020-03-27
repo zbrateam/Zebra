@@ -11,6 +11,7 @@
 "Done" = "完了";
 "Loading..." = "読み込み中...";
 "Clear" = "クリア";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 "No packages purchased" = "購入したパッケージはありません";
-"Logged in as %@ (%@)." = "%@ としてログイン中 (%@)";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
-"Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
 
 // Filters
+
 "Filters" = "フィルター";
 "Add Filter" = "フィルターを追加";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu のレポジトリが非表示になっています";
 
 "Sections" = "セクション";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "このセクションでパッケージを非表示にします";
 
 "Sources" = "リポジトリ";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
 "Updates" = "アップデート";
@@ -411,7 +418,8 @@
 "Authors" = "作者";
 "Hide packages from these authors." = "これらの作者からのパッケージを非表示にします";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
