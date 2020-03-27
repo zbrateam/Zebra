@@ -11,6 +11,7 @@
 "Done" = "Готово";
 "Loading..." = "Загрузка...";
 "Clear" = "Очистить";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 "No packages purchased" = "Нет купленных пакетов";
-"Logged in as %@ (%@)." = "Выполнен вход как %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ требуется пактом:";
 "%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
-"Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
 
 // Filters
+
 "Filters" = "Фильтры";
 "Add Filter" = "Добавить Фильтр";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Источников Скрыто";
 
 "Sections" = "Разделы";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
 
 "Sources" = "Источники";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
 "Updates" = "Обновления";
@@ -411,7 +418,8 @@
 "Authors" = "Авторы";
 "Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
