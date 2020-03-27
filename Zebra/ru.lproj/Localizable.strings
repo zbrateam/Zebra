@@ -11,7 +11,7 @@
 "Done" = "Готово";
 "Loading..." = "Загрузка...";
 "Clear" = "Очистить";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Произошла Ошибка";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 "No packages purchased" = "Нет купленных пакетов";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Выполнен вход как %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Не удалось загрузить файл Пакета из %@. Причина: %@";
+"Could not download one or more files from %@. Reason: %@" = "Не удалось загрузить один или несколько файлов из %@. Причина: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ требуется пактом:";
 "%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить Очередь?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu Источников Скрыто";
 
 "Sections" = "Разделы";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Выберите Раздел";
 "Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
 
 "Sources" = "Источники";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Выберите Источник";
+"Search for an Author" = "Поиск Автора";
 "Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
 "Updates" = "Обновления";
@@ -420,9 +420,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Язык";
+"Apply" = "Применить";
+"Restart Required" = "Требуется Перезапуск";
+"Zebra must be closed in order to change preferred language" = "Zebra должна быть закрыта для изменения предпочитаемого языка";
+"Restart" = "Перезапустить";
+"Use System Language" = "Использовать Язык Системы";
