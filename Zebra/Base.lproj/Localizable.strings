@@ -342,9 +342,8 @@
 "%@ is required by:" = "%@ is required by:";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-
 
 // Search
 
@@ -393,6 +392,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 // Filters
+
 "Filters" = "Filters";
 "Add Filter" = "Add Filter";
 
@@ -411,7 +411,8 @@
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
