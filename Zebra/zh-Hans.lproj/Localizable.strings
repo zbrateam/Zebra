@@ -11,7 +11,7 @@
 "Done" = "完成";
 "Loading..." = "加载中……";
 "Clear" = "清除";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "出现一个错误";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "无法完成购买操作";
 "Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
 "No packages purchased" = "无已购买软件包";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "已登录账户：%@（%@）";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
+"Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
 
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "需要 %@ 依赖包：";
 "%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "确定要清除队列吗？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu个软件源已隐藏";
 
 "Sections" = "分类";
-"Select a Section" = "Select a Section";
+"Select a Section" = "选择类别";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
 "Sources" = "资料来源";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "选择软件源";
+"Search for an Author" = "搜索开发者";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
 "Updates" = "更新";
@@ -420,9 +420,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "语言";
+"Apply" = "应用";
+"Restart Required" = "需要重启";
+"Zebra must be closed in order to change preferred language" = "必须关闭 Zebra 才能更改首选语言";
+"Restart" = "重启";
+"Use System Language" = "使用系统语言";
