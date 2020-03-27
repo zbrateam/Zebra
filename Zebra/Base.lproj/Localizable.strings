@@ -165,6 +165,9 @@
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
