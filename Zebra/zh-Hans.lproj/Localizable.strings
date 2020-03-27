@@ -11,6 +11,7 @@
 "Done" = "完成";
 "Loading..." = "加载中……";
 "Clear" = "清除";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "无法完成购买操作";
 "Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
 "No packages purchased" = "无已购买软件包";
-"Logged in as %@ (%@)." = "已登录账户：%@ (%@)";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "你已经添加过这些软件源。";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "需要 %@ 依赖包：";
 "%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
-"Are you sure you want to clear the queue?" = "确定要清除队列吗？";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
 
 // Filters
+
 "Filters" = "搜索条件";
 "Add Filter" = "添加条件";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu个软件源已隐藏";
 
 "Sections" = "分类";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
 "Sources" = "资料来源";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
 "Updates" = "更新";
@@ -411,7 +418,8 @@
 "Authors" = "开发者";
 "Hide packages from these authors." = "隐藏这些开发者的软件包。";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
