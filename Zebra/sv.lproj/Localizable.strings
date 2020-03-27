@@ -11,7 +11,7 @@
 "Done" = "Klar";
 "Loading..." = "Laddar...";
 "Clear" = "Rensa";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Ett fel uppstod";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "Could not complete purchase, no payment secret was found" = "Kunde inte slutföra köpet, ingen betalningshemlighet hittades";
 "No packages purchased" = "Inga köpta paket";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Inloggad som %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Kunde inte ladda ner filen Packages från %@. Anledning: %@";
+"Could not download one or more files from %@. Reason: %@" = "Kunde inte ladda ner en eller flera filer från %@. Anledning: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ krävs av:";
 "%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
 "%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Är du säker på att du vill rensa kön?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ är ett nödvändigt paket. Det ska INTE tas bort om du inte vet exakt vad du gör!";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu källor dolda";
 
 "Sections" = "Sektioner";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Välj en sektion";
 "Hide packages in these sections." = "Dölj paket i dessa sektioner.";
 
 "Sources" = "Källor";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Välj en källa";
+"Search for an Author" = "Sök efter en skapare";
 "Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
 
 "Updates" = "Uppdateringar";
