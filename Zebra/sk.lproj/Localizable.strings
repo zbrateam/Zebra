@@ -11,6 +11,7 @@
 "Done" = "Hotovo";
 "Loading..." = "Načítanie...";
 "Clear" = "Vyčistiť";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Unable to locate an APT repository at:" = "Nemožno nájsť úložisko APT na:";
 "Unable to locate APT repositories at:" = "Nemožno nájsť úložiska APT na:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ je vyžadovaný:";
 "%@ must be removed because it depends on %@" = "%@ musí byť odstránený, pretože to závisí na %@";
 "%@ has issues that cannot be resolved:" = "%@ má problémy, ktoré sa nedajú vyriešiť:";
-"Are you sure you want to clear the queue?" = "Naozaj chcete vymazať frontu?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "94/5000\n\n94/5000\n%@ je požadovaný balíček. Nemal by sa odstrániť, pokiaľ presne neviete, čo robíte!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automaticky zavrie Konzolu po dokončení všetkých jej úloh.";
 
 // Filters
+
 "Filters" = "Filters";
 "Add Filter" = "Add Filter";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
 "Sections" = "Sections";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
 "Sources" = "Zdroje";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Updates";
@@ -411,7 +418,8 @@
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
