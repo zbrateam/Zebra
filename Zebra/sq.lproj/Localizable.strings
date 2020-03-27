@@ -11,6 +11,7 @@
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
 "Clear" = "Pastro";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
 "No packages purchased" = "Nuk keni asnjë paketë të paguar";
-"Logged in as %@ (%@)." = "Keni hyrë si %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@ kërkohet nga:";
 "%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
 "%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
-"Are you sure you want to clear the queue?" = "Je i sigurt që dëshiron ta zbrazësh radhën?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar. Ajo nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
 
 // Filters
+
 "Filters" = "Filter";
 "Add Filter" = "Shto Filter";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu Burime të fshehura";
 
 "Sections" = "Seksione";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Fsheh paketat në këto seksione.";
 
 "Sources" = "Burimet";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
 "Updates" = "Përditësime";
@@ -411,7 +418,8 @@
 "Authors" = "Autorët";
 "Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Gjuha";
 "Apply" = "Apliko";
 "Restart Required" = "Kërkohet rifillimi";
