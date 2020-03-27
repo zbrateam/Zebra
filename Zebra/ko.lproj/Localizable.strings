@@ -11,6 +11,7 @@
 "Done" = "완료";
 "Loading..." = "불러오는 중...";
 "Clear" = "제거";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -125,7 +126,7 @@
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
 "Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
 "No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
-"Logged in as %@ (%@)." = "%@ (%@)으로 로그인 됨";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +164,9 @@
 "You have already added these sources." = "이미 해당 소스들을 추가했습니다.";
 "Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 "Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL이 올바르지 않습니다. 확인 후 다시 시도해주세요.";
 
@@ -342,9 +346,8 @@
 "%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
 "%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
-"Are you sure you want to clear the queue?" = "정말로 대기열을 지울까요?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지입니다. 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
-
 
 // Search
 
@@ -393,6 +396,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
 
 // Filters
+
 "Filters" = "필터";
 "Add Filter" = "필터 추가";
 
@@ -400,9 +404,12 @@
 "%lu Sources Hidden" = "%lu개의 소스 숨겨짐";
 
 "Sections" = "섹션";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "이 섹션에서 패키지 숨기기";
 
 "Sources" = "소스";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "특정 소스의 이 섹션에서 패키지 숨기기";
 
 "Updates" = "업데이트";
@@ -411,7 +418,8 @@
 "Authors" = "제작자";
 "Hide packages from these authors." = "이 제작자의 패키지 숨기기";
 
-//Language Settings
+// Language Settings
+
 "Language" = "Language";
 "Apply" = "Apply";
 "Restart Required" = "Restart Required";
