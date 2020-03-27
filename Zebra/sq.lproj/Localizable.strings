@@ -11,7 +11,7 @@
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
 "Clear" = "Pastro";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Ndodhi një gabim";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
 "No packages purchased" = "Nuk keni asnjë paketë të paguar";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Keni hyrë si %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Paketave nga %@.\nArsyeja: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nuk mund të shkrakojë një ose më shumë skedar nga %@.\nArsyeja: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ kërkohet nga:";
 "%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
 "%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "A jeni i sigurt që dëshironi ta zbrazni radhën?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar. Ajo nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu Burime të fshehura";
 
 "Sections" = "Seksione";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Zgjidhni një seksion";
 "Hide packages in these sections." = "Fsheh paketat në këto seksione.";
 
 "Sources" = "Burimet";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Zgjidhni një burim";
+"Search for an Author" = "Kërkoni për një autor";
 "Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
 "Updates" = "Përditësime";
