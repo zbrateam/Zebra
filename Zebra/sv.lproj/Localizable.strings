@@ -421,8 +421,8 @@
 // Language Settings
 
 "Language" = "Språk";
-"Apply" = "Tillämpa";
+"Apply" = "Verkställ";
 "Restart Required" = "Omstart krävs";
-"Zebra must be closed in order to change preferred language" = "Zebra måste stängas för att ändra språk";
+"Zebra must be closed in order to change preferred language" = "Zebra måste stängas för att ändra önskat språk";
 "Restart" = "Starta om";
 "Use System Language" = "Använd systemspråk";
