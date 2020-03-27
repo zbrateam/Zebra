@@ -11,7 +11,7 @@
 "Done" = "تم";
 "Loading..." = "جارِ التحميل...";
 "Clear" = "مسح";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "حدث خطأ ما";
 
 // Home
 
@@ -105,7 +105,7 @@
 "Reset Image Cache" = "إعادة تعيين ذاكرة تخزين الصور المؤقتة";
 "Reset Sources Cache" = "إعادة تعيين ذاكرة تخزين المصادر المؤقتة";
 "Reset All Settings" = "إعادة تعيين جميع الإعدادات";
-"Erase All Sources and Settings" = "مسح كل المصادر والإعدادات";
+"Erase All Sources and Settings" = "محو كل المصادر والإعدادات";
 
 "Are you sure you want to restart the SpringBoard?" = "هل أنت متأكد أنك تريد إعادة تشغيل واجهة النظام؟";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "هل أنت متأكد أنك تريد تحديث ذاكرة تخزين الأيقونة المؤقتة؟ قد يصبح جهازك غير قادر على الاستجابة حتى انتهاء العملية.";
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "تعذر إكمال الشراء";
 "Could not complete purchase, no payment secret was found" = "تعذر إكمال الشراء، لم يتم العثور على دفع آمن";
 "No packages purchased" = "لا توجد حزم مشتراة";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "تم تسجيل الدخول كـ %@ (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "تعذر تنزيل ملف الحزم من %@. السبب: %@";
+"Could not download one or more files from %@. Reason: %@" = "تعذر تنزيل ملف أو أكثر من %@. السبب: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "عنوان URL الذي أدخلته غير صالح. يرجى التحقق منه والمحاولة مرة أخرى.";
 
@@ -295,12 +295,12 @@
 "Starting Download" = "جارِ بدء التنزيل";
 "Downloading" = "جارِ التنزيل";
 "Downloading %@" = "جارِ التنزيل %@";
-"Downloading Packages..." = "تنزيل الحزم...";
+"Downloading Packages..." = "جارِ تنزيل الحزم...";
 "Download Completed" = "إكتمل التنزيل";
 "Installing" = "جارِ التثبيت";
-"Installing Packages..." = "تثبيت الحزم...";
+"Installing Packages..." = "جارِ تثبيت الحزم...";
 "Removing" = "جارِ الإزالة";
-"Removing Packages..." = "إزالة الحزم...";
+"Removing Packages..." = "جارِ إزالة الحزم...";
 "Reinstalling" = "جارِ إعادة التثبيت";
 "Reinstalling Packages..." = "إعادة تثبيت الحزم...";
 "Upgrading" = "جارِ الترقية";
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ مطلوبة بواسطة:";
 "%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
 "%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "حزمة %@ هي حزمة مطلوبة. لا يجب إزالتها إلا إذا كنت على علم بما تفعل!";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu مصدر مخفي";
 
 "Sections" = "الأقسام";
-"Select a Section" = "Select a Section";
+"Select a Section" = "حدد قسم";
 "Hide packages in these sections." = "إخفاء الحزم في هذه الأقسام.";
 
 "Sources" = "المصادر";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "حدد مصدر";
+"Search for an Author" = "البحث عن مؤلف";
 "Hide packages in these sections from specific sources." = "إخفاء الحزم في هذه الأقسام من مصادر محددة.";
 
 "Updates" = "التحديثات";
@@ -420,9 +420,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "اللغة";
+"Apply" = "تطبيق";
+"Restart Required" = "يتطلب إعادة التشغيل";
+"Zebra must be closed in order to change preferred language" = "يجب إغلاق Zebra لتغيير اللغة المفضلة";
+"Restart" = "إعادة التشغيل";
+"Use System Language" = "استخدام لغة النظام";
