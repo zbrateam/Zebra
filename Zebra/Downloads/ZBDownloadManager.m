@@ -240,7 +240,7 @@
 - (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
     if (error) { //An error occured, we should handle it accordingly
         if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the repo maintainer :)
-            NSString *description = [NSString stringWithFormat:@"Could not download Release file from %@. Reason: %@", source.repositoryURI, error.localizedDescription]; //TODO: Localize
+            NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.releaseTaskCompleted = YES;
             source.releaseFilePath = NULL;
@@ -254,7 +254,7 @@
                     filename = [filename stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [filename pathExtension]] withString:@""]; //Remove path extension
                 }
                 
-                NSString *description = [NSString stringWithFormat:@"Could not download Packages file from %@. Reason: %@", source.repositoryURI, error.localizedDescription]; //TODO: Localize
+                NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
                 
                 source.packagesTaskCompleted = YES;
                 source.packagesFilePath = NULL;
@@ -271,7 +271,7 @@
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromRepo:source ignoreCaching:ignore];
                 }
                 else { //Should never happen but lets catch the error just in case
-                    NSString *description = [NSString stringWithFormat:@"Could not download Packages file from %@. Reason: %@", source.repositoryURI, error.localizedDescription]; //TODO: Localize
+                    NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
                     
                     source.packagesTaskCompleted = YES;
                     source.packagesFilePath = NULL;
@@ -284,7 +284,7 @@
             }
         }
         else { //Since we cannot determine which task this is, we need to cancel the entire repo download :( (luckily this should never happen)
-            NSString *description = [NSString stringWithFormat:@"Could not download one or more files from %@. Reason: %@", source.repositoryURI, error.localizedDescription]; //TODO: Localize
+            NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download one or more files from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.packagesTaskCompleted = YES;
             source.packagesFilePath = NULL;
