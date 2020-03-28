@@ -11,7 +11,7 @@
 "Done" = "完了";
 "Loading..." = "読み込み中...";
 "Clear" = "クリア";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "エラーが発生しました";
 
 // Home
 
@@ -126,7 +126,7 @@
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 "No packages purchased" = "購入したパッケージはありません";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "%@ としてログイン中 (%@)";
 
 // Sources
 
@@ -165,8 +165,8 @@
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "パッケージファイルを%@からダウンロードできませんでした。理由：%@";
+"Could not download one or more files from %@. Reason: %@" = "一つ以上のファイルを%@からダウンロードできませんでした。理由：%@";
 
 "The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
 
@@ -346,7 +346,7 @@
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "キューをクリアしてもよろしいですか？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
 
 // Search
@@ -404,12 +404,12 @@
 "%lu Sources Hidden" = "%lu のレポジトリが非表示になっています";
 
 "Sections" = "セクション";
-"Select a Section" = "Select a Section";
+"Select a Section" = "セクションを選択";
 "Hide packages in these sections." = "このセクションでパッケージを非表示にします";
 
 "Sources" = "リポジトリ";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "ソースを選択";
+"Search for an Author" = "作者を検索";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
 "Updates" = "アップデート";
@@ -420,9 +420,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "言語";
+"Apply" = "適用";
+"Restart Required" = "再起動が必要です";
+"Zebra must be closed in order to change preferred language" = "言語を変更するためには Zebraを閉じる必要があります";
+"Restart" = "再起動";
+"Use System Language" = "システムの言語を使用";
