@@ -28,7 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray <NSString *> *conflictsWith;
 @property (nonatomic, strong) NSArray <NSString *> *provides;
 @property (nonatomic, strong) NSArray <NSString *> *replaces;
-@property (nonatomic, strong) NSString *author;
+@property (nonatomic, strong) NSString *authorName;
+@property (nonatomic, strong) NSString *authorEmail;
 @property (nonatomic, strong) ZBSource *repo;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *debPath;

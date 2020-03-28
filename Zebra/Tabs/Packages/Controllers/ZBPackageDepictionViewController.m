@@ -700,7 +700,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)setMoreByText:(ZBPackage *)package {
-    if (package.author) {
+    if (package.authorName) {
         infos[@(ZBPackageInfoMoreBy)] = NSLocalizedString(@"More by this Developer", @"");
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoMoreBy)];
@@ -745,9 +745,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readAuthor:(ZBPackage *)package {
-    NSString *authorName = [package author];
+    NSString *authorName = [package authorName];
     if (authorName) {
-        infos[@(ZBPackageInfoAuthor)] = [self stripEmailFromAuthor];
+        infos[@(ZBPackageInfoAuthor)] = authorName;
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoAuthor)];
     }
@@ -770,25 +770,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     return infos.count;
 }
 
-- (NSString *)stripEmailFromAuthor {
-    if (package.author != NULL && package.author.length > 0) {
-        if ([package.author containsString:@"<"] && [package.author containsString:@">"]) {
-            NSArray *components = [package.author componentsSeparatedByString:@" <"];
-            if ([components count] <= 1) components = [package.author componentsSeparatedByString:@"<"];
-            if ([components count] > 1) {
-                self.authorEmail = [components[1] stringByReplacingOccurrencesOfString:@">" withString:@""];
-                
-                return components[0];
-            }
-        }
-        
-        return package.author;
-    }
-    else {
-        return NULL;
-    }
-}
-
 - (void)sendEmailToDeveloper {
     NSString *subject = [NSString stringWithFormat:@"Zebra/APT(Z): %@ (%@)", package.name, package.version]; //don't really know what the (Z) is for but Sileo uses (M) and Cydia uses (A) so i figured (Z) was cool
     NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
@@ -798,16 +779,16 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
         [mail setSubject:subject];
         [mail setMessageBody:body isHTML:NO];
-        [mail setToRecipients:@[self.authorEmail]];
+        [mail setToRecipients:@[self.package.authorEmail]];
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
-        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.authorEmail, subject, body];
+        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
         NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
         } else {
-            [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: url]];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
     }
 }
@@ -851,7 +832,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoAuthor:
             cell.textLabel.text = value;
-            cell.accessoryType = self.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
+            cell.accessoryType = self.package.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
             break;
         case ZBPackageInfoVersion:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -916,7 +897,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         case ZBPackageInfoID:
             break;
         case ZBPackageInfoAuthor:
-            if (self.authorEmail) {
+            if (self.package.authorEmail) {
                 [self sendEmailToDeveloper];
             }
             break;
@@ -937,7 +918,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ZBPackageInfoWishList inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             break;
         } case ZBPackageInfoMoreBy:
-            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
+            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:self.package.authorName];
             break;
         case ZBPackageInfoInstalledFiles: {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

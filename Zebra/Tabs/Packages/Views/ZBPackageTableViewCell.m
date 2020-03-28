@@ -39,7 +39,7 @@
     self.descriptionLabel.text = package.shortDescription;
     ZBSource *repo = package.repo;
     NSString *repoName = repo.origin;
-    NSString *author = [self stripEmailFromAuthor:package.author];
+    NSString *author = package.authorName;
     NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (author.length)
@@ -109,17 +109,6 @@
     self.descriptionLabel.textColor = [UIColor secondaryTextColor];
     self.authorAndRepoAndSize.textColor = [UIColor secondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
-}
-
-- (NSString *)stripEmailFromAuthor:(NSString *)name {
-    NSArray *tokens = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for (NSString *cut in tokens) {
-        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
-            [cleanedStrings addObject:cut];
-        }
-    }
-    return [cleanedStrings componentsJoinedByString:@" "];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

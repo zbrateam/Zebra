@@ -15,10 +15,8 @@
 
 @interface ZBAuthorSelectorTableViewController () {
     ZBDatabaseManager *databaseManager;
-    
     NSArray *authors;
     NSString *selectedAuthor;
-    
     BOOL shouldPerformSearching;
 }
 @end
@@ -185,26 +183,9 @@
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sectionSelectorCell"];
     
     NSString *author = authors[indexPath.row];
-    cell.textLabel.text = [self stripEmailFrom:author];
+    cell.textLabel.text = author;
     
     return cell;
-}
-
-- (NSString *)stripEmailFrom:(NSString *)author {
-    if (author != NULL && author.length > 0) {
-        if ([author containsString:@"<"] && [author containsString:@">"]) {
-            NSArray *components = [author componentsSeparatedByString:@" <"];
-            if ([components count] <= 1) components = [author componentsSeparatedByString:@"<"];
-            if ([components count] > 1) {
-                return components[0];
-            }
-        }
-        
-        return author;
-    }
-    else {
-        return NULL;
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

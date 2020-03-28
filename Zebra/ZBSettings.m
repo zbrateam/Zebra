@@ -368,7 +368,7 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.author];
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorName];
 }
 
 + (NSArray *)wishlist {

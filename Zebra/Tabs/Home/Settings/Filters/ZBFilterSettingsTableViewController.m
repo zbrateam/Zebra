@@ -114,7 +114,7 @@
         }
         case 2: {
             if (indexPath.row < [blockedAuthors count]) {
-                cell.textLabel.text = [self stripEmailFrom:blockedAuthors[indexPath.row]];
+                cell.textLabel.text = blockedAuthors[indexPath.row];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
                 return cell;
@@ -230,23 +230,6 @@
             break;
         case 3:
             break;
-    }
-}
-
-- (NSString *)stripEmailFrom:(NSString *)author {
-    if (author != NULL && author.length > 0) {
-        if ([author containsString:@"<"] && [author containsString:@">"]) {
-            NSArray *components = [author componentsSeparatedByString:@" <"];
-            if ([components count] <= 1) components = [author componentsSeparatedByString:@"<"];
-            if ([components count] > 1) {
-                return components[0];
-            }
-        }
-        
-        return author;
-    }
-    else {
-        return NULL;
     }
 }
 
