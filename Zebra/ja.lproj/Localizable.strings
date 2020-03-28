@@ -408,7 +408,7 @@
 "Hide packages in these sections." = "このセクションでパッケージを非表示にします";
 
 "Sources" = "リポジトリ";
-"Select a Source" = "ソースを選択";
+"Select a Source" = "リポジトリを選択";
 "Search for an Author" = "作者を検索";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
