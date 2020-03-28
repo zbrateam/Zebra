@@ -673,7 +673,7 @@
         if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         } else {
-            query = [NSString stringWithFormat:@"SELECT SECTION, AUTHOR, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", repoPart];
+            query = [NSString stringWithFormat:@"SELECT SECTION, AUTHORNAME, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", repoPart];
         }
         
         sqlite3_stmt *statement;
@@ -1105,9 +1105,9 @@
 - (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *columns = fullSearch ? @"*" : @"AUTHOR";
+        NSString *columns = fullSearch ? @"*" : @"AUTHORNAME";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHOR LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHOR ORDER BY (CASE WHEN AUTHOR = \'%@\' THEN 1 WHEN AUTHOR LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, authorName, authorName, authorName, limit];
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHORNAME LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHORNAME ORDER BY (CASE WHEN AUTHORNAME = \'%@\' THEN 1 WHEN AUTHORNAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, authorName, authorName, authorName, limit];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1688,14 +1688,15 @@
     return NULL;
 }
 
-- (NSArray *)packagesByAuthor:(NSString *)author {
+- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *)email {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSMutableArray *packageIdentifiers = [NSMutableArray new];
         
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, REPOID FROM PACKAGES WHERE AUTHOR = ?;", -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [author UTF8String], -1, SQLITE_TRANSIENT);
+        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, REPOID FROM PACKAGES WHERE AUTHORNAME = ? AND AUTHOREMAIL = ?;", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [email UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             int repoID = sqlite3_column_int(statement, 1);

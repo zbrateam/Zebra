@@ -465,11 +465,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList;
 
 /*!
- @brief Returns all packages made by a specific author.
- @param author The Authors name that you wish to look for.
- @return An array of every package made by specified author.
+ @brief Returns all packages made by the specific author.
+ @param name The author's name that you wish to look for.
+ @param email The author's email that you wish to look for.
+ @return An array of every package made by the specified author.
  */
-- (NSArray *)packagesByAuthor:(NSString *)author;
+- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *)email;
 
 
 /*!
