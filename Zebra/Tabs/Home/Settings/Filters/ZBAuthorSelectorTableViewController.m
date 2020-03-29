@@ -78,7 +78,16 @@
         searchController.searchBar.delegate = self;
         searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Search for an Author", @"");
+        searchController.hidesNavigationBarDuringPresentation = NO;
     }
+    
+    if (@available(iOS 13.0, *)) {
+        searchController.automaticallyShowsCancelButton = NO;
+    }
+    else {
+        searchController.searchBar.showsCancelButton = NO;
+    }
+    
     
     if (@available(iOS 9.1, *)) {
         searchController.obscuresBackgroundDuringPresentation = NO;
@@ -91,15 +100,18 @@
 
 - (void)layoutNaviationButtons {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addAuthors)];
+    self.navigationItem.rightBarButtonItem.enabled = [selectedEmails count];
 }
 
 - (void)addAuthors {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.authorsSelected(selectedEmails);
+        self.authorsSelected(self->selectedEmails);
     });
     
     if (searchController.active) {
-        [self goodbye]; // Have to dismiss twice
+        [searchController setActive:NO];
     }
     
     [self goodbye];
@@ -112,11 +124,15 @@
 #pragma mark - Search Results Updating Protocol
 
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
-    
-    if (self->shouldPerformSearching) {
-        NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *searchTerm = searchController.searchBar.text;
+    if ([searchTerm length] <= 1) {
+        authors = @[];
+    }
+    else if (self->shouldPerformSearching) {
+        NSString *strippedString = [searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
         if ([strippedString length] <= 1) {
+            authors = @[];
             return;
         }
         
@@ -150,10 +166,7 @@
     self->shouldPerformSearching = YES;
     
     [self updateSearchResultsForSearchController:searchController];
-}
-
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
-    [self updateSearchResultsForSearchController:searchController];
+    [self.searchController setActive:false];
 }
 
 #pragma mark - Table View Data Source
@@ -207,6 +220,7 @@
     }
     
     [[self tableView] reloadData];
+    [self layoutNaviationButtons];
 }
 
 @end
