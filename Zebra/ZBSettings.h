@@ -129,9 +129,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
 
-+ (NSArray *)blockedAuthors;
-+ (void)setBlockedAuthors:(NSArray *)blockedAuthors;
-+ (BOOL)isAuthorBlocked:(NSString *)author;
++ (NSDictionary *)blockedAuthors;
++ (void)setBlockedAuthors:(NSDictionary *)blockedAuthors;
++ (BOOL)isAuthorBlocked:(NSString *)email;
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package;
 

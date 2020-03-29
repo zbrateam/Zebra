@@ -332,20 +332,20 @@ NSString *const WishlistKey = @"Wishlist";
     [self setFilteredSources:filteredSources];
 }
 
-+ (NSArray *)blockedAuthors {
++ (NSDictionary *)blockedAuthors {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    return [defaults objectForKey:BlockedAuthorsKey] ?: [NSArray new];
+    return [defaults objectForKey:BlockedAuthorsKey] ?: [NSDictionary new];
 }
 
-+ (void)setBlockedAuthors:(NSArray *)blockedAuthors {
++ (void)setBlockedAuthors:(NSDictionary *)blockedAuthors {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:blockedAuthors forKey:BlockedAuthorsKey];
 }
 
-+ (BOOL)isAuthorBlocked:(NSString *)author {
-    return [[self blockedAuthors] containsObject:author];
++ (BOOL)isAuthorBlocked:(NSString *)email {
+    return [[[self blockedAuthors] allKeys] containsObject:email];
 }
 
 + (ZBSwipeActionStyle)swipeActionStyle {
@@ -368,7 +368,7 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorName];
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorEmail];
 }
 
 + (NSArray *)wishlist {
