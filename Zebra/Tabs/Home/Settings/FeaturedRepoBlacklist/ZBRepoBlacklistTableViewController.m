@@ -21,18 +21,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     [self.navigationItem setTitle:NSLocalizedString(@"Featured Repos", @"")];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.estimatedRowHeight = 60.0;
     self.tableView.rowHeight = 60;
     [self refreshTable];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (void)baseViewDidLoad {}

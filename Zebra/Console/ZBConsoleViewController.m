@@ -102,6 +102,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Console", @"");
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     NSError *error;
     if ([ZBDevice isSlingshotBroken:&error]) {
@@ -113,10 +116,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
     
     if (currentStage == -1) { //Only run the process once per console cycle
         dispatch_async(dispatch_get_main_queue(), ^{

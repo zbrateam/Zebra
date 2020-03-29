@@ -41,14 +41,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
     
     // Appearance stuff
 //    if ([ZBThemeManager useCustomTheming]) {
@@ -59,8 +58,7 @@
 //            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 //        }
 //    }
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];    
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];

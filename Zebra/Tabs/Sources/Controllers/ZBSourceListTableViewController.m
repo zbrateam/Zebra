@@ -51,6 +51,10 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+    }
+    
     if (@available(iOS 13.0, *)) {} else {
         self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     }
@@ -67,10 +71,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
     
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }

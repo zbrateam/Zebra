@@ -25,6 +25,9 @@
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
@@ -46,10 +49,6 @@
     if (credits == NULL) {
         [self fetchCredits];
     }
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 #pragma mark - Table view data source
@@ -68,7 +67,7 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadData];
             self.navigationItem.titleView = NULL;
             self.navigationItem.title = NSLocalizedString(@"Credits", @"");
         });

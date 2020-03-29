@@ -64,6 +64,9 @@ enum ZBMiscOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"");
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
@@ -77,9 +80,6 @@ enum ZBMiscOrder {
     
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {

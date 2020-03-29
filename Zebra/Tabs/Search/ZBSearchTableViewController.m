@@ -36,6 +36,7 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.searchController = searchController;
         self.navigationItem.hidesSearchBarWhenScrolling = NO;
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     else {
         self.tableView.tableHeaderView = searchController.searchBar;
@@ -48,10 +49,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
     
     [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }

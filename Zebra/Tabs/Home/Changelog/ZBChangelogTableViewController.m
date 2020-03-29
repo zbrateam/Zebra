@@ -24,6 +24,9 @@
     
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
@@ -47,10 +50,6 @@
     if (releases == NULL) {
         releases = [NSMutableArray new];
         [self fetchGithubReleases];
-    }
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
 }
 
