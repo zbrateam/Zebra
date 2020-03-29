@@ -23,7 +23,7 @@
 
 - (void)updateData:(ZBProxyPackage *)package {
     self.packageNameLabel.text = package.name;
-    self.isInstalledImageView.hidden = package.isInstalled;
+    self.isInstalledImageView.hidden = !package.isInstalled;
     
     UIImage *sectionImage = [UIImage imageNamed:package.section];
     if (sectionImage == NULL) {
