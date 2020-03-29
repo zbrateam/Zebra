@@ -58,8 +58,7 @@
 //            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 //        }
 //    }
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];    
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
