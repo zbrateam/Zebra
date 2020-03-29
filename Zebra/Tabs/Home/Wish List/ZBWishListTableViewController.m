@@ -26,6 +26,10 @@
     
     self.title = NSLocalizedString(@"Wish List", @"");
     
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+    
     if (!wishedPackages) wishedPackages = [NSMutableArray new];
     if (!wishedPackageIdentifiers) wishedPackageIdentifiers = [[ZBSettings wishlist] mutableCopy];
     
@@ -34,9 +38,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
-    
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    
+        
     NSArray *nullCheck = [wishedPackageIdentifiers copy];
     for (NSString *packageID in nullCheck) {
         ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
@@ -49,9 +51,6 @@
     }
     [self.tableView reloadData];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 #pragma mark - Table View Data Source
