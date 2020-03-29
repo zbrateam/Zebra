@@ -102,14 +102,16 @@
 
 "Advanced" = "Avansat";
 "Refresh Icon Cache" = "Reactualizează cache-ul iconițelor";
-"Reset Image Cache" = "Resetează cache-ul imaginilor";
-"Reset Sources Cache" = "Resetează cache-ul surselor";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Resetează toate setările";
 "Erase All Sources and Settings" = "Resetează toate sursele si setările";
 
 "Are you sure you want to restart the SpringBoard?" = "Ești sigur că dorești să restartezi SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Confirmi reîmprospătarea cache-ului iconițelor? Dispozitivul dvs. ar putea să ignore comenzile până la terminarea procesului.";
-"Image Cache Reset" = "Resetează cache-ul iconițelor";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Confirmi că dorești să ștergi cache-ul surselor din Zebra? Această acțiune va șterge toate informațiile din cache-ul Zebra și le va redescărca. Sursele vor fi păstrate.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Confirmi că dorești resetarea setărilor Zebra? Această acțiune va readuce Zebra la setările inițiale iar aplicația va reporni.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Confirmi că dorești să ștergi toate sursele și setările? Toate sursele din Zebra vor fi șterse iar setările vor revenii la valorile inițiale.";
