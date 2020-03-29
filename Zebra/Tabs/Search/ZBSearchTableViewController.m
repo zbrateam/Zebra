@@ -166,8 +166,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
     searchController.searchBar.text = recentSearches[indexPath.row];
-    [self updateSearchResultsForSearchController:searchController];
-    [self searchBarSearchButtonClicked:searchController.searchBar];
+    searchController.active = true;
+    [[self searchController].searchBar becomeFirstResponder];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
