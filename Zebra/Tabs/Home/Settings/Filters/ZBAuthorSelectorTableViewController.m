@@ -32,7 +32,7 @@
     
     if (self) {
         authors = @[];
-        selectedEmails = [NSMutableArray new];
+        selectedEmails = [[ZBSettings blockedAuthors] mutableCopy];
     }
     
     return self;
