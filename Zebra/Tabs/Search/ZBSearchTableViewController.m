@@ -85,7 +85,6 @@
 
 - (void)clearSearches {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [recentSearches removeAllObjects];
     [self.tableView reloadData];
@@ -152,7 +151,6 @@
         }
         [recentSearches insertObject:newSearch atIndex:0];
         [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     [self updateSearchResultsForSearchController:searchController];
