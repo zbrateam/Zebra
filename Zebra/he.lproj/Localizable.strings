@@ -102,14 +102,16 @@
 
 "Advanced" = "מתקדם";
 "Refresh Icon Cache" = "רענן מטמון אייקונים";
-"Reset Image Cache" = "אפס מטמון תמונות";
-"Reset Sources Cache" = "אפס מטמון מקורות";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "אפס את כל ההגדרות";
 "Erase All Sources and Settings" = "מחק את כל המקורות וההגדרות";
 
 "Are you sure you want to restart the SpringBoard?" = "האם את/ה בטוח/ה שברצונך להפעיל מחדש את מסך הבית?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "האם את/ה בטוח/ה שברצונך לרענן את מטמון האייקונים? מכשירך עלול לא להגיב עד סיום התהליך.";
-"Image Cache Reset" = "איפוס מטמון תמונות";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "האם את/ה בטוח/ה שברצונך לאפס את מטמון המקורות של זברה? דבר זה יסיר את כל המידע שנשמר במטמון מבסיס הנתונים של זברה ויוריד אותו מחדש. המקורות שלך לא יימחקו.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "האם את/ה בטוח/ה שברצונך לאפס את ההגדרות של זברה? דבר זה ייאפס את כל ההגדרות של זברה חזרה לערכי ברירת המחדל שלהם וזברה תיפתח מחדש.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "האם את/ה בטוח/ה שברצונך למחוק את כל המקורות וההגדרות? כל המקורות שלך יוסרו מזברה וההגדרות שלך יאופסו.";
