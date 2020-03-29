@@ -102,14 +102,16 @@
 
 "Advanced" = "Išplėstiniai nustatymai";
 "Refresh Icon Cache" = "Atnaujinti piktogramų podelį";
-"Reset Image Cache" = "Atkurti vaizdų podelį";
-"Reset Sources Cache" = "Atkurti šaltinių podelį";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Atkurti visus nustatymus";
 "Erase All Sources and Settings" = "Ištrinti visus šaltinius ir nustatymus";
 
 "Are you sure you want to restart the SpringBoard?" = "Ar esate įsitikinę, kad norite perkrauti SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Ar esate įsitikinę, kad norite atnaujinti piktogramų podelį? Jūsų prietaisas gali nereaguoti kol procesas baigsis.";
-"Image Cache Reset" = "Vaizdų podelio atstatymas";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Ar esate įsitikinę, kad norite atstatyti Zebra šaltinių podėlį? Tai pašalins visą podelio informaciją iš Zebra duomenų bazės ir pakartotinai jį atsiųs. Jūsų šaltiniai nebus pašalinti.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Ar esate įsitikinę, kad norite atstatyti Zebra nustatymus? Tai atstatys Zebra į gamyklinius nustatymus ir Zebra persikraus.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Ar esate įsitikinę, kad norite pašalinti visus šaltinius ir nustatymus? Visi jūsų šaltiniai bus pašalinti iš Zebra ir nustatymai bus atstatyti į gamyklinius.";
