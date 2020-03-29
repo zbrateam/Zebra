@@ -60,7 +60,7 @@
         UILabel *noSearchResultsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, tableView.frame.size.height)];
         noSearchResultsLabel.text = [NSLocalizedString(@"No Results Found", @"") stringByAppendingString:@"\n\n\n\n\n\n\n"];
         noSearchResultsLabel.numberOfLines = 0;
-        noSearchResultsLabel.textColor = [UIColor primaryTextColor];
+        noSearchResultsLabel.textColor = [UIColor secondaryTextColor];
         noSearchResultsLabel.textAlignment = NSTextAlignmentCenter;
         noSearchResultsLabel.font = [UIFont systemFontOfSize:15];
         tableView.backgroundView = noSearchResultsLabel;
