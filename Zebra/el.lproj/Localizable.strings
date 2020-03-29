@@ -102,14 +102,16 @@
 
 "Advanced" = "Προχωρημένα";
 "Refresh Icon Cache" = "Ανανέωσε το Cache Εικονιδίων";
-"Reset Image Cache" = "Επαναφορά του Cache Εικόνων";
-"Reset Sources Cache" = "Επαναφορά του Cache Πηγών";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Επαναφορά Όλων των Ρυθμίσεων";
 "Erase All Sources and Settings" = "Επαναφορά όλων των Πηγών και Ρυθμίσεων";
 
 "Are you sure you want to restart the SpringBoard?" = "Είσαι βέβαιος ότι θέλεις να κάνεις επανεκκίνηση του SpringBoard;";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Είσαι βέβαιος ότι θέλεις να ανανεώσεις το cache εικονιδιων; Η συσκευή σου μπορεί να μην ανταποκρίνεται μέχρι η διαδικασία ολοκληρωθεί.";
-"Image Cache Reset" = "Επαναφορά Cache εικονιδίων";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Είσαι βέβαιος ότι θέλεις να επαναφέρεις το cache των πηγών του Zebra; Αυτό θα αφαιρέσει όλες τις αποθηκευμένες πληροφορίες από το database του Zebra και θα τις ξανακατεβάσει. Οι πηγές σου δεν θα διαγραφτούν.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Είσαι βέβαιος ότι θέλεις να επαναφέρεις τις ρυθμίσεις του Zebra; Αυτό θα επαναφέρει όλες τις ρυθμίσεις του Zebra στις εργοστασιακές τιμές και το Ζebra θα κάνει επανεκκίνηση.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Είσαι βέβαιος ότι θέλεις να διαγράψεις όλες τις πηγές και ρυθμίσεις; Όλες οι πηγές σου θα διαγραφτούν απο το Zebra και οι ρυθμίσεις σου θα δεχτούν επαναφορά.";
