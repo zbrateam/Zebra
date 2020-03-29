@@ -102,14 +102,16 @@
 
 "Advanced" = "Avansert";
 "Refresh Icon Cache" = "Oppdater ikonbuffer";
-"Reset Image Cache" = "Nullstill bildebuffer";
-"Reset Sources Cache" = "Nullstill kildebuffer";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Nullstill alle innstillinger";
 "Erase All Sources and Settings" = "Nullstill alle kilder og innstillinger";
 
 "Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starte SpringBoard på nytt?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatere ikonbufferen? Enheten din kan slutte å svare til prosessen er fullført.";
-"Image Cache Reset" = "Bildebufferen ble nullstilt";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil nullstille kildebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon fra Zebra sin database og laste det ned på nytt. Kildene dine blir ikke fjernet.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil nullstille innstillingene til Zebra? Dette vil tilbakestille alle Zebra innstillingene til standardverdiene, og Zebra vil starte på nytt.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kilder og innstillinger? Alle kildene dine vil bli fjernet fra Zebra, og innstillingene dine nullstilt.";
