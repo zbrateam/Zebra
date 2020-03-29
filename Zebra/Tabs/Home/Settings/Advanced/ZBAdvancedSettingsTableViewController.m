@@ -13,6 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
+#import <WebKit/WebKit.h>
 
 @interface ZBAdvancedSettingsTableViewController ()
 
@@ -20,9 +21,12 @@
 
 @implementation ZBAdvancedSettingsTableViewController
 
++ (NSArray <NSArray <NSString *> *> *)titles {
+    return @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Clear Image Cache", @"Clear Web Cache", @"Clear Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = NSLocalizedString(@"Advanced", @"");
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsAdvancedCell"];
@@ -31,27 +35,17 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return [[self class] titles].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 2;
-        case 1:
-            return 2;
-        case 2:
-            return 2;
-        default:
-            return 1;
-    }
+    return [[self class] titles][section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAdvancedCell"];
     
-    NSArray <NSArray <NSString *> *> *titles = @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Reset Image Cache", @"Reset Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
-    cell.textLabel.text = NSLocalizedString(titles[indexPath.section][indexPath.row], @"");
+    cell.textLabel.text = NSLocalizedString([[self class] titles][indexPath.section][indexPath.row], @"");
     cell.textLabel.textColor = [UIColor accentColor];
     return cell;
 }
@@ -76,6 +70,9 @@
                     [self resetImageCache:indexPath];
                     break;
                 case 1:
+                    [self resetWebCache:indexPath];
+                    break;
+                case 2:
                     [self resetSourcesCache:indexPath];
                     break;
             }
@@ -112,7 +109,7 @@
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Image Cache Reset", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Image Cache Cleared", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
     
@@ -126,6 +123,23 @@
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
         [self presentViewController:refreshController animated:YES completion:nil];
     } indexPath:indexPath];
+}
+
+- (void)resetWebCache:(NSIndexPath *)indexPath {
+    NSSet *dataTypes = [NSSet setWithArray:@[WKWebsiteDataTypeDiskCache,
+                                             WKWebsiteDataTypeMemoryCache,
+    ]];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:dataTypes
+                                               modifiedSince:[NSDate dateWithTimeIntervalSince1970:0]
+                                           completionHandler:^{
+    }];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Web Cache Cleared", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
+
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:true completion:nil];
+    });
 }
 
 - (void)resetAllSettings:(BOOL)confirm indexPath:(NSIndexPath *)indexPath {
