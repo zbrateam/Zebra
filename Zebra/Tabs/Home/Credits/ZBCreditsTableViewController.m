@@ -68,7 +68,7 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView reloadData];
             self.navigationItem.titleView = NULL;
             self.navigationItem.title = NSLocalizedString(@"Credits", @"");
         });
