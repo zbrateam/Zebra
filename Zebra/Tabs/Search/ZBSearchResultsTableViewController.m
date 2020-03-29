@@ -6,13 +6,10 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import SDWebImage;
-
 #import "ZBSearchResultsTableViewController.h"
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
-
-#import <Extensions/UIImageView+Zebra.h>
+#import "ZBLiveSearchResultTableViewCell.h"
 
 @interface ZBSearchResultsTableViewController ()
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
@@ -63,14 +60,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= filteredResults.count) return NULL;
     if (_live) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
+        ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
         ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
-        
-        cell.textLabel.text = proxyPackage.name;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-        [[cell imageView] sd_setImageWithURL:[proxyPackage iconURL] placeholderImage:[UIImage imageNamed:[proxyPackage section]]];
-        [[cell imageView] resize:CGSizeMake(30, 30) applyRadius:false];
+        [cell updateData:proxyPackage];
         
         return cell;
     }

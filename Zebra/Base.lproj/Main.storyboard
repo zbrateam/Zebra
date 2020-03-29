@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -370,22 +370,54 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="liveSearchResultCell" textLabel="1Nw-VY-E85" rowHeight="40" style="IBUITableViewCellStyleDefault" id="cCr-s3-X3q">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="liveSearchResultCell" rowHeight="40" id="cCr-s3-X3q" customClass="ZBLiveSearchResultTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="414" height="40"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cCr-s3-X3q" id="nIH-3E-o5k">
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Nw-VY-E85">
-                                            <rect key="frame" x="20" y="0.0" width="355" height="40"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hRx-zB-SZg">
+                                            <rect key="frame" x="20" y="5" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Wof-9h-8LC"/>
+                                                <constraint firstAttribute="width" constant="30" id="uYQ-pr-FvL"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Package Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRP-EQ-gi9">
+                                            <rect key="frame" x="62" y="10" width="269" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="31E-Ri-iDL">
+                                            <rect key="frame" x="339" y="13" width="36" height="14"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Paid" translatesAutoresizingMaskIntoConstraints="NO" id="g7X-5T-9bG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="14" height="14"/>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Installed" translatesAutoresizingMaskIntoConstraints="NO" id="gMn-q5-thk">
+                                                    <rect key="frame" x="22" y="0.0" width="14" height="14"/>
+                                                </imageView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="hRx-zB-SZg" firstAttribute="centerY" secondItem="nIH-3E-o5k" secondAttribute="centerY" id="3zs-Uq-Zqb"/>
+                                        <constraint firstItem="31E-Ri-iDL" firstAttribute="centerY" secondItem="nIH-3E-o5k" secondAttribute="centerY" id="A43-lP-BuF"/>
+                                        <constraint firstItem="hRx-zB-SZg" firstAttribute="leading" secondItem="nIH-3E-o5k" secondAttribute="leadingMargin" id="PtH-pV-XK2"/>
+                                        <constraint firstItem="fRP-EQ-gi9" firstAttribute="centerY" secondItem="nIH-3E-o5k" secondAttribute="centerY" id="pS9-SU-qo8"/>
+                                        <constraint firstItem="31E-Ri-iDL" firstAttribute="leading" secondItem="fRP-EQ-gi9" secondAttribute="trailing" constant="8" id="po7-mh-Snk"/>
+                                        <constraint firstItem="fRP-EQ-gi9" firstAttribute="leading" secondItem="hRx-zB-SZg" secondAttribute="trailing" constant="12" id="scs-2M-l5t"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="31E-Ri-iDL" secondAttribute="trailing" id="vBU-XF-fGb"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="isInstalledImageView" destination="gMn-q5-thk" id="TjF-u9-Bkd"/>
+                                    <outlet property="isPaidImageView" destination="g7X-5T-9bG" id="a6P-Gc-feb"/>
+                                    <outlet property="packageIconImageView" destination="hRx-zB-SZg" id="5Jb-AQ-84O"/>
+                                    <outlet property="packageNameLabel" destination="fRP-EQ-gi9" id="BYP-9j-h6n"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1292,21 +1324,23 @@
             <point key="canvasLocation" x="4288.8000000000002" y="-3004.0479760119943"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Changes" width="30" height="30"/>
-        <image name="Chevron Down" width="27.5" height="17"/>
-        <image name="Dark" width="24" height="24"/>
-        <image name="Home" width="25" height="25"/>
-        <image name="Packages" width="25" height="25"/>
-        <image name="Search" width="25" height="25"/>
-        <image name="Settings" width="30" height="30"/>
-        <image name="Sources" width="25" height="25"/>
-        <image name="Unknown" width="29" height="29"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="63g-98-fnw"/>
         <segue reference="wqW-Kk-qIz"/>
         <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+    <resources>
+        <image name="Changes" width="30" height="30"/>
+        <image name="Chevron Down" width="27.5" height="17"/>
+        <image name="Dark" width="24" height="24"/>
+        <image name="Home" width="25" height="25"/>
+        <image name="Installed" width="14" height="14"/>
+        <image name="Packages" width="25" height="25"/>
+        <image name="Paid" width="14" height="14"/>
+        <image name="Search" width="25" height="25"/>
+        <image name="Settings" width="30" height="30"/>
+        <image name="Sources" width="25" height="25"/>
+        <image name="Unknown" width="29" height="29"/>
+    </resources>
 </document>

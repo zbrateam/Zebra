@@ -56,6 +56,7 @@
 		4910B3A82426BD5C00306C5C /* ZBSourcesAccountBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910B3A72426BD5C00306C5C /* ZBSourcesAccountBanner.m */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
+		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBRepoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
@@ -269,6 +270,8 @@
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
+		4947555424313A30008DC093 /* ZBLiveSearchResultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLiveSearchResultTableViewCell.h; sourceTree = "<group>"; };
+		4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveSearchResultTableViewCell.m; sourceTree = "<group>"; };
 		49C526EC227BCF1700840484 /* ZBRepoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBRepoTableViewCell.h; sourceTree = "<group>"; };
 		49C526ED227BCF1700840484 /* ZBRepoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRepoTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
@@ -615,6 +618,15 @@
 				2627B60E2321A64D00B141E5 /* originalBlack@3x.png */,
 			);
 			path = "Alternate Icons";
+			sourceTree = "<group>";
+		};
+		4947554E24313A13008DC093 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4947555424313A30008DC093 /* ZBLiveSearchResultTableViewCell.h */,
+				4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		8900FA512201EC6800476310 /* Helpers */ = {
@@ -972,6 +984,7 @@
 		89E8633721D5A1540081E485 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				4947554E24313A13008DC093 /* Views */,
 				895C2AD82402303B0065F424 /* ZBSearchTableViewController.h */,
 				895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */,
 				8997A9F024031007001894BF /* ZBSearchResultsTableViewController.h */,
@@ -1365,6 +1378,7 @@
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
 				89C227CE2371259E001C9C59 /* UITableViewRowAction+Image.m in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
+				4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */,
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
 				369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */,
 				9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */,
