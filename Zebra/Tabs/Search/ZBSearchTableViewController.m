@@ -146,12 +146,14 @@
     self->shouldPerformSearching = YES;
     
     NSString *newSearch = searchBar.text;
-    if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
-        [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
+    if (![recentSearches containsObject:newSearch]) {
+        if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
+            [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
+        }
+        [recentSearches insertObject:newSearch atIndex:0];
+        [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
-    [recentSearches insertObject:newSearch atIndex:0];
-    [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self updateSearchResultsForSearchController:searchController];
 }
