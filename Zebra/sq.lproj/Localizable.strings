@@ -102,16 +102,16 @@
 
 "Advanced" = "I avansuar";
 "Refresh Icon Cache" = "Rifreskoni cache-in e ikonave";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Pastro cache-n e imazheve";
+"Clear Sources Cache" = "Pastro cache-n e burimeve";
+"Clear Web Cache" = "Pastro cache-n e rrjetit";
 "Reset All Settings" = "Rikthim në gjendjen fillestare";
 "Erase All Sources and Settings" = "Fshij të gjitha burimet dhe konfigurimet";
 
 "Are you sure you want to restart the SpringBoard?" = "A jeni të sigurt që dëshironi të rifillino SpringBoard-in?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "A jeni të sigurt që dëshironi të rifreskoni cache-n e ikonave? Paisja juaj mund të mos përgjigjet deri sa ky proces të përfundoj.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "U pastruan cache-t e imazheve";
+"Web Cache Cleared" = "U pastruan cache-t e rrjetit";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "A jeni të sigurt që dëshironi të rivendosni cache-t e burimit të Zebras? Kjo do ti fshij të gjitha informacionet e cache-d nga burimi i të dhënave të Zebra-s dhe do ti ri-instaloj ato. Burimet e juaja nuk do të fshihen.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "A jeni të sigurt që dëshironi të rivendosni konfigurimet e Zebra-s? Kjo do të rikthej Zebra-n në gjendjen fillestare dhe Zebra do të rilëshohet.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "A jeni të sigurt që dëshironi të fshini të gjitha burimet dhe konfigurimet? Të gjitha burimet e tua do të largohen nga Zebra dhe konfigurimet do të rikthehen në gjendjen fillestare.";
