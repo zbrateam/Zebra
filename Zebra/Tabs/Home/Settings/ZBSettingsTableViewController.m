@@ -13,7 +13,7 @@
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
-#import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBSettingsResetTableViewController.h"
 #import "ZBFilterSettingsTableViewController.h"
 #import "ZBLanguageSettingsTableViewController.h"
 
@@ -440,7 +440,7 @@ enum ZBMiscOrder {
 }
 
 - (void)advancedSettings {
-    ZBAdvancedSettingsTableViewController *advancedController = [[ZBAdvancedSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    ZBSettingsResetTableViewController *advancedController = [[ZBSettingsResetTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [[self navigationController] pushViewController:advancedController animated:YES];
 }

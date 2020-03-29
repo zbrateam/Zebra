@@ -1,5 +1,5 @@
 //
-//  ZBAdvancedSettingsTableViewController.h
+//  ZBSettingsResetTableViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 2/20/20.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBAdvancedSettingsTableViewController : UITableViewController
+@interface ZBSettingsResetTableViewController : UITableViewController
 
 @end
 

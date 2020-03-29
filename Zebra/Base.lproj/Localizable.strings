@@ -99,8 +99,11 @@
 "Featured Repos" = "Featured Repos";
 
 // Advanced
-
 "Advanced" = "Advanced";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Refresh Icon Cache";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";

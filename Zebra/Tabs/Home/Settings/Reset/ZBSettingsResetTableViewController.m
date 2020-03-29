@@ -1,5 +1,5 @@
 //
-//  ZBAdvancedSettingsTableViewController.m
+//  ZBSettingsResetTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 2/20/20.
@@ -8,28 +8,28 @@
 
 @import SDWebImage;
 
-#import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBSettingsResetTableViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
 #import <WebKit/WebKit.h>
 
-@interface ZBAdvancedSettingsTableViewController ()
+@interface ZBSettingsResetTableViewController ()
 
 @end
 
-@implementation ZBAdvancedSettingsTableViewController
+@implementation ZBSettingsResetTableViewController
 
 + (NSArray <NSArray <NSString *> *> *)titles {
-    return @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Clear Image Cache", @"Clear Web Cache", @"Clear Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
+    return @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Clear Image Cache", @"Clear Web Cache", @"Clear Sources Cache"], @[@"Reset All Settings", @"Erase All Sources", @"Erase All Sources and Settings"]];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = NSLocalizedString(@"Advanced", @"");
+    self.title = NSLocalizedString(@"Reset", @"");
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsAdvancedCell"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsResetCell"];
 }
 
 #pragma mark - Table view data source
@@ -43,7 +43,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAdvancedCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsResetCell"];
     
     cell.textLabel.text = NSLocalizedString([[self class] titles][indexPath.section][indexPath.row], @"");
     cell.textLabel.textColor = [UIColor accentColor];
