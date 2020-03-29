@@ -102,14 +102,16 @@
 
 "Advanced" = "Fortgeschritten";
 "Refresh Icon Cache" = "Symbolcache aktualisieren";
-"Reset Image Cache" = "Bild-Cache zurücksetzen";
-"Reset Sources Cache" = "Quellen-Cache zurücksetzen";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Alle Einstellungen zurücksetzen";
 "Erase All Sources and Settings" = "Alle Quellen und Einstellungen löschen";
 
 "Are you sure you want to restart the SpringBoard?" = "Möchten Sie SpringBoard wirklich neu starten?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Möchten Sie den Symbol-Cache wirklich aktualisieren? Ihr Gerät reagiert möglicherweise nicht mehr, bis der Prozess abgeschlossen ist.";
-"Image Cache Reset" = "Bild-Cache zurücksetzen";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Möchten Sie den Quellen-Cache von Zebra wirklich zurücksetzen? Dadurch werden alle zwischengespeicherten Informationen aus der Datenbank von Zebra entfernt und erneut heruntergeladen. Ihre Quellen werden nicht gelöscht.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Möchten Sie die Einstellungen von Zebra wirklich zurücksetzen? Dadurch werden alle Einstellungen von Zebra auf ihre Standardwerte zurückgesetzt und Zebra neu gestartet.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Möchten Sie wirklich alle Quellen und Einstellungen löschen? Alle Ihre Quellen werden von Zebra entfernt und Ihre Einstellungen werden zurückgesetzt.";
