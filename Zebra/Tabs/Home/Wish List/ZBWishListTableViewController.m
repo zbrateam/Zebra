@@ -45,7 +45,7 @@
         if (package == NULL) {
             [wishedPackageIdentifiers removeObject:package];
         }
-        else {
+        else if (![wishedPackages containsObject:package]) {
             [wishedPackages addObject:package];
         }
     }
