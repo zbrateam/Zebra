@@ -87,7 +87,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
     
     [recentSearches removeAllObjects];
-    [self.tableView reloadData];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
 }
 
 #pragma mark - Search Results Updating Protocol
