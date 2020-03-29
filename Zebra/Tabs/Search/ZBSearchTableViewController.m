@@ -102,6 +102,10 @@
         NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
         if ([strippedString length] <= 1) {
+            results = @[];
+            
+            [resultsController setFilteredResults:results];
+            [resultsController refreshTable];
             return;
         }
         
