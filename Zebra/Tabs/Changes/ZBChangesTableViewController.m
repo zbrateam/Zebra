@@ -157,10 +157,11 @@
         }
         if (error) {
             NSLog(@"[Zebra] Error retrieving news JSON %@", error);
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self createHeader];
+            });
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createHeader];
-        });
     }] resume];
 }
 
