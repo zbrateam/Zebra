@@ -283,7 +283,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
  @return A cleaned array of authors (no duplicates) that match the search term.
  */
-- (NSArray <NSArray <NSString *> *> *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+- (NSArray <NSArray <NSString *> *> *)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+
+/*!
+ @brief A list of authors names whose email exactly matches the search term
+ @param authorEmail The email of the author.
+ @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
+ @return A cleaned array of authors (no duplicates) that match the search term.
+ */
+- (NSArray <NSString *> *)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.
