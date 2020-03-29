@@ -27,6 +27,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.clipsToBounds = YES;
+    self.isInstalledImageView.tintColor = [UIColor accentColor];
 }
 
 - (void)updateData:(ZBPackage *)package {
