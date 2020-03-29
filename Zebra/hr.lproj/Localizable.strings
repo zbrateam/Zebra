@@ -102,14 +102,16 @@
 
 "Advanced" = "Napredno";
 "Refresh Icon Cache" = "Osvježi Ikone";
-"Reset Image Cache" = "Resetiraj Međuspremnik Slika";
-"Reset Sources Cache" = "Resetiraj Međuspremnik Izvora";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Resetiraj Sve Postavke";
 "Erase All Sources and Settings" = "Obriši Sve Izvore i Postavke";
 
 "Are you sure you want to restart the SpringBoard?" = "Jeste li sigurni da želite ponovo pokrenuti SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Jeste li sigurni da želite osvježiti međuspremnik ikona? Vaš uređaj može prestati reagirati dok se proces ne završi.";
-"Image Cache Reset" = "Resetiranje Međuspremnika Slika";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Jeste li sigurni da želite resetirati međuspremnik izvora? Ovaj proces će obrisati sve spremljene informacije iz Zebrine baze podataka te ih ponovo preuzeti. Vaša lista izvora neće biti obrisana.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Jeste li sigurni da želite resetirati postavke? Ovaj postupak će vratiti sve Zebrine postavke u prvobitno stanje te će ponovo pokrenuti aplikaciju.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Jeste li sigurni da želite obrisati sve izvore i postavke? Svi vaši izvori će biti obrisani iz Zebre te će sve vaše postavke biti resetirane.";
