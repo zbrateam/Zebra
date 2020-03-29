@@ -102,14 +102,16 @@
 
 "Advanced" = "تنظیمات پیشرفته";
 "Refresh Icon Cache" = "بروزکردن حافظه آیکون‌ها";
-"Reset Image Cache" = "ریست کردن حافظه تصاویر";
-"Reset Sources Cache" = "ریست کردن حافظه سورس‌ها";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "ریست کردن تمام تنظیمات";
 "Erase All Sources and Settings" = "حذف تمامی سورس‌ها و تنظیمات";
 
 "Are you sure you want to restart the SpringBoard?" = "مطمئن هستید که می خواهید اسپرینگ‌برد را مجدداً راه اندازی کنید؟";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "آیا مطمئن هستید که می خواهید حافظه آیکون‌ها را تازه کنید؟ ممکن است دستگاه شما تا زمانی که روند کامل شود، پاسخگو نباشد.";
-"Image Cache Reset" = "بازنشانی مجدد حافظه پنهان تصویر";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "مطمئن هستید که می خواهید حافظه سورس‌های زبرا را مجددا تنظیم کنید؟ با این کار تمام اطلاعات ذخیره شده از پایگاه داده زبرا حذف و مجدداً بارگیری می شود. سورس‌ها حذف نمی شوند.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "آیا مطمئنید که می‌خواهید زبرا را ریست کنید؟ این کار همه تنظیمات زبرا را به حالت اولیه‌شان بر خواهد گرداند و زبرا مجددا شروع به کار خواهد کرد.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "آیا مطمئنید که می خواهید همه سورس‌ها و تنظیمات را ریست کنید؟ همه سورس‌های شما از زبرا حذف خواهند شد و تنظیمات شما به حالت اولیه خود باز خواهند گشت.";
