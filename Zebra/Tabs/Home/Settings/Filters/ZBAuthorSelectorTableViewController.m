@@ -16,7 +16,7 @@
 @interface ZBAuthorSelectorTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray <NSArray <NSString *> *> *authors;
-    NSString *selectedAuthor;
+    NSMutableArray <NSString *> *selectedEmails;
     BOOL shouldPerformSearching;
 }
 @end
@@ -32,6 +32,7 @@
     
     if (self) {
         authors = @[];
+        selectedEmails = [NSMutableArray new];
     }
     
     return self;
@@ -94,7 +95,7 @@
 
 - (void)addAuthors {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.authorsSelected(@[self->selectedAuthor]);
+        self.authorsSelected(selectedEmails);
     });
     
     if (searchController.active) {
@@ -188,6 +189,8 @@
     
     cell.detailTextLabel.text = authorDetail[1];
     cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+
+    cell.accessoryType = [selectedEmails containsObject:authorDetail[1]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -195,9 +198,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    selectedAuthor = authors[indexPath.row][0];
+    NSArray *authorDetail = authors[indexPath.row];
+    if ([selectedEmails containsObject:authorDetail[1]]) {
+        [selectedEmails removeObject:authorDetail[1]];
+    }
+    else {
+        [selectedEmails addObject:authorDetail[1]];
+    }
     
-    [self addAuthors];
+    [[self tableView] reloadData];
 }
 
 @end
