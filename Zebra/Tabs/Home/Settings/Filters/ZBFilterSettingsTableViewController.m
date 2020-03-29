@@ -12,12 +12,14 @@
 #import "ZBSectionSelectorTableViewController.h"
 #import "ZBAuthorSelectorTableViewController.h"
 
-#import <UIColor+GlobalColors.h>
-#import <UIImageView+Zebra.h>
+#import <Database/ZBDatabaseManager.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
 #import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
+
+#import <UIColor+GlobalColors.h>
+#import <UIImageView+Zebra.h>
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
@@ -114,9 +116,11 @@
         }
         case 2: {
             if (indexPath.row < [blockedAuthors count]) {
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 cell.textLabel.text = blockedAuthors[indexPath.row];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
-                
+                cell.tintColor = [UIColor accentColor];
                 return cell;
             }
             break;
@@ -130,6 +134,25 @@
     cell.textLabel.textColor = [UIColor accentColor];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2) {
+        NSMutableString *message = [NSLocalizedString(@"This author goes by the following names:", @"") mutableCopy];
+        
+        ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
+        NSArray *aliases = [database searchForAuthorFromEmail:blockedAuthors[indexPath.row] fullSearch:YES];
+        for (NSArray *alias in aliases) {
+            [message appendFormat:@"\n%@", alias[0]];
+        }
+        
+        UIAlertController *aliasList = [UIAlertController alertControllerWithTitle:blockedAuthors[indexPath.row] message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [aliasList addAction:ok];
+        
+        [self presentViewController:aliasList animated:true completion:nil];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -214,7 +237,7 @@
             if (lastRow) {
                 ZBAuthorSelectorTableViewController *authorPicker = [[ZBAuthorSelectorTableViewController alloc] init];
                 [authorPicker setAuthorsSelected:^(NSArray * _Nonnull selectedAuthors) {
-                    [self->blockedAuthors addObject:selectedAuthors[0]];
+                    [self->blockedAuthors addObjectsFromArray:selectedAuthors];
                     [ZBSettings setBlockedAuthors:self->blockedAuthors];
                     
                     [self refreshTable];
