@@ -102,14 +102,16 @@
 
 "Advanced" = "ขั้นสูง";
 "Refresh Icon Cache" = "ล้างแคชของไอคอน";
-"Reset Image Cache" = "ล้างแคชรูปภาพ";
-"Reset Sources Cache" = "ล้างแคชของซอร์ส";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "ล้างการตั้งค่าทั้งหมด";
 "Erase All Sources and Settings" = "ล้างการตั้งค่าและซอร์สทั้งหมด";
 
 "Are you sure you want to restart the SpringBoard?" = "คุณแน่ใจหรือไม่ที่จะเริ่มการทำงานของ SpringBoard ใหม่?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของไอคอน? เครื่องของคุณอาจไม่ตอบสนองในขณะที่กำลังล้างแคช";
-"Image Cache Reset" = "ล้างแคชรูปภาพแล้ว";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของซอร์สใน Zebra? ซึ่งจะทำการลบแคชทั้งหมดในฐานข้อมูลและดาวน์โหลดใหม่ ซอร์สของคุณจะยังไม่ถูกลบ";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "คุณแน่ใจหรือไม่ที่จะล้างการตั้งค่าของ Zebra? การตั้งค่าทุกอย่างจะกลับไปเป็นค่าเริ่มต้นและ Zebra จะเริ่มการทำงานใหม่";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "คุณแน่ใจหรือไม่ที่จะล้างซอร์สและการตั้งค่าทั้งหมด? ซอร์สและการตั้งค่าทั้งหมดจะกลับไปเป็นค่าเริ่มต้น";
