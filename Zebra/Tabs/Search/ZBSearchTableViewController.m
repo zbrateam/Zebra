@@ -85,10 +85,9 @@
 
 - (void)clearSearches {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [recentSearches removeAllObjects];
-    [self.tableView reloadData];
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
 }
 
 #pragma mark - Search Results Updating Protocol
@@ -146,12 +145,13 @@
     self->shouldPerformSearching = YES;
     
     NSString *newSearch = searchBar.text;
-    if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
-        [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
+    if (![recentSearches containsObject:newSearch]) {
+        if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
+            [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
+        }
+        [recentSearches insertObject:newSearch atIndex:0];
+        [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
     }
-    [recentSearches insertObject:newSearch atIndex:0];
-    [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     
     [self updateSearchResultsForSearchController:searchController];
 }
@@ -166,8 +166,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
     searchController.searchBar.text = recentSearches[indexPath.row];
-    [self updateSearchResultsForSearchController:searchController];
-    [self searchBarSearchButtonClicked:searchController.searchBar];
+    searchController.active = true;
+    [[self searchController].searchBar becomeFirstResponder];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
