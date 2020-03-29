@@ -100,6 +100,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     [self.tableView.tableHeaderView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
@@ -156,10 +159,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self configureNavButton];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
