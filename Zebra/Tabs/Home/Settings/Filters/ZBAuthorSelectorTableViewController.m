@@ -16,7 +16,7 @@
 @interface ZBAuthorSelectorTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSArray <NSArray <NSString *> *> *authors;
-    NSMutableArray <NSString *> *selectedEmails;
+    NSMutableDictionary <NSString *, NSString *> *selectedAuthors;
     BOOL shouldPerformSearching;
 }
 @end
@@ -32,7 +32,7 @@
     
     if (self) {
         authors = @[];
-        selectedEmails = [[ZBSettings blockedAuthors] mutableCopy];
+        selectedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     }
     
     return self;
@@ -102,12 +102,12 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addAuthors)];
-    self.navigationItem.rightBarButtonItem.enabled = [selectedEmails count];
+    self.navigationItem.rightBarButtonItem.enabled = [[selectedAuthors allKeys] count];
 }
 
 - (void)addAuthors {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.authorsSelected(self->selectedEmails);
+        self.authorsSelected(self->selectedAuthors);
     });
     
     if (searchController.active) {
@@ -203,7 +203,7 @@
     cell.detailTextLabel.text = authorDetail[1];
     cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
 
-    cell.accessoryType = [selectedEmails containsObject:authorDetail[1]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.accessoryType = [[selectedAuthors allKeys] containsObject:authorDetail[1]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
@@ -212,11 +212,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
     NSArray *authorDetail = authors[indexPath.row];
-    if ([selectedEmails containsObject:authorDetail[1]]) {
-        [selectedEmails removeObject:authorDetail[1]];
+    if ([selectedAuthors objectForKey:authorDetail[1]]) {
+        [selectedAuthors removeObjectForKey:authorDetail[1]];
     }
     else {
-        [selectedEmails addObject:authorDetail[1]];
+        [selectedAuthors setObject:authorDetail[0] forKey:authorDetail[1]];
     }
     
     [[self tableView] reloadData];

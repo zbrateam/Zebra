@@ -25,7 +25,7 @@
     NSMutableArray <ZBSource *> *sources;
     NSMutableDictionary <NSString *, NSArray *> *filteredSources;
     NSMutableArray <NSString *> *filteredSections;
-    NSMutableArray <NSString *> *blockedAuthors;
+    NSMutableDictionary <NSString *, NSString *> *blockedAuthors;
     NSMutableArray <ZBPackage *> *ignoredUpdates;
 }
 @end
@@ -116,10 +116,16 @@
         }
         case 2: {
             if (indexPath.row < [blockedAuthors count]) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
-                cell.textLabel.text = blockedAuthors[indexPath.row];
+                
+                cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
+                
+                cell.detailTextLabel.text = [blockedAuthors allKeys][indexPath.row];
+                cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+                
                 cell.tintColor = [UIColor accentColor];
                 return cell;
             }
@@ -138,15 +144,17 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 2) {
-        NSMutableString *message = [NSLocalizedString(@"This author goes by the following names:", @"") mutableCopy];
+        NSMutableString *message = [NSLocalizedString(@"This author also goes by the following names:", @"") mutableCopy];
         
         ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
-        NSArray *aliases = [database searchForAuthorFromEmail:blockedAuthors[indexPath.row] fullSearch:YES];
+        NSString *email = [blockedAuthors allKeys][indexPath.row];
+        NSString *name = blockedAuthors[email];
+        NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
         for (NSArray *alias in aliases) {
-            [message appendFormat:@"\n%@", alias[0]];
+            if (![alias[0] isEqual:name]) [message appendFormat:@"\n%@", alias[0]];
         }
         
-        UIAlertController *aliasList = [UIAlertController alertControllerWithTitle:blockedAuthors[indexPath.row] message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *aliasList = [UIAlertController alertControllerWithTitle:blockedAuthors[email] message:message preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
         [aliasList addAction:ok];
@@ -236,8 +244,8 @@
         case 2:
             if (lastRow) {
                 ZBAuthorSelectorTableViewController *authorPicker = [[ZBAuthorSelectorTableViewController alloc] init];
-                [authorPicker setAuthorsSelected:^(NSArray * _Nonnull selectedAuthors) {
-                    [self->blockedAuthors addObjectsFromArray:selectedAuthors];
+                [authorPicker setAuthorsSelected:^(NSDictionary * _Nonnull selectedAuthors) {
+                    [self->blockedAuthors addEntriesFromDictionary:selectedAuthors];
                     [ZBSettings setBlockedAuthors:self->blockedAuthors];
                     
                     [self refreshTable];
@@ -281,10 +289,10 @@
             break;
         }
         case 2: {
-            NSString *author = blockedAuthors[indexPath.row];
-            [blockedAuthors removeObject:author];
-            
-            [ZBSettings setBlockedAuthors:blockedAuthors];
+//            NSString *author = blockedAuthors[indexPath.row];
+//            [blockedAuthors removeObject:author];
+//
+//            [ZBSettings setBlockedAuthors:blockedAuthors];
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         }
