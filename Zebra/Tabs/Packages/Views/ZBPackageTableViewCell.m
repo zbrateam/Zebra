@@ -70,19 +70,6 @@
     self.isInstalledImageView.hidden = !installed;
     self.isPaidImageView.hidden = !paid;
     
-    if (!self.isInstalledImageView.hidden) {
-        self.isInstalledImageView.image = [UIImage imageNamed:@"Installed"];
-    }
-    if (!self.isPaidImageView.hidden) {
-        if (!installed) {
-            self.isInstalledImageView.image = self.isPaidImageView.image;
-            self.isInstalledImageView.hidden = NO;
-            self.isPaidImageView.hidden = YES;
-        } else {
-            self.isPaidImageView.image = [UIImage imageNamed:@"Paid"];
-        }
-    }
-    
     [self updateQueueStatus:package];
 }
 
