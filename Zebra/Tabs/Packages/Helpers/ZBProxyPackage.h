@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) ZBPackage *package;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
+- (BOOL)isInstalled;
 - (ZBPackage *)loadPackage;
 @end
 
