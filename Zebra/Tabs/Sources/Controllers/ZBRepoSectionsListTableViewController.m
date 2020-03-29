@@ -129,6 +129,7 @@
 
         accountBanner.layer.zPosition = 100;
         self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO]; // hack
     }
 }
 
