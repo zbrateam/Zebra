@@ -283,7 +283,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
  @return A cleaned array of authors (no duplicates) that match the search term.
  */
-- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+- (NSArray <NSArray <NSString *> *> *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.

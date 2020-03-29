@@ -1102,21 +1102,24 @@
     return NULL;
 }
 
-- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch {
+- (NSArray <NSArray <NSString *> *> *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *columns = fullSearch ? @"*" : @"AUTHORNAME";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHORNAME LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHORNAME ORDER BY (CASE WHEN AUTHORNAME = \'%@\' THEN 1 WHEN AUTHORNAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, authorName, authorName, authorName, limit];
+        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES WHERE AUTHORNAME LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHORNAME ORDER BY (CASE WHEN AUTHORNAME = \'%@\' THEN 1 WHEN AUTHORNAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", authorName, authorName, authorName, limit];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
+                const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
                 
                 NSString *author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
+                NSString *email = emailChars != 0 ? [NSString stringWithUTF8String:emailChars] : NULL;
                 
-                if (author) [searchResults addObject:author];
+                if (author && email) {
+                    [searchResults addObject:@[author, email]];
+                }
             }
         } else {
             [self printDatabaseError];
