@@ -49,7 +49,7 @@
             [wishedPackages addObject:package];
         }
     }
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     
 }
 
@@ -114,7 +114,7 @@
         
         [ZBSettings setWishlist:self->wishedPackageIdentifiers];
         
-        [self.tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
     [remove setBackgroundColor:[UIColor systemPinkColor]];

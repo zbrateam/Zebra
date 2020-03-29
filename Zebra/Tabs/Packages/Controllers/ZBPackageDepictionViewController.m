@@ -654,7 +654,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     UIColor *tableViewBackgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
     webView.backgroundColor = tableViewBackgroundColor;
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
     self.tableView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
@@ -763,7 +763,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self readPackageID:package];
     [self setMoreByText:package];
     infos[@(ZBPackageInfoWishList)] = @"";
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (NSUInteger)rowCount {

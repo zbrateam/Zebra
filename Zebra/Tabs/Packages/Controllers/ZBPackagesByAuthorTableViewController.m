@@ -22,12 +22,13 @@
     moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthorName:self.package.authorName email:self.package.authorEmail];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     self.navigationItem.title = self.developerName;
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     });
 }
 
@@ -80,7 +81,7 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [moreByAuthor objectAtIndex:indexPath.row];
     return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
 }
 
