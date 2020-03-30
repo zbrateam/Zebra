@@ -99,13 +99,17 @@
 "Featured Repos" = "注目のリポジトリ";
 
 // Advanced
-
 "Advanced" = "高度";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "キャッシュを更新";
 "Clear Image Cache" = "画像キャッシュをクリア";
 "Clear Sources Cache" = "リポジトリキャッシュをクリア";
 "Clear Web Cache" = "Webキャッシュをクリア";
 "Reset All Settings" = "すべての設定をリセット";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "すべてのリポジトリと設定を消去する";
 
 "Are you sure you want to restart the SpringBoard?" = "リスプリングしますか?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Webキャッシュをクリアしました";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "リポジトリのキャッシュをリセットしてもよろしいですか？ これにより、Zebra のデータベースからすべてのキャッシュが削除され、再ダウンロードされます。 リポジトリは削除されません。";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra の設定をリセットしてもよろしいですか？ これにより、Zebra のすべての設定がデフォルト値にリセットされ、Zebra が再起動します。";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "すべてのリポジトリと設定を消去してもよろしいですか？ すべてのソースが Zebra から削除され、設定がリセットされます。";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "すべてのリポジトリが削除され、Zebra が再起動します。";
 
