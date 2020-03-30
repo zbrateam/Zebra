@@ -380,6 +380,13 @@ enum ZBMiscOrder {
             }
             break;
         }
+        case ZBSources: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleAutoRefresh:switcher];
+            break;
+        }
         case ZBChanges: {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             UISwitch *switcher = (UISwitch *)cell.accessoryView;
@@ -539,6 +546,19 @@ enum ZBMiscOrder {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBHome] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
+}
+
+- (void)toggleAutoRefresh:(id)sender {
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsAutoRefresh:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSources] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
 }

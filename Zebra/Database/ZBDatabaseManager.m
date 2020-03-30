@@ -214,7 +214,7 @@
         [self setHaltDatabaseOperations:NO];
     }
     
-    if (!requested) {
+    if (!requested && [ZBSettings wantsAutoRefresh]) {
         NSDate *currentDate = [NSDate date];
         NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
 
