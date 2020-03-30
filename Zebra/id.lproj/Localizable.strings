@@ -430,9 +430,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Bahasa";
+"Apply" = "Terapkan";
+"Restart Required" = "Perlu Dijalankan Ulang";
+"Zebra must be closed in order to change preferred language" = "Zebra harus ditutup untuk mengubah bahasa yang diinginkan";
+"Restart" = "Mulai Ulang";
+"Use System Language" = "Gunakan Bahasa Sistem";
