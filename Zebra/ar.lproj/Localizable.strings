@@ -98,9 +98,6 @@
 "Select Repos to be Featured" = "حدد المصادر لتمييزها";
 "Featured Repos" = "المستودعات المميزة";
 
-// Advanced
-"Advanced" = "متقدم";
-
 // Reset
 
 "Reset" = "Reset";
@@ -121,6 +118,12 @@
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "هل أنت متأكد أنك تريد محو كل المصادر والإعدادات؟ سيتم إزالة جميع مصادرك من Zebra وسيتم إعادة تعيين إعداداتك.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف كل مصادرك للأبد وسيتم إعادة تشغيل Zebra.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
