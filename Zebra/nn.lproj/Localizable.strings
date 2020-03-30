@@ -99,13 +99,17 @@
 "Featured Repos" = "Utvalde kjelder";
 
 // Advanced
-
 "Advanced" = "Avansert";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Oppdater ikonbuffer";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Nullstill alle innstillingar";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Nullstill alle kjelder og innstillingar";
 
 "Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starta SpringBoard på nytt?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil nullstille kjeldebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon frå Zebra sin database og lasta det ned på nytt. Kjeldene dine blir ikkje fjerna.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil nullstille innstillingane til Zebra? Dette vil tilbakestille alle Zebra innstillingane til standardverdiane, og Zebra vil starta på nytt.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kjelder og innstillingar? Alle kjeldene dine vil bli fjerna frå Zebra, og innstillingane dine nullstilt.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kjeldene dine vil bli permanent fjerna, og Zebra vil starta på nytt.";
 
