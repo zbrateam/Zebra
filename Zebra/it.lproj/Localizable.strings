@@ -99,13 +99,17 @@
 "Featured Repos" = "Repo in evidenza";
 
 // Advanced
-
 "Advanced" = "Avanzato";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Aggiorna Cache Icone";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Ripristina tutte le impostazioni";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Cancella tutte le sorgenti e impostazioni";
 
 "Are you sure you want to restart the SpringBoard?" = "Sei sicuro di voler riavviare la SpringBoard?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Sei sicuro di voler resettare la cache di Zebra? Questa operazione rimuoverà tutte le informazioni memorizzate nel database di Zebra. Le tue sorgenti non verranno eliminate.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Sei sicuro di voler resettare le impostazioni di Zebra? Questa operazione resetterà tutte le impostazioni di Zebra ai loro valori predefiniti e Zebra si riavvierà.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Sei sicuro di voler cancellare tutte le sorgenti e impostazioni? Tutte le sorgenti verranno rimosse da Zebra e le impostazioni verranno ripristinate.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tutte le tue fonti verranno eliminate per sempre e Zebra si riavvierà.";
 
