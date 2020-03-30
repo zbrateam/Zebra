@@ -99,13 +99,17 @@
 "Featured Repos" = "Rodomiausios saugyklos";
 
 // Advanced
-
 "Advanced" = "Išplėstiniai nustatymai";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Atnaujinti piktogramų podelį";
 "Clear Image Cache" = "Išvalyti paveikslėlių podėlį";
 "Clear Sources Cache" = "Išvalyti šaltinių podelį";
 "Clear Web Cache" = "Išvalyti žiniatinklio podelį";
 "Reset All Settings" = "Atkurti visus nustatymus";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Ištrinti visus šaltinius ir nustatymus";
 
 "Are you sure you want to restart the SpringBoard?" = "Ar esate įsitikinę, kad norite perkrauti SpringBoard?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Žiniatinklio podelis išvalytas";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Ar esate įsitikinę, kad norite atstatyti Zebra šaltinių podėlį? Tai pašalins visą podelio informaciją iš Zebra duomenų bazės ir pakartotinai jį atsiųs. Jūsų šaltiniai nebus pašalinti.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Ar esate įsitikinę, kad norite atstatyti Zebra nustatymus? Tai atstatys Zebra į gamyklinius nustatymus ir Zebra persikraus.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Ar esate įsitikinę, kad norite pašalinti visus šaltinius ir nustatymus? Visi jūsų šaltiniai bus pašalinti iš Zebra ir nustatymai bus atstatyti į gamyklinius.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsų šaltiniai bus pašalinti negrįžtamai ir Zebra persikraus.";
 
