@@ -42,6 +42,10 @@
     return self;
 }
 
+- (BOOL)isInstalled {
+    return repoID <= 0;
+}
+
 - (ZBPackage *)loadPackage {
     if (package) return package;
     

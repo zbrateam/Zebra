@@ -12,18 +12,20 @@
 #import "ZBSectionSelectorTableViewController.h"
 #import "ZBAuthorSelectorTableViewController.h"
 
-#import <UIColor+GlobalColors.h>
-#import <UIImageView+Zebra.h>
+#import <Database/ZBDatabaseManager.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
 #import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
 
+#import <UIColor+GlobalColors.h>
+#import <UIImageView+Zebra.h>
+
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
-    NSDictionary <NSString *, NSArray *> *filteredSources;
+    NSMutableDictionary <NSString *, NSArray *> *filteredSources;
     NSMutableArray <NSString *> *filteredSections;
-    NSMutableArray <NSString *> *blockedAuthors;
+    NSMutableDictionary <NSString *, NSString *> *blockedAuthors;
     NSMutableArray <ZBPackage *> *ignoredUpdates;
 }
 @end
@@ -114,9 +116,17 @@
         }
         case 2: {
             if (indexPath.row < [blockedAuthors count]) {
-                cell.textLabel.text = [self stripEmailFrom:blockedAuthors[indexPath.row]];
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.accessoryType = UITableViewCellAccessoryDetailButton;
+                
+                cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
+                cell.detailTextLabel.text = [blockedAuthors allKeys][indexPath.row];
+                cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+                
+                cell.tintColor = [UIColor accentColor];
                 return cell;
             }
             break;
@@ -127,9 +137,30 @@
     }
     
     cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
-    cell.textLabel.textColor = [UIColor accentColor];
+    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 2) {
+        NSMutableString *message = [NSLocalizedString(@"This author also goes by the following names:", @"") mutableCopy];
+        
+        ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
+        NSString *email = [blockedAuthors allKeys][indexPath.row];
+        NSString *name = blockedAuthors[email];
+        NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
+        for (NSArray *alias in aliases) {
+            if (![alias[0] isEqual:name]) [message appendFormat:@"\n%@", alias[0]];
+        }
+        
+        UIAlertController *aliasList = [UIAlertController alertControllerWithTitle:blockedAuthors[email] message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [aliasList addAction:ok];
+        
+        [self presentViewController:aliasList animated:true completion:nil];
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -175,6 +206,8 @@
                     [ZBSettings setFilteredSections:self->filteredSections];
                     
                     [self refreshTable];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sectionPicker];
@@ -211,11 +244,13 @@
         case 2:
             if (lastRow) {
                 ZBAuthorSelectorTableViewController *authorPicker = [[ZBAuthorSelectorTableViewController alloc] init];
-                [authorPicker setAuthorsSelected:^(NSArray * _Nonnull selectedAuthors) {
-                    [self->blockedAuthors addObject:selectedAuthors[0]];
+                [authorPicker setAuthorsSelected:^(NSDictionary * _Nonnull selectedAuthors) {
+                    [self->blockedAuthors addEntriesFromDictionary:selectedAuthors];
                     [ZBSettings setBlockedAuthors:self->blockedAuthors];
                     
                     [self refreshTable];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:authorPicker];
@@ -229,26 +264,39 @@
     }
 }
 
-- (NSString *)stripEmailFrom:(NSString *)author {
-    if (author != NULL && author.length > 0) {
-        if ([author containsString:@"<"] && [author containsString:@">"]) {
-            NSArray *components = [author componentsSeparatedByString:@" <"];
-            if ([components count] <= 1) components = [author componentsSeparatedByString:@"<"];
-            if ([components count] > 1) {
-                return components[0];
-            }
-        }
-        
-        return author;
-    }
-    else {
-        return NULL;
-    }
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     NSUInteger rowCount = [tableView numberOfRowsInSection:indexPath.section];
     return indexPath.row != rowCount - 1;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case 0: {
+            NSString *section = filteredSections[indexPath.row];
+            [filteredSections removeObject:section];
+            
+            [ZBSettings setFilteredSections:filteredSections];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+        case 1: {
+            ZBSource *source = sources[indexPath.row];
+            [filteredSources removeObjectForKey:[source baseFilename]];
+            [sources removeObjectAtIndex:indexPath.row];
+            
+            [ZBSettings setFilteredSources:filteredSources];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+        case 2: {
+//            NSString *author = blockedAuthors[indexPath.row];
+//            [blockedAuthors removeObject:author];
+//
+//            [ZBSettings setBlockedAuthors:blockedAuthors];
+            [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+    }
 }
 
 @end

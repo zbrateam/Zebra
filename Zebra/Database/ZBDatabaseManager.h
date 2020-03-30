@@ -283,7 +283,15 @@ NS_ASSUME_NONNULL_BEGIN
  @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
  @return A cleaned array of authors (no duplicates) that match the search term.
  */
-- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+- (NSArray <NSArray <NSString *> *> *)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+
+/*!
+ @brief A list of authors names whose email exactly matches the search term
+ @param authorEmail The email of the author.
+ @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
+ @return A cleaned array of authors (no duplicates) that match the search term.
+ */
+- (NSArray <NSString *> *)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.
@@ -465,11 +473,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList;
 
 /*!
- @brief Returns all packages made by a specific author.
- @param author The Authors name that you wish to look for.
- @return An array of every package made by specified author.
+ @brief Returns all packages made by the specific author.
+ @param name The author's name that you wish to look for.
+ @param email The author's email that you wish to look for.
+ @return An array of every package made by the specified author.
  */
-- (NSArray *)packagesByAuthor:(NSString *)author;
+- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *)email;
 
 
 /*!

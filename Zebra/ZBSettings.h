@@ -7,6 +7,7 @@
 //
 
 @class ZBSource;
+@class ZBPackage;
 
 #import <Foundation/Foundation.h>
 
@@ -30,6 +31,10 @@ extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
 extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
 extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
 extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
+extern NSString * _Nonnull const UsesSystemAccentColorKey; // Stored as BOOL
+
+extern NSString * _Nonnull const UseSystemLanguageKey; // Stored as BOOL
+extern NSString * _Nonnull const SelectedLanguageKey; // Stored as NSString
 
 extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
 extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
@@ -39,6 +44,8 @@ extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
 extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
 
 extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
+
+extern NSString * _Nonnull const WishlistKey; // Stored as NSArray
 
 #pragma mark - Accent Colors
 
@@ -103,6 +110,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
 
+#pragma mark - Language
+
++ (BOOL)usesSystemLanguage;
++ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage;
+
++ (NSString *)selectedLanguage;
++ (void)setSelectedLanguage:(NSString *_Nullable)languageCode;
+
 #pragma mark - Filters
 
 + (NSArray *)filteredSections;
@@ -114,8 +129,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
 
-+ (NSArray *)blockedAuthors;
-+ (void)setBlockedAuthors:(NSArray *)blockedAuthors;
++ (NSDictionary *)blockedAuthors;
++ (void)setBlockedAuthors:(NSDictionary *)blockedAuthors;
++ (BOOL)isAuthorBlocked:(NSString *)email;
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package;
 
 #pragma mark - Homepage settings
 
@@ -140,6 +158,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBSwipeActionStyle)swipeActionStyle;
 + (void)setSwipeActionStyle:(NSNumber *)style;
+
+#pragma mark - Wishlist
+
++ (NSArray *)wishlist;
++ (void)setWishlist:(NSArray *)wishlist;
 
 @end
 

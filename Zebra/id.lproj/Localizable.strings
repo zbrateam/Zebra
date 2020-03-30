@@ -10,6 +10,7 @@
 "Close" = "Tutup";
 "Done" = "Selesai";
 "Loading..." = "Memuat...";
+"Clear" = "Bersihkan";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Transfer Sumber";
 "Verifying Source" = "Memverifikasi Sumber";
 "Verifying Sources" = "Memverifikasi Sumber";
+"Import" = "Impor";
+"Verifying..." = "Memverifikasi...";
+"Confirm Import" = "Konfirmasi impor";
+"Import Sources" = "Import Sumber";
+"No sources to import" = "Tidak ada sumber untuk diimpor";
+"Would you like to import the following sources?" = "Apakah Anda ingin mengimpor sumber berikut?";
+"Are you sure that you want to import 1 source into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport 1 sumber ke Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport %d sumber ke Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Toko";
-"Account" = "Akun";
+"My Account" = "Akun Saya";
 "Sign In" = "Masuk";
 "Sign Out" = "Keluar";
 "Your Purchases" = "Pembelian anda";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
 "Could not complete purchase, no payment secret was found" = "Tidak dapat menyelesaikan pembelian, pembayaran rahasia tidak ditemukan";
 "No packages purchased" = "Tidak ada paket yang dibeli";
+"Logged in as %@ (%@)." = "Masuk sebagai %@ (%@).";
 
 // Sources
 
 "Sources" = "Sumber";
-"Local Repository" = "Repositori Lokal";
-"Locally installed packages" = "Paket Lokal terinstall";
 "Unknown" = "Tidak Diketahui";
-"No source URLs detected." = "Tidak ada URL sumber yang terdeteksi.";
-"You have already added this source." = "Kamu sudah menambahkan sumber ini.";
-"You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
-"Error verifying source" = "Galat memverifikasi sumber";
-"Error verifying sources" = "Galat memverifikasi sumber";
-"Unknown error" = "Kesalahan tidak diketahui";
-"Invalid URL" = "URL tidak valid";
-"Enter Source URL" = "Masukkan URL Sumber";
-"Add Sources" = "Tambahkan Sumber";
-"Add" = "Tambah";
-"Add Multiple" = "Tambahkan Beberapa";
-"Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
-"Please Wait..." = "Tunggu Sebentar...";
-"Verifying Source(s)" = "Memverifikasi Sumber";
-"Unable to verify source" = "Tidak dapat memverifikasi sumber";
+"Delete" = "Hapus";
 "Refresh" = "Segarkan";
 "All Packages" = "Semua Paket";
-"Delete" = "Hapus";
-"Import Sources" = "Import Sumber";
+"Remove Source" = "Hapus Sumber";
+"Local Repository" = "Repositori Lokal";
+"Locally installed packages" = "Paket Lokal terinstall";
+
+"Add" = "Tambah";
+"Add Sources" = "Tambahkan Sumber";
+"Add Multiple" = "Tambahkan Beberapa";
+"Enter Source URL" = "Masukkan URL Sumber";
+"Would you like to add the URL from your clipboard?" = "Apakah anda ingin menambahkan URL dari clipboard anda?";
+
+"Please Wait..." = "Tunggu Sebentar...";
+"Verifying Source" = "Memverifikasi Sumber";
+"Verifying Sources" = "Memverifikasi Sumber";
 "Updating Sources" = "Memperbarui Sumber";
-"Would you like to import the following sources?" = "Apakah Anda ingin mengimpor sumber berikut?";
+
+"Unknown error" = "Kesalahan tidak diketahui";
+"Invalid URL" = "URL tidak valid";
+"Invalid Source" = "Sumber Tidak Valid";
+"Tap to learn more" = "Ketuk untuk mempelajari lebih lanjut";
+"No source URLs detected." = "Tidak ada URL sumber yang terdeteksi.";
+"Unable to verify source" = "Tidak dapat memverifikasi sumber";
+"Error verifying source" = "Galat memverifikasi sumber";
+"Error verifying sources" = "Galat memverifikasi sumber";
 "Failed to add source" = "Gagal untuk menambahkan sumber";
 "Failed to add sources" = "Gagal untuk menambahkan sumber";
+"You have already added this source." = "Kamu sudah menambahkan sumber ini.";
+"You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
-"Import Sources" = "Import Sumber";
-"Import" = "Impor";
-"Are you sure that you want to import %d sources into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport %d sumber ke Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport 1 sumber ke Zebra?";
-"Verifying..." = "Memverifikasi...";
-"Confirm Import" = "Konfirmasi impor";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "URL yang Anda masukkan tidak valid. Silakan periksa dan coba lagi.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra tidak dapat mengunduh sumber yang ditentukan di %@. Mungkin sementara tidak dapat diakses atau mungkin ditambahkan secara tidak benar.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Tanggal";
 "Size" = "Ukuran";
-"Clear" = "Bersihkan";
-"Are you sure you want to clear the Queue?" = "Apakah Anda yakin ingin membersihkan antrian?";
 "Available Upgrades" = "Peningkatan Yang Tersedia";
 "Ignored Upgrades" = "Abaikan Peningkatan";
 "Recent" = "Terkini";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Pencarian";
-"Clear Search" = "Bersihkan Pencarian";
 "This search query is too short for the full search, please use a longer query." = "Pencarian pertanyaan ini terlalu pendek untuk pencarian lengkap, silakan gunakan pertanyaan yang lebih panjang.";
 "No Results Found" = "Tidak Ada Hasil Yang Ditemukan";
+"Name" = "Nama";
+"Description" = "Deskripsi";
+"Author" = "Author";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
 "%@ hasn't been modified" = "%@ belum dimodifikasi";
 "Could not parse %@ from %@" = "Tidak dapat mengurai %@ dari %@";
+"A total of %d files will be downloaded" = "Total %d file akan diunduh";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Menutup Zebra...";
 "Restart SpringBoard" = "Mulai ulang SpringBoard";
 "Restarting SpringBoard..." = "Mulai ulang SpringBoard...";
-"Parsing" = "Parsing";
+"Parsing %@" = "Parsing %@";
 "Starting Download" = "Sedang memulai Unduhan";
 "Downloading" = "Mengunduh";
+"Downloading %@" = "Mengunduh %@";
 "Downloading Packages..." = "Mengunduh paket...";
 "Download Completed" = "Unduhan Selesai";
 "Installing" = "Memasang";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Satu atau lebih paket gagal untuk diunduh.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Kembali ke Antrian\" untuk kembali ke antrian dan coba download ulang.";
 "Done..." = "Selesai...";
+"Done %@" = "Selesai %@";
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
+"Adding Payment Vendor URL for %@" = "Menambahkan URL Vendor Pembayaran untuk %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Lanjutkan";
 "Download Size" = "Ukuran Unduhan";
 "Confirm" = "Konfirmasi";
-"%@ must be removed because it depends on %@" = "%@ harus dihapus karena tergantung pada %@";
-"Required Package" = "Paket yang Dibutuhkan";
-"%@ is required by:" = "%@ diperlukan oleh:";
 "Issues" = "Isu";
-"%@ has issues that cannot be resolved:" = "%@ memiliki masalah yang tidak dapat diselesaikan:";
+"Required Package" = "Paket yang Dibutuhkan";
 "Are you sure?" = "Apakah Anda yakin?";
+"Remove from Queue" = "Hapus dari Antrian";
+"Clear Queue" = "Hapus Antrian";
+"%@ is required by:" = "%@ diperlukan oleh:";
+"%@ must be removed because it depends on %@" = "%@ harus dihapus karena tergantung pada %@";
+"%@ has issues that cannot be resolved:" = "%@ memiliki masalah yang tidak dapat diselesaikan:";
 "Are you sure you want to clear the queue?" = "Apakah Anda yakin ingin membersihkan antrian?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ adalah paket wajib. Seharusnya TIDAK dihapus kecuali Anda tahu persis apa yang Anda lakukan!";
-"Remove from Queue" = "Hapus dari Antrian";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Masuk ke sumber memungkinkan untuk pembelian paket berbayar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Secara otomatis mengabaikan Konsol ketika semua tugasnya telah selesai.";
+
+// Filters
+"Filters" = "Filter";
+"Add Filter" = "Tambahkan Filter";
+
+"1 Section Hidden" = "1 Bagian Tersembunyi";
+"%lu Sources Hidden" = "%lu Sumber Tersembunyi";
+
+"Sections" = "Bagian";
+"Hide packages in these sections." = "Sembunyikan paket di bagian ini.";
+
+"Sources" = "Sumber";
+"Hide packages in these sections from specific sources." = "Sembunyikan paket di bagian ini dari sumber tertentu.";
+
+"Updates" = "Pembaruan";
+"Hide future updates from these packages." = "Sembunyikan pembaruan di masa mendatang dari paket-paket ini.";
+
+"Authors" = "Penulis";
+"Hide packages from these authors." = "Sembunyikan paket dari penulis ini.";

@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property BOOL purchased;
-@property NSString *authorEmail;
 @property (nonatomic, weak) UIViewController *parent;
 - (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo;
 - (id)initWithPackage:(ZBPackage *)package;

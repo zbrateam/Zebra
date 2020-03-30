@@ -10,6 +10,7 @@
 "Close" = "Закрыть";
 "Done" = "Готово";
 "Loading..." = "Загрузка...";
+"Clear" = "Очистить";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Перенести Источники";
 "Verifying Source" = "Проверка Источника";
 "Verifying Sources" = "Проверка Источников";
+"Import" = "Импорт";
+"Verifying..." = "Проверка...";
+"Confirm Import" = "Подтвердите Импорт";
+"Import Sources" = "Импортировать Источники";
+"No sources to import" = "Нет источников для импортирования";
+"Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
+"Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "Магазины";
-"Account" = "Аккаунт";
+"My Account" = "Мой Аккаунт";
 "Sign In" = "Войти";
 "Sign Out" = "Выйти";
 "Your Purchases" = "Ваши Покупки";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 "No packages purchased" = "Нет купленных пакетов";
+"Logged in as %@ (%@)." = "Выполнен вход как %@ (%@).";
 
 // Sources
 
 "Sources" = "Источники";
-"Local Repository" = "Локальный Репозиторий";
-"Locally installed packages" = "Локально установленные пакеты";
 "Unknown" = "Неизвестно";
-"No source URLs detected." = "URL источников не обнаружено.";
-"You have already added this source." = "Вы уже добавили этот источник.";
-"You have already added these sources." = "Вы уже добавили эти источники.";
-"Error verifying source" = "Ошибка проверки источника";
-"Error verifying sources" = "Ошибка проверки источников";
-"Unknown error" = "Неизвестная ошибка";
-"Invalid URL" = "Неверный URL";
-"Enter Source URL" = "Введите URL Источника";
-"Add Sources" = "Добавить Источники";
-"Add" = "Добавить";
-"Add Multiple" = "Добавить Несколько";
-"Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
-"Please Wait..." = "Пожалуйста, подождите...";
-"Verifying Source(s)" = "Проверка Источника(ов)";
-"Unable to verify source" = "Не удалось проверить источник";
+"Delete" = "Удалить";
 "Refresh" = "Обновить";
 "All Packages" = "Все Пакеты";
-"Delete" = "Удалить";
-"Import Sources" = "Импортировать Источники";
+"Remove Source" = "Удалить Источник";
+"Local Repository" = "Локальный Репозиторий";
+"Locally installed packages" = "Локально установленные пакеты";
+
+"Add" = "Добавить";
+"Add Sources" = "Добавить Источники";
+"Add Multiple" = "Добавить Несколько";
+"Enter Source URL" = "Введите URL Источника";
+"Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
+
+"Please Wait..." = "Пожалуйста, подождите...";
+"Verifying Source" = "Проверка Источника";
+"Verifying Sources" = "Проверка Источников";
 "Updating Sources" = "Обновление Источников";
-"Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
+
+"Unknown error" = "Неизвестная ошибка";
+"Invalid URL" = "Неверный URL";
+"Invalid Source" = "Неверный Источник";
+"Tap to learn more" = "Нажмите, чтобы узнать больше";
+"No source URLs detected." = "URL источников не обнаружено.";
+"Unable to verify source" = "Не удалось проверить источник";
+"Error verifying source" = "Ошибка проверки источника";
+"Error verifying sources" = "Ошибка проверки источников";
 "Failed to add source" = "Не удалось добавить источник";
 "Failed to add sources" = "Не удалось добавить источники";
+"You have already added this source." = "Вы уже добавили этот источник.";
+"You have already added these sources." = "Вы уже добавили эти источники.";
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
-"Import Sources" = "Импортировать Источники";
-"Import" = "Импорт";
-"Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
-"Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
-"Verifying..." = "Проверка...";
-"Confirm Import" = "Подтвердите Импорт";
-"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
-"Tap to learn more" = "Нажмите, чтобы узнать больше";
-"Invalid Source" = "Неверный Источник";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra не удалось загрузить источник, указанный в %@. Возможно, он добавлен неправильно или временно недоступен.";
-"Remove Source" = "Удалить Источник";
 
+"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra не удалось загрузить источник, указанный в %@. Возможно, он добавлен неправильно или временно недоступен.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "Алфавит";
 "Date" = "Дата";
 "Size" = "Размер";
-"Clear" = "Очистить";
-"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить Очередь?";
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
 "Recent" = "Недавнее";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Поиск";
-"Clear Search" = "Очистить Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
 "No Results Found" = "Результаты Не Найдены";
+"Name" = "Имя";
+"Description" = "Описание";
+"Author" = "Автор";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Невозможно найти URL загрузки для";
 "%@ hasn't been modified" = "%@ не был изменен";
 "Could not parse %@ from %@" = "Невозможно получить %@ из %@";
+"A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Закрытие Zebra...";
 "Restart SpringBoard" = "Перезапустить SpringBoard";
 "Restarting SpringBoard..." = "Перезапуск SpringBoard...";
-"Parsing" = "Анализ";
+"Parsing %@" = "Анализ %@";
 "Starting Download" = "Начало загрузки";
 "Downloading" = "Загрузка";
+"Downloading %@" = "Загрузка %@";
 "Downloading Packages..." = "Загрузка Пакетов...";
 "Download Completed" = "Загрузка Завершена";
 "Installing" = "Установка";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
 "Done..." = "Готово...";
+"Done %@" = "Завершено %@";
 "Removing Zebra..." = "Удаление Zebra...";
 "Installing Zebra..." = "Установка Zebra...";
+"Adding Payment Vendor URL for %@" = "Добавление URL Поставщика Платежа для %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Продолжить";
 "Download Size" = "Размер загрузки";
 "Confirm" = "Подтвердить";
-"%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
-"Required Package" = "Требуемый Пакет";
-"%@ is required by:" = "%@ требуется пактом:";
 "Issues" = "Проблемы";
-"%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
+"Required Package" = "Требуемый Пакет";
 "Are you sure?" = "Вы уверены?";
+"Remove from Queue" = "Удалить из Очереди";
+"Clear Queue" = "Очистить Очередь";
+"%@ is required by:" = "%@ требуется пактом:";
+"%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
+"%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
 "Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
-"Remove from Queue" = "Удалить из Очереди";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Вход в репозитории позволяет вам покупать платные твики.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
+
+// Filters
+"Filters" = "Фильтры";
+"Add Filter" = "Добавить Фильтр";
+
+"1 Section Hidden" = "1 Раздел Скрыт";
+"%lu Sources Hidden" = "%lu Источников Скрыто";
+
+"Sections" = "Разделы";
+"Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
+
+"Sources" = "Источники";
+"Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
+
+"Updates" = "Обновления";
+"Hide future updates from these packages." = "Скрыть будущие обновления этих пакетов.";
+
+"Authors" = "Авторы";
+"Hide packages from these authors." = "Скрыть пакеты от этих авторов.";

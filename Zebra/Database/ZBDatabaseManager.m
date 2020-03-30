@@ -673,7 +673,7 @@
         if (section != NULL) {
             query = [NSString stringWithFormat:@"SELECT COUNT(distinct package) FROM PACKAGES WHERE SECTION = \'%@\' AND %@", section, repoPart];
         } else {
-            query = [NSString stringWithFormat:@"SELECT SECTION, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", repoPart];
+            query = [NSString stringWithFormat:@"SELECT SECTION, AUTHORNAME, REPOID FROM PACKAGES WHERE %@ GROUP BY PACKAGE", repoPart];
         }
         
         sqlite3_stmt *statement;
@@ -684,9 +684,15 @@
                         ++packages;
                     } else {
                         const char *packageSection = (const char *)sqlite3_column_text(statement, 1);
-                        int repoID = sqlite3_column_int(statement, 2);
-                        if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:repoID]])
-                            ++packages;
+                        const char *packageAuthor = (const char *)sqlite3_column_text(statement, 2);
+                        if (packageSection != 0 && packageAuthor != 0) {
+                            int repoID = sqlite3_column_int(statement, 3);
+                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:repoID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor]])
+                                ++packages;
+                        }
+                        else {
+                            ++packages; // We can't filter this package as it has no section or no author
+                        }
                     }
                 } else {
                     packages = sqlite3_column_int(statement, 0);
@@ -893,7 +899,7 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 
-                if (section == NULL && enableFiltering && [ZBSettings isSectionFiltered:[package section] forSource:[package repo]])
+                if (section == NULL && enableFiltering && [ZBSettings isPackageFiltered:package])
                     continue;
                 
                 [packages addObject:package];
@@ -1096,21 +1102,56 @@
     return NULL;
 }
 
-- (NSArray *)searchForAuthor:(NSString *)authorName fullSearch:(BOOL)fullSearch {
+- (NSArray <NSArray <NSString *> *> *)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *columns = fullSearch ? @"*" : @"AUTHOR";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHOR LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHOR ORDER BY (CASE WHEN AUTHOR = \'%@\' THEN 1 WHEN AUTHOR LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, authorName, authorName, authorName, limit];
+        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES WHERE AUTHORNAME LIKE \'%%%@\%%\' AND REPOID > -1 GROUP BY AUTHORNAME ORDER BY (CASE WHEN AUTHORNAME = \'%@\' THEN 1 WHEN AUTHORNAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", authorName, authorName, authorName, limit];
         
         sqlite3_stmt *statement;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
+                const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
                 
                 NSString *author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
+                NSString *email = emailChars != 0 ? [NSString stringWithUTF8String:emailChars] : NULL;
                 
-                if (author) [searchResults addObject:author];
+                if (author && email) {
+                    [searchResults addObject:@[author, email]];
+                }
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+        
+        return searchResults;
+    } else {
+        [self printDatabaseError];
+    }
+    return NULL;
+}
+
+- (NSArray <NSString *> *)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSMutableArray *searchResults = [NSMutableArray new];
+        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
+        NSString *query = [NSString stringWithFormat:@"SELECT AUTHORNAME, AUTHOREMAIL FROM PACKAGES WHERE AUTHOREMAIL = \'%@\' AND REPOID > -1 GROUP BY AUTHORNAME COLLATE NOCASE%@", authorEmail, limit];
+        
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                const char *authorChars = (const char *)sqlite3_column_text(statement, 0);
+                const char *emailChars = (const char *)sqlite3_column_text(statement, 1);
+                
+                NSString *author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
+                NSString *email = emailChars != 0 ? [NSString stringWithUTF8String:emailChars] : NULL;
+                
+                if (author && email) {
+                    [searchResults addObject:@[author, email]];
+                }
             }
         } else {
             [self printDatabaseError];
@@ -1128,8 +1169,9 @@
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE IN ('\%@') ORDER BY NAME COLLATE NOCASE ASC", [requestedPackages componentsJoinedByString:@"','"]];
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE IN (?) ORDER BY NAME COLLATE NOCASE ASC", -1, &statement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_text(statement, 1, [[requestedPackages componentsJoinedByString:@"','"] UTF8String], -1, SQLITE_TRANSIENT);
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
@@ -1681,14 +1723,15 @@
     return NULL;
 }
 
-- (NSArray *)packagesByAuthor:(NSString *)author {
+- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *)email {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSMutableArray *packageIdentifiers = [NSMutableArray new];
         
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, REPOID FROM PACKAGES WHERE AUTHOR = ?;", -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [author UTF8String], -1, SQLITE_TRANSIENT);
+        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, REPOID FROM PACKAGES WHERE AUTHORNAME = ? AND AUTHOREMAIL = ?;", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [email UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             int repoID = sqlite3_column_int(statement, 1);

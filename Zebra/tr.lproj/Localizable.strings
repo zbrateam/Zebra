@@ -10,6 +10,7 @@
 "Close" = "Kapat";
 "Done" = "Tamamla";
 "Loading..." = "Yükleniyor...";
+"Clear" = "Temizle";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "Kaynakları Transfer Et";
 "Verifying Source" = "Kaynak Onaylanıyor";
 "Verifying Sources" = "Kaynaklar Onaylanıyor";
+"Import" = "İçeri Aktar";
+"Verifying..." = "Doğrulanıyor...";
+"Confirm Import" = "İçeri Aktarmayı Onayla";
+"Import Sources" = "Kaynakları İçeri Al";
+"No sources to import" = "Aktarma edilecek kaynak yok";
+"Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
+"Are you sure that you want to import 1 source into Zebra?" = "%d kaynağını Zebra'ya eklemek istediğinize emin misiniz?";
+"Are you sure that you want to import %d sources into Zebra?" = "%d kaynaklarını Zebra'ya eklemek istediğinize emin misiniz?";
+
 
 // Credits
 
@@ -107,58 +117,56 @@
 // Stores
 
 "Stores" = "Market";
-"Account" = "Hesap";
-"Sign In" = "Sign In";
+"My Account" = "My Account";
+"Sign In" = "Oturum Aç";
 "Sign Out" = "Oturumu Kapat";
 "Your Purchases" = "Satın Aldıklarınız";
 "No Storefronts Available" = "Vitrinde İçerik Bulunamadı";
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
-"No packages purchased" = "No packages purchased";
+"No packages purchased" = "Hiç Paket Satın Alınmadı";
+"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
 
 // Sources
 
 "Sources" = "Kaynaklar";
-"Local Repository" = "Yüklü Kaynaklar";
-"Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
 "Unknown" = "Bilinmiyor";
-"No source URLs detected." = "Kaynak URL’si Bulunamadı.";
-"You have already added this source." = "Bu kaynağı zaten eklediniz.";
-"You have already added these sources." = "Zaten bu kaynakları ekledin.";
-"Error verifying source" = "Kaynağı doğrularken hata oluştu";
-"Error verifying sources" = "Kaynak doğrulanamadı";
-"Unknown error" = "Bilinmeyen Hata";
-"Invalid URL" = "Geçersiz Link";
-"Enter Source URL" = "Kaynak URL'sini Gir";
-"Add Sources" = "Kaynakları Ekle";
-"Add" = "Ekle";
-"Add Multiple" = "Birden Fazla Ekle";
-"Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
-"Please Wait..." = "Lütfen Bekleyin...";
-"Verifying Source(s)" = "Kaynak(lar) Onaylanıyor";
-"Unable to verify source" = "Kaynağı Onaylayamıyoruz";
+"Delete" = "Sil";
 "Refresh" = "Yenile";
 "All Packages" = "Bütün Paketler";
-"Delete" = "Sil";
-"Import Sources" = "Kaynakları İçeri Al";
+"Remove Source" = "Kaynağı Kaldır";
+"Local Repository" = "Yüklü Kaynaklar";
+"Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
+
+"Add" = "Ekle";
+"Add Sources" = "Kaynakları Ekle";
+"Add Multiple" = "Birden Fazla Ekle";
+"Enter Source URL" = "Kaynak URL'sini Gir";
+"Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
+
+"Please Wait..." = "Lütfen Bekleyin...";
+"Verifying Source" = "Kaynak doğrulanıyor";
+"Verifying Sources" = "Kaynaklar doğrulanıyor";
 "Updating Sources" = "Kaynaklar Güncelleniyor";
-"Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
+
+"Unknown error" = "Bilinmeyen Hata";
+"Invalid URL" = "Geçersiz Link";
+"Invalid Source" = "Geçersiz Kaynak";
+"Tap to learn more" = "Daha fazlası için dokunun";
+"No source URLs detected." = "Kaynak URL’si Bulunamadı.";
+"Unable to verify source" = "Kaynağı Onaylayamıyoruz";
+"Error verifying source" = "Kaynağı doğrularken hata oluştu";
+"Error verifying sources" = "Kaynak doğrulanamadı";
 "Failed to add source" = "Kaynak eklenemedi";
 "Failed to add sources" = "Kaynaklar eklenemedi";
+"You have already added this source." = "Bu kaynağı zaten eklediniz.";
+"You have already added these sources." = "Zaten bu kaynakları ekledin.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT deposu şu konumda bulunamadı:";
-"Import Sources" = "Kaynakları İçeri Al";
-"Import" = "İçeri Aktar";
-"Are you sure that you want to import %d sources into Zebra?" = "%d kaynaklarını Zebra'ya eklemek istediğinize emin misiniz?";
-"Are you sure that you want to import 1 source into Zebra?" = "%d kaynağını Zebra'ya eklemek istediğinize emin misiniz?";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"The URL you entered is not valid. Please check it and try again." = "Girilen URL doğru değil. Lütfen kontrol edin ve tekrar deneyin.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra %@'daki kaynağı indiremedi. Kaynak geçici olarak erişilemez veya hatalı eklenmiş olabilir.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "Tarih";
 "Size" = "Boyut";
-"Clear" = "Temizle";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "Available Upgrades" = "Uygun Güncellemeler";
 "Ignored Upgrades" = "Yoksayılan Güncellemeler";
 "Recent" = "En Son";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "Ara";
-"Clear Search" = "Aramayı Temizle";
 "This search query is too short for the full search, please use a longer query." = "Yaptığınız arama, arama yapmak için çok kısaydı. Lütfen daha uzun bir şey arayın.";
 "No Results Found" = "Hiçbir Sonuç Bulunamadı";
+"Name" = "İsim";
+"Description" = "Açıklama";
+"Author" = "Yazar";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
 "%@ hasn't been modified" = "%@ Düzenlenmemiş";
 "Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
+"A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Zebra Kapatılıyor...";
 "Restart SpringBoard" = "SpringBoard'u Yeniden Başlat";
 "Restarting SpringBoard..." = "SpringBoard Yeniden Başlatılıyor...";
-"Parsing" = "Ayrıştırılıyor";
+"Parsing %@" = "%@ Ayrıştırılıyor";
 "Starting Download" = "İndirme Başlatılıyor";
 "Downloading" = "İndiriliyor";
+"Downloading %@" = "İndiriliyor %@";
 "Downloading Packages..." = "Paketler İndiriliyor...";
 "Download Completed" = "İndirme Tamamlandı";
 "Installing" = "Yükleniyor";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
 "Done..." = "Tamamlandı...";
+"Done %@" = "Tamamlandı %@";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
+"Adding Payment Vendor URL for %@" = "%@ için Ödeme Satıcısı URL'si ekleniyor";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "Devam";
 "Download Size" = "İndirme Boyutu";
 "Confirm" = "Onayla";
-"%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
-"Required Package" = "Gerekli Paket";
-"%@ is required by:" = "%@ şunun tarafından isteniyor:";
 "Issues" = "Sorunlar";
-"%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
+"Required Package" = "Gerekli Paket";
 "Are you sure?" = "Emin misiniz?";
+"Remove from Queue" = "Sıradan çıkar";
+"Clear Queue" = "Listeyi temizle";
+"%@ is required by:" = "%@ şunun tarafından isteniyor:";
+"%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
+"%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
 "Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket. Eğer ne yaptığınızı tam olarak bilmiyorsanız kaldırmamalısınız!";
-"Remove from Queue" = "Sıradan çıkar";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "Kaynaklarda oturum açmak, ücretli paketlerin satın alınmasına izin verir.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
+
+// Filters
+"Filters" = "Filtreler";
+"Add Filter" = "Filtre Ekle";
+
+"1 Section Hidden" = "1 Kısım Gizli";
+"%lu Sources Hidden" = "%lu Sources Hidden";
+
+"Sections" = "Kısımlar";
+"Hide packages in these sections." = "Hide packages in these sections.";
+
+"Sources" = "Kaynaklar";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+
+"Updates" = "Güncellemeler";
+"Hide future updates from these packages." = "Şu paketlerin güncellemelerini gizle.";
+
+"Authors" = "Authors";
+"Hide packages from these authors." = "Şu geliştiricilerin paketlerini gizle";

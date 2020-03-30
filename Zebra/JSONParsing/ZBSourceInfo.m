@@ -5,11 +5,6 @@
 // Shorthand for simple blocks
 #define λ(decl, expr) (^(decl) { return (expr); })
 
-// nil → NSNull conversion for JSON dictionaries
-static id NSNullify(id _Nullable x) {
-    return (x == nil || x == NSNull.null) ? NSNull.null : x;
-}
-
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Private model interfaces

@@ -100,6 +100,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     [self.tableView.tableHeaderView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
@@ -156,10 +159,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self configureNavButton];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -654,7 +653,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     UIColor *tableViewBackgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
     webView.backgroundColor = tableViewBackgroundColor;
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
     self.tableView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
@@ -700,7 +699,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)setMoreByText:(ZBPackage *)package {
-    if (package.author) {
+    if (package.authorName) {
         infos[@(ZBPackageInfoMoreBy)] = NSLocalizedString(@"More by this Developer", @"");
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoMoreBy)];
@@ -745,9 +744,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readAuthor:(ZBPackage *)package {
-    NSString *authorName = [package author];
+    NSString *authorName = [package authorName];
     if (authorName) {
-        infos[@(ZBPackageInfoAuthor)] = [self stripEmailFromAuthor];
+        infos[@(ZBPackageInfoAuthor)] = authorName;
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoAuthor)];
     }
@@ -763,30 +762,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self readPackageID:package];
     [self setMoreByText:package];
     infos[@(ZBPackageInfoWishList)] = @"";
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (NSUInteger)rowCount {
     return infos.count;
-}
-
-- (NSString *)stripEmailFromAuthor {
-    if (package.author != NULL && package.author.length > 0) {
-        if ([package.author containsString:@"<"] && [package.author containsString:@">"]) {
-            NSArray *components = [package.author componentsSeparatedByString:@" <"];
-            if ([components count] <= 1) components = [package.author componentsSeparatedByString:@"<"];
-            if ([components count] > 1) {
-                self.authorEmail = [components[1] stringByReplacingOccurrencesOfString:@">" withString:@""];
-                
-                return components[0];
-            }
-        }
-        
-        return package.author;
-    }
-    else {
-        return NULL;
-    }
 }
 
 - (void)sendEmailToDeveloper {
@@ -798,16 +778,16 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
         [mail setSubject:subject];
         [mail setMessageBody:body isHTML:NO];
-        [mail setToRecipients:@[self.authorEmail]];
+        [mail setToRecipients:@[self.package.authorEmail]];
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
-        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.authorEmail, subject, body];
+        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
         NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
         } else {
-            [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: url]];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
     }
 }
@@ -851,7 +831,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoAuthor:
             cell.textLabel.text = value;
-            cell.accessoryType = self.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
+            cell.accessoryType = self.package.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
             break;
         case ZBPackageInfoVersion:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -869,8 +849,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             cell.detailTextLabel.text = value;
             break;
         case ZBPackageInfoWishList: {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
+            BOOL inWishList = [[ZBSettings wishlist] containsObject:package.identifier];
             cell.textLabel.text = NSLocalizedString(inWishList ? @"Remove from Wish List" : @"Add to Wish List", @"");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -917,7 +896,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         case ZBPackageInfoID:
             break;
         case ZBPackageInfoAuthor:
-            if (self.authorEmail) {
+            if (self.package.authorEmail) {
                 [self sendEmailToDeveloper];
             }
             break;
@@ -926,20 +905,19 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         case ZBPackageInfoRepo:
             break;
         case ZBPackageInfoWishList: {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSMutableArray *wishList = [[defaults objectForKey:wishListKey] mutableCopy];
+            NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
             BOOL inWishList = [wishList containsObject:package.identifier];
             if (inWishList) {
                 [wishList removeObject:package.identifier];
-                [defaults setObject:wishList forKey:wishListKey];
             } else {
                 [wishList addObject:package.identifier];
-                [defaults setObject:wishList forKey:wishListKey];
             }
-            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [ZBSettings setWishlist:wishList];
+            
+            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ZBPackageInfoWishList inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             break;
         } case ZBPackageInfoMoreBy:
-            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
+            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:self.package.authorName];
             break;
         case ZBPackageInfoInstalledFiles: {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

@@ -6,13 +6,10 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import SDWebImage;
-
 #import "ZBSearchResultsTableViewController.h"
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
-
-#import <Extensions/UIImageView+Zebra.h>
+#import "ZBLiveSearchResultTableViewCell.h"
 
 @interface ZBSearchResultsTableViewController ()
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
@@ -49,17 +46,7 @@
 #pragma mark - Table view data source
 
 - (void)refreshTable {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:self.tableView
-          duration:0.35f
-          options:UIViewAnimationOptionTransitionCrossDissolve
-          animations:^(void) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                [self setNeedsStatusBarAppearanceUpdate];
-            });
-          } completion:nil];
-    });
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -67,20 +54,29 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return filteredResults.count;
+    NSInteger resultsCount = filteredResults.count;
+    
+    if (resultsCount == 0) {
+        UILabel *noSearchResultsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, tableView.frame.size.height)];
+        noSearchResultsLabel.text = [NSLocalizedString(@"No Results Found", @"") stringByAppendingString:@"\n\n\n\n\n\n\n"];
+        noSearchResultsLabel.numberOfLines = 0;
+        noSearchResultsLabel.textColor = [UIColor secondaryTextColor];
+        noSearchResultsLabel.textAlignment = NSTextAlignmentCenter;
+        noSearchResultsLabel.font = [UIFont systemFontOfSize:15];
+        tableView.backgroundView = noSearchResultsLabel;
+    } else {
+        tableView.backgroundView = NULL;
+    }
+    
+    return resultsCount;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= filteredResults.count) return NULL;
     if (_live) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
+        ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
         ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
-        
-        cell.textLabel.text = proxyPackage.name;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
-        [[cell imageView] sd_setImageWithURL:[proxyPackage iconURL] placeholderImage:[UIImage imageNamed:[proxyPackage section]]];
-        [[cell imageView] resize:CGSizeMake(30, 30) applyRadius:false];
+        [cell updateData:proxyPackage];
         
         return cell;
     }

@@ -26,8 +26,8 @@
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.iconImageView.layer.cornerRadius = 10;
-    self.iconImageView.layer.shadowRadius = 3;
     self.iconImageView.clipsToBounds = YES;
+    self.isInstalledImageView.tintColor = [UIColor accentColor];
 }
 
 - (void)updateData:(ZBPackage *)package {
@@ -39,7 +39,7 @@
     self.descriptionLabel.text = package.shortDescription;
     ZBSource *repo = package.repo;
     NSString *repoName = repo.origin;
-    NSString *author = [self stripEmailFromAuthor:package.author];
+    NSString *author = package.authorName;
     NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (author.length)
@@ -71,19 +71,6 @@
     self.isInstalledImageView.hidden = !installed;
     self.isPaidImageView.hidden = !paid;
     
-    if (!self.isInstalledImageView.hidden) {
-        self.isInstalledImageView.image = [UIImage imageNamed:@"Installed"];
-    }
-    if (!self.isPaidImageView.hidden) {
-        if (!installed) {
-            self.isInstalledImageView.image = self.isPaidImageView.image;
-            self.isInstalledImageView.hidden = NO;
-            self.isPaidImageView.hidden = YES;
-        } else {
-            self.isPaidImageView.image = [UIImage imageNamed:@"Paid"];
-        }
-    }
-    
     [self updateQueueStatus:package];
 }
 
@@ -109,17 +96,6 @@
     self.descriptionLabel.textColor = [UIColor secondaryTextColor];
     self.authorAndRepoAndSize.textColor = [UIColor secondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
-}
-
-- (NSString *)stripEmailFromAuthor:(NSString *)name {
-    NSArray *tokens = [name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for (NSString *cut in tokens) {
-        if (![cut hasPrefix:@"<"] && ![cut hasSuffix:@">"]) {
-            [cleanedStrings addObject:cut];
-        }
-    }
-    return [cleanedStrings componentsJoinedByString:@" "];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

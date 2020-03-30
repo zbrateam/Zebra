@@ -10,6 +10,7 @@
 "Close" = "閉じる";
 "Done" = "完了";
 "Loading..." = "読み込み中...";
+"Clear" = "クリア";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "リポジトリの読み込み";
 "Verifying Source" = "リポジトリを検証中";
 "Verifying Sources" = "リポジトリを検証中";
+"Import" = "インポート";
+"Verifying..." = "検証中...";
+"Confirm Import" = "インポートの確認";
+"Import Sources" = "リポジトリを追加する";
+"No sources to import" = "インポートするレポジトリがありません";
+"Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
+"Are you sure that you want to import 1 source into Zebra?" = "リポジトリを Zebra にインポートしてもよろしいですか？";
+"Are you sure that you want to import %d sources into Zebra?" = "%d リポジトリを Zebra にインポートしてもよろしいですか？";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "ストア";
-"Account" = "アカウント";
+"My Account" = "マイアカウント";
 "Sign In" = "サインイン";
 "Sign Out" = "サインアウト";
 "Your Purchases" = "購入済みパッケージ";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "購入を完了できませんでした";
 "Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 "No packages purchased" = "購入したパッケージはありません";
+"Logged in as %@ (%@)." = "%@ としてログイン中 (%@)";
 
 // Sources
 
 "Sources" = "リポジトリ";
-"Local Repository" = "ローカルリポジトリ";
-"Locally installed packages" = "ローカルでインストールされたパッケージ";
 "Unknown" = "不明";
-"No source URLs detected." = "リポジトリ URL が検出されませんでした。";
-"You have already added this source." = "このリポジトリはすでに追加されています。";
-"You have already added these sources." = "これらのリポジトリはすでに追加されています。";
-"Error verifying source" = "リポジトリの検証エラー";
-"Error verifying sources" = "リポジトリの検証エラー";
-"Unknown error" = "不明なエラー";
-"Invalid URL" = "無効なURL";
-"Enter Source URL" = "リポジトリ URL を入力する";
-"Add Sources" = "リポジトリを追加";
-"Add" = "追加";
-"Add Multiple" = "複数追加";
-"Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
-"Please Wait..." = "お待ちください...";
-"Verifying Source(s)" = "リポジトリの検証中";
-"Unable to verify source" = "リポジトリを検証できませんでした";
+"Delete" = "削除";
 "Refresh" = "再読み込み";
 "All Packages" = "すべてのパッケージ";
-"Delete" = "削除";
-"Import Sources" = "リポジトリを追加する";
+"Remove Source" = "リポジトリを削除";
+"Local Repository" = "ローカルリポジトリ";
+"Locally installed packages" = "ローカルでインストールされたパッケージ";
+
+"Add" = "追加";
+"Add Sources" = "リポジトリを追加";
+"Add Multiple" = "複数追加";
+"Enter Source URL" = "リポジトリ URL を入力する";
+"Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
+
+"Please Wait..." = "お待ちください...";
+"Verifying Source" = "リポジトリを検証中";
+"Verifying Sources" = "リポジトリを検証中";
 "Updating Sources" = "リポジトリを更新中";
-"Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
+
+"Unknown error" = "不明なエラー";
+"Invalid URL" = "無効なURL";
+"Invalid Source" = "無効なリポジトリ";
+"Tap to learn more" = "タップして詳細を表示";
+"No source URLs detected." = "リポジトリ URL が検出されませんでした。";
+"Unable to verify source" = "リポジトリを検証できませんでした";
+"Error verifying source" = "リポジトリの検証エラー";
+"Error verifying sources" = "リポジトリの検証エラー";
 "Failed to add source" = "リポジトリの追加に失敗しました";
 "Failed to add sources" = "リポジトリの追加に失敗しました";
+"You have already added this source." = "このリポジトリはすでに追加されています。";
+"You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
-"Import Sources" = "リポジトリを追加する";
-"Import" = "インポート";
-"Are you sure that you want to import %d sources into Zebra?" = "%dリポジトリをZebraにインポートしてもよろしいですか？";
-"Are you sure that you want to import 1 source into Zebra?" = "リポジトリをZebraにインポートしてもよろしいですか？";
-"Verifying..." = "検証中...";
-"Confirm Import" = "インポートの確認";
-"The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
-"Tap to learn more" = "タップして詳細を表示";
-"Invalid Source" = "無効なリポジトリ";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra は %@ で指定されたリポジトリをダウンロードできませんでした。 一時的にアクセスできないか、誤って追加された可能性があります。";
-"Remove Source" = "リポジトリを削除";
 
+"The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra は %@ で指定されたリポジトリをダウンロードできませんでした。 一時的にアクセスできないか、誤って追加された可能性があります。";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "ABC";
 "Date" = "日付";
 "Size" = "サイズ";
-"Clear" = "クリア";
-"Are you sure you want to clear the Queue?" = "キューをクリアしてもよろしいですか？";
 "Available Upgrades" = "利用可能なアップグレード";
 "Ignored Upgrades" = "無視しているアップグレード";
 "Recent" = "最近";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "検索";
-"Clear Search" = "検索履歴をクリア";
 "This search query is too short for the full search, please use a longer query." = "この検索クエリは完全な検索をするには短すぎます。長いクエリを使用してください。";
 "No Results Found" = "検索結果が見つかりませんでした。";
+"Name" = "名前";
+"Description" = "概要";
+"Author" = "作者";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
 "%@ hasn't been modified" = "%@ は変更されていません";
 "Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
+"A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Restarting SpringBoard..." = "SpringBoard を再起動しています...";
-"Parsing" = "処理中";
+"Parsing %@" = "%@ を解析中";
 "Starting Download" = "ダウンロードを開始します。";
 "Downloading" = "ダウンロードしています";
+"Downloading %@" = "%@ をダウンロード中";
 "Downloading Packages..." = "パッケージをダウンロードします...";
 "Download Completed" = "ダウンロード完了";
 "Installing" = "インストールしています";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
 "Done..." = "完了...";
+"Done %@" = "%@ を完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
+"Adding Payment Vendor URL for %@" = "支払いベンダーのURL (%@) を追加しています";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "続行";
 "Download Size" = "サイズ";
 "Confirm" = "実行";
-"%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
-"Required Package" = "要求されたパッケージ";
-"%@ is required by:" = "%@ は以下のパッケージに必要です";
 "Issues" = "問題点";
-"%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
+"Required Package" = "要求されたパッケージ";
 "Are you sure?" = "よろしいですか？";
+"Remove from Queue" = "キューから削除";
+"Clear Queue" = "キューをクリア";
+"%@ is required by:" = "%@ は以下のパッケージに必要です";
+"%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
+"%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure you want to clear the queue?" = "キューをクリアしてもよろしいですか？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ は必須パッケージです。あなたが何をしているのかを正確に知らない限り、削除しないでください！";
-"Remove from Queue" = "キューから削除";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "リポジトリにサインインすると、有料パッケージを購入できます。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
+
+// Filters
+"Filters" = "フィルター";
+"Add Filter" = "フィルターを追加";
+
+"1 Section Hidden" = "一つのセクションが非表示になっています";
+"%lu Sources Hidden" = "%lu のレポジトリが非表示になっています";
+
+"Sections" = "セクション";
+"Hide packages in these sections." = "このセクションでパッケージを非表示にします";
+
+"Sources" = "リポジトリ";
+"Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
+
+"Updates" = "アップデート";
+"Hide future updates from these packages." = "これらのパッケージのアップデートを非表示にします。";
+
+"Authors" = "作者";
+"Hide packages from these authors." = "これらの作者からのパッケージを非表示にします";

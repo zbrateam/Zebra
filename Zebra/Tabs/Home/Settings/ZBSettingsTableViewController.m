@@ -13,8 +13,9 @@
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
-#import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBSettingsResetTableViewController.h"
 #import "ZBFilterSettingsTableViewController.h"
+#import "ZBLanguageSettingsTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -24,11 +25,12 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSearch,
     ZBConsole,
     ZBMisc,
-    ZBAdvanced
+    ZBReset
 };
 
 typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
     ZBDisplay,
+    ZBLanguage,
     ZBAppIcon
 };
 
@@ -62,6 +64,9 @@ enum ZBMiscOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"");
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
@@ -75,9 +80,6 @@ enum ZBMiscOrder {
     
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {
@@ -116,11 +118,10 @@ enum ZBMiscOrder {
         case ZBMisc:
         case ZBSearch:
         case ZBConsole:
-        case ZBAdvanced:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
-                return 2;
+                return 3;
             }
             return 1;
         case ZBFeatured: {
@@ -136,6 +137,8 @@ enum ZBMiscOrder {
             
             return rows;
         }
+        case ZBReset:
+            return 2;
         default:
             return 0;
     }
@@ -184,6 +187,10 @@ enum ZBMiscOrder {
             switch (row) {
                 case ZBDisplay: {
                     cell.textLabel.text = NSLocalizedString(@"Display", @"");
+                    break;
+                }
+                case ZBLanguage: {
+                    cell.textLabel.text = NSLocalizedString(@"Language", @"");
                     break;
                 }
                 case ZBAppIcon: {
@@ -303,10 +310,10 @@ enum ZBMiscOrder {
             cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
-        case ZBAdvanced: {
-            cell.textLabel.text = NSLocalizedString(@"Advanced", @"");
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        case ZBReset: {
+            cell.textLabel.text = indexPath.row == 0 ? NSLocalizedString(@"Reset", @"") : NSLocalizedString(@"Open Documents Directory", @"");
+            cell.textLabel.textColor = indexPath.row == 0 ? [UIColor primaryTextColor] : [UIColor accentColor] ?: [UIColor systemBlueColor];
+            cell.accessoryType = indexPath.row == 0 ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             return cell;
         }
     }
@@ -321,6 +328,9 @@ enum ZBMiscOrder {
             switch (row) {
                 case ZBDisplay:
                     [self displaySettings];
+                    break;
+                case ZBLanguage:
+                    [self chooseLanguage];
                     break;
                 case ZBAppIcon:
                     [self changeIcon];
@@ -374,9 +384,15 @@ enum ZBMiscOrder {
             [self toggleFinishAutomatically:switcher];
             break;
         }
-        case ZBAdvanced: {
-            [self advancedSettings];
-            break;
+        case ZBReset: {
+            switch (indexPath.row) {
+                case 0:
+                    [self resetSettings];
+                    break;
+                case 1:
+                    [self openDocumentsDirectory];
+                    break;
+            }
         }
         default:
             break;
@@ -424,10 +440,30 @@ enum ZBMiscOrder {
     [[self navigationController] pushViewController:displayController animated:YES];
 }
 
-- (void)advancedSettings {
-    ZBAdvancedSettingsTableViewController *advancedController = [[ZBAdvancedSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+- (void)chooseLanguage {
+    ZBLanguageSettingsTableViewController *languageController = [[ZBLanguageSettingsTableViewController alloc] init];
+    
+    [[self navigationController] pushViewController:languageController animated:YES];
+}
+
+- (void)resetSettings {
+    ZBSettingsResetTableViewController *advancedController = [[ZBSettingsResetTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [[self navigationController] pushViewController:advancedController animated:YES];
+}
+
+- (void)openDocumentsDirectory {
+    if ([[UIApplication sharedApplication] canOpenURL:[ZBAppDelegate documentsDirectoryURL]]) {
+        [[UIApplication sharedApplication] openURL:[ZBAppDelegate documentsDirectoryURL]];
+    }
+    else {
+        UIAlertController *noMagicWord = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Filza Not Installed", @"") message:[NSString stringWithFormat:NSLocalizedString(@"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@", @""), [ZBAppDelegate documentsDirectory]] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [noMagicWord addAction:ok];
+        
+        [self presentViewController:noMagicWord animated:true completion:nil];
+    }
 }
 
 - (void)featureOrRandomToggle {

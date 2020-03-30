@@ -12,6 +12,7 @@
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIWindow.h>
 #import <Sources/Helpers/ZBSource.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @implementation ZBSettings
 
@@ -21,6 +22,9 @@ NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
 
+NSString *const UseSystemLanguageKey = @"UseSystemLanguage";
+NSString *const SelectedLanguageKey = @"AppleLanguages";
+
 NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
 NSString *const BlockedAuthorsKey = @"BlockedAuthors";
@@ -29,6 +33,8 @@ NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 
 NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
+
+NSString *const WishlistKey = @"Wishlist";
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
@@ -55,14 +61,20 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     
     if ([defaults boolForKey:thirteenModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStyleDark];
+        
+        [defaults removeObjectForKey:thirteenModeKey];
     }
     
     if ([defaults boolForKey:oledModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStylePureBlack];
+        
+        [defaults removeObjectForKey:oledModeKey];
     }
     
     if ([defaults boolForKey:darkModeKey]) {
         [self setInterfaceStyle:ZBInterfaceStyleDark];
+        
+        [defaults removeObjectForKey:darkModeKey];
     }
     
     //Set other defaults
@@ -92,8 +104,12 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     if (![defaults objectForKey:wantsNewsKey]) {
         [defaults setBool:YES forKey:wantsNewsKey];
     }
-    if (![defaults objectForKey:wishListKey]) {
-        [defaults setObject:[NSArray new] forKey:wishListKey];
+    
+    if ([defaults objectForKey:wishListKey]) {
+        NSArray *oldWishlist = [defaults arrayForKey:wishListKey];
+        
+        [self setWishlist:oldWishlist];
+        [defaults removeObjectForKey:wishListKey];
     }
     
     [defaults synchronize];
@@ -316,16 +332,20 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     [self setFilteredSources:filteredSources];
 }
 
-+ (NSArray *)blockedAuthors {
++ (NSDictionary *)blockedAuthors {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    return [defaults objectForKey:BlockedAuthorsKey] ?: [NSArray new];
+    return [defaults objectForKey:BlockedAuthorsKey] ?: [NSDictionary new];
 }
 
-+ (void)setBlockedAuthors:(NSArray *)blockedAuthors {
++ (void)setBlockedAuthors:(NSDictionary *)blockedAuthors {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:blockedAuthors forKey:BlockedAuthorsKey];
+}
+
++ (BOOL)isAuthorBlocked:(NSString *)email {
+    return [[[self blockedAuthors] allKeys] containsObject:email];
 }
 
 + (ZBSwipeActionStyle)swipeActionStyle {
@@ -345,6 +365,55 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
     
     [defaults setInteger:style forKey:SwipeActionStyleKey];
     [defaults synchronize];
+}
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package {
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorEmail];
+}
+
++ (NSArray *)wishlist {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults arrayForKey:WishlistKey] ?: [NSArray new];
+}
+
++ (void)setWishlist:(NSArray *)wishlist {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:wishlist forKey:WishlistKey];
+}
+
++ (BOOL)usesSystemLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:UseSystemLanguageKey]) {
+        [self setUsesSystemLanguage:YES];
+        return YES;
+    }
+    return [defaults boolForKey:UseSystemLanguageKey];
+}
+
++ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:usesSystemLanguage forKey:UseSystemLanguageKey];
+}
+
++ (NSString *)selectedLanguage {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults arrayForKey:@"AppleLanguages"][0];
+}
+
++ (void)setSelectedLanguage:(NSString *_Nullable)languageCode {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (languageCode) {
+        [defaults setObject:@[languageCode] forKey:@"AppleLanguages"];
+    }
+    else {
+        [defaults removeObjectForKey:@"AppleLanguages"];
+    }
 }
 
 #pragma clang diagnostic pop

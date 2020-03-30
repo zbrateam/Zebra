@@ -44,15 +44,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Select a Source";
+    self.title = NSLocalizedString(@"Select a Source", @"");
 }
 
 - (void)baseViewDidLoad {}
 
 - (void)layoutNavigationButtonsNormal {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
     self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
 }
 

@@ -15,6 +15,6 @@
 #import "ZBPackageActionsManager.h"
 
 @interface ZBWishListTableViewController : UITableViewController
-@property NSUserDefaults *defaults;
 @property NSMutableArray *wishedPackages;
+@property NSMutableArray *wishedPackageIdentifiers;
 @end

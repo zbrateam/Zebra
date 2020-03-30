@@ -18,44 +18,42 @@
 
 @implementation ZBWishListTableViewController
 
-@synthesize defaults;
 @synthesize wishedPackages;
+@synthesize wishedPackageIdentifiers;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    defaults = [NSUserDefaults standardUserDefaults];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     self.title = NSLocalizedString(@"Wish List", @"");
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    wishedPackages = [NSMutableArray new];
-    NSMutableArray *wishedPackageIDs = [[defaults objectForKey:wishListKey] mutableCopy];
-    NSArray *nullCheck = [wishedPackageIDs copy];
-    for (NSString *packageID in nullCheck) {
-        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-        if (package == NULL) {
-            [wishedPackageIDs removeObject:package];
-        }
-        else {
-            [wishedPackages addObject:package];
-        }
-    }
-    [self.tableView reloadData];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    if (!wishedPackages) wishedPackages = [NSMutableArray new];
+    if (!wishedPackageIdentifiers) wishedPackageIdentifiers = [[ZBSettings wishlist] mutableCopy];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
-#pragma mark - Table view data source
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+        
+    NSArray *nullCheck = [wishedPackageIdentifiers copy];
+    for (NSString *packageID in nullCheck) {
+        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+        if (package == NULL) {
+            [wishedPackageIdentifiers removeObject:package];
+        }
+        else if (![wishedPackages containsObject:package]) {
+            [wishedPackages addObject:package];
+        }
+    }
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
 }
+
+#pragma mark - Table View Data Source
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
@@ -108,18 +106,17 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
     UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        [self->wishedPackages removeObject:package];
-        NSMutableArray *wishedPackageIDs = [[self->defaults objectForKey:wishListKey] mutableCopy];
-        [wishedPackageIDs removeObject:[package identifier]];
-        [self->defaults setObject:wishedPackageIDs forKey:wishListKey];
-        [self->defaults synchronize];
+        ZBPackage *package = [self->wishedPackages objectAtIndex:indexPath.row];
         
-        [self.tableView reloadData];
+        [self->wishedPackages removeObject:package];
+        [self->wishedPackageIdentifiers removeObject:[package identifier]];
+        
+        [ZBSettings setWishlist:self->wishedPackageIdentifiers];
+        
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
-//    [remove setIcon:[UIImage imageNamed:@"Unknown"] withText:NSLocalizedString(@"Remove", @"") color:[UIColor systemPinkColor] rowHeight:65];
     [remove setBackgroundColor:[UIColor systemPinkColor]];
     
     return @[remove];

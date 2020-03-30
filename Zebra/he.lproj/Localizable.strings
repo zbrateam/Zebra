@@ -10,6 +10,7 @@
 "Close" = "סגור";
 "Done" = "סיום";
 "Loading..." = "טוען...";
+"Clear" = "נקה";
 
 // Home
 
@@ -34,6 +35,15 @@
 "Transfer Sources" = "ייבוא מקורות";
 "Verifying Source" = "מאמת מקור";
 "Verifying Sources" = "מאמת מקורות";
+"Import" = "ייבוא";
+"Verifying..." = "מאמת...";
+"Confirm Import" = "אשר ייבוא";
+"Import Sources" = "ייבא מקורות";
+"No sources to import" = "אין מקורות לייבוא";
+"Would you like to import the following sources?" = "האם ברצונך לייבא את המקורות הבאים?";
+"Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
+"Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
+
 
 // Credits
 
@@ -107,7 +117,7 @@
 // Stores
 
 "Stores" = "חנויות";
-"Account" = "חשבון";
+"My Account" = "החשבון שלי";
 "Sign In" = "התחבר/י";
 "Sign Out" = "התנתק";
 "Your Purchases" = "הרכישות שלך";
@@ -115,50 +125,48 @@
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
+"Logged in as %@ (%@)." = "מחובר/ת בתור %@ (%@).";
 
 // Sources
 
 "Sources" = "מקורות";
-"Local Repository" = "מקור מקומי";
-"Locally installed packages" = "חבילות שהותקנו מקומית";
 "Unknown" = "לא ידוע";
-"No source URLs detected." = "לא זוהו כתובות מקורות.";
-"You have already added this source." = "כבר הוספת את המקור הזה.";
-"You have already added these sources." = "כבר הוספת את המקורות האלו.";
-"Error verifying source" = "תקלה באימות המקור";
-"Error verifying sources" = "תקלה באימות מקורות";
-"Unknown error" = "תקלה לא ידועה";
-"Invalid URL" = "כתובת לא תקינה";
-"Enter Source URL" = "הזן/י כתובת מקור";
-"Add Sources" = "הוסף מקורות";
-"Add" = "הוסף";
-"Add Multiple" = "הוסף מרובים";
-"Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
-"Please Wait..." = "נא להמתין...";
-"Verifying Source(s)" = "מאמת מקור(ות)";
-"Unable to verify source" = "לא ניתן לאמת מקור";
+"Delete" = "מחק";
 "Refresh" = "רענן";
 "All Packages" = "כל החבילות";
-"Delete" = "מחק";
-"Import Sources" = "ייבא מקורות";
+"Remove Source" = "הסר מקור";
+"Local Repository" = "מקור מקומי";
+"Locally installed packages" = "חבילות שהותקנו מקומית";
+
+"Add" = "הוסף";
+"Add Sources" = "הוסף מקורות";
+"Add Multiple" = "הוסף מרובים";
+"Enter Source URL" = "הזן/י כתובת מקור";
+"Would you like to add the URL from your clipboard?" = "האם ברצונך להוסיף את הכתובת שהעתקת?";
+
+"Please Wait..." = "נא להמתין...";
+"Verifying Source" = "מאמת מקור";
+"Verifying Sources" = "מאמת מקורות";
 "Updating Sources" = "מעדכן מקורות";
-"Would you like to import the following sources?" = "האם ברצונך לייבא את המקורות הבאים?";
+
+"Unknown error" = "תקלה לא ידועה";
+"Invalid URL" = "כתובת לא תקינה";
+"Invalid Source" = "מקור לא תקין";
+"Tap to learn more" = "לחץ/י למידע נוסף";
+"No source URLs detected." = "לא זוהו כתובות מקורות.";
+"Unable to verify source" = "לא ניתן לאמת מקור";
+"Error verifying source" = "תקלה באימות המקור";
+"Error verifying sources" = "תקלה באימות מקורות";
 "Failed to add source" = "הוספת מקור נכשלה";
 "Failed to add sources" = "הוספת מקורות נכשלה";
+"You have already added this source." = "כבר הוספת את המקור הזה.";
+"You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
-"Import Sources" = "ייבא מקורות";
-"Import" = "ייבוא";
-"Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
-"Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
-"Verifying..." = "מאמת...";
-"Confirm Import" = "אשר ייבוא";
-"The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
-"Tap to learn more" = "לחץ/י למידע נוסף";
-"Invalid Source" = "מקור לא תקין";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "זברה נכשלה בהורדת המקור שהוגדר ב-%@. ייתכן שהוא אינו נגיש זמנית או שהוזן באופן שגוי.";
-"Remove Source" = "הסר מקור";
 
+"The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "זברה נכשלה בהורדת המקור שהוגדר ב-%@. ייתכן שהוא אינו נגיש זמנית או שהוזן באופן שגוי.";
 
 // Packages
 
@@ -176,8 +184,6 @@
 "ABC" = "אבג";
 "Date" = "תאריך";
 "Size" = "גודל";
-"Clear" = "נקה";
-"Are you sure you want to clear the Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
 "Available Upgrades" = "עדכונים זמינים";
 "Ignored Upgrades" = "עדכונים שנדחו";
 "Recent" = "אחרונים";
@@ -251,9 +257,11 @@
 // Search
 
 "Search" = "חיפוש";
-"Clear Search" = "נקה חיפוש";
 "This search query is too short for the full search, please use a longer query." = "מושג חיפוש זה קצר מידיי עבור החיפוש המלא, אנא השתמש/י במושג ארוך יותר.";
 "No Results Found" = "לא נמצאו תוצאות";
+"Name" = "שם";
+"Description" = "תיאור";
+"Author" = "יוצר";
 
 // Downloads
 
@@ -267,6 +275,7 @@
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
 "%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
 "Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
+"A total of %d files will be downloaded" = "יורדו %d קבצים";
 
 // Console
 
@@ -278,9 +287,10 @@
 "Closing Zebra..." = "סוגר את זברה...";
 "Restart SpringBoard" = "הפעל מחדש את מסך הבית";
 "Restarting SpringBoard..." = "מפעיל מחדש את מסך הבית...";
-"Parsing" = "מנתח";
+"Parsing %@" = "מנתח את %@";
 "Starting Download" = "מתחיל הורדה";
 "Downloading" = "מוריד";
+"Downloading %@" = "מוריד את %@";
 "Downloading Packages..." = "מוריד חבילות...";
 "Download Completed" = "ההורדה הושלמה";
 "Installing" = "מתקין";
@@ -300,8 +310,10 @@
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
 "Done..." = "בוצע...";
+"Done %@" = "סיים להוריד את %@";
 "Removing Zebra..." = "מסיר את זברה...";
 "Installing Zebra..." = "מתקין את זברה...";
+"Adding Payment Vendor URL for %@" = "מוסיף כתובת ספק תשלום עבור %@";
 
 // Queue Bar
 
@@ -322,15 +334,17 @@
 "Continue" = "המשך";
 "Download Size" = "גודל הורדה";
 "Confirm" = "אישור";
-"%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
-"Required Package" = "חבילה נדרשת";
-"%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
 "Issues" = "בעיות";
-"%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
+"Required Package" = "חבילה נדרשת";
 "Are you sure?" = "האם את/ה בטוח/ה?";
+"Remove from Queue" = "הסר מהתור";
+"Clear Queue" = "נקה תור";
+"%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
+"%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
+"%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
 "Are you sure you want to clear the queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
-"Remove from Queue" = "הסר מהתור";
+
 
 // Search
 
@@ -377,3 +391,22 @@
 "Signing in to sources allows for the purchase of paid packages." = "התחברות למקורות מאפשרת רכישה של חבילות בתשלום.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";
+
+// Filters
+"Filters" = "מסננים";
+"Add Filter" = "הוסף מסנן";
+
+"1 Section Hidden" = "קטגוריה אחת מוסתרת";
+"%lu Sources Hidden" = "%lu מקורות מוסתרים";
+
+"Sections" = "קטגוריות";
+"Hide packages in these sections." = "הסתר חבילות בקטגוריות אלו.";
+
+"Sources" = "מקורות";
+"Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
+
+"Updates" = "עדכונים";
+"Hide future updates from these packages." = "הסתר עדכונים עתידיים מחבילות אלו.";
+
+"Authors" = "יוצרים";
+"Hide packages from these authors." = "הסתר חבילות מיוצרים אלו.";

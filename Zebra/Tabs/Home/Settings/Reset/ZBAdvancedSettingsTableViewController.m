@@ -1,5 +1,5 @@
 //
-//  ZBAdvancedSettingsTableViewController.m
+//  ZBSettingsResetTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 2/20/20.
@@ -8,48 +8,44 @@
 
 @import SDWebImage;
 
-#import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBSettingsResetTableViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
+#import <WebKit/WebKit.h>
 
-@interface ZBAdvancedSettingsTableViewController ()
+@interface ZBSettingsResetTableViewController ()
 
 @end
 
-@implementation ZBAdvancedSettingsTableViewController
+@implementation ZBSettingsResetTableViewController
+
++ (NSArray <NSArray <NSString *> *> *)titles {
+    return @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Clear Image Cache", @"Clear Web Cache", @"Clear Sources Cache"], @[@"Reset All Settings", @"Erase All Sources", @"Erase All Sources and Settings"]];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.title = NSLocalizedString(@"Advanced", @"");
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsAdvancedCell"];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return [[self class] titles].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 2;
-        case 1:
-            return 2;
-        case 2:
-            return 2;
-        default:
-            return 1;
-    }
+    return [[self class] titles][section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsAdvancedCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAdvancedCell"];
     
-    NSArray <NSArray <NSString *> *> *titles = @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Reset Image Cache", @"Reset Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
-    cell.textLabel.text = NSLocalizedString(titles[indexPath.section][indexPath.row], @"");
+    cell.textLabel.text = NSLocalizedString([[self class] titles][indexPath.section][indexPath.row], @"");
     cell.textLabel.textColor = [UIColor accentColor];
     return cell;
 }
@@ -61,30 +57,33 @@
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    [self restartSpringBoard];
+                    [self restartSpringBoard:indexPath];
                     break;
                 case 1:
-                    [self refreshIconCache];
+                    [self refreshIconCache:indexPath];
                     break;
             }
             break;
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    [self resetImageCache];
+                    [self resetImageCache:indexPath];
                     break;
                 case 1:
-                    [self resetSourcesCache];
+                    [self resetWebCache:indexPath];
+                    break;
+                case 2:
+                    [self resetSourcesCache:indexPath];
                     break;
             }
             break;
         case 2:
             switch (indexPath.row) {
                 case 0:
-                    [self resetAllSettings:true];
+                    [self resetAllSettings:true indexPath:indexPath];
                     break;
                 case 1:
-                    [self eraseSourcesAndSettings];
+                    [self eraseSourcesAndSettings:indexPath];
                     break;
             }
             break;
@@ -94,23 +93,23 @@
 
 #pragma mark - Button Actions
 
-- (void)restartSpringBoard {
+- (void)restartSpringBoard:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Restart SpringBoard", @"") message:NSLocalizedString(@"Are you sure you want to restart the SpringBoard?", @"") callback:^{
         [ZBDevice restartSpringBoard];
-    }];
+    } indexPath:indexPath];
 }
 
-- (void)refreshIconCache {
+- (void)refreshIconCache:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Refresh Icon Cache", @"") message:NSLocalizedString(@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.", @"") callback:^{
         [ZBDevice uicache:nil observer:nil];
-    }];
+    } indexPath:indexPath];
 }
 
-- (void)resetImageCache {
+- (void)resetImageCache:(NSIndexPath *)indexPath {
     [[SDImageCache sharedImageCache] clearMemory];
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Image Cache Reset", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Image Cache Cleared", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
     
@@ -119,19 +118,36 @@
     });
 }
 
-- (void)resetSourcesCache {
+- (void)resetSourcesCache:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Reset Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
         [self presentViewController:refreshController animated:YES completion:nil];
-    }];
+    } indexPath:indexPath];
 }
 
-- (void)resetAllSettings:(BOOL)confirm {
+- (void)resetWebCache:(NSIndexPath *)indexPath {
+    NSSet *dataTypes = [NSSet setWithArray:@[WKWebsiteDataTypeDiskCache,
+                                             WKWebsiteDataTypeMemoryCache,
+    ]];
+    [[WKWebsiteDataStore defaultDataStore] removeDataOfTypes:dataTypes
+                                               modifiedSince:[NSDate dateWithTimeIntervalSince1970:0]
+                                           completionHandler:^{
+    }];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Web Cache Cleared", @"") message:NULL preferredStyle:UIAlertControllerStyleAlert];
+
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:true completion:nil];
+    });
+}
+
+- (void)resetAllSettings:(BOOL)confirm indexPath:(NSIndexPath *)indexPath {
     if (confirm) {
         [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
-            [self resetAllSettings:false];
+            [self resetAllSettings:false indexPath:indexPath];
             [ZBDevice exitZebra];
-        }];
+        } indexPath:indexPath];
     }
     else {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -143,10 +159,10 @@
     }
 }
 
-- (void)eraseSourcesAndSettings {
+- (void)eraseSourcesAndSettings:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.", @"") callback:^{
-        [self confirmationControllerWithTitle:NSLocalizedString(@"Are You Sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
-            [self resetAllSettings:false];
+        [self confirmationControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
+            [self resetAllSettings:false indexPath:indexPath];
             
             NSError *error;
             [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
@@ -158,12 +174,14 @@
             }
             
             [ZBDevice exitZebra];
-        }];
-    }];
+        } indexPath:indexPath];
+    } indexPath:indexPath];
 }
 
-- (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback {
+- (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback indexPath:(NSIndexPath *)indexPath {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
+    alert.popoverPresentationController.sourceView = [self.tableView cellForRowAtIndexPath:indexPath];
+    alert.popoverPresentationController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         dispatch_async(dispatch_get_main_queue(), ^{
