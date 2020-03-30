@@ -149,6 +149,10 @@ NSString *const WishlistKey = @"Wishlist";
         
         [defaults removeObjectForKey:featuredBlacklistKey];
     }
+    
+    if ([defaults arrayForKey:BlockedAuthorsKey]) {
+        [defaults removeObjectForKey:BlockedAuthorsKey];
+    }
 }
 
 #pragma mark - Theming
