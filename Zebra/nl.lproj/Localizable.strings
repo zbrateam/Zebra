@@ -99,13 +99,17 @@
 "Featured Repos" = "Aanbevolen Repos";
 
 // Advanced
-
 "Advanced" = "Geavanceerd";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Icoon Cache Vernieuwen";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Alle instellingen Opnieuw Instellen";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Alle Bronnen en Instellingen Verwijderen";
 
 "Are you sure you want to restart the SpringBoard?" = "Weet je zeker dat je het SpringBoard wilt herstarten?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Weet je zeker dat je Zebra's bronnen cache wilt resetten? Dit zal alle opgeslagen informatie uit Zebra's database verwijderen en opnieuw downloaden. Uw bronnen zullen niet worden verwijderd.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Weet je zeker dat je Zebra's instellingen wil herstellen? Dit zal alle Zebra instellingen terugzetten naar hun standaardwaarden en Zebra zal herstarten.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Weet je zeker dat je alle bronnen en instellingen wilt wissen? Al uw bronnen zullen worden verwijderd uit Zebra en uw instellingen worden hersteld.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Al je bronnen zullen permanent verwijderd worden en Zebra zal herstarten.";
 
