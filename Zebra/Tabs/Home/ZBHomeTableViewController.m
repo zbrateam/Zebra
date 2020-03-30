@@ -82,7 +82,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self configureFooter];
     [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -94,7 +93,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
     redditPosts = [NSMutableArray new];
-    [self configureFooter];
     [self startFeaturedPackages];
 }
 
@@ -224,19 +222,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSInteger)cellCount {
     return MIN(5, allFeatured.count);
-}
-
-- (void)configureFooter {
-    [self.footerView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
-    [self.footerLabel setTextColor:[UIColor secondaryTextColor]];
-    [self.footerLabel setNumberOfLines:1];
-    [self.footerLabel setFont:[UIFont systemFontOfSize:13]];
-    [self.footerLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION]];
-    [self.udidLabel setFont:self.footerLabel.font];
-    [self.udidLabel setTextColor:[UIColor secondaryTextColor]];
-    [self.udidLabel setNumberOfLines:1];
-    [self.udidLabel setAdjustsFontSizeToFitWidth:YES];
-    [self.udidLabel setText:[ZBDevice UDID]];
 }
 
 #pragma mark - Table view data source
@@ -411,6 +396,18 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == ZBCredits) {
+        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@\n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]];
+    }
+    return NULL;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 - (void)setImageSize:(UIImageView *)imageView {
     CGSize itemSize = CGSizeMake(29, 29);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
@@ -482,17 +479,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)openBug {
-    //TODO: Make bug report work again
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-//    webController.navigationDelegate = webController;
-//    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
     NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-//    [webController setValue:url forKey:@"_url"];
-//    [[self navigationController] pushViewController:webController animated:YES];
-    
+
     [ZBDevice openURL:url delegate:self];
 }
 
@@ -552,9 +540,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         [[ZBThemeManager sharedInstance] toggleTheme];
         
         [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
-    }
-    else {
-        
     }
 }
 

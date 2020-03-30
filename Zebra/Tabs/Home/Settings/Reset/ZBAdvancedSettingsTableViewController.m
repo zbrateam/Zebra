@@ -1,5 +1,5 @@
 //
-//  ZBAdvancedSettingsTableViewController.m
+//  ZBSettingsResetTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 2/20/20.
@@ -8,21 +8,21 @@
 
 @import SDWebImage;
 
-#import "ZBAdvancedSettingsTableViewController.h"
+#import "ZBSettingsResetTableViewController.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
 #import <WebKit/WebKit.h>
 
-@interface ZBAdvancedSettingsTableViewController ()
+@interface ZBSettingsResetTableViewController ()
 
 @end
 
-@implementation ZBAdvancedSettingsTableViewController
+@implementation ZBSettingsResetTableViewController
 
 + (NSArray <NSArray <NSString *> *> *)titles {
-    return @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Clear Image Cache", @"Clear Web Cache", @"Clear Sources Cache"], @[@"Reset All Settings", @"Erase All Sources and Settings"]];
+    return @[@[@"Restart SpringBoard", @"Refresh Icon Cache"], @[@"Clear Image Cache", @"Clear Web Cache", @"Clear Sources Cache"], @[@"Reset All Settings", @"Erase All Sources", @"Erase All Sources and Settings"]];
 }
 
 - (void)viewDidLoad {

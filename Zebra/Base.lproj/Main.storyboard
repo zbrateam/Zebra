@@ -668,33 +668,6 @@
                             </collectionViewFlowLayout>
                             <cells/>
                         </collectionView>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="Amb-zA-vU0">
-                            <rect key="frame" x="0.0" y="154" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UDID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0l-s2-v3D">
-                                    <rect key="frame" x="8" y="23" width="398" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zebra Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLj-LP-ZdY">
-                                    <rect key="frame" x="167.5" y="2" width="79" height="21"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstItem="I0l-s2-v3D" firstAttribute="top" secondItem="OLj-LP-ZdY" secondAttribute="bottom" id="M8Y-j2-oH6"/>
-                                <constraint firstItem="I0l-s2-v3D" firstAttribute="top" secondItem="OLj-LP-ZdY" secondAttribute="bottom" id="PPc-xT-P9D"/>
-                                <constraint firstAttribute="bottom" secondItem="I0l-s2-v3D" secondAttribute="bottom" id="loy-oM-Ptw"/>
-                                <constraint firstItem="I0l-s2-v3D" firstAttribute="leading" secondItem="Amb-zA-vU0" secondAttribute="leading" constant="8" id="mZ6-bO-cTw"/>
-                                <constraint firstItem="OLj-LP-ZdY" firstAttribute="centerX" secondItem="Amb-zA-vU0" secondAttribute="centerX" id="rYd-EA-962"/>
-                                <constraint firstItem="I0l-s2-v3D" firstAttribute="centerX" secondItem="Amb-zA-vU0" secondAttribute="centerX" id="stx-zX-KV4"/>
-                            </constraints>
-                        </view>
                         <connections>
                             <outlet property="dataSource" destination="hAX-u8-Al6" id="5sb-GZ-ySM"/>
                             <outlet property="delegate" destination="hAX-u8-Al6" id="rZV-Am-hDf"/>
@@ -717,10 +690,7 @@
                     <connections>
                         <outlet property="darkModeButton" destination="2dE-CN-evu" id="5jS-go-D0V"/>
                         <outlet property="featuredCollection" destination="xfR-dj-XUb" id="vl2-XU-77a"/>
-                        <outlet property="footerLabel" destination="OLj-LP-ZdY" id="KOn-yV-6fB"/>
-                        <outlet property="footerView" destination="Amb-zA-vU0" id="I7i-4w-gbI"/>
                         <outlet property="settingsButton" destination="5Na-Lv-DT1" id="4l3-kP-h4p"/>
-                        <outlet property="udidLabel" destination="I0l-s2-v3D" id="Isn-Z3-jDe"/>
                         <segue destination="B5D-p6-E07" kind="show" identifier="segueHomeFeaturedToDepiction" id="xJk-zG-Xgb"/>
                     </connections>
                 </tableViewController>
@@ -1326,7 +1296,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="63g-98-fnw"/>
-        <segue reference="wqW-Kk-qIz"/>
+        <segue reference="xJk-zG-Xgb"/>
         <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
