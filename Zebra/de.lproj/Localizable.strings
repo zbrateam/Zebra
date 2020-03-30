@@ -11,7 +11,7 @@
 "Done" = "Fertig";
 "Loading..." = "Laden...";
 "Clear" = "Leeren";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Ein Fehler ist aufgetreten";
 
 // Home
 
@@ -100,30 +100,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Zurücksetzen";
 "Refresh Icon Cache" = "Symbolcache aktualisieren";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Bildzwischenspeicher leeren";
+"Clear Sources Cache" = "Quellen-Zwischenspeicher löschen";
+"Clear Web Cache" = "Webzwischenspeicher leeren";
 "Reset All Settings" = "Alle Einstellungen zurücksetzen";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Alle Quellen entfernen";
 "Erase All Sources and Settings" = "Alle Quellen und Einstellungen löschen";
 
 "Are you sure you want to restart the SpringBoard?" = "Möchten Sie SpringBoard wirklich neu starten?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Möchten Sie den Symbol-Cache wirklich aktualisieren? Ihr Gerät reagiert möglicherweise nicht mehr, bis der Prozess abgeschlossen ist.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Bildzwischenspeicher gelöscht";
+"Web Cache Cleared" = "Webzwischenspeicher geleert";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Möchten Sie den Quellen-Cache von Zebra wirklich zurücksetzen? Dadurch werden alle zwischengespeicherten Informationen aus der Datenbank von Zebra entfernt und erneut heruntergeladen. Ihre Quellen werden nicht gelöscht.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Möchten Sie die Einstellungen von Zebra wirklich zurücksetzen? Dadurch werden alle Einstellungen von Zebra auf ihre Standardwerte zurückgesetzt und Zebra neu gestartet.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Möchten Sie wirklich alle Quellen löschen? Alle Ihre Quellen werden entfernt und Zebra wird neu gestartet.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Möchten Sie wirklich alle Quellen und Einstellungen löschen? Alle Ihre Quellen werden von Zebra entfernt und Ihre Einstellungen werden zurückgesetzt.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle deine Quellen werden gelöscht und können nicht wiederhergestellt werden. Zebra wird neu gestartet.";
 
 // Documents Directory
 "Open Documents Directory" = "Dokumentenverzeichnis öffnen";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza ist nicht installiert";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kann das Dokumentenverzeichnis nicht öffnen, da Filza nicht installiert ist. Ihr Dokumentenverzeichnis ist: %@";
 
 // Stores
 
@@ -136,7 +136,7 @@
 "Could not complete purchase" = "Kauf konnte nicht abgeschlossen werden";
 "Could not complete purchase, no payment secret was found" = "Kauf konnte nicht abgeschlossen werden, da kein Zahlungsgeheimnis gefunden wurde";
 "No packages purchased" = "Keine Pakete erworben";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Angemeldet als %@(%@)";
 
 // Sources
 
@@ -175,8 +175,8 @@
 "Unable to locate an APT repository at:" = "APT-Quelle konnte nicht gefunden werden:";
 "Unable to locate APT repositories at:" = "APT-Quellen konnten nicht gefunden werden:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Die Packages Datei von %@ konnte nicht herunterladen werden. Grund: %@";
+"Could not download one or more files from %@. Reason: %@" = "Eine oder mehrere Dateien von %@ konnten nicht heruntergeladen werden. Grund: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Die URL die Sie eingegeben haben ist ungültig. Bitte überprüfen Sie sie und versuchen Sie es nochmals.";
 
@@ -356,7 +356,7 @@
 "%@ is required by:" = "%@ wird benötigt von:";
 "%@ must be removed because it depends on %@" = "%@ muss entfernt werden weil es von %@ abhängt";
 "%@ has issues that cannot be resolved:" = "%@ hat Probleme die nicht gelöst werden konnten:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Möchten Sie die Warteschlange wirklich leeren?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ ist ein erforderliches Paket. Es sollte NICHT entfernt werden, außer Sie wissen genau, was Sie tun!";
 
 // Search
@@ -414,12 +414,12 @@
 "%lu Sources Hidden" = "%lu Quellen versteckt";
 
 "Sections" = "Abschnitte";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Einen Abschnitt auswählen";
 "Hide packages in these sections." = "Pakete in diesen Abschnitten ausblenden.";
 
 "Sources" = "Quellen";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Eine Quelle auswählen";
+"Search for an Author" = "Nach einem Autor suchen";
 "Hide packages in these sections from specific sources." = "Pakete in diesen Abschnitten von bestimmten Quellen ausblenden.";
 
 "Updates" = "Updates";
@@ -431,8 +431,8 @@
 // Language Settings
 
 "Language" = "Sprache";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
+"Apply" = "Anwenden";
+"Restart Required" = "Neustart erforderlich";
 "Zebra must be closed in order to change preferred language" = "Zebra muss geschlossen werden um die gewünschte Sprache zu ändern";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Restart" = "Neustart";
+"Use System Language" = "Systemsprache verwenden";
