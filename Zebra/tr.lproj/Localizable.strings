@@ -98,9 +98,6 @@
 "Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
 "Featured Repos" = "Öne Çıkan Kaynaklar";
 
-// Advanced
-"Advanced" = "Gelişmiş";
-
 // Reset
 
 "Reset" = "Reset";
@@ -121,6 +118,12 @@
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tüm kaynakları ve ayarları silmek istediğinizden emin misiniz? Tüm kaynaklarınız Zebra'dan kaldırılacak ve ayarlarınız sıfırlanacak.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tüm kaynaklarınız silinecek ve sonsuza dek yok olacak ve Zebra yeniden başlayacak.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
