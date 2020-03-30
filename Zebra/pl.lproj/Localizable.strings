@@ -162,8 +162,8 @@
 
 "Unknown error" = "Nieznany błąd";
 "Invalid URL" = "Błędny URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
+"Invalid Source" = "Nieprawidłowe źródło";
+"Tap to learn more" = "Dotknij, aby dowiedzieć się więcej";
 "No source URLs detected." = "Nie wykryto adresów źródeł.";
 "Unable to verify source" = "Nie można zweryfikować źródła";
 "Error verifying source" = "Błąd weryfikacji źródła";
@@ -178,7 +178,7 @@
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Podany adres URL jest nieprawidłowy. Sprawdź go i spróbuj ponownie.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
@@ -273,9 +273,9 @@
 "Search" = "Szukaj";
 "This search query is too short for the full search, please use a longer query." = "To zapytanie jest za krótkie do pełnego wyszukiwania, proszę użyć dłuższego zapytania.";
 "No Results Found" = "Nie znaleziono wyników";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Imię";
+"Description" = "Opis";
+"Author" = "Autor";
 
 // Downloads
 
