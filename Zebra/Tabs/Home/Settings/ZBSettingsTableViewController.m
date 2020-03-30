@@ -118,7 +118,6 @@ enum ZBMiscOrder {
         case ZBMisc:
         case ZBSearch:
         case ZBConsole:
-        case ZBReset:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
@@ -138,6 +137,8 @@ enum ZBMiscOrder {
             
             return rows;
         }
+        case ZBReset:
+            return 2;
         default:
             return 0;
     }
@@ -310,9 +311,9 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBReset: {
-            cell.textLabel.text = NSLocalizedString(@"Reset", @"");
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.text = indexPath.row == 0 ? NSLocalizedString(@"Reset", @"") : NSLocalizedString(@"Open Documents Directory", @"");
+            cell.textLabel.textColor = indexPath.row == 0 ? [UIColor primaryTextColor] : [UIColor accentColor] ?: [UIColor systemBlueColor];
+            cell.accessoryType = indexPath.row == 0 ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             return cell;
         }
     }
@@ -384,8 +385,14 @@ enum ZBMiscOrder {
             break;
         }
         case ZBReset: {
-            [self advancedSettings];
-            break;
+            switch (indexPath.row) {
+                case 0:
+                    [self resetSettings];
+                    break;
+                case 1:
+                    [self openDocumentsDirectory];
+                    break;
+            }
         }
         default:
             break;
@@ -439,10 +446,24 @@ enum ZBMiscOrder {
     [[self navigationController] pushViewController:languageController animated:YES];
 }
 
-- (void)advancedSettings {
+- (void)resetSettings {
     ZBSettingsResetTableViewController *advancedController = [[ZBSettingsResetTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     
     [[self navigationController] pushViewController:advancedController animated:YES];
+}
+
+- (void)openDocumentsDirectory {
+    if ([[UIApplication sharedApplication] canOpenURL:[ZBAppDelegate documentsDirectoryURL]]) {
+        [[UIApplication sharedApplication] openURL:[ZBAppDelegate documentsDirectoryURL]];
+    }
+    else {
+        UIAlertController *noMagicWord = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Filza Not Installed", @"") message:[NSString stringWithFormat:NSLocalizedString(@"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@", @""), [ZBAppDelegate documentsDirectory]] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [noMagicWord addAction:ok];
+        
+        [self presentViewController:noMagicWord animated:true completion:nil];
+    }
 }
 
 - (void)featureOrRandomToggle {

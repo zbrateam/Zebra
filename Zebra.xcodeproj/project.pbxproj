@@ -556,13 +556,13 @@
 				367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */,
 				BFC6DB1C236D9B9000DA5534 /* ZBSettingsSelectionTableViewController.h */,
 				BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */,
-				89308E1F23FF4BA200D4641D /* Reset */,
 				8916AC1823CAAE51008BA02C /* App Icon */,
 				8916AC2923CAB0DD008BA02C /* Cells */,
 				8916AC2423CAAF07008BA02C /* Display */,
 				36200B6422D2B38400C13F6D /* FeaturedRepoBlacklist */,
 				89EA4ECA241B1624008DFE15 /* Filters */,
 				891A92C1242D1CF8002A3CD3 /* Language */,
+				89308E1F23FF4BA200D4641D /* Reset */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
