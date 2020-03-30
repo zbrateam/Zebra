@@ -100,13 +100,13 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Återställ";
 "Refresh Icon Cache" = "Uppdatera ikoncache";
 "Clear Image Cache" = "Rensa bildcache";
 "Clear Sources Cache" = "Rensa källcache";
 "Clear Web Cache" = "Rensa webbcache";
 "Reset All Settings" = "Återställ alla inställningar";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Radera alla källor";
 "Erase All Sources and Settings" = "Radera alla källor och inställningar";
 
 "Are you sure you want to restart the SpringBoard?" = "Är du säker på att du vill starta om SpringBoard?";
@@ -115,15 +115,15 @@
 "Web Cache Cleared" = "Rensade webbcachen";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Är du säker på att du vill återställa Zebras källcache? Detta kommer att ta bort all cachad information från Zebras databas och ladda ner den igen. Dina källor kommer inte att tas bort.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Är du säker på att du vill återställa Zebras inställningar? Detta kommer att återställa alla Zebras inställningar till standardvärdena och Zebra kommer att starta om.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Är du säker på att du vill radera alla källor? Alla dina källor kommer att tas bort från Zebra och Zebra kommer att starta om.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Är du säker på att du vill radera alla källor och inställningar? Alla dina källor kommer att tas bort från Zebra och dina inställningar kommer att återställas.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alla dina källor kommer att tas bort och försvinna för alltid och Zebra kommer att starta om.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Öppna dokumentkatalog";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza är inte installerat";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kan inte öppna sin dokumentkatalog eftersom Filza inte är installerat. Din dokumentkatalog är: %@";
 
 // Stores
 
