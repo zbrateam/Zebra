@@ -37,6 +37,16 @@
     return self;
 }
 
+- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit selectedSources:(NSArray *)preSelectedSources {
+    self = [self initWithSelectionType:type limit:sourceLimit];
+    
+    if (self) {
+        [selectedSources addObjectsFromArray:preSelectedSources];
+    }
+    
+    return self;
+}
+
 + (BOOL)supportRefresh {
     return NO;
 }
@@ -94,10 +104,22 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     switch (selectionType) {
         case ZBSourceSelectionTypeNormal:
-            if ([selectedIndexes containsObject:indexPath]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if ([selectedIndexes containsObject:indexPath]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else if ([selectedSources containsObject:source]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                [selectedIndexes addObject:indexPath];
+            }
             break;
         case ZBSourceSelectionTypeInverse:
-            if (![selectedIndexes containsObject:indexPath]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if (![selectedIndexes containsObject:indexPath]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else if (![selectedSources containsObject:source]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                [selectedIndexes addObject:indexPath];
+            }
             break;
     }
     
