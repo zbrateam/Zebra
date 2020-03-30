@@ -152,6 +152,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType;
 
 + (NSArray *)sourceBlacklist;
++ (void)setSourceBlacklist:(NSArray *)blacklist;
 
 + (BOOL)hideUDID;
 + (void)setHideUDID:(BOOL)hideUDID;
