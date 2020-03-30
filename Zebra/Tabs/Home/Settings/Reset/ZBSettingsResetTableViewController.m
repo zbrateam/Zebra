@@ -83,6 +83,9 @@
                     [self resetAllSettings:true indexPath:indexPath];
                     break;
                 case 1:
+                    [self eraseAllSources:true indexPath:indexPath];
+                    break;
+                case 2:
                     [self eraseSourcesAndSettings:indexPath];
                     break;
             }
@@ -156,6 +159,25 @@
             [defaults removeObjectForKey:key];
         }
         [defaults synchronize];
+    }
+}
+
+- (void)eraseAllSources:(BOOL)confirm indexPath:(NSIndexPath *)indexPath {
+    if (confirm) {
+        [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.", @"") callback:^{
+            [self eraseAllSources:false indexPath:indexPath];
+            [ZBDevice exitZebra];
+        } indexPath:indexPath];
+    }
+    else {
+        NSError *error;
+        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
+        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
+        if (error) {
+            NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
+        }
     }
 }
 
