@@ -98,9 +98,6 @@
 "Select Repos to be Featured" = "选择会被推荐的软件源";
 "Featured Repos" = "精选软件源";
 
-// Advanced
-"Advanced" = "高级";
-
 // Reset
 
 "Reset" = "重置";
@@ -121,6 +118,12 @@
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "确定要清除所有软件源吗？ 所有软件源将从 Zebra 中移除，然后 Zebra 将重启。";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "确定要清除所有软件源和设置吗？ 所有软件源将从 Zebra 中移除，你的设置将被重置。";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "所有软件源将被删除且无法恢复，Zebra 将重新启动。";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
