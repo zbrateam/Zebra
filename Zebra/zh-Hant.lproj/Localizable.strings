@@ -99,13 +99,17 @@
 "Featured Repos" = "精選套件來源";
 
 // Advanced
-
 "Advanced" = "進階設定";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "刷新圖片快取";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "重置所有設定";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "清除所有來源和設定";
 
 "Are you sure you want to restart the SpringBoard?" = "您確定要重新啟動主畫面嗎?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "您確定要重置 Zebra 的來源快取嗎？所有來源的數據快取將被移除並重新下載，您的來源不會被刪除。";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "您確定要重置 Zebra 的設定嗎？ Zebra 的所有設定會恢復為預設值並重啟。";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "您確定要清除所有來源和設定嗎？所有來源將從 Zebra 中移除，你的設定將被重置。";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "您所有的來源將被刪除且無法恢復，Zebra 將重新啟動。";
 
