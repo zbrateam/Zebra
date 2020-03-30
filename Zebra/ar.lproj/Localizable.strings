@@ -99,13 +99,17 @@
 "Featured Repos" = "المستودعات المميزة";
 
 // Advanced
-
 "Advanced" = "متقدم";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "تحديث ذاكرة التخزين المؤقتة";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "إعادة تعيين جميع الإعدادات";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "محو كل المصادر والإعدادات";
 
 "Are you sure you want to restart the SpringBoard?" = "هل أنت متأكد أنك تريد إعادة تشغيل واجهة النظام؟";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "هل أنت متأكد أنك تريد إعادة تعيين ذاكرة تخزين مصادر Zebra المؤقتة؟ سيؤدي هذا إلى إزالة كل المعلومات المخزنة مؤقتًا من قاعدة بيانات Zebra وإعادة تنزيلها. لن يتم حذف مصادرك.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "هل أنت متأكد أنك تريد إعادة تعيين إعدادات Zebra؟ سيؤدي هذا إلى إعادة تعيين كافة إعدادات Zebra إلى القيم الافتراضية وسيتم إعادة تشغيل Zebra.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "هل أنت متأكد أنك تريد محو كل المصادر والإعدادات؟ سيتم إزالة جميع مصادرك من Zebra وسيتم إعادة تعيين إعداداتك.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف كل مصادرك للأبد وسيتم إعادة تشغيل Zebra.";
 
