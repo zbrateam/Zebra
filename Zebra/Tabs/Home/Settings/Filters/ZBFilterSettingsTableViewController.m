@@ -137,7 +137,7 @@
     }
     
     cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
-    cell.textLabel.textColor = [UIColor accentColor];
+    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     return cell;
 }

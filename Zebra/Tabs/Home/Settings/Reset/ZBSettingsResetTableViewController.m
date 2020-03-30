@@ -46,7 +46,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsResetCell"];
     
     cell.textLabel.text = NSLocalizedString([[self class] titles][indexPath.section][indexPath.row], @"");
-    cell.textLabel.textColor = [UIColor accentColor];
+    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     return cell;
 }
 
