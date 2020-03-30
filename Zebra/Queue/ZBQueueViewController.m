@@ -44,6 +44,9 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionHeaderHeight = 44;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,7 +61,7 @@
 //            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 //        }
 //    }
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];    
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
@@ -154,14 +157,21 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    // Text Color
-    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
-        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        header.textLabel.textColor = [UIColor primaryTextColor];
-        header.tintColor = [UIColor clearColor];
-        header.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-    }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
+    contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.numberOfLines = 0;
+    label.textColor = [UIColor primaryTextColor];
+    label.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
+    label.text = [self tableView:tableView titleForHeaderInSection:section];
+    label.translatesAutoresizingMaskIntoConstraints = false;
+    [contentView addSubview:label];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-16-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[label]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    
+    return contentView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
