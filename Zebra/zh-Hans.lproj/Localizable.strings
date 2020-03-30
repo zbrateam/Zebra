@@ -120,10 +120,10 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "所有软件源将被删除且无法恢复，Zebra 将重新启动。";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "打开文档目录";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "未安装 Filza";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra 无法打开文档目录，因为 Filza 未安装。你的文档目录为：%@";
 
 // Stores
 
