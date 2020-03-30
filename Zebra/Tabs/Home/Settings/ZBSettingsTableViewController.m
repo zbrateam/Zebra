@@ -373,7 +373,7 @@ enum ZBMiscOrder {
                     [self featureOrRandomToggle];
                     break;
                 case ZBFeatureBlacklist:
-                    [self openBlackList];
+                    [self repoBlacklist];
                     break;
                 default:
                     break;

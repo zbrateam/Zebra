@@ -60,7 +60,9 @@
 - (void)baseViewDidLoad {}
 
 - (void)layoutNavigationButtonsNormal {
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    if ([self.navigationController.viewControllers[0] isEqual:self]) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
     self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
@@ -82,6 +84,14 @@
 
 - (void)refreshTable {
     self->sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+    
+    NSMutableArray *fakeSources = [NSMutableArray new];
+    for (NSObject *source in sources) {
+        if (![source isKindOfClass:[ZBSource class]]) {
+            [fakeSources addObject:source];
+        }
+    }
+    [sources removeObjectsInArray:fakeSources];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateCollation];
