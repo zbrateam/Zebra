@@ -67,6 +67,10 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     return path;
 }
 
++ (NSURL *)documentsDirectoryURL {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"filza://%@", [self documentsDirectory]]];
+}
+
 + (NSString *)listsLocation {
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
     BOOL dirExists = NO;

@@ -13,6 +13,7 @@
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
 + (NSString *)documentsDirectory;
++ (NSURL *)documentsDirectoryURL;
 + (NSString *)listsLocation;
 + (NSURL *)sourcesListURL;
 + (NSString *)sourcesListPath;
