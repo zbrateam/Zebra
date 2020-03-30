@@ -31,6 +31,7 @@ NSString *const BlockedAuthorsKey = @"BlockedAuthors";
 
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
+NSString *const SourceBlacklistKey = @"FeaturedSourceBlacklist";
 NSString *const HideUDIDKey = @"HideUDID";
 
 NSString *const WantsAutoRefreshKey = @"AutoRefresh";
@@ -397,7 +398,15 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (NSArray *)sourceBlacklist {
-    return NULL;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    return [defaults arrayForKey:SourceBlacklistKey] ?: [NSArray new];
+}
+
++ (void)setSourceBlacklist:(NSArray *)blacklist {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:blacklist forKey:FeaturedSourceBlacklistKey];
 }
 
 + (BOOL)hideUDID {
@@ -411,7 +420,9 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (void)setHideUDID:(BOOL)hideUDID {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:hideUDID forKey:HideUDIDKey];
 }
 
 #pragma mark - Sources Settings
@@ -427,7 +438,9 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (void)setWantsAutoRefresh:(BOOL)autoRefresh {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:autoRefresh forKey:WantsAutoRefreshKey];
 }
 
 #pragma mark - Changes Settings
@@ -443,7 +456,9 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:wantsCommunityNews forKey:WantsCommunityNewsKey];
 }
 
 #pragma mark - Search Settings
@@ -459,7 +474,9 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (void)setWantsLiveSearch:(BOOL)wantsLiveSearch {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:wantsLiveSearch forKey:WantsLiveSearchKey];
 }
 
 #pragma mark - Console Settings
@@ -475,7 +492,9 @@ NSString *const WishlistKey = @"Wishlist";
 }
 
 + (void)setWantsFinishAutomatically:(BOOL)finishAutomatically {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    [defaults setBool:finishAutomatically forKey:WantsFinishAutomaticallyKey];
 }
 
 #pragma mark - Swipe Action Style
