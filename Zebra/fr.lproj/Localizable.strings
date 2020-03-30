@@ -99,13 +99,17 @@
 "Featured Repos" = "Repos en vedette";
 
 // Advanced
-
 "Advanced" = "Avancé";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Rafraîchir le Cache des Icônes";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Réinitialiser Tous les Réglages";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Effacer toutes les Sources et Paramètres";
 
 "Are you sure you want to restart the SpringBoard?" = "Êtes-vous sûr de vouloir redémarrer le SpringBoard ?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Êtes-vous sûr de vouloir réinitialiser le cache des sources de Zebra ? Cela supprimera toutes les informations mises en cache dans la base de données de Zebra et les téléchargera à nouveau. Vos sources ne seront pas supprimées.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Êtes-vous sûr de vouloir réinitialiser les paramètres de Zebra ? Cela réinitialisera tous les paramètres de Zebra à leurs valeurs par défaut et Zebra redémarrera.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Êtes-vous sûr de vouloir effacer toutes les sources et tous les paramètres ? Toutes vos sources seront supprimées de Zebra et vos paramètres seront réinitialisés.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Toutes vos sources seront supprimées définitivement et Zebra redémarrera.";
 
