@@ -70,7 +70,7 @@
 // Accent Colors
 
 "Accent Color" = "Màu đậm";
-"Aqua Velvet" = "Nhung thuỷ";
+"Aqua Velvet" = "Xanh Nhung";
 "Cornflower Blue" = "Xanh bông bắp";
 "Golden Tainoi" = "Vàng Tainoi";
 "Iris Blue" = "Xanh mống mắt";
@@ -175,7 +175,7 @@
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Không thể tải Gói từ %@. Lý do: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
