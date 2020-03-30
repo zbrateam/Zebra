@@ -11,7 +11,7 @@
 "Done" = "Ferdig";
 "Loading..." = "Laster...";
 "Clear" = "Tøm";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "En feil oppstod";
 
 // Home
 
@@ -100,19 +100,19 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Nullstill";
 "Refresh Icon Cache" = "Oppdater ikonbuffer";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Tøm bildebufferen";
+"Clear Sources Cache" = "Tøm kildebufferen";
+"Clear Web Cache" = "Tøm nettbufferen";
 "Reset All Settings" = "Nullstill alle innstillinger";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Nullstill alle kilder";
 "Erase All Sources and Settings" = "Nullstill alle kilder og innstillinger";
 
 "Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starte SpringBoard på nytt?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatere ikonbufferen? Enheten din kan slutte å svare til prosessen er fullført.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Bildebufferen ble nullstilt";
+"Web Cache Cleared" = "Nettbufferen ble nullstilt";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil nullstille kildebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon fra Zebra sin database og laste det ned på nytt. Kildene dine blir ikke fjernet.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil nullstille innstillingene til Zebra? Dette vil tilbakestille alle Zebra innstillingene til standardverdiene, og Zebra vil starte på nytt.";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
@@ -120,9 +120,9 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kildene dine vil bli permanent fjernet, og Zebra vil starte på nytt.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Åpne dokument filplassering";
 
-"Filza Not Installed" = "Filza Not Installed";
+"Filza Not Installed" = "Filza ikke installert";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
@@ -136,7 +136,7 @@
 "Could not complete purchase" = "Kunne ikke fullføre kjøpet";
 "Could not complete purchase, no payment secret was found" = "Kunne ikke fullføre kjøpet, ingen betalingshemmelighet ble funnet";
 "No packages purchased" = "Ingen kjøpte pakker";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Innlogget som %@ (%@)";
 
 // Sources
 
@@ -414,12 +414,12 @@
 "%lu Sources Hidden" = "%lu kilder skjult";
 
 "Sections" = "Seksjoner";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Velg en seksjon";
 "Hide packages in these sections." = "Skjul pakkene i disse seksjonene.";
 
 "Sources" = "Kilder";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Velg en kilde";
+"Search for an Author" = "Søk etter forfatter";
 "Hide packages in these sections from specific sources." = "Skjul pakkene i disse seksjonene fra spesifikke kilder.";
 
 "Updates" = "Oppdateringer";
