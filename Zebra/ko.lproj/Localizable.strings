@@ -98,9 +98,6 @@
 "Select Repos to be Featured" = "선정될 레포 선택";
 "Featured Repos" = "선정된 레포";
 
-// Advanced
-"Advanced" = "고급";
-
 // Reset
 
 "Reset" = "Reset";
@@ -121,6 +118,12 @@
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "정말로 모든 소스와 설정을 삭제할까요? 모든 소스가 Zebra에서 제거되고, 설정이 초기화됩니다.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "모든 소스가 영원히 삭제되고, Zebra가 재시작됩니다.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
