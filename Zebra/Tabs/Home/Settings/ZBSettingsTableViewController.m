@@ -477,7 +477,11 @@ enum ZBMiscOrder {
     
     ZBSourceSelectTableViewController *selectSource = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeInverse limit:0 selectedSources:sources];
     [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
-        [ZBSettings setSourceBlacklist:selectedSources];
+        NSMutableArray *blockedRepos = [NSMutableArray new];
+        for (ZBSource *source in selectedSources) {
+            [blockedRepos addObject:[source baseFilename]];
+        }
+        [ZBSettings setSourceBlacklist:blockedRepos];
     }];
     
     [[self navigationController] pushViewController:selectSource animated:YES];
