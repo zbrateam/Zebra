@@ -99,13 +99,17 @@
 "Featured Repos" = "선정된 레포";
 
 // Advanced
-
 "Advanced" = "고급";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "아이콘 캐시 새로고침";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "모든 설정 초기화";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "모든 소스와 설정 지우기";
 
 "Are you sure you want to restart the SpringBoard?" = "정말로 SpringBoard를 재시작할까요?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "정말 Zebra의 소스 캐시를 초기화할까요? Zebra의 데이터베이스 안의 모든 캐시된 정보들이 제거되고, 다시 다운로드 됩니다. 소스는 제거되지 않습니다.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "정말로 Zebra의 설정을 초기화할까요? Zebra의 모든 설정이 초기화되고 기본값으로 돌아간 뒤, Zebra가 재시작됩니다.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "정말로 모든 소스와 설정을 삭제할까요? 모든 소스가 Zebra에서 제거되고, 설정이 초기화됩니다.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "모든 소스가 영원히 삭제되고, Zebra가 재시작됩니다.";
 
