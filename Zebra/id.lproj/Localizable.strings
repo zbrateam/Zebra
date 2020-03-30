@@ -98,9 +98,6 @@
 "Select Repos to be Featured" = "Pilih Repo untuk Diunggulkan";
 "Featured Repos" = "Repo Unggulan";
 
-// Advanced
-"Advanced" = "Tingkat Lanjut";
-
 // Reset
 
 "Reset" = "Reset";
@@ -121,6 +118,12 @@
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Apa kamu yakin ingin menghapus semua sumber dan pengaturan? Semua sumber Anda akan dihapus dari Zebra dan pengaturan Anda akan diatur ulang.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Semua sumber Anda akan dihapus dan hilang selamanya dan Zebra akan memulai kembali.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
