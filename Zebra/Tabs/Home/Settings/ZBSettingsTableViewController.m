@@ -25,7 +25,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSearch,
     ZBConsole,
     ZBMisc,
-    ZBAdvanced
+    ZBReset
 };
 
 typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
@@ -118,7 +118,7 @@ enum ZBMiscOrder {
         case ZBMisc:
         case ZBSearch:
         case ZBConsole:
-        case ZBAdvanced:
+        case ZBReset:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
@@ -309,8 +309,8 @@ enum ZBMiscOrder {
             cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
-        case ZBAdvanced: {
-            cell.textLabel.text = NSLocalizedString(@"Advanced", @"");
+        case ZBReset: {
+            cell.textLabel.text = NSLocalizedString(@"Reset", @"");
             cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             return cell;
@@ -383,7 +383,7 @@ enum ZBMiscOrder {
             [self toggleFinishAutomatically:switcher];
             break;
         }
-        case ZBAdvanced: {
+        case ZBReset: {
             [self advancedSettings];
             break;
         }
