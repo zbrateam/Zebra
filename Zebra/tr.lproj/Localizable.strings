@@ -99,13 +99,17 @@
 "Featured Repos" = "Öne Çıkan Kaynaklar";
 
 // Advanced
-
 "Advanced" = "Gelişmiş";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Simge Önbelleğini Yenile";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Tüm Ayarları Sıfırla";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Tüm Kaynakları ve Ayarları Sil";
 
 "Are you sure you want to restart the SpringBoard?" = "SpringBoard’ı yeniden başlatmak istediğinizden emin misiniz?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Zebra'nın kaynak önbelleğini sıfırlamak istediğinizden emin misiniz? Bu, önbelleğe alınan tüm bilgileri Zebra'nın veritabanından kaldıracak ve yeniden indirecektir. Kaynaklarınız silinmeyecek.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra'nın ayarlarını sıfırlamak istediğinizden emin misiniz? Bu, Zebra'nın tüm ayarlarını varsayılan değerlerine sıfırlar ve Zebra'yı yeniden başlatılır.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tüm kaynakları ve ayarları silmek istediğinizden emin misiniz? Tüm kaynaklarınız Zebra'dan kaldırılacak ve ayarlarınız sıfırlanacak.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tüm kaynaklarınız silinecek ve sonsuza dek yok olacak ve Zebra yeniden başlayacak.";
 
