@@ -123,12 +123,12 @@
             }
             break;
         case ZBSourceSelectionTypeInverse:
-            if (![selectedIndexes containsObject:indexPath]) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            else if (![selectedSources containsObject:source]) {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if ([selectedSources containsObject:source]) {
+                cell.accessoryType = UITableViewCellAccessoryNone;
                 [selectedIndexes addObject:indexPath];
+            }
+            else if (![selectedIndexes containsObject:indexPath]) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             break;
     }
