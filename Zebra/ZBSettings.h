@@ -28,20 +28,29 @@
 
 //New settings keys
 extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
-extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
-extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
-extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
 extern NSString * _Nonnull const UsesSystemAccentColorKey; // Stored as BOOL
+extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
+extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
+extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
 
 extern NSString * _Nonnull const UseSystemLanguageKey; // Stored as BOOL
 extern NSString * _Nonnull const SelectedLanguageKey; // Stored as NSString
 
-extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
 extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
+extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
 extern NSString * _Nonnull const BlockedAuthorsKey; // Stored as NSArray
 
 extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
 extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
+extern NSString * _Nonnull const HideUDIDKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsAutoRefreshKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsCommunityNewsKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsLiveSearchKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsFinishAutomaticallyKey; // Stored as BOOL
 
 extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
 
@@ -122,7 +131,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)filteredSections;
 + (void)setFilteredSections:(NSArray *)filteredSources;
-
 + (NSDictionary *)filteredSources;
 + (void)setFilteredSources:(NSDictionary *)filteredSources;
 
@@ -145,6 +153,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)sourceBlacklist;
 
++ (BOOL)hideUDID;
++ (void)setHideUDID:(BOOL)hideUDID;
+
+#pragma mark - Sources Settings
+
++ (BOOL)wantsAutoRefresh;
++ (void)setWantsAutoRefresh:(BOOL)autoRefresh;
+
 #pragma mark - Changes Settings
 
 + (BOOL)wantsCommunityNews;
@@ -152,7 +168,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Search Settings
 
-+ (BOOL)liveSearch;
++ (BOOL)wantsLiveSearch;
++ (void)setWantsLiveSearch:(BOOL)liveSearch;
+
+#pragma mark - Console Settings
+
++ (BOOL)wantsFinishAutomatically;
++ (void)setWantsFinishAutomatically:(BOOL)finishAutomatically;
 
 #pragma mark - Swipe Action Settings
 

@@ -263,7 +263,7 @@ enum ZBMiscOrder {
         }
         case ZBNews: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsNewsKey];
+            enableSwitch.on = [ZBSettings wantsCommunityNews];
             [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
@@ -274,7 +274,7 @@ enum ZBMiscOrder {
         }
         case ZBSearch: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:liveSearchKey];
+            enableSwitch.on = [ZBSettings wantsLiveSearch];
             [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
@@ -301,7 +301,7 @@ enum ZBMiscOrder {
         }
         case ZBConsole: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:finishAutomaticallyKey];
+            enableSwitch.on = [ZBSettings wantsFinishAutomatically];
             [enableSwitch addTarget:self action:@selector(toggleFinishAutomatically:) forControlEvents:UIControlEventValueChanged];
             [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
@@ -514,15 +514,44 @@ enum ZBMiscOrder {
 }
 
 - (void)toggleNews:(id)sender {
-    [self toggle:sender preference:wantsNewsKey notification:@"toggleNews"];
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsCommunityNews:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBNews] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)toggleLiveSearch:(id)sender {
-    [self toggle:sender preference:liveSearchKey notification:nil];
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsLiveSearch:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSearch] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)toggleFinishAutomatically:(id)sender {
-    [self toggle:sender preference:finishAutomaticallyKey notification:nil];
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsFinishAutomatically:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBConsole] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)openBlackList {

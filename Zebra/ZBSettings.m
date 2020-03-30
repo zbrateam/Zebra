@@ -17,10 +17,10 @@
 @implementation ZBSettings
 
 NSString *const AccentColorKey = @"AccentColor";
-NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
-NSString *const InterfaceStyleKey = @"InterfaceStyle";
-NSString *const PureBlackModeKey = @"PureBlackMode";
 NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
+NSString *const InterfaceStyleKey = @"InterfaceStyle";
+NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
+NSString *const PureBlackModeKey = @"PureBlackMode";
 
 NSString *const UseSystemLanguageKey = @"UseSystemLanguage";
 NSString *const SelectedLanguageKey = @"AppleLanguages";
@@ -31,6 +31,15 @@ NSString *const BlockedAuthorsKey = @"BlockedAuthors";
 
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
+NSString *const HideUDIDKey = @"HideUDID";
+
+NSString *const WantsAutoRefreshKey = @"AutoRefresh";
+
+NSString *const WantsCommunityNewsKey = @"CommunityNews";
+
+NSString *const WantsLiveSearchKey = @"LiveSearch";
+
+NSString *const WantsFinishAutomaticallyKey = @"FinishAutomatically";
 
 NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
@@ -77,9 +86,11 @@ NSString *const WishlistKey = @"Wishlist";
         [defaults removeObjectForKey:darkModeKey];
     }
     
-    //Set other defaults
-    if (![defaults objectForKey:liveSearchKey]) {
-        [defaults setBool:YES forKey:liveSearchKey];
+    if ([defaults objectForKey:liveSearchKey]) {
+        BOOL wantsLiveSearch = [defaults boolForKey:liveSearchKey];
+        
+        [self setWantsLiveSearch:wantsLiveSearch];
+        [defaults removeObjectForKey:liveSearchKey];
     }
     
     if ([defaults objectForKey:wantsFeaturedKey]) {
@@ -101,8 +112,18 @@ NSString *const WishlistKey = @"Wishlist";
         [defaults removeObjectForKey:iconActionKey];
     }
     
-    if (![defaults objectForKey:wantsNewsKey]) {
-        [defaults setBool:YES forKey:wantsNewsKey];
+    if ([defaults objectForKey:wantsNewsKey]) {
+        BOOL wantsNews = [defaults boolForKey:wantsNewsKey];
+        
+        [self setWantsCommunityNews:wantsNews];
+        [defaults removeObjectForKey:wantsNewsKey];
+    }
+    
+    if ([defaults objectForKey:finishAutomaticallyKey]) {
+        BOOL finishAutomatically = [defaults boolForKey:finishAutomaticallyKey];
+        
+        [self setWantsFinishAutomatically:finishAutomatically];
+        [defaults removeObjectForKey:finishAutomaticallyKey];
     }
     
     if ([defaults objectForKey:wishListKey]) {
@@ -114,6 +135,8 @@ NSString *const WishlistKey = @"Wishlist";
     
     [defaults synchronize];
 }
+
+#pragma mark - Theming
 
 + (ZBAccentColor)accentColor {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -227,59 +250,42 @@ NSString *const WishlistKey = @"Wishlist";
     
 }
 
-+ (BOOL)wantsFeaturedPackages {
+#pragma mark - Language Settings
+
++ (BOOL)usesSystemLanguage {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if (![defaults objectForKey:WantsFeaturedPackagesKey]) {
-        [self setWantsFeaturedPackages:YES];
+    if (![defaults objectForKey:UseSystemLanguageKey]) {
+        [self setUsesSystemLanguage:YES];
         return YES;
     }
-    return [defaults boolForKey:WantsFeaturedPackagesKey];
+    return [defaults boolForKey:UseSystemLanguageKey];
 }
 
-+ (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages {
++ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setBool:wantsFeaturedPackages forKey:WantsFeaturedPackagesKey];
-    [defaults synchronize];
+    [defaults setBool:usesSystemLanguage forKey:UseSystemLanguageKey];
 }
 
-+ (ZBFeaturedType)featuredPackagesType {
++ (NSString *)selectedLanguage {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    if (![defaults objectForKey:FeaturedPackagesTypeKey]) {
-        [self setFeaturedPackagesType:@(ZBFeaturedTypeSource)];
-        return ZBFeaturedTypeSource;
+    return [defaults arrayForKey:@"AppleLanguages"][0];
+}
+
++ (void)setSelectedLanguage:(NSString *_Nullable)languageCode {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (languageCode) {
+        [defaults setObject:@[languageCode] forKey:@"AppleLanguages"];
     }
-    return (ZBFeaturedType)[defaults integerForKey:FeaturedPackagesTypeKey];
+    else {
+        [defaults removeObjectForKey:@"AppleLanguages"];
+    }
 }
 
-+ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType {
-    ZBFeaturedType type = featuredPackagesType.intValue;
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setInteger:type forKey:FeaturedPackagesTypeKey];
-    [defaults synchronize];
-}
-
-+ (NSArray *)sourceBlacklist {
-    return NULL;
-}
-
-+ (BOOL)wantsCommunityNews {
-    return YES;
-}
-
-+ (void)setWantsCommunityNews:(BOOL)wantsCommunityNews {
-    
-}
-
-+ (BOOL)liveSearch {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    return [defaults boolForKey:liveSearchKey];
-}
+#pragma mark - Filters
 
 + (NSArray *)filteredSections {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -348,6 +354,132 @@ NSString *const WishlistKey = @"Wishlist";
     return [[[self blockedAuthors] allKeys] containsObject:email];
 }
 
++ (BOOL)isPackageFiltered:(ZBPackage *)package {
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorEmail];
+}
+
+#pragma mark - Homepage Settings
+
++ (BOOL)wantsFeaturedPackages {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsFeaturedPackagesKey]) {
+        [self setWantsFeaturedPackages:YES];
+        return YES;
+    }
+    return [defaults boolForKey:WantsFeaturedPackagesKey];
+}
+
++ (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:wantsFeaturedPackages forKey:WantsFeaturedPackagesKey];
+    [defaults synchronize];
+}
+
++ (ZBFeaturedType)featuredPackagesType {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:FeaturedPackagesTypeKey]) {
+        [self setFeaturedPackagesType:@(ZBFeaturedTypeSource)];
+        return ZBFeaturedTypeSource;
+    }
+    return (ZBFeaturedType)[defaults integerForKey:FeaturedPackagesTypeKey];
+}
+
++ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType {
+    ZBFeaturedType type = featuredPackagesType.intValue;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:type forKey:FeaturedPackagesTypeKey];
+    [defaults synchronize];
+}
+
++ (NSArray *)sourceBlacklist {
+    return NULL;
+}
+
++ (BOOL)hideUDID {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:HideUDIDKey]) {
+        [self setHideUDID:NO];
+        return NO;
+    }
+    return [defaults boolForKey:HideUDIDKey];
+}
+
++ (void)setHideUDID:(BOOL)hideUDID {
+    
+}
+
+#pragma mark - Sources Settings
+
++ (BOOL)wantsAutoRefresh {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsAutoRefreshKey]) {
+        [self setWantsAutoRefresh:YES];
+        return YES;
+    }
+    return [defaults boolForKey:WantsAutoRefreshKey];
+}
+
++ (void)setWantsAutoRefresh:(BOOL)autoRefresh {
+    
+}
+
+#pragma mark - Changes Settings
+
++ (BOOL)wantsCommunityNews {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsCommunityNewsKey]) {
+        [self setWantsCommunityNews:YES];
+        return YES;
+    }
+    return [defaults boolForKey:WantsCommunityNewsKey];
+}
+
++ (void)setWantsCommunityNews:(BOOL)wantsCommunityNews {
+    
+}
+
+#pragma mark - Search Settings
+
++ (BOOL)wantsLiveSearch {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsLiveSearchKey]) {
+        [self setWantsLiveSearch:YES];
+        return YES;
+    }
+    return [defaults boolForKey:WantsLiveSearchKey];
+}
+
++ (void)setWantsLiveSearch:(BOOL)wantsLiveSearch {
+    
+}
+
+#pragma mark - Console Settings
+
++ (BOOL)wantsFinishAutomatically {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:WantsFinishAutomaticallyKey]) {
+        [self setWantsFinishAutomatically:NO];
+        return NO;
+    }
+    return [defaults boolForKey:WantsFinishAutomaticallyKey];
+}
+
++ (void)setWantsFinishAutomatically:(BOOL)finishAutomatically {
+    
+}
+
+#pragma mark - Swipe Action Style
+
 + (ZBSwipeActionStyle)swipeActionStyle {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -367,9 +499,7 @@ NSString *const WishlistKey = @"Wishlist";
     [defaults synchronize];
 }
 
-+ (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorEmail];
-}
+#pragma mark - Wishlist
 
 + (NSArray *)wishlist {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -381,39 +511,6 @@ NSString *const WishlistKey = @"Wishlist";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:wishlist forKey:WishlistKey];
-}
-
-+ (BOOL)usesSystemLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:UseSystemLanguageKey]) {
-        [self setUsesSystemLanguage:YES];
-        return YES;
-    }
-    return [defaults boolForKey:UseSystemLanguageKey];
-}
-
-+ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setBool:usesSystemLanguage forKey:UseSystemLanguageKey];
-}
-
-+ (NSString *)selectedLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    return [defaults arrayForKey:@"AppleLanguages"][0];
-}
-
-+ (void)setSelectedLanguage:(NSString *_Nullable)languageCode {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (languageCode) {
-        [defaults setObject:@[languageCode] forKey:@"AppleLanguages"];
-    }
-    else {
-        [defaults removeObjectForKey:@"AppleLanguages"];
-    }
 }
 
 #pragma clang diagnostic pop

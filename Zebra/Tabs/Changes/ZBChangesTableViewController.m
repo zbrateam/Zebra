@@ -85,7 +85,7 @@
 
 - (void)startSettingHeader  {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([defaults boolForKey:wantsNewsKey]) {
+    if ([ZBSettings wantsCommunityNews]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // [self retrieveNewsJson];
             [self kickStartReddit];
@@ -521,7 +521,7 @@
 }
 
 - (void)toggleNews {
-    if ([defaults boolForKey:wantsNewsKey]) {
+    if ([ZBSettings wantsCommunityNews]) {
         [self retrieveNewsJson];
     } else {
         [self.redditPosts removeAllObjects];

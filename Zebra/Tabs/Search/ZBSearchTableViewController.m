@@ -125,7 +125,7 @@
 #pragma mark - Search Controller Delegate
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
-    self->shouldPerformSearching = [ZBSettings liveSearch];
+    self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
 }
 
 #pragma mark - Search Bar Delegate
@@ -135,7 +135,7 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self->shouldPerformSearching = [ZBSettings liveSearch];
+    self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
     
     [self updateSearchResultsForSearchController:searchController];
 }

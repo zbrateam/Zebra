@@ -679,7 +679,7 @@
 
 - (void)updateCompleteButton {
     ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), respringRequired(%d), zebraRestartRequired(%d)", downloadFailed, respringRequired, zebraRestartRequired);
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:finishAutomaticallyKey]) { // automatically finish after 3 secs
+    if ([ZBSettings wantsFinishAutomatically]) { // automatically finish after 3 secs
         dispatch_block_t finishBlock = nil;
 
         if (self->downloadFailed) {
