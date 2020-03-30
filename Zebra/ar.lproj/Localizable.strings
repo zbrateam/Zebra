@@ -100,19 +100,19 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "إعادة تعيين";
 "Refresh Icon Cache" = "تحديث ذاكرة التخزين المؤقتة";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "مسح ذاكرة تخزين الصور المؤقتة";
+"Clear Sources Cache" = "مسح ذاكرة تخزين المصادر المؤقتة";
+"Clear Web Cache" = "مسح ذاكرة تخزين ويب المؤقتة";
 "Reset All Settings" = "إعادة تعيين جميع الإعدادات";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "محو جميع المصادر";
 "Erase All Sources and Settings" = "محو كل المصادر والإعدادات";
 
 "Are you sure you want to restart the SpringBoard?" = "هل أنت متأكد أنك تريد إعادة تشغيل واجهة النظام؟";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "هل أنت متأكد أنك تريد تحديث ذاكرة تخزين الأيقونة المؤقتة؟ قد يصبح جهازك غير قادر على الاستجابة حتى انتهاء العملية.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "تم مسح ذاكرة تخزين الصور المؤقتة";
+"Web Cache Cleared" = "تم مسح ذاكرة تخزين ويب المؤقتة";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "هل أنت متأكد أنك تريد إعادة تعيين ذاكرة تخزين مصادر Zebra المؤقتة؟ سيؤدي هذا إلى إزالة كل المعلومات المخزنة مؤقتًا من قاعدة بيانات Zebra وإعادة تنزيلها. لن يتم حذف مصادرك.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "هل أنت متأكد أنك تريد إعادة تعيين إعدادات Zebra؟ سيؤدي هذا إلى إعادة تعيين كافة إعدادات Zebra إلى القيم الافتراضية وسيتم إعادة تشغيل Zebra.";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
