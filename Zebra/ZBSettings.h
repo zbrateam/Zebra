@@ -25,6 +25,7 @@
 #define wishListKey @"wishList"
 #define darkModeKey @"darkMode"
 #define finishAutomaticallyKey @"finishAutomatically"
+#define featuredBlacklistKey @"blackListedRepos"
 
 //New settings keys
 extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor

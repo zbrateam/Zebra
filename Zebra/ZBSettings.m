@@ -134,7 +134,12 @@ NSString *const WishlistKey = @"Wishlist";
         [defaults removeObjectForKey:wishListKey];
     }
     
-    [defaults synchronize];
+    if ([defaults objectForKey:featuredBlacklistKey]) {
+        NSArray *blacklistedRepos = [defaults arrayForKey:featuredBlacklistKey];
+        
+        [self setSourceBlacklist:blacklistedRepos];
+        [defaults removeObjectForKey:featuredBlacklistKey];
+    }
 }
 
 #pragma mark - Theming
