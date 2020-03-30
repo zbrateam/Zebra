@@ -12,7 +12,6 @@
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
 #import "ZBAlternateIconController.h"
-#import "ZBRepoBlacklistTableViewController.h"
 @import SDWebImage;
 
 @interface ZBSettingsTableViewController : UITableViewController <UINavigationControllerDelegate>

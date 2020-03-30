@@ -31,7 +31,7 @@ NSString *const BlockedAuthorsKey = @"BlockedAuthors";
 
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
-NSString *const SourceBlacklistKey = @"FeaturedSourceBlacklist";
+NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
 NSString *const HideUDIDKey = @"HideUDID";
 
 NSString *const WantsAutoRefreshKey = @"AutoRefresh";
@@ -405,7 +405,7 @@ NSString *const WishlistKey = @"Wishlist";
 + (NSArray *)sourceBlacklist {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    return [defaults arrayForKey:SourceBlacklistKey] ?: [NSArray new];
+    return [defaults arrayForKey:FeaturedSourceBlacklistKey] ?: [NSArray new];
 }
 
 + (void)setSourceBlacklist:(NSArray *)blacklist {
