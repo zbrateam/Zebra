@@ -65,7 +65,7 @@
     }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
-    self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
+    if (limit > 0) self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
 }
 
 - (void)checkClipboard {}
@@ -79,7 +79,12 @@
 }
 
 - (void)goodbye {
-    [self dismissViewControllerAnimated:true completion:nil];
+    if ([self.navigationController.viewControllers[0] isEqual:self]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    else {
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
 }
 
 - (void)refreshTable {
