@@ -16,12 +16,16 @@
 #import "ZBSettingsResetTableViewController.h"
 #import "ZBFilterSettingsTableViewController.h"
 #import "ZBLanguageSettingsTableViewController.h"
+#import "ZBSourceSelectTableViewController.h"
+
+#import <Sources/Helpers/ZBSource.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
     ZBFilters,
-    ZBFeatured,
-    ZBNews,
+    ZBHome,
+    ZBSources,
+    ZBChanges,
     ZBSearch,
     ZBConsole,
     ZBMisc,
@@ -89,9 +93,11 @@ enum ZBMiscOrder {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
-        case ZBFeatured:
+        case ZBHome:
             return NSLocalizedString(@"Home", @"");
-        case ZBNews:
+        case ZBSources:
+            return NSLocalizedString(@"Sources", @"");
+        case ZBChanges:
             return NSLocalizedString(@"Changes", @"");
         case ZBSearch:
             return NSLocalizedString(@"Search", @"");
@@ -107,16 +113,17 @@ enum ZBMiscOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 8;
+    return 9;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
         case ZBFilters:
-        case ZBNews:
+        case ZBChanges:
         case ZBMisc:
         case ZBSearch:
+        case ZBSources:
         case ZBConsole:
             return 1;
         case ZBInterface:
@@ -124,7 +131,7 @@ enum ZBMiscOrder {
                 return 3;
             }
             return 1;
-        case ZBFeatured: {
+        case ZBHome: {
             int rows = 1;
             BOOL wantsFeatured = [ZBSettings wantsFeaturedPackages];
             if (wantsFeatured) {
@@ -160,7 +167,7 @@ enum ZBMiscOrder {
             return cell;
         }
     }
-    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
+    else if ((indexPath.section == ZBHome && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -227,7 +234,7 @@ enum ZBMiscOrder {
             
             return cell;
         }
-        case ZBFeatured: {
+        case ZBHome: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
                 case ZBFeaturedEnable: {
@@ -261,7 +268,17 @@ enum ZBMiscOrder {
             cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
-        case ZBNews: {
+        case ZBSources: {
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = [ZBSettings wantsAutoRefresh];
+            [enableSwitch addTarget:self action:@selector(toggleAutoRefresh:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
+            cell.accessoryView = enableSwitch;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = NSLocalizedString(@"Auto Refresh", @"");
+            return cell;
+        }
+        case ZBChanges: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             enableSwitch.on = [ZBSettings wantsCommunityNews];
             [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
@@ -342,12 +359,16 @@ enum ZBMiscOrder {
             [self filterSettings];
             break;
         }
-        case ZBFeatured: {
+        case ZBHome: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
-                case ZBFeaturedEnable:
-                    [self getTappedSwitch:indexPath];
+                case ZBFeaturedEnable: {
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                    [switcher setOn:!switcher.on animated:YES];
+                    [self toggleFeatured:switcher];
                     break;
+                }
                 case ZBFeatureOrRandomToggle:
                     [self featureOrRandomToggle];
                     break;
@@ -359,7 +380,7 @@ enum ZBMiscOrder {
             }
             break;
         }
-        case ZBNews: {
+        case ZBChanges: {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             UISwitch *switcher = (UISwitch *)cell.accessoryView;
             [switcher setOn:!switcher.on animated:YES];
@@ -402,9 +423,9 @@ enum ZBMiscOrder {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
-        case ZBFeatured:
+        case ZBHome:
             return NSLocalizedString(@"Display featured packages on the homepage.", @"");
-        case ZBNews:
+        case ZBChanges:
             return NSLocalizedString(@"Display recent community posts from /r/jailbreak.", @"");
         case ZBSearch:
             return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
@@ -444,6 +465,22 @@ enum ZBMiscOrder {
     ZBLanguageSettingsTableViewController *languageController = [[ZBLanguageSettingsTableViewController alloc] init];
     
     [[self navigationController] pushViewController:languageController animated:YES];
+}
+
+- (void)repoBlacklist {
+    NSMutableArray *sources = [NSMutableArray new];
+    NSArray *baseFilenames = [ZBSettings sourceBlacklist];
+    for (NSString *baseFilename in baseFilenames) {
+        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        if (source) [sources addObject:source];
+    }
+    
+    ZBSourceSelectTableViewController *selectSource = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeInverse limit:0 selectedSources:sources];
+    [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
+        [ZBSettings setSourceBlacklist:selectedSources];
+    }];
+    
+    [[self navigationController] pushViewController:selectSource animated:YES];
 }
 
 - (void)resetSettings {
@@ -487,17 +524,6 @@ enum ZBMiscOrder {
     }
 }
 
-- (void)toggle:(id)sender preference:(NSString *)preferenceKey notification:(NSString *)notificationKey {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    UISwitch *switcher = (UISwitch *)sender;
-    [defaults setBool:switcher.isOn forKey:preferenceKey];
-    [defaults synchronize];
-    [ZBDevice hapticButton];
-    if (notificationKey) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:self];
-    }
-}
-
 - (void)toggleFeatured:(id)sender {
     UISwitch *switcher = (UISwitch *)sender;
     
@@ -508,7 +534,7 @@ enum ZBMiscOrder {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBHome] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
 }
@@ -523,7 +549,7 @@ enum ZBMiscOrder {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBNews] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBChanges] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
 }
@@ -552,42 +578,6 @@ enum ZBMiscOrder {
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBConsole] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
-}
-
-- (void)openBlackList {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBRepoBlacklistTableViewController *blackList = [storyboard instantiateViewControllerWithIdentifier:@"repoBlacklistController"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController pushViewController:blackList animated:YES];
-}
-
-- (void)getTappedSwitch:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    UISwitch *switcher = (UISwitch *)cell.accessoryView;
-    [switcher setOn:!switcher.on animated:YES];
-    if (indexPath.section == ZBFeatured) {
-        [self toggleFeatured:switcher];
-    }
-}
-
-- (void)oledAnimation {
-    [self.tableView reloadData];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-//    [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-//    [ZBDevice refreshViews];
-    [self setNeedsStatusBarAppearanceUpdate];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
 }
 
 - (void)misc {
