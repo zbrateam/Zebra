@@ -100,13 +100,13 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Redefinir";
 "Refresh Icon Cache" = "Atualizar Cache de Ícones";
 "Clear Image Cache" = "Limpar Cache de imagens";
 "Clear Sources Cache" = "Redefinir Cache de Fontes";
 "Clear Web Cache" = "Limpar o Cache Web";
 "Reset All Settings" = "Redefinir todas as configurações";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Apagar todas as Fontes";
 "Erase All Sources and Settings" = "Apagar todas as Fontes e Configurações";
 
 "Are you sure you want to restart the SpringBoard?" = "Tem certeza que deseja reiniciar o SpringBoard?";
@@ -115,7 +115,7 @@
 "Web Cache Cleared" = "Cache Web limpo";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Tem certeza de que deseja redefinir o cache de fontes do Zebra? Isso removerá todas as informações armazenadas em cache da base de dados do Zebra e baixará novamente. Suas fontes não serão excluídas.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Tem certeza de que deseja redefinir as configurações do Zebra? Isso irá redefinir todas as configurações do Zebra de volta aos seus valores padrão e o Zebra será reiniciado.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Tem certeza de que deseja apagar todas as fontes? Todas as suas fontes serão removidas do Zebra e Zebra será reiniciado.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tem certeza de que deseja apagar todas as fontes e configurações? Todas as suas fontes serão removidas do Zebra e suas configurações serão redefinidas.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas as suas fontes serão excluídas para sempre e Zebra será reiniciado.";
 
