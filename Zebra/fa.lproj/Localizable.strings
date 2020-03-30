@@ -11,7 +11,7 @@
 "Done" = "انجام شد";
 "Loading..." = "...در حال بارگذاری";
 "Clear" = "پاک سازی";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "یک خطا روی داده است";
 
 // Home
 
@@ -102,17 +102,17 @@
 
 "Reset" = "Reset";
 "Refresh Icon Cache" = "بروزکردن حافظه آیکون‌ها";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "پاک کردن حافظه ی کش عکس ها";
+"Clear Sources Cache" = "پاک کردن حافظه سورس‌ها";
+"Clear Web Cache" = "پاک کردن حافظه پنهان وب";
 "Reset All Settings" = "ریست کردن تمام تنظیمات";
 "Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "حذف تمامی سورس‌ها و تنظیمات";
 
 "Are you sure you want to restart the SpringBoard?" = "مطمئن هستید که می خواهید اسپرینگ‌برد را مجدداً راه اندازی کنید؟";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "آیا مطمئن هستید که می خواهید حافظه آیکون‌ها را تازه کنید؟ ممکن است دستگاه شما تا زمانی که روند کامل شود، پاسخگو نباشد.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "حافظه موقت تصویر پاک شد";
+"Web Cache Cleared" = "حافظه موقت وب پاک شد";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "مطمئن هستید که می خواهید حافظه سورس‌های زبرا را مجددا تنظیم کنید؟ با این کار تمام اطلاعات ذخیره شده از پایگاه داده زبرا حذف و مجدداً بارگیری می شود. سورس‌ها حذف نمی شوند.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "آیا مطمئنید که می‌خواهید زبرا را ریست کنید؟ این کار همه تنظیمات زبرا را به حالت اولیه‌شان بر خواهد گرداند و زبرا مجددا شروع به کار خواهد کرد.";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
@@ -128,15 +128,15 @@
 // Stores
 
 "Stores" = "فروشگاه ها";
-"My Account" = "My Account";
+"My Account" = "حساب من";
 "Sign In" = "ورود";
 "Sign Out" = "خروج";
 "Your Purchases" = "خریدهای شما";
 "No Storefronts Available" = "هیچ ویترینی در دسترس نیست.";
 "Could not complete purchase" = "قادر به تکمیل خرید نیست";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
+"Could not complete purchase, no payment secret was found" = "نمی توان خرید را کامل کرد ، هیچ پرداختی پیدا نشد";
 "No packages purchased" = "هیچ پکیجی خریداری نشده است.";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "وارد شده به عنوان%@ (%@)";
 
 // Sources
 
@@ -175,12 +175,12 @@
 "Unable to locate an APT repository at:" = "خطا در پیدا کردن یک سورس APT در:";
 "Unable to locate APT repositories at:" = "خطا در پیدا کردن سورس‌های APT در:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "نتوانست پرونده های بسته را از%@ دانلود کند.\nدلیل: %@";
+"Could not download one or more files from %@. Reason: %@" = "نتوانست یک یا چند فایل را از%@ دانلود کند.\nدلیل: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زبرا قادر به دانلود سورس مشخص شده در%@ نیست. ممکن است موقتا غیرقابل دسترسی باشد یا به اشتباه اضافه شده باشد.";
 
 // Packages
 
@@ -356,7 +356,7 @@
 "%@ is required by:" = "%@ مورد نیاز توسط:";
 "%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "مطمئن هستید که می خواهید صف را پاک کنید؟";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ بسته مورد نیاز است. نباید حذف شود مگر اینکه شما می دانید که دقیقا چه کار میکنید!";
 
 // Search
@@ -401,38 +401,38 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"تصادفی\" بسته های تصادفی را از تمام سورس‌های اضافه شده به زبرا نمایش می دهد.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "واردشدن، به سورس‌ها اجازه خرید بسته های پولی را می‌دهد.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "بعد از تکمیل کارها، کنسول را به طور خودکار خارج کن.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "فیلترها";
+"Add Filter" = "افزودن فیلتر";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "۱ بخش پنهان شد";
+"%lu Sources Hidden" = "%lu سورس مخفی شد";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "بخش‌ها";
+"Select a Section" = "بخش انتخاب شده";
+"Hide packages in these sections." = "پنهان کردن بسته ها در این بخش.";
 
 "Sources" = "منابع";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "انتخاب سورس";
+"Search for an Author" = "جستجوی مؤلف";
+"Hide packages in these sections from specific sources." = "مخفی کردن بسته ها در این بخش از سورس‌های خاص.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "به روز رسانی‌ها";
+"Hide future updates from these packages." = "مخفی کردن به روز رسانی های آینده این بسته ها.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "سازندها";
+"Hide packages from these authors." = "مخفی کردن بسته‌های این سازندگان.";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "زبان";
+"Apply" = "اعمال تغییرات";
+"Restart Required" = "راه‌اندازی مجدد لازم است";
+"Zebra must be closed in order to change preferred language" = "برای تغییر زبان زبرا باید بسته شود";
+"Restart" = "راه اندازی مجدد";
+"Use System Language" = "استفاده از زبان سیستم";
