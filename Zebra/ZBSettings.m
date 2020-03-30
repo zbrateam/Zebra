@@ -135,6 +135,18 @@ NSString *const WishlistKey = @"Wishlist";
     }
     
     if ([defaults objectForKey:featuredBlacklistKey]) {
+        NSArray *oldBlacklist = [defaults objectForKey:featuredBlacklistKey];
+        
+        NSMutableArray *newBlacklist = [NSMutableArray new];
+        for (__strong NSString *baseURL in oldBlacklist) {
+            if ([baseURL characterAtIndex:[baseURL length] - 1] != '/') {
+                baseURL = [baseURL stringByAppendingString:@"/"];
+            }
+            NSString *baseFilename = [baseURL stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+            [newBlacklist addObject:baseFilename];
+        }
+        [ZBSettings setSourceBlacklist:newBlacklist];
+        
         [defaults removeObjectForKey:featuredBlacklistKey];
     }
 }
