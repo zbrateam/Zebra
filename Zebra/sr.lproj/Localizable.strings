@@ -99,13 +99,17 @@
 "Featured Repos" = "Naglašeni Repoi";
 
 // Advanced
-
 "Advanced" = "Napredno";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Osveži keš";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Resetuj sva podešavanja";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Obriši sve izvore i podešavanja";
 
 "Are you sure you want to restart the SpringBoard?" = "Da li ste sigurni da ćete da resetujete SpringBoard?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Da li ćete sigurno da resetujete Zebrin keš izvora? Ovo će ukloniti sve keširane informacije iz Zebrine baze i skinuti opet. Vasi izvori nece biti izbrisani.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
 
