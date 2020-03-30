@@ -99,13 +99,17 @@
 "Featured Repos" = "Repos Nổi Bật";
 
 // Advanced
-
 "Advanced" = "Nâng cao";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Làm mới bộ nhớ icon";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Đặt lại tất cả các cài đặt";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Xoá tất cả các nguồn và cài đặt";
 
 "Are you sure you want to restart the SpringBoard?" = "Bạn có muốn khởi động lại SpringBoard?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Bạn có muốn đặt lại bộ nhớ mã nguồn của Zebra? Hành động này sẽ xoá tất cả thông tin trong dữ liệu của Zebra và tải lại nó. Nguồn của bạn sẽ không bị xoá.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Bạn có muốn đặt lại tất cả cài đặt của Zebra? Điều này sẽ đưa tất cả các cài đặt của Zebra về mặc định và Zebra sẽ khởi động lại.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Bạn có muốn xoá tất cả nguồn và cài đặt? Tất cả nguồn của bạn sẽ bị xoá khỏi Zebra và cài đặt của bạn sẽ bị xoá.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tất cả nguồn của bạn sẽ bị xoá vĩnh viễn và Zebra sẽ khởi động lại.";
 
