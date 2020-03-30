@@ -99,13 +99,17 @@
 "Featured Repos" = "Repo Unggulan";
 
 // Advanced
-
 "Advanced" = "Tingkat Lanjut";
+
+// Reset
+
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Segarkan Cache Icon";
 "Clear Image Cache" = "Clear Image Cache";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Setel Ulang Semua Pengaturan";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Hapus Semua Sumber dan Pengaturan";
 
 "Are you sure you want to restart the SpringBoard?" = "Apakah kamu yakin untuk mengulang Springboard?";
@@ -114,6 +118,7 @@
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Anda yakin ingin mengatur ulang cache sumber Zebra? Ini akan menghapus semua informasi yang di-cache dari basis data Zebra dan mengunduh ulang. Sumber Anda tidak akan dihapus.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Anda yakin ingin mengatur ulang pengaturan Zebra? Ini akan mengatur ulang semua pengaturan Zebra kembali ke nilai default dan Zebra akan memulai kembali.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Apa kamu yakin ingin menghapus semua sumber dan pengaturan? Semua sumber Anda akan dihapus dari Zebra dan pengaturan Anda akan diatur ulang.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Semua sumber Anda akan dihapus dan hilang selamanya dan Zebra akan memulai kembali.";
 
