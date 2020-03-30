@@ -11,7 +11,7 @@
 "Done" = "Fatto";
 "Loading..." = "Caricamento...";
 "Clear" = "Pulisci";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Si è verificato un errore";
 
 // Home
 
@@ -136,7 +136,7 @@
 "Could not complete purchase" = "Impossibile completare l'acquisto";
 "Could not complete purchase, no payment secret was found" = "Impossibile completare l'acquisto, nessun metodo di pagamento trovato";
 "No packages purchased" = "Nessun pacchetto acquistato";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Accesso eseguito come %@ (%@)";
 
 // Sources
 
@@ -175,8 +175,8 @@
 "Unable to locate an APT repository at:" = "Nessuna repo APT trovata al link:";
 "Unable to locate APT repositories at:" = "Nessuna repo APT trovata al link:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Impossibile scaricare i file dei pacchetti da %@. Motivo: %@";
+"Could not download one or more files from %@. Reason: %@" = "Impossibile scaricare uno o più file da %@. Motivo: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "L’URL inserito non è valido. Si prega di controllare e riprovare.";
 
@@ -356,7 +356,7 @@
 "%@ is required by:" = "%@ è richiesto da:";
 "%@ must be removed because it depends on %@" = "%@ deve essere rimosso perché dipende da %@";
 "%@ has issues that cannot be resolved:" = "%@ ha dei problemi che non possono essere risolti:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Sei sicuro di voler cancellare la Coda?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ è un pacchetto necessario. Non è raccomandato procedere almeno che tu non sappia esattamente quello che fai!";
 
 // Search
@@ -414,12 +414,12 @@
 "%lu Sources Hidden" = "%lu Sorgenti Nascoste";
 
 "Sections" = "Categorie";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Seleziona una sezione";
 "Hide packages in these sections." = "Nascondi pacchetti in queste categorie.";
 
 "Sources" = "Sorgenti";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Seleziona una Sorgente";
+"Search for an Author" = "Cerca un autore";
 "Hide packages in these sections from specific sources." = "Nascondi i pacchetti in queste categorie da sorgenti specifiche.";
 
 "Updates" = "Aggiornamenti";
@@ -430,9 +430,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Lingua";
+"Apply" = "Applica";
+"Restart Required" = "Necessario Riavvio";
+"Zebra must be closed in order to change preferred language" = "Zebra deve essere chiuso per cambiare la lingua preferita";
+"Restart" = "Riavvia";
+"Use System Language" = "Usa lingua di sistema";
