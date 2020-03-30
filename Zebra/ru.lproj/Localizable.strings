@@ -102,17 +102,17 @@
 
 "Reset" = "Reset";
 "Refresh Icon Cache" = "Обновить Кэш Иконок";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Очистить Кэш Изображений";
+"Clear Sources Cache" = "Очистить Кэш Источников";
+"Clear Web Cache" = "Очистить Веб-Кэш";
 "Reset All Settings" = "Сбросить Все Настройки";
 "Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Стереть Все Источники и Настройки";
 
 "Are you sure you want to restart the SpringBoard?" = "Вы уверены, что хотите перезапустить SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Вы уверены, что хотите обновить кэш иконок? Ваше устройство может зависнуть до конца процесса обновления.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Кэш Изображений Очищен";
+"Web Cache Cleared" = "Веб-Кэш очищен";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Вы уверены что хотите сбросить кэш источников Zebra? Это удалит всю кэшированную информацию из базы данных Zebra и заново скачает ее. Ваши источники не будут удалены.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Вы уверены что хотите сбросить настройки Zebra? Это сбросит их до стандартных значений и перезапустит Zebra.";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
