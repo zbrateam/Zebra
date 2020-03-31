@@ -436,7 +436,7 @@
 // Language Settings
 
 "Language" = "Språk";
-"Apply" = "Utfør";
+"Apply" = "Bruk";
 "Restart Required" = "Omstart nødvendig";
 "Zebra must be closed in order to change preferred language" = "For å endre ønsket språk må Zebra være lukket";
 "Restart" = "Omstart";
