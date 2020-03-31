@@ -76,6 +76,23 @@
     }
 }
 
++ (UIColor *)cellSelectedBackgroundColor {
+    ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+    if ([ZBThemeManager useCustomTheming]) {
+        switch (style) {
+            case ZBInterfaceStyleLight:
+                return [[UIColor blackColor] colorWithAlphaComponent:0.10];
+            case ZBInterfaceStyleDark:
+                return [[UIColor whiteColor] colorWithAlphaComponent:0.10];
+            case ZBInterfaceStylePureBlack:
+                return [[UIColor whiteColor] colorWithAlphaComponent:0.05];
+        }
+    }
+    else {
+        return style == ZBInterfaceStylePureBlack ? [[UIColor whiteColor] colorWithAlphaComponent:0.05] : [[UIColor tertiarySystemGroupedBackgroundColor] colorWithAlphaComponent:0.75];
+    }
+}
+
 + (UIColor *)primaryTextColor {
     if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {

@@ -346,6 +346,8 @@
     numberFormatter.locale = [NSLocale currentLocale];
     numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     numberFormatter.usesGroupingSeparator = YES;
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+    cell.selectedBackgroundView.backgroundColor = [UIColor cellSelectedBackgroundColor];
     
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"All Packages", @"");

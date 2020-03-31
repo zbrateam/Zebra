@@ -16,6 +16,7 @@
 + (UIColor *)tableViewBackgroundColor;
 + (UIColor *)groupedTableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;
++ (UIColor *)cellSelectedBackgroundColor;
 + (UIColor *)primaryTextColor;
 + (UIColor *)secondaryTextColor;
 + (UIColor *)cellSeparatorColor;
