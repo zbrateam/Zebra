@@ -18,6 +18,8 @@ after-stage::
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/LNPopupController.framework/LNPopupController
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 
+	$(FAKEROOT) chmod 6755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/supersling
+
 ipa::
 	make all
 	mkdir -p $(THEOS_STAGING_DIR)/Payload
