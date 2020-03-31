@@ -11,7 +11,7 @@
 "Done" = "Τέλος";
 "Loading..." = "Γίνεται φόρτωση...";
 "Clear" = "Εκκαθάριση";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Παρουσιάστηκε Σφάλμα";
 
 // Home
 
@@ -100,30 +100,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Επαναφορά";
 "Refresh Icon Cache" = "Ανανέωσε το Cache Εικονιδίων";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Καθάρισε Cache Εικόνων";
+"Clear Sources Cache" = "Καθάρισε Cache Πηγών";
+"Clear Web Cache" = "Καθάρισε Web Cache";
 "Reset All Settings" = "Επαναφορά Όλων των Ρυθμίσεων";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Επαναφορά Όλων των Πηγών";
 "Erase All Sources and Settings" = "Επαναφορά όλων των Πηγών και Ρυθμίσεων";
 
 "Are you sure you want to restart the SpringBoard?" = "Είσαι βέβαιος ότι θέλεις να κάνεις επανεκκίνηση του SpringBoard;";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Είσαι βέβαιος ότι θέλεις να ανανεώσεις το cache εικονιδιων; Η συσκευή σου μπορεί να μην ανταποκρίνεται μέχρι η διαδικασία ολοκληρωθεί.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Το Cache Εικόνων Καθαρίστηκε";
+"Web Cache Cleared" = "Το Web Cache Καθαρίστηκε";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Είσαι βέβαιος ότι θέλεις να επαναφέρεις το cache των πηγών του Zebra; Αυτό θα αφαιρέσει όλες τις αποθηκευμένες πληροφορίες από το database του Zebra και θα τις ξανακατεβάσει. Οι πηγές σου δεν θα διαγραφτούν.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Είσαι βέβαιος ότι θέλεις να επαναφέρεις τις ρυθμίσεις του Zebra; Αυτό θα επαναφέρει όλες τις ρυθμίσεις του Zebra στις εργοστασιακές τιμές και το Ζebra θα κάνει επανεκκίνηση.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Είσαι βέβαιος ότι θέλεις να διαγράψεις όλες τις πηγές; Όλες οι πηγές σου θα διαγραφτούν απο το Zebra και το Zebra θα κάνει επανεκκίνηση.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Είσαι βέβαιος ότι θέλεις να διαγράψεις όλες τις πηγές και ρυθμίσεις; Όλες οι πηγές σου θα διαγραφτούν απο το Zebra και οι ρυθμίσεις σου θα δεχτούν επαναφορά.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Όλες οι πηγές σου θα διαγραφτούν για πάντα και το Ζebra θα κάνει επανεκκίνηση.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Άνοιγμα του Φακέλου Documents";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Το Filza Δεν είναι εγκαταστημένο";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Το Zebra αδυνατεί να ανοίξει τον φάκελο των αρχείων του διότι το Filza δεν είναι εγκαταστημένο. Ο φάκελος των αρχείων σου βρίσκεται στο: %@";
 
 // Stores
 
@@ -136,7 +136,7 @@
 "Could not complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
 "Could not complete purchase, no payment secret was found" = "Αδυναμία ολοκλήρωσης αγοράς, δεν βρέθηκε payment secret";
 "No packages purchased" = "Κανένα αγορασμένο πακέτο";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Συνδεδεμένος ως %@ (%@)";
 
 // Sources
 
@@ -175,8 +175,8 @@
 "Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Packages από %@. Λόγος: %@";
+"Could not download one or more files from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη ενός ή περισσοτέρων αρχείων από %@. Λόγος: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Το URL που έβαλες δεν είναι έγκυρο. Παρακαλώ επαλήθευσε και προσπάθησε ξανά.";
 
@@ -356,7 +356,7 @@
 "%@ is required by:" = "%@ απαιτείται από:";
 "%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
 "%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο. ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
 
 // Search
@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ΣΦΑΛΜΑ: Η διαδικασία πρέπει να επανεκκινηθεί. Παρακαλώ ξαναπροσπάθησε.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Κρύψε το UDID";
 
 "Display featured packages on the homepage." = "Εμφάνισε προτεινόμενα πακέτα στην αρχική οθόνη.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Αυτόματη Ανανέωση";
+"Refresh Zebra's sources when opening the app." = "Ανανέωσε τις πηγές του Zebra όταν ανοίγεις της εφαρμογή.";
 
 "Display recent community posts from /r/jailbreak." = "Εμφάνισε πρόσφατες αναρτήσεις της κοινότητας του /r/jailbreak.";
 
@@ -419,12 +419,12 @@
 "%lu Sources Hidden" = "%lu Ενότητες Κρύφτηκαν";
 
 "Sections" = "Ενότητες";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Επίλεξε μία Ενότητα";
 "Hide packages in these sections." = "Κρύψε πακέτα σε αυτές τις ενότητες.";
 
 "Sources" = "Πηγές";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Επίλεξε μία πηγή";
+"Search for an Author" = "Αναζήτησε κάποιο Δημιουργό";
 "Hide packages in these sections from specific sources." = "Κρύψε πακέτα σε αυτές τις ενότητες από συγκεκριμένες πηγές.";
 
 "Updates" = "Ενημερώσεις";
@@ -435,9 +435,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Γλώσσα";
+"Apply" = "Εφαρμογή";
+"Restart Required" = "Απαιτείται Επανεκκίνηση";
+"Zebra must be closed in order to change preferred language" = "Το Zebra πρέπει να είναι κλειστό για να αλλάξει η προτεινόμενη γλωσσα";
+"Restart" = "Επανεκκίνηση";
+"Use System Language" = "Χρήση της Γλώσσας Συστήματος";
