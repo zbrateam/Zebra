@@ -120,10 +120,10 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas as suas fontes serão excluídas para sempre e Zebra será reiniciado.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Abrir o diretório de documentos";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza não instalado";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra não pode abrir seu diretório de documentos porque o Filza não está instalado. Seu diretório de documentos é: %@";
 
 // Stores
 
@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERRO: O processo deve ser reiniciado. Por favor, tente novamente.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Ocultar UDID";
 
 "Display featured packages on the homepage." = "Exibir pacotes em destaque na página inicial.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Atualização automática";
+"Refresh Zebra's sources when opening the app." = "Atualizar as fontes da Zebra ao abrir o aplicativo.";
 
 "Display recent community posts from /r/jailbreak." = "Exibir publicações recentes da comunidade /r/jailbreak.";
 
