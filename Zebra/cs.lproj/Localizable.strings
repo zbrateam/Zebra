@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces musí být restartován. Prosím zkuste to znovu.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Zobrazí doporučené balíčky na domovské stránce.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
 
