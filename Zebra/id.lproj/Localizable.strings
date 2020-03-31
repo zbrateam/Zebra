@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "GALAT: Proses harus dimulai ulang. Silakan coba lagi.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Tampilkan paket unggulan di beranda.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Tampilkan pos komunitas terbaru dari /r/jailbreak.";
 
