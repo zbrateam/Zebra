@@ -75,41 +75,59 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row >= filteredResults.count) return NULL;
-    if (_live) {
+    
+    NSObject *quantumPackage = filteredResults[indexPath.row];
+    if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
+        ZBProxyPackage *proxyPackage = (ZBProxyPackage *)quantumPackage;
+        
         ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
-        ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
         [cell updateData:proxyPackage];
         
         return cell;
     }
     else {
-        ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        ZBPackage *package = (ZBPackage *)quantumPackage;
         
-        [packageCell updateData:filteredResults[indexPath.row]];
+        ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        [cell updateData:package];
         
-        return packageCell;
+        return cell;
     }
 }
 
 - (ZBPackageDepictionViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
-    if (_live) {
-        ZBProxyPackage *proxyPackage = filteredResults[indexPath.row];
-        ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:[proxyPackage loadPackage]];
-        
-        return depiction;
-    } else {
-        ZBPackage *package = filteredResults[indexPath.row];
-        
-        ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
-        
-        return depiction;
+    NSObject *quantumPackage = filteredResults[indexPath.row];
+    if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
+        quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
+        
+    return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
     [[self navController] pushViewController:[self getPackageDepictionVC:indexPath] animated:true];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSObject *quantumPackage = filteredResults[indexPath.row];
+    if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
+        // This is a proxy package, load it first
+        quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
+    }
+    
+    return [ZBPackageActionsManager rowActionsForPackage:(ZBPackage *)quantumPackage indexPath:indexPath viewController:self parent:nil completion:^(void) {
+        [tableView reloadData];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView setEditing:NO animated:YES];
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
@@ -128,26 +146,6 @@
     [animator addCompletion:^{
         [[weakSelf navController] pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
     }];
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
-}
-
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = filteredResults[indexPath.row];
-    if ([package respondsToSelector:@selector(loadPackage)]) {
-        // This is a proxy package, load it first
-        package = [(ZBProxyPackage *)package loadPackage];
-    }
-    
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView setEditing:NO animated:YES];
 }
 
 @end

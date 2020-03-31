@@ -197,7 +197,7 @@
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     NSDictionary *question = @{
-                    @"token": [keychain stringForKey:[source repositoryURI] ?: @"none"],
+                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
                     @"udid": [ZBDevice UDID],
                     @"device": [ZBDevice deviceModelID],
                     @"version": package.version,
