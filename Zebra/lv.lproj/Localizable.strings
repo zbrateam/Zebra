@@ -100,13 +100,13 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Atiestatīt";
 "Refresh Icon Cache" = "Atjaunot Kešatmiņu";
 "Clear Image Cache" = "Notīrīt Attēla Kešatmiņu";
 "Clear Sources Cache" = "Notīrīt Avota Kešatmiņu";
 "Clear Web Cache" = "Notīrīt Interneta Kešatmiņu";
 "Reset All Settings" = "Atiestatīt Visus Iestatījumus";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Izdzēst Visus Avotus";
 "Erase All Sources and Settings" = "Dzēst Visus Avotus un Iestatījumus";
 
 "Are you sure you want to restart the SpringBoard?" = "Vai tiešām vēlies restartēt SpringBoard?";
@@ -115,15 +115,15 @@
 "Web Cache Cleared" = "Interneta Kešatmiņa ir Notīrīta";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Vai tiešām vēlaties atiestatīt Zebras avota kešatmiņu? Tas noņems visu kešatmiņā saglabāto informāciju no Zebra datu bāzes un atkārtoti ielādēs to. Jūsu avoti netiks izdzēsti.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Vai tiešām vēlaties atiestatīt Zebras iestatījumus? Tādējādi visi Zebra iestatījumi tiks atiestatīti uz pirmiem iestatījumiem, un Zebra tiks restartēts.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Vai tiešām vēlaties izdzēst visus avotus? Visi jūsu avoti tiks noņemti no Zebras, un Zebra restartēs.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Vai tiešām vēlaties izdzēst visus avotus un iestatījumus? Visi jūsu avoti tiks noņemti no Zebras, un jūsu iestatījumi tiks atiestatīti.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsu avoti tiks izdzēsti un nekad nebūs pieejami, un Zebra tiks restartēts.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Atvērt Dokumentus";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza Nav Instalēts";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nevar atvērt savus dokumentus, jo Filza nav instalēts. Jūsu dokumenti atrodās: %@";
 
 // Stores
 
@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Paslēpt UDID";
 
 "Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Automātiska Atsvaidzināšana";
+"Refresh Zebra's sources when opening the app." = "Atverot Zebru, automātiski atsvaidzināt avotus.";
 
 "Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
 
