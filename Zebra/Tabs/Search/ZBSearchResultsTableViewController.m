@@ -8,7 +8,9 @@
 
 #import "ZBSearchResultsTableViewController.h"
 #import <Packages/Helpers/ZBProxyPackage.h>
+#import <Packages/Helpers/ZBPackageActionsManager.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <ZBAppDelegate.h>
 #import "ZBLiveSearchResultTableViewCell.h"
 
 @interface ZBSearchResultsTableViewController ()
@@ -126,6 +128,26 @@
     [animator addCompletion:^{
         [[weakSelf navController] pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
     }];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBPackage *package = filteredResults[indexPath.row];
+    if ([package respondsToSelector:@selector(loadPackage)]) {
+        // This is a proxy package, load it first
+        package = [(ZBProxyPackage *)package loadPackage];
+    }
+    
+    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+        [tableView reloadData];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView setEditing:NO animated:YES];
 }
 
 @end
