@@ -480,6 +480,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch;
 
+- (NSArray *)packagesWithDescription:(NSString *)description fullSearch:(BOOL)fullSearch;
 
 /*!
  @brief Returns all packages with a reachable icon.
