@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "HATA: İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "UDID'i Gizle";
 
 "Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Otomatik Yenileme";
+"Refresh Zebra's sources when opening the app." = "Zebra açılırken kaynakları yenile.";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak dan son topluluk gönderilerini göster.";
 
