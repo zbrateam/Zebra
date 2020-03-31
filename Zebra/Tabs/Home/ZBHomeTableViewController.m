@@ -59,6 +59,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"hideUDID" object:nil];
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
@@ -398,7 +399,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ZBCredits) {
-        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@\n%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBDevice UDID]];
+        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBSettings hideUDID] ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
     }
     return NULL;
 }
