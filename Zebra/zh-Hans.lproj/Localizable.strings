@@ -3,7 +3,7 @@
 "Cancel" = "取消";
 "Yes" = "是";
 "No" = "否";
-"Ok" = "是";
+"Ok" = "确定";
 "Error" = "错误";
 "Retry" = "重试";
 "Edit" = "编辑";
@@ -21,8 +21,8 @@
 "Report a Bug" = "报告 Bug";
 "Changelog" = "更新日志";
 "Wish List" = "心愿单";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "从新到旧";
+"Oldest First" = "从旧到新";
 "No items in Wish List" = "愿望单中无项目";
 "Community" = "交流";
 "Join our Discord" = "加入我们的 Discord";
