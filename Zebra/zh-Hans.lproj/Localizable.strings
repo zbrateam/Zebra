@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "隐藏 UDID";
 
 "Display featured packages on the homepage." = "在主页上显示精选软件包。";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "自动刷新";
+"Refresh Zebra's sources when opening the app." = "打开 Zebra 时自动刷新软件源。";
 
 "Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子。";
 
