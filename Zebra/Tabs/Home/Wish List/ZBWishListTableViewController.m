@@ -31,8 +31,8 @@
     
     self.title = NSLocalizedString(@"Wish List", @"");
     
-    [self.segmentedControl setTitle:NSLocalizedString(@"Most Recent", @"") forSegmentAtIndex:0];
-    [self.segmentedControl setTitle:NSLocalizedString(@"Least Recent", @"") forSegmentAtIndex:1];
+    [self.segmentedControl setTitle:NSLocalizedString(@"Newest First", @"") forSegmentAtIndex:0];
+    [self.segmentedControl setTitle:NSLocalizedString(@"Oldest First", @"") forSegmentAtIndex:1];
     [self.segmentedControl addTarget:self action:@selector(selectionChanged:) forControlEvents:UIControlEventValueChanged];
     [self.segmentedControl setSelectedSegmentIndex:0];
     [self.segmentedControl setTintColor:[UIColor accentColor]];
