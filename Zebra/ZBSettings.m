@@ -46,6 +46,8 @@ NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
 NSString *const WishlistKey = @"Wishlist";
 
+NSString *const PackageSortingTypeKey = @"PackageSortingType";
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 
@@ -548,6 +550,24 @@ NSString *const WishlistKey = @"Wishlist";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setObject:wishlist forKey:WishlistKey];
+}
+
+#pragma mark - Package Sorting Type
+
++ (ZBSortingType)packageSortingType {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:PackageSortingTypeKey]) {
+        [self setPackageSortingType:ZBSortingTypeABC];
+        return ZBSortingTypeABC;
+    }
+    return [defaults integerForKey:PackageSortingTypeKey];
+}
+
++ (void)setPackageSortingType:(ZBSortingType)sortingType {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:sortingType forKey:PackageSortingTypeKey];
 }
 
 #pragma clang diagnostic pop

@@ -58,6 +58,8 @@ extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
 
 extern NSString * _Nonnull const WishlistKey; // Stored as NSArray
 
+extern NSString * _Nonnull const PackageSortingTypeKey; // Stored as ZBSortingType
+
 #pragma mark - Accent Colors
 
 typedef enum : NSUInteger {
@@ -96,6 +98,14 @@ typedef enum : NSUInteger {
     ZBSwipeActionStyleText,
     ZBSwipeActionStyleIcon,
 } ZBSwipeActionStyle;
+
+#pragma mark - Package Sorting Style
+
+typedef enum : NSUInteger {
+    ZBSortingTypeABC,
+    ZBSortingTypeDate,
+    ZBSortingTypeInstalledSize
+} ZBSortingType;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -188,6 +198,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)wishlist;
 + (void)setWishlist:(NSArray *)wishlist;
+
+#pragma mark - Package Sorting Type
+
++ (ZBSortingType)packageSortingType;
++ (void)setPackageSortingType:(ZBSortingType)sortingType;
 
 @end
 

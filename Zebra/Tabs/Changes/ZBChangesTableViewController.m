@@ -10,7 +10,6 @@
 #import <ZBAppDelegate.h>
 #import <ZBSettings.h>
 #import <ZBPackagePartitioner.h>
-#import <ZBSortingType.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>

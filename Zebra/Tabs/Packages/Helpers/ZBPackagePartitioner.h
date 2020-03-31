@@ -6,10 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class ZBPackage;
+
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <ZBSortingType.h>
-@class ZBPackage;
+#import <ZBSettings.h>
 
 @interface ZBPackagePartitioner : NSObject
 + (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector sectionIndexTitles:(NSMutableArray *)sectionIndexTitles packages:(NSArray <ZBPackage *> *)packages type:(ZBSortingType)type;

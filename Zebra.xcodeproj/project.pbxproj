@@ -462,7 +462,6 @@
 		9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshableTableViewController.m; sourceTree = "<group>"; };
 		9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleCommandDelegate.h; sourceTree = "<group>"; };
 		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
-		9E9D312D236D526400880215 /* ZBSortingType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSortingType.h; sourceTree = "<group>"; };
 		9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagePartitioner.h; sourceTree = "<group>"; };
 		9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackagePartitioner.m; sourceTree = "<group>"; };
 		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
@@ -625,7 +624,6 @@
 				8997A9F924035021001894BF /* ZBProxyPackage.m */,
 				9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */,
 				9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */,
-				9E9D312D236D526400880215 /* ZBSortingType.h */,
 				9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */,
 				9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */,
 			);
