@@ -18,7 +18,9 @@
 @interface ZBSearchTableViewController () {
     ZBDatabaseManager *databaseManager;
     NSMutableArray *recentSearches;
+    
     BOOL shouldPerformSearching;
+    BOOL liveSearch;
 }
 @end
 
@@ -91,7 +93,7 @@
 
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
     ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
-    [resultsController setLive:self->shouldPerformSearching];
+    [resultsController setLive:self->liveSearch];
     
     NSArray *results = nil;
     
@@ -109,13 +111,13 @@
         NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
         switch (selectedIndex) {
             case 0:
-                results = [databaseManager searchForPackageName:strippedString fullSearch:!self->shouldPerformSearching];
+                results = [databaseManager searchForPackageName:strippedString fullSearch:!self->liveSearch];
                 break;
             case 1:
-                results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->shouldPerformSearching];
+                results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->liveSearch];
                 break;
             case 2:
-                results = [databaseManager packagesByAuthorName:strippedString email:NULL fullSearch:!self->shouldPerformSearching];
+                results = [databaseManager packagesByAuthorName:strippedString email:NULL fullSearch:!self->liveSearch];
                 break;
         }
     }
@@ -127,7 +129,8 @@
 #pragma mark - Search Controller Delegate
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
-    self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
+    self->liveSearch = [ZBSettings wantsLiveSearch];
+    self->shouldPerformSearching = self->liveSearch;
 }
 
 #pragma mark - Search Bar Delegate
@@ -137,7 +140,8 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
+    self->liveSearch = [ZBSettings wantsLiveSearch];
+    self->shouldPerformSearching = self->liveSearch;
     
     [self updateSearchResultsForSearchController:searchController];
 }
@@ -146,6 +150,7 @@
     [searchBar resignFirstResponder];
     
     self->shouldPerformSearching = YES;
+    self->liveSearch = NO;
     
     NSString *newSearch = searchBar.text;
     if (![recentSearches containsObject:newSearch]) {
