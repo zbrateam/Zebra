@@ -438,6 +438,6 @@
 "Language" = "Språk";
 "Apply" = "Utfør";
 "Restart Required" = "Omstart nødvendig";
-"Zebra must be closed in order to change preferred language" = "For å endre ønsket språk må Zebra må være lukket";
+"Zebra must be closed in order to change preferred language" = "For å endre ønsket språk må Zebra være lukket";
 "Restart" = "Omstart";
 "Use System Language" = "Bruk systemspråk";
