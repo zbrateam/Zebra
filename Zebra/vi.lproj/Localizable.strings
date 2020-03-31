@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ / r / jailbreak.";
 
