@@ -112,6 +112,7 @@
                 results = [databaseManager searchForPackageName:strippedString fullSearch:!self->shouldPerformSearching];
                 break;
             case 1:
+                results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->shouldPerformSearching];
                 break;
             case 2:
                 results = [databaseManager packagesByAuthorName:strippedString email:NULL fullSearch:!self->shouldPerformSearching];
