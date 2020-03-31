@@ -11,7 +11,7 @@
 "Done" = "Klaar";
 "Loading..." = "Aan het laden...";
 "Clear" = "Leeg";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Er is een fout opgetreden";
 
 // Home
 
@@ -100,30 +100,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Stel opnieuw in";
 "Refresh Icon Cache" = "Icoon Cache Vernieuwen";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Leeg de afbeeldingencache";
+"Clear Sources Cache" = "Leeg de bronnencache";
+"Clear Web Cache" = "Leeg de webcache";
 "Reset All Settings" = "Alle instellingen Opnieuw Instellen";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Verwijder alle bronnen";
 "Erase All Sources and Settings" = "Alle Bronnen en Instellingen Verwijderen";
 
 "Are you sure you want to restart the SpringBoard?" = "Weet je zeker dat je het SpringBoard wilt herstarten?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Weet u zeker dat u de icoon cache wilt vernieuwen? Het kan zijn dat uw apparaat niet reageert totdat het proces voltooid is.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Afbeeldingencache is geleegd";
+"Web Cache Cleared" = "Webcache is geleegd";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Weet je zeker dat je Zebra's bronnen cache wilt resetten? Dit zal alle opgeslagen informatie uit Zebra's database verwijderen en opnieuw downloaden. Uw bronnen zullen niet worden verwijderd.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Weet je zeker dat je Zebra's instellingen wil herstellen? Dit zal alle Zebra instellingen terugzetten naar hun standaardwaarden en Zebra zal herstarten.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Weet je zeker dat je alle bronnen wilt wissen? Al je bronnen worden verwijderd van Zebra en Zebra zal herstarten.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Weet je zeker dat je alle bronnen en instellingen wilt wissen? Al uw bronnen zullen worden verwijderd uit Zebra en uw instellingen worden hersteld.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Al je bronnen zullen permanent verwijderd worden en Zebra zal herstarten.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Open Documentenmap";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza is niet geïnstalleerd";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kan de documentenmap niet openen omdat Filza niet is geïnstalleerd. Je documentenmap is: %@";
 
 // Stores
 
@@ -136,7 +136,7 @@
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "Could not complete purchase, no payment secret was found" = "Aankoop kon niet worden voltooid, er is geen betalingsgeheim gevonden";
 "No packages purchased" = "Geen aangekochte pakketten";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Ingelogd als %@(%@)";
 
 // Sources
 
@@ -175,8 +175,8 @@
 "Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
 "Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
+"Could not download one or more files from %@. Reason: %@" = "Een of meerdere bestanden kon niet worden gedownload van %@. Reden: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer dit en probeer het opnieuw.";
 
@@ -356,7 +356,7 @@
 "%@ is required by:" = "%@ is vereist door:";
 "%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
 "%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Weet je zeker dat je de wachtrij wilt legen?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket. Het mag NIET verwijderd worden tenzij u precies weet wat u doet!";
 
 // Search
@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Verberg UDID";
 
 "Display featured packages on the homepage." = "Toon aanbevolen pakketten op de startpagina.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Automatisch vernieuwen";
+"Refresh Zebra's sources when opening the app." = "Vernieuw de bronnen van Zebra als de app wordt geopend.";
 
 "Display recent community posts from /r/jailbreak." = "Toon recente gemeenschap berichten van /r/jailbreak.";
 
@@ -419,7 +419,7 @@
 "%lu Sources Hidden" = "%lu Bronnen Verborgen";
 
 "Sections" = "Secties";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Selecteer een sectie";
 "Hide packages in these sections." = "Verberg pakketten in deze secties.";
 
 "Sources" = "Bronnen";
