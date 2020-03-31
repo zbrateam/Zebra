@@ -286,6 +286,7 @@ enum ZBMiscOrder {
             [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
             return cell;
         }

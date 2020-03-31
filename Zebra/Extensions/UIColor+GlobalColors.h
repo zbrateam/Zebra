@@ -30,5 +30,4 @@
 + (UIColor *)systemPurpleColor;
 + (UIColor *)systemTealColor;
 + (UIColor *)systemOrangeColor;
-+ (UIColor *)groupTableViewBackgroundColor;
 @end

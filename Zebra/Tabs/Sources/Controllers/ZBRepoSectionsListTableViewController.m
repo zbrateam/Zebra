@@ -138,7 +138,7 @@
     [super viewWillAppear:YES];
     
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
