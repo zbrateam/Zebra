@@ -383,6 +383,8 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
 "Automatic Refresh" = "Automatic Refresh";

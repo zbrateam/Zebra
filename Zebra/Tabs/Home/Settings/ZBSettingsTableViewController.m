@@ -23,7 +23,7 @@
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
     ZBFilters,
-    ZBHome,
+    ZBFeatured,
     ZBSources,
     ZBChanges,
     ZBSearch,
@@ -39,6 +39,7 @@ typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
 };
 
 typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
+    ZBHideUDID,
     ZBFeaturedEnable,
     ZBFeatureOrRandomToggle,
     ZBFeatureBlacklist
@@ -93,7 +94,7 @@ enum ZBMiscOrder {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
-        case ZBHome:
+        case ZBFeatured:
             return NSLocalizedString(@"Home", @"");
         case ZBSources:
             return NSLocalizedString(@"Sources", @"");
@@ -131,15 +132,15 @@ enum ZBMiscOrder {
                 return 3;
             }
             return 1;
-        case ZBHome: {
-            int rows = 1;
+        case ZBFeatured: {
+            int rows = 2;
             BOOL wantsFeatured = [ZBSettings wantsFeaturedPackages];
             if (wantsFeatured) {
                 BOOL randomFeatured = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
                 if (randomFeatured) {
-                    return 3;
+                    return 4;
                 }
-                return 2;
+                return 3;
             }
             
             return rows;
@@ -167,7 +168,7 @@ enum ZBMiscOrder {
             return cell;
         }
     }
-    else if ((indexPath.section == ZBHome && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -234,9 +235,19 @@ enum ZBMiscOrder {
             
             return cell;
         }
-        case ZBHome: {
+        case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
+                case ZBHideUDID: {
+                    UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+                    enableSwitch.on = [ZBSettings hideUDID];
+                    [enableSwitch addTarget:self action:@selector(toggleHideUDID:) forControlEvents:UIControlEventValueChanged];
+                    [enableSwitch setOnTintColor:[UIColor accentColor]];
+                    cell.accessoryView = enableSwitch;
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.textLabel.text = NSLocalizedString(@"Hide UDID", @"");
+                    break;
+                }
                 case ZBFeaturedEnable: {
                     UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
                     enableSwitch.on = [ZBSettings wantsFeaturedPackages];
@@ -359,9 +370,16 @@ enum ZBMiscOrder {
             [self filterSettings];
             break;
         }
-        case ZBHome: {
+        case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
+                case ZBHideUDID: {
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                    [switcher setOn:!switcher.on animated:YES];
+                    [self toggleHideUDID:switcher];
+                    break;
+                }
                 case ZBFeaturedEnable: {
                     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                     UISwitch *switcher = (UISwitch *)cell.accessoryView;
@@ -430,7 +448,7 @@ enum ZBMiscOrder {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
-        case ZBHome:
+        case ZBFeatured:
             return NSLocalizedString(@"Display featured packages on the homepage.", @"");
         case ZBSources:
             return NSLocalizedString(@"Refresh Zebra's sources when opening the app.", @"");
@@ -547,7 +565,7 @@ enum ZBMiscOrder {
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBHome] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
 }
@@ -602,6 +620,21 @@ enum ZBMiscOrder {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBConsole] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
+}
+
+- (void)toggleHideUDID:(id)sender {
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setHideUDID:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideUDID" object:self];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
 }
