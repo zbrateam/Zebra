@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
 
