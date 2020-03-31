@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Shfaq postimet e fundit të komunitetit nga /r/jailbreak.";
 
