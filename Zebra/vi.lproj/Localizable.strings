@@ -11,7 +11,7 @@
 "Done" = "Xong";
 "Loading..." = "Đang tải...";
 "Clear" = "Xoá bỏ";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Ocurred" = "Đã xảy ra lỗi";
 
 // Home
 
@@ -100,11 +100,11 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Đặt lại";
 "Refresh Icon Cache" = "Làm mới bộ nhớ icon";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Xóa bộ nhớ cache hình ảnh";
+"Clear Sources Cache" = "Đặt lại Cache Nguồn";
+"Clear Web Cache" = "Xóa bộ nhớ Cache Web";
 "Reset All Settings" = "Đặt lại tất cả các cài đặt";
 "Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Xoá tất cả các nguồn và cài đặt";
@@ -436,8 +436,8 @@
 // Language Settings
 
 "Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
+"Apply" = "Áp dụng";
+"Restart Required" = "Yêu cầu khởi động lại";
 "Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
 "Restart" = "Restart";
 "Use System Language" = "Use System Language";
