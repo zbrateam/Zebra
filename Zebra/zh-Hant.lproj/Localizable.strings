@@ -37,7 +37,7 @@
 "Verifying Source" = "正在驗證來源";
 "Verifying Sources" = "正在驗證來源";
 "Import" = "匯入";
-"Verifying..." = "正在驗證……";
+"Verifying..." = "Verifying...";
 "Confirm Import" = "確認導入";
 "Import Sources" = "匯入來源";
 "No sources to import" = "沒有要匯入的來源";
@@ -101,7 +101,7 @@
 // Reset
 
 "Reset" = "重置";
-"Refresh Icon Cache" = "刷新圖片快取";
+"Refresh Icon Cache" = "Refresh Icon Cache";
 "Clear Image Cache" = "清除圖片快取";
 "Clear Sources Cache" = "清除來源快取";
 "Clear Web Cache" = "清除網頁快取";
