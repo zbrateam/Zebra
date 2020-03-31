@@ -33,15 +33,16 @@
     
     [self.segmentedControl setTitle:NSLocalizedString(@"Most Recent", @"") forSegmentAtIndex:0];
     [self.segmentedControl setTitle:NSLocalizedString(@"Least Recent", @"") forSegmentAtIndex:1];
+    [self.segmentedControl addTarget:self action:@selector(selectionChanged:) forControlEvents:UIControlEventValueChanged];
     [self.segmentedControl setSelectedSegmentIndex:0];
+    [self.segmentedControl setTintColor:[UIColor accentColor]];
     [self.toolbar setDelegate:self];
+    
+    [self selectionChanged:self.segmentedControl];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
-    if (!wishedPackages) wishedPackages = [NSMutableArray new];
-    if (!wishedPackageIdentifiers) wishedPackageIdentifiers = [[ZBSettings wishlist] mutableCopy];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
@@ -53,19 +54,6 @@
         shadowView = [self findBorderLineUnder:self.navigationController.navigationBar];
     }
     [shadowView setHidden:YES];
-        
-    NSArray *nullCheck = [wishedPackageIdentifiers copy];
-    for (NSString *packageID in nullCheck) {
-        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-        if (package == NULL) {
-            [wishedPackageIdentifiers removeObject:package];
-        }
-        else if (![wishedPackages containsObject:package]) {
-            [wishedPackages addObject:package];
-        }
-    }
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -90,6 +78,37 @@
         }
     }
     return NULL;
+}
+
+- (void)selectionChanged:(UISegmentedControl *)control {
+    NSUInteger index = control.selectedSegmentIndex;
+    
+    wishedPackages = [NSMutableArray new];
+    wishedPackageIdentifiers = [[ZBSettings wishlist] mutableCopy];
+    
+    NSArray *nullCheck = [wishedPackageIdentifiers copy];
+    for (NSString *packageID in nullCheck) {
+        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+        if (package == NULL) {
+            [wishedPackageIdentifiers removeObject:package];
+        }
+        else if (![wishedPackages containsObject:package]) {
+            [wishedPackages addObject:package];
+        }
+    }
+    
+    if (index == 0) {
+        if ([wishedPackages count] <= 1) return;
+        NSUInteger i = 0;
+        NSUInteger j = [wishedPackages count] - 1;
+        while (i < j) {
+            [wishedPackages exchangeObjectAtIndex:i withObjectAtIndex:j];
+            i++;
+            j--;
+        }
+    }
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View Data Source
