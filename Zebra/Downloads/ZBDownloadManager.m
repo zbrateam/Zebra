@@ -172,7 +172,13 @@
                 }
             }];
         } else {
-            NSURLSessionTask *downloadTask = [session downloadTaskWithURL:[base URLByAppendingPathComponent:filename]];
+            NSString *baseString = [base absoluteString];
+            if ([baseString characterAtIndex:[baseString length] - 1] != '/') baseString = [baseString stringByAppendingString:@"/"];
+            baseString = [baseString stringByAppendingString:filename]; //Avoid URL encoding with characters like '?'
+                
+            base = [NSURL URLWithString:baseString];
+            
+            NSURLSessionTask *downloadTask = [session downloadTaskWithURL:base];
             [downloadTask resume];
             
             [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
