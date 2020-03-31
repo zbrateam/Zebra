@@ -56,7 +56,7 @@
     [super viewDidLoad];
     [self applyLocalization];
 
-    selectedSortingType = ZBSortingTypeABC;
+    selectedSortingType = [ZBSettings packageSortingType];
     if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
@@ -335,6 +335,8 @@
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
+    
+    [ZBSettings setPackageSortingType:selectedSortingType];
     [self refreshTable];
 }
 
