@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Rodyti naujausius bendruomenės įrašus /r/jailbreak.";
 
