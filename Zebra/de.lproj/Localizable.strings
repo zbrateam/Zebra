@@ -383,12 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEHLER: Prozess muss neu gestartet werden. Bitte versuchen Sie es erneut.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "UDID ausblenden";
 
 "Display featured packages on the homepage." = "Empfohlene Pakete auf der Homepage anzeigen.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Automatische Aktualisierung";
+"Refresh Zebra's sources when opening the app." = "Beim Öffnen der App die Quellen von Zebra aktualisieren.";
 
 "Display recent community posts from /r/jailbreak." = "Zeige aktuelle Community-Beiträge von /r/jailbreak.";
 
