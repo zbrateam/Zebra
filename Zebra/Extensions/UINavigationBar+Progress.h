@@ -11,9 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UINavigationBar (Progress)
-
 @property (strong, nonatomic, readonly) UIProgressView *navProgressView;
-
 @end
 
 NS_ASSUME_NONNULL_END

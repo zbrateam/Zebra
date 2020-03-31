@@ -14,7 +14,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import "ZBPackageActionsManager.h"
 
-@interface ZBWishListTableViewController : UITableViewController
+@interface ZBWishListTableViewController : UITableViewController <UIToolbarDelegate>
 @property NSMutableArray *wishedPackages;
 @property NSMutableArray *wishedPackageIdentifiers;
 @end

@@ -11,8 +11,13 @@
 #import <ZBQueue.h>
 #import <ZBDevice.h>
 #import <Extensions/UITableViewRowAction+Image.h>
+#import <Extensions/UINavigationBar+Progress.h>
 
-@interface ZBWishListTableViewController ()
+@interface ZBWishListTableViewController () {
+    UIImageView *shadowView;
+}
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
@@ -26,6 +31,11 @@
     
     self.title = NSLocalizedString(@"Wish List", @"");
     
+    [self.segmentedControl setTitle:NSLocalizedString(@"Most Recent", @"") forSegmentAtIndex:0];
+    [self.segmentedControl setTitle:NSLocalizedString(@"Least Recent", @"") forSegmentAtIndex:1];
+    [self.segmentedControl setSelectedSegmentIndex:0];
+    [self.toolbar setDelegate:self];
+    
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
@@ -38,6 +48,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
+    
+    if (!shadowView) {
+        shadowView = [self findBorderLineUnder:self.navigationController.navigationBar];
+    }
+    [shadowView setHidden:YES];
         
     NSArray *nullCheck = [wishedPackageIdentifiers copy];
     for (NSString *packageID in nullCheck) {
@@ -51,6 +66,30 @@
     }
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [shadowView setHidden:NO];
+}
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
+}
+
+- (UIImageView *)findBorderLineUnder:(UIView *)view {
+    if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1) {
+        return (UIImageView *)view;
+    }
+    
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findBorderLineUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return NULL;
 }
 
 #pragma mark - Table View Data Source
