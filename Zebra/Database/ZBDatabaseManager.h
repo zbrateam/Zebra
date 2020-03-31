@@ -478,7 +478,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param email The author's email that you wish to look for.
  @return An array of every package made by the specified author.
  */
-- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *)email;
+- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch;
 
 
 /*!

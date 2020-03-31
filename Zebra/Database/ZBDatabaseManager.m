@@ -1723,40 +1723,52 @@
     return NULL;
 }
 
-- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *)email {
+- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
-        NSMutableArray *packages = [NSMutableArray new];
-        NSMutableArray *packageIdentifiers = [NSMutableArray new];
+        NSMutableArray *searchResults = [NSMutableArray new];
         
         sqlite3_stmt *statement;
-        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, REPOID FROM PACKAGES WHERE AUTHORNAME = ? AND AUTHOREMAIL = ?;", -1, &statement, nil) == SQLITE_OK) {
-            sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(statement, 2, [email UTF8String], -1, SQLITE_TRANSIENT);
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *emailMatch = email ? @" AND AUTHOREMAIL = ?" : @"";
+        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHORNAME = ? OR AUTHORNAME LIKE \'%%%@%%\'%@%@", columns, name, emailMatch, limit];
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            if (email)  sqlite3_bind_text(statement, 1, [email UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
             int repoID = sqlite3_column_int(statement, 1);
             
-            if (repoID > 0) {
-                const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
-                if (packageIDChars != 0) {
-                    NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
-                    if (![packageIdentifiers containsObject:packageID]) {
-                        [packageIdentifiers addObject:packageID];
+            if (repoID >= 0) {
+                if (fullSearch) {
+                    const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
+                    if (packageIDChars != 0) {
+                        NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
+                        ZBPackage *package = [self topVersionForPackageID:packageID];
+                        if (package) [searchResults addObject:package];
                     }
+                }
+                else {
+                    ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
+                    
+                    const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
+                    const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
+                    
+                    NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
+                    NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
+                    NSURL *iconURL = [NSURL URLWithString:iconURLString];
+                    
+                    if (section) proxyPackage.section = section;
+                    if (iconURL) proxyPackage.iconURL = iconURL;
+                    
+                    [searchResults addObject:proxyPackage];
                 }
             }
         }
         sqlite3_finalize(statement);
-
-        for (NSString *packageID in packageIdentifiers) {
-            ZBPackage *package = [self topVersionForPackageID:packageID];
-            if (package) {
-                [packages addObject:[self topVersionForPackageID:packageID]];
-            }
-        }
+        
         [self closeDatabase];
         
-        return packages;
+        return [self cleanUpDuplicatePackages:searchResults];
     } else {
         [self printDatabaseError];
     }
