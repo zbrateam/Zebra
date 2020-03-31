@@ -39,8 +39,7 @@ typedef enum ZBViewOrder : NSUInteger {
 
 typedef enum ZBLinksOrder : NSUInteger {
     ZBDiscord,
-    ZBTwitter,
-    ZBTranslate
+    ZBTwitter
 } ZBLinksOrder;
 
 @interface ZBHomeTableViewController (){
@@ -238,7 +237,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBViews:
             return 4;
         case ZBLinks:
-            return 3;
+            return 2;
         case ZBCredits:
             return 1;
         default:
@@ -347,10 +346,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBTwitter:
                     text = NSLocalizedString(@"Follow us on Twitter", @"");
                     image = [UIImage imageNamed:@"Twitter"];
-                    break;
-                case ZBTranslate:
-                    text = NSLocalizedString(@"Help translate Zebra!", @"");
-                    image = [UIImage imageNamed:@"Translations"];
                     break;
             }
             [cell.textLabel setText:text];
@@ -504,9 +499,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [self openURL:twitterweb];
             }
             break;
-        }
-        case ZBTranslate: {
-            [self openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"]];
         }
         default:
             break;

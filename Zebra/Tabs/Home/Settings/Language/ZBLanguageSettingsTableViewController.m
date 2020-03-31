@@ -115,11 +115,16 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return useSystemLanguage ? 1 : 2;
+    return useSystemLanguage ? 2 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : [languages count];
+    if ([self numberOfSectionsInTableView:tableView] == 3) {
+        return section == 0 || section == 2 ? 1 : [languages count];
+    }
+    else {
+        return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(10.0)) {
@@ -127,6 +132,9 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"languageCell"];
     }
+    
+    cell.imageView.image = NULL;
+    cell.accessoryType = UITableViewCellAccessoryNone;
     
     if (indexPath.section == 0) {
         UISwitch *languageSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
@@ -140,7 +148,7 @@
         
         return cell;
     }
-    else {
+    else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1) {
         NSString *languageCode = languages[indexPath.row];
         NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
         
@@ -166,19 +174,29 @@
         
         return cell;
     }
+    else {
+        cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
+        cell.imageView.image = [UIImage imageNamed:@"Translations"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    if (indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
+    if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
         NSString *newLanguage = languages[indexPath.row];
         
         selectedLanguage = newLanguage;
         selectedRow = [NSIndexPath indexPathForRow:[languages indexOfObject:selectedLanguage] inSection:1];
         
         [self layoutNavigationButtons];
-        [tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    else if (([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 2) || ([self numberOfSectionsInTableView:tableView] == 2 && indexPath.section == 1)) {
+        [ZBDevice openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"] delegate:self];
     }
 }
 
