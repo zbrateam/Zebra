@@ -275,7 +275,7 @@ enum ZBMiscOrder {
             [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"Auto Refresh", @"");
+            cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
             return cell;
         }
         case ZBChanges: {
@@ -432,6 +432,8 @@ enum ZBMiscOrder {
     switch (section) {
         case ZBHome:
             return NSLocalizedString(@"Display featured packages on the homepage.", @"");
+        case ZBSources:
+            return NSLocalizedString(@"Refresh Zebra's sources when opening the app.", @"");
         case ZBChanges:
             return NSLocalizedString(@"Display recent community posts from /r/jailbreak.", @"");
         case ZBSearch:

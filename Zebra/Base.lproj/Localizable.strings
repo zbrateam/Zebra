@@ -385,6 +385,9 @@
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
