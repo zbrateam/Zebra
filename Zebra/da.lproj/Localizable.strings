@@ -383,7 +383,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEJL: Processen skal genstartes. Prøv igen.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Vis udvalgte pakke på hjemmeskærmen.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Vis seneste opslag på /r/jailbreak.";
 
