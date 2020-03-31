@@ -21,8 +21,8 @@
 "Report a Bug" = "バグを報告";
 "Changelog" = "変更履歴";
 "Wish List" = "ほしいものリスト";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "新しい順";
+"Oldest First" = "古い順";
 "No items in Wish List" = "ほしいものリストには何もありません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加する";
@@ -385,12 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "UDIDを非表示";
 
 "Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "自動更新";
+"Refresh Zebra's sources when opening the app." = "Zebraを開いた時にリポジトリを更新します";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
 
