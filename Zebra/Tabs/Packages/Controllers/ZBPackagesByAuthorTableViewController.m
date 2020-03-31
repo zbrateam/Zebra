@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthorName:self.package.authorName email:self.package.authorEmail];
+    moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthorName:self.package.authorName email:self.package.authorEmail fullSearch:YES];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     self.navigationItem.title = self.developerName;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

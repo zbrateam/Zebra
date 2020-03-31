@@ -114,6 +114,7 @@
             case 1:
                 break;
             case 2:
+                results = [databaseManager packagesByAuthorName:strippedString email:NULL fullSearch:!self->shouldPerformSearching];
                 break;
         }
     }
