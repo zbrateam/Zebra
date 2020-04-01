@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - 1.1
   
 
 jobs:
@@ -15,7 +16,7 @@ jobs:
       env:
         THEOS: theos
       run: |
-        brew install ldid
+        brew install ldid fakeroot
         git clone --recursive https://github.com/theos/theos.git $THEOS
         git submodule update --init --recursive
         
