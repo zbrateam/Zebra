@@ -7,7 +7,7 @@ if [ ! -d "/chimera " ] && [ ! -d "/electra" ]; then
       cache=
   fi
 
-  /usr/libexec/zebra/firmware.sh
+  /usr/libexec/zebra/firmware
 
   debs=(/var/mobile/Documents/xyz.willy.Zebra/debs*.deb)
   if [[ ${#debs[@]} -ne 0 && -f ${debs[0]} ]]; then

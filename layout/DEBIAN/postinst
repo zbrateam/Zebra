@@ -1,8 +1,12 @@
 #!/bin/sh
 
 # Verify firmware.sh permissions
-chown root:wheel /usr/libexec/zebra/firmware.sh 
+chown root:wheel /usr/libexec/zebra/firmware.sh
 chmod 755 /usr/libexec/zebra/firmware.sh
+
+# Verify firmware permissions
+chown root:wheel /usr/libexec/zebra/firmware
+chmod 755 /usr/libexec/zebra/firmware
 
 # Verify startup permissions (Auto-install etc)
 chown root:wheel /usr/libexec/zebra/startup
