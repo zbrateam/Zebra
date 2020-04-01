@@ -1,11 +1,11 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
+"Cancel" = "შეწყვეტა";
+"Yes" = "ხო";
+"No" = "არა";
+"Ok" = "დიახ";
+"Error" = "ერორი";
+"Retry" = "კიდევ სცადეთ";
 "Edit" = "Edit";
 "Close" = "Close";
 "Done" = "Done";
