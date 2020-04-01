@@ -21,8 +21,8 @@
 "Report a Bug" = "Pranešti apie klaidą";
 "Changelog" = "Pakeitimų sąrašas";
 "Wish List" = "Norų sąrašas";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Naujausias pirmas";
+"Oldest First" = "Seniausias pirmas";
 "No items in Wish List" = "Nėra įrašų norų sąraše";
 "Community" = "Bendruomenė";
 "Join our Discord" = "Prisijunkite prie mūsų Discord";
@@ -385,12 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Paslėpti UDID";
 
 "Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Automatiškai atnaujinti";
+"Refresh Zebra's sources when opening the app." = "Atnaujinti Zebra šaltinius, atidąrant programą.";
 
 "Display recent community posts from /r/jailbreak." = "Rodyti naujausius bendruomenės įrašus /r/jailbreak.";
 
