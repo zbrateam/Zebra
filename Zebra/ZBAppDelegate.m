@@ -8,6 +8,9 @@
 
 #import "ZBAppDelegate.h"
 #import "ZBTabBarController.h"
+#import <dlfcn.h>
+#import <objc/runtime.h>
+#import <Headers/AccessibilityUtilities.h>
 #import <ZBLog.h>
 #import <ZBTab.h>
 #import <ZBDevice.h>
@@ -170,6 +173,16 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 + (void)sendErrorToTabController:(NSString *)error {
     [self sendErrorToTabController:error actionLabel:nil block:NULL];
+}
+
+- (void)testHandleSpringBoardEvent {
+    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
+    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
+    [server registerSpringBoardActionHandler:^(int eventType) {
+        // 6 screenshotWillFire
+        // 7 screenshotDidFire
+        [[self class] sendErrorToTabController:[NSString stringWithFormat:@"Are you doing something? %d", eventType]];
+    } withIdentifierCallback:^(int a) {}];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
