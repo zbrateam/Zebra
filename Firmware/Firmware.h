@@ -8,7 +8,7 @@
 
 @interface Firmware : NSObject
 
-- (void)exitWithError:(NSError *)error andMessage:(NSString *)message
+- (void)exitWithError:(NSError *)error andMessage:(NSString *)message;
 - (void)loadInstalledPackages;
 - (void)generatePackage:(NSString *)package forVersion:(NSString *)version withDescription:(NSString *)description;
 - (void)generatePackage:(NSString *)package forVersion:(NSString *)version withDescription:(NSString *)description andName:(NSString *)name;
