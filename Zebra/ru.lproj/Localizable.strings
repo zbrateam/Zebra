@@ -18,12 +18,12 @@
 "Home" = "Главная";
 "Info" = "Информация";
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
-"Report a Bug" = "Сообщить об Ошибке";
+"Report a Bug" = "Сообщить об ошибке";
 "Changelog" = "Список изменений";
 "Wish List" = "Список желаний";
 "Newest First" = "Сначала новые";
 "Oldest First" = "Сначала старые";
-"No items in Wish List" = "Нет пакетов в Списке Желаний";
+"No items in Wish List" = "Нет пакетов в мписке желаний";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
 "Follow us on Twitter" = "Подпишитесь на нас в Twitter";
@@ -35,13 +35,13 @@
 "You’ve added all of the community sources" = "Вы добавили все источники сообщества";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility source for %@" = "Источник утилит для %@";
-"Transfer Sources" = "Перенести Источники";
+"Transfer Sources" = "Перенести источники";
 "Verifying Source" = "Проверка источника";
 "Verifying Sources" = "Проверка источников";
 "Import" = "Импорт";
 "Verifying..." = "Проверка...";
 "Confirm Import" = "Подтвердите импорт";
-"Import Sources" = "Импортировать Источники";
+"Import Sources" = "Импортировать источники";
 "No sources to import" = "Нет источников для импортирования";
 "Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
 "Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
@@ -60,11 +60,11 @@
 
 "Settings" = "Настройки";
 "Display" = "Экран";
-"App Icon" = "Иконка Приложения";
+"App Icon" = "Иконка приложения";
 "Changes" = "Изменения";
-"Community News" = "Новости Сообщества";
+"Community News" = "Новости сообщества";
 "Miscellaneous" = "Другое";
-"Swipe Actions Display As" = "Вид Свайп-действий";
+"Swipe Actions Display As" = "Вид свайп-действий";
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Finish Automatically" = "Завершить автоматически";
@@ -93,8 +93,8 @@
 
 // Featured
 
-"Featured Packages" = "Избранные Пакеты";
-"Feature Type" = "Тип Избранного";
+"Featured Packages" = "Избранные пакеты";
+"Feature Type" = "Тип избранного";
 "Repo Featured" = "Избранное из репозитория";
 "Random" = "Случайно";
 "Select Repos to be Featured" = "Выберите отбражаемые репозитории";
@@ -146,14 +146,14 @@
 "Unknown" = "Неизвестно";
 "Delete" = "Удалить";
 "Refresh" = "Обновить";
-"All Packages" = "Все Пакеты";
+"All Packages" = "Все пакеты";
 "Remove Source" = "Удалить источник";
-"Local Repository" = "Локальный Репозиторий";
+"Local Repository" = "Локальный репозиторий";
 "Locally installed packages" = "Локально установленные пакеты";
 
 "Add" = "Добавить";
 "Add Sources" = "Добавить источники";
-"Add Multiple" = "Добавить Несколько";
+"Add Multiple" = "Добавить несколько";
 "Enter Source URL" = "Введите URL источника";
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
 
@@ -189,34 +189,34 @@
 "Version" = "Версия";
 "Packages" = "Пакеты";
 "Show Updates" = "Показать Обновления";
-"Ignore Updates" = "Игнорировать Обновления";
-"Select Version" = "Выберите Версию";
+"Ignore Updates" = "Игнорировать обновления";
+"Select Version" = "Выберите версию";
 "Select a version to upgrade to:" = "Выберите версию до которой обновить пакет:";
 "Select a version to downgrade to:" = "Выберите версию до которой откатить пакет:";
 "Package" = "Пакет";
 "Information" = "Информация";
-"Upgrade All" = "Обновить Все";
+"Upgrade All" = "Обновить все";
 "Loaded" = "Загружно";
 "ABC" = "Алфавит";
 "Date" = "Дата";
 "Size" = "Размер";
-"Available Upgrades" = "Доступные Обновления";
-"Ignored Upgrades" = "Игнорируемые Обновления";
+"Available Upgrades" = "Доступные обновления";
+"Ignored Upgrades" = "Игнорируемые обновления";
 "Recent" = "Недавние";
 "Source" = "Источник";
-"Installed Files" = "Установленные Файлы";
+"Installed Files" = "Установленные файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста перезайдите в ваш аккаунт, используемый для покупки этого пакета (Возможно %@)";
-"More by this Developer" = "Больше от этого Разработчика";
-"Installed Version" = "Установленная Версия";
+"More by this Developer" = "Больше от этого разработчика";
+"Installed Version" = "Установленная версия";
 "Installed Size" = "Размер после установки";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (установленная версия: %@)";
+"%@ (Installed Version: %@)" = "%@ (Установленная версия: %@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Размер После Установки: %@)";
+"%@ (Installed Size: %@)" = "%@ (Размер после установки: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d байт";
@@ -227,8 +227,8 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f МБ";
 
-"Add to Wish List" = "Добавить в Список Желаний";
-"Remove from Wish List" = "Удалить из Списка Желаний";
+"Add to Wish List" = "Добавить в список желаний";
+"Remove from Wish List" = "Удалить из списка желаний";
 
 // Package Section Names
 
@@ -274,7 +274,7 @@
 
 "Search" = "Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
-"No Results Found" = "Результаты Не Найдены";
+"No Results Found" = "Результаты не найдены";
 "Name" = "Имя";
 "Description" = "Описание";
 "Author" = "Автор";
