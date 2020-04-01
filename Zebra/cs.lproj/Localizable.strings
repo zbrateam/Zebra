@@ -102,13 +102,13 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Resetovat";
 "Refresh Icon Cache" = "Obnovit mezipaměť ikon";
 "Clear Image Cache" = "Vyčistit vyrovnávací paměť obrázků";
 "Clear Sources Cache" = "Smazat mezipaměť zdrojů";
 "Clear Web Cache" = "Smazat Webovou mezipaměť";
 "Reset All Settings" = "Obnovit všechna nastavení";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Vymazat všechny zdroje";
 "Erase All Sources and Settings" = "Vymazat všechny zdroje a nastavení";
 
 "Are you sure you want to restart the SpringBoard?" = "Opravdu chcete restartovat SpringBoard?";
@@ -117,15 +117,15 @@
 "Web Cache Cleared" = "Webová mezipaměť vymazána";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Jste si jisti, že chcete obnovit zdrojovou mezipaměť Zebry? Tato akce odstraní všechny informace v mezipaměti z databáze Zebra a znovu je stáhne. Zdroje nebudou smazány.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Opravdu chcete resetovat nastavení Zebra? Tato akce obnoví všechna nastavení Zebry zpět na jejich výchozí hodnoty a Zebra se restartuje.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Opravdu chcete vymazat všechny zdroje? Všechny zdroje budou odstraněny ze Zebry a Zebra se restartuje.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Opravdu chcete vymazat všechny zdroje a nastavení? Všechny vaše zdroje budou odstraněny ze Zebry a vaše nastavení bude resetováno.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Všechny vaše zdroje budou navždy smazány a Zebra se restartuje.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Otevřít adresář dokumentů";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza není nainstalována";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nemůže otevřít adresář s dokumenty, protože Filza není nainstalován. Adresář s dokumenty je: %@";
 
 // Stores
 
@@ -385,12 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces musí být restartován. Prosím zkuste to znovu.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Skrýt UDID";
 
 "Display featured packages on the homepage." = "Zobrazí doporučené balíčky na domovské stránce.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Automatická aktualizace";
+"Refresh Zebra's sources when opening the app." = "Obnovit zdroje Zebry při otevírání aplikace.";
 
 "Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
 
