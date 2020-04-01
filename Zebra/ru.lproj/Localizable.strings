@@ -11,7 +11,7 @@
 "Done" = "Готово";
 "Loading..." = "Загрузка...";
 "Clear" = "Очистить";
-"An Error Ocurred" = "Произошла Ошибка";
+"An Error Ocurred" = "Произошла ошибка";
 
 // Home
 
@@ -19,7 +19,7 @@
 "Info" = "Информация";
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
 "Report a Bug" = "Сообщить об Ошибке";
-"Changelog" = "Список Изменений";
+"Changelog" = "Список изменений";
 "Wish List" = "Список желаний";
 "Newest First" = "Сначала новые";
 "Oldest First" = "Сначала старые";
@@ -31,7 +31,7 @@
 
 // Community Source
 
-"Community Sources" = "Источники Сообщества";
+"Community Sources" = "Источники сообщества";
 "You’ve added all of the community sources" = "Вы добавили все источники сообщества";
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility source for %@" = "Источник утилит для %@";
@@ -104,16 +104,16 @@
 
 "Reset" = "Сбросить";
 "Refresh Icon Cache" = "Обновить Кэш Иконок";
-"Clear Image Cache" = "Очистить Кэш Изображений";
-"Clear Sources Cache" = "Очистить Кэш Источников";
-"Clear Web Cache" = "Очистить Веб-Кэш";
+"Clear Image Cache" = "Очистить кэш изображений";
+"Clear Sources Cache" = "Очистить кэш источников";
+"Clear Web Cache" = "Очистить веб-кэш";
 "Reset All Settings" = "Сбросить Все Настройки";
-"Erase All Sources" = "Стереть Все Источники";
+"Erase All Sources" = "Стереть все источники";
 "Erase All Sources and Settings" = "Стереть Все Источники и Настройки";
 
 "Are you sure you want to restart the SpringBoard?" = "Вы уверены, что хотите перезапустить SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Вы уверены, что хотите обновить кэш иконок? Ваше устройство может зависнуть до конца процесса обновления.";
-"Image Cache Cleared" = "Кэш Изображений Очищен";
+"Image Cache Cleared" = "Кэш изображений очищен";
 "Web Cache Cleared" = "Веб-Кэш очищен";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Вы уверены что хотите сбросить кэш источников Zebra? Это удалит всю кэшированную информацию из базы данных Zebra и заново скачает ее. Ваши источники не будут удалены.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Вы уверены что хотите сбросить настройки Zebra? Это сбросит их до стандартных значений и перезапустит Zebra.";
@@ -122,9 +122,9 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Все ваши источники будут удалены навсегда и Zebra перезапустится.";
 
 // Documents Directory
-"Open Documents Directory" = "Открыть Каталог Документов";
+"Open Documents Directory" = "Открыть каталог документов";
 
-"Filza Not Installed" = "Filza Не Установлена";
+"Filza Not Installed" = "Filza не установлена";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra не может открыть каталог документов, потому что Filza не установлена. Ваш каталог документов: %@";
 
 // Stores
@@ -202,7 +202,7 @@
 "Size" = "Размер";
 "Available Upgrades" = "Доступные Обновления";
 "Ignored Upgrades" = "Игнорируемые Обновления";
-"Recent" = "Недавнее";
+"Recent" = "Недавние";
 "Source" = "Источник";
 "Installed Files" = "Установленные Файлы";
 "Modify" = "Изменить";
@@ -358,7 +358,7 @@
 "%@ is required by:" = "%@ требуется пактом:";
 "%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
-"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить Очередь?";
+"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить очередь?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
 
 // Search
@@ -389,7 +389,7 @@
 
 "Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
 
-"Automatic Refresh" = "Автоматическое Обновление";
+"Automatic Refresh" = "Автоматическое обновление";
 "Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
 
 "Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
@@ -421,12 +421,12 @@
 "%lu Sources Hidden" = "%lu Источников Скрыто";
 
 "Sections" = "Разделы";
-"Select a Section" = "Выберите Раздел";
+"Select a Section" = "Выберите раздел";
 "Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
 
 "Sources" = "Источники";
-"Select a Source" = "Выберите Источник";
-"Search for an Author" = "Поиск Автора";
+"Select a Source" = "Выберите источник";
+"Search for an Author" = "Поиск автора";
 "Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
 "Updates" = "Обновления";
@@ -439,7 +439,7 @@
 
 "Language" = "Язык";
 "Apply" = "Применить";
-"Restart Required" = "Требуется Перезапуск";
+"Restart Required" = "Требуется перезапуск";
 "Zebra must be closed in order to change preferred language" = "Zebra должна быть закрыта для изменения предпочитаемого языка";
 "Restart" = "Перезапустить";
-"Use System Language" = "Использовать Язык Системы";
+"Use System Language" = "Использовать язык системы";
