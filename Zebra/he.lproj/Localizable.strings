@@ -11,6 +11,7 @@
 "Done" = "סיום";
 "Loading..." = "טוען...";
 "Clear" = "נקה";
+"An Error Ocurred" = "אירעה שגיאה";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "דווח/י על באג";
 "Changelog" = "מה חדש";
 "Wish List" = "רשימת משאלות";
+"Newest First" = "החדש ביותר קודם";
+"Oldest First" = "הישן ביותר קודם";
 "No items in Wish List" = "אין פריטים ברשימת המשאלות";
 "Community" = "קהילה";
 "Join our Discord" = "הצטרף/י ל-Discord שלנו";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "בחר/י מקורות שיהיו מומלצים";
 "Featured Repos" = "מקורות מומלצים";
 
-// Advanced
+// Reset
 
-"Advanced" = "מתקדם";
+"Reset" = "איפוס";
 "Refresh Icon Cache" = "רענן מטמון אייקונים";
-"Reset Image Cache" = "אפס מטמון תמונות";
-"Reset Sources Cache" = "אפס מטמון מקורות";
+"Clear Image Cache" = "אפס מטמון תמונות";
+"Clear Sources Cache" = "אפס מטמון מקורות";
+"Clear Web Cache" = "אפס מטמון רשת";
 "Reset All Settings" = "אפס את כל ההגדרות";
+"Erase All Sources" = "מחק את כל המקורות";
 "Erase All Sources and Settings" = "מחק את כל המקורות וההגדרות";
 
 "Are you sure you want to restart the SpringBoard?" = "האם את/ה בטוח/ה שברצונך להפעיל מחדש את מסך הבית?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "האם את/ה בטוח/ה שברצונך לרענן את מטמון האייקונים? מכשירך עלול לא להגיב עד סיום התהליך.";
-"Image Cache Reset" = "איפוס מטמון תמונות";
+"Image Cache Cleared" = "מטמון תמונות אופס";
+"Web Cache Cleared" = "מטמון רשת אופס";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "האם את/ה בטוח/ה שברצונך לאפס את מטמון המקורות של זברה? דבר זה יסיר את כל המידע שנשמר במטמון מבסיס הנתונים של זברה ויוריד אותו מחדש. המקורות שלך לא יימחקו.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "האם את/ה בטוח/ה שברצונך לאפס את ההגדרות של זברה? דבר זה ייאפס את כל ההגדרות של זברה חזרה לערכי ברירת המחדל שלהם וזברה תיפתח מחדש.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "האם את/ה בטוח/ה שברצונך למחוק את כל המקורות? כל המקורות שלך יוסרו מזברה וזברה תופעל מחדש.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "האם את/ה בטוח/ה שברצונך למחוק את כל המקורות וההגדרות? כל המקורות שלך יוסרו מזברה וההגדרות שלך יאופסו.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "כל המקורות שלך יימחקו ללא אפשרות שיחזור וזברה תיפתח מחדש.";
+
+// Documents Directory
+"Open Documents Directory" = "פתח תיקיית מסמכים";
+
+"Filza Not Installed" = "לא זוהתה התקנה של Filza";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "זברה לא יכולה לפתוח את תיקיית המסמכים שלה מכיוון ש-Filza אינה מותקנת. תיקיית המסמכים שלך היא: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
-"Logged in as %@ (%@)." = "מחובר/ת בתור %@ (%@).";
+"Logged in as %@ (%@)" = "מחובר/ת בתור %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
+
+"Could not download Packages file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ חבילות מ-%@. סיבה: %@";
+"Could not download one or more files from %@. Reason: %@" = "לא היה ניתן להוריד קובץ אחד או יותר מ-%@. סיבה: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
 "%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
-"Are you sure you want to clear the queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
+"Are you sure you want to clear the Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "החבילה %@ הינה חבילה נדרשת. אין להסיר אותה אלא אם את/ה יודע/ת מה את/ה עושה!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
 
+"Hide UDID" = "הסתר מזהה מכשיר (UDID)";
+
 "Display featured packages on the homepage." = "הצג חבילות מומלצות בדף הבית.";
+
+"Automatic Refresh" = "רענון אוטומטי";
+"Refresh Zebra's sources when opening the app." = "רענן את המקורות של זברה עם פתיחת היישום.";
 
 "Display recent community posts from /r/jailbreak." = "הצג פרסומי קהילה אחרונים מ-/r/jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";
 
 // Filters
+
 "Filters" = "מסננים";
 "Add Filter" = "הוסף מסנן";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu מקורות מוסתרים";
 
 "Sections" = "קטגוריות";
+"Select a Section" = "בחר קטגוריה";
 "Hide packages in these sections." = "הסתר חבילות בקטגוריות אלו.";
 
 "Sources" = "מקורות";
+"Select a Source" = "בחר מקור";
+"Search for an Author" = "חפש יוצר";
 "Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
 
 "Updates" = "עדכונים";
@@ -410,3 +434,12 @@
 
 "Authors" = "יוצרים";
 "Hide packages from these authors." = "הסתר חבילות מיוצרים אלו.";
+
+// Language Settings
+
+"Language" = "שפה";
+"Apply" = "החל";
+"Restart Required" = "דרושה הפעלה מחדש";
+"Zebra must be closed in order to change preferred language" = "על זברה להיסגר כדי להחליף לשפה המבוקשת";
+"Restart" = "הפעל מחדש";
+"Use System Language" = "השתמש בשפת המערכת";

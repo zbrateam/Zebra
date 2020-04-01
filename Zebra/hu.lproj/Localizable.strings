@@ -11,6 +11,7 @@
 "Done" = "Kész";
 "Loading..." = "Betöltés...";
 "Clear" = "Kiürít";
+"An Error Ocurred" = "Hiba történt";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Hibajelentés";
 "Changelog" = "Változások listája";
 "Wish List" = "Kívánságlista";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
 "No items in Wish List" = "A kívánságlista üres";
 "Community" = "Közösség";
 "Join our Discord" = "Csatlakozz a mi Discord szerverünkhöz";
@@ -70,22 +73,22 @@
 
 "Accent Color" = "Kiemelőszín";
 "Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
+"Cornflower Blue" = "Búzavirágkék";
 "Golden Tainoi" = "Golden Tainoi";
 "Iris Blue" = "Iris Blue";
 "Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
+"Monochrome" = "Monokróm";
 "Mountain Meadow" = "Mountain Meadow";
 "Pastel Red" = "Pastel Red";
 "Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
+"Royal Blue" = "Királykék";
+"Shark" = "Cápa";
+"Storm" = "Vihar";
 "Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
+"Appearance" = "Megjelenés";
 "Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
+"Light" = "Világos";
+"Dark" = "Sötét";
 "Pure Black Mode" = "Pure Black Mode";
 
 // Featured
@@ -97,35 +100,45 @@
 "Select Repos to be Featured" = "Select Repos to be Featured";
 "Featured Repos" = "Kiemelt források";
 
-// Advanced
+// Reset
 
-"Advanced" = "Haladó";
+"Reset" = "Alapállapot";
 "Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
+"Clear Image Cache" = "Gyorsítótári képek törlése";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
+"Reset All Settings" = "Alapértékek visszaállítása";
+"Erase All Sources" = "Összes forrás törlése";
 "Erase All Sources and Settings" = "Erase All Sources and Settings";
 
 "Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+
+// Documents Directory
+"Open Documents Directory" = "Dokumentumok mappa megnyitása";
+
+"Filza Not Installed" = "A Filza nincs telepítve";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "A Zebra nem tudta megnyitni a dokumentumok mappát, mert a Filza nincs telepítve. A dokumentumok mappa jelenleg: %@";
 
 // Stores
 
 "Stores" = "Áruházak";
-"My Account" = "My Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
+"My Account" = "Fiókom";
+"Sign In" = "Bejelentkezés";
+"Sign Out" = "Kijelentkezés";
+"Your Purchases" = "Vásárlásaim";
 "No Storefronts Available" = "No Storefronts Available";
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "Bejelentkezve, mint %@ (%@)";
 
 // Sources
 
@@ -134,18 +147,18 @@
 "Delete" = "Törlés";
 "Refresh" = "Frissítés";
 "All Packages" = "Összes csomag";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Forrás eltávolítása";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Helyileg telepített csomagok";
 
 "Add" = "Hozzáad";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Források hozzáadása";
 "Add Multiple" = "Több hozzáadáasa";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Forrás linkje";
 "Would you like to add the URL from your clipboard?" = "Szeretnéd a vágólapon lévő URL-t hozzáadni?";
 
 "Please Wait..." = "Kérlek, várj...";
-"Verifying Source" = "Verifying Source";
+"Verifying Source" = "Forrás ellenőrzése";
 "Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Updating Sources";
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "You have already added these sources.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
@@ -187,7 +203,7 @@
 "Available Upgrades" = "Elérhető frissítések";
 "Ignored Upgrades" = "Figyelmen kívül hagyott frissítések";
 "Recent" = "Legutóbbi";
-"Source" = "Source";
+"Source" = "Forrás";
 "Installed Files" = "Telepített fájlok";
 "Modify" = "Módosít";
 "Authenticate to initiate purchase." = "Azonosítsd magad a vásárláshoz.";
@@ -259,15 +275,15 @@
 "Search" = "Keresés";
 "This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
 "No Results Found" = "Nincs találat";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Név";
+"Description" = "Leírás";
+"Author" = "Szerző";
 
 // Downloads
 
 "Downloads" = "Letöltések";
 "Error while opening sources.list" = "Hiba a forráslista megnyitásakor";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "A %@ forrás nem kompatibilis a jelenlegi jailbreak-eddel.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 "Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 "Incorrect documents permissions." = "Incorrect documents permissions.";
@@ -284,15 +300,15 @@
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Zebra bezárása";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra bezárása...";
 "Restart SpringBoard" = "SpringBoard újraindítása";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Restarting SpringBoard..." = "SpringBoard újraindítása...";
 "Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
+"Starting Download" = "Letöltés indítása";
 "Downloading" = "Letöltés";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "%@ letöltése";
 "Downloading Packages..." = "Csomagok letöltése...";
-"Download Completed" = "Download Completed";
+"Download Completed" = "Letöltés kész";
 "Installing" = "Telepítés";
 "Installing Packages..." = "Csomagok telepítése...";
 "Removing" = "Eltávolítás";
@@ -304,15 +320,15 @@
 "Complete" = "Kész";
 "Finished!" = "Kész!";
 "Return to Queue" = "Vissza a várólistához";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Vissza a várólistához...";
 "Importing local packages." = "Helyi csomagok beolvasása.";
 "Finished importing local packages." = "Helyi csomagok beolvasása kész.";
 "One or more packages failed to download." = "Egy vagy több csomag letöltése sikertelen.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Done..." = "Kész...";
+"Done %@" = "%@ kész";
+"Removing Zebra..." = "Zebra eltávolítása...";
+"Installing Zebra..." = "Zebra telepítése...";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
 
 // Queue Bar
@@ -338,13 +354,12 @@
 "Required Package" = "Szükséges csomag";
 "Are you sure?" = "Biztos benne?";
 "Remove from Queue" = "Remove from Queue";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Várólista ürítése";
 "%@ is required by:" = "%@ is required by:";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
+"Hide UDID" = "UDID elrejtése";
+
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Automatic Refresh" = "Automatikus frissítés";
+"Refresh Zebra's sources when opening the app." = "Zebra források frissítése megnyitáskor.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
@@ -393,20 +413,33 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+
+"Filters" = "Szűrők";
+"Add Filter" = "Szűrő hozzáadása";
 
 "1 Section Hidden" = "1 Section Hidden";
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
-"Sections" = "Sections";
+"Sections" = "Szekciók";
+"Select a Section" = "Válassz szekciót";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
 "Sources" = "Források";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
-"Updates" = "Updates";
+"Updates" = "Frissítések";
 "Hide future updates from these packages." = "Hide future updates from these packages.";
 
-"Authors" = "Authors";
+"Authors" = "Szerzők";
 "Hide packages from these authors." = "Hide packages from these authors.";
+
+// Language Settings
+
+"Language" = "Nyelv";
+"Apply" = "Alkamaz";
+"Restart Required" = "Újraindítás szükséges";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Újraindítás";
+"Use System Language" = "Rendszer nyelv használata";

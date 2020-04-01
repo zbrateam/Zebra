@@ -11,6 +11,7 @@
 "Done" = "완료";
 "Loading..." = "불러오는 중...";
 "Clear" = "제거";
+"An Error Ocurred" = "에러가 발생했습니다.";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "버그 신고";
 "Changelog" = "변경 사항";
 "Wish List" = "위시 리스트";
+"Newest First" = "최신순";
+"Oldest First" = "등록순";
 "No items in Wish List" = "위시리스트가 비었습니다.";
 "Community" = "커뮤니티";
 "Join our Discord" = "우리의 Discord에 참여하세요";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "선정될 레포 선택";
 "Featured Repos" = "선정된 레포";
 
-// Advanced
+// Reset
 
-"Advanced" = "고급";
+"Reset" = "재설정";
 "Refresh Icon Cache" = "아이콘 캐시 새로고침";
-"Reset Image Cache" = "이미지 캐시 초기화";
-"Reset Sources Cache" = "소스 캐시 초기화";
+"Clear Image Cache" = "이미지 캐시 지우기";
+"Clear Sources Cache" = "소스 캐시 지우기";
+"Clear Web Cache" = "웹 캐시 지우기";
 "Reset All Settings" = "모든 설정 초기화";
+"Erase All Sources" = "모든 소스 지우기";
 "Erase All Sources and Settings" = "모든 소스와 설정 지우기";
 
 "Are you sure you want to restart the SpringBoard?" = "정말로 SpringBoard를 재시작할까요?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "정말로 아이콘 캐시를 새로 고칠까요? 작업이 완료되기 전까지 기기가 응답하지 않을 수 있습니다.";
-"Image Cache Reset" = "이미지 캐시 초기화";
+"Image Cache Cleared" = "이미지 캐시 지워짐";
+"Web Cache Cleared" = "웹 캐시 지워짐";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "정말 Zebra의 소스 캐시를 초기화할까요? Zebra의 데이터베이스 안의 모든 캐시된 정보들이 제거되고, 다시 다운로드 됩니다. 소스는 제거되지 않습니다.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "정말로 Zebra의 설정을 초기화할까요? Zebra의 모든 설정이 초기화되고 기본값으로 돌아간 뒤, Zebra가 재시작됩니다.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "정말로 모든 소스를 지울까요? 모든 소스가 Zebra에서 삭제되고, Zebra가 재시작됩니다.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "정말로 모든 소스와 설정을 삭제할까요? 모든 소스가 Zebra에서 제거되고, 설정이 초기화됩니다.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "모든 소스가 영원히 삭제되고, Zebra가 재시작됩니다.";
+
+// Documents Directory
+"Open Documents Directory" = "문서 디렉토리 열기";
+
+"Filza Not Installed" = "Filza가 설치되지 않았습니다.";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Filza가 설치되지 않아 Zebra가 문서 디렉토리를 열 수 없습니다. 문서 디렉토리의 위치는 다음과 같습니다: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
 "Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
 "No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
-"Logged in as %@ (%@)." = "%@ (%@)으로 로그인 됨";
+"Logged in as %@ (%@)" = "%@ (%@)으로 로그인 됨.";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "이미 해당 소스들을 추가했습니다.";
 "Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 "Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
+
+"Could not download Packages file from %@. Reason: %@" = "%@에서 Packages 파일을 다운로드할 수 없습니다.\n이유: %@";
+"Could not download one or more files from %@. Reason: %@" = "%@에서 한개 또는 그 이상의 파일을 다운로드할 수 없습니다.\n이유: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL이 올바르지 않습니다. 확인 후 다시 시도해주세요.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
 "%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
-"Are you sure you want to clear the queue?" = "정말로 대기열을 지울까요?";
+"Are you sure you want to clear the Queue?" = "정말로 대기열을 지울까요?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@(은)는 필요한 패키지입니다. 절대로 내가 무슨 일을 하는지 정확히 알지 못한다면 제거하면 안됩니다.";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "오류: 프로세스가 재시작되어야 합니다. 다시 시도해주세요.";
 
+"Hide UDID" = "UDID 숨기기";
+
 "Display featured packages on the homepage." = "선정된 패키지를 홈 화면에서 표시";
+
+"Automatic Refresh" = "자동 새로고침";
+"Refresh Zebra's sources when opening the app." = "Zebra의 소스를 앱이 열리면 새로고칩니다.";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak의 최근 커뮤니티 게시글을 표시";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
 
 // Filters
+
 "Filters" = "필터";
 "Add Filter" = "필터 추가";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu개의 소스 숨겨짐";
 
 "Sections" = "섹션";
+"Select a Section" = "섹션 선택";
 "Hide packages in these sections." = "이 섹션에서 패키지 숨기기";
 
 "Sources" = "소스";
+"Select a Source" = "소스 선택";
+"Search for an Author" = "제작자 검색";
 "Hide packages in these sections from specific sources." = "특정 소스의 이 섹션에서 패키지 숨기기";
 
 "Updates" = "업데이트";
@@ -410,3 +434,12 @@
 
 "Authors" = "제작자";
 "Hide packages from these authors." = "이 제작자의 패키지 숨기기";
+
+// Language Settings
+
+"Language" = "언어";
+"Apply" = "적용";
+"Restart Required" = "재시작 필요함";
+"Zebra must be closed in order to change preferred language" = "선호 언어를 변경하려면 Zebra를 닫아야 합니다.";
+"Restart" = "재시작";
+"Use System Language" = "시스템 언어 사용";

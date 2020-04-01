@@ -11,6 +11,7 @@
 "Done" = "Gata";
 "Loading..." = "Se încarca...";
 "Clear" = "Șterge";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Raportati o problema";
 "Changelog" = "Istoricul schimbarilor";
 "Wish List" = "Lista De Dorinte";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
 "No items in Wish List" = "Nu exista obiecte in Lista de Dorinte";
 "Community" = "Comunitate";
 "Join our Discord" = "Intrati pe serverul nostru de Discord";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "Selectati sursele care sa fie promovate";
 "Featured Repos" = "Surse promovate";
 
-// Advanced
+// Reset
 
-"Advanced" = "Avansat";
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Reactualizează cache-ul iconițelor";
-"Reset Image Cache" = "Resetează cache-ul imaginilor";
-"Reset Sources Cache" = "Resetează cache-ul surselor";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Resetează toate setările";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Resetează toate sursele si setările";
 
 "Are you sure you want to restart the SpringBoard?" = "Ești sigur că dorești să restartezi SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Confirmi reîmprospătarea cache-ului iconițelor? Dispozitivul dvs. ar putea să ignore comenzile până la terminarea procesului.";
-"Image Cache Reset" = "Resetează cache-ul iconițelor";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Confirmi că dorești să ștergi cache-ul surselor din Zebra? Această acțiune va șterge toate informațiile din cache-ul Zebra și le va redescărca. Sursele vor fi păstrate.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Confirmi că dorești resetarea setărilor Zebra? Această acțiune va readuce Zebra la setările inițiale iar aplicația va reporni.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Confirmi că dorești să ștergi toate sursele și setările? Toate sursele din Zebra vor fi șterse iar setările vor revenii la valorile inițiale.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Toate sursele vor fi șterse permanent iar Zebra va reporni.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
 "Could not complete purchase, no payment secret was found" = "Achiziția nu a fost completată, payment secret nu a fost găsit";
 "No packages purchased" = "Nu există achiziții";
-"Logged in as %@ (%@)." = "Autentificat ca %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "Ai adăugat deja aceste surse.";
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL introdus nu este valid. Te rugăm să îl verifici și să încerci din nou.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ is required by:";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the queue?" = "Esti sigur ca vrei sa elimini coada?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ este un pachet necesar. Nu ar trebuii sa fie eliminat decat in cazul in care stii exact ce faci!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "EROARE: Procesul trebuie restartat. Incearca din nou.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Inchide automat consola atunci cand toate sarcinile au fost completate.";
 
 // Filters
+
 "Filters" = "Filters";
 "Add Filter" = "Add Filter";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
 "Sections" = "Sections";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
 "Sources" = "Surse";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Updates";
@@ -410,3 +434,12 @@
 
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
+
+// Language Settings
+
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";

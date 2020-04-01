@@ -11,6 +11,7 @@
 "Done" = "Atlikta";
 "Loading..." = "Kraunasi...";
 "Clear" = "Išvalyti";
+"An Error Ocurred" = "Įvyko klaida";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Pranešti apie klaidą";
 "Changelog" = "Pakeitimų sąrašas";
 "Wish List" = "Norų sąrašas";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
 "No items in Wish List" = "Nėra įrašų norų sąraše";
 "Community" = "Bendruomenė";
 "Join our Discord" = "Prisijunkite prie mūsų Discord";
@@ -97,27 +100,37 @@
 "Select Repos to be Featured" = "Pasirinkite rodomiausias saugyklas";
 "Featured Repos" = "Rodomiausios saugyklos";
 
-// Advanced
+// Reset
 
-"Advanced" = "Išplėstiniai nustatymai";
+"Reset" = "Atstatyti";
 "Refresh Icon Cache" = "Atnaujinti piktogramų podelį";
-"Reset Image Cache" = "Atkurti vaizdų podelį";
-"Reset Sources Cache" = "Atkurti šaltinių podelį";
+"Clear Image Cache" = "Išvalyti paveikslėlių podėlį";
+"Clear Sources Cache" = "Išvalyti šaltinių podelį";
+"Clear Web Cache" = "Išvalyti žiniatinklio podelį";
 "Reset All Settings" = "Atkurti visus nustatymus";
+"Erase All Sources" = "Ištrinti visus šaltinius";
 "Erase All Sources and Settings" = "Ištrinti visus šaltinius ir nustatymus";
 
 "Are you sure you want to restart the SpringBoard?" = "Ar esate įsitikinę, kad norite perkrauti SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Ar esate įsitikinę, kad norite atnaujinti piktogramų podelį? Jūsų prietaisas gali nereaguoti kol procesas baigsis.";
-"Image Cache Reset" = "Vaizdų podelio atstatymas";
+"Image Cache Cleared" = "Paveikslėlių podelis išvalytas";
+"Web Cache Cleared" = "Žiniatinklio podelis išvalytas";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Ar esate įsitikinę, kad norite atstatyti Zebra šaltinių podėlį? Tai pašalins visą podelio informaciją iš Zebra duomenų bazės ir pakartotinai jį atsiųs. Jūsų šaltiniai nebus pašalinti.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Ar esate įsitikinę, kad norite atstatyti Zebra nustatymus? Tai atstatys Zebra į gamyklinius nustatymus ir Zebra persikraus.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Ar esate įsitikinę, kad norite ištrinti visus šaltinius? Visi jūsų šaltiniai bus ištrinti iš Zebra ir programa pasileis iš naujo.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Ar esate įsitikinę, kad norite pašalinti visus šaltinius ir nustatymus? Visi jūsų šaltiniai bus pašalinti iš Zebra ir nustatymai bus atstatyti į gamyklinius.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsų šaltiniai bus pašalinti negrįžtamai ir Zebra persikraus.";
+
+// Documents Directory
+"Open Documents Directory" = "Atidaryti dokumentų katalogą";
+
+"Filza Not Installed" = "Filza neįrašyta";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra negali atidaryti dokumentų katalogo nes Filza neįrašyta. Jūsų dokumentų katalogas yra: %@";
 
 // Stores
 
 "Stores" = "Parduotuvės";
-"My Account" = "My Account";
+"My Account" = "Mano paskyra";
 "Sign In" = "Prisijungti";
 "Sign Out" = "Atsijungti";
 "Your Purchases" = "Jūsų pirkiniai";
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Nepavyko baigti pirkimo";
 "Could not complete purchase, no payment secret was found" = "Nepavyko baigti pirkimo, apmokėjimas neįvyko";
 "No packages purchased" = "Nėra nupirktų paketų";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "Prisijungta kaip %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
+
+"Could not download Packages file from %@. Reason: %@" = "Nepavyko atsiųsti paketų failo iš %@. Priežastis: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nepavyko atsiųsti vieno ar kelių failų iš %@. Priežastis: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Įvestas adresas klaidingas. Prašom jį patikrinti ir bandyti iš naujo.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ reikalauja:";
 "%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
-"Are you sure you want to clear the queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
+"Are you sure you want to clear the Queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ yra reikalingas paketas. Jis gali būti pašalintas tik tais atvejais, jei tikrai žinote ką darote!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Rodyti naujausius bendruomenės įrašus /r/jailbreak.";
 
@@ -393,20 +413,33 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatiškai uždaryti konsolę, kai visos jos užduotys įvykdytos.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"Filters" = "Filtrai";
+"Add Filter" = "Pridėti filtrą";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"1 Section Hidden" = "Paslėptas 1-as skyrius";
+"%lu Sources Hidden" = "%lu paslėpti šaltiniai";
+
+"Sections" = "Skyriai";
+"Select a Section" = "Pasirinkti skyrių";
+"Hide packages in these sections." = "Paslėpti paketus, šiuose skyriuose.";
 
 "Sources" = "Šaltiniai";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Pasirinkti šaltinį";
+"Search for an Author" = "Ieškoti autoriaus";
+"Hide packages in these sections from specific sources." = "Paslėpti paketus šiuose skyriuose iš konkrečių šaltinių.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Atnaujinimai";
+"Hide future updates from these packages." = "Paslėpti būsimus atnaujinimus iš šių paketų.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autoriai";
+"Hide packages from these authors." = "Paslėpti paketus iš šių autorių.";
+
+// Language Settings
+
+"Language" = "Kalba";
+"Apply" = "Pritaikyti";
+"Restart Required" = "Būtina paleisti iš naujo";
+"Zebra must be closed in order to change preferred language" = "Zebra turi būti uždaryta, pakeitus pasirinktą kalbą";
+"Restart" = "Paleisti iš naujo";
+"Use System Language" = "Naudoti sistemos kalbą";

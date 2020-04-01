@@ -11,6 +11,7 @@
 "Done" = "เสร็จสิ้น";
 "Loading..." = "กำลังโหลด...";
 "Clear" = "ล้าง";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "รายงานปัญหา";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Wish List" = "รายการอยากได้";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
 "No items in Wish List" = "ไม่มีรายการที่อยากได้";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "เลือกซอร์สไปแสดงโปรแกรมยอดนิยม";
 "Featured Repos" = "ซอร์สยอดนิยม";
 
-// Advanced
+// Reset
 
-"Advanced" = "ขั้นสูง";
+"Reset" = "Reset";
 "Refresh Icon Cache" = "ล้างแคชของไอคอน";
-"Reset Image Cache" = "ล้างแคชรูปภาพ";
-"Reset Sources Cache" = "ล้างแคชของซอร์ส";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "ล้างการตั้งค่าทั้งหมด";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "ล้างการตั้งค่าและซอร์สทั้งหมด";
 
 "Are you sure you want to restart the SpringBoard?" = "คุณแน่ใจหรือไม่ที่จะเริ่มการทำงานของ SpringBoard ใหม่?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของไอคอน? เครื่องของคุณอาจไม่ตอบสนองในขณะที่กำลังล้างแคช";
-"Image Cache Reset" = "ล้างแคชรูปภาพแล้ว";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของซอร์สใน Zebra? ซึ่งจะทำการลบแคชทั้งหมดในฐานข้อมูลและดาวน์โหลดใหม่ ซอร์สของคุณจะยังไม่ถูกลบ";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "คุณแน่ใจหรือไม่ที่จะล้างการตั้งค่าของ Zebra? การตั้งค่าทุกอย่างจะกลับไปเป็นค่าเริ่มต้นและ Zebra จะเริ่มการทำงานใหม่";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "คุณแน่ใจหรือไม่ที่จะล้างซอร์สและการตั้งค่าทั้งหมด? ซอร์สและการตั้งค่าทั้งหมดจะกลับไปเป็นค่าเริ่มต้น";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "ซอร์สทั้งหมดจะถูกลบไปจากเครื่องและ Zebra จะเริ่มการทำงานใหม่";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
 "Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
 "No packages purchased" = "ไม่มีโปรแกรมที่ซื้อไว้";
-"Logged in as %@ (%@)." = "ลงชื่อเข้าใช้แล้วในชื่อ %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
+
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL ที่คุณใส่นั้นไม่ถูกต้อง กรุณาตรวจสอบและลองอีกครั้ง";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
 "%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
 "%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
-"Are you sure you want to clear the queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ เป็นโปรแกรมที่จำเป็นต้องติดตั้งไว้บนเครื่อง ไม่ควรถูกลบออกนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ข้อผิดพลาด: โปรแกรมนี้จำเป็นต้องเริ่มใหม่ กรุณาลองอีกครั้ง";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "แสดงโปรแกรมยอดนิยมในหน้าหลัก";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "แสดงโพสล่าสุดใน /r/jailbreak";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "ปิดหน้าต่างคอนโซลอัตโนมัติเมื่อการทำงานเสร็จสมบูรณ์";
 
 // Filters
+
 "Filters" = "ตัวกรอง";
 "Add Filter" = "เพิ่มตัวกรอง";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu ซอร์สที่ถูกซ่อน";
 
 "Sections" = "ประเภท";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "ซ่อนแพ็กเกจจากประเภทเหล่านี้";
 
 "Sources" = "ซอร์ส";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
 
 "Updates" = "อัพเดต";
@@ -410,3 +434,12 @@
 
 "Authors" = "ผู้สร้าง";
 "Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
+
+// Language Settings
+
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";

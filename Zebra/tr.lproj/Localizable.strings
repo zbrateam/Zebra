@@ -11,6 +11,7 @@
 "Done" = "Tamamla";
 "Loading..." = "Yükleniyor...";
 "Clear" = "Temizle";
+"An Error Ocurred" = "Bir Hata Oluştu";
 
 // Home
 
@@ -20,9 +21,11 @@
 "Report a Bug" = "Hata Bildir";
 "Changelog" = "Değişiklikler";
 "Wish List" = "İstek Listesi";
-"No items in Wish List" = "İstek listesinde öğe yok";
+"Newest First" = "Önce Yeniler";
+"Oldest First" = "Önce Eskiler";
+"No items in Wish List" = "İstek Listesi Boş";
 "Community" = "Topluluk";
-"Join our Discord" = "Discord'umuza katıl!";
+"Join our Discord" = "Discord'umuza Katıl";
 "Follow us on Twitter" = "Bizi Twitter'da takip edin";
 "Help translate Zebra!" = "Zebra'yı çevirmemize yardım et!";
 
@@ -38,9 +41,9 @@
 "Import" = "İçeri Aktar";
 "Verifying..." = "Doğrulanıyor...";
 "Confirm Import" = "İçeri Aktarmayı Onayla";
-"Import Sources" = "Kaynakları İçeri Al";
-"No sources to import" = "Aktarma edilecek kaynak yok";
-"Would you like to import the following sources?" = "Bu kaynakları içeri almak istiyor musunuz?";
+"Import Sources" = "Kaynakları İçeri Aktar";
+"No sources to import" = "Aktarılacak kaynak yok";
+"Would you like to import the following sources?" = "Bu kaynakları içeri aktarmak istiyor musunuz?";
 "Are you sure that you want to import 1 source into Zebra?" = "%d kaynağını Zebra'ya eklemek istediğinize emin misiniz?";
 "Are you sure that you want to import %d sources into Zebra?" = "%d kaynaklarını Zebra'ya eklemek istediğinize emin misiniz?";
 
@@ -94,30 +97,40 @@
 "Feature Type" = "Öne Çıkanların Tarzı";
 "Repo Featured" = "Kaynağın Öne Çıkanları";
 "Random" = "Rastgele";
-"Select Repos to be Featured" = "Öne Çıkarılıcak Repoları Seç";
+"Select Repos to be Featured" = "Öne Çıkarılacak Kaynakları Seç";
 "Featured Repos" = "Öne Çıkan Kaynaklar";
 
-// Advanced
+// Reset
 
-"Advanced" = "Gelişmiş";
+"Reset" = "Sıfırla";
 "Refresh Icon Cache" = "Simge Önbelleğini Yenile";
-"Reset Image Cache" = "Resim Önbelleğini Sıfırla";
-"Reset Sources Cache" = "Kaynak Önbelleğini Temizle";
+"Clear Image Cache" = "Resim Önbelleğini Temizle";
+"Clear Sources Cache" = "Kaynak Önbelleğini Temizle";
+"Clear Web Cache" = "Web Önbelleğini Temizle";
 "Reset All Settings" = "Tüm Ayarları Sıfırla";
+"Erase All Sources" = "Tüm Kaynakları Sil";
 "Erase All Sources and Settings" = "Tüm Kaynakları ve Ayarları Sil";
 
 "Are you sure you want to restart the SpringBoard?" = "SpringBoard’ı yeniden başlatmak istediğinizden emin misiniz?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Simge önbelleğini yenilemek istediğinizden emin misiniz? İşlem tamamlanana kadar cihazınız yanıt vermeyebilir.";
-"Image Cache Reset" = "Resim Önbelleğini Sıfırla";
+"Image Cache Cleared" = "Resim Önbelleği Temizlendi";
+"Web Cache Cleared" = "Web Önbelleği Temizlendi";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Zebra'nın kaynak önbelleğini sıfırlamak istediğinizden emin misiniz? Bu, önbelleğe alınan tüm bilgileri Zebra'nın veritabanından kaldıracak ve yeniden indirecektir. Kaynaklarınız silinmeyecek.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra'nın ayarlarını sıfırlamak istediğinizden emin misiniz? Bu, Zebra'nın tüm ayarlarını varsayılan değerlerine sıfırlar ve Zebra'yı yeniden başlatılır.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Zebra'nın ayarlarını sıfırlamak istediğinizden emin misiniz? Bu, Zebra'nın tüm ayarlarını varsayılan değerlerine sıfırlar ve Zebra yeniden başlatılır.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Tüm kaynakları silmek istediğinizden emin misiniz? Tüm kaynaklarınız Zebra'dan silinecek ve Zebra yeniden başlatılacak.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tüm kaynakları ve ayarları silmek istediğinizden emin misiniz? Tüm kaynaklarınız Zebra'dan kaldırılacak ve ayarlarınız sıfırlanacak.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tüm kaynaklarınız silinecek ve sonsuza dek yok olacak ve Zebra yeniden başlayacak.";
 
+// Documents Directory
+"Open Documents Directory" = "Dökümanlar Dosya Dizinini Aç";
+
+"Filza Not Installed" = "Filza Yüklü Değil";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Filza yüklü olmadığı için Zebra döküman dizinini açamıyor. Doküman dizininiz: %@";
+
 // Stores
 
-"Stores" = "Market";
-"My Account" = "My Account";
+"Stores" = "Marketler";
+"My Account" = "Hesabım";
 "Sign In" = "Oturum Aç";
 "Sign Out" = "Oturumu Kapat";
 "Your Purchases" = "Satın Aldıklarınız";
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "Could not complete purchase, no payment secret was found" = "Satın alma işlemi tamamlanamadı, hiçbir ödeme yöntemi bulunamadı";
 "No packages purchased" = "Hiç Paket Satın Alınmadı";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "%@ (%@) olarak giriş yapıldı";
 
 // Sources
 
@@ -135,16 +148,16 @@
 "Refresh" = "Yenile";
 "All Packages" = "Bütün Paketler";
 "Remove Source" = "Kaynağı Kaldır";
-"Local Repository" = "Yüklü Kaynaklar";
-"Locally installed packages" = "Kullanıcı tarafından yüklenmiş kaynaklar";
+"Local Repository" = "Yerel Kaynak";
+"Locally installed packages" = "Yerel olarak kurulmuş paketler";
 
 "Add" = "Ekle";
 "Add Sources" = "Kaynakları Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
 "Enter Source URL" = "Kaynak URL'sini Gir";
-"Would you like to add the URL from your clipboard?" = "Kopyalamış olduğun Linki kaynak olarak eklemek ister misin?";
+"Would you like to add the URL from your clipboard?" = "Kopyalamış olduğunuz Linki kaynak olarak eklemek ister misiniz?";
 
-"Please Wait..." = "Lütfen Bekleyin...";
+"Please Wait..." = "Lütfen Bekleyiniz...";
 "Verifying Source" = "Kaynak doğrulanıyor";
 "Verifying Sources" = "Kaynaklar doğrulanıyor";
 "Updating Sources" = "Kaynaklar Güncelleniyor";
@@ -154,15 +167,18 @@
 "Invalid Source" = "Geçersiz Kaynak";
 "Tap to learn more" = "Daha fazlası için dokunun";
 "No source URLs detected." = "Kaynak URL’si Bulunamadı.";
-"Unable to verify source" = "Kaynağı Onaylayamıyoruz";
+"Unable to verify source" = "Kaynak Doğrulanamıyor";
 "Error verifying source" = "Kaynağı doğrularken hata oluştu";
-"Error verifying sources" = "Kaynak doğrulanamadı";
+"Error verifying sources" = "Kaynakları doğrularken hata oluştu";
 "Failed to add source" = "Kaynak eklenemedi";
 "Failed to add sources" = "Kaynaklar eklenemedi";
 "You have already added this source." = "Bu kaynağı zaten eklediniz.";
-"You have already added these sources." = "Zaten bu kaynakları ekledin.";
+"You have already added these sources." = "Zaten bu kaynakları eklediniz.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
-"Unable to locate APT repositories at:" = "APT deposu şu konumda bulunamadı:";
+"Unable to locate APT repositories at:" = "APT depoları şu konumda bulunamadı:";
+
+"Could not download Packages file from %@. Reason: %@" = "%@ kaynağından ilgili Paket Dizinleri indirilemedi. Sebep: %@";
+"Could not download one or more files from %@. Reason: %@" = "%@ kaynağından ilgili dosya(lar) indirilemedi. Sebep: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Girilen URL doğru değil. Lütfen kontrol edin ve tekrar deneyin.";
 
@@ -176,7 +192,7 @@
 "Ignore Updates" = "Güncellemeleri Gizle";
 "Select Version" = "Versiyon Seçin";
 "Select a version to upgrade to:" = "Yüklenecek versiyonu seçin:";
-"Select a version to downgrade to:" = "Düşürülücek versiyonu seçin:";
+"Select a version to downgrade to:" = "Düşürülecek versiyonu seçin:";
 "Package" = "Paket";
 "Information" = "Bilgi";
 "Upgrade All" = "Hepsini Güncelle";
@@ -184,15 +200,15 @@
 "ABC" = "ABC";
 "Date" = "Tarih";
 "Size" = "Boyut";
-"Available Upgrades" = "Uygun Güncellemeler";
-"Ignored Upgrades" = "Yoksayılan Güncellemeler";
+"Available Upgrades" = "Mevcut Güncellemeler";
+"Ignored Upgrades" = "Gizlenen Güncellemeler";
 "Recent" = "En Son";
 "Source" = "Kaynak";
 "Installed Files" = "Yüklenen Dosyalar";
 "Modify" = "Düzenle";
-"Authenticate to initiate purchase." = "İç satın alımı onayla.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Lütfen bu paketi almak için kullandığınız hesaba giriş yapın. (Muhtemelen %@)";
-"More by this Developer" = "Bu yapımcıdan daha fazla paket";
+"Authenticate to initiate purchase." = "Satın alma işlemini başlatmak için kimlik doğrulaması yapın.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Lütfen bu paketi almak için kullandığınız hesabınıza tekrar giriş yapın. (Muhtemelen %@)";
+"More by this Developer" = "Bu yaratıcıdan daha fazla";
 "Installed Version" = "Yüklenen Versiyon";
 "Installed Size" = "Yüklü Boyut";
 
@@ -212,7 +228,7 @@
 "%.2f MB" = "%.2f MB";
 
 "Add to Wish List" = "İstek Listesine ekle";
-"Remove from Wish List" = "İstek Listesinden kaldır";
+"Remove from Wish List" = "İstek Listesinden Kaldır";
 
 // Package Section Names
 
@@ -232,7 +248,7 @@
 "Imaging" = "Imajlama";
 "Java" = "Java";
 "Keyboards" = "Klavyeler";
-"Localization" = "Dil Desteği";
+"Localization" = "Dil";
 "Messaging" = "Mesajlaşma";
 "Multimedia" = "Multimedya";
 "Navigation" = "Yönlendirme";
@@ -271,7 +287,7 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
 "Please remove this source from your sources.list file." = "Lütfen bu kaynağı sources.list dosyasından kaldırın.";
 "Incorrect documents permissions." = "Yanlış döküman yetkileri.";
-"Could not determine device information." = "Cihaz bilgisi alınaması.";
+"Could not determine device information." = "Cihaz bilgileri belirlenemedi.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
 "%@ hasn't been modified" = "%@ Düzenlenmemiş";
 "Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
@@ -305,8 +321,8 @@
 "Finished!" = "Bitti!";
 "Return to Queue" = "Sıraya Geri Dön";
 "Returning to Queue..." = "Sıraya Dönülüyor...";
-"Importing local packages." = "Lokal paketler içeri alınıyor.";
-"Finished importing local packages." = "Lokal paketleri içeri alma bitti.";
+"Importing local packages." = "Yerel paketler içeri aktarılıyor.";
+"Finished importing local packages." = "Yerel paketleri içeri aktarma işlemi tamamlandı.";
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
 "Done..." = "Tamamlandı...";
@@ -331,7 +347,7 @@
 "Upgrade" = "Güncelle";
 "Downgrade" = "Sürüm düşür";
 "Abort" = "İptal";
-"Continue" = "Devam";
+"Continue" = "Devam Et";
 "Download Size" = "İndirme Boyutu";
 "Confirm" = "Onayla";
 "Issues" = "Sorunlar";
@@ -339,12 +355,11 @@
 "Are you sure?" = "Emin misiniz?";
 "Remove from Queue" = "Sıradan çıkar";
 "Clear Queue" = "Listeyi temizle";
-"%@ is required by:" = "%@ şunun tarafından isteniyor:";
+"%@ is required by:" = "%@, bunun için gerekli:";
 "%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
-"Are you sure you want to clear the queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
+"Are you sure you want to clear the Queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@, gerekli bir paket. Eğer ne yaptığınızı tam olarak bilmiyorsanız kaldırmamalısınız!";
-
 
 // Search
 
@@ -356,21 +371,26 @@
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Kaldırılmak için sıraya eklenmiş paketlerden biri veya birden fazlası gerekli veya zorunludur. Ne yaptığınızı bilmiyorsanız devam etmeniz önerilmez. Bu paket(ler)i kaldırmak, cihazınızda geri dönülemez hasarlara yol açabilir ve cihazınızı sıfırlamanız gerekebilir.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebre bu komutu gerekli yetkileri olmadığından dolayı gerçekleştiremedi. Lütfen \"/usr/libexec/zebra/supersling\" deki yetkileri kontrol edin ve bu hatayı GitHub üzerinden bize bildirin.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra bu komutu gerekli yetkileri olmadığından dolayı gerçekleştiremedi. Lütfen \"/usr/libexec/zebra/supersling\" deki yetkileri kontrol edin ve bu hatayı GitHub üzerinden bize bildirin.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "su/sling e erişilemiyor. Lütfen /usr/libexec/zebra/supersling in mevcut olduğunu doğrulayın.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Su/sling e erişilemiyor. Lütfen \"/usr/libexec/zebra/supersling\" dosyasının mevcut olduğunu doğrulayın.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling in sahibi root:wheel değil. Lütfen /usr/libexec/zebra/supersling konumundaki dosyanın yetkilerini kontrol edin.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" in sahibi \"root:wheel\" değil. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "/su/sling in uid veya gid i ayarlama yetkisş yok. Lütfen /usr/libexec/zebra/supersling konumundaki dosyanin yetkilerini kontrol edin.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"/su/sling\" in \"uid\" veya \"gid\" i ayarlama yetkisi yok. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
 
 "Could not respring. Please respring manually." = "Respring edilemiyor. Lütfen manuel olarak respring edin.";
 
 "ERROR: Unable to lock status file. Please try again." = "HATA: Durum dosyası kilitlenemiyor. Lütfen tekrar deneyin.";
 
-"ERROR: Process must be restarted. Please try again." = "İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
+"ERROR: Process must be restarted. Please try again." = "HATA: İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
+
+"Hide UDID" = "UDID'i Gizle";
 
 "Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
+
+"Automatic Refresh" = "Otomatik Yenileme";
+"Refresh Zebra's sources when opening the app." = "Zebra açılırken kaynakları yenile.";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak dan son topluluk gönderilerini göster.";
 
@@ -393,20 +413,33 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
 
 // Filters
+
 "Filters" = "Filtreler";
 "Add Filter" = "Filtre Ekle";
 
 "1 Section Hidden" = "1 Kısım Gizli";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"%lu Sources Hidden" = "%lu Kaynaklar Gizli";
 
 "Sections" = "Kısımlar";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Select a Section" = "Bir Bölüm Seçin";
+"Hide packages in these sections." = "Bu bölümlerdeki paketleri gizle.";
 
 "Sources" = "Kaynaklar";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Bir Kaynak Seçin";
+"Search for an Author" = "Bir Geliştiriciyi Ara";
+"Hide packages in these sections from specific sources." = "Bu bölümlerdeki paketleri belirli kaynaklardan gizleyin.";
 
 "Updates" = "Güncellemeler";
 "Hide future updates from these packages." = "Şu paketlerin güncellemelerini gizle.";
 
-"Authors" = "Authors";
+"Authors" = "Yaratıcılar";
 "Hide packages from these authors." = "Şu geliştiricilerin paketlerini gizle";
+
+// Language Settings
+
+"Language" = "Dil";
+"Apply" = "Uygula";
+"Restart Required" = "Yeniden Başlatma Gerekli";
+"Zebra must be closed in order to change preferred language" = "Seçilen dili uygulamak için Zebra kapatılmalıdır";
+"Restart" = "Yeniden Başlat";
+"Use System Language" = "Sistemin dilini kullan";

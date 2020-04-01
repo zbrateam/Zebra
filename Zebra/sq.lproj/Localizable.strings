@@ -11,6 +11,7 @@
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
 "Clear" = "Pastro";
+"An Error Ocurred" = "Ndodhi një gabim";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Raporto nje gabim";
 "Changelog" = "Ndryshimet";
 "Wish List" = "Lista e Dëshirave";
+"Newest First" = "Më të rejat në fillim";
+"Oldest First" = "Më të vjetrat në fillim";
 "No items in Wish List" = "Asnjë gjë në listën e dëshirave";
 "Community" = "Komuniteti";
 "Join our Discord" = "Bashkangjitjuni discordit tonë";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "Zgjidh repot për tu veçuar";
 "Featured Repos" = "Repot e Veçuara";
 
-// Advanced
+// Reset
 
-"Advanced" = "I avansuar";
+"Reset" = "Gjendje Fillestare";
 "Refresh Icon Cache" = "Rifreskoni cache-in e ikonave";
-"Reset Image Cache" = "Rivendos cache-n e figurës";
-"Reset Sources Cache" = "Rivendos cache-n e burimeve";
+"Clear Image Cache" = "Pastro cache-n e imazheve";
+"Clear Sources Cache" = "Pastro cache-n e burimeve";
+"Clear Web Cache" = "Pastro cache-n e rrjetit";
 "Reset All Settings" = "Rikthim në gjendjen fillestare";
+"Erase All Sources" = "Fshij të gjitha burimet";
 "Erase All Sources and Settings" = "Fshij të gjitha burimet dhe konfigurimet";
 
 "Are you sure you want to restart the SpringBoard?" = "A jeni të sigurt që dëshironi të rifillino SpringBoard-in?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "A jeni të sigurt që dëshironi të rifreskoni cache-n e ikonave? Paisja juaj mund të mos përgjigjet deri sa ky proces të përfundoj.";
-"Image Cache Reset" = "U rivendosën cache-t e figurës";
+"Image Cache Cleared" = "U pastruan cache-t e imazheve";
+"Web Cache Cleared" = "U pastruan cache-t e rrjetit";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "A jeni të sigurt që dëshironi të rivendosni cache-t e burimit të Zebras? Kjo do ti fshij të gjitha informacionet e cache-d nga burimi i të dhënave të Zebra-s dhe do ti ri-instaloj ato. Burimet e juaja nuk do të fshihen.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "A jeni të sigurt që dëshironi të rivendosni konfigurimet e Zebra-s? Kjo do të rikthej Zebra-n në gjendjen fillestare dhe Zebra do të rilëshohet.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Jeni i sigurt që doni të fshini të gjitha burimet? Të gjitha burimet tuaja do të hiqen nga Zebra dhe Zebra do të riniset.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "A jeni të sigurt që dëshironi të fshini të gjitha burimet dhe konfigurimet? Të gjitha burimet e tua do të largohen nga Zebra dhe konfigurimet do të rikthehen në gjendjen fillestare.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Të gjitha burimet do të fshihen dhe do të largohen për gjithmon dhe Zebra do të rilëshohet.";
+
+// Documents Directory
+"Open Documents Directory" = "Hap direktorin e dokumenteve";
+
+"Filza Not Installed" = "Filza nuk është e instaluar";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nuk mund të hap direktorin e tij të dokumenteve sepse Filza nuk është e instaluar. Direktori juaj i dokumenteve është: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "Could not complete purchase, no payment secret was found" = "Nuk mund të kryhet pagesa, nuk u gjet asnjë sekret pagese";
 "No packages purchased" = "Nuk keni asnjë paketë të paguar";
-"Logged in as %@ (%@)." = "Keni hyrë si %@ (%@).";
+"Logged in as %@ (%@)" = "Keni hyrë si %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
+
+"Could not download Packages file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Paketave nga %@.\nArsyeja: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nuk mund të shkrakojë një ose më shumë skedar nga %@.\nArsyeja: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ kërkohet nga:";
 "%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
 "%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
-"Are you sure you want to clear the queue?" = "Je i sigurt që dëshiron ta zbrazësh radhën?";
+"Are you sure you want to clear the Queue?" = "A jeni i sigurt që dëshironi ta zbrazni radhën?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ është një paketë e kërkuar. Ajo nuk duhet të hiqet vetëm nëse ju e dini saktësisht se çfarë po bëni!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
 
+"Hide UDID" = "Fsheh UDID";
+
 "Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
+
+"Automatic Refresh" = "Rifreskim Automatik";
+"Refresh Zebra's sources when opening the app." = "Rifresko burimet e Zebra-s kur hapet aplikacioni.";
 
 "Display recent community posts from /r/jailbreak." = "Shfaq postimet e fundit të komunitetit nga /r/jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
 
 // Filters
+
 "Filters" = "Filter";
 "Add Filter" = "Shto Filter";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu Burime të fshehura";
 
 "Sections" = "Seksione";
+"Select a Section" = "Zgjidhni një seksion";
 "Hide packages in these sections." = "Fsheh paketat në këto seksione.";
 
 "Sources" = "Burimet";
+"Select a Source" = "Zgjidhni një burim";
+"Search for an Author" = "Kërkoni për një autor";
 "Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
 "Updates" = "Përditësime";
@@ -410,3 +434,12 @@
 
 "Authors" = "Autorët";
 "Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
+
+// Language Settings
+
+"Language" = "Gjuha";
+"Apply" = "Apliko";
+"Restart Required" = "Kërkohet rifillimi";
+"Zebra must be closed in order to change preferred language" = "Zebra duhet të mbyllet në mënyrë që të ndryshohet gjuha e preferuar";
+"Restart" = "Rifillo";
+"Use System Language" = "Përdorni gjuhën e sistemit";

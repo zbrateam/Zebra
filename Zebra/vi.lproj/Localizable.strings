@@ -11,6 +11,7 @@
 "Done" = "Xong";
 "Loading..." = "Đang tải...";
 "Clear" = "Xoá bỏ";
+"An Error Ocurred" = "Đã xảy ra lỗi";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Báo cáo lỗi";
 "Changelog" = "Thay đổi";
 "Wish List" = "Danh sách mong muốn";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
 "No items in Wish List" = "Không có mục nào trong Danh sách mong muốn";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
@@ -69,7 +72,7 @@
 // Accent Colors
 
 "Accent Color" = "Màu đậm";
-"Aqua Velvet" = "Nhung thuỷ";
+"Aqua Velvet" = "Xanh Nhung";
 "Cornflower Blue" = "Xanh bông bắp";
 "Golden Tainoi" = "Vàng Tainoi";
 "Iris Blue" = "Xanh mống mắt";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "Chọn Repo nổi bật";
 "Featured Repos" = "Repos Nổi Bật";
 
-// Advanced
+// Reset
 
-"Advanced" = "Nâng cao";
+"Reset" = "Đặt lại";
 "Refresh Icon Cache" = "Làm mới bộ nhớ icon";
-"Reset Image Cache" = "Đặt lại bộ nhớ hình ảnh";
-"Reset Sources Cache" = "Đặt lại bộ nhớ nguồn";
+"Clear Image Cache" = "Xóa bộ nhớ cache hình ảnh";
+"Clear Sources Cache" = "Đặt lại Cache Nguồn";
+"Clear Web Cache" = "Xóa bộ nhớ Cache Web";
 "Reset All Settings" = "Đặt lại tất cả các cài đặt";
+"Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Xoá tất cả các nguồn và cài đặt";
 
 "Are you sure you want to restart the SpringBoard?" = "Bạn có muốn khởi động lại SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Bạn có muốn làm mới icon cache? Thiết bị của bạn có thể không phản hồi đến khi quá trình hoàn tất.";
-"Image Cache Reset" = "Đặt lại bộ nhớ đệm hình ảnh";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Bạn có muốn đặt lại bộ nhớ mã nguồn của Zebra? Hành động này sẽ xoá tất cả thông tin trong dữ liệu của Zebra và tải lại nó. Nguồn của bạn sẽ không bị xoá.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Bạn có muốn đặt lại tất cả cài đặt của Zebra? Điều này sẽ đưa tất cả các cài đặt của Zebra về mặc định và Zebra sẽ khởi động lại.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Bạn có muốn xoá tất cả nguồn và cài đặt? Tất cả nguồn của bạn sẽ bị xoá khỏi Zebra và cài đặt của bạn sẽ bị xoá.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tất cả nguồn của bạn sẽ bị xoá vĩnh viễn và Zebra sẽ khởi động lại.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Không thể hoàn tất mua";
 "Could not complete purchase, no payment secret was found" = "Không thể hoàn thành thanh toán, không khoản thanh toán nào được tìm thấy";
 "No packages purchased" = "Không có gói đã mua";
-"Logged in as %@ (%@)." = "Đăng nhập bằng %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
+
+"Could not download Packages file from %@. Reason: %@" = "Không thể tải Gói từ %@. Lý do: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ được yêu cầu bởi:";
 "%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
 "%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
-"Are you sure you want to clear the queue?" = "Bạn có chắc chắn muốn xóa hàng đợi?";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc. Nó KHÔNG nên được loại bỏ trừ khi bạn biết chính xác những gì bạn đang làm!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ / r / jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
 
 // Filters
+
 "Filters" = "Bộ lọc";
 "Add Filter" = "Thêm bộ lọc";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu nguồn đã ẩn";
 
 "Sections" = "Phần";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Ẩn gói trong các phần.";
 
 "Sources" = "Nguồn";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
 
 "Updates" = "Cập nhật";
@@ -410,3 +434,12 @@
 
 "Authors" = "Tác giả";
 "Hide packages from these authors." = "Ẩn gói từ các tác giả này.";
+
+// Language Settings
+
+"Language" = "Language";
+"Apply" = "Áp dụng";
+"Restart Required" = "Yêu cầu khởi động lại";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";

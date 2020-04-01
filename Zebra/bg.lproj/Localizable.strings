@@ -11,6 +11,7 @@
 "Done" = "Завършено";
 "Loading..." = "Зареждане…";
 "Clear" = "Изчисти";
+"An Error Ocurred" = "An Error Ocurred";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Доквадвай бъг";
 "Changelog" = "Списък на промените";
 "Wish List" = "Желания";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
 "No items in Wish List" = "%1 продукта в Списък с желани продукти";
 "Community" = "Общност";
 "Join our Discord" = "Присъединете се към нашия Дискорд сървър";
@@ -28,27 +31,27 @@
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
-"Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Community Sources" = "Публични източници";
+"You’ve added all of the community sources" = "Добавихте всички източници";
+"Transfer sources from %@ to Zebra" = "Прехвърляне на източници от %@ към Zebra";
+"Utility source for %@" = "Полезен източник за %@";
+"Transfer Sources" = "Прехвърляне на източници";
+"Verifying Source" = "Проверка на източник";
+"Verifying Sources" = "Проверка на източници";
+"Import" = "Импортиране";
+"Verifying..." = "Проверява се...";
+"Confirm Import" = "Потвърдете импортирането";
+"Import Sources" = "Импортиране на източници";
+"No sources to import" = "Няма източници за импортиране";
+"Would you like to import the following sources?" = "Искате ли да импортирате следните източници?";
+"Are you sure that you want to import 1 source into Zebra?" = "Сигурни ли сте, че искате да импортирате 1 източник в Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Сигурни ли сте, че искате да импортирате %d източници в Zebra?";
 
 
 // Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
+"Credits" = "Заслуги";
+"Creators" = "Създатели";
 "Contributors" = "Сътрудници";
 "Translators" = "Преводачи";
 "Libraries" = "Библиотеки";
@@ -63,56 +66,66 @@
 "Miscellaneous" = "Разни";
 "Swipe Actions Display As" = "Разни";
 "Text" = "Текст";
-"Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
+"Icon" = "Икона";
+"Finish Automatically" = "Завърши автоматично";
 
 // Accent Colors
 
-"Accent Color" = "Accent Color";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Accent Color" = "Цвят за акцентиране";
+"Aqua Velvet" = "Аква кадифе";
+"Cornflower Blue" = "Метличино синьо";
+"Golden Tainoi" = "Златен тайной";
+"Iris Blue" = "Ирисово синьо";
+"Lotus Pink" = "Лотос розов";
+"Monochrome" = "Монохром";
+"Mountain Meadow" = "Планинска поляна";
+"Pastel Red" = "Пастелено червено";
+"Purple Heart" = "Лилаво сърце";
+"Royal Blue" = "Царско синьо";
+"Shark" = "Акула";
+"Storm" = "Буря";
+"Use System Accent Color" = "Използвай системния акцентен цвят";
+"Appearance" = "Изглед";
+"Use System Appearance" = "Използвай системния изглед";
+"Light" = "Светъл";
+"Dark" = "Тъмен";
+"Pure Black Mode" = "Истинско черно";
 
 // Featured
 
-"Featured Packages" = "Featured Packages";
-"Feature Type" = "Feature Type";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
+"Featured Packages" = "Препоръчани пакети";
+"Feature Type" = "Тип пакет";
+"Repo Featured" = "Препоръчано хранилище";
+"Random" = "Случайно";
+"Select Repos to be Featured" = "Избери хранилища, които да бъдат препоръчани";
+"Featured Repos" = "Препоръчани хранилища";
 
-// Advanced
+// Reset
 
-"Advanced" = "Advanced";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset" = "Reset";
+"Refresh Icon Cache" = "Опресняване на кеша на иконите";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
+"Reset All Settings" = "Нулиране на всички настройки";
+"Erase All Sources" = "Erase All Sources";
+"Erase All Sources and Settings" = "Изтриване на всички настройки и източници";
 
 "Are you sure you want to restart the SpringBoard?" = "Сигурни ли сте, че искате да рестартирате играта?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Сигурни ли сте, че искате да опресните кеша на иконите? Вашето устройство може да не реагира, докато процесът не завърши.";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
+
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Could not complete purchase";
 "Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
 
@@ -164,6 +177,9 @@
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
@@ -176,69 +192,69 @@
 "Ignore Updates" = "Ignore Updates";
 "Select Version" = "Select Version";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
-"ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
-"Source" = "Source";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
+"Select a version to downgrade to:" = "Изберете версия за понижаване до:";
+"Package" = "Пакет";
+"Information" = "Информация";
+"Upgrade All" = "Актуализиране на всички";
+"Loaded" = "Заредено";
+"ABC" = "АБВ";
+"Date" = "Дата";
+"Size" = "Големина";
+"Available Upgrades" = "Налични ъпгрейди";
+"Ignored Upgrades" = "Игнорирани ъпгрейди";
+"Recent" = "Скорошни";
+"Source" = "Източник";
+"Installed Files" = "Инсталирани файлове";
+"Modify" = "Промяна";
+"Authenticate to initiate purchase." = "Влезте за да инициирате покупка.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Моля влезте в акаунта, който сте използвали за покупката на този пакет, отново (Възможно %@)";
+"More by this Developer" = "Още от този разработчик";
+"Installed Version" = "Инсталирана версия";
+"Installed Size" = "Инсталирана големина";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Инсталирана версия: %@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Инсталирана големина: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d байта";
 //Package size in Kilobytes (no decimal)
-"%d KB" = "%d KB";
+"%d KB" = "%d КБ";
 //Package size in Kilobytes (with decimal)
-"%.2f KB" = "%.2f KB";
+"%.2f KB" = "%.2f КБ";
 //Package size in Megabytes (with decimal)
-"%.2f MB" = "%.2f MB";
+"%.2f MB" = "%.2f МБ";
 
-"Add to Wish List" = "Add to Wish List";
-"Remove from Wish List" = "Remove from Wish List";
+"Add to Wish List" = "Добави към списък с желания";
+"Remove from Wish List" = "Премахване от списъка с желания";
 
 // Package Section Names
 
-"Administration" = "Administration";
-"Addons" = "Addons";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Администрация";
+"Addons" = "Разширения";
+"App Addons" = "Добавки за приложения";
+"Archiving" = "Архивиране";
+"Carrier Support" = "Поддръжка на оператор";
+"Communication" = "Комуникация";
+"Data Storage" = "Хранилище за данни";
+"Development" = "Разработка";
+"Dictionaries" = "Речници";
+"Education" = "Образование";
+"Entertainment" = "Забавление";
+"Games" = "Игри";
+"Health and Fitness" = "Здраве и фитнес";
+"Imaging" = "Изображения";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
-"Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
+"Keyboards" = "Клавиатури";
+"Localization" = "Локализация";
+"Messaging" = "Съобщения";
+"Multimedia" = "Мултимедия";
+"Navigation" = "Навигация";
+"Networking" = "Мрежа";
+"Packaging" = "Пакетиране";
+"Productivity" = "Продуктивност";
 "Repositories" = "Repositories";
 "Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
@@ -298,61 +314,60 @@
 "Removing" = "Removing";
 "Removing Packages..." = "Removing Packages...";
 "Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
-"One or more packages failed to download." = "One or more packages failed to download.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Reinstalling Packages..." = "Реинсталиране на пакети...";
+"Upgrading" = "Ъпгрейд";
+"Upgrading Packages..." = "Ъпгрейд на пакети...";
+"Complete" = "Приключено";
+"Finished!" = "Завършено!";
+"Return to Queue" = "Връщане към опашка";
+"Returning to Queue..." = "Връщане към опашка...";
+"Importing local packages." = "Импортиране на локални пакети.";
+"Finished importing local packages." = "Край на импортирането на локални пакети.";
+"One or more packages failed to download." = "Един или повече пакети не можаха да бъдат изтеглени.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Натисни \"Връщане към опашка\", за да се върнеш към опашката ида направиш повторен опит за изтегляне.";
+"Done..." = "Завършено...";
+"Done %@" = "Завършено %@";
+"Removing Zebra..." = "Премахване на Zebra...";
+"Installing Zebra..." = "Инсталиране на Zebra...";
+"Adding Payment Vendor URL for %@" = "Добавяне на URL адрес на доставчик на плащания за %@";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Пакети на опашка";
+"%d Package Queued" = "%d Пакет на опашка";
+"Tap to manage" = "Докоснете, за да управлявате";
+"No Packages Queued" = "Не са избрани пакети";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
-"Issues" = "Issues";
-"Required Package" = "Required Package";
-"Are you sure?" = "Are you sure?";
-"Remove from Queue" = "Remove from Queue";
-"Clear Queue" = "Clear Queue";
-"%@ is required by:" = "%@ is required by:";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the queue?" = "Are you sure you want to clear the queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
-
+"Queue" = "Опашка";
+"Install" = "Инсталирай";
+"Reinstall" = "Реинсталирай";
+"Remove" = "Премахни";
+"Upgrade" = "Ъпгрейд";
+"Downgrade" = "Даунгрейд";
+"Abort" = "Прекъсни";
+"Continue" = "Продължи";
+"Download Size" = "Размер за сваляне";
+"Confirm" = "Потвърди";
+"Issues" = "Проблеми";
+"Required Package" = "Задължителни пакети";
+"Are you sure?" = "Сигурни ли сте?";
+"Remove from Queue" = "Премахни от опашката";
+"Clear Queue" = "Изчисти опашката";
+"%@ is required by:" = "%@ се изисква от:";
+"%@ must be removed because it depends on %@" = "%@ трябва да бъде премахнат, в зависимост от %@";
+"%@ has issues that cannot be resolved:" = "%@ има проблем, който не може да бъде оправен:";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ се изисква. НЕ трябва да бъде премахван, освен ако наистина знаете какво правите!";
 
 // Search
 
-"Live Search" = "Live Search";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Live Search" = "Търсене на живо";
+"Tweaks, Themes, and More" = "Промени, теми и още";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ е задължителен пакет и трябва да бъде премахнат, защото се изисква за %@. %@ НЕ трябва да бъде премахван, освен ако наистина знаете какво правите!";
 
 "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
+"Hide UDID" = "Hide UDID";
+
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
+
+"Automatic Refresh" = "Automatic Refresh";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 // Filters
+
 "Filters" = "Filters";
 "Add Filter" = "Add Filter";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu Sources Hidden";
 
 "Sections" = "Sections";
+"Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
 "Sources" = "Sources";
+"Select a Source" = "Select a Source";
+"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Updates";
@@ -410,3 +434,12 @@
 
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
+
+// Language Settings
+
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";

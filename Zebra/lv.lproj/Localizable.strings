@@ -11,6 +11,7 @@
 "Done" = "Gatavs";
 "Loading..." = "Tiek ielādēts...";
 "Clear" = "Notīrīt";
+"An Error Ocurred" = "Radusies Kļūda";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Paziņot par kļūdu";
 "Changelog" = "Izmaiņas žurnāls";
 "Wish List" = "Vēlmju saraksts";
+"Newest First" = "Jaunākos Vispirms";
+"Oldest First" = "Vecākos Vispirms";
 "No items in Wish List" = "Vēlmju sarakstā nav paketes";
 "Community" = "Kopiena";
 "Join our Discord" = "Pievienojies mūsu Discordam";
@@ -35,14 +38,14 @@
 "Transfer Sources" = "Pārvietot avotus";
 "Verifying Source" = "Verificējam Avotu";
 "Verifying Sources" = "Verificējam Avotus";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Import" = "Importēt";
+"Verifying..." = "Pārbauda...";
+"Confirm Import" = "Apstiprini Importu";
 "Import Sources" = "Importē avotus";
-"No sources to import" = "No sources to import";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"No sources to import" = "Nav importējamu avotu";
+"Would you like to import the following sources?" = "Vai tu vēlies importēt šos avotus?";
+"Are you sure that you want to import 1 source into Zebra?" = "Vai tiešām vēlies importēt 1 avotu Zebrā?";
+"Are you sure that you want to import %d sources into Zebra?" = "Vai tiešām vēlies importēt %d avotus Zebrā?";
 
 
 // Credits
@@ -56,7 +59,7 @@
 // Settings
 
 "Settings" = "Iestatījumi";
-"Display" = "Display";
+"Display" = "Ekrāns";
 "App Icon" = "Lietotnes Ikons";
 "Changes" = "Izmaiņas";
 "Community News" = "Kopienas Ziņas";
@@ -64,29 +67,29 @@
 "Swipe Actions Display As" = "Pārvelciena darbību rādīt kā";
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "Pabeigt Automātiski";
 
 // Accent Colors
 
 "Accent Color" = "Akcentu krāsa";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Aqua Velvet" = "Ūdens Samts";
+"Cornflower Blue" = "Rudzupuķu Zils";
+"Golden Tainoi" = "Zelta Tainoi";
+"Iris Blue" = "Iris Zils";
+"Lotus Pink" = "Lotoss Rozā";
+"Monochrome" = "Vienkrāsas";
+"Mountain Meadow" = "Kalnu Pļava";
+"Pastel Red" = "Pastelsarkans";
+"Purple Heart" = "Violetā Sirds";
+"Royal Blue" = "Karaliskais Zils";
+"Shark" = "Haizivs";
+"Storm" = "Vētra";
+"Use System Accent Color" = "Izmantot Sistēmas Akcenta Krāsu";
+"Appearance" = "Izskats";
+"Use System Appearance" = "Izmantot Sistēmas Izskatu";
+"Light" = "Gaišs";
+"Dark" = "Tumšs";
+"Pure Black Mode" = "Tīrais Melnais Režīms";
 
 // Featured
 
@@ -97,35 +100,45 @@
 "Select Repos to be Featured" = "Izvēlies avotus, kuri piedāvā paketes";
 "Featured Repos" = "Piedāvāšanas Avoti";
 
-// Advanced
+// Reset
 
-"Advanced" = "Progresīvs";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Reset Image Cache" = "Reset Image Cache";
-"Reset Sources Cache" = "Reset Sources Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset" = "Atiestatīt";
+"Refresh Icon Cache" = "Atjaunot Kešatmiņu";
+"Clear Image Cache" = "Notīrīt Attēla Kešatmiņu";
+"Clear Sources Cache" = "Notīrīt Avota Kešatmiņu";
+"Clear Web Cache" = "Notīrīt Interneta Kešatmiņu";
+"Reset All Settings" = "Atiestatīt Visus Iestatījumus";
+"Erase All Sources" = "Izdzēst Visus Avotus";
+"Erase All Sources and Settings" = "Dzēst Visus Avotus un Iestatījumus";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Reset" = "Image Cache Reset";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Vai tiešām vēlies restartēt SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Vai tiešām vēlaties atsvaidzināt ikonu kešatmiņu? Jūsu ierīce var nereaģēt kamēr process nav pabeigts.";
+"Image Cache Cleared" = "Attēlu Kešatmiņa ir Notīrīta";
+"Web Cache Cleared" = "Interneta Kešatmiņa ir Notīrīta";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Vai tiešām vēlaties atiestatīt Zebras avota kešatmiņu? Tas noņems visu kešatmiņā saglabāto informāciju no Zebra datu bāzes un atkārtoti ielādēs to. Jūsu avoti netiks izdzēsti.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Vai tiešām vēlaties atiestatīt Zebras iestatījumus? Tādējādi visi Zebra iestatījumi tiks atiestatīti uz pirmiem iestatījumiem, un Zebra tiks restartēts.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Vai tiešām vēlaties izdzēst visus avotus? Visi jūsu avoti tiks noņemti no Zebras, un Zebra restartēs.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Vai tiešām vēlaties izdzēst visus avotus un iestatījumus? Visi jūsu avoti tiks noņemti no Zebras, un jūsu iestatījumi tiks atiestatīti.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsu avoti tiks izdzēsti un nekad nebūs pieejami, un Zebra tiks restartēts.";
+
+// Documents Directory
+"Open Documents Directory" = "Atvērt Dokumentus";
+
+"Filza Not Installed" = "Filza Nav Instalēts";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nevar atvērt savus dokumentus, jo Filza nav instalēts. Jūsu dokumenti atrodās: %@";
 
 // Stores
 
 "Stores" = "Veikali";
-"My Account" = "My Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
-"No packages purchased" = "No packages purchased";
-"Logged in as %@ (%@)." = "Logged in as %@ (%@).";
+"My Account" = "Mans Konts";
+"Sign In" = "Ielogoties";
+"Sign Out" = "Izlogoties";
+"Your Purchases" = "Jūsu Pirkumi";
+"No Storefronts Available" = "Neviens Veikals ir Pieejams";
+"Could not complete purchase" = "Nevarēja Pabeigt Pirkumu";
+"Could not complete purchase, no payment secret was found" = "Nevarēja pabeigt pirkumu, netika atrasts maksājuma noslēpums";
+"No packages purchased" = "Netika iegādātas paketes";
+"Logged in as %@ (%@)" = "Ielogots kā %@ (%@)";
 
 // Sources
 
@@ -134,39 +147,42 @@
 "Delete" = "Dzēst";
 "Refresh" = "Atjaunot";
 "All Packages" = "Visas pakas";
-"Remove Source" = "Remove Source";
+"Remove Source" = "Noņemt Avotu";
 "Local Repository" = "Lokālais avots";
 "Locally installed packages" = "Lokāli instalētas paketes";
 
 "Add" = "Pievienot";
-"Add Sources" = "Add Sources";
+"Add Sources" = "Pievienot Avotus";
 "Add Multiple" = "Pievienot vairākus";
-"Enter Source URL" = "Enter Source URL";
+"Enter Source URL" = "Ievadi Avota URL";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
 
 "Please Wait..." = "Lūdzu, uzgaidi...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Updating Sources" = "Updating Sources";
+"Verifying Source" = "Verificējam Avotu";
+"Verifying Sources" = "Verificējam Avotus";
+"Updating Sources" = "Atjaunina Avotus";
 
 "Unknown error" = "Nezināma kļūda";
 "Invalid URL" = "Nederīga URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "No source URLs detected.";
-"Unable to verify source" = "Unable to verify source";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Invalid Source" = "Nederīgs Avots";
+"Tap to learn more" = "Pieskarieties, lai uzzinātu vairāk";
+"No source URLs detected." = "Netika atrasts neviens avota URL.";
+"Unable to verify source" = "Nevar verificēt avotu";
+"Error verifying source" = "Kļūda verificējot avotu";
+"Error verifying sources" = "Kļūda verificējot avotus";
+"Failed to add source" = "Neizdevās pievienot avotu";
+"Failed to add sources" = "Neizdevās pievienot avotus";
+"You have already added this source." = "Tu jau pievienoji šo avotu.";
+"You have already added these sources." = "Tu jau pievienoji šos avotus.";
+"Unable to locate an APT repository at:" = "Nevar atrast APT avotu vietnē:";
+"Unable to locate APT repositories at:" = "Nevar atrast APT avotus vietnēs:";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"Could not download Packages file from %@. Reason: %@" = "Nevarēja lejupielādēt Pakešu failu no %@. Iemesls: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nevarēja lejupielādēt vienu vai vairāk failu no %@. Iemesls: %@";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"The URL you entered is not valid. Please check it and try again." = "Ievadītais URL nav derīgs. Lūdzu pārbaudiet to un mēģiniet vēlreiz.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nevarēja lejupielādēt avotu kas norādīts pie %@. Tas var būt īslaicīgi nepieejams vai arī varētu būt pievienots nepareizi.";
 
 // Packages
 
@@ -187,7 +203,7 @@
 "Available Upgrades" = "Pieejamie atjauninājumi";
 "Ignored Upgrades" = "Ignorētie atjauninājumi";
 "Recent" = "Nesen";
-"Source" = "Source";
+"Source" = "Avots";
 "Installed Files" = "Instalētie faili";
 "Modify" = "Modificēt";
 "Authenticate to initiate purchase." = "Autentificējies, lai sākt pirkumu.";
@@ -259,23 +275,23 @@
 "Search" = "Meklēt";
 "This search query is too short for the full search, please use a longer query." = "Šis meklēšānas veicinājums ir pārāk īss, lai veiktu pilnīgu meklēšanu, izmantojiet garāku veicinājumu.";
 "No Results Found" = "Neviens rezultāts atrasts";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Name" = "Nosaukums";
+"Description" = "Apraksts";
+"Author" = "Autors";
 
 // Downloads
 
 "Downloads" = "Lejupielādes";
 "Error while opening sources.list" = "Ķlūda, atverot sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"The source %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
 "Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
 "Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
 "Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
 "%@ hasn't been modified" = "%@ nav modificēts";
 "Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
 
 // Console
 
@@ -284,13 +300,13 @@
 "Updating icon cache asynchronously..." = "Ikona kešatmiņa tiek atjaunota asinhroni...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tas var aizņemt laiku, un Zebra var crashot. Nav slikti, ja tā notiek.";
 "Close Zebra" = "Aizvert Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Closing Zebra..." = "Zebra Tiek Aizverts...";
 "Restart SpringBoard" = "Restartēt SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
+"Restarting SpringBoard..." = "Restarto SpringBoard...";
+"Parsing %@" = "Parsē %@";
+"Starting Download" = "Sāk Lejupielādi";
 "Downloading" = "Lejupielādē";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Lejupielādē %@";
 "Downloading Packages..." = "Lejupielādē paketes...";
 "Download Completed" = "Lejupielāde pabeigta";
 "Installing" = "Instalē";
@@ -304,16 +320,16 @@
 "Complete" = "Pabeigts";
 "Finished!" = "Gatavs!";
 "Return to Queue" = "Atgriezties rindā";
-"Returning to Queue..." = "Returning to Queue...";
+"Returning to Queue..." = "Atgriezties Rindā...";
 "Importing local packages." = "Importē vietējās paketes.";
 "Finished importing local packages." = "Pabeidza importēt vietējās paketes.";
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
+"Done..." = "Gatavs...";
+"Done %@" = "Pabeidza %@";
 "Removing Zebra..." = "Atinstalē zebra...";
 "Installing Zebra..." = "Instalē zebra...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Pievieno Maksājuma Pārdevēja URL %@";
 
 // Queue Bar
 
@@ -338,18 +354,17 @@
 "Required Package" = "Nepieciešama Pakete";
 "Are you sure?" = "Vai esi pārliecināts?";
 "Remove from Queue" = "Noņemt no rindas";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Notīrīt Rindu";
 "%@ is required by:" = "%@ pieprasa:";
 "%@ must be removed because it depends on %@" = "%@ ir jānoņem, jo tas ir atkarīgs no %@";
 "%@ has issues that cannot be resolved:" = "%@ ir problēmas, kuras nevar atrisināt:";
-"Are you sure you want to clear the queue?" = "Vai tiešām vēlies notīrīt rindu?";
+"Are you sure you want to clear the Queue?" = "Vai tiešām vēlies notīrīt Rindu?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ ir nepieciešama pakete. To NEDRĪKST noņemt, ja vien precīzi nezini, ko dari!";
-
 
 // Search
 
 "Live Search" = "Interaktīva meklēšana";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Tweaks, Themes, and More" = "Tweaki, Icona Motīvi un Citi";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ ir nepieciešama pakete, un tā ir jānoņem, jo tā ir atkarīga no %@. %@ NEDRĪKST noņemt, ja vien precīzi nezini, ko dari!";
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
 
+"Hide UDID" = "Paslēpt UDID";
+
 "Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
+
+"Automatic Refresh" = "Automātiska Atsvaidzināšana";
+"Refresh Zebra's sources when opening the app." = "Atverot Zebru, automātiski atsvaidzināt avotus.";
 
 "Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
 
@@ -388,25 +408,38 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Nejaušs\" parādīs paketes no visām krātuvēm, kuras ir pievienotas Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Ielogoties avotos tev ļauj iegādāties paketes ar naudu.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automātiski slēgt konsoli, ja visi tās uzdevumi ir izpildīti.";
 
 // Filters
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"Filters" = "Filtri";
+"Add Filter" = "Pievienot Filtru";
 
-"Sections" = "Sections";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"1 Section Hidden" = "1 Sadaļa Paslēpta";
+"%lu Sources Hidden" = "%lu Sadaļas Paslēptas";
+
+"Sections" = "Sadaļas";
+"Select a Section" = "Izvēlies Sadaļu";
+"Hide packages in these sections." = "Paslēpt paketes šajās sadaļās.";
 
 "Sources" = "Avoti";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Izvēlies avotu";
+"Search for an Author" = "Meklēt Autoru";
+"Hide packages in these sections from specific sources." = "Paslēpiet paketes šajās sadaļās no konkrētiem avotiem.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Atjaunojumi";
+"Hide future updates from these packages." = "Slēpt šo pakešu atjauninājumus.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autori";
+"Hide packages from these authors." = "Slēpt šo autoru paketes.";
+
+// Language Settings
+
+"Language" = "Valoda";
+"Apply" = "Lietot";
+"Restart Required" = "Nepieciešama Pārstartēšana";
+"Zebra must be closed in order to change preferred language" = "Lai mainītu vēlamo valodu, Zebra ir jāaizver";
+"Restart" = "Restartēt";
+"Use System Language" = "Izmantot Sistēmas Valodu";

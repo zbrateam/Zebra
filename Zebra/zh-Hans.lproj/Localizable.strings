@@ -3,14 +3,15 @@
 "Cancel" = "取消";
 "Yes" = "是";
 "No" = "否";
-"Ok" = "是";
+"Ok" = "确定";
 "Error" = "错误";
 "Retry" = "重试";
 "Edit" = "编辑";
 "Close" = "关闭";
 "Done" = "完成";
 "Loading..." = "加载中……";
-"Clear" = "清除";
+"Clear" = "清空";
+"An Error Ocurred" = "出现一个错误";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "报告 Bug";
 "Changelog" = "更新日志";
 "Wish List" = "心愿单";
+"Newest First" = "从新到旧";
+"Oldest First" = "从旧到新";
 "No items in Wish List" = "愿望单中无项目";
 "Community" = "交流";
 "Join our Discord" = "加入我们的 Discord";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "选择会被推荐的软件源";
 "Featured Repos" = "精选软件源";
 
-// Advanced
+// Reset
 
-"Advanced" = "高级";
+"Reset" = "重置";
 "Refresh Icon Cache" = "刷新图标缓存";
-"Reset Image Cache" = "重置图片缓存";
-"Reset Sources Cache" = "重置软件源缓存";
+"Clear Image Cache" = "清理图片缓存";
+"Clear Sources Cache" = "清理软件源缓存";
+"Clear Web Cache" = "清理网页缓存";
 "Reset All Settings" = "重置所有设置";
+"Erase All Sources" = "清除所有软件源";
 "Erase All Sources and Settings" = "清除所有软件源和设置";
 
 "Are you sure you want to restart the SpringBoard?" = "确定要重启 SpringBoard 吗？";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "确定要刷新图标缓存吗？你的设备可能会无响应直到操作完成。";
-"Image Cache Reset" = "重置图片缓存";
+"Image Cache Cleared" = "图片缓存已清理";
+"Web Cache Cleared" = "网页缓存已清理";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "确定要重置 Zebra 的软件源缓存吗？所有软件源的数据缓存将被移除并重新下载，你的软件源不会被删除。";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "确定要重置 Zebra 的设置吗？Zebra 的所有设置会恢复为默认值并重启。";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "确定要清除所有软件源吗？ 所有软件源将从 Zebra 中移除，然后 Zebra 将重启。";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "确定要清除所有软件源和设置吗？ 所有软件源将从 Zebra 中移除，你的设置将被重置。";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "所有软件源将被删除且无法恢复，Zebra 将重新启动。";
+
+// Documents Directory
+"Open Documents Directory" = "打开文档目录";
+
+"Filza Not Installed" = "未安装 Filza";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra 无法打开文档目录，因为 Filza 未安装。你的文档目录为：%@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "无法完成购买操作";
 "Could not complete purchase, no payment secret was found" = "无法完成购买操作，未找到付款密钥";
 "No packages purchased" = "无已购买软件包";
-"Logged in as %@ (%@)." = "已登录账户：%@ (%@)";
+"Logged in as %@ (%@)" = "已登录账户：%@（%@）";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "你已经添加过这些软件源。";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
+
+"Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
+"Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
 
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "需要 %@ 依赖包：";
 "%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
-"Are you sure you want to clear the queue?" = "确定要清除队列吗？";
+"Are you sure you want to clear the Queue?" = "确定要清空队列吗？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一个被依赖的软件包。除非你知道你在干什么，否则你不能将它移除！";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
+"Hide UDID" = "隐藏 UDID";
+
 "Display featured packages on the homepage." = "在主页上显示精选软件包。";
+
+"Automatic Refresh" = "自动刷新";
+"Refresh Zebra's sources when opening the app." = "打开 Zebra 时自动刷新软件源。";
 
 "Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子。";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
 
 // Filters
+
 "Filters" = "搜索条件";
 "Add Filter" = "添加条件";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu个软件源已隐藏";
 
 "Sections" = "分类";
+"Select a Section" = "选择类别";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
 "Sources" = "资料来源";
+"Select a Source" = "选择软件源";
+"Search for an Author" = "搜索开发者";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
 "Updates" = "更新";
@@ -410,3 +434,12 @@
 
 "Authors" = "开发者";
 "Hide packages from these authors." = "隐藏这些开发者的软件包。";
+
+// Language Settings
+
+"Language" = "语言";
+"Apply" = "应用";
+"Restart Required" = "需要重启";
+"Zebra must be closed in order to change preferred language" = "必须关闭 Zebra 才能更改首选语言";
+"Restart" = "重启";
+"Use System Language" = "使用系统语言";

@@ -11,6 +11,7 @@
 "Done" = "Ferdig";
 "Loading..." = "Laster...";
 "Clear" = "Tøm";
+"An Error Ocurred" = "En feil oppstod";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Rapporter en feil";
 "Changelog" = "Endringslogg";
 "Wish List" = "Ønskeliste";
+"Newest First" = "Nyeste først";
+"Oldest First" = "Eldste først";
 "No items in Wish List" = "Ingen elementer i ønskelisten";
 "Community" = "Sosialt";
 "Join our Discord" = "Bli med i vår Discord";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "Velg utvalgte kilder";
 "Featured Repos" = "Utvalgte kilder";
 
-// Advanced
+// Reset
 
-"Advanced" = "Avansert";
+"Reset" = "Nullstill";
 "Refresh Icon Cache" = "Oppdater ikonbuffer";
-"Reset Image Cache" = "Nullstill bildebuffer";
-"Reset Sources Cache" = "Nullstill kildebuffer";
+"Clear Image Cache" = "Tøm bildebufferen";
+"Clear Sources Cache" = "Tøm kildebufferen";
+"Clear Web Cache" = "Tøm nettbufferen";
 "Reset All Settings" = "Nullstill alle innstillinger";
+"Erase All Sources" = "Nullstill alle kilder";
 "Erase All Sources and Settings" = "Nullstill alle kilder og innstillinger";
 
 "Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starte SpringBoard på nytt?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatere ikonbufferen? Enheten din kan slutte å svare til prosessen er fullført.";
-"Image Cache Reset" = "Bildebufferen ble nullstilt";
+"Image Cache Cleared" = "Bildebufferen ble nullstilt";
+"Web Cache Cleared" = "Nettbufferen ble nullstilt";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil nullstille kildebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon fra Zebra sin database og laste det ned på nytt. Kildene dine blir ikke fjernet.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil nullstille innstillingene til Zebra? Dette vil tilbakestille alle Zebra innstillingene til standardverdiene, og Zebra vil starte på nytt.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Er du sikker på at du vil fjerne alle kildene dine? Alle kildene vil bli fjernet fra Zebra, og deretter vil Zebra omstartes.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kilder og innstillinger? Alle kildene dine vil bli fjernet fra Zebra, og innstillingene dine nullstilt.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kildene dine vil bli permanent fjernet, og Zebra vil starte på nytt.";
+
+// Documents Directory
+"Open Documents Directory" = "Åpne dokument filplassering";
+
+"Filza Not Installed" = "Filza ikke installert";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kunne ikke åpne dokument filplasseringen sin fordi Filza ikke er installert. Dokument filplasseringen din er: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Kunne ikke fullføre kjøpet";
 "Could not complete purchase, no payment secret was found" = "Kunne ikke fullføre kjøpet, ingen betalingshemmelighet ble funnet";
 "No packages purchased" = "Ingen kjøpte pakker";
-"Logged in as %@ (%@)." = "Logget inn som %@ (%@).";
+"Logged in as %@ (%@)" = "Innlogget som %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Unable to locate an APT repository at:" = "Kunne ikke finne et APT-kilde på:";
 "Unable to locate APT repositories at:" = "Kunne ikke finne APT-kilder på:";
+
+"Could not download Packages file from %@. Reason: %@" = "Kunne ikke laste ned pakkefil fra %@. Årsak: %@";
+"Could not download one or more files from %@. Reason: %@" = "Kunne ikke laste ned en eller flere filer fra %@. Årsak: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Nettadressen du oppga er ikke gyldig. Kontroller den og prøv igjen.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ kreves av:";
 "%@ must be removed because it depends on %@" = "%@ må fjernes fordi det avhenger av %@";
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
-"Are you sure you want to clear the queue?" = "Er du sikker på at du vil tømme køen?";
+"Are you sure you want to clear the Queue?" = "Er du sikker på at du vil tømme køen?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er en påkrevd pakke. Den burde IKKE fjernes med mindre du vet nøyaktig hva du gjør!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEIL: Prosessen må startes på nytt. Vennligst prøv på nytt.";
 
+"Hide UDID" = "Skjul UDID";
+
 "Display featured packages on the homepage." = "Vis utvalgte pakker på hjemmesiden.";
+
+"Automatic Refresh" = "Automatisk oppdatering";
+"Refresh Zebra's sources when opening the app." = "Oppdater kilder automatisk når du åpner appen.";
 
 "Display recent community posts from /r/jailbreak." = "Vis nye innlegg fra /r/jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgavene er fullført.";
 
 // Filters
+
 "Filters" = "Filtre";
 "Add Filter" = "Legg til filter";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu kilder skjult";
 
 "Sections" = "Seksjoner";
+"Select a Section" = "Velg en seksjon";
 "Hide packages in these sections." = "Skjul pakkene i disse seksjonene.";
 
 "Sources" = "Kilder";
+"Select a Source" = "Velg en kilde";
+"Search for an Author" = "Søk etter forfatter";
 "Hide packages in these sections from specific sources." = "Skjul pakkene i disse seksjonene fra spesifikke kilder.";
 
 "Updates" = "Oppdateringer";
@@ -410,3 +434,12 @@
 
 "Authors" = "Forfattere";
 "Hide packages from these authors." = "Skjul pakkene fra disse forfatterne.";
+
+// Language Settings
+
+"Language" = "Språk";
+"Apply" = "Bruk";
+"Restart Required" = "Omstart nødvendig";
+"Zebra must be closed in order to change preferred language" = "For å endre ønsket språk må Zebra være lukket";
+"Restart" = "Omstart";
+"Use System Language" = "Bruk systemspråk";

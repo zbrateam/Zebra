@@ -11,6 +11,7 @@
 "Done" = "Готово";
 "Loading..." = "Загрузка...";
 "Clear" = "Очистить";
+"An Error Ocurred" = "Произошла Ошибка";
 
 // Home
 
@@ -20,6 +21,8 @@
 "Report a Bug" = "Сообщить об Ошибке";
 "Changelog" = "Список Изменений";
 "Wish List" = "Список желаний";
+"Newest First" = "Сначала новые";
+"Oldest First" = "Сначала старые";
 "No items in Wish List" = "Нет пакетов в Списке Желаний";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
@@ -97,22 +100,32 @@
 "Select Repos to be Featured" = "Выберите отбражаемые репозитории";
 "Featured Repos" = "Рекомендуемые Репозитории";
 
-// Advanced
+// Reset
 
-"Advanced" = "Расширенное";
+"Reset" = "Сбросить";
 "Refresh Icon Cache" = "Обновить Кэш Иконок";
-"Reset Image Cache" = "Сбросить Кэш Изображений";
-"Reset Sources Cache" = "Сбросить Кэш Источников";
+"Clear Image Cache" = "Очистить Кэш Изображений";
+"Clear Sources Cache" = "Очистить Кэш Источников";
+"Clear Web Cache" = "Очистить Веб-Кэш";
 "Reset All Settings" = "Сбросить Все Настройки";
+"Erase All Sources" = "Стереть Все Источники";
 "Erase All Sources and Settings" = "Стереть Все Источники и Настройки";
 
 "Are you sure you want to restart the SpringBoard?" = "Вы уверены, что хотите перезапустить SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Вы уверены, что хотите обновить кэш иконок? Ваше устройство может зависнуть до конца процесса обновления.";
-"Image Cache Reset" = "Кэш Изображений Сброшен";
+"Image Cache Cleared" = "Кэш Изображений Очищен";
+"Web Cache Cleared" = "Веб-Кэш очищен";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Вы уверены что хотите сбросить кэш источников Zebra? Это удалит всю кэшированную информацию из базы данных Zebra и заново скачает ее. Ваши источники не будут удалены.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Вы уверены что хотите сбросить настройки Zebra? Это сбросит их до стандартных значений и перезапустит Zebra.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Вы уверены, что хотите стереть все источники? Все ваши источники будут удалены из Zebra, и Zebra перезапустится.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Вы уверены что хотите стереть все настройки и источники? Все источники будут удалены вместе с вашими настройками.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Все ваши источники будут удалены навсегда и Zebra перезапустится.";
+
+// Documents Directory
+"Open Documents Directory" = "Открыть Каталог Документов";
+
+"Filza Not Installed" = "Filza Не Установлена";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra не может открыть каталог документов, потому что Filza не установлена. Ваш каталог документов: %@";
 
 // Stores
 
@@ -125,7 +138,7 @@
 "Could not complete purchase" = "Невозможно завершить покупку";
 "Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 "No packages purchased" = "Нет купленных пакетов";
-"Logged in as %@ (%@)." = "Выполнен вход как %@ (%@).";
+"Logged in as %@ (%@)" = "Выполнен вход как %@ (%@)";
 
 // Sources
 
@@ -163,6 +176,9 @@
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
+
+"Could not download Packages file from %@. Reason: %@" = "Не удалось загрузить файл Пакета из %@. Причина: %@";
+"Could not download one or more files from %@. Reason: %@" = "Не удалось загрузить один или несколько файлов из %@. Причина: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
@@ -342,9 +358,8 @@
 "%@ is required by:" = "%@ требуется пактом:";
 "%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
-"Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";
+"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить Очередь?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
-
 
 // Search
 
@@ -370,7 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста, попробуйте снова.";
 
+"Hide UDID" = "Скрыть UDID";
+
 "Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
+
+"Automatic Refresh" = "Автоматическое Обновление";
+"Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
 
 "Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
 
@@ -393,6 +413,7 @@
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
 
 // Filters
+
 "Filters" = "Фильтры";
 "Add Filter" = "Добавить Фильтр";
 
@@ -400,9 +421,12 @@
 "%lu Sources Hidden" = "%lu Источников Скрыто";
 
 "Sections" = "Разделы";
+"Select a Section" = "Выберите Раздел";
 "Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
 
 "Sources" = "Источники";
+"Select a Source" = "Выберите Источник";
+"Search for an Author" = "Поиск Автора";
 "Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
 "Updates" = "Обновления";
@@ -410,3 +434,12 @@
 
 "Authors" = "Авторы";
 "Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
+
+// Language Settings
+
+"Language" = "Язык";
+"Apply" = "Применить";
+"Restart Required" = "Требуется Перезапуск";
+"Zebra must be closed in order to change preferred language" = "Zebra должна быть закрыта для изменения предпочитаемого языка";
+"Restart" = "Перезапустить";
+"Use System Language" = "Использовать Язык Системы";
