@@ -21,8 +21,8 @@
 "Report a Bug" = "Segnala un Bug";
 "Changelog" = "Changelog";
 "Wish List" = "Lista dei Desideri";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Prima i più recenti";
+"Oldest First" = "Prima i più vecchi";
 "No items in Wish List" = "Nessun oggetto nella Lista Desideri";
 "Community" = "Community";
 "Join our Discord" = "Unisciti al nostro Discord";
@@ -102,30 +102,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Ripristina";
 "Refresh Icon Cache" = "Aggiorna Cache Icone";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Svuota Cache Immagini";
+"Clear Sources Cache" = "Svuota Cache Sorgenti";
+"Clear Web Cache" = "Svuota Cache Web";
 "Reset All Settings" = "Ripristina tutte le impostazioni";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Cancella tutte le sorgenti";
 "Erase All Sources and Settings" = "Cancella tutte le sorgenti e impostazioni";
 
 "Are you sure you want to restart the SpringBoard?" = "Sei sicuro di voler riavviare la SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Sei sicuro di voler aggiornare la cache delle icone? Il tuo dispositivo potrebbe non rispondere fino al completamento del processo.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Cache Immagini Svuotata";
+"Web Cache Cleared" = "Cache Web Svuotata";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Sei sicuro di voler resettare la cache di Zebra? Questa operazione rimuoverà tutte le informazioni memorizzate nel database di Zebra. Le tue sorgenti non verranno eliminate.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Sei sicuro di voler resettare le impostazioni di Zebra? Questa operazione resetterà tutte le impostazioni di Zebra ai loro valori predefiniti e Zebra si riavvierà.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Sei sicuro di voler cancellare tutte le sorgenti? Tutte le sorgenti verranno rimosse da Zebra e Zebra verrà riavviato.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Sei sicuro di voler cancellare tutte le sorgenti e impostazioni? Tutte le sorgenti verranno rimosse da Zebra e le impostazioni verranno ripristinate.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tutte le tue fonti verranno eliminate per sempre e Zebra si riavvierà.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Apri Cartella Documenti";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza non installato";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra non può aprire la sua directory documenti perché Filza non è installato. La directory documenti è: %@";
 
 // Stores
 
@@ -385,12 +385,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERRORE: il processo deve essere riavviato. Si prega di riprovare.";
 
-"Hide UDID" = "Hide UDID";
+"Hide UDID" = "Nascondi UDID";
 
 "Display featured packages on the homepage." = "Visualizza i pacchetti in evidenza nella homepage.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Automatic Refresh" = "Aggiornamento Automatico";
+"Refresh Zebra's sources when opening the app." = "Aggiorna le sorgenti di Zebra quando si apre l'app.";
 
 "Display recent community posts from /r/jailbreak." = "Visualizza i post recenti della comunità di /r/jailbreak.";
 
