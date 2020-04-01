@@ -21,8 +21,8 @@
 "Report a Bug" = "Meld een fout";
 "Changelog" = "Wijzigingslogboek";
 "Wish List" = "Verlanglijst";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Nieuwste eerst";
+"Oldest First" = "Oudste eerst";
 "No items in Wish List" = "Geen voorwerpen in de verlanglijst";
 "Community" = "Gemeenschap";
 "Join our Discord" = "Treed toe tot onze Discord";
@@ -425,8 +425,8 @@
 "Hide packages in these sections." = "Verberg pakketten in deze secties.";
 
 "Sources" = "Bronnen";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "Selecteer een Bron";
+"Search for an Author" = "Zoek voor een auteur";
 "Hide packages in these sections from specific sources." = "Verberg pakketten in deze secties van specifieke bronnen.";
 
 "Updates" = "Updates";
@@ -437,9 +437,9 @@
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Taal";
+"Apply" = "Toepassen";
+"Restart Required" = "Herstarten Vereist";
+"Zebra must be closed in order to change preferred language" = "Zebra moet gesloten zijn om de voorkeurstaal te wijzigen";
+"Restart" = "Herstarten";
+"Use System Language" = "Systeemtaal gebruiken";
