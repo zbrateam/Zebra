@@ -418,7 +418,7 @@
 "Add Filter" = "Add Filter";
 
 "1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Sections";
 "Select a Section" = "Select a Section";
@@ -426,7 +426,6 @@
 
 "Sources" = "Sources";
 "Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Updates";
@@ -434,6 +433,8 @@
 
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
