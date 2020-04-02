@@ -50,7 +50,7 @@
                         self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@)", @""), info.user.name, info.user.email];
                     }
                     else {
-                        self.descriptionLabel.text = NSLocalizedString(@"An Error Ocurred", @"");
+                        self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
                     }
                     [self.activityIndicatorView stopAnimating];
                 });
@@ -60,7 +60,7 @@
             if (self->sourceInfo) {
                 self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
             } else {
-                self.descriptionLabel.text = NSLocalizedString(@"An Error Ocurred", @"");
+                self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
             }
             [self.activityIndicatorView stopAnimating];
         }
