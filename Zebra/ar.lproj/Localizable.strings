@@ -11,7 +11,9 @@
 "Done" = "تم";
 "Loading..." = "جارِ التحميل...";
 "Clear" = "مسح";
-"An Error Ocurred" = "حدث خطأ ما";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "التنزيلات";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "نص";
 "Icon" = "أيقونة";
 "Finish Automatically" = "إنهاء تلقائيًا";
+"Hide UDID" = "إخفاء UDID";
+"Automatic Refresh" = "تحديث تلقائي";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
 
+"A total of %d files will be downloaded" = "سيتم تنزيل مجموعة من ملفات %d";
+
+"Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
+"Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "تعذر تنزيل ملف الحزم من %@. السبب: %@";
 "Could not download one or more files from %@. Reason: %@" = "تعذر تنزيل ملف أو أكثر من %@. السبب: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "عنوان URL الذي أدخلته غير صالح. يرجى التحقق منه والمحاولة مرة أخرى.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "لم يتمكن Zebra من تنزيل المصدر المحدد في %@. من الممكن أن الوصول إليه غير ممكن حاليًا أو أنه قد تم إضافته بشكل خاطئ.";
+
+"Please remove this source from your sources.list file." = "يرجى إزالة هذا المصدر من ملف sources.list الخاص بك.";
+
+"Error while opening sources.list" = "خطأ أثناء فتح قائمة المصادر";
+
+"The source %@ is incompatible with your jailbreak." = "المصدر %@ غير متوافق مع الجيلبريك الخاص بك.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما يؤدي إلى حدوث عملية استعادة.";
+
+"%@ hasn't been modified" = "%@ لم يتم تعديله";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "الوصف";
 "Author" = "المؤلف";
 
-// Downloads
-
-"Downloads" = "التنزيلات";
-"Error while opening sources.list" = "خطأ أثناء فتح قائمة المصادر";
-"The source %@ is incompatible with your jailbreak." = "المصدر %@ غير متوافق مع الجيلبريك الخاص بك.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما يؤدي إلى حدوث عملية استعادة.";
-"Please remove this source from your sources.list file." = "يرجى إزالة هذا المصدر من ملف sources.list الخاص بك.";
-"Incorrect documents permissions." = "مستندات أذونات غير صحيحة.";
-"Could not determine device information." = "لا يمكن تحديد معلومات الجهاز.";
-"Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
-"%@ hasn't been modified" = "%@ لم يتم تعديله";
-"Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
-"A total of %d files will be downloaded" = "سيتم تنزيل مجموعة من ملفات %d";
-
 // Console
 
 "Console" = "وحدة التحكم";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "خطأ: يجب إعادة تشغيل العملية. يرجى المحاولة مرة أخرى.";
 
-"Hide UDID" = "إخفاء UDID";
+"Incorrect documents permissions." = "مستندات أذونات غير صحيحة.";
+
+"Could not determine device information." = "لا يمكن تحديد معلومات الجهاز.";
 
 "Display featured packages on the homepage." = "عرض الحزم المميزة على الصفحة الرئيسية.";
 
-"Automatic Refresh" = "تحديث تلقائي";
 "Refresh Zebra's sources when opening the app." = "تحديث تلقائي لمصادر Zebra عند فتح التطبيق.";
 
 "Display recent community posts from /r/jailbreak." = "عرض أحدث منشورات المجتمع من /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "إضافة فلتر";
 
 "1 Section Hidden" = "قسم واحد مخفي";
-"%lu Sources Hidden" = "%lu مصدر مخفي";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "الأقسام";
 "Select a Section" = "حدد قسم";
@@ -426,7 +431,6 @@
 
 "Sources" = "المصادر";
 "Select a Source" = "حدد مصدر";
-"Search for an Author" = "البحث عن مؤلف";
 "Hide packages in these sections from specific sources." = "إخفاء الحزم في هذه الأقسام من مصادر محددة.";
 
 "Updates" = "التحديثات";
@@ -434,6 +438,8 @@
 
 "Authors" = "المؤلفون";
 "Hide packages from these authors." = "إخفاء الحزم من هؤلاء المؤلفين.";
+"Search for an Author" = "البحث عن مؤلف";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
