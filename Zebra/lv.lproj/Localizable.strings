@@ -11,7 +11,9 @@
 "Done" = "Gatavs";
 "Loading..." = "Tiek ielādēts...";
 "Clear" = "Notīrīt";
-"An Error Ocurred" = "Radusies Kļūda";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Lejupielādes";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
 "Finish Automatically" = "Pabeigt Automātiski";
+"Hide UDID" = "Paslēpt UDID";
+"Automatic Refresh" = "Automātiska Atsvaidzināšana";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nevar atrast APT avotu vietnē:";
 "Unable to locate APT repositories at:" = "Nevar atrast APT avotus vietnēs:";
 
+"A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
+
+"Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
+"Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nevarēja lejupielādēt Pakešu failu no %@. Iemesls: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nevarēja lejupielādēt vienu vai vairāk failu no %@. Iemesls: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Ievadītais URL nav derīgs. Lūdzu pārbaudiet to un mēģiniet vēlreiz.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nevarēja lejupielādēt avotu kas norādīts pie %@. Tas var būt īslaicīgi nepieejams vai arī varētu būt pievienots nepareizi.";
+
+"Please remove this source from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
+
+"Error while opening sources.list" = "Ķlūda, atverot sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
+
+"%@ hasn't been modified" = "%@ nav modificēts";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Apraksts";
 "Author" = "Autors";
 
-// Downloads
-
-"Downloads" = "Lejupielādes";
-"Error while opening sources.list" = "Ķlūda, atverot sources.list";
-"The source %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
-"Please remove this source from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
-"Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
-"Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
-"Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
-"%@ hasn't been modified" = "%@ nav modificēts";
-"Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
-"A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
-
 // Console
 
 "Console" = "konsole";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
 
-"Hide UDID" = "Paslēpt UDID";
+"Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
+
+"Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
 
 "Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
 
-"Automatic Refresh" = "Automātiska Atsvaidzināšana";
 "Refresh Zebra's sources when opening the app." = "Atverot Zebru, automātiski atsvaidzināt avotus.";
 
 "Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Pievienot Filtru";
 
 "1 Section Hidden" = "1 Sadaļa Paslēpta";
-"%lu Sources Hidden" = "%lu Sadaļas Paslēptas";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Sadaļas";
 "Select a Section" = "Izvēlies Sadaļu";
@@ -426,7 +431,6 @@
 
 "Sources" = "Avoti";
 "Select a Source" = "Izvēlies avotu";
-"Search for an Author" = "Meklēt Autoru";
 "Hide packages in these sections from specific sources." = "Paslēpiet paketes šajās sadaļās no konkrētiem avotiem.";
 
 "Updates" = "Atjaunojumi";
@@ -434,6 +438,8 @@
 
 "Authors" = "Autori";
 "Hide packages from these authors." = "Slēpt šo autoru paketes.";
+"Search for an Author" = "Meklēt Autoru";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
