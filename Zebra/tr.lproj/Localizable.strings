@@ -11,7 +11,9 @@
 "Done" = "Tamamla";
 "Loading..." = "Yükleniyor...";
 "Clear" = "Temizle";
-"An Error Ocurred" = "Bir Hata Oluştu";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "İndirmeler";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Yazı";
 "Icon" = "İkon";
 "Finish Automatically" = "Otomatik Sonlandır";
+"Hide UDID" = "UDID'i Gizle";
+"Automatic Refresh" = "Otomatik Yenileme";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT depoları şu konumda bulunamadı:";
 
+"A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
+
+"Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
+"Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@ kaynağından ilgili Paket Dizinleri indirilemedi. Sebep: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@ kaynağından ilgili dosya(lar) indirilemedi. Sebep: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Girilen URL doğru değil. Lütfen kontrol edin ve tekrar deneyin.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra %@'daki kaynağı indiremedi. Kaynak geçici olarak erişilemez veya hatalı eklenmiş olabilir.";
+
+"Please remove this source from your sources.list file." = "Lütfen bu kaynağı sources.list dosyasından kaldırın.";
+
+"Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
+
+"The source %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygumlu değil.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
+
+"%@ hasn't been modified" = "%@ Düzenlenmemiş";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Açıklama";
 "Author" = "Yazar";
 
-// Downloads
-
-"Downloads" = "İndirmeler";
-"Error while opening sources.list" = "sources.list Dosyasını açarken hata oluştu.";
-"The source %@ is incompatible with your jailbreak." = "%@ Kaynağı sizin jailbreakınız ile uygumlu değil.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
-"Please remove this source from your sources.list file." = "Lütfen bu kaynağı sources.list dosyasından kaldırın.";
-"Incorrect documents permissions." = "Yanlış döküman yetkileri.";
-"Could not determine device information." = "Cihaz bilgileri belirlenemedi.";
-"Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
-"%@ hasn't been modified" = "%@ Düzenlenmemiş";
-"Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
-"A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
-
 // Console
 
 "Console" = "Konsol";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "HATA: İşlem tekrar başlatılmalı. Lütfen tekrar deneyin.";
 
-"Hide UDID" = "UDID'i Gizle";
+"Incorrect documents permissions." = "Yanlış döküman yetkileri.";
+
+"Could not determine device information." = "Cihaz bilgileri belirlenemedi.";
 
 "Display featured packages on the homepage." = "Ana sayfada öne çıkarılan paketleri göster.";
 
-"Automatic Refresh" = "Otomatik Yenileme";
 "Refresh Zebra's sources when opening the app." = "Zebra açılırken kaynakları yenile.";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak dan son topluluk gönderilerini göster.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Filtre Ekle";
 
 "1 Section Hidden" = "1 Kısım Gizli";
-"%lu Sources Hidden" = "%lu Kaynaklar Gizli";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Kısımlar";
 "Select a Section" = "Bir Bölüm Seçin";
@@ -426,7 +431,6 @@
 
 "Sources" = "Kaynaklar";
 "Select a Source" = "Bir Kaynak Seçin";
-"Search for an Author" = "Bir Geliştiriciyi Ara";
 "Hide packages in these sections from specific sources." = "Bu bölümlerdeki paketleri belirli kaynaklardan gizleyin.";
 
 "Updates" = "Güncellemeler";
@@ -434,6 +438,8 @@
 
 "Authors" = "Yaratıcılar";
 "Hide packages from these authors." = "Şu geliştiricilerin paketlerini gizle";
+"Search for an Author" = "Bir Geliştiriciyi Ara";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
