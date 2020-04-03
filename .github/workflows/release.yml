@@ -17,7 +17,7 @@ jobs:
         THEOS: theos
       run: |
         brew install ldid dpkg fakeroot
-        git clone --recursive https://github.com/theos/theos.git $THEOS
+        git clone --depth=1 --recursive https://github.com/theos/theos.git $THEOS
         git submodule update --init --recursive
 
     - name: Build Package
