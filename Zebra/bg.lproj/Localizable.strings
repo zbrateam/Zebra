@@ -11,7 +11,9 @@
 "Done" = "Завършено";
 "Loading..." = "Зареждане…";
 "Clear" = "Изчисти";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Downloads";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Текст";
 "Icon" = "Икона";
 "Finish Automatically" = "Завърши автоматично";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
+"Could not find a download URL for" = "Could not find a download URL for";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+
+"Error while opening sources.list" = "Error while opening sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+
+"%@ hasn't been modified" = "%@ hasn't been modified";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Description";
 "Author" = "Author";
 
-// Downloads
-
-"Downloads" = "Downloads";
-"Error while opening sources.list" = "Error while opening sources.list";
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
-"Could not determine device information." = "Could not determine device information.";
-"Could not find a download URL for" = "Could not find a download URL for";
-"%@ hasn't been modified" = "%@ hasn't been modified";
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
-
 // Console
 
 "Console" = "Console";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+
+"Could not determine device information." = "Could not determine device information.";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Add Filter";
 
 "1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Sections";
 "Select a Section" = "Select a Section";
@@ -426,7 +431,6 @@
 
 "Sources" = "Sources";
 "Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Updates";
@@ -434,6 +438,8 @@
 
 "Authors" = "Authors";
 "Hide packages from these authors." = "Hide packages from these authors.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
