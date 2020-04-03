@@ -11,7 +11,9 @@
 "Done" = "Готово";
 "Loading..." = "Загрузка...";
 "Clear" = "Очистить";
-"An Error Ocurred" = "Произошла ошибка";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Загрузки";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Finish Automatically" = "Завершить автоматически";
+"Hide UDID" = "Скрыть UDID";
+"Automatic Refresh" = "Автоматическое обновление";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
 
+"A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
+
+"Could not parse %@ from %@" = "Невозможно получить %@ из %@";
+"Could not find a download URL for" = "Невозможно найти URL загрузки для";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Не удалось загрузить файл Пакета из %@. Причина: %@";
 "Could not download one or more files from %@. Reason: %@" = "Не удалось загрузить один или несколько файлов из %@. Причина: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra не удалось загрузить источник, указанный в %@. Возможно, он добавлен неправильно или временно недоступен.";
+
+"Please remove this source from your sources.list file." = "Пожалуйста, удалите этот источник из вашего файла sources.list.";
+
+"Error while opening sources.list" = "Ошибка открытия sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Источник %@ несовместим с вашим джейлбрейком.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
+
+"%@ hasn't been modified" = "%@ не был изменен";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Описание";
 "Author" = "Автор";
 
-// Downloads
-
-"Downloads" = "Загрузки";
-"Error while opening sources.list" = "Ошибка открытия sources.list";
-"The source %@ is incompatible with your jailbreak." = "Источник %@ несовместим с вашим джейлбрейком.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
-"Please remove this source from your sources.list file." = "Пожалуйста, удалите этот источник из вашего файла sources.list.";
-"Incorrect documents permissions." = "Неверные права доступа документов.";
-"Could not determine device information." = "Невозможно определить информацию об устройстве.";
-"Could not find a download URL for" = "Невозможно найти URL загрузки для";
-"%@ hasn't been modified" = "%@ не был изменен";
-"Could not parse %@ from %@" = "Невозможно получить %@ из %@";
-"A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
-
 // Console
 
 "Console" = "Консоль";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста, попробуйте снова.";
 
-"Hide UDID" = "Скрыть UDID";
+"Incorrect documents permissions." = "Неверные права доступа документов.";
+
+"Could not determine device information." = "Невозможно определить информацию об устройстве.";
 
 "Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
 
-"Automatic Refresh" = "Автоматическое обновление";
 "Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
 
 "Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Добавить фильтр";
 
 "1 Section Hidden" = "1 раздел скрыт";
-"%lu Sources Hidden" = "%lu источников скрыто";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Разделы";
 "Select a Section" = "Выберите раздел";
@@ -426,7 +431,6 @@
 
 "Sources" = "Источники";
 "Select a Source" = "Выберите источник";
-"Search for an Author" = "Поиск автора";
 "Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
 "Updates" = "Обновления";
@@ -434,6 +438,8 @@
 
 "Authors" = "Авторы";
 "Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
+"Search for an Author" = "Поиск автора";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
