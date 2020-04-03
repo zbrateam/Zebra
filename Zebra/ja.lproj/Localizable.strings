@@ -11,7 +11,9 @@
 "Done" = "完了";
 "Loading..." = "読み込み中...";
 "Clear" = "クリア";
-"An Error Ocurred" = "エラーが発生しました";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "ダウンロード";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Finish Automatically" = "自動的に終了";
+"Hide UDID" = "UDIDを非表示";
+"Automatic Refresh" = "自動更新";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
 
+"A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
+
+"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
+"Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "パッケージファイルを%@からダウンロードできませんでした。理由：%@";
 "Could not download one or more files from %@. Reason: %@" = "一つ以上のファイルを%@からダウンロードできませんでした。理由：%@";
 
 "The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra は %@ で指定されたリポジトリをダウンロードできませんでした。 一時的にアクセスできないか、誤って追加された可能性があります。";
+
+"Please remove this source from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
+
+"Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
+
+"The source %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
+
+"%@ hasn't been modified" = "%@ は変更されていません";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "概要";
 "Author" = "作者";
 
-// Downloads
-
-"Downloads" = "ダウンロード";
-"Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
-"The source %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
-"Please remove this source from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
-"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
-"Could not determine device information." = "デバイス情報を特定できませんでした。";
-"Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
-"%@ hasn't been modified" = "%@ は変更されていません";
-"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
-"A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
-
 // Console
 
 "Console" = "コンソール";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
-"Hide UDID" = "UDIDを非表示";
+"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
+
+"Could not determine device information." = "デバイス情報を特定できませんでした。";
 
 "Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
-"Automatic Refresh" = "自動更新";
 "Refresh Zebra's sources when opening the app." = "Zebraを開いた時にリポジトリを更新します";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
@@ -418,7 +423,7 @@
 "Add Filter" = "フィルターを追加";
 
 "1 Section Hidden" = "一つのセクションが非表示になっています";
-"%lu Sources Hidden" = "%lu のレポジトリが非表示になっています";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "セクション";
 "Select a Section" = "セクションを選択";
@@ -426,7 +431,6 @@
 
 "Sources" = "リポジトリ";
 "Select a Source" = "リポジトリを選択";
-"Search for an Author" = "作者を検索";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
 "Updates" = "アップデート";
@@ -434,6 +438,8 @@
 
 "Authors" = "作者";
 "Hide packages from these authors." = "これらの作者からのパッケージを非表示にします";
+"Search for an Author" = "作者を検索";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
