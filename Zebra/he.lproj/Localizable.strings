@@ -11,7 +11,9 @@
 "Done" = "סיום";
 "Loading..." = "טוען...";
 "Clear" = "נקה";
-"An Error Ocurred" = "אירעה שגיאה";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "הורדות";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "טקסט";
 "Icon" = "אייקון";
 "Finish Automatically" = "סיים אוטומטית";
+"Hide UDID" = "הסתר מזהה מכשיר (UDID)";
+"Automatic Refresh" = "רענון אוטומטי";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
 
+"A total of %d files will be downloaded" = "יורדו %d קבצים";
+
+"Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
+"Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ חבילות מ-%@. סיבה: %@";
 "Could not download one or more files from %@. Reason: %@" = "לא היה ניתן להוריד קובץ אחד או יותר מ-%@. סיבה: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "זברה נכשלה בהורדת המקור שהוגדר ב-%@. ייתכן שהוא אינו נגיש זמנית או שהוזן באופן שגוי.";
+
+"Please remove this source from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
+
+"Error while opening sources.list" = "תקלה בפתיחת sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
+
+"%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "תיאור";
 "Author" = "יוצר";
 
-// Downloads
-
-"Downloads" = "הורדות";
-"Error while opening sources.list" = "תקלה בפתיחת sources.list";
-"The source %@ is incompatible with your jailbreak." = "המקור %@ אינו תואם לפריצה שלך.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
-"Please remove this source from your sources.list file." = "אנא הסר/י את מקור זה מקובץ ה-sources.list שלך.";
-"Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
-"Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
-"Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
-"%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
-"Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
-"A total of %d files will be downloaded" = "יורדו %d קבצים";
-
 // Console
 
 "Console" = "מסוף";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "תקלה: יש לאתחל את התהליך. אנא נסה/י שנית.";
 
-"Hide UDID" = "הסתר מזהה מכשיר (UDID)";
+"Incorrect documents permissions." = "הרשאות מסמכים שגויות.";
+
+"Could not determine device information." = "לא ניתן לקבוע פרטי מכשיר.";
 
 "Display featured packages on the homepage." = "הצג חבילות מומלצות בדף הבית.";
 
-"Automatic Refresh" = "רענון אוטומטי";
 "Refresh Zebra's sources when opening the app." = "רענן את המקורות של זברה עם פתיחת היישום.";
 
 "Display recent community posts from /r/jailbreak." = "הצג פרסומי קהילה אחרונים מ-/r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "הוסף מסנן";
 
 "1 Section Hidden" = "קטגוריה אחת מוסתרת";
-"%lu Sources Hidden" = "%lu מקורות מוסתרים";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "קטגוריות";
 "Select a Section" = "בחר קטגוריה";
@@ -426,7 +431,6 @@
 
 "Sources" = "מקורות";
 "Select a Source" = "בחר מקור";
-"Search for an Author" = "חפש יוצר";
 "Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
 
 "Updates" = "עדכונים";
@@ -434,6 +438,8 @@
 
 "Authors" = "יוצרים";
 "Hide packages from these authors." = "הסתר חבילות מיוצרים אלו.";
+"Search for an Author" = "חפש יוצר";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
