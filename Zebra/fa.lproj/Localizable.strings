@@ -11,7 +11,9 @@
 "Done" = "انجام شد";
 "Loading..." = "...در حال بارگذاری";
 "Clear" = "پاک سازی";
-"An Error Ocurred" = "یک خطا روی داده است";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "دانلود ها";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "خطا در پیدا کردن یک سورس APT در:";
 "Unable to locate APT repositories at:" = "خطا در پیدا کردن سورس‌های APT در:";
 
+"A total of %d files will be downloaded" = "در کل %d فایل دانلود شد";
+
+"Could not parse %@ from %@" = " جدانشد %@ از %@";
+"Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "نتوانست پرونده های بسته را از%@ دانلود کند.\nدلیل: %@";
 "Could not download one or more files from %@. Reason: %@" = "نتوانست یک یا چند فایل را از%@ دانلود کند.\nدلیل: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زبرا قادر به دانلود سورس مشخص شده در%@ نیست. ممکن است موقتا غیرقابل دسترسی باشد یا به اشتباه اضافه شده باشد.";
+
+"Please remove this source from your sources.list file." = "این سورس را از فایل sources.list پاک کنید.";
+
+"Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "این سورس %@ با جیلبریک شما ناسازگار است.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
+
+"%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "شرح";
 "Author" = "سازنده";
 
-// Downloads
-
-"Downloads" = "دانلود ها";
-"Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
-"The source %@ is incompatible with your jailbreak." = "این سورس %@ با جیلبریک شما ناسازگار است.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
-"Please remove this source from your sources.list file." = "این سورس را از فایل sources.list پاک کنید.";
-"Incorrect documents permissions." = "دسترسی اشتباه اسناد";
-"Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
-"Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
-"%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
-"Could not parse %@ from %@" = " جدانشد %@ از %@";
-"A total of %d files will be downloaded" = "در کل %d فایل دانلود شد";
-
 // Console
 
 "Console" = "کنسول";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "خطا: فرآیند باید دوباره شروع شود. لطفا دوباره تلاش کنید.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "دسترسی اشتباه اسناد";
+
+"Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
 
 "Display featured packages on the homepage." = "بسته های ویژه را در صفحه اصلی نمایش دهید.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "نمایش پست های اخیر انجمن r/jailbreak/.";
@@ -418,7 +423,7 @@
 "Add Filter" = "افزودن فیلتر";
 
 "1 Section Hidden" = "۱ بخش پنهان شد";
-"%lu Sources Hidden" = "%lu سورس مخفی شد";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "بخش‌ها";
 "Select a Section" = "بخش انتخاب شده";
@@ -426,7 +431,6 @@
 
 "Sources" = "منابع";
 "Select a Source" = "انتخاب سورس";
-"Search for an Author" = "جستجوی مؤلف";
 "Hide packages in these sections from specific sources." = "مخفی کردن بسته ها در این بخش از سورس‌های خاص.";
 
 "Updates" = "به روز رسانی‌ها";
@@ -434,6 +438,8 @@
 
 "Authors" = "سازندها";
 "Hide packages from these authors." = "مخفی کردن بسته‌های این سازندگان.";
+"Search for an Author" = "جستجوی مؤلف";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
