@@ -11,7 +11,9 @@
 "Done" = "Klar";
 "Loading..." = "Laddar...";
 "Clear" = "Rensa";
-"An Error Ocurred" = "Ett fel uppstod";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Nedladdningar";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Text";
 "Icon" = "Ikon";
 "Finish Automatically" = "Slutför automatiskt";
+"Hide UDID" = "Dölj UDID";
+"Automatic Refresh" = "Automatisk uppdatering";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
 
+"A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
+
+"Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
+"Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunde inte ladda ner filen Packages från %@. Anledning: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunde inte ladda ner en eller flera filer från %@. Anledning: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
+
+"Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
+
+"Error while opening sources.list" = "Fel när sources.list öppnades";
+
+"The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
+
+"%@ hasn't been modified" = "%@ har inte ändrats";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Beskrivning";
 "Author" = "Skapare";
 
-// Downloads
-
-"Downloads" = "Nedladdningar";
-"Error while opening sources.list" = "Fel när sources.list öppnades";
-"The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
-"Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
-"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
-"Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
-"Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
-"%@ hasn't been modified" = "%@ har inte ändrats";
-"Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
-"A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
-
 // Console
 
 "Console" = "Konsol";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEL: Processen måste startas om. Var god försök igen.";
 
-"Hide UDID" = "Dölj UDID";
+"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
+
+"Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
 
 "Display featured packages on the homepage." = "Visa utvalda paket på startsidan.";
 
-"Automatic Refresh" = "Automatisk uppdatering";
 "Refresh Zebra's sources when opening the app." = "Uppdatera Zebras källor när appen öppnas.";
 
 "Display recent community posts from /r/jailbreak." = "Visa nya inlägg från /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Lägg till filter";
 
 "1 Section Hidden" = "1 sektion dold";
-"%lu Sources Hidden" = "%lu källor dolda";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Sektioner";
 "Select a Section" = "Välj en sektion";
@@ -426,7 +431,6 @@
 
 "Sources" = "Källor";
 "Select a Source" = "Välj en källa";
-"Search for an Author" = "Sök efter en skapare";
 "Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
 
 "Updates" = "Uppdateringar";
@@ -434,6 +438,8 @@
 
 "Authors" = "Skapare";
 "Hide packages from these authors." = "Dölj paket från dessa skapare.";
+"Search for an Author" = "Sök efter en skapare";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
