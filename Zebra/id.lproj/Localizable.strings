@@ -11,7 +11,9 @@
 "Done" = "Selesai";
 "Loading..." = "Memuat...";
 "Clear" = "Bersihkan";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Unduhan";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Teks";
 "Icon" = "Ikon";
 "Finish Automatically" = "Otomatis Selesai";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
 
+"A total of %d files will be downloaded" = "Total %d file akan diunduh";
+
+"Could not parse %@ from %@" = "Tidak dapat mengurai %@ dari %@";
+"Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL yang Anda masukkan tidak valid. Silakan periksa dan coba lagi.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra tidak dapat mengunduh sumber yang ditentukan di %@. Mungkin sementara tidak dapat diakses atau mungkin ditambahkan secara tidak benar.";
+
+"Please remove this source from your sources.list file." = "Mohon hapus sumber ini dari sources.list file anda.";
+
+"Error while opening sources.list" = "Galat ketika membuka sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Sumber %@ tidak kompatibel dengan jailbreak anda.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ini dapat menyebabkan masalah jika Anda menambahkannya ke Zebra yang menghasilkan kemungkinan pemulihan.";
+
+"%@ hasn't been modified" = "%@ belum dimodifikasi";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Deskripsi";
 "Author" = "Author";
 
-// Downloads
-
-"Downloads" = "Unduhan";
-"Error while opening sources.list" = "Galat ketika membuka sources.list";
-"The source %@ is incompatible with your jailbreak." = "Sumber %@ tidak kompatibel dengan jailbreak anda.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ini dapat menyebabkan masalah jika Anda menambahkannya ke Zebra yang menghasilkan kemungkinan pemulihan.";
-"Please remove this source from your sources.list file." = "Mohon hapus sumber ini dari sources.list file anda.";
-"Incorrect documents permissions." = "Izin dokumen salah.";
-"Could not determine device information." = "Tidak dapat menentukan informasi perangkat.";
-"Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
-"%@ hasn't been modified" = "%@ belum dimodifikasi";
-"Could not parse %@ from %@" = "Tidak dapat mengurai %@ dari %@";
-"A total of %d files will be downloaded" = "Total %d file akan diunduh";
-
 // Console
 
 "Console" = "Konsol";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "GALAT: Proses harus dimulai ulang. Silakan coba lagi.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Izin dokumen salah.";
+
+"Could not determine device information." = "Tidak dapat menentukan informasi perangkat.";
 
 "Display featured packages on the homepage." = "Tampilkan paket unggulan di beranda.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Tampilkan pos komunitas terbaru dari /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Tambahkan Filter";
 
 "1 Section Hidden" = "1 Bagian Tersembunyi";
-"%lu Sources Hidden" = "%lu Sumber Tersembunyi";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Bagian";
 "Select a Section" = "Select a Section";
@@ -426,7 +431,6 @@
 
 "Sources" = "Sumber";
 "Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Sembunyikan paket di bagian ini dari sumber tertentu.";
 
 "Updates" = "Pembaruan";
@@ -434,6 +438,8 @@
 
 "Authors" = "Penulis";
 "Hide packages from these authors." = "Sembunyikan paket dari penulis ini.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
