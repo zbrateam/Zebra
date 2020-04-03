@@ -11,7 +11,9 @@
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
 "Clear" = "Pastro";
-"An Error Ocurred" = "Ndodhi një gabim";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Shkarkimet";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Përfundoni Automatikisht";
+"Hide UDID" = "Fsheh UDID";
+"Automatic Refresh" = "Rifreskim Automatik";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
 
+"A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
+
+"Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
+"Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Paketave nga %@.\nArsyeja: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nuk mund të shkrakojë një ose më shumë skedar nga %@.\nArsyeja: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nuk ishte në gjendje të shkarkonte burimin e specifikuar në %@. Mund të jetë përkohësisht e paarritshme ose mund të ishte shtuar gabimisht.";
+
+"Please remove this source from your sources.list file." = "Ju lutemi largoni këtë burim nga skedari i source.list.";
+
+"Error while opening sources.list" = "Problem në hapjen e souces.list";
+
+"The source %@ is incompatible with your jailbreak." = "Ku burim %@ nuk është i përshtatshëm me jailbreak-in tuaj.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
+
+"%@ hasn't been modified" = "%@ nuk është modifikuar";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Përshkrimi";
 "Author" = "Autori";
 
-// Downloads
-
-"Downloads" = "Shkarkimet";
-"Error while opening sources.list" = "Problem në hapjen e souces.list";
-"The source %@ is incompatible with your jailbreak." = "Ku burim %@ nuk është i përshtatshëm me jailbreak-in tuaj.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
-"Please remove this source from your sources.list file." = "Ju lutemi largoni këtë burim nga skedari i source.list.";
-"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
-"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
-"Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
-"%@ hasn't been modified" = "%@ nuk është modifikuar";
-"Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
-"A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
-
 // Console
 
 "Console" = "Konsola";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
 
-"Hide UDID" = "Fsheh UDID";
+"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
+
+"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
 
 "Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
 
-"Automatic Refresh" = "Rifreskim Automatik";
 "Refresh Zebra's sources when opening the app." = "Rifresko burimet e Zebra-s kur hapet aplikacioni.";
 
 "Display recent community posts from /r/jailbreak." = "Shfaq postimet e fundit të komunitetit nga /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Shto Filter";
 
 "1 Section Hidden" = "1 seksion i fshehur";
-"%lu Sources Hidden" = "%lu Burime të fshehura";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Seksione";
 "Select a Section" = "Zgjidhni një seksion";
@@ -426,7 +431,6 @@
 
 "Sources" = "Burimet";
 "Select a Source" = "Zgjidhni një burim";
-"Search for an Author" = "Kërkoni për një autor";
 "Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
 "Updates" = "Përditësime";
@@ -434,6 +438,8 @@
 
 "Authors" = "Autorët";
 "Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
+"Search for an Author" = "Kërkoni për një autor";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
