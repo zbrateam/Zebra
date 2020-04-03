@@ -11,8 +11,8 @@
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
 "Clear" = "Pastro";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Ndodhi një gabim";
+"Dismiss" = "Largoje";
 "Downloads" = "Shkarkimet";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
 "Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Lëshimit nga %@. Arsyeja: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Paketave nga %@.\nArsyeja: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nuk mund të shkrakojë një ose më shumë skedar nga %@.\nArsyeja: %@";
 
@@ -423,7 +423,7 @@
 "Add Filter" = "Shto Filter";
 
 "1 Section Hidden" = "1 seksion i fshehur";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu seksione të fshehur";
 
 "Sections" = "Seksione";
 "Select a Section" = "Zgjidhni një seksion";
@@ -439,7 +439,7 @@
 "Authors" = "Autorët";
 "Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
 "Search for an Author" = "Kërkoni për një autor";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Ky autor gjithashtu përngjan edhe me këto emra:";
 
 // Language Settings
 
