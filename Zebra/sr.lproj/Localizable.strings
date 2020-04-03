@@ -11,7 +11,9 @@
 "Done" = "Uradjeno";
 "Loading..." = "Učitavanje...";
 "Clear" = "Obriši";
-"An Error Ocurred" = "Došlo je do greške";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Preuzimanja";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikonica";
 "Finish Automatically" = "Završi automatski";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
 
+"A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
+
+"Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
+"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nije moguće skinuti Paket sa %@. Razlog: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nije moguće skinuti jedan ili više Paketa sa %@. Razlog: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Url koji ste uneli je netačan. Proverite i pokušajte opet.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nije u mogućnosti da skida sa izvora %@. Ili je trenutno nedostupan ili je nepravilno dodat.";
+
+"Please remove this source from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
+
+"Error while opening sources.list" = "Greška prilikom preuzimanja sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Izvor repoa %@ nije kompatibilan sa vasim jailbreakom.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ovim možete izazvati probleme ako ga dodate u Zebri.";
+
+"%@ hasn't been modified" = "%@ nije izmenjen";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Opis";
 "Author" = "Autor";
 
-// Downloads
-
-"Downloads" = "Preuzimanja";
-"Error while opening sources.list" = "Greška prilikom preuzimanja sources.list";
-"The source %@ is incompatible with your jailbreak." = "Izvor repoa %@ nije kompatibilan sa vasim jailbreakom.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ovim možete izazvati probleme ako ga dodate u Zebri.";
-"Please remove this source from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
-"Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
-"Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
-"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
-"%@ hasn't been modified" = "%@ nije izmenjen";
-"Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
-"A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
-
 // Console
 
 "Console" = "Konzola";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "Greška: Proces se mora restartovat. Molimo vas probajte opet.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
+
+"Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
 
 "Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Prikaži najnovije postove sa /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Dodaj Filter";
 
 "1 Section Hidden" = "1 odeljak skriven";
-"%lu Sources Hidden" = "%lu Izvora skriveno";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Odeljci";
 "Select a Section" = "Izabrri odeljak";
@@ -426,7 +431,6 @@
 
 "Sources" = "Izvori";
 "Select a Source" = "Izaberi Izvor";
-"Search for an Author" = "Pronadju Autora";
 "Hide packages in these sections from specific sources." = "Sakrij pakete u ovom odeljku iz specifičnog izvora.";
 
 "Updates" = "Ažuriranja";
@@ -434,6 +438,8 @@
 
 "Authors" = "Autori";
 "Hide packages from these authors." = "Sakrij pakete od ovih autora.";
+"Search for an Author" = "Pronadju Autora";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
