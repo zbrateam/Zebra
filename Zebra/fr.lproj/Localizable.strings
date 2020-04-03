@@ -11,7 +11,9 @@
 "Done" = "Fini";
 "Loading..." = "Chargement...";
 "Clear" = "Vider";
-"An Error Ocurred" = "Une erreur est survenue";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Téléchargements";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Texte";
 "Icon" = "Icône";
 "Finish Automatically" = "Terminer automatiquement";
+"Hide UDID" = "Cacher l'UDID";
+"Automatic Refresh" = "Rafraîchissement Auto";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Impossible de localiser une source APT à :";
 "Unable to locate APT repositories at:" = "Impossible de localiser des sources APT à :";
 
+"A total of %d files will be downloaded" = "%d fichiers seront téléchargés au total";
+
+"Could not parse %@ from %@" = "Impossible d'analyser %@ à partir de %@";
+"Could not find a download URL for" = "Impossible de trouver une URL pour télécharger";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Impossible de télécharger le fichier Packages à partir de %@. Raison : %@";
 "Could not download one or more files from %@. Reason: %@" = "Impossible de télécharger un ou plusieurs fichiers à partir de %@. Raison : %@";
 
 "The URL you entered is not valid. Please check it and try again." = "L'URL que vous avez saisie n'est pas valide. Veuillez la vérifier et réessayer.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra n'a pas pu télécharger la source spécifiée à %@. Elle peut être temporairement inaccessible ou aurait pu être ajoutée de manière incorrecte.";
+
+"Please remove this source from your sources.list file." = "Veuillez supprimer cette source de votre fichier sources.list.";
+
+"Error while opening sources.list" = "Erreur lors de l'ouverture de sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "La source %@ est incompatible avec votre jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Cet ajout peut endommager Zebra et le forcer à se réinitialiser.";
+
+"%@ hasn't been modified" = "%@ n'a pas été modifié";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Description";
 "Author" = "Auteur";
 
-// Downloads
-
-"Downloads" = "Téléchargements";
-"Error while opening sources.list" = "Erreur lors de l'ouverture de sources.list";
-"The source %@ is incompatible with your jailbreak." = "La source %@ est incompatible avec votre jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Cet ajout peut endommager Zebra et le forcer à se réinitialiser.";
-"Please remove this source from your sources.list file." = "Veuillez supprimer cette source de votre fichier sources.list.";
-"Incorrect documents permissions." = "Permissions incorrectes.";
-"Could not determine device information." = "Impossible de trouver les informations de l'appareil.";
-"Could not find a download URL for" = "Impossible de trouver une URL pour télécharger";
-"%@ hasn't been modified" = "%@ n'a pas été modifié";
-"Could not parse %@ from %@" = "Impossible d'analyser %@ à partir de %@";
-"A total of %d files will be downloaded" = "%d fichiers seront téléchargés au total";
-
 // Console
 
 "Console" = "Console";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERREUR : le processus doit être redémarré. Veuillez réessayer.";
 
-"Hide UDID" = "Cacher l'UDID";
+"Incorrect documents permissions." = "Permissions incorrectes.";
+
+"Could not determine device information." = "Impossible de trouver les informations de l'appareil.";
 
 "Display featured packages on the homepage." = "Afficher les paquets mis en avant sur la page d'accueil.";
 
-"Automatic Refresh" = "Rafraîchissement Auto";
 "Refresh Zebra's sources when opening the app." = "Rafraîchir les sources de Zebra lors de l'ouverture de l'application.";
 
 "Display recent community posts from /r/jailbreak." = "Afficher les messages récents de la communauté /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Ajouter un filtre";
 
 "1 Section Hidden" = "1 section cachée";
-"%lu Sources Hidden" = "%lu sources cachées";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Sections";
 "Select a Section" = "Sélectionner une Section";
@@ -426,7 +431,6 @@
 
 "Sources" = "Sources";
 "Select a Source" = "Sélectionner une Source";
-"Search for an Author" = "Rechercher un Auteur";
 "Hide packages in these sections from specific sources." = "Cacher les paquets de ces sections de sources spécifiques.";
 
 "Updates" = "Mises à jour";
@@ -434,6 +438,8 @@
 
 "Authors" = "Auteurs";
 "Hide packages from these authors." = "Masquer les paquets de ces auteurs.";
+"Search for an Author" = "Rechercher un Auteur";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
