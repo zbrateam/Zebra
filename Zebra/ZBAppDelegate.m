@@ -68,7 +68,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (NSURL *)documentsDirectoryURL {
-    return [NSURL URLWithString:[NSString stringWithFormat:@"filza://%@", [self documentsDirectory]]];
+    return [NSURL URLWithString:[[NSString stringWithFormat:@"filza://view%@", [self documentsDirectory]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
 }
 
 + (NSString *)listsLocation {
