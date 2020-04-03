@@ -11,8 +11,8 @@
 "Done" = "تم";
 "Loading..." = "جارِ التحميل...";
 "Clear" = "مسح";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "حدث خطأ ما";
+"Dismiss" = "تجاهل";
 "Downloads" = "التنزيلات";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
 "Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "تعذر تنزيل ملف الإطلاق من %@. السبب: %@";
 "Could not download Packages file from %@. Reason: %@" = "تعذر تنزيل ملف الحزم من %@. السبب: %@";
 "Could not download one or more files from %@. Reason: %@" = "تعذر تنزيل ملف أو أكثر من %@. السبب: %@";
 
@@ -423,7 +423,7 @@
 "Add Filter" = "إضافة فلتر";
 
 "1 Section Hidden" = "قسم واحد مخفي";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu قسم مخفي";
 
 "Sections" = "الأقسام";
 "Select a Section" = "حدد قسم";
