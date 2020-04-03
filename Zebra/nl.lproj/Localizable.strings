@@ -11,7 +11,9 @@
 "Done" = "Klaar";
 "Loading..." = "Aan het laden...";
 "Clear" = "Leeg";
-"An Error Ocurred" = "Er is een fout opgetreden";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Downloads";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Icoon";
 "Finish Automatically" = "Automatisch Voltooien";
+"Hide UDID" = "Verberg UDID";
+"Automatic Refresh" = "Automatisch vernieuwen";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
 "Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
 
+"A total of %d files will be downloaded" = "Er worden in totaal %d bestanden gedownload";
+
+"Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
+"Could not find a download URL for" = "Kan geen download link vinden voor";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download one or more files from %@. Reason: %@" = "Een of meerdere bestanden kon niet worden gedownload van %@. Reden: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer dit en probeer het opnieuw.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kon de bron die is opgegeven bij %@ niet downloaden. Het kan tijdelijk ontoegankelijk zijn of kan onjuist zijn toegevoegd.";
+
+"Please remove this source from your sources.list file." = "Verwijder alstublieft deze bron van uw sources.list bestand.";
+
+"Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "De bron %@ is niet compatibel met uw jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
+
+"%@ hasn't been modified" = "%@ is niet gewijzigd";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Beschrijving";
 "Author" = "Auteur";
 
-// Downloads
-
-"Downloads" = "Downloads";
-"Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
-"The source %@ is incompatible with your jailbreak." = "De bron %@ is niet compatibel met uw jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
-"Please remove this source from your sources.list file." = "Verwijder alstublieft deze bron van uw sources.list bestand.";
-"Incorrect documents permissions." = "Incorrecte permissie voor documenten.";
-"Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
-"Could not find a download URL for" = "Kan geen download link vinden voor";
-"%@ hasn't been modified" = "%@ is niet gewijzigd";
-"Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
-"A total of %d files will be downloaded" = "Er worden in totaal %d bestanden gedownload";
-
 // Console
 
 "Console" = "Console";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
 
-"Hide UDID" = "Verberg UDID";
+"Incorrect documents permissions." = "Incorrecte permissie voor documenten.";
+
+"Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
 
 "Display featured packages on the homepage." = "Toon aanbevolen pakketten op de startpagina.";
 
-"Automatic Refresh" = "Automatisch vernieuwen";
 "Refresh Zebra's sources when opening the app." = "Vernieuw de bronnen van Zebra als de app wordt geopend.";
 
 "Display recent community posts from /r/jailbreak." = "Toon recente gemeenschap berichten van /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Filter Toevoegen";
 
 "1 Section Hidden" = "1 Sectie Verborgen";
-"%lu Sources Hidden" = "%lu Bronnen Verborgen";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Secties";
 "Select a Section" = "Selecteer een sectie";
@@ -426,7 +431,6 @@
 
 "Sources" = "Bronnen";
 "Select a Source" = "Selecteer een Bron";
-"Search for an Author" = "Zoek voor een auteur";
 "Hide packages in these sections from specific sources." = "Verberg pakketten in deze secties van specifieke bronnen.";
 
 "Updates" = "Updates";
@@ -434,6 +438,8 @@
 
 "Authors" = "Auteurs";
 "Hide packages from these authors." = "Verberg pakketten van deze auteurs.";
+"Search for an Author" = "Zoek voor een auteur";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
