@@ -526,12 +526,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                         switch (status) {
                             case -1: { //Failure
                                 [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
+                                break;
                             }
                             case 0: { //Immediate Success
                                 [self configureNavButton];
+                                break;
                             }
                             case 1: { //Interaction required
                                 [self initPurchaseLink:[NSURL URLWithString:result[@"url"]]];
+                                break;
                             }
                         }
                     }
