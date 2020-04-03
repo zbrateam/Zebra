@@ -11,7 +11,9 @@
 "Done" = "Xong";
 "Loading..." = "Đang tải...";
 "Clear" = "Xoá bỏ";
-"An Error Ocurred" = "Đã xảy ra lỗi";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Tải xuống";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
 
+"A total of %d files will be downloaded" = "Tất cả %d tập tin sẽ được tải về";
+
+"Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
+"Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Không thể tải Gói từ %@. Lý do: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra không thể tải nguồn %@. Nguồn này có thể tạm thời không truy cập được hoặc có thể đã được thêm không chính xác.";
+
+"Please remove this source from your sources.list file." = "Vui lòng xóa nguồn này khỏi tệp sources.list của bạn.";
+
+"Error while opening sources.list" = "Lỗi trong khi mở danh sách nguồn";
+
+"The source %@ is incompatible with your jailbreak." = "Nguồn %@ không tương thích với bản jailbreak của bạn.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
+
+"%@ hasn't been modified" = "%@ chưa được sửa đổi";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Mô tả";
 "Author" = "Tác giả";
 
-// Downloads
-
-"Downloads" = "Tải xuống";
-"Error while opening sources.list" = "Lỗi trong khi mở danh sách nguồn";
-"The source %@ is incompatible with your jailbreak." = "Nguồn %@ không tương thích với bản jailbreak của bạn.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
-"Please remove this source from your sources.list file." = "Vui lòng xóa nguồn này khỏi tệp sources.list của bạn.";
-"Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
-"Could not determine device information." = "Không thể xác định thông tin thiết bị.";
-"Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
-"%@ hasn't been modified" = "%@ chưa được sửa đổi";
-"Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
-"A total of %d files will be downloaded" = "Tất cả %d tập tin sẽ được tải về";
-
 // Console
 
 "Console" = "Bảng điều khiển";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
+
+"Could not determine device information." = "Không thể xác định thông tin thiết bị.";
 
 "Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ / r / jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Thêm bộ lọc";
 
 "1 Section Hidden" = "1 mục đã ẩn";
-"%lu Sources Hidden" = "%lu nguồn đã ẩn";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Phần";
 "Select a Section" = "Select a Section";
@@ -426,7 +431,6 @@
 
 "Sources" = "Nguồn";
 "Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
 
 "Updates" = "Cập nhật";
@@ -434,6 +438,8 @@
 
 "Authors" = "Tác giả";
 "Hide packages from these authors." = "Ẩn gói từ các tác giả này.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
