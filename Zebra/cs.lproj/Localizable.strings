@@ -11,7 +11,9 @@
 "Done" = "Hotovo";
 "Loading..." = "Načítání...";
 "Clear" = "Vyčistit";
-"An Error Ocurred" = "Došlo k chybě";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Stažené";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Text";
 "Icon" = "Ikona";
 "Finish Automatically" = "Automaticky Dokončit";
+"Hide UDID" = "Skrýt UDID";
+"Automatic Refresh" = "Automatická aktualizace";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
 "Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
 
+"A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
+
+"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
+"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Soubor balíčků z %@nelze stáhnout. Důvod: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nelze stáhnout jeden nebo více souborů z %@. Důvod: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Zadaná adresa URL není platná. Zkontrolujte ji a zkuste to znovu.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nebyla schopna stáhnout zdroj, který byl zadán na %@. Může být dočasně nedostupný nebo mohl být přidán nesprávně.";
+
+"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
+
+"Error while opening sources.list" = "Chyba během otevírání sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
+
+"%@ hasn't been modified" = "%@ nebylo upraveno";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Popis";
 "Author" = "Autor";
 
-// Downloads
-
-"Downloads" = "Stažené";
-"Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
-"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
-"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
-"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
-"%@ hasn't been modified" = "%@ nebylo upraveno";
-"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
-"A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
-
 // Console
 
 "Console" = "Konzola";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces musí být restartován. Prosím zkuste to znovu.";
 
-"Hide UDID" = "Skrýt UDID";
+"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
+
+"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 
 "Display featured packages on the homepage." = "Zobrazí doporučené balíčky na domovské stránce.";
 
-"Automatic Refresh" = "Automatická aktualizace";
 "Refresh Zebra's sources when opening the app." = "Obnovit zdroje Zebry při otevírání aplikace.";
 
 "Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Přidat filtr";
 
 "1 Section Hidden" = "1 Skrytý oddíl";
-"%lu Sources Hidden" = "%lu zdrojů skryto";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Sekce";
 "Select a Section" = "Vyberte kategorii";
@@ -426,7 +431,6 @@
 
 "Sources" = "Zdroje";
 "Select a Source" = "Vyberte zdroj";
-"Search for an Author" = "Hledat autora";
 "Hide packages in these sections from specific sources." = "Skrýt balíčky v těchto oddílech z určitých zdrojů.";
 
 "Updates" = "Aktualizace";
@@ -434,6 +438,8 @@
 
 "Authors" = "Autoři";
 "Hide packages from these authors." = "Skrýt balíčky od těchto autorů.";
+"Search for an Author" = "Hledat autora";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
