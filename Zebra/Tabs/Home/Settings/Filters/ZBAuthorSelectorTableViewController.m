@@ -17,6 +17,7 @@
     ZBDatabaseManager *databaseManager;
     NSArray <NSArray <NSString *> *> *authors;
     NSMutableDictionary <NSString *, NSString *> *selectedAuthors;
+    NSMutableArray *newSelectedAuthors;
     BOOL shouldPerformSearching;
 }
 @end
@@ -32,6 +33,7 @@
     
     if (self) {
         authors = @[];
+        newSelectedAuthors = [NSMutableArray new];
         selectedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     }
     
@@ -99,7 +101,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addAuthors)];
-    self.navigationItem.rightBarButtonItem.enabled = [[selectedAuthors allKeys] count];
+    self.navigationItem.rightBarButtonItem.enabled = [newSelectedAuthors count];
 }
 
 - (void)addAuthors {
@@ -163,7 +165,6 @@
     self->shouldPerformSearching = YES;
     
     [self updateSearchResultsForSearchController:searchController];
-    [self.searchController setActive:false];
 }
 
 #pragma mark - Table View Data Source
@@ -211,9 +212,11 @@
     NSArray *authorDetail = authors[indexPath.row];
     if ([selectedAuthors objectForKey:authorDetail[1]]) {
         [selectedAuthors removeObjectForKey:authorDetail[1]];
+        [newSelectedAuthors removeObject:authorDetail[1]];
     }
     else {
         [selectedAuthors setObject:authorDetail[0] forKey:authorDetail[1]];
+        [newSelectedAuthors addObject:authorDetail[1]];
     }
     
     [[self tableView] reloadData];
