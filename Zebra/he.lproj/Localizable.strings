@@ -11,8 +11,8 @@
 "Done" = "סיום";
 "Loading..." = "טוען...";
 "Clear" = "נקה";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "אירעה שגיאה";
+"Dismiss" = "סגור";
 "Downloads" = "הורדות";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ שחרורים מ-%@. סיבה: %@";
 "Could not download Packages file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ חבילות מ-%@. סיבה: %@";
 "Could not download one or more files from %@. Reason: %@" = "לא היה ניתן להוריד קובץ אחד או יותר מ-%@. סיבה: %@";
 
@@ -423,7 +423,7 @@
 "Add Filter" = "הוסף מסנן";
 
 "1 Section Hidden" = "קטגוריה אחת מוסתרת";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu קטגוריות מוסתרות";
 
 "Sections" = "קטגוריות";
 "Select a Section" = "בחר קטגוריה";
@@ -439,7 +439,7 @@
 "Authors" = "יוצרים";
 "Hide packages from these authors." = "הסתר חבילות מיוצרים אלו.";
 "Search for an Author" = "חפש יוצר";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "יוצר זה מוכר גם בשמות הבאים:";
 
 // Language Settings
 
