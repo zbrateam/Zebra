@@ -11,7 +11,9 @@
 "Done" = "Listo";
 "Loading..." = "Cargando...";
 "Clear" = "Limpiar";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Descargas";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Texto";
 "Icon" = "Icono";
 "Finish Automatically" = "Finalizar automáticamente";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
 "Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
 
+"A total of %d files will be downloaded" = "Se descargarán un total de %d archivos";
+
+"Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
+"Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "La URL introducida no es válida. Por favor, compruébela e inténtelo de nuevo.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra no pudo descargar la fuente especificada en %@. Puede ser que este temporalmente inaccesible o pudo haber sido añadida incorrectamente.";
+
+"Please remove this source from your sources.list file." = "Por favor, elimine esta fuente de sources.list.";
+
+"Error while opening sources.list" = "Error al abrir sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "El origen %@ es incompatible con tu jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Puede causar problemas si lo agregas a Zebra, resultando en una posible restauración.";
+
+"%@ hasn't been modified" = "%@ no ha sido modificado";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Descripción";
 "Author" = "Autor";
 
-// Downloads
-
-"Downloads" = "Descargas";
-"Error while opening sources.list" = "Error al abrir sources.list";
-"The source %@ is incompatible with your jailbreak." = "El origen %@ es incompatible con tu jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Puede causar problemas si lo agregas a Zebra, resultando en una posible restauración.";
-"Please remove this source from your sources.list file." = "Por favor, elimine esta fuente de sources.list.";
-"Incorrect documents permissions." = "Permisos incorrectos de documentos.";
-"Could not determine device information." = "No se pudo determinar la información del dispositivo.";
-"Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
-"%@ hasn't been modified" = "%@ no ha sido modificado";
-"Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
-"A total of %d files will be downloaded" = "Se descargarán un total de %d archivos";
-
 // Console
 
 "Console" = "Consola";
@@ -385,11 +389,12 @@
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: El proceso debe ser reiniciado. Por favor, inténtelo de nuevo.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Permisos incorrectos de documentos.";
+
+"Could not determine device information." = "No se pudo determinar la información del dispositivo.";
 
 "Display featured packages on the homepage." = "Mostrar paquetes destacados en la página de inicio.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Mostrar mensajes comunitarios recientes de /r/jailbreak.";
@@ -418,7 +423,7 @@
 "Add Filter" = "Añadir filtro";
 
 "1 Section Hidden" = "Una sección oculta";
-"%lu Sources Hidden" = "Fuentes %lu ocultas";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Secciones";
 "Select a Section" = "Select a Section";
@@ -426,7 +431,6 @@
 
 "Sources" = "Fuentes";
 "Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Ocultar paquetes de fuentes específicas en estas secciones.";
 
 "Updates" = "Actualizaciones";
@@ -434,6 +438,8 @@
 
 "Authors" = "Autores";
 "Hide packages from these authors." = "Ocultar paquetes de estos autores.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
