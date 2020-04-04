@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "UICKeyChainStore.h"
+@import SafariServices;
 
 @class ZBSource;
 @class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoSectionsListTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ZBRepoSectionsListTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, SFSafariViewControllerDelegate>
 @property (nonatomic, strong) ZBSource *repo;
 - (id)initWithSource:(ZBSource *)source;
 - (void)accountButtonPressed:(id)sender;

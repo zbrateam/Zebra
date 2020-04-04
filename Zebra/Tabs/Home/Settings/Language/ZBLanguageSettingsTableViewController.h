@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBLanguageSettingsTableViewController : UITableViewController
+@interface ZBLanguageSettingsTableViewController : UITableViewController <SFSafariViewControllerDelegate>
 
 @end
 
