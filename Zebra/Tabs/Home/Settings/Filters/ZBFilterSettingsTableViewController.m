@@ -289,10 +289,10 @@
             break;
         }
         case 2: {
-//            NSString *author = blockedAuthors[indexPath.row];
-//            [blockedAuthors removeObject:author];
-//
-//            [ZBSettings setBlockedAuthors:blockedAuthors];
+            NSString *author = [blockedAuthors allKeys][indexPath.row];
+            [blockedAuthors removeObjectForKey:author];
+
+            [ZBSettings setBlockedAuthors:blockedAuthors];
             [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         }
