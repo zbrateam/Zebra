@@ -11,8 +11,8 @@
 "Done" = "เสร็จสิ้น";
 "Loading..." = "กำลังโหลด...";
 "Clear" = "ล้าง";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "เกิดข้อผิดพลาด";
+"Dismiss" = "ปิด";
 "Downloads" = "ดาวน์โหลด";
 
 // Home
@@ -70,8 +70,8 @@
 "Text" = "ข้อความ";
 "Icon" = "ไอคอน";
 "Finish Automatically" = "เสร็จสิ้นอัตโนมัติ";
-"Hide UDID" = "Hide UDID";
-"Automatic Refresh" = "Automatic Refresh";
+"Hide UDID" = "ซ่อน UDID";
+"Automatic Refresh" = "รีเฟรชอัตโนมัติ";
 
 // Accent Colors
 
@@ -108,27 +108,27 @@
 
 "Reset" = "Reset";
 "Refresh Icon Cache" = "ล้างแคชของไอคอน";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "ล้างแคชรูปภาพ";
+"Clear Sources Cache" = "ล้างแคชของซอร์ส";
+"Clear Web Cache" = "ล้างแคชของเว็บ";
 "Reset All Settings" = "ล้างการตั้งค่าทั้งหมด";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "ลบซอร์สทั้งหมด";
 "Erase All Sources and Settings" = "ล้างการตั้งค่าและซอร์สทั้งหมด";
 
 "Are you sure you want to restart the SpringBoard?" = "คุณแน่ใจหรือไม่ที่จะเริ่มการทำงานของ SpringBoard ใหม่?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของไอคอน? เครื่องของคุณอาจไม่ตอบสนองในขณะที่กำลังล้างแคช";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "ล้างแคชรูปภาพแล้ว";
+"Web Cache Cleared" = "ล้างแคชเว็บแล้ว";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของซอร์สใน Zebra? ซึ่งจะทำการลบแคชทั้งหมดในฐานข้อมูลและดาวน์โหลดใหม่ ซอร์สของคุณจะยังไม่ถูกลบ";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "คุณแน่ใจหรือไม่ที่จะล้างการตั้งค่าของ Zebra? การตั้งค่าทุกอย่างจะกลับไปเป็นค่าเริ่มต้นและ Zebra จะเริ่มการทำงานใหม่";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "คุณแน่ใจหรือไม่ที่จะล้างซอร์สทั้งหมด? ซอร์สทั้งหมดจะกลับไปเป็นค่าเริ่มต้นและ Zebra จะเริ่มต้นการทำงานใหม่";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "คุณแน่ใจหรือไม่ที่จะล้างซอร์สและการตั้งค่าทั้งหมด? ซอร์สและการตั้งค่าทั้งหมดจะกลับไปเป็นค่าเริ่มต้น";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "ซอร์สทั้งหมดจะถูกลบไปจากเครื่องและ Zebra จะเริ่มการทำงานใหม่";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "เปิดที่อยู่ของข้อมูลโปรแกรม";
 
-"Filza Not Installed" = "Filza Not Installed";
+"Filza Not Installed" = "Filza ไม่ได้ติดตั้งไว้";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
