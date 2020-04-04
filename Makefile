@@ -1,3 +1,5 @@
+INSTALL_TARGET_PROCESSES = Zebra
+
 include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/null.mk
 
@@ -31,6 +33,3 @@ ipa::
 	rm -rf $(THEOS_STAGING_DIR)/Payload
 	mkdir -p ipas
 	mv $(THEOS_STAGING_DIR)/Zebra.zip ipas/Zebra-$(THEOS_PACKAGE_VERSION).ipa
-
-after-install::
-	install.exec "killall \"Zebra\" || true"
