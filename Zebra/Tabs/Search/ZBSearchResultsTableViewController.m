@@ -37,6 +37,7 @@
     
     self.tableView.tableFooterView = [[UIView alloc] init]; // Hide seperators after last cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
