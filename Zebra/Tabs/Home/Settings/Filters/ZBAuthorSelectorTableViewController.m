@@ -218,7 +218,7 @@
     if ([selectedAuthors objectForKey:authorDetail[1]]) {
         [selectedAuthors removeObjectForKey:authorDetail[1]];
     }
-    else {
+    else if (authorDetail[1].length) {
         [selectedAuthors setObject:authorDetail[0] forKey:authorDetail[1]];
     }
     
