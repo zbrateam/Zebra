@@ -355,11 +355,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                     if (info && info.purchased && info.available) {
                         self.purchased = YES;
                         self->package.sileoDownload = YES;
-                        [self showModifyButton:YES];
                     }
-                    else {
-                        [self showRemoveButton];
-                    }
+                    [self showModifyButton:YES];
                 }];
             }
             else {
