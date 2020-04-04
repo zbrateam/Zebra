@@ -214,7 +214,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     
-    NSArray *authorDetail = authors[indexPath.row];
+    NSArray <NSString *> *authorDetail = authors[indexPath.row];
     if ([selectedAuthors objectForKey:authorDetail[1]]) {
         [selectedAuthors removeObjectForKey:authorDetail[1]];
     }
