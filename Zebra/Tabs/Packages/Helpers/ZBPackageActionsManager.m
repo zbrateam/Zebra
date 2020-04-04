@@ -231,18 +231,20 @@
 + (NSMutableArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package viewController:(UIViewController *)vc parent:(UIViewController *)parent {
     NSMutableArray *actions = [self actions:2 forPackage:package indexPath:nil viewController:vc parent:parent completion:NULL];
     
-    if ([package ignoreUpdates]) {
-        UIAlertAction *unignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Show Updates", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [package setIgnoreUpdates:NO];
-        }];
-        
-        [actions addObject:unignore];
-    } else {
-        UIAlertAction *ignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ignore Updates", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [package setIgnoreUpdates:YES];
-        }];
-        
-        [actions addObject:ignore];
+    if ([package isInstalled:NO]) {
+        if ([package ignoreUpdates]) {
+            UIAlertAction *unignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Show Updates", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [package setIgnoreUpdates:NO];
+            }];
+            
+            [actions addObject:unignore];
+        } else {
+            UIAlertAction *ignore = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ignore Updates", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [package setIgnoreUpdates:YES];
+            }];
+            
+            [actions addObject:ignore];
+        }
     }
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
