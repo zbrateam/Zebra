@@ -23,8 +23,8 @@
 "Report a Bug" = "รายงานปัญหา";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Wish List" = "รายการอยากได้";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "ใหม่สุดก่อน";
+"Oldest First" = "เก่าสุดก่อน";
 "No items in Wish List" = "ไม่มีรายการที่อยากได้";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
@@ -106,7 +106,7 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "ตั้งค่าใหม่";
 "Refresh Icon Cache" = "ล้างแคชของไอคอน";
 "Clear Image Cache" = "ล้างแคชรูปภาพ";
 "Clear Sources Cache" = "ล้างแคชของซอร์ส";
@@ -129,7 +129,7 @@
 "Open Documents Directory" = "เปิดที่อยู่ของข้อมูลโปรแกรม";
 
 "Filza Not Installed" = "Filza ไม่ได้ติดตั้งไว้";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra ไม่สามารถเปิดที่อยู่ข้อมูลโปรแกรมได้เนื่องจากไม่ได้ติดตั้งโปรแกรม Filza ที่อยู่ของคุณคือ %@";
 
 // Stores
 
@@ -142,7 +142,7 @@
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
 "Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
 "No packages purchased" = "ไม่มีโปรแกรมที่ซื้อไว้";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "เข้าสู่ระบบในชื่อ %@ (%@)";
 
 // Sources
 
@@ -185,9 +185,9 @@
 
 "Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Release จาก %@ ได้ สาเหตุ: %@";
+"Could not download Packages file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Packages จาก %@ ได้ สาเหตุ: %@";
+"Could not download one or more files from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์อย่างน้อยหนึ่ง จาก %@ ได้ สาเหตุ: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL ที่คุณใส่นั้นไม่ถูกต้อง กรุณาตรวจสอบและลองอีกครั้ง";
 
@@ -362,7 +362,7 @@
 "%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
 "%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
 "%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ เป็นโปรแกรมที่จำเป็นต้องติดตั้งไว้บนเครื่อง ไม่ควรถูกลบออกนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร!";
 
 // Search
@@ -395,7 +395,7 @@
 
 "Display featured packages on the homepage." = "แสดงโปรแกรมยอดนิยมในหน้าหลัก";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "รีเฟรชซอร์สใน Zebra เมื่อเปิดขึ้นมา";
 
 "Display recent community posts from /r/jailbreak." = "แสดงโพสล่าสุดใน /r/jailbreak";
 
@@ -423,14 +423,14 @@
 "Add Filter" = "เพิ่มตัวกรอง";
 
 "1 Section Hidden" = "1 ซอร์สที่ถูกซ่อน";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu ประเภทที่ซ่อนไว้";
 
 "Sections" = "ประเภท";
-"Select a Section" = "Select a Section";
+"Select a Section" = "เลือกประเภท";
 "Hide packages in these sections." = "ซ่อนแพ็กเกจจากประเภทเหล่านี้";
 
 "Sources" = "ซอร์ส";
-"Select a Source" = "Select a Source";
+"Select a Source" = "เลือกซอร์ส";
 "Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
 
 "Updates" = "อัพเดต";
@@ -438,14 +438,14 @@
 
 "Authors" = "ผู้สร้าง";
 "Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Search for an Author" = "ค้นหาจากผู้เขียน";
+"This author also goes by the following names:" = "ผู้เขียนคนนี้มีชื่ออื่นเป็น:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "ภาษา";
+"Apply" = "นำไปใช้";
+"Restart Required" = "จำเป็นต้องเริ่มต้นใหม่";
+"Zebra must be closed in order to change preferred language" = "Zebra ต้องถูกปิดเพื่อให้การตั้งค่าภาษามีผล";
+"Restart" = "เริ่มใหม่";
+"Use System Language" = "ใช้ภาษาของระบบ";
