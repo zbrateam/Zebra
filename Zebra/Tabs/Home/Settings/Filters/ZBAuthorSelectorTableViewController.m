@@ -191,16 +191,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"sectionSelectorCell"];
+    NSArray <NSString *> *authorDetail = authors[indexPath.row];
+    UITableViewCellStyle style = authorDetail[0].length && authorDetail[1].length ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:@"sectionSelectorCell"];
     
-    NSArray *authorDetail = authors[indexPath.row];
-    cell.textLabel.text = authorDetail[0];
-    cell.textLabel.textColor = [UIColor primaryTextColor];
-    
-    cell.detailTextLabel.text = authorDetail[1];
-    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    if (style == UITableViewCellStyleSubtitle) {
+        cell.textLabel.text = authorDetail[0];
+        cell.textLabel.textColor = [UIColor primaryTextColor];
+        
+        cell.detailTextLabel.text = authorDetail[1];
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    } else {
+        cell.textLabel.text = authorDetail[0] ?: authorDetail[1];
+        cell.textLabel.textColor = [UIColor primaryTextColor];
+    }
 
-    cell.accessoryType = [[selectedAuthors allKeys] containsObject:authorDetail[1]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    cell.accessoryType = authorDetail[1].length && [[selectedAuthors allKeys] containsObject:authorDetail[1]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     
     return cell;
 }
