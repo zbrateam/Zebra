@@ -11,8 +11,8 @@
 "Done" = "Klar";
 "Loading..." = "Laddar...";
 "Clear" = "Rensa";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Ett fel uppstod";
+"Dismiss" = "Avfärda";
 "Downloads" = "Nedladdningar";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Rapportera en bugg";
 "Changelog" = "Ändringslogg";
 "Wish List" = "Önskelista";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Nyast först";
+"Oldest First" = "Äldst först";
 "No items in Wish List" = "Inga artiklar på önskelistan";
 "Community" = "Gemenskap";
 "Join our Discord" = "Gå med i vår Discord";
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
 "Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Kunde inte ladda ner filen Release från %@. Anledning: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunde inte ladda ner filen Packages från %@. Anledning: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunde inte ladda ner en eller flera filer från %@. Anledning: %@";
 
@@ -423,7 +423,7 @@
 "Add Filter" = "Lägg till filter";
 
 "1 Section Hidden" = "1 sektion dold";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu sektioner dolda";
 
 "Sections" = "Sektioner";
 "Select a Section" = "Välj en sektion";
