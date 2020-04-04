@@ -285,10 +285,8 @@
                 return [ZBDependencyResolver doesPackage:package satisfyComparison:components[1] ofVersion:components[2]];
             }
         }
-        else {
-            if ([[package identifier] isEqualToString:providedPackage]) {
-                return YES;
-            }
+        else if ([[package identifier] isEqualToString:providedPackage]) {
+            return YES;
         }
     }
     
@@ -346,7 +344,7 @@
     [dependency addDependencyOf:package];
     [queue addDependency:dependency];
     
-    return ignore ? YES : [self calculateDependenciesForPackage:dependency];
+    return ignore || [self calculateDependenciesForPackage:dependency];
 }
 
 - (void)enqueueConflict:(ZBPackage *)conflict forPackage:(ZBPackage *)package {

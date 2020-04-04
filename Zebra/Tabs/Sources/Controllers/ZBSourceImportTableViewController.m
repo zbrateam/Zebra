@@ -267,10 +267,10 @@
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self->sourceManager addBaseSources:sources];
-        ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:sources];
+        ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:sources];
         
-        [self.navigationController pushViewController:refresh animated:true];
-        [self.navigationController setNavigationBarHidden:true animated:true];
+        [self.navigationController pushViewController:refresh animated:YES];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     }];
     [areYouSure addAction:yesAction];
     
@@ -278,7 +278,7 @@
     [areYouSure addAction:noAction];
     
     areYouSure.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    [self presentViewController:areYouSure animated:true completion:nil];
+    [self presentViewController:areYouSure animated:YES completion:nil];
 }
 
 #pragma mark - Verification Delegate

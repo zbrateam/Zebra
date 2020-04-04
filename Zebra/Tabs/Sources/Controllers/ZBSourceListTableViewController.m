@@ -275,7 +275,7 @@
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
         [invalidSourceAlert addAction:okAction];
         
-        [self presentViewController:invalidSourceAlert animated:true completion:nil];
+        [self presentViewController:invalidSourceAlert animated:YES completion:nil];
     }
 }
 
@@ -397,7 +397,7 @@
             [malformed addAction:ok];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:malformed animated:true completion:nil];
+                [self presentViewController:malformed animated:YES completion:nil];
             });
         }
         else if ([baseSource exists]) {
@@ -408,7 +408,7 @@
             [youAlreadyAdded addAction:action];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:youAlreadyAdded animated:true completion:nil];
+                [self presentViewController:youAlreadyAdded animated:YES completion:nil];
             });
         }
         else {

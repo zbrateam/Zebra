@@ -273,9 +273,9 @@
             ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
             if (source) {
                 [[ZBSourceManager sharedInstance] addBaseSources:[NSSet setWithObject:source]];
-                ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:[NSSet setWithObject:source]];
+                ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:[NSSet setWithObject:source]];
                 
-                [self presentViewController:refresh animated:true completion:nil];
+                [self presentViewController:refresh animated:YES completion:nil];
             }
             break;
         }

@@ -115,7 +115,7 @@
 }
 
 - (void)goodbye {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Search Results Updating Protocol
@@ -163,7 +163,7 @@
     self->shouldPerformSearching = YES;
     
     [self updateSearchResultsForSearchController:searchController];
-    [self.searchController setActive:false];
+    [self.searchController setActive:NO];
 }
 
 #pragma mark - Table View Data Source
@@ -212,7 +212,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
     if ([selectedAuthors objectForKey:authorDetail[1]]) {

@@ -15,8 +15,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.isInstalledImageView.hidden = true;
-    self.isPaidImageView.hidden = true;
+    self.isInstalledImageView.hidden = YES;
+    self.isPaidImageView.hidden = YES;
     self.packageIconImageView.layer.cornerRadius = 6;
     self.packageIconImageView.clipsToBounds = YES;
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

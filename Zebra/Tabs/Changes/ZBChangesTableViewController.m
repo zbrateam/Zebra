@@ -345,7 +345,7 @@
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:true completion:nil];
+        [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:YES completion:nil];
     }];
 }
 

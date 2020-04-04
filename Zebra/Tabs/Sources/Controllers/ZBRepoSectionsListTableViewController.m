@@ -48,7 +48,7 @@
     
     if (self) {
         self.repo = source;
-        editOnly = true;
+        editOnly = YES;
     }
     
     return self;
@@ -121,7 +121,7 @@
         ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
         [self.view addSubview:accountBanner];
         
-        accountBanner.translatesAutoresizingMaskIntoConstraints = false;
+        accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
         [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
         [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
         [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
@@ -144,7 +144,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (editOnly) [self setEditing:true animated:true];
+    if (editOnly) [self setEditing:YES animated:YES];
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
@@ -368,7 +368,7 @@
     
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
     [filteredSections removeObject:section];
-    [ZBSettings setSection:section filtered:false forSource:self.repo];
+    [ZBSettings setSection:section filtered:NO forSource:self.repo];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -376,7 +376,7 @@
     
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
     [filteredSections addObject:section];
-    [ZBSettings setSection:section filtered:true forSource:self.repo];
+    [ZBSettings setSection:section filtered:YES forSource:self.repo];
 }
 
 #pragma mark - Navigation

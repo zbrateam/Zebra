@@ -166,7 +166,7 @@
     label.textColor = [UIColor primaryTextColor];
     label.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
     label.text = [self tableView:tableView titleForHeaderInSection:section];
-    label.translatesAutoresizingMaskIntoConstraints = false;
+    label.translatesAutoresizingMaskIntoConstraints = NO;
     [contentView addSubview:label];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-16-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
     [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[label]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];

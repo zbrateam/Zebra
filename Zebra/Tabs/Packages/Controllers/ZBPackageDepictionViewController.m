@@ -387,7 +387,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                     else {
                         //This behavior is NOT intended I don't think, packages should be available without logging in...
                         self->previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign In", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signIn)];
-                        self->previousButton.enabled = true;
+                        self->previousButton.enabled = YES;
                         [self setNavigationButtonBusy:NO];
                         
                         self->navButtonsBeingConfigured = NO;

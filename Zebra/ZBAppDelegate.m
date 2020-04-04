@@ -233,7 +233,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     if ([ZBDatabaseManager needsMigration]) {
-        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:true];
+        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
     
     return YES;

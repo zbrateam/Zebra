@@ -155,7 +155,7 @@
     if ([featured objectForKey:[source baseFilename]]) {
         [featured removeObjectForKey:[source baseFilename]];
     }
-    [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:false];
+    [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
 }
 
 //TODO: This needs error pointers

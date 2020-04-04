@@ -288,7 +288,7 @@
         UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
         [clearQueue addAction:noAction];
         
-        [self presentViewController:clearQueue animated:true completion:nil];
+        [self presentViewController:clearQueue animated:YES completion:nil];
     }
     
 }

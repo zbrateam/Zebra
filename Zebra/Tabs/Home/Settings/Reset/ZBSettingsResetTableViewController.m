@@ -51,7 +51,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     switch (indexPath.section) {
         case 0:
@@ -80,10 +80,10 @@
         case 2:
             switch (indexPath.row) {
                 case 0:
-                    [self resetAllSettings:true indexPath:indexPath];
+                    [self resetAllSettings:YES indexPath:indexPath];
                     break;
                 case 1:
-                    [self eraseAllSources:true indexPath:indexPath];
+                    [self eraseAllSources:YES indexPath:indexPath];
                     break;
                 case 2:
                     [self eraseSourcesAndSettings:indexPath];
@@ -117,13 +117,13 @@
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     });
 }
 
 - (void)resetSourcesCache:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Reset Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:true];
+        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
         [self presentViewController:refreshController animated:YES completion:nil];
     } indexPath:indexPath];
 }
@@ -141,14 +141,14 @@
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     });
 }
 
 - (void)resetAllSettings:(BOOL)confirm indexPath:(NSIndexPath *)indexPath {
     if (confirm) {
         [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
-            [self resetAllSettings:false indexPath:indexPath];
+            [self resetAllSettings:NO indexPath:indexPath];
             [ZBDevice exitZebra];
         } indexPath:indexPath];
     }
@@ -165,7 +165,7 @@
 - (void)eraseAllSources:(BOOL)confirm indexPath:(NSIndexPath *)indexPath {
     if (confirm) {
         [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.", @"") callback:^{
-            [self eraseAllSources:false indexPath:indexPath];
+            [self eraseAllSources:NO indexPath:indexPath];
             [ZBDevice exitZebra];
         } indexPath:indexPath];
     }
@@ -184,7 +184,7 @@
 - (void)eraseSourcesAndSettings:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.", @"") callback:^{
         [self confirmationControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
-            [self resetAllSettings:false indexPath:indexPath];
+            [self resetAllSettings:NO indexPath:indexPath];
             
             NSError *error;
             [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
@@ -216,7 +216,7 @@
     [alert addAction:noAction];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     });
 }
 

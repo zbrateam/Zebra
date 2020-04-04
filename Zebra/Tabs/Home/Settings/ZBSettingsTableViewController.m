@@ -531,7 +531,7 @@ enum ZBMiscOrder {
         UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
         [noMagicWord addAction:ok];
         
-        [self presentViewController:noMagicWord animated:true completion:nil];
+        [self presentViewController:noMagicWord animated:YES completion:nil];
     }
 }
 

@@ -171,10 +171,10 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:true];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     searchController.searchBar.text = recentSearches[indexPath.row];
-    searchController.active = true;
+    searchController.active = YES;
     [[self searchController].searchBar becomeFirstResponder];
 }
 

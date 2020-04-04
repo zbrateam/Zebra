@@ -180,8 +180,8 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:UsesSystemAccentColorKey]) {
-        [self setUsesSystemAccentColor:false];
-        return false;
+        [self setUsesSystemAccentColor:NO];
+        return NO;
     }
     return [defaults integerForKey:UsesSystemAccentColorKey];
 }
