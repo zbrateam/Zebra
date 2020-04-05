@@ -3,10 +3,12 @@
 #define FIRMWARE_VERSION 6
 
 int main() {
-    Firmware *firmware = [[Firmware alloc] init];
+    NSLog(@"full steam ahead");
 
+    Firmware *firmware = [[Firmware alloc] init];
     [firmware loadInstalledPackages];
-    DeviceInfo *device = [DeviceInfo sharedInstance];
+
+    DeviceInfo *device = [DeviceInfo sharedDevice];
 
     // generate device specific packages
 
