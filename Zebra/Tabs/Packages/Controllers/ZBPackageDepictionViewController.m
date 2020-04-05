@@ -554,35 +554,30 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)initPurchaseLink:(NSURL *)url {
     if (@available(iOS 11.0, *)) {
         static SFAuthenticationSession *session;
-        session = [[SFAuthenticationSession alloc]
-                   initWithURL:url
-                   callbackURLScheme:@"sileo"
-                   completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                       // TODO: Nothing to do here?
-                       ZBLog(@"[Zebra] Purchase callback URL: %@", callbackURL);
-                       if (callbackURL) {
-                           NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                           NSArray *queryItems = urlComponents.queryItems;
-                           NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                           for (NSURLQueryItem *q in queryItems) {
-                               [queryByKeys setValue:[q value] forKey:[q name]];
-                           }
-                           // NSString *token = queryByKeys[@"token"];
-                           // NSString *payment = queryByKeys[@"payment_secret"];
-                           
-                           NSError *error = NULL;
-                           // [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                           if (error) {
-                               ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
-                           }
-                           
-                       } else {
-                           [self configureNavButton];
-                           return;
-                       }
-                       
-                       
-                   }];
+        session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+            if (callbackURL) {
+                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+                NSArray *queryItems = urlComponents.queryItems;
+                NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+                for (NSURLQueryItem *q in queryItems) {
+                    [queryByKeys setValue:[q value] forKey:[q name]];
+                }
+//                 NSString *token = queryByKeys[@"token"];
+//                 NSString *payment = queryByKeys[@"payment_secret"];
+//                
+//                NSError *error = NULL;
+//                [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
+//                if (error) {
+//                    ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
+//                }
+                
+            } else {
+                [self configureNavButton];
+                return;
+            }
+            
+            
+        }];
         [session start];
     } else {
         [ZBDevice openURL:url delegate:self];

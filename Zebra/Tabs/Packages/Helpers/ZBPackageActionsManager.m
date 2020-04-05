@@ -46,6 +46,32 @@
     }
 }
 
++ (UIImage *)systemImageForAction:(ZBQueueType)action API_AVAILABLE(ios(13.0)) {
+    NSString *imageName;
+    switch (action) {
+        case ZBQueueTypeReinstall:
+            imageName = @"arrow.clockwise";
+            break;
+        case ZBQueueTypeUpgrade:
+            imageName = @"arrow.up";
+            break;
+        case ZBQueueTypeRemove:
+            imageName = @"trash";
+            break;
+        case ZBQueueTypeInstall:
+            imageName = @"icloud.and.arrow.down";
+            break;
+        case ZBQueueTypeDowngrade:
+            imageName = @"arrow.down";
+            break;
+            
+        default:
+            break;
+    }
+    UIImageSymbolConfiguration *imgConfig = [UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightHeavy];
+    return [UIImage systemImageNamed:imageName withConfiguration:imgConfig];
+}
+
 + (id)getAction:(int)type title:(NSString *)title queue:(ZBQueueType)queue handler:(void (^)(void))handler {
     id action = nil;
     switch (type) {
@@ -73,31 +99,7 @@
         }
         case 3: { // contextMenuAction
             if (@available(iOS 13.0, *)) {
-                NSString *imageName;
-                switch (queue) {
-                    case ZBQueueTypeReinstall:
-                        imageName = @"arrow.clockwise";
-                        break;
-                    case ZBQueueTypeUpgrade:
-                        imageName = @"arrow.up";
-                        break;
-                    case ZBQueueTypeRemove:
-                        imageName = @"trash";
-                        break;
-                    case ZBQueueTypeInstall:
-                        imageName = @"icloud.and.arrow.down";
-                        break;
-                    case ZBQueueTypeDowngrade:
-                        imageName = @"arrow.down";
-                        break;
-                        
-                    default:
-                        break;
-                }
-                UIImageSymbolConfiguration *imgConfig = [UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightHeavy];
-                UIImage *image = [UIImage systemImageNamed:imageName withConfiguration:imgConfig];
-                
-                UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+                UIAction *uiAction = [UIAction actionWithTitle:title image:[self systemImageForAction:queue] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
                     handler();
                 }];
                 
