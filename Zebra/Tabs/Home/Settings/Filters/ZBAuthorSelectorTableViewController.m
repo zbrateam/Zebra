@@ -148,7 +148,7 @@
 #pragma mark - Search Bar Delegate
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    [self.tableView reloadData];
+    [self refreshTable];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
@@ -169,17 +169,7 @@
 #pragma mark - Table View Data Source
 
 - (void)refreshTable {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:self.tableView
-          duration:0.35f
-          options:UIViewAnimationOptionTransitionCrossDissolve
-          animations:^(void) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadData];
-                [self setNeedsStatusBarAppearanceUpdate];
-            });
-          } completion:nil];
-    });
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -222,7 +212,7 @@
         [selectedAuthors setObject:authorDetail[0] forKey:authorDetail[1]];
     }
     
-    [[self tableView] reloadData];
+    [self refreshTable];
     [self layoutNaviationButtons];
 }
 
