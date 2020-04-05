@@ -63,6 +63,11 @@
 //    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [searchController setActive:YES];
+}
+
 - (void)setupView {
     if (!databaseManager) {
         databaseManager = [ZBDatabaseManager sharedInstance];
@@ -143,6 +148,9 @@
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
     self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [searchController.searchBar becomeFirstResponder];
+    });
 }
 
 #pragma mark - Search Bar Delegate
