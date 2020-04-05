@@ -18,6 +18,7 @@
 #import <Database/ZBColumn.h>
 #import "ZBPurchaseInfo.h"
 #import "UICKeyChainStore.h"
+#import "ZBPackageActionType.h"
 
 @import Crashlytics;
 
@@ -540,29 +541,28 @@
 
 - (NSUInteger)possibleActions {
     if (self.repo.repoID == -1) {
-        // We do nothing with virtual dependencies
-        return 0;
+        return 0; // No actions for virtual dependencies
     }
     if (possibleActions == 0) {
-        // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
-        if ([self isInstalled:NO]) {
+        // Bits order: Show Updates, Hide Updates, Downgrade, Upgrade, Reinstall, Remove, Install
+        if ([self isInstalled:NO]) { // If the package isn't install just show install
             ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
             if ([self isReinstallable]) {
-                possibleActions |= ZBQueueTypeReinstall; // Reinstall
+                possibleActions |= ZBPackageActionReinstall; // Reinstall
             }
             if ([databaseManager packageHasUpdate:self]) {
                 // A package update is even possible for a package installed from repo A, repo A got deleted, and an update comes from repo B
-                possibleActions |= ZBQueueTypeUpgrade; // Upgrade
+                possibleActions |= ZBPackageActionUpgrade; // Upgrade
             }
-            possibleActions |= ZBQueueTypeRemove; // Remove
+            possibleActions |= ZBPackageActionRemove; // Remove
         } else {
-            possibleActions |= ZBQueueTypeInstall; // Install
+            possibleActions |= ZBPackageActionInstall; // Install
         }
-        NSArray *otherVersions = [self otherVersions];
-        if (otherVersions.count) {
+        NSArray *lesserVersions = [self lesserVersions];
+        if (lesserVersions.count) {
             // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
             // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-            possibleActions |= ZBQueueTypeDowngrade; // Select other versions
+            possibleActions |= ZBPackageActionDowngrade; // Select other versions
         }
     }
     return possibleActions;

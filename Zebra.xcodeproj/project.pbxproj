@@ -279,6 +279,7 @@
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
 		8905171F2372398F000F0A32 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		8905455B243A8BEA001C03EA /* ZBPackageActionType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionType.h; sourceTree = "<group>"; };
 		89159FAE21F8E5FD0012C8FE /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		89159FAF21F8E5FD0012C8FE /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		8916912E2367B4D4006E765F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -622,6 +623,7 @@
 				8977B6932206424B00CBACBB /* ZBPackage.m */,
 				8997A9F824035021001894BF /* ZBProxyPackage.h */,
 				8997A9F924035021001894BF /* ZBProxyPackage.m */,
+				8905455B243A8BEA001C03EA /* ZBPackageActionType.h */,
 				9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */,
 				9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */,
 				9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */,
