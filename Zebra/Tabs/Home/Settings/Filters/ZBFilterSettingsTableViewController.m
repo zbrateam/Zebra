@@ -50,7 +50,9 @@
     
     sources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
-        [sources addObject:[ZBSource sourceFromBaseFilename:baseFilename]];
+        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        if (source == nil) continue;
+        [sources addObject:source];
     }
     [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
     

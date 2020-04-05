@@ -179,7 +179,7 @@ NS_ASSUME_NONNULL_BEGIN
 @param baseFilename the base filename
 @return A ZBSource instance for the matching base filename
 */
-- (ZBSource *)repoFromBaseFilename:(NSString *)baseFilename;
+- (ZBSource * _Nullable)repoFromBaseFilename:(NSString *)baseFilename;
 
 /*!
  @brief The next repoID in the database.
