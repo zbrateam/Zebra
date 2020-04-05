@@ -46,8 +46,8 @@
             "type": "repo",
             "appVersion": "1.0.1",
             "name": "YouRepo",
-            "url": "https://yourepo.com/",
-            "icon": "https://yourepo.com/CydiaIcon.png"
+            "url": "https://www.yourepo.com/",
+            "icon": "https://www.yourepo.com/CydiaIcon.png"
         },
         {
             "type": "repo",
