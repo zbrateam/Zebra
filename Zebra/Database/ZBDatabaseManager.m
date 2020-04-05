@@ -591,7 +591,7 @@
     return -1;
 }
 
-- (ZBSource *)repoFromBaseURL:(NSString *)burl {
+- (ZBSource * _Nullable)repoFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
     NSString *baseURL = divide > [burl length] ? burl : [burl substringFromIndex:divide];
@@ -618,7 +618,7 @@
     return nil;
 }
 
-- (ZBSource *)repoFromBaseFilename:(NSString *)baseFilename {
+- (ZBSource * _Nullable)repoFromBaseFilename:(NSString *)baseFilename {
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement;
         ZBSource *repo = nil;
@@ -747,7 +747,7 @@
     return NULL;
 }
 
-- (NSSet <ZBSource *> *)sourcesWithPaymentEndpoint {
+- (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableSet *sources = [NSMutableSet new];
 
@@ -795,7 +795,7 @@
     [self removeDatabaseDelegate:delegate];
 }
 
-- (NSArray *)sectionReadout {
+- (NSArray * _Nullable)sectionReadout {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *sections = [NSMutableArray new];
         
@@ -821,7 +821,7 @@
     return NULL;
 }
 
-- (NSDictionary *)sectionReadoutForRepo:(ZBSource *)repo {
+- (NSDictionary * _Nullable)sectionReadoutForRepo:(ZBSource *)repo {
     if (![repo respondsToSelector:@selector(repoID)]) return NULL;
     
     if ([self openDatabase] == SQLITE_OK) {
@@ -851,7 +851,7 @@
     return NULL;
 }
 
-- (NSURL *)paymentVendorURLForRepo:(ZBSource *)repo {
+- (NSURL * _Nullable)paymentVendorURLForRepo:(ZBSource *)repo {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT VENDOR FROM REPOS WHERE REPOID = %d", [repo repoID]];
         sqlite3_stmt *statement;
@@ -881,7 +881,7 @@
 
 #pragma mark - Package management
 
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering {
+- (NSArray <ZBPackage *> * _Nullable)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query = nil;
@@ -917,11 +917,11 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> *)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
+- (NSArray <ZBPackage *> * _Nullable)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start {
     return [self packagesFromRepo:repo inSection:section numberOfPackages:limit startingAt:start enableFiltering:NO];
 }
 
-- (NSMutableArray <ZBPackage *> *)installedPackages:(BOOL)includeVirtualDependencies {
+- (NSMutableArray <ZBPackage *> * _Nullable)installedPackages:(BOOL)includeVirtualDependencies {
     if ([self openDatabase] == SQLITE_OK) {
         installedPackageIDs = [NSMutableArray new];
         NSMutableArray *installedPackages = [NSMutableArray new];
@@ -1018,7 +1018,7 @@
     return NULL;
 }
 
-- (NSMutableArray <ZBPackage *> *)packagesWithUpdates {
+- (NSMutableArray <ZBPackage *> * _Nullable)packagesWithUpdates {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packagesWithUpdates = [NSMutableArray new];
         
@@ -1058,7 +1058,7 @@
     return NULL;
 }
 
-- (NSArray *)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
+- (NSArray * _Nullable)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
@@ -1102,7 +1102,7 @@
     return NULL;
 }
 
-- (NSArray <NSArray <NSString *> *> *)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch {
+- (NSArray <NSArray <NSString *> *> * _Nullable)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
@@ -1134,7 +1134,7 @@
     return NULL;
 }
 
-- (NSArray <NSString *> *)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch {
+- (NSArray <NSString *> * _Nullable)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
@@ -1166,7 +1166,7 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
+- (NSArray <ZBPackage *> * _Nullable)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE IN ('\%@') ORDER BY NAME COLLATE NOCASE ASC", [requestedPackages componentsJoinedByString:@"','"]];
@@ -1191,7 +1191,7 @@
     return NULL;
 }
 
-- (ZBPackage *)packageFromProxy:(ZBProxyPackage *)proxy {
+- (ZBPackage * _Nullable)packageFromProxy:(ZBProxyPackage *)proxy {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = \'%@\' AND VERSION = \'%@\' AND REPOID = %d LIMIT 1", proxy.identifier, proxy.version, proxy.repoID];
         
@@ -1322,7 +1322,7 @@
     return [self packageIDIsAvailable:package.identifier version:strict ? package.version : NULL];
 }
 
-- (ZBPackage *)packageForID:(NSString *)identifier equalVersion:(NSString *)version {
+- (ZBPackage * _Nullable)packageForID:(NSString *)identifier equalVersion:(NSString *)version {
     if ([self openDatabase] == SQLITE_OK) {
         ZBPackage *package = nil;
         sqlite3_stmt *statement;
@@ -1396,11 +1396,11 @@
 
 #pragma mark - Package lookup
 
-- (ZBPackage *)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
+- (ZBPackage * _Nullable)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
     return [self packageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:NULL];
 }
 
-- (ZBPackage *)packageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
+- (ZBPackage * _Nullable)packageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage * _Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
         packageIdentifier = [packageIdentifier lowercaseString];
         
@@ -1467,11 +1467,11 @@
     return NULL;
 }
 
-- (ZBPackage *_Nullable)installedPackageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
+- (ZBPackage * _Nullable)installedPackageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
     return [self installedPackageThatProvides:identifier thatSatisfiesComparison:comparison ofVersion:version thatIsNot:NULL];
 }
 
-- (ZBPackage *_Nullable)installedPackageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
+- (ZBPackage * _Nullable)installedPackageThatProvides:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
         const char *query;
         const char *firstSearchTerm = [[NSString stringWithFormat:@"%%, %@ (%%", packageIdentifier] UTF8String];
@@ -1536,11 +1536,11 @@
     return NULL;
 }
 
-- (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
+- (ZBPackage * _Nullable)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
     return [self packageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:YES];
 }
 
-- (ZBPackage *)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
+- (ZBPackage * _Nullable)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
     if ([self openDatabase] == SQLITE_OK) {
         ZBPackage *package = nil;
         sqlite3_stmt *statement;
@@ -1590,15 +1590,15 @@
     return NULL;
 }
 
-- (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
+- (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version {
     return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:YES thatIsNot:NULL];
 }
 
-- (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
+- (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
     return [self installedPackageForIdentifier:identifier thatSatisfiesComparison:comparison ofVersion:version includeVirtualPackages:checkVirtual thatIsNot:NULL];
 }
 
-- (ZBPackage *_Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
+- (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query;
         if (exclude) {
@@ -1640,19 +1640,19 @@
     return NULL;
 }
 
-- (NSArray *)allVersionsForPackage:(ZBPackage *)package {
+- (NSArray * _Nullable)allVersionsForPackage:(ZBPackage *)package {
     return [self allVersionsForPackageID:package.identifier inRepo:NULL];
 }
 
-- (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier {
+- (NSArray * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier {
     return [self allVersionsForPackageID:packageIdentifier inRepo:NULL];
 }
 
-- (NSArray *)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo {
+- (NSArray * _Nullable)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo {
     return [self allVersionsForPackageID:package.identifier inRepo:repo];
 }
 
-- (NSArray *)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo {
+- (NSArray * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *allVersions = [NSMutableArray new];
         
@@ -1689,11 +1689,11 @@
     return NULL;
 }
 
-- (NSArray *)otherVersionsForPackage:(ZBPackage *)package {
+- (NSArray * _Nullable)otherVersionsForPackage:(ZBPackage *)package {
     return [self otherVersionsForPackageID:package.identifier version:package.version];
 }
 
-- (NSArray *)otherVersionsForPackageID:(NSString *)packageIdentifier version:(NSString *)version {
+- (NSArray * _Nullable)otherVersionsForPackageID:(NSString *)packageIdentifier version:(NSString *)version {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *otherVersions = [NSMutableArray new];
         
@@ -1723,7 +1723,7 @@
     return NULL;
 }
 
-- (NSArray *)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch {
+- (NSArray * _Nullable)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         
@@ -1772,7 +1772,7 @@
     return NULL;
 }
 
-- (NSArray *)packagesWithDescription:(NSString *)description fullSearch:(BOOL)fullSearch {
+- (NSArray * _Nullable)packagesWithDescription:(NSString *)description fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
         
@@ -1818,7 +1818,7 @@
     return NULL;
 }
 
-- (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedRepos {
+- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedRepos {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSMutableArray *repoIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
@@ -1863,11 +1863,11 @@
     return allVersions.count ? allVersions[0] : nil;
 }
 
-- (NSArray <ZBPackage *> *)packagesThatDependOn:(ZBPackage *)package {
+- (NSArray <ZBPackage *> * _Nullable)packagesThatDependOn:(ZBPackage *)package {
     return [self packagesThatDependOnPackageIdentifier:[package identifier] removedPackage:package];
 }
 
-- (NSArray <ZBPackage *> *)packagesThatDependOnPackageIdentifier:(NSString *)packageIdentifier removedPackage:(ZBPackage *)package {
+- (NSArray <ZBPackage *> * _Nullable)packagesThatDependOnPackageIdentifier:(NSString *)packageIdentifier removedPackage:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         
@@ -1935,7 +1935,7 @@
     return NULL;
 }
 
-- (NSArray <ZBPackage *> *)packagesThatConflictWith:(ZBPackage *)package {
+- (NSArray <ZBPackage *> * _Nullable)packagesThatConflictWith:(ZBPackage *)package {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         
@@ -2156,7 +2156,7 @@
     }
 }
 
-- (NSString *_Nullable)installedVersionForPackage:(ZBPackage *)package {
+- (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package {
     NSString *version = NULL;
     if ([self openDatabase] == SQLITE_OK) {
         NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE PACKAGE = '%@' AND REPOID = 0", [package identifier]];
@@ -2182,7 +2182,7 @@
     return version;
 }
 
-- (NSString *)excludeStringFromArray:(NSArray *)array {
+- (NSString * _Nullable)excludeStringFromArray:(NSArray *)array {
     if ([array count]) {
         NSMutableString *result = [@"(" mutableCopy];
         [result appendString:[NSString stringWithFormat:@"\'%@\'", array[0]]];
