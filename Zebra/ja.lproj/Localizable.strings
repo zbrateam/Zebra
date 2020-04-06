@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "リリースファイルを %@ からダウンロードできませんでした。理由：%@";
 "Could not download Packages file from %@. Reason: %@" = "パッケージファイルを%@からダウンロードできませんでした。理由：%@";
 "Could not download one or more files from %@. Reason: %@" = "一つ以上のファイルを%@からダウンロードできませんでした。理由：%@";
 
@@ -307,7 +307,7 @@
 "Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Restarting SpringBoard..." = "SpringBoard を再起動しています...";
-"Parsing %@" = "%@ を解析中";
+"Parsing %@" = "%@ を解析しています";
 "Starting Download" = "ダウンロードを開始します。";
 "Downloading" = "ダウンロードしています";
 "Downloading %@" = "%@ をダウンロードしています";
@@ -423,7 +423,7 @@
 "Add Filter" = "フィルターを追加";
 
 "1 Section Hidden" = "一つのセクションが非表示になっています";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu つのセクションが非表示になっています";
 
 "Sections" = "セクション";
 "Select a Section" = "セクションを選択";
@@ -436,16 +436,16 @@
 "Updates" = "アップデート";
 "Hide future updates from these packages." = "これらのパッケージのアップデートを非表示にします。";
 
-"Authors" = "作者";
-"Hide packages from these authors." = "これらの作者からのパッケージを非表示にします";
-"Search for an Author" = "作者を検索";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "製作者";
+"Hide packages from these authors." = "これらの製作者からのパッケージを非表示にします";
+"Search for an Author" = "製作者を検索";
+"This author also goes by the following names:" = "この製作者は、次の名前も使用しています:";
 
 // Language Settings
 
 "Language" = "言語";
 "Apply" = "適用";
 "Restart Required" = "再起動が必要です";
-"Zebra must be closed in order to change preferred language" = "言語を変更するためには Zebraを閉じる必要があります";
+"Zebra must be closed in order to change preferred language" = "言語を変更するためには Zebra を閉じる必要があります";
 "Restart" = "再起動";
-"Use System Language" = "システムの言語を使用";
+"Use System Language" = "システム言語を使用";
