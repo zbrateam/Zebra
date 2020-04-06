@@ -11,8 +11,8 @@
 "Done" = "Fertig";
 "Loading..." = "Laden...";
 "Clear" = "Leeren";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Ein Fehler ist aufgetreten";
+"Dismiss" = "Verwerfen";
 "Downloads" = "Downloads";
 
 // Home
@@ -423,7 +423,7 @@
 "Add Filter" = "Filter hinzufügen";
 
 "1 Section Hidden" = "1 Abschnitt versteckt";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu-Bereiche ausgeblendet";
 
 "Sections" = "Abschnitte";
 "Select a Section" = "Einen Abschnitt auswählen";
@@ -439,7 +439,7 @@
 "Authors" = "Ersteller";
 "Hide packages from these authors." = "Pakete von diesen Erstellern ausblenden.";
 "Search for an Author" = "Nach einem Autor suchen";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Dieser Autor ist auch unter den folgenden Namen bekannt:";
 
 // Language Settings
 
