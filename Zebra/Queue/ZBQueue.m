@@ -409,30 +409,6 @@
     }
 }
 
-- (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)icon {
-    BOOL useIcon = icon && [ZBDevice useIcon];
-    
-    switch (queue) {
-        case ZBQueueTypeInstall:
-            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
-        case ZBQueueTypeReinstall:
-            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
-        case ZBQueueTypeRemove:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
-        case ZBQueueTypeUpgrade:
-            return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
-        case ZBQueueTypeDowngrade:
-            return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
-        case ZBQueueTypeDependency:
-            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
-        case ZBQueueTypeConflict:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
-        default:
-            break;
-    }
-    return @"Undefined";
-}
-
 - (NSArray <NSNumber *> *)actionsToPerform {
     NSMutableArray *actions = [NSMutableArray new];
     

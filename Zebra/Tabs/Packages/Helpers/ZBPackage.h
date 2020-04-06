@@ -62,7 +62,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)otherVersions;
 - (NSArray <ZBPackage *> *)lesserVersions;
 - (NSArray <ZBPackage *> *)greaterVersions;
-- (NSUInteger)possibleActions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
 - (NSString *)downloadSizeString;
@@ -76,7 +75,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addIssue:(NSString *)issue;
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
-- (void)_setPossibleActions:(NSUInteger)actions;
 @end
 
 NS_ASSUME_NONNULL_END

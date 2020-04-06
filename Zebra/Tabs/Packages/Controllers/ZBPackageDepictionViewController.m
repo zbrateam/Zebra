@@ -23,6 +23,7 @@
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBPurchaseInfo.h"
+#import <Packages/Helpers/ZBPackageActionType.h>
 
 @import SDWebImage;
 @import Crashlytics;
@@ -348,64 +349,74 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (navButtonsBeingConfigured) return;
     
     navButtonsBeingConfigured = YES;
-    if ([package isInstalled:NO]) { //Show "Modify" button
-        if ([package isReinstallable]) {
-            if ([package isPaid]) {
-                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-                    if (info && info.purchased && info.available) {
-                        self.purchased = YES;
-                        self->package.sileoDownload = YES;
-                    }
-                    [self showModifyButton:YES];
-                }];
-            }
-            else {
-                navButtonsBeingConfigured = NO;
-                [self showModifyButton:YES];
-            }
-        }
-        else {
-            navButtonsBeingConfigured = NO;
-            [self showModifyButton:YES];
-        }
-    }
-    else if ([package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
-        [self setNavigationButtonBusy:YES];
-        [package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
-            if (info) {
-                self.package.sileoDownload = YES;
-                self.purchased = info.purchased;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (info.price && !(info.error || info.recoveryURL)) {
-                        NSString *buttonText = info.purchased ? NSLocalizedString(@"Install", @"") : info.price;
-                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:buttonText style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                        self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                        [self setNavigationButtonBusy:NO];
-                        
-                        self->navButtonsBeingConfigured = NO;
-                    }
-                    else {
-                        //This behavior is NOT intended I don't think, packages should be available without logging in...
-                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign In", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signIn)];
-                        self->previousButton.enabled = YES;
-                        [self setNavigationButtonBusy:NO];
-                        
-                        self->navButtonsBeingConfigured = NO;
-                    }
-                });
-            }
-            else {
-                self->navButtonsBeingConfigured = NO;
-                [self showInstallButton];
-            }
-        }];
-    }
-    else {
-        // Show the modify button as a last resort
-        self->navButtonsBeingConfigured = NO;
-        [self showModifyButton:NO];
-    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(navButton)];
+        self.navigationItem.rightBarButtonItem = button;
+    });
 }
+
+- (void)navButton {
+    
+}
+    
+//    if ([package isInstalled:NO]) { //Show "Modify" button
+//        if ([package isReinstallable]) {
+//            if ([package isPaid]) {
+//                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+//                    if (info && info.purchased && info.available) {
+//                        self.purchased = YES;
+//                        self->package.sileoDownload = YES;
+//                    }
+//                    [self showModifyButton:YES];
+//                }];
+//            }
+//            else {
+//                navButtonsBeingConfigured = NO;
+//                [self showModifyButton:YES];
+//            }
+//        }
+//        else {
+//            navButtonsBeingConfigured = NO;
+//            [self showModifyButton:YES];
+//        }
+//    }
+//    else if ([package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
+//        [self setNavigationButtonBusy:YES];
+//        [package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
+//            if (info) {
+//                self.package.sileoDownload = YES;
+//                self.purchased = info.purchased;
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    if (info.price && !(info.error || info.recoveryURL)) {
+//                        NSString *buttonText = info.purchased ? NSLocalizedString(@"Install", @"") : info.price;
+//                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:buttonText style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
+//                        self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
+//                        [self setNavigationButtonBusy:NO];
+//
+//                        self->navButtonsBeingConfigured = NO;
+//                    }
+//                    else {
+//                        //This behavior is NOT intended I don't think, packages should be available without logging in...
+//                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign In", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signIn)];
+//                        self->previousButton.enabled = YES;
+//                        [self setNavigationButtonBusy:NO];
+//
+//                        self->navButtonsBeingConfigured = NO;
+//                    }
+//                });
+//            }
+//            else {
+//                self->navButtonsBeingConfigured = NO;
+//                [self showInstallButton];
+//            }
+//        }];
+//    }
+//    else {
+//        // Show the modify button as a last resort
+//        self->navButtonsBeingConfigured = NO;
+//        [self showModifyButton:NO];
+//    }
 
 - (void)showInstallButton {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -474,16 +485,16 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
 }
 
-- (void)installPackage {
-    if (package.sileoDownload && !self.purchased) {
-        [self purchasePackage];
-    }
-    else {
-        [ZBPackageActionsManager installPackage:package purchased:self.purchased];
-        [self presentQueue];
-        [self configureNavButton];
-    }
-}
+//- (void)installPackage {
+//    if (package.sileoDownload && !self.purchased) {
+//        [self purchasePackage];
+//    }
+//    else {
+//        [ZBPackageActionsManager installPackage:package purchased:self.purchased];
+//        [self presentQueue];
+//        [self configureNavButton];
+//    }
+//}
 
 - (void)purchasePackage {
     [self setNavigationButtonBusy:YES];
@@ -564,7 +575,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 }
 //                 NSString *token = queryByKeys[@"token"];
 //                 NSString *payment = queryByKeys[@"payment_secret"];
-//                
+//
 //                NSError *error = NULL;
 //                [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
 //                if (error) {
@@ -593,21 +604,21 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self presentQueue];
 }
 
-- (void)modifyPackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
-        [alert addAction:action];
-    }
-    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)ignoredModify {
-    NSUInteger originalActions = package.possibleActions;
-    [package _setPossibleActions:ZBQueueTypeInstall];
-    [self modifyPackage];
-    [package _setPossibleActions:originalActions];
-}
+//- (void)modifyPackage {
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//    for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
+//        [alert addAction:action];
+//    }
+//    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+//    [self presentViewController:alert animated:YES completion:nil];
+//}
+//
+//- (void)ignoredModify {
+//    NSUInteger originalActions = package.possibleActions;
+//    [package _setPossibleActions:ZBQueueTypeInstall];
+//    [self modifyPackage];
+//    [package _setPossibleActions:originalActions];
+//}
 
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
@@ -627,13 +638,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 // 3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
+    return [ZBPackageActionsManager previewActionsForPackage:package inViewController:self parent:_parent];
 }
 
 // Haptic Touch Actions
 
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    return [ZBPackageActionsManager contextMenuActionsForPackage:package indexPath:indexPath viewController:self parent:_parent];
+    return [ZBPackageActionsManager menuElementsForPackage:package atIndexPath:indexPath viewController:self parent:_parent];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {

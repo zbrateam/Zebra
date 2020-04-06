@@ -80,7 +80,7 @@
         NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:NO];
         self.queueStatusLabel.hidden = NO;
         self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
-        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+//        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.queueStatusLabel sizeToFit];
         });

@@ -269,9 +269,7 @@
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
+    return [ZBPackageActionsManager rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
 }
 
 #pragma mark - Navigation

@@ -11,7 +11,6 @@
 #import <ZBDevice.h>
 #import <Parsel/vercmp.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Queue/ZBQueueType.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
@@ -22,9 +21,8 @@
 
 @import Crashlytics;
 
-@interface ZBPackage () {
-    NSUInteger possibleActions;
-}
+@interface ZBPackage ()
+
 @end
 
 @implementation ZBPackage
@@ -537,39 +535,6 @@
     }
     
     return greaterVersions;
-}
-
-- (NSUInteger)possibleActions {
-    if (self.repo.repoID == -1) {
-        return 0; // No actions for virtual dependencies
-    }
-    if (possibleActions == 0) {
-        // Bits order: Show Updates, Hide Updates, Downgrade, Upgrade, Reinstall, Remove, Install
-        if ([self isInstalled:NO]) { // If the package isn't install just show install
-            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            if ([self isReinstallable]) {
-                possibleActions |= ZBPackageActionReinstall; // Reinstall
-            }
-            if ([databaseManager packageHasUpdate:self]) {
-                // A package update is even possible for a package installed from repo A, repo A got deleted, and an update comes from repo B
-                possibleActions |= ZBPackageActionUpgrade; // Upgrade
-            }
-            possibleActions |= ZBPackageActionRemove; // Remove
-        } else {
-            possibleActions |= ZBPackageActionInstall; // Install
-        }
-        NSArray *lesserVersions = [self lesserVersions];
-        if (lesserVersions.count) {
-            // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
-            // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-            possibleActions |= ZBPackageActionDowngrade; // Select other versions
-        }
-    }
-    return possibleActions;
-}
-
-- (void)_setPossibleActions:(NSUInteger)actions {
-    possibleActions = actions;
 }
 
 - (NSString *)longDescription {

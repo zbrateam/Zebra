@@ -122,9 +122,7 @@
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
     
-    return [ZBPackageActionsManager rowActionsForPackage:(ZBPackage *)quantumPackage indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
+    return [ZBPackageActionsManager rowActionsForPackage:(ZBPackage *)quantumPackage inViewController:self atIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
