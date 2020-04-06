@@ -81,6 +81,7 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [moreByAuthor objectAtIndex:indexPath.row];
     return [ZBPackageActionsManager rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+    //reloadRow in completion
 }
     
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
