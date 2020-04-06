@@ -5,7 +5,7 @@
     NSString *_model;
 }
 
-+ (instancetype)sharedInstance {
++ (instancetype)sharedDevice {
     static DeviceInfo *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -17,14 +17,25 @@
     return sharedInstance;
 }
 
+- (void)exitWithError:(NSError *)error andMessage:(NSString *)message {
+    NSLog(@"%@", message);
+    if (error) {
+        NSLog(@"Error: %@", error);
+    }
+    exit(1);
+}
+
 - (void)initCpuArchitecture {
     cpu_type_t type;
     size_t size = sizeof(type);
 
     NXArchInfo const *ai;
     char *cpu = NULL;
-    if (sysctlbyname("hw.cputype", &type, &size, NULL, 0) == 0 && (ai = NXGetArchInfoFromCpuType(type, CPU_SUBTYPE_MULTIPLE)) != NULL)
+    if (sysctlbyname("hw.cputype", &type, &size, NULL, 0) == 0 && (ai = NXGetArchInfoFromCpuType(type, CPU_SUBTYPE_MULTIPLE)) != NULL) {
         cpu = (char *)ai->name;
+    } else {
+        [self exitWithError:nil andMessage:@"Error getting cpu architecture"];
+    }
 
     self->_cpuArchitecture = [NSString stringWithCString:cpu encoding:NSUTF8StringEncoding];
 
@@ -39,14 +50,14 @@
         self->_model = [NSString stringWithCString:self->_systemInfo.machine encoding:NSUTF8StringEncoding];
     } else {
         size_t size;
-        char *cModel;
+        char *model;
 
         sysctlbyname("hw.model", NULL, &size, NULL, 0);
-        cModel = malloc(size);
-        sysctlbyname("hw.model", cModel, &size, NULL, 0);
+        model = malloc(size);
+        sysctlbyname("hw.model", model, &size, NULL, 0);
 
-        self->_model = [NSString stringWithCString:cModel encoding:NSUTF8StringEncoding];
-        free(cModel);
+        self->_model = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
+        free(model);
     }
 }
 
@@ -55,9 +66,7 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
 
     if (!regex) {
-        NSLog(@"Error parsing regex: '%@'", pattern);
-        NSLog(@"Error: %@", error);
-        exit(1);
+        [self exitWithError:error andMessage:[NSString stringWithFormat:@"Error parsing regex: '%@'", pattern]];
     }
 
     return regex;
@@ -89,27 +98,15 @@
 }
 
 - (NSString *)getDebianArchitecture {
-    if (self->_ios) {
-        return @"iphoneos-arm";
-    } else {
-        return @"cydia";
-    }
+    return self->_ios ? @"iphoneos-arm" : @"cydia";
 }
 
 - (NSString *)getOperatingSystem {
-    if (self->_ios) {
-        return @"ios";
-    } else {
-        return @"macosx";
-    }
+    return self->_ios ? @"ios" : @"macosx";
 }
 
 - (NSString *)getDPKGDataDirectory {
-    if (self->_ios) {
-        return @"/var/lib/dpkg";
-    } else {
-        return @"/Library/Cydia/dpkg";
-    }
+    return self->_ios ? @"/var/lib/dpkg" : @"/var/lib/dpkg";
 }
 
 - (NSDictionary *)getCapabilities {
@@ -128,9 +125,7 @@
     NSDictionary *unfilteredCapabilities = [NSPropertyListSerialization propertyListWithData:gsscData options:NSPropertyListMutableContainersAndLeaves format:nil error:&error];
 
     if (!unfilteredCapabilities) {
-        NSLog(@"Error parsing device capabilites from GSSC");
-        NSLog(@"Error: %@", error);
-        exit(1);
+        [self exitWithError:error andMessage:@"Error parsing device capabilites from GSSC"];
     }
 
     NSRegularExpression *numberRegex = [self regexWithPattern:@"^[0-9]+$"];

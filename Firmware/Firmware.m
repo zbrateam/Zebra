@@ -10,7 +10,7 @@
     self = [super init];
     if (self) {
         self->_status = [[NSMutableString alloc] init];
-        self->_deviceInfo = [DeviceInfo sharedInstance];
+        self->_deviceInfo = [DeviceInfo sharedDevice];
         self->_dataDirectory = [self->_deviceInfo getDPKGDataDirectory];
     }
     return self;
@@ -124,10 +124,8 @@
                            [self->_deviceInfo getDebianArchitecture]];
     });
 
-    // Create list file for package
     [self generatePackageListFile:package];
 
-    // Add package to status
     [self->_status appendFormat:packageTemplate, package, version, description];
 }
 
@@ -152,10 +150,8 @@
                            [self->_deviceInfo getDebianArchitecture]];
     });
 
-    // Create list file for package
     [self generatePackageListFile:package];
 
-    // Add package to status
     [self->_status appendFormat:packageTemplate, package, version, description, name];
 }
 
@@ -184,7 +180,7 @@
     NSString *statusFile = [self->_dataDirectory stringByAppendingString:@"/status"];
 
     if (![self->_status writeToFile:statusFile atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
-        [self exitWithError:error andMessage:@"Error writing to statusfile"];
+        [self exitWithError:error andMessage:@"Error writing to status file"];
     }
 }
 
@@ -198,10 +194,10 @@
 
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    NSString *userDirectory = @"/User";
+    NSString *userPath = @"/User";
     NSString *varMobileDirectory = @"/var/mobile";
 
-    NSDictionary *userAttributes = [fileManager attributesOfItemAtPath:userDirectory error:nil];
+    NSDictionary *userAttributes = [fileManager attributesOfItemAtPath:userPath error:nil];
 
 
     // copy files from /User to /var/mobile
@@ -209,10 +205,11 @@
     if (userAttributes && ![userAttributes.fileType isEqualToString:NSFileTypeSymbolicLink] && [userAttributes.fileType isEqualToString:NSFileTypeDirectory]) {
         pid_t pid;
         extern char **environ;
+        
         char *argv[] = {
             "/bin/cp",
             "-afT",
-            (char *)[userDirectory UTF8String],
+            (char *)[userPath UTF8String],
             (char *)[varMobileDirectory UTF8String],
             NULL
         };
@@ -222,16 +219,18 @@
     }
 
 
-    // delete user directory
+    // delete item at user path if it exists
 
-    if (![fileManager removeItemAtPath:userDirectory error:&error]) {
-        [self exitWithError:error andMessage:[NSString stringWithFormat:@"Error deleting %@", userDirectory]];
+    if (userAttributes) {
+        if (![fileManager removeItemAtPath:userPath error:&error]) {
+            [self exitWithError:error andMessage:[NSString stringWithFormat:@"Error deleting %@", userPath]];
+        }
     }
 
-    // symlink user directory to mobile user directory
+    // symlink user path to mobile user directory
 
-    if (![fileManager createSymbolicLinkAtPath:userDirectory withDestinationPath:varMobileDirectory error:&error]) {
-        [self exitWithError:error andMessage:[NSString stringWithFormat:@"Error creating symbolic link at %@ to %@", userDirectory, varMobileDirectory]];
+    if (![fileManager createSymbolicLinkAtPath:userPath withDestinationPath:varMobileDirectory error:&error]) {
+        [self exitWithError:error andMessage:[NSString stringWithFormat:@"Error creating symbolic link at %@ to %@", userPath, varMobileDirectory]];
     }
 }
 
