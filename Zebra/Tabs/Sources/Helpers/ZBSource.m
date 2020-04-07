@@ -16,8 +16,9 @@
 #import <ZBUserInfo.h>
 #import <ZBSourceInfo.h>
 
-@interface ZBSource (Private)
-@property (nonatomic) NSURL *paymentVendorURI;
+@interface ZBSource () {
+    NSURL *paymentVendorURI;
+}
 @end
 
 @implementation ZBSource
@@ -93,7 +94,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         
         if (vendorChars != 0) {
             NSString *vendor = [[[NSString alloc] initWithUTF8String:vendorChars] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            [self setPaymentVendorURI:[[NSURL alloc] initWithString:vendor]];
+            self->paymentVendorURI = [[NSURL alloc] initWithString:vendor];
         }
         
         if (architectureChars != 0) {
@@ -239,13 +240,13 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (NSURL *)paymentVendorURL {
-    if (self.paymentVendorURI) {
-        return paymentVendorURI;
+    if (self->paymentVendorURI && self->paymentVendorURI.host && self->paymentVendorURI.scheme) {
+        return self->paymentVendorURI;
     }
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    self.paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
-    return paymentVendorURI;
+    self->paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
+    return self->paymentVendorURI;
 }
 
 - (BOOL)suppotsPaymentAPI {
