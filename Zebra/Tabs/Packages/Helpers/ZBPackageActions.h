@@ -11,12 +11,17 @@
 #import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
 
+#import "ZBPackageActionType.h"
+
 @interface ZBPackageActions : NSObject
-+ (NSArray *)actionsForPackage:(ZBPackage *)package;
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc;
 
 // Might end up condensing these two
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc parent:(UIViewController *)parent;
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package atIndexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent API_AVAILABLE(ios(13.0));
+
++ (UIColor *)colorForAction:(ZBPackageActionType)action;
++ (NSString *)titleForAction:(ZBPackageActionType)action useIcon:(BOOL)icon;
++ (NSString *)buttonTitleForActions:(NSArray *)actions;
 @end

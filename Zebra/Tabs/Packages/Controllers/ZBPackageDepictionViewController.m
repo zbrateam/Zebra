@@ -350,8 +350,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     navButtonsBeingConfigured = YES;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
+    if ([package mightRequirePayment]) {
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:@selector(navButton)];
+        self.navigationItem.rightBarButtonItem = button;
+    }
+    
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:@"hullo!" style:UIBarButtonItemStylePlain target:self action:@selector(navButton)];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
         self.navigationItem.rightBarButtonItem = button;
     });
 }

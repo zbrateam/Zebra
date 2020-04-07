@@ -7,6 +7,8 @@
 //
 
 #import "ZBPackage.h"
+#import "ZBPackageActionType.h"
+
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <Parsel/vercmp.h>
@@ -17,12 +19,12 @@
 #import <Database/ZBColumn.h>
 #import "ZBPurchaseInfo.h"
 #import "UICKeyChainStore.h"
-#import "ZBPackageActionType.h"
+#import <Queue/ZBQueue.h>
 
 @import Crashlytics;
 
 @interface ZBPackage ()
-
+@property (nonatomic) NSArray *possibleActions;
 @end
 
 @implementation ZBPackage
@@ -616,6 +618,61 @@
 
 - (BOOL)isEssentialOrRequired {
     return essential || [[priority lowercaseString] isEqualToString:@"required"];
+}
+
+- (NSArray *)possibleActions {
+    if ([self.possibleActions count]) return self.possibleActions;
+    
+    NSMutableArray *actions = [NSMutableArray new];
+    ZBQueue *queue = [ZBQueue sharedQueue];
+    
+    if ([[self repo] repoID] == -1) {
+        return 0; // No actions for virtual dependencies
+    }
+    if ([self isInstalled:NO]) {
+        // If the package is installed then we can show other options
+        if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self isReinstallable]) {
+            // Search for the same version of this package in the database
+            [actions addObject:@(ZBPackageActionReinstall)];
+        }
+            
+        if (![queue contains:self inQueue:ZBQueueTypeUpgrade] && [[self greaterVersions] count] ) {
+            // Only going to explicitly show an "Upgrade" button if there are higher versions available
+            [actions addObject:@(ZBPackageActionUpgrade)]; // Select higher verions
+        }
+            
+        if (![queue contains:self inQueue:ZBQueueTypeDowngrade] && [[self lesserVersions] count]) {
+            // Only going to explicily show a "Downgrade" button if there are lower verisons available
+            [actions addObject:@(ZBPackageActionDowngrade)];
+        }
+        
+        if ([self ignoreUpdates]) {
+            // Updates are ignored, show them
+            [actions addObject:@(ZBPackageActionShowUpdates)];
+        }
+        else {
+            // Updates are not ignored, give the option to hide them
+            [actions addObject:@(ZBPackageActionHideUpdates)];
+        }
+        [actions addObject:@(ZBPackageActionRemove)]; // Show the remove button regardless
+    }
+    else {
+        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
+            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
+            if ([self ignoreUpdates]) {
+                // Updates are ignored, show them
+                [actions addObject:@(ZBPackageActionShowUpdates)];
+            }
+            else {
+                // Updates are not ignored, give the option to hide them
+                [actions addObject:@(ZBPackageActionHideUpdates)];
+            }
+        }
+        [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
+    }
+    
+    self.possibleActions = [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    return self.possibleActions;
 }
 
 @end

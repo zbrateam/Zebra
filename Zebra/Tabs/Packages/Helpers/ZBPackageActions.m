@@ -8,7 +8,6 @@
 
 #import "ZBPackageActions.h"
 #import "ZBPackage.h"
-#import "ZBPackageActionType.h"
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
@@ -21,138 +20,6 @@
 
 
 @implementation ZBPackageActions
-
-#pragma mark - Calculating Actions
-
-+ (NSArray *)actionsForPackage:(ZBPackage *)package {
-    NSMutableArray *actions = [NSMutableArray new];
-    ZBQueue *queue = [ZBQueue sharedQueue];
-    
-    if ([[package repo] repoID] == -1) {
-        return 0; // No actions for virtual dependencies
-    }
-    if ([package isInstalled:NO]) {
-        // If the package is installed then we can show other options
-        if (![queue contains:package inQueue:ZBQueueTypeReinstall] && [package isReinstallable]) {
-            // Search for the same version of this package in the database
-            [actions addObject:@(ZBPackageActionReinstall)];
-        }
-            
-        if (![queue contains:package inQueue:ZBQueueTypeUpgrade] && [[package greaterVersions] count] ) {
-            // Only going to explicitly show an "Upgrade" button if there are higher versions available
-            [actions addObject:@(ZBPackageActionUpgrade)]; // Select higher verions
-        }
-            
-        if (![queue contains:package inQueue:ZBQueueTypeDowngrade] && [[package lesserVersions] count]) {
-            // Only going to explicily show a "Downgrade" button if there are lower verisons available
-            [actions addObject:@(ZBPackageActionDowngrade)];
-        }
-        
-        if ([package ignoreUpdates]) {
-            // Updates are ignored, show them
-            [actions addObject:@(ZBPackageActionShowUpdates)];
-        }
-        else {
-            // Updates are not ignored, give the option to hide them
-            [actions addObject:@(ZBPackageActionHideUpdates)];
-        }
-        [actions addObject:@(ZBPackageActionRemove)]; // Show the remove button regardless
-    }
-    else {
-        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:package] && [package isEssentialOrRequired]) {
-            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
-            if ([package ignoreUpdates]) {
-                // Updates are ignored, show them
-                [actions addObject:@(ZBPackageActionShowUpdates)];
-            }
-            else {
-                // Updates are not ignored, give the option to hide them
-                [actions addObject:@(ZBPackageActionHideUpdates)];
-            }
-        }
-        [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
-    }
-    return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-}
-
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath {
-    NSMutableArray *rowActions = [NSMutableArray new];
-    
-    NSArray *actions = [self actionsForPackage:package];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        if (action == ZBPackageActionShowUpdates || action == ZBPackageActionHideUpdates) continue;
-        
-        NSString *title = [self titleForAction:action useIcon:YES];
-        UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
-        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
-            [self performAction:action forPackage:package];
-        }];
-        
-        [rowAction setBackgroundColor:[self colorForAction:action]];
-        [rowActions addObject:rowAction];
-    }
-    
-    return (NSArray *)rowActions;
-}
-
-+ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc {
-    NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
-    
-    NSArray *actions = [self actionsForPackage:package];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
-        NSString *title = [self titleForAction:action useIcon:NO];
-        UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
-            [self performAction:action forPackage:package];
-        }];
-        [alertActions addObject:alertAction];
-    }
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
-    [alertActions addObject:cancel];
-    
-    return (NSArray *)alertActions;
-}
-
-+ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc parent:(UIViewController *)parent {
-    NSMutableArray <UIPreviewAction *> *previewActions = [NSMutableArray new];
-    
-    NSArray *actions = [self actionsForPackage:package];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
-        NSString *title = [self titleForAction:action useIcon:NO];
-        UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
-        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
-            [self performAction:action forPackage:package];
-        }];
-        
-        [previewActions addObject:previewAction];
-    }
-    
-    return (NSArray *)previewActions;
-}
-
-+ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package atIndexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent API_AVAILABLE(ios(13.0)) {
-    NSMutableArray <UIAction *> *uiActions = [NSMutableArray new];
-    
-    NSArray *actions = [self actionsForPackage:package];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
-        NSString *title = [self titleForAction:action useIcon:NO];
-        UIImage *image = [self systemImageForAction:action];
-        
-        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
-            [self performAction:action forPackage:package];
-        }];
-        [uiActions addObject:uiAction];
-    }
-    
-    return (NSArray *)uiActions;
-}
 
 #pragma mark - Package Actions
 
@@ -332,6 +199,87 @@
             });
         }
     }
+}
+
+#pragma mark - Display Actions
+
++ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *rowActions = [NSMutableArray new];
+    
+    NSArray *actions = [package possibleActions];
+    for (NSNumber *number in actions) {
+        ZBPackageActionType action = number.intValue;
+        if (action == ZBPackageActionShowUpdates || action == ZBPackageActionHideUpdates) continue;
+        
+        NSString *title = [self titleForAction:action useIcon:YES];
+        UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
+        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
+            [self performAction:action forPackage:package];
+        }];
+        
+        [rowAction setBackgroundColor:[self colorForAction:action]];
+        [rowActions addObject:rowAction];
+    }
+    
+    return (NSArray *)rowActions;
+}
+
++ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc {
+    NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
+    
+    NSArray *actions = [package possibleActions];
+    for (NSNumber *number in actions) {
+        ZBPackageActionType action = number.intValue;
+        
+        NSString *title = [self titleForAction:action useIcon:NO];
+        UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
+            [self performAction:action forPackage:package];
+        }];
+        [alertActions addObject:alertAction];
+    }
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
+    [alertActions addObject:cancel];
+    
+    return (NSArray *)alertActions;
+}
+
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc parent:(UIViewController *)parent {
+    NSMutableArray <UIPreviewAction *> *previewActions = [NSMutableArray new];
+    
+    NSArray *actions = [package possibleActions];
+    for (NSNumber *number in actions) {
+        ZBPackageActionType action = number.intValue;
+        
+        NSString *title = [self titleForAction:action useIcon:NO];
+        UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
+        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
+            [self performAction:action forPackage:package];
+        }];
+        
+        [previewActions addObject:previewAction];
+    }
+    
+    return (NSArray *)previewActions;
+}
+
++ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package atIndexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent API_AVAILABLE(ios(13.0)) {
+    NSMutableArray <UIAction *> *uiActions = [NSMutableArray new];
+    
+    NSArray *actions = [package possibleActions];
+    for (NSNumber *number in actions) {
+        ZBPackageActionType action = number.intValue;
+        
+        NSString *title = [self titleForAction:action useIcon:NO];
+        UIImage *image = [self systemImageForAction:action];
+        
+        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
+            [self performAction:action forPackage:package];
+        }];
+        [uiActions addObject:uiAction];
+    }
+    
+    return (NSArray *)uiActions;
 }
 
 #pragma mark - Displaying Actions to User
