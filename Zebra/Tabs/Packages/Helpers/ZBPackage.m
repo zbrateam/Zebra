@@ -369,9 +369,13 @@
     return [tags containsObject:@"cydia::commercial"];
 }
 
+- (BOOL)mightRequirePayment {
+    return [self isPaid] && [[self repo] suppotsPaymentAPI];
+}
+
 - (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
     //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
-    if (![self isPaid] || [[self repo] repoID] < 1 || ![[self repo] paymentVendorURL]) {
+    if ([[self repo] repoID] < 1 || ![self mightRequirePayment]) {
         completion(NULL);
         return;
     }
@@ -379,7 +383,6 @@
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     NSURL *packageInfoURL = [[[self repo] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
-    NSLog(@"Package Info URL: %@", packageInfoURL);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];

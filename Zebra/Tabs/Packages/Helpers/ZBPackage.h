@@ -75,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addIssue:(NSString *)issue;
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
+- (BOOL)mightRequirePayment;
 @end
 
 NS_ASSUME_NONNULL_END
