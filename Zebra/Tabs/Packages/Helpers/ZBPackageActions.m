@@ -107,25 +107,6 @@
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
             [self performAction:action forPackage:package];
-//            if (q == ZBQueueTypeUpgrade) {
-//                [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
-//            }
-//            else if (q == ZBQueueTypeDowngrade) {
-//                [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
-//            }
-//            else if (q == ZBQueueTypeInstall) {
-//                BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
-//                [self installPackage:package purchased:purchased];
-//            }
-//            else {
-//                [queue addPackage:package toQueue:q];
-//            }
-//
-//            if (completion && q != ZBQueueTypeUpgrade && q != ZBQueueTypeDowngrade) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    completion();
-//                });
-//            }
         }];
         [alertActions addObject:alertAction];
     }
@@ -146,28 +127,6 @@
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
         UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
             [self performAction:action forPackage:package];
-//            if (q == ZBQueueTypeUpgrade) {
-//                [self selectUpgradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
-//            }
-//            else if (q == ZBQueueTypeDowngrade) {
-//                [self selectDowngradeableVersionForPackage:package indexPath:indexPath viewController:vc parent:parent completion:completion];
-//            }
-//            else if (q == ZBQueueTypeInstall) {
-//                BOOL purchased = [vc respondsToSelector:@selector(purchased)] ? [(ZBPackageDepictionViewController *)vc purchased] : NO;
-//                [self installPackage:package purchased:purchased];
-//            }
-//            else if (q == ZBQueueTypeClear) {
-//                [queue removePackage:package];
-//            }
-//            else {
-//                [queue addPackage:package toQueue:q];
-//            }
-//
-//            if (completion && q != ZBQueueTypeUpgrade && q != ZBQueueTypeDowngrade) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    completion();
-//                });
-//            }
         }];
         
         [previewActions addObject:previewAction];

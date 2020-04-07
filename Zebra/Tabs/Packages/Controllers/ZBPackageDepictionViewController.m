@@ -18,7 +18,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
@@ -490,7 +490,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 //        [self purchasePackage];
 //    }
 //    else {
-//        [ZBPackageActionsManager installPackage:package purchased:self.purchased];
+//        [ZBPackageActions installPackage:package purchased:self.purchased];
 //        [self presentQueue];
 //        [self configureNavButton];
 //    }
@@ -606,7 +606,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 //- (void)modifyPackage {
 //    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//    for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
+//    for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package viewController:self parent:_parent]) {
 //        [alert addAction:action];
 //    }
 //    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
@@ -638,13 +638,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 // 3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    return [ZBPackageActionsManager previewActionsForPackage:package inViewController:self parent:_parent];
+    return [ZBPackageActions previewActionsForPackage:package inViewController:self parent:_parent];
 }
 
 // Haptic Touch Actions
 
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    return [ZBPackageActionsManager menuElementsForPackage:package atIndexPath:indexPath viewController:self parent:_parent];
+    return [ZBPackageActions menuElementsForPackage:package atIndexPath:indexPath viewController:self parent:_parent];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {

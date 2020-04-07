@@ -14,7 +14,7 @@
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
 #import <ZBTabBarController.h>
 #import <Sources/Helpers/ZBSource.h>
@@ -447,7 +447,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActionsManager rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+    return [ZBPackageActions rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
     //reloadData in completion
 }
 

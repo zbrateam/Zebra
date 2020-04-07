@@ -17,7 +17,7 @@
 #import "ZBUserInfo.h"
 #import <Tabs/Sources/Helpers/ZBSource.h>
 
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 
 @import SDWebImage;
 
@@ -269,7 +269,7 @@
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+    return [ZBPackageActions rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
 }
 
 #pragma mark - Navigation

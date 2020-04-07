@@ -8,7 +8,7 @@
 
 #import <ZBAppDelegate.h>
 #import "ZBPackagesByAuthorTableViewController.h"
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
@@ -80,7 +80,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [moreByAuthor objectAtIndex:indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+    return [ZBPackageActions rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
     //reloadRow in completion
 }
     

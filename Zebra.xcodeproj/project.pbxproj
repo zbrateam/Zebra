@@ -147,7 +147,7 @@
 		9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */; };
 		9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */; };
 		9E9D3130236D52BF00880215 /* ZBPackagePartitioner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */; };
-		9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */; };
+		9EAE364B2289224E004CBBA3 /* ZBPackageActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActions.m */; };
 		9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */; };
 		BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */; };
 		D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */; };
@@ -465,8 +465,8 @@
 		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
 		9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagePartitioner.h; sourceTree = "<group>"; };
 		9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackagePartitioner.m; sourceTree = "<group>"; };
-		9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActionsManager.m; sourceTree = "<group>"; };
-		9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActionsManager.h; sourceTree = "<group>"; };
+		9EAE364A2289224E004CBBA3 /* ZBPackageActions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageActions.m; sourceTree = "<group>"; };
+		9EAE364C228922D2004CBBA3 /* ZBPackageActions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageActions.h; sourceTree = "<group>"; };
 		9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDevice.h; sourceTree = "<group>"; };
 		9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDevice.m; sourceTree = "<group>"; };
 		9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITabBarItem.h; sourceTree = "<group>"; };
@@ -624,8 +624,8 @@
 				8997A9F824035021001894BF /* ZBProxyPackage.h */,
 				8997A9F924035021001894BF /* ZBProxyPackage.m */,
 				8905455B243A8BEA001C03EA /* ZBPackageActionType.h */,
-				9EAE364C228922D2004CBBA3 /* ZBPackageActionsManager.h */,
-				9EAE364A2289224E004CBBA3 /* ZBPackageActionsManager.m */,
+				9EAE364C228922D2004CBBA3 /* ZBPackageActions.h */,
+				9EAE364A2289224E004CBBA3 /* ZBPackageActions.m */,
 				9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */,
 				9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */,
 			);
@@ -1386,7 +1386,7 @@
 				89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
-				9EAE364B2289224E004CBBA3 /* ZBPackageActionsManager.m in Sources */,
+				9EAE364B2289224E004CBBA3 /* ZBPackageActions.m in Sources */,
 				4910B3A82426BD5C00306C5C /* ZBSourcesAccountBanner.m in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,

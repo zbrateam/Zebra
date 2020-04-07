@@ -8,7 +8,7 @@
 
 #import "ZBSearchResultsTableViewController.h"
 #import <Packages/Helpers/ZBProxyPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <ZBAppDelegate.h>
 #import "ZBLiveSearchResultTableViewCell.h"
@@ -122,7 +122,7 @@
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
     
-    return [ZBPackageActionsManager rowActionsForPackage:(ZBPackage *)quantumPackage inViewController:self atIndexPath:indexPath];
+    return [ZBPackageActions rowActionsForPackage:(ZBPackage *)quantumPackage inViewController:self atIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -9,7 +9,7 @@
 #import "ZBPackageTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import "ZBSource.h"
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
@@ -80,7 +80,7 @@
         NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue useIcon:NO];
         self.queueStatusLabel.hidden = NO;
         self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
-//        self.queueStatusLabel.backgroundColor = [ZBPackageActionsManager colorForAction:queue];
+//        self.queueStatusLabel.backgroundColor = [ZBPackageActions colorForAction:queue];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.queueStatusLabel sizeToFit];
         });

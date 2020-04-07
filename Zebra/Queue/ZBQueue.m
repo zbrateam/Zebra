@@ -9,7 +9,7 @@
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>

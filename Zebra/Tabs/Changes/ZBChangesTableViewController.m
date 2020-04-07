@@ -13,7 +13,7 @@
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import "ZBRedditPosts.h"
@@ -299,8 +299,8 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActionsManager rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
-//    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+    return [ZBPackageActions rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+//    return [ZBPackageActions rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
 //        [UIView performWithoutAnimation:^{
 //            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 //        }];

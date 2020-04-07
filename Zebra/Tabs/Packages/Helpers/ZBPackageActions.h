@@ -1,5 +1,5 @@
 //
-//  ZBPackageActionsManager.h
+//  ZBPackageActions.h
 //  Zebra
 //
 //  Created by Thatchapon Unprasert on 13/5/2019
@@ -11,7 +11,7 @@
 #import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
 
-@interface ZBPackageActionsManager : NSObject
+@interface ZBPackageActions : NSObject
 + (NSArray *)actionsForPackage:(ZBPackage *)package;
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc;
