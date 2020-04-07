@@ -11,8 +11,8 @@
 "Done" = "Gotowe";
 "Loading..." = "Ładowanie...";
 "Clear" = "Wyczyść";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Wystąpił błąd";
+"Dismiss" = "Zamknij";
 "Downloads" = "Pobrane";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Zgłoś błąd";
 "Changelog" = "Zmiany";
 "Wish List" = "Lista Życzeń";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Sortuj od najnowszych";
+"Oldest First" = "Sortuj od najstarszych";
 "No items in Wish List" = "Brak produktów na liście życzeń";
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
@@ -70,8 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Zakończ automatycznie";
-"Hide UDID" = "Hide UDID";
-"Automatic Refresh" = "Automatic Refresh";
+"Hide UDID" = "Ukryj UDID";
+"Automatic Refresh" = "Automatyczne odświeżanie";
 
 // Accent Colors
 
@@ -108,7 +108,7 @@
 
 "Reset" = "Reset";
 "Refresh Icon Cache" = "Odśwież pamięć podręczną ikon";
-"Clear Image Cache" = "Clear Image Cache";
+"Clear Image Cache" = "Wyczyść pamięć podręczną obrazów";
 "Clear Sources Cache" = "Clear Sources Cache";
 "Clear Web Cache" = "Clear Web Cache";
 "Reset All Settings" = "Resetuj wszystkie ustawienia";
