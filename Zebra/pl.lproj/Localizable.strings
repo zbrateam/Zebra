@@ -109,27 +109,27 @@
 "Reset" = "Reset";
 "Refresh Icon Cache" = "Odśwież pamięć podręczną ikon";
 "Clear Image Cache" = "Wyczyść pamięć podręczną obrazów";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Sources Cache" = "Wyczyść pamięć podręczną źródeł";
+"Clear Web Cache" = "Wyczyść pamięć podręczną";
 "Reset All Settings" = "Resetuj wszystkie ustawienia";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Usuń wszystkie źródła";
 "Erase All Sources and Settings" = "Usuń wszystkie źródła i ustawienia";
 
 "Are you sure you want to restart the SpringBoard?" = "Czy na pewno chcesz uruchomić ponownie SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Czy na pewno chcesz odświeżyć pamięć podręczną ikon?\nTwoje urządzenie może stać się nieresponsywne aż proces zostanie ukończony.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Wyczyszczono pamięć podręczną obrazów";
+"Web Cache Cleared" = "Wyczyszczono pamięć podręczną";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Czy na pewno chcesz zresetować pamięć podręczną źródeł Zebra? Spowoduje to usunięcie wszystkich informacji w pamięci podręcznej z bazy danych Zebra i ponowne pobranie. Twoje źródła nie zostaną usunięte.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Czy na pewno chcesz zresetować ustawienia Zebra? Spowoduje to zresetowanie wszystkich ustawień Zebra do wartości domyślnych, a Zebra uruchomi się ponownie.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Czy na pewno chcesz usunąć wszystkie źródła? Wszystkie twoje źródła zostaną usunięte z Zebry, a Zebra zostanie uruchomiona ponownie.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Czy na pewno chcesz usunąć wszystkie źródła i ustawienia? Wszystkie twoje źródła zostaną usunięte z Zebry, a ustawienia zostaną zresetowane.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Wszystkie twoje źródła zostaną usunięte i znikną bezpowrotnie, a Zebra uruchomi się ponownie.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Otwórz katalog dokumenty";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza nie została zainstalowana";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nie może otworzyć katalogu dokumentów, ponieważ Filza nie jest zainstalowana. Katalog dokumentów to: %@";
 
 // Stores
 
@@ -142,7 +142,7 @@
 "Could not complete purchase" = "Nie można ukończyć zakupu";
 "Could not complete purchase, no payment secret was found" = "Nie można ukończyć zakupu, nie znaleziono tajemnicy płatności";
 "No packages purchased" = "Brak zakupionych pakietów";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Zalogowano jako %@(%@)";
 
 // Sources
 
@@ -181,17 +181,17 @@
 "Unable to locate an APT repository at:" = "Nie można zlokalizować repozytorium APT na:";
 "Unable to locate APT repositories at:" = "Nie można zlokalizować repozytoriów APT na:";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Zostaną pobrane %d plik/i";
 
 "Could not parse %@ from %@" = "Nie udało się zanalizować %@ z %@";
 "Could not find a download URL for" = "Nie udało znaleźć się URL pobierania dla";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Nie można pobrać pliku Release z %@. Powód: %@";
+"Could not download Packages file from %@. Reason: %@" = "Nie można pobrać pliku Packages z %@. Powód: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nie można pobrać jednego lub więcej plików z %@. Powód: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Podany adres URL jest nieprawidłowy. Sprawdź go i spróbuj ponownie.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nie mogła pobrać źródła określonego w %@. Może być ono tymczasowo niedostępne lub zostało nieprawidłowo dodane.";
 
 "Please remove this source from your sources.list file." = "Usuń to źródło z pliku sources.list.";
 
@@ -307,10 +307,10 @@
 "Closing Zebra..." = "Zamykanie Zebry...";
 "Restart SpringBoard" = "Uruchom ponownie SpringBoard";
 "Restarting SpringBoard..." = "Restartowanie SpringBoardu...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Analizowanie %@";
 "Starting Download" = "Rozpoczynanie pobierania";
 "Downloading" = "Pobieranie";
-"Downloading %@" = "Downloading %@";
+"Downloading %@" = "Pobieranie %@";
 "Downloading Packages..." = "Pobieranie pakietów...";
 "Download Completed" = "Pobieranie zakończone";
 "Installing" = "Instalowanie";
@@ -330,10 +330,10 @@
 "One or more packages failed to download." = "Jednego lub więcej pakietów nie udało się zaktualizować.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknij \"Powrót do kolejki\" żeby powrócić do kolejki i ponowić pobieranie.";
 "Done..." = "Gotowe...";
-"Done %@" = "Done %@";
+"Done %@" = "Ukończono %@";
 "Removing Zebra..." = "Usuwanie Zebra...";
 "Installing Zebra..." = "Instalowanie Zebry...";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"Adding Payment Vendor URL for %@" = "Dodawanie URL dostawcy płatności dla %@";
 
 // Queue Bar
 
@@ -358,11 +358,11 @@
 "Required Package" = "Wymagany pakiet";
 "Are you sure?" = "Czy jesteś pewny?";
 "Remove from Queue" = "Usuń z kolejki";
-"Clear Queue" = "Clear Queue";
+"Clear Queue" = "Wyczyść Kolejkę";
 "%@ is required by:" = "%@ jest wymagany przez:";
 "%@ must be removed because it depends on %@" = "%@ musi zostać usunięte, bo polega na %@";
 "%@ has issues that cannot be resolved:" = "%@ ma błędy, których nie udało się rozwiązać:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Czy na pewno chcesz wyczyścić kolejkę?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ jest wymaganym pakietem. Nie powinien być usuwany, chyba że wiesz dokładnie, co robisz!";
 
 // Search
@@ -395,7 +395,7 @@
 
 "Display featured packages on the homepage." = "Wyświetlaj polecane pakiety na stronie głównej.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Odśwież źródła Zebry podczas otwierania aplikacji.";
 
 "Display recent community posts from /r/jailbreak." = "Wyświetl ostatnie posty społeczności z /r/jailbreak.";
 
@@ -419,33 +419,33 @@
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtry";
+"Add Filter" = "Dodaj filtr";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "Ukryta 1 Sekcja";
+"%lu Sections Hidden" = "Ukryte %lu sekcje";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Sekcje";
+"Select a Section" = "Wybierz sekcję";
+"Hide packages in these sections." = "Ukryj pakiety w tych sekcjach.";
 
 "Sources" = "Źródła";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Wybierz źródło";
+"Hide packages in these sections from specific sources." = "Ukryj pakiety z określonych źródeł w tych sekcjach.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Aktualizacje";
+"Hide future updates from these packages." = "Ukryj przyszłe aktualizacje tych pakietów.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Autorzy";
+"Hide packages from these authors." = "Ukryj pakiety od tych autorów.";
+"Search for an Author" = "Wyszukaj autora";
+"This author also goes by the following names:" = "Ten autor posługuje się również następującymi pseudonimami:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Language" = "Język";
+"Apply" = "Zastosuj";
+"Restart Required" = "Wymagany restart";
+"Zebra must be closed in order to change preferred language" = "Zebra musi zostać zamknięta w celu zmiany preferowanego języka";
 "Restart" = "Restart";
 "Use System Language" = "Use System Language";
