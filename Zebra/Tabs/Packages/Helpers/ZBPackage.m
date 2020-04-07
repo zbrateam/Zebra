@@ -23,8 +23,9 @@
 
 @import Crashlytics;
 
-@interface ZBPackage ()
-@property (nonatomic) NSArray *possibleActions;
+@interface ZBPackage () {
+    NSArray *possibleActions;
+}
 @end
 
 @implementation ZBPackage
@@ -621,7 +622,7 @@
 }
 
 - (NSArray *)possibleActions {
-    if ([self.possibleActions count]) return self.possibleActions;
+    if ([self->possibleActions count]) return self->possibleActions; // Caching these might actually be a bad idea because I actually base which actions are available on if they're in the queue
     
     NSMutableArray *actions = [NSMutableArray new];
     ZBQueue *queue = [ZBQueue sharedQueue];
@@ -671,7 +672,7 @@
         [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
     }
     
-    self.possibleActions = [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    self->possibleActions = [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
     return self.possibleActions;
 }
 
