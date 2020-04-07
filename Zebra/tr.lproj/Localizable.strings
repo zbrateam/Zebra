@@ -11,8 +11,8 @@
 "Done" = "Tamamla";
 "Loading..." = "Yükleniyor...";
 "Clear" = "Temizle";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Bir Hata Oluştu";
+"Dismiss" = "Yok Say";
 "Downloads" = "İndirmeler";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "%@ kaynağından dosya(lar) indirilemedi. Sebep: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@ kaynağından ilgili Paket Dizinleri indirilemedi. Sebep: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@ kaynağından ilgili dosya(lar) indirilemedi. Sebep: %@";
 
@@ -423,7 +423,7 @@
 "Add Filter" = "Filtre Ekle";
 
 "1 Section Hidden" = "1 Kısım Gizli";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu Kısım Gizli";
 
 "Sections" = "Kısımlar";
 "Select a Section" = "Bir Bölüm Seçin";
@@ -439,7 +439,7 @@
 "Authors" = "Yaratıcılar";
 "Hide packages from these authors." = "Şu geliştiricilerin paketlerini gizle";
 "Search for an Author" = "Bir Geliştiriciyi Ara";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Bu yaratıcı aynı zamanda aşağıdaki isimleri de kullanmaktadır:";
 
 // Language Settings
 
