@@ -16,6 +16,10 @@
 #import <ZBUserInfo.h>
 #import <ZBSourceInfo.h>
 
+@interface ZBSource (Private)
+@property (nonatomic) NSURL *paymentVendorURI;
+@end
+
 @implementation ZBSource
 
 @synthesize sourceDescription;
@@ -25,7 +29,6 @@
 @synthesize codename;
 @synthesize architectures;
 @synthesize repoID;
-@synthesize paymentVendorURI;
 
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
@@ -236,13 +239,19 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (NSURL *)paymentVendorURL {
-    if (paymentVendorURI) {
+    if (self.paymentVendorURI) {
         return paymentVendorURI;
     }
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
+    self.paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
     return paymentVendorURI;
+}
+
+- (BOOL)suppotsPaymentAPI {
+    NSURL *paymentVendorURL = [self paymentVendorURL];
+    
+    return paymentVendorURL && paymentVendorURL.host && paymentVendorURL.scheme;
 }
 
 - (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {

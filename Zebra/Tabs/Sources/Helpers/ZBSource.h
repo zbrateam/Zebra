@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSArray <NSString *> *architectures;
 @property (nonatomic) int repoID;
 
-@property (nonatomic) NSURL *paymentVendorURI;
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 @property (nonatomic) NSURL *iconURL;
@@ -40,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion;
 - (BOOL)isSignedIn;
 - (NSURL *)paymentVendorURL;
+- (BOOL)suppotsPaymentAPI;
 - (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion;
 - (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion;
 @end
