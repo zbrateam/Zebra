@@ -351,15 +351,14 @@
     return @"Undefined";
 }
 
-+ (NSString *)buttonTitleForActions:(NSArray *)actions {
++ (NSString *)buttonTitleForPackage:(ZBPackage *)package {
+    NSArray <NSNumber *> *actions = [package possibleActions];
     if ([actions count] > 1) {
         return NSLocalizedString(@"Modify", @"");
     }
-    else if ((ZBPackageActionType)actions[0] == ZBPackageActionInstall) {
-        return NSLocalizedString(@"Install", @"");
-    }
     else {
-        return NSLocalizedString(@"Remove", @"");
+        ZBPackageActionType action = actions[0].intValue;
+        return [self titleForAction:action useIcon:NO];
     }
 }
 

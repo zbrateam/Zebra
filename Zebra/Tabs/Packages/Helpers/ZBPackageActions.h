@@ -23,5 +23,5 @@
 
 + (UIColor *)colorForAction:(ZBPackageActionType)action;
 + (NSString *)titleForAction:(ZBPackageActionType)action useIcon:(BOOL)icon;
-+ (NSString *)buttonTitleForActions:(NSArray *)actions;
++ (NSString *)buttonTitleForPackage:(ZBPackage *)package;
 @end
