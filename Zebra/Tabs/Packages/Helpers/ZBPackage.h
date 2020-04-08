@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *priority;
 @property int installedSize;
 @property int downloadSize;
-@property BOOL sileoDownload;
+@property BOOL requiresAuthorization;
 @property BOOL essential;
 @property BOOL ignoreDependencies;
 

@@ -25,6 +25,9 @@
 
 @interface ZBPackage () {
     NSArray *possibleActions;
+    
+    BOOL checkedForPurchaseInfo;
+    ZBPurchaseInfo *purchaseInfo;
 }
 @end
 
@@ -373,15 +376,24 @@
 }
 
 - (BOOL)mightRequirePayment {
-    return [self isPaid] && [[self repo] suppotsPaymentAPI];
+    return [self requiresPayment] || ([[self repo] repoID] > 0 && [self isPaid] && [[self repo] suppotsPaymentAPI]);
+}
+
+- (BOOL)requiresPayment {
+    return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
 }
 
 - (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
     //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
-    if ([[self repo] repoID] < 1 || ![self mightRequirePayment]) {
+    if (![self mightRequirePayment]) {
         completion(NULL);
+        
+        purchaseInfo = NULL;
+        self.requiresAuthorization = NO;
         return;
     }
+    
+    checkedForPurchaseInfo = YES;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
@@ -413,14 +425,22 @@
         
         if (statusCode == 200) {
             NSError *error;
+//            NSString *repsonse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//            NSLog(@"response %@", repsonse);
             ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
             
             if (!error) {
                 completion(info);
+                
+                self->purchaseInfo = info;
+                self.requiresAuthorization = YES;
                 return;
             }
             
             completion(NULL);
+            
+            self->purchaseInfo = NULL;
+            self.requiresAuthorization = NO;
             return;
         }
     }];

@@ -156,7 +156,7 @@
             
             [packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
             [downloadDelegate startedPackageDownload:package];
-        } else if (package.sileoDownload) {
+        } else if (package.requiresAuthorization) {
             [self postStatusUpdate:[NSString stringWithFormat:@"Authorizing Download for %@", package.name] atLevel:ZBLogLevelDescript];
             [self authorizeDownloadForPackage:package completion:^(NSURL *downloadURL, NSError *error) {
                 if (downloadURL && !error) {
