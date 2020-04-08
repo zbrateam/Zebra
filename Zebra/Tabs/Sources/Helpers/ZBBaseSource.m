@@ -226,7 +226,7 @@
     
     NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-xz"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -244,7 +244,7 @@
     
     NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-bzip2"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -262,7 +262,7 @@
     
     NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/gzip"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -280,7 +280,7 @@
     
     NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-lzma"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -298,7 +298,7 @@
     
     NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/octet-stream"] || [httpResponse.MIMEType isEqualToString:@"text/plain"])) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
