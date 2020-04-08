@@ -30,18 +30,25 @@
     switch (action) {
         case ZBPackageActionInstall:
             [self install:package];
+            break;
         case ZBPackageActionRemove:
             [self remove:package];
+            break;
         case ZBPackageActionReinstall:
             [self reinstall:package];
+            break;
         case ZBPackageActionUpgrade:
             [self upgrade:package];
+            break;
         case ZBPackageActionDowngrade:
             [self downgrade:package];
+            break;
         case ZBPackageActionShowUpdates:
             [self showUpdatesFor:package];
+            break;
         case ZBPackageActionHideUpdates:
             [self hideUpdatesFor:package];
+            break;
     }
 }
 
@@ -203,7 +210,7 @@
 
 #pragma mark - Display Actions
 
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath {
++ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package {
     NSMutableArray *rowActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];
@@ -224,7 +231,7 @@
     return (NSArray *)rowActions;
 }
 
-+ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc {
++ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package {
     NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];
@@ -244,7 +251,7 @@
     return (NSArray *)alertActions;
 }
 
-+ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc parent:(UIViewController *)parent {
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package {
     NSMutableArray <UIPreviewAction *> *previewActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];
@@ -263,7 +270,7 @@
     return (NSArray *)previewActions;
 }
 
-+ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package atIndexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent API_AVAILABLE(ios(13.0)) {
++ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package API_AVAILABLE(ios(13.0)) {
     NSMutableArray <UIAction *> *uiActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];

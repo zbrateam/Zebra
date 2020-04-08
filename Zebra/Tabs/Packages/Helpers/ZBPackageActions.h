@@ -14,12 +14,12 @@
 #import "ZBPackageActionType.h"
 
 @interface ZBPackageActions : NSObject
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath;
-+ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc;
++ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package;
++ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
 
 // Might end up condensing these two
-+ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inViewController:(UIViewController *)vc parent:(UIViewController *)parent;
-+ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package atIndexPath:(NSIndexPath *)indexPath viewController:(UIViewController *)vc parent:(UIViewController *)parent API_AVAILABLE(ios(13.0));
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package;
++ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package API_AVAILABLE(ios(13.0));
 
 + (UIColor *)colorForAction:(ZBPackageActionType)action;
 + (NSString *)titleForAction:(ZBPackageActionType)action useIcon:(BOOL)icon;

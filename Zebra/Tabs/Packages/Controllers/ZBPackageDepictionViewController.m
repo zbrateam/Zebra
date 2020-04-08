@@ -378,7 +378,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if ([[package possibleActions] count] > 1) {
         UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
-        for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package inViewController:self]) {
+        for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
             [selectAction addAction:action];
         }
         
@@ -641,13 +641,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 // 3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    return [ZBPackageActions previewActionsForPackage:package inViewController:self parent:_parent];
+    return [ZBPackageActions previewActionsForPackage:package];
 }
 
 // Haptic Touch Actions
 
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    return [ZBPackageActions menuElementsForPackage:package atIndexPath:indexPath viewController:self parent:_parent];
+    return [ZBPackageActions menuElementsForPackage:package];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {

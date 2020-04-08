@@ -299,7 +299,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActions rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+    return [ZBPackageActions rowActionsForPackage:package];
 //    return [ZBPackageActions rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
 //        [UIView performWithoutAnimation:^{
 //            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];

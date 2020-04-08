@@ -447,7 +447,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActions rowActionsForPackage:package inViewController:self atIndexPath:indexPath];
+    return [ZBPackageActions rowActionsForPackage:package];
     //reloadData in completion
 }
 
