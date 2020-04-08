@@ -374,8 +374,19 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     });
 }
 
-- (void)performPackageACtion {
-    
+- (void)performPackageAction {
+    if ([[package possibleActions] count] > 1) {
+        UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package inViewController:self]) {
+            [selectAction addAction:action];
+        }
+        
+        [self presentViewController:selectAction animated:true completion:nil];
+    }
+    else {
+        
+    }
 }
     
 //    if ([package isInstalled:NO]) { //Show "Modify" button

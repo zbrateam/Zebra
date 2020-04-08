@@ -342,9 +342,9 @@
         case ZBPackageActionDowngrade:
             return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
         case ZBPackageActionShowUpdates:
-            return NSLocalizedString(@"Install", @"");
+            return NSLocalizedString(@"Show Updates", @"");
         case ZBPackageActionHideUpdates:
-            return NSLocalizedString(@"Remove", @"");
+            return NSLocalizedString(@"Hide Updates", @"");
         default:
             break;
     }
