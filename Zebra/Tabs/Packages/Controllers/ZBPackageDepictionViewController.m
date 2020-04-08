@@ -489,17 +489,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
 }
 
-//- (void)installPackage {
-//    if (package.requiresAuthorization && !self.purchased) {
-//        [self purchasePackage];
-//    }
-//    else {
-//        [ZBPackageActions installPackage:package purchased:self.purchased];
-//        [self presentQueue];
-//        [self configureNavButton];
-//    }
-//}
-
 - (void)purchasePackage {
     [self setNavigationButtonBusy:YES];
     
@@ -544,7 +533,21 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                                 break;
                             }
                             case 1: { //Interaction required
-                                [self initPurchaseLink:[NSURL URLWithString:result[@"url"]]];
+                                NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
+                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
+                                    [self initPurchaseLink:actionLink];
+                                }
+                                else {
+                                    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), result[@"url"]];
+                                    
+                                    UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+                                    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                                    [controller addAction:ok];
+                                    
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self presentViewController:controller animated:YES completion:nil];
+                                    });
+                                }
                                 break;
                             }
                         }
@@ -597,31 +600,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [ZBDevice openURL:url delegate:self];
     }
 }
-
-- (void)removePackage {
-    if (package.repo.repoID == -1) {
-        return;
-    }
-    ZBQueue *queue = [ZBQueue sharedQueue];
-    [queue addPackage:package toQueue:ZBQueueTypeRemove];
-    [self presentQueue];
-}
-
-//- (void)modifyPackage {
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//    for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package viewController:self parent:_parent]) {
-//        [alert addAction:action];
-//    }
-//    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-//    [self presentViewController:alert animated:YES completion:nil];
-//}
-//
-//- (void)ignoredModify {
-//    NSUInteger originalActions = package.possibleActions;
-//    [package _setPossibleActions:ZBQueueTypeInstall];
-//    [self modifyPackage];
-//    [package _setPossibleActions:originalActions];
-//}
 
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
