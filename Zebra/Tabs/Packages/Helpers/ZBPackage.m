@@ -383,7 +383,7 @@
     return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
 }
 
-- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion API_AVAILABLE(ios(11.0)) {
     //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
     if (![self mightRequirePayment]) {
         completion(NULL);
@@ -746,7 +746,7 @@
                                         if (callbackURL && !error) {
                                             completion(YES, nil);
                                         }
-                                        else if (error) {
+                                        else if (error && !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
                                             NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
                                             
                                             NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
