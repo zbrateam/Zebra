@@ -48,9 +48,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     BOOL presented;
     BOOL navButtonsBeingConfigured;
     CGFloat webViewSize;
-    
-    UIBarButtonItem *busyButton;
-    UIBarButtonItem *previousButton;
 }
 @end
 
@@ -92,6 +89,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIActivityIndicatorViewStyle style = [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+    UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
+    [uiBusy startAnimating];
+    
+    UIBarButtonItem *busyButton = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
+    self.navigationItem.rightBarButtonItem = busyButton;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
     if (presented) {
@@ -99,13 +104,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         self.navigationItem.leftBarButtonItem = closeButton;
     }
     
-    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
-    [self.tableView.tableHeaderView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
     infos = [NSMutableDictionary new];
@@ -159,6 +162,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [super viewWillAppear:animated];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self configureNavButton];
 }
 
@@ -191,7 +195,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-// FIXME: This is causing crashese with hexStringFromColor for some reason?
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
@@ -350,38 +353,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     navButtonsBeingConfigured = YES;
     
-    UIBarButtonItem *button = [ZBPackageActions barButtonItemForPackage:package];
-    if ([package mightRequirePayment]) {
-        [self setNavigationButtonBusy:YES];
-        [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-            if (info) { // Package does have purchase info
-                if (!info.purchased && ![self.package isInstalled:NO]) { // If the user has not purchased the package
-                    self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
-                    self->previousButton.enabled = info.available;
-                    [self setNavigationButtonBusy:NO];
-                    self->navButtonsBeingConfigured = NO;
-
-                    return;
-                }
-            }
-            self->previousButton = button;
-            [self setNavigationButtonBusy:NO];
-            self->navButtonsBeingConfigured = NO;
-        }];
-        return;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.rightBarButtonItem = button;
+    [ZBPackageActions barButtonItemForPackage:package completion:^(UIBarButtonItem *barButton) {
         self->navButtonsBeingConfigured = NO;
-    });
+        self.navigationItem.rightBarButtonItem = barButton;
+    }];
 }
 
 - (void)purchasePackage {
     if (@available(iOS 11.0, *)) {
-        [self setNavigationButtonBusy:YES];
         [package purchase:^(BOOL success, NSError * _Nullable error) {
-            [self setNavigationButtonBusy:NO];
             if (success && !error) {
                 [self configureNavButton];
             }
@@ -397,37 +377,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             }
         }];
     }
-}
-
-- (void)setNavigationButtonBusy:(BOOL)busy {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (busy && self.navigationItem.rightBarButtonItem != nil && self.navigationItem.rightBarButtonItem == self->busyButton) return;
-        
-        if (!self->busyButton) {
-            UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [uiBusy startAnimating];
-            
-            self->busyButton = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
-        }
-        
-        if (busy) {
-            //Save the current button into self.previousButton and set busyButton to rightBarButtonItem
-            UIActivityIndicatorView *uiBusy = self->busyButton.customView;
-            if ([ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
-                uiBusy.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            }
-            else {
-                uiBusy.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-            }
-            
-            self->previousButton = self.navigationItem.rightBarButtonItem;
-            self.navigationItem.rightBarButtonItem = self->busyButton;
-        }
-        else {
-            //Otherwise we can set the previousbutton back to where it was.
-            self.navigationItem.rightBarButtonItem = self->previousButton;
-        }
-    });
 }
 
 - (void)dealloc {

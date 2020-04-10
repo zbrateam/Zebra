@@ -26,7 +26,7 @@
 + (void)showUpdatesFor:(ZBPackage *)package;
 + (void)hideUpdatesFor:(ZBPackage *)package;
 
-+ (UIBarButtonItem *)barButtonItemForPackage:(ZBPackage *)package;
++ (void)barButtonItemForPackage:(ZBPackage *)package completion:(void (^)(UIBarButtonItem *barButton))completion;
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
 

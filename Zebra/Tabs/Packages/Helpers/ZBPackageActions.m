@@ -18,6 +18,7 @@
 #import <UIColor+GlobalColors.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Extensions/UIAlertController+Show.h>
+#import <JSONParsing/ZBPurchaseInfo.h>
 
 @implementation ZBPackageActions
 
@@ -210,23 +211,55 @@
 
 #pragma mark - Display Actions
 
-+ (UIBarButtonItem *)barButtonItemForPackage:(ZBPackage *)package {
-    return [[UIBarButtonItem alloc] initWithTitle:[self buttonTitleForPackage:package] style:UIBarButtonItemStylePlain actionHandler:^{
-        NSArray <NSNumber *> *actions = [package possibleActions];
-        if ([actions count] > 1) {
-            UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-            
-            for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
-                [selectAction addAction:action];
++ (void)barButtonItemForPackage:(ZBPackage *)package completion:(void (^)(UIBarButtonItem *barButton))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        UIBarButtonItemActionHandler handler = ^{
+            NSArray <NSNumber *> *actions = [package possibleActions];
+            if ([actions count] > 1) {
+                UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                
+                for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
+                    [selectAction addAction:action];
+                }
+                
+                [selectAction show];
             }
-            
-            [selectAction show];
+            else {
+                ZBPackageActionType action = actions[0].intValue;
+                [self performAction:action forPackage:package];
+            }
+        };
+        
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[self buttonTitleForPackage:package] style:UIBarButtonItemStylePlain actionHandler:handler];
+        if ([package mightRequirePayment]) {
+            [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+                if (info) { // Package does have purchase info
+                    if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
+                        UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain actionHandler:^{
+                            [self performAction:ZBPackageActionInstall forPackage:package];
+                        }];
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(purchaseButton);
+                        });
+                        return;
+                    }
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(button);
+                    });
+                    return;
+                }
+            }];
+            return;
         }
-        else {
-            ZBPackageActionType action = actions[0].intValue;
-            [self performAction:action forPackage:package];
-        }
-    }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(button);
+        });
+        return;
+    });
 }
 
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package {
