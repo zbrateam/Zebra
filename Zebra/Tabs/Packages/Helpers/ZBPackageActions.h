@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
+#import <Extensions/UIBarButtonItem+blocks.h>
 
 #import "ZBPackageActionType.h"
 
@@ -25,6 +26,7 @@
 + (void)showUpdatesFor:(ZBPackage *)package;
 + (void)hideUpdatesFor:(ZBPackage *)package;
 
++ (UIBarButtonItem *)barButtonItemForPackage:(ZBPackage *)package;
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
 

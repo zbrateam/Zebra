@@ -17,7 +17,7 @@
 #import <Queue/ZBQueue.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
-
+#import <Extensions/UIAlertController+Show.h>
 
 @implementation ZBPackageActions
 
@@ -209,6 +209,25 @@
 }
 
 #pragma mark - Display Actions
+
++ (UIBarButtonItem *)barButtonItemForPackage:(ZBPackage *)package {
+    return [[UIBarButtonItem alloc] initWithTitle:[self buttonTitleForPackage:package] style:UIBarButtonItemStylePlain actionHandler:^{
+        NSArray <NSNumber *> *actions = [package possibleActions];
+        if ([actions count] > 1) {
+            UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
+                [selectAction addAction:action];
+            }
+            
+            [selectAction show];
+        }
+        else {
+            ZBPackageActionType action = actions[0].intValue;
+            [self performAction:action forPackage:package];
+        }
+    }];
+}
 
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package {
     NSMutableArray *rowActions = [NSMutableArray new];
