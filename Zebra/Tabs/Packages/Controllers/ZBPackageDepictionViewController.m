@@ -350,27 +350,30 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     navButtonsBeingConfigured = YES;
     
+    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[ZBPackageActions buttonTitleForPackage:package] style:UIBarButtonItemStylePlain target:self action:@selector(performPackageAction)];
     if ([package mightRequirePayment]) {
         [self setNavigationButtonBusy:YES];
         [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
             if (info) { // Package does have purchase info
                 if (!info.purchased) { // If the user has not purchased the package
                     self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
+                    self->previousButton.enabled = info.available;
                     [self setNavigationButtonBusy:NO];
+                    self->navButtonsBeingConfigured = NO;
                     
                     return;
                 }
             }
-            self->previousButton = [[UIBarButtonItem alloc] initWithTitle:[ZBPackageActions buttonTitleForPackage:self->package] style:UIBarButtonItemStylePlain target:self action:@selector(performPackageAction)];
+            self->previousButton = button;
             [self setNavigationButtonBusy:NO];
+            self->navButtonsBeingConfigured = NO;
         }];
         return;
     }
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[ZBPackageActions buttonTitleForPackage:package] style:UIBarButtonItemStylePlain target:self action:@selector(performPackageAction)];
-
     dispatch_async(dispatch_get_main_queue(), ^{
         self.navigationItem.rightBarButtonItem = button;
+        self->navButtonsBeingConfigured = NO;
     });
 }
 
@@ -388,64 +391,68 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         
     }
 }
-    
-//    if ([package isInstalled:NO]) { //Show "Modify" button
-//        if ([package isReinstallable]) {
-//            if ([package isPaid]) {
-//                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-//                    if (info && info.purchased && info.available) {
-//                        self.purchased = YES;
-//                        self->package.requiresAuthorization = YES;
-//                    }
-//                    [self showModifyButton:YES];
-//                }];
-//            }
-//            else {
-//                navButtonsBeingConfigured = NO;
-//                [self showModifyButton:YES];
-//            }
-//        }
-//        else {
-//            navButtonsBeingConfigured = NO;
-//            [self showModifyButton:YES];
-//        }
-//    }
-//    else if ([package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
-//        [self setNavigationButtonBusy:YES];
-//        [package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
-//            if (info) {
-//                self.package.requiresAuthorization = YES;
-//                self.purchased = info.purchased;
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    if (info.price && !(info.error || info.recoveryURL)) {
-//                        NSString *buttonText = info.purchased ? NSLocalizedString(@"Install", @"") : info.price;
-//                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:buttonText style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-//                        self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-//                        [self setNavigationButtonBusy:NO];
-//
-//                        self->navButtonsBeingConfigured = NO;
-//                    }
-//                    else {
-//                        //This behavior is NOT intended I don't think, packages should be available without logging in...
-//                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign In", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signIn)];
-//                        self->previousButton.enabled = YES;
-//                        [self setNavigationButtonBusy:NO];
-//
-//                        self->navButtonsBeingConfigured = NO;
-//                    }
-//                });
-//            }
-//            else {
-//                self->navButtonsBeingConfigured = NO;
-//                [self showInstallButton];
-//            }
-//        }];
-//    }
-//    else {
-//        // Show the modify button as a last resort
-//        self->navButtonsBeingConfigured = NO;
-//        [self showModifyButton:NO];
-//    }
+
+- (void)purchasePackage {
+    if (@available(iOS 11.0, *)) {
+        [self setNavigationButtonBusy:YES];
+        [self.package purchase:^(NSDictionary *info, NSError * _Nullable error) {
+            [self setNavigationButtonBusy:NO];
+            if (info) {
+                NSInteger status = [info[@"status"] integerValue];
+                switch (status) {
+                    case -2: { // Zebra internal, not specified in payment API. Used to log into source again in case of internal error
+                        // TODO: Delete repo credentials and log in again
+                        break;
+                    }
+                    case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
+                        if ([info objectForKey:@"error"]) {
+                            [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), [info objectForKey:@"error"]]];
+                        }
+                        else {
+                            [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
+                        }
+                        break;
+                    }
+                    case 0: { // Success, queue the package for install
+                        [ZBPackageActions install:self->package];
+                        break;
+                    }
+                    case 1: { // Action is required
+                        NSURL *actionLink = [NSURL URLWithString:info[@"url"]];
+                        if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
+                            static SFAuthenticationSession *session;
+                            session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                                if (callbackURL && !error) {
+                                    [self configureNavButton];
+                                }
+                                else if (error) {
+                                    NSLog(@"[Zebra] Error while attempting to purchase package: %@", error.localizedDescription);
+                                }
+                            }];
+                            [session start];
+                        }
+                        else {
+                            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), info[@"url"]];
+                        
+                            UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+                            UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                            [controller addAction:ok];
+                        
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self presentViewController:controller animated:YES completion:nil];
+                            });
+                        }
+                        break;
+                    }
+                    default: { // An unknown status code, display an error
+                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
+                        break;
+                    }
+                }
+            }
+        }];
+    }
+}
 
 - (void)setNavigationButtonBusy:(BOOL)busy {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -476,129 +483,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             self.navigationItem.rightBarButtonItem = self->previousButton;
         }
     });
-}
-
-- (void)signIn {
-    ZBSource *source = [package repo];
-    if (source && [source paymentVendorURL]) {
-        [source authenticate:^(BOOL success, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self configureNavButton];
-            });
-        }];
-    }
-}
-
-- (void)purchasePackage {
-    [self setNavigationButtonBusy:YES];
-    
-    ZBSource *source = [package repo];
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([source isSignedIn]) { //Check if we have an access token
-        if ([package mightRequirePayment]) { //Just a small double check to make sure the package is paid and the repo supports payment
-            NSString *secret = [source paymentSecret];
-            
-            if (secret) {
-                NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [package identifier]]];
-                
-                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
-                
-                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[[package repo] repositoryURI]], @"payment_secret": secret, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-                
-                [request setHTTPMethod:@"POST"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-                [request setHTTPBody:requestData];
-                
-                NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    [self setNavigationButtonBusy:NO];
-                    
-                    NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-                    NSInteger statusCode = [httpReponse statusCode];
-                    
-                    if (statusCode == 200 && !error) {
-                        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSInteger status = [result[@"status"] integerValue];
-                        switch (status) {
-                            case -1: { //Failure
-                                [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
-                                break;
-                            }
-                            case 0: { //Immediate Success
-                                [self configureNavButton];
-                                break;
-                            }
-                            case 1: { //Interaction required
-                                NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
-                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
-                                    [self initPurchaseLink:actionLink];
-                                }
-                                else {
-                                    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), result[@"url"]];
-                                    
-                                    UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-                                    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                                    [controller addAction:ok];
-                                    
-                                    dispatch_async(dispatch_get_main_queue(), ^{
-                                        [self presentViewController:controller animated:YES completion:nil];
-                                    });
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }];
-                
-                [task resume];
-            } else {
-                [self setNavigationButtonBusy:NO];
-                [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase, no payment secret was found", @"")];
-            }
-        }
-    }
-    else if ([source suppotsPaymentAPI]) { //If not, lets log in
-        [source authenticate:^(BOOL success, NSError * _Nullable error) {
-            [self purchasePackage];
-        }];
-    }
-}
-
-- (void)initPurchaseLink:(NSURL *)url {
-    if (@available(iOS 11.0, *)) {
-        static SFAuthenticationSession *session;
-        session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-            if (callbackURL) {
-                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                NSArray *queryItems = urlComponents.queryItems;
-                NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                for (NSURLQueryItem *q in queryItems) {
-                    [queryByKeys setValue:[q value] forKey:[q name]];
-                }
-//                 NSString *token = queryByKeys[@"token"];
-//                 NSString *payment = queryByKeys[@"payment_secret"];
-//
-//                NSError *error = NULL;
-//                [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-//                if (error) {
-//                    ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
-//                }
-                
-            } else {
-                [self configureNavButton];
-                return;
-            }
-            
-            
-        }];
-        [session start];
-    } else {
-        [ZBDevice openURL:url delegate:self];
-    }
 }
 
 - (void)dealloc {
