@@ -177,7 +177,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     NSURL *url = [components URL];
     static SFAuthenticationSession *session;
     session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-        if (callbackURL) {
+        if (callbackURL && !error) {
             NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
             NSArray *queryItems = urlComponents.queryItems;
             NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
@@ -201,10 +201,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                 completion(YES, NULL);
             });
         }
-        else {
-            if (error.domain != SFAuthenticationErrorDomain && error.code != SFAuthenticationErrorCanceledLogin) {
-                completion(NO, error);
-            }
+        else if (error ** !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
+            completion(NO, error);
         }
     }];
     
