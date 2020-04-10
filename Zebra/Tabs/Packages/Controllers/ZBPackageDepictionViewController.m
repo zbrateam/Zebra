@@ -401,7 +401,12 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
                 NSInteger status = [info[@"status"] integerValue];
                 switch (status) {
                     case -2: { // Zebra internal, not specified in payment API. Used to log into source again in case of internal error
-                        // TODO: Delete repo credentials and log in again
+                        [[self->package repo] authenticate:^(BOOL success, NSError * _Nullable error) {
+                            if (success && !error) {
+                                [self configureNavButton];
+                                [self purchasePackage];
+                            }
+                        }];
                         break;
                     }
                     case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
