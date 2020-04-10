@@ -395,65 +395,20 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)purchasePackage {
     if (@available(iOS 11.0, *)) {
         [self setNavigationButtonBusy:YES];
-        [self.package purchase:^(NSDictionary *info, NSError * _Nullable error) {
+        [package purchase:^(BOOL success, NSError * _Nullable error) {
             [self setNavigationButtonBusy:NO];
-            if (info) {
-                NSInteger status = [info[@"status"] integerValue];
-                switch (status) {
-                    case -2: { // Zebra internal, not specified in payment API. Used to log into source again in case of internal error
-                        [[self->package repo] authenticate:^(BOOL success, NSError * _Nullable error) {
-                            if (success && !error) {
-                                [self configureNavButton];
-                                [self purchasePackage];
-                            }
-                        }];
-                        break;
-                    }
-                    case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
-                        if ([info objectForKey:@"error"]) {
-                            [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), [info objectForKey:@"error"]]];
-                        }
-                        else {
-                            [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
-                        }
-                        break;
-                    }
-                    case 0: { // Success, queue the package for install
-                        [ZBPackageActions install:self->package];
-                        break;
-                    }
-                    case 1: { // Action is required
-                        NSURL *actionLink = [NSURL URLWithString:info[@"url"]];
-                        if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
-                            static SFAuthenticationSession *session;
-                            session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                                if (callbackURL && !error) {
-                                    [self configureNavButton];
-                                }
-                                else if (error) {
-                                    NSLog(@"[Zebra] Error while attempting to purchase package: %@", error.localizedDescription);
-                                }
-                            }];
-                            [session start];
-                        }
-                        else {
-                            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), info[@"url"]];
-                        
-                            UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-                            UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                            [controller addAction:ok];
-                        
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self presentViewController:controller animated:YES completion:nil];
-                            });
-                        }
-                        break;
-                    }
-                    default: { // An unknown status code, display an error
-                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
-                        break;
-                    }
-                }
+            if (success && !error) {
+                [self configureNavButton];
+            }
+            else if (error) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                [alert addAction:ok];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self presentViewController:alert animated:YES completion:nil];
+                });
             }
         }];
     }
