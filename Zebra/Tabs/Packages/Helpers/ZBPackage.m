@@ -696,4 +696,53 @@
     return self.possibleActions;
 }
 
+- (void)purchase:(void (^)(NSInteger status, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+    ZBSource *source = [self repo];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if ([source isSignedIn]) { //Check if we have an access token
+        if ([self mightRequirePayment]) { //Just a small double check to make sure the package is paid and the repo supports payment
+            NSString *secret = [source paymentSecret];
+            
+            if (secret) {
+                NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [self identifier]]];
+                
+                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
+                
+                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"payment_secret": secret, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+                
+                [request setHTTPMethod:@"POST"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+                [request setHTTPBody:requestData];
+                
+                NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+                    NSInteger statusCode = [httpReponse statusCode];
+                    
+                    if (statusCode == 200 && !error) {
+                        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        NSInteger status = [result[@"status"] integerValue];
+                        completion(status, NULL);
+                    }
+                }];
+                
+                [task resume];
+                return;
+            }
+            else {
+                completion(-2, NULL); // No payment secret found, lets log in again.
+                return;
+            }
+        }
+    }
+    else if ([source suppotsPaymentAPI]) { //If not, lets log in
+        completion(-2, NULL);
+        return;
+    }
+}
+
 @end
