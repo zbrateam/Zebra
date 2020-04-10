@@ -728,8 +728,7 @@
                         NSInteger status = [result[@"status"] integerValue];
                         switch (status) {
                             case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
-                                NSString *localizedDescription = NSLocalizedString(@"Could not complete purchase", @"");
-                                if ([result objectForKey:@"error"]) localizedDescription = [localizedDescription stringByAppendingFormat:@": %@", [result objectForKey:@"error"]];
+                                NSString *localizedDescription = [result objectForKey:@"error"] ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
                                 
                                 NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
                                 completion(NO, error);
@@ -741,7 +740,7 @@
                             }
                             case 1: { // Action is required, pass this information on to the view controller
                                 NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
-                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
+                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"https"])) {
                                     static SFAuthenticationSession *session;
                                     session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
                                         if (callbackURL && !error) {
@@ -757,7 +756,7 @@
                                     [session start];
                                 }
                                 else {
-                                    NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), result[@"url"]];
+                                    NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result[@"url"]];
                                     
                                     NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
                                     completion(NO, error);
