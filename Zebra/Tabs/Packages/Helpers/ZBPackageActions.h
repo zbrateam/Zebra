@@ -14,6 +14,17 @@
 #import "ZBPackageActionType.h"
 
 @interface ZBPackageActions : NSObject
+
++ (void)install:(ZBPackage *)package;
++ (void)remove:(ZBPackage *)package;
++ (void)reinstall:(ZBPackage *)package;
++ (void)upgrade:(ZBPackage *)package;
++ (void)upgrade:(ZBPackage *)package toVersion:(NSString *)version;
++ (void)downgrade:(ZBPackage *)package;
++ (void)downgrade:(ZBPackage *)package toVersion:(NSString *)version;
++ (void)showUpdatesFor:(ZBPackage *)package;
++ (void)hideUpdatesFor:(ZBPackage *)package;
+
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
 
