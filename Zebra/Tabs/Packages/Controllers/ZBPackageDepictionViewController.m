@@ -350,17 +350,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     navButtonsBeingConfigured = YES;
     
-    UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[ZBPackageActions buttonTitleForPackage:package] style:UIBarButtonItemStylePlain target:self action:@selector(performPackageAction)];
+    UIBarButtonItem *button = [ZBPackageActions barButtonItemForPackage:package];
     if ([package mightRequirePayment]) {
         [self setNavigationButtonBusy:YES];
         [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
             if (info) { // Package does have purchase info
-                if (!info.purchased) { // If the user has not purchased the package
+                if (!info.purchased && ![self.package isInstalled:NO]) { // If the user has not purchased the package
                     self->previousButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain target:self action:@selector(purchasePackage)];
                     self->previousButton.enabled = info.available;
                     [self setNavigationButtonBusy:NO];
                     self->navButtonsBeingConfigured = NO;
-                    
+
                     return;
                 }
             }
@@ -377,21 +377,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     });
 }
 
-- (void)performPackageAction {
-    if ([[package possibleActions] count] > 1) {
-        UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
-            [selectAction addAction:action];
-        }
-        
-        [self presentViewController:selectAction animated:true completion:nil];
-    }
-    else {
-        
-    }
-}
-
 - (void)purchasePackage {
     if (@available(iOS 11.0, *)) {
         [self setNavigationButtonBusy:YES];
@@ -402,10 +387,10 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             }
             else if (error) {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                
+
                 UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
                 [alert addAction:ok];
-                
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self presentViewController:alert animated:YES completion:nil];
                 });
