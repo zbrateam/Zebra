@@ -148,66 +148,62 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.repoID];
 }
 
-- (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion {
-    if ([self isSignedIn]) {
-        completion(YES, nil);
+- (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+    if (![self suppotsPaymentAPI]) {
+        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
+        completion(NO, error);
         return;
     }
     
-    if ([self paymentVendorURL]) {
-        NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
-        if (![components.scheme isEqualToString:@"https"]) {
-            return;
-        }
-        
-        NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
-        NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
-        NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
-        [queryItems addObject:udid];
-        [queryItems addObject:model];
-        [components setQueryItems:queryItems];
-        
-        NSURL *url = [components URL];
-        if (@available(iOS 11.0, *)) {
-            static SFAuthenticationSession *session;
-            session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                if (callbackURL) {
-                    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                    NSArray *queryItems = urlComponents.queryItems;
-                    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                    for (NSURLQueryItem *q in queryItems) {
-                        [queryByKeys setValue:[q value] forKey:[q name]];
-                    }
-                    NSString *token = queryByKeys[@"token"];
-                    NSString *payment = queryByKeys[@"payment_secret"];
-                    
-                    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                    [keychain setString:token forKey:self.repositoryURI];
-                    
-                    NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
-                    [keychain setString:nil forKey:key];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                        [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                              authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                        
-                        [keychain setString:payment forKey:key];
-                        
-                        completion(YES, NULL);
-                    });
-                }
-                else {
-                    if (error.domain != SFAuthenticationErrorDomain && error.code != SFAuthenticationErrorCanceledLogin) {
-                        completion(NO, error);
-                    }
-                }
-            }];
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+    if (![components.scheme isEqualToString:@"https"]) {
+        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
+        completion(NO, error);
+        return;
+    }
+    
+    NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
+    NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
+    NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
+    [queryItems addObject:udid];
+    [queryItems addObject:model];
+    [components setQueryItems:queryItems];
+    
+    NSURL *url = [components URL];
+    static SFAuthenticationSession *session;
+    session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+        if (callbackURL) {
+            NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
+            NSArray *queryItems = urlComponents.queryItems;
+            NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
+            for (NSURLQueryItem *q in queryItems) {
+                [queryByKeys setValue:[q value] forKey:[q name]];
+            }
+            NSString *token = queryByKeys[@"token"];
+            NSString *payment = queryByKeys[@"payment_secret"];
             
-            [session start];
+            UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+            [keychain setString:token forKey:self.repositoryURI];
+            
+            NSString *key = [self.repositoryURI stringByAppendingString:@"payment"];
+            [keychain setString:nil forKey:key];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                [keychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
+                      authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
+                
+                [keychain setString:payment forKey:key];
+                
+                completion(YES, NULL);
+            });
         }
         else {
-            //            [ZBDevice openURL:url delegate:nil];
+            if (error.domain != SFAuthenticationErrorDomain && error.code != SFAuthenticationErrorCanceledLogin) {
+                completion(NO, error);
+            }
         }
-    }
+    }];
+    
+    [session start];
 }
 
 - (BOOL)isSignedIn {
