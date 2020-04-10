@@ -155,6 +155,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         return;
     }
     
+    if ([self isSignedIn]) {
+        completion(YES, nil);
+        return;
+    }
+    
     NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
     if (![components.scheme isEqualToString:@"https"]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
