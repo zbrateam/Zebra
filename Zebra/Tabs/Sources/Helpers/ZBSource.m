@@ -201,7 +201,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                 completion(YES, NULL);
             });
         }
-        else if (error ** !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
+        else if (error && !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
             completion(NO, error);
         }
     }];
