@@ -696,7 +696,7 @@
     return self.possibleActions;
 }
 
-- (void)purchase:(void (^)(NSInteger status, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchase:(void (^)(NSDictionary *info, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
     ZBSource *source = [self repo];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
@@ -725,8 +725,7 @@
                     
                     if (statusCode == 200 && !error) {
                         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSInteger status = [result[@"status"] integerValue];
-                        completion(status, NULL);
+                        completion(result, NULL);
                     }
                 }];
                 
@@ -734,13 +733,13 @@
                 return;
             }
             else {
-                completion(-2, NULL); // No payment secret found, lets log in again.
+                completion(@{@"status": @-2}, NULL); // No payment secret found, lets log in again.
                 return;
             }
         }
     }
     else if ([source suppotsPaymentAPI]) { //If not, lets log in
-        completion(-2, NULL);
+        completion(@{@"status": @-2}, NULL);
         return;
     }
 }

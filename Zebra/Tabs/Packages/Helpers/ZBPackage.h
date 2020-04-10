@@ -77,32 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEssentialOrRequired;
 - (BOOL)mightRequirePayment;
 - (NSArray *)possibleActions;
-- (void)purchase:(void (^)(NSInteger status, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
+- (void)purchase:(void (^)(NSDictionary *info, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
 @end
-
-//NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
-//if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
-//    static SFAuthenticationSession *session;
-//    session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-//        if (callbackURL && !error) {
-//            [self configureNavButton];
-//        }
-//        else if (error) {
-//            NSLog(@"[Zebra] Error while attempting to purchase package: %@", error.localizedDescription);
-//        }
-//    }];
-//    [session start];
-//}
-//else {
-//    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), result[@"url"]];
-//    
-//    UIAlertController *controller = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
-//    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-//    [controller addAction:ok];
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self presentViewController:controller animated:YES completion:nil];
-//    });
-//}
 
 NS_ASSUME_NONNULL_END
