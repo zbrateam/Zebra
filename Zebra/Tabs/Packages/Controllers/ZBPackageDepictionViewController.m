@@ -359,26 +359,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }];
 }
 
-- (void)purchasePackage {
-    if (@available(iOS 11.0, *)) {
-        [package purchase:^(BOOL success, NSError * _Nullable error) {
-            if (success && !error) {
-                [self configureNavButton];
-            }
-            else if (error) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Could not complete payment", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-
-                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                [alert addAction:ok];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self presentViewController:alert animated:YES completion:nil];
-                });
-            }
-        }];
-    }
-}
-
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
     [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
