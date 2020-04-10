@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceVerification.h"
+#import "ZBSourceVerificationStatus.h"
 
 #import <Foundation/Foundation.h>
 
@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief The base filename of the repository, based on the URL */
 @property (nonatomic) NSString *baseFilename;
 
-@property ZBSourceVerification verificationStatus;
+@property ZBSourceVerificationStatus verificationStatus;
 @property (nonatomic) NSString *label;
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
     @discussion First checks Packages.xz, then .bz2, then .gz, then .lzma, then for an uncompressed file to download
     @param completion the completion block to run once verification completes
 */
-- (void)verify:(nullable void (^)(ZBSourceVerification status))completion;
+- (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion;
 - (void)getLabel:(void (^)(NSString *label))completion;
 - (NSString *)debLine;
 - (BOOL)canDelete;

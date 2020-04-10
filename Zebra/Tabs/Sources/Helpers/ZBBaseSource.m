@@ -207,7 +207,7 @@
     return [self initFromSourceLine:[ZBSourceManager debLineForURL:url]];
 }
 
-- (void)verify:(nullable void (^)(ZBSourceVerification status))completion {
+- (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion {
     if (verificationStatus != ZBSourceUnverified && completion) {
         completion(verificationStatus);
         return;

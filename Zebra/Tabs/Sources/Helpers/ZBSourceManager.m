@@ -205,7 +205,7 @@
     
     for (ZBBaseSource *source in sources) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [source verify:^(ZBSourceVerification status) {
+            [source verify:^(ZBSourceVerificationStatus status) {
                 if ([delegate respondsToSelector:@selector(source:status:)]) [delegate source:source status:status];
                 
                 if (status == ZBSourceExists) {

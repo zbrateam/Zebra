@@ -354,7 +354,7 @@
 		8958DF9D23EB9B0300A7B823 /* ZBAccentColorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAccentColorTableViewController.h; sourceTree = "<group>"; };
 		8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAccentColorTableViewController.m; sourceTree = "<group>"; };
 		8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceVerificationDelegate.h; sourceTree = "<group>"; };
-		8958F28823C3C2CC00FB64D9 /* ZBSourceVerification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceVerification.h; sourceTree = "<group>"; };
+		8958F28823C3C2CC00FB64D9 /* ZBSourceVerificationStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceVerificationStatus.h; sourceTree = "<group>"; };
 		895A808623637C5100C166AC /* ZBCreditsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCreditsTableViewController.h; sourceTree = "<group>"; };
 		895A808723637C5100C166AC /* ZBCreditsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCreditsTableViewController.m; sourceTree = "<group>"; };
 		895C2AD82402303B0065F424 /* ZBSearchTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchTableViewController.h; sourceTree = "<group>"; };
@@ -783,7 +783,7 @@
 				896F11C221B231900017B581 /* ZBSource.m */,
 				896F11BB21B231490017B581 /* ZBSourceManager.h */,
 				896F11BC21B231490017B581 /* ZBSourceManager.m */,
-				8958F28823C3C2CC00FB64D9 /* ZBSourceVerification.h */,
+				8958F28823C3C2CC00FB64D9 /* ZBSourceVerificationStatus.h */,
 				8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */,
 			);
 			path = Helpers;

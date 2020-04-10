@@ -1,5 +1,5 @@
 //
-//  ZBSourceVerification.h
+//  ZBSourceVerificationStatus.h
 //  Zebra
 //
 //  Created by Wilson Styres on 1/6/20.
@@ -16,6 +16,6 @@ typedef enum : NSUInteger {
     ZBSourceExists,     //Exists
     ZBSourceImaginary,  //Doesn't exist
     ZBSourceUnverified  //Not yet verified
-} ZBSourceVerification;
+} ZBSourceVerificationStatus;
 
 #endif /* ZBSourceVerification_h */

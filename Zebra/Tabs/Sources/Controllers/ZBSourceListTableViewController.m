@@ -347,7 +347,7 @@
     if (![repos containsObject:url.host]) {
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
         if (baseSource) {
-            [baseSource verify:^(ZBSourceVerification status) {
+            [baseSource verify:^(ZBSourceVerificationStatus status) {
                 if (status == ZBSourceExists) {
                     if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
                         dispatch_async(dispatch_get_main_queue(), ^{

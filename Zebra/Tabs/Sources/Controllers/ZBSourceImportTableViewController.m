@@ -127,7 +127,7 @@
         }
         
         ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
-        ZBSourceVerification status = source.verificationStatus;
+        ZBSourceVerificationStatus status = source.verificationStatus;
         
         cell.repoLabel.alpha = 1.0;
         cell.urlLabel.alpha = 1.0;
@@ -283,7 +283,7 @@
 
 #pragma mark - Verification Delegate
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
+- (void)source:(ZBBaseSource *)source status:(ZBSourceVerificationStatus)status {
     if (status == ZBSourceExists) {
         [source getLabel:^(NSString * _Nonnull label) {
             if (!label) {
