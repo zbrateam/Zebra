@@ -77,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEssentialOrRequired;
 - (BOOL)mightRequirePayment;
 - (NSArray *)possibleActions;
-- (void)purchase:(void (^)(NSDictionary *info, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
+- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
 @end
 
 NS_ASSUME_NONNULL_END

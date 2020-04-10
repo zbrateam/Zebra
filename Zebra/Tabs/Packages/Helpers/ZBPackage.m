@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackage.h"
-#import "ZBPackageActionType.h"
+#import "ZBPackageActions.h"
 
 #import <ZBLog.h>
 #import <ZBDevice.h>
@@ -696,7 +696,7 @@
     return self.possibleActions;
 }
 
-- (void)purchase:(void (^)(NSDictionary *info, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
     ZBSource *source = [self repo];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
@@ -725,23 +725,64 @@
                     
                     if (statusCode == 200 && !error) {
                         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        completion(result, NULL);
+                        NSInteger status = [result[@"status"] integerValue];
+                        switch (status) {
+                            case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
+                                NSString *localizedDescription = NSLocalizedString(@"Could not complete purchase", @"");
+                                if ([result objectForKey:@"error"]) localizedDescription = [localizedDescription stringByAppendingFormat:@": %@", [result objectForKey:@"error"]];
+                                
+                                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                completion(NO, error);
+                                break;
+                            }
+                            case 0: { // Success, queue the package for install
+                                completion(YES, nil);
+                                break;
+                            }
+                            case 1: { // Action is required, pass this information on to the view controller
+                                NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
+                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"http"] || [actionLink.scheme isEqualToString:@"https"])) {
+                                    static SFAuthenticationSession *session;
+                                    session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                                        if (callbackURL && !error) {
+                                            completion(YES, nil);
+                                        }
+                                        else if (error) {
+                                            NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
+                                            
+                                            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                            completion(NO, error);
+                                        }
+                                    }];
+                                    [session start];
+                                }
+                                else {
+                                    NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The source responded with an improper payment URL: %@", @""), result[@"url"]];
+                                    
+                                    NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                    completion(NO, error);
+                                }
+                                break;
+                            }
+                        }
                     }
                 }];
                 
                 [task resume];
                 return;
             }
-            else {
-                completion(@{@"status": @-2}, NULL); // No payment secret found, lets log in again.
-                return;
-            }
         }
     }
-    else if ([source suppotsPaymentAPI]) { //If not, lets log in
-        completion(@{@"status": @-2}, NULL);
-        return;
-    }
+    
+    // Should only run if we don't have a payment secret or if we aren't logged in.
+    [[self repo] authenticate:^(BOOL success, NSError * _Nullable error) {
+        if (success) {
+            [self purchase:completion];
+        }
+        else {
+            completion(NO, error);
+        }
+    }];
 }
 
 @end
