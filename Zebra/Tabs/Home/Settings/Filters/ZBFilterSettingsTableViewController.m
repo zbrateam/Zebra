@@ -125,8 +125,11 @@
                 cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
-                cell.detailTextLabel.text = [blockedAuthors allKeys][indexPath.row];
-                cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+                NSString *email = [blockedAuthors allKeys][indexPath.row];
+                if (![email isEqualToString:cell.textLabel.text]) {
+                    cell.detailTextLabel.text = email;
+                    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+                }
                 
                 cell.tintColor = [UIColor accentColor];
                 return cell;
