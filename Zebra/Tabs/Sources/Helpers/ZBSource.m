@@ -209,12 +209,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [session start];
 }
 
-- (BOOL)isSignedIn {
+- (BOOL)isSignedIn API_AVAILABLE(ios(11.0)) {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     return [keychain stringForKey:self.repositoryURI];
 }
 
-- (NSString *)paymentSecret {
+- (NSString *)paymentSecret API_AVAILABLE(ios(11.0)) {
     __block NSString *paymentSecret;
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
@@ -238,7 +238,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return paymentSecret;
 }
 
-- (NSURL *)paymentVendorURL {
+- (NSURL *)paymentVendorURL API_AVAILABLE(ios(11.0)) {
     if (self->paymentVendorURI && self->paymentVendorURI.host && self->paymentVendorURI.scheme) {
         return self->paymentVendorURI;
     }
@@ -248,13 +248,13 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return self->paymentVendorURI;
 }
 
-- (BOOL)suppotsPaymentAPI {
+- (BOOL)suppotsPaymentAPI API_AVAILABLE(ios(11.0)) {
     NSURL *paymentVendorURL = [self paymentVendorURL];
     
     return paymentVendorURL && paymentVendorURL.host && paymentVendorURL.scheme;
 }
 
-- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
+- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0)) {
     if (![self paymentVendorURL] || ![self isSignedIn]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -295,7 +295,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [task resume];
 }
 
-- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion {
+- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0)) {
     if (![self paymentVendorURL]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
