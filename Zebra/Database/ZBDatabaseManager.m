@@ -872,9 +872,6 @@
         if (vendorURL) {
             return [NSURL URLWithString:vendorURL];
         }
-        else {
-            return NULL;
-        }
     }
     return NULL;
 }
@@ -1209,15 +1206,12 @@
             [self printDatabaseError];
             sqlite3_finalize(statement);
             [self closeDatabase];
-            
-            return NULL;
         }
     }
     else {
         [self printDatabaseError];
-        
-        return NULL;
     }
+    return NULL;
 }
 
 #pragma mark - Package status
@@ -1529,7 +1523,6 @@
         }
         
         [self closeDatabase];
-        return NULL;
     } else {
         [self printDatabaseError];
     }
@@ -1577,13 +1570,10 @@
                 [self closeDatabase];
                 return [ZBDependencyResolver doesPackage:otherVersions[0] satisfyComparison:comparison ofVersion:version] ? otherVersions[0] : NULL;
             }
-            else {
-                return otherVersions[0];
-            }
+            return otherVersions[0];
         }
         
         [self closeDatabase];
-        return NULL;
     } else {
         [self printDatabaseError];
     }
