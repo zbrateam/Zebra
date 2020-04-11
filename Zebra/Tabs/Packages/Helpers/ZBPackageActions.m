@@ -113,19 +113,51 @@
 }
 
 + (void)upgrade:(ZBPackage *)package {
-    
-}
-
-+ (void)upgrade:(ZBPackage *)package toVersion:(NSString *)version {
-    
+    NSArray *greaterVersions = [package greaterVersions];
+    if ([greaterVersions count] > 1) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        for (ZBPackage *otherPackage in greaterVersions) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+            }];
+            
+            [alert addAction:action];
+        }
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        
+        [alert show];
+    }
+    else {
+        ZBPackage *upgrade = [greaterVersions count] == 1 ? greaterVersions[0] : package;
+        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+    }
 }
 
 + (void)downgrade:(ZBPackage *)package {
-    
-}
-
-+ (void)downgrade:(ZBPackage *)package toVersion:(NSString *)version {
-    
+    NSArray *lesserVersions = [package lesserVersions];
+    if ([lesserVersions count] > 1) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        for (ZBPackage *otherPackage in lesserVersions) {
+            UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+            }];
+            
+            [alert addAction:action];
+        }
+        
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+        
+        [alert show];
+    }
+    else {
+        ZBPackage *upgrade = [lesserVersions count] == 1 ? lesserVersions[0] : package;
+        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+    }
 }
 
 + (void)showUpdatesFor:(ZBPackage *)package {
