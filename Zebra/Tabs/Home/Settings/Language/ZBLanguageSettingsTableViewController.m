@@ -135,6 +135,8 @@
     
     cell.imageView.image = NULL;
     cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.textLabel.textColor = [UIColor primaryTextColor];
+    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     
     if (indexPath.section == 0) {
         UISwitch *languageSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
