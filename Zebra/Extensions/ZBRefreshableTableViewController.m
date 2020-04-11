@@ -24,7 +24,7 @@
 
 @synthesize databaseManager;
 
-+ (BOOL)supportRefresh {
+- (BOOL)supportRefresh {
     return YES;
 }
 
@@ -66,7 +66,7 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     [refreshControl endRefreshing];
     
-    if ([[self class] supportRefresh] && refreshControl == nil) {
+    if ([self supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
@@ -132,7 +132,7 @@
 }
 
 - (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    if (![[self class] supportRefresh]) {
+    if (![self supportRefresh]) {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -141,7 +141,7 @@
 }
 
 - (void)refreshSources:(id)sender {
-    if (![[self class] supportRefresh] || [self updateRefreshView]) {
+    if (![self supportRefresh] || [self updateRefreshView]) {
         return;
     }
     [self setEditing:NO animated:NO];
@@ -166,7 +166,7 @@
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    if (![[self class] supportRefresh]) {
+    if (![self supportRefresh]) {
         return;
     }
     [self setRepoRefreshIndicatorVisible:NO];
@@ -181,7 +181,7 @@
 }
 
 - (void)databaseStartedUpdate {
-    if (![[self class] supportRefresh]) {
+    if (![self supportRefresh]) {
         return;
     }
     [self setRepoRefreshIndicatorVisible:YES];

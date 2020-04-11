@@ -48,6 +48,10 @@
 @synthesize repo;
 @synthesize section;
 
+- (BOOL)supportRefresh {
+    return ![self repo];
+}
+
 - (BOOL)useBatchLoad {
     return NO;
 }

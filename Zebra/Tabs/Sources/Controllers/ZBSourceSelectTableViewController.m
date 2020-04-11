@@ -47,7 +47,7 @@
     return self;
 }
 
-+ (BOOL)supportRefresh {
+- (BOOL)supportRefresh {
     return NO;
 }
 
