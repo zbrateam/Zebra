@@ -375,11 +375,11 @@
     return [tags containsObject:@"cydia::commercial"];
 }
 
-- (BOOL)mightRequirePayment {
+- (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0)) {
     return [self requiresPayment] || ([[self repo] repoID] > 0 && [self isPaid] && [[self repo] suppotsPaymentAPI]);
 }
 
-- (BOOL)requiresPayment {
+- (BOOL)requiresPayment API_AVAILABLE(ios(11.0)) {
     return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
 }
 

@@ -74,9 +74,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addIssue:(NSString *)issue;
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
-- (BOOL)mightRequirePayment;
 - (NSArray * _Nullable)possibleActions;
 
+#pragma mark - Modern Payment API
+- (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0));
 - (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion API_AVAILABLE(ios(11.0));
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
 @end
