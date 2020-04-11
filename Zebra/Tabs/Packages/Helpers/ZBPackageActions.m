@@ -357,7 +357,7 @@
         [rowActions addObject:rowAction];
     }
     
-    return (NSArray *)rowActions;
+    return rowActions;
 }
 
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package {
@@ -377,7 +377,7 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
     [alertActions addObject:cancel];
     
-    return (NSArray *)alertActions;
+    return alertActions;
 }
 
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package {
@@ -396,7 +396,7 @@
         [previewActions addObject:previewAction];
     }
     
-    return (NSArray *)previewActions;
+    return previewActions;
 }
 
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package API_AVAILABLE(ios(13.0)) {
@@ -415,7 +415,7 @@
         [uiActions addObject:uiAction];
     }
     
-    return (NSArray *)uiActions;
+    return uiActions;
 }
 
 #pragma mark - Displaying Actions to User
