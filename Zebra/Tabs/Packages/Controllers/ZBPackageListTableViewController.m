@@ -29,12 +29,10 @@
     NSArray <ZBPackage *> *packages;
     NSArray <ZBPackage *> *sortedPackages;
     NSMutableArray <ZBPackage *> *updates;
-    NSMutableArray <ZBPackage *> *ignoredUpdates;
     NSMutableArray *sectionIndexTitles;
     UIBarButtonItem *queueButton;
     UIBarButtonItem *clearButton;
     BOOL needsUpdatesSection;
-    BOOL needsIgnoredUpdatesSection;
     BOOL isRefreshingTable;
     int totalNumberOfPackages;
     int numberOfPackages;
@@ -145,11 +143,9 @@
             self->isRefreshingTable = YES;
             self->packages = [self.databaseManager installedPackages:NO];
             self->updates = [self.databaseManager packagesWithUpdates];
-            self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
             NSUInteger totalUpdates = self->updates.count;
             self->needsUpdatesSection = totalUpdates != 0;
-            self->needsIgnoredUpdatesSection = self->ignoredUpdates.count != 0;
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
             [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
@@ -328,9 +324,6 @@
     if (needsUpdatesSection && indexPath.section == 0) {
         return [updates objectAtIndex:indexPath.row];
     }
-    if (needsIgnoredUpdatesSection && indexPath.section == needsUpdatesSection) {
-        return [ignoredUpdates objectAtIndex:indexPath.row];
-    }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [self objectAtSection:indexPath.section][indexPath.row];
     }
@@ -348,13 +341,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        return [sectionIndexTitles count] + needsUpdatesSection + needsIgnoredUpdatesSection;
+        return [sectionIndexTitles count] + needsUpdatesSection;
     }
-    return 1 + needsUpdatesSection + needsIgnoredUpdatesSection;
+    return 1 + needsUpdatesSection;
 }
 
 - (NSInteger)trueSection:(NSInteger)section {
-    return section - needsUpdatesSection - needsIgnoredUpdatesSection;
+    return section - needsUpdatesSection;
 }
 
 - (id)objectAtSection:(NSInteger)section {
@@ -367,9 +360,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (needsUpdatesSection && section == 0) {
         return updates.count;
-    }
-    if (needsIgnoredUpdatesSection && section == needsUpdatesSection) {
-        return ignoredUpdates.count;
     }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [[self objectAtSection:section] count];
@@ -401,14 +391,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
-    BOOL isIgnoredUpdateSection = [repo repoID] == 0 && needsIgnoredUpdatesSection && section == needsUpdatesSection;
-    BOOL hasDataInSection = !isUpdateSection && !isIgnoredUpdateSection && [[self objectAtSection:section] count];
-    if (isUpdateSection || isIgnoredUpdateSection || hasDataInSection) {
+    BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
+    if (isUpdateSection || hasDataInSection) {
         if (isUpdateSection) {
             return NSLocalizedString(@"Available Upgrades", @"");
-        }
-        if (isIgnoredUpdateSection) {
-            return NSLocalizedString(@"Ignored Upgrades", @"");
         }
         if (hasDataInSection) {
             NSInteger trueSection = [self trueSection:section];
@@ -440,7 +426,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index + needsUpdatesSection + needsIgnoredUpdatesSection;
+    return index + needsUpdatesSection;
 }
 
 #pragma mark - Swipe actions
