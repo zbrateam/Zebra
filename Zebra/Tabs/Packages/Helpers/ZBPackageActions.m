@@ -163,11 +163,11 @@
 }
 
 + (void)showUpdatesFor:(ZBPackage *)package {
-    
+    [package setIgnoreUpdates:NO];
 }
 
 + (void)hideUpdatesFor:(ZBPackage *)package {
-    
+    [package setIgnoreUpdates:YES];
 }
 
 #pragma mark - Display Actions
