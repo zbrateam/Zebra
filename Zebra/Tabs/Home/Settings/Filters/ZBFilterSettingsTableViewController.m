@@ -13,6 +13,7 @@
 #import "ZBAuthorSelectorTableViewController.h"
 
 #import <Database/ZBDatabaseManager.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Sources/Views/ZBRepoTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
@@ -40,6 +41,7 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
 - (void)refreshTable {
@@ -57,6 +59,8 @@
     [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
+    
+    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
     
     [[self tableView] reloadData];
 }
@@ -137,6 +141,12 @@
             break;
         }
         case 3: {
+            ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+            ZBPackage *package = ignoredUpdates[indexPath.row];
+            
+            [packageCell updateData:package];
+            
+            return packageCell;
             break;
         }
     }
