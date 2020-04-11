@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
 - (BOOL)mightRequirePayment;
-- (NSArray *)possibleActions;
+- (NSArray * _Nullable)possibleActions;
 
 - (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion API_AVAILABLE(ios(11.0));
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));

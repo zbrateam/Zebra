@@ -641,14 +641,14 @@
     return essential || [[priority lowercaseString] isEqualToString:@"required"];
 }
 
-- (NSArray *)possibleActions {
+- (NSArray * _Nullable)possibleActions {
     if ([self->possibleActions count]) return self->possibleActions; // Caching these might actually be a bad idea because I actually base which actions are available on if they're in the queue
     
     NSMutableArray *actions = [NSMutableArray new];
     ZBQueue *queue = [ZBQueue sharedQueue];
     
     if ([[self repo] repoID] == -1) {
-        return 0; // No actions for virtual dependencies
+        return nil; // No actions for virtual dependencies
     }
     if ([self isInstalled:NO]) {
         // If the package is installed then we can show other options
