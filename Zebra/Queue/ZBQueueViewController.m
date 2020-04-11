@@ -151,9 +151,9 @@
     else {
         ZBQueueType action = actions[section].intValue;
         if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action useIcon:NO], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
         }
-        return [queue displayableNameForQueueType:action useIcon:NO];
+        return [queue displayableNameForQueueType:action];
     }
 }
 

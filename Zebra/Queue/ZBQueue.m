@@ -726,4 +726,21 @@
     return managedQueue[@(ZBQueueTypeConflict)];
 }
 
+- (NSString *)displayableNameForQueueType:(ZBQueueType)queue {
+    switch (queue) {
+        case ZBQueueTypeInstall:
+            return NSLocalizedString(@"Install", @"");
+        case ZBQueueTypeRemove:
+            return NSLocalizedString(@"Remove", @"");
+        case ZBQueueTypeReinstall:
+            return NSLocalizedString(@"Reinstall", @"");
+        case ZBQueueTypeUpgrade:
+            return NSLocalizedString(@"Upgrade", @"");
+        case ZBQueueTypeDowngrade:
+            return NSLocalizedString(@"Downgrade", @"");
+        default:
+            return NULL;
+    }
+}
+
 @end

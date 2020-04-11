@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)tasksToPerform;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (NSArray<NSNumber *> *)actionsToPerform;
-- (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)useIcon;
+- (NSString *)displayableNameForQueueType:(ZBQueueType)queue;
 - (int)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;
