@@ -55,7 +55,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
     if (!dirExists) {
         ZBLog(@"[Zebra] Creating documents directory.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
@@ -77,7 +77,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
     if (!dirExists) {
         ZBLog(@"[Zebra] Creating lists directory.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
@@ -96,7 +96,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
         ZBLog(@"[Zebra] Creating sources.list.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
         
         if (error != NULL) {
@@ -117,7 +117,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
     if (!dirExists) {
         ZBLog(@"[Zebra] Creating debs directory.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {

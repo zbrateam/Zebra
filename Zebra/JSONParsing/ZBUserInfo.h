@@ -1,9 +1,9 @@
 // To parse this JSON:
 //
-//   NSError *error;
+//   NSError *error = NULL;
 //   ZBUserInfo *userInfo = [ZBUserInfo fromJSON:json encoding:NSUTF8Encoding error:&error];
 // OR
-//   NSError *error;
+//   NSError *error = NULL;
 //   ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&error];
 
 #import <Foundation/Foundation.h>

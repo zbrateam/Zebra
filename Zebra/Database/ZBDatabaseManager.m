@@ -232,7 +232,7 @@
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];
         
-        NSError *readError;
+        NSError *readError = NULL;
         NSSet <ZBBaseSource *> *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
         if (readError) {
             //oh no!
@@ -718,7 +718,7 @@
 
 - (NSSet <ZBSource *> *)sources {
     if ([self openDatabase] == SQLITE_OK) {
-        NSError *readError;
+        NSError *readError = NULL;
         NSMutableSet *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError] mutableCopy];
         NSMutableSet *sources = [NSMutableSet new];
 
@@ -2142,7 +2142,7 @@
 }
 
 - (void)checkForZebraRepo {
-    NSError *readError;
+    NSError *readError = NULL;
     NSString *repos = [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:&readError];
     if (readError != nil) {
         NSLog(@"[Zebra] Error while reading source list");

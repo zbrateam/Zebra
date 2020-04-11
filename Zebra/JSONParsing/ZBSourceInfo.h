@@ -2,7 +2,7 @@
 
 // To parse this JSON:
 //
-//   NSError *error;
+//   NSError *error = NULL;
 //   ZBSourceInfo *sourceInfo = [ZBSourceInfo fromJSON:json encoding:NSUTF8Encoding error:&error];
 
 #import <Foundation/Foundation.h>

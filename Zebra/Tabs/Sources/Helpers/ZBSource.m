@@ -225,7 +225,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
               authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
         keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
         
-        NSError *error;
+        NSError *error = NULL;
         paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&error];
         if (error) {
             NSLog(@"Error: %@", error);
@@ -277,7 +277,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         NSInteger statusCode = [httpReponse statusCode];
         
         if (statusCode == 200 && !error) {
-            NSError *parseError;
+            NSError *parseError = NULL;
             ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
             
             if (parseError || userInfo.error) {
@@ -309,7 +309,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         NSInteger statusCode = [httpReponse statusCode];
         
         if (statusCode == 200 && !error) {
-            NSError *parseError;
+            NSError *parseError = NULL;
             ZBSourceInfo *sourceInfo = [ZBSourceInfo fromData:data error:&parseError];
             
             if (parseError) {

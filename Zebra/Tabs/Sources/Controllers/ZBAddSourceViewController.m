@@ -97,7 +97,7 @@
 - (IBAction)addButtonTapped:(UIBarButtonItem *)sender {
     [self.addRepoTextView resignFirstResponder];
     
-    NSError *detectorError;
+    NSError *detectorError = NULL;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
     if (detectorError) {
         UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];

@@ -106,7 +106,7 @@
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
-    NSError *error;
+    NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) {
         [ZBAppDelegate sendAlertFrom:self message:error.localizedDescription];
     }

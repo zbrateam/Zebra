@@ -104,7 +104,7 @@
 
 //TODO: This needs error pointers
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
-    NSError *readError;
+    NSError *readError = NULL;
     NSSet <ZBBaseSource *> *currentSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
     
     NSMutableSet *sourcesToAdd = [baseSources mutableCopy];
@@ -141,7 +141,7 @@
     NSArray *lists = [self repoLists:source];
     for (NSString *list in lists) {
         NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:list];
-        NSError *error;
+        NSError *error = NULL;
         if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
             BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
             if (!success) {
@@ -160,7 +160,7 @@
 
 //TODO: This needs error pointers
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
-    NSError *error;
+    NSError *error = NULL;
     NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
     
     if (error) {
@@ -187,7 +187,7 @@
         [debLines addObject:[baseSource debLine]];
     }
     
-    NSError *error;
+    NSError *error = NULL;
     [[debLines componentsJoinedByString:@""] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);

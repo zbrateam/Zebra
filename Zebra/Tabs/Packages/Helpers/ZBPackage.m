@@ -69,7 +69,7 @@
     
     NSString *path = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", packageID];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSError *readError;
+        NSError *readError = NULL;
         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
         if (!readError) {
             return [contents componentsSeparatedByString:@"\n"];

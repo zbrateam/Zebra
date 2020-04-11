@@ -341,7 +341,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     BOOL movedFileSuccess = NO;
-    NSError *fileManagerError;
+    NSError *fileManagerError = NULL;
     if ([fileManager fileExistsAtPath:finalPath]) {
         movedFileSuccess = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
         
@@ -499,7 +499,7 @@
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
                     
-                    NSError *error;
+                    NSError *error = NULL;
                     if (![MIMEType isEqualToString:requestedMIMEType]) {
                         error = [[NSError alloc] initWithDomain:NSURLErrorDomain code:1234 userInfo:@{NSLocalizedDescriptionKey: @"Requested MIME Type is not identical to MIME type received"}];
                     }
@@ -551,7 +551,7 @@
                             [self task:downloadTask completedDownloadedForFile:finalPath fromSource:source withError:error];
                         }
                         else {
-                            NSError *error;
+                            NSError *error = NULL;
                             NSString *decompressedFilePath = [self decompressFile:finalPath error:&error];
                             
                             [self task:downloadTask completedDownloadedForFile:decompressedFilePath fromSource:source withError:error];
@@ -786,7 +786,7 @@
             NSString *finalPath = [path stringByDeletingPathExtension];
             [decompressedData writeToFile:finalPath atomically:NO];
             
-            NSError *removeError;
+            NSError *removeError = NULL;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
                 *error = removeError;
@@ -847,7 +847,7 @@
             compression_stream_destroy(&stream);
             [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
             
-            NSError *removeError;
+            NSError *removeError = NULL;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
                 *error = removeError;

@@ -170,7 +170,7 @@
         } indexPath:indexPath];
     }
     else {
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
         [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
         [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
@@ -186,7 +186,7 @@
         [self confirmationControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
             [self resetAllSettings:NO indexPath:indexPath];
             
-            NSError *error;
+            NSError *error = NULL;
             [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
             [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
             [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
