@@ -49,13 +49,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
-+ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID;
++ (NSString * _Nullable)applicationBundlePathForIdentifier:(NSString *)packageID;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSComparisonResult)compare:(id)object;
 - (BOOL)sameAs:(ZBPackage *)package;
 - (BOOL)sameAsStricted:(ZBPackage *)package;
 - (BOOL)isPaid;
-- (NSString *)getField:(NSString *)field;
+- (NSString * _Nullable)getField:(NSString *)field;
 - (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
 - (NSArray <ZBPackage *> *)otherVersions;

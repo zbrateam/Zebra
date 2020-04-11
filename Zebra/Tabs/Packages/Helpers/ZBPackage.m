@@ -149,7 +149,7 @@
     return NO;
 }
 
-+ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID {
++ (NSString * _Nullable)applicationBundlePathForIdentifier:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return NULL;
     }
@@ -424,7 +424,7 @@
         NSInteger statusCode = [httpReponse statusCode];
         
         if (statusCode == 200) {
-            NSError *error;
+            NSError *error = NULL;
 //            NSString *repsonse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 //            NSLog(@"response %@", repsonse);
             ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
@@ -448,7 +448,7 @@
     [task resume];
 }
 
-- (NSString *)getField:(NSString *)field {
+- (NSString * _Nullable)getField:(NSString *)field {
     NSString *value;
     
     ZBSource *repo = [self repo];
@@ -482,7 +482,7 @@
     NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
     [scanner scanUpToString:packageIdentifier intoString:NULL];
     [scanner scanUpToString:packageVersion intoString:NULL];
-    NSString *packageInfo;
+    NSString *packageInfo = NULL;
     [scanner scanUpToString:@"\n\n" intoString:&packageInfo];
     if (packageInfo == NULL) return NULL;
     scanner = [[NSScanner alloc] initWithString:packageInfo];
@@ -659,11 +659,11 @@
             
         if (![queue contains:self inQueue:ZBQueueTypeUpgrade] && [[self greaterVersions] count] ) {
             // Only going to explicitly show an "Upgrade" button if there are higher versions available
-            [actions addObject:@(ZBPackageActionUpgrade)]; // Select higher verions
+            [actions addObject:@(ZBPackageActionUpgrade)]; // Select higher versions
         }
             
         if (![queue contains:self inQueue:ZBQueueTypeDowngrade] && [[self lesserVersions] count]) {
-            // Only going to explicily show a "Downgrade" button if there are lower verisons available
+            // Only going to explicily show a "Downgrade" button if there are lower versions available
             [actions addObject:@(ZBPackageActionDowngrade)];
         }
         
