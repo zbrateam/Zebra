@@ -578,14 +578,14 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-- (ZBPackage *)installableCandidate {
+- (ZBPackage * _Nullable)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
     
     return candidate;
 }
 
-- (ZBPackage *)removeableCandidate {
+- (ZBPackage * _Nullable)removeableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackage *candidate = [databaseManager installedPackageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
     
@@ -604,7 +604,7 @@
 	return attributes[NSFileModificationDate];
 }
 
-- (NSString *)installedVersion {
+- (NSString * _Nullable)installedVersion {
     NSString *installedVersion = [[ZBDatabaseManager sharedInstance] installedVersionForPackage:self];
     
     if ([self.version isEqualToString:installedVersion]) return NULL;
