@@ -266,8 +266,6 @@
                         }
                     }
                     
-                    zebraRestartRequired = queue.zebraPath || queue.removingZebra;
-                    
                     if (![ZBDevice needsSimulation]) {
                         ZBLog(@"[Zebra] Executing commands...");
                         NSTask *task = [[NSTask alloc] init];
@@ -338,6 +336,9 @@
             }
             
             if (zebraModification) { //Zebra should be the last thing installed so here is our chance to install it.
+                zebraRestartRequired = YES;
+                
+                ZBLog(@"[Zebra] modifying zebra...");
                 if (queue.removingZebra) {
                     [self postStatusUpdate:NSLocalizedString(@"Removing Zebra...", @"") atLevel:ZBLogLevelInfo];
                     [self postStatusUpdate:@"Goodbye forever :(" atLevel:ZBLogLevelDescript];
@@ -407,7 +408,9 @@
                 }
             }
             
+            ZBLog(@"[Zebra] Restart required? %@.", zebraRestartRequired ? @"Yes" : @"No");
             if (!zebraRestartRequired && updateIconCache) {
+                ZBLog(@"[Zebra] Updating Icon Caches");
                 [self updateIconCaches];
             }
             
@@ -469,6 +472,7 @@
 }
 
 - (void)closeZebra {
+    [ZBDevice exitZebra];
     if (![ZBDevice needsSimulation]) {
         if (applicationBundlePaths.count > 1) {
             [self updateIconCaches];
@@ -476,7 +480,6 @@
             [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
         }
     }
-    [ZBDevice exitZebra];
 }
 
 - (void)restartSpringBoard {
