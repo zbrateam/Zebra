@@ -190,7 +190,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    UITableViewCellStyle style = authorDetail[0].length && authorDetail[1].length ? UITableViewCellStyleSubtitle : UITableViewCellStyleDefault;
+    UITableViewCellStyle style = [authorDetail[0] isEqualToString:authorDetail[1]] ? UITableViewCellStyleDefault : UITableViewCellStyleSubtitle;
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:@"sectionSelectorCell"];
     
     if (style == UITableViewCellStyleSubtitle) {
