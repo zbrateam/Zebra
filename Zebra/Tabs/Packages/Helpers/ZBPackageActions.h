@@ -15,17 +15,6 @@
 #import "ZBPackageActionType.h"
 
 @interface ZBPackageActions : NSObject
-
-+ (void)install:(ZBPackage *)package;
-+ (void)remove:(ZBPackage *)package;
-+ (void)reinstall:(ZBPackage *)package;
-+ (void)upgrade:(ZBPackage *)package;
-+ (void)upgrade:(ZBPackage *)package toVersion:(NSString *)version;
-+ (void)downgrade:(ZBPackage *)package;
-+ (void)downgrade:(ZBPackage *)package toVersion:(NSString *)version;
-+ (void)showUpdatesFor:(ZBPackage *)package;
-+ (void)hideUpdatesFor:(ZBPackage *)package;
-
 + (void)barButtonItemForPackage:(ZBPackage *)package completion:(void (^)(UIBarButtonItem *barButton))completion;
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
@@ -33,8 +22,4 @@
 // Might end up condensing these two
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package API_AVAILABLE(ios(13.0));
-
-+ (UIColor *)colorForAction:(ZBPackageActionType)action;
-+ (NSString *)titleForAction:(ZBPackageActionType)action useIcon:(BOOL)icon;
-+ (NSString *)buttonTitleForPackage:(ZBPackage *)package;
 @end
