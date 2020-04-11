@@ -16,6 +16,12 @@
 		<true/>
 		<key>com.apple.private.security.disk-device-access</key>
 		<true/>
+		<key>com.apple.accessibility.AccessibilityUIServer</key>
+		<true/>
+		<key>com.apple.security.exception.mach-lookup.global-name</key>
+		<array>
+			<string>com.apple.accessibility.AXSpringBoardServer</string>
+		</array>
 		<key>platform-application</key>
 		<true/>
 		<key>keychain-access-groups</key>
