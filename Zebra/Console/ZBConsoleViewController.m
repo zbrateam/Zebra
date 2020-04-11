@@ -472,7 +472,7 @@
 }
 
 - (void)closeZebra {
-    [ZBDevice exitZebra];
+    [ZBDevice exitZebraAfter:3];
     if (![ZBDevice needsSimulation]) {
         if (applicationBundlePaths.count > 1) {
             [self updateIconCaches];

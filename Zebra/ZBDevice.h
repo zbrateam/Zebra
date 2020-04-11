@@ -44,6 +44,7 @@
 + (BOOL)useIcon;
 
 + (void)exitZebra;
++ (void)exitZebraAfter:(int)seconds;
 
 + (BOOL)darkModeEnabled; //Only provided for legacy tweak support
 
