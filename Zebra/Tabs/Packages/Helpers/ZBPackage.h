@@ -55,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sameAs:(ZBPackage *)package;
 - (BOOL)sameAsStricted:(ZBPackage *)package;
 - (BOOL)isPaid;
-- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion;
 - (NSString *)getField:(NSString *)field;
 - (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
@@ -77,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEssentialOrRequired;
 - (BOOL)mightRequirePayment;
 - (NSArray *)possibleActions;
+
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion API_AVAILABLE(ios(11.0));
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
 @end
 
