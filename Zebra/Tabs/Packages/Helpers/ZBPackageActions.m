@@ -455,7 +455,11 @@
         case ZBPackageActionDowngrade:
             imageName = @"arrow.down";
             break;
-        default:
+        case ZBPackageActionShowUpdates:
+            imageName = @"eye";
+            break;
+        case ZBPackageActionHideUpdates:
+            imageName = @"eye.slash";
             break;
     }
     
