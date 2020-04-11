@@ -31,48 +31,50 @@
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment {
     if (!package) return;
     if (action < ZBPackageActionInstall || action > ZBPackageActionHideUpdates) return;
-    if (checkPayment && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
-        if (@available(iOS 11.0, *)) {
-            [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-                if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
-                    [self performAction:action forPackage:package checkPayment:NO];
-                }
-                else if (!info.available) { // Package isn't available.
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package not available", @"") message:NSLocalizedString(@"This package is no longer for sale and cannot be downloaded.", @"") preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                    [alert addAction:ok];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [alert show];
-                    });
-                }
-                else if (!info.purchased) { // Package isn't purchased, purchase it.
-                    [package purchase:^(BOOL success, NSError * _Nullable error) {
-                        if (success && !error) {
-                            [self performAction:action forPackage:package];
-                        }
-                        else if (error) {
-                            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-
-                            UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                            [alert addAction:ok];
-
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [alert show];
-                            });
-                        }
-                    }];
-                }
-                else { // Fall-through, this will not check for payment info again.
-                    [self performAction:action forPackage:package checkPayment:NO];
-                }
-            }];
+    if (@available(iOS 11.0, *)) {
+        if (checkPayment && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
+            if (@available(iOS 11.0, *)) {
+                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+                    if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
+                        [self performAction:action forPackage:package checkPayment:NO];
+                    }
+                    else if (!info.available) { // Package isn't available.
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package not available", @"") message:NSLocalizedString(@"This package is no longer for sale and cannot be downloaded.", @"") preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                        [alert addAction:ok];
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [alert show];
+                        });
+                    }
+                    else if (!info.purchased) { // Package isn't purchased, purchase it.
+                        [package purchase:^(BOOL success, NSError * _Nullable error) {
+                            if (success && !error) {
+                                [self performAction:action forPackage:package];
+                            }
+                            else if (error) {
+                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                                
+                                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+                                [alert addAction:ok];
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [alert show];
+                                });
+                            }
+                        }];
+                    }
+                    else { // Fall-through, this will not check for payment info again.
+                        [self performAction:action forPackage:package checkPayment:NO];
+                    }
+                }];
+            }
+            else {
+                [self performAction:action forPackage:package checkPayment:NO];
+            }
+            return;
         }
-        else {
-            [self performAction:action forPackage:package checkPayment:NO];
-        }
-        return;
     }
     
     switch (action) {
@@ -190,26 +192,28 @@
         };
         
         UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[self buttonTitleForPackage:package] style:UIBarButtonItemStylePlain actionHandler:handler];
-        if ([package mightRequirePayment]) {
-            [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-                if (info) { // Package does have purchase info
-                    if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
-                        UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain actionHandler:^{
-                            [self performAction:ZBPackageActionInstall forPackage:package];
-                        }];
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completion(purchaseButton);
-                        });
-                        return;
+        if (@available(iOS 11.0, *)) {
+            if ([package mightRequirePayment]) {
+                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+                    if (info) { // Package does have purchase info
+                        if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
+                            UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain actionHandler:^{
+                                [self performAction:ZBPackageActionInstall forPackage:package];
+                            }];
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                completion(purchaseButton);
+                            });
+                            return;
+                        }
                     }
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(button);
-                });
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(button);
+                    });
+                    return;
+                }];
                 return;
-            }];
-            return;
+            }
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

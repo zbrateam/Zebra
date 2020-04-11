@@ -158,19 +158,23 @@
             [downloadDelegate startedPackageDownload:package];
         } else if (package.requiresAuthorization) {
             [self postStatusUpdate:[NSString stringWithFormat:@"Authorizing Download for %@", package.name] atLevel:ZBLogLevelDescript];
-            [self authorizeDownloadForPackage:package completion:^(NSURL *downloadURL, NSError *error) {
-                if (downloadURL && !error) {
-                    NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:downloadURL];
-                    [downloadTask resume];
-                    
-                    [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
-                    [self->downloadDelegate startedPackageDownload:package];
-                }
-                else if (error) {
-                    [self postStatusUpdate:[NSString stringWithFormat:@"Couldn't authorize download for %@.", package.name] atLevel:ZBLogLevelError];
-                    [self postStatusUpdate:[NSString stringWithFormat:@"Reason: %@.", error.localizedDescription] atLevel:ZBLogLevelError];
-                }
-            }];
+            if (@available(iOS 11.0, *)) {
+                [self authorizeDownloadForPackage:package completion:^(NSURL *downloadURL, NSError *error) {
+                    if (downloadURL && !error) {
+                        NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:downloadURL];
+                        [downloadTask resume];
+                        
+                        [self->packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
+                        [self->downloadDelegate startedPackageDownload:package];
+                    }
+                    else if (error) {
+                        [self postStatusUpdate:[NSString stringWithFormat:@"Couldn't authorize download for %@.", package.name] atLevel:ZBLogLevelError];
+                        [self postStatusUpdate:[NSString stringWithFormat:@"Reason: %@.", error.localizedDescription] atLevel:ZBLogLevelError];
+                    }
+                }];
+            } else {
+                [self postStatusUpdate:@"The Payment API is not supported on less than iOS 11.0" atLevel:ZBLogLevelError];
+            }
         } else {
             NSString *baseString = [base absoluteString];
             if ([baseString characterAtIndex:[baseString length] - 1] != '/') baseString = [baseString stringByAppendingString:@"/"];
@@ -192,7 +196,7 @@
     }
 }
 
-- (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion {
+- (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion API_AVAILABLE(ios(11.0)) {
     ZBSource *source = [package repo];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     

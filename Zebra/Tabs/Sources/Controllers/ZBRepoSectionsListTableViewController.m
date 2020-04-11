@@ -117,19 +117,21 @@
         [self.tableView layoutIfNeeded];
     }
     
-    if (!editOnly && [repo paymentVendorURL]) { // If the repo supports payments/external accounts
-        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
-        [self.view addSubview:accountBanner];
-        
-        accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
-        [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
-        [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
-        [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
-        [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
-
-        accountBanner.layer.zPosition = 100;
-        self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
-        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO]; // hack
+    if (@available(iOS 11.0, *)) {
+        if (!editOnly && [repo paymentVendorURL]) { // If the repo supports payments/external accounts
+            ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
+            [self.view addSubview:accountBanner];
+            
+            accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
+            [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+            [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
+            [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
+            [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
+            
+            accountBanner.layer.zPosition = 100;
+            self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
+            [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO]; // hack
+        }
     }
 }
 
@@ -164,25 +166,27 @@
 }
 
 - (void)accountButtonPressed:(id)sender {
-    [repo authenticate:^(BOOL success, NSError * _Nullable error) {
-        if (!success || error) {
-            if (error) {
-                if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
+    if (@available(iOS 11.0, *)) {
+        [repo authenticate:^(BOOL success, NSError * _Nullable error) {
+            if (!success || error) {
+                if (error) {
+                    if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
+                }
+                else {
+                    [ZBAppDelegate sendAlertFrom:self message:@"Could not authenticate"];
+                }
             }
             else {
-                [ZBAppDelegate sendAlertFrom:self message:@"Could not authenticate"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+                    ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
+                    
+                    [self presentViewController:navController animated:YES completion:nil];
+                });
             }
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
-                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
-                
-                [self presentViewController:navController animated:YES completion:nil];
-            });
-        }
-    }];
+        }];
+    }
 }
 
 - (void)dealloc {
@@ -239,7 +243,7 @@
     // [self.tableView reloadData];
 }
 
-- (void)setupRepoLogin {
+- (void)setupRepoLogin API_AVAILABLE(ios(11.0)) {
     NSURLComponents *components = [NSURLComponents componentsWithURL:[[repo paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
     if (![components.scheme isEqualToString:@"https"]) {
         return;

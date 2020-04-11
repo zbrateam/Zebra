@@ -83,49 +83,57 @@
 - (void)getPurchases {
     loading = YES;
     
-    [source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
-        if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (self.presentingViewController) {
-                        [self signOut:self];
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }
-                    else {
-                        [self signOut:self];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                }];
-                [errorAlert addAction:okAction];
-                
-                [self presentViewController:errorAlert animated:YES completion:nil];
-            });
-        }
-        else if (info) {
-            NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
-            for (NSString *packageIdentifier in info.items) {
-                [purchasedPackageIdentifiers addObject:[packageIdentifier lowercaseString]];
+    if (@available(iOS 11.0, *)) {
+        [source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+            if (error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        if (self.presentingViewController) {
+                            [self signOut:self];
+                            [self dismissViewControllerAnimated:YES completion:nil];
+                        }
+                        else {
+                            [self signOut:self];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                    }];
+                    [errorAlert addAction:okAction];
+                    
+                    [self presentViewController:errorAlert animated:YES completion:nil];
+                });
             }
-            
-            self->purchases = [self->databaseManager packagesFromIdentifiers:purchasedPackageIdentifiers];
-            if (info.user.name) {
-                self->userName = info.user.name;
-            }
-            if (info.user.email) {
-                self->userEmail = info.user.email;
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self->loading = NO;
+            else if (info) {
+                NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
+                for (NSString *packageIdentifier in info.items) {
+                    [purchasedPackageIdentifiers addObject:[packageIdentifier lowercaseString]];
+                }
                 
-                [self.tableView beginUpdates];
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationFade];
-                [self.tableView endUpdates];
-            });
-        }
-    }];
+                self->purchases = [self->databaseManager packagesFromIdentifiers:purchasedPackageIdentifiers];
+                if (info.user.name) {
+                    self->userName = info.user.name;
+                }
+                if (info.user.email) {
+                    self->userEmail = info.user.email;
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self->loading = NO;
+                    
+                    [self.tableView beginUpdates];
+                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)] withRowAnimation:UITableViewRowAnimationFade];
+                    [self.tableView endUpdates];
+                });
+            }
+        }];
+    } else {
+        self->loading = NO;
+        self->userName = NSLocalizedString(@"Unknown", @"");
+        self->userEmail = NSLocalizedString(@"Unknown", @"");
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (void)signOut:(id)sender {
