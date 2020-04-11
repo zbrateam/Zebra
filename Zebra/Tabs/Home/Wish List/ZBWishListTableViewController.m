@@ -12,6 +12,7 @@
 #import <ZBDevice.h>
 #import <Extensions/UITableViewRowAction+Image.h>
 #import <Extensions/UINavigationBar+Progress.h>
+#import <ZBSettings.h>
 
 @interface ZBWishListTableViewController () {
     UIImageView *shadowView;
@@ -54,6 +55,16 @@
         shadowView = [self findBorderLineUnder:self.navigationController.navigationBar];
     }
     [shadowView setHidden:YES];
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            self.toolbar.barStyle = UIBarStyleDefault;
+        case ZBInterfaceStyleDark:
+            self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+        case ZBInterfaceStylePureBlack:
+            self.toolbar.barStyle = UIBarStyleBlackOpaque;
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
