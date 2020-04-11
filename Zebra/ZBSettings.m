@@ -371,12 +371,14 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     [defaults setObject:blockedAuthors forKey:BlockedAuthorsKey];
 }
 
-+ (BOOL)isAuthorBlocked:(NSString *)email {
-    return [[[self blockedAuthors] allKeys] containsObject:email];
++ (BOOL)isAuthorBlocked:(NSString *)name email:(NSString *)email {
+    NSArray *emails = [[self blockedAuthors] allKeys];
+    NSArray *names = [[self blockedAuthors] allValues];
+    return [emails containsObject:email] || [names containsObject:name];
 }
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorEmail];
+    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
 }
 
 #pragma mark - Homepage Settings
