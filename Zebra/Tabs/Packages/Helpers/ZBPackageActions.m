@@ -101,15 +101,15 @@
 }
 
 + (void)install:(ZBPackage *)package {
-
+    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeInstall];
 }
 
 + (void)remove:(ZBPackage *)package {
-    
+    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
 }
 
 + (void)reinstall:(ZBPackage *)package {
-    
+    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeReinstall];
 }
 
 + (void)upgrade:(ZBPackage *)package {
