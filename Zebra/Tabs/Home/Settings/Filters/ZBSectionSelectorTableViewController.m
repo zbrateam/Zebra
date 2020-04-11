@@ -87,7 +87,7 @@
     cell.textLabel.text = sections[indexPath.row];
     cell.textLabel.textColor = [UIColor primaryTextColor];
     
-    cell.imageView.image = [UIImage imageNamed:sections[indexPath.row]] ?: [UIImage imageNamed:@"Other"];
+    cell.imageView.image = [UIImage imageNamed:[self stripSectionName:sections[indexPath.row]]] ?: [UIImage imageNamed:@"Other"];
     [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     
     cell.accessoryType = [selectedIndexes containsObject:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -111,6 +111,11 @@
     
     [[self tableView] reloadData];
     [self layoutNaviationButtons];
+}
+
+- (NSString *)stripSectionName:(NSString *)section {
+    NSArray *components = [section componentsSeparatedByString:@"("];
+    return [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 @end
