@@ -151,7 +151,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSDictionary *)blockedAuthors;
 + (void)setBlockedAuthors:(NSDictionary *)blockedAuthors;
-+ (BOOL)isAuthorBlocked:(NSString *)email;
++ (BOOL)isAuthorBlocked:(NSString *)name email:(NSString *)name;
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package;
 
