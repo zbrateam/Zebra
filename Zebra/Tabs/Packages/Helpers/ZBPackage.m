@@ -644,12 +644,13 @@
 - (NSArray * _Nullable)possibleActions {
     if ([self->possibleActions count]) return self->possibleActions; // Caching these might actually be a bad idea because I actually base which actions are available on if they're in the queue
     
-    NSMutableArray *actions = [NSMutableArray new];
-    ZBQueue *queue = [ZBQueue sharedQueue];
-    
     if ([[self repo] repoID] == -1) {
         return nil; // No actions for virtual dependencies
     }
+    
+    NSMutableArray *actions = [NSMutableArray new];
+    ZBQueue *queue = [ZBQueue sharedQueue];
+    
     if ([self isInstalled:NO]) {
         // If the package is installed then we can show other options
         if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self isReinstallable]) {
