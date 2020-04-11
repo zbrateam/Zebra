@@ -91,7 +91,7 @@
                 cell.textLabel.text = filteredSections[indexPath.row];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
-                cell.imageView.image = [UIImage imageNamed:filteredSections[indexPath.row]];
+                cell.imageView.image = [UIImage imageNamed:filteredSections[indexPath.row]] ?: [UIImage imageNamed:@"Other"];
                 [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
                 
                 return cell;
