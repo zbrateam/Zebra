@@ -64,9 +64,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         return 4;
     }
-    else {
-        return 3;
-    }
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

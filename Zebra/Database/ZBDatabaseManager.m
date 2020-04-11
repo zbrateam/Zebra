@@ -336,7 +336,8 @@
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
                 else if (!source.packagesFilePath) {
-                    NSLog(@"No problems here");//[self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
+                    NSLog(@"No problems here");
+                    //[self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
                 }
                 
                 [self bulkSetRepo:[source baseFilename] busy:NO];
@@ -2176,7 +2177,7 @@
     if ([array count]) {
         NSMutableString *result = [@"(" mutableCopy];
         [result appendString:[NSString stringWithFormat:@"\'%@\'", array[0]]];
-        for (int i = 1; i < array.count; i++) {
+        for (int i = 1; i < array.count; ++i) {
             [result appendFormat:@", \'%@\'", array[i]];
         }
         [result appendString:@")"];
