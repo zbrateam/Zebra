@@ -1116,7 +1116,7 @@
                 NSString *email = emailChars != 0 ? [NSString stringWithUTF8String:emailChars] : NULL;
                 
                 if (author || email) {
-                    [searchResults addObject:@[author ?: @"", email ?: @""]];
+                    [searchResults addObject:@[author ?: email, email ?: author]];
                 }
             }
         } else {
