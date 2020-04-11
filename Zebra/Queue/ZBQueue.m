@@ -387,7 +387,12 @@
     NSMutableArray *result = [NSMutableArray new];
     for (ZBPackage *package in [self queueFromType:queue]) {
         if (package.debPath) {
-            [result addObject:package.debPath];
+            if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
+                zebraPath = package.debPath;
+            }
+            else {
+                [result addObject:package.debPath];
+            }
         }
     }
     return result;
