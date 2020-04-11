@@ -104,4 +104,10 @@
 //    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.isInstalledImageView.hidden = YES;
+    self.isPaidImageView.hidden = YES;
+}
+
 @end
