@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
+#import <UIKit/UIColor.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
 + (id)sharedQueue;
 + (int)count;
++ (UIColor *)colorForQueueType:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)addDependency:(ZBPackage *)package;

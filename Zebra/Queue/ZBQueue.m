@@ -748,4 +748,21 @@
     }
 }
 
++ (UIColor *)colorForQueueType:(ZBQueueType)queue {
+    switch (queue) {
+        case ZBQueueTypeInstall:
+            return [UIColor systemTealColor];
+        case ZBQueueTypeRemove:
+            return [UIColor systemPinkColor];
+        case ZBQueueTypeReinstall:
+            return [UIColor systemOrangeColor];
+        case ZBQueueTypeUpgrade:
+            return [UIColor systemBlueColor];
+        case ZBQueueTypeDowngrade:
+            return [UIColor systemPurpleColor];
+        default:
+            return nil;
+    }
+}
+
 @end

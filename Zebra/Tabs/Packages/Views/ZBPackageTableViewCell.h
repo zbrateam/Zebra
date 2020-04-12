@@ -7,8 +7,8 @@
 //
 
 @class ZBPackage;
+
 #import <UIKit/UIKit.h>
-#import <Queue/ZBQueueType.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
