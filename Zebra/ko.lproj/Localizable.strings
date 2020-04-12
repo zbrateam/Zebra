@@ -329,11 +329,15 @@
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "완료...";
 "Done %@" = "%@ 완료";
 "Removing Zebra..." = "Zebra 제거중...";
 "Installing Zebra..." = "Zebra 설치중...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "%@의 결제 서비스 공급자 URL 추가 중";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -360,6 +364,7 @@
 "Remove from Queue" = "대기열에서 제거";
 "Clear Queue" = "대기열 지우기";
 "%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
 "Are you sure you want to clear the Queue?" = "정말로 대기열을 지울까요?";
@@ -382,6 +387,14 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling을 root:wheel이 소유하지 않고 있습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
+
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
 
