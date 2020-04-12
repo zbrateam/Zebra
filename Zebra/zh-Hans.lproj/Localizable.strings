@@ -11,8 +11,8 @@
 "Done" = "完成";
 "Loading..." = "加载中……";
 "Clear" = "清空";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "出现一个错误";
+"Dismiss" = "忽略";
 "Downloads" = "下载";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "无法解析 %@ 自 %@";
 "Could not find a download URL for" = "无法获取下载链接";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "添加条件";
 
 "1 Section Hidden" = "1个软件源已隐藏";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu软件源已隐藏";
 
 "Sections" = "分类";
 "Select a Section" = "选择类别";
@@ -452,7 +452,7 @@
 "Authors" = "开发者";
 "Hide packages from these authors." = "隐藏这些开发者的软件包。";
 "Search for an Author" = "搜索开发者";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "这位作者还有以下姓名：";
 
 // Language Settings
 
