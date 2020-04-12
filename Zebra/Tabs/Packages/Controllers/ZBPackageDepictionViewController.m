@@ -376,8 +376,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 // 3D Touch Actions
 
-- (NSArray *)previewActionItemsInTableView:(UITableView *)tableView {
-    return [ZBPackageActions previewActionsForPackage:package inTableView:tableView];
+- (NSArray *)previewActionItems {
+    return [ZBPackageActions previewActionsForPackage:package inTableView:_parent.tableView];
 }
 
 // Haptic Touch Actions
