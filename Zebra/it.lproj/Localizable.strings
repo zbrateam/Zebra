@@ -11,8 +11,8 @@
 "Done" = "Fatto";
 "Loading..." = "Caricamento...";
 "Clear" = "Pulisci";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Si è verificato un errore";
+"Dismiss" = "Cancella";
 "Downloads" = "Download";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Impossibile analizzare %@ da %@";
 "Could not find a download URL for" = "Impossibile trovare un URL di download per";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Impossibile scaricare il file Release da %@. Motivo: %@";
 "Could not download Packages file from %@. Reason: %@" = "Impossibile scaricare i file dei pacchetti da %@. Motivo: %@";
 "Could not download one or more files from %@. Reason: %@" = "Impossibile scaricare uno o più file da %@. Motivo: %@";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "Aggiungi Filtro";
 
 "1 Section Hidden" = "1 Sezione Nascosta";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu Sezioni Nascoste";
 
 "Sections" = "Categorie";
 "Select a Section" = "Seleziona una sezione";
@@ -452,7 +452,7 @@
 "Authors" = "Autori";
 "Hide packages from these authors." = "Nascondi pacchetti di questi autori.";
 "Search for an Author" = "Cerca un autore";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Questo autore ha anche i seguenti nomi:";
 
 // Language Settings
 
