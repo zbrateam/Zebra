@@ -329,15 +329,15 @@
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "%@ を完了できませんでした。 理由：%@";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Zebra を再起動しても問題が引き続き発生する場合は、GitHub で報告してください。";
 "Done..." = "完了...";
 "Done %@" = "%@ のダウンロードを完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "ファイルを開く際にエラーが発生しました：";
 "Adding Payment Vendor URL for %@" = "支払いベンダーのURL (%@) を追加しています";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "このデバイスはシミュレートされています。この段階で変更されるパッケージは次のとおりです。";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "キューから削除";
 "Clear Queue" = "キューをクリア";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "%@ が %@ と競合します";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure you want to clear the Queue?" = "キューをクリアしてもよろしいですか？";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "ドキュメントディレクトリの作成中にエラーが発生しました：%@";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "リストディレクトリの作成中にエラーが発生しました：%@";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "sources.list の作成中にエラーが発生しました：%@";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "debs ディレクトリの作成中にエラーが発生しました：%@";
 
 "Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
