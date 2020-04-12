@@ -329,11 +329,15 @@
 "Finished importing local packages." = "وارد کردن پکیج ها تمام شد";
 "One or more packages failed to download." = "یک یا چند پکیج دانلود نشد";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "روی این گزینه بزنید \"Return to Queue\" تا به صف برگردید و دوباره دانلود کنید";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "انجام شد...";
 "Done %@" = "اتمام %@";
 "Removing Zebra..." = "حدف زبرا...";
 "Installing Zebra..." = "نصب زبرا...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "افزودن آدرس پرداخت فروشنده برای %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -360,6 +364,7 @@
 "Remove from Queue" = "حذف از صف";
 "Clear Queue" = "پاک کردن صف";
 "%@ is required by:" = "%@ مورد نیاز توسط:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure you want to clear the Queue?" = "مطمئن هستید که می خواهید صف را پاک کنید؟";
@@ -382,6 +387,14 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling متعلق به root: wheel نیست. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
+
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "ریسپرینگ نشد، لطفا بصورت دستی ریسپرینگ کنید.";
 
