@@ -11,8 +11,8 @@
 "Done" = "Ferdig";
 "Loading..." = "Laster...";
 "Clear" = "Tøm";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "En feil oppstod";
+"Dismiss" = "Avvis";
 "Downloads" = "Nedlastinger";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Kunne ikke parse %@ fra %@";
 "Could not find a download URL for" = "Kunne ikke finne en nedlastingsnettadresse for";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Kunne ikke laste ned utgivelsesfil fra %@. Årsak: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunne ikke laste ned pakkefil fra %@. Årsak: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunne ikke laste ned en eller flere filer fra %@. Årsak: %@";
 
@@ -329,11 +329,15 @@
 "Finished importing local packages." = "Ferdig med å importere lokale pakker.";
 "One or more packages failed to download." = "Nedlasting av en eller flere pakker feilet.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnere til køen og prøve nedlastingen på nytt.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Ferdig...";
 "Done %@" = "Ferdig %@";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Legger til betalingsleverandørens nettadresse for %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -360,6 +364,7 @@
 "Remove from Queue" = "Fjern fra køen";
 "Clear Queue" = "Tøm kø";
 "%@ is required by:" = "%@ kreves av:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ må fjernes fordi det avhenger av %@";
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
 "Are you sure you want to clear the Queue?" = "Er du sikker på at du vil tømme køen?";
@@ -382,6 +387,14 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling eies ikke av root:wheel. Vennligst bekreft tillatelsene til filen som ligger på /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikke tillatelse til å angi uid eller gid. Vennligst bekreft tillatelsene til filen som ligger på /usr/libexec/zebra/supersling.";
+
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "Kunne ikke starte SpringBoard på nytt. Vennligst start SpringBoard på nytt selv.";
 
@@ -423,7 +436,7 @@
 "Add Filter" = "Legg til filter";
 
 "1 Section Hidden" = "1 seksjon skjult";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu seksjoner skjult";
 
 "Sections" = "Seksjoner";
 "Select a Section" = "Velg en seksjon";
@@ -439,7 +452,7 @@
 "Authors" = "Forfattere";
 "Hide packages from these authors." = "Skjul pakkene fra disse forfatterne.";
 "Search for an Author" = "Søk etter forfatter";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Denne forfatteren går også under følgende navn:";
 
 // Language Settings
 
