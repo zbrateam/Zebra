@@ -593,13 +593,17 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)hideUDID {
-    hideUDID = YES;
-    [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+    dispatch_async(dispatch_get_main_queue(), ^{
+        hideUDID = YES;
+        [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+    });
 }
 
 - (void)showUDID {
-    hideUDID = NO;
-    [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+    dispatch_async(dispatch_get_main_queue(), ^{
+        hideUDID = NO;
+        [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+    });
 }
 
 #pragma mark UICollectionView
