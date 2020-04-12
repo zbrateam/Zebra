@@ -330,14 +330,14 @@
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
 "Could not complete %@ process. Reason: %@." = "تعذر إكمال %@ عملية. السبب: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "يرجى إعادة تشغيل Zebra ورؤية ما إذا كانت المشكلة لا تزال قائمة. إذا كانت كذلك، يرجى تقديم خطأ على GitHub.";
 "Done..." = "تم...";
 "Done %@" = "تم %@";
 "Removing Zebra..." = "جارِ إزالة Zebra...";
 "Installing Zebra..." = "جارِ تثبيت Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "حدث خطأ أثناء فتح ملف:";
 "Adding Payment Vendor URL for %@" = "جارِ إضافة عنوان URL مزود الدفع لـ %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "هذا الجهاز يتم محاكاته، إليك الحزم التي سيتم تعديلها في هذه المرحلة:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "إزالة من قائمة الإنتظار";
 "Clear Queue" = "مسح قائمة الإنتظار";
 "%@ is required by:" = "%@ مطلوبة بواسطة:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" تتعارض مع %@";
 "%@ must be removed because it depends on %@" = "%@ يجب إزالته لأنه يعتمد على %@";
 "%@ has issues that cannot be resolved:" = "%@ لديه مشكلات لا يمكن حلها:";
 "Are you sure you want to clear the Queue?" = "هل أنت متأكد أنك تريد مسح قائمة الإنتظار؟";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "يبدو أن su/sling ليس لديه إذن لتعيين uid أو gid. يرجى التحقق من أذونات الملف الموجود في /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "حدث خطأ أثناء إنشاء دليل مستندات: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "حدث خطأ أثناء إنشاء دليل قوائم: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "حدث خطأ أثناء إنشاء قائمة مصادر: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "حدث خطأ أثناء إنشاء دليل ملفات deb: %@.";
 
 "Could not respring. Please respring manually." = "لا يمكن عمل إعادة تشغيل سريع. يرجى عمل إعادة تشغيل سريع بشكل يدوي.";
 
