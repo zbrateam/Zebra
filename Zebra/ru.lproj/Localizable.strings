@@ -329,15 +329,15 @@
 "Finished importing local packages." = "Импортирование локальных пакетов завершено.";
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Не удалось завершить процесс %@. Причина: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Пожалуйста, перезапустите Zebra и проверьте, остаётся ли проблема. Если это так, пожалуйста, сообщите об ошибке на GitHub.";
 "Done..." = "Готово...";
 "Done %@" = "Завершено %@";
 "Removing Zebra..." = "Удаление Zebra...";
 "Installing Zebra..." = "Установка Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Ошибка при открытии файла:";
 "Adding Payment Vendor URL for %@" = "Добавление URL поставщика платежа для %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Это устройство симулировано, вот пакеты, которые были бы изменены на этом этапе:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Удалить из очереди";
 "Clear Queue" = "Очистить очередь";
 "%@ is required by:" = "%@ требуется пактом:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" конфликтует с %@";
 "%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
 "%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
 "Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить очередь?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не имеет разрешения на установку uid или gid. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Ошибка при создании каталога документов: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Ошибка при создании каталога списков: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Ошибка при создании sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Ошибка при создании каталога deb файлов: %@.";
 
 "Could not respring. Please respring manually." = "Не удалось перезапустить SpringBoard. Пожалуйста, перезапустите SpringBoard вручную.";
 
