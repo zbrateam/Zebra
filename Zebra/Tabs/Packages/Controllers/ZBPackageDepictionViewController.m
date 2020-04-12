@@ -590,7 +590,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoRepo:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"Repo", @"");
+            cell.textLabel.text = NSLocalizedString(@"Source", @"");
             cell.detailTextLabel.text = value;
             break;
         case ZBPackageInfoWishList: {
