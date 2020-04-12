@@ -14,6 +14,7 @@
 #import <Community Sources/ZBCommunitySourcesTableViewController.h>
 #import <Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
+#import <ZBAppDelegate.h>
 
 @import FirebaseAnalytics;
 
@@ -69,8 +70,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self setupFeatured];
     
-    [self testHandleSpringBoardEvent];
-    
     if (@available(iOS 13.0, *)) {
         UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
         self.navigationItem.rightBarButtonItems = nil;
@@ -85,11 +84,21 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserWillTakeScreenshotNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserDidTakeScreenshotNotification object:nil];
+    
     [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupFeatured {
@@ -580,6 +589,16 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController {
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+}
+
+- (void)hideUDID {
+    hideUDID = YES;
+    [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+}
+
+- (void)showUDID {
+    hideUDID = NO;
+    [self.tableView reloadData]; // reloadSections is too slow to use here apparently
 }
 
 #pragma mark UICollectionView
