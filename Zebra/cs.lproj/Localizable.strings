@@ -11,8 +11,8 @@
 "Done" = "Hotovo";
 "Loading..." = "Načítání...";
 "Clear" = "Vyčistit";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Došlo k chybě";
+"Dismiss" = "Zamítnout";
 "Downloads" = "Stažené";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Nahlásit Bug";
 "Changelog" = "Seznam změn";
 "Wish List" = "Seznam přání";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Od nejnovějšího";
+"Oldest First" = "Od nejstaršího";
 "No items in Wish List" = "Nic tu není.";
 "Community" = "Komunita";
 "Join our Discord" = "Připoj se k našemu Discordu";
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Soubor Release z %@nelze stáhnout. Důvod: %@";
 "Could not download Packages file from %@. Reason: %@" = "Soubor balíčků z %@nelze stáhnout. Důvod: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nelze stáhnout jeden nebo více souborů z %@. Důvod: %@";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "Přidat filtr";
 
 "1 Section Hidden" = "1 Skrytý oddíl";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu sekcí skryto";
 
 "Sections" = "Sekce";
 "Select a Section" = "Vyberte kategorii";
@@ -452,7 +452,7 @@
 "Authors" = "Autoři";
 "Hide packages from these authors." = "Skrýt balíčky od těchto autorů.";
 "Search for an Author" = "Hledat autora";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Tento autor je také pojmenováván těmito jmény:";
 
 // Language Settings
 
