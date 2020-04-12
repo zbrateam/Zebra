@@ -45,6 +45,9 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 NSString *const ZBUserWillTakeScreenshotNotification = @"WillTakeScreenshotNotification";
 NSString *const ZBUserDidTakeScreenshotNotification = @"DidTakeScreenshotNotification";
 
+NSString *const ZBUserStartedScreenCaptureNotification = @"StartedScreenCaptureNotification";
+NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotification";
+
 + (NSString *)bundleID {
     return [[NSBundle mainBundle] bundleIdentifier];
 }
@@ -244,6 +247,10 @@ NSString *const ZBUserDidTakeScreenshotNotification = @"DidTakeScreenshotNotific
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
     
+    if (@available(iOS 11.0, *)) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
+    }
+    
     return YES;
 }
 
@@ -411,6 +418,16 @@ NSString *const ZBUserDidTakeScreenshotNotification = @"DidTakeScreenshotNotific
             [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
         }
     } withIdentifierCallback:^(int a) {}];
+}
+
+- (void)checkForScreenRecording:(NSNotification *)notif API_AVAILABLE(ios(11.0)) {
+    UIScreen *screen = [notif object];
+    if ([screen isCaptured] || [screen mirroredScreen]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserStartedScreenCaptureNotification object:nil];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserEndedScreenCaptureNotification object:nil];
+    }
 }
 
 @end

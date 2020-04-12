@@ -12,6 +12,9 @@
 extern NSString * const ZBUserWillTakeScreenshotNotification;
 extern NSString * const ZBUserDidTakeScreenshotNotification;
 
+extern NSString * const ZBUserStartedScreenCaptureNotification;
+extern NSString * const ZBUserEndedScreenCaptureNotification;
+
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
