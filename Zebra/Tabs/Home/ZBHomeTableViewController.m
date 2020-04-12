@@ -15,6 +15,10 @@
 #import <Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
 
+#import <dlfcn.h>
+#import <objc/runtime.h>
+#import <Headers/AccessibilityUtilities.h>
+
 @import FirebaseAnalytics;
 
 typedef enum ZBHomeOrder : NSUInteger {
@@ -44,6 +48,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 @interface ZBHomeTableViewController (){
     NSMutableArray *redditPosts;
+    BOOL hideUDID;
 }
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
@@ -67,6 +72,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
     [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self setupFeatured];
+    
+    [self testHandleSpringBoardEvent];
     
     if (@available(iOS 13.0, *)) {
         UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
@@ -401,7 +408,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (section == ZBCredits) {
-        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, [ZBSettings hideUDID] ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
+        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, hideUDID ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
     }
     return NULL;
 }
@@ -648,6 +655,23 @@ typedef enum ZBLinksOrder : NSUInteger {
     [animator addCompletion:^{
         [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
     }];
+}
+
+#pragma mark - Screenshot Detection
+
+- (void)testHandleSpringBoardEvent {
+    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
+    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
+    [server registerSpringBoardActionHandler:^(int eventType) {
+        if (eventType == 6) { // Before taking screenshot
+            self->hideUDID = YES;
+            [self.tableView reloadData];
+        }
+        else if (eventType == 7) { // After taking screenshot
+            self->hideUDID = NO;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBCredits] withRowAnimation:UITableViewRowAnimationNone];
+        }
+    } withIdentifierCallback:^(int a) {}];
 }
 
 @end
