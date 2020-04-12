@@ -329,7 +329,7 @@
 "Finished importing local packages." = "انتهى استيراد الحزم المحلية.";
 "One or more packages failed to download." = "فشل تنزيل حزمة واحدة أو أكثر.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "انقر على \"العودة إلى قائمة الإنتظار\" للعودة إلى قائمة الإنتظار وإعادة محاولة التنزيل.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Could not complete %@ process. Reason: %@." = "تعذر إكمال %@ عملية. السبب: %@.";
 "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "تم...";
 "Done %@" = "تم %@";
