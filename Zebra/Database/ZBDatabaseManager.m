@@ -302,11 +302,11 @@
                     if (repoID == -1) { // Repo does not exist in database, create it.
                         repoID = [self nextRepoID];
                         if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
-                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
                         }
                     } else {
                         if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, repoID) != PARSEL_OK) {
-                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.releaseFilePath] atLevel:ZBLogLevelError];
+                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
                         }
                     }
                     
@@ -333,7 +333,7 @@
                 
                 //Deal with the packages
                 if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, repoID, currentDate) != PARSEL_OK) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"Error while opening file: %@\n", source.packagesFilePath] atLevel:ZBLogLevelError];
+                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
                 else if (!source.packagesFilePath) {
                     NSLog(@"No problems here");
