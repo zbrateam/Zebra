@@ -11,8 +11,8 @@
 "Done" = "Gotovo";
 "Loading..." = "Učitavanje...";
 "Clear" = "Ukloni";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Dogodila se greška";
+"Dismiss" = "Odbaci";
 "Downloads" = "Preuzimanja";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Prijavi grešku";
 "Changelog" = "Popis promjena";
 "Wish List" = "Lista želja";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Prvo najnovije";
+"Oldest First" = "Prvo najstarije";
 "No items in Wish List" = "Lista želja je prazna";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridružite se našem Discord-u";
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Ne može rasčlaniti %@ iz %@";
 "Could not find a download URL for" = "Ne mogu pronaći URL preuzimanje za";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Pogreška pri preuzimanju Release datoteke od %@. Razlog: %@";
 "Could not download Packages file from %@. Reason: %@" = "Pogreška pri preuzimanju od %@. Razlog: %@";
 "Could not download one or more files from %@. Reason: %@" = "Pogreška pri preuzimanju od %@. Razlog: %@";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "Dodaj filter";
 
 "1 Section Hidden" = "1 sakriveni odjeljak";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu sakrivenih odjeljaka";
 
 "Sections" = "Odjeljci";
 "Select a Section" = "Odaberi sekciju";
@@ -452,7 +452,7 @@
 "Authors" = "Autori";
 "Hide packages from these authors." = "Sakrij proizvode od ovih autora.";
 "Search for an Author" = "Tražite autora";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Ovaj autor se još naziva:";
 
 // Language Settings
 
