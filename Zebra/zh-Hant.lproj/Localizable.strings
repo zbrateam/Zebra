@@ -11,8 +11,8 @@
 "Done" = "完成";
 "Loading..." = "正在載入...";
 "Clear" = "清除";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "發生錯誤";
+"Dismiss" = "關閉";
 "Downloads" = "下載";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "無法解析 %@ 自 %@";
 "Could not find a download URL for" = "無法獲得下載網址";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "無法從 %@ 下載發佈檔案。原因：%@";
 "Could not download Packages file from %@. Reason: %@" = "無法從 %@ 下載套件檔案。原因：%@";
 "Could not download one or more files from %@. Reason: %@" = "無法從 %@ 下載 1 個或更多檔案。原因：%@";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "新增篩選條件";
 
 "1 Section Hidden" = "已隱藏 1 個類別";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "已隱藏 %lu 個類別";
 
 "Sections" = "類別";
 "Select a Section" = "選擇類別";
@@ -452,7 +452,7 @@
 "Authors" = "作者";
 "Hide packages from these authors." = "隱藏來自這些作者的套件";
 "Search for an Author" = "搜尋作者";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "此作者亦有使用以下名稱：";
 
 // Language Settings
 
