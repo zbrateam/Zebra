@@ -594,14 +594,14 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)hideUDID {
     dispatch_async(dispatch_get_main_queue(), ^{
-        hideUDID = YES;
+        self->hideUDID = YES;
         [self.tableView reloadData]; // reloadSections is too slow to use here apparently
     });
 }
 
 - (void)showUDID {
     dispatch_async(dispatch_get_main_queue(), ^{
-        hideUDID = NO;
+        self->hideUDID = NO;
         [self.tableView reloadData]; // reloadSections is too slow to use here apparently
     });
 }
