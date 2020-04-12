@@ -23,6 +23,9 @@
 #import <Theme/ZBThemeManager.h>
 #import <Database/ZBRefreshViewController.h>
 #import <Search/ZBSearchTableViewController.h>
+#import <dlfcn.h>
+#import <objc/runtime.h>
+#import <Headers/AccessibilityUtilities.h>
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
@@ -38,6 +41,9 @@
 static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 @implementation ZBAppDelegate
+
+NSString *const ZBUserWillTakeScreenshotNotification = @"WillTakeScreenshotNotification";
+NSString *const ZBUserDidTakeScreenshotNotification = @"DidTakeScreenshotNotification";
 
 + (NSString *)bundleID {
     return [[NSBundle mainBundle] bundleIdentifier];
@@ -232,6 +238,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
+    [self registerForScreenshotNotifications];
+    
     if ([ZBDatabaseManager needsMigration]) {
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
@@ -390,6 +398,19 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 - (void)setupSDWebImageCache {
     [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
+}
+
+- (void)registerForScreenshotNotifications {
+    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
+    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
+    [server registerSpringBoardActionHandler:^(int eventType) {
+        if (eventType == 6) { // Before taking screenshot
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserWillTakeScreenshotNotification object:nil];
+        }
+        else if (eventType == 7) { // After taking screenshot
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
+        }
+    } withIdentifierCallback:^(int a) {}];
 }
 
 @end

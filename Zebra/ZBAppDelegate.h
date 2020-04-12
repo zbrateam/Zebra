@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <Tabs/ZBTabBarController.h>
 
+extern NSString * const ZBUserWillTakeScreenshotNotification;
+extern NSString * const ZBUserDidTakeScreenshotNotification;
+
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;

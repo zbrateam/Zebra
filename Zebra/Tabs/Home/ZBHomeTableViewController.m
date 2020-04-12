@@ -15,10 +15,6 @@
 #import <Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
 
-#import <dlfcn.h>
-#import <objc/runtime.h>
-#import <Headers/AccessibilityUtilities.h>
-
 @import FirebaseAnalytics;
 
 typedef enum ZBHomeOrder : NSUInteger {
@@ -655,23 +651,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     [animator addCompletion:^{
         [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
     }];
-}
-
-#pragma mark - Screenshot Detection
-
-- (void)testHandleSpringBoardEvent {
-    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
-    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
-    [server registerSpringBoardActionHandler:^(int eventType) {
-        if (eventType == 6) { // Before taking screenshot
-            self->hideUDID = YES;
-            [self.tableView reloadData];
-        }
-        else if (eventType == 7) { // After taking screenshot
-            self->hideUDID = NO;
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBCredits] withRowAnimation:UITableViewRowAnimationNone];
-        }
-    } withIdentifierCallback:^(int a) {}];
 }
 
 @end
