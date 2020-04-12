@@ -329,15 +329,15 @@
 "Finished importing local packages." = "Ferdig med å importere lokale pakker.";
 "One or more packages failed to download." = "Nedlasting av en eller flere pakker feilet.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnere til køen og prøve nedlastingen på nytt.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Kunne ikke fullføre %@ prosess. Årsak: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Start Zebra på nytt og se om problemet vedvarer. Hvis dette er tilfelle, vennligst rapporter problemet på GitHub.";
 "Done..." = "Ferdig...";
 "Done %@" = "Ferdig %@";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Feil under åpning av fil:";
 "Adding Payment Vendor URL for %@" = "Legger til betalingsleverandørens nettadresse for %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Denne enheten er simulert, her er pakkene som ville bli endret i dette trinnet:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Fjern fra køen";
 "Clear Queue" = "Tøm kø";
 "%@ is required by:" = "%@ kreves av:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" er i konflikt med %@";
 "%@ must be removed because it depends on %@" = "%@ må fjernes fordi det avhenger av %@";
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
 "Are you sure you want to clear the Queue?" = "Er du sikker på at du vil tømme køen?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikke tillatelse til å angi uid eller gid. Vennligst bekreft tillatelsene til filen som ligger på /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Feil ved opprettelse av dokumentmappe: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Feil ved opprettelse av listemappe: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Feil ved opprettelse av sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Feil ved opprettelse av debfilmappe: %@.";
 
 "Could not respring. Please respring manually." = "Kunne ikke starte SpringBoard på nytt. Vennligst start SpringBoard på nytt selv.";
 
