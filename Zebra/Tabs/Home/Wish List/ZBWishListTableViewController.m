@@ -46,9 +46,12 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
+    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
     
     if (!shadowView) {
@@ -74,6 +77,13 @@
     [super viewWillDisappear:animated];
     
     [shadowView setHidden:NO];
+}
+
+- (void)export {
+    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[[wishedPackageIdentifiers componentsJoinedByString:@"\n"]] applicationActivities:nil];
+    shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+    
+    [self presentViewController:shareSheet animated:YES completion:nil];
 }
 
 - (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
