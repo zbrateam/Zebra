@@ -59,6 +59,8 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
     if (selectedIndex.row != selectedValue && settingChanged) self.settingChanged();
 }
 
