@@ -329,15 +329,15 @@
 "Finished importing local packages." = "ייבוא חבילות מקומיות הושלם.";
 "One or more packages failed to download." = "חבילה אחת או יותר נכשלו בהורדה.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "לחץ/י על \"חזרה לתור\" כדי לחזור לתור ולנסות שוב את ההורדה.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "לא ניתן להשלים את תהליך %@. סיבה: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "אנא אתחל/י את זברה, במידה והבעיה נמשכת, אנא דווח/י על הבעיה ב-GitHub.";
 "Done..." = "בוצע...";
 "Done %@" = "סיים להוריד את %@";
 "Removing Zebra..." = "מסיר את זברה...";
 "Installing Zebra..." = "מתקין את זברה...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "תקלה בפתיחת קובץ:";
 "Adding Payment Vendor URL for %@" = "מוסיף כתובת ספק תשלום עבור %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "מכשיר זה מדומה, להלן החבילות שישונו בשלב זה:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "הסר מהתור";
 "Clear Queue" = "נקה תור";
 "%@ is required by:" = "החבילה %@ נדרשת ע\"י:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" מתנגש עם %@";
 "%@ must be removed because it depends on %@" = "יש להסיר את %@ מכיוון שהוא תלוי ב-%@";
 "%@ has issues that cannot be resolved:" = "ל-%@ יש בעיות שלא ניתן לפתור:";
 "Are you sure you want to clear the Queue?" = "האם את/ה בטוח/ה שברצונך לנקות את התור?";
@@ -388,7 +388,7 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "אין ל-su/sling הרשאה להגדיר את ה-uid או את ה-gid. אנא ודא/י את תקינות ההרשאות של הקובץ הממוקם ב-/usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "שגיאה ביצירת תיקיית מסמכים: %@.";
 
 "Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
 
