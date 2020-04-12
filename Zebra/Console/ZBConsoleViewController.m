@@ -304,7 +304,7 @@
                                     break;
                             }
                         } @catch (NSException *e) {
-                            NSString *message = [NSString stringWithFormat:@"Could not complete %@ process. Reason: %@.", [ZBDevice packageManagementBinary],  e.reason];
+                            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
                             
                             CLS_LOG(@"%@", message);
                             NSLog(@"[Zebra] %@", message);
@@ -312,7 +312,7 @@
                         }
                     }
                     else {
-                        [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
+                        [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
                         for (int i = COMMAND_START; i < [command count]; ++i) {
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
@@ -394,16 +394,16 @@
                                 break;
                         }
                     } @catch (NSException *e) {
-                        NSString *message = [NSString stringWithFormat:@"Could not complete %@ process. Reason: %@.", [ZBDevice packageManagementBinary],  e.reason];
+                        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
                         
                         CLS_LOG(@"%@", message);
                         NSLog(@"[Zebra] %@", message);
                         [self writeToConsole:message atLevel:ZBLogLevelError];
-                        [self writeToConsole:@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." atLevel:ZBLogLevelInfo];
+                        [self writeToConsole:NSLocalizedString(@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.", @"") atLevel:ZBLogLevelInfo];
                     }
                 }
                 else {
-                    [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
+                    [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
                     queue.removingZebra ? [self writeToConsole:@"xyz.willy.zebra" atLevel:ZBLogLevelDescript] : [self writeToConsole:[path lastPathComponent] atLevel:ZBLogLevelDescript];
                 }
             }
