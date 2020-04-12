@@ -124,7 +124,7 @@
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
     
-    return [ZBPackageActions rowActionsForPackage:(ZBPackage *)quantumPackage];
+    return [ZBPackageActions rowActionsForPackage:(ZBPackage *)quantumPackage inTableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -138,7 +138,7 @@
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
         weakSelf.previewPackageDepictionVC.parent = weakSelf;
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 

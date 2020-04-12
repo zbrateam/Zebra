@@ -223,7 +223,7 @@
     });
 }
 
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package {
++ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView {
     NSMutableArray *rowActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];
@@ -235,6 +235,8 @@
         UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
         UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
             [self performAction:action forPackage:package];
+            
+            [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
         }];
         
         [rowAction setBackgroundColor:[self colorForAction:action]];
@@ -264,7 +266,7 @@
     return alertActions;
 }
 
-+ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package {
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView {
     NSMutableArray <UIPreviewAction *> *previewActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];
@@ -275,6 +277,10 @@
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
         UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
             [self performAction:action forPackage:package];
+            
+            if (tableView) {
+                [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+            }
         }];
         
         [previewActions addObject:previewAction];
@@ -283,7 +289,7 @@
     return previewActions;
 }
 
-+ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package API_AVAILABLE(ios(13.0)) {
++ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0)) {
     NSMutableArray <UIAction *> *uiActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleActions];
@@ -295,6 +301,10 @@
         
         UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
             [self performAction:action forPackage:package];
+            
+            if (tableView) {
+                [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+            }
         }];
         [uiActions addObject:uiAction];
     }

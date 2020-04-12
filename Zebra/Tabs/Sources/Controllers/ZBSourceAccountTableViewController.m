@@ -277,7 +277,7 @@
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];
-    return [ZBPackageActions rowActionsForPackage:package];
+    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
 }
 
 #pragma mark - Navigation

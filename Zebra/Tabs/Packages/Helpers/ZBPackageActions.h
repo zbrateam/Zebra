@@ -14,12 +14,14 @@
 
 #import "ZBPackageActionType.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface ZBPackageActions : NSObject
 + (void)barButtonItemForPackage:(ZBPackage *)package completion:(void (^)(UIBarButtonItem *barButton))completion;
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package;
++ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
-
-// Might end up condensing these two
-+ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package;
-+ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package API_AVAILABLE(ios(13.0));
++ (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView;
++ (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0));
 @end
+
+NS_ASSUME_NONNULL_END

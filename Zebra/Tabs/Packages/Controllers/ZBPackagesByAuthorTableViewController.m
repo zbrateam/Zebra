@@ -80,7 +80,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [moreByAuthor objectAtIndex:indexPath.row];
-    return [ZBPackageActions rowActionsForPackage:package];
+    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
     //reloadRow in completion
 }
     

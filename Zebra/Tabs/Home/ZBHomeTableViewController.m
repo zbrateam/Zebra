@@ -666,7 +666,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [weakSelf setPackageOnDestinationVC:weakSelf.previewPackageDepictionVC withPackage:cell.packageID];
         weakSelf.previewPackageDepictionVC.parent = weakSelf;
         
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:nil]];
     }];
 }
 

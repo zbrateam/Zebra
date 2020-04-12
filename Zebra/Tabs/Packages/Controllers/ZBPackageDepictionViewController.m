@@ -376,14 +376,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 // 3D Touch Actions
 
-- (NSArray *)previewActionItems {
-    return [ZBPackageActions previewActionsForPackage:package];
+- (NSArray *)previewActionItemsInTableView:(UITableView *)tableView {
+    return [ZBPackageActions previewActionsForPackage:package inTableView:tableView];
 }
 
 // Haptic Touch Actions
 
-- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    return [ZBPackageActions menuElementsForPackage:package];
+- (NSArray *)contextMenuActionItemsInTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0)) {
+    return [ZBPackageActions menuElementsForPackage:package inTableView:tableView];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
