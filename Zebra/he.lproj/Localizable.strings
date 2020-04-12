@@ -390,11 +390,11 @@
 
 "Error while creating documents directory: %@." = "שגיאה ביצירת תיקיית מסמכים: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "שגיאה ביצירת תיקיית רשימות: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "שגיאה ביצירת sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "שגיאה ביצירת תיקיית קבצי deb: %@.";
 
 "Could not respring. Please respring manually." = "לא ניתן להפעיל מחדש את מסך הבית. יש לנסות הפעלה מחדש ידנית.";
 
