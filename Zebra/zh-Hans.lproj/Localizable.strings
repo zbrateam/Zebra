@@ -329,15 +329,15 @@
 "Finished importing local packages." = "导入本地软件包完成。";
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "无法完成 %@。原因：%@。";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "请重启 Zebra 并查看问题是否仍然存在。如果是，请在 GitHub 上提交问题报告。";
 "Done..." = "完成……";
 "Done %@" = "%@ 已完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "打开文件时出错：";
 "Adding Payment Vendor URL for %@" = "正在为 %@ 添加付款服务 URL";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "此设备处于模拟状态，下面是本阶段将会被修改的软件包：";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "从队列移除";
 "Clear Queue" = "清空队列";
 "%@ is required by:" = "需要 %@ 依赖包：";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "“%@”与“%@”不兼容";
 "%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
 "Are you sure you want to clear the Queue?" = "确定要清空队列吗？";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "创建文档目录时出错：%@。";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "创建列表目录时出错：%@。";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@。";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@。";
 
 "Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
 
