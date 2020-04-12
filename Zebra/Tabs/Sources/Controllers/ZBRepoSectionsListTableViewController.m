@@ -72,9 +72,6 @@
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     if (!editOnly) self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil]; // For iOS 9 and 10 Sileo Purchases
     
     UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -135,6 +132,9 @@
     }
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:YES];
@@ -187,10 +187,6 @@
             }
         }];
     }
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"AuthenticationCallBack" object:nil];
 }
 
 - (void)checkFeaturedPackages {
@@ -291,34 +287,6 @@
     } else {
         [ZBDevice openURL:url delegate:self];
     }
-}
-
-- (void)authenticationCallBack:(NSNotification *)notif {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-    NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-    NSArray *queryItems = urlComponents.queryItems;
-    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-    
-    for (NSURLQueryItem *q in queryItems) {
-        [queryByKeys setValue:[q value] forKey:[q name]];
-    }
-    
-    NSString *token = queryByKeys[@"token"];
-    NSString *payment = queryByKeys[@"payment_secret"];
-    
-    [keychain setString:token forKey:[repo repositoryURI]];
-    
-    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    securedKeychain[[[repo repositoryURI] stringByAppendingString:@"payment"]] = nil;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-        
-        securedKeychain[[[self->repo repositoryURI] stringByAppendingString:@"payment"]] = payment;
-        
-    });
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {

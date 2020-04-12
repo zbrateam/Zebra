@@ -11,7 +11,13 @@
 #import <ZBSource.h>
 #import <ZBSourceInfo.h>
 #import <ZBUserInfo.h>
+#import <ZBAppDelegate.h>
 #import "ZBRepoSectionsListTableViewController.h"
+
+@interface ZBSourcesAccountBanner () {
+    BOOL hideUDID;
+}
+@end
 
 @implementation ZBSourcesAccountBanner
 
@@ -36,11 +42,36 @@
     }
     
     [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchDown];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateText) name:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
     
     [self applyStyle];
     
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateText) name:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideSensitiveInformation) name:ZBUserWillTakeScreenshotNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSensitiveInformation) name:ZBUserDidTakeScreenshotNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideSensitiveInformation) name:ZBUserStartedScreenCaptureNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showSensitiveInformation) name:ZBUserEndedScreenCaptureNotification object:nil];
+}
+
+- (void)hideSensitiveInformation {
+    hideEmail = YES;
+    [self updateText];
+}
+
+- (void)showSensitiveInformation {
+    hideEmail = NO;
+    [self updateText];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)updateText {
@@ -52,7 +83,12 @@
                 [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (info && !error) {
-                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@)", @""), info.user.name, info.user.email];
+                            if (self->hideEmail) {
+                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@", @""), info.user.name];
+                            }
+                            else {
+                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@)", @""), info.user.name, info.user.email];
+                            }
                         }
                         else {
                             self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
@@ -86,10 +122,6 @@
     self.button.tintColor = [UIColor accentColor];
     self.button.layer.cornerRadius = 14;
     self.seperatorView.backgroundColor = [UIColor cellSeparatorColor];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
 }
 
 @end

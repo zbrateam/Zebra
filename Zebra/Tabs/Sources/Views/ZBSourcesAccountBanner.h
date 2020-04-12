@@ -14,7 +14,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourcesAccountBanner : UIView
+@interface ZBSourcesAccountBanner : UIView {
+    BOOL hideEmail;
+}
 @property (nonatomic, strong) ZBSource *source;
 @property (nonatomic, strong) ZBSourceInfo *sourceInfo;
 @property (nonatomic, assign) ZBRepoSectionsListTableViewController *owner;
