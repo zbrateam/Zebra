@@ -329,11 +329,15 @@
 "Finished importing local packages." = "Dovršen uvoz lokalnih paketa.";
 "One or more packages failed to download." = "Pogreška pri preuzimanju jednog ili više paketa.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Povratak u red\" da biste se vratili u red i pokušali ponovo preuzeti.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Gotovo...";
 "Done %@" = "Dovršeno %@";
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Dodavanje URL-a dobavljača plaćanja za %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -360,6 +364,7 @@
 "Remove from Queue" = "Ukloni iz Liste";
 "Clear Queue" = "Očisti red čekanja";
 "%@ is required by:" = "%@ je potreban od strane:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ mora biti uklonjeno jer ovisi o %@";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji se ne mogu riješiti:";
 "Are you sure you want to clear the Queue?" = "Jeste li sigurni da želite očistiti popis?";
@@ -382,6 +387,14 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nije pod root:wheel razinim. Molimo, potvrdite dopuštenje na datoteku lociranu u /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nema dopuštenje da podesi uid ili gid. Molimo, potvrdite dopuštenja na datoteke locirane u /usr/libexec/zebra/supersling.";
+
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "Ne mogu respring. Molimo izvršite respring ručno.";
 
