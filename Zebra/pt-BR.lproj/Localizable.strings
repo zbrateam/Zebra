@@ -329,15 +329,15 @@
 "Finished importing local packages." = "Terminando de importar pacotes locais.";
 "One or more packages failed to download." = "Um ou mais pacotes falharam ao baixar.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clique em \"Retorne a Fila\" para retornar à fila e tentar novamente o download.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Não foi possível completar o processo %@. Motivo: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Por favor reinicie o Zebra e veja se o problema ainda persiste. Se sim, por favor registre o problema no GitHub.";
 "Done..." = "Feito...";
 "Done %@" = "Concluído %@";
 "Removing Zebra..." = "Removendo Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Erro ao abrir o arquivo:";
 "Adding Payment Vendor URL for %@" = "Adicionando URL de fornecedor de pagamento para %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Este dispositivo é simulado, aqui estão os pacotes que seriam modificados neste estágio:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Remover da fila";
 "Clear Queue" = "Limpar Fila";
 "%@ is required by:" = "%@ é requerido por:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" conflita com %@";
 "%@ must be removed because it depends on %@" = "%@ deve ser removido porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tem problemas que não podem ser resolvidos:";
 "Are you sure you want to clear the Queue?" = "Tem certeza de que deseja limpar a fila?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não tem permissão para definir o uid ou gid. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/ze/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Erro ao criar o diretório de documentos: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Erro ao criar o diretório das listas: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Erro ao criar sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Erro ao criar diretório debs: %@.";
 
 "Could not respring. Please respring manually." = "Não foi possível realizar o respring. Por favor, faça o respring manualmente.";
 
