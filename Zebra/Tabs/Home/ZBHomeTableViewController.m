@@ -57,10 +57,10 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self.tableView selector:@selector(reloadData) name:@"hideUDID" object:nil];
+    
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
@@ -86,6 +86,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserWillTakeScreenshotNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserDidTakeScreenshotNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserStartedScreenCaptureNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserEndedScreenCaptureNotification object:nil];
     
     [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
 
