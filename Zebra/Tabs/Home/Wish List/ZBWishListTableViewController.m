@@ -60,10 +60,13 @@
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
             self.toolbar.barStyle = UIBarStyleDefault;
+            break;
         case ZBInterfaceStyleDark:
             self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+            break;
         case ZBInterfaceStylePureBlack:
             self.toolbar.barStyle = UIBarStyleBlackOpaque;
+            break;
     }
 }
 
