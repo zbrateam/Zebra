@@ -335,7 +335,7 @@
 "Done %@" = "Klar %@";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Fel när filen öppnades:";
 "Adding Payment Vendor URL for %@" = "Lägger till betalningsleverantörens URL för %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Ta bort från kö";
 "Clear Queue" = "Rensa kö";
 "%@ is required by:" = "%@ krävs av:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" är i konflikt med %@";
 "%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
 "%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
 "Are you sure you want to clear the Queue?" = "Är du säker på att du vill rensa kön?";
