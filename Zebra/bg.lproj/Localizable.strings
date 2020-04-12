@@ -329,11 +329,15 @@
 "Finished importing local packages." = "Край на импортирането на локални пакети.";
 "One or more packages failed to download." = "Един или повече пакети не можаха да бъдат изтеглени.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Натисни \"Връщане към опашка\", за да се върнеш към опашката ида направиш повторен опит за изтегляне.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Завършено...";
 "Done %@" = "Завършено %@";
 "Removing Zebra..." = "Премахване на Zebra...";
 "Installing Zebra..." = "Инсталиране на Zebra...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Добавяне на URL адрес на доставчик на плащания за %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -360,6 +364,7 @@
 "Remove from Queue" = "Премахни от опашката";
 "Clear Queue" = "Изчисти опашката";
 "%@ is required by:" = "%@ се изисква от:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ трябва да бъде премахнат, в зависимост от %@";
 "%@ has issues that cannot be resolved:" = "%@ има проблем, който не може да бъде оправен:";
 "Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
@@ -382,6 +387,14 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
