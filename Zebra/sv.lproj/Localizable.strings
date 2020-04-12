@@ -172,8 +172,8 @@
 "Tap to learn more" = "Tryck för mer information";
 "No source URLs detected." = "Inga käll-URL:er upptäcktes.";
 "Unable to verify source" = "Kunde inte verifiera källa";
-"Error verifying source" = "Fel när källan verifierades";
-"Error verifying sources" = "Fel när källorna verifierades";
+"Error verifying source" = "Fel när källan skulle verifieras";
+"Error verifying sources" = "Fel när källorna skulle verifieras";
 "Failed to add source" = "Misslyckades att lägga till källa";
 "Failed to add sources" = "Misslyckades att lägga till källor";
 "You have already added this source." = "Du har redan lagt till denna källa.";
@@ -195,7 +195,7 @@
 
 "Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
 
-"Error while opening sources.list" = "Fel när sources.list öppnades";
+"Error while opening sources.list" = "Fel när sources.list skulle öppnas";
 
 "The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
@@ -329,15 +329,15 @@
 "Finished importing local packages." = "Importerade lokala paket.";
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Kunde inte slutföra processen %@. Anledning: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Starta om Zebra och se om problemet fortfarande kvarstår. Om så är fallet, rapportera problemet på GitHub.";
 "Done..." = "Klar...";
 "Done %@" = "Klar %@";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
-"Error while opening file:" = "Fel när filen öppnades:";
+"Error while opening file:" = "Fel när filen skulle öppnas:";
 "Adding Payment Vendor URL for %@" = "Lägger till betalningsleverantörens URL för %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Denna enhet är simulerad, här är paketen som skulle ha ändrats i detta steg:";
 
 // Queue Bar
 
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Fel när dokumentkatalogen skulle skapas: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Fel när katalogen lists skulle skapas: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Fel när sources.list skulle skapas: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Fel när katalogen debs skulle skapas: %@.";
 
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
 
