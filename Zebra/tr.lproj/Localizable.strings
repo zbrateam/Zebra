@@ -329,11 +329,15 @@
 "Finished importing local packages." = "Yerel paketleri içeri aktarma işlemi tamamlandı.";
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Tamamlandı...";
 "Done %@" = "Tamamlandı %@";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "%@ için Ödeme Satıcısı URL'si ekleniyor";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -360,6 +364,7 @@
 "Remove from Queue" = "Sıradan çıkar";
 "Clear Queue" = "Listeyi temizle";
 "%@ is required by:" = "%@, bunun için gerekli:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
 "Are you sure you want to clear the Queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
@@ -382,6 +387,14 @@
 "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" in sahibi \"root:wheel\" değil. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"/su/sling\" in \"uid\" veya \"gid\" i ayarlama yetkisi yok. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
+
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "Respring edilemiyor. Lütfen manuel olarak respring edin.";
 
