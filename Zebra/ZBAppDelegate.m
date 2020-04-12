@@ -62,7 +62,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating documents directory: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
         }
     }
@@ -84,7 +84,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating lists directory: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating lists directory: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
         }
     }
@@ -103,7 +103,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating sources.list: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating sources.list: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating sources.list: %@.", error.localizedDescription);
         }
     }
@@ -124,7 +124,7 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating debs directory: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating debs directory: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
         }
     }
