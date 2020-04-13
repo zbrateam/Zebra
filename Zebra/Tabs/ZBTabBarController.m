@@ -248,13 +248,13 @@
 - (void)updateQueueBarPackageCount:(int)count {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (count > 0) {
-            queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+            self->queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
     //        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
-            queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+            self->queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
         }
         else {
-            queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
-            queueNav.popupItem.subtitle = nil;
+            self->queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+            self->queueNav.popupItem.subtitle = nil;
         }
     });
 }
