@@ -249,7 +249,7 @@
 
 - (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
     if (error) { //An error occured, we should handle it accordingly
-        if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the repo maintainer :)
+        if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.releaseTaskCompleted = YES;
@@ -293,7 +293,7 @@
                 }
             }
         }
-        else { //Since we cannot determine which task this is, we need to cancel the entire repo download :( (luckily this should never happen)
+        else { //Since we cannot determine which task this is, we need to cancel the entire source download :( (luckily this should never happen)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download one or more files from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.packagesTaskCompleted = YES;
@@ -475,7 +475,7 @@
     NSInteger responseCode = [(NSHTTPURLResponse *)response statusCode];
     
     if (responseCode == 304) {
-        //Since we should never get a 304 for a deb, we can assume this is from a repo.
+        //Since we should never get a 304 for a deb, we can assume this is from a source.
         ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
         
         [self task:downloadTask completedDownloadedForFile:NULL fromSource:source withError:NULL];
@@ -630,7 +630,7 @@
         if (package) {
             [downloadDelegate finishedPackageDownload:package withError:error];
         }
-        else { //This should be a repo
+        else { //This should be a source
             ZBBaseSource *source = [sourceTasksMap objectForKey:@(task.taskIdentifier)];
             [self task:task completedDownloadedForFile:NULL fromSource:source withError:error];
         }

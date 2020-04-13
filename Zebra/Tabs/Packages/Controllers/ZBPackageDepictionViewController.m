@@ -59,14 +59,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo {
+- (id)initWithPackageID:(NSString *)packageID fromSource:(ZBSource *_Nullable)source {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         
-        self.package = [databaseManager topVersionForPackageID:packageID inSource:repo];
+        self.package = [databaseManager topVersionForPackageID:packageID inSource:source];
         if (self.package == NULL) {
             return NULL;
         }

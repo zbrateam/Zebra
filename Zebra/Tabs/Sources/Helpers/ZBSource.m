@@ -35,15 +35,15 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
 }
 
-+ (ZBSource *)repoMatchingRepoID:(int)repoID {
-    return [[ZBSourceManager sharedInstance] repos][@(repoID)];
++ (ZBSource *)repoMatchingRepoID:(int)sourceID {
+    return [[ZBSourceManager sharedInstance] sources][@(sourceID)];
 }
 
-+ (ZBSource *)localRepo:(int)repoID {
++ (ZBSource *)localRepo:(int)sourceID {
     ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
-    [local setSourceID:repoID];
+    [local setSourceID:sourceID];
     [local setBaseFilename:@"/var/lib/dpkg/status"];
     return local;
 }
@@ -58,7 +58,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 + (BOOL)exists:(NSString *)urlString {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager repoIDFromBaseURL:urlString strict:NO] > 0;
+    return [databaseManager sourceIDFromBaseURL:urlString strict:NO] > 0;
 }
 
 + (UIImage *)imageForSection:(NSString *)section {

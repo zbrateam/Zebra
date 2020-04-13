@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *identifier;
 @property (nonatomic) NSString *version;
-@property (nonatomic) int repoID;
+@property (nonatomic) int sourceID;
 
 //Extra properties for display
 @property (nonatomic) NSString *author;

@@ -317,7 +317,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                             if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
                                 ZBSource *source = [ZBSource repoFromBaseURL:sourceURL];
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:source];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:source];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                     [tabController presentViewController:navController animated:YES completion:nil];
@@ -337,7 +337,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                         }
                         else {
                             NSString *packageID = [path substringFromIndex:1];
-                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
+                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:NULL];
                             if (packageController) {
                                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                 [tabController presentViewController:navController animated:YES completion:nil];

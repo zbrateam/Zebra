@@ -19,7 +19,7 @@
 @synthesize name;
 @synthesize identifier;
 @synthesize version;
-@synthesize repoID;
+@synthesize sourceID;
 
 @synthesize author;
 @synthesize iconURL;
@@ -34,19 +34,19 @@
         const char *packageIDChars   = (const char *)sqlite3_column_text(statement, 0);
         const char *packageNameChars = (const char *)sqlite3_column_text(statement, 1);
         const char *versionChars     = (const char *)sqlite3_column_text(statement, 2);
-        int repoID                   =               sqlite3_column_int(statement, 3);
+        int sourceID                 =               sqlite3_column_int(statement, 3);
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
         [self setName:packageNameChars != 0 ? ([NSString stringWithUTF8String:packageNameChars] ?: [NSString stringWithCString:packageNameChars encoding:NSASCIIStringEncoding]) : (self.identifier ?: @"Unknown")];
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
-        [self setRepoID:repoID];
+        [self setSourceID:sourceID];
     }
     
     return self;
 }
 
 - (BOOL)isInstalled {
-    return repoID <= 0;
+    return sourceID <= 0;
 }
 
 - (ZBPackage *)loadPackage {

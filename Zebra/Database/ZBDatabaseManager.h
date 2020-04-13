@@ -119,7 +119,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Imports installed packages into database.
- @discussion Imports installed packages from /var/lib/dpkg/status into the database with a repoID of 0 or -1 depending on the type of package. If a package has a tag of role::cydia it will be imported into repoID -1 (as these packages aren't normally displayed to the user).
+ @discussion Imports installed packages from /var/lib/dpkg/status into the database with a sourceID of 0 or -1 depending on the type of package. If a package has a tag of role::cydia it will be imported into sourceID -1 (as these packages aren't normally displayed to the user).
  */
 - (void)importLocalPackages;
 
@@ -154,18 +154,18 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Source management
 
 /*!
- @brief Get a repoID from a base file name
+ @brief Get a sourceID from a base file name
  @param bfn The base file name.
- @return A repoID for the matching base file name. -1 if no match was found.
+ @return A sourceID for the matching base file name. -1 if no match was found.
  */
 - (int)sourceIDFromBaseFileName:(NSString *)bfn;
 
 /*!
-@brief Get a repoID from a base url
+@brief Get a sourceID from a base url
 @param baseURL the base url
-@return A repoID for the matching base url. -1 if no match was found.
+@return A sourceID for the matching base url. -1 if no match was found.
 */
-- (int)repoIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict;
+- (int)sourceIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict;
 
 /*!
 @brief Get a ZBRepo instance  from a base url
@@ -182,8 +182,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBSource * _Nullable)repoFromBaseFilename:(NSString *)baseFilename;
 
 /*!
- @brief The next repoID in the database.
- @return The next repoID.
+ @brief The next sourceID in the database.
+ @return The next sourceID.
  */
 - (int)nextSourceID;
 
@@ -209,7 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
 
 /*!
- @brief Deletes the source and all the packages that have a matching repoID.
+ @brief Deletes the source and all the packages that have a matching sourceID.
  @param source The source that needs to be deleted.
  */
 - (void)deleteSource:(ZBSource *)source;
@@ -246,7 +246,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief A list of packages that the user has installed on their device.
- @return An array of packages from repoID 0 (installed).
+ @return An array of packages from sourceID 0 (installed).
  */
 - (NSMutableArray <ZBPackage *> * _Nullable)installedPackages:(BOOL)includeVirtualDependencies;
 

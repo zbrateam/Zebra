@@ -68,10 +68,10 @@
         [communitySources addObject:managers];
     }
     
-    //Populate utility repo
-    NSArray *utilityRepos = [self utilityRepos];
-    if ([utilityRepos count]) {
-        [communitySources addObject:utilityRepos];
+    //Populate utility source
+    NSArray *utilitySources = [self utilitySources];
+    if ([utilitySources count]) {
+        [communitySources addObject:utilitySources];
     }
     [self.tableView reloadData];
     
@@ -89,12 +89,12 @@
         if (data && !error) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             if ([json objectForKey:@"repos"]) {
-                NSArray *repos = json[@"repos"];
-                for (NSDictionary *repo in repos) {
-                    NSString *version = [repo objectForKey:@"appVersion"];
-                    NSString *url = [repo objectForKey:@"url"];
+                NSArray *jsonSources = json[@"repos"];
+                for (NSDictionary *source in jsonSources) {
+                    NSString *version = [source objectForKey:@"appVersion"];
+                    NSString *url = [source objectForKey:@"url"];
                     if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
-                        [sources addObject:repo];
+                        [sources addObject:source];
                     }
                 }
             }
@@ -150,7 +150,7 @@
     return result;
 }
 
-- (NSArray *)utilityRepos {
+- (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
     if ([ZBDevice isChimera]) {
         NSDictionary *dict = @{@"type": @"utility",

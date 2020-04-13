@@ -58,7 +58,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteSourceTouchAction" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
      
@@ -151,8 +151,8 @@
  }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *repo = [self sourceAtIndexPath:indexPath];
-    return [repo canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
+    return [source canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -337,14 +337,14 @@
 //                              @"www.apple.com", @"apple.com",
 //                              @"www.gmail.com", @"gmail.com"];
     
-    NSMutableArray *repos = [NSMutableArray new];
-    for (ZBSource *repo in [self.databaseManager sources]) {
-        NSString *host = [[NSURL URLWithString:repo.repositoryURI] host];
+    NSMutableArray *sources = [NSMutableArray new];
+    for (ZBSource *source in [self.databaseManager sources]) {
+        NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
         if (host) {
-            [repos addObject:host];
+            [sources addObject:host];
         }
     }
-    if (![repos containsObject:url.host]) {
+    if (![sources containsObject:url.host]) {
         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
         if (baseSource) {
             [baseSource verify:^(ZBSourceVerificationStatus status) {
@@ -536,14 +536,14 @@
     
     if ([destination isKindOfClass:[ZBRepoSectionsListTableViewController class]]) {
         NSIndexPath *indexPath = sender;
-        ((ZBRepoSectionsListTableViewController *)destination).repo = [self sourceAtIndexPath:indexPath];
+        ((ZBRepoSectionsListTableViewController *)destination).source = [self sourceAtIndexPath:indexPath];
     }
 }
 
 //I said to myself: "who actually wrote this and named it that." and then i remembered I wrote it
 - (void)delewhoop:(NSNotification *)notification {
-    ZBSource *repo = (ZBSource *)[[notification userInfo] objectForKey:@"repo"];
-    NSInteger pos = [sourceIndexes[[repo baseFilename]] integerValue];
+    ZBSource *source = (ZBSource *)[[notification userInfo] objectForKey:@"source"];
+    NSInteger pos = [sourceIndexes[[source baseFilename]] integerValue];
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[self indexPathForPosition:pos]];
 }
 

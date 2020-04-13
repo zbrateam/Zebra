@@ -129,13 +129,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+    NSMutableArray <ZBSource *>*featuredSources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     NSMutableDictionary *featuredItems = [NSMutableDictionary new];
     dispatch_group_t group = dispatch_group_create();
-    for (ZBSource *repo in featuredRepos) {
-        if ([repo respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
+    for (ZBSource *source in featuredSources) {
+        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
             dispatch_group_enter(group);
-            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.repositoryURI]];
+            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
             NSURL *checkingURL = requestURL;
             NSURLSession *session = [NSURLSession sharedSession];
             [[session dataTaskWithURL:checkingURL
@@ -143,13 +143,13 @@ typedef enum ZBLinksOrder : NSUInteger {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                         if (data != nil && (long)[httpResponse statusCode] != 404) {
                             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                            if (!repo.supportsFeaturedPackages) {
-                                repo.supportsFeaturedPackages = YES;
+                            if (!source.supportsFeaturedPackages) {
+                                source.supportsFeaturedPackages = YES;
                             }
                             if ([json objectForKey:@"banners"]) {
                                 NSArray *banners = [json objectForKey:@"banners"];
                                 if (banners.count) {
-                                    [featuredItems setObject:banners forKey:[repo baseFilename]];
+                                    [featuredItems setObject:banners forKey:[source baseFilename]];
                                 }
                             }
                         }

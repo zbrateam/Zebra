@@ -148,10 +148,10 @@
     [self setRepoRefreshIndicatorVisible:YES];
     BOOL singleRepo = NO;
     if ([self respondsToSelector:@selector(source)]) {
-        ZBSource *repo = [(ZBPackageListTableViewController *)self repo];
-        if ([repo sourceID] > 0) {
+        ZBSource *source = [(ZBPackageListTableViewController *)self source];
+        if ([source sourceID] > 0) {
             //FIXME: fix me!
-//            [databaseManager updateRepo:repo useCaching:YES];
+//            [databaseManager updateSource:source useCaching:YES];
             singleRepo = YES;
         }
     }

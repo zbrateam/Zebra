@@ -37,15 +37,15 @@
 - (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    ZBSource *repo = package.source;
-    NSString *repoName = repo.origin;
+    ZBSource *source = package.source;
+    NSString *name = source.origin;
     NSString *author = package.authorName;
     NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (author.length)
         [info addObject:author];
-    if (repoName.length)
-        [info addObject:repoName];
+    if (name.length)
+        [info addObject:name];
     if (installedSize)
         [info addObject:installedSize];
     self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];

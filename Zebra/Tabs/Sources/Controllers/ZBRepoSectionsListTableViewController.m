@@ -36,7 +36,7 @@
 
 @implementation ZBRepoSectionsListTableViewController
 
-@synthesize repo;
+@synthesize source;
 @synthesize sectionNames;
 @synthesize sectionReadout;
 @synthesize filteredSections;
@@ -48,7 +48,7 @@
     self = [storyboard instantiateViewControllerWithIdentifier:@"repoSectionsController"];
     
     if (self) {
-        self.repo = source;
+        self.source = source;
         editOnly = YES;
     }
     
@@ -65,11 +65,11 @@
     [super viewDidLoad];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
-    sectionReadout = [databaseManager sectionReadoutForSource:repo];
+    sectionReadout = [databaseManager sectionReadoutForSource:source];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    filteredSections = [[[ZBSettings filteredSources] objectForKey:[repo baseFilename]] mutableCopy];
+    filteredSections = [[[ZBSettings filteredSources] objectForKey:[source baseFilename]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     if (!editOnly) self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -81,20 +81,20 @@
     imageView.layer.cornerRadius = 5;
     imageView.layer.masksToBounds = YES;
     
-    [imageView sd_setImageWithURL:[repo iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+    [imageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (image && !error) {
                 imageView.image = image;
             }
             else {
                 self.navigationItem.titleView = NULL;
-                self.navigationItem.title = [self->repo label];
+                self.navigationItem.title = [self->source label];
             }
         });
     }];
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
-    self.title = [repo label];
+    self.title = [source label];
     self.tableView.allowsSelectionDuringEditing = YES;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
     
@@ -116,8 +116,8 @@
     }
     
     if (@available(iOS 11.0, *)) {
-        if (!editOnly && [repo paymentVendorURL]) { // If the repo supports payments/external accounts
-            ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:repo andOwner:self];
+        if (!editOnly && [source paymentVendorURL]) { // If the source supports payments/external accounts
+            ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
             [self.view addSubview:accountBanner];
             
             accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
@@ -168,7 +168,7 @@
 
 - (void)accountButtonPressed:(id)sender {
     if (@available(iOS 11.0, *)) {
-        [repo authenticate:^(BOOL success, NSError * _Nullable error) {
+        [source authenticate:^(BOOL success, NSError * _Nullable error) {
             if (!success || error) {
                 if (error) {
                     if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
@@ -180,7 +180,7 @@
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
-                    ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->repo];
+                    ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->source];
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
                     
                     [self presentViewController:navController animated:YES completion:nil];
@@ -194,12 +194,12 @@
     [self.featuredCollection removeFromSuperview];
     self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
-    if (repo.supportsFeaturedPackages) {
+    if (source.supportsFeaturedPackages) {
         NSString *requestURL;
-        if ([repo.repositoryURI hasSuffix:@"/"]) {
-            requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", repo.repositoryURI];
+        if ([source.repositoryURI hasSuffix:@"/"]) {
+            requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", source.repositoryURI];
         } else {
-            requestURL = [NSString stringWithFormat:@"%@/sileo-featured.json", repo.repositoryURI];
+            requestURL = [NSString stringWithFormat:@"%@/sileo-featured.json", source.repositoryURI];
         }
         NSURL *checkingURL = [NSURL URLWithString:requestURL];
         NSURLSession *session = [NSURLSession sharedSession];
@@ -241,7 +241,7 @@
 }
 
 - (void)setupRepoLogin API_AVAILABLE(ios(11.0)) {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:[[repo paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
     if (![components.scheme isEqualToString:@"https"]) {
         return;
     }
@@ -268,15 +268,15 @@
                 NSString *token = queryByKeys[@"token"];
                 NSString *payment = queryByKeys[@"payment_secret"];
                 
-                [self->keychain setString:token forKey:[self->repo repositoryURI]];
+                [self->keychain setString:token forKey:[self->source repositoryURI]];
                 
                 UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                securedKeychain[[[self->repo repositoryURI] stringByAppendingString:@"payment"]] = nil;
+                securedKeychain[[[self->source repositoryURI] stringByAppendingString:@"payment"]] = nil;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
                     [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
                                  authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
                     
-                    securedKeychain[[[self->repo repositoryURI] stringByAppendingString:@"payment"]] = payment;
+                    securedKeychain[[[self->source repositoryURI] stringByAppendingString:@"payment"]] = payment;
                 });
             }
             else {
@@ -325,7 +325,7 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
         
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInSource:repo section:NULL]];
+        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInSource:source section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
         cell.imageView.image = nil;
     } else {
@@ -344,7 +344,7 @@
     
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
     [filteredSections removeObject:section];
-    [ZBSettings setSection:section filtered:NO forSource:self.repo];
+    [ZBSettings setSection:section filtered:NO forSource:self.source];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -352,7 +352,7 @@
     
     NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
     [filteredSections addObject:section];
-    [ZBSettings setSection:section filtered:YES forSource:self.repo];
+    [ZBSettings setSection:section filtered:YES forSource:self.source];
 }
 
 #pragma mark - Navigation
@@ -372,7 +372,7 @@
     } else {
         ZBPackageListTableViewController *destination = [segue destinationViewController];
         UITableViewCell *cell = (UITableViewCell *)sender;
-        destination.repo = repo;
+        destination.source = source;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         
         if (indexPath.row != 0) {
@@ -390,14 +390,14 @@
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
 //        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
-//        [databaseManager updateDatabaseUsingCaching:YES singleRepo:self->repo completion:^(BOOL success, NSError * _Nonnull error) {
-//            NSLog(@"Updated repo %@", self->repo);
+//        [databaseManager updateDatabaseUsingCaching:YES singleSource:self->source completion:^(BOOL success, NSError * _Nonnull error) {
+//            NSLog(@"Updated source %@", self->source);
 //        }];
     }];
     
-    if ([repo canDelete]) {
+    if ([source canDelete]) {
         UIPreviewAction *delete = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Delete", @"") style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteRepoTouchAction" object:self userInfo:@{@"repo": self->repo}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"deleteSourceTouchAction" object:self userInfo:@{@"source": self->source}];
         }];
         
         return @[refresh, delete];

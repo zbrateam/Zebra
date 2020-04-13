@@ -65,7 +65,7 @@
         return NULL;
     }
     
-    NSMutableSet *baseRepos = [NSMutableSet new];
+    NSMutableSet *baseSources = [NSMutableSet new];
     if ([[listLocation pathExtension] isEqualToString:@"list"]) { //Debian source format
         NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
         
@@ -73,9 +73,9 @@
             if (![sourceLine isEqualToString:@""]) {
                 if ([sourceLine characterAtIndex:0] == '#') continue;
                 
-                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
-                if (repo) {
-                    [baseRepos addObject:repo];
+                ZBBaseSource *source = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
+                if (source) {
+                    [baseSources addObject:source];
                 }
             }
         }
@@ -87,15 +87,15 @@
             if (![sourceGroup isEqualToString:@""]) {
                 if ([sourceGroup characterAtIndex:0] == '#') continue;
                 
-                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceGroup:sourceGroup];
-                if (repo) {
-                    [baseRepos addObject:repo];
+                ZBBaseSource *source = [[ZBBaseSource alloc] initFromSourceGroup:sourceGroup];
+                if (source) {
+                    [baseSources addObject:source];
                 }
             }
         }
     }
 
-    return baseRepos;
+    return baseSources;
 }
 
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components {
@@ -123,7 +123,7 @@
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         else {
-            //If the distribution is './' then the repository likely follows a flat repo format
+            //If the distribution is './' then the repository likely follows a flat source format
             mainDirectoryURL = [NSURL URLWithString:repositoryURI];
             mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
             

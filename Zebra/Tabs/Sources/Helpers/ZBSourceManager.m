@@ -14,7 +14,7 @@
 #import <ZBDevice.h>
 
 @interface ZBSourceManager () {
-    NSMutableDictionary <NSNumber *, ZBSource *> *repos;
+    NSMutableDictionary <NSNumber *, ZBSource *> *sources;
     BOOL recachingNeeded;
 }
 @end
@@ -37,10 +37,10 @@
     recachingNeeded = YES;
 }
 
-- (NSMutableDictionary <NSNumber *, ZBSource *> *)repos {
+- (NSMutableDictionary <NSNumber *, ZBSource *> *)sources {
     if (recachingNeeded) {
         recachingNeeded = NO;
-        repos = [NSMutableDictionary new];
+        sources = [NSMutableDictionary new];
 
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
@@ -49,7 +49,7 @@
         if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS;", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                repos[@(source.sourceID)] = source;
+                sources[@(source.sourceID)] = source;
             }
         } else {
             [[ZBDatabaseManager sharedInstance] printDatabaseError];
@@ -57,7 +57,7 @@
         sqlite3_finalize(statement);
         sqlite3_close(database);
     }
-    return repos;
+    return sources;
 }
 
 + (NSArray <NSString *> *)knownDistURLs {

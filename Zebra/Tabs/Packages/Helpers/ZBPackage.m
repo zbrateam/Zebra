@@ -306,11 +306,11 @@
         [self setProvides:[self extract:providesChars]];
         [self setReplaces:[self extract:replacesChars]];
         
-        int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
-        if (repoID > 0) {
-            [self setSource:[ZBSource repoMatchingRepoID:repoID]];
+        int sourceID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
+        if (sourceID > 0) {
+            [self setSource:[ZBSource repoMatchingRepoID:sourceID]];
         } else {
-            [self setSource:[ZBSource localRepo:repoID]];
+            [self setSource:[ZBSource localRepo:sourceID]];
         }
         
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
@@ -443,16 +443,16 @@
 - (NSString * _Nullable)getField:(NSString *)field {
     NSString *value;
     
-    ZBSource *repo = [self source];
+    ZBSource *source = [self source];
     
-    if (repo == NULL) return NULL;
+    if (source == NULL) return NULL;
     
     NSString *listsLocation = [ZBAppDelegate listsLocation];
-    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFilename], @"_Packages"];
+    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_Packages"];
     NSFileManager *filemanager = [NSFileManager defaultManager];
     
     if (![filemanager fileExistsAtPath:filename]) {
-        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFilename], @"_main_binary-iphoneos-arm_Packages"];
+        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_main_binary-iphoneos-arm_Packages"];
         
         if (![filemanager fileExistsAtPath:filename]) {
             return NULL;
@@ -511,7 +511,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if ([source sourceID] <= 0) { // Package is in repoID 0 or -1 and is installed
+    if ([source sourceID] <= 0) { // Package is in sourceID 0 or -1 and is installed
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
