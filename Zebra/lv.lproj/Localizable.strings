@@ -207,7 +207,7 @@
 "Version" = "Versija";
 "Packages" = "Paketes";
 "Show Updates" = "Rādīt atjauninājumus";
-"Ignore Updates" = "Ignorēt atjauninājumus";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Ieslēgt versiju";
 "Select a version to upgrade to:" = "Izvēlies versiju, uz kuru jaunināt:";
 "Select a version to downgrade to:" = "Izvēlies versiju, kuru vaijag instalēt:";
