@@ -11,8 +11,8 @@
 "Done" = "Gatavs";
 "Loading..." = "Tiek ielādēts...";
 "Clear" = "Notīrīt";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Radusies Kļūda";
+"Dismiss" = "Atcelt";
 "Downloads" = "Lejupielādes";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
 "Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "Nevarēja lejupielādēt Pelease failu no %@. Iemesls: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nevarēja lejupielādēt Pakešu failu no %@. Iemesls: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nevarēja lejupielādēt vienu vai vairāk failu no %@. Iemesls: %@";
 
@@ -329,15 +329,15 @@
 "Finished importing local packages." = "Pabeidza importēt vietējās paketes.";
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Nevarēja pabeigt procesu %@. Iemesls: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Lūdzu restartē Zebru un pārbaudi, vai problēma joprojām pastāv. Ja pastāv iesniedz problēmu GitHubā.";
 "Done..." = "Gatavs...";
 "Done %@" = "Pabeidza %@";
 "Removing Zebra..." = "Atinstalē zebra...";
 "Installing Zebra..." = "Instalē zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Ķlūda, atverot failu:";
 "Adding Payment Vendor URL for %@" = "Pievieno Maksājuma Pārdevēja URL %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Šī ierīce tiek simulēta, šīs ir paketes, kuras šajā posmā tiktu pārveidotas:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Noņemt no rindas";
 "Clear Queue" = "Notīrīt Rindu";
 "%@ is required by:" = "%@ pieprasa:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" konfliktē ar %@";
 "%@ must be removed because it depends on %@" = "%@ ir jānoņem, jo tas ir atkarīgs no %@";
 "%@ has issues that cannot be resolved:" = "%@ ir problēmas, kuras nevar atrisināt:";
 "Are you sure you want to clear the Queue?" = "Vai tiešām vēlies notīrīt Rindu?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nav atļaujas iestatīt uid vai gid. Lūdzu, pārbaudiet faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Kļūda izveidojot dokumentu direktoriju: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Kļūda izveidojot listu direktoriju: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Ķlūda veidojot sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Kļūda izveidojot debu direktoriju: %@.";
 
 "Could not respring. Please respring manually." = "Nevarēja respringot. Lūdzu, respringo manuāli.";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "Pievienot Filtru";
 
 "1 Section Hidden" = "1 Sadaļa Paslēpta";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu Sadaļas Paslēptas";
 
 "Sections" = "Sadaļas";
 "Select a Section" = "Izvēlies Sadaļu";
@@ -452,7 +452,7 @@
 "Authors" = "Autori";
 "Hide packages from these authors." = "Slēpt šo autoru paketes.";
 "Search for an Author" = "Meklēt Autoru";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Šim autoram ir arī šādi nosaukumi:";
 
 // Language Settings
 
