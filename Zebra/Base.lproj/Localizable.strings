@@ -70,7 +70,9 @@
 "Text" = "Text";
 "Icon" = "Icon";
 "Finish Automatically" = "Finish Automatically";
-"Hide UDID" = "Hide UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -141,8 +143,8 @@
 "No Storefronts Available" = "No Storefronts Available";
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
