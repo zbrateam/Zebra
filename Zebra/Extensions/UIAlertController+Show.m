@@ -36,26 +36,30 @@
 }
 
 - (void)show:(BOOL)animated {
-    self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.alertWindow.rootViewController = [[UIViewController alloc] init];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.alertWindow.rootViewController = [[UIViewController alloc] init];
 
-    id<UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
-    if ([delegate respondsToSelector:@selector(window)]) {
-        self.alertWindow.tintColor = delegate.window.tintColor;
-    }
-    
-    UIWindow *topWindow = [UIApplication sharedApplication].windows.lastObject;
-    self.alertWindow.windowLevel = topWindow.windowLevel + 1;
+        id<UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
+        if ([delegate respondsToSelector:@selector(window)]) {
+            self.alertWindow.tintColor = delegate.window.tintColor;
+        }
+        
+        UIWindow *topWindow = [UIApplication sharedApplication].windows.lastObject;
+        self.alertWindow.windowLevel = topWindow.windowLevel + 1;
 
-    [self.alertWindow makeKeyAndVisible];
-    [self.alertWindow.rootViewController presentViewController:self animated:animated completion:nil];
+        [self.alertWindow makeKeyAndVisible];
+        [self.alertWindow.rootViewController presentViewController:self animated:animated completion:nil];
+    });
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 
-    self.alertWindow.hidden = YES;
-    self.alertWindow = nil;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.alertWindow.hidden = YES;
+        self.alertWindow = nil;
+    });
 }
 
 @end
