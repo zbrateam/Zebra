@@ -207,7 +207,7 @@
 "Version" = "Versi";
 "Packages" = "Paket";
 "Show Updates" = "Tampilkan Pembaruan";
-"Ignore Updates" = "Abaikan Pembaruan";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Pilih Versi";
 "Select a version to upgrade to:" = "Pilih versi untuk di tingkatkan ke:";
 "Select a version to downgrade to:" = "Pilih versi untuk didowngrade ke:";
