@@ -65,7 +65,7 @@
 - (void)setIconImageForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [ZBSource imageForSection:self.section];
     if (self.iconURL) {
-        [imageView sd_setImageWithURL:[NSURL URLWithString:self.iconURL] placeholderImage:sectionImage];
+        [imageView sd_setImageWithURL:self.iconURL placeholderImage:sectionImage];
     }
     else {
         [imageView setImage:sectionImage];
