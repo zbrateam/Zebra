@@ -207,7 +207,7 @@
 "Version" = "نسخه";
 "Packages" = "پکیج ها";
 "Show Updates" = "نمایش آپدیت ها";
-"Ignore Updates" = "رد آپدیت ها";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "انتخاب نسخه";
 "Select a version to upgrade to:" = "انتخاب یک نسخه برای بروزرسانی:";
 "Select a version to downgrade to:" = "انتخاب یک نسخه برای پایین آوردن:";
