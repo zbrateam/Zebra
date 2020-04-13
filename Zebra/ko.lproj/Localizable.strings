@@ -11,8 +11,8 @@
 "Done" = "완료";
 "Loading..." = "불러오는 중...";
 "Clear" = "제거";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "에러가 발생했습니다.";
+"Dismiss" = "닫기";
 "Downloads" = "다운로드";
 
 // Home
@@ -185,7 +185,7 @@
 
 "Could not parse %@ from %@" = "%@를 분석할 수 없습니다. (%@에서 옴)";
 "Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "%@에서 Release 파일을 다운로드할 수 없습니다. 이유: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@에서 Packages 파일을 다운로드할 수 없습니다.\n이유: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@에서 한개 또는 그 이상의 파일을 다운로드할 수 없습니다.\n이유: %@";
 
@@ -436,7 +436,7 @@
 "Add Filter" = "필터 추가";
 
 "1 Section Hidden" = "한개의 섹션 숨겨짐";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu개의 섹션 숨겨짐";
 
 "Sections" = "섹션";
 "Select a Section" = "섹션 선택";
@@ -452,7 +452,7 @@
 "Authors" = "제작자";
 "Hide packages from these authors." = "이 제작자의 패키지 숨기기";
 "Search for an Author" = "제작자 검색";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "이 제작자는 다른 이름도 사용합니다:";
 
 // Language Settings
 
