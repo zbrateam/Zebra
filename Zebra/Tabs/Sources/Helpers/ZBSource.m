@@ -35,7 +35,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
 }
 
-+ (ZBSource *)repoMatchingRepoID:(int)sourceID {
++ (ZBSource *)sourceMatchingSourceID:(int)sourceID {
     return [[ZBSourceManager sharedInstance] sources][@(sourceID)];
 }
 
@@ -48,12 +48,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return local;
 }
 
-+ (ZBSource *)repoFromBaseURL:(NSString *)baseURL {
-    return [[ZBDatabaseManager sharedInstance] repoFromBaseURL:baseURL];
++ (ZBSource *)sourceFromBaseURL:(NSString *)baseURL {
+    return [[ZBDatabaseManager sharedInstance] sourceFromBaseURL:baseURL];
 }
 
 + (ZBSource *)sourceFromBaseFilename:(NSString *)baseFilename {
-    return [[ZBDatabaseManager sharedInstance] repoFromBaseFilename:baseFilename];
+    return [[ZBDatabaseManager sharedInstance] sourceFromBaseFilename:baseFilename];
 }
 
 + (BOOL)exists:(NSString *)urlString {

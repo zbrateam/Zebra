@@ -21,7 +21,7 @@
 @implementation ZBCommunitySourcesTableViewController
 
 @synthesize communitySources;
-@synthesize repoManager;
+@synthesize sourceManager;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -43,7 +43,7 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
-    repoManager = [ZBSourceManager sharedInstance];
+    sourceManager = [ZBSourceManager sharedInstance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -217,8 +217,8 @@
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
-    [cell.repoLabel setText:[info objectForKey:@"name"]];
-    [cell.repoLabel setTextColor:[UIColor primaryTextColor]];
+    [cell.sourceLabel setText:[info objectForKey:@"name"]];
+    [cell.sourceLabel setTextColor:[UIColor primaryTextColor]];
     
     NSString *subtitle = [info objectForKey:@"label"] ? [info objectForKey:@"label"] : [info objectForKey:@"url"];
     [cell.urlLabel setText:subtitle];
@@ -272,7 +272,7 @@
             NSString *url = [info objectForKey:@"url"];
             ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
             if (source) {
-                [[ZBSourceManager sharedInstance] addBaseSources:[NSSet setWithObject:source]];
+                [sourceManager addBaseSources:[NSSet setWithObject:source]];
                 ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:[NSSet setWithObject:source]];
                 
                 [self presentViewController:refresh animated:YES completion:nil];

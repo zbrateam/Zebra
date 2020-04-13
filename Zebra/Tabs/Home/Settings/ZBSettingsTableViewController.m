@@ -392,7 +392,7 @@ enum ZBMiscOrder {
                     [self featureOrRandomToggle];
                     break;
                 case ZBFeatureBlacklist:
-                    [self repoBlacklist];
+                    [self sourceBlacklist];
                     break;
                 default:
                     break;
@@ -495,7 +495,7 @@ enum ZBMiscOrder {
     [[self navigationController] pushViewController:languageController animated:YES];
 }
 
-- (void)repoBlacklist {
+- (void)sourceBlacklist {
     NSMutableArray *sources = [NSMutableArray new];
     NSArray *baseFilenames = [ZBSettings sourceBlacklist];
     for (NSString *baseFilename in baseFilenames) {

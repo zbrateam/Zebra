@@ -108,8 +108,8 @@
     ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
     ZBSource *source = [self sourceAtIndexPath:indexPath];
     
-    cell.repoLabel.text = [source label];
-    cell.repoLabel.textColor = [UIColor primaryTextColor];
+    cell.sourceLabel.text = [source label];
+    cell.sourceLabel.textColor = [UIColor primaryTextColor];
     
     cell.urlLabel.text = [source repositoryURI];
     cell.urlLabel.textColor = [UIColor secondaryTextColor];

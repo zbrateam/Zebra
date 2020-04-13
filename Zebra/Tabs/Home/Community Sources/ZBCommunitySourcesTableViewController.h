@@ -15,5 +15,5 @@
 
 @interface ZBCommunitySourcesTableViewController : UITableViewController
 @property NSMutableArray <NSArray <NSDictionary *> *> *communitySources;
-@property ZBSourceManager *repoManager;
+@property ZBSourceManager *sourceManager;
 @end

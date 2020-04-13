@@ -173,8 +173,8 @@
             case 0: {
                 ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
                 
-                cell.repoLabel.textColor = [UIColor primaryTextColor];
-                cell.repoLabel.text = [source label];
+                cell.sourceLabel.textColor = [UIColor primaryTextColor];
+                cell.sourceLabel.text = [source label];
                 
                 cell.urlLabel.text = [source sourceDescription];
                 cell.urlLabel.textColor = [UIColor secondaryTextColor];

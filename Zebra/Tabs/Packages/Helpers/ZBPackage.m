@@ -308,7 +308,7 @@
         
         int sourceID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (sourceID > 0) {
-            [self setSource:[ZBSource repoMatchingRepoID:sourceID]];
+            [self setSource:[ZBSource sourceMatchingSourceID:sourceID]];
         } else {
             [self setSource:[ZBSource localRepo:sourceID]];
         }
@@ -701,7 +701,7 @@
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([source isSignedIn]) { //Check if we have an access token
-        if ([self mightRequirePayment]) { //Just a small double check to make sure the package is paid and the repo supports payment
+        if ([self mightRequirePayment]) { //Just a small double check to make sure the package is paid and the source supports payment
             NSString *secret = [source paymentSecret];
             
             if (secret) {

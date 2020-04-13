@@ -529,8 +529,8 @@
     if ([self openDatabase] == SQLITE_OK) {
         char *packDel = "DROP TABLE PACKAGES;";
         sqlite3_exec(database, packDel, NULL, 0, NULL);
-        char *repoDel = "DROP TABLE REPOS;";
-        sqlite3_exec(database, repoDel, NULL, 0, NULL);
+        char *sourceDel = "DROP TABLE REPOS;";
+        sqlite3_exec(database, sourceDel, NULL, 0, NULL);
         char *updatesDel = "DROP TABLE UPDATES;";
         sqlite3_exec(database, updatesDel, NULL, 0, NULL);
         
@@ -592,7 +592,7 @@
     return -1;
 }
 
-- (ZBSource * _Nullable)repoFromBaseURL:(NSString *)burl {
+- (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)burl {
     NSRange dividerRange = [burl rangeOfString:@"://"];
     NSUInteger divide = NSMaxRange(dividerRange);
     NSString *baseURL = divide > [burl length] ? burl : [burl substringFromIndex:divide];
@@ -619,7 +619,7 @@
     return nil;
 }
 
-- (ZBSource * _Nullable)repoFromBaseFilename:(NSString *)baseFilename {
+- (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename {
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement = NULL;
         ZBSource *source = nil;
@@ -689,7 +689,7 @@
                         const char *packageAuthorEmail = (const char *)sqlite3_column_text(statement, 3);
                         if (packageSection != 0 && packageAuthor != 0 && packageAuthorEmail != 0) {
                             int sourceID = sqlite3_column_int(statement, 3);
-                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource repoMatchingRepoID:sourceID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor] email:[NSString stringWithUTF8String:packageAuthorEmail]])
+                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource sourceMatchingSourceID:sourceID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor] email:[NSString stringWithUTF8String:packageAuthorEmail]])
                                 ++packages;
                         }
                         else {
@@ -776,11 +776,11 @@
 - (void)deleteSource:(ZBSource *)source {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [source sourceID]];
-        NSString *repoQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [source sourceID]];
+        NSString *sourceQuery = [NSString stringWithFormat:@"DELETE FROM REPOS WHERE REPOID = %d", [source sourceID]];
         
         sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
         sqlite3_exec(database, [packageQuery UTF8String], NULL, NULL, NULL);
-        sqlite3_exec(database, [repoQuery UTF8String], NULL, NULL, NULL);
+        sqlite3_exec(database, [sourceQuery UTF8String], NULL, NULL, NULL);
         sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
         
         [self closeDatabase];

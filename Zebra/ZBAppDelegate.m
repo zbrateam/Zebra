@@ -282,8 +282,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                 
-                ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                [repoController handleImportOf:url];
+                ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                [sourceListController handleImportOf:url];
             }
             break;
         }
@@ -301,8 +301,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
                     
-                    ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    [repoController handleURL:url];
+                    ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [sourceListController handleURL:url];
                     break;
                 }
                 case 2: {
@@ -316,7 +316,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                         if (sourceURL != NULL) {
                             if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
-                                ZBSource *source = [ZBSource repoFromBaseURL:sourceURL];
+                                ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
                                 ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:source];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
@@ -329,7 +329,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                             else {
                                 NSString *packageID = [path substringFromIndex:1];
                                 [tabController setForwardToPackageID:packageID];
-                                [tabController setForwardedRepoBaseURL:sourceURL];
+                                [tabController setForwardedSourceBaseURL:sourceURL];
                                 
                                 NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                                 [self application:application openURL:newURL options:options];
@@ -380,8 +380,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
+        ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
     }
 }
 

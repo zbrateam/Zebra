@@ -106,15 +106,15 @@
     NSObject *source = [self sourceAtIndexPath:indexPath];
     if ([source isKindOfClass:[ZBSource class]]) {
         ZBSource *trueSource = (ZBSource *)source;
-        cell.repoLabel.text = [trueSource label];
+        cell.sourceLabel.text = [trueSource label];
         
-        NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+        NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).sourceBusyList;
         [self setSpinnerVisible:[busyList[[trueSource baseFilename]] boolValue] forCell:cell];
         
         cell.urlLabel.text = [trueSource repositoryURI];
         [cell.iconImageView sd_setImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
         
-        cell.repoLabel.textColor = [UIColor primaryTextColor];
+        cell.sourceLabel.textColor = [UIColor primaryTextColor];
         cell.urlLabel.textColor = [UIColor secondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
@@ -125,12 +125,12 @@
     else {
         ZBBaseSource *baseSource = (ZBBaseSource *)source;
         
-        cell.repoLabel.text = [baseSource repositoryURI];
+        cell.sourceLabel.text = [baseSource repositoryURI];
         
         cell.urlLabel.text = NSLocalizedString(@"Tap to learn more", @"");
         cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
         
-        cell.repoLabel.textColor = [UIColor systemPinkColor];
+        cell.sourceLabel.textColor = [UIColor systemPinkColor];
         cell.urlLabel.textColor = [UIColor systemPinkColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
@@ -142,7 +142,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSource *source = [self sourceAtIndexPath:indexPath];
-    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).sourceBusyList;
     [self setSpinnerVisible:[busyList[[source baseFilename]] boolValue] forCell:cell];
 }
 

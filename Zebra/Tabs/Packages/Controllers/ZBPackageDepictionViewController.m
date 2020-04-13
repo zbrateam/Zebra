@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoAuthor,
     ZBPackageInfoVersion,
     ZBPackageInfoSize,
-    ZBPackageInfoRepo,
+    ZBPackageInfoSource,
     ZBPackageInfoWishList,
     ZBPackageInfoMoreBy,
     ZBPackageInfoInstalledFiles
@@ -458,11 +458,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readRepo:(ZBPackage *)package {
-    NSString *repoName = [[package source] origin];
-    if (repoName) {
-        infos[@(ZBPackageInfoRepo)] = repoName;
+    NSString *sourceName = [[package source] origin];
+    if (sourceName) {
+        infos[@(ZBPackageInfoSource)] = sourceName;
     } else {
-        [infos removeObjectForKey:@(ZBPackageInfoRepo)];
+        [infos removeObjectForKey:@(ZBPackageInfoSource)];
     }
 }
 
@@ -542,7 +542,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *value = infos[@(indexPath.row)];
     
     if (cell == nil) {
-        if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoRepo) {
+        if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoSource) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
@@ -574,7 +574,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             cell.textLabel.text = NSLocalizedString(@"Size", @"");
             cell.detailTextLabel.text = value;
             break;
-        case ZBPackageInfoRepo:
+        case ZBPackageInfoSource:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.text = NSLocalizedString(@"Source", @"");
             cell.detailTextLabel.text = value;
@@ -633,7 +633,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoVersion:
         case ZBPackageInfoSize:
-        case ZBPackageInfoRepo:
+        case ZBPackageInfoSource:
             break;
         case ZBPackageInfoWishList: {
             NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];

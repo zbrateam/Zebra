@@ -34,9 +34,9 @@
 
 @implementation ZBTabBarController
 
-@synthesize forwardedRepoBaseURL;
+@synthesize forwardedSourceBaseURL;
 @synthesize forwardToPackageID;
-@synthesize repoBusyList;
+@synthesize sourceBusyList;
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -152,8 +152,8 @@
 
 - (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
     if (bfn == NULL) return;
-    if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
-    [repoBusyList setObject:@(busy) forKey:bfn];
+    if (!sourceBusyList) sourceBusyList = [NSMutableDictionary new];
+    [sourceBusyList setObject:@(busy) forKey:bfn];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
@@ -162,7 +162,7 @@
 }
 
 - (void)clearRepos {
-    [repoBusyList removeAllObjects];
+    [sourceBusyList removeAllObjects];
 }
 
 - (void)databaseStartedUpdate {
@@ -193,9 +193,9 @@
 - (void)forwardToPackage {
     if (forwardToPackageID != NULL) { //this is pretty hacky
         NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
-        if (forwardedRepoBaseURL != NULL) {
-            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedRepoBaseURL];
-            forwardedRepoBaseURL = NULL;
+        if (forwardedSourceBaseURL != NULL) {
+            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedSourceBaseURL];
+            forwardedSourceBaseURL = NULL;
         }
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         forwardToPackageID = NULL;

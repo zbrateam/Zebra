@@ -129,9 +129,9 @@
         ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
         ZBSourceVerificationStatus status = source.verificationStatus;
         
-        cell.repoLabel.alpha = 1.0;
+        cell.sourceLabel.alpha = 1.0;
         cell.urlLabel.alpha = 1.0;
-        cell.repoLabel.textColor = [UIColor primaryTextColor];
+        cell.sourceLabel.textColor = [UIColor primaryTextColor];
         [cell setSpinning:NO];
         switch (status) {
             case ZBSourceExists: {
@@ -143,26 +143,26 @@
                 [cell setSpinning:YES];
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
-                cell.repoLabel.alpha = 0.7;
+                cell.sourceLabel.alpha = 0.7;
                 cell.urlLabel.alpha = 0.7;
                 break;
             }
             case ZBSourceImaginary: {
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
-                cell.repoLabel.textColor = [UIColor systemPinkColor];
+                cell.sourceLabel.textColor = [UIColor systemPinkColor];
                 break;
             }
             case ZBSourceVerifying: {
                 [cell setSpinning:YES];
                 
-                cell.repoLabel.alpha = 0.7;
+                cell.sourceLabel.alpha = 0.7;
                 cell.urlLabel.alpha = 0.7;
                 break;
             }
         }
         
-        cell.repoLabel.text = [self.titles objectForKey:[source baseFilename]];
+        cell.sourceLabel.text = [self.titles objectForKey:[source baseFilename]];
         cell.urlLabel.text = source.repositoryURI;
         
         [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];

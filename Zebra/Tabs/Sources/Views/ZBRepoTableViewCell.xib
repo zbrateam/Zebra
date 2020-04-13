@@ -50,7 +50,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="iconImageView" destination="lz1-B6-foX" id="7Sf-VX-ilL"/>
-                <outlet property="repoLabel" destination="DG1-gF-WiI" id="YLP-dE-6fb"/>
+                <outlet property="sourceLabel" destination="DG1-gF-WiI" id="YLP-dE-6fb"/>
                 <outlet property="urlLabel" destination="qvT-B5-ng0" id="qZh-Hg-bWL"/>
             </connections>
             <point key="canvasLocation" x="67.200000000000003" y="-6.746626686656672"/>

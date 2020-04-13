@@ -168,18 +168,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)sourceIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict;
 
 /*!
-@brief Get a ZBRepo instance  from a base url
+@brief Get a ZBSource instance  from a base url
 @param baseURL the base url
-@return A ZBRepo instance for the matching base url.
+@return A ZBSource instance for the matching base url.
 */
-- (ZBSource * _Nullable)repoFromBaseURL:(NSString *)baseURL;
+- (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL;
 
 /*!
 @brief Get a ZBSource instance  from a base filename
 @param baseFilename the base filename
 @return A ZBSource instance for the matching base filename
 */
-- (ZBSource * _Nullable)repoFromBaseFilename:(NSString *)baseFilename;
+- (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;
 
 /*!
  @brief The next sourceID in the database.

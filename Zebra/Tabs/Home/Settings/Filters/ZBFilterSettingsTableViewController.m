@@ -108,8 +108,8 @@
                 ZBRepoTableViewCell *repoCell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
                 ZBSource *source = sources[indexPath.row];
                 
-                repoCell.repoLabel.text = [source label];
-                repoCell.repoLabel.textColor = [UIColor primaryTextColor];
+                repoCell.sourceLabel.text = [source label];
+                repoCell.sourceLabel.textColor = [UIColor primaryTextColor];
                 
                 unsigned long numberOfSections = (unsigned long)[filteredSources[[source baseFilename]] count];
                 repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
