@@ -329,15 +329,15 @@
 "Finished importing local packages." = "เสร็จสิ้นการนำเข้าโปรแกรมจากในเครื่อง";
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "ไม่สามารถทำขั้นตอน %@ ให้เสร็จ สาเหตุ: %@";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "กรุณาเริ่มต้นการทำงาน Zebra ใหม่และดูว่าปัญหายังอยู่หรือไม่ หากยังอยู่ กรุณาส่งปัญหาไปที่ GitHub";
 "Done..." = "เสร็จสิ้น...";
 "Done %@" = "เสร็จสิ้น %@";
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "เกิดข้อผิดพลาดในการเปิดไฟล์:";
 "Adding Payment Vendor URL for %@" = "เพิ่ม URL ของผู้วางขายสำหรับ %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "อุปกรณ์นี้อยู่ในโหมดจำลอง นี่คือโปรแกรมที่จะถูกปรับแก้ในขั้นตอนนี้:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "เอาออกจากคิว";
 "Clear Queue" = "ล้างคิว";
 "%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" ไม่รองรับ %@";
 "%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
 "%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
 "Are you sure you want to clear the Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ยังไม่มีสิทธิ์ในการกำหนดค่า uid or gid กรุณาตรวจสอบให้แน่ใจว่าสิทธ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "เกิดข้อผิดพลาดขณะเปิดที่อยู่ข้อมูลของโปรแกรม: %@";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่: %@";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list: %@";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่ไฟล์ deb: %@";
 
 "Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
 
