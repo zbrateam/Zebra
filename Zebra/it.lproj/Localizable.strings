@@ -329,13 +329,13 @@
 "Finished importing local packages." = "Terminata l'importazione dei pacchetti locali.";
 "One or more packages failed to download." = "Impossibile scaricare uno o più pacchetti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clicca \"Ritorna alla Coda\" per tornare alla Coda e riprovare il dowload.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Impossibile completare il processo %@. Motivo: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Riavviare Zebra e vedere se il problema persiste. In tal caso, riportare il problema su su GitHub.";
 "Done..." = "Fatto...";
 "Done %@" = "Completato %@";
 "Removing Zebra..." = "Disinstallando Zebra...";
 "Installing Zebra..." = "Installando Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Errore durante l'apertura del file:";
 "Adding Payment Vendor URL for %@" = "Aggiungo URL di pagamento del venditore per %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Rimuovi dalla coda";
 "Clear Queue" = "Pulisci coda";
 "%@ is required by:" = "%@ è richiesto da:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" è in conflitto con %@";
 "%@ must be removed because it depends on %@" = "%@ deve essere rimosso perché dipende da %@";
 "%@ has issues that cannot be resolved:" = "%@ ha dei problemi che non possono essere risolti:";
 "Are you sure you want to clear the Queue?" = "Sei sicuro di voler cancellare la Coda?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling non ha i permessi per impostare l'uid o gid. Verificare i permessi del file situato in /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Errore durante la creazione della directory documenti: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Errore durante la creazione della directory liste: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Errore durante la creazione di sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Errore durante la creazione della directory debs: %@.";
 
 "Could not respring. Please respring manually." = "Impossibile eseguire il respring. Fare il respring manualmente.";
 
