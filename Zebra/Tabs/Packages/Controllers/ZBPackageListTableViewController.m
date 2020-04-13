@@ -212,6 +212,8 @@
 }
 
 - (void)configureLoadMoreButton {
+    if (![self useBatchLoad]) return;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.continueBatchLoad) {
             if (self->totalNumberOfPackages) {
