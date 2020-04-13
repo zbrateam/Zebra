@@ -207,7 +207,7 @@
 "Version" = "버전";
 "Packages" = "패키지";
 "Show Updates" = "업데이트 표시";
-"Ignore Updates" = "업데이트 무시";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "버전 선택";
 "Select a version to upgrade to:" = "업그레이드할 버전 선택:";
 "Select a version to downgrade to:" = "다운그레이드할 버전 선택:";

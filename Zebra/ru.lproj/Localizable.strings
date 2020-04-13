@@ -92,7 +92,7 @@
 "Appearance" = "Оформление";
 "Use System Appearance" = "Использовать системное оформление";
 "Light" = "Светлое";
-"Dark" = "Темное";
+"Dark" = "Тёмное";
 "Pure Black Mode" = "Режим чистого чёрного";
 
 // Featured
@@ -207,7 +207,7 @@
 "Version" = "Версия";
 "Packages" = "Пакеты";
 "Show Updates" = "Показать Обновления";
-"Ignore Updates" = "Игнорировать обновления";
+"Hide Updates" = "Скрыть обновления";
 "Select Version" = "Выберите версию";
 "Select a version to upgrade to:" = "Выберите версию до которой обновить пакет:";
 "Select a version to downgrade to:" = "Выберите версию до которой откатить пакет:";
@@ -325,7 +325,7 @@
 "Finished!" = "Готово!";
 "Return to Queue" = "Вернуться к очереди";
 "Returning to Queue..." = "Возвращение в очередь...";
-"Importing local packages." = "Импортирование Локальных Пакетов.";
+"Importing local packages." = "Импортирование локальных пакетов.";
 "Finished importing local packages." = "Импортирование локальных пакетов завершено.";
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
@@ -410,7 +410,7 @@
 
 "Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
 
-"Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Отображать недавние посты из r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Искать пакеты во время ввода. Отключение этой функции может улучшить производительность на старых устройствах.";
 

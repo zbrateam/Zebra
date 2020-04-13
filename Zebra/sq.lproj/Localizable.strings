@@ -207,7 +207,7 @@
 "Version" = "Versioni";
 "Packages" = "Paketat";
 "Show Updates" = "Shfaq përditsimet";
-"Ignore Updates" = "Injoro përditsimet";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Zgjidh Versionin";
 "Select a version to upgrade to:" = "Zgjidh një verzion për ta përditsuar në:";
 "Select a version to downgrade to:" = "Zgjidhni një version për të zbritur në:";

@@ -207,7 +207,7 @@
 "Version" = "Version";
 "Packages" = "Packages";
 "Show Updates" = "Show Updates";
-"Ignore Updates" = "Ignore Updates";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Select Version";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Изберете версия за понижаване до:";

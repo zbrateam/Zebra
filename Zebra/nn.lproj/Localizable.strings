@@ -207,7 +207,7 @@
 "Version" = "Versjon";
 "Packages" = "Pakkar";
 "Show Updates" = "Vis oppdateringar";
-"Ignore Updates" = "Ignorer oppdateringar";
+"Hide Updates" = "Skjul oppdateringar";
 "Select Version" = "Vel versjon";
 "Select a version to upgrade to:" = "Vel versjonen du vil oppdatera til:";
 "Select a version to downgrade to:" = "Vel versjonen du vil nedgradera til:";

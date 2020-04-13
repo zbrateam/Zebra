@@ -207,7 +207,7 @@
 "Version" = "Versiyon";
 "Packages" = "Paketler";
 "Show Updates" = "Güncellemeleri Göster";
-"Ignore Updates" = "Güncellemeleri Gizle";
+"Hide Updates" = "Güncellemeleri Gizle";
 "Select Version" = "Versiyon Seçin";
 "Select a version to upgrade to:" = "Yüklenecek versiyonu seçin:";
 "Select a version to downgrade to:" = "Düşürülecek versiyonu seçin:";

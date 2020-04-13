@@ -207,7 +207,7 @@
 "Version" = "Έκδοση";
 "Packages" = "Πακέτα";
 "Show Updates" = "Εμφάνισε Ενημερώσεις";
-"Ignore Updates" = "Αγνόησε Ενημερώσεις";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Διάλεξε Έκδοση";
 "Select a version to upgrade to:" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε:";
 "Select a version to downgrade to:" = "Διάλεξε μία έκδοση για να υποβαθμιστείς σε:";

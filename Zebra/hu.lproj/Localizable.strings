@@ -207,7 +207,7 @@
 "Version" = "Verzió";
 "Packages" = "Csomagok";
 "Show Updates" = "Frissítések megjelenítése";
-"Ignore Updates" = "Frissítések mellőzése";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Verzió kiválasztása";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";

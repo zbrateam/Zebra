@@ -207,7 +207,7 @@
 "Version" = "Inačica";
 "Packages" = "Paketi";
 "Show Updates" = "Prikaži ažuriranja";
-"Ignore Updates" = "Ignoriraj ažuriranja";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Odaberi verziju";
 "Select a version to upgrade to:" = "Odaberite na koju se verziju želite nadograditi:";
 "Select a version to downgrade to:" = "Odaberite verziju na koju se želite spustiti:";

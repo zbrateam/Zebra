@@ -207,7 +207,7 @@
 "Version" = "Versiune";
 "Packages" = "Pachete";
 "Show Updates" = "Afișare Actualizări";
-"Ignore Updates" = "Ignoră Actualizări";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Selectați Versiunea";
 "Select a version to upgrade to:" = "Selectați o versiune la care să se facă upgrade:";
 "Select a version to downgrade to:" = "Selectați o versiune la care să se facă downgrade:";

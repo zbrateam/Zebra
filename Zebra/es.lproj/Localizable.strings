@@ -207,7 +207,7 @@
 "Version" = "Versión";
 "Packages" = "Paquetes";
 "Show Updates" = "Mostrar actualizaciones";
-"Ignore Updates" = "Ignorar actualizaciones";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Seleccionar versión";
 "Select a version to upgrade to:" = "Seleccionar versión a actualizar:";
 "Select a version to downgrade to:" = "Selecciona una versión a la que degradar:";

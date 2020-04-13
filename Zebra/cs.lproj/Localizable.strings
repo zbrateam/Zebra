@@ -207,7 +207,7 @@
 "Version" = "Verze";
 "Packages" = "Balíčky";
 "Show Updates" = "Zobrazit Aktualizace";
-"Ignore Updates" = "Ignorovat Aktualizace";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Vyberte Verzi";
 "Select a version to upgrade to:" = "Vyberte verzi, na kterou chcete aktualizovat:";
 "Select a version to downgrade to:" = "Vyberte verzi, na kterou se chcete vrátit:";
