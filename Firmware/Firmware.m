@@ -17,9 +17,9 @@
 }
 
 - (void)exitWithError:(NSError *)error andMessage:(NSString *)message {
-    NSLog(@"%@", message);
+    NSLog(@"[Zebra Firmware] %@", message);
     if (error) {
-        NSLog(@"Error: %@", error);
+        NSLog(@"[Zebra Firmware] Error: %@", error);
     }
     exit(1);
 }

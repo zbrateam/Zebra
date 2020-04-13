@@ -3,7 +3,12 @@
 #define FIRMWARE_VERSION 6
 
 int main() {
-    NSLog(@"full steam ahead");
+    NSLog(@"[Zebra Firmware] full steam ahead");
+
+    if (![[NSFileManager defualtManager] fileExistsAtPath:@"/var/lib/dpkg/status.bak"]) {
+        NSLog(@"[Zebra Firmware] Copying status file to backup");
+        [[NSFileManager defaultManager] copyItemAtPath:@"/var/lib/dpkg/status" toPath:@"/var/lib/dpkg/status.bak" error:nil];
+    }
 
     Firmware *firmware = [[Firmware alloc] init];
     [firmware loadInstalledPackages];
@@ -55,6 +60,6 @@ int main() {
         }
     }
 
-    NSLog(@"my work here is done");
+    NSLog(@"[Zebra Firmware] my work here is done");
     return 0;
 }
