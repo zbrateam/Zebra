@@ -11,8 +11,8 @@
 "Done" = "Listo";
 "Loading..." = "Cargando...";
 "Clear" = "Limpiar";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Se ha producido un error";
+"Dismiss" = "Ok";
 "Downloads" = "Descargas";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Reportar un problema";
 "Changelog" = "Cambios";
 "Wish List" = "Lista de deseos";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Primero los más recientes";
+"Oldest First" = "Primero los más antíguos";
 "No items in Wish List" = "No hay artículos en la lista de deseos";
 "Community" = "Comunidad";
 "Join our Discord" = "Únete a nuestro Discord";
@@ -70,8 +70,8 @@
 "Text" = "Texto";
 "Icon" = "Icono";
 "Finish Automatically" = "Finalizar automáticamente";
-"Hide UDID" = "Hide UDID";
-"Automatic Refresh" = "Automatic Refresh";
+"Hide UDID" = "Ocultar UDID";
+"Automatic Refresh" = "Actualización automática";
 
 // Accent Colors
 
@@ -106,30 +106,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Reiniciar";
 "Refresh Icon Cache" = "Actualizar la cache de iconos";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Limpiar caché de imágenes";
+"Clear Sources Cache" = "Limpiar caché de fuentes";
+"Clear Web Cache" = "Limpiar caché de la web";
 "Reset All Settings" = "Restablecer ajustes";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Borrar todas las fuentes";
 "Erase All Sources and Settings" = "Borrar fuentes y ajustes";
 
 "Are you sure you want to restart the SpringBoard?" = "¿Está seguro de que desea reiniciar SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "¿Está seguro de que desea actualizar el caché de iconos? Su dispositivo puede dejar de responder hasta que el proceso se haya completado.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Caché de imagen limpia";
+"Web Cache Cleared" = "Caché de web limpia";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "¿Está seguro de que desea restablecer el caché de fuentes de Zebra? Esto eliminará toda la información almacenada en caché de la base de datos de Zebra y la volverá a descargar. Tus fuentes no serán eliminadas.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "¿Estás seguro de que quieres restablecer la configuración de Zebra? Esto restablecerá todos los ajustes de Zebra a sus valores por defecto y Zebra se reiniciará.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "¿Seguro que desea borrar todas las fuentes? Todas sus fuentes serán borradas de Zebra y se reiniciará.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "¿Está seguro que desea borrar todas las fuentes y configuraciones? Todas tus fuentes serán eliminadas de Zebra y tus ajustes serán restablecidos.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas sus fuentes serán eliminadas y desaparecerán para siempre y Zebra se reiniciará.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Abrir directorio de Documentos";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza no instalada";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra no puede abrir este directorio de documentos porque Filza no está instalada. Tu directorio de documentos es: %@";
 
 // Stores
 
@@ -142,7 +142,7 @@
 "Could not complete purchase" = "No se pudo completar la compra";
 "Could not complete purchase, no payment secret was found" = "No se pudo completar la compra, no se encontró ninguna clave de pago";
 "No packages purchased" = "No hay paquetes comprados";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Registrado como %@(%@)";
 
 // Sources
 
@@ -185,9 +185,9 @@
 
 "Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
 "Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not download Release file from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
+"Could not download Packages file from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
+"Could not download one or more files from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "La URL introducida no es válida. Por favor, compruébela e inténtelo de nuevo.";
 
@@ -367,7 +367,7 @@
 "\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ debe ser eliminado, porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tiene problemas que no se pueden resolver:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "¿Seguro que quieres borrar la cola?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ es un paquete necesario. ¡NO debe ser eliminado a menos que sepas lo que estás haciendo!";
 
 // Search
@@ -408,7 +408,7 @@
 
 "Display featured packages on the homepage." = "Mostrar paquetes destacados en la página de inicio.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Actualizar las fuentes de Zebra al abrir la aplicación.";
 
 "Display recent community posts from /r/jailbreak." = "Mostrar mensajes comunitarios recientes de /r/jailbreak.";
 
@@ -436,14 +436,14 @@
 "Add Filter" = "Añadir filtro";
 
 "1 Section Hidden" = "Una sección oculta";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu Secciones ocultadas";
 
 "Sections" = "Secciones";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Escoger una sección";
 "Hide packages in these sections." = "Ocultar paquetes en estas secciones.";
 
 "Sources" = "Fuentes";
-"Select a Source" = "Select a Source";
+"Select a Source" = "Seleccionar origen";
 "Hide packages in these sections from specific sources." = "Ocultar paquetes de fuentes específicas en estas secciones.";
 
 "Updates" = "Actualizaciones";
@@ -451,14 +451,14 @@
 
 "Authors" = "Autores";
 "Hide packages from these authors." = "Ocultar paquetes de estos autores.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Search for an Author" = "Buscar un autor";
+"This author also goes by the following names:" = "Este autor también va con los siguientes nombres:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Idioma";
+"Apply" = "Aplicar";
+"Restart Required" = "Reinicio requerido";
+"Zebra must be closed in order to change preferred language" = "Para cambiar el idioma preferido Tienes que cerrar la aplicación";
+"Restart" = "Reiniciar";
+"Use System Language" = "Usar idioma del sistema";
