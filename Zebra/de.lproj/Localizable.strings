@@ -337,7 +337,7 @@
 "Installing Zebra..." = "Zebra wird installiert …";
 "Error while opening file:" = "Fehler beim Öffnen der Datei:";
 "Adding Payment Vendor URL for %@" = "URL des Zahlungsdienstleisters für %@ hinzufügen";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Dieses Gerät wird simuliert. Hier sind die Pakete, die in dieser Phase modifiziert werden müssten:";
 
 // Queue Bar
 
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling verfügt nicht über die Berechtigung, die „uid” oder „gid” festzulegen. Bitte überprüfen Sie die Berechtigungen der Datei unter /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Fehler beim Erstellen des Dokumentenverzeichnis: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Fehler beim Erstellen des lists Verzeichnisses: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Fehler beim Erstellen der sources.list Datei: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Fehler beim Erstellen des Debs-Verzeichnisses: %@.";
 
 "Could not respring. Please respring manually." = "SpringBoard konnte nicht neugestartet werden. Bitte versuche den Neustart manuell durchzuführen.";
 
