@@ -24,8 +24,6 @@
 @import Crashlytics;
 
 @interface ZBPackage () {
-    NSArray *possibleActions;
-    
     BOOL checkedForPurchaseInfo;
     ZBPurchaseInfo *purchaseInfo;
 }
@@ -644,6 +642,9 @@
 - (NSArray * _Nullable)possibleActions {
     if ([self->possibleActions count]) return self->possibleActions; // Caching these might actually be a bad idea because I actually base which actions are available on if they're in the queue
     
+}
+
+- (NSArray * _Nullable)possibleActions {    
     if ([[self repo] repoID] == -1) {
         return nil; // No actions for virtual dependencies
     }
@@ -693,8 +694,7 @@
         [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
     }
     
-    self->possibleActions = [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-    return self.possibleActions;
+    return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }
 
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
