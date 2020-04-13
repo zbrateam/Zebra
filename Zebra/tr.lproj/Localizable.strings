@@ -329,15 +329,15 @@
 "Finished importing local packages." = "Yerel paketleri içeri aktarma işlemi tamamlandı.";
 "One or more packages failed to download." = "Bir veya birden fazla paketi indirme başarısız oldu.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Geri dönüp tekrar indirmeyi denemek için \"Sıraya Geri Dön\" e tıklayın..";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "%@ işlemi tamamlanamadı. Sebep: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Lütfen Zebra'yı yeniden başlatın ve sorunun devam edip etmediğine bakın. Devam ediyorsa, lütfen GitHub'da bir konu yaratın.";
 "Done..." = "Tamamlandı...";
 "Done %@" = "Tamamlandı %@";
 "Removing Zebra..." = "Zebra Kaldırılıyor...";
 "Installing Zebra..." = "Zebra Yükleniyor...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Dosya açılırken hata oluştu:";
 "Adding Payment Vendor URL for %@" = "%@ için Ödeme Satıcısı URL'si ekleniyor";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Bu cihaz simüle edildi, bu aşamada değiştirilecek paketler:";
 
 // Queue Bar
 
@@ -364,7 +364,7 @@
 "Remove from Queue" = "Sıradan çıkar";
 "Clear Queue" = "Listeyi temizle";
 "%@ is required by:" = "%@, bunun için gerekli:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\", %@ ile çakışıyor";
 "%@ must be removed because it depends on %@" = "%@, %@'e bağımlı olduğundan kaldırılmalı";
 "%@ has issues that cannot be resolved:" = "%@ çözülemeyen sorunlara sahip:";
 "Are you sure you want to clear the Queue?" = "Sırayı temizlemek istediğinizden emin misiniz?";
@@ -388,13 +388,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"/su/sling\" in \"uid\" veya \"gid\" i ayarlama yetkisi yok. Lütfen \"/usr/libexec/zebra/supersling\" konumundaki dosyanın yetkilerini kontrol edin.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Dosya dizinini oluştururken hata: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Liste dizinini oluştururken hata: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "source.list dosyasını oluştururken hata: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Deb dizinini oluştururken hata: %@.";
 
 "Could not respring. Please respring manually." = "Respring edilemiyor. Lütfen manuel olarak respring edin.";
 
