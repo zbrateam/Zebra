@@ -6,11 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class UIColor;
 @class ZBPackage;
 
 #import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
-#import <UIKit/UIColor.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
