@@ -207,7 +207,7 @@
 "Version" = "Phiên bản";
 "Packages" = "Gói";
 "Show Updates" = "Hiển thị cập nhật";
-"Ignore Updates" = "Bỏ qua cập nhật";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Chọn phiên bản";
 "Select a version to upgrade to:" = "Chọn một phiên bản để nâng cấp:";
 "Select a version to downgrade to:" = "Chọn một phiên bản để hạ cấp:";
