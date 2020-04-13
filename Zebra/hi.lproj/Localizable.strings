@@ -1,7 +1,7 @@
 // Common
 
 "Cancel" = "रद्द करें";
-"Yes" = "Yes";
+"Yes" = "Gctxc";
 "No" = "नहीं";
 "Ok" = "हनजी";
 "Error" = "त्रुटि";
@@ -9,8 +9,8 @@
 "Edit" = "संशोधन करें";
 "Close" = "बंद";
 "Done" = "समाप्त";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
+"Loading..." = "लोड हो रहा है...";
+"Clear" = "साफ़";
 "An Error Occurred" = "An Error Occurred";
 "Dismiss" = "Dismiss";
 "Downloads" = "Downloads";
@@ -18,33 +18,33 @@
 // Home
 
 "Home" = "घऱ";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Info" = "जानकारी";
+"Welcome to Zebra!" = "ज़ेबरा में आपका स्वागत है!";
+"Report a Bug" = "गलती सूचित करें";
+"Changelog" = "बदलाव";
+"Wish List" = "इच्छा-सूची";
+"Newest First" = "नवीनतम पहले";
+"Oldest First" = "सबसे पुराना पहले";
+"No items in Wish List" = "इच्छा-सूची में कोई आइटम नहीं";
+"Community" = "समुदाय";
+"Join our Discord" = "हमारे Discord में शामिल हों";
+"Follow us on Twitter" = "हमसे Twitter पर सूचित रहें";
+"Help translate Zebra!" = "Zebra का अनुवाद करने में मदद करें!";
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
-"Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
+"Community Sources" = "सामुदायिक सूत्र";
+"You’ve added all of the community sources" = "आपने सभी सामुदायिक स्रोतों को जोड़ा है";
+"Transfer sources from %@ to Zebra" = "%@ Zebra से स्रोत स्थानांतरण";
+"Utility source for %@" = "%@ के लिए उपयोगिता स्रोत";
+"Transfer Sources" = "स्रोत स्थानांतरण";
+"Verifying Source" = "स्रोत का सत्यापन";
+"Verifying Sources" = "स्रोत का सत्यापन";
+"Import" = "आयात";
+"Verifying..." = "जांचना";
+"Confirm Import" = "आयात की पुष्टि करें";
+"Import Sources" = "आयात सूत्र";
+"No sources to import" = "आयात करने के लिए कोई स्रोत नहीं";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
 "Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
