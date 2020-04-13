@@ -114,7 +114,8 @@
             self->components = components;
         }
         
-        if (![distribution isEqualToString:@"./"]) {
+        // TODO: handle problematic source lines (empty components) better?
+        if (![distribution isEqualToString:@"./"] && [components count]) {
             //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
