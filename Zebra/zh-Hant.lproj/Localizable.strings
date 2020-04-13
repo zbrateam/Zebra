@@ -207,7 +207,7 @@
 "Version" = "版本";
 "Packages" = "套件";
 "Show Updates" = "顯示更新";
-"Ignore Updates" = "忽略更新";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "選擇版本";
 "Select a version to upgrade to:" = "選擇升級版本";
 "Select a version to downgrade to:" = "選擇降級版本";
