@@ -256,21 +256,21 @@
 }
 
 - (void)openQueue:(BOOL)openPopup {
-    [self checkQueueNav];
-    
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
-        return;
-    }
-
-    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
-    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
-    
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
-    longPress.minimumPressDuration = 1;
-    longPress.delegate = self;
-    
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self checkQueueNav];
+        
+        LNPopupPresentationState state = self.popupPresentationState;
+        if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
+            return;
+        }
+
+        self.popupInteractionStyle = LNPopupInteractionStyleSnap;
+        self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+        
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
+        longPress.minimumPressDuration = 1;
+        longPress.delegate = self;
+    
         [self.popupBar addGestureRecognizer:longPress];
         [self presentPopupBarWithContentViewController:self->queueNav openPopup:openPopup animated:YES completion:nil];
     });
