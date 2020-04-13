@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *sectionIndexTitles;
 }
 @property (readwrite, copy, nonatomic) NSArray *tableData;
-- (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)bfn;
+- (void)setSpinnerVisible:(BOOL)visible forSource:(NSString *)bfn;
 - (void)handleURL:(NSURL *)url;
 - (void)addSource:(id)sender;
 - (void)handleImportOf:(NSURL *)url;

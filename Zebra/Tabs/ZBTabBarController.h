@@ -19,9 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *forwardedSourceBaseURL;
 @property (nonatomic, strong) NSMutableDictionary *sourceBusyList;
 - (void)setPackageUpdateBadgeValue:(int)updates;
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible;
+- (void)setSourceRefreshIndicatorVisible:(BOOL)visible;
 - (void)openQueue:(BOOL)openPopup;
-- (void)clearRepos;
+- (void)clearSources;
 - (void)updateQueueBar;
 - (void)updateQueueBarColors;
 - (void)forwardToPackage;

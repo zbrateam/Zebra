@@ -17,8 +17,8 @@
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
-#import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
+#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 
@@ -55,7 +55,7 @@
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteSourceTouchAction" object:nil];
@@ -100,8 +100,8 @@
     return [self hasDataInSection:section];
 }
 
-- (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+- (ZBSourceTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     
     NSObject *source = [self sourceAtIndexPath:indexPath];
     if ([source isKindOfClass:[ZBSource class]]) {
@@ -140,7 +140,7 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBSourceTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSource *source = [self sourceAtIndexPath:indexPath];
     NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).sourceBusyList;
     [self setSpinnerVisible:[busyList[[source baseFilename]] boolValue] forCell:cell];
@@ -258,7 +258,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSObject *source = [self sourceAtIndexPath:indexPath];
     if ([source isKindOfClass:[ZBSource class]]) {
-        [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+        [self performSegueWithIdentifier:@"segueSourcesToSourceSection" sender:indexPath];
     }
     else {
         ZBBaseSource *baseSource = (ZBBaseSource *)source;
@@ -351,7 +351,7 @@
                 if (status == ZBSourceExists) {
                     if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [self showAddRepoFromClipboardAlert:baseSource];
+                            [self showAddSourceFromClipboardAlert:baseSource];
                         });
                     }
                     self->askedToAddFromClipboard = YES;
@@ -362,7 +362,7 @@
     }
 }
 
-- (void)showAddRepoFromClipboardAlert:(ZBBaseSource *)baseSource {
+- (void)showAddSourceFromClipboardAlert:(ZBBaseSource *)baseSource {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:baseSource.repositoryURI preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor accentColor];
     
@@ -452,15 +452,15 @@
     return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
-- (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)baseFilename {
+- (void)setSpinnerVisible:(BOOL)visible forSource:(NSString *)baseFilename {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger pos = [self->sourceIndexes[baseFilename] integerValue];
-        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
+        ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
         [self setSpinnerVisible:visible forCell:cell];
     });
 }
 
-- (void)setSpinnerVisible:(BOOL)visible forCell:(ZBRepoTableViewCell *)cell {
+- (void)setSpinnerVisible:(BOOL)visible forCell:(ZBSourceTableViewCell *)cell {
     [cell setSpinning:visible];
 }
 
@@ -534,9 +534,9 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *destination = [segue destinationViewController];
     
-    if ([destination isKindOfClass:[ZBRepoSectionsListTableViewController class]]) {
+    if ([destination isKindOfClass:[ZBSourceSectionsListTableViewController class]]) {
         NSIndexPath *indexPath = sender;
-        ((ZBRepoSectionsListTableViewController *)destination).source = [self sourceAtIndexPath:indexPath];
+        ((ZBSourceSectionsListTableViewController *)destination).source = [self sourceAtIndexPath:indexPath];
     }
 }
 

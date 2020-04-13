@@ -202,7 +202,7 @@ typedef enum {
             return;
         }
         [databaseManager cancelUpdates:self];
-        [((ZBTabBarController *)self.tabBarController) clearRepos];
+        [((ZBTabBarController *)self.tabBarController) clearSources];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
         
         buttonState = ZBStateDone;

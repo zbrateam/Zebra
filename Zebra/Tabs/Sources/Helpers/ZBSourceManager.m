@@ -138,7 +138,7 @@
     [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
     
     //Delete .list file (if it exists)
-    NSArray *lists = [self repoLists:source];
+    NSArray *lists = [self sourceLists:source];
     for (NSString *list in lists) {
         NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:list];
         NSError *error = NULL;
@@ -223,7 +223,7 @@
     }
 }
 
-- (NSArray <NSString *> *)repoLists:(ZBBaseSource *)source {
+- (NSArray <NSString *> *)sourceLists:(ZBBaseSource *)source {
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
     
     return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", [source baseFilename]]];

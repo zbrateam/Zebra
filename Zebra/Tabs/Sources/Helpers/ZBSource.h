@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSURL *iconURL;
 
 + (ZBSource *)sourceMatchingSourceID:(int)sourceID;
-+ (ZBSource *)localRepo:(int)sourceID;
++ (ZBSource *)localSource:(int)sourceID;
 + (ZBSource *)sourceFromBaseURL:(NSString *)baseURL;
 + (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;
 + (BOOL)exists:(NSString *)urlString;

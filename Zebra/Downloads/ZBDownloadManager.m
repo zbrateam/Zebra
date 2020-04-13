@@ -93,13 +93,13 @@
         [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
         [releaseTask resume];
         
-        [self downloadPackagesFileWithExtension:@"xz" fromRepo:source ignoreCaching:ignore];
+        [self downloadPackagesFileWithExtension:@"xz" fromSource:source ignoreCaching:ignore];
         
         [downloadDelegate startedSourceDownload:source];
     }
 }
 
-- (void)downloadPackagesFileWithExtension:(NSString *_Nullable)extension fromRepo:(ZBBaseSource *)source ignoreCaching:(BOOL)ignore {
+- (void)downloadPackagesFileWithExtension:(NSString *_Nullable)extension fromSource:(ZBBaseSource *)source ignoreCaching:(BOOL)ignore {
     self->ignore = ignore;
     
     if ([extension isEqualToString:@""]) extension = NULL;
@@ -278,7 +278,7 @@
                 NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < [options count]) {
-                    [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromRepo:source ignoreCaching:ignore];
+                    [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source ignoreCaching:ignore];
                 }
                 else { //Should never happen but lets catch the error just in case
                     NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
@@ -564,7 +564,7 @@
                 }
             }
             else {
-                NSLog(@"[Zebra] Unable to determine ZBBaseRepo associated with %lu.", (unsigned long)downloadTask.taskIdentifier);
+                NSLog(@"[Zebra] Unable to determine ZBBaseSource associated with %lu.", (unsigned long)downloadTask.taskIdentifier);
             }
             break;
         }

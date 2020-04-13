@@ -1,5 +1,5 @@
 //
-//  ZBRepoSectionsListTableViewController.m
+//  ZBSourceSectionsListTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 3/24/19.
@@ -8,7 +8,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBRepoSectionsListTableViewController.h"
+#import "ZBSourceSectionsListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
@@ -21,7 +21,7 @@
 
 @import SDWebImage;
 
-@interface ZBRepoSectionsListTableViewController () {
+@interface ZBSourceSectionsListTableViewController () {
     CGSize bannerSize;
     UICKeyChainStore *keychain;
     ZBDatabaseManager *databaseManager;
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSDictionary *sectionReadout;
 @end
 
-@implementation ZBRepoSectionsListTableViewController
+@implementation ZBSourceSectionsListTableViewController
 
 @synthesize source;
 @synthesize sectionNames;
@@ -45,7 +45,7 @@
 
 - (id)initWithSource:(ZBSource *)source {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self = [storyboard instantiateViewControllerWithIdentifier:@"repoSectionsController"];
+    self = [storyboard instantiateViewControllerWithIdentifier:@"sourceSectionsController"];
     
     if (self) {
         self.source = source;
@@ -313,7 +313,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoSectionCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceSectionCell" forIndexPath:indexPath];
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     numberFormatter.locale = [NSLocale currentLocale];

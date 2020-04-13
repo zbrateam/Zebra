@@ -49,7 +49,7 @@
                                 <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Repo + Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aao-tj-ivE">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Source + Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aao-tj-ivE">
                                 <rect key="frame" x="0.0" y="16" width="283.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -82,7 +82,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="authorAndRepoAndSize" destination="Aao-tj-ivE" id="UE8-PC-kVt"/>
+                <outlet property="authorAndSourceAndSize" destination="Aao-tj-ivE" id="UE8-PC-kVt"/>
                 <outlet property="backgroundContainerView" destination="q6f-7A-7nU" id="UKi-Hj-YpU"/>
                 <outlet property="descriptionLabel" destination="i5t-bG-gea" id="TgH-dS-3h1"/>
                 <outlet property="iconImageView" destination="UQ5-oq-Z6g" id="yKv-R5-qLJ"/>

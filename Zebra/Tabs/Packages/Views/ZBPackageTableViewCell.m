@@ -48,7 +48,7 @@
         [info addObject:name];
     if (installedSize)
         [info addObject:installedSize];
-    self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];
+    self.authorAndSourceAndSize.text = [info componentsJoinedByString:@" • "];
     
     [package setIconImageForImageView:self.iconImageView];
     
@@ -81,7 +81,7 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor primaryTextColor];
     self.descriptionLabel.textColor = [UIColor secondaryTextColor];
-    self.authorAndRepoAndSize.textColor = [UIColor secondaryTextColor];
+    self.authorAndSourceAndSize.textColor = [UIColor secondaryTextColor];
     self.backgroundColor = [UIColor cellBackgroundColor];
 }
 

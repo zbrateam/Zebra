@@ -1,5 +1,5 @@
 //
-//  ZBRepoSectionsListTableViewController.h
+//  ZBSourceSectionsListTableViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 3/24/19.
@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoSectionsListTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, SFSafariViewControllerDelegate>
+@interface ZBSourceSectionsListTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, SFSafariViewControllerDelegate>
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source;
 - (void)accountButtonPressed:(id)sender;

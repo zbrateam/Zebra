@@ -7,7 +7,7 @@
 //
 
 @class ZBSource;
-@class ZBRepoSectionsListTableViewController;
+@class ZBSourceSectionsListTableViewController;
 @class ZBSourceInfo;
 
 #import <UIKit/UIKit.h>
@@ -19,14 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 }
 @property (nonatomic, strong) ZBSource *source;
 @property (nonatomic, strong) ZBSourceInfo *sourceInfo;
-@property (nonatomic, assign) ZBRepoSectionsListTableViewController *owner;
+@property (nonatomic, assign) ZBSourceSectionsListTableViewController *owner;
 
 @property (weak, nonatomic) IBOutlet UIButton *button;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIView *seperatorView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
 
-- (id)initWithSource:(ZBSource *)source andOwner:(ZBRepoSectionsListTableViewController *)owner;
+- (id)initWithSource:(ZBSource *)source andOwner:(ZBSourceSectionsListTableViewController *)owner;
 @end
 
 NS_ASSUME_NONNULL_END

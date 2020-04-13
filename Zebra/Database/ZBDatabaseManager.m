@@ -196,8 +196,8 @@
 - (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy {
     for (int i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
-        if ([delegate respondsToSelector:@selector(setRepo:busy:)]) {
-            [delegate setRepo:bfn busy:busy];
+        if ([delegate respondsToSelector:@selector(setSource:busy:)]) {
+            [delegate setSource:bfn busy:busy];
         }
     }
 }
@@ -295,17 +295,17 @@
                 if (!source.releaseFilePath && source.packagesFilePath) { //We need to create a dummy source (for sources with no Release file)
                     if (sourceID == -1) {
                         sourceID = [self nextSourceID];
-                        createDummyRepo([ZBDatabaseManager baseSourceStructFromSource:source], self->database, sourceID);
+                        createDummySource([ZBDatabaseManager baseSourceStructFromSource:source], self->database, sourceID);
                     }
                 }
                 else if (source.releaseFilePath) {
                     if (sourceID == -1) { // Source does not exist in database, create it.
                         sourceID = [self nextSourceID];
-                        if (importRepoToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
+                        if (importSourceToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
                         }
                     } else {
-                        if (updateRepoInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
+                        if (updateSourceInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
                         }
                     }
@@ -320,7 +320,7 @@
                                 if ([endpoint hasPrefix:@"https"]) {
                                     [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Adding Payment Vendor URL for %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
                                     if ([self openDatabase] == SQLITE_OK) {
-                                        addPaymentEndpointForRepo([endpoint UTF8String], self->database, sourceID);
+                                        addPaymentEndpointForSource([endpoint UTF8String], self->database, sourceID);
                                         [self closeDatabase];
                                     }
                                 }
@@ -829,7 +829,7 @@
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
         
-        NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE sourceID = %d GROUP BY SECTION ORDER BY SECTION", [source sourceID]];
+        NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE REPOID = %d GROUP BY SECTION ORDER BY SECTION", [source sourceID]];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -1695,7 +1695,7 @@
             sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
         }
         while (sqlite3_step(statement) == SQLITE_ROW) {
-            int sourceID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
+            int sourceID = sqlite3_column_int(statement, ZBPackageColumnSourceID);
             if (sourceID > 0) {
                 ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
                 
@@ -1810,12 +1810,12 @@
     return NULL;
 }
 
-- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedRepos {
+- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSMutableArray *sourceIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
         
-        for (ZBSource *source in blacklistedRepos) {
+        for (ZBSource *source in blacklistedSources) {
             [sourceIDs addObject:[NSNumber numberWithInt:[source sourceID]]];
         }
         NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceIDs componentsJoinedByString:@", "]];

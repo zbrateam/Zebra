@@ -11,7 +11,7 @@
 #import "ZBSourceAccountTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
-#import "ZBRepoTableViewCell.h"
+#import "ZBSourceTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import "ZBUserInfo.h"
@@ -65,7 +65,7 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -171,7 +171,7 @@
     if (indexPath.section == 0) { // Account Cell
         switch (indexPath.row) {
             case 0: {
-                ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+                ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
                 
                 cell.sourceLabel.textColor = [UIColor primaryTextColor];
                 cell.sourceLabel.text = [source label];

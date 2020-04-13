@@ -1,21 +1,21 @@
 //
-//  ZBRepoTableViewCell.m
+//  ZBSourceTableViewCell.m
 //  Zebra
 //
 //  Created by Andrew Abosh on 2019-05-02.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRepoTableViewCell.h"
+#import "ZBSourceTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBBaseSource.h>
 
-@interface ZBRepoTableViewCell () {
+@interface ZBSourceTableViewCell () {
     UIActivityIndicatorView *spinner;
 }
 @end
 
-@implementation ZBRepoTableViewCell
+@implementation ZBSourceTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

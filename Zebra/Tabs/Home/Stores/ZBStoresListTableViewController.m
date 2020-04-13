@@ -11,7 +11,7 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Controllers/ZBSourceAccountTableViewController.h>
@@ -41,7 +41,7 @@
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -66,7 +66,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (sources.count) {
-           ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+           ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
            
            ZBSource *source = [sources objectAtIndex:indexPath.row];
            

@@ -196,7 +196,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section;
 
 /*!
- @brief Overload of -numberOfPackagesInRepo:section:
+ @brief Overload of -numberOfPackagesInSource:section:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
 - (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
@@ -239,7 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
 
 /*!
- @brief Overload of -packagesFromRepo:inSection:numberOfPackages:startingAt:
+ @brief Overload of -packagesFromSource:inSection:numberOfPackages:startingAt:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
 - (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
@@ -488,7 +488,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param limit Specify how many rows are selected.
  @return An array of all packages with a reachable icon.
  */
-- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedRepos;
+- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end

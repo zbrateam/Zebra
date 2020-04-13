@@ -123,7 +123,7 @@
     });
 }
 
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
     dispatch_async(dispatch_get_main_queue(), ^{
         UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
         UITabBarItem *sourcesItem = [sourcesController tabBarItem];
@@ -144,36 +144,36 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
-        [self clearRepos];
+        [self clearSources];
     });
 }
 
 #pragma mark - Database Delegate
 
-- (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
+- (void)setSource:(NSString *)bfn busy:(BOOL)busy {
     if (bfn == NULL) return;
     if (!sourceBusyList) sourceBusyList = [NSMutableDictionary new];
     [sourceBusyList setObject:@(busy) forKey:bfn];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-        [sourcesVC setSpinnerVisible:busy forRepo:bfn];
+        [sourcesVC setSpinnerVisible:busy forSource:bfn];
     });
 }
 
-- (void)clearRepos {
+- (void)clearSources {
     [sourceBusyList removeAllObjects];
 }
 
 - (void)databaseStartedUpdate {
-    [self setRepoRefreshIndicatorVisible:YES];
+    [self setSourceRefreshIndicatorVisible:YES];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     if (packageUpdates != -1) {
         [self setPackageUpdateBadgeValue:packageUpdates];
     }
-    [self setRepoRefreshIndicatorVisible:NO];
+    [self setSourceRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {
             ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];

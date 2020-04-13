@@ -30,7 +30,7 @@
 
 - (void)cancelRefresh:(id)sender {
     [databaseManager cancelUpdates:self];
-    [[ZBAppDelegate tabBarController] clearRepos];
+    [[ZBAppDelegate tabBarController] clearSources];
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
@@ -131,12 +131,12 @@
     });
 }
 
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
     if (![self supportRefresh]) {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+        [(ZBTabBarController *)self.tabBarController setSourceRefreshIndicatorVisible:visible];
     });
 }
 
@@ -145,17 +145,17 @@
         return;
     }
     [self setEditing:NO animated:NO];
-    [self setRepoRefreshIndicatorVisible:YES];
-    BOOL singleRepo = NO;
+    [self setSourceRefreshIndicatorVisible:YES];
+    BOOL singleSource = NO;
     if ([self respondsToSelector:@selector(source)]) {
         ZBSource *source = [(ZBPackageListTableViewController *)self source];
         if ([source sourceID] > 0) {
             //FIXME: fix me!
 //            [databaseManager updateSource:source useCaching:YES];
-            singleRepo = YES;
+            singleSource = YES;
         }
     }
-    if (!singleRepo) {
+    if (!singleSource) {
         [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
     }
     [self updateRefreshView];
@@ -169,7 +169,7 @@
     if (![self supportRefresh]) {
         return;
     }
-    [self setRepoRefreshIndicatorVisible:NO];
+    [self setSourceRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (packageUpdates != -1) {
             [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
@@ -184,7 +184,7 @@
     if (![self supportRefresh]) {
         return;
     }
-    [self setRepoRefreshIndicatorVisible:YES];
+    [self setSourceRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
 }
 

@@ -13,7 +13,7 @@
 #import "ZBSourceManager.h"
 
 @interface ZBAddSourceViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *addRepoTextView;
+@property (weak, nonatomic) IBOutlet UITextView *addSourceTextView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *addButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldBottomConstraint;
 @property (nonatomic, copy) NSString *text;
@@ -50,13 +50,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     self.view.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.addRepoTextView.backgroundColor = [UIColor cellBackgroundColor];
-    self.addRepoTextView.textColor = [UIColor primaryTextColor];
-    self.addRepoTextView.delegate = self;
+    self.addSourceTextView.backgroundColor = [UIColor cellBackgroundColor];
+    self.addSourceTextView.textColor = [UIColor primaryTextColor];
+    self.addSourceTextView.delegate = self;
     
     if (self.text && [self.text hasPrefix:@"http"]) {
-        self.addRepoTextView.text = self.text;
-        self.addButton.enabled = self.addRepoTextView.text.length;
+        self.addSourceTextView.text = self.text;
+        self.addButton.enabled = self.addSourceTextView.text.length;
     }
 }
 
@@ -67,7 +67,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [self.addRepoTextView becomeFirstResponder];
+    [self.addSourceTextView becomeFirstResponder];
 }
 
 - (void)keyboardWillShow:(NSNotification*)notification {
@@ -90,12 +90,12 @@
 }
 
 - (IBAction)cancelButtonTapped:(UIBarButtonItem *)sender {
-    [self.addRepoTextView resignFirstResponder];
+    [self.addSourceTextView resignFirstResponder];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)addButtonTapped:(UIBarButtonItem *)sender {
-    [self.addRepoTextView resignFirstResponder];
+    [self.addSourceTextView resignFirstResponder];
     
     NSError *detectorError = NULL;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
@@ -109,7 +109,7 @@
     else {
         NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
         
-        NSString *sourcesString = self.addRepoTextView.text;
+        NSString *sourcesString = self.addSourceTextView.text;
         [detector enumerateMatchesInString:sourcesString options:0 range:NSMakeRange(0, sourcesString.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
             if (result.resultType == NSTextCheckingTypeLink) {
                 [detectedURLs addObject:result.URL];
@@ -136,7 +136,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView {
-    self.addButton.enabled = self.addRepoTextView.text.length != 0;
+    self.addButton.enabled = self.addSourceTextView.text.length != 0;
 }
 
 @end

@@ -9,7 +9,7 @@
 @import SDWebImage;
 
 #import "ZBSourceSelectTableViewController.h"
-#import "ZBRepoTableViewCell.h"
+#import "ZBSourceTableViewCell.h"
 #import "ZBSource.h"
 #import "UIColor+GlobalColors.h"
 
@@ -105,7 +105,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     ZBSource *source = [self sourceAtIndexPath:indexPath];
     
     cell.sourceLabel.text = [source label];

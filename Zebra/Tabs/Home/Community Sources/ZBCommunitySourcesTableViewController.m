@@ -8,7 +8,7 @@
 
 #import "ZBCommunitySourcesTableViewController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <ZBLog.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
@@ -42,7 +42,7 @@
             break;
     }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     sourceManager = [ZBSourceManager sharedInstance];
 }
 
@@ -214,7 +214,7 @@
         return cell;
     }
     
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
     [cell.sourceLabel setText:[info objectForKey:@"name"]];

@@ -306,11 +306,11 @@
         [self setProvides:[self extract:providesChars]];
         [self setReplaces:[self extract:replacesChars]];
         
-        int sourceID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
+        int sourceID = sqlite3_column_int(statement, ZBPackageColumnSourceID);
         if (sourceID > 0) {
             [self setSource:[ZBSource sourceMatchingSourceID:sourceID]];
         } else {
-            [self setSource:[ZBSource localRepo:sourceID]];
+            [self setSource:[ZBSource localSource:sourceID]];
         }
         
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];

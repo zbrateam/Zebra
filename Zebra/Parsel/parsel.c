@@ -165,7 +165,7 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
-enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID, bool update) {
+enum PARSEL_RETURN_TYPE addSourceToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID, bool update) {
     FILE *file = fopen(releasePath, "r");
     if (file == NULL) {
         return PARSEL_FILENOTFOUND;
@@ -204,7 +204,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, dict_get(sourceDict, "Codename"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, dict_get(sourceDict, "Architectures"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnRepoID, sourceID);
+        sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnSourceID, sourceID);
         sqlite3_step(insertStatement);
     } else {
         printf("sql error: %s", sqlite3_errmsg(database));
@@ -218,15 +218,15 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
     return PARSEL_OK;
 }
 
-enum PARSEL_RETURN_TYPE importRepoToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID) {
-    return addRepoToDatabase(source, releasePath, database, sourceID, false);
+enum PARSEL_RETURN_TYPE importSourceToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID) {
+    return addSourceToDatabase(source, releasePath, database, sourceID, false);
 }
 
-enum PARSEL_RETURN_TYPE updateRepoInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID) {
-    return addRepoToDatabase(source, releasePath, database, sourceID, true);
+enum PARSEL_RETURN_TYPE updateSourceInDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID) {
+    return addSourceToDatabase(source, releasePath, database, sourceID, true);
 }
 
-enum PARSEL_RETURN_TYPE addPaymentEndpointForRepo(const char *endpointURL, sqlite3 *database, int sourceID) {
+enum PARSEL_RETURN_TYPE addPaymentEndpointForSource(const char *endpointURL, sqlite3 *database, int sourceID) {
     sqlite3_stmt *insertStatement;
     const char *query = "UPDATE REPOS SET (VENDOR) = (?) WHERE REPOID = ?;";
     if (sqlite3_prepare_v2(database, query, -1, &insertStatement, 0) == SQLITE_OK) {
@@ -245,7 +245,7 @@ enum PARSEL_RETURN_TYPE addPaymentEndpointForRepo(const char *endpointURL, sqlit
 }
 
 //FIXME: This needs to be adapted to new database format
-void createDummyRepo(struct ZBBaseSource source, sqlite3 *database, int sourceID) {
+void createDummySource(struct ZBBaseSource source, sqlite3 *database, int sourceID) {
     createTable(database, 0);
     
     sqlite3_stmt *insertStatement;
@@ -263,7 +263,7 @@ void createDummyRepo(struct ZBBaseSource source, sqlite3 *database, int sourceID
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, "Unknown", -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, "iphoneos-arm", -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnRepoID, sourceID);
+        sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnSourceID, sourceID);
         sqlite3_step(insertStatement);
     } else {
         printf("sql error: %s", sqlite3_errmsg(database));
@@ -365,7 +365,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnReplaces, dict_get(package, "Replaces"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnFilename, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnIconURL, dict_get(package, "Icon"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnRepoID, sourceID);
+            sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnSourceID, sourceID);
             sqlite3_int64 previousTimestamp = import ? -1 : getCurrentPackageTimestamp(database, packageIdentifier, dict_get(package, "Version"), sourceID);
             sqlite3_int64 newTimestamp = 0;
             if (!import) {

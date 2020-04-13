@@ -177,9 +177,9 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *blockedRepos = [ZBSettings sourceBlacklist];
+    NSArray *blockedSources = [ZBSettings sourceBlacklist];
     NSMutableArray *blacklist = [NSMutableArray new];
-    for (NSString *baseFilename in blockedRepos) {
+    for (NSString *baseFilename in blockedSources) {
         ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
         if (source) {
             [blacklist addObject:source];
@@ -468,7 +468,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             break;
         }
         case ZBCommunity: {
-            ZBCommunitySourcesTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
+            ZBCommunitySourcesTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communitySourcesController"];
             [self.navigationController pushViewController:community animated:YES];
             break;
         }

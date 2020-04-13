@@ -39,7 +39,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [[ZBSourceManager sharedInstance] sources][@(sourceID)];
 }
 
-+ (ZBSource *)localRepo:(int)sourceID {
++ (ZBSource *)localSource:(int)sourceID {
     ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
@@ -120,7 +120,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         }
         
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
-        [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
+        [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
         
         // prevent constant network spam

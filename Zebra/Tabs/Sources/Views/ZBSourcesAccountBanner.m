@@ -12,7 +12,7 @@
 #import <ZBSourceInfo.h>
 #import <ZBUserInfo.h>
 #import <ZBAppDelegate.h>
-#import "ZBRepoSectionsListTableViewController.h"
+#import "ZBSourceSectionsListTableViewController.h"
 
 @interface ZBSourcesAccountBanner () {
     BOOL hideUDID;
@@ -25,7 +25,7 @@
 @synthesize owner;
 @synthesize sourceInfo;
 
-- (id)initWithSource:(ZBSource *)source andOwner:(ZBRepoSectionsListTableViewController *)owner {
+- (id)initWithSource:(ZBSource *)source andOwner:(ZBSourceSectionsListTableViewController *)owner {
     self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     self.owner = owner;

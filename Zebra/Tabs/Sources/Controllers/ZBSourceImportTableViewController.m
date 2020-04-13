@@ -14,7 +14,7 @@
 #import <Extensions/UINavigationBar+Progress.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>
 
@@ -65,7 +65,7 @@
     importItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = importItem;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,9 +121,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([baseSources count]) {
-        ZBRepoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell"];
+        ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell"];
         if (!cell) {
-            cell = (ZBRepoTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"repoTableViewCell"];
+            cell = (ZBSourceTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sourceTableViewCell"];
         }
         
         ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];

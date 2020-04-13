@@ -15,10 +15,10 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Controllers/ZBSourceSelectTableViewController.h>
-#import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
+#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 
 #import <UIColor+GlobalColors.h>
 #import <UIImageView+Zebra.h>
@@ -41,7 +41,7 @@
     self.navigationItem.title = NSLocalizedString(@"Filters", @"");
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
@@ -105,19 +105,19 @@
         }
         case 1: {
             if (indexPath.row < [filteredSources count]) {
-                ZBRepoTableViewCell *repoCell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+                ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
                 ZBSource *source = sources[indexPath.row];
                 
-                repoCell.sourceLabel.text = [source label];
-                repoCell.sourceLabel.textColor = [UIColor primaryTextColor];
+                sourceCell.sourceLabel.text = [source label];
+                sourceCell.sourceLabel.textColor = [UIColor primaryTextColor];
                 
                 unsigned long numberOfSections = (unsigned long)[filteredSources[[source baseFilename]] count];
-                repoCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
-                repoCell.urlLabel.textColor = [UIColor secondaryTextColor];
+                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
+                sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
-                [repoCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
                 
-                return repoCell;
+                return sourceCell;
             }
             break;
         }
@@ -234,7 +234,7 @@
         }
         case 1: {
             if (!lastRow) {
-                ZBRepoSectionsListTableViewController *sections = [[ZBRepoSectionsListTableViewController alloc] initWithSource:sources[indexPath.row]];
+                ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:sources[indexPath.row]];
                 
                 [[self navigationController] pushViewController:sections animated:YES];
             }

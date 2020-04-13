@@ -1,5 +1,5 @@
 //
-//  ZBRepoTableViewCell.h
+//  ZBSourceTableViewCell.h
 //  Zebra
 //
 //  Created by Andrew Abosh on 2019-05-02.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRepoTableViewCell : UITableViewCell
+@interface ZBSourceTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
