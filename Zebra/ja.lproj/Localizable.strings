@@ -207,7 +207,7 @@
 "Version" = "バージョン";
 "Packages" = "パッケージ";
 "Show Updates" = "アップデートを表示";
-"Ignore Updates" = "アップデートを無視";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "バージョンを選択";
 "Select a version to upgrade to:" = "アップグレードしたいバージョンを選択:";
 "Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
