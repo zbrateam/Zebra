@@ -270,9 +270,10 @@
     longPress.minimumPressDuration = 1;
     longPress.delegate = self;
     
-    [self.popupBar addGestureRecognizer:longPress];
-    
-    [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.popupBar addGestureRecognizer:longPress];
+        [self presentPopupBarWithContentViewController:self->queueNav openPopup:openPopup animated:YES completion:nil];
+    });
 }
 
 - (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
