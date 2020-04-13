@@ -17,6 +17,7 @@
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import "ZBSourcesAccountBanner.h"
+#import <Extensions/UIImageView+Zebra.h>
 
 @import SDWebImage;
 
@@ -326,11 +327,14 @@
         
         NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
+        cell.imageView.image = nil;
     } else {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         cell.textLabel.text = NSLocalizedString(section, @"");
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
+        cell.imageView.image = [ZBSource imageForSection:section];
+        [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     }
     return cell;
 }
