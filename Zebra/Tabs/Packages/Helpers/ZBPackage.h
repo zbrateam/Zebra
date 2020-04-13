@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
 
+@class UIImageView;
 @class ZBSource;
 @class ZBPurchaseInfo;
 
@@ -21,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *shortDescription;
 @property (nonatomic, strong) NSString *longDescription;
 @property (nonatomic, strong) NSString *section;
-@property (nonatomic, strong) NSString *sectionImageName;
 @property (nonatomic, strong) NSURL *depictionURL;
 @property (nonatomic, strong) NSArray *tags;
 @property (nonatomic, strong) NSArray <NSString *> *dependsOn;
@@ -75,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
 - (NSArray * _Nullable)possibleActions;
+- (void)setIconImageForImageView:(UIImageView *)imageView;
 
 #pragma mark - Modern Payment API
 - (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0));

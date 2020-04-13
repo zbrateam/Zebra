@@ -10,6 +10,9 @@
 #import "ZBPackage.h"
 
 #import <Database/ZBDatabaseManager.h>
+#import <Sources/Helpers/ZBSource.h>
+
+@import SDWebImage;
 
 @implementation ZBProxyPackage
 
@@ -57,6 +60,16 @@
 
 - (BOOL)sameAs:(ZBProxyPackage *)package {
     return [self.identifier isEqualToString:package.identifier];
+}
+
+- (void)setIconImageForImageView:(UIImageView *)imageView {
+    UIImage *sectionImage = [ZBSource imageForSection:self.section];
+    if (self.iconURL) {
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.iconURL] placeholderImage:sectionImage];
+    }
+    else {
+        [imageView setImage:sectionImage];
+    }
 }
 
 @end

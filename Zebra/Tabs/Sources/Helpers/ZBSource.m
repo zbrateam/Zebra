@@ -61,6 +61,17 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [databaseManager repoIDFromBaseURL:urlString strict:NO] > 0;
 }
 
++ (UIImage *)imageForSection:(NSString *)section {
+    NSString *imageName = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+    if ([imageName containsString:@"("]) {
+        NSArray *components = [imageName componentsSeparatedByString:@"("];
+        imageName = [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    }
+    
+    UIImage *sectionImage = [UIImage imageNamed:imageName] ?: [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", imageName]] ?: [UIImage imageNamed:@"Other"];
+    return sectionImage;
+}
+
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
     const char *archiveTypeChars   = textColumn(statement, ZBSourceColumnArchiveType);
     const char *repositoryURIChars = textColumn(statement, ZBSourceColumnRepositoryURI);

@@ -12,6 +12,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Sources/Helpers/ZBSource.h>
 
 @interface ZBSectionSelectorTableViewController () {
     NSArray *sections;
@@ -87,7 +88,7 @@
     cell.textLabel.text = sections[indexPath.row];
     cell.textLabel.textColor = [UIColor primaryTextColor];
     
-    cell.imageView.image = [UIImage imageNamed:[self stripSectionName:sections[indexPath.row]]] ?: [UIImage imageNamed:@"Other"];
+    cell.imageView.image = [ZBSource imageForSection:sections[indexPath.row]];
     [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     
     cell.accessoryType = [selectedIndexes containsObject:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+@class UIImage;
 @class ZBUserInfo;
 @class ZBSourceInfo;
 
@@ -34,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSource *)repoFromBaseURL:(NSString *)baseURL;
 + (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;
 + (BOOL)exists:(NSString *)urlString;
++ (UIImage *)imageForSection:(NSString *)section;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 
 #pragma mark - Modern Payment API

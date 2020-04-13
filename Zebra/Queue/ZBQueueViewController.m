@@ -191,18 +191,8 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
-    if (sectionImage == NULL) {
-        sectionImage = [UIImage imageNamed:@"Other"];
-    }
-    
-    if (package.iconPath) {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
-    }
-    else {
-        cell.imageView.image = sectionImage;
-    }
-    
+    [package setIconImageForImageView:cell.imageView];
+
     cell.imageView.layer.cornerRadius = 10;
     cell.imageView.clipsToBounds = YES;
     cell.textLabel.text = package.name;

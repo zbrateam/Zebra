@@ -27,18 +27,7 @@
     self.packageNameLabel.text = package.name;
     self.isInstalledImageView.hidden = !package.isInstalled;
     
-    UIImage *sectionImage = [UIImage imageNamed:package.section];
-    if (sectionImage == NULL) {
-        sectionImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", package.section]];
-        if (sectionImage == NULL) {
-            sectionImage = [UIImage imageNamed:@"Other"];
-        }
-    }
-    if (package.iconURL) {
-        [[self packageIconImageView] sd_setImageWithURL:[package iconURL] placeholderImage:sectionImage];
-    } else {
-        self.packageIconImageView.image = sectionImage;
-    }
+    [package setIconImageForImageView:self.packageIconImageView];
 }
 
 

@@ -21,6 +21,7 @@
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
 
+@import SDWebImage;
 @import Crashlytics;
 
 @interface ZBPackage () {
@@ -37,7 +38,6 @@
 @synthesize shortDescription;
 @synthesize longDescription;
 @synthesize section;
-@synthesize sectionImageName;
 @synthesize depictionURL;
 @synthesize tags;
 @synthesize dependsOn;
@@ -313,12 +313,6 @@
             [self setRepo:[ZBSource localRepo:repoID]];
         }
         
-        NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        if ([section characterAtIndex:[section length] - 1] == ')') {
-            NSArray *items = [section componentsSeparatedByString:@"("]; // Remove () from section
-            sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
-        }
-        [self setSectionImageName:sectionStripped];
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
         [self setInstalledSize:sqlite3_column_int(statement, ZBPackageColumnInstalledSize)];
         [self setDownloadSize:sqlite3_column_int(statement, ZBPackageColumnDownloadSize)];
@@ -639,9 +633,14 @@
     return essential || [[priority lowercaseString] isEqualToString:@"required"];
 }
 
-- (NSArray * _Nullable)possibleActions {
-    if ([self->possibleActions count]) return self->possibleActions; // Caching these might actually be a bad idea because I actually base which actions are available on if they're in the queue
-    
+- (void)setIconImageForImageView:(UIImageView *)imageView {
+    UIImage *sectionImage = [ZBSource imageForSection:self.section];
+    if (self.iconPath) {
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.iconPath] placeholderImage:sectionImage];
+    }
+    else {
+        [imageView setImage:sectionImage];
+    }
 }
 
 - (NSArray * _Nullable)possibleActions {    

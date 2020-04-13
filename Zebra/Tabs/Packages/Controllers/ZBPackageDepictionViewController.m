@@ -417,21 +417,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.packageName.textColor = [UIColor primaryTextColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
-        if (sectionImage == NULL) {
-            sectionImage = [UIImage imageNamed:@"Other"];
-        }
-        
-        NSString *iconURL = @"";
-        if (package.iconPath) {
-            iconURL = [package iconPath];
-        } else {
-            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
-        }
-        
-        if (iconURL.length) {
-            [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
-        }
+        [package setIconImageForImageView:self.packageIcon];
     });
 }
 

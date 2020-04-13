@@ -196,7 +196,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [dict setObject:package.iconPath forKey:@"url"];
                 [dict setObject:package.identifier forKey:@"package"];
                 [dict setObject:package.name forKey:@"title"];
-                [dict setObject:package.sectionImageName forKey:@"section"];
+                [dict setObject:package.section forKey:@"section"];
                 
                 [self->allFeatured addObject:dict];
             }

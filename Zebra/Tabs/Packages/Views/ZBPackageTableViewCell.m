@@ -49,21 +49,8 @@
     if (installedSize)
         [info addObject:installedSize];
     self.authorAndRepoAndSize.text = [info componentsJoinedByString:@" • "];
-    UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
-    if (sectionImage == NULL) {
-        sectionImage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", package.sectionImageName]];
-        if (sectionImage == NULL) { //Just in case
-            sectionImage = [UIImage imageNamed:@"Other"];
-        }
-    }
     
-    if (package.iconPath) {
-        // [self.iconImageView setImageFromURL:[NSURL URLWithString:package.iconPath] placeHolderImage:sectionImage];
-        // [self.iconImageView loadImageFromURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage cachingKey:package.name];
-        [self.iconImageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
-    } else {
-        self.iconImageView.image = sectionImage;
-    }
+    [package setIconImageForImageView:self.iconImageView];
     
     BOOL installed = [package isInstalled:NO];
     BOOL paid = [package isPaid];

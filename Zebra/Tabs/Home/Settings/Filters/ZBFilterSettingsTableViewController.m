@@ -96,7 +96,7 @@
                 cell.textLabel.text = filteredSections[indexPath.row];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
                 
-                cell.imageView.image = [UIImage imageNamed:[self stripSectionName:filteredSections[indexPath.row]]] ?: [UIImage imageNamed:@"Other"];
+                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
                 [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
                 
                 return cell;
@@ -349,11 +349,6 @@
         default:
             return NULL;
     }
-}
-
-- (NSString *)stripSectionName:(NSString *)section {
-    NSArray *components = [section componentsSeparatedByString:@"("];
-    return [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 @end

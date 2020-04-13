@@ -6,6 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
+@class UIImageView;
 @class ZBPackage;
 
 #import <Foundation/Foundation.h>
@@ -30,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isInstalled;
 - (ZBPackage *)loadPackage;
+- (void)setIconImageForImageView:(UIImageView *)imageView;
 @end
 
 NS_ASSUME_NONNULL_END
