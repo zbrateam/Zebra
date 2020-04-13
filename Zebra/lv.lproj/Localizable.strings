@@ -11,7 +11,9 @@
 "Done" = "Gatavs";
 "Loading..." = "Tiek ielādēts...";
 "Clear" = "Notīrīt";
-"An Error Ocurred" = "Radusies Kļūda";
+"An Error Occurred" = "Radusies Kļūda";
+"Dismiss" = "Atcelt";
+"Downloads" = "Lejupielādes";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
 "Finish Automatically" = "Pabeigt Automātiski";
+"Hide UDID" = "Paslēpt UDID";
+"Automatic Refresh" = "Automātiska Atsvaidzināšana";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nevar atrast APT avotu vietnē:";
 "Unable to locate APT repositories at:" = "Nevar atrast APT avotus vietnēs:";
 
+"A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
+
+"Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
+"Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
+"Could not download Release file from %@. Reason: %@" = "Nevarēja lejupielādēt Pelease failu no %@. Iemesls: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nevarēja lejupielādēt Pakešu failu no %@. Iemesls: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nevarēja lejupielādēt vienu vai vairāk failu no %@. Iemesls: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Ievadītais URL nav derīgs. Lūdzu pārbaudiet to un mēģiniet vēlreiz.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nevarēja lejupielādēt avotu kas norādīts pie %@. Tas var būt īslaicīgi nepieejams vai arī varētu būt pievienots nepareizi.";
+
+"Please remove this source from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
+
+"Error while opening sources.list" = "Ķlūda, atverot sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
+
+"%@ hasn't been modified" = "%@ nav modificēts";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Apraksts";
 "Author" = "Autors";
 
-// Downloads
-
-"Downloads" = "Lejupielādes";
-"Error while opening sources.list" = "Ķlūda, atverot sources.list";
-"The source %@ is incompatible with your jailbreak." = "Avots %@ nav saderīgs ar jūsu jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ja pievienosi šo Zebra, tas var radīt problēmas, kuras rezultātā var atiestatīt ierīci.";
-"Please remove this source from your sources.list file." = "Lūdzu, noņem šo avotu no sava sources.list faila.";
-"Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
-"Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
-"Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
-"%@ hasn't been modified" = "%@ nav modificēts";
-"Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
-"A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
-
 // Console
 
 "Console" = "konsole";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Pabeidza importēt vietējās paketes.";
 "One or more packages failed to download." = "Neizdevās lejupielādēt vienu vai vairāk paketes.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Noklikšķini uz \"Return to Queue\", lai atgrieztos rindā un mēģināt vēlreiz lejupielādēt.";
+"Could not complete %@ process. Reason: %@." = "Nevarēja pabeigt procesu %@. Iemesls: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Lūdzu restartē Zebru un pārbaudi, vai problēma joprojām pastāv. Ja pastāv iesniedz problēmu GitHubā.";
 "Done..." = "Gatavs...";
 "Done %@" = "Pabeidza %@";
 "Removing Zebra..." = "Atinstalē zebra...";
 "Installing Zebra..." = "Instalē zebra...";
+"Error while opening file:" = "Ķlūda, atverot failu:";
 "Adding Payment Vendor URL for %@" = "Pievieno Maksājuma Pārdevēja URL %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Šī ierīce tiek simulēta, šīs ir paketes, kuras šajā posmā tiktu pārveidotas:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Noņemt no rindas";
 "Clear Queue" = "Notīrīt Rindu";
 "%@ is required by:" = "%@ pieprasa:";
+"\"%@\" conflicts with %@" = "\"%@\" konfliktē ar %@";
 "%@ must be removed because it depends on %@" = "%@ ir jānoņem, jo tas ir atkarīgs no %@";
 "%@ has issues that cannot be resolved:" = "%@ ir problēmas, kuras nevar atrisināt:";
 "Are you sure you want to clear the Queue?" = "Vai tiešām vēlies notīrīt Rindu?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nav atļaujas iestatīt uid vai gid. Lūdzu, pārbaudiet faila atļaujas, kuras atrodas mapē /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Kļūda izveidojot dokumentu direktoriju: %@.";
+
+"Error while creating lists directory: %@." = "Kļūda izveidojot listu direktoriju: %@.";
+
+"Error while creating sources.list: %@." = "Ķlūda veidojot sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Kļūda izveidojot debu direktoriju: %@.";
+
 "Could not respring. Please respring manually." = "Nevarēja respringot. Lūdzu, respringo manuāli.";
 
 "ERROR: Unable to lock status file. Please try again." = "KĻŪDA: Nevar bloķēt statusa failu. Lūdzu mēģiniet vēlreiz.";
 
 "ERROR: Process must be restarted. Please try again." = "KĻŪDA: Process ir jāatsāk. Lūdzu mēģini vēlreiz.";
 
-"Hide UDID" = "Paslēpt UDID";
+"Incorrect documents permissions." = "Nepareizas dokumentu atļaujas.";
+
+"Could not determine device information." = "Nevarēja noteikt ierīces informācijas.";
 
 "Display featured packages on the homepage." = "Mājas lapā parādiet piedāvātos paketes.";
 
-"Automatic Refresh" = "Automātiska Atsvaidzināšana";
 "Refresh Zebra's sources when opening the app." = "Atverot Zebru, automātiski atsvaidzināt avotus.";
 
 "Display recent community posts from /r/jailbreak." = "Rādīt jaunākās kopienas ziņas no /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Pievienot Filtru";
 
 "1 Section Hidden" = "1 Sadaļa Paslēpta";
-"%lu Sources Hidden" = "%lu Sadaļas Paslēptas";
+"%lu Sections Hidden" = "%lu Sadaļas Paslēptas";
 
 "Sections" = "Sadaļas";
 "Select a Section" = "Izvēlies Sadaļu";
@@ -426,7 +444,6 @@
 
 "Sources" = "Avoti";
 "Select a Source" = "Izvēlies avotu";
-"Search for an Author" = "Meklēt Autoru";
 "Hide packages in these sections from specific sources." = "Paslēpiet paketes šajās sadaļās no konkrētiem avotiem.";
 
 "Updates" = "Atjaunojumi";
@@ -434,6 +451,8 @@
 
 "Authors" = "Autori";
 "Hide packages from these authors." = "Slēpt šo autoru paketes.";
+"Search for an Author" = "Meklēt Autoru";
+"This author also goes by the following names:" = "Šim autoram ir arī šādi nosaukumi:";
 
 // Language Settings
 

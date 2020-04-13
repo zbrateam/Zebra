@@ -11,7 +11,9 @@
 "Done" = "Fatto";
 "Loading..." = "Caricamento...";
 "Clear" = "Pulisci";
-"An Error Ocurred" = "Si è verificato un errore";
+"An Error Occurred" = "Si è verificato un errore";
+"Dismiss" = "Cancella";
+"Downloads" = "Download";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Testo";
 "Icon" = "Icona";
 "Finish Automatically" = "Termina automaticamente";
+"Hide UDID" = "Nascondi UDID";
+"Automatic Refresh" = "Aggiornamento Automatico";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nessuna repo APT trovata al link:";
 "Unable to locate APT repositories at:" = "Nessuna repo APT trovata al link:";
 
+"A total of %d files will be downloaded" = "Un totale di %d file saranno scaricati";
+
+"Could not parse %@ from %@" = "Impossibile analizzare %@ da %@";
+"Could not find a download URL for" = "Impossibile trovare un URL di download per";
+"Could not download Release file from %@. Reason: %@" = "Impossibile scaricare il file Release da %@. Motivo: %@";
 "Could not download Packages file from %@. Reason: %@" = "Impossibile scaricare i file dei pacchetti da %@. Motivo: %@";
 "Could not download one or more files from %@. Reason: %@" = "Impossibile scaricare uno o più file da %@. Motivo: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "L’URL inserito non è valido. Si prega di controllare e riprovare.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra non è riuscito a scaricare la sorgente specificata in %@. Potrebbe essere temporaneamente inaccessibile o potrebbe essere stata aggiunta in modo errato.";
+
+"Please remove this source from your sources.list file." = "Rimuovi questa repo dal tuo file sources.list.";
+
+"Error while opening sources.list" = "Errore durante l'apertura del sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "La sorgente %@ è incompatibile con il tuo jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Potrebbe causare problemi se la aggiungi a Zebra risultanto in un possibile ripristino.";
+
+"%@ hasn't been modified" = "%@ non è stato modificato";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Descrizione";
 "Author" = "Autore";
 
-// Downloads
-
-"Downloads" = "Download";
-"Error while opening sources.list" = "Errore durante l'apertura del sources.list";
-"The source %@ is incompatible with your jailbreak." = "La sorgente %@ è incompatibile con il tuo jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Potrebbe causare problemi se la aggiungi a Zebra risultanto in un possibile ripristino.";
-"Please remove this source from your sources.list file." = "Rimuovi questa repo dal tuo file sources.list.";
-"Incorrect documents permissions." = "Autorizzazioni per documenti errate.";
-"Could not determine device information." = "Impossibile determinare le informazioni sul dispositivo.";
-"Could not find a download URL for" = "Impossibile trovare un URL di download per";
-"%@ hasn't been modified" = "%@ non è stato modificato";
-"Could not parse %@ from %@" = "Impossibile analizzare %@ da %@";
-"A total of %d files will be downloaded" = "Un totale di %d file saranno scaricati";
-
 // Console
 
 "Console" = "Console";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Terminata l'importazione dei pacchetti locali.";
 "One or more packages failed to download." = "Impossibile scaricare uno o più pacchetti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clicca \"Ritorna alla Coda\" per tornare alla Coda e riprovare il dowload.";
+"Could not complete %@ process. Reason: %@." = "Impossibile completare il processo %@. Motivo: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Riavviare Zebra e vedere se il problema persiste. In tal caso, riportare il problema su su GitHub.";
 "Done..." = "Fatto...";
 "Done %@" = "Completato %@";
 "Removing Zebra..." = "Disinstallando Zebra...";
 "Installing Zebra..." = "Installando Zebra...";
+"Error while opening file:" = "Errore durante l'apertura del file:";
 "Adding Payment Vendor URL for %@" = "Aggiungo URL di pagamento del venditore per %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Rimuovi dalla coda";
 "Clear Queue" = "Pulisci coda";
 "%@ is required by:" = "%@ è richiesto da:";
+"\"%@\" conflicts with %@" = "\"%@\" è in conflitto con %@";
 "%@ must be removed because it depends on %@" = "%@ deve essere rimosso perché dipende da %@";
 "%@ has issues that cannot be resolved:" = "%@ ha dei problemi che non possono essere risolti:";
 "Are you sure you want to clear the Queue?" = "Sei sicuro di voler cancellare la Coda?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling non ha i permessi per impostare l'uid o gid. Verificare i permessi del file situato in /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Errore durante la creazione della directory documenti: %@.";
+
+"Error while creating lists directory: %@." = "Errore durante la creazione della directory liste: %@.";
+
+"Error while creating sources.list: %@." = "Errore durante la creazione di sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Errore durante la creazione della directory debs: %@.";
+
 "Could not respring. Please respring manually." = "Impossibile eseguire il respring. Fare il respring manualmente.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERRORE: Impossibile bloccare il file di stato. Si prega di riprovare.";
 
 "ERROR: Process must be restarted. Please try again." = "ERRORE: il processo deve essere riavviato. Si prega di riprovare.";
 
-"Hide UDID" = "Nascondi UDID";
+"Incorrect documents permissions." = "Autorizzazioni per documenti errate.";
+
+"Could not determine device information." = "Impossibile determinare le informazioni sul dispositivo.";
 
 "Display featured packages on the homepage." = "Visualizza i pacchetti in evidenza nella homepage.";
 
-"Automatic Refresh" = "Aggiornamento Automatico";
 "Refresh Zebra's sources when opening the app." = "Aggiorna le sorgenti di Zebra quando si apre l'app.";
 
 "Display recent community posts from /r/jailbreak." = "Visualizza i post recenti della comunità di /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Aggiungi Filtro";
 
 "1 Section Hidden" = "1 Sezione Nascosta";
-"%lu Sources Hidden" = "%lu Sorgenti Nascoste";
+"%lu Sections Hidden" = "%lu Sezioni Nascoste";
 
 "Sections" = "Categorie";
 "Select a Section" = "Seleziona una sezione";
@@ -426,7 +444,6 @@
 
 "Sources" = "Sorgenti";
 "Select a Source" = "Seleziona una Sorgente";
-"Search for an Author" = "Cerca un autore";
 "Hide packages in these sections from specific sources." = "Nascondi i pacchetti in queste categorie da sorgenti specifiche.";
 
 "Updates" = "Aggiornamenti";
@@ -434,6 +451,8 @@
 
 "Authors" = "Autori";
 "Hide packages from these authors." = "Nascondi pacchetti di questi autori.";
+"Search for an Author" = "Cerca un autore";
+"This author also goes by the following names:" = "Questo autore ha anche i seguenti nomi:";
 
 // Language Settings
 

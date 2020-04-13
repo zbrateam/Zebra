@@ -11,7 +11,9 @@
 "Done" = "Τέλος";
 "Loading..." = "Γίνεται φόρτωση...";
 "Clear" = "Εκκαθάριση";
-"An Error Ocurred" = "Παρουσιάστηκε Σφάλμα";
+"An Error Occurred" = "Παρουσιάστηκε Ένα Σφάλμα";
+"Dismiss" = "Αγνόηση";
+"Downloads" = "Λήψεις";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Κείμενο";
 "Icon" = "Εικονίδιο";
 "Finish Automatically" = "Αυτόματη Ολοκλήρωση";
+"Hide UDID" = "Κρύψε το UDID";
+"Automatic Refresh" = "Αυτόματη Ανανέωση";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
 
+"A total of %d files will be downloaded" = "Ένα σύνολο από %d αρχεία θα ληφθεί";
+
+"Could not parse %@ from %@" = "Αδυναμία ανάλυσης %@ από %@";
+"Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
+"Could not download Release file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Release από %@. Λόγος: %@";
 "Could not download Packages file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Packages από %@. Λόγος: %@";
 "Could not download one or more files from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη ενός ή περισσοτέρων αρχείων από %@. Λόγος: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Το URL που έβαλες δεν είναι έγκυρο. Παρακαλώ επαλήθευσε και προσπάθησε ξανά.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Το Zebra δεν μπόρεσε να κάνει λήψη την συγκεκριμένη πηγή στο %@. Μπορεί να είναι προσωρινά απρόσιτη ή να έχει προστεθεί λανθασμένα.";
+
+"Please remove this source from your sources.list file." = "Παρακαλώ αφαίρεσε αυτή την πηγή από το sources.list αρχείο σου.";
+
+"Error while opening sources.list" = "Σφάλμα κατά το άνοιγμα του sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Η πηγή %@ είναι ασύμβατη με το jailbreak σου.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
+
+"%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Περιγραφή";
 "Author" = "Δημιουργός";
 
-// Downloads
-
-"Downloads" = "Λήψεις";
-"Error while opening sources.list" = "Σφάλμα κατά το άνοιγμα του sources.list";
-"The source %@ is incompatible with your jailbreak." = "Η πηγή %@ είναι ασύμβατη με το jailbreak σου.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
-"Please remove this source from your sources.list file." = "Παρακαλώ αφαίρεσε αυτή την πηγή από το sources.list αρχείο σου.";
-"Incorrect documents permissions." = "Λανθασμένες άδειες αρχείων.";
-"Could not determine device information." = "Αδυναμία προσδιορισμού πληροφοριών συσκευής.";
-"Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
-"%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
-"Could not parse %@ from %@" = "Αδυναμία ανάλυσης %@ από %@";
-"A total of %d files will be downloaded" = "Ένα σύνολο από %d αρχεία θα ληφθεί";
-
 // Console
 
 "Console" = "Κονσόλα";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Ολοκληρώθηκε η εισαγωγή τοπικών πακέτων.";
 "One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
+"Could not complete %@ process. Reason: %@." = "Αδυναμία ολοκλήρωσης της διαδικασίας %@. Λόγος: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Παρακαλώ κάνε επανεκκίνηση του Ζebra και δες αν το πρόβλημα παραμένει. Αν ναί, παρακαλώ άνοιξε ενα issue στο GitHub.";
 "Done..." = "Τέλος...";
 "Done %@" = "Τέλος %@";
 "Removing Zebra..." = "Αφαίρεση του Zebra...";
 "Installing Zebra..." = "Εγκατάσταση του Zebra...";
+"Error while opening file:" = "Σφάλμα κατά το άνοιγμα του αρχείου:";
 "Adding Payment Vendor URL for %@" = "Γίνεται πρόσθεση URL Προμηθευτή Πληρωμής για %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Αυτή η συσκευή είναι simulated, αυτά είναι τα πακέτα που θα είχαν τροποποιηθεί σε αυτό το στάδιο:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Αφαίρεση από την Ουρά";
 "Clear Queue" = "Εκκαθάριση Ουράς";
 "%@ is required by:" = "%@ απαιτείται από:";
+"\"%@\" conflicts with %@" = "\"%@\" συγκρούεται με %@";
 "%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
 "%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
 "Are you sure you want to clear the Queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "Το su/sling δεν έχει δικαίωμα να θέσει τα uid ή gid. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Σφάλμα κατά την δημιουργία καταλόγου αρχείων: %@.";
+
+"Error while creating lists directory: %@." = "Σφάλμα κατά την δημιουργία καταλόγου lists: %@.";
+
+"Error while creating sources.list: %@." = "Σφάλμα κατά την δημιουργία του sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Σφάλμα κατά την δημιουργία καταλόγου debs: %@.";
+
 "Could not respring. Please respring manually." = "Αδυναμία respring. Παρακαλώ κάνε respring χειροκίνητα.";
 
 "ERROR: Unable to lock status file. Please try again." = "ΣΦΑΛΜΑ: Αδυναμία κλειδώματος του αρχείου κατάστασης. Παρακαλώ ξαναπροσπάθησε.";
 
 "ERROR: Process must be restarted. Please try again." = "ΣΦΑΛΜΑ: Η διαδικασία πρέπει να επανεκκινηθεί. Παρακαλώ ξαναπροσπάθησε.";
 
-"Hide UDID" = "Κρύψε το UDID";
+"Incorrect documents permissions." = "Λανθασμένες άδειες αρχείων.";
+
+"Could not determine device information." = "Αδυναμία προσδιορισμού πληροφοριών συσκευής.";
 
 "Display featured packages on the homepage." = "Εμφάνισε προτεινόμενα πακέτα στην αρχική οθόνη.";
 
-"Automatic Refresh" = "Αυτόματη Ανανέωση";
 "Refresh Zebra's sources when opening the app." = "Ανανέωσε τις πηγές του Zebra όταν ανοίγεις της εφαρμογή.";
 
 "Display recent community posts from /r/jailbreak." = "Εμφάνισε πρόσφατες αναρτήσεις της κοινότητας του /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Προσθήκη Φίλτρου";
 
 "1 Section Hidden" = "1 Ενότητα Κρύφτηκε";
-"%lu Sources Hidden" = "%lu Ενότητες Κρύφτηκαν";
+"%lu Sections Hidden" = "%lu Ενότητες Κρύφτηκαν";
 
 "Sections" = "Ενότητες";
 "Select a Section" = "Επίλεξε μία Ενότητα";
@@ -426,7 +444,6 @@
 
 "Sources" = "Πηγές";
 "Select a Source" = "Επίλεξε μία πηγή";
-"Search for an Author" = "Αναζήτησε κάποιο Δημιουργό";
 "Hide packages in these sections from specific sources." = "Κρύψε πακέτα σε αυτές τις ενότητες από συγκεκριμένες πηγές.";
 
 "Updates" = "Ενημερώσεις";
@@ -434,6 +451,8 @@
 
 "Authors" = "Δημιουργοί";
 "Hide packages from these authors." = "Κρύψε πακέτα από αυτούς τους δημιουργούς.";
+"Search for an Author" = "Αναζήτησε κάποιο Δημιουργό";
+"This author also goes by the following names:" = "Αυτός ο δημιουργός είναι γνωστός και ως:";
 
 // Language Settings
 

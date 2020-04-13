@@ -11,7 +11,9 @@
 "Done" = "Ferdig";
 "Loading..." = "Laster...";
 "Clear" = "Tøm";
-"An Error Ocurred" = "En feil oppstod";
+"An Error Occurred" = "En feil oppstod";
+"Dismiss" = "Avvis";
+"Downloads" = "Nedlastinger";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikoner";
 "Finish Automatically" = "Fullfør automatisk";
+"Hide UDID" = "Skjul UDID";
+"Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Kunne ikke finne et APT-kilde på:";
 "Unable to locate APT repositories at:" = "Kunne ikke finne APT-kilder på:";
 
+"A total of %d files will be downloaded" = "%d filer vil lastes ned";
+
+"Could not parse %@ from %@" = "Kunne ikke parse %@ fra %@";
+"Could not find a download URL for" = "Kunne ikke finne en nedlastingsnettadresse for";
+"Could not download Release file from %@. Reason: %@" = "Kunne ikke laste ned utgivelsesfil fra %@. Årsak: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunne ikke laste ned pakkefil fra %@. Årsak: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunne ikke laste ned en eller flere filer fra %@. Årsak: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Nettadressen du oppga er ikke gyldig. Kontroller den og prøv igjen.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikke laste ned kilden som er angitt i %@. Den kan være midlertidig utilgjengelig eller kunne blitt lagt til feil.";
+
+"Please remove this source from your sources.list file." = "Vennligst fjern denne kilden fra din sources.list fil.";
+
+"Error while opening sources.list" = "Feil under åpning av sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Kilden %@ er ikke kompatibel med din jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette enheten din.";
+
+"%@ hasn't been modified" = "%@ har ikke blitt modifisert";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Beskrivelse";
 "Author" = "Forfatter";
 
-// Downloads
-
-"Downloads" = "Nedlastinger";
-"Error while opening sources.list" = "Feil under åpning av sources.list";
-"The source %@ is incompatible with your jailbreak." = "Kilden %@ er ikke kompatibel med din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette enheten din.";
-"Please remove this source from your sources.list file." = "Vennligst fjern denne kilden fra din sources.list fil.";
-"Incorrect documents permissions." = "Feil dokumenttillatelser.";
-"Could not determine device information." = "Kunne ikke finne enhetsinformasjon.";
-"Could not find a download URL for" = "Kunne ikke finne en nedlastingsnettadresse for";
-"%@ hasn't been modified" = "%@ har ikke blitt modifisert";
-"Could not parse %@ from %@" = "Kunne ikke parse %@ fra %@";
-"A total of %d files will be downloaded" = "%d filer vil lastes ned";
-
 // Console
 
 "Console" = "Konsoll";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Ferdig med å importere lokale pakker.";
 "One or more packages failed to download." = "Nedlasting av en eller flere pakker feilet.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnere til køen og prøve nedlastingen på nytt.";
+"Could not complete %@ process. Reason: %@." = "Kunne ikke fullføre %@ prosess. Årsak: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Start Zebra på nytt og se om problemet vedvarer. Hvis dette er tilfelle, vennligst rapporter problemet på GitHub.";
 "Done..." = "Ferdig...";
 "Done %@" = "Ferdig %@";
 "Removing Zebra..." = "Fjerner Zebra...";
 "Installing Zebra..." = "Installerer Zebra...";
+"Error while opening file:" = "Feil under åpning av fil:";
 "Adding Payment Vendor URL for %@" = "Legger til betalingsleverandørens nettadresse for %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Denne enheten er simulert, her er pakkene som ville bli endret i dette trinnet:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Fjern fra køen";
 "Clear Queue" = "Tøm kø";
 "%@ is required by:" = "%@ kreves av:";
+"\"%@\" conflicts with %@" = "\"%@\" er i konflikt med %@";
 "%@ must be removed because it depends on %@" = "%@ må fjernes fordi det avhenger av %@";
 "%@ has issues that cannot be resolved:" = "%@ har problemer som ikke kan løses:";
 "Are you sure you want to clear the Queue?" = "Er du sikker på at du vil tømme køen?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikke tillatelse til å angi uid eller gid. Vennligst bekreft tillatelsene til filen som ligger på /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Feil ved opprettelse av dokumentmappe: %@.";
+
+"Error while creating lists directory: %@." = "Feil ved opprettelse av listemappe: %@.";
+
+"Error while creating sources.list: %@." = "Feil ved opprettelse av sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Feil ved opprettelse av debfilmappe: %@.";
+
 "Could not respring. Please respring manually." = "Kunne ikke starte SpringBoard på nytt. Vennligst start SpringBoard på nytt selv.";
 
 "ERROR: Unable to lock status file. Please try again." = "FEIL: Kunne ikke låse statusfil. Vennligst prøv på nytt.";
 
 "ERROR: Process must be restarted. Please try again." = "FEIL: Prosessen må startes på nytt. Vennligst prøv på nytt.";
 
-"Hide UDID" = "Skjul UDID";
+"Incorrect documents permissions." = "Feil dokumenttillatelser.";
+
+"Could not determine device information." = "Kunne ikke finne enhetsinformasjon.";
 
 "Display featured packages on the homepage." = "Vis utvalgte pakker på hjemmesiden.";
 
-"Automatic Refresh" = "Automatisk oppdatering";
 "Refresh Zebra's sources when opening the app." = "Oppdater kilder automatisk når du åpner appen.";
 
 "Display recent community posts from /r/jailbreak." = "Vis nye innlegg fra /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Legg til filter";
 
 "1 Section Hidden" = "1 seksjon skjult";
-"%lu Sources Hidden" = "%lu kilder skjult";
+"%lu Sections Hidden" = "%lu seksjoner skjult";
 
 "Sections" = "Seksjoner";
 "Select a Section" = "Velg en seksjon";
@@ -426,7 +444,6 @@
 
 "Sources" = "Kilder";
 "Select a Source" = "Velg en kilde";
-"Search for an Author" = "Søk etter forfatter";
 "Hide packages in these sections from specific sources." = "Skjul pakkene i disse seksjonene fra spesifikke kilder.";
 
 "Updates" = "Oppdateringer";
@@ -434,6 +451,8 @@
 
 "Authors" = "Forfattere";
 "Hide packages from these authors." = "Skjul pakkene fra disse forfatterne.";
+"Search for an Author" = "Søk etter forfatter";
+"This author also goes by the following names:" = "Denne forfatteren går også under følgende navn:";
 
 // Language Settings
 

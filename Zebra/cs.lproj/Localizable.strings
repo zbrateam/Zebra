@@ -11,7 +11,9 @@
 "Done" = "Hotovo";
 "Loading..." = "Načítání...";
 "Clear" = "Vyčistit";
-"An Error Ocurred" = "Došlo k chybě";
+"An Error Occurred" = "Došlo k chybě";
+"Dismiss" = "Zamítnout";
+"Downloads" = "Stažené";
 
 // Home
 
@@ -21,8 +23,8 @@
 "Report a Bug" = "Nahlásit Bug";
 "Changelog" = "Seznam změn";
 "Wish List" = "Seznam přání";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Od nejnovějšího";
+"Oldest First" = "Od nejstaršího";
 "No items in Wish List" = "Nic tu není.";
 "Community" = "Komunita";
 "Join our Discord" = "Připoj se k našemu Discordu";
@@ -68,6 +70,8 @@
 "Text" = "Text";
 "Icon" = "Ikona";
 "Finish Automatically" = "Automaticky Dokončit";
+"Hide UDID" = "Skrýt UDID";
+"Automatic Refresh" = "Automatická aktualizace";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
 "Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
 
+"A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
+
+"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
+"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
+"Could not download Release file from %@. Reason: %@" = "Soubor Release z %@nelze stáhnout. Důvod: %@";
 "Could not download Packages file from %@. Reason: %@" = "Soubor balíčků z %@nelze stáhnout. Důvod: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nelze stáhnout jeden nebo více souborů z %@. Důvod: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Zadaná adresa URL není platná. Zkontrolujte ji a zkuste to znovu.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nebyla schopna stáhnout zdroj, který byl zadán na %@. Může být dočasně nedostupný nebo mohl být přidán nesprávně.";
+
+"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
+
+"Error while opening sources.list" = "Chyba během otevírání sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
+
+"%@ hasn't been modified" = "%@ nebylo upraveno";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Popis";
 "Author" = "Autor";
 
-// Downloads
-
-"Downloads" = "Stažené";
-"Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
-"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
-"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
-"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
-"%@ hasn't been modified" = "%@ nebylo upraveno";
-"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
-"A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
-
 // Console
 
 "Console" = "Konzola";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Importování místních balíčků bylo dokončeno.";
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Hotovo...";
 "Done %@" = "Dokončeno %@";
 "Removing Zebra..." = "Odstraňuji Zebra...";
 "Installing Zebra..." = "Instalace Zebry...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Přidávám URL dodavatele platby pro %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Odebrat z fronty";
 "Clear Queue" = "Vyčistit frontu";
 "%@ is required by:" = "%@ je vyžadováno:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ musí být odstraněn, protože závisí na %@";
 "%@ has issues that cannot be resolved:" = "%@ má problémy, které nelze vyřešit:";
 "Are you sure you want to clear the Queue?" = "Jste si jisti, že chcete vymazat frontu?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "Chyba během auto respringu. Proveďte respring ručně.";
 
 "ERROR: Unable to lock status file. Please try again." = "CHYBA: Nelze zamknout stavový soubor. Zkuste to prosím znovu.";
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces musí být restartován. Prosím zkuste to znovu.";
 
-"Hide UDID" = "Skrýt UDID";
+"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
+
+"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 
 "Display featured packages on the homepage." = "Zobrazí doporučené balíčky na domovské stránce.";
 
-"Automatic Refresh" = "Automatická aktualizace";
 "Refresh Zebra's sources when opening the app." = "Obnovit zdroje Zebry při otevírání aplikace.";
 
 "Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Přidat filtr";
 
 "1 Section Hidden" = "1 Skrytý oddíl";
-"%lu Sources Hidden" = "%lu zdrojů skryto";
+"%lu Sections Hidden" = "%lu sekcí skryto";
 
 "Sections" = "Sekce";
 "Select a Section" = "Vyberte kategorii";
@@ -426,7 +444,6 @@
 
 "Sources" = "Zdroje";
 "Select a Source" = "Vyberte zdroj";
-"Search for an Author" = "Hledat autora";
 "Hide packages in these sections from specific sources." = "Skrýt balíčky v těchto oddílech z určitých zdrojů.";
 
 "Updates" = "Aktualizace";
@@ -434,6 +451,8 @@
 
 "Authors" = "Autoři";
 "Hide packages from these authors." = "Skrýt balíčky od těchto autorů.";
+"Search for an Author" = "Hledat autora";
+"This author also goes by the following names:" = "Tento autor je také pojmenováván těmito jmény:";
 
 // Language Settings
 

@@ -11,7 +11,9 @@
 "Done" = "完成";
 "Loading..." = "加载中……";
 "Clear" = "清空";
-"An Error Ocurred" = "出现一个错误";
+"An Error Occurred" = "出现一个错误";
+"Dismiss" = "忽略";
+"Downloads" = "下载";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "文字";
 "Icon" = "图标";
 "Finish Automatically" = "自动完成";
+"Hide UDID" = "隐藏 UDID";
+"Automatic Refresh" = "自动刷新";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
 
+"A total of %d files will be downloaded" = "总共将下载%d个文件";
+
+"Could not parse %@ from %@" = "无法解析 %@ 自 %@";
+"Could not find a download URL for" = "无法获取下载链接";
+"Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
 
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 无法下载在 %@ 软件源。该软件源可能暂时无法访问，或添加方式不正确。";
+
+"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
+
+"Error while opening sources.list" = "打开 sources.list 时错误";
+
+"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
+
+"%@ hasn't been modified" = "%@ 未被修改";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "说明";
 "Author" = "作者";
 
-// Downloads
-
-"Downloads" = "下载";
-"Error while opening sources.list" = "打开 sources.list 时错误";
-"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
-"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
-"Incorrect documents permissions." = "文档权限不正确。";
-"Could not determine device information." = "无法获取设备信息。";
-"Could not find a download URL for" = "无法获取下载链接";
-"%@ hasn't been modified" = "%@ 未被修改";
-"Could not parse %@ from %@" = "无法解析 %@ 自 %@";
-"A total of %d files will be downloaded" = "总共将下载%d个文件";
-
 // Console
 
 "Console" = "控制台";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "导入本地软件包完成。";
 "One or more packages failed to download." = "一个或多个软件包下载失败。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
+"Could not complete %@ process. Reason: %@." = "无法完成 %@。原因：%@。";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "请重启 Zebra 并查看问题是否仍然存在。如果是，请在 GitHub 上提交问题报告。";
 "Done..." = "完成……";
 "Done %@" = "%@ 已完成";
 "Removing Zebra..." = "正在移除 Zebra ……";
 "Installing Zebra..." = "正在安装 Zebra ……";
+"Error while opening file:" = "打开文件时出错：";
 "Adding Payment Vendor URL for %@" = "正在为 %@ 添加付款服务 URL";
+"This device is simulated, here are the packages that would be modified in this stage:" = "此设备处于模拟状态，下面是本阶段将会被修改的软件包：";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "从队列移除";
 "Clear Queue" = "清空队列";
 "%@ is required by:" = "需要 %@ 依赖包：";
+"\"%@\" conflicts with %@" = "“%@”与“%@”不兼容";
 "%@ must be removed because it depends on %@" = "%@必须被移除，因为它需要 %@ 依赖包";
 "%@ has issues that cannot be resolved:" = "%@ 有问题无法解决：";
 "Are you sure you want to clear the Queue?" = "确定要清空队列吗？";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
+"Error while creating documents directory: %@." = "创建文档目录时出错：%@。";
+
+"Error while creating lists directory: %@." = "创建列表目录时出错：%@。";
+
+"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@。";
+
+"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@。";
+
 "Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
 
 "ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
-"Hide UDID" = "隐藏 UDID";
+"Incorrect documents permissions." = "文档权限不正确。";
+
+"Could not determine device information." = "无法获取设备信息。";
 
 "Display featured packages on the homepage." = "在主页上显示精选软件包。";
 
-"Automatic Refresh" = "自动刷新";
 "Refresh Zebra's sources when opening the app." = "打开 Zebra 时自动刷新软件源。";
 
 "Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子。";
@@ -418,7 +436,7 @@
 "Add Filter" = "添加条件";
 
 "1 Section Hidden" = "1个软件源已隐藏";
-"%lu Sources Hidden" = "%lu个软件源已隐藏";
+"%lu Sections Hidden" = "%lu软件源已隐藏";
 
 "Sections" = "分类";
 "Select a Section" = "选择类别";
@@ -426,7 +444,6 @@
 
 "Sources" = "资料来源";
 "Select a Source" = "选择软件源";
-"Search for an Author" = "搜索开发者";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
 "Updates" = "更新";
@@ -434,6 +451,8 @@
 
 "Authors" = "开发者";
 "Hide packages from these authors." = "隐藏这些开发者的软件包。";
+"Search for an Author" = "搜索开发者";
+"This author also goes by the following names:" = "这位作者还有以下姓名：";
 
 // Language Settings
 

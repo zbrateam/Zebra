@@ -11,7 +11,9 @@
 "Done" = "เสร็จสิ้น";
 "Loading..." = "กำลังโหลด...";
 "Clear" = "ล้าง";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Occurred" = "เกิดข้อผิดพลาด";
+"Dismiss" = "ปิด";
+"Downloads" = "ดาวน์โหลด";
 
 // Home
 
@@ -21,8 +23,8 @@
 "Report a Bug" = "รายงานปัญหา";
 "Changelog" = "รายการเปลี่ยนแปลง";
 "Wish List" = "รายการอยากได้";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "ใหม่สุดก่อน";
+"Oldest First" = "เก่าสุดก่อน";
 "No items in Wish List" = "ไม่มีรายการที่อยากได้";
 "Community" = "ชุมชน";
 "Join our Discord" = "มาร่วม Discord ของเรา";
@@ -68,6 +70,8 @@
 "Text" = "ข้อความ";
 "Icon" = "ไอคอน";
 "Finish Automatically" = "เสร็จสิ้นอัตโนมัติ";
+"Hide UDID" = "ซ่อน UDID";
+"Automatic Refresh" = "รีเฟรชอัตโนมัติ";
 
 // Accent Colors
 
@@ -102,30 +106,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "ตั้งค่าใหม่";
 "Refresh Icon Cache" = "ล้างแคชของไอคอน";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "ล้างแคชรูปภาพ";
+"Clear Sources Cache" = "ล้างแคชของซอร์ส";
+"Clear Web Cache" = "ล้างแคชของเว็บ";
 "Reset All Settings" = "ล้างการตั้งค่าทั้งหมด";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "ลบซอร์สทั้งหมด";
 "Erase All Sources and Settings" = "ล้างการตั้งค่าและซอร์สทั้งหมด";
 
 "Are you sure you want to restart the SpringBoard?" = "คุณแน่ใจหรือไม่ที่จะเริ่มการทำงานของ SpringBoard ใหม่?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของไอคอน? เครื่องของคุณอาจไม่ตอบสนองในขณะที่กำลังล้างแคช";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "ล้างแคชรูปภาพแล้ว";
+"Web Cache Cleared" = "ล้างแคชเว็บแล้ว";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "คุณแน่ใจหรือไม่ที่จะล้างแคชของซอร์สใน Zebra? ซึ่งจะทำการลบแคชทั้งหมดในฐานข้อมูลและดาวน์โหลดใหม่ ซอร์สของคุณจะยังไม่ถูกลบ";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "คุณแน่ใจหรือไม่ที่จะล้างการตั้งค่าของ Zebra? การตั้งค่าทุกอย่างจะกลับไปเป็นค่าเริ่มต้นและ Zebra จะเริ่มการทำงานใหม่";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "คุณแน่ใจหรือไม่ที่จะล้างซอร์สทั้งหมด? ซอร์สทั้งหมดจะกลับไปเป็นค่าเริ่มต้นและ Zebra จะเริ่มต้นการทำงานใหม่";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "คุณแน่ใจหรือไม่ที่จะล้างซอร์สและการตั้งค่าทั้งหมด? ซอร์สและการตั้งค่าทั้งหมดจะกลับไปเป็นค่าเริ่มต้น";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "ซอร์สทั้งหมดจะถูกลบไปจากเครื่องและ Zebra จะเริ่มการทำงานใหม่";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "เปิดที่อยู่ของข้อมูลโปรแกรม";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza ไม่ได้ติดตั้งไว้";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra ไม่สามารถเปิดที่อยู่ข้อมูลโปรแกรมได้เนื่องจากไม่ได้ติดตั้งโปรแกรม Filza ที่อยู่ของคุณคือ %@";
 
 // Stores
 
@@ -138,7 +142,7 @@
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
 "Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
 "No packages purchased" = "ไม่มีโปรแกรมที่ซื้อไว้";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "เข้าสู่ระบบในชื่อ %@ (%@)";
 
 // Sources
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
+
+"Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
+"Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
+"Could not download Release file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Release จาก %@ ได้ สาเหตุ: %@";
+"Could not download Packages file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Packages จาก %@ ได้ สาเหตุ: %@";
+"Could not download one or more files from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์อย่างน้อยหนึ่ง จาก %@ ได้ สาเหตุ: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL ที่คุณใส่นั้นไม่ถูกต้อง กรุณาตรวจสอบและลองอีกครั้ง";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra ไม่สามารถดาวน์โหลดซอร์ส %@ ซึ่งอาจจะไม่สามารถเข้าถึงได้ชั่วขณะ หรือถูกเพิ่มมาแบบไม่ถูกต้อง";
+
+"Please remove this source from your sources.list file." = "โปรดลบซอร์สนี้จากไฟล์ sources.list ของคุณ";
+
+"Error while opening sources.list" = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "ซอร์สนี้ %@ ไม่รองรับโปรแกรมเจลเบรคของอุปกรณ์คุณ";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "อาจเกิดปัญหาได้หากซอร์สนี้ถูกเพิ่มลง Zebra และอาจถึงขั้นต้องล้างเครื่อง";
+
+"%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "คำอธิบาย";
 "Author" = "ผู้เขียน";
 
-// Downloads
-
-"Downloads" = "ดาวน์โหลด";
-"Error while opening sources.list" = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list";
-"The source %@ is incompatible with your jailbreak." = "ซอร์สนี้ %@ ไม่รองรับโปรแกรมเจลเบรคของอุปกรณ์คุณ";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "อาจเกิดปัญหาได้หากซอร์สนี้ถูกเพิ่มลง Zebra และอาจถึงขั้นต้องล้างเครื่อง";
-"Please remove this source from your sources.list file." = "โปรดลบซอร์สนี้จากไฟล์ sources.list ของคุณ";
-"Incorrect documents permissions." = "สิทธิ์การเข้าถึงที่อยู่เอกสารไม่ถูกต้อง";
-"Could not determine device information." = "ไม่สามารถอ่านข้อมูลของอุปกรณ์ได้";
-"Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
-"%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
-"Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
-"A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
-
 // Console
 
 "Console" = "คอนโซล";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "เสร็จสิ้นการนำเข้าโปรแกรมจากในเครื่อง";
 "One or more packages failed to download." = "โปรแกรมหนึ่งตัวหรือมากกว่าไม่สามารถดาวน์โหลดมาได้";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "แตะ \"กลับไปยังคิว\" เพื่อไปหน้าคิวและทำการดาวน์โหลดโปรแกรมใหม่อีกครั้ง";
+"Could not complete %@ process. Reason: %@." = "ไม่สามารถทำขั้นตอน %@ ให้เสร็จ สาเหตุ: %@";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "กรุณาเริ่มต้นการทำงาน Zebra ใหม่และดูว่าปัญหายังอยู่หรือไม่ หากยังอยู่ กรุณาส่งปัญหาไปที่ GitHub";
 "Done..." = "เสร็จสิ้น...";
 "Done %@" = "เสร็จสิ้น %@";
 "Removing Zebra..." = "ถอนการติดตั้ง Zebra...";
 "Installing Zebra..." = "ติดตั้ง Zebra...";
+"Error while opening file:" = "เกิดข้อผิดพลาดในการเปิดไฟล์:";
 "Adding Payment Vendor URL for %@" = "เพิ่ม URL ของผู้วางขายสำหรับ %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "อุปกรณ์นี้อยู่ในโหมดจำลอง นี่คือโปรแกรมที่จะถูกปรับแก้ในขั้นตอนนี้:";
 
 // Queue Bar
 
@@ -356,9 +364,10 @@
 "Remove from Queue" = "เอาออกจากคิว";
 "Clear Queue" = "ล้างคิว";
 "%@ is required by:" = "%@ จำเป็นต้องติดตั้งเพราะ:";
+"\"%@\" conflicts with %@" = "\"%@\" ไม่รองรับ %@";
 "%@ must be removed because it depends on %@" = "%@ จะถูกลบออกเพราะขึ้นกับ %@";
 "%@ has issues that cannot be resolved:" = "%@ มีปัญหาที่ไม่สามารถแก้เองได้";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "คุณแน่ใจหรือไม่ที่จะล้างคิว?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ เป็นโปรแกรมที่จำเป็นต้องติดตั้งไว้บนเครื่อง ไม่ควรถูกลบออกนอกจากว่าคุณรู้ตัวว่ากำลังทำอะไร!";
 
 // Search
@@ -379,18 +388,27 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ยังไม่มีสิทธิ์ในการกำหนดค่า uid or gid กรุณาตรวจสอบให้แน่ใจว่าสิทธ์การเข้าถึงของไฟล์ดังกล่าวที่อยู่ใน /usr/libexec/zebra/supersling นั้นถูกต้อง";
 
+"Error while creating documents directory: %@." = "เกิดข้อผิดพลาดขณะเปิดที่อยู่ข้อมูลของโปรแกรม: %@";
+
+"Error while creating lists directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่: %@";
+
+"Error while creating sources.list: %@." = "เกิดข้อผิดพลาดในการเปิดไฟล์ sources.list: %@";
+
+"Error while creating debs directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่ไฟล์ deb: %@";
+
 "Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
 
 "ERROR: Unable to lock status file. Please try again." = "ข้อผิดพลาด: ไม่สามารถล็อคไฟล์ status ได้ กรุณาลองอีกครั้ง";
 
 "ERROR: Process must be restarted. Please try again." = "ข้อผิดพลาด: โปรแกรมนี้จำเป็นต้องเริ่มใหม่ กรุณาลองอีกครั้ง";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "สิทธิ์การเข้าถึงที่อยู่เอกสารไม่ถูกต้อง";
+
+"Could not determine device information." = "ไม่สามารถอ่านข้อมูลของอุปกรณ์ได้";
 
 "Display featured packages on the homepage." = "แสดงโปรแกรมยอดนิยมในหน้าหลัก";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "รีเฟรชซอร์สใน Zebra เมื่อเปิดขึ้นมา";
 
 "Display recent community posts from /r/jailbreak." = "แสดงโพสล่าสุดใน /r/jailbreak";
 
@@ -418,15 +436,14 @@
 "Add Filter" = "เพิ่มตัวกรอง";
 
 "1 Section Hidden" = "1 ซอร์สที่ถูกซ่อน";
-"%lu Sources Hidden" = "%lu ซอร์สที่ถูกซ่อน";
+"%lu Sections Hidden" = "%lu ประเภทที่ซ่อนไว้";
 
 "Sections" = "ประเภท";
-"Select a Section" = "Select a Section";
+"Select a Section" = "เลือกประเภท";
 "Hide packages in these sections." = "ซ่อนแพ็กเกจจากประเภทเหล่านี้";
 
 "Sources" = "ซอร์ส";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
+"Select a Source" = "เลือกซอร์ส";
 "Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
 
 "Updates" = "อัพเดต";
@@ -434,12 +451,14 @@
 
 "Authors" = "ผู้สร้าง";
 "Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
+"Search for an Author" = "ค้นหาจากผู้เขียน";
+"This author also goes by the following names:" = "ผู้เขียนคนนี้มีชื่ออื่นเป็น:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "ภาษา";
+"Apply" = "นำไปใช้";
+"Restart Required" = "จำเป็นต้องเริ่มต้นใหม่";
+"Zebra must be closed in order to change preferred language" = "Zebra ต้องถูกปิดเพื่อให้การตั้งค่าภาษามีผล";
+"Restart" = "เริ่มใหม่";
+"Use System Language" = "ใช้ภาษาของระบบ";

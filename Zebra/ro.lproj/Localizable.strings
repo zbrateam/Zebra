@@ -11,7 +11,9 @@
 "Done" = "Gata";
 "Loading..." = "Se încarca...";
 "Clear" = "Șterge";
-"An Error Ocurred" = "An Error Ocurred";
+"An Error Occurred" = "A apărut o eroare";
+"Dismiss" = "Renunță";
+"Downloads" = "Descarcari";
 
 // Home
 
@@ -21,8 +23,8 @@
 "Report a Bug" = "Raportati o problema";
 "Changelog" = "Istoricul schimbarilor";
 "Wish List" = "Lista De Dorinte";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Cele mai noi";
+"Oldest First" = "Cele mai vechi";
 "No items in Wish List" = "Nu exista obiecte in Lista de Dorinte";
 "Community" = "Comunitate";
 "Join our Discord" = "Intrati pe serverul nostru de Discord";
@@ -68,6 +70,8 @@
 "Text" = "Text";
 "Icon" = "Iconita";
 "Finish Automatically" = "Termină Automat";
+"Hide UDID" = "Ascunde UDID";
+"Automatic Refresh" = "Reîmprospătare automată";
 
 // Accent Colors
 
@@ -104,28 +108,28 @@
 
 "Reset" = "Reset";
 "Refresh Icon Cache" = "Reactualizează cache-ul iconițelor";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Șterge cache-ul imaginilor";
+"Clear Sources Cache" = "Șterge cache-ul surselor";
+"Clear Web Cache" = "Șterge cache-ul web";
 "Reset All Settings" = "Resetează toate setările";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Șterge toate sursele";
 "Erase All Sources and Settings" = "Resetează toate sursele si setările";
 
 "Are you sure you want to restart the SpringBoard?" = "Ești sigur că dorești să restartezi SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Confirmi reîmprospătarea cache-ului iconițelor? Dispozitivul dvs. ar putea să ignore comenzile până la terminarea procesului.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Cache imagini șters";
+"Web Cache Cleared" = "Cache web șters";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Confirmi că dorești să ștergi cache-ul surselor din Zebra? Această acțiune va șterge toate informațiile din cache-ul Zebra și le va redescărca. Sursele vor fi păstrate.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Confirmi că dorești resetarea setărilor Zebra? Această acțiune va readuce Zebra la setările inițiale iar aplicația va reporni.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Ești sigur că vrei să ștergi toate sursele? Toate sursele tale vor fi eliminate din Zebra și Zebra va reporni.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Confirmi că dorești să ștergi toate sursele și setările? Toate sursele din Zebra vor fi șterse iar setările vor revenii la valorile inițiale.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Toate sursele vor fi șterse permanent iar Zebra va reporni.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Deschideţi Dosarul Documente";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza nu este instalat";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nu poate deschide dosarul Documente deoarece Filza nu este instalat. Directorul Documente este: %@";
 
 // Stores
 
@@ -138,7 +142,7 @@
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
 "Could not complete purchase, no payment secret was found" = "Achiziția nu a fost completată, payment secret nu a fost găsit";
 "No packages purchased" = "Nu există achiziții";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@ (%@)" = "Autentificat ca %@ (%@)";
 
 // Sources
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
 
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"A total of %d files will be downloaded" = "Un total de %d fișiere va fi descărcat";
+
+"Could not parse %@ from %@" = "Nu s-a putut analiza %@ de la %@";
+"Could not find a download URL for" = "Nu s-a putut găsi un URL de descărcare pentru";
+"Could not download Release file from %@. Reason: %@" = "Nu s-a putut descărca fișierul de lansare de la %@. Motiv: %@";
+"Could not download Packages file from %@. Reason: %@" = "Nu s-a putut descărca fișierul Packages de la %@. Motiv: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nu s-au putut descărca unul sau mai multe fișiere de la %@. Motiv: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL introdus nu este valid. Te rugăm să îl verifici și să încerci din nou.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nu a putut descărca sursa specificată la %@. Ar putea fi inaccesibilă momentan sau ar fi putut fi adăugată incorect.";
+
+"Please remove this source from your sources.list file." = "Te rog scoate aceasta sursa din fisierul sources.list .";
+
+"Error while opening sources.list" = "S-a produs o eroare in timpul deschiderii sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Sursa %@ nu este compatibila cu acest jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Aceasta actiunea poate cauza probleme rezultand intr-o posibila restaurare a sistemului.";
+
+"%@ hasn't been modified" = "%@ nu a fost modificat";
 
 // Packages
 
@@ -276,60 +294,50 @@
 "This search query is too short for the full search, please use a longer query." = "Aceasta cautare este prea scurta pentru o cautare completa, va rugam sa folositi mai multi termeni.";
 "No Results Found" = "Niciun rezultat";
 "Name" = "Nume";
-"Description" = "Description";
-"Author" = "Author";
-
-// Downloads
-
-"Downloads" = "Descarcari";
-"Error while opening sources.list" = "S-a produs o eroare in timpul deschiderii sources.list";
-"The source %@ is incompatible with your jailbreak." = "Sursa %@ nu este compatibila cu acest jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Aceasta actiunea poate cauza probleme rezultand intr-o posibila restaurare a sistemului.";
-"Please remove this source from your sources.list file." = "Te rog scoate aceasta sursa din fisierul sources.list .";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
-"Could not determine device information." = "Could not determine device information.";
-"Could not find a download URL for" = "Could not find a download URL for";
-"%@ hasn't been modified" = "%@ hasn't been modified";
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"Description" = "Descriere";
+"Author" = "Autor";
 
 // Console
 
-"Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
-"Close Zebra" = "Close Zebra";
+"Console" = "Consolă";
+"Performing Actions..." = "Efectuare acțiuni...";
+"Updating icon cache asynchronously..." = "Actualizare cache iconițe sincron...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Acest lucru poate dura mai mult, iar Zebra se poate prăbuşi. Este în regulă dacă se întâmplă.";
+"Close Zebra" = "Închide Zebra";
 "Closing Zebra..." = "Zebra se inchide...";
-"Restart SpringBoard" = "Restart SpringBoard";
+"Restart SpringBoard" = "Repornește Springboard";
 "Restarting SpringBoard..." = "Springboard-ul se reporneste...";
-"Parsing %@" = "Parsing %@";
+"Parsing %@" = "Analizare %@";
 "Starting Download" = "Descarcarea se porneste";
-"Downloading" = "Downloading";
-"Downloading %@" = "Downloading %@";
-"Downloading Packages..." = "Downloading Packages...";
-"Download Completed" = "Download Completed";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
+"Downloading" = "Se descarcă";
+"Downloading %@" = "Se descarcă %@";
+"Downloading Packages..." = "Se descarcă pachete...";
+"Download Completed" = "Descărcare terminată";
+"Installing" = "Se instalează";
+"Installing Packages..." = "Instalare pachete...";
+"Removing" = "Eliminare";
+"Removing Packages..." = "Se șterg pachetele...";
+"Reinstalling" = "Reinstalare";
+"Reinstalling Packages..." = "Se reinstalează pachetele...";
+"Upgrading" = "Actualizare";
+"Upgrading Packages..." = "Se actualizează pachete...";
+"Complete" = "Complet";
+"Finished!" = "Terminat!";
+"Return to Queue" = "Întoarcere la lista de aşteptare";
 "Returning to Queue..." = "Se revine la coada...";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
+"Importing local packages." = "Importul pachetelor locale.";
+"Finished importing local packages." = "Se termină importul pachetelor locale.";
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Gata...";
 "Done %@" = "Done %@";
 "Removing Zebra..." = "Removing Zebra...";
 "Installing Zebra..." = "Installing Zebra...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Elimină din coada";
 "Clear Queue" = "Clear Queue";
 "%@ is required by:" = "%@ is required by:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
 "Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nu are permisiuni sa seteze uid sau gid. Te rog verifica permisiunile pentru fisierul localizat la /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "Nu am putut sa facem respring. Te rog sa faci respring manual.";
 
 "ERROR: Unable to lock status file. Please try again." = "EROARE: Nu am putut accesa statusul blocarii fisierului. Incearca din nou.";
 
 "ERROR: Process must be restarted. Please try again." = "EROARE: Procesul trebuie restartat. Incearca din nou.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+
+"Could not determine device information." = "Could not determine device information.";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
@@ -417,29 +435,30 @@
 "Filters" = "Filters";
 "Add Filter" = "Add Filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"1 Section Hidden" = "1 secțiune ascunsă";
+"%lu Sections Hidden" = "%lu secţiuni ascunse";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Secțiuni";
+"Select a Section" = "Selectaţi o secţiune";
+"Hide packages in these sections." = "Ascunde pachetele in aceste secțiuni.";
 
 "Sources" = "Surse";
-"Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Selectați o sursă";
+"Hide packages in these sections from specific sources." = "Ascunde pachetele in aceste secțiuni din surse specifice.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Actualizări";
+"Hide future updates from these packages." = "Ascunde actualizările viitoare din aceste pachete.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Autori";
+"Hide packages from these authors." = "Ascunde pachetele de la acești autori.";
+"Search for an Author" = "Caută un autor";
+"This author also goes by the following names:" = "Acest autor are și următoarele nume:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Limbă";
+"Apply" = "Aplică";
+"Restart Required" = "Repornire necesară";
+"Zebra must be closed in order to change preferred language" = "Zebra trebuie să fie închis pentru a schimba limba preferată";
+"Restart" = "Repornire";
+"Use System Language" = "Utilizați limba sistemului";

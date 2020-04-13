@@ -11,7 +11,9 @@
 "Done" = "Klar";
 "Loading..." = "Laddar...";
 "Clear" = "Rensa";
-"An Error Ocurred" = "Ett fel uppstod";
+"An Error Occurred" = "Ett fel uppstod";
+"Dismiss" = "Avfärda";
+"Downloads" = "Nedladdningar";
 
 // Home
 
@@ -21,8 +23,8 @@
 "Report a Bug" = "Rapportera en bugg";
 "Changelog" = "Ändringslogg";
 "Wish List" = "Önskelista";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Nyast först";
+"Oldest First" = "Äldst först";
 "No items in Wish List" = "Inga artiklar på önskelistan";
 "Community" = "Gemenskap";
 "Join our Discord" = "Gå med i vår Discord";
@@ -68,6 +70,8 @@
 "Text" = "Text";
 "Icon" = "Ikon";
 "Finish Automatically" = "Slutför automatiskt";
+"Hide UDID" = "Dölj UDID";
+"Automatic Refresh" = "Automatisk uppdatering";
 
 // Accent Colors
 
@@ -168,8 +172,8 @@
 "Tap to learn more" = "Tryck för mer information";
 "No source URLs detected." = "Inga käll-URL:er upptäcktes.";
 "Unable to verify source" = "Kunde inte verifiera källa";
-"Error verifying source" = "Fel när källan verifierades";
-"Error verifying sources" = "Fel när källorna verifierades";
+"Error verifying source" = "Fel när källan skulle verifieras";
+"Error verifying sources" = "Fel när källorna skulle verifieras";
 "Failed to add source" = "Misslyckades att lägga till källa";
 "Failed to add sources" = "Misslyckades att lägga till källor";
 "You have already added this source." = "Du har redan lagt till denna källa.";
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
 
+"A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
+
+"Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
+"Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
+"Could not download Release file from %@. Reason: %@" = "Kunde inte ladda ner filen Release från %@. Anledning: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunde inte ladda ner filen Packages från %@. Anledning: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunde inte ladda ner en eller flera filer från %@. Anledning: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL:en du angav är inte giltig. Kontrollera den och försök igen.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunde inte ladda ner källan på %@. Den kan vara tillfälligt otillgänglig eller ha lagts till felaktigt.";
+
+"Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
+
+"Error while opening sources.list" = "Fel när sources.list skulle öppnas";
+
+"The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
+
+"%@ hasn't been modified" = "%@ har inte ändrats";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Beskrivning";
 "Author" = "Skapare";
 
-// Downloads
-
-"Downloads" = "Nedladdningar";
-"Error while opening sources.list" = "Fel när sources.list öppnades";
-"The source %@ is incompatible with your jailbreak." = "Källan %@ är inkompatibel med din jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
-"Please remove this source from your sources.list file." = "Ta bort den här källan från din sources.list-fil.";
-"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
-"Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
-"Could not find a download URL for" = "Kunde inte hitta en nedladdnings-URL för";
-"%@ hasn't been modified" = "%@ har inte ändrats";
-"Could not parse %@ from %@" = "Kunde inte tolka %@ från %@";
-"A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
-
 // Console
 
 "Console" = "Konsol";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Importerade lokala paket.";
 "One or more packages failed to download." = "Ett eller flera paket kunde inte laddas ner.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Tryck på \"Återgå till kön\" för att återgå till kön och försök att ladda ner igen.";
+"Could not complete %@ process. Reason: %@." = "Kunde inte slutföra processen %@. Anledning: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Starta om Zebra och se om problemet fortfarande kvarstår. Om så är fallet, rapportera problemet på GitHub.";
 "Done..." = "Klar...";
 "Done %@" = "Klar %@";
 "Removing Zebra..." = "Tar bort Zebra...";
 "Installing Zebra..." = "Installerar Zebra...";
+"Error while opening file:" = "Fel när filen skulle öppnas:";
 "Adding Payment Vendor URL for %@" = "Lägger till betalningsleverantörens URL för %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Denna enhet är simulerad, här är paketen som skulle ha ändrats i detta steg:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Ta bort från kö";
 "Clear Queue" = "Rensa kö";
 "%@ is required by:" = "%@ krävs av:";
+"\"%@\" conflicts with %@" = "\"%@\" är i konflikt med %@";
 "%@ must be removed because it depends on %@" = "%@ måste tas bort eftersom det beror på %@";
 "%@ has issues that cannot be resolved:" = "%@ har problem som inte kan lösas:";
 "Are you sure you want to clear the Queue?" = "Är du säker på att du vill rensa kön?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har inte behörighet att ställa in uid eller gid. Verifiera behörigheterna för filen på /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Fel när dokumentkatalogen skulle skapas: %@.";
+
+"Error while creating lists directory: %@." = "Fel när katalogen lists skulle skapas: %@.";
+
+"Error while creating sources.list: %@." = "Fel när sources.list skulle skapas: %@.";
+
+"Error while creating debs directory: %@." = "Fel när katalogen debs skulle skapas: %@.";
+
 "Could not respring. Please respring manually." = "Kunde inte starta om SpringBoard. Vänligen gör det manuellt.";
 
 "ERROR: Unable to lock status file. Please try again." = "FEL: Kunde inte låsa statusfil. Var god försök igen.";
 
 "ERROR: Process must be restarted. Please try again." = "FEL: Processen måste startas om. Var god försök igen.";
 
-"Hide UDID" = "Dölj UDID";
+"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
+
+"Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
 
 "Display featured packages on the homepage." = "Visa utvalda paket på startsidan.";
 
-"Automatic Refresh" = "Automatisk uppdatering";
 "Refresh Zebra's sources when opening the app." = "Uppdatera Zebras källor när appen öppnas.";
 
 "Display recent community posts from /r/jailbreak." = "Visa nya inlägg från /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Lägg till filter";
 
 "1 Section Hidden" = "1 sektion dold";
-"%lu Sources Hidden" = "%lu källor dolda";
+"%lu Sections Hidden" = "%lu sektioner dolda";
 
 "Sections" = "Sektioner";
 "Select a Section" = "Välj en sektion";
@@ -426,7 +444,6 @@
 
 "Sources" = "Källor";
 "Select a Source" = "Välj en källa";
-"Search for an Author" = "Sök efter en skapare";
 "Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
 
 "Updates" = "Uppdateringar";
@@ -434,6 +451,8 @@
 
 "Authors" = "Skapare";
 "Hide packages from these authors." = "Dölj paket från dessa skapare.";
+"Search for an Author" = "Sök efter en skapare";
+"This author also goes by the following names:" = "Denna skapare går också under följande namn:";
 
 // Language Settings
 

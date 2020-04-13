@@ -11,7 +11,9 @@
 "Done" = "완료";
 "Loading..." = "불러오는 중...";
 "Clear" = "제거";
-"An Error Ocurred" = "에러가 발생했습니다.";
+"An Error Occurred" = "에러가 발생했습니다.";
+"Dismiss" = "닫기";
+"Downloads" = "다운로드";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "텍스트";
 "Icon" = "아이콘";
 "Finish Automatically" = "작업이 완료되면 콘솔 닫기";
+"Hide UDID" = "UDID 숨기기";
+"Automatic Refresh" = "자동 새로고침";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 "Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 
+"A total of %d files will be downloaded" = "총 %d개의 파일이 다운로드됩니다.";
+
+"Could not parse %@ from %@" = "%@를 분석할 수 없습니다. (%@에서 옴)";
+"Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
+"Could not download Release file from %@. Reason: %@" = "%@에서 Release 파일을 다운로드할 수 없습니다. 이유: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@에서 Packages 파일을 다운로드할 수 없습니다.\n이유: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@에서 한개 또는 그 이상의 파일을 다운로드할 수 없습니다.\n이유: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL이 올바르지 않습니다. 확인 후 다시 시도해주세요.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra가 %@에 지정된 소스를 다운로드할 수 없습니다. 일시적으로 엑세스할 수 없는 상태이거나, 잘못 추가되었을 수 있습니다.";
+
+"Please remove this source from your sources.list file." = "이 소스를 sources.list 파일에서 제거해주세요.";
+
+"Error while opening sources.list" = "sources.list를 여는 중 오류가 발생했습니다.";
+
+"The source %@ is incompatible with your jailbreak." = "%@ 소스는 내 탈옥과 호환되지 않습니다.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "이것을 Zebra에 추가하면 문제가 발생할 수 있습니다..";
+
+"%@ hasn't been modified" = "%@(이)가 수정되지 않았습니다.";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "설명";
 "Author" = "제작자";
 
-// Downloads
-
-"Downloads" = "다운로드";
-"Error while opening sources.list" = "sources.list를 여는 중 오류가 발생했습니다.";
-"The source %@ is incompatible with your jailbreak." = "%@ 소스는 내 탈옥과 호환되지 않습니다.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "이것을 Zebra에 추가하면 문제가 발생할 수 있습니다..";
-"Please remove this source from your sources.list file." = "이 소스를 sources.list 파일에서 제거해주세요.";
-"Incorrect documents permissions." = "잘못된 문서 권한.";
-"Could not determine device information." = "기기 정보를 가져올 수 없습니다.";
-"Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
-"%@ hasn't been modified" = "%@(이)가 수정되지 않았습니다.";
-"Could not parse %@ from %@" = "%@를 분석할 수 없습니다. (%@에서 옴)";
-"A total of %d files will be downloaded" = "총 %d개의 파일이 다운로드됩니다.";
-
 // Console
 
 "Console" = "콘솔";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "완료...";
 "Done %@" = "%@ 완료";
 "Removing Zebra..." = "Zebra 제거중...";
 "Installing Zebra..." = "Zebra 설치중...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "%@의 결제 서비스 공급자 URL 추가 중";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "대기열에서 제거";
 "Clear Queue" = "대기열 지우기";
 "%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
 "Are you sure you want to clear the Queue?" = "정말로 대기열을 지울까요?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
 
 "ERROR: Unable to lock status file. Please try again." = "오류: 상태 파일을 잠글 수 없습니다. 다시 시도해주세요.";
 
 "ERROR: Process must be restarted. Please try again." = "오류: 프로세스가 재시작되어야 합니다. 다시 시도해주세요.";
 
-"Hide UDID" = "UDID 숨기기";
+"Incorrect documents permissions." = "잘못된 문서 권한.";
+
+"Could not determine device information." = "기기 정보를 가져올 수 없습니다.";
 
 "Display featured packages on the homepage." = "선정된 패키지를 홈 화면에서 표시";
 
-"Automatic Refresh" = "자동 새로고침";
 "Refresh Zebra's sources when opening the app." = "Zebra의 소스를 앱이 열리면 새로고칩니다.";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak의 최근 커뮤니티 게시글을 표시";
@@ -418,7 +436,7 @@
 "Add Filter" = "필터 추가";
 
 "1 Section Hidden" = "한개의 섹션 숨겨짐";
-"%lu Sources Hidden" = "%lu개의 소스 숨겨짐";
+"%lu Sections Hidden" = "%lu개의 섹션 숨겨짐";
 
 "Sections" = "섹션";
 "Select a Section" = "섹션 선택";
@@ -426,7 +444,6 @@
 
 "Sources" = "소스";
 "Select a Source" = "소스 선택";
-"Search for an Author" = "제작자 검색";
 "Hide packages in these sections from specific sources." = "특정 소스의 이 섹션에서 패키지 숨기기";
 
 "Updates" = "업데이트";
@@ -434,6 +451,8 @@
 
 "Authors" = "제작자";
 "Hide packages from these authors." = "이 제작자의 패키지 숨기기";
+"Search for an Author" = "제작자 검색";
+"This author also goes by the following names:" = "이 제작자는 다른 이름도 사용합니다:";
 
 // Language Settings
 

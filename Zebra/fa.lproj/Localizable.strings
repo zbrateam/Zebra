@@ -11,7 +11,9 @@
 "Done" = "انجام شد";
 "Loading..." = "...در حال بارگذاری";
 "Clear" = "پاک سازی";
-"An Error Ocurred" = "یک خطا روی داده است";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "دانلود ها";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "خطا در پیدا کردن یک سورس APT در:";
 "Unable to locate APT repositories at:" = "خطا در پیدا کردن سورس‌های APT در:";
 
+"A total of %d files will be downloaded" = "در کل %d فایل دانلود شد";
+
+"Could not parse %@ from %@" = " جدانشد %@ از %@";
+"Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "نتوانست پرونده های بسته را از%@ دانلود کند.\nدلیل: %@";
 "Could not download one or more files from %@. Reason: %@" = "نتوانست یک یا چند فایل را از%@ دانلود کند.\nدلیل: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زبرا قادر به دانلود سورس مشخص شده در%@ نیست. ممکن است موقتا غیرقابل دسترسی باشد یا به اشتباه اضافه شده باشد.";
+
+"Please remove this source from your sources.list file." = "این سورس را از فایل sources.list پاک کنید.";
+
+"Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "این سورس %@ با جیلبریک شما ناسازگار است.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
+
+"%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "شرح";
 "Author" = "سازنده";
 
-// Downloads
-
-"Downloads" = "دانلود ها";
-"Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
-"The source %@ is incompatible with your jailbreak." = "این سورس %@ با جیلبریک شما ناسازگار است.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
-"Please remove this source from your sources.list file." = "این سورس را از فایل sources.list پاک کنید.";
-"Incorrect documents permissions." = "دسترسی اشتباه اسناد";
-"Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
-"Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
-"%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
-"Could not parse %@ from %@" = " جدانشد %@ از %@";
-"A total of %d files will be downloaded" = "در کل %d فایل دانلود شد";
-
 // Console
 
 "Console" = "کنسول";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "وارد کردن پکیج ها تمام شد";
 "One or more packages failed to download." = "یک یا چند پکیج دانلود نشد";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "روی این گزینه بزنید \"Return to Queue\" تا به صف برگردید و دوباره دانلود کنید";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "انجام شد...";
 "Done %@" = "اتمام %@";
 "Removing Zebra..." = "حدف زبرا...";
 "Installing Zebra..." = "نصب زبرا...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "افزودن آدرس پرداخت فروشنده برای %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "حذف از صف";
 "Clear Queue" = "پاک کردن صف";
 "%@ is required by:" = "%@ مورد نیاز توسط:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure you want to clear the Queue?" = "مطمئن هستید که می خواهید صف را پاک کنید؟";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "ریسپرینگ نشد، لطفا بصورت دستی ریسپرینگ کنید.";
 
 "ERROR: Unable to lock status file. Please try again." = "خطا: نمی توان پرونده وضعیت را قفل کرد. لطفا دوباره تلاش کنید.";
 
 "ERROR: Process must be restarted. Please try again." = "خطا: فرآیند باید دوباره شروع شود. لطفا دوباره تلاش کنید.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "دسترسی اشتباه اسناد";
+
+"Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
 
 "Display featured packages on the homepage." = "بسته های ویژه را در صفحه اصلی نمایش دهید.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "نمایش پست های اخیر انجمن r/jailbreak/.";
@@ -418,7 +436,7 @@
 "Add Filter" = "افزودن فیلتر";
 
 "1 Section Hidden" = "۱ بخش پنهان شد";
-"%lu Sources Hidden" = "%lu سورس مخفی شد";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "بخش‌ها";
 "Select a Section" = "بخش انتخاب شده";
@@ -426,7 +444,6 @@
 
 "Sources" = "منابع";
 "Select a Source" = "انتخاب سورس";
-"Search for an Author" = "جستجوی مؤلف";
 "Hide packages in these sections from specific sources." = "مخفی کردن بسته ها در این بخش از سورس‌های خاص.";
 
 "Updates" = "به روز رسانی‌ها";
@@ -434,6 +451,8 @@
 
 "Authors" = "سازندها";
 "Hide packages from these authors." = "مخفی کردن بسته‌های این سازندگان.";
+"Search for an Author" = "جستجوی مؤلف";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 

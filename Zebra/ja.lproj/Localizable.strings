@@ -11,7 +11,9 @@
 "Done" = "完了";
 "Loading..." = "読み込み中...";
 "Clear" = "クリア";
-"An Error Ocurred" = "エラーが発生しました";
+"An Error Occurred" = "エラーが発生しました";
+"Dismiss" = "OK";
+"Downloads" = "ダウンロード";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Finish Automatically" = "自動的に終了";
+"Hide UDID" = "UDIDを非表示";
+"Automatic Refresh" = "自動更新";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
 
+"A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
+
+"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
+"Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
+"Could not download Release file from %@. Reason: %@" = "リリースファイルを %@ からダウンロードできませんでした。理由：%@";
 "Could not download Packages file from %@. Reason: %@" = "パッケージファイルを%@からダウンロードできませんでした。理由：%@";
 "Could not download one or more files from %@. Reason: %@" = "一つ以上のファイルを%@からダウンロードできませんでした。理由：%@";
 
 "The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra は %@ で指定されたリポジトリをダウンロードできませんでした。 一時的にアクセスできないか、誤って追加された可能性があります。";
+
+"Please remove this source from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
+
+"Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
+
+"The source %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
+
+"%@ hasn't been modified" = "%@ は変更されていません";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "概要";
 "Author" = "作者";
 
-// Downloads
-
-"Downloads" = "ダウンロード";
-"Error while opening sources.list" = "sources.list を開くときにエラーが発生しました";
-"The source %@ is incompatible with your jailbreak." = "このリポジトリ %@ はあなたの脱獄環境と互換性がありません。";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
-"Please remove this source from your sources.list file." = "sources.list ファイルからこのリポジトリを削除してください。";
-"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
-"Could not determine device information." = "デバイス情報を特定できませんでした。";
-"Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
-"%@ hasn't been modified" = "%@ は変更されていません";
-"Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
-"A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
-
 // Console
 
 "Console" = "コンソール";
@@ -303,7 +307,7 @@
 "Closing Zebra..." = "Zebra を閉じています...";
 "Restart SpringBoard" = "SpringBoard を再起動";
 "Restarting SpringBoard..." = "SpringBoard を再起動しています...";
-"Parsing %@" = "%@ を解析中";
+"Parsing %@" = "%@ を解析しています";
 "Starting Download" = "ダウンロードを開始します。";
 "Downloading" = "ダウンロードしています";
 "Downloading %@" = "%@ をダウンロードしています";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "ローカルパッケージをインポートしました。";
 "One or more packages failed to download." = "1つ以上のパッケージのダウンロードに失敗しました。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "「キューに戻る」をクリックしてキューに戻り、ダウンロードを再試行します。";
+"Could not complete %@ process. Reason: %@." = "%@ を完了できませんでした。 理由：%@";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Zebra を再起動しても問題が引き続き発生する場合は、GitHub で報告してください。";
 "Done..." = "完了...";
 "Done %@" = "%@ のダウンロードを完了";
 "Removing Zebra..." = "Zebra を削除しています...";
 "Installing Zebra..." = "Zebra をインストールしています...";
+"Error while opening file:" = "ファイルを開く際にエラーが発生しました：";
 "Adding Payment Vendor URL for %@" = "支払いベンダーのURL (%@) を追加しています";
+"This device is simulated, here are the packages that would be modified in this stage:" = "このデバイスはシミュレートされています。この段階で変更されるパッケージは次のとおりです。";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "キューから削除";
 "Clear Queue" = "キューをクリア";
 "%@ is required by:" = "%@ は以下のパッケージに必要です";
+"\"%@\" conflicts with %@" = "%@ が %@ と競合します";
 "%@ must be removed because it depends on %@" = "%@ は %@ と依存しているため削除されます";
 "%@ has issues that cannot be resolved:" = "%@ は次の問題が解決できません:";
 "Are you sure you want to clear the Queue?" = "キューをクリアしてもよろしいですか？";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling には、uid または gid を設定する権限がありません。 /usr/libexec/zebra/supersling の権限を確認してください。";
 
+"Error while creating documents directory: %@." = "ドキュメントディレクトリの作成中にエラーが発生しました：%@";
+
+"Error while creating lists directory: %@." = "リストディレクトリの作成中にエラーが発生しました：%@";
+
+"Error while creating sources.list: %@." = "sources.list の作成中にエラーが発生しました：%@";
+
+"Error while creating debs directory: %@." = "debs ディレクトリの作成中にエラーが発生しました：%@";
+
 "Could not respring. Please respring manually." = "リスプリング できませんでした。 手動で リスプリング してください。";
 
 "ERROR: Unable to lock status file. Please try again." = "エラー：ステータスファイルをロックできませんでした。 もう一度やり直してください。";
 
 "ERROR: Process must be restarted. Please try again." = "エラー：プロセスを再起動する必要があります。 もう一度やり直してください。";
 
-"Hide UDID" = "UDIDを非表示";
+"Incorrect documents permissions." = "不適切なドキュメントのアクセス権限。";
+
+"Could not determine device information." = "デバイス情報を特定できませんでした。";
 
 "Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
 
-"Automatic Refresh" = "自動更新";
 "Refresh Zebra's sources when opening the app." = "Zebraを開いた時にリポジトリを更新します";
 
 "Display recent community posts from /r/jailbreak." = "/r/jailbreak に投稿されている最近のコミュニティを表示します。";
@@ -418,7 +436,7 @@
 "Add Filter" = "フィルターを追加";
 
 "1 Section Hidden" = "一つのセクションが非表示になっています";
-"%lu Sources Hidden" = "%lu のレポジトリが非表示になっています";
+"%lu Sections Hidden" = "%lu つのセクションが非表示になっています";
 
 "Sections" = "セクション";
 "Select a Section" = "セクションを選択";
@@ -426,20 +444,21 @@
 
 "Sources" = "リポジトリ";
 "Select a Source" = "リポジトリを選択";
-"Search for an Author" = "作者を検索";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
 "Updates" = "アップデート";
 "Hide future updates from these packages." = "これらのパッケージのアップデートを非表示にします。";
 
-"Authors" = "作者";
-"Hide packages from these authors." = "これらの作者からのパッケージを非表示にします";
+"Authors" = "製作者";
+"Hide packages from these authors." = "これらの製作者からのパッケージを非表示にします";
+"Search for an Author" = "製作者を検索";
+"This author also goes by the following names:" = "この製作者は、次の名前も使用しています:";
 
 // Language Settings
 
 "Language" = "言語";
 "Apply" = "適用";
 "Restart Required" = "再起動が必要です";
-"Zebra must be closed in order to change preferred language" = "言語を変更するためには Zebraを閉じる必要があります";
+"Zebra must be closed in order to change preferred language" = "言語を変更するためには Zebra を閉じる必要があります";
 "Restart" = "再起動";
-"Use System Language" = "システムの言語を使用";
+"Use System Language" = "システム言語を使用";

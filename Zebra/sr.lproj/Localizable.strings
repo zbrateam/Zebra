@@ -11,7 +11,9 @@
 "Done" = "Uradjeno";
 "Loading..." = "Učitavanje...";
 "Clear" = "Obriši";
-"An Error Ocurred" = "Došlo je do greške";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Preuzimanja";
 
 // Home
 
@@ -68,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikonica";
 "Finish Automatically" = "Završi automatski";
+"Hide UDID" = "Hide UDID";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
 
+"A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
+
+"Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
+"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nije moguće skinuti Paket sa %@. Razlog: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nije moguće skinuti jedan ili više Paketa sa %@. Razlog: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Url koji ste uneli je netačan. Proverite i pokušajte opet.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nije u mogućnosti da skida sa izvora %@. Ili je trenutno nedostupan ili je nepravilno dodat.";
+
+"Please remove this source from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
+
+"Error while opening sources.list" = "Greška prilikom preuzimanja sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Izvor repoa %@ nije kompatibilan sa vasim jailbreakom.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ovim možete izazvati probleme ako ga dodate u Zebri.";
+
+"%@ hasn't been modified" = "%@ nije izmenjen";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Opis";
 "Author" = "Autor";
 
-// Downloads
-
-"Downloads" = "Preuzimanja";
-"Error while opening sources.list" = "Greška prilikom preuzimanja sources.list";
-"The source %@ is incompatible with your jailbreak." = "Izvor repoa %@ nije kompatibilan sa vasim jailbreakom.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ovim možete izazvati probleme ako ga dodate u Zebri.";
-"Please remove this source from your sources.list file." = "Molimo vas uklonite ovaj repo iz sources.list fajla.";
-"Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
-"Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
-"Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
-"%@ hasn't been modified" = "%@ nije izmenjen";
-"Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
-"A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
-
 // Console
 
 "Console" = "Konzola";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Završeno importovanje lokalnih paketa.";
 "One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Uradjeno...";
 "Done %@" = "Urađeno %@";
 "Removing Zebra..." = "Uklanjam Zerbu...";
 "Installing Zebra..." = "Instaliram Zebru...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Dodajem link za plaćanje za %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Ukloni iz liste čekanja";
 "Clear Queue" = "Očisti stavke iz redosleda";
 "%@ is required by:" = "%@ je neophodno za:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ more se ukloniti zato što zavisi od %@";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji nisu rešivi:";
 "Are you sure you want to clear the Queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ne pripada korisniku root: wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "Ne može se respringovati. Molimo vas probajte manuelno.";
 
 "ERROR: Unable to lock status file. Please try again." = "Greška: Nije moguće zaključati status fajla. Molimo vas probajte opet.";
 
 "ERROR: Process must be restarted. Please try again." = "Greška: Proces se mora restartovat. Molimo vas probajte opet.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Pogrešna ovlašćenja za dokumenta.";
+
+"Could not determine device information." = "Nismo u mogućnosti ustanoviti informacije uredjaja.";
 
 "Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
 
-"Automatic Refresh" = "Automatic Refresh";
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
 "Display recent community posts from /r/jailbreak." = "Prikaži najnovije postove sa /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Dodaj Filter";
 
 "1 Section Hidden" = "1 odeljak skriven";
-"%lu Sources Hidden" = "%lu Izvora skriveno";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Odeljci";
 "Select a Section" = "Izabrri odeljak";
@@ -426,7 +444,6 @@
 
 "Sources" = "Izvori";
 "Select a Source" = "Izaberi Izvor";
-"Search for an Author" = "Pronadju Autora";
 "Hide packages in these sections from specific sources." = "Sakrij pakete u ovom odeljku iz specifičnog izvora.";
 
 "Updates" = "Ažuriranja";
@@ -434,6 +451,8 @@
 
 "Authors" = "Autori";
 "Hide packages from these authors." = "Sakrij pakete od ovih autora.";
+"Search for an Author" = "Pronadju Autora";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 

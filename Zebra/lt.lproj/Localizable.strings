@@ -11,7 +11,9 @@
 "Done" = "Atlikta";
 "Loading..." = "Kraunasi...";
 "Clear" = "Išvalyti";
-"An Error Ocurred" = "Įvyko klaida";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Siuntiniai";
 
 // Home
 
@@ -21,8 +23,8 @@
 "Report a Bug" = "Pranešti apie klaidą";
 "Changelog" = "Pakeitimų sąrašas";
 "Wish List" = "Norų sąrašas";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Naujausias pirmas";
+"Oldest First" = "Seniausias pirmas";
 "No items in Wish List" = "Nėra įrašų norų sąraše";
 "Community" = "Bendruomenė";
 "Join our Discord" = "Prisijunkite prie mūsų Discord";
@@ -68,6 +70,8 @@
 "Text" = "Tekstas";
 "Icon" = "Piktograma";
 "Finish Automatically" = "Baigti automatiškai";
+"Hide UDID" = "Paslėpti UDID";
+"Automatic Refresh" = "Automatiškai atnaujinti";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
 
+"A total of %d files will be downloaded" = "Iš viso bus atsiųsti %d failai";
+
+"Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
+"Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nepavyko atsiųsti paketų failo iš %@. Priežastis: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nepavyko atsiųsti vieno ar kelių failų iš %@. Priežastis: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Įvestas adresas klaidingas. Prašom jį patikrinti ir bandyti iš naujo.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebrai nepavyko atsiųsti nurodyto %@ šaltinio. Jis gali būti laikinai nepasiekiamas arba neteisingai pridėtas.";
+
+"Please remove this source from your sources.list file." = "Prašome pašalinti šį šaltinį iš sources.list failo.";
+
+"Error while opening sources.list" = "Įvyko klaida atidarant sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Šaltinis %@ nepalaiko jūsų nulaužimo (jailbreak).";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Gali kilti problemų, jei pridėsite tai į Zebra, galimai reikės atkūrimo.";
+
+"%@ hasn't been modified" = "%@ nebuvo modifikuotas";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Aprašymas";
 "Author" = "Autorius";
 
-// Downloads
-
-"Downloads" = "Siuntiniai";
-"Error while opening sources.list" = "Įvyko klaida atidarant sources.list";
-"The source %@ is incompatible with your jailbreak." = "Šaltinis %@ nepalaiko jūsų nulaužimo (jailbreak).";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Gali kilti problemų, jei pridėsite tai į Zebra, galimai reikės atkūrimo.";
-"Please remove this source from your sources.list file." = "Prašome pašalinti šį šaltinį iš sources.list failo.";
-"Incorrect documents permissions." = "Neteisingi dokumentų leidimai.";
-"Could not determine device information." = "Neaptikta įrenginio informacija.";
-"Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
-"%@ hasn't been modified" = "%@ nebuvo modifikuotas";
-"Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
-"A total of %d files will be downloaded" = "Iš viso bus atsiųsti %d failai";
-
 // Console
 
 "Console" = "Konsolė";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Pabaigta importuoti vietinius paketus.";
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Atlikta...";
 "Done %@" = "Atlikta %@";
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
+"Error while opening file:" = "Error while opening file:";
 "Adding Payment Vendor URL for %@" = "Pridedamas pardavėjo mokėjimo adresas %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Pašalinti iš eilės";
 "Clear Queue" = "Išvalyti eilę";
 "%@ is required by:" = "%@ reikalauja:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
 "Are you sure you want to clear the Queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
@@ -379,18 +388,27 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
 
 "ERROR: Unable to lock status file. Please try again." = "Klaida: Nepavyko užrakinti failo būsenos. Prašome pabandyti dar kartą.";
 
 "ERROR: Process must be restarted. Please try again." = "Klaida: Procesas turi būti perkrautas. Prašome pabandyti dar kartą.";
 
-"Hide UDID" = "Hide UDID";
+"Incorrect documents permissions." = "Neteisingi dokumentų leidimai.";
+
+"Could not determine device information." = "Neaptikta įrenginio informacija.";
 
 "Display featured packages on the homepage." = "Rodyti rodomiausius paketus pagrindiniame puslapyje.";
 
-"Automatic Refresh" = "Automatic Refresh";
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Atnaujinti Zebra šaltinius, atidąrant programą.";
 
 "Display recent community posts from /r/jailbreak." = "Rodyti naujausius bendruomenės įrašus /r/jailbreak.";
 
@@ -418,7 +436,7 @@
 "Add Filter" = "Pridėti filtrą";
 
 "1 Section Hidden" = "Paslėptas 1-as skyrius";
-"%lu Sources Hidden" = "%lu paslėpti šaltiniai";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Skyriai";
 "Select a Section" = "Pasirinkti skyrių";
@@ -426,7 +444,6 @@
 
 "Sources" = "Šaltiniai";
 "Select a Source" = "Pasirinkti šaltinį";
-"Search for an Author" = "Ieškoti autoriaus";
 "Hide packages in these sections from specific sources." = "Paslėpti paketus šiuose skyriuose iš konkrečių šaltinių.";
 
 "Updates" = "Atnaujinimai";
@@ -434,6 +451,8 @@
 
 "Authors" = "Autoriai";
 "Hide packages from these authors." = "Paslėpti paketus iš šių autorių.";
+"Search for an Author" = "Ieškoti autoriaus";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 

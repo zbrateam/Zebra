@@ -11,7 +11,9 @@
 "Done" = "Kész";
 "Loading..." = "Betöltés...";
 "Clear" = "Kiürít";
-"An Error Ocurred" = "Hiba történt";
+"An Error Occurred" = "Hiba történt";
+"Dismiss" = "Mégsem";
+"Downloads" = "Letöltések";
 
 // Home
 
@@ -21,8 +23,8 @@
 "Report a Bug" = "Hibajelentés";
 "Changelog" = "Változások listája";
 "Wish List" = "Kívánságlista";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Legújabbak felül";
+"Oldest First" = "Legrégebbiek felül";
 "No items in Wish List" = "A kívánságlista üres";
 "Community" = "Közösség";
 "Join our Discord" = "Csatlakozz a mi Discord szerverünkhöz";
@@ -68,6 +70,8 @@
 "Text" = "Szöveg";
 "Icon" = "Ikon";
 "Finish Automatically" = "Finish Automatically";
+"Hide UDID" = "UDID elrejtése";
+"Automatic Refresh" = "Automatikus frissítés";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
+"Could not find a download URL for" = "Could not find a download URL for";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+
+"Error while opening sources.list" = "Hiba a forráslista megnyitásakor";
+
+"The source %@ is incompatible with your jailbreak." = "A %@ forrás nem kompatibilis a jelenlegi jailbreak-eddel.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+
+"%@ hasn't been modified" = "%@ hasn't been modified";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Leírás";
 "Author" = "Szerző";
 
-// Downloads
-
-"Downloads" = "Letöltések";
-"Error while opening sources.list" = "Hiba a forráslista megnyitásakor";
-"The source %@ is incompatible with your jailbreak." = "A %@ forrás nem kompatibilis a jelenlegi jailbreak-eddel.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
-"Incorrect documents permissions." = "Incorrect documents permissions.";
-"Could not determine device information." = "Could not determine device information.";
-"Could not find a download URL for" = "Could not find a download URL for";
-"%@ hasn't been modified" = "%@ hasn't been modified";
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
-
 // Console
 
 "Console" = "Konzol";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Helyi csomagok beolvasása kész.";
 "One or more packages failed to download." = "Egy vagy több csomag letöltése sikertelen.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
 "Done..." = "Kész...";
 "Done %@" = "%@ kész";
 "Removing Zebra..." = "Zebra eltávolítása...";
 "Installing Zebra..." = "Zebra telepítése...";
+"Error while opening file:" = "Hiba a fájl megnyitása során:";
 "Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Remove from Queue";
 "Clear Queue" = "Várólista ürítése";
 "%@ is required by:" = "%@ is required by:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
 "%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
 "Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Hide UDID" = "UDID elrejtése";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
+
+"Could not determine device information." = "Could not determine device information.";
 
 "Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Automatic Refresh" = "Automatikus frissítés";
 "Refresh Zebra's sources when opening the app." = "Zebra források frissítése megnyitáskor.";
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Szűrő hozzáadása";
 
 "1 Section Hidden" = "1 Section Hidden";
-"%lu Sources Hidden" = "%lu Sources Hidden";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
 "Sections" = "Szekciók";
 "Select a Section" = "Válassz szekciót";
@@ -426,7 +444,6 @@
 
 "Sources" = "Források";
 "Select a Source" = "Select a Source";
-"Search for an Author" = "Search for an Author";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
 "Updates" = "Frissítések";
@@ -434,6 +451,8 @@
 
 "Authors" = "Szerzők";
 "Hide packages from these authors." = "Hide packages from these authors.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 

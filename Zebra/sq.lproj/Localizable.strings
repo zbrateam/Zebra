@@ -11,14 +11,16 @@
 "Done" = "Përfudo(i)";
 "Loading..." = "Duke ngarkuar...";
 "Clear" = "Pastro";
-"An Error Ocurred" = "Ndodhi një gabim";
+"An Error Occurred" = "Ndodhi një gabim";
+"Dismiss" = "Largoje";
+"Downloads" = "Shkarkimet";
 
 // Home
 
 "Home" = "Faqja bazë";
 "Info" = "Informacion";
 "Welcome to Zebra!" = "Mirë se vini në Zebra!";
-"Report a Bug" = "Raporto nje gabim";
+"Report a Bug" = "Raporto një gabim";
 "Changelog" = "Ndryshimet";
 "Wish List" = "Lista e Dëshirave";
 "Newest First" = "Më të rejat në fillim";
@@ -68,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Përfundoni Automatikisht";
+"Hide UDID" = "Fsheh UDID";
+"Automatic Refresh" = "Rifreskim Automatik";
 
 // Accent Colors
 
@@ -177,12 +181,26 @@
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
 
+"A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
+
+"Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
+"Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
+"Could not download Release file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Lëshimit nga %@. Arsyeja: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nuk mund të shkarkoj skedarin e Paketave nga %@.\nArsyeja: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nuk mund të shkrakojë një ose më shumë skedar nga %@.\nArsyeja: %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL që ju shtuat nuk është valide. Ju lutem rishikojeni dhe provoni përsëri.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nuk ishte në gjendje të shkarkonte burimin e specifikuar në %@. Mund të jetë përkohësisht e paarritshme ose mund të ishte shtuar gabimisht.";
+
+"Please remove this source from your sources.list file." = "Ju lutemi largoni këtë burim nga skedari i source.list.";
+
+"Error while opening sources.list" = "Problem në hapjen e souces.list";
+
+"The source %@ is incompatible with your jailbreak." = "Ku burim %@ nuk është i përshtatshëm me jailbreak-in tuaj.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
+
+"%@ hasn't been modified" = "%@ nuk është modifikuar";
 
 // Packages
 
@@ -279,20 +297,6 @@
 "Description" = "Përshkrimi";
 "Author" = "Autori";
 
-// Downloads
-
-"Downloads" = "Shkarkimet";
-"Error while opening sources.list" = "Problem në hapjen e souces.list";
-"The source %@ is incompatible with your jailbreak." = "Ku burim %@ nuk është i përshtatshëm me jailbreak-in tuaj.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Ajo mund të shkaktoj probleme nëqoftëse e shton atë në Zebra duke rezultuar në rikthim të mundshëm.";
-"Please remove this source from your sources.list file." = "Ju lutemi largoni këtë burim nga skedari i source.list.";
-"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
-"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
-"Could not find a download URL for" = "Nuk mund të gjej nje URL shkarkimi për";
-"%@ hasn't been modified" = "%@ nuk është modifikuar";
-"Could not parse %@ from %@" = "Nuk mund të analizohet %@ nga%@";
-"A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
-
 // Console
 
 "Console" = "Konsola";
@@ -325,11 +329,15 @@
 "Finished importing local packages." = "Përfundoj importimi i paketave lokale.";
 "One or more packages failed to download." = "Një ose më shumë paketa dështuan në shkarkim.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliko \"Ktheu tek Rradha\" për tu kthyer tek rradha dhe për të provuar përsëri shkarkimin.";
+"Could not complete %@ process. Reason: %@." = "Nuk mund të përfundoj procoesi %@. Arsyeja: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Ju lutem rehapni Zebra-n dhe shikon nëse ky problem egsiston akoma. Nëse po, ju lutem adresoni një file në GitHub.";
 "Done..." = "Përfundoi...";
 "Done %@" = "Përfundoi %@";
 "Removing Zebra..." = "Duke hequr Zebran...";
 "Installing Zebra..." = "Duke instaluar Zebran...";
+"Error while opening file:" = "Gabim kur po hapej file-i:";
 "Adding Payment Vendor URL for %@" = "Duke shtuar URL-n e Pagesave për %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Kjo pajisje është e stimuluar, këto janë paketat që do të modifikohen në këtë fazë:";
 
 // Queue Bar
 
@@ -356,6 +364,7 @@
 "Remove from Queue" = "Hiq nga Radha";
 "Clear Queue" = "Pastro radhën";
 "%@ is required by:" = "%@ kërkohet nga:";
+"\"%@\" conflicts with %@" = "“%@“ ka konflikte me %@";
 "%@ must be removed because it depends on %@" = "%@ duhet të hiqet sepse varet nga %@";
 "%@ has issues that cannot be resolved:" = "%@ ka probleme të cilat nuk mund të zgjidhen:";
 "Are you sure you want to clear the Queue?" = "A jeni i sigurt që dëshironi ta zbrazni radhën?";
@@ -379,17 +388,26 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk ka leje për të përcaktuar uid ose gid. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Gabim gjatë krijimit të direktorit të dokumentave: %@.";
+
+"Error while creating lists directory: %@." = "Gabim gjatë krijimit të direktorit të listave: %@.";
+
+"Error while creating sources.list: %@." = "Gabim gjatë krijimit të soruces.list: %@.";
+
+"Error while creating debs directory: %@." = "Gabim gjatë krijimit të direktorit të debs: %@.";
+
 "Could not respring. Please respring manually." = "Nuk mund të rifilloj. Ju lutemi rifilloni manualisht.";
 
 "ERROR: Unable to lock status file. Please try again." = "ERROR: E pamundur që të bllokoj skedarin e statusit. Ju lutemi provoni përsëri.";
 
 "ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
 
-"Hide UDID" = "Fsheh UDID";
+"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
+
+"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
 
 "Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
 
-"Automatic Refresh" = "Rifreskim Automatik";
 "Refresh Zebra's sources when opening the app." = "Rifresko burimet e Zebra-s kur hapet aplikacioni.";
 
 "Display recent community posts from /r/jailbreak." = "Shfaq postimet e fundit të komunitetit nga /r/jailbreak.";
@@ -418,7 +436,7 @@
 "Add Filter" = "Shto Filter";
 
 "1 Section Hidden" = "1 seksion i fshehur";
-"%lu Sources Hidden" = "%lu Burime të fshehura";
+"%lu Sections Hidden" = "%lu seksione të fshehur";
 
 "Sections" = "Seksione";
 "Select a Section" = "Zgjidhni një seksion";
@@ -426,7 +444,6 @@
 
 "Sources" = "Burimet";
 "Select a Source" = "Zgjidhni një burim";
-"Search for an Author" = "Kërkoni për një autor";
 "Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
 "Updates" = "Përditësime";
@@ -434,6 +451,8 @@
 
 "Authors" = "Autorët";
 "Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
+"Search for an Author" = "Kërkoni për një autor";
+"This author also goes by the following names:" = "Ky autor gjithashtu përngjan edhe me këto emra:";
 
 // Language Settings
 
