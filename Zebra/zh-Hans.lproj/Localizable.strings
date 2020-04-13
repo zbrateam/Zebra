@@ -207,7 +207,7 @@
 "Version" = "版本";
 "Packages" = "软件包";
 "Show Updates" = "显示更新";
-"Ignore Updates" = "忽略更新";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "选择版本";
 "Select a version to upgrade to:" = "选择需要更新的版本：";
 "Select a version to downgrade to:" = "选择需要降级版本：";
