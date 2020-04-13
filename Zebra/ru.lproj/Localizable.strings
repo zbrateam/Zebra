@@ -92,7 +92,7 @@
 "Appearance" = "Оформление";
 "Use System Appearance" = "Использовать системное оформление";
 "Light" = "Светлое";
-"Dark" = "Темное";
+"Dark" = "Тёмное";
 "Pure Black Mode" = "Режим чистого чёрного";
 
 // Featured
@@ -410,7 +410,7 @@
 
 "Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
 
-"Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Отображать недавние посты из r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Искать пакеты во время ввода. Отключение этой функции может улучшить производительность на старых устройствах.";
 
