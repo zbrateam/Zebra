@@ -46,7 +46,7 @@
 @synthesize replaces;
 @synthesize authorName;
 @synthesize authorEmail;
-@synthesize repo;
+@synthesize source;
 @synthesize filename;
 @synthesize debPath;
 @synthesize dependencies;
@@ -308,9 +308,9 @@
         
         int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
         if (repoID > 0) {
-            [self setRepo:[ZBSource repoMatchingRepoID:repoID]];
+            [self setSource:[ZBSource repoMatchingRepoID:repoID]];
         } else {
-            [self setRepo:[ZBSource localRepo:repoID]];
+            [self setSource:[ZBSource localRepo:repoID]];
         }
         
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
@@ -368,7 +368,7 @@
 }
 
 - (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0)) {
-    return [self requiresPayment] || ([[self repo] repoID] > 0 && [self isPaid] && [[self repo] suppotsPaymentAPI]);
+    return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] suppotsPaymentAPI]);
 }
 
 - (BOOL)requiresPayment API_AVAILABLE(ios(11.0)) {
@@ -389,12 +389,12 @@
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
-    NSURL *packageInfoURL = [[[self repo] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
+    NSURL *packageInfoURL = [[[self source] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    NSString *token = [keychain stringForKey:[[self repo] repositoryURI]];
+    NSString *token = [keychain stringForKey:[[self source] repositoryURI]];
     NSDictionary *requestJSON;
     if (token) {
         requestJSON = @{@"token": token, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
@@ -443,7 +443,7 @@
 - (NSString * _Nullable)getField:(NSString *)field {
     NSString *value;
     
-    ZBSource *repo = [self repo];
+    ZBSource *repo = [self source];
     
     if (repo == NULL) return NULL;
     
@@ -511,7 +511,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if ([repo repoID] <= 0) { // Package is in repoID 0 or -1 and is installed
+    if ([source sourceID] <= 0) { // Package is in repoID 0 or -1 and is installed
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -644,7 +644,7 @@
 }
 
 - (NSArray * _Nullable)possibleActions {    
-    if ([[self repo] repoID] == -1) {
+    if ([[self source] sourceID] == -1) {
         return nil; // No actions for virtual dependencies
     }
     
@@ -697,7 +697,7 @@
 }
 
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
-    ZBSource *source = [self repo];
+    ZBSource *source = [self source];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([source isSignedIn]) { //Check if we have an access token
@@ -774,7 +774,7 @@
     }
     
     // Should only run if we don't have a payment secret or if we aren't logged in.
-    [[self repo] authenticate:^(BOOL success, NSError * _Nullable error) {
+    [[self source] authenticate:^(BOOL success, NSError * _Nullable error) {
         if (success) {
             [self purchase:completion];
         }

@@ -37,7 +37,7 @@
 - (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
-    ZBSource *repo = package.repo;
+    ZBSource *repo = package.source;
     NSString *repoName = repo.origin;
     NSString *author = package.authorName;
     NSString *installedSize = calculateSize ? [package installedSizeString] : nil;

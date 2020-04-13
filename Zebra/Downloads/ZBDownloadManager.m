@@ -133,7 +133,7 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
-        ZBSource *source = [package repo];
+        ZBSource *source = [package source];
         NSString *filename = [package filename];
         
         if (source == NULL || filename == NULL) {
@@ -197,7 +197,7 @@
 }
 
 - (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion API_AVAILABLE(ios(11.0)) {
-    ZBSource *source = [package repo];
+    ZBSource *source = [package source];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     NSDictionary *question = @{

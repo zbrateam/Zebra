@@ -82,7 +82,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)bulkDatabaseStartedUpdate;
 - (void)bulkDatabaseCompletedUpdate:(int)updates;
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
-- (void)bulkSetRepo:(NSString *)bfn busy:(BOOL)busy;
+- (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy;
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
@@ -151,14 +151,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)updateLastUpdated;
 
-#pragma mark - Repo management
+#pragma mark - Source management
 
 /*!
  @brief Get a repoID from a base file name
  @param bfn The base file name.
  @return A repoID for the matching base file name. -1 if no match was found.
  */
-- (int)repoIDFromBaseFileName:(NSString *)bfn;
+- (int)sourceIDFromBaseFileName:(NSString *)bfn;
 
 /*!
 @brief Get a repoID from a base url
@@ -185,20 +185,21 @@ NS_ASSUME_NONNULL_BEGIN
  @brief The next repoID in the database.
  @return The next repoID.
  */
-- (int)nextRepoID;
+- (int)nextSourceID;
 
 /*!
- @brief The number of packages in a repo.
- @param section (Nullable) A subsection of the repo to count the number of packages in.
- @return The number of packages in that repo/section.
+ @brief The number of packages in a source.
+ @param source (Nullable) The source.
+ @param section (Nullable) A subsection of the source to count the number of packages in.
+ @return The number of packages in that source/section.
  */
-- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section;
+- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section;
 
 /*!
  @brief Overload of -numberOfPackagesInRepo:section:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
-- (int)numberOfPackagesInRepo:(ZBSource * _Nullable)repo section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
+- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
 
 /*!
  @brief All of the sources that are in the database.
@@ -208,40 +209,40 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
 
 /*!
- @brief Deletes the repo and all the packages that have a matching repoID.
- @param repo The repo that needs to be deleted.
+ @brief Deletes the source and all the packages that have a matching repoID.
+ @param source The source that needs to be deleted.
  */
-- (void)deleteRepo:(ZBSource *)repo;
+- (void)deleteSource:(ZBSource *)source;
 
 - (NSArray * _Nullable)sectionReadout;
 
 /*!
  @brief A list of section names and number of packages in each section.
- @param repo The corresponding repo.
- @return A dictionary of section names and number of packages in a corresponding repo in the format <SectionName: NumberOfPackages>.
+ @param source The corresponding source.
+ @return A dictionary of section names and number of packages in a corresponding source in the format <SectionName: NumberOfPackages>.
  */
-- (NSDictionary * _Nullable)sectionReadoutForRepo:(ZBSource *)repo;
+- (NSDictionary * _Nullable)sectionReadoutForSource:(ZBSource *)source;
 
-- (NSURL * _Nullable)paymentVendorURLForRepo:(ZBSource *)repo;
+- (NSURL * _Nullable)paymentVendorURLForSource:(ZBSource *)source;
 
 #pragma mark - Package retrieval
 
 /*!
- @brief Get a certain number of packages from a corresponding repo.
- @discussion Queries the database for packages from a repo in a section. Use limit and start to specify which portion of the database you want the packages from. If no repo is provided, all packages are retrieved. Will then clean up the packages (remove duplicate packages) and then return an array.
- @param repo The corresponding repo.
- @param section (Nullable) A specific section to get a list of packages from (NULL if you want all packages from that repo).
+ @brief Get a certain number of packages from a corresponding source.
+ @discussion Queries the database for packages from a source in a section. Use limit and start to specify which portion of the database you want the packages from. If no source is provided, all packages are retrieved. Will then clean up the packages (remove duplicate packages) and then return an array.
+ @param source The corresponding source.
+ @param section (Nullable) A specific section to get a list of packages from (NULL if you want all packages from that source).
  @param limit The number of packages that you want to grab from the database (does not correspond to the number of packages returned).
  @param start An offset from row zero in the database.
- @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
+ @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
  */
-- (NSArray <ZBPackage *> * _Nullable)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
+- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
 
 /*!
  @brief Overload of -packagesFromRepo:inSection:numberOfPackages:startingAt:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
-- (NSArray <ZBPackage *> * _Nullable)packagesFromRepo:(ZBSource * _Nullable)repo inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
+- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
 
 /*!
  @brief A list of packages that the user has installed on their device.
@@ -297,7 +298,7 @@ NS_ASSUME_NONNULL_BEGIN
  @brief Get a certain number of packages from package identifiers list.
  @discussion Queries the database for packages from package identifiers list. Will then clean up the packages (remove duplicate packages) and then return an array.
  @param requestedPackages (Nullable) An array with package identifiers.
- @return A cleaned array of packages (no duplicate package IDs) from the corresponding repo.
+ @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
  */
 - (NSArray <ZBPackage *> * _Nullable)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
 
@@ -336,7 +337,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict;
 
 /*!
- @brief Check whether or not a specific package is available for download from a repo using its identifier.
+ @brief Check whether or not a specific package is available for download from a source using its identifier.
  @param packageIdentifier The package ID that you want to check the availability status for.
  @param version (Nullable) The specific version you want to see if it is available. Pass NULL if the version is irrelevant.
  @return YES if the package is available for download, NO if it is not.
@@ -344,7 +345,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)packageIDIsAvailable:(NSString *)packageIdentifier version:(NSString *_Nullable)version;
 
 /*!
- @brief Check whether or not a specific package is available for download fro ma repo.
+ @brief Check whether or not a specific package is available for download from a source.
  @param package A ZBPackage instance containing the package that you want to check the availability status for.
  @param strict YES if the specific version matters, NO if it does not.
  @return YES if the package is available for download, NO if it is not. If strict is NO, this will indicate if the package ID is available.
@@ -407,7 +408,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A sorted array of every version of a package in the database.
  */
 - (NSArray <ZBPackage *> * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier;
-- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo;
+- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source;
 
 /*!
  @brief An array of every version of a package in the database.
@@ -415,7 +416,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A sorted array of every version of a package in the database.
  */
 - (NSArray <ZBPackage *> * _Nullable)allVersionsForPackage:(ZBPackage *)package;
-- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo;
+- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
 
 /*!
  @brief An array of every other version of a package in the database.
@@ -438,7 +439,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A ZBPackage instance representing the highest version in the database.
  */
 - (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package;
-- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inRepo:(ZBSource *_Nullable)repo;
+- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
 
 /*!
  @brief The highest version of a package that exists in the database.
@@ -446,7 +447,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return A ZBPackage instance representing the highest version in the database.
  */
 - (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
-- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inRepo:(ZBSource *_Nullable)repo;
+- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source;
 
 /*!
 @brief Packages that depend on another package

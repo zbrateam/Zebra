@@ -378,7 +378,7 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
 }
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.repo] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
+    return [self isSectionFiltered:package.section forSource:package.source] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
 }
 
 #pragma mark - Homepage Settings

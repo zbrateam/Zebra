@@ -117,7 +117,7 @@ int needsMigration(sqlite3 *database, int table) {
     snprintf(query, sizeof(query), "SELECT sql FROM sqlite_master WHERE name = \"%s\";", tableNames[table]);
     char *schema = NULL;
     
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     
     if (sqlite3_prepare_v2(database, query, -1, &statement, 0) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -175,7 +175,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
     
     createTable(database, 0);
     
-    dict *repo = dict_new();
+    dict *sourceDict = dict_new();
     while (fgets(line, sizeof(line), file) != NULL) {
         char *info = strtok(line, "\n");
         
@@ -184,7 +184,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
         char *key = multi_tok(info, &s, ": ");
         char *value = multi_tok(NULL, &s, NULL);
         
-        dict_add(repo, key, value);
+        dict_add(sourceDict, key, value);
     }
     
     sqlite3_stmt *insertStatement;
@@ -196,13 +196,13 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnRepositoryURI, source.repositoryURI, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDistribution, source.distribution, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnComponents, source.components, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDescription, dict_get(repo, "Description"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnOrigin, dict_get(repo, "Origin"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnLabel, dict_get(repo, "Label"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnVersion, dict_get(repo, "Version"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, dict_get(repo, "Suite"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, dict_get(repo, "Codename"), -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, dict_get(repo, "Architectures"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnDescription, dict_get(sourceDict, "Description"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnOrigin, dict_get(sourceDict, "Origin"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnLabel, dict_get(sourceDict, "Label"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnVersion, dict_get(sourceDict, "Version"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnSuite, dict_get(sourceDict, "Suite"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnCodename, dict_get(sourceDict, "Codename"), -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnArchitectures, dict_get(sourceDict, "Architectures"), -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(insertStatement, 1 + ZBSourceColumnBaseFilename, source.baseFilename, -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnRepoID, repoID);
         sqlite3_step(insertStatement);
@@ -212,7 +212,7 @@ enum PARSEL_RETURN_TYPE addRepoToDatabase(struct ZBBaseSource source, const char
     
     sqlite3_finalize(insertStatement);
     
-    dict_free(repo);
+    dict_free(sourceDict);
     
     fclose(file);
     return PARSEL_OK;
@@ -277,7 +277,7 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     snprintf(query, sizeof(query), "SELECT LASTSEEN FROM PACKAGES_SNAPSHOT WHERE PACKAGE = \"%s\" AND VERSION = \"%s\" AND REPOID = %d LIMIT 1;", packageIdentifier, version, repoID);
     
     sqlite3_int64 timestamp = -1;
-    sqlite3_stmt *statement;
+    sqlite3_stmt *statement = NULL;
     if (sqlite3_prepare_v2(database, query, -1, &statement, NULL) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
             timestamp = sqlite3_column_int64(statement, 0);

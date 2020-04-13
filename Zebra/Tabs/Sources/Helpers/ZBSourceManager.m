@@ -45,11 +45,11 @@
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
 
-        sqlite3_stmt *statement;
+        sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS;", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                repos[@(source.repoID)] = source;
+                repos[@(source.sourceID)] = source;
             }
         } else {
             [[ZBDatabaseManager sharedInstance] printDatabaseError];
@@ -124,7 +124,7 @@
         
         if ([source isKindOfClass:[ZBSource class]]) {
             ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            [databaseManager deleteRepo:source];
+            [databaseManager deleteSource:source];
         }
     }
 }

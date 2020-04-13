@@ -29,7 +29,7 @@
 @synthesize suite;
 @synthesize codename;
 @synthesize architectures;
-@synthesize repoID;
+@synthesize sourceID;
 
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
@@ -43,7 +43,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
-    [local setRepoID:repoID];
+    [local setSourceID:repoID];
     [local setBaseFilename:@"/var/lib/dpkg/status"];
     return local;
 }
@@ -120,7 +120,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         }
         
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
-        [self setRepoID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
+        [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnRepoID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
         
         // prevent constant network spam
@@ -159,7 +159,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.repoID];
+    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
 }
 
 - (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
@@ -258,7 +258,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     }
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    self->paymentVendorURI = [databaseManager paymentVendorURLForRepo:self];
+    self->paymentVendorURI = [databaseManager paymentVendorURLForSource:self];
     return self->paymentVendorURI;
 }
 

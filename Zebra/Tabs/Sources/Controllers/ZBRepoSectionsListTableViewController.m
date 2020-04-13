@@ -65,7 +65,7 @@
     [super viewDidLoad];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
-    sectionReadout = [databaseManager sectionReadoutForRepo:repo];
+    sectionReadout = [databaseManager sectionReadoutForSource:repo];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
     if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
@@ -325,7 +325,7 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
         
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInRepo:repo section:NULL]];
+        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInSource:repo section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
         cell.imageView.image = nil;
     } else {

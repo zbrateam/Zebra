@@ -59,7 +59,7 @@
     [self applyLocalization];
 
     selectedSortingType = [ZBSettings packageSortingType];
-    if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
+    if (repo.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
@@ -98,7 +98,7 @@
 }
 
 - (void)layoutNavigationButtonsNormal {
-    if ([repo repoID] == 0) {
+    if ([repo sourceID] == 0) {
         [self configureUpgradeButton];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -127,7 +127,7 @@
             self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
             break;
         case ZBSortingTypeDate:
-            self.tableData = [self partitionObjects:packages collationStringSelector:repo.repoID ? @selector(lastSeenDate) : @selector(installedDate)];
+            self.tableData = [self partitionObjects:packages collationStringSelector:repo.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];
             break;
         default:
             break;
@@ -138,7 +138,7 @@
     if (isRefreshingTable)
         return;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self->repo repoID] == 0) {
+        if ([self->repo sourceID] == 0) {
             self->isRefreshingTable = YES;
             self->packages = [self.databaseManager installedPackages:NO];
             self->updates = [self.databaseManager packagesWithUpdates];
@@ -152,9 +152,9 @@
             self->isRefreshingTable = NO;
         } else {
             self.batchLoadCount = 500;
-            self->packages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+            self->packages = [self.databaseManager packagesFromSource:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
-            self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:self->section];
+            self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:self->repo section:self->section];
             self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
@@ -182,7 +182,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->numberOfPackages < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            NSArray *nextPackages = [self.databaseManager packagesFromSource:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
             } else {
@@ -229,7 +229,7 @@
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
-        if (self->repo.repoID)
+        if (self->repo.sourceID)
             [items removeLastObject];
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
         segmentedControl.selectedSegmentIndex = self->selectedSortingType;
@@ -371,7 +371,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize];
-    if ([repo repoID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
+    if ([repo sourceID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
         if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1)) {
@@ -391,7 +391,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
+    BOOL isUpdateSection = [repo sourceID] == 0 && needsUpdatesSection && section == 0;
     BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
     if (isUpdateSection || hasDataInSection) {
         if (isUpdateSection) {
@@ -450,7 +450,7 @@
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && indexPath.section == 0;
+    BOOL isUpdateSection = [repo sourceID] == 0 && needsUpdatesSection && indexPath.section == 0;
     ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
     destination.package = candidate ? candidate : package;
     destination.parent = self;

@@ -66,7 +66,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         
-        self.package = [databaseManager topVersionForPackageID:packageID inRepo:repo];
+        self.package = [databaseManager topVersionForPackageID:packageID inSource:repo];
         if (self.package == NULL) {
             return NULL;
         }
@@ -155,7 +155,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package source] repositoryURI]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -458,7 +458,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readRepo:(ZBPackage *)package {
-    NSString *repoName = [[package repo] origin];
+    NSString *repoName = [[package source] origin];
     if (repoName) {
         infos[@(ZBPackageInfoRepo)] = repoName;
     } else {

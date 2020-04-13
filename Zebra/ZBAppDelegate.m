@@ -312,26 +312,26 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
-                        NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
-                        if (source != NULL) {
-                            if ([ZBSource exists:source]) {
+                        NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
+                        if (sourceURL != NULL) {
+                            if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
-                                ZBSource *repo = [ZBSource repoFromBaseURL:source];
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
+                                ZBSource *source = [ZBSource repoFromBaseURL:sourceURL];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:source];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                     [tabController presentViewController:navController animated:YES completion:nil];
                                 }
                                 else {
-                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [repo origin]]];
+                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
                                 }
                             }
                             else {
                                 NSString *packageID = [path substringFromIndex:1];
                                 [tabController setForwardToPackageID:packageID];
-                                [tabController setForwardedRepoBaseURL:source];
+                                [tabController setForwardedRepoBaseURL:sourceURL];
                                 
-                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                                 [self application:application openURL:newURL options:options];
                             }
                         }

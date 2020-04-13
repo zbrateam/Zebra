@@ -180,9 +180,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSArray *blockedRepos = [ZBSettings sourceBlacklist];
     NSMutableArray *blacklist = [NSMutableArray new];
     for (NSString *baseFilename in blockedRepos) {
-        ZBSource *repo = [ZBSource sourceFromBaseFilename:baseFilename];
-        if (repo) {
-            [blacklist addObject:repo];
+        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        if (source) {
+            [blacklist addObject:source];
         }
     }
     
