@@ -64,8 +64,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 + (UIImage *)imageForSection:(NSString *)section {
     NSString *imageName = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([imageName containsString:@"("]) {
-        NSArray *components = [imageName componentsSeparatedByString:@"("];
-        imageName = [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSArray *components = [imageName componentsSeparatedByString:@"_("];
+        if ([components count] < 2) {
+            components = [imageName componentsSeparatedByString:@"("];
+        }
+        imageName = components[0];
     }
     
     UIImage *sectionImage = [UIImage imageNamed:imageName] ?: [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"/Applications/Zebra.app/Sections/%@.png", imageName]] ?: [UIImage imageNamed:@"Other"];
