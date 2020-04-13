@@ -207,7 +207,7 @@
 "Version" = "גירסה";
 "Packages" = "חבילות";
 "Show Updates" = "הצג עדכונים";
-"Ignore Updates" = "התעלם מעדכונים";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "בחר גירסה";
 "Select a version to upgrade to:" = "בחר/י גירסה לעדכן אליה:";
 "Select a version to downgrade to:" = "בחר/י גירסה לעדכן אליה:";
