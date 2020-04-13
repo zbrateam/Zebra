@@ -229,30 +229,34 @@
 }
 
 - (void)updateQueueBar {
-    [self checkQueueNav];
-    [self updateQueueBarPackageCount:[ZBQueue count]];
-    
-    [self updateQueueBarColors];
-    
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-        [self openQueue:NO];
-    }
-    else {
-        [[self popupBar] setNeedsLayout];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self checkQueueNav];
+        [self updateQueueBarPackageCount:[ZBQueue count]];
+        
+        [self updateQueueBarColors];
+        
+        LNPopupPresentationState state = self.popupPresentationState;
+        if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
+            [self openQueue:NO];
+        }
+        else {
+            [[self popupBar] setNeedsLayout];
+        }
+    });
 }
 
 - (void)updateQueueBarPackageCount:(int)count {
-    if (count > 0) {
-        queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
-//        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
-        queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
-    }
-    else {
-        queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
-        queueNav.popupItem.subtitle = nil;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (count > 0) {
+            queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+    //        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
+            queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+        }
+        else {
+            queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+            queueNav.popupItem.subtitle = nil;
+        }
+    });
 }
 
 - (void)openQueue:(BOOL)openPopup {
