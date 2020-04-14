@@ -295,7 +295,7 @@
 "No Results Found" = "ไม่พบรายการ";
 "Name" = "ชื่อ";
 "Description" = "คำอธิบาย";
-"Author" = "ผู้เขียน";
+"Author" = "ผู้สร้าง";
 
 // Console
 
@@ -440,19 +440,19 @@
 
 "Sections" = "ประเภท";
 "Select a Section" = "เลือกประเภท";
-"Hide packages in these sections." = "ซ่อนแพ็กเกจจากประเภทเหล่านี้";
+"Hide packages in these sections." = "ซ่อนโปรแกรมจากประเภทเหล่านี้";
 
 "Sources" = "ซอร์ส";
 "Select a Source" = "เลือกซอร์ส";
-"Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
+"Hide packages in these sections from specific sources." = "ซ่อนโปรแกรมประเภทนี้ จากเฉพาะซอร์สนี้";
 
 "Updates" = "รายการรุ่นใหม่";
 "Hide future updates from these packages." = "ซ่อนรุ่นใหม่ของโปรแกรมเหล่านี้";
 
 "Authors" = "ผู้สร้าง";
-"Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
-"Search for an Author" = "ค้นหาจากผู้เขียน";
-"This author also goes by the following names:" = "ผู้เขียนคนนี้มีชื่ออื่นเป็น:";
+"Hide packages from these authors." = "ซ่อนโปรแกรมจากผู้สร้างเหล่านี้";
+"Search for an Author" = "ค้นหาจากผู้สร้าง";
+"This author also goes by the following names:" = "ผู้สร้างคนนี้มีชื่ออื่นเป็น:";
 
 // Language Settings
 
