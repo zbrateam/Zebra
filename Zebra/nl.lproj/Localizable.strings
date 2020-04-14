@@ -70,7 +70,9 @@
 "Text" = "Tekst";
 "Icon" = "Icoon";
 "Finish Automatically" = "Automatisch Voltooien";
-"Hide UDID" = "Verberg UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatisch vernieuwen";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Afmelden";
 "Your Purchases" = "Uw Aankopen";
 "No Storefronts Available" = "Geen etalages beschikbaar";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Kan aankoop niet voltooien";
-"Could not complete purchase, no payment secret was found" = "Aankoop kon niet worden voltooid, er is geen betalingsgeheim gevonden";
 "No packages purchased" = "Geen aangekochte pakketten";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Ingelogd als %@(%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Kon %@ niet verwerken van %@";
 "Could not find a download URL for" = "Kan geen download link vinden voor";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download Packages file from %@. Reason: %@" = "Het pakkettenbestand %@ kan niet worden gedownload. Reden: %@";
 "Could not download one or more files from %@. Reason: %@" = "Een of meerdere bestanden kon niet worden gedownload van %@. Reden: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer dit en probeer het opnieuw.";
 
@@ -302,6 +311,7 @@
 "Console" = "Console";
 "Performing Actions..." = "Acties uitvoeren...";
 "Updating icon cache asynchronously..." = "De icoon cache asynchroon aan het updaten...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
 "Closing Zebra..." = "Zebra Sluiten...";
