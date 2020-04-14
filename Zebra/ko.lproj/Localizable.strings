@@ -70,7 +70,9 @@
 "Text" = "텍스트";
 "Icon" = "아이콘";
 "Finish Automatically" = "작업이 완료되면 콘솔 닫기";
-"Hide UDID" = "UDID 숨기기";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "자동 새로고침";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "로그아웃";
 "Your Purchases" = "구매 내역";
 "No Storefronts Available" = "사용 가능한 스토어 없음";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
-"Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
 "No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "%@ (%@)으로 로그인 됨.";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "%@를 분석할 수 없습니다. (%@에서 옴)";
 "Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "%@에서 Release 파일을 다운로드할 수 없습니다. 이유: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@에서 Packages 파일을 다운로드할 수 없습니다.\n이유: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@에서 한개 또는 그 이상의 파일을 다운로드할 수 없습니다.\n이유: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL이 올바르지 않습니다. 확인 후 다시 시도해주세요.";
 
@@ -302,6 +311,7 @@
 "Console" = "콘솔";
 "Performing Actions..." = "작업 수행 중...";
 "Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
 "Close Zebra" = "Zebra 닫기";
 "Closing Zebra..." = "Zebra를 닫는 중...";
