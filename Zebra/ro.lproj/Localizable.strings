@@ -70,7 +70,9 @@
 "Text" = "Text";
 "Icon" = "Iconita";
 "Finish Automatically" = "Termină Automat";
-"Hide UDID" = "Ascunde UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Reîmprospătare automată";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Delogare";
 "Your Purchases" = "Achizițiile mele";
 "No Storefronts Available" = "Nu sunt disponibile surse cu plată";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
-"Could not complete purchase, no payment secret was found" = "Achiziția nu a fost completată, payment secret nu a fost găsit";
 "No packages purchased" = "Nu există achiziții";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Autentificat ca %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Nu s-a putut analiza %@ de la %@";
 "Could not find a download URL for" = "Nu s-a putut găsi un URL de descărcare pentru";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Nu s-a putut descărca fișierul de lansare de la %@. Motiv: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nu s-a putut descărca fișierul Packages de la %@. Motiv: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nu s-au putut descărca unul sau mai multe fișiere de la %@. Motiv: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL introdus nu este valid. Te rugăm să îl verifici și să încerci din nou.";
 
@@ -302,6 +311,7 @@
 "Console" = "Consolă";
 "Performing Actions..." = "Efectuare acțiuni...";
 "Updating icon cache asynchronously..." = "Actualizare cache iconițe sincron...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Acest lucru poate dura mai mult, iar Zebra se poate prăbuşi. Este în regulă dacă se întâmplă.";
 "Close Zebra" = "Închide Zebra";
 "Closing Zebra..." = "Zebra se inchide...";
