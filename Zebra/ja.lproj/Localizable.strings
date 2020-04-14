@@ -70,7 +70,9 @@
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Finish Automatically" = "自動的に終了";
-"Hide UDID" = "UDIDを非表示";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "自動更新";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "サインアウト";
 "Your Purchases" = "購入済みパッケージ";
 "No Storefronts Available" = "利用できるストアがありません。";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "購入を完了できませんでした";
-"Could not complete purchase, no payment secret was found" = "購入を完了できませんでした。(no payment secret was found)";
 "No packages purchased" = "購入したパッケージはありません";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "%@ としてログイン中 (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "%@ から %@ を解析できませんでした";
 "Could not find a download URL for" = "ダウンロードURLが見つかりませんでした";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "リリースファイルを %@ からダウンロードできませんでした。理由：%@";
 "Could not download Packages file from %@. Reason: %@" = "パッケージファイルを%@からダウンロードできませんでした。理由：%@";
 "Could not download one or more files from %@. Reason: %@" = "一つ以上のファイルを%@からダウンロードできませんでした。理由：%@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "入力した URL は無効です。確認して、もう一度やり直してください。";
 
@@ -302,6 +311,7 @@
 "Console" = "コンソール";
 "Performing Actions..." = "実行中...";
 "Updating icon cache asynchronously..." = "アイコンキャッシュの非同期更新をしています...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "これにはしばらく時間がかかり、Zebra がクラッシュする場合があります。もしクラッシュしても大丈夫です。";
 "Close Zebra" = "Zebra を閉じる";
 "Closing Zebra..." = "Zebra を閉じています...";
