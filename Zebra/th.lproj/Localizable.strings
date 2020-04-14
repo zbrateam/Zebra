@@ -164,7 +164,7 @@
 "Please Wait..." = "โปรดรอ...";
 "Verifying Source" = "กำลังตรวจสอบซอร์ส";
 "Verifying Sources" = "กำลังตรวจสอบซอร์ส";
-"Updating Sources" = "อัพเดตซอร์ส";
+"Updating Sources" = "กำลังปรับปรุงซอร์ส";
 
 "Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
@@ -207,19 +207,19 @@
 "Version" = "รุ่น";
 "Packages" = "โปรแกรม";
 "Show Updates" = "แสดงรุ่นใหม่ถ้ามี";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "ซ่อนรายการปรับปรุง";
 "Select Version" = "เลือกรุ่น";
 "Select a version to upgrade to:" = "เลือกรุ่นที่ใหม่กว่าที่จะทำการติดตั้ง:";
 "Select a version to downgrade to:" = "เลือกรุ่นที่เก่ากว่าที่จะทำการติดตั้ง:";
 "Package" = "โปรแกรม";
 "Information" = "ข้อมูล";
-"Upgrade All" = "อัพเดตทั้งหมด";
+"Upgrade All" = "ปรับรุ่นใหม่ทั้งหมด";
 "Loaded" = "โหลดแล้ว";
 "ABC" = "กขค";
 "Date" = "วันที่";
 "Size" = "ขนาด";
 "Available Upgrades" = "รุ่นใหม่ที่มี";
-"Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
+"Ignored Upgrades" = "รุ่นใหม่ที่ไม่เพิกเฉย";
 "Recent" = "เร็วๆ นี้";
 "Source" = "ซอร์ส";
 "Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
@@ -301,7 +301,7 @@
 
 "Console" = "คอนโซล";
 "Performing Actions..." = "กำลังทำงาน...";
-"Updating icon cache asynchronously..." = "อัพเดตแคชไอคอนใหม่...";
+"Updating icon cache asynchronously..." = "กำลังปรับปรุงแคชไอคอนใหม่...";
 "This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
 "Close Zebra" = "ปิด Zebra";
 "Closing Zebra..." = "ปิด Zebra...";
@@ -319,8 +319,8 @@
 "Removing Packages..." = "กำลังลบโปรแกรม...";
 "Reinstalling" = "กำลังติดตั้งซ้ำ";
 "Reinstalling Packages..." = "กำลังติดตั้งโปรแกรมซ้ำ...";
-"Upgrading" = "กำลังอัพเดต";
-"Upgrading Packages..." = "กำลังอัพเดตโปรแกรม...";
+"Upgrading" = "กำลังปรับปรุงรุ่น";
+"Upgrading Packages..." = "กำลังปรับปรุงรุ่นโปรแกรม...";
 "Complete" = "เสร็จสิ้น";
 "Finished!" = "เสร็จสิ้น!";
 "Return to Queue" = "กลับไปยังคิว";
@@ -352,7 +352,7 @@
 "Install" = "ติดตั้ง";
 "Reinstall" = "ติดตั้งซ้ำ";
 "Remove" = "ลบ";
-"Upgrade" = "อัพเดต";
+"Upgrade" = "อัพเกรด";
 "Downgrade" = "ดาวน์เกรด";
 "Abort" = "หยุด";
 "Continue" = "ทำต่อ";
@@ -372,7 +372,7 @@
 
 // Search
 
-"Live Search" = "ค้นหาทันที";
+"Live Search" = "การค้นหาทันที";
 "Tweaks, Themes, and More" = "ทวีค, ธีม และอีกมากมาย";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
@@ -435,7 +435,7 @@
 "Filters" = "ตัวกรอง";
 "Add Filter" = "เพิ่มตัวกรอง";
 
-"1 Section Hidden" = "1 ซอร์สที่ถูกซ่อน";
+"1 Section Hidden" = "1 ประเภทที่ซ่อนไว้";
 "%lu Sections Hidden" = "%lu ประเภทที่ซ่อนไว้";
 
 "Sections" = "ประเภท";
@@ -446,8 +446,8 @@
 "Select a Source" = "เลือกซอร์ส";
 "Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
 
-"Updates" = "อัพเดต";
-"Hide future updates from these packages." = "ซ่อนการอัพเดตของแพ็กเกจเหล่านี้";
+"Updates" = "รายการรุ่นใหม่";
+"Hide future updates from these packages." = "ซ่อนรุ่นใหม่ของโปรแกรมเหล่านี้";
 
 "Authors" = "ผู้สร้าง";
 "Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
