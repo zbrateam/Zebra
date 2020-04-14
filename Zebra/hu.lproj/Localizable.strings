@@ -70,7 +70,9 @@
 "Text" = "Szöveg";
 "Icon" = "Ikon";
 "Finish Automatically" = "Finish Automatically";
-"Hide UDID" = "UDID elrejtése";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatikus frissítés";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Kijelentkezés";
 "Your Purchases" = "Vásárlásaim";
 "No Storefronts Available" = "No Storefronts Available";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Could not complete purchase";
-"Could not complete purchase, no payment secret was found" = "Could not complete purchase, no payment secret was found";
 "No packages purchased" = "No packages purchased";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Bejelentkezve, mint %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Could not parse %@ from %@";
 "Could not find a download URL for" = "Could not find a download URL for";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
@@ -302,6 +311,7 @@
 "Console" = "Konzol";
 "Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
 "Close Zebra" = "Zebra bezárása";
 "Closing Zebra..." = "Zebra bezárása...";
