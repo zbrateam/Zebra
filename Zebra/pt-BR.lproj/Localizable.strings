@@ -70,7 +70,9 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Terminar automaticamente";
-"Hide UDID" = "Ocultar UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Atualização automática";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Encerrar sessão";
 "Your Purchases" = "Suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Não foi possível concluir a compra";
-"Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum método de pagamento foi encontrado";
 "No packages purchased" = "Nenhum pacote comprado";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Conectado como %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Não foi possível baixar o arquivo de lançamento de %@. Motivo: %@";
 "Could not download Packages file from %@. Reason: %@" = "Não foi possível baixar o arquivo de pacotes de %@. Motivo: %@";
 "Could not download one or more files from %@. Reason: %@" = "Não foi possível baixar um ou mais arquivos do %@. Motivo: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
 
@@ -302,6 +311,7 @@
 "Console" = "Consola";
 "Performing Actions..." = "Executando ações...";
 "Updating icon cache asynchronously..." = "Atualizando o cache do ícone de forma assíncrona...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isso pode demorar um pouco e o Zebra pode falhar. Tudo bem se isso acontecer.";
 "Close Zebra" = "Fechar Zebra";
 "Closing Zebra..." = "Fechando Zebra...";
