@@ -70,7 +70,9 @@
 "Text" = "Tekstas";
 "Icon" = "Piktograma";
 "Finish Automatically" = "Baigti automatiškai";
-"Hide UDID" = "Paslėpti UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatiškai atnaujinti";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Atsijungti";
 "Your Purchases" = "Jūsų pirkiniai";
 "No Storefronts Available" = "Nėra prieinamų parduotuvių";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Nepavyko baigti pirkimo";
-"Could not complete purchase, no payment secret was found" = "Nepavyko baigti pirkimo, apmokėjimas neįvyko";
 "No packages purchased" = "Nėra nupirktų paketų";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Prisijungta kaip %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
 "Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nepavyko atsiųsti paketų failo iš %@. Priežastis: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nepavyko atsiųsti vieno ar kelių failų iš %@. Priežastis: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Įvestas adresas klaidingas. Prašom jį patikrinti ir bandyti iš naujo.";
 
@@ -302,6 +311,7 @@
 "Console" = "Konsolė";
 "Performing Actions..." = "Atliekami veiksmai...";
 "Updating icon cache asynchronously..." = "Asinchroniškai atnaujinami piktogramų podeliai...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tai gali užtrukti ir Zebra gali užstrigti/išsijungti. Jei taip atsitiks, tai normalu.";
 "Close Zebra" = "Uždaryti Zebra";
 "Closing Zebra..." = "Uždaroma Zebra...";
