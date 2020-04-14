@@ -141,10 +141,10 @@
 "Sign Out" = "登出";
 "Your Purchases" = "已购买";
 "No Storefronts Available" = "无可用的店铺";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "无法验证身份";
 "Could not complete purchase" = "无法完成购买操作";
 "No packages purchased" = "无已购买软件包";
-"Logged in as %@" = "Logged in as %@";
+"Logged in as %@" = "已登录账户：%@";
 "Logged in as %@ (%@)" = "已登录账户：%@（%@）";
 
 // Sources
@@ -188,15 +188,15 @@
 
 "Could not parse %@ from %@" = "无法解析 %@ 自 %@";
 "Could not find a download URL for" = "无法获取下载链接";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "正在获取下载 %@ 的授权";
+"Couldn't authorize download for %@." = "无法获取下载 %@ 的授权。";
+"Reason: %@." = "原因：%@。";
+"The Payment API is not supported on less than iOS 11.0" = "支付 API 不支持 iOS 11.0 以下的系统";
 "Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "移动文件 %@ 到 %@ 时出错";
 
 "The URL you entered is not valid. Please check it and try again." = "你输入的 URL 无效，请检查后重试。";
 
@@ -311,7 +311,7 @@
 "Console" = "控制台";
 "Performing Actions..." = "正在执行操作……";
 "Updating icon cache asynchronously..." = "正在异步刷新图标缓存……";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "模拟器上无法使用 uicache";
 "This may take awhile and Zebra may crash. It is okay if it does." = "此操作可能需要一段时间，Zebra 可能会闪退，无需担心。";
 "Close Zebra" = "关闭 Zebra";
 "Closing Zebra..." = "正在关闭 Zebra ……";
