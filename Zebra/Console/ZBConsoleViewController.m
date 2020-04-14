@@ -500,7 +500,7 @@
     if (![ZBDevice needsSimulation]) {
         [ZBDevice uicache:arguments observer:self];
     } else {
-        [self writeToConsole:@"uicache is not available on the simulator" atLevel:ZBLogLevelWarning];
+        [self writeToConsole:NSLocalizedString(@"uicache is not available on the simulator", @"") atLevel:ZBLogLevelWarning];
     }
 }
 
