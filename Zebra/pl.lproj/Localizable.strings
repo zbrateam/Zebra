@@ -70,7 +70,9 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Zakończ automatycznie";
-"Hide UDID" = "Ukryj UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatyczne odświeżanie";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Wyloguj się";
 "Your Purchases" = "Twoje Zakupy";
 "No Storefronts Available" = "Brak dostępnych witryn sklepu";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Nie można ukończyć zakupu";
-"Could not complete purchase, no payment secret was found" = "Nie można ukończyć zakupu, nie znaleziono tajemnicy płatności";
 "No packages purchased" = "Brak zakupionych pakietów";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Zalogowano jako %@(%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Nie udało się zanalizować %@ z %@";
 "Could not find a download URL for" = "Nie udało znaleźć się URL pobierania dla";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Nie można pobrać pliku Release z %@. Powód: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nie można pobrać pliku Packages z %@. Powód: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nie można pobrać jednego lub więcej plików z %@. Powód: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Podany adres URL jest nieprawidłowy. Sprawdź go i spróbuj ponownie.";
 
@@ -302,6 +311,7 @@
 "Console" = "Konsola";
 "Performing Actions..." = "Wykonywanie akcji...";
 "Updating icon cache asynchronously..." = "Aktualizowanie pamięci ikon asynchronicznie...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "To może chwile zająć i Zebra może się zamknąć. Nic złego się nie stanie, jeżeli to się wydarzy.";
 "Close Zebra" = "Zamknij Zebrę";
 "Closing Zebra..." = "Zamykanie Zebry...";
