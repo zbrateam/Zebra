@@ -241,8 +241,8 @@
     NSString *binary = baseCommand[0];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
-        if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
-            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
+        if ([self containsEssentialOrRequiredPackage]) {
+            NSMutableArray *removeCommand = [@[@"apt", @"--allow-remove-essential", @"remove",@"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"] mutableCopy];
             
             if (ignoreDependencies) {
                 [removeCommand addObject:@"--force-depends"];
