@@ -207,7 +207,7 @@
 "Version" = "الإصدار";
 "Packages" = "الحزم";
 "Show Updates" = "إظهار التحديثات";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "إخفاء التحديثات";
 "Select Version" = "اختيار إصدار";
 "Select a version to upgrade to:" = "اختر إصدار للترقية إليه:";
 "Select a version to downgrade to:" = "اختر إصدار للخفض إليه:";
