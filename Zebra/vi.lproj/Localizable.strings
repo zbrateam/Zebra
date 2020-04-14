@@ -70,7 +70,9 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
-"Hide UDID" = "Hide UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Đăng xuất";
 "Your Purchases" = "Đã mua";
 "No Storefronts Available" = "Không cửa hàng nào có sẵn";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Không thể hoàn tất mua";
-"Could not complete purchase, no payment secret was found" = "Không thể hoàn thành thanh toán, không khoản thanh toán nào được tìm thấy";
 "No packages purchased" = "Không có gói đã mua";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
 "Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Không thể tải Gói từ %@. Lý do: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
 
@@ -302,6 +311,7 @@
 "Console" = "Bảng điều khiển";
 "Performing Actions..." = "Thực hiện các hành động...";
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
 "Closing Zebra..." = "Đang đóng Zebra...";
