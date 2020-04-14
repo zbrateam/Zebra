@@ -70,7 +70,9 @@
 "Text" = "نص";
 "Icon" = "أيقونة";
 "Finish Automatically" = "إنهاء تلقائيًا";
-"Hide UDID" = "إخفاء UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "تحديث تلقائي";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "تسجيل الخروج";
 "Your Purchases" = "مشترياتك";
 "No Storefronts Available" = "لا توجد واجهات متاحة";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "تعذر إكمال الشراء";
-"Could not complete purchase, no payment secret was found" = "تعذر إكمال الشراء، لم يتم العثور على دفع آمن";
 "No packages purchased" = "لا توجد حزم مشتراة";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "تم تسجيل الدخول كـ %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "لايمكن التحليل %@ من %@";
 "Could not find a download URL for" = "لايمكن العثور على عنوان URL التنزيل لـ";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "تعذر تنزيل ملف الإطلاق من %@. السبب: %@";
 "Could not download Packages file from %@. Reason: %@" = "تعذر تنزيل ملف الحزم من %@. السبب: %@";
 "Could not download one or more files from %@. Reason: %@" = "تعذر تنزيل ملف أو أكثر من %@. السبب: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "عنوان URL الذي أدخلته غير صالح. يرجى التحقق منه والمحاولة مرة أخرى.";
 
@@ -302,6 +311,7 @@
 "Console" = "وحدة التحكم";
 "Performing Actions..." = "جارِ تنفيذ الإجراءات...";
 "Updating icon cache asynchronously..." = "جارِ تحديث ذاكرة التخزين المؤقتة للأيقونة بشكل غير متزامن...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "هذا قد يستغرق بعض الوقت و Zebra قد يخرج بشكل مفاجئ. لا بأس إذا حدث ذلك.";
 "Close Zebra" = "إغلاق Zebra";
 "Closing Zebra..." = "جارِ إغلاق Zebra...";
