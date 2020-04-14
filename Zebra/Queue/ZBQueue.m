@@ -242,7 +242,7 @@
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
         if ([self containsEssentialOrRequiredPackage]) {
-            NSMutableArray *removeCommand = [@[@"apt", @"--allow-remove-essential", @"remove",@"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"] mutableCopy];
+            NSMutableArray *removeCommand = [@[@"apt", @"-yqf", @"--allow-remove-essential", @"remove",@"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true"] mutableCopy];
             
             if (ignoreDependencies) {
                 [removeCommand addObject:@"--force-depends"];
