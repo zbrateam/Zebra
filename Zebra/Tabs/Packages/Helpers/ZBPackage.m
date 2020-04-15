@@ -340,7 +340,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ (%@) V%@", name, identifier, version];
+    return [NSString stringWithFormat: @"%@ (%@) v%@ by %@ via %@", name, identifier, version, authorName ?: NSLocalizedString(@"Unknown", @""), [source label] ?: NSLocalizedString(@"Unknown", @"")];
 }
 
 - (NSComparisonResult)compare:(id)object {
