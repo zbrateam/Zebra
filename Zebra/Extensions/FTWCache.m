@@ -49,7 +49,7 @@ static NSTimeInterval cacheTime = (double)604800;
         [fileManager createDirectoryAtPath:self.cacheDirectory withIntermediateDirectories:NO attributes:nil error:nil];
     }
     
-    NSError *error;
+    NSError *error = NULL;
     @try {
         [data writeToFile:filename options:NSDataWritingAtomic error:&error];
     }

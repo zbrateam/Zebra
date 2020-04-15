@@ -22,6 +22,10 @@
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
 #import <Database/ZBRefreshViewController.h>
+#import <Search/ZBSearchTableViewController.h>
+#import <dlfcn.h>
+#import <objc/runtime.h>
+#import <Headers/AccessibilityUtilities.h>
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
@@ -30,6 +34,7 @@
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
+    BOOL screenRecording;
 }
 
 @end
@@ -37,6 +42,12 @@
 static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 @implementation ZBAppDelegate
+
+NSString *const ZBUserWillTakeScreenshotNotification = @"WillTakeScreenshotNotification";
+NSString *const ZBUserDidTakeScreenshotNotification = @"DidTakeScreenshotNotification";
+
+NSString *const ZBUserStartedScreenCaptureNotification = @"StartedScreenCaptureNotification";
+NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotification";
 
 + (NSString *)bundleID {
     return [[NSBundle mainBundle] bundleIdentifier];
@@ -54,16 +65,20 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
     if (!dirExists) {
         ZBLog(@"[Zebra] Creating documents directory.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating documents directory: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating documents directory: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
         }
     }
     
     return path;
+}
+
++ (NSURL *)documentsDirectoryURL {
+    return [NSURL URLWithString:[[NSString stringWithFormat:@"filza://view%@", [self documentsDirectory]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
 }
 
 + (NSString *)listsLocation {
@@ -72,11 +87,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
     if (!dirExists) {
         ZBLog(@"[Zebra] Creating lists directory.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating lists directory: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating lists directory: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
         }
     }
@@ -91,11 +106,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
     if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
         ZBLog(@"[Zebra] Creating sources.list.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating sources.list: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating sources.list: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating sources.list: %@.", error.localizedDescription);
         }
     }
@@ -112,11 +127,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
     if (!dirExists) {
         ZBLog(@"[Zebra] Creating debs directory.");
-        NSError *error;
+        NSError *error = NULL;
         [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
         
         if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:@"Error while creating debs directory: %@.", error.localizedDescription]];
+            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating debs directory: %@.", @""), error.localizedDescription]];
             NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
         }
     }
@@ -156,11 +171,11 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 }
 
 + (void)sendAlertFrom:(UIViewController *)vc message:(NSString *)message {
-    [self sendAlertFrom:vc title:@"Zebra" message:message actionLabel:nil okLabel:@"Ok" block:NULL];
+    [self sendAlertFrom:vc title:@"Zebra" message:message actionLabel:nil okLabel:NSLocalizedString(@"Ok", @"") block:NULL];
 }
 
 + (void)sendErrorToTabController:(NSString *)error actionLabel:(NSString *)actionLabel block:(void (^)(void))block {
-    [self sendAlertFrom:nil title:@"An Error Occurred" message:error actionLabel:actionLabel okLabel:@"Dismiss" block:block];
+    [self sendAlertFrom:nil title:NSLocalizedString(@"An Error Occurred", @"") message:error actionLabel:actionLabel okLabel:NSLocalizedString(@"Dismiss", @"") block:block];
 }
 
 + (void)sendErrorToTabController:(NSString *)error {
@@ -227,8 +242,19 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
+    [self registerForScreenshotNotifications];
+    
     if ([ZBDatabaseManager needsMigration]) {
-        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:true];
+        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
+    }
+    else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenDidConnectNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenDidDisconnectNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenModeDidChangeNotification object:nil];
     }
     
     return YES;
@@ -256,8 +282,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                 
-                ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                [repoController handleImportOf:url];
+                ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                [sourceListController handleImportOf:url];
             }
             break;
         }
@@ -275,8 +301,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
                     
-                    ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    [repoController handleURL:url];
+                    ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [sourceListController handleURL:url];
                     break;
                 }
                 case 2: {
@@ -286,32 +312,32 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 3: {
                     NSString *path = [url path];
                     if (path.length > 1) {
-                        NSString *source = [[url query] componentsSeparatedByString:@"source="][1];
-                        if (source != NULL) {
-                            if ([ZBSource exists:source]) {
+                        NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
+                        if (sourceURL != NULL) {
+                            if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
-                                ZBSource *repo = [ZBSource repoFromBaseURL:source];
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:repo];
+                                ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:source];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                     [tabController presentViewController:navController animated:YES completion:nil];
                                 }
                                 else {
-                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [repo origin]]];
+                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
                                 }
                             }
                             else {
                                 NSString *packageID = [path substringFromIndex:1];
                                 [tabController setForwardToPackageID:packageID];
-                                [tabController setForwardedRepoBaseURL:source];
+                                [tabController setForwardedSourceBaseURL:sourceURL];
                                 
-                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", source]];
+                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
                                 [self application:application openURL:newURL options:options];
                             }
                         }
                         else {
                             NSString *packageID = [path substringFromIndex:1];
-                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromRepo:NULL];
+                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:NULL];
                             if (packageController) {
                                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                 [tabController presentViewController:navController animated:YES completion:nil];
@@ -329,9 +355,8 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
                 case 4: {
                     [tabController setSelectedIndex:ZBTabSearch];
                     
-                    //FIXME: Make url scheme work again
-//                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//                    [searchController handleURL:url];
+                    ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [searchController handleURL:url];
                     break;
                 }
             }
@@ -350,14 +375,13 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
         
-        //FIXME: Fix 3D Touch action
-//        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//        [searchController handleURL:NULL];
+        ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [searchController handleURL:NULL];
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBSourceListTableViewController *repoController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        [repoController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
+        ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
     }
 }
 
@@ -387,6 +411,45 @@ static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 - (void)setupSDWebImageCache {
     [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
+}
+
+- (void)registerForScreenshotNotifications {
+    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
+    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
+    [server registerSpringBoardActionHandler:^(int eventType) {
+        if (eventType == 6) { // Before taking screenshot
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserWillTakeScreenshotNotification object:nil];
+        }
+        else if (eventType == 7) { // After taking screenshot
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
+        }
+    } withIdentifierCallback:^(int a) {}];
+}
+
+- (void)checkForScreenRecording:(NSNotification *)notif {
+    UIScreen *screen = [notif object];
+    if (!screen) return;
+    
+    if (@available(iOS 11.0, *)) {
+        if ([screen isCaptured] || [screen mirroredScreen]) {
+            screenRecording = YES;
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserStartedScreenCaptureNotification object:nil];
+        }
+        else if (screenRecording) {
+            screenRecording = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserEndedScreenCaptureNotification object:nil];
+        }
+    }
+    else {
+        if ([screen mirroredScreen]) {
+            screenRecording = YES;
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserStartedScreenCaptureNotification object:nil];
+        }
+        else if (screenRecording) {
+            screenRecording = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserEndedScreenCaptureNotification object:nil];
+        }
+    }
 }
 
 @end

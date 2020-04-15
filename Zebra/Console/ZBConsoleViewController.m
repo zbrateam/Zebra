@@ -102,8 +102,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Console", @"");
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
-    NSError *error;
+    NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) {
         [ZBAppDelegate sendAlertFrom:self message:error.localizedDescription];
     }
@@ -113,10 +116,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
     
     if (currentStage == -1) { //Only run the process once per console cycle
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -230,7 +229,6 @@
     }
     else {
         NSArray *actions = [queue tasksToPerform];
-        NSLog(@"[Zebra] Completed Downloads %@", completedDownloads);
         BOOL zebraModification = queue.zebraPath || queue.removingZebra;
         if ([actions count] == 0 && !zebraModification) {
             [self writeToConsole:NSLocalizedString(@"There are no actions to perform", @"") atLevel:ZBLogLevelDescript];
@@ -267,8 +265,6 @@
                             }
                         }
                     }
-                    
-                    zebraRestartRequired = queue.zebraPath || queue.removingZebra;
                     
                     if (![ZBDevice needsSimulation]) {
                         ZBLog(@"[Zebra] Executing commands...");
@@ -308,7 +304,7 @@
                                     break;
                             }
                         } @catch (NSException *e) {
-                            NSString *message = [NSString stringWithFormat:@"Could not complete %@ process. Reason: %@.", [ZBDevice packageManagementBinary],  e.reason];
+                            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
                             
                             CLS_LOG(@"%@", message);
                             NSLog(@"[Zebra] %@", message);
@@ -316,7 +312,7 @@
                         }
                     }
                     else {
-                        [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
+                        [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
                         for (int i = COMMAND_START; i < [command count]; ++i) {
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
@@ -340,6 +336,9 @@
             }
             
             if (zebraModification) { //Zebra should be the last thing installed so here is our chance to install it.
+                zebraRestartRequired = YES;
+                
+                ZBLog(@"[Zebra] modifying zebra...");
                 if (queue.removingZebra) {
                     [self postStatusUpdate:NSLocalizedString(@"Removing Zebra...", @"") atLevel:ZBLogLevelInfo];
                     [self postStatusUpdate:@"Goodbye forever :(" atLevel:ZBLogLevelDescript];
@@ -395,21 +394,23 @@
                                 break;
                         }
                     } @catch (NSException *e) {
-                        NSString *message = [NSString stringWithFormat:@"Could not complete %@ process. Reason: %@.", [ZBDevice packageManagementBinary],  e.reason];
+                        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
                         
                         CLS_LOG(@"%@", message);
                         NSLog(@"[Zebra] %@", message);
                         [self writeToConsole:message atLevel:ZBLogLevelError];
-                        [self writeToConsole:@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." atLevel:ZBLogLevelInfo];
+                        [self writeToConsole:NSLocalizedString(@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.", @"") atLevel:ZBLogLevelInfo];
                     }
                 }
                 else {
-                    [self writeToConsole:@"This device is simulated, here are the packages that would be modified in this stage:" atLevel:ZBLogLevelWarning];
+                    [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
                     queue.removingZebra ? [self writeToConsole:@"xyz.willy.zebra" atLevel:ZBLogLevelDescript] : [self writeToConsole:[path lastPathComponent] atLevel:ZBLogLevelDescript];
                 }
             }
             
+            ZBLog(@"[Zebra] Restart required? %@.", zebraRestartRequired ? @"Yes" : @"No");
             if (!zebraRestartRequired && updateIconCache) {
+                ZBLog(@"[Zebra] Updating Icon Caches");
                 [self updateIconCaches];
             }
             
@@ -424,6 +425,10 @@
     ZBLog(@"[Zebra] Finishing tasks");
     [downloadMap removeAllObjects];
     [applicationBundlePaths removeAllObjects];
+    
+    NSMutableArray *wishlist = [[ZBSettings wishlist] mutableCopy];
+    [wishlist removeObjectsInArray:installedPackageIdentifiers];
+    
     [installedPackageIdentifiers removeAllObjects];
     
     [self updateStage:ZBStageFinished];
@@ -467,6 +472,7 @@
 }
 
 - (void)closeZebra {
+    [ZBDevice exitZebraAfter:3];
     if (![ZBDevice needsSimulation]) {
         if (applicationBundlePaths.count > 1) {
             [self updateIconCaches];
@@ -474,7 +480,6 @@
             [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
         }
     }
-    [ZBDevice exitZebra];
 }
 
 - (void)restartSpringBoard {
@@ -495,7 +500,7 @@
     if (![ZBDevice needsSimulation]) {
         [ZBDevice uicache:arguments observer:self];
     } else {
-        [self writeToConsole:@"uicache is not available on the simulator" atLevel:ZBLogLevelWarning];
+        [self writeToConsole:NSLocalizedString(@"uicache is not available on the simulator", @"") atLevel:ZBLogLevelWarning];
     }
 }
 
@@ -677,7 +682,7 @@
 
 - (void)updateCompleteButton {
     ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), respringRequired(%d), zebraRestartRequired(%d)", downloadFailed, respringRequired, zebraRestartRequired);
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:finishAutomaticallyKey]) { // automatically finish after 3 secs
+    if ([ZBSettings wantsFinishAutomatically]) { // automatically finish after 3 secs
         dispatch_block_t finishBlock = nil;
 
         if (self->downloadFailed) {

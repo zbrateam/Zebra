@@ -11,7 +11,7 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Controllers/ZBSourceAccountTableViewController.h>
@@ -37,18 +37,17 @@
     
     self.title = NSLocalizedString(@"Stores", @"");
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 #pragma mark - Table view data source
@@ -67,12 +66,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (sources.count) {
-           ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+           ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
            
            ZBSource *source = [sources objectAtIndex:indexPath.row];
            
-           cell.repoLabel.text = [source label];
-           cell.repoLabel.textColor = [UIColor primaryTextColor];
+           cell.sourceLabel.text = [source label];
+           cell.sourceLabel.textColor = [UIColor primaryTextColor];
            
            cell.urlLabel.text = [source repositoryURI];
            cell.urlLabel.textColor = [UIColor secondaryTextColor];
@@ -97,56 +96,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
-    [source authenticate:^(BOOL success, NSError * _Nullable error) {
-        if (!success || error) {
-            if (error) {
-                [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
+    if (@available(iOS 11.0, *)) {
+        [source authenticate:^(BOOL success, NSError * _Nullable error) {
+            if (!success || error) {
+                if (error) {
+                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
+                }
+                else {
+                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                }
             }
             else {
-                [ZBAppDelegate sendAlertFrom:self message:@"Could not authenticate"];
+                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController pushViewController:accountController animated:YES];
+                });
             }
-        }
-        else {
-            ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController pushViewController:accountController animated:YES];
-            });
-        }
-    }];
-}
-
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {}
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [self.tableView reloadData];
-}
-
-- (void)authenticationCallBack:(NSNotification *)notif {
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-    NSArray *queryItems = urlComponents.queryItems;
-    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-    
-    for (NSURLQueryItem *q in queryItems) {
-        [queryByKeys setValue:[q value] forKey:[q name]];
+        }];
     }
-    
-    NSString *token = queryByKeys[@"token"];
-    NSString *payment = queryByKeys[@"payment_secret"];
-    
-    [keychain setString:token forKey:callbackURI];
-    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    securedKeychain[[callbackURI stringByAppendingString:@"payment"]] = nil;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-        securedKeychain[[self->callbackURI stringByAppendingString:@"payment"]] = payment;
-    });
-    
-    [self.tableView reloadData];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {

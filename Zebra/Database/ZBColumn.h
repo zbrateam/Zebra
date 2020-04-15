@@ -18,14 +18,15 @@ typedef enum {
     ZBPackageColumnSection,
     ZBPackageColumnDepiction,
     ZBPackageColumnTag,
-    ZBPackageColumnAuthor,
+    ZBPackageColumnAuthorName,
+    ZBPackageColumnAuthorEmail,
     ZBPackageColumnDepends,
     ZBPackageColumnConflicts,
     ZBPackageColumnProvides,
     ZBPackageColumnReplaces,
     ZBPackageColumnFilename,
     ZBPackageColumnIconURL,
-    ZBPackageColumnRepoID,
+    ZBPackageColumnSourceID,
     ZBPackageColumnLastSeen,
     ZBPackageColumnInstalledSize,
     ZBPackageColumnDownloadSize,
@@ -53,7 +54,7 @@ typedef enum {
     ZBSourceColumnArchitectures,
     ZBSourceColumnPaymentVendor,
     ZBSourceColumnBaseFilename,
-    ZBSourceColumnRepoID
+    ZBSourceColumnSourceID
 } ZBSourceColumn;
 
 #endif /* ZBColumn_h */

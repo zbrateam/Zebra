@@ -8,7 +8,7 @@
 
 @class ZBBaseSource;
 
-#import "ZBSourceVerification.h"
+#import "ZBSourceVerificationStatus.h"
 
 #ifndef ZBSourceVerificationDelegate_h
 #define ZBSourceVerificationDelegate_h
@@ -18,7 +18,7 @@
 
 - (void)startedSourceVerification:(BOOL)multiple;
 - (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources;
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status;
+- (void)source:(ZBBaseSource *)source status:(ZBSourceVerificationStatus)status;
 - (void)verifyAndAdd:(NSSet *)baseSources;
 
 @end

@@ -24,13 +24,13 @@
 
 @synthesize databaseManager;
 
-+ (BOOL)supportRefresh {
+- (BOOL)supportRefresh {
     return YES;
 }
 
 - (void)cancelRefresh:(id)sender {
     [databaseManager cancelUpdates:self];
-    [[ZBAppDelegate tabBarController] clearRepos];
+    [[ZBAppDelegate tabBarController] clearSources];
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
@@ -66,7 +66,7 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     [refreshControl endRefreshing];
     
-    if ([[self class] supportRefresh] && refreshControl == nil) {
+    if ([self supportRefresh] && refreshControl == nil) {
         [databaseManager addDatabaseDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
@@ -131,31 +131,31 @@
     });
 }
 
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
-    if (![[self class] supportRefresh]) {
+- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
+    if (![self supportRefresh]) {
         return;
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        [(ZBTabBarController *)self.tabBarController setRepoRefreshIndicatorVisible:visible];
+        [(ZBTabBarController *)self.tabBarController setSourceRefreshIndicatorVisible:visible];
     });
 }
 
 - (void)refreshSources:(id)sender {
-    if (![[self class] supportRefresh] || [self updateRefreshView]) {
+    if (![self supportRefresh] || [self updateRefreshView]) {
         return;
     }
     [self setEditing:NO animated:NO];
-    [self setRepoRefreshIndicatorVisible:YES];
-    BOOL singleRepo = NO;
-    if ([self respondsToSelector:@selector(repo)]) {
-        ZBSource *repo = [(ZBPackageListTableViewController *)self repo];
-        if ([repo repoID] > 0) {
+    [self setSourceRefreshIndicatorVisible:YES];
+    BOOL singleSource = NO;
+    if ([self respondsToSelector:@selector(source)]) {
+        ZBSource *source = [(ZBPackageListTableViewController *)self source];
+        if ([source sourceID] > 0) {
             //FIXME: fix me!
-//            [databaseManager updateRepo:repo useCaching:YES];
-            singleRepo = YES;
+//            [databaseManager updateSource:source useCaching:YES];
+            singleSource = YES;
         }
     }
-    if (!singleRepo) {
+    if (!singleSource) {
         [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
     }
     [self updateRefreshView];
@@ -166,10 +166,10 @@
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    if (![[self class] supportRefresh]) {
+    if (![self supportRefresh]) {
         return;
     }
-    [self setRepoRefreshIndicatorVisible:NO];
+    [self setSourceRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (packageUpdates != -1) {
             [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
@@ -181,10 +181,10 @@
 }
 
 - (void)databaseStartedUpdate {
-    if (![[self class] supportRefresh]) {
+    if (![self supportRefresh]) {
         return;
     }
-    [self setRepoRefreshIndicatorVisible:YES];
+    [self setSourceRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
 }
 

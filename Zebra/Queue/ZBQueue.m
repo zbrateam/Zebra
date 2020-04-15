@@ -9,7 +9,7 @@
 #import "ZBQueue.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
@@ -387,7 +387,12 @@
     NSMutableArray *result = [NSMutableArray new];
     for (ZBPackage *package in [self queueFromType:queue]) {
         if (package.debPath) {
-            [result addObject:package.debPath];
+            if ([[package identifier] isEqualToString:@"xyz.willy.zebra"]) {
+                zebraPath = package.debPath;
+            }
+            else {
+                [result addObject:package.debPath];
+            }
         }
     }
     return result;
@@ -407,30 +412,6 @@
     else {
         return [managedQueue[@(queue)] count];
     }
-}
-
-- (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)icon {
-    BOOL useIcon = icon && [ZBDevice useIcon];
-    
-    switch (queue) {
-        case ZBQueueTypeInstall:
-            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
-        case ZBQueueTypeReinstall:
-            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
-        case ZBQueueTypeRemove:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
-        case ZBQueueTypeUpgrade:
-            return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
-        case ZBQueueTypeDowngrade:
-            return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
-        case ZBQueueTypeDependency:
-            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
-        case ZBQueueTypeConflict:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
-        default:
-            break;
-    }
-    return @"Undefined";
 }
 
 - (NSArray <NSNumber *> *)actionsToPerform {
@@ -748,6 +729,40 @@
 
 - (NSMutableArray *)conflictQueue {
     return managedQueue[@(ZBQueueTypeConflict)];
+}
+
+- (NSString *)displayableNameForQueueType:(ZBQueueType)queue {
+    switch (queue) {
+        case ZBQueueTypeInstall:
+            return NSLocalizedString(@"Install", @"");
+        case ZBQueueTypeRemove:
+            return NSLocalizedString(@"Remove", @"");
+        case ZBQueueTypeReinstall:
+            return NSLocalizedString(@"Reinstall", @"");
+        case ZBQueueTypeUpgrade:
+            return NSLocalizedString(@"Upgrade", @"");
+        case ZBQueueTypeDowngrade:
+            return NSLocalizedString(@"Downgrade", @"");
+        default:
+            return NULL;
+    }
+}
+
++ (UIColor *)colorForQueueType:(ZBQueueType)queue {
+    switch (queue) {
+        case ZBQueueTypeInstall:
+            return [UIColor systemTealColor];
+        case ZBQueueTypeRemove:
+            return [UIColor systemPinkColor];
+        case ZBQueueTypeReinstall:
+            return [UIColor systemOrangeColor];
+        case ZBQueueTypeUpgrade:
+            return [UIColor systemBlueColor];
+        case ZBQueueTypeDowngrade:
+            return [UIColor systemPurpleColor];
+        default:
+            return nil;
+    }
 }
 
 @end

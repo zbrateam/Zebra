@@ -24,12 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property BOOL purchased;
-@property NSString *authorEmail;
-@property (nonatomic, weak) UIViewController *parent;
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo;
+@property (nonatomic, weak) UITableViewController *parent;
+- (id)initWithPackageID:(NSString *)packageID fromSource:(ZBSource *_Nullable)source;
 - (id)initWithPackage:(ZBPackage *)package;
-- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath;
+- (NSArray *)contextMenuActionItemsInTableView:(UITableView *_Nullable)tableview;
 @end
 
 NS_ASSUME_NONNULL_END

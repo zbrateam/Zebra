@@ -1,3 +1,5 @@
+INSTALL_TARGET_PROCESSES = Zebra
+
 include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/null.mk
 
@@ -10,6 +12,8 @@ after-stage::
 	$(MAKE) -C Supersling LEAN_AND_MEAN=1
 	mkdir -p $(THEOS_STAGING_DIR)/usr/libexec/zebra
 	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/usr/libexec/zebra
+	$(MAKE) -C Firmware
+	mv $(THEOS_OBJ_DIR)/firmware $(THEOS_STAGING_DIR)/usr/libexec/zebra
 	mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack
@@ -17,6 +21,9 @@ after-stage::
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/SDWebImage.framework/SDWebImage
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/LNPopupController.framework/LNPopupController
 	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
+
+	$(FAKEROOT) chmod 6755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/supersling
+	$(FAKEROOT) chmod 755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/firmware
 
 ipa::
 	make all
@@ -29,6 +36,3 @@ ipa::
 	rm -rf $(THEOS_STAGING_DIR)/Payload
 	mkdir -p ipas
 	mv $(THEOS_STAGING_DIR)/Zebra.zip ipas/Zebra-$(THEOS_PACKAGE_VERSION).ipa
-
-after-install::
-	install.exec "killall \"Zebra\" || true"

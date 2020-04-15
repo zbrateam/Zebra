@@ -14,7 +14,7 @@
 #import <ZBDevice.h>
 
 @interface ZBSourceManager () {
-    NSMutableDictionary <NSNumber *, ZBSource *> *repos;
+    NSMutableDictionary <NSNumber *, ZBSource *> *sources;
     BOOL recachingNeeded;
 }
 @end
@@ -37,19 +37,19 @@
     recachingNeeded = YES;
 }
 
-- (NSMutableDictionary <NSNumber *, ZBSource *> *)repos {
+- (NSMutableDictionary <NSNumber *, ZBSource *> *)sources {
     if (recachingNeeded) {
         recachingNeeded = NO;
-        repos = [NSMutableDictionary new];
+        sources = [NSMutableDictionary new];
 
         sqlite3 *database;
         sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
 
-        sqlite3_stmt *statement;
+        sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS;", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                repos[@(source.repoID)] = source;
+                sources[@(source.sourceID)] = source;
             }
         } else {
             [[ZBDatabaseManager sharedInstance] printDatabaseError];
@@ -57,7 +57,7 @@
         sqlite3_finalize(statement);
         sqlite3_close(database);
     }
-    return repos;
+    return sources;
 }
 
 + (NSArray <NSString *> *)knownDistURLs {
@@ -104,7 +104,7 @@
 
 //TODO: This needs error pointers
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
-    NSError *readError;
+    NSError *readError = NULL;
     NSSet <ZBBaseSource *> *currentSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
     
     NSMutableSet *sourcesToAdd = [baseSources mutableCopy];
@@ -124,7 +124,7 @@
         
         if ([source isKindOfClass:[ZBSource class]]) {
             ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            [databaseManager deleteRepo:source];
+            [databaseManager deleteSource:source];
         }
     }
 }
@@ -138,10 +138,10 @@
     [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
     
     //Delete .list file (if it exists)
-    NSArray *lists = [self repoLists:source];
+    NSArray *lists = [self sourceLists:source];
     for (NSString *list in lists) {
         NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:list];
-        NSError *error;
+        NSError *error = NULL;
         if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
             BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
             if (!success) {
@@ -155,12 +155,12 @@
     if ([featured objectForKey:[source baseFilename]]) {
         [featured removeObjectForKey:[source baseFilename]];
     }
-    [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:false];
+    [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
 }
 
 //TODO: This needs error pointers
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
-    NSError *error;
+    NSError *error = NULL;
     NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
     
     if (error) {
@@ -187,7 +187,7 @@
         [debLines addObject:[baseSource debLine]];
     }
     
-    NSError *error;
+    NSError *error = NULL;
     [[debLines componentsJoinedByString:@""] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
     if (error != NULL) {
         NSLog(@"[Zebra] Error while writing sources to file: %@", error);
@@ -205,7 +205,7 @@
     
     for (ZBBaseSource *source in sources) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            [source verify:^(ZBSourceVerification status) {
+            [source verify:^(ZBSourceVerificationStatus status) {
                 if ([delegate respondsToSelector:@selector(source:status:)]) [delegate source:source status:status];
                 
                 if (status == ZBSourceExists) {
@@ -223,7 +223,7 @@
     }
 }
 
-- (NSArray <NSString *> *)repoLists:(ZBBaseSource *)source {
+- (NSArray <NSString *> *)sourceLists:(ZBBaseSource *)source {
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
     
     return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", [source baseFilename]]];

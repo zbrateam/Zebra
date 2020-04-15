@@ -17,8 +17,8 @@
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
-#import <Sources/Controllers/ZBRepoSectionsListTableViewController.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
+#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 
@@ -51,14 +51,14 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
-    if (@available(iOS 13.0, *)) {} else {
-        self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteRepoTouchAction" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteSourceTouchAction" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
      
@@ -67,10 +67,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
     
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
@@ -104,21 +100,21 @@
     return [self hasDataInSection:section];
 }
 
-- (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+- (ZBSourceTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     
     NSObject *source = [self sourceAtIndexPath:indexPath];
     if ([source isKindOfClass:[ZBSource class]]) {
         ZBSource *trueSource = (ZBSource *)source;
-        cell.repoLabel.text = [trueSource label];
+        cell.sourceLabel.text = [trueSource label];
         
-        NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+        NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).sourceBusyList;
         [self setSpinnerVisible:[busyList[[trueSource baseFilename]] boolValue] forCell:cell];
         
         cell.urlLabel.text = [trueSource repositoryURI];
         [cell.iconImageView sd_setImageWithURL:[trueSource iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
         
-        cell.repoLabel.textColor = [UIColor primaryTextColor];
+        cell.sourceLabel.textColor = [UIColor primaryTextColor];
         cell.urlLabel.textColor = [UIColor secondaryTextColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
@@ -129,12 +125,12 @@
     else {
         ZBBaseSource *baseSource = (ZBBaseSource *)source;
         
-        cell.repoLabel.text = [baseSource repositoryURI];
+        cell.sourceLabel.text = [baseSource repositoryURI];
         
         cell.urlLabel.text = NSLocalizedString(@"Tap to learn more", @"");
         cell.iconImageView.image = [UIImage imageNamed:@"Unknown"];
         
-        cell.repoLabel.textColor = [UIColor systemPinkColor];
+        cell.sourceLabel.textColor = [UIColor systemPinkColor];
         cell.urlLabel.textColor = [UIColor systemPinkColor];
         cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
@@ -144,9 +140,9 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBRepoTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBSourceTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSource *source = [self sourceAtIndexPath:indexPath];
-    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).repoBusyList;
+    NSDictionary *busyList = ((ZBTabBarController *)self.tabBarController).sourceBusyList;
     [self setSpinnerVisible:[busyList[[source baseFilename]] boolValue] forCell:cell];
 }
 
@@ -155,8 +151,8 @@
  }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *repo = [self sourceAtIndexPath:indexPath];
-    return [repo canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
+    ZBSource *source = [self sourceAtIndexPath:indexPath];
+    return [source canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -253,16 +249,16 @@
 
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
     if (action == @selector(copy:)) {
-        ZBRepoTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        ZBSource *source = [self sourceAtIndexPath:indexPath];
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-        [pasteBoard setString:cell.urlLabel.text];
+        [pasteBoard setString:source.repositoryURI];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSObject *source = [self sourceAtIndexPath:indexPath];
     if ([source isKindOfClass:[ZBSource class]]) {
-        [self performSegueWithIdentifier:@"segueReposToRepoSection" sender:indexPath];
+        [self performSegueWithIdentifier:@"segueSourcesToSourceSection" sender:indexPath];
     }
     else {
         ZBBaseSource *baseSource = (ZBBaseSource *)source;
@@ -279,7 +275,7 @@
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
         [invalidSourceAlert addAction:okAction];
         
-        [self presentViewController:invalidSourceAlert animated:true completion:nil];
+        [self presentViewController:invalidSourceAlert animated:YES completion:nil];
     }
 }
 
@@ -328,38 +324,51 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
-    NSArray *urlBlacklist = @[@"youtube.com", @"youtu.be", @"google.com", @"reddit.com", @"twitter.com", @"facebook.com", @"imgur.com", @"discord.com", @"discord.gg"];
-    NSMutableArray *repos = [NSMutableArray new];
+//    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
+//                              @"www.youtu.be", @"youtu.be",
+//                              @"www.google.com", @"google.com",
+//                              @"www.goo.gl", @"goo.gl",
+//                              @"www.reddit.com", @"reddit.com",
+//                              @"www.twitter.com", @"twitter.com",
+//                              @"www.facebook.com", @"facebook.com",
+//                              @"www.imgur.com", @"imgur.com",
+//                              @"www.discord.com", @"discord.com",
+//                              @"www.discord.gg", @"discord.gg",
+//                              @"www.apple.com", @"apple.com",
+//                              @"www.gmail.com", @"gmail.com"];
     
-    for (ZBSource *repo in [self.databaseManager sources]) {
-        NSString *host = [[NSURL URLWithString:repo.repositoryURI] host];
+    NSMutableArray *sources = [NSMutableArray new];
+    for (ZBSource *source in [self.databaseManager sources]) {
+        NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
         if (host) {
-            [repos addObject:host];
+            [sources addObject:host];
         }
     }
-    if ((url && url.scheme && url.host)) {
-        if ([[url scheme] isEqual:@"https"] || [[url scheme] isEqual:@"http"]) {
-            if (!askedToAddFromClipboard || ![lastPaste isEqualToString:pasteboard.string]) {
-                if (![urlBlacklist containsObject:url.host] && ![repos containsObject:url.host]) {
-                    [self showAddRepoFromClipboardAlert:url];
+    if (![sources containsObject:url.host]) {
+        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
+        if (baseSource) {
+            [baseSource verify:^(ZBSourceVerificationStatus status) {
+                if (status == ZBSourceExists) {
+                    if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self showAddSourceFromClipboardAlert:baseSource];
+                        });
+                    }
+                    self->askedToAddFromClipboard = YES;
+                    self->lastPaste = pasteboard.string;
                 }
-            }
-            askedToAddFromClipboard = YES;
-            lastPaste = pasteboard.string;
+            }];
         }
     }
 }
 
-- (void)showAddRepoFromClipboardAlert:(NSURL *)repoURL {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:repoURL.absoluteString preferredStyle:UIAlertControllerStyleAlert];
+- (void)showAddSourceFromClipboardAlert:(ZBBaseSource *)baseSource {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:baseSource.repositoryURI preferredStyle:UIAlertControllerStyleAlert];
     alertController.view.tintColor = [UIColor accentColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:repoURL];
-        if (baseSource) {
-            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
-        }
+        [self verifyAndAdd:[NSSet setWithObject:baseSource]];
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
@@ -388,7 +397,7 @@
             [malformed addAction:ok];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:malformed animated:true completion:nil];
+                [self presentViewController:malformed animated:YES completion:nil];
             });
         }
         else if ([baseSource exists]) {
@@ -399,7 +408,7 @@
             [youAlreadyAdded addAction:action];
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:youAlreadyAdded animated:true completion:nil];
+                [self presentViewController:youAlreadyAdded animated:YES completion:nil];
             });
         }
         else {
@@ -443,15 +452,15 @@
     return [NSIndexPath indexPathForRow:row inSection:section];
 }
 
-- (void)setSpinnerVisible:(BOOL)visible forRepo:(NSString *)baseFilename {
+- (void)setSpinnerVisible:(BOOL)visible forSource:(NSString *)baseFilename {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSInteger pos = [self->sourceIndexes[baseFilename] integerValue];
-        ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
+        ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:[self indexPathForPosition:pos]];
         [self setSpinnerVisible:visible forCell:cell];
     });
 }
 
-- (void)setSpinnerVisible:(BOOL)visible forCell:(ZBRepoTableViewCell *)cell {
+- (void)setSpinnerVisible:(BOOL)visible forCell:(ZBSourceTableViewCell *)cell {
     [cell setSpinning:visible];
 }
 
@@ -525,16 +534,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *destination = [segue destinationViewController];
     
-    if ([destination isKindOfClass:[ZBRepoSectionsListTableViewController class]]) {
+    if ([destination isKindOfClass:[ZBSourceSectionsListTableViewController class]]) {
         NSIndexPath *indexPath = sender;
-        ((ZBRepoSectionsListTableViewController *)destination).repo = [self sourceAtIndexPath:indexPath];
+        ((ZBSourceSectionsListTableViewController *)destination).source = [self sourceAtIndexPath:indexPath];
     }
 }
 
 //I said to myself: "who actually wrote this and named it that." and then i remembered I wrote it
 - (void)delewhoop:(NSNotification *)notification {
-    ZBSource *repo = (ZBSource *)[[notification userInfo] objectForKey:@"repo"];
-    NSInteger pos = [sourceIndexes[[repo baseFilename]] integerValue];
+    ZBSource *source = (ZBSource *)[[notification userInfo] objectForKey:@"source"];
+    NSInteger pos = [sourceIndexes[[source baseFilename]] integerValue];
     [self tableView:self.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:[self indexPathForPosition:pos]];
 }
 

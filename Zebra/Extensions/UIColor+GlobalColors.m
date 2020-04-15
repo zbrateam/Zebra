@@ -23,7 +23,7 @@
     return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }
 
-+ (UIColor *)blueCornflowerColor {
++ (UIColor *)cornflowerBlueColor {
     return [UIColor colorWithRed:0.40 green:0.50 blue:0.98 alpha:1.0];
 }
 
@@ -73,6 +73,23 @@
     }
     else {
         return style == ZBInterfaceStylePureBlack ? [UIColor blackColor] : [UIColor secondarySystemGroupedBackgroundColor];
+    }
+}
+
++ (UIColor *)cellSelectedBackgroundColor {
+    ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+    if ([ZBThemeManager useCustomTheming]) {
+        switch (style) {
+            case ZBInterfaceStyleLight:
+                return [[UIColor blackColor] colorWithAlphaComponent:0.10];
+            case ZBInterfaceStyleDark:
+                return [[UIColor whiteColor] colorWithAlphaComponent:0.10];
+            case ZBInterfaceStylePureBlack:
+                return [[UIColor whiteColor] colorWithAlphaComponent:0.05];
+        }
+    }
+    else {
+        return style == ZBInterfaceStylePureBlack ? [[UIColor whiteColor] colorWithAlphaComponent:0.05] : [[UIColor tertiarySystemGroupedBackgroundColor] colorWithAlphaComponent:0.75];
     }
 }
 

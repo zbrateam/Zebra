@@ -11,13 +11,13 @@
 #import "ZBSourceAccountTableViewController.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
-#import "ZBRepoTableViewCell.h"
+#import "ZBSourceTableViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 #import <UIColor+GlobalColors.h>
 #import "ZBUserInfo.h"
 #import <Tabs/Sources/Helpers/ZBSource.h>
 
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 
 @import SDWebImage;
 
@@ -55,7 +55,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     
-    self.navigationItem.title = NSLocalizedString(@"Account", @"");
+    self.navigationItem.title = NSLocalizedString(@"My Account", @"");
     
     if (self.presentingViewController) {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", @"") style:UIBarButtonItemStyleDone actionHandler:^{
@@ -65,7 +65,7 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,32 +83,11 @@
 - (void)getPurchases {
     loading = YES;
     
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"user_info"]];
-    
-    NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-    
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:requestData];
-
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-        NSInteger statusCode = [httpReponse statusCode];
-        
-        if (statusCode == 200 && !error) {
-            NSError *parseError;
-            NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"%@", str);
-            ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&parseError];
-            
-            if (parseError || userInfo.error) {
+    if (@available(iOS 11.0, *)) {
+        [source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+            if (error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:parseError ? parseError.localizedDescription : userInfo.error preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
                     
                     UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         if (self.presentingViewController) {
@@ -125,18 +104,18 @@
                     [self presentViewController:errorAlert animated:YES completion:nil];
                 });
             }
-            else {
+            else if (info) {
                 NSMutableArray *purchasedPackageIdentifiers = [NSMutableArray new];
-                for (NSString *packageIdentifier in userInfo.items) {
+                for (NSString *packageIdentifier in info.items) {
                     [purchasedPackageIdentifiers addObject:[packageIdentifier lowercaseString]];
                 }
                 
                 self->purchases = [self->databaseManager packagesFromIdentifiers:purchasedPackageIdentifiers];
-                if (userInfo.user.name) {
-                    self->userName = userInfo.user.name;
+                if (info.user.name) {
+                    self->userName = info.user.name;
                 }
-                if (userInfo.user.email) {
-                    self->userEmail = userInfo.user.email;
+                if (info.user.email) {
+                    self->userEmail = info.user.email;
                 }
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -147,29 +126,14 @@
                     [self.tableView endUpdates];
                 });
             }
-        }
-        else if (error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (self.presentingViewController) {
-                        [self signOut:self];
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }
-                    else {
-                        [self signOut:self];
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }
-                }];
-                [errorAlert addAction:okAction];
-                
-                [self presentViewController:errorAlert animated:YES completion:nil];
-            });
-        }
-    }];
-    
-    [task resume];
+        }];
+    } else {
+        self->loading = NO;
+        self->userName = NSLocalizedString(@"Unknown", @"");
+        self->userEmail = NSLocalizedString(@"Unknown", @"");
+        
+        [self.tableView reloadData];
+    }
 }
 
 - (void)signOut:(id)sender {
@@ -207,10 +171,10 @@
     if (indexPath.section == 0) { // Account Cell
         switch (indexPath.row) {
             case 0: {
-                ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+                ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
                 
-                cell.repoLabel.textColor = [UIColor primaryTextColor];
-                cell.repoLabel.text = [source label];
+                cell.sourceLabel.textColor = [UIColor primaryTextColor];
+                cell.sourceLabel.text = [source label];
                 
                 cell.urlLabel.text = [source sourceDescription];
                 cell.urlLabel.textColor = [UIColor secondaryTextColor];
@@ -282,7 +246,8 @@
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
         [keychain removeItemForKey:[source repositoryURI]];
-        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+
         if (self.presentingViewController) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
@@ -312,9 +277,7 @@
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
+    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
 }
 
 #pragma mark - Navigation

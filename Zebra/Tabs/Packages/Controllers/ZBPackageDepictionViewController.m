@@ -18,11 +18,12 @@
 #import <Database/ZBDatabaseManager.h>
 #import <SafariServices/SafariServices.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <ZBTabBarController.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBPurchaseInfo.h"
+#import <Packages/Helpers/ZBPackageActionType.h>
 
 @import SDWebImage;
 @import Crashlytics;
@@ -32,7 +33,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoAuthor,
     ZBPackageInfoVersion,
     ZBPackageInfoSize,
-    ZBPackageInfoRepo,
+    ZBPackageInfoSource,
     ZBPackageInfoWishList,
     ZBPackageInfoMoreBy,
     ZBPackageInfoInstalledFiles
@@ -47,9 +48,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     BOOL presented;
     BOOL navButtonsBeingConfigured;
     CGFloat webViewSize;
-    
-    UIBarButtonItem *busyButton;
-    UIBarButtonItem *previousButton;
 }
 @end
 
@@ -61,14 +59,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBSource *_Nullable)repo {
+- (id)initWithPackageID:(NSString *)packageID fromSource:(ZBSource *_Nullable)source {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
     if (self) {
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         
-        self.package = [databaseManager topVersionForPackageID:packageID inRepo:repo];
+        self.package = [databaseManager topVersionForPackageID:packageID inSource:source];
         if (self.package == NULL) {
             return NULL;
         }
@@ -91,6 +89,14 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIActivityIndicatorViewStyle style = [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
+    UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
+    [uiBusy startAnimating];
+    
+    UIBarButtonItem *busyButton = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
+    self.navigationItem.rightBarButtonItem = busyButton;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
     if (presented) {
@@ -98,10 +104,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         self.navigationItem.leftBarButtonItem = closeButton;
     }
     
-    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
     self.navigationItem.title = package.name;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
-    [self.tableView.tableHeaderView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
     infos = [NSMutableDictionary new];
@@ -134,7 +141,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
     
-    [progressView setTintColor:[UIColor accentColor] ? [UIColor accentColor] : [UIColor systemBlueColor]];
+    [progressView setTintColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     
     webView.navigationDelegate = self;
     webView.opaque = NO;
@@ -148,18 +155,15 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package repo] repositoryURI]);
+    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package source] repositoryURI]);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self configureNavButton];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
@@ -191,7 +195,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
-// FIXME: This is causing crashese with hexStringFromColor for some reason?
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
@@ -349,268 +352,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (navButtonsBeingConfigured) return;
     
     navButtonsBeingConfigured = YES;
-    if ([package isInstalled:NO]) { //Show "Modify" button
-        if ([package isReinstallable]) {
-            if ([package isPaid]) {
-                [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-                    if (info && info.purchased && info.available) {
-                        self.purchased = YES;
-                        self->package.sileoDownload = YES;
-                        [self showModifyButton:YES];
-                    }
-                    else {
-                        [self showRemoveButton];
-                    }
-                }];
-            }
-            else {
-                navButtonsBeingConfigured = NO;
-                [self showModifyButton:YES];
-            }
-        }
-        else {
-            navButtonsBeingConfigured = NO;
-            [self showRemoveButton];
-        }
-    }
-    else if ([package isPaid]) { //Could be a package that needs Payment API verification, lets check it out
-        [self setNavigationButtonBusy:YES];
-        [package purchaseInfo:^(ZBPurchaseInfo *_Nullable info) {
-            if (info) {
-                self.package.sileoDownload = YES;
-                self.purchased = info.purchased;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (info.price && !(info.error || info.recoveryURL)) {
-                        NSString *buttonText = info.purchased ? NSLocalizedString(@"Install", @"") : info.price;
-                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:buttonText style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-                        self->previousButton.enabled = info.available && ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-                        [self setNavigationButtonBusy:NO];
-                        
-                        self->navButtonsBeingConfigured = NO;
-                    }
-                    else {
-                        //This behavior is NOT intended I don't think, packages should be available without logging in...
-                        self->previousButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Sign In", @"") style:UIBarButtonItemStylePlain target:self action:@selector(signIn)];
-                        self->previousButton.enabled = true;
-                        [self setNavigationButtonBusy:NO];
-                        
-                        self->navButtonsBeingConfigured = NO;
-                    }
-                });
-            }
-            else {
-                [self showInstallButton];
-            }
-        }];
-    }
-    else {
-        //Show the install button as a last resort
-        [self showInstallButton];
-    }
-}
-
-- (void)showInstallButton {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIBarButtonItem *installButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installPackage)];
-        
-        installButton.enabled = ![[ZBQueue sharedQueue] contains:self->package inQueue:ZBQueueTypeInstall];
-        self.navigationItem.rightBarButtonItem = installButton;
-    });
-}
-
-- (void)showModifyButton:(BOOL)installed {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIBarButtonItem *modifyButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Modify", @"") style:UIBarButtonItemStylePlain target:self action:installed ? @selector(modifyPackage) : @selector(ignoredModify)];
-        self.navigationItem.rightBarButtonItem = modifyButton;
-    });
-}
-
-- (void)showRemoveButton {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIBarButtonItem *removeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Remove", @"") style:UIBarButtonItemStylePlain target:self action:@selector(removePackage)];
-        removeButton.enabled = self->package.repo.repoID != -1;
-        
-        self.navigationItem.rightBarButtonItem = removeButton;
-    });
-}
-
-- (void)setNavigationButtonBusy:(BOOL)busy {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (busy && self.navigationItem.rightBarButtonItem != nil && self.navigationItem.rightBarButtonItem == self->busyButton) return;
-        
-        if (!self->busyButton) {
-            UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            [uiBusy startAnimating];
-            
-            self->busyButton = [[UIBarButtonItem alloc] initWithCustomView:uiBusy];
-        }
-        
-        if (busy) {
-            //Save the current button into self.previousButton and set busyButton to rightBarButtonItem
-            UIActivityIndicatorView *uiBusy = self->busyButton.customView;
-            if ([ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
-                uiBusy.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            }
-            else {
-                uiBusy.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-            }
-            
-            self->previousButton = self.navigationItem.rightBarButtonItem;
-            self.navigationItem.rightBarButtonItem = self->busyButton;
-        }
-        else {
-            //Otherwise we can set the previousbutton back to where it was.
-            self.navigationItem.rightBarButtonItem = self->previousButton;
-        }
-    });
-}
-
-- (void)signIn {
-    ZBSource *source = [package repo];
-    if (source && [source paymentVendorURL]) {
-        [source authenticate:^(BOOL success, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self configureNavButton];
-            });
-        }];
-    }
-}
-
-- (void)installPackage {
-    if (package.sileoDownload && !self.purchased) {
-        [self purchasePackage];
-    }
-    else {
-        [ZBPackageActionsManager installPackage:package purchased:self.purchased];
-        [self presentQueue];
-        [self configureNavButton];
-    }
-}
-
-- (void)purchasePackage {
-    [self setNavigationButtonBusy:YES];
     
-    ZBSource *source = [package repo];
-    NSString *repositoryURL = [source repositoryURI];
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    if ([keychain stringForKey:repositoryURL]) { //Check if we have an access token
-        if ([source paymentVendorURL] && [package isPaid]) { //Just a small double check to make sure the package is paid and the repo supports payment
-            NSString *secret = [source paymentSecret];
-            
-            if (secret) {
-                NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [package identifier]]];
-                
-                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
-                
-                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[[package repo] repositoryURI]], @"payment_secret": secret, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
-                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-                
-                [request setHTTPMethod:@"POST"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-                [request setHTTPBody:requestData];
-                
-                NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                    [self setNavigationButtonBusy:NO];
-                    
-                    NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
-                    NSInteger statusCode = [httpReponse statusCode];
-                    
-                    if (statusCode == 200 && !error) {
-                        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        NSInteger status = [result[@"status"] integerValue];
-                        switch (status) {
-                            case -1: { //Failure
-                                [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase", @"")];
-                            }
-                            case 0: { //Immediate Success
-                                [self configureNavButton];
-                            }
-                            case 1: { //Interaction required
-                                [self initPurchaseLink:[NSURL URLWithString:result[@"url"]]];
-                            }
-                        }
-                    }
-                }];
-                
-                [task resume];
-            } else {
-                [self setNavigationButtonBusy:NO];
-                [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not complete purchase, no payment secret was found", @"")];
-            }
-        }
-    }
-    else if (source && [source paymentVendorURL]) { //If not, lets log in
-        [source authenticate:^(BOOL success, NSError * _Nullable error) {
-            [self purchasePackage];
-        }];
-    }
-}
-
-- (void)initPurchaseLink:(NSURL *)url {
-    if (@available(iOS 11.0, *)) {
-        static SFAuthenticationSession *session;
-        session = [[SFAuthenticationSession alloc]
-                   initWithURL:url
-                   callbackURLScheme:@"sileo"
-                   completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                       // TODO: Nothing to do here?
-                       ZBLog(@"[Zebra] Purchase callback URL: %@", callbackURL);
-                       if (callbackURL) {
-                           NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                           NSArray *queryItems = urlComponents.queryItems;
-                           NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                           for (NSURLQueryItem *q in queryItems) {
-                               [queryByKeys setValue:[q value] forKey:[q name]];
-                           }
-                           // NSString *token = queryByKeys[@"token"];
-                           // NSString *payment = queryByKeys[@"payment_secret"];
-                           
-                           NSError *error = NULL;
-                           // [self->_keychain setString:token forKey:self.repoEndpoint error:&error];
-                           if (error) {
-                               ZBLog(@"[Zebra] Error initializing purchase page: %@", error.localizedDescription);
-                           }
-                           
-                       } else {
-                           [self configureNavButton];
-                           return;
-                       }
-                       
-                       
-                   }];
-        [session start];
-    } else {
-        [ZBDevice openURL:url delegate:self];
-    }
-}
-
-- (void)removePackage {
-    if (package.repo.repoID == -1) {
-        return;
-    }
-    ZBQueue *queue = [ZBQueue sharedQueue];
-    [queue addPackage:package toQueue:ZBQueueTypeRemove];
-    [self presentQueue];
-}
-
-- (void)modifyPackage {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    for (UIAlertAction *action in [ZBPackageActionsManager alertActionsForPackage:package viewController:self parent:_parent]) {
-        [alert addAction:action];
-    }
-    alert.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)ignoredModify {
-    NSUInteger originalActions = package.possibleActions;
-    [package _setPossibleActions:ZBQueueTypeInstall];
-    [self modifyPackage];
-    [package _setPossibleActions:originalActions];
+    [ZBPackageActions barButtonItemForPackage:package completion:^(UIBarButtonItem *barButton) {
+        self->navButtonsBeingConfigured = NO;
+        self.navigationItem.rightBarButtonItem = barButton;
+    }];
 }
 
 - (void)dealloc {
@@ -631,13 +377,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 // 3D Touch Actions
 
 - (NSArray *)previewActionItems {
-    return [ZBPackageActionsManager previewActionsForPackage:package viewController:self parent:_parent];
+    return [ZBPackageActions previewActionsForPackage:package inTableView:_parent.tableView];
 }
 
 // Haptic Touch Actions
 
-- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    return [ZBPackageActionsManager contextMenuActionsForPackage:package indexPath:indexPath viewController:self parent:_parent];
+- (NSArray *)contextMenuActionItemsInTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0)) {
+    return [ZBPackageActions menuElementsForPackage:package inTableView:tableView];
 }
 
 - (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
@@ -652,7 +398,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     UIColor *tableViewBackgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
     webView.backgroundColor = tableViewBackgroundColor;
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
     self.tableView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
@@ -671,21 +417,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.packageName.textColor = [UIColor primaryTextColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
-        if (sectionImage == NULL) {
-            sectionImage = [UIImage imageNamed:@"Other"];
-        }
-        
-        NSString *iconURL = @"";
-        if (package.iconPath) {
-            iconURL = [package iconPath];
-        } else {
-            iconURL = [NSString stringWithFormat:@"data:image/png;base64,%@", [UIImagePNGRepresentation(sectionImage) base64EncodedStringWithOptions:0]];
-        }
-        
-        if (iconURL.length) {
-            [self.packageIcon sd_setImageWithURL:[NSURL URLWithString:iconURL] placeholderImage:sectionImage];
-        }
+        [package setIconImageForImageView:self.packageIcon];
     });
 }
 
@@ -698,7 +430,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)setMoreByText:(ZBPackage *)package {
-    if (package.author) {
+    if (package.authorName) {
         infos[@(ZBPackageInfoMoreBy)] = NSLocalizedString(@"More by this Developer", @"");
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoMoreBy)];
@@ -726,11 +458,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readRepo:(ZBPackage *)package {
-    NSString *repoName = [[package repo] origin];
-    if (repoName) {
-        infos[@(ZBPackageInfoRepo)] = repoName;
+    NSString *sourceName = [[package source] origin];
+    if (sourceName) {
+        infos[@(ZBPackageInfoSource)] = sourceName;
     } else {
-        [infos removeObjectForKey:@(ZBPackageInfoRepo)];
+        [infos removeObjectForKey:@(ZBPackageInfoSource)];
     }
 }
 
@@ -743,9 +475,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (void)readAuthor:(ZBPackage *)package {
-    NSString *authorName = [package author];
+    NSString *authorName = [package authorName];
     if (authorName) {
-        infos[@(ZBPackageInfoAuthor)] = [self stripEmailFromAuthor];
+        infos[@(ZBPackageInfoAuthor)] = authorName;
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoAuthor)];
     }
@@ -761,30 +493,11 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self readPackageID:package];
     [self setMoreByText:package];
     infos[@(ZBPackageInfoWishList)] = @"";
-    [self.tableView reloadData];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (NSUInteger)rowCount {
     return infos.count;
-}
-
-- (NSString *)stripEmailFromAuthor {
-    if (package.author != NULL && package.author.length > 0) {
-        if ([package.author containsString:@"<"] && [package.author containsString:@">"]) {
-            NSArray *components = [package.author componentsSeparatedByString:@" <"];
-            if ([components count] <= 1) components = [package.author componentsSeparatedByString:@"<"];
-            if ([components count] > 1) {
-                self.authorEmail = [components[1] stringByReplacingOccurrencesOfString:@">" withString:@""];
-                
-                return components[0];
-            }
-        }
-        
-        return package.author;
-    }
-    else {
-        return NULL;
-    }
 }
 
 - (void)sendEmailToDeveloper {
@@ -796,16 +509,16 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
         [mail setSubject:subject];
         [mail setMessageBody:body isHTML:NO];
-        [mail setToRecipients:@[self.authorEmail]];
+        [mail setToRecipients:@[self.package.authorEmail]];
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
-        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.authorEmail, subject, body];
+        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
         NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
         } else {
-            [[UIApplication sharedApplication]  openURL: [NSURL URLWithString: url]];
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
     }
 }
@@ -829,7 +542,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSString *value = infos[@(indexPath.row)];
     
     if (cell == nil) {
-        if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoRepo) {
+        if (indexPath.row == ZBPackageInfoSize || indexPath.row == ZBPackageInfoVersion || indexPath.row == ZBPackageInfoSource) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:simpleTableIdentifier];
         } else {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
@@ -849,7 +562,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             break;
         case ZBPackageInfoAuthor:
             cell.textLabel.text = value;
-            cell.accessoryType = self.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
+            cell.accessoryType = self.package.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
             break;
         case ZBPackageInfoVersion:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -861,14 +574,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
             cell.textLabel.text = NSLocalizedString(@"Size", @"");
             cell.detailTextLabel.text = value;
             break;
-        case ZBPackageInfoRepo:
+        case ZBPackageInfoSource:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.text = NSLocalizedString(@"Repo", @"");
+            cell.textLabel.text = NSLocalizedString(@"Source", @"");
             cell.detailTextLabel.text = value;
             break;
         case ZBPackageInfoWishList: {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            BOOL inWishList = [[defaults objectForKey:wishListKey] containsObject:package.identifier];
+            BOOL inWishList = [[ZBSettings wishlist] containsObject:package.identifier];
             cell.textLabel.text = NSLocalizedString(inWishList ? @"Remove from Wish List" : @"Add to Wish List", @"");
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -915,29 +627,28 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         case ZBPackageInfoID:
             break;
         case ZBPackageInfoAuthor:
-            if (self.authorEmail) {
+            if (self.package.authorEmail) {
                 [self sendEmailToDeveloper];
             }
             break;
         case ZBPackageInfoVersion:
         case ZBPackageInfoSize:
-        case ZBPackageInfoRepo:
+        case ZBPackageInfoSource:
             break;
         case ZBPackageInfoWishList: {
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSMutableArray *wishList = [[defaults objectForKey:wishListKey] mutableCopy];
+            NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
             BOOL inWishList = [wishList containsObject:package.identifier];
             if (inWishList) {
                 [wishList removeObject:package.identifier];
-                [defaults setObject:wishList forKey:wishListKey];
             } else {
                 [wishList addObject:package.identifier];
-                [defaults setObject:wishList forKey:wishListKey];
             }
-            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [ZBSettings setWishlist:wishList];
+            
+            [tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:ZBPackageInfoWishList inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             break;
         } case ZBPackageInfoMoreBy:
-            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:[self stripEmailFromAuthor]];
+            [self performSegueWithIdentifier:@"seguePackageDepictionToMorePackages" sender:self.package.authorName];
             break;
         case ZBPackageInfoInstalledFiles: {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

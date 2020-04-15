@@ -14,6 +14,7 @@
 #import <Community Sources/ZBCommunitySourcesTableViewController.h>
 #import <Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
+#import <ZBAppDelegate.h>
 
 @import FirebaseAnalytics;
 
@@ -39,12 +40,12 @@ typedef enum ZBViewOrder : NSUInteger {
 
 typedef enum ZBLinksOrder : NSUInteger {
     ZBDiscord,
-    ZBTwitter,
-    ZBTranslate
+    ZBTwitter
 } ZBLinksOrder;
 
 @interface ZBHomeTableViewController (){
     NSMutableArray *redditPosts;
+    BOOL hideUDID;
 }
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
@@ -56,9 +57,10 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTheme) name:@"darkMode" object:nil];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshCollection:) name:@"refreshCollection" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleFeatured) name:@"toggleFeatured" object:nil];
+    
     [self.navigationItem setTitle:NSLocalizedString(@"Home", @"")];
     self.defaults = [NSUserDefaults standardUserDefaults];
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
@@ -82,7 +84,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self configureFooter];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserWillTakeScreenshotNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserDidTakeScreenshotNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserStartedScreenCaptureNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserEndedScreenCaptureNotification object:nil];
+    
     [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -90,18 +97,22 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
 }
 
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setupFeatured {
     allFeatured = [NSMutableArray new];
     selectedFeatured = [NSMutableArray new];
     redditPosts = [NSMutableArray new];
-    [self configureFooter];
     [self startFeaturedPackages];
 }
 
 - (void)startFeaturedPackages {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([self.defaults boolForKey:wantsFeaturedKey]) {
-        if ([self.defaults boolForKey:randomFeaturedKey]) {
+    if ([ZBSettings wantsFeaturedPackages]) {
+        if ([ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 [self packagesFromDB];
             });
@@ -118,13 +129,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBSource *>*featuredRepos = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+    NSMutableArray <ZBSource *>*featuredSources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     NSMutableDictionary *featuredItems = [NSMutableDictionary new];
     dispatch_group_t group = dispatch_group_create();
-    for (ZBSource *repo in featuredRepos) {
-        if ([repo respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
+    for (ZBSource *source in featuredSources) {
+        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
             dispatch_group_enter(group);
-            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:repo.repositoryURI]];
+            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
             NSURL *checkingURL = requestURL;
             NSURLSession *session = [NSURLSession sharedSession];
             [[session dataTaskWithURL:checkingURL
@@ -132,13 +143,13 @@ typedef enum ZBLinksOrder : NSUInteger {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                         if (data != nil && (long)[httpResponse statusCode] != 404) {
                             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                            if (!repo.supportsFeaturedPackages) {
-                                repo.supportsFeaturedPackages = YES;
+                            if (!source.supportsFeaturedPackages) {
+                                source.supportsFeaturedPackages = YES;
                             }
                             if ([json objectForKey:@"banners"]) {
                                 NSArray *banners = [json objectForKey:@"banners"];
                                 if (banners.count) {
-                                    [featuredItems setObject:banners forKey:[repo baseFilename]];
+                                    [featuredItems setObject:banners forKey:[source baseFilename]];
                                 }
                             }
                         }
@@ -166,12 +177,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *blockedRepos = [self.defaults arrayForKey:@"blackListedRepos"];
+    NSArray *blockedSources = [ZBSettings sourceBlacklist];
     NSMutableArray *blacklist = [NSMutableArray new];
-    for (NSString *baseURL in blockedRepos) {
-        ZBSource *repo = [ZBSource repoFromBaseURL:baseURL];
-        if (repo) {
-            [blacklist addObject:repo];
+    for (NSString *baseFilename in blockedSources) {
+        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        if (source) {
+            [blacklist addObject:source];
         }
     }
     
@@ -185,7 +196,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [dict setObject:package.iconPath forKey:@"url"];
                 [dict setObject:package.identifier forKey:@"package"];
                 [dict setObject:package.name forKey:@"title"];
-                [dict setObject:package.sectionImageName forKey:@"section"];
+                [dict setObject:package.section forKey:@"section"];
                 
                 [self->allFeatured addObject:dict];
             }
@@ -226,19 +237,6 @@ typedef enum ZBLinksOrder : NSUInteger {
     return MIN(5, allFeatured.count);
 }
 
-- (void)configureFooter {
-    [self.footerView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
-    [self.footerLabel setTextColor:[UIColor secondaryTextColor]];
-    [self.footerLabel setNumberOfLines:1];
-    [self.footerLabel setFont:[UIFont systemFontOfSize:13]];
-    [self.footerLabel setText:[NSString stringWithFormat:@"%@ - iOS %@ - Zebra %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION]];
-    [self.udidLabel setFont:self.footerLabel.font];
-    [self.udidLabel setTextColor:[UIColor secondaryTextColor]];
-    [self.udidLabel setNumberOfLines:1];
-    [self.udidLabel setAdjustsFontSizeToFitWidth:YES];
-    [self.udidLabel setText:[ZBDevice UDID]];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -250,9 +248,14 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBInfo:
             return 2;
         case ZBViews:
-            return 4;
+            if (@available(iOS 11.0, *)) {
+                return 4;
+            }
+            else {
+                return 3;
+            }
         case ZBLinks:
-            return 3;
+            return 2;
         case ZBCredits:
             return 1;
         default:
@@ -323,9 +326,11 @@ typedef enum ZBLinksOrder : NSUInteger {
                     image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
-                    text = NSLocalizedString(@"Stores", @"");
-                    image = [UIImage imageNamed:@"Stores"];
-                    break;
+                    if (@available(iOS 11.0, *)) {
+                        text = NSLocalizedString(@"Stores", @"");
+                        image = [UIImage imageNamed:@"Stores"];
+                        break;
+                    }
                 case ZBWishList:
                     text = NSLocalizedString(@"Wish List", @"");
                     image = [UIImage imageNamed:@"Wishlist"];
@@ -361,10 +366,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBTwitter:
                     text = NSLocalizedString(@"Follow us on Twitter", @"");
                     image = [UIImage imageNamed:@"Twitter"];
-                    break;
-                case ZBTranslate:
-                    text = NSLocalizedString(@"Help translate Zebra!", @"");
-                    image = [UIImage imageNamed:@"Translations"];
                     break;
             }
             [cell.textLabel setText:text];
@@ -411,6 +412,18 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == ZBCredits) {
+        return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, hideUDID ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
+    }
+    return NULL;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section {
+    UITableViewHeaderFooterView *footer = (UITableViewHeaderFooterView *)view;
+    footer.textLabel.textAlignment = NSTextAlignmentCenter;
+}
+
 - (void)setImageSize:(UIImageView *)imageView {
     CGSize itemSize = CGSizeMake(29, 29);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
@@ -455,14 +468,16 @@ typedef enum ZBLinksOrder : NSUInteger {
             break;
         }
         case ZBCommunity: {
-            ZBCommunitySourcesTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communityReposController"];
+            ZBCommunitySourcesTableViewController *community = [storyboard instantiateViewControllerWithIdentifier:@"communitySourcesController"];
             [self.navigationController pushViewController:community animated:YES];
             break;
         }
         case ZBStores: {
-            ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
-            [[self navigationController] pushViewController:webController animated:YES];
-            break;
+            if (@available(iOS 11.0, *)) {
+                ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
+                [[self navigationController] pushViewController:webController animated:YES];
+                break;
+            }
         }
         case ZBWishList: {
             ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
@@ -482,17 +497,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)openBug {
-    //TODO: Make bug report work again
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-//    webController.navigationDelegate = webController;
-//    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
     NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
-//    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-//    [webController setValue:url forKey:@"_url"];
-//    [[self navigationController] pushViewController:webController animated:YES];
-    
+
     [ZBDevice openURL:url delegate:self];
 }
 
@@ -515,9 +521,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 [self openURL:twitterweb];
             }
             break;
-        }
-        case ZBTranslate: {
-            [self openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"]];
         }
         default:
             break;
@@ -553,13 +556,10 @@ typedef enum ZBLinksOrder : NSUInteger {
         
         [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
     }
-    else {
-        
-    }
 }
 
 - (void)refreshCollection:(NSNotification *)notif {
-    BOOL selected = [self.defaults boolForKey:randomFeaturedKey];
+    BOOL selected = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
     [allFeatured removeAllObjects];
     if (selected) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -579,7 +579,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)toggleFeatured {
     [allFeatured removeAllObjects];
     [self setupFeatured];
-    if ([self.defaults boolForKey:wantsFeaturedKey]) {
+    if ([ZBSettings wantsFeaturedPackages]) {
         [self refreshCollection:nil];
     } else {
         [self.tableView beginUpdates];
@@ -590,6 +590,20 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)presentationControllerWillDismiss:(UIPresentationController *)presentationController {
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+}
+
+- (void)hideUDID {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->hideUDID = YES;
+        [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+    });
+}
+
+- (void)showUDID {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->hideUDID = NO;
+        [self.tableView reloadData]; // reloadSections is too slow to use here apparently
+    });
 }
 
 #pragma mark UICollectionView
@@ -652,7 +666,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [weakSelf setPackageOnDestinationVC:weakSelf.previewPackageDepictionVC withPackage:cell.packageID];
         weakSelf.previewPackageDepictionVC.parent = weakSelf;
         
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:nil]];
     }];
 }
 

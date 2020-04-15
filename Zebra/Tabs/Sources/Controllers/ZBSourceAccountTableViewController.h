@@ -1,5 +1,5 @@
 //
-//  ZBRepoPurchasedPackagesTableViewController.h
+//  ZBSourcePurchasedPackagesTableViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 5/11/19.

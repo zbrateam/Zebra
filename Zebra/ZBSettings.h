@@ -7,6 +7,7 @@
 //
 
 @class ZBSource;
+@class ZBPackage;
 
 #import <Foundation/Foundation.h>
 
@@ -24,12 +25,40 @@
 #define wishListKey @"wishList"
 #define darkModeKey @"darkMode"
 #define finishAutomaticallyKey @"finishAutomatically"
+#define featuredBlacklistKey @"blackListedRepos"
 
 //New settings keys
-extern NSString * _Nonnull const AccentColorKey;
-extern NSString * _Nonnull const UseSystemAppearanceKey;
-extern NSString * _Nonnull const InterfaceStyleKey;
-extern NSString * _Nonnull const PureBlackModeKey;
+extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
+extern NSString * _Nonnull const UsesSystemAccentColorKey; // Stored as BOOL
+extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
+extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
+extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
+
+extern NSString * _Nonnull const UseSystemLanguageKey; // Stored as BOOL
+extern NSString * _Nonnull const SelectedLanguageKey; // Stored as NSString
+
+extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
+extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
+extern NSString * _Nonnull const BlockedAuthorsKey; // Stored as NSArray
+
+extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
+extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
+extern NSString * _Nonnull const FeaturedSourceBlacklistKey; // Stored as NSArray
+//extern NSString * _Nonnull const HideUDIDKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsAutoRefreshKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsCommunityNewsKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsLiveSearchKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsFinishAutomaticallyKey; // Stored as BOOL
+
+extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
+
+extern NSString * _Nonnull const WishlistKey; // Stored as NSArray
+
+extern NSString * _Nonnull const PackageSortingTypeKey; // Stored as ZBSortingType
 
 #pragma mark - Accent Colors
 
@@ -48,7 +77,7 @@ typedef enum : NSUInteger {
     ZBAccentColorStorm,
 } ZBAccentColor;
 
-#pragma mark - Dark Mode Styles
+#pragma mark - Interface Styles
 
 typedef enum : NSUInteger {
     ZBInterfaceStyleLight,
@@ -63,10 +92,22 @@ typedef enum : NSUInteger {
     ZBFeaturedTypeRandom,
 } ZBFeaturedType;
 
+#pragma mark - Swipe Action Style
+
+typedef enum : NSUInteger {
+    ZBSwipeActionStyleText,
+    ZBSwipeActionStyleIcon,
+} ZBSwipeActionStyle;
+
+#pragma mark - Package Sorting Style
+
+typedef enum : NSUInteger {
+    ZBSortingTypeABC,
+    ZBSortingTypeDate,
+    ZBSortingTypeInstalledSize
+} ZBSortingType;
 
 NS_ASSUME_NONNULL_BEGIN
-
-#pragma mark -
 
 @interface ZBSettings : NSObject
 
@@ -90,22 +131,78 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
 
+#pragma mark - Language
+
++ (BOOL)usesSystemLanguage;
++ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage;
+
++ (NSString *)selectedLanguage;
++ (void)setSelectedLanguage:(NSString *_Nullable)languageCode;
+
+#pragma mark - Filters
+
++ (NSArray *)filteredSections;
++ (void)setFilteredSections:(NSArray *)filteredSources;
++ (NSDictionary *)filteredSources;
++ (void)setFilteredSources:(NSDictionary *)filteredSources;
+
++ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
++ (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
+
++ (NSDictionary *)blockedAuthors;
++ (void)setBlockedAuthors:(NSDictionary *)blockedAuthors;
++ (BOOL)isAuthorBlocked:(NSString *)name email:(NSString *)name;
+
++ (BOOL)isPackageFiltered:(ZBPackage *)package;
+
+#pragma mark - Homepage settings
+
 + (BOOL)wantsFeaturedPackages;
 + (void)setWantsFeaturedPackages:(BOOL)wantsFeaturedPackages;
 
 + (ZBFeaturedType)featuredPackagesType;
-+ (void)setFeaturedPackagesType:(ZBFeaturedType)featuredPackagesType;
++ (void)setFeaturedPackagesType:(NSNumber *)featuredPackagesType;
 
 + (NSArray *)sourceBlacklist;
++ (void)setSourceBlacklist:(NSArray *)blacklist;
+
+//+ (BOOL)hideUDID;
+//+ (void)setHideUDID:(BOOL)hideUDID;
+
+#pragma mark - Sources Settings
+
++ (BOOL)wantsAutoRefresh;
++ (void)setWantsAutoRefresh:(BOOL)autoRefresh;
+
+#pragma mark - Changes Settings
 
 + (BOOL)wantsCommunityNews;
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
 
-+ (BOOL)liveSearch;
+#pragma mark - Search Settings
 
-+ (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source;
++ (BOOL)wantsLiveSearch;
++ (void)setWantsLiveSearch:(BOOL)liveSearch;
 
-+ (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source;
+#pragma mark - Console Settings
+
++ (BOOL)wantsFinishAutomatically;
++ (void)setWantsFinishAutomatically:(BOOL)finishAutomatically;
+
+#pragma mark - Swipe Action Settings
+
++ (ZBSwipeActionStyle)swipeActionStyle;
++ (void)setSwipeActionStyle:(NSNumber *)style;
+
+#pragma mark - Wishlist
+
++ (NSArray *)wishlist;
++ (void)setWishlist:(NSArray *)wishlist;
+
+#pragma mark - Package Sorting Type
+
++ (ZBSortingType)packageSortingType;
++ (void)setPackageSortingType:(ZBSortingType)sortingType;
 
 @end
 

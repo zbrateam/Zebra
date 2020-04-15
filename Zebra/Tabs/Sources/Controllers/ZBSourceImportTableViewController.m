@@ -14,7 +14,7 @@
 #import <Extensions/UINavigationBar+Progress.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>
 
@@ -65,7 +65,7 @@
     importItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = importItem;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,17 +121,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if ([baseSources count]) {
-        ZBRepoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell"];
+        ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell"];
         if (!cell) {
-            cell = (ZBRepoTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"repoTableViewCell"];
+            cell = (ZBSourceTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sourceTableViewCell"];
         }
         
         ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
-        ZBSourceVerification status = source.verificationStatus;
+        ZBSourceVerificationStatus status = source.verificationStatus;
         
-        cell.repoLabel.alpha = 1.0;
+        cell.sourceLabel.alpha = 1.0;
         cell.urlLabel.alpha = 1.0;
-        cell.repoLabel.textColor = [UIColor primaryTextColor];
+        cell.sourceLabel.textColor = [UIColor primaryTextColor];
         [cell setSpinning:NO];
         switch (status) {
             case ZBSourceExists: {
@@ -143,26 +143,26 @@
                 [cell setSpinning:YES];
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
-                cell.repoLabel.alpha = 0.7;
+                cell.sourceLabel.alpha = 0.7;
                 cell.urlLabel.alpha = 0.7;
                 break;
             }
             case ZBSourceImaginary: {
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 
-                cell.repoLabel.textColor = [UIColor systemPinkColor];
+                cell.sourceLabel.textColor = [UIColor systemPinkColor];
                 break;
             }
             case ZBSourceVerifying: {
                 [cell setSpinning:YES];
                 
-                cell.repoLabel.alpha = 0.7;
+                cell.sourceLabel.alpha = 0.7;
                 cell.urlLabel.alpha = 0.7;
                 break;
             }
         }
         
-        cell.repoLabel.text = [self.titles objectForKey:[source baseFilename]];
+        cell.sourceLabel.text = [self.titles objectForKey:[source baseFilename]];
         cell.urlLabel.text = source.repositoryURI;
         
         [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -267,10 +267,10 @@
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self->sourceManager addBaseSources:sources];
-        ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:sources];
+        ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:sources];
         
-        [self.navigationController pushViewController:refresh animated:true];
-        [self.navigationController setNavigationBarHidden:true animated:true];
+        [self.navigationController pushViewController:refresh animated:YES];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
     }];
     [areYouSure addAction:yesAction];
     
@@ -278,12 +278,12 @@
     [areYouSure addAction:noAction];
     
     areYouSure.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
-    [self presentViewController:areYouSure animated:true completion:nil];
+    [self presentViewController:areYouSure animated:YES completion:nil];
 }
 
 #pragma mark - Verification Delegate
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerification)status {
+- (void)source:(ZBBaseSource *)source status:(ZBSourceVerificationStatus)status {
     if (status == ZBSourceExists) {
         [source getLabel:^(NSString * _Nonnull label) {
             if (!label) {

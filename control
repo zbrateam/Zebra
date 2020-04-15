@@ -1,6 +1,6 @@
 Package: xyz.willy.zebra
 Name: Zebra
-Version: 1.1~beta2-1
+Version: 1.1~beta5-1
 Architecture: iphoneos-arm
 Depends: dpkg, uikittools, firmware (>= 9.0)
 Description: A Useful Package Manager
@@ -8,4 +8,4 @@ Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
 Section: Packaging
 Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
-Tag: compatible::9.0-13.3
+Tag: compatible::9.0-13.4

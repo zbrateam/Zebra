@@ -372,8 +372,12 @@
 }
 
 + (void)exitZebra {
+    [self exitZebraAfter:1];
+}
+
++ (void)exitZebraAfter:(int)seconds {
     [[UIApplication sharedApplication] suspend];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         exit(0);
     });
 }
@@ -394,7 +398,7 @@
 }
 
 + (BOOL)useIcon {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey];
+    return [ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon;
 }
 
 + (BOOL)darkModeEnabled {

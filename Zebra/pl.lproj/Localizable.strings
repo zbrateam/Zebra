@@ -10,6 +10,10 @@
 "Close" = "Zamknij";
 "Done" = "Gotowe";
 "Loading..." = "Ładowanie...";
+"Clear" = "Wyczyść";
+"An Error Occurred" = "Wystąpił błąd";
+"Dismiss" = "Zamknij";
+"Downloads" = "Pobrane";
 
 // Home
 
@@ -19,6 +23,8 @@
 "Report a Bug" = "Zgłoś błąd";
 "Changelog" = "Zmiany";
 "Wish List" = "Lista Życzeń";
+"Newest First" = "Sortuj od najnowszych";
+"Oldest First" = "Sortuj od najstarszych";
 "No items in Wish List" = "Brak produktów na liście życzeń";
 "Community" = "Społeczność";
 "Join our Discord" = "Dołącz na naszego Discorda";
@@ -34,6 +40,15 @@
 "Transfer Sources" = "Przenieś źródła";
 "Verifying Source" = "Weryfikowanie źródła";
 "Verifying Sources" = "Weryfikowanie źródeł";
+"Import" = "Importuj";
+"Verifying..." = "Weryfikowanie...";
+"Confirm Import" = "Potwierdź import";
+"Import Sources" = "Importuj źródła";
+"No sources to import" = "Brak źródeł do zaimportowania";
+"Would you like to import the following sources?" = "Czy chcesz zaimportować następujące źródła?";
+"Are you sure that you want to import 1 source into Zebra?" = "Czy na pewno chcesz zaimportować 1 źródło do Zebry?";
+"Are you sure that you want to import %d sources into Zebra?" = "Czy na pewno chcesz zaimportować %d źródeł do Zebry?";
+
 
 // Credits
 
@@ -55,6 +70,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Zakończ automatycznie";
+"Hide UDID" = "Ukryj UDID";
+"Automatic Refresh" = "Automatyczne odświeżanie";
 
 // Accent Colors
 
@@ -87,27 +104,37 @@
 "Select Repos to be Featured" = "Wybierz repozytoria do wyróżnienia";
 "Featured Repos" = "Wyróżnione repozytoria";
 
-// Advanced
+// Reset
 
-"Advanced" = "Zaawansowane";
+"Reset" = "Reset";
 "Refresh Icon Cache" = "Odśwież pamięć podręczną ikon";
-"Reset Image Cache" = "Wyczyść pamięć podręczną obrazów";
-"Reset Sources Cache" = "Wyczyść pamięć podręczną źródeł";
+"Clear Image Cache" = "Wyczyść pamięć podręczną obrazów";
+"Clear Sources Cache" = "Wyczyść pamięć podręczną źródeł";
+"Clear Web Cache" = "Wyczyść pamięć podręczną";
 "Reset All Settings" = "Resetuj wszystkie ustawienia";
+"Erase All Sources" = "Usuń wszystkie źródła";
 "Erase All Sources and Settings" = "Usuń wszystkie źródła i ustawienia";
 
 "Are you sure you want to restart the SpringBoard?" = "Czy na pewno chcesz uruchomić ponownie SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Czy na pewno chcesz odświeżyć pamięć podręczną ikon?\nTwoje urządzenie może stać się nieresponsywne aż proces zostanie ukończony.";
-"Image Cache Reset" = "Resetuj pamięć podręczną obrazów";
+"Image Cache Cleared" = "Wyczyszczono pamięć podręczną obrazów";
+"Web Cache Cleared" = "Wyczyszczono pamięć podręczną";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Czy na pewno chcesz zresetować pamięć podręczną źródeł Zebra? Spowoduje to usunięcie wszystkich informacji w pamięci podręcznej z bazy danych Zebra i ponowne pobranie. Twoje źródła nie zostaną usunięte.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Czy na pewno chcesz zresetować ustawienia Zebra? Spowoduje to zresetowanie wszystkich ustawień Zebra do wartości domyślnych, a Zebra uruchomi się ponownie.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Czy na pewno chcesz usunąć wszystkie źródła? Wszystkie twoje źródła zostaną usunięte z Zebry, a Zebra zostanie uruchomiona ponownie.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Czy na pewno chcesz usunąć wszystkie źródła i ustawienia? Wszystkie twoje źródła zostaną usunięte z Zebry, a ustawienia zostaną zresetowane.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Wszystkie twoje źródła zostaną usunięte i znikną bezpowrotnie, a Zebra uruchomi się ponownie.";
+
+// Documents Directory
+"Open Documents Directory" = "Otwórz katalog dokumenty";
+
+"Filza Not Installed" = "Filza nie została zainstalowana";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nie może otworzyć katalogu dokumentów, ponieważ Filza nie jest zainstalowana. Katalog dokumentów to: %@";
 
 // Stores
 
 "Stores" = "Sklepy";
-"Account" = "Konto";
+"My Account" = "Moje Konto";
 "Sign In" = "Zaloguj się";
 "Sign Out" = "Wyloguj się";
 "Your Purchases" = "Twoje Zakupy";
@@ -115,57 +142,72 @@
 "Could not complete purchase" = "Nie można ukończyć zakupu";
 "Could not complete purchase, no payment secret was found" = "Nie można ukończyć zakupu, nie znaleziono tajemnicy płatności";
 "No packages purchased" = "Brak zakupionych pakietów";
+"Logged in as %@ (%@)" = "Zalogowano jako %@(%@)";
 
 // Sources
 
 "Sources" = "Źródła";
-"Local Repository" = "Lokalne źródło";
-"Locally installed packages" = "Lokalnie zainstalowane pakiety";
 "Unknown" = "Nieznane";
-"No source URLs detected." = "Nie wykryto adresów źródeł.";
-"You have already added this source." = "To źródło zostało już dodane.";
-"You have already added these sources." = "Te źródła zostały już dodane.";
-"Error verifying source" = "Błąd weryfikacji źródła";
-"Error verifying sources" = "Błąd weryfikacji źródeł";
-"Unknown error" = "Nieznany błąd";
-"Invalid URL" = "Błędny URL";
-"Enter Source URL" = "Wprowadź URL źródła";
-"Add Sources" = "Dodaj źródła";
-"Add" = "Dodaj";
-"Add Multiple" = "Dodaj wiele";
-"Would you like to add the URL from your clipboard?" = "Czy chcesz skopiować URL do schowka?";
-"Please Wait..." = "Proszę czekać...";
-"Verifying Source(s)" = "Weryfikowanie źródeł";
-"Unable to verify source" = "Nie można zweryfikować źródła";
+"Delete" = "Usuń";
 "Refresh" = "Odśwież";
 "All Packages" = "Wszystkie pakiety";
-"Delete" = "Usuń";
-"Import Sources" = "Importuj źródła";
+"Remove Source" = "Usuń źródło";
+"Local Repository" = "Lokalne źródło";
+"Locally installed packages" = "Lokalnie zainstalowane pakiety";
+
+"Add" = "Dodaj";
+"Add Sources" = "Dodaj źródła";
+"Add Multiple" = "Dodaj wiele";
+"Enter Source URL" = "Wprowadź URL źródła";
+"Would you like to add the URL from your clipboard?" = "Czy chcesz skopiować URL do schowka?";
+
+"Please Wait..." = "Proszę czekać...";
+"Verifying Source" = "Weryfikowanie źródła";
+"Verifying Sources" = "Weryfikowanie źródeł";
 "Updating Sources" = "Aktualizowanie źródeł";
-"Would you like to import the following sources?" = "Czy chcesz zaimportować następujące źródła?";
+
+"Unknown error" = "Nieznany błąd";
+"Invalid URL" = "Błędny URL";
+"Invalid Source" = "Nieprawidłowe źródło";
+"Tap to learn more" = "Dotknij, aby dowiedzieć się więcej";
+"No source URLs detected." = "Nie wykryto adresów źródeł.";
+"Unable to verify source" = "Nie można zweryfikować źródła";
+"Error verifying source" = "Błąd weryfikacji źródła";
+"Error verifying sources" = "Błąd weryfikacji źródeł";
 "Failed to add source" = "Nie udało się dodać źródła";
 "Failed to add sources" = "Nie udało się dodać źródeł";
+"You have already added this source." = "To źródło zostało już dodane.";
+"You have already added these sources." = "Te źródła zostały już dodane.";
 "Unable to locate an APT repository at:" = "Nie można zlokalizować repozytorium APT na:";
 "Unable to locate APT repositories at:" = "Nie można zlokalizować repozytoriów APT na:";
-"Import Sources" = "Importuj źródła";
-"Import" = "Importuj";
-"Are you sure that you want to import %d sources into Zebra?" = "Czy na pewno chcesz zaimportować %d źródeł do Zebry?";
-"Are you sure that you want to import 1 source into Zebra?" = "Czy na pewno chcesz zaimportować 1 źródło do Zebry?";
-"Verifying..." = "Weryfikowanie...";
-"Confirm Import" = "Potwierdź import";
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
-"Tap to learn more" = "Tap to learn more";
-"Invalid Source" = "Invalid Source";
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
-"Remove Source" = "Remove Source";
 
+"A total of %d files will be downloaded" = "Zostaną pobrane %d plik/i";
+
+"Could not parse %@ from %@" = "Nie udało się zanalizować %@ z %@";
+"Could not find a download URL for" = "Nie udało znaleźć się URL pobierania dla";
+"Could not download Release file from %@. Reason: %@" = "Nie można pobrać pliku Release z %@. Powód: %@";
+"Could not download Packages file from %@. Reason: %@" = "Nie można pobrać pliku Packages z %@. Powód: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nie można pobrać jednego lub więcej plików z %@. Powód: %@";
+
+"The URL you entered is not valid. Please check it and try again." = "Podany adres URL jest nieprawidłowy. Sprawdź go i spróbuj ponownie.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nie mogła pobrać źródła określonego w %@. Może być ono tymczasowo niedostępne lub zostało nieprawidłowo dodane.";
+
+"Please remove this source from your sources.list file." = "Usuń to źródło z pliku sources.list.";
+
+"Error while opening sources.list" = "Błąd podczas otwierania sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Źródło %@ jest niekompatybilne z twoim jailbreakiem.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Może powodować problemy, jeżeli dodasz je do Zebry, wywołując możliwość odtworzenia.";
+
+"%@ hasn't been modified" = "%@ nie został zmodyfikowany";
 
 // Packages
 
 "Version" = "Wersja";
 "Packages" = "Pakiety";
 "Show Updates" = "Pokaż zmiany";
-"Ignore Updates" = "Ignoruj aktualizacje";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Wybierz wersje";
 "Select a version to upgrade to:" = "Wybierz, do której wersji zaktualizować:";
 "Select a version to downgrade to:" = "Wybierz, do której wersji cofnąć:";
@@ -176,8 +218,6 @@
 "ABC" = "ABC";
 "Date" = "Data";
 "Size" = "Rozmiar";
-"Clear" = "Wyczyść";
-"Are you sure you want to clear the Queue?" = "Czy na pewno chcesz wyczyścić kolejkę?";
 "Available Upgrades" = "Dostępne aktualizacje";
 "Ignored Upgrades" = "Ignorowane aktualizacje";
 "Recent" = "Ostatnie";
@@ -251,22 +291,11 @@
 // Search
 
 "Search" = "Szukaj";
-"Clear Search" = "Wyczyść wyszukiwanie";
 "This search query is too short for the full search, please use a longer query." = "To zapytanie jest za krótkie do pełnego wyszukiwania, proszę użyć dłuższego zapytania.";
 "No Results Found" = "Nie znaleziono wyników";
-
-// Downloads
-
-"Downloads" = "Pobrane";
-"Error while opening sources.list" = "Błąd podczas otwierania sources.list";
-"The source %@ is incompatible with your jailbreak." = "Źródło %@ jest niekompatybilne z twoim jailbreakiem.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Może powodować problemy, jeżeli dodasz je do Zebry, wywołując możliwość odtworzenia.";
-"Please remove this source from your sources.list file." = "Usuń to źródło z pliku sources.list.";
-"Incorrect documents permissions." = "Złe uprawnienia dokumentów.";
-"Could not determine device information." = "Nie udało się zdeterminować informacji o urządzeniu.";
-"Could not find a download URL for" = "Nie udało znaleźć się URL pobierania dla";
-"%@ hasn't been modified" = "%@ nie został zmodyfikowany";
-"Could not parse %@ from %@" = "Nie udało się zanalizować %@ z %@";
+"Name" = "Imię";
+"Description" = "Opis";
+"Author" = "Autor";
 
 // Console
 
@@ -278,9 +307,10 @@
 "Closing Zebra..." = "Zamykanie Zebry...";
 "Restart SpringBoard" = "Uruchom ponownie SpringBoard";
 "Restarting SpringBoard..." = "Restartowanie SpringBoardu...";
-"Parsing" = "Analizowanie";
+"Parsing %@" = "Analizowanie %@";
 "Starting Download" = "Rozpoczynanie pobierania";
 "Downloading" = "Pobieranie";
+"Downloading %@" = "Pobieranie %@";
 "Downloading Packages..." = "Pobieranie pakietów...";
 "Download Completed" = "Pobieranie zakończone";
 "Installing" = "Instalowanie";
@@ -299,9 +329,15 @@
 "Finished importing local packages." = "Ukończono importowanie lokalnych pakietów.";
 "One or more packages failed to download." = "Jednego lub więcej pakietów nie udało się zaktualizować.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknij \"Powrót do kolejki\" żeby powrócić do kolejki i ponowić pobieranie.";
+"Could not complete %@ process. Reason: %@." = "Nie można ukończyć procesu %@. Powód: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Uruchom ponownie Zebrę i sprawdź, czy problem nadal występuje. Jeśli tak, proszę, zgłoś problem na GitHubie.";
 "Done..." = "Gotowe...";
+"Done %@" = "Ukończono %@";
 "Removing Zebra..." = "Usuwanie Zebra...";
 "Installing Zebra..." = "Instalowanie Zebry...";
+"Error while opening file:" = "Błąd podczas otwierania pliku:";
+"Adding Payment Vendor URL for %@" = "Dodawanie URL dostawcy płatności dla %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "To urządzenie jest symulowane, oto pakiety, które zostaną zmodyfikowane w tym etapie:";
 
 // Queue Bar
 
@@ -322,15 +358,17 @@
 "Continue" = "Kontynuuj";
 "Download Size" = "Rozmiar pobierania";
 "Confirm" = "Potwierdź";
-"%@ must be removed because it depends on %@" = "%@ musi zostać usunięte, bo polega na %@";
-"Required Package" = "Wymagany pakiet";
-"%@ is required by:" = "%@ jest wymagany przez:";
 "Issues" = "Błędy";
-"%@ has issues that cannot be resolved:" = "%@ ma błędy, których nie udało się rozwiązać:";
+"Required Package" = "Wymagany pakiet";
 "Are you sure?" = "Czy jesteś pewny?";
-"Are you sure you want to clear the queue?" = "Czy na pewno chcesz wyczyścić kolejkę?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ jest wymaganym pakietem. Nie powinien być usuwany, chyba że wiesz dokładnie, co robisz!";
 "Remove from Queue" = "Usuń z kolejki";
+"Clear Queue" = "Wyczyść Kolejkę";
+"%@ is required by:" = "%@ jest wymagany przez:";
+"\"%@\" conflicts with %@" = "\"%@ koliduje z %@";
+"%@ must be removed because it depends on %@" = "%@ musi zostać usunięte, bo polega na %@";
+"%@ has issues that cannot be resolved:" = "%@ ma błędy, których nie udało się rozwiązać:";
+"Are you sure you want to clear the Queue?" = "Czy na pewno chcesz wyczyścić kolejkę?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ jest wymaganym pakietem. Nie powinien być usuwany, chyba że wiesz dokładnie, co robisz!";
 
 // Search
 
@@ -350,13 +388,27 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nie ma uprawnień do ustawienia uid lub gid. Proszę zweryfikować uprawnienia pliku znajdującego się w /usr/libexec/zebra/supersling.";
 
+"Error while creating documents directory: %@." = "Wystąpił błąd podczas tworzenia katalogu dokumentów %@.";
+
+"Error while creating lists directory: %@." = "Wystąpił błąd podczas tworzenia katalogu list %@.";
+
+"Error while creating sources.list: %@." = "Wystąpił błąd podczas tworzenia pliku sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Wystąpił błąd podczas tworzenia katalogu plików . deb: %@.";
+
 "Could not respring. Please respring manually." = "Nie udało się zrestartować SpringBoard. Proszę zrobić to manualnie.";
 
 "ERROR: Unable to lock status file. Please try again." = "BŁĄD: Nie można zablokować pliku statusu. Spróbuj ponownie.";
 
 "ERROR: Process must be restarted. Please try again." = "BŁĄD: Proces musi zostać uruchomiony ponownie. Spróbuj ponownie.";
 
+"Incorrect documents permissions." = "Złe uprawnienia dokumentów.";
+
+"Could not determine device information." = "Nie udało się zdeterminować informacji o urządzeniu.";
+
 "Display featured packages on the homepage." = "Wyświetlaj polecane pakiety na stronie głównej.";
+
+"Refresh Zebra's sources when opening the app." = "Odśwież źródła Zebry podczas otwierania aplikacji.";
 
 "Display recent community posts from /r/jailbreak." = "Wyświetl ostatnie posty społeczności z /r/jailbreak.";
 
@@ -377,3 +429,36 @@
 "Signing in to sources allows for the purchase of paid packages." = "Logowanie się do źródeł pozwala na zakup płatnych pakietów.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatycznie zwiń konsolę, gdy wszystkie jej zadania zostaną ukończone.";
+
+// Filters
+
+"Filters" = "Filtry";
+"Add Filter" = "Dodaj filtr";
+
+"1 Section Hidden" = "Ukryta 1 Sekcja";
+"%lu Sections Hidden" = "Ukryte %lu sekcje";
+
+"Sections" = "Sekcje";
+"Select a Section" = "Wybierz sekcję";
+"Hide packages in these sections." = "Ukryj pakiety w tych sekcjach.";
+
+"Sources" = "Źródła";
+"Select a Source" = "Wybierz źródło";
+"Hide packages in these sections from specific sources." = "Ukryj pakiety z określonych źródeł w tych sekcjach.";
+
+"Updates" = "Aktualizacje";
+"Hide future updates from these packages." = "Ukryj przyszłe aktualizacje tych pakietów.";
+
+"Authors" = "Autorzy";
+"Hide packages from these authors." = "Ukryj pakiety od tych autorów.";
+"Search for an Author" = "Wyszukaj autora";
+"This author also goes by the following names:" = "Ten autor posługuje się również następującymi pseudonimami:";
+
+// Language Settings
+
+"Language" = "Język";
+"Apply" = "Zastosuj";
+"Restart Required" = "Wymagany restart";
+"Zebra must be closed in order to change preferred language" = "Zebra musi zostać zamknięta w celu zmiany preferowanego języka";
+"Restart" = "Restart";
+"Use System Language" = "Użyj języka systemowego";

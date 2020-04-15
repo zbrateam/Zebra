@@ -34,9 +34,9 @@
 
 @implementation ZBTabBarController
 
-@synthesize forwardedRepoBaseURL;
+@synthesize forwardedSourceBaseURL;
 @synthesize forwardToPackageID;
-@synthesize repoBusyList;
+@synthesize sourceBusyList;
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -69,7 +69,7 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
     
-    NSError *error;
+    NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
         [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
     }
@@ -123,7 +123,7 @@
     });
 }
 
-- (void)setRepoRefreshIndicatorVisible:(BOOL)visible {
+- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
     dispatch_async(dispatch_get_main_queue(), ^{
         UINavigationController *sourcesController = self.viewControllers[ZBTabSources];
         UITabBarItem *sourcesItem = [sourcesController tabBarItem];
@@ -144,36 +144,36 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
-        [self clearRepos];
+        [self clearSources];
     });
 }
 
 #pragma mark - Database Delegate
 
-- (void)setRepo:(NSString *)bfn busy:(BOOL)busy {
+- (void)setSource:(NSString *)bfn busy:(BOOL)busy {
     if (bfn == NULL) return;
-    if (!repoBusyList) repoBusyList = [NSMutableDictionary new];
-    [repoBusyList setObject:@(busy) forKey:bfn];
+    if (!sourceBusyList) sourceBusyList = [NSMutableDictionary new];
+    [sourceBusyList setObject:@(busy) forKey:bfn];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-        [sourcesVC setSpinnerVisible:busy forRepo:bfn];
+        [sourcesVC setSpinnerVisible:busy forSource:bfn];
     });
 }
 
-- (void)clearRepos {
-    [repoBusyList removeAllObjects];
+- (void)clearSources {
+    [sourceBusyList removeAllObjects];
 }
 
 - (void)databaseStartedUpdate {
-    [self setRepoRefreshIndicatorVisible:YES];
+    [self setSourceRefreshIndicatorVisible:YES];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     if (packageUpdates != -1) {
         [self setPackageUpdateBadgeValue:packageUpdates];
     }
-    [self setRepoRefreshIndicatorVisible:NO];
+    [self setSourceRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->errorMessages) {
             ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];
@@ -193,9 +193,9 @@
 - (void)forwardToPackage {
     if (forwardToPackageID != NULL) { //this is pretty hacky
         NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
-        if (forwardedRepoBaseURL != NULL) {
-            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedRepoBaseURL];
-            forwardedRepoBaseURL = NULL;
+        if (forwardedSourceBaseURL != NULL) {
+            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedSourceBaseURL];
+            forwardedSourceBaseURL = NULL;
         }
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
         forwardToPackageID = NULL;
@@ -229,50 +229,55 @@
 }
 
 - (void)updateQueueBar {
-    [self checkQueueNav];
-    [self updateQueueBarPackageCount:[ZBQueue count]];
-    
-    [self updateQueueBarColors];
-    
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
-        [self openQueue:NO];
-    }
-    else {
-        [[self popupBar] setNeedsLayout];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self checkQueueNav];
+        [self updateQueueBarPackageCount:[ZBQueue count]];
+        
+        [self updateQueueBarColors];
+        
+        LNPopupPresentationState state = self.popupPresentationState;
+        if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
+            [self openQueue:NO];
+        }
+        else {
+            [[self popupBar] setNeedsLayout];
+        }
+    });
 }
 
 - (void)updateQueueBarPackageCount:(int)count {
-    if (count > 0) {
-        queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
-//        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
-        queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
-    }
-    else {
-        queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
-        queueNav.popupItem.subtitle = nil;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (count > 0) {
+            self->queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+    //        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
+            self->queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+        }
+        else {
+            self->queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+            self->queueNav.popupItem.subtitle = nil;
+        }
+    });
 }
 
 - (void)openQueue:(BOOL)openPopup {
-    [self checkQueueNav];
-    
-    LNPopupPresentationState state = self.popupPresentationState;
-    if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
-        return;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self checkQueueNav];
+        
+        LNPopupPresentationState state = self.popupPresentationState;
+        if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
+            return;
+        }
 
-    self.popupInteractionStyle = LNPopupInteractionStyleSnap;
-    self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+        self.popupInteractionStyle = LNPopupInteractionStyleSnap;
+        self.popupContentView.popupCloseButtonStyle = LNPopupCloseButtonStyleNone;
+        
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
+        longPress.minimumPressDuration = 1;
+        longPress.delegate = self;
     
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
-    longPress.minimumPressDuration = 1;
-    longPress.delegate = self;
-    
-    [self.popupBar addGestureRecognizer:longPress];
-    
-    [self presentPopupBarWithContentViewController:queueNav openPopup:openPopup animated:YES completion:nil];
+        [self.popupBar addGestureRecognizer:longPress];
+        [self presentPopupBarWithContentViewController:self->queueNav openPopup:openPopup animated:YES completion:nil];
+    });
 }
 
 - (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
@@ -288,7 +293,7 @@
         UIAlertAction *noAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
         [clearQueue addAction:noAction];
         
-        [self presentViewController:clearQueue animated:true completion:nil];
+        [self presentViewController:clearQueue animated:YES completion:nil];
     }
     
 }

@@ -38,7 +38,7 @@
     BOOL darkMode = style >= ZBInterfaceStyleDark;
     switch (accentColor) {
         case ZBAccentColorCornflowerBlue:
-            return darkMode ? [UIColor colorWithRed:0.52 green:0.60 blue:1.00 alpha:1.0] : [UIColor blueCornflowerColor];
+            return darkMode ? [UIColor colorWithRed:0.52 green:0.60 blue:1.00 alpha:1.0] : [UIColor cornflowerBlueColor];
         case ZBAccentColorMonochrome:
             return darkMode ? [UIColor whiteColor] : [UIColor blackColor];
         case ZBAccentColorShark:

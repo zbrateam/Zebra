@@ -1,0 +1,392 @@
+// Common
+
+"Cancel" = "取消";
+"Yes" = "是";
+"No" = "否";
+"Ok" = "確認";
+"Error" = "錯誤";
+"Retry" = "重試";
+"Edit" = "編輯 ";
+"Close" = "關閉";
+"Done" = "完成";
+"Loading..." = "正在載入...";
+"Clear" = "清除";
+
+// Home
+
+"Home" = "首頁";
+"Info" = "資訊";
+"Welcome to Zebra!" = "歡迎使用 Zebra！";
+"Report a Bug" = "回報問題";
+"Changelog" = "更新記錄";
+"Wish List" = "願望清單";
+"No items in Wish List" = "願望清單中沒有項目";
+"Community" = "社群";
+"Join our Discord" = "加入 Discord 伺服器";
+"Follow us on Twitter" = "在 Twitter 上跟隨";
+"Help translate Zebra!" = "協助翻譯 Zebra";
+
+// Community Source
+
+"Community Sources" = "社群套件來源";
+"You’ve added all of the community sources" = "您已經加入所有的社群套件來源";
+"Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
+"Utility source for %@" = "%@ 的工具軟體來源";
+"Transfer Sources" = "轉移來源";
+"Verifying Source" = "正在驗證來源";
+"Verifying Sources" = "正在驗證來源";
+"Import" = "匯入";
+"Verifying..." = "正在驗證……";
+"Confirm Import" = "確認導入";
+"Import Sources" = "匯入來源";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "您想要匯入以下的來源嗎？";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+
+
+// Credits
+
+"Credits" = "感謝名單";
+"Creators" = "創建人員";
+"Contributors" = "貢獻人員";
+"Translators" = "翻譯人員";
+"Libraries" = "程式資源庫";
+
+// Settings
+
+"Settings" = "設定";
+"Display" = "顯示";
+"App Icon" = "App 圖示";
+"Changes" = "變更內容";
+"Community News" = "社群新聞";
+"Miscellaneous" = "其他設定";
+"Swipe Actions Display As" = "套件列表左右滑動功能顯示模式";
+"Text" = "文字";
+"Icon" = "圖示";
+"Finish Automatically" = "已自動完成";
+
+// Accent Colors
+
+"Accent Color" = "強調色";
+"Aqua Velvet" = "藍綠色";
+"Cornflower Blue" = "淺紫色";
+"Golden Tainoi" = "金色";
+"Iris Blue" = "淺藍色";
+"Lotus Pink" = "粉色";
+"Monochrome" = "黑白";
+"Mountain Meadow" = "綠色";
+"Pastel Red" = "紅色";
+"Purple Heart" = "深紫色";
+"Royal Blue" = "深藍色";
+"Shark" = "鯊魚";
+"Storm" = "風暴";
+"Use System Accent Color" = "使用系統強調色";
+"Appearance" = "外觀";
+"Use System Appearance" = "使用系統外觀";
+"Light" = "淺色";
+"Dark" = "深色";
+"Pure Black Mode" = "純黑模式";
+
+// Featured
+
+"Featured Packages" = "精選套件";
+"Feature Type" = "推薦類型";
+"Repo Featured" = "套件來源精選";
+"Random" = "隨機";
+"Select Repos to be Featured" = "選擇會被推薦的套件來源";
+"Featured Repos" = "精選套件來源";
+
+// Advanced
+
+"Advanced" = "進階設定";
+"Refresh Icon Cache" = "刷新圖片快取";
+"Reset Image Cache" = "重置圖片快取";
+"Reset Sources Cache" = "重置來源快取";
+"Reset All Settings" = "重置所有設定";
+"Erase All Sources and Settings" = "清除所有來源和設定";
+
+"Are you sure you want to restart the SpringBoard?" = "您確定要重新啟動主畫面嗎?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Image Cache Reset" = "重置圖片快取";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "您確定要重置 Zebra 的來源快取嗎？所有來源的數據快取將被移除並重新下載，您的來源不會被刪除。";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "您確定要重置 Zebra 的設定嗎？ Zebra 的所有設定會恢復為預設值並重啟。";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "您確定要清除所有來源和設定嗎？所有來源將從 Zebra 中移除，你的設定將被重置。";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "您所有的來源將被刪除且無法恢復，Zebra 將重新啟動。";
+
+// Stores
+
+"Stores" = "商店";
+"Account" = "帳戶";
+"Sign In" = "登入";
+"Sign Out" = "登出";
+"Your Purchases" = "已購買";
+"No Storefronts Available" = "不可用的店鋪";
+"Could not complete purchase" = "無法完成購買操作";
+"Could not complete purchase, no payment secret was found" = "無法完成購買操作，未找到付款密鑰";
+"No packages purchased" = "無已購買套件";
+
+// Sources
+
+"Sources" = "來源";
+"Unknown" = "未知";
+"Delete" = "刪除";
+"Refresh" = "重新整理";
+"All Packages" = "所有套件";
+"Remove Source" = "移除來源";
+"Local Repository" = "本地套件來源";
+"Locally installed packages" = "本地已安裝套件";
+
+"Add" = "新增";
+"Add Sources" = "新增來源";
+"Add Multiple" = "新增多個";
+"Enter Source URL" = "輸入來源網址";
+"Would you like to add the URL from your clipboard?" = "是否要新增剪貼簿中的網址？";
+
+"Please Wait..." = "請稍候…";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
+"Updating Sources" = "正在更新來源";
+
+"Unknown error" = "未知錯誤";
+"Invalid URL" = "無效的網址";
+"Invalid Source" = "無效的來源";
+"Tap to learn more" = "點擊了解更多";
+"No source URLs detected." = "沒有檢測到來源網址。";
+"Unable to verify source" = "無法驗證來源";
+"Error verifying source" = "驗證來源時發生錯誤";
+"Error verifying sources" = "驗證來源時發生錯誤";
+"Failed to add source" = "新增來源失敗";
+"Failed to add sources" = "新增來源失敗";
+"You have already added this source." = "您已經添加了這個來源。";
+"You have already added these sources." = "你已經加入過這些來源。";
+"Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
+"Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
+
+"The URL you entered is not valid. Please check it and try again." = "您輸入的網址無效，請檢查後重試。";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 無法下載在 %@ 來源。該來源可能暫時無法訪問，或添加方式不正確。";
+
+// Packages
+
+"Version" = "版本";
+"Packages" = "套件";
+"Show Updates" = "顯示更新";
+"Ignore Updates" = "忽略更新";
+"Select Version" = "選擇版本";
+"Select a version to upgrade to:" = "選擇升級版本";
+"Select a version to downgrade to:" = "選擇降級版本";
+"Package" = "套件";
+"Information" = "資訊";
+"Upgrade All" = "全部升級";
+"Loaded" = "已載入";
+"ABC" = "名稱";
+"Date" = "日期";
+"Size" = "大小";
+"Available Upgrades" = "可用的更新";
+"Ignored Upgrades" = "已忽略的更新";
+"Recent" = "最近";
+"Source" = "來源";
+"Installed Files" = "已安裝檔案";
+"Modify" = "修改";
+"Authenticate to initiate purchase." = "請登入以購買";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "請重新登入您曾經用來購買此套件的帳號（可能是 %@）";
+"More by this Developer" = "此開發者的更多作品";
+"Installed Version" = "已安裝的版本";
+"Installed Size" = "已安裝大小";
+
+//<Version available from source> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@（已安裝版本: %@）";
+
+//<Download size> (Installed Size: <installed size>)
+"%@ (Installed Size: %@)" = "%@（已安裝大小: %@）";
+
+//Package size in bytes (no deceimal)
+"%d bytes" = "%d bytes";
+//Package size in Kilobytes (no decimal)
+"%d KB" = "%d KB";
+//Package size in Kilobytes (with decimal)
+"%.2f KB" = "%.2f KB";
+//Package size in Megabytes (with decimal)
+"%.2f MB" = "%.2f MB";
+
+"Add to Wish List" = "新增到願望清單";
+"Remove from Wish List" = "從願望清單中移除";
+
+// Package Section Names
+
+"Administration" = "系統管理";
+"Addons" = "附加元件";
+"App Addons" = "App 附加元件";
+"Archiving" = "封存";
+"Carrier Support" = "電信商支援";
+"Communication" = "通訊";
+"Data Storage" = "資料儲存";
+"Development" = "開發";
+"Dictionaries" = "字典";
+"Education" = "教育";
+"Entertainment" = "娛樂";
+"Games" = "遊戲";
+"Health and Fitness" = "健康與健身";
+"Imaging" = "圖像";
+"Java" = "Java";
+"Keyboards" = "鍵盤";
+"Localization" = "在地化";
+"Messaging" = "傳訊";
+"Multimedia" = "多媒體";
+"Navigation" = "導航";
+"Networking" = "網路";
+"Packaging" = "套件";
+"Productivity" = "生產力工具";
+"Repositories" = "套件來源";
+"Ringtones" = "鈴聲";
+"Scripting" = "腳本";
+"Security" = "安全性";
+"Social" = "社群";
+"System" = "系統";
+"Terminal Support" = "終端機支援";
+"Text Editors" = "文字編輯器";
+"Themes" = "主題";
+"Toys" = "玩具";
+"Tweaks" = "調校";
+"Utilities" = "工具程式";
+"Wallpaper" = "桌布";
+"Widgets" = "桌面小工具";
+
+// Search
+
+"Search" = "搜尋";
+"This search query is too short for the full search, please use a longer query." = "您輸入的關鍵字太短，因此無法搜尋。請使用更長的關鍵字進行搜尋。";
+"No Results Found" = "找不到相符的結果";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
+
+// Downloads
+
+"Downloads" = "下載";
+"Error while opening sources.list" = "打開 sources.list 時發生錯誤";
+"The source %@ is incompatible with your jailbreak." = "來源 %@ 與您的越獄不相容。";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "若您將此新增到 Zebra，可能會發生問題並導致需要還原裝置。";
+"Please remove this source from your sources.list file." = "請將此來源從 souces.list 檔案中移除。";
+"Incorrect documents permissions." = "文件權限不正確。";
+"Could not determine device information." = "無法檢測裝置資訊。";
+"Could not find a download URL for" = "無法獲得下載網址";
+"%@ hasn't been modified" = "%@ 未被修改";
+"Could not parse %@ from %@" = "無法解析 %@ 自 %@";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+
+// Console
+
+"Console" = "主控台";
+"Performing Actions..." = "執行動作…";
+"Updating icon cache asynchronously..." = "正在異步更新圖示快取...";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
+"Close Zebra" = "關閉 Zebra";
+"Closing Zebra..." = "正在關閉 Zebra...";
+"Restart SpringBoard" = "重新啟動主畫面";
+"Restarting SpringBoard..." = "正在重新啟動主畫面...";
+"Parsing %@" = "Parsing %@";
+"Starting Download" = "正在開始下載";
+"Downloading" = "正在下載";
+"Downloading %@" = "Downloading %@";
+"Downloading Packages..." = "正在下載套件...";
+"Download Completed" = "下載完成";
+"Installing" = "正在安裝";
+"Installing Packages..." = "正在安裝套件...";
+"Removing" = "正在移除";
+"Removing Packages..." = "正在移除套件...";
+"Reinstalling" = "正在重新安裝";
+"Reinstalling Packages..." = "正在重新安裝套件...";
+"Upgrading" = "正在更新";
+"Upgrading Packages..." = "正在更新套件...";
+"Complete" = "完成";
+"Finished!" = "已完成！";
+"Return to Queue" = "返回至佇列";
+"Returning to Queue..." = "正在回到佇列...";
+"Importing local packages." = "正在匯入本地套件。";
+"Finished importing local packages." = "匯入本地套件已完成。";
+"One or more packages failed to download." = "一個或多個套件下載失敗。";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "點選「返回佇列」以回到佇列並重新嘗試下載。";
+"Done..." = "完成...";
+"Done %@" = "Done %@";
+"Removing Zebra..." = "正在移除 Zebra...";
+"Installing Zebra..." = "正在安裝 Zebra...";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+
+// Queue Bar
+
+"%d Packages Queued" = "%d 個套件在佇列中";
+"%d Package Queued" = "%d 個套件在佇列中";
+"Tap to manage" = "點擊以管理";
+"No Packages Queued" = "佇列中沒有套件";
+
+// Queue
+
+"Queue" = "佇列";
+"Install" = "安裝";
+"Reinstall" = "重新安裝";
+"Remove" = "移除";
+"Upgrade" = "升級";
+"Downgrade" = "降級";
+"Abort" = "中止";
+"Continue" = "繼續";
+"Download Size" = "下載大小";
+"Confirm" = "確認";
+"Issues" = "問題";
+"Required Package" = "必要的套件";
+"Are you sure?" = "您確定嗎？";
+"Remove from Queue" = "從佇列中移除";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ 被依賴於：";
+"%@ must be removed because it depends on %@" = "%@ 需要被移除因為它依賴 %@";
+"%@ has issues that cannot be resolved:" = "%@ 存在無法解決的問題：";
+"Are you sure you want to clear the queue?" = "您確定要清除此佇列嗎？";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一個必要的套件。此套件不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
+
+
+// Search
+
+"Live Search" = "即時搜尋";
+"Tweaks, Themes, and More" = "插件、主題和更多";
+
+//<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "由於套件相依性，必要的套件 %@ 會隨著 %@ 一同被移除。%@ 不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
+
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "一個或多個在移除佇列中的套件是基礎或必要套件。除非您十分清楚了解您正在做什麼，否則不建議繼續執行移除動作。移除這些套件可能會對您的裝置造成無法逆轉的損害，並有可能需要回復系統。";
+
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "由於缺乏正確的權限，因此 Zebra 無法完成此指令。請驗證 /usr/libexec/zebra/supersling 檔案的權限，並回報此問題到 GitHub 上。";
+
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "無法存取 su/sling。請檢查  /usr/libexec/zebra/supersling 檔案是否存在。";
+
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 不被 root:wheel 所擁有。請驗證  /usr/libexec/zebra/supersling 的檔案權限。";
+
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 沒有權限以設定 uid 或 gid。請驗證  /usr/libexec/zebra/supersling 的檔案權限。";
+
+"Could not respring. Please respring manually." = "無法重新啟動主畫面。請手動重新啟動主畫面。";
+
+"ERROR: Unable to lock status file. Please try again." = "錯誤：無法鎖定狀態檔案。請重試一次。";
+
+"ERROR: Process must be restarted. Please try again." = "錯誤：程序必須被重新啟動。請再試一次。";
+
+"Display featured packages on the homepage." = "在首頁顯示精選套件";
+
+"Display recent community posts from /r/jailbreak." = "顯示 /r/jailbreak 最近的文章。";
+
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "在輸入關鍵字時同時搜尋套件。關閉此功能可以讓舊裝置運作時更順暢。";
+
+"Configure the appearance of table view swipe actions." = "調整左右滑動表單時的外觀";
+
+"Change the accent color that displays across Zebra." = "改版 Zebra 的強調顏色。";
+
+"Change the style of Zebra's dark mode when it is enabled." = "在深色模式啟用時，改變 Zebra 的深色模式風格。";
+
+"Change the source of the featured packages on the homepage." = "更改在首頁顯示的精選套件來源。";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「套件來源精選」將會從在支援「精選套件 API」的套件來源中，選擇隨機套件來顯示。";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
+
+"Signing in to sources allows for the purchase of paid packages." = "在各個來源登入後可以購買付費套件。";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";

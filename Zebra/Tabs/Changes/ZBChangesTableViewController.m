@@ -10,11 +10,10 @@
 #import <ZBAppDelegate.h>
 #import <ZBSettings.h>
 #import <ZBPackagePartitioner.h>
-#import <ZBSortingType.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import "ZBRedditPosts.h"
@@ -72,8 +71,8 @@
     [self refreshTable];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
@@ -85,7 +84,7 @@
 
 - (void)startSettingHeader  {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([defaults boolForKey:wantsNewsKey]) {
+    if ([ZBSettings wantsCommunityNews]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // [self retrieveNewsJson];
             [self kickStartReddit];
@@ -157,10 +156,11 @@
         }
         if (error) {
             NSLog(@"[Zebra] Error retrieving news JSON %@", error);
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self createHeader];
+            });
         }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createHeader];
-        });
     }] resume];
 }
 
@@ -192,9 +192,9 @@
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->packages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
+        self->packages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
         self->databaseRow = self.batchLoadCount - 1;
-        self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:NULL section:NULL enableFiltering:YES];
+        self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
         self->numberOfPackages = (int)[self->packages count];
         self.batchLoad = YES;
         self.continueBatchLoad = self.batchLoad;
@@ -210,7 +210,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
+            NSArray *nextPackages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
@@ -299,11 +299,12 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [UIView performWithoutAnimation:^{
-            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-    }];
+    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
+//    return [ZBPackageActions rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+//        [UIView performWithoutAnimation:^{
+//            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        }];
+//    }];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -345,7 +346,7 @@
 - (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
-        [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:true completion:nil];
+        [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:YES completion:nil];
     }];
 }
 
@@ -356,7 +357,7 @@
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
         [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 
@@ -520,7 +521,7 @@
 }
 
 - (void)toggleNews {
-    if ([defaults boolForKey:wantsNewsKey]) {
+    if ([ZBSettings wantsCommunityNews]) {
         [self retrieveNewsJson];
     } else {
         [self.redditPosts removeAllObjects];

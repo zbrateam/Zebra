@@ -57,7 +57,7 @@
 }
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error {
-    NSError *readError;
+    NSError *readError = NULL;
     NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];
     if (readError) {
         NSLog(@"[Zebra] Could not read sources list contents located at %@ reason: %@", [listLocation absoluteString], readError.localizedDescription);
@@ -65,7 +65,7 @@
         return NULL;
     }
     
-    NSMutableSet *baseRepos = [NSMutableSet new];
+    NSMutableSet *baseSources = [NSMutableSet new];
     if ([[listLocation pathExtension] isEqualToString:@"list"]) { //Debian source format
         NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
         
@@ -73,9 +73,9 @@
             if (![sourceLine isEqualToString:@""]) {
                 if ([sourceLine characterAtIndex:0] == '#') continue;
                 
-                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
-                if (repo) {
-                    [baseRepos addObject:repo];
+                ZBBaseSource *source = [[ZBBaseSource alloc] initFromSourceLine:sourceLine];
+                if (source) {
+                    [baseSources addObject:source];
                 }
             }
         }
@@ -87,15 +87,15 @@
             if (![sourceGroup isEqualToString:@""]) {
                 if ([sourceGroup characterAtIndex:0] == '#') continue;
                 
-                ZBBaseSource *repo = [[ZBBaseSource alloc] initFromSourceGroup:sourceGroup];
-                if (repo) {
-                    [baseRepos addObject:repo];
+                ZBBaseSource *source = [[ZBBaseSource alloc] initFromSourceGroup:sourceGroup];
+                if (source) {
+                    [baseSources addObject:source];
                 }
             }
         }
     }
 
-    return baseRepos;
+    return baseSources;
 }
 
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components {
@@ -114,7 +114,8 @@
             self->components = components;
         }
         
-        if (![distribution isEqualToString:@"./"]) {
+        // TODO: handle problematic source lines (empty components) better?
+        if (![distribution isEqualToString:@"./"] && [components count]) {
             //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
@@ -123,7 +124,7 @@
             releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
         else {
-            //If the distribution is './' then the repository likely follows a flat repo format
+            //If the distribution is './' then the repository likely follows a flat source format
             mainDirectoryURL = [NSURL URLWithString:repositoryURI];
             mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
             
@@ -207,7 +208,7 @@
     return [self initFromSourceLine:[ZBSourceManager debLineForURL:url]];
 }
 
-- (void)verify:(nullable void (^)(ZBSourceVerification status))completion {
+- (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion {
     if (verificationStatus != ZBSourceUnverified && completion) {
         completion(verificationStatus);
         return;
@@ -226,7 +227,7 @@
     
     NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-xz"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -244,7 +245,7 @@
     
     NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-bzip2"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -262,7 +263,7 @@
     
     NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/gzip"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -280,7 +281,7 @@
     
     NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-lzma"]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -298,7 +299,7 @@
     
     NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200) {
+        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/octet-stream"] || [httpResponse.MIMEType isEqualToString:@"text/plain"])) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;

@@ -7,7 +7,7 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
-#import "ZBSettingsOptionsTableViewController.h"
+//#import "ZBSettingsSelectionTableViewController.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
@@ -64,9 +64,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         return 4;
     }
-    else {
-        return 3;
-    }
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

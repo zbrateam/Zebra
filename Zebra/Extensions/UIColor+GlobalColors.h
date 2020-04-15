@@ -12,10 +12,11 @@
 @interface UIColor (GlobalColors)
 + (UIColor *)accentColor;
 + (UIColor *)badgeColor;
-+ (UIColor *)blueCornflowerColor;
++ (UIColor *)cornflowerBlueColor;
 + (UIColor *)tableViewBackgroundColor;
 + (UIColor *)groupedTableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;
++ (UIColor *)cellSelectedBackgroundColor;
 + (UIColor *)primaryTextColor;
 + (UIColor *)secondaryTextColor;
 + (UIColor *)cellSeparatorColor;
@@ -30,5 +31,4 @@
 + (UIColor *)systemPurpleColor;
 + (UIColor *)systemTealColor;
 + (UIColor *)systemOrangeColor;
-+ (UIColor *)groupTableViewBackgroundColor;
 @end

@@ -16,7 +16,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate>
-@property (nonatomic, strong) ZBSource *repo;
+@property (nonatomic, strong) ZBSource *source;
 @property (nonatomic, strong) NSString *section;
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;

@@ -15,5 +15,5 @@ script:
 
 before_install:
 - gem install xcpretty
-- brew install ldid
-- git clone --recursive https://github.com/theos/theos.git $THEOS
+- brew install ldid fakeroot
+- git clone --depth=1 --recursive https://github.com/theos/theos.git $THEOS

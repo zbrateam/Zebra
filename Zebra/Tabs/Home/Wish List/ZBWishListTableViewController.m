@@ -11,51 +11,138 @@
 #import <ZBQueue.h>
 #import <ZBDevice.h>
 #import <Extensions/UITableViewRowAction+Image.h>
+#import <Extensions/UINavigationBar+Progress.h>
+#import <ZBSettings.h>
 
-@interface ZBWishListTableViewController ()
+@interface ZBWishListTableViewController () {
+    UIImageView *shadowView;
+}
+@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBWishListTableViewController
 
-@synthesize defaults;
 @synthesize wishedPackages;
+@synthesize wishedPackageIdentifiers;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    defaults = [NSUserDefaults standardUserDefaults];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     self.title = NSLocalizedString(@"Wish List", @"");
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    wishedPackages = [NSMutableArray new];
-    NSMutableArray *wishedPackageIDs = [[defaults objectForKey:wishListKey] mutableCopy];
-    NSArray *nullCheck = [wishedPackageIDs copy];
-    for (NSString *packageID in nullCheck) {
-        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-        if (package == NULL) {
-            [wishedPackageIDs removeObject:package];
-        }
-        else {
-            [wishedPackages addObject:package];
-        }
-    }
-    [self.tableView reloadData];
+    
+    [self.segmentedControl setTitle:NSLocalizedString(@"Newest First", @"") forSegmentAtIndex:0];
+    [self.segmentedControl setTitle:NSLocalizedString(@"Oldest First", @"") forSegmentAtIndex:1];
+    [self.segmentedControl addTarget:self action:@selector(selectionChanged:) forControlEvents:UIControlEventValueChanged];
+    [self.segmentedControl setSelectedSegmentIndex:0];
+    [self.segmentedControl setTintColor:[UIColor accentColor]];
+    [self.toolbar setDelegate:self];
+    
+    [self selectionChanged:self.segmentedControl];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
+    self.navigationItem.rightBarButtonItem = shareButton;
 }
 
-#pragma mark - Table view data source
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+    
+    if (!shadowView) {
+        shadowView = [self findBorderLineUnder:self.navigationController.navigationBar];
+    }
+    [shadowView setHidden:YES];
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            self.toolbar.barStyle = UIBarStyleDefault;
+            break;
+        case ZBInterfaceStyleDark:
+            self.toolbar.barStyle = UIBarStyleBlackTranslucent;
+            break;
+        case ZBInterfaceStylePureBlack:
+            self.toolbar.barStyle = UIBarStyleBlackOpaque;
+            break;
+    }
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [shadowView setHidden:NO];
+}
+
+- (void)export {
+    NSArray *packages = [wishedPackages copy];
+    [packages sortedArrayUsingSelector:@selector(name)];
+    
+    NSMutableArray *descriptions = [NSMutableArray new];
+    for (ZBPackage *package in packages) {
+        [descriptions addObject:[package description]];
+    }
+    
+    NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
+    [self presentViewController:controller animated:true completion:nil];
+}
+
+- (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
+}
+
+- (UIImageView *)findBorderLineUnder:(UIView *)view {
+    if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1) {
+        return (UIImageView *)view;
+    }
+    
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findBorderLineUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return NULL;
+}
+
+- (void)selectionChanged:(UISegmentedControl *)control {
+    NSUInteger index = control.selectedSegmentIndex;
+    
+    wishedPackages = [NSMutableArray new];
+    wishedPackageIdentifiers = [[ZBSettings wishlist] mutableCopy];
+    
+    NSArray *nullCheck = [wishedPackageIdentifiers copy];
+    for (NSString *packageID in nullCheck) {
+        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+        if (package == NULL) {
+            [wishedPackageIdentifiers removeObject:package];
+        }
+        else if (![wishedPackages containsObject:package]) {
+            [wishedPackages addObject:package];
+        }
+    }
+    
+    if (index == 0) {
+        if ([wishedPackages count] <= 1) return;
+        NSUInteger i = 0;
+        NSUInteger j = [wishedPackages count] - 1;
+        while (i < j) {
+            [wishedPackages exchangeObjectAtIndex:i withObjectAtIndex:j];
+            i++;
+            j--;
+        }
+    }
+    
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - Table View Data Source
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 65;
@@ -108,18 +195,17 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
     UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        [self->wishedPackages removeObject:package];
-        NSMutableArray *wishedPackageIDs = [[self->defaults objectForKey:wishListKey] mutableCopy];
-        [wishedPackageIDs removeObject:[package identifier]];
-        [self->defaults setObject:wishedPackageIDs forKey:wishListKey];
-        [self->defaults synchronize];
+        ZBPackage *package = [self->wishedPackages objectAtIndex:indexPath.row];
         
-        [self.tableView reloadData];
+        [self->wishedPackages removeObject:package];
+        [self->wishedPackageIdentifiers removeObject:[package identifier]];
+        
+        [ZBSettings setWishlist:self->wishedPackageIdentifiers];
+        
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
-//    [remove setIcon:[UIImage imageNamed:@"Unknown"] withText:NSLocalizedString(@"Remove", @"") color:[UIColor systemPinkColor] rowHeight:65];
     [remove setBackgroundColor:[UIColor systemPinkColor]];
     
     return @[remove];
@@ -150,7 +236,7 @@
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
         weakSelf.previewPackageDepictionVC.package = [strongSelf.wishedPackages objectAtIndex:indexPath.row];
         weakSelf.previewPackageDepictionVC.parent = weakSelf;
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsForIndexPath:indexPath]];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];
 }
 

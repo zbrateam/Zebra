@@ -136,7 +136,7 @@
         for (ZBPackage *conflict in packagesThatConflictWith) {
             if (![[package conflictsWith] containsObject:[conflict identifier]]) {
                 //We cannot install this package as there are some already installed packages that conflict here
-                [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", [conflict name], [package name]]];
+                [package addIssue:[NSString stringWithFormat:NSLocalizedString(@"\"%@\" conflicts with %@", @""), [conflict name], [package name]]];
             }
         }
     }
@@ -156,12 +156,12 @@
             
             //If there is a version comparison and the virtual package has a version, check against the version and add a conflict if true
             if ([identifier isEqualToString:conflict[0]] && (needsVersionComparison && ![version isEqualToString:@"0:0"]) && ([ZBDependencyResolver doesVersion:version satisfyComparison:conflict[1] ofVersion:conflict[2]])) {
-                [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
+                [package addIssue:[NSString stringWithFormat:NSLocalizedString(@"\"%@\" conflicts with %@", @""), conflict[0], [package name]]];
                 break;
             }
             //Otherwise, check if the identifier is equal and there is NO version comparison and NO version provided
             else if ([identifier isEqualToString:conflict[0]] && (!needsVersionComparison || version == NULL)) {
-                [package addIssue:[NSString stringWithFormat:@"\"%@\" conflicts with %@", conflict[0], [package name]]];
+                [package addIssue:[NSString stringWithFormat:NSLocalizedString(@"\"%@\" conflicts with %@", @""), conflict[0], [package name]]];
                 break;
             }
         }
@@ -285,10 +285,8 @@
                 return [ZBDependencyResolver doesPackage:package satisfyComparison:components[1] ofVersion:components[2]];
             }
         }
-        else {
-            if ([[package identifier] isEqualToString:providedPackage]) {
-                return YES;
-            }
+        else if ([[package identifier] isEqualToString:providedPackage]) {
+            return YES;
         }
     }
     
@@ -346,7 +344,7 @@
     [dependency addDependencyOf:package];
     [queue addDependency:dependency];
     
-    return ignore ? YES : [self calculateDependenciesForPackage:dependency];
+    return ignore || [self calculateDependenciesForPackage:dependency];
 }
 
 - (void)enqueueConflict:(ZBPackage *)conflict forPackage:(ZBPackage *)package {

@@ -8,7 +8,7 @@
 
 #import "ZBCommunitySourcesTableViewController.h"
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Views/ZBRepoTableViewCell.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <ZBLog.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBDependencyResolver.h>
@@ -21,7 +21,7 @@
 @implementation ZBCommunitySourcesTableViewController
 
 @synthesize communitySources;
-@synthesize repoManager;
+@synthesize sourceManager;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,6 +29,9 @@
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
     
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
@@ -39,8 +42,8 @@
             break;
     }
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
-    repoManager = [ZBSourceManager sharedInstance];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+    sourceManager = [ZBSourceManager sharedInstance];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,10 +52,6 @@
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     [self populateSources];
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
 }
 
 - (void)populateSources {
@@ -69,10 +68,10 @@
         [communitySources addObject:managers];
     }
     
-    //Populate utility repo
-    NSArray *utilityRepos = [self utilityRepos];
-    if ([utilityRepos count]) {
-        [communitySources addObject:utilityRepos];
+    //Populate utility source
+    NSArray *utilitySources = [self utilitySources];
+    if ([utilitySources count]) {
+        [communitySources addObject:utilitySources];
     }
     [self.tableView reloadData];
     
@@ -90,12 +89,12 @@
         if (data && !error) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
             if ([json objectForKey:@"repos"]) {
-                NSArray *repos = json[@"repos"];
-                for (NSDictionary *repo in repos) {
-                    NSString *version = [repo objectForKey:@"appVersion"];
-                    NSString *url = [repo objectForKey:@"url"];
+                NSArray *jsonSources = json[@"repos"];
+                for (NSDictionary *source in jsonSources) {
+                    NSString *version = [source objectForKey:@"appVersion"];
+                    NSString *url = [source objectForKey:@"url"];
                     if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
-                        [sources addObject:repo];
+                        [sources addObject:source];
                     }
                 }
             }
@@ -151,7 +150,7 @@
     return result;
 }
 
-- (NSArray *)utilityRepos {
+- (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
     if ([ZBDevice isChimera]) {
         NSDictionary *dict = @{@"type": @"utility",
@@ -215,11 +214,11 @@
         return cell;
     }
     
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
-    [cell.repoLabel setText:[info objectForKey:@"name"]];
-    [cell.repoLabel setTextColor:[UIColor primaryTextColor]];
+    [cell.sourceLabel setText:[info objectForKey:@"name"]];
+    [cell.sourceLabel setTextColor:[UIColor primaryTextColor]];
     
     NSString *subtitle = [info objectForKey:@"label"] ? [info objectForKey:@"label"] : [info objectForKey:@"url"];
     [cell.urlLabel setText:subtitle];
@@ -273,10 +272,10 @@
             NSString *url = [info objectForKey:@"url"];
             ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
             if (source) {
-                [[ZBSourceManager sharedInstance] addBaseSources:[NSSet setWithObject:source]];
-                ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:false baseSources:[NSSet setWithObject:source]];
+                [sourceManager addBaseSources:[NSSet setWithObject:source]];
+                ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:[NSSet setWithObject:source]];
                 
-                [self presentViewController:refresh animated:true completion:nil];
+                [self presentViewController:refresh animated:YES completion:nil];
             }
             break;
         }

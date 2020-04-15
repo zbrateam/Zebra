@@ -174,10 +174,10 @@ typedef enum {
         }
         
         if (self.baseSources.count) {
-            // Update only the repos specified
+            // Update only the sources specified
             [databaseManager updateSources:self.baseSources useCaching:NO];
         } else {
-            // Update every repo
+            // Update every source
             [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
         }
     } else {
@@ -202,7 +202,7 @@ typedef enum {
             return;
         }
         [databaseManager cancelUpdates:self];
-        [((ZBTabBarController *)self.tabBarController) clearRepos];
+        [((ZBTabBarController *)self.tabBarController) clearSources];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
         
         buttonState = ZBStateDone;
