@@ -80,10 +80,17 @@
 }
 
 - (void)export {
-    UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[[wishedPackageIdentifiers componentsJoinedByString:@"\n"]] applicationActivities:nil];
-    shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
+    NSArray *packages = [wishedPackages copy];
+    [packages sortedArrayUsingSelector:@selector(name)];
     
-    [self presentViewController:shareSheet animated:YES completion:nil];
+    NSMutableArray *descriptions = [NSMutableArray new];
+    for (ZBPackage *package in packages) {
+        [descriptions addObject:[package description]];
+    }
+    
+    NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
+    [self presentViewController:controller animated:true completion:nil];
 }
 
 - (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
