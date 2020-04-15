@@ -32,6 +32,7 @@
 @property (nonatomic, strong) NSArray *sectionNames;
 @property (nonatomic, strong) NSMutableArray *filteredSections;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
+@property (nonatomic, weak) ZBPackageListTableViewController *previewPackageListVC;
 @end
 
 @implementation ZBSourceSectionsListTableViewController
@@ -437,10 +438,53 @@
     [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
 }
 
-- (void)darkMode:(NSNotification *)notif {
-    [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor accentColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageListVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+        weakSelf.previewPackageListVC.source = self->source;
+        if (indexPath.row > 0) {
+            NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
+            weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            weakSelf.title = section;
+        }
+        else {
+            weakSelf.title = NSLocalizedString(@"All Packages", @"");
+        }
+//        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController pushViewController:weakSelf.previewPackageListVC animated:YES];
+    }];
+}
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    previewingContext.sourceRect = cell.frame;
+    ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+    packageListVC.source = self->source;
+    if (indexPath.row > 0) {
+        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+        packageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+        packageListVC.title = section;
+    }
+    else {
+        packageListVC.title = NSLocalizedString(@"All Packages", @"");
+    }
+//    [self setDestinationVC:indexPath destination:packageDepictionVC];
+    return packageListVC;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
 @end
