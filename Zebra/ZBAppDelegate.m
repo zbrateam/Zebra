@@ -275,17 +275,12 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                     NSLog(@"[Zebra] Unable to load Extenal Package :(");
                 }
                 
-//                if (![ZBDevice needsSimulation]) {
-//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//                    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
-//
-//                    ZBExternalPackageTableViewController *external = vc.viewControllers[0];
-//                    external.fileURL = url;
-//
-//                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-//                    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
-//                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
-//                }
+                ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
+                
+                [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+                [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
+                [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
@@ -325,7 +320,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                             if ([ZBSource exists:sourceURL]) {
                                 NSString *packageID = [path substringFromIndex:1];
                                 ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:source];
+                                ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
+                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
                                 if (packageController) {
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                     [tabController presentViewController:navController animated:YES completion:nil];
@@ -345,7 +341,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                         }
                         else {
                             NSString *packageID = [path substringFromIndex:1];
-                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackageID:packageID fromSource:NULL];
+                            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
                             if (packageController) {
                                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                 [tabController presentViewController:navController animated:YES completion:nil];

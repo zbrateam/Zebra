@@ -45,7 +45,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     NSMutableDictionary<NSNumber *, NSString *> *infos;
     UIProgressView *progressView;
     WKWebView *webView;
-    BOOL presented;
     BOOL navButtonsBeingConfigured;
     CGFloat webViewSize;
 }
@@ -59,24 +58,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 @synthesize sourceView;
 @synthesize package;
 
-- (id)initWithPackageID:(NSString *)packageID fromSource:(ZBSource *_Nullable)source {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    
-    if (self) {
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        
-        self.package = [databaseManager topVersionForPackageID:packageID inSource:source];
-        if (self.package == NULL) {
-            return NULL;
-        }
-        presented = YES;
-    }
-    
-    return self;
-}
-
 - (id)initWithPackage:(ZBPackage *)package {
+    if (!package) return NULL;
+    
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     
@@ -99,7 +83,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
-    if (presented) {
+    if ([self presented]) {
         UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         self.navigationItem.leftBarButtonItem = closeButton;
     }
@@ -164,6 +148,10 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self configureNavButton];
+}
+
+- (BOOL)presented {
+    return [self presentingViewController];
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {

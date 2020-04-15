@@ -25,7 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) UITableViewController *parent;
-- (id)initWithPackageID:(NSString *)packageID fromSource:(ZBSource *_Nullable)source;
 - (id)initWithPackage:(ZBPackage *)package;
 - (NSArray *)contextMenuActionItemsInTableView:(UITableView *_Nullable)tableview;
 @end
