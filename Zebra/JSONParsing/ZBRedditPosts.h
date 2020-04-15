@@ -281,6 +281,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBFlairRichtext : NSObject
 @property (nonatomic, nullable, assign) ZBAuthorFlairType *e;
 @property (nonatomic, nullable, copy)   NSString *t;
+@property (nonatomic, nullable, copy)   NSString *a;
+@property (nonatomic, nullable, copy)   NSString *u;
 @end
 
 @interface ZBGildings : NSObject
