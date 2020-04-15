@@ -227,7 +227,7 @@
     
     NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-xz"]) {
+        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/x-xz"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -263,7 +263,7 @@
     
     NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/gzip"]) {
+        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/gzip"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -281,7 +281,7 @@
     
     NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-lzma"]) {
+        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/x-lzma"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
