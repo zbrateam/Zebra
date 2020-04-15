@@ -264,20 +264,17 @@
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages:NO] copy];
-    NSMutableArray *packageIds = [NSMutableArray new];
+    NSArray *packages = [self.databaseManager installedPackages:NO];
+    [packages sortedArrayUsingSelector:@selector(name)];
+    
+    NSMutableArray *descriptions = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        if (package.identifier) {
-            [packageIds addObject:package.identifier];
-        }
+        [descriptions addObject:[package description]];
     }
-    if ([packageIds count]) {
-        packageIds = [[packageIds sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] mutableCopy];
-        NSString *fullList = [packageIds componentsJoinedByString:@"\n"];
-        NSArray *share = @[fullList];
-        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:share applicationActivities:nil];
-        [self presentActivityController:controller];
-    }
+    
+    NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
+    [self presentActivityController:controller];
 }
 
 // Share Sheet
