@@ -239,7 +239,7 @@
 - (void)installAll {
     NSMutableArray *installablePackages = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        if ([package isInstalled:NO] || ![package isReinstallable])
+        if ([package isInstalled:NO] || ![package isReinstallable] || [package isPaid])
             continue;
         [installablePackages addObject:package];
     }
