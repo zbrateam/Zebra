@@ -157,7 +157,7 @@
             [packageTasksMap setObject:package forKey:@(downloadTask.taskIdentifier)];
             [downloadDelegate startedPackageDownload:package];
         } else if (package.requiresAuthorization) {
-            [self postStatusUpdate:[NSString stringWithFormat:@"Authorizing Download for %@", package.name] atLevel:ZBLogLevelDescript];
+            [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Authorizing Download for %@", @""), package.name] atLevel:ZBLogLevelDescript];
             if (@available(iOS 11.0, *)) {
                 [self authorizeDownloadForPackage:package completion:^(NSURL *downloadURL, NSError *error) {
                     if (downloadURL && !error) {
@@ -168,12 +168,12 @@
                         [self->downloadDelegate startedPackageDownload:package];
                     }
                     else if (error) {
-                        [self postStatusUpdate:[NSString stringWithFormat:@"Couldn't authorize download for %@.", package.name] atLevel:ZBLogLevelError];
-                        [self postStatusUpdate:[NSString stringWithFormat:@"Reason: %@.", error.localizedDescription] atLevel:ZBLogLevelError];
+                        [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Couldn't authorize download for %@.", @""), package.name] atLevel:ZBLogLevelError];
+                        [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Reason: %@.", @""), error.localizedDescription] atLevel:ZBLogLevelError];
                     }
                 }];
             } else {
-                [self postStatusUpdate:@"The Payment API is not supported on less than iOS 11.0" atLevel:ZBLogLevelError];
+                [self postStatusUpdate:NSLocalizedString(@"The Payment API is not supported on less than iOS 11.0", @"") atLevel:ZBLogLevelError];
             }
         } else {
             NSString *baseString = [base absoluteString];
@@ -595,7 +595,8 @@
                     ZBPackage *package = self->packageTasksMap[@(downloadTask.taskIdentifier)];
                     if (error) {
                         [self cancelAllTasksForSession:self->session];
-                        [self->downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"[Zebra] Error while moving file at %@ to %@: %@\n", location, finalPath, error.localizedDescription] atLevel:ZBLogLevelError];
+                        NSString *text = [NSString stringWithFormat:[NSString stringWithFormat:@"[Zebra] %@: %%@\n", NSLocalizedString(@"Error while moving file at %@ to %@", @"")], location, finalPath, error.localizedDescription];
+                        [self->downloadDelegate postStatusUpdate:text atLevel:ZBLogLevelError];
                         
                         [self->downloadDelegate finishedPackageDownload:package withError:error];
                     } else {

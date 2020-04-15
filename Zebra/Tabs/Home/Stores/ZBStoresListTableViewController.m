@@ -100,10 +100,10 @@
         [source authenticate:^(BOOL success, NSError * _Nullable error) {
             if (!success || error) {
                 if (error) {
-                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"Could not authenticate: %@", error.localizedDescription]];
+                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
                 }
                 else {
-                    [ZBAppDelegate sendAlertFrom:self message:@"Could not authenticate"];
+                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
                 }
             }
             else {
