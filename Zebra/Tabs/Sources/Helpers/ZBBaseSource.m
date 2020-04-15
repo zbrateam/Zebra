@@ -245,7 +245,7 @@
     
     NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && [httpResponse.MIMEType isEqualToString:@"application/x-bzip2"]) {
+        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/x-bzip2"] || [httpResponse.MIMEType isEqualToString:@"application/x-bzip"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
