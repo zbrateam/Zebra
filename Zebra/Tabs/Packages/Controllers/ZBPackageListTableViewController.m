@@ -219,9 +219,6 @@
                 UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% %@", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages), NSLocalizedString(@"Loaded", @"")] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
                 self.navigationItem.rightBarButtonItem = loadButton;
             }
-        } else {
-            UIBarButtonItem *installAllButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Install All", @"") style:UIBarButtonItemStylePlain target:self action:@selector(installAll)];
-            self.navigationItem.rightBarButtonItem = installAllButton;
         }
     });
 }
@@ -509,19 +506,22 @@
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     [self setDestinationVC:indexPath destination:packageDepictionVC];
     return packageDepictionVC;
-    
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
-- (void)darkMode:(NSNotification *)notif {
-    [self.tableView reloadData];
-//    [ZBDevice refreshViews];
-    self.tableView.sectionIndexColor = [UIColor accentColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
-    [self.navigationController.navigationBar setBarTintColor:nil];
+- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
+    if (!repo) return NULL;
+    if ([[ZBDatabaseManager sharedInstance] numberOfPackagesInRepo:repo section:section] > 400) return NULL;
+    
+    NSString *title = NSLocalizedString(@"Install All", @"");
+    UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        [self installAll];
+    }];
+    
+    return @[action];
 }
 
 @end
