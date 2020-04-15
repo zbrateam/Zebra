@@ -210,22 +210,6 @@
     return appPath != NULL ? [appPath stringByDeletingLastPathComponent] : NULL;
 }
 
-- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url {
-    
-    self = [super init];
-    
-    if (self) {
-        [self setIdentifier:identifier];
-        [self setName:name];
-        [self setVersion:version];
-        [self setShortDescription:desc];
-        [self setSection:section];
-        [self setDepictionURL:[NSURL URLWithString:url]];
-    }
-    
-    return self;
-}
-
 + (NSCharacterSet *)delimiters {
     static NSCharacterSet *charSet = nil;
     static dispatch_once_t onceToken;
@@ -319,6 +303,94 @@
     }
     
     return self;
+}
+
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    
+    if (self) {
+        NSString *packageID = [dictionary objectForKey:@"Package"];
+        if (!packageID) return NULL;  // This should never be NULL
+        
+        NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if NULL, or Unknown if things get worse
+        NSString *version = [dictionary objectForKey:@"Version"] ?: NULL;
+        NSString *desc = [dictionary objectForKey:@"Description"] ?: NULL;
+        NSString *section = [dictionary objectForKey:@"Section"] ?: NULL;
+        NSString *depiction = [dictionary objectForKey:@"Depiction"] ?: NULL;
+        NSArray *tags = [[[dictionary objectForKey:@"Tag"] stringValue] componentsSeparatedByString:@", "] ?: NULL;
+        NSString *author = [dictionary objectForKey:@"Author"] ?: NULL;
+        NSString *depends = [dictionary objectForKey:@"Depends"] ?: NULL;
+        NSString *conflicts = [dictionary objectForKey:@"Conflicts"] ?: NULL;
+        NSString *provides = [dictionary objectForKey:@"Provides"] ?: NULL;
+        NSString *replaces = [dictionary objectForKey:@"Replaces"] ?: NULL;
+        NSString *icon = [dictionary objectForKey:@"Icon"] ?: NULL;
+        NSString *priority = [dictionary objectForKey:@"Priority"] ?: NULL;
+        NSString *essential = [dictionary objectForKey:@"Essential"] ?: NULL;
+        
+        [self setIdentifier:packageID];
+        [self setName:name];
+        [self setVersion:version];
+        [self setShortDescription:desc];
+        [self setSection:section];
+        [self setDepictionURL:[NSURL URLWithString:depiction]];
+        [self setAuthorName:author];
+        [self setIconPath:icon];
+        [self setPriority:priority];
+        [self setTags:tags];
+        
+        if (essential && [essential isEqualToString:@"yes"]) {
+            [self setEssential:YES];
+        }
+        else if (essential && [essential isEqualToString:@"no"]) {
+            [self setEssential:NO];
+        }
+        
+        if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
+            tags = [tags[0] componentsSeparatedByString:@","];
+        }
+        
+        [self setDependsOn:[self extract:[depends UTF8String]]];
+        [self setConflictsWith:[self extract:[conflicts UTF8String]]];
+        [self setProvides:[self extract:[provides UTF8String]]];
+        [self setReplaces:[self extract:[replaces UTF8String]]];
+        [self setSource:[ZBSource localSource:-2]];
+    }
+    
+    return self;
+}
+
+- (id)initFromDeb:(NSString *)path {
+    if (!path) return NULL;
+    if (![path hasSuffix:@".deb"]) return NULL;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return NULL;
+    
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath:@"/usr/bin/dpkg"];
+    [ZBDevice asRoot:task arguments:@[@"-I", path, @"control"]];
+    
+    NSPipe *pipe = [NSPipe pipe];
+    [task setStandardOutput:pipe];
+    
+    [task launch];
+    
+    NSFileHandle *read = [pipe fileHandleForReading];
+    NSData *dataRead = [read readDataToEndOfFile];
+    [task waitUntilExit];
+    
+    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+    NSMutableDictionary *info = [NSMutableDictionary new];
+    [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+        if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+        if (pair.count != 2) return;
+        NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        info[key] = value;
+    }];
+    
+    [read closeFile];
+    
+    return [self initWithDictionary:info];
 }
 
 - (BOOL)isEqual:(ZBPackage *)object {

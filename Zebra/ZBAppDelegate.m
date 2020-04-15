@@ -267,16 +267,24 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
+                ZBPackage *package = [[ZBPackage alloc] initFromDeb:[url path]];
+                if (package) {
+                    NSLog(@"[Zebra] External Package: %@", package);
+                }
+                else {
+                    NSLog(@"[Zebra] Unable to load Extenal Package :(");
+                }
+                
 //                if (![ZBDevice needsSimulation]) {
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
-                    
-                    ZBExternalPackageTableViewController *external = vc.viewControllers[0];
-                    external.fileURL = url;
-                    
-                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-                    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
-                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+//                    UINavigationController *vc = [storyboard instantiateViewControllerWithIdentifier:@"externalPackageController"];
+//
+//                    ZBExternalPackageTableViewController *external = vc.viewControllers[0];
+//                    external.fileURL = url;
+//
+//                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+//                    [self.window.rootViewController presentViewController:vc animated:YES completion:nil];
+//                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
 //                }
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
