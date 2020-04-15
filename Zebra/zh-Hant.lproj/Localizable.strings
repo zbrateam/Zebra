@@ -144,7 +144,7 @@
 "Could not authenticate" = "無法認證";
 "Could not complete purchase" = "無法完成購買操作";
 "No packages purchased" = "無已購買套件";
-"Logged in as %@" = "Logged in as %@";
+"Logged in as %@" = "已登入為 %@";
 "Logged in as %@ (%@)" = "已登入為 %@（%@）";
 
 // Sources
@@ -188,10 +188,10 @@
 
 "Could not parse %@ from %@" = "無法解析 %@ 自 %@";
 "Could not find a download URL for" = "無法獲得下載網址";
-"Authorizing Download for %@" = "Authorizing Download for %@";
+"Authorizing Download for %@" = "正在取得 %@ 的下載授權";
 "Couldn't authorize download for %@." = "無法取得 %@ 的下載授權。";
 "Reason: %@." = "原因：%@。";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"The Payment API is not supported on less than iOS 11.0" = "付款 API 不支援 iOS 11.0 以下的系統";
 "Could not download Release file from %@. Reason: %@" = "無法從 %@ 下載發佈檔案。原因：%@";
 "Could not download Packages file from %@. Reason: %@" = "無法從 %@ 下載套件檔案。原因：%@";
 "Could not download one or more files from %@. Reason: %@" = "無法從 %@ 下載 1 個或更多檔案。原因：%@";
@@ -311,7 +311,7 @@
 "Console" = "主控台";
 "Performing Actions..." = "執行動作…";
 "Updating icon cache asynchronously..." = "正在異步更新圖示快取...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "在模擬器上無法使用 uicache";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
 "Close Zebra" = "關閉 Zebra";
 "Closing Zebra..." = "正在關閉 Zebra...";
