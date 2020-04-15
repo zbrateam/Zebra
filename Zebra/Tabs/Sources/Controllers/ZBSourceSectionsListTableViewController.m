@@ -444,7 +444,7 @@
         return weakSelf.previewPackageListVC;
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-        weakSelf.previewPackageListVC.repo = self->repo;
+        weakSelf.previewPackageListVC.source = self->source;
         if (indexPath.row > 0) {
             NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
             weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
@@ -470,7 +470,7 @@
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
     ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-    packageListVC.repo = self->repo;
+    packageListVC.source = self->source;
     if (indexPath.row > 0) {
         NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
         packageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
