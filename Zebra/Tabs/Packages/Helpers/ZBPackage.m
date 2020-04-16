@@ -312,7 +312,7 @@
         NSString *packageID = [dictionary objectForKey:@"Package"];
         if (!packageID) return NULL;  // This should never be NULL
         
-        NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if NULL, or Unknown if things get worse
+        NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if NULL
         NSString *version = [dictionary objectForKey:@"Version"] ?: NULL;
         NSString *desc = [dictionary objectForKey:@"Description"] ?: NULL;
         NSString *section = [dictionary objectForKey:@"Section"] ?: NULL;
@@ -397,7 +397,10 @@
         info[key] = value;
     }];
     
-    return [self initWithDictionary:info];
+    ZBPackage *package = [self initWithDictionary:info];
+    [package setDebPath:path];
+    
+    return package;
 }
 
 - (BOOL)isEqual:(ZBPackage *)object {
