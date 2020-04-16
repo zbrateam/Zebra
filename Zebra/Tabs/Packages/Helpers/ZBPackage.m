@@ -364,20 +364,29 @@
     if (![path hasSuffix:@".deb"]) return NULL;
     if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return NULL;
     
-    NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath:@"/usr/bin/dpkg"];
-    [ZBDevice asRoot:task arguments:@[@"-I", path, @"control"]];
+    NSString *stringRead;
+    if (![ZBDevice needsSimulation]) {
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/bin/dpkg"];
+        [ZBDevice asRoot:task arguments:@[@"-I", path, @"control"]];
+        
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+        
+        [task launch];
+        
+        NSFileHandle *read = [pipe fileHandleForReading];
+        NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
+        
+        stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        
+        [read closeFile];
+    }
+    else {
+        stringRead = [[NSString alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"control" withExtension:@"sample"] encoding:NSUTF8StringEncoding error:nil];
+    }
     
-    NSPipe *pipe = [NSPipe pipe];
-    [task setStandardOutput:pipe];
-    
-    [task launch];
-    
-    NSFileHandle *read = [pipe fileHandleForReading];
-    NSData *dataRead = [read readDataToEndOfFile];
-    [task waitUntilExit];
-    
-    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
     NSMutableDictionary *info = [NSMutableDictionary new];
     [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
         NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
@@ -387,8 +396,6 @@
         NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
         info[key] = value;
     }];
-    
-    [read closeFile];
     
     return [self initWithDictionary:info];
 }
@@ -583,7 +590,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if ([source sourceID] <= 0) { // Package is in sourceID 0 or -1 and is installed
+    if ([source sourceID] <= 0) { // Package is in sourceID 0 or -1
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -718,6 +725,9 @@
 - (NSArray * _Nullable)possibleActions {    
     if ([[self source] sourceID] == -1) {
         return nil; // No actions for virtual dependencies
+    }
+    else if ([[self source] sourceID] == -2) {
+        return @[@(ZBPackageActionInstall)];
     }
     
     NSMutableArray *actions = [NSMutableArray new];
