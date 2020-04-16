@@ -24,6 +24,8 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBPurchaseInfo.h"
 #import <Packages/Helpers/ZBPackageActionType.h>
+#import <UIBarButtonItem+blocks.h>
+#import <objc/runtime.h>
 
 @import SDWebImage;
 @import Crashlytics;
@@ -83,11 +85,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadDepiction) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureNavButton) name:@"ZBUpdateNavigationButtons" object:nil];
-    if ([self presented]) {
-        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
-        self.navigationItem.leftBarButtonItem = closeButton;
-    }
-    
+
     self.navigationItem.title = package.name;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
@@ -341,8 +339,23 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     
     navButtonsBeingConfigured = YES;
     
+    if ([self presented]) {
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Close", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+        self.navigationItem.leftBarButtonItem = closeButton;
+    }
+    
     [ZBPackageActions barButtonItemForPackage:package completion:^(UIBarButtonItem *barButton) {
         self->navButtonsBeingConfigured = NO;
+        
+        if ([self presented]) {
+            UIBarButtonItemActionHandler originalHandler = objc_getAssociatedObject(barButton, "actionHandler");
+            UIBarButtonItemActionHandler newHandler = ^{
+                originalHandler();
+                [self goodbye];
+            };
+            
+            [barButton setActionHandler:newHandler];
+        }
         self.navigationItem.rightBarButtonItem = barButton;
     }];
 }
@@ -350,16 +363,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)dealloc {
     [webView removeObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) context:nil];
     [webView.scrollView removeObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) context:nil];
-}
-
-- (void)presentQueue {
-    if ([self presentingViewController]) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [[ZBAppDelegate tabBarController] openQueue:YES];
-        }];
-    } else {
-        [[ZBAppDelegate tabBarController] openQueue:YES];
-    }
 }
 
 // 3D Touch Actions
