@@ -267,14 +267,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                ZBPackage *package = [[ZBPackage alloc] initFromDeb:[url path]];
-                if (package) {
-                    NSLog(@"[Zebra] External Package: %@", package);
-                }
-                else {
-                    NSLog(@"[Zebra] Unable to load Extenal Package :(");
-                }
-                
+                ZBPackage *package = [[ZBPackage alloc] initFromDeb:[url path]];                
                 ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
                 
