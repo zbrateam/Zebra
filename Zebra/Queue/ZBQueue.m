@@ -435,21 +435,18 @@
 }
 
 - (BOOL)needsToDownloadPackages {
-    for (NSNumber *key in managedQueue) {
-        if (key.intValue != ZBQueueTypeRemove && [managedQueue[key] count]) {
-            return YES;
-        }
-    }
-    
-    return NO;
+    return [[self packagesToDownload] count] > 0;
 }
 
 - (NSArray *)packagesToDownload {
     NSMutableArray *packages = [NSMutableArray new];
     
     for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
-        if (q != ZBQueueTypeRemove) {
-            [packages addObjectsFromArray:[self queueFromType:q]];
+        if (q == ZBQueueTypeRemove) continue;
+        for (ZBPackage *package in [self queueFromType:q]) {
+            if (!package.debPath) {
+                [packages addObject:package];
+            }
         }
     }
     
