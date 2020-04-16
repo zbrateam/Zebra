@@ -42,6 +42,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 + (ZBSource *)localSource:(int)sourceID {
     ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
+    [local setLabel:NSLocalizedString(@"Local Repository", @"")];
     [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
     [local setSourceID:sourceID];
     [local setBaseFilename:@"/var/lib/dpkg/status"];
