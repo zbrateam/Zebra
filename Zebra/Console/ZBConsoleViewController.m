@@ -79,24 +79,6 @@
     return self;
 }
 
-- (id)initWithLocalFile:(NSString *)filePath {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    self = [storyboard instantiateViewControllerWithIdentifier:@"consoleViewController"];
-    
-    if (self) {
-        applicationBundlePaths = [NSMutableArray new];
-        installedPackageIdentifiers = [NSMutableArray new];
-        localInstallPath = filePath;
-        respringRequired = NO;
-        updateIconCache = NO;
-        
-        // Resume database operations
-        [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:NO];
-    }
-    
-    return self;
-}
-
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
@@ -192,37 +174,6 @@
 #pragma mark - Performing Tasks
 
 - (void)performTasks {
-    if (localInstallPath != NULL) {
-        NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-        [task setArguments:@[@"dpkg", @"-i", localInstallPath]];
-        
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        
-        NSPipe *errorPipe = [[NSPipe alloc] init];
-        NSFileHandle *error = [errorPipe fileHandleForReading];
-        [error waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        
-        [task setStandardOutput:outputPipe];
-        [task setStandardError:errorPipe];
-        
-        [task launch];
-        [task waitUntilExit];
-        
-        [self refreshLocalPackages];
-        [self removeAllDebs];
-        [self finishTasks];
-    }
-    else {
-        [self performTasksForDownloadedFiles];
-    }
-}
-
-- (void)performTasksForDownloadedFiles {
     if (downloadFailed) {
         [self writeToConsole:[NSString stringWithFormat:@"\n%@\n\n%@", NSLocalizedString(@"One or more packages failed to download.", @""), NSLocalizedString(@"Click \"Return to Queue\" to return to the Queue and retry the download.", @"")] atLevel:ZBLogLevelDescript];
         [self finishTasks];
@@ -412,11 +363,10 @@
                 ZBLog(@"[Zebra] Updating Icon Caches");
                 [self updateIconCaches];
             }
-            
-            [self refreshLocalPackages];
-            [self removeAllDebs];
-            [self finishTasks];
         }
+        [self refreshLocalPackages];
+        [self removeAllDebs];
+        [self finishTasks];
     }
 }
 
@@ -809,7 +759,7 @@
 }
 
 - (void)finishedAllDownloads {
-    [self performSelectorInBackground:@selector(performTasksForDownloadedFiles) withObject:NULL];
+    [self performSelectorInBackground:@selector(performTasks) withObject:NULL];
     
     suppressCancel = YES;
     [self updateCancelOrCloseButton];
