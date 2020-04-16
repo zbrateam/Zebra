@@ -717,6 +717,9 @@
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
+        else {
+            [self writeToConsole:str atLevel:ZBLogLevelError];
+        }
     }
 }
 
