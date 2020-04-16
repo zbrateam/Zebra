@@ -250,18 +250,17 @@
                         for (int i = COMMAND_START; i < [command count]; ++i) {
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
-                            NSLog(@"[Zebra] Valid remove package id %@", packageID);
                             
                             NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageID];
                             if (bundlePath) {
-                                NSLog(@"[Zebra] %@ has an app bundle", bundlePath);
+                                ZBLog(@"[Zebra] %@ has an app bundle", bundlePath);
                                 updateIconCache = YES;
                                 [applicationBundlePaths addObject:bundlePath];
                             }
 
                             if (!respringRequired) {
                                 respringRequired = [ZBPackage respringRequiredFor:packageID];
-                                NSLog(@"[Zebra] Respring Required? %@", respringRequired ? @"Yes" : @"No");
+                                ZBLog(@"[Zebra] Respring Required? %@", respringRequired ? @"Yes" : @"No");
                             }
                         }
                     }
