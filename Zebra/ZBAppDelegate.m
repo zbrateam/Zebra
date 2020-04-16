@@ -13,7 +13,6 @@
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <UserNotifications/UserNotifications.h>
-#import <Packages/Controllers/ZBExternalPackageTableViewController.h>
 #import <UIColor+GlobalColors.h>
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
@@ -267,13 +266,22 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
-                ZBPackage *package = [[ZBPackage alloc] initFromDeb:[url path]];                
-                ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
-                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
+                NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
                 
-                [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-                [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
-                [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
+                NSError *moveError;
+                [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:newLocation error:&moveError];
+                if (moveError) {
+                    NSLog(@"[Zebra] Couldn't move deb %@", moveError.localizedDescription);
+                }
+                else {
+                    ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
+                    ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
+                    
+                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
+                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
+                }
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
