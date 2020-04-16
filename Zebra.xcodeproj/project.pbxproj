@@ -77,6 +77,7 @@
 		8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
+		893F51CC2447D83C00B2C64E /* control.sample in Resources */ = {isa = PBXBuildFile; fileRef = 893F51CB2447D83C00B2C64E /* control.sample */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		8947D84423734F9600635396 /* FirebaseInstanceID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8947D83723734F9500635396 /* FirebaseInstanceID.framework */; };
@@ -329,6 +330,7 @@
 		893CB6652364011B00204E27 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		893CB666236402EE00204E27 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6672364041500204E27 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		893F51CB2447D83C00B2C64E /* control.sample */ = {isa = PBXFileReference; lastKnownFileType = text; path = control.sample; sourceTree = "<group>"; };
 		893F857323C027E9005C4CF6 /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		8942C8E823639D86002DE095 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89448816236A3FF200523D7C /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -817,6 +819,7 @@
 			isa = PBXGroup;
 			children = (
 				89C7E48F21B23DB1003DB4E8 /* Installed.pack */,
+				893F51CB2447D83C00B2C64E /* control.sample */,
 			);
 			path = "Simulator Resources";
 			sourceTree = "<group>";
@@ -1287,6 +1290,7 @@
 				36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */,
 				36F77AE622A3414B00A4604C /* darkZebraSkin~ipad@3x.png in Resources */,
 				36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */,
+				893F51CC2447D83C00B2C64E /* control.sample in Resources */,
 				36AC5A7222AB30E9004C2332 /* zBlack~ipad@3x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */,
