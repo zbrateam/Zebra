@@ -20,6 +20,7 @@
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
+#import <Extensions/UIFont+Zebra.h>
 
 #include <sysexits.h>
 
@@ -554,28 +555,26 @@
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
     if (str == NULL)
         return;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color;
         UIFont *font;
         switch (level) {
             case ZBLogLevelDescript:
                 color = [UIColor whiteColor];
-                font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
+                font = UIFont.monospaceFont;
                 break;
             case ZBLogLevelInfo:
                 color = [UIColor whiteColor];
-                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+                font = UIFont.boldMonospaceFont;
                 break;
             case ZBLogLevelError:
                 color = [UIColor redColor];
-                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:12.0];
+                font = UIFont.boldMonospaceFont;
                 break;
             case ZBLogLevelWarning:
                 color = [UIColor yellowColor];
-                font = [UIFont fontWithName:@"CourierNewPSMT" size:12.0];
-                break;
-            default:
-                color = [UIColor whiteColor];
+                font = UIFont.monospaceFont;
                 break;
         }
 
