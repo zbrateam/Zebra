@@ -9,6 +9,7 @@
 #import <ZBTabBarController.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
+#import <Extensions/UIFont+Zebra.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBSourceManager.h>
@@ -269,21 +270,23 @@ typedef enum {
         UIColor *color = [UIColor whiteColor];
         UIFont *font;
         switch (level) {
-            case ZBLogLevelDescript ... ZBLogLevelInfo: {
+            case ZBLogLevelDescript:
+                font = UIFont.monospaceFont;
+            case ZBLogLevelInfo: {
                 if ([ZBSettings interfaceStyle] < ZBInterfaceStyleDark) {
                     color = [UIColor whiteColor];
                 }
-                font = [UIFont fontWithName:level == ZBLogLevelDescript ? @"CourierNewPSMT" : @"CourierNewPS-BoldMT" size:10.0];
+                font = font ?: UIFont.boldMonospaceFont;
                 break;
             }
             case ZBLogLevelError: {
                 color = [UIColor systemRedColor];
-                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
+                font = UIFont.boldMonospaceFont;
                 break;
             }
             case ZBLogLevelWarning: {
                 color = [UIColor systemYellowColor];
-                font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
+                font = UIFont.monospaceFont;
                 break;
             }
             default:

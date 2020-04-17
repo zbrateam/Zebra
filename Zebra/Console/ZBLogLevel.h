@@ -9,11 +9,11 @@
 #ifndef ZBLogLevel_h
 #define ZBLogLevel_h
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ZBLogLevel) {
     ZBLogLevelDescript,
     ZBLogLevelInfo,
     ZBLogLevelWarning,
     ZBLogLevelError
-} ZBLogLevel;
+};
 
 #endif /* ZBLogLevel_h */
