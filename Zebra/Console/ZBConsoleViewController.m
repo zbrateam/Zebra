@@ -155,6 +155,8 @@
         [app setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
         [self.navigationController.navigationBar setStandardAppearance:app];
         [self.navigationController.navigationBar setScrollEdgeAppearance:app];
+        [self.navigationController.navigationBar setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
+        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
     }
     else {
         [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
