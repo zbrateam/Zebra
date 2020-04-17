@@ -151,7 +151,7 @@
     
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *app = [self.navigationController.navigationBar.standardAppearance copy];
-        [app setBackgroundEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleSystemMaterialDark]];
+        [app setBackgroundEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
         [app setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
         [self.navigationController.navigationBar setStandardAppearance:app];
         [self.navigationController.navigationBar setScrollEdgeAppearance:app];
