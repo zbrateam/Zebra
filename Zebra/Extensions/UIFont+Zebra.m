@@ -14,7 +14,7 @@ static UIFont *monospace, *monospaceBold;
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        CGFloat size = 10.0;
+        CGFloat size = 11.0;
         if (@available(iOS 13, *)) {
             monospace = [UIFont monospacedSystemFontOfSize:size weight:UIFontWeightRegular];
             monospaceBold = [UIFont monospacedSystemFontOfSize:size weight:UIFontWeightBold];
