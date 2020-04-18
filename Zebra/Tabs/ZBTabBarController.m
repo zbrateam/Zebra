@@ -54,6 +54,7 @@
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     }
     
+    self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
     self->indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     CGRect indicatorFrame = self->indicator.frame;
     self->indicator.frame = indicatorFrame;

@@ -15,7 +15,7 @@ extern NSString * const ZBUserDidTakeScreenshotNotification;
 extern NSString * const ZBUserStartedScreenCaptureNotification;
 extern NSString * const ZBUserEndedScreenCaptureNotification;
 
-@interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
+@interface ZBAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
 + (NSString *)documentsDirectory;
