@@ -32,7 +32,7 @@
     if (!package) return;
     if (action < ZBPackageActionInstall || action > ZBPackageActionHideUpdates) return;
     if (@available(iOS 11.0, *)) {
-        if (checkPayment && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
+        if (checkPayment && action != ZBPackageActionRemove && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
             if (@available(iOS 11.0, *)) {
                 [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                     if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
