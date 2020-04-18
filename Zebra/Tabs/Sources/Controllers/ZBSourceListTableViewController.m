@@ -324,40 +324,45 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
-//    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
-//                              @"www.youtu.be", @"youtu.be",
-//                              @"www.google.com", @"google.com",
-//                              @"www.goo.gl", @"goo.gl",
-//                              @"www.reddit.com", @"reddit.com",
-//                              @"www.twitter.com", @"twitter.com",
-//                              @"www.facebook.com", @"facebook.com",
-//                              @"www.imgur.com", @"imgur.com",
-//                              @"www.discord.com", @"discord.com",
-//                              @"www.discord.gg", @"discord.gg",
-//                              @"www.apple.com", @"apple.com",
-//                              @"www.gmail.com", @"gmail.com"];
-    
-    NSMutableArray *sources = [NSMutableArray new];
-    for (ZBSource *source in [self.databaseManager sources]) {
-        NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
-        if (host) {
-            [sources addObject:host];
+    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
+                              @"www.youtu.be", @"youtu.be",
+                              @"www.google.com", @"google.com",
+                              @"www.goo.gl", @"goo.gl",
+                              @"www.reddit.com", @"reddit.com",
+                              @"www.twitter.com", @"twitter.com",
+                              @"www.facebook.com", @"facebook.com",
+                              @"www.imgur.com", @"imgur.com",
+                              @"www.discord.com", @"discord.com",
+                              @"www.discord.gg", @"discord.gg",
+                              @"www.apple.com", @"apple.com",
+                              @"share.icloud.com", @"icloud.com",
+                              @"www.gmail.com", @"gmail.com",
+                              @"www.pastebin.com", @"pastebin.com",
+                              @"tinyurl.com", @"bit.ly"];
+
+    if (![urlBlacklist containsObject:url.host]) {
+        NSMutableArray *sources = [NSMutableArray new];
+        for (ZBSource *source in [self.databaseManager sources]) {
+            NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
+            if (host) {
+                [sources addObject:host];
+            }
         }
-    }
-    if (![sources containsObject:url.host]) {
-        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
-        if (baseSource) {
-            [baseSource verify:^(ZBSourceVerificationStatus status) {
-                if (status == ZBSourceExists) {
-                    if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self showAddSourceFromClipboardAlert:baseSource];
-                        });
+        if (![sources containsObject:url.host]) {
+            ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
+            if (baseSource) {
+                [baseSource verify:^(ZBSourceVerificationStatus status) {
+                    if (status == ZBSourceExists) {
+                        if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self showAddSourceFromClipboardAlert:baseSource];
+                            });
+                        }
+                        self->askedToAddFromClipboard = YES;
+                        self->lastPaste = pasteboard.string;
                     }
-                    self->askedToAddFromClipboard = YES;
-                    self->lastPaste = pasteboard.string;
-                }
-            }];
+                }];
+            }
         }
     }
 }
