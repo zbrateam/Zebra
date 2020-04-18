@@ -12,6 +12,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
+#import <ZBLog.h>
 
 @interface ZBSourceManager () {
     NSMutableDictionary <NSNumber *, ZBSource *> *sources;
@@ -110,7 +111,7 @@
     NSMutableSet *sourcesToAdd = [baseSources mutableCopy];
     for (ZBBaseSource *source in baseSources) {
         if ([currentSources containsObject:source]) {
-            NSLog(@"%@ Already contained in list", source.repositoryURI);
+            ZBLog(@"[Zebra] %@ is already contained in list", source.repositoryURI);
             [sourcesToAdd removeObject:source];
         }
     }
