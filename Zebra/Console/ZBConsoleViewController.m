@@ -29,7 +29,6 @@
 
 @interface ZBConsoleViewController () {
     NSMutableArray *applicationBundlePaths;
-    NSMutableArray *completedDownloads;
     NSMutableArray *installedPackageIdentifiers;
     NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
     NSString *localInstallPath;
@@ -191,7 +190,7 @@
             [self setProgressTextHidden:NO];
             [self updateProgressText:NSLocalizedString(@"Performing Actions...", @"")];
             
-            for (ZBPackage *package in completedDownloads) {
+            for (ZBPackage *package in [queue packagesToInstall]) {
                 [installedPackageIdentifiers addObject:[package identifier]];
             }
             
@@ -710,6 +709,7 @@
     if (data.length) {
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        if ([str containsString:@"stable CLI interface"]) return;
         CLS_LOG(@"DPKG/APT Error: %@", str);
         if ([str rangeOfString:@"warning"].location != NSNotFound) {
             str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
@@ -731,9 +731,6 @@
 #pragma mark - Download Delegate
 
 - (void)startedDownloads {
-    if (!completedDownloads) {
-        completedDownloads = [NSMutableArray new];
-    }
 }
 
 - (void)startedPackageDownload:(ZBPackage *)package {
@@ -758,7 +755,6 @@
     }
     else {
         [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Done %@ (%@)", @""), package.name, package.identifier] atLevel:ZBLogLevelDescript];
-        [completedDownloads addObject:package];
     }
 }
 
