@@ -263,7 +263,7 @@
     switch ([options indexOfObject:type]) {
         case 0: {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[NSURL URLWithString:[info objectForKey:@"url"]]]];
+                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[[NSURL URLWithString:[info objectForKey:@"url"]]] extension:[info objectForKey:@"ext"]];
                 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
                 [self presentViewController:navController animated:YES completion:nil];

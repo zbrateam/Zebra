@@ -38,14 +38,34 @@
 
 #pragma mark - Initializers
 
-- (id)initWithSourceFiles:(NSArray <NSURL *> *)filePaths {
+- (id)initWithPaths:(NSArray <NSURL *> *)filePaths {
+    return [self initWithPaths:filePaths extension:@"list"];
+}
+
+- (id)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension {
     self = [super init];
     
     if (self) {
         if (@available(iOS 13.0, *)) {
             self.modalInPresentation = YES;
         }
-        self.sourceFilesToImport = filePaths;
+        
+        sourceFilesToImport = [NSMutableArray new];
+        for (NSURL *url in filePaths) {
+            BOOL isDirectory = NO;
+            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:&isDirectory];
+            if (exists && isDirectory) { // If the location is a directory then add each individual file URL
+                for (NSString *filename in [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[url path] error:nil]) {
+                    if ([[filename pathExtension] isEqualToString:extension]) {
+                        NSURL *fileURL = [url URLByAppendingPathComponent:filename];
+                        if (fileURL) [sourceFilesToImport addObject:fileURL];
+                    }
+                }
+            }
+            else if (exists && [[url pathExtension] isEqualToString:extension]) {
+                [sourceFilesToImport addObject:url];
+            }
+        }
     }
     
     return self;
