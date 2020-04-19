@@ -246,31 +246,6 @@
     [[ZBQueue sharedQueue] addPackages:installablePackages toQueue:ZBQueueTypeInstall];
 }
 
-- (void)presentQueue {
-    [[ZBAppDelegate tabBarController] openQueue:YES];
-}
-
-- (void)askClearQueue {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:NSLocalizedString(@"Are you sure you want to clear the Queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self clearQueue];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
-    [alert addAction:clearAction];
-    [alert addAction:cancelAction];
-    
-    alert.popoverPresentationController.barButtonItem = self->clearButton;
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)clearQueue {
-    [[ZBQueue sharedQueue] clear];
-    [self refreshTable];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
-}
-
 - (void)sharePackages {
     NSArray *packages = [self.databaseManager installedPackages:NO];
     [packages sortedArrayUsingSelector:@selector(name)];
@@ -322,8 +297,6 @@
             [queue addPackage:upgradeVersion toQueue:ZBQueueTypeUpgrade];
         }
     }
-    
-    [self presentQueue];
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
