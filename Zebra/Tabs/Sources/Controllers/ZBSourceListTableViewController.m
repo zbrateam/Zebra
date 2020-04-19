@@ -123,6 +123,8 @@
     else {
         ZBBaseSource *baseSource = (ZBBaseSource *)source;
         
+        [self setSpinnerVisible:NO forCell:cell];
+        
         cell.sourceLabel.text = [baseSource repositoryURI];
         
         cell.urlLabel.text = NSLocalizedString(@"Tap to learn more", @"");
