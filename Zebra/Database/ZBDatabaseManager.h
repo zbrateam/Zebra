@@ -490,6 +490,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 
+- (ZBPackage *)localVersionForPackage:(ZBPackage *)package;
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end
 

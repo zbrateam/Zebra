@@ -2142,6 +2142,32 @@
     }
 }
 
+- (ZBPackage *)localVersionForPackage:(ZBPackage *)package {
+    if ([[package source] sourceID] == 0) return package;
+    if (![package isInstalled:NO]) return NULL;
+    
+    ZBPackage *localPackage = NULL;
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE PACKAGE = '%@' AND REPOID = 0", [package identifier]];
+        
+        sqlite3_stmt *statement = NULL;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                localPackage = [[ZBPackage alloc] initWithSQLiteStatement:statement];
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+    } else {
+        [self printDatabaseError];
+    }
+    
+    return localPackage;
+}
+
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package {
     NSString *version = NULL;
     if ([self openDatabase] == SQLITE_OK) {
