@@ -201,9 +201,7 @@
 }
 
 - (void)confirmationControllerWithTitle:(NSString *)title message:(NSString *)message callback:(void(^)(void))callback indexPath:(NSIndexPath *)indexPath {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleActionSheet];
-    alert.popoverPresentationController.sourceView = [self.tableView cellForRowAtIndexPath:indexPath];
-    alert.popoverPresentationController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:[self alertControllerStyle]];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -219,5 +217,10 @@
         [self presentViewController:alert animated:YES completion:nil];
     });
 }
+
+- (UIAlertControllerStyle)alertControllerStyle {
+    return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
+}
+
 
 @end
