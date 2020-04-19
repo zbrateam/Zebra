@@ -1032,13 +1032,7 @@
                     
                     ZBPackage *package = [self packageForID:identifier equalVersion:version];
                     if (package != NULL && [upgradePackageIDs containsObject:package.identifier]) {
-                        NSString *baseVersion = [self installedVersionForPackage:package];
-                        ZBPackage *basePackage = baseVersion ? [self packageForID:identifier equalVersion:baseVersion] : nil;
-                        if (basePackage) {
-                            [packagesWithUpdates addObject:basePackage];
-                        } else {
-                            [packagesWithUpdates addObject:package];
-                        }
+                        [packagesWithUpdates addObject:package];
                     }
                 } else if ([upgradePackageIDs containsObject:identifier]) {
                     [upgradePackageIDs removeObject:identifier];
