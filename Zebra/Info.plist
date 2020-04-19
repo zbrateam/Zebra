@@ -239,7 +239,7 @@
 		<true/>
 	</dict>
 	<key>NSFaceIDUsageDescription</key>
-	<string>pls give face id</string>
+	<string>Zebra uses Face ID to authenticate purchases.</string>
 	<key>SBAppUsesLocalNotifications</key>
 	<true/>
 	<key>UIApplicationShortcutItems</key>
