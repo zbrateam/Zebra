@@ -24,6 +24,10 @@
 
 #pragma mark - Package Actions
 
++ (UIAlertControllerStyle)alertControllerStyle {
+    return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
+}
+
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package {
     [self performAction:action forPackage:package checkPayment:YES];
 }
@@ -117,7 +121,7 @@
 + (void)upgrade:(ZBPackage *)package {
     NSArray *greaterVersions = [package greaterVersions];
     if ([greaterVersions count] > 1) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
         for (ZBPackage *otherPackage in greaterVersions) {
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -141,7 +145,7 @@
 + (void)downgrade:(ZBPackage *)package {
     NSArray *lesserVersions = [package lesserVersions];
     if ([lesserVersions count] > 1) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
         for (ZBPackage *otherPackage in lesserVersions) {
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -177,7 +181,7 @@
         UIBarButtonItemActionHandler handler = ^{
             NSArray <NSNumber *> *actions = [package possibleActions];
             if ([actions count] > 1) {
-                UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+                UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
                 
                 for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
                     [selectAction addAction:action];
