@@ -736,7 +736,16 @@
     NSMutableArray *actions = [NSMutableArray new];
     ZBQueue *queue = [ZBQueue sharedQueue];
     
-    if ([self isInstalled:NO]) {
+    if ([self isInstalled:NO] && [[self source] sourceID] != 0) { // This means the package is installed but this isn't the version that is currently installed
+        // We need to calculate the actions based on the package that is actually installed
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        
+        NSString *baseVersion = [databaseManager installedVersionForPackage:self];
+        ZBPackage *basePackage = baseVersion ? [databaseManager packageForID:identifier equalVersion:baseVersion] : nil; // This shouldn't need the extra check but just in case
+        
+        return [basePackage possibleActions];
+    }
+    else if ([[self source] sourceID] == 0) {
         // If the package is installed then we can show other options
         if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self isReinstallable]) {
             // Search for the same version of this package in the database
