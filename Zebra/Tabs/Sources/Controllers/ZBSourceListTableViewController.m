@@ -116,11 +116,9 @@
         
         cell.sourceLabel.textColor = [UIColor primaryTextColor];
         cell.urlLabel.textColor = [UIColor secondaryTextColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
         cell.tintColor = nil;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        return cell;
     }
     else {
         ZBBaseSource *baseSource = (ZBBaseSource *)source;
@@ -132,12 +130,13 @@
         
         cell.sourceLabel.textColor = [UIColor systemPinkColor];
         cell.urlLabel.textColor = [UIColor systemPinkColor];
-        cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
         
         cell.tintColor = [UIColor systemPinkColor];
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
-        return cell;
     }
+    cell.backgroundContainerView.backgroundColor = [UIColor cellBackgroundColor];
+    
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBSourceTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {

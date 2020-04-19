@@ -151,17 +151,25 @@
     NSMutableArray *lineComponents = [[debLine componentsSeparatedByString:@" "] mutableCopy];
     [lineComponents removeObject:@""]; //Remove empty strings from the line which exist for some reason
     
-    if ([lineComponents count] >= 3) {
-        NSString *archiveType = lineComponents[0];
-        NSString *repositoryURI = lineComponents[1];
-        NSString *distribution = lineComponents[2];
-        
-        //Group all of the components into the components array
-        NSMutableArray *sourceComponents = [NSMutableArray new];
-        for (int i = 3; i < [lineComponents count]; i++) {
-            NSString *component = lineComponents[i];
-            if (component)  {
-                [sourceComponents addObject:component];
+    NSUInteger count = [lineComponents count];
+    NSString *archiveType = @"";
+    NSString *repositoryURI = @"";
+    NSString *distribution = @"";
+    NSMutableArray *sourceComponents = [NSMutableArray new];
+    if (count > 0) {
+        archiveType = lineComponents[0];
+        if (count > 1) {
+            repositoryURI = lineComponents[1];
+            if (count > 2) {
+                distribution = lineComponents[2];
+                
+                //Group all of the components into the components array
+                for (int i = 3; i < count; i++) {
+                    NSString *component = lineComponents[i];
+                    if (component)  {
+                        [sourceComponents addObject:component];
+                    }
+                }
             }
         }
         
