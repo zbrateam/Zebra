@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (int)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;
+- (NSArray *)packagesToInstall;
 - (BOOL)contains:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue;
 - (NSString *)downloadSizeForQueue:(ZBQueueType)queueType;

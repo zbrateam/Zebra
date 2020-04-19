@@ -455,6 +455,24 @@
     return (NSArray *)packages;
 }
 
+- (NSArray *)packagesToInstall {
+    NSMutableArray *packages = [NSMutableArray new];
+    
+    for (ZBQueueType q = ZBQueueTypeInstall; q <= ZBQueueTypeDowngrade; q <<= 1) {
+        if (q == ZBQueueTypeRemove) continue;
+        for (ZBPackage *package in [self queueFromType:q]) {
+            if (package.debPath) {
+                [packages addObject:package];
+            }
+        }
+    }
+    
+    [packages addObjectsFromArray:[self dependencyQueue]];
+    
+    return (NSArray *)packages;
+}
+
+
 - (BOOL)contains:(ZBPackage *)package {
     if ([queuedPackagesList containsObject:[package identifier]]) {
         return YES;

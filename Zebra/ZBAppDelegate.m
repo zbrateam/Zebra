@@ -458,4 +458,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 }
 
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UINavigationController *)navigationController {
+    static UITableViewController *previousController = nil;
+    UITableViewController *currentController = [navigationController viewControllers][0];
+    if (previousController == currentController) {
+        if ([currentController respondsToSelector:@selector(scrollToTop)]) {
+            [currentController performSelector:@selector(scrollToTop)];
+        }
+    }
+    previousController = [navigationController viewControllers][0]; // Should set the previousController to the rootVC
+}
+
 @end

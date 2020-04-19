@@ -602,7 +602,7 @@
 }
 
 - (void)handleImportOf:(NSURL *)url {
-    ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[url]];
+    ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[url] extension:[url pathExtension]];
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
     [self presentViewController:navController animated:YES completion:nil];
@@ -687,6 +687,10 @@
 
 - (void)verifyAndAdd:(NSSet *)baseSources {
     [sourceManager verifySources:baseSources delegate:self];
+}
+
+- (void)scrollToTop {
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 @end

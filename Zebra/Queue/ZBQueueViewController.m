@@ -104,7 +104,7 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
     
-    alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
+    alert.popoverPresentationController.barButtonItem = sender;
     [self presentViewController:alert animated:YES completion:nil];
 }
 
@@ -121,7 +121,7 @@
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:cancel];
         
-        alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
+        alert.popoverPresentationController.barButtonItem = sender;
         [self presentViewController:alert animated:YES completion:nil];
     }
     else {

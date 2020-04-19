@@ -246,4 +246,13 @@
     });
 }
 
+- (void)scrollToTop {
+    if (searchController.searchResultsController) {
+        [searchController.searchResultsController performSelector:@selector(scrollToTop)];
+    }
+    else {
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+    }
+}
+
 @end

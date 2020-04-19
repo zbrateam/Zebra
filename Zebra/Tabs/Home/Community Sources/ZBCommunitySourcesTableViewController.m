@@ -127,7 +127,8 @@
         NSDictionary *dict = @{@"type" : @"transfer",
                                @"name" : @"Cydia",
                                @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
-                               @"url"  : @"file:///var/mobile/Library/Caches/com.saurik.Cydia/sources.list",
+                               @"url"  : @"file:///etc/apt/sources.list.d/",
+                               @"ext"  : @"list",
                                @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
         [result addObject:dict];
     }
@@ -136,6 +137,7 @@
                                 @"name" : @"Installer",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
                                 @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
+                                @"ext"  : @"list",
                                 @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
@@ -143,7 +145,8 @@
         NSDictionary *dict = @{@"type" : @"transfer",
                                 @"name" : @"Sileo",
                                 @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                                @"url"  : @"file:///etc/apt/sources.list.d/sileo.sources",
+                                @"url"  : [ZBDevice isCheckrain] ? @"file:///etc/apt/sileo.list.d/" : @"file:///etc/apt/sources.list.d/",
+                                @"ext"  : @"sources",
                                 @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
         [result addObject:dict];
     }
@@ -260,7 +263,7 @@
     switch ([options indexOfObject:type]) {
         case 0: {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithSourceFiles:@[[NSURL URLWithString:[info objectForKey:@"url"]]]];
+                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[[NSURL URLWithString:[info objectForKey:@"url"]]] extension:[info objectForKey:@"ext"]];
                 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
                 [self presentViewController:navController animated:YES completion:nil];

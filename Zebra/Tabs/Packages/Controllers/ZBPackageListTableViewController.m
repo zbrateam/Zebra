@@ -513,4 +513,8 @@
     return @[action];
 }
 
+- (void)scrollToTop {
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+}
+
 @end
