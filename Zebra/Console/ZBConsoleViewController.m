@@ -711,14 +711,9 @@
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str containsString:@"stable CLI interface"]) return;
         CLS_LOG(@"DPKG/APT Error: %@", str);
-        if ([str rangeOfString:@"warning"].location != NSNotFound) {
-            str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
+        if ([str rangeOfString:@"warning"].location != NSNotFound || [str hasPrefix:@"W:"]) {
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
-        } else if ([str rangeOfString:@"error"].location != NSNotFound) {
-            str = [str stringByReplacingOccurrencesOfString:@"dpkg: " withString:@""];
-            [self writeToConsole:str atLevel:ZBLogLevelError];
-        }
-        else {
+        } else {
             [self writeToConsole:str atLevel:ZBLogLevelError];
         }
     }
