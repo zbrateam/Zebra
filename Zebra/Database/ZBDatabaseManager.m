@@ -1719,7 +1719,8 @@
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHORNAME = ? OR AUTHORNAME LIKE \'%%%@%%\'%@%@", columns, name, emailMatch, limit];
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-            if (email)  sqlite3_bind_text(statement, 1, [email UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
+            if (email) sqlite3_bind_text(statement, 2, [email UTF8String], -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (fullSearch) {
