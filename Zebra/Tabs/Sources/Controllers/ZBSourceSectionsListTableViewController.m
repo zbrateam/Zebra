@@ -366,9 +366,7 @@
     if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSString *packageID = sender;
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
         destination.package = [databaseManager topVersionForPackageID:packageID];
-        [databaseManager closeDatabase];
         destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
     } else {
         ZBPackageListTableViewController *destination = [segue destinationViewController];
@@ -390,7 +388,6 @@
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-//        ZBDatabaseManager *databaseManager = [[ZBDatabaseManager alloc] init];
 //        [databaseManager updateDatabaseUsingCaching:YES singleSource:self->source completion:^(BOOL success, NSError * _Nonnull error) {
 //            NSLog(@"Updated source %@", self->source);
 //        }];
