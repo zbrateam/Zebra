@@ -190,7 +190,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"recentSearchCell" forIndexPath:indexPath];
     
     cell.textLabel.text = recentSearches[indexPath.row];
-    cell.textLabel.textColor = [UIColor accentColor];
+    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     return cell;
 }
