@@ -191,12 +191,12 @@
 "Authorizing Download for %@" = "Γίνετε έγκριση Λήψης για %@";
 "Couldn't authorize download for %@." = "Αδυναμία έγκρισης λήψης για %@.";
 "Reason: %@." = "Λόγος: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"The Payment API is not supported on less than iOS 11.0" = "Το API Πληρωμών δεν υποστηρίζεται σε iOS μικρότερο από 11.0";
 "Could not download Release file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Release από %@. Λόγος: %@";
 "Could not download Packages file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Packages από %@. Λόγος: %@";
 "Could not download one or more files from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη ενός ή περισσοτέρων αρχείων από %@. Λόγος: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Σφάλμα κατά την μετακίνηση αρχείου από %@ σε %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Το URL που έβαλες δεν είναι έγκυρο. Παρακαλώ επαλήθευσε και προσπάθησε ξανά.";
 
@@ -311,7 +311,7 @@
 "Console" = "Κονσόλα";
 "Performing Actions..." = "Γίνεται εκτέλεση Πράξεων...";
 "Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache δεν είναι διαθέσιμο στο simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
 "Close Zebra" = "Κλείσε το Zebra";
 "Closing Zebra..." = "Κλείσιμο του Zebra...";
