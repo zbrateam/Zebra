@@ -239,7 +239,9 @@
         UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
             [self performAction:action forPackage:package];
             
-            [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+            });
         }];
         
         [rowAction setBackgroundColor:[self colorForAction:action]];
@@ -282,7 +284,9 @@
             [self performAction:action forPackage:package];
             
             if (tableView) {
-                [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                });
             }
         }];
         
@@ -306,7 +310,9 @@
             [self performAction:action forPackage:package];
             
             if (tableView) {
-                [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                });
             }
         }];
         [uiActions addObject:uiAction];
