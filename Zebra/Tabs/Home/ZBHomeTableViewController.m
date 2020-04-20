@@ -170,6 +170,10 @@ typedef enum ZBLinksOrder : NSUInteger {
     for (NSArray *arr in [dict allValues]) {
         [allFeatured addObjectsFromArray:arr];
     }
+    if (![allFeatured count]) {
+        [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:nil];
+        [self startFeaturedPackages];
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self createHeader];
