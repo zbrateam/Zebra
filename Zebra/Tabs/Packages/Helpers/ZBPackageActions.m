@@ -28,11 +28,11 @@
     return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
 }
 
-+ (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package {
-    [self performAction:action forPackage:package checkPayment:YES];
++ (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package completion:(void (^)(void))completion {
+    [self performAction:action forPackage:package checkPayment:YES completion:completion];
 }
 
-+ (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment {
++ (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
     if (action < ZBPackageActionInstall || action > ZBPackageActionHideUpdates) return;
     if (@available(iOS 11.0, *)) {
@@ -40,7 +40,7 @@
             if (@available(iOS 11.0, *)) {
                 [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                     if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
-                        [self performAction:action forPackage:package checkPayment:NO];
+                        [self performAction:action forPackage:package checkPayment:NO completion:completion];
                     }
                     else if (!info.available) { // Package isn't available.
                         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package not available", @"") message:NSLocalizedString(@"This package is no longer for sale and cannot be downloaded.", @"") preferredStyle:UIAlertControllerStyleAlert];
@@ -55,7 +55,7 @@
                     else if (!info.purchased) { // Package isn't purchased, purchase it.
                         [package purchase:^(BOOL success, NSError * _Nullable error) {
                             if (success && !error) {
-                                [self performAction:action forPackage:package];
+                                [self performAction:action forPackage:package completion:completion];
                             }
                             else if (error) {
                                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
@@ -70,12 +70,12 @@
                         }];
                     }
                     else { // Fall-through, this will not check for payment info again.
-                        [self performAction:action forPackage:package checkPayment:NO];
+                        [self performAction:action forPackage:package checkPayment:NO completion:completion];
                     }
                 }];
             }
             else {
-                [self performAction:action forPackage:package checkPayment:NO];
+                [self performAction:action forPackage:package checkPayment:NO completion:completion];
             }
             return;
         }
@@ -83,19 +83,19 @@
     
     switch (action) {
         case ZBPackageActionInstall:
-            [self install:package];
+            [self install:package completion:completion];
             break;
         case ZBPackageActionRemove:
-            [self remove:package];
+            [self remove:package completion:completion];
             break;
         case ZBPackageActionReinstall:
-            [self reinstall:package];
+            [self reinstall:package completion:completion];
             break;
         case ZBPackageActionUpgrade:
-            [self upgrade:package];
+            [self upgrade:package completion:completion];
             break;
         case ZBPackageActionDowngrade:
-            [self downgrade:package];
+            [self downgrade:package completion:completion];
             break;
         case ZBPackageActionShowUpdates:
             [self showUpdatesFor:package];
@@ -106,19 +106,22 @@
     }
 }
 
-+ (void)install:(ZBPackage *)package {
++ (void)install:(ZBPackage *)package completion:(void (^)(void))completion {
     [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeInstall];
+    if (completion) completion();
 }
 
-+ (void)remove:(ZBPackage *)package {
++ (void)remove:(ZBPackage *)package completion:(void (^)(void))completion {
     [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
+    if (completion) completion();
 }
 
-+ (void)reinstall:(ZBPackage *)package {
++ (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
     [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeReinstall];
+    if (completion) completion();
 }
 
-+ (void)upgrade:(ZBPackage *)package {
++ (void)upgrade:(ZBPackage *)package completion:(void (^)(void))completion {
     NSArray *greaterVersions = [package greaterVersions];
     if ([greaterVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
@@ -126,6 +129,8 @@
         for (ZBPackage *otherPackage in greaterVersions) {
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+                
+                if (completion) completion();
             }];
             
             [alert addAction:action];
@@ -139,17 +144,20 @@
     else {
         ZBPackage *upgrade = [greaterVersions count] == 1 ? greaterVersions[0] : package;
         [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+        
+        if (completion) completion();
     }
 }
 
-+ (void)downgrade:(ZBPackage *)package {
++ (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
     NSArray *lesserVersions = [package lesserVersions];
     if ([lesserVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
         for (ZBPackage *otherPackage in lesserVersions) {
             UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+                if (completion) completion();
             }];
             
             [alert addAction:action];
@@ -162,7 +170,9 @@
     }
     else {
         ZBPackage *upgrade = [lesserVersions count] == 1 ? lesserVersions[0] : package;
-        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeDowngrade];
+        
+        if (completion) completion();
     }
 }
 
@@ -191,7 +201,7 @@
             }
             else {
                 ZBPackageActionType action = actions[0].intValue;
-                [self performAction:action forPackage:package];
+                [self performAction:action forPackage:package completion:nil];
             }
         };
         
@@ -202,7 +212,7 @@
                     if (info) { // Package does have purchase info
                         if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
                             UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain actionHandler:^{
-                                [self performAction:ZBPackageActionInstall forPackage:package];
+                                [self performAction:ZBPackageActionInstall forPackage:package completion:nil];
                             }];
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
@@ -237,11 +247,13 @@
         NSString *title = [self titleForAction:action useIcon:YES];
         UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
         UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
-            [self performAction:action forPackage:package];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-            });
+            [self performAction:action forPackage:package completion:^{
+                if (tableView) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                    });
+                }
+            }];
         }];
         
         [rowAction setBackgroundColor:[self colorForAction:action]];
@@ -261,7 +273,7 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
-            [self performAction:action forPackage:package];
+            [self performAction:action forPackage:package completion:nil];
         }];
         [alertActions addObject:alertAction];
     }
@@ -281,13 +293,13 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
         UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
-            [self performAction:action forPackage:package];
-            
-            if (tableView) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-                });
-            }
+            [self performAction:action forPackage:package completion:^{
+                if (tableView) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                    });
+                }
+            }];
         }];
         
         [previewActions addObject:previewAction];
@@ -307,13 +319,13 @@
         UIImage *image = [self systemImageForAction:action];
         
         UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
-            [self performAction:action forPackage:package];
-            
-            if (tableView) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-                });
-            }
+            [self performAction:action forPackage:package completion:^{
+                if (tableView) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+                    });
+                }
+            }];
         }];
         [uiActions addObject:uiAction];
     }
