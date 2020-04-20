@@ -204,21 +204,26 @@
         }
         NSURL *checkingURL = [NSURL URLWithString:requestURL];
         NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:checkingURL
-                completionHandler:^(NSData *data,
-                                    NSURLResponse *response,
-                                    NSError *error) {
-                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                    if (data != nil && (long)[httpResponse statusCode] != 404) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                        self->bannerSize = CGSizeFromString(json[@"itemSize"]);
-                        self.featuredPackages = json[@"banners"];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self setupFeaturedPackages];
-                        });
-                    }
-                    
-                }] resume];
+        [[session dataTaskWithURL:checkingURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            if (data != nil && (long)[httpResponse statusCode] != 404) {
+                NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
+                
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                NSArray *banners = json[@"banners"];
+                
+                self->bannerSize = CGSizeFromString(json[@"itemSize"]);
+                self.featuredPackages = banners;
+                
+                [featuredItems setObject:banners forKey:[self->source baseFilename]];
+                [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setupFeaturedPackages];
+                });
+            }
+            
+        }] resume];
     }
 }
 
