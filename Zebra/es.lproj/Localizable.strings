@@ -311,7 +311,7 @@
 "Console" = "Consola";
 "Performing Actions..." = "Realizando acciones...";
 "Updating icon cache asynchronously..." = "Actualizando caché de iconos asincrónicamente...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache no está disponible en el simulador";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Esto puede tardar un momento y Zebra puede cerrarse. Es normal si ocurre.";
 "Close Zebra" = "Cerrar Zebra";
 "Closing Zebra..." = "Cerrando Zebra...";
@@ -339,15 +339,15 @@
 "Finished importing local packages." = "Importación de paquetes locales terminada.";
 "One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "No se pudo completar el\nProceso %@. Motivo:%@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Por favor reinicia Zebra y verifica si el inconveniente persiste. Si es así, por favor, informanos el problema en GitHub.";
 "Done..." = "Listo...";
 "Done %@" = "%@ Completado";
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Error abriendo el archivo:";
 "Adding Payment Vendor URL for %@" = "Añadiendo URL del proveedor de pago para %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Este equipo está simulado, aquí están los paquetes que podrían ser modificados en esta sesión:";
 
 // Queue Bar
 
@@ -374,7 +374,7 @@
 "Remove from Queue" = "Quitar de la cola";
 "Clear Queue" = "Vaciar cola";
 "%@ is required by:" = "%@ es requerido por:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "“%@“ Tiene conflictos con %@";
 "%@ must be removed because it depends on %@" = "%@ debe ser eliminado, porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tiene problemas que no se pueden resolver:";
 "Are you sure you want to clear the Queue?" = "¿Seguro que quieres borrar la cola?";
