@@ -127,7 +127,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         // prevent constant network spam
         if (!self.checkedSupportFeaturedPackages) {
             // Check for featured string
-            NSURL *checkingURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
+            NSURL *checkingURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:self.repositoryURI]];
             NSURLSession *session = [NSURLSession sharedSession];
             [[session dataTaskWithURL:checkingURL
                     completionHandler:^(NSData *data,
