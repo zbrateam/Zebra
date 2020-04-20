@@ -141,10 +141,10 @@
 "Sign Out" = "Desconectar";
 "Your Purchases" = "Tus compras";
 "No Storefronts Available" = "No hay escaparates disponibles";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "No se ha podido autenticar";
 "Could not complete purchase" = "No se pudo completar la compra";
 "No packages purchased" = "No hay paquetes comprados";
-"Logged in as %@" = "Logged in as %@";
+"Logged in as %@" = "Conectado como %@";
 "Logged in as %@ (%@)" = "Registrado como %@(%@)";
 
 // Sources
@@ -188,15 +188,15 @@
 
 "Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
 "Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "Autorizar descarga para %@";
+"Couldn't authorize download for %@." = "No se pudo autorizar descarga para %@.";
+"Reason: %@." = "Razón: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "El API de pago no soporta iOS menores que 11.0";
 "Could not download Release file from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
 "Could not download Packages file from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
 "Could not download one or more files from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Error al mover archivo de %@ a %@";
 
 "The URL you entered is not valid. Please check it and try again." = "La URL introducida no es válida. Por favor, compruébela e inténtelo de nuevo.";
 
@@ -216,7 +216,7 @@
 "Version" = "Versión";
 "Packages" = "Paquetes";
 "Show Updates" = "Mostrar actualizaciones";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Ocultar actualizaciones";
 "Select Version" = "Seleccionar versión";
 "Select a version to upgrade to:" = "Seleccionar versión a actualizar:";
 "Select a version to downgrade to:" = "Selecciona una versión a la que degradar:";
