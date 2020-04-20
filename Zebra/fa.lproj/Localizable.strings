@@ -11,8 +11,8 @@
 "Done" = "انجام شد";
 "Loading..." = "...در حال بارگذاری";
 "Clear" = "پاک سازی";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "یک خطا رخ داده است";
+"Dismiss" = "فسخ";
 "Downloads" = "دانلود ها";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "گزارش باگ نرم افزاری";
 "Changelog" = "لیست تغییرات";
 "Wish List" = "لیست خرید های آینده";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "ابتدا جدیدترین";
+"Oldest First" = "ابتدا قدیمی ترین";
 "No items in Wish List" = "لیست خرید های آینده ی شما خالیست";
 "Community" = "جامعه ی جیلبریک";
 "Join our Discord" = "به صفحه ی دیسکورد ما بپیوندید";
