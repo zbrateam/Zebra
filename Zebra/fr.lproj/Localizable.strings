@@ -141,10 +141,10 @@
 "Sign Out" = "Se déconnecter";
 "Your Purchases" = "Vos achats";
 "No Storefronts Available" = "Aucune Boutique Disponible";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Impossible de s'authentifier";
 "Could not complete purchase" = "Impossible de terminer l'achat";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@" = "Logged in as %@";
+"Logged in as %@" = "Connecté en tant que %@";
 "Logged in as %@ (%@)" = "Connecté en tant que %@ (%@)";
 
 // Sources
@@ -188,15 +188,15 @@
 
 "Could not parse %@ from %@" = "Impossible d'analyser %@ à partir de %@";
 "Could not find a download URL for" = "Impossible de trouver une URL pour télécharger";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "Autorisation du téléchargement pour %@";
+"Couldn't authorize download for %@." = "Impossible d'autoriser le téléchargement pour %@.";
+"Reason: %@." = "Raison : %@.";
+"The Payment API is not supported on less than iOS 11.0" = "L'API de paiement n'est pas prise en charge sous moins qu'iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Impossible de télécharger le fichier Release à partir de %@. Raison : %@";
 "Could not download Packages file from %@. Reason: %@" = "Impossible de télécharger le fichier Packages à partir de %@. Raison : %@";
 "Could not download one or more files from %@. Reason: %@" = "Impossible de télécharger un ou plusieurs fichiers à partir de %@. Raison : %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Erreur lors du déplacement du fichier à %@ vers %@";
 
 "The URL you entered is not valid. Please check it and try again." = "L'URL que vous avez saisie n'est pas valide. Veuillez la vérifier et réessayer.";
 
@@ -216,7 +216,7 @@
 "Version" = "Version";
 "Packages" = "Paquets";
 "Show Updates" = "Afficher les Mises à Jour";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Cacher les mises à jour";
 "Select Version" = "Sélectionner la Version";
 "Select a version to upgrade to:" = "Sélectionnez la version vers laquelle mettre à jour :";
 "Select a version to downgrade to:" = "Sélectionnez la version vers laquelle rétrograder :";
@@ -311,7 +311,7 @@
 "Console" = "Console";
 "Performing Actions..." = "Actions en cours...";
 "Updating icon cache asynchronously..." = "Mise à jour asynchrone du cache des icônes...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache n'est pas disponible sur le simulateur";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Cela peut prendre un moment et peut conduire Zebra à se fermer. Tout va bien si tel est le cas.";
 "Close Zebra" = "Fermer Zebra";
 "Closing Zebra..." = "Fermeture de Zebra...";
