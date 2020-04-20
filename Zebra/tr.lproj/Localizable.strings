@@ -141,10 +141,10 @@
 "Sign Out" = "Oturumu Kapat";
 "Your Purchases" = "Satın Aldıklarınız";
 "No Storefronts Available" = "Vitrinde İçerik Bulunamadı";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Doğrulanamadı";
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "No packages purchased" = "Hiç Paket Satın Alınmadı";
-"Logged in as %@" = "Logged in as %@";
+"Logged in as %@" = "%@ olarak giriş yapıldı";
 "Logged in as %@ (%@)" = "%@ (%@) olarak giriş yapıldı";
 
 // Sources
@@ -188,15 +188,15 @@
 
 "Could not parse %@ from %@" = " %@ tarafından %@ tarafına çevirme yapılamadı.";
 "Could not find a download URL for" = "Yazan paket için indirme Linki bulunamadı:";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "%@ İçin İndirme Yetkilendiriliyor";
+"Couldn't authorize download for %@." = "%@ İçin indirme yetkisi verilemedi.";
+"Reason: %@." = "Sebep: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Ödeme API'si, iOS 11'den düşük sürümlerde desteklenmiyor.";
 "Could not download Release file from %@. Reason: %@" = "%@ kaynağından dosya(lar) indirilemedi. Sebep: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@ kaynağından ilgili Paket Dizinleri indirilemedi. Sebep: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@ kaynağından ilgili dosya(lar) indirilemedi. Sebep: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Dosya %@'dan %@'ya taşınırken bir hata oluştu";
 
 "The URL you entered is not valid. Please check it and try again." = "Girilen URL doğru değil. Lütfen kontrol edin ve tekrar deneyin.";
 
@@ -311,7 +311,7 @@
 "Console" = "Konsol";
 "Performing Actions..." = "İşlemler Gerçekleştiriliyor...";
 "Updating icon cache asynchronously..." = "İkonlar asenkronize olarak tekrar yükleniyor...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache simülatörde mevcut değil";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Bu biraz sürebilir ve Zebra çökebilir. Bu olursa sıkıntı yoktur.";
 "Close Zebra" = "Zebra'yı Kapat";
 "Closing Zebra..." = "Zebra Kapatılıyor...";
