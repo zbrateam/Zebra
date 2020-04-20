@@ -11,8 +11,8 @@
 "Done" = "انجام شد";
 "Loading..." = "...در حال بارگذاری";
 "Clear" = "پاک سازی";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "یک خطا رخ داده است";
+"Dismiss" = "فسخ";
 "Downloads" = "دانلود ها";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "گزارش باگ نرم افزاری";
 "Changelog" = "لیست تغییرات";
 "Wish List" = "لیست خرید های آینده";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "ابتدا جدیدترین";
+"Oldest First" = "ابتدا قدیمی ترین";
 "No items in Wish List" = "لیست خرید های آینده ی شما خالیست";
 "Community" = "جامعه ی جیلبریک";
 "Join our Discord" = "به صفحه ی دیسکورد ما بپیوندید";
@@ -70,7 +70,9 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
-"Hide UDID" = "Hide UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "خروج";
 "Your Purchases" = "خریدهای شما";
 "No Storefronts Available" = "هیچ ویترینی در دسترس نیست.";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "قادر به تکمیل خرید نیست";
-"Could not complete purchase, no payment secret was found" = "نمی توان خرید را کامل کرد ، هیچ پرداختی پیدا نشد";
 "No packages purchased" = "هیچ پکیجی خریداری نشده است.";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "وارد شده به عنوان%@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = " جدانشد %@ از %@";
 "Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "نتوانست پرونده های بسته را از%@ دانلود کند.\nدلیل: %@";
 "Could not download one or more files from %@. Reason: %@" = "نتوانست یک یا چند فایل را از%@ دانلود کند.\nدلیل: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
 
@@ -302,6 +311,7 @@
 "Console" = "کنسول";
 "Performing Actions..." = "در حال اجرا";
 "Updating icon cache asynchronously..." = "بروزرسانی کش آیکون ها بطور همزمان";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "ممکن است مقداری طول بکشه و زبرا بسته بشه اگر اینگونه شد مشکلی نیست";
 "Close Zebra" = "بستن زبرا";
 "Closing Zebra..." = "بستن زبرا...";

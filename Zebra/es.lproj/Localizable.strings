@@ -70,7 +70,9 @@
 "Text" = "Texto";
 "Icon" = "Icono";
 "Finish Automatically" = "Finalizar automáticamente";
-"Hide UDID" = "Ocultar UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Actualización automática";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Desconectar";
 "Your Purchases" = "Tus compras";
 "No Storefronts Available" = "No hay escaparates disponibles";
+"Could not authenticate" = "No se ha podido autenticar";
 "Could not complete purchase" = "No se pudo completar la compra";
-"Could not complete purchase, no payment secret was found" = "No se pudo completar la compra, no se encontró ninguna clave de pago";
 "No packages purchased" = "No hay paquetes comprados";
+"Logged in as %@" = "Conectado como %@";
 "Logged in as %@ (%@)" = "Registrado como %@(%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "No se pudo analizar %@ de %@";
 "Could not find a download URL for" = "No se pudo encontrar la dirección URL de descarga para";
+"Authorizing Download for %@" = "Autorizar descarga para %@";
+"Couldn't authorize download for %@." = "No se pudo autorizar descarga para %@.";
+"Reason: %@." = "Razón: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "El API de pago no soporta iOS menores que 11.0";
 "Could not download Release file from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
 "Could not download Packages file from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
 "Could not download one or more files from %@. Reason: %@" = "No se pudo descargar el archivo de paquetes desde %@. Razón: %@";
+
+"Error while moving file at %@ to %@" = "Error al mover archivo de %@ a %@";
 
 "The URL you entered is not valid. Please check it and try again." = "La URL introducida no es válida. Por favor, compruébela e inténtelo de nuevo.";
 
@@ -207,7 +216,7 @@
 "Version" = "Versión";
 "Packages" = "Paquetes";
 "Show Updates" = "Mostrar actualizaciones";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Ocultar actualizaciones";
 "Select Version" = "Seleccionar versión";
 "Select a version to upgrade to:" = "Seleccionar versión a actualizar:";
 "Select a version to downgrade to:" = "Selecciona una versión a la que degradar:";
@@ -302,6 +311,7 @@
 "Console" = "Consola";
 "Performing Actions..." = "Realizando acciones...";
 "Updating icon cache asynchronously..." = "Actualizando caché de iconos asincrónicamente...";
+"uicache is not available on the simulator" = "uicache no está disponible en el simulador";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Esto puede tardar un momento y Zebra puede cerrarse. Es normal si ocurre.";
 "Close Zebra" = "Cerrar Zebra";
 "Closing Zebra..." = "Cerrando Zebra...";
@@ -329,15 +339,15 @@
 "Finished importing local packages." = "Importación de paquetes locales terminada.";
 "One or more packages failed to download." = "La descarga de uno o mas paquetes ha fallado.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Haga click en \"Regresar a la cola\" para regresar a la cola y reintentar la descarga.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "No se pudo completar el\nProceso %@. Motivo:%@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Por favor reinicia Zebra y verifica si el inconveniente persiste. Si es así, por favor, informanos el problema en GitHub.";
 "Done..." = "Listo...";
 "Done %@" = "%@ Completado";
 "Removing Zebra..." = "Desinstalando Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Error abriendo el archivo:";
 "Adding Payment Vendor URL for %@" = "Añadiendo URL del proveedor de pago para %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Este equipo está simulado, aquí están los paquetes que podrían ser modificados en esta sesión:";
 
 // Queue Bar
 
@@ -364,7 +374,7 @@
 "Remove from Queue" = "Quitar de la cola";
 "Clear Queue" = "Vaciar cola";
 "%@ is required by:" = "%@ es requerido por:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "“%@“ Tiene conflictos con %@";
 "%@ must be removed because it depends on %@" = "%@ debe ser eliminado, porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tiene problemas que no se pueden resolver:";
 "Are you sure you want to clear the Queue?" = "¿Seguro que quieres borrar la cola?";

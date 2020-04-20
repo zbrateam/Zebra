@@ -70,7 +70,9 @@
 "Text" = "טקסט";
 "Icon" = "אייקון";
 "Finish Automatically" = "סיים אוטומטית";
-"Hide UDID" = "הסתר מזהה מכשיר (UDID)";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "רענון אוטומטי";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "התנתק";
 "Your Purchases" = "הרכישות שלך";
 "No Storefronts Available" = "אין חנויות זמינות";
+"Could not authenticate" = "לא ניתן לאמת";
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
-"Could not complete purchase, no payment secret was found" = "לא ניתן להשלים רכישה, לא נמצא סוד רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
+"Logged in as %@" = "מחובר/ת בתור %@";
 "Logged in as %@ (%@)" = "מחובר/ת בתור %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "לא ניתן לנתח את %@ מ-%@";
 "Could not find a download URL for" = "לא ניתן למצוא כתובת הורדה עבור";
+"Authorizing Download for %@" = "מאמת הורדה עבור %@";
+"Couldn't authorize download for %@." = "לא ניתן לאמת הורדה עבור %@.";
+"Reason: %@." = "סיבה: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "התמיכה של API התשלומים מוגבלת למכשירים הנמצאים בiOS גרסה 11.0 ומעלה";
 "Could not download Release file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ שחרורים מ-%@. סיבה: %@";
 "Could not download Packages file from %@. Reason: %@" = "לא היה ניתן להוריד קובץ חבילות מ-%@. סיבה: %@";
 "Could not download one or more files from %@. Reason: %@" = "לא היה ניתן להוריד קובץ אחד או יותר מ-%@. סיבה: %@";
+
+"Error while moving file at %@ to %@" = "תקלה בהעברת קובץ מ-%@ ל-%@";
 
 "The URL you entered is not valid. Please check it and try again." = "הכתובת שהזנת אינה תקינה. אנא בדוק/י אותה ונסה/י שוב.";
 
@@ -302,6 +311,7 @@
 "Console" = "מסוף";
 "Performing Actions..." = "מבצע פעולות...";
 "Updating icon cache asynchronously..." = "מעדכן מטמון אייקונים באופן אסינכרוני...";
+"uicache is not available on the simulator" = "uicache אינו זמין בסימולטור";
 "This may take awhile and Zebra may crash. It is okay if it does." = "זה עלול לקחת קצת זמן וזברה עלולה לקרוס. זה בסדר אם זה יקרה.";
 "Close Zebra" = "סגור את זברה";
 "Closing Zebra..." = "סוגר את זברה...";

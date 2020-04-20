@@ -70,7 +70,9 @@
 "Text" = "Text";
 "Icon" = "Ikona";
 "Finish Automatically" = "Automaticky Dokončit";
-"Hide UDID" = "Skrýt UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatická aktualizace";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Odhlásit se";
 "Your Purchases" = "Vaše nákupy";
 "No Storefronts Available" = "Nejsou k dispozici žádné obchody";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Nelze dokončit nákup";
-"Could not complete purchase, no payment secret was found" = "Nelze dokončit nákup, nebylo nalezeno žádné heslo platby";
 "No packages purchased" = "Žádné zakoupené balíčky";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Přihlášen jako %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Soubor Release z %@nelze stáhnout. Důvod: %@";
 "Could not download Packages file from %@. Reason: %@" = "Soubor balíčků z %@nelze stáhnout. Důvod: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nelze stáhnout jeden nebo více souborů z %@. Důvod: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Zadaná adresa URL není platná. Zkontrolujte ji a zkuste to znovu.";
 
@@ -302,6 +311,7 @@
 "Console" = "Konzola";
 "Performing Actions..." = "Akce probíhají...";
 "Updating icon cache asynchronously..." = "Probíhá asynchonní update icon cache...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Toto může trvat delší dobu a Zebra může spadnout. Nevadí pokud se tak stane.";
 "Close Zebra" = "Zavřít Zebru";
 "Closing Zebra..." = "Zavírám Zebru...";

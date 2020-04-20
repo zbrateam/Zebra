@@ -42,7 +42,7 @@
 "Verifying Sources" = "正在驗證來源";
 "Import" = "匯入";
 "Verifying..." = "正在驗證...";
-"Confirm Import" = "確認導入";
+"Confirm Import" = "確認匯入";
 "Import Sources" = "匯入來源";
 "No sources to import" = "沒有要匯入的來源";
 "Would you like to import the following sources?" = "您想要匯入以下的來源嗎？";
@@ -69,8 +69,10 @@
 "Swipe Actions Display As" = "套件列表左右滑動功能顯示模式";
 "Text" = "文字";
 "Icon" = "圖示";
-"Finish Automatically" = "已自動完成";
-"Hide UDID" = "隱藏 UDID";
+"Finish Automatically" = "自動完成";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "自動重新整理";
 
 // Accent Colors
@@ -107,7 +109,7 @@
 // Reset
 
 "Reset" = "重置";
-"Refresh Icon Cache" = "刷新圖示快取";
+"Refresh Icon Cache" = "重新載入圖示快取";
 "Clear Image Cache" = "清除圖片快取";
 "Clear Sources Cache" = "清除來源快取";
 "Clear Web Cache" = "清除網頁快取";
@@ -115,11 +117,11 @@
 "Erase All Sources" = "清除所有來源";
 "Erase All Sources and Settings" = "清除所有來源和設定";
 
-"Are you sure you want to restart the SpringBoard?" = "您確定要重新啟動主畫面嗎?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "您確定要刷新圖示快取嗎? 您的裝置可能會暫時沒有回應，直到程序完成。";
+"Are you sure you want to restart the SpringBoard?" = "您確定要重新啟動主畫面嗎？";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "您確定要重新載入圖示快取嗎？您的裝置可能會暫時沒有回應，直到程序完成。";
 "Image Cache Cleared" = "已清除圖片快取";
 "Web Cache Cleared" = "已清除網頁快取";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "您確定要重置 Zebra 的來源快取嗎？所有來源的數據快取將被移除並重新下載，您的來源不會被刪除。";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "您確定要重置 Zebra 的來源快取嗎？此動作會清除並重新下載所有 Zebra 資料庫的快取資訊，您的來源不會被刪除。";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "您確定要重置 Zebra 的設定嗎？ Zebra 的所有設定會恢復為預設值並重啟。";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "您確定要清除所有來源和設定嗎？所有來源將從 Zebra 中移除，而 Zebra 將重新啟動。";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "您確定要清除所有來源和設定嗎？所有來源將從 Zebra 中移除，你的設定將被重置。";
@@ -129,7 +131,7 @@
 "Open Documents Directory" = "開啟文件目錄";
 
 "Filza Not Installed" = "未安裝 Filza";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "因為未安裝 Filza，Zebra 無法開啟其文件目錄。你的文件目錄為：%@";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "因為未安裝 Filza，Zebra 無法開啟其文件目錄。您的文件目錄為：%@";
 
 // Stores
 
@@ -138,10 +140,11 @@
 "Sign In" = "登入";
 "Sign Out" = "登出";
 "Your Purchases" = "已購買";
-"No Storefronts Available" = "不可用的店鋪";
+"No Storefronts Available" = "沒有可用的商店";
+"Could not authenticate" = "無法認證";
 "Could not complete purchase" = "無法完成購買操作";
-"Could not complete purchase, no payment secret was found" = "無法完成購買操作，未找到付款密鑰";
-"No packages purchased" = "無已購買套件";
+"No packages purchased" = "沒有已購買的套件";
+"Logged in as %@" = "已登入為 %@";
 "Logged in as %@ (%@)" = "已登入為 %@（%@）";
 
 // Sources
@@ -169,14 +172,14 @@
 "Unknown error" = "未知錯誤";
 "Invalid URL" = "無效的網址";
 "Invalid Source" = "無效的來源";
-"Tap to learn more" = "點擊了解更多";
+"Tap to learn more" = "點擊以了解更多";
 "No source URLs detected." = "沒有檢測到來源網址。";
 "Unable to verify source" = "無法驗證來源";
 "Error verifying source" = "驗證來源時發生錯誤";
 "Error verifying sources" = "驗證來源時發生錯誤";
 "Failed to add source" = "新增來源失敗";
 "Failed to add sources" = "新增來源失敗";
-"You have already added this source." = "您已經添加了這個來源。";
+"You have already added this source." = "您已經新增了這個來源。";
 "You have already added these sources." = "你已經加入過這些來源。";
 "Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
 "Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
@@ -185,11 +188,17 @@
 
 "Could not parse %@ from %@" = "無法解析 %@ 自 %@";
 "Could not find a download URL for" = "無法獲得下載網址";
-"Could not download Release file from %@. Reason: %@" = "無法從 %@ 下載發佈檔案。原因：%@";
-"Could not download Packages file from %@. Reason: %@" = "無法從 %@ 下載套件檔案。原因：%@";
+"Authorizing Download for %@" = "正在取得 %@ 的下載授權";
+"Couldn't authorize download for %@." = "無法取得 %@ 的下載授權。";
+"Reason: %@." = "原因：%@。";
+"The Payment API is not supported on less than iOS 11.0" = "付款 API 不支援 iOS 11.0 以下的系統";
+"Could not download Release file from %@. Reason: %@" = "無法從 %@ 下載 Release 檔案。原因：%@";
+"Could not download Packages file from %@. Reason: %@" = "無法從 %@ 下載 Packages 檔案。原因：%@";
 "Could not download one or more files from %@. Reason: %@" = "無法從 %@ 下載 1 個或更多檔案。原因：%@";
 
-"The URL you entered is not valid. Please check it and try again." = "您輸入的網址無效，請檢查後重試。";
+"Error while moving file at %@ to %@" = "將檔案由 %@ 移動到 %@ 時發生錯誤";
+
+"The URL you entered is not valid. Please check it and try again." = "您輸入的網址無效。請檢查後重試。";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 無法下載在 %@ 來源。該來源可能暫時無法訪問，或添加方式不正確。";
 
@@ -207,7 +216,7 @@
 "Version" = "版本";
 "Packages" = "套件";
 "Show Updates" = "顯示更新";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "隱藏更新";
 "Select Version" = "選擇版本";
 "Select a version to upgrade to:" = "選擇升級版本";
 "Select a version to downgrade to:" = "選擇降級版本";
@@ -302,6 +311,7 @@
 "Console" = "主控台";
 "Performing Actions..." = "執行動作…";
 "Updating icon cache asynchronously..." = "正在異步更新圖示快取...";
+"uicache is not available on the simulator" = "在模擬器上無法使用 uicache";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Zebra 需要花一段時間執行，並且有可能閃退。這是正常的，請不必擔心。";
 "Close Zebra" = "關閉 Zebra";
 "Closing Zebra..." = "正在關閉 Zebra...";
@@ -326,7 +336,7 @@
 "Return to Queue" = "返回至佇列";
 "Returning to Queue..." = "正在回到佇列...";
 "Importing local packages." = "正在匯入本地套件。";
-"Finished importing local packages." = "匯入本地套件已完成。";
+"Finished importing local packages." = "已完成匯入本地套件。";
 "One or more packages failed to download." = "一個或多個套件下載失敗。";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "點選「返回佇列」以回到佇列並重新嘗試下載。";
 "Could not complete %@ process. Reason: %@." = "無法完成 %@ 程序。原因：%@。";
@@ -364,8 +374,8 @@
 "Remove from Queue" = "從佇列中移除";
 "Clear Queue" = "清除佇列";
 "%@ is required by:" = "%@ 被依賴於：";
-"\"%@\" conflicts with %@" = "\"%@\" 與 %@ 不兼容";
-"%@ must be removed because it depends on %@" = "%@ 需要被移除因為它依賴 %@";
+"\"%@\" conflicts with %@" = "\"%@\" 與 %@ 不相容";
+"%@ must be removed because it depends on %@" = "%@ 需要被移除，因為它依賴於 %@";
 "%@ has issues that cannot be resolved:" = "%@ 存在無法解決的問題：";
 "Are you sure you want to clear the Queue?" = "您確定要清除佇列嗎？";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ 是一個必要的套件。此套件不應該被移除，請在繼續動作之前確認您十分清楚自己正在做什麼！";
@@ -408,7 +418,7 @@
 
 "Display featured packages on the homepage." = "在首頁顯示精選套件";
 
-"Refresh Zebra's sources when opening the app." = "開啟 App 時重新整理 Zebra 的來源";
+"Refresh Zebra's sources when opening the app." = "開啟 App 時重新整理 Zebra 的來源。";
 
 "Display recent community posts from /r/jailbreak." = "顯示 /r/jailbreak 最近的文章。";
 
@@ -416,7 +426,7 @@
 
 "Configure the appearance of table view swipe actions." = "調整左右滑動表單時的外觀";
 
-"Change the accent color that displays across Zebra." = "改版 Zebra 的強調顏色。";
+"Change the accent color that displays across Zebra." = "改變 Zebra 的強調顏色。";
 
 "Change the style of Zebra's dark mode when it is enabled." = "在深色模式啟用時，改變 Zebra 的深色模式風格。";
 
@@ -426,7 +436,7 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
 
-"Signing in to sources allows for the purchase of paid packages." = "在各個來源登入後可以購買付費套件。";
+"Signing in to sources allows for the purchase of paid packages." = "在各個來源登入後，可以購買付費套件。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 

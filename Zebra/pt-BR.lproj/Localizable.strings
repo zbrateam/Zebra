@@ -70,7 +70,9 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Terminar automaticamente";
-"Hide UDID" = "Ocultar UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Atualização automática";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Encerrar sessão";
 "Your Purchases" = "Suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
+"Could not authenticate" = "Não foi possível autenticar";
 "Could not complete purchase" = "Não foi possível concluir a compra";
-"Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum método de pagamento foi encontrado";
 "No packages purchased" = "Nenhum pacote comprado";
+"Logged in as %@" = "Logado como %@";
 "Logged in as %@ (%@)" = "Conectado como %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
+"Authorizing Download for %@" = "Autorizando o Download para %@";
+"Couldn't authorize download for %@." = "Não foi possível autorizar o download de %@.";
+"Reason: %@." = "Motivo: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "A API de pagamento não é suportada em versões menores do que o iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Não foi possível baixar o arquivo de lançamento de %@. Motivo: %@";
 "Could not download Packages file from %@. Reason: %@" = "Não foi possível baixar o arquivo de pacotes de %@. Motivo: %@";
 "Could not download one or more files from %@. Reason: %@" = "Não foi possível baixar um ou mais arquivos do %@. Motivo: %@";
+
+"Error while moving file at %@ to %@" = "Erro ao mover o arquivo %@ para %@";
 
 "The URL you entered is not valid. Please check it and try again." = "A URL que você inseriu não é válida. Por favor, verifique e tente novamente.";
 
@@ -207,7 +216,7 @@
 "Version" = "Versão";
 "Packages" = "Pacotes";
 "Show Updates" = "Mostrar Atualizações";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Ocultar atualizações";
 "Select Version" = "Selecionar versão";
 "Select a version to upgrade to:" = "Selecione a versão para atualizar para:";
 "Select a version to downgrade to:" = "Selecione uma versão para fazer o downgrade:";
@@ -302,6 +311,7 @@
 "Console" = "Consola";
 "Performing Actions..." = "Executando ações...";
 "Updating icon cache asynchronously..." = "Atualizando o cache do ícone de forma assíncrona...";
+"uicache is not available on the simulator" = "uicache não está disponível no simulador";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isso pode demorar um pouco e o Zebra pode falhar. Tudo bem se isso acontecer.";
 "Close Zebra" = "Fechar Zebra";
 "Closing Zebra..." = "Fechando Zebra...";

@@ -11,8 +11,8 @@
 "Done" = "Selesai";
 "Loading..." = "Memuat...";
 "Clear" = "Bersihkan";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Terjadi kesalahan";
+"Dismiss" = "Tutup";
 "Downloads" = "Unduhan";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Laporkan Bug";
 "Changelog" = "Changelog";
 "Wish List" = "Daftar Keinginan";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Terbaru Lebih Dulu";
+"Oldest First" = "Terlama Lebih Dulu";
 "No items in Wish List" = "Tidak ada item di Daftar Keinginan";
 "Community" = "Komunitas";
 "Join our Discord" = "Gabung ke Discord kami";
@@ -70,8 +70,10 @@
 "Text" = "Teks";
 "Icon" = "Ikon";
 "Finish Automatically" = "Otomatis Selesai";
-"Hide UDID" = "Hide UDID";
-"Automatic Refresh" = "Automatic Refresh";
+
+// "Hide UDID" = "Hide UDID";
+
+"Automatic Refresh" = "Otomatis Refresh";
 
 // Accent Colors
 
@@ -106,30 +108,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Setel ulang";
 "Refresh Icon Cache" = "Segarkan Cache Icon";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Bersihkan Cache Gambar";
+"Clear Sources Cache" = "Bersihkan Cache Sumber";
+"Clear Web Cache" = "Bersihkan Cache Web";
 "Reset All Settings" = "Setel Ulang Semua Pengaturan";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Hapus Semua Sumber";
 "Erase All Sources and Settings" = "Hapus Semua Sumber dan Pengaturan";
 
 "Are you sure you want to restart the SpringBoard?" = "Apakah kamu yakin untuk mengulang Springboard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Anda yakin ingin menyegarkan ikon cache? Perangkat Anda mungkin menjadi tidak responsif sampai prosesnya selesai.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Cache Gambar Dihapus";
+"Web Cache Cleared" = "Cache Web Dihapus";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Anda yakin ingin mengatur ulang cache sumber Zebra? Ini akan menghapus semua informasi yang di-cache dari basis data Zebra dan mengunduh ulang. Sumber Anda tidak akan dihapus.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Anda yakin ingin mengatur ulang pengaturan Zebra? Ini akan mengatur ulang semua pengaturan Zebra kembali ke nilai default dan Zebra akan memulai kembali.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Apakah Anda yakin ingin menghapus semua sumber? Semua sumber Anda akan dihapus dari Zebra dan Zebra akan restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Apa kamu yakin ingin menghapus semua sumber dan pengaturan? Semua sumber Anda akan dihapus dari Zebra dan pengaturan Anda akan diatur ulang.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Semua sumber Anda akan dihapus dan hilang selamanya dan Zebra akan memulai kembali.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
+"Open Documents Directory" = "Buka Direktori Dokumen";
 
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Filza Not Installed" = "Filza Tidak Terpasang";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra tidak dapat membuka direktori dokumen karena Filza tidak diinstal. Direktori dokumen Anda adalah: %@";
 
 // Stores
 
@@ -139,10 +141,11 @@
 "Sign Out" = "Keluar";
 "Your Purchases" = "Pembelian anda";
 "No Storefronts Available" = "Tidak ada Etalase toko yang tersedia";
+"Could not authenticate" = "Tidak bisa mengotentikasi";
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
-"Could not complete purchase, no payment secret was found" = "Tidak dapat menyelesaikan pembelian, pembayaran rahasia tidak ditemukan";
 "No packages purchased" = "Tidak ada paket yang dibeli";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Logged in as %@" = "Masuk sebagai %@";
+"Logged in as %@ (%@)" = "Masuk sebagai %@ (%@)";
 
 // Sources
 
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Tidak dapat mengurai %@ dari %@";
 "Could not find a download URL for" = "Tidak dapat mencari URL unduhan untuk";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Authorizing Download for %@" = "Otorisasi Unduh untuk %@";
+"Couldn't authorize download for %@." = "Tidak dapat mengotorisasi unduhan untuk %@.";
+"Reason: %@." = "Alasan: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "API Pembayaran tidak didukung pada iOS 11.0 kebawah";
+"Could not download Release file from %@. Reason: %@" = "Tidak dapat mengunduh file Rilis dari %@. Alasan: %@";
+"Could not download Packages file from %@. Reason: %@" = "Tidak dapat mengunduh file Paket dari %@. Alasan: %@";
+"Could not download one or more files from %@. Reason: %@" = "Tidak dapat mengunduh satu atau lebih file dari %@. Alasan: %@";
+
+"Error while moving file at %@ to %@" = "Kesalahan saat memindahkan file di %@ ke %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL yang Anda masukkan tidak valid. Silakan periksa dan coba lagi.";
 
@@ -207,7 +216,7 @@
 "Version" = "Versi";
 "Packages" = "Paket";
 "Show Updates" = "Tampilkan Pembaruan";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Sembunyikan Pembaruan";
 "Select Version" = "Pilih Versi";
 "Select a version to upgrade to:" = "Pilih versi untuk di tingkatkan ke:";
 "Select a version to downgrade to:" = "Pilih versi untuk didowngrade ke:";
@@ -302,6 +311,7 @@
 "Console" = "Konsol";
 "Performing Actions..." = "Melakukan Tindakan...";
 "Updating icon cache asynchronously..." = "Mengupdate icon cache asynchronously...";
+"uicache is not available on the simulator" = "uicache tidak tersedia di simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ini mungkin membutuhkan waktu dan Zebra mungkin macet. Tidak apa-apa jika itu terjadi.";
 "Close Zebra" = "Tutup Zebra";
 "Closing Zebra..." = "Menutup Zebra...";
@@ -329,15 +339,15 @@
 "Finished importing local packages." = "Selesai mengimpor paket lokal.";
 "One or more packages failed to download." = "Satu atau lebih paket gagal untuk diunduh.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik \"Kembali ke Antrian\" untuk kembali ke antrian dan coba download ulang.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Tidak dapat menyelesaikan proses %@. Alasan: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Silakan mulai ulang Zebra dan lihat apakah masalahnya masih ada. Jika demikian, silakan ajukan masalah pada GitHub.";
 "Done..." = "Selesai...";
 "Done %@" = "Selesai %@";
 "Removing Zebra..." = "Menghapus Zebra...";
 "Installing Zebra..." = "Memasang Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Kesalahan saat membuka file:";
 "Adding Payment Vendor URL for %@" = "Menambahkan URL Vendor Pembayaran untuk %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Perangkat ini disimulasikan, berikut adalah paket-paket yang akan dimodifikasi pada tahap ini:";
 
 // Queue Bar
 
@@ -364,10 +374,10 @@
 "Remove from Queue" = "Hapus dari Antrian";
 "Clear Queue" = "Hapus Antrian";
 "%@ is required by:" = "%@ diperlukan oleh:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" konflik dengan %@";
 "%@ must be removed because it depends on %@" = "%@ harus dihapus karena tergantung pada %@";
 "%@ has issues that cannot be resolved:" = "%@ memiliki masalah yang tidak dapat diselesaikan:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Apakah Anda yakin ingin membersihkan antrian?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ adalah paket wajib. Seharusnya TIDAK dihapus kecuali Anda tahu persis apa yang Anda lakukan!";
 
 // Search
@@ -388,13 +398,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling tidak memiliki izin untuk mengatur uid atau gid. Harap verifikasi izin file yang terletak di /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Kesalahan saat membuat direktori dokumen: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Kesalahan saat membuat direktori daftar: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Galat saat membuat sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Kesalahan saat membuat direktori debs: %@.";
 
 "Could not respring. Please respring manually." = "Tidak dapat respring. silahkan respring manual.";
 
@@ -408,7 +418,7 @@
 
 "Display featured packages on the homepage." = "Tampilkan paket unggulan di beranda.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Segarkan sumber Zebra saat membuka aplikasi.";
 
 "Display recent community posts from /r/jailbreak." = "Tampilkan pos komunitas terbaru dari /r/jailbreak.";
 
@@ -436,14 +446,14 @@
 "Add Filter" = "Tambahkan Filter";
 
 "1 Section Hidden" = "1 Bagian Tersembunyi";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu Bagian Tersembunyi";
 
 "Sections" = "Bagian";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Pilih Bagian";
 "Hide packages in these sections." = "Sembunyikan paket di bagian ini.";
 
 "Sources" = "Sumber";
-"Select a Source" = "Select a Source";
+"Select a Source" = "Pilih Sumber";
 "Hide packages in these sections from specific sources." = "Sembunyikan paket di bagian ini dari sumber tertentu.";
 
 "Updates" = "Pembaruan";
@@ -451,8 +461,8 @@
 
 "Authors" = "Penulis";
 "Hide packages from these authors." = "Sembunyikan paket dari penulis ini.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Search for an Author" = "Cari Pencipta";
+"This author also goes by the following names:" = "Pencipta ini juga memiliki nama-nama berikut:";
 
 // Language Settings
 

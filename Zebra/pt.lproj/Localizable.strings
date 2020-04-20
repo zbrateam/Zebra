@@ -70,7 +70,9 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Acabar automaticamente";
-"Hide UDID" = "Hide UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Terminar Sessão";
 "Your Purchases" = "As suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Não foi possível concluir a compra";
-"Could not complete purchase, no payment secret was found" = "Não foi possível concluir a compra. Nenhum segredo de pagamento foi encontrado";
 "No packages purchased" = "Nenhum pacote comprado";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "O endereço de email que inseriu não é válido. Por favor verifique e tente novamente.";
 
@@ -302,6 +311,7 @@
 "Console" = "Consola";
 "Performing Actions..." = "A executar ações...";
 "Updating icon cache asynchronously..." = "A atualizar o cache do ícon de forma assíncrona...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isto pode demorar e o Zebra pode crashar. Não ha problema se isso acontecer.";
 "Close Zebra" = "Fechar o Zebra";
 "Closing Zebra..." = "Fechar o Zebra...";

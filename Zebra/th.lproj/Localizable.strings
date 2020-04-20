@@ -70,7 +70,9 @@
 "Text" = "ข้อความ";
 "Icon" = "ไอคอน";
 "Finish Automatically" = "เสร็จสิ้นอัตโนมัติ";
-"Hide UDID" = "ซ่อน UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "รีเฟรชอัตโนมัติ";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "ลงชื่อออก";
 "Your Purchases" = "รายการซื้อของคุณ";
 "No Storefronts Available" = "ไม่มีหน้าร้านที่ใช้ได้";
+"Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
-"Could not complete purchase, no payment secret was found" = "ไม่สามารถทำการซื้อได้เนื่องจากไม่พบรหัสลับ";
 "No packages purchased" = "ไม่มีโปรแกรมที่ซื้อไว้";
+"Logged in as %@" = "Logged in as %@";
 "Logged in as %@ (%@)" = "เข้าสู่ระบบในชื่อ %@ (%@)";
 
 // Sources
@@ -164,7 +167,7 @@
 "Please Wait..." = "โปรดรอ...";
 "Verifying Source" = "กำลังตรวจสอบซอร์ส";
 "Verifying Sources" = "กำลังตรวจสอบซอร์ส";
-"Updating Sources" = "อัพเดตซอร์ส";
+"Updating Sources" = "กำลังปรับปรุงซอร์ส";
 
 "Unknown error" = "ข้อผิดพลาดที่ไม่ทราบสาเหตุ";
 "Invalid URL" = "URL ผิด";
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "ไม่สามารถอ่าน %@ จาก %@";
 "Could not find a download URL for" = "ไม่สามารถหา URL สำหรับดาวน์โหลด";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Release จาก %@ ได้ สาเหตุ: %@";
 "Could not download Packages file from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์ Packages จาก %@ ได้ สาเหตุ: %@";
 "Could not download one or more files from %@. Reason: %@" = "ไม่สามารถดาวน์โหลดไฟล์อย่างน้อยหนึ่ง จาก %@ ได้ สาเหตุ: %@";
+
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL ที่คุณใส่นั้นไม่ถูกต้อง กรุณาตรวจสอบและลองอีกครั้ง";
 
@@ -207,19 +216,19 @@
 "Version" = "รุ่น";
 "Packages" = "โปรแกรม";
 "Show Updates" = "แสดงรุ่นใหม่ถ้ามี";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "ซ่อนรายการปรับปรุง";
 "Select Version" = "เลือกรุ่น";
 "Select a version to upgrade to:" = "เลือกรุ่นที่ใหม่กว่าที่จะทำการติดตั้ง:";
 "Select a version to downgrade to:" = "เลือกรุ่นที่เก่ากว่าที่จะทำการติดตั้ง:";
 "Package" = "โปรแกรม";
 "Information" = "ข้อมูล";
-"Upgrade All" = "อัพเดตทั้งหมด";
+"Upgrade All" = "ปรับรุ่นใหม่ทั้งหมด";
 "Loaded" = "โหลดแล้ว";
 "ABC" = "กขค";
 "Date" = "วันที่";
 "Size" = "ขนาด";
 "Available Upgrades" = "รุ่นใหม่ที่มี";
-"Ignored Upgrades" = "รุ่นใหม่ที่ไม่สนใจ";
+"Ignored Upgrades" = "รุ่นใหม่ที่ไม่เพิกเฉย";
 "Recent" = "เร็วๆ นี้";
 "Source" = "ซอร์ส";
 "Installed Files" = "ไฟล์ที่มาตอนติดตั้ง";
@@ -295,13 +304,14 @@
 "No Results Found" = "ไม่พบรายการ";
 "Name" = "ชื่อ";
 "Description" = "คำอธิบาย";
-"Author" = "ผู้เขียน";
+"Author" = "ผู้สร้าง";
 
 // Console
 
 "Console" = "คอนโซล";
 "Performing Actions..." = "กำลังทำงาน...";
-"Updating icon cache asynchronously..." = "อัพเดตแคชไอคอนใหม่...";
+"Updating icon cache asynchronously..." = "กำลังปรับปรุงแคชไอคอนใหม่...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "นี่อาจใช้เวลาสักพักและ Zebra อาจปิดตัวเองลง แต่จะไม่ส่งผลเสียอะไร";
 "Close Zebra" = "ปิด Zebra";
 "Closing Zebra..." = "ปิด Zebra...";
@@ -319,8 +329,8 @@
 "Removing Packages..." = "กำลังลบโปรแกรม...";
 "Reinstalling" = "กำลังติดตั้งซ้ำ";
 "Reinstalling Packages..." = "กำลังติดตั้งโปรแกรมซ้ำ...";
-"Upgrading" = "กำลังอัพเดต";
-"Upgrading Packages..." = "กำลังอัพเดตโปรแกรม...";
+"Upgrading" = "กำลังปรับปรุงรุ่น";
+"Upgrading Packages..." = "กำลังปรับปรุงรุ่นโปรแกรม...";
 "Complete" = "เสร็จสิ้น";
 "Finished!" = "เสร็จสิ้น!";
 "Return to Queue" = "กลับไปยังคิว";
@@ -352,7 +362,7 @@
 "Install" = "ติดตั้ง";
 "Reinstall" = "ติดตั้งซ้ำ";
 "Remove" = "ลบ";
-"Upgrade" = "อัพเดต";
+"Upgrade" = "อัพเกรด";
 "Downgrade" = "ดาวน์เกรด";
 "Abort" = "หยุด";
 "Continue" = "ทำต่อ";
@@ -372,7 +382,7 @@
 
 // Search
 
-"Live Search" = "ค้นหาทันที";
+"Live Search" = "การค้นหาทันที";
 "Tweaks, Themes, and More" = "ทวีค, ธีม และอีกมากมาย";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
@@ -435,24 +445,24 @@
 "Filters" = "ตัวกรอง";
 "Add Filter" = "เพิ่มตัวกรอง";
 
-"1 Section Hidden" = "1 ซอร์สที่ถูกซ่อน";
+"1 Section Hidden" = "1 ประเภทที่ซ่อนไว้";
 "%lu Sections Hidden" = "%lu ประเภทที่ซ่อนไว้";
 
 "Sections" = "ประเภท";
 "Select a Section" = "เลือกประเภท";
-"Hide packages in these sections." = "ซ่อนแพ็กเกจจากประเภทเหล่านี้";
+"Hide packages in these sections." = "ซ่อนโปรแกรมจากประเภทเหล่านี้";
 
 "Sources" = "ซอร์ส";
 "Select a Source" = "เลือกซอร์ส";
-"Hide packages in these sections from specific sources." = "ซ่อนแพ็กเกจประเภทนี้ จากเฉพาะซอร์สนี้";
+"Hide packages in these sections from specific sources." = "ซ่อนโปรแกรมประเภทนี้ จากเฉพาะซอร์สนี้";
 
-"Updates" = "อัพเดต";
-"Hide future updates from these packages." = "ซ่อนการอัพเดตของแพ็กเกจเหล่านี้";
+"Updates" = "รายการรุ่นใหม่";
+"Hide future updates from these packages." = "ซ่อนรุ่นใหม่ของโปรแกรมเหล่านี้";
 
 "Authors" = "ผู้สร้าง";
-"Hide packages from these authors." = "ซ่อนแพ็กเกจจากผู้สร้างเหล่านี้";
-"Search for an Author" = "ค้นหาจากผู้เขียน";
-"This author also goes by the following names:" = "ผู้เขียนคนนี้มีชื่ออื่นเป็น:";
+"Hide packages from these authors." = "ซ่อนโปรแกรมจากผู้สร้างเหล่านี้";
+"Search for an Author" = "ค้นหาจากผู้สร้าง";
+"This author also goes by the following names:" = "ผู้สร้างคนนี้มีชื่ออื่นเป็น:";
 
 // Language Settings
 

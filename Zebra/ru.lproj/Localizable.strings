@@ -70,7 +70,9 @@
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Finish Automatically" = "Завершить автоматически";
-"Hide UDID" = "Скрыть UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Автоматическое обновление";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Выйти";
 "Your Purchases" = "Ваши покупки";
 "No Storefronts Available" = "Нет доступных магазинов";
+"Could not authenticate" = "Не удалось авторизоваться";
 "Could not complete purchase" = "Невозможно завершить покупку";
-"Could not complete purchase, no payment secret was found" = "Невозможно завершить покупку, секрет оплаты не найден";
 "No packages purchased" = "Нет купленных пакетов";
+"Logged in as %@" = "Выполнен вход как %@";
 "Logged in as %@ (%@)" = "Выполнен вход как %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Невозможно получить %@ из %@";
 "Could not find a download URL for" = "Невозможно найти URL загрузки для";
+"Authorizing Download for %@" = "Авторизация загрузки для %@";
+"Couldn't authorize download for %@." = "Не удалось авторизовать загрузку для %@.";
+"Reason: %@." = "Причина: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Платежный API не поддерживается менее чем на iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Не удалось загрузить файл Release из %@. Причина: %@";
 "Could not download Packages file from %@. Reason: %@" = "Не удалось загрузить файл Пакета из %@. Причина: %@";
 "Could not download one or more files from %@. Reason: %@" = "Не удалось загрузить один или несколько файлов из %@. Причина: %@";
+
+"Error while moving file at %@ to %@" = "Ошибка при перемещении файла из %@ в %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
@@ -302,6 +311,7 @@
 "Console" = "Консоль";
 "Performing Actions..." = "Выполняются действия...";
 "Updating icon cache asynchronously..." = "Асинхронное обновление кэша иконок...";
+"uicache is not available on the simulator" = "uicache недоступен на симуляторе";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Это может занять несколько минут, и Zebra может крашнуться. Это нормально.";
 "Close Zebra" = "Закрыть Zebra";
 "Closing Zebra..." = "Закрытие Zebra...";

@@ -70,7 +70,9 @@
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
 "Finish Automatically" = "Pabeigt Automātiski";
-"Hide UDID" = "Paslēpt UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automātiska Atsvaidzināšana";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Izlogoties";
 "Your Purchases" = "Jūsu Pirkumi";
 "No Storefronts Available" = "Neviens Veikals ir Pieejams";
+"Could not authenticate" = "Nevarēja autentificēt";
 "Could not complete purchase" = "Nevarēja Pabeigt Pirkumu";
-"Could not complete purchase, no payment secret was found" = "Nevarēja pabeigt pirkumu, netika atrasts maksājuma noslēpums";
 "No packages purchased" = "Netika iegādātas paketes";
+"Logged in as %@" = "Ielogots kā %@";
 "Logged in as %@ (%@)" = "Ielogots kā %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Nevarēja parsēt %@ no %@";
 "Could not find a download URL for" = "Nevarēja atrast lejupielādes URL no";
+"Authorizing Download for %@" = "Autorizējam lejupielādi no %@";
+"Couldn't authorize download for %@." = "Nevarējam autorizēt lejuplādi no %@.";
+"Reason: %@." = "Iemesls: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Maksājumu API netiek atbalstīta mazākās sistēmās nekā iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Nevarēja lejupielādēt Pelease failu no %@. Iemesls: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nevarēja lejupielādēt Pakešu failu no %@. Iemesls: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nevarēja lejupielādēt vienu vai vairāk failu no %@. Iemesls: %@";
+
+"Error while moving file at %@ to %@" = "Kļūda pārvietojot failu no %@ uz %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Ievadītais URL nav derīgs. Lūdzu pārbaudiet to un mēģiniet vēlreiz.";
 
@@ -207,7 +216,7 @@
 "Version" = "Versija";
 "Packages" = "Paketes";
 "Show Updates" = "Rādīt atjauninājumus";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Slēpt Atjauninājumus";
 "Select Version" = "Ieslēgt versiju";
 "Select a version to upgrade to:" = "Izvēlies versiju, uz kuru jaunināt:";
 "Select a version to downgrade to:" = "Izvēlies versiju, kuru vaijag instalēt:";
@@ -302,6 +311,7 @@
 "Console" = "konsole";
 "Performing Actions..." = "Veicam darbības...";
 "Updating icon cache asynchronously..." = "Ikona kešatmiņa tiek atjaunota asinhroni...";
+"uicache is not available on the simulator" = "uicache simulatorā nav pieejams";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tas var aizņemt laiku, un Zebra var crashot. Nav slikti, ja tā notiek.";
 "Close Zebra" = "Aizvert Zebra";
 "Closing Zebra..." = "Zebra Tiek Aizverts...";

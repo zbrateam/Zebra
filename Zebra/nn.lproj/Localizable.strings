@@ -70,7 +70,9 @@
 "Text" = "Tekst";
 "Icon" = "Ikon";
 "Finish Automatically" = "Fullfør automatisk";
-"Hide UDID" = "Skjul UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Logg ut";
 "Your Purchases" = "Kjøpa dine";
 "No Storefronts Available" = "Ingen tilgjengelege butikkar";
+"Could not authenticate" = "Kunne ikkje autentisera";
 "Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
-"Could not complete purchase, no payment secret was found" = "Kunne ikkje fullføra kjøpet, ingen betalingsløyndom vart funnen";
 "No packages purchased" = "Ingen kjøpte pakkar";
+"Logged in as %@" = "Innlogga som %@";
 "Logged in as %@ (%@)" = "Innlogga som %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Kunne ikkje parse %@ frå %@";
 "Could not find a download URL for" = "Kunne ikkje finna ein nedlastingsnettadresse for";
+"Authorizing Download for %@" = "Autoriserer nedlasting for %@";
+"Couldn't authorize download for %@." = "Kunne ikkje autorisera nedlasting for %@.";
+"Reason: %@." = "Årsak: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "BetalingsAPI-et er ikkje støtta på iOS-versjoner under 11.0";
 "Could not download Release file from %@. Reason: %@" = "Kunne ikkje lasta ned utgivelsesfil frå %@. Årsak: %@";
 "Could not download Packages file from %@. Reason: %@" = "Kunne ikkje lasta ned pakkefil frå %@. Årsak: %@";
 "Could not download one or more files from %@. Reason: %@" = "Kunne ikkje lasta ned ein eller fleire filer frå %@. Årsak: %@";
+
+"Error while moving file at %@ to %@" = "Feil ved flytting av fil frå %@ til %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Nettadressa du gav opp er ikkje gyldig. Kontroller ho og prøv igjen.";
 
@@ -302,6 +311,7 @@
 "Console" = "Konsoll";
 "Performing Actions..." = "Utfører handlingar...";
 "Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
+"uicache is not available on the simulator" = "uicache er ikkje tilgjengeleg i simulasjonen";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta ei stund og det kan hende at Zebra krasjar. Dette vil ikkje føra til skade.";
 "Close Zebra" = "Lukk Zebra";
 "Closing Zebra..." = "Lukkar Zebra...";

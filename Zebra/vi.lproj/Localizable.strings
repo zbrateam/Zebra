@@ -70,7 +70,9 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
-"Hide UDID" = "Hide UDID";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "Đăng xuất";
 "Your Purchases" = "Đã mua";
 "No Storefronts Available" = "Không cửa hàng nào có sẵn";
+"Could not authenticate" = "Không thể xác thực";
 "Could not complete purchase" = "Không thể hoàn tất mua";
-"Could not complete purchase, no payment secret was found" = "Không thể hoàn thành thanh toán, không khoản thanh toán nào được tìm thấy";
 "No packages purchased" = "Không có gói đã mua";
+"Logged in as %@" = "Đăng nhập như %@";
 "Logged in as %@ (%@)" = "Logged in as %@ (%@)";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "Không thể phân tích %@ từ %@";
 "Could not find a download URL for" = "Không thể tìm thấy URL tải xuống cho";
+"Authorizing Download for %@" = "Ủy quyền tải xuống cho %@";
+"Couldn't authorize download for %@." = "Không thể ủy quyền tải xuống cho %@.";
+"Reason: %@." = "Lí do: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Thanh toán không hỗ trợ thấp hơn phiên bản iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Không thể tải Gói từ %@. Lý do: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+
+"Error while moving file at %@ to %@" = "Lỗi khi di chuyển tệp %@ đến %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
 
@@ -207,7 +216,7 @@
 "Version" = "Phiên bản";
 "Packages" = "Gói";
 "Show Updates" = "Hiển thị cập nhật";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Ẩn cập nhật";
 "Select Version" = "Chọn phiên bản";
 "Select a version to upgrade to:" = "Chọn một phiên bản để nâng cấp:";
 "Select a version to downgrade to:" = "Chọn một phiên bản để hạ cấp:";
@@ -302,6 +311,7 @@
 "Console" = "Bảng điều khiển";
 "Performing Actions..." = "Thực hiện các hành động...";
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
+"uicache is not available on the simulator" = "uicache không có sẵn trên trình giả lập";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
 "Close Zebra" = "Đóng Zebra";
 "Closing Zebra..." = "Đang đóng Zebra...";
@@ -329,15 +339,15 @@
 "Finished importing local packages." = "Hoàn tất nhập các gói nội địa.";
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Không thể hoàn tất %@ quá trình. Lí do: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Vui lòng khởi chạy lại Zebra và xem vấn đề còn tồn tại không. Nếu có, hãy tạo một vấn đề trên Github.";
 "Done..." = "Xong...";
 "Done %@" = "Xong %@";
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Lỗi khi mở tệp:";
 "Adding Payment Vendor URL for %@" = "Đang thêm nhà cung cấp thanh toán cho %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Thiết bị này đã được mô phỏng, đây là sẽ gói được sửa đổi trong giai đoạn này:";
 
 // Queue Bar
 
@@ -364,7 +374,7 @@
 "Remove from Queue" = "Xóa khỏi hàng đợi";
 "Clear Queue" = "Xoá hàng đợi";
 "%@ is required by:" = "%@ được yêu cầu bởi:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" xung đột với %@";
 "%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
 "%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
 "Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
@@ -388,13 +398,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Lỗi khi tạo thư mục tài liệu: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Lỗi khi tạo danh sách thư mục: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Lỗi khi tạo sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Lỗi khi tạo thư mục debs: %@.";
 
 "Could not respring. Please respring manually." = "Không thể sống lại. Vui lòng nối lại thủ công.";
 

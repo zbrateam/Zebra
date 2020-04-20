@@ -70,7 +70,9 @@
 "Text" = "텍스트";
 "Icon" = "아이콘";
 "Finish Automatically" = "작업이 완료되면 콘솔 닫기";
-"Hide UDID" = "UDID 숨기기";
+
+// "Hide UDID" = "Hide UDID";
+
 "Automatic Refresh" = "자동 새로고침";
 
 // Accent Colors
@@ -139,9 +141,10 @@
 "Sign Out" = "로그아웃";
 "Your Purchases" = "구매 내역";
 "No Storefronts Available" = "사용 가능한 스토어 없음";
+"Could not authenticate" = "인증할 수 없었습니다.";
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
-"Could not complete purchase, no payment secret was found" = "구매를 완료할 수 없습니다. Payment secret이 발견되지 않았습니다.";
 "No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
+"Logged in as %@" = "%@(으)로 로그인됨";
 "Logged in as %@ (%@)" = "%@ (%@)으로 로그인 됨.";
 
 // Sources
@@ -185,9 +188,15 @@
 
 "Could not parse %@ from %@" = "%@를 분석할 수 없습니다. (%@에서 옴)";
 "Could not find a download URL for" = "다운로드 URL을 찾을 수 없습니다: ";
+"Authorizing Download for %@" = "%@(을)를 인증하여 다운로드 중..";
+"Couldn't authorize download for %@." = "%@(을)를 인증하여 다운로드하지 못했습니다.";
+"Reason: %@." = "이유: %@";
+"The Payment API is not supported on less than iOS 11.0" = "결제 API는 iOS 11.0 이하에서 지원되지 않습니다.";
 "Could not download Release file from %@. Reason: %@" = "%@에서 Release 파일을 다운로드할 수 없습니다. 이유: %@";
 "Could not download Packages file from %@. Reason: %@" = "%@에서 Packages 파일을 다운로드할 수 없습니다.\n이유: %@";
 "Could not download one or more files from %@. Reason: %@" = "%@에서 한개 또는 그 이상의 파일을 다운로드할 수 없습니다.\n이유: %@";
+
+"Error while moving file at %@ to %@" = "%@에 위치한 파일을 %@으로 이동하던 도중 오류가 발생했습니다.";
 
 "The URL you entered is not valid. Please check it and try again." = "URL이 올바르지 않습니다. 확인 후 다시 시도해주세요.";
 
@@ -207,7 +216,7 @@
 "Version" = "버전";
 "Packages" = "패키지";
 "Show Updates" = "업데이트 표시";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "업데이트 숨기기";
 "Select Version" = "버전 선택";
 "Select a version to upgrade to:" = "업그레이드할 버전 선택:";
 "Select a version to downgrade to:" = "다운그레이드할 버전 선택:";
@@ -302,6 +311,7 @@
 "Console" = "콘솔";
 "Performing Actions..." = "작업 수행 중...";
 "Updating icon cache asynchronously..." = "비동기적으로 아이콘 캐시 업데이트 중...";
+"uicache is not available on the simulator" = "시뮬레이터에서는 uicache를 사용할 수 없습니다.";
 "This may take awhile and Zebra may crash. It is okay if it does." = "이 과정에서 Zebra가 충돌할 수 있지만 괜찮습니다.";
 "Close Zebra" = "Zebra 닫기";
 "Closing Zebra..." = "Zebra를 닫는 중...";
@@ -329,15 +339,15 @@
 "Finished importing local packages." = "로컬 패키지 가져오기 완료.";
 "One or more packages failed to download." = "한개 또는 그 이상의 패키지 다운로드에 실패했습니다..";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "\"대기열로 돌아가기\"를 탭하여 대기열로 돌아가고 다운로드를 다시 시도하세요.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "%@ 작업을 완료할 수 없습니다. 이유: %@";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Zebra를 재시작한 이후에도 문제가 계속 발생하는지 확인하세요. 만약 그렇다면 GitHub에서 이슈를 생성하세요.";
 "Done..." = "완료...";
 "Done %@" = "%@ 완료";
 "Removing Zebra..." = "Zebra 제거중...";
 "Installing Zebra..." = "Zebra 설치중...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "파일을 여는 중 오류가 발생했습니다:";
 "Adding Payment Vendor URL for %@" = "%@의 결제 서비스 공급자 URL 추가 중";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "이 기기는 시뮬레이션되었습니다. 이 단계에서 수정될 패키지는 다음과 같습니다:";
 
 // Queue Bar
 
@@ -364,7 +374,7 @@
 "Remove from Queue" = "대기열에서 제거";
 "Clear Queue" = "대기열 지우기";
 "%@ is required by:" = "%@(은)는 다음에 의하여 필요합니다:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\"는 %@과 충돌합니다.";
 "%@ must be removed because it depends on %@" = "%@(은)는 %@에 의존하기 때문에 삭제되어야 합니다.";
 "%@ has issues that cannot be resolved:" = "%@(은)는 해결할 수 없는 문제가 있습니다:";
 "Are you sure you want to clear the Queue?" = "정말로 대기열을 지울까요?";
@@ -388,13 +398,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling이 uid 또는 gid를 설정할 권한이 없습니다. /usr/libexec/zebra/supersling에 위치한 파일의 권한을 확인해주세요.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "문서 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "소스 정보를 보관할 디렉토리를 만들던 도중 오류가 발생했습니다: %@";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "sources.list를 만들던 도중 오류가 발생했습니다: %@";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "debs 디렉토리를 만들던 도중 오류가 발생하였습니다: %@";
 
 "Could not respring. Please respring manually." = "리스프링할 수 없습니다. 수동으로 리스프링해주세요.";
 
