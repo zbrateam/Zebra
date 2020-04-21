@@ -44,7 +44,7 @@
 "Verifying..." = "検証中...";
 "Confirm Import" = "インポートの確認";
 "Import Sources" = "リポジトリを追加する";
-"No sources to import" = "インポートするレポジトリがありません";
+"No sources to import" = "インポートするリポジトリがありません";
 "Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
 "Are you sure that you want to import 1 source into Zebra?" = "リポジトリを Zebra にインポートしてもよろしいですか？";
 "Are you sure that you want to import %d sources into Zebra?" = "%d リポジトリを Zebra にインポートしてもよろしいですか？";
