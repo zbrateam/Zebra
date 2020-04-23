@@ -152,7 +152,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (BOOL)presented {
-    return [self presentingViewController];
+    return [self.navigationController.viewControllers[0] isEqual:self];
 }
 
 - (void)prepDepictionLoading:(NSURL *)url {
