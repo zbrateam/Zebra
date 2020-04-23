@@ -114,26 +114,17 @@
             self->components = components;
         }
         
-        if (![distribution isEqualToString:@"./"]) {
-            if ([components count]) {
-                //Set packages and release URLs to follow dist format
-                NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
-                mainDirectoryURL = [NSURL URLWithString:mainDirectory];
-
-                packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
-            }
-            else {
-                //If there are no components and a distribution field, fill in the "distribution" from the packages file.
-                mainDirectoryURL = [NSURL URLWithString:repositoryURI];
-                mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", distribution]];
-                
-                packagesDirectoryURL = mainDirectoryURL;
-            }
+        if ([distribution hasSuffix:@"/"]) { // This is a flat repository, flat repositories must have a '/' at the end to indicate themselves
+            mainDirectoryURL = [NSURL URLWithString:distribution relativeToURL:[NSURL URLWithString:repositoryURI]];
+            
+            packagesDirectoryURL = mainDirectoryURL;
         }
         else {
-            //Normal iOS repo, no need to do anything with this URL.
-            mainDirectoryURL = [NSURL URLWithString:repositoryURI];
-            packagesDirectoryURL = mainDirectoryURL;
+            //Set packages and release URLs to follow dist format
+            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
+            mainDirectoryURL = [NSURL URLWithString:mainDirectory];
+
+            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
         }
         releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
