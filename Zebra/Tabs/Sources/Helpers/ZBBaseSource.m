@@ -114,23 +114,28 @@
             self->components = components;
         }
         
-        // TODO: handle problematic source lines (empty components) better?
-        if (![distribution isEqualToString:@"./"] && [components count]) {
-            //Set packages and release URLs to follow dist format
-            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
-            mainDirectoryURL = [NSURL URLWithString:mainDirectory];
+        if (![distribution isEqualToString:@"./"]) {
+            if ([components count]) {
+                //Set packages and release URLs to follow dist format
+                NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
+                mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
-            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
-            releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
+                packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
+            }
+            else {
+                //If there are no components and a distribution field, fill in the "distribution" from the packages file.
+                mainDirectoryURL = [NSURL URLWithString:repositoryURI];
+                mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@", distribution]];
+                
+                packagesDirectoryURL = mainDirectoryURL;
+            }
         }
         else {
-            //If the distribution is './' then the repository likely follows a flat source format
+            //Normal iOS repo, no need to do anything with this URL.
             mainDirectoryURL = [NSURL URLWithString:repositoryURI];
-            mainDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:@"./"];
-            
             packagesDirectoryURL = mainDirectoryURL;
-            releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         }
+        releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
         if (!mainDirectoryURL) return NULL;
         NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
