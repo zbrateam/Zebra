@@ -206,7 +206,7 @@
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:checkingURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-            if (data != nil && (long)[httpResponse statusCode] != 404) {
+            if (data != nil && (long)[httpResponse statusCode] == 200) {
                 NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
                 
                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
