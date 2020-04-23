@@ -115,7 +115,8 @@
         }
         
         if ([distribution hasSuffix:@"/"]) { // This is a flat repository, flat repositories must have a '/' at the end to indicate themselves
-            mainDirectoryURL = [NSURL URLWithString:distribution relativeToURL:[NSURL URLWithString:repositoryURI]];
+            NSURL *baseURL = [NSURL URLWithString:repositoryURI];
+            mainDirectoryURL = [NSURL URLWithString:distribution relativeToURL:baseURL];
             
             packagesDirectoryURL = mainDirectoryURL;
         }
