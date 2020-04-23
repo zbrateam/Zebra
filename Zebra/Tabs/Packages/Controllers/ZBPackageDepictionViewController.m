@@ -101,10 +101,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
             configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+            break;
         case ZBInterfaceStyleDark:
             configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+            break;
         case ZBInterfaceStylePureBlack:
             configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+            break;
     }
     
     webViewSize = 0;
@@ -166,14 +169,17 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         case ZBInterfaceStyleLight: {
             [request setValue:@"Light" forHTTPHeaderField:@"Theme"];
             [request setValue:[NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+            break;
         }
         case ZBInterfaceStyleDark: {
             [request setValue:@"Dark" forHTTPHeaderField:@"Theme"];
             [request setValue:[NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+            break;
         }
         case ZBInterfaceStylePureBlack: {
             [request setValue:@"Pure-Black" forHTTPHeaderField:@"Theme"];
             [request setValue:[NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+            break;
         }
     }
     
