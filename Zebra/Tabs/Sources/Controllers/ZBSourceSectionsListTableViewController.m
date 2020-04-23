@@ -196,15 +196,9 @@
     self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
     if (source.supportsFeaturedPackages) {
-        NSString *requestURL;
-        if ([source.repositoryURI hasSuffix:@"/"]) {
-            requestURL = [NSString stringWithFormat:@"%@sileo-featured.json", source.repositoryURI];
-        } else {
-            requestURL = [NSString stringWithFormat:@"%@/sileo-featured.json", source.repositoryURI];
-        }
-        NSURL *checkingURL = [NSURL URLWithString:requestURL];
+        NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
         NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:checkingURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        [[session dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
             if (data != nil && (long)[httpResponse statusCode] != 404) {
                 NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
