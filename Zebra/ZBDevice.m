@@ -387,7 +387,7 @@
 + (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     safariVC.delegate = delegate;
-    UIColor *tintColor = [UIColor accentColor];
+    UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     if (@available(iOS 10.0, *)) {
         safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
         safariVC.preferredControlTintColor = tintColor;
