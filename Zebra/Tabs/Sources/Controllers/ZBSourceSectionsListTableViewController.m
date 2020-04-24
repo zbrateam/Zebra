@@ -199,8 +199,7 @@
         NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-            if (data != nil && (long)[httpResponse statusCode] != 404) {
+            if (data != nil) {
                 NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
                 
                 NSError *jsonError;

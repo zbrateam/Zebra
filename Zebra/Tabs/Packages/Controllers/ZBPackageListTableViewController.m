@@ -76,8 +76,6 @@
         }
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
-    
-    self.section = [self.section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
 - (void)applyLocalization {

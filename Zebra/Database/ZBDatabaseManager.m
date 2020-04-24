@@ -881,6 +881,7 @@
 #pragma mark - Package management
 
 - (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering {
+    
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *packages = [NSMutableArray new];
         NSString *query = nil;
@@ -890,7 +891,19 @@
             query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES %@ ORDER BY LASTSEEN DESC LIMIT %d OFFSET %d", sourcePart, limit, start];
         } else {
             NSString *sourcePart = source ? [NSString stringWithFormat:@"AND REPOID = %d", [source sourceID]] : @"AND REPOID > 0";
-            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SECTION = '\%@\' %@ LIMIT %d OFFSET %d", section, sourcePart, limit, start];
+            
+            NSString *sectionString;
+            if ([section containsString:@" "]) {
+                sectionString = [NSString stringWithFormat:@"SECTION = \'%@\' OR SECTION = \'%@\'", section, [section stringByReplacingOccurrencesOfString:@" " withString:@"_"]];
+            }
+            else if ([section containsString:@"_"]) {
+                sectionString = [NSString stringWithFormat:@"SECTION = \'%@\' OR SECTION = \'%@\'", section, [section stringByReplacingOccurrencesOfString:@"_" withString:@" "]];
+            }
+            else {
+                sectionString = [NSString stringWithFormat:@"SECTION = \'%@\'", section];
+            }
+            
+            query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE %@ %@ LIMIT %d OFFSET %d", sectionString, sourcePart, limit, start];
         }
         
         sqlite3_stmt *statement = NULL;
