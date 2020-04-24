@@ -159,7 +159,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
         [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-        [self setupHeaderFromCache];
+        if ([featuredItems count]) [self setupHeaderFromCache];
     });
 }
 
