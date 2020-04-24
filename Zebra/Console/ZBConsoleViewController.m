@@ -134,7 +134,7 @@
     
     ZBAccentColor color = [ZBSettings accentColor];
     ZBInterfaceStyle style = [ZBSettings interfaceStyle];
-    if (color == ZBAccentColorMonochrome) {
+    if ([UIColor accentColor] == nil || color == ZBAccentColorMonochrome) {
         //Flip the colors for readability
         [[self completeButton] setBackgroundColor:[UIColor whiteColor]];
         [[self completeButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
