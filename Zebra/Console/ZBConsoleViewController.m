@@ -394,7 +394,7 @@
     if (suppressCancel)
         return;
     
-//    [downloadManager stopAllDownloads];
+    [downloadManager stopAllDownloads];
     [downloadMap removeAllObjects];
     [self updateProgress:1.0];
     [self setProgressViewHidden:YES];

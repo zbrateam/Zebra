@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)initWithDownloadDelegate:(id <ZBDownloadDelegate>)delegate;
 - (void)downloadSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching;
 - (void)downloadPackages:(NSArray <ZBPackage *> *)packages;
-//- (void)stopAllDownloads;
+- (void)stopAllDownloads;
 @end
 
 NS_ASSUME_NONNULL_END
