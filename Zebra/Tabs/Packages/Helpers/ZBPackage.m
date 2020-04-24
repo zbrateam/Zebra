@@ -604,7 +604,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if ([source sourceID] <= 0) { // Package is in sourceID 0 or -1
+    if (source && [source sourceID] <= 0) { // Package is in sourceID 0 or -1
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
