@@ -243,6 +243,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     [self registerForScreenshotNotifications];
     
+    self.window.tintColor = [UIColor accentColor];
     if ([ZBDatabaseManager needsMigration]) {
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }

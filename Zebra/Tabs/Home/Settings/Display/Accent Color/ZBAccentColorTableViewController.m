@@ -112,8 +112,9 @@
         [ZBSettings setAccentColor:newColor];
         [[ZBThemeManager sharedInstance] configureNavigationBar];
         
-        self.navigationController.navigationBar.tintColor = [UIColor accentColor];
-        [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor];
+        self.navigationController.navigationBar.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+        [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+        ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
         
         UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
         [newCell setTintColor:[UIColor accentColor]];
@@ -138,10 +139,13 @@
         [self.tableView endUpdates];
     }
     
+    sender.onTintColor = [UIColor accentColor];
+    
     [[ZBThemeManager sharedInstance] configureNavigationBar];
     
-    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
-    [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
 }
 
 @end
