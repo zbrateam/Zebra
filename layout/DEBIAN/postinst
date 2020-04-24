@@ -1,6 +1,10 @@
 #!/bin/sh
 
 # Verify firmware.sh permissions
+chown root:wheel /usr/libexec/zebra/supersling
+chmod 6755 /usr/libexec/zebra/supersling
+
+# Verify firmware.sh permissions
 chown root:wheel /usr/libexec/zebra/firmware.sh
 chmod 755 /usr/libexec/zebra/firmware.sh
 
