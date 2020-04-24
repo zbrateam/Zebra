@@ -126,8 +126,14 @@
     if ([greaterVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
+        NSCountedSet *versionStrings = [NSCountedSet new];
         for (ZBPackage *otherPackage in greaterVersions) {
-            UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [versionStrings addObject:[otherPackage version]];
+        }
+        
+        for (ZBPackage *otherPackage in greaterVersions) {
+            NSString *title = [versionStrings countForObject:[otherPackage version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", [otherPackage version], [[otherPackage source] label]] : [otherPackage version];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
                 
                 if (completion) completion();
@@ -154,8 +160,16 @@
     if ([lesserVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
+        NSCountedSet *versionStrings = [NSCountedSet new];
         for (ZBPackage *otherPackage in lesserVersions) {
-            UIAlertAction *action = [UIAlertAction actionWithTitle:[otherPackage version] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [versionStrings addObject:[otherPackage version]];
+        }
+        
+        for (ZBPackage *otherPackage in lesserVersions) {
+            if ([[otherPackage source] sourceID] < 1) continue;
+            
+            NSString *title = [versionStrings countForObject:[otherPackage version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", [otherPackage version], [[otherPackage source] label]] : [otherPackage version];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
                 if (completion) completion();
             }];
