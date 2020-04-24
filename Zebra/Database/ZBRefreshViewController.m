@@ -15,6 +15,7 @@
 #import <ZBSourceManager.h>
 #include <Parsel/parsel.h>
 #import "ZBRefreshViewController.h"
+#import "ZBThemeManager.h"
 
 typedef enum {
     ZBStateCancel = 0,
@@ -153,6 +154,17 @@ typedef enum {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
     [self.view setBackgroundColor:[UIColor blackColor]];
     [consoleView setBackgroundColor:[UIColor blackColor]];
+    
+    ZBAccentColor color = [ZBSettings accentColor];
+    ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+    if ([UIColor accentColor] == nil || color == ZBAccentColorMonochrome) {
+        //Flip the colors for readability
+        [[self completeOrCancelButton] setBackgroundColor:[UIColor whiteColor]];
+        [[self completeOrCancelButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    else {
+        [[self completeOrCancelButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style]];
+    }
 }
 
 - (void)disableCancelButton {
@@ -309,7 +321,7 @@ typedef enum {
 #pragma mark - Database Delegate
 
 - (void)databaseStartedUpdate {
-    hadAProblem = NO;
+    hadAProblem = YES;
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
