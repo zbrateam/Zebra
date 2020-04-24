@@ -321,7 +321,7 @@ typedef enum {
 #pragma mark - Database Delegate
 
 - (void)databaseStartedUpdate {
-    hadAProblem = YES;
+    hadAProblem = NO;
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
