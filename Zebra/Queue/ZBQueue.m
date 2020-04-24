@@ -530,6 +530,8 @@
 }
 
 - (NSString *)downloadSizeForQueue:(ZBQueueType)queueType {
+    if (queueType == ZBQueueTypeClear || queueType == ZBQueueTypeRemove || queueType == ZBQueueTypeConflict || queueType == ZBQueueTypeDependency) return NULL;
+    
     double totalDownloadSize = 0;
     NSMutableArray *packages = [[self queueFromType:queueType] mutableCopy];
     if (queueType == ZBQueueTypeInstall) {
@@ -550,9 +552,6 @@
             unit = @"KB";
         }
         return [NSString stringWithFormat:@"%.2f %@", totalDownloadSize, unit];
-    }
-    else {
-        return NSLocalizedString(@"Unknown", @"");
     }
     
     return NULL;

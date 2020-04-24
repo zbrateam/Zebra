@@ -317,7 +317,6 @@
         NSString *desc = [dictionary objectForKey:@"Description"] ?: NULL;
         NSString *section = [dictionary objectForKey:@"Section"] ?: NULL;
         NSString *depiction = [dictionary objectForKey:@"Depiction"] ?: NULL;
-        NSArray *tags = [[[dictionary objectForKey:@"Tag"] stringValue] componentsSeparatedByString:@", "] ?: NULL;
         NSString *author = [dictionary objectForKey:@"Author"] ?: NULL;
         NSString *depends = [dictionary objectForKey:@"Depends"] ?: NULL;
         NSString *conflicts = [dictionary objectForKey:@"Conflicts"] ?: NULL;
@@ -326,6 +325,11 @@
         NSString *icon = [dictionary objectForKey:@"Icon"] ?: NULL;
         NSString *priority = [dictionary objectForKey:@"Priority"] ?: NULL;
         NSString *essential = [dictionary objectForKey:@"Essential"] ?: NULL;
+        
+        NSString *tagString = [dictionary objectForKey:@"Tag"] ?: NULL;
+        if (tagString) {
+            [self setTags:[tagString componentsSeparatedByString:@", "] ?: NULL];
+        }
         
         [self setIdentifier:packageID];
         [self setName:name];

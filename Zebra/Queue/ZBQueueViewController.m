@@ -150,10 +150,11 @@
     }
     else {
         ZBQueueType action = actions[section].intValue;
-        if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
-        }
-        return [queue displayableNameForQueueType:action];
+        NSString *downloadSize = [queue downloadSizeForQueue:action];
+        NSMutableString *title = [[queue displayableNameForQueueType:action] mutableCopy];
+        if (downloadSize) [title appendFormat:@" (%@: %@)", NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+        
+        return title;
     }
 }
 
