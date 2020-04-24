@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSString *> *issues;
 @property (nonatomic, strong) ZBPackage * _Nullable removedBy;
 @property (nonatomic, strong) NSString *priority;
+@property (nonatomic, strong) NSString *SHA256;
 @property int installedSize;
 @property int downloadSize;
 @property BOOL requiresAuthorization;

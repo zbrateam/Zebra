@@ -58,6 +58,7 @@
 @synthesize priority;
 @synthesize essential;
 @synthesize ignoreDependencies;
+@synthesize SHA256;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -254,6 +255,7 @@
         const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
         const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
+        const char *sha256Chars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         if (packageIDChars == 0) return NULL; // There is no "working" situation where a package ID is missing
@@ -279,6 +281,8 @@
         else if (es && [es isEqualToString:@"no"]) {
             [self setEssential:NO];
         }
+        
+        [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : NULL];
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
@@ -413,6 +417,9 @@
     
     if (![object isKindOfClass:[ZBPackage class]])
         return NO;
+    
+    if ([self SHA256] && [object SHA256])
+        return [[self SHA256] isEqual:[object SHA256]];
     
     return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]]);
 }
