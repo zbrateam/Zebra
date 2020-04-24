@@ -626,7 +626,7 @@
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
     NSNumber *taskIdentifier = @(task.taskIdentifier);
-    if (error) {
+    if (error && error.code != NSURLErrorCancelled) {
         ZBPackage *package = packageTasksMap[taskIdentifier];
         if (package) {
             [downloadDelegate finishedPackageDownload:package withError:error];
