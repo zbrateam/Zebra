@@ -157,7 +157,12 @@
         archiveType = lineComponents[0];
         if (count > 1) {
             repositoryURI = lineComponents[1];
-            if (count > 2) {
+            
+            if (([repositoryURI containsString:@"apt.bingner.com"] || [repositoryURI containsString:@"apt.saurik.com"]) && count == 3) { // Sources that are known to use CF number in URL but for some reason aren't written in the sources.list properly
+                distribution = [NSString stringWithFormat:@"ios/%.2f", kCFCoreFoundationVersionNumber];
+                [sourceComponents addObject:@"main"];
+            }
+            else if (count > 2) {
                 distribution = lineComponents[2];
                 
                 //Group all of the components into the components array
