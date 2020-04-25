@@ -144,8 +144,8 @@
 "Could not authenticate" = "Nepavyko autentifikuoti";
 "Could not complete purchase" = "Nepavyko baigti pirkimo";
 "No packages purchased" = "Nėra nupirktų paketų";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Prisijungta kaip %@";
+"Signed in as %@ (%@)" = "Prisijungta kaip %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Atnaujinti";
 "All Packages" = "Visi paketai";
 "Remove Source" = "Pašalinti šaltinį";
-"Local File" = "Local File";
+"Local File" = "Vietiniai failai";
 "Local Repository" = "Vietinė saugykla";
 "Locally installed packages" = "Įdiegti vietiniai paketai";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ nebuvo modifikuotas";
 
-"Install All" = "Install All";
+"Install All" = "Įdiegti visus";
 
 // Packages
 
