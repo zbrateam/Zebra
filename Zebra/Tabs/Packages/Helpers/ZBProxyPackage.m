@@ -46,7 +46,10 @@
 }
 
 - (BOOL)isInstalled {
-    return sourceID <= 0;
+    if (sourceID <= 0)
+        return YES;
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager packageIDIsInstalled:self.identifier version:nil];
 }
 
 - (ZBPackage *)loadPackage {
