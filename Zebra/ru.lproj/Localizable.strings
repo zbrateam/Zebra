@@ -144,8 +144,8 @@
 "Could not authenticate" = "Не удалось авторизоваться";
 "Could not complete purchase" = "Невозможно завершить покупку";
 "No packages purchased" = "Нет купленных пакетов";
-"Logged in as %@" = "Выполнен вход как %@";
-"Logged in as %@ (%@)" = "Выполнен вход как %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Обновить";
 "All Packages" = "Все пакеты";
 "Remove Source" = "Удалить источник";
+"Local File" = "Local File";
 "Local Repository" = "Локальный репозиторий";
 "Locally installed packages" = "Локально установленные пакеты";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
 
 "%@ hasn't been modified" = "%@ не был изменен";
+
+"Install All" = "Install All";
 
 // Packages
 
