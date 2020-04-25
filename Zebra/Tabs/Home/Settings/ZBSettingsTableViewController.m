@@ -132,17 +132,14 @@ enum ZBMiscOrder {
             }
             return 1;
         case ZBFeatured: {
-            int rows = 2;
-            BOOL wantsFeatured = [ZBSettings wantsFeaturedPackages];
-            if (wantsFeatured) {
-                BOOL randomFeatured = [ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom;
-                if (randomFeatured) {
-                    return 4;
+            if ([ZBSettings wantsFeaturedPackages]) {
+                if ([ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom) {
+                    return 3;
                 }
-                return 3;
+                return 2;
             }
             
-            return rows;
+            return 1;
         }
         case ZBReset:
             return 2;
