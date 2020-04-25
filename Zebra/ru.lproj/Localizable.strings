@@ -155,7 +155,7 @@
 "Refresh" = "Обновить";
 "All Packages" = "Все пакеты";
 "Remove Source" = "Удалить источник";
-"Local File" = "Local File";
+"Local File" = "Локальный файл";
 "Local Repository" = "Локальный репозиторий";
 "Locally installed packages" = "Локально установленные пакеты";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ не был изменен";
 
-"Install All" = "Install All";
+"Install All" = "Установить все";
 
 // Packages
 
