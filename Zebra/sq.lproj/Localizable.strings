@@ -144,8 +144,8 @@
 "Could not authenticate" = "Nuk mund të vërtetohet";
 "Could not complete purchase" = "Nuk mund të kryhet pagesa";
 "No packages purchased" = "Nuk keni asnjë paketë të paguar";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Identifikuar si %@";
+"Signed in as %@ (%@)" = "Identifikuar si %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Rifresko";
 "All Packages" = "Të gjitha paketat";
 "Remove Source" = "Largo burimin";
-"Local File" = "Local File";
+"Local File" = "Skedari lokal";
 "Local Repository" = "Repo lokale";
 "Locally installed packages" = "Paketat e instaluara në lokalitet";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ nuk është modifikuar";
 
-"Install All" = "Install All";
+"Install All" = "Instalo të gjitha";
 
 // Packages
 
