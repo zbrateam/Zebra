@@ -32,7 +32,6 @@ NSString *const BlockedAuthorsKey = @"BlockedAuthors";
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
-//NSString *const HideUDIDKey = @"HideUDID";
 
 NSString *const WantsAutoRefreshKey = @"AutoRefresh";
 
@@ -430,22 +429,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     
     [defaults setObject:blacklist forKey:FeaturedSourceBlacklistKey];
 }
-
-//+ (BOOL)hideUDID {
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//
-//    if (![defaults objectForKey:HideUDIDKey]) {
-//        [self setHideUDID:NO];
-//        return NO;
-//    }
-//    return [defaults boolForKey:HideUDIDKey];
-//}
-//
-//+ (void)setHideUDID:(BOOL)hideUDID {
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//
-//    [defaults setBool:hideUDID forKey:HideUDIDKey];
-//}
 
 #pragma mark - Sources Settings
 

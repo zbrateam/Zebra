@@ -44,7 +44,6 @@ extern NSString * _Nonnull const BlockedAuthorsKey; // Stored as NSArray
 extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
 extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
 extern NSString * _Nonnull const FeaturedSourceBlacklistKey; // Stored as NSArray
-//extern NSString * _Nonnull const HideUDIDKey; // Stored as BOOL
 
 extern NSString * _Nonnull const WantsAutoRefreshKey; // Stored as BOOL
 
@@ -165,9 +164,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSArray *)sourceBlacklist;
 + (void)setSourceBlacklist:(NSArray *)blacklist;
-
-//+ (BOOL)hideUDID;
-//+ (void)setHideUDID:(BOOL)hideUDID;
 
 #pragma mark - Sources Settings
 

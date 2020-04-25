@@ -43,7 +43,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBTwitter
 } ZBLinksOrder;
 
-@interface ZBHomeTableViewController (){
+@interface ZBHomeTableViewController () {
     NSMutableArray *redditPosts;
     BOOL hideUDID;
 }

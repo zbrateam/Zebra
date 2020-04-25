@@ -30,7 +30,6 @@
     [package setIconImageForImageView:self.packageIconImageView];
 }
 
-
 - (void)prepareForReuse {
     [super prepareForReuse];
     [[self packageIconImageView] sd_cancelCurrentImageLoad];

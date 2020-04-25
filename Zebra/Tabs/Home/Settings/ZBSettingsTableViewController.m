@@ -39,7 +39,6 @@ typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
 };
 
 typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
-//    ZBHideUDID,
     ZBFeaturedEnable,
     ZBFeatureOrRandomToggle,
     ZBFeatureBlacklist
@@ -238,16 +237,6 @@ enum ZBMiscOrder {
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
-//                case ZBHideUDID: {
-//                    UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-//                    enableSwitch.on = [ZBSettings hideUDID];
-//                    [enableSwitch addTarget:self action:@selector(toggleHideUDID:) forControlEvents:UIControlEventValueChanged];
-//                    [enableSwitch setOnTintColor:[UIColor accentColor]];
-//                    cell.accessoryView = enableSwitch;
-//                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                    cell.textLabel.text = NSLocalizedString(@"Hide UDID", @"");
-//                    break;
-//                }
                 case ZBFeaturedEnable: {
                     UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
                     enableSwitch.on = [ZBSettings wantsFeaturedPackages];
@@ -374,13 +363,6 @@ enum ZBMiscOrder {
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
-//                case ZBHideUDID: {
-//                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-//                    UISwitch *switcher = (UISwitch *)cell.accessoryView;
-//                    [switcher setOn:!switcher.on animated:YES];
-//                    [self toggleHideUDID:switcher];
-//                    break;
-//                }
                 case ZBFeaturedEnable: {
                     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                     UISwitch *switcher = (UISwitch *)cell.accessoryView;
@@ -625,21 +607,6 @@ enum ZBMiscOrder {
         [self.tableView endUpdates];
     });
 }
-
-//- (void)toggleHideUDID:(id)sender {
-//    UISwitch *switcher = (UISwitch *)sender;
-//
-//    [ZBSettings setHideUDID:switcher.isOn];
-//    [ZBDevice hapticButton];
-//
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideUDID" object:self];
-//
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.tableView beginUpdates];
-//        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
-//        [self.tableView endUpdates];
-//    });
-//}
 
 - (void)misc {
     ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Text", @"Icon"] getter:@selector(swipeActionStyle) setter:@selector(setSwipeActionStyle:) settingChangedCallback:nil];
