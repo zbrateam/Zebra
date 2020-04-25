@@ -144,8 +144,8 @@
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "ไม่สามารถทำการซื้อได้";
 "No packages purchased" = "ไม่มีโปรแกรมที่ซื้อไว้";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "เข้าสู่ระบบในชื่อ %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "โหลดใหม่";
 "All Packages" = "โปรแกรมทั้งหมด";
 "Remove Source" = "ลบซอร์ส";
+"Local File" = "Local File";
 "Local Repository" = "ซอร์สในเครื่อง";
 "Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "อาจเกิดปัญหาได้หากซอร์สนี้ถูกเพิ่มลง Zebra และอาจถึงขั้นต้องล้างเครื่อง";
 
 "%@ hasn't been modified" = "%@ ไม่ได้ถูกแก้ไข";
+
+"Install All" = "Install All";
 
 // Packages
 
