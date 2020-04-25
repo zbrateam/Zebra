@@ -144,8 +144,8 @@
 "Could not authenticate" = "לא ניתן לאמת";
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "מחובר/ת בתור %@";
+"Signed in as %@ (%@)" = "מחובר/ת בתור %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "רענן";
 "All Packages" = "כל החבילות";
 "Remove Source" = "הסר מקור";
-"Local File" = "Local File";
+"Local File" = "קובץ מקומי";
 "Local Repository" = "מקור מקומי";
 "Locally installed packages" = "חבילות שהותקנו מקומית";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
 
-"Install All" = "Install All";
+"Install All" = "התקן הכל";
 
 // Packages
 
