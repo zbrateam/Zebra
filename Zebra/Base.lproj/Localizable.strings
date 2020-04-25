@@ -144,8 +144,8 @@
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Could not complete purchase";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Refresh";
 "All Packages" = "All Packages";
 "Remove Source" = "Remove Source";
+"Local File" = "Local File";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 
 "%@ hasn't been modified" = "%@ hasn't been modified";
+
+"Install All" = "Install All";
 
 // Packages
 
