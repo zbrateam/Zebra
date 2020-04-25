@@ -52,12 +52,21 @@
     NSArray *baseFilenames = [filteredSources allKeys];
     
     sources = [NSMutableArray new];
+    NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
         ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
-        if (source == nil) continue;
+        if (source == nil) {
+            // This source has been removed after filtering sections in it, we need to remove this baseFilename
+            [outdatedFilteredSources addObject:baseFilename];
+            continue;
+        };
         [sources addObject:source];
     }
     [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
+    if ([outdatedFilteredSources count]) {
+        [filteredSources removeObjectsForKeys:outdatedFilteredSources];
+        [ZBSettings setFilteredSources:filteredSources];
+    }
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
@@ -142,12 +151,14 @@
             break;
         }
         case 3: {
-            ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-            ZBPackage *package = ignoredUpdates[indexPath.row];
-            
-            [packageCell updateData:package];
-            
-            return packageCell;
+            if (indexPath.row < [ignoredUpdates count]) {
+                ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+                ZBPackage *package = ignoredUpdates[indexPath.row];
+                
+                [packageCell updateData:package];
+                
+                return packageCell;
+            }
             break;
         }
     }
