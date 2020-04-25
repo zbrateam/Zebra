@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kunne ikkje autentisera";
 "Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
 "No packages purchased" = "Ingen kjøpte pakkar";
-"Logged in as %@" = "Innlogga som %@";
-"Logged in as %@ (%@)" = "Innlogga som %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Oppdater";
 "All Packages" = "Alle pakkar";
 "Remove Source" = "Fjern kjelde";
+"Local File" = "Local File";
 "Local Repository" = "Lokal kjelde";
 "Locally installed packages" = "Lokalt installerte pakkar";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Han kan forårsaka problem viss du legg han til i Zebra. Det kan eventuelt føra til at du må retta opp igjen eininga di.";
 
 "%@ hasn't been modified" = "%@ har ikkje vorte modifisert";
+
+"Install All" = "Install All";
 
 // Packages
 
