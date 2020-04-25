@@ -49,6 +49,7 @@
     sections = (NSArray *)allSections;
     
     [self layoutNaviationButtons];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"sectionSelectorCell"];
 }
 
 #pragma mark - Bar Button Actions
@@ -83,7 +84,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sectionSelectorCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sectionSelectorCell" forIndexPath:indexPath];
     
     cell.textLabel.text = sections[indexPath.row];
     cell.textLabel.textColor = [UIColor primaryTextColor];

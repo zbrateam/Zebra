@@ -56,6 +56,8 @@
     
     self->selectedIndex = selectedIndex;
     self->selectedOption = selectedOption;
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsOptionCell"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -73,7 +75,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsOptionCell"];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"settingsOptionCell" forIndexPath:indexPath];
     
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.textLabel.text = NSLocalizedString(options[indexPath.row], @"");
