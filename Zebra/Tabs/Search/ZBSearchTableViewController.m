@@ -169,7 +169,12 @@
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope {
-    [self updateSearchResultsForSearchController:searchController];
+    if (!searchController.searchBar.isFirstResponder) {
+        [self searchBarSearchButtonClicked:searchBar];
+    }
+    else {
+        [self updateSearchResultsForSearchController:searchController];
+    }
 }
 
 #pragma mark - Table View Delegate
@@ -179,7 +184,7 @@
     
     searchController.searchBar.text = recentSearches[indexPath.row];
     searchController.active = YES;
-    [[self searchController].searchBar becomeFirstResponder];
+    [self searchBarSearchButtonClicked:[[self searchController] searchBar]];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
