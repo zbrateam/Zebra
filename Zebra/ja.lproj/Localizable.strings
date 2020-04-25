@@ -144,8 +144,8 @@
 "Could not authenticate" = "認証できませんでした";
 "Could not complete purchase" = "購入を完了できませんでした";
 "No packages purchased" = "購入したパッケージはありません";
-"Logged in as %@" = "%@ としてログイン中";
-"Logged in as %@ (%@)" = "%@ としてログイン中 (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "再読み込み";
 "All Packages" = "すべてのパッケージ";
 "Remove Source" = "リポジトリを消去";
+"Local File" = "Local File";
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Zebra に追加すると、問題が発生し、復元が不可能になる可能性があります。";
 
 "%@ hasn't been modified" = "%@ は変更されていません";
+
+"Install All" = "Install All";
 
 // Packages
 
