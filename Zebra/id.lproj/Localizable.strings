@@ -144,8 +144,8 @@
 "Could not authenticate" = "Tidak bisa mengotentikasi";
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
 "No packages purchased" = "Tidak ada paket yang dibeli";
-"Logged in as %@" = "Masuk sebagai %@";
-"Logged in as %@ (%@)" = "Masuk sebagai %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Segarkan";
 "All Packages" = "Semua Paket";
 "Remove Source" = "Hapus Sumber";
+"Local File" = "Local File";
 "Local Repository" = "Repositori Lokal";
 "Locally installed packages" = "Paket Lokal terinstall";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ini dapat menyebabkan masalah jika Anda menambahkannya ke Zebra yang menghasilkan kemungkinan pemulihan.";
 
 "%@ hasn't been modified" = "%@ belum dimodifikasi";
+
+"Install All" = "Install All";
 
 // Packages
 
