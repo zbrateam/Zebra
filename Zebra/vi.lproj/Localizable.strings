@@ -144,8 +144,8 @@
 "Could not authenticate" = "Không thể xác thực";
 "Could not complete purchase" = "Không thể hoàn tất mua";
 "No packages purchased" = "Không có gói đã mua";
-"Logged in as %@" = "Đăng nhập như %@";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Làm mới";
 "All Packages" = "Tất cả các gói";
 "Remove Source" = "Gỡ bỏ nguồn";
+"Local File" = "Local File";
 "Local Repository" = "Kho lưu trữ cục bộ";
 "Locally installed packages" = "Gói cài đặt cục bộ";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
 
 "%@ hasn't been modified" = "%@ chưa được sửa đổi";
+
+"Install All" = "Install All";
 
 // Packages
 
