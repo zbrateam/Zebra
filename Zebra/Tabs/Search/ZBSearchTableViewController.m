@@ -77,6 +77,7 @@
         searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
         searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
+        searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
     if (@available(iOS 9.1, *)) {
