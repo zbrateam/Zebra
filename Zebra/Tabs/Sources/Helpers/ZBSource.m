@@ -229,8 +229,10 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [keychain stringForKey:self.repositoryURI];
 }
 
-- (NSString *)paymentSecret API_AVAILABLE(ios(11.0)) {
-    __block NSString *paymentSecret;
+- (NSString *)paymentSecret:(NSError **)error API_AVAILABLE(ios(11.0)) {
+    __block NSString *paymentSecret = NULL;
+    __block NSError *paymentError = NULL;
+    
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         NSString *paymentKeychainIdentifier = [NSString stringWithFormat:@"%@payment", [self repositoryURI]];
@@ -240,16 +242,16 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
               authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
         keychain.authenticationPrompt = NSLocalizedString(@"Authenticate to initiate purchase.", @"");
         
-        NSError *error = NULL;
-        paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&error];
-        if (error) {
-            NSLog(@"Error: %@", error);
-        }
+        paymentSecret = [keychain stringForKey:paymentKeychainIdentifier error:&paymentError];
         
         dispatch_semaphore_signal(sema);
     });
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     
+    if (paymentError) {
+        NSLog(@"[Zebra] Payment error: %@", paymentError);
+        if (error) *error = [paymentError copy];
+    }
     return paymentSecret;
 }
 
