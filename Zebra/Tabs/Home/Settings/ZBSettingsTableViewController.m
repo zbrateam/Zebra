@@ -491,8 +491,7 @@ enum ZBMiscOrder {
         [ZBSettings setSourceBlacklist:blockedSources];
     }];
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:selectSource];
-    [self presentViewController:nav animated:YES completion:NULL];
+    [[self navigationController] pushViewController:selectSource animated:YES];
 }
 
 - (void)resetSettings {
