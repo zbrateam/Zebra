@@ -144,8 +144,8 @@
 "Could not authenticate" = "Не удалось авторизоваться";
 "Could not complete purchase" = "Невозможно завершить покупку";
 "No packages purchased" = "Нет купленных пакетов";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Вы вошли как %@";
+"Signed in as %@ (%@)" = "Вы вошли как %@ (%@)";
 
 // Sources
 
