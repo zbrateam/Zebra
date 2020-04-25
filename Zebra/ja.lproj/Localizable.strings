@@ -144,8 +144,8 @@
 "Could not authenticate" = "認証できませんでした";
 "Could not complete purchase" = "購入を完了できませんでした";
 "No packages purchased" = "購入したパッケージはありません";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "%@ としてサインイン中";
+"Signed in as %@ (%@)" = "%@ としてサインイン中(%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "再読み込み";
 "All Packages" = "すべてのパッケージ";
 "Remove Source" = "リポジトリを消去";
-"Local File" = "Local File";
+"Local File" = "ローカルファイル";
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ は変更されていません";
 
-"Install All" = "Install All";
+"Install All" = "全てインストール";
 
 // Packages
 
