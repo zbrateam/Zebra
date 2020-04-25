@@ -144,8 +144,8 @@
 "Could not authenticate" = "تعذرت المصادقة";
 "Could not complete purchase" = "تعذر إكمال الشراء";
 "No packages purchased" = "لا توجد حزم مشتراة";
-"Logged in as %@" = "تم تسجيل الدخول كـ %@";
-"Logged in as %@ (%@)" = "تم تسجيل الدخول كـ %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
 "Remove Source" = "حذف مصدر";
+"Local File" = "Local File";
 "Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "قد يتسبب في حدوث مشكلات إذا قمت بإضافته إلى Zebra مما يؤدي إلى حدوث عملية استعادة.";
 
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
+
+"Install All" = "Install All";
 
 // Packages
 
