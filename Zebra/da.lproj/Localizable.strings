@@ -144,8 +144,8 @@
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Kunne ikke udføre købet";
 "No packages purchased" = "Ingen købte pakker";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "opdatere";
 "All Packages" = "Alle Pakker";
 "Remove Source" = "Fjern kilde";
+"Local File" = "Local File";
 "Local Repository" = "Lokalt Arkiv";
 "Locally installed packages" = "Lokalt installeret pakker";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan måske fremkalde problemer hvis du tilføjer det til Zebra resultere i potentiel genoprettelse.";
 
 "%@ hasn't been modified" = "%@ er ikke blevet modificeret";
+
+"Install All" = "Install All";
 
 // Packages
 
