@@ -3,6 +3,7 @@
  * Mobile gestalt functions as a QA system. You ask it a question, and it gives you the answer! :)
  *
  * Copyright (c) 2013-2014 Cykey (David Murray)
+ * Improved by @PoomSmart (2020)
  * All rights reserved.
  */
 
@@ -18,23 +19,17 @@ extern "C" {
 #pragma mark - API
     
     CFPropertyListRef MGCopyAnswer(CFStringRef property);
+    CFPropertyListRef MGCopyAnswerWithError(CFStringRef property, int *error);
+    CFPropertyListRef MGCopyMultipleAnswers(CFArrayRef properties, CFDictionaryRef unk);
     
     bool MGGetBoolAnswer(CFStringRef property);
-    
-    /*
-     * Arguments are still a mistery.
-     * CFPropertyListRef MGCopyAnswerWithError(CFStringRef question, int *error, ...);
-     */
-    
-    /* Use 0 for __unknown0. */
-    CFPropertyListRef MGCopyMultipleAnswers(CFArrayRef questions, int __unknown0);
     
     /*
      * Not all questions are assignable.
      * For example, kMGUserAssignedDeviceName is assignable but
      * kMGProductType is not.
      */
-    int MGSetAnswer(CFStringRef question, CFTypeRef answer);
+    int MGSetAnswer(CFStringRef property, CFTypeRef answer);
     
 #pragma mark - Identifying Information
     
