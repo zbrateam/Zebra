@@ -805,9 +805,10 @@
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     if ([source isSignedIn]) { //Check if we have an access token
         if ([self mightRequirePayment]) { //Just a small double check to make sure the package is paid and the source supports payment
-            NSString *secret = [source paymentSecret];
+            NSError *error;
+            NSString *secret = [source paymentSecret:&error];
             
-            if (secret) {
+            if (secret && !error) {
                 NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [self identifier]]];
                 
                 NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -871,6 +872,9 @@
                 }];
                 
                 [task resume];
+                return;
+            }
+            else if (error && error.code == -128) { // I believe this error means that the user cancelled authentication prompt
                 return;
             }
         }
