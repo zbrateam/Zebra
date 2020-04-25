@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kan niet verifiëren";
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "No packages purchased" = "Geen aangekochte pakketten";
-"Logged in as %@" = "Ingelogd als %@";
-"Logged in as %@ (%@)" = "Ingelogd als %@(%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Ververs";
 "All Packages" = "Alle pakketten";
 "Remove Source" = "Verwijder Bron";
+"Local File" = "Local File";
 "Local Repository" = "Lokale bron";
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
 
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
+
+"Install All" = "Install All";
 
 // Packages
 
