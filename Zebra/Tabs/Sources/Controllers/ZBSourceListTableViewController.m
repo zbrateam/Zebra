@@ -339,7 +339,8 @@
                               @"share.icloud.com", @"icloud.com",
                               @"www.gmail.com", @"gmail.com",
                               @"www.pastebin.com", @"pastebin.com",
-                              @"tinyurl.com", @"bit.ly"];
+                              @"www.tinyurl.com", @"tinyurl.com",
+                              @"www.bit.ly", @"bit.ly"];
 
     if (![urlBlacklist containsObject:url.host]) {
         NSMutableArray *sources = [NSMutableArray new];
