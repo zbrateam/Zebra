@@ -439,7 +439,7 @@
             ZBPackage *topPackage = [self topVersionForPackage:package];
             NSComparisonResult compare = [package compare:topPackage];
             if (compare == NSOrderedAscending) {
-                NSLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
+                ZBLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 
                 BOOL ignoreUpdates = [topPackage ignoreUpdates];
                 if (!ignoreUpdates) numberOfUpdates++;
