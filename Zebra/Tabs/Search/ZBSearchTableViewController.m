@@ -13,6 +13,8 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 
+@import LNPopupController;
+
 #define MAX_SEARCH_RECENT_COUNT 5
 
 @interface ZBSearchTableViewController () {
@@ -53,6 +55,8 @@
     [super viewWillAppear:animated];
     
     [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, [[[[self presentingViewController] tabBarController] popupBar] frame].size.height, 0)];
 }
 
 - (void)setupView {

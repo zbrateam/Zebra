@@ -13,6 +13,8 @@
 #import <ZBAppDelegate.h>
 #import "ZBLiveSearchResultTableViewCell.h"
 
+@import LNPopupController;
+
 @interface ZBSearchResultsTableViewController ()
 @property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
@@ -44,6 +46,9 @@
     [super viewWillAppear:animated];
     
     [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
+    
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, [[[[self presentingViewController] tabBarController] popupBar] frame].size.height, 0)];
+    NSLog(@"HellO!");
 }
 
 #pragma mark - Table view data source
