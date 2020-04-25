@@ -84,10 +84,10 @@
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (info && !error) {
                             if (self->hideEmail) {
-                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@", @""), info.user.name];
+                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@", @""), info.user.name];
                             }
                             else {
-                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as %@ (%@)", @""), info.user.name, info.user.email];
+                                self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@ (%@)", @""), info.user.name, info.user.email];
                             }
                         }
                         else {
