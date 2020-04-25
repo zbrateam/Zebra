@@ -144,8 +144,8 @@
 "Could not authenticate" = "Não foi possível autenticar";
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "No packages purchased" = "Nenhum pacote comprado";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Conectado como %@";
+"Signed in as %@ (%@)" = "Conectado como %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Atualizar";
 "All Packages" = "Todos os Pacotes";
 "Remove Source" = "Remover fonte";
-"Local File" = "Local File";
+"Local File" = "Arquivo Local";
 "Local Repository" = "Repositório local";
 "Locally installed packages" = "Pacotes instalados localmente";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ não foi modificado";
 
-"Install All" = "Install All";
+"Install All" = "Instalar todos";
 
 // Packages
 
