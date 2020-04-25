@@ -144,8 +144,8 @@
 "Could not authenticate" = "Nem sikerült a hitelesítés";
 "Could not complete purchase" = "Could not complete purchase";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@" = "Bejelentkezve, mint %@";
-"Logged in as %@ (%@)" = "Bejelentkezve, mint %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Frissítés";
 "All Packages" = "Összes csomag";
 "Remove Source" = "Forrás eltávolítása";
+"Local File" = "Local File";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Helyileg telepített csomagok";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 
 "%@ hasn't been modified" = "%@ hasn't been modified";
+
+"Install All" = "Install All";
 
 // Packages
 
