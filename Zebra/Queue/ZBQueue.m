@@ -558,9 +558,13 @@
 }
 
 - (ZBQueueType)locate:(ZBPackage *)package {
+    return [self locatePackageID:[package identifier]];
+}
+
+- (ZBQueueType)locatePackageID:(NSString *)packageID {
     for (NSNumber *key in managedQueue) {
         for (ZBPackage *queuedPackage in managedQueue[key]) {
-            if ([[package identifier] isEqualToString:[queuedPackage identifier]]) {
+            if ([packageID isEqualToString:[queuedPackage identifier]]) {
                 return key.intValue;
             }
         }
