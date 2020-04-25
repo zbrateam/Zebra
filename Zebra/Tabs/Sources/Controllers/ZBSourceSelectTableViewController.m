@@ -59,12 +59,16 @@
 
 - (void)baseViewDidLoad {}
 
+- (NSString *)getActionButtonTitle {
+    return NSLocalizedString(selectionType == ZBSourceSelectionTypeNormal ? @"Add" : @"Apply", @"");
+}
+
 - (void)layoutNavigationButtonsNormal {
     if ([self.navigationController.viewControllers[0] isEqual:self]) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
     }
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[self getActionButtonTitle] style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
     if (limit > 0) self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
 }
 
