@@ -288,6 +288,12 @@
             }
             
             if (zebraModification) { //Zebra should be the last thing installed so here is our chance to install it.
+                if ([queue locatePackageID:@"xyz.willy.zebra"] == ZBQueueTypeUpgrade) {
+                    NSLog(@"[Zebra] Zebra located in upgrade queue, removing app badge");
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+                    });
+                }
                 zebraRestartRequired = YES;
                 
                 ZBLog(@"[Zebra] modifying zebra...");
