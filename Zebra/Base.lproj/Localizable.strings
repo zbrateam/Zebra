@@ -144,8 +144,8 @@
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Could not complete purchase";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
