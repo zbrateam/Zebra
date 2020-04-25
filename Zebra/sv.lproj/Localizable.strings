@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kunde inte autentisera";
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "No packages purchased" = "Inga köpta paket";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Inloggad som %@";
+"Signed in as %@ (%@)" = "Inloggad som %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Uppdatera";
 "All Packages" = "Alla paket";
 "Remove Source" = "Ta bort källa";
-"Local File" = "Local File";
+"Local File" = "Lokal fil";
 "Local Repository" = "Lokalt förråd";
 "Locally installed packages" = "Lokalt installerade paket";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ har inte ändrats";
 
-"Install All" = "Install All";
+"Install All" = "Installera alla";
 
 // Packages
 
