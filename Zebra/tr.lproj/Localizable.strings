@@ -144,8 +144,8 @@
 "Could not authenticate" = "Doğrulanamadı";
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "No packages purchased" = "Hiç Paket Satın Alınmadı";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "%@ olarak giriş yapıldı";
+"Signed in as %@ (%@)" = "%@ olarak giriş yapıldı (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Yenile";
 "All Packages" = "Bütün Paketler";
 "Remove Source" = "Kaynağı Kaldır";
-"Local File" = "Local File";
+"Local File" = "Yerel Dosya";
 "Local Repository" = "Yerel Kaynak";
 "Locally installed packages" = "Yerel olarak kurulmuş paketler";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ Düzenlenmemiş";
 
-"Install All" = "Install All";
+"Install All" = "Hepsini Yükle";
 
 // Packages
 
