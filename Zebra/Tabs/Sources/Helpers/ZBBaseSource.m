@@ -237,7 +237,7 @@
     
     NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/x-xz"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -255,7 +255,7 @@
     
     NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/x-bzip2"] || [httpResponse.MIMEType isEqualToString:@"application/x-bzip"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -273,7 +273,7 @@
     
     NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/gzip"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -291,7 +291,7 @@
     
     NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/x-lzma"] || [httpResponse.MIMEType isEqualToString:@"application/octet-stream"])) {
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -309,7 +309,7 @@
     
     NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        if (httpResponse.statusCode == 200 && ([httpResponse.MIMEType isEqualToString:@"application/octet-stream"] || [httpResponse.MIMEType isEqualToString:@"text/plain"])) {
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
             self->verificationStatus = ZBSourceExists;
@@ -321,6 +321,10 @@
         }
     }];
     [uncompressedTask resume];
+}
+
+- (BOOL)isNonBlacklistedMIMEType:(NSString *)mimeType {
+    return mimeType == nil || [mimeType length] == 0 || (![mimeType hasPrefix:@"audio/"] && ![mimeType hasPrefix:@"font/"] && ![mimeType hasPrefix:@"image/"] && ![mimeType hasPrefix:@"video/"] && ![mimeType isEqualToString:@"text/html"] && ![mimeType isEqualToString:@"text/css"]);
 }
 
 - (void)getLabel:(void (^)(NSString *label))completion {
