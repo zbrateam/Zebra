@@ -134,13 +134,13 @@
     
     ZBAccentColor color = [ZBSettings accentColor];
     ZBInterfaceStyle style = [ZBSettings interfaceStyle];
-    if ([UIColor accentColor] == nil || color == ZBAccentColorMonochrome) {
+    if (color == ZBAccentColorMonochrome) {
         //Flip the colors for readability
         [[self completeButton] setBackgroundColor:[UIColor whiteColor]];
         [[self completeButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     else {
-        [[self completeButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style]];
+        [[self completeButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style] ?: [UIColor systemBlueColor]];
     }
     
     [self setProgressTextHidden:YES];

@@ -157,13 +157,13 @@ typedef enum {
     
     ZBAccentColor color = [ZBSettings accentColor];
     ZBInterfaceStyle style = [ZBSettings interfaceStyle];
-    if ([UIColor accentColor] == nil || color == ZBAccentColorMonochrome) {
+    if (color == ZBAccentColorMonochrome) {
         //Flip the colors for readability
         [[self completeOrCancelButton] setBackgroundColor:[UIColor whiteColor]];
         [[self completeOrCancelButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     else {
-        [[self completeOrCancelButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style]];
+        [[self completeOrCancelButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style] ?: [UIColor systemBlueColor]];
     }
 }
 
