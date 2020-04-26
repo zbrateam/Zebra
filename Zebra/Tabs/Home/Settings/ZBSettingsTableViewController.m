@@ -183,6 +183,9 @@ enum ZBMiscOrder {
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.backgroundColor = [UIColor cellBackgroundColor];
+    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {
