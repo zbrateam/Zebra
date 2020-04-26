@@ -141,11 +141,11 @@
 "Sign Out" = "Wyloguj się";
 "Your Purchases" = "Twoje Zakupy";
 "No Storefronts Available" = "Brak dostępnych witryn sklepu";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Nie można było uwierzytelnić";
 "Could not complete purchase" = "Nie można ukończyć zakupu";
 "No packages purchased" = "Brak zakupionych pakietów";
-"Logged in as %@" = "Zalogowano jako %@";
-"Logged in as %@ (%@)" = "Zalogowano jako %@(%@)";
+"Signed in as %@" = "Zalogowano jako %@";
+"Signed in as %@ (%@)" = "Zalogowano jako %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Odśwież";
 "All Packages" = "Wszystkie pakiety";
 "Remove Source" = "Usuń źródło";
+"Local File" = "Plik lokalny";
 "Local Repository" = "Lokalne źródło";
 "Locally installed packages" = "Lokalnie zainstalowane pakiety";
 
@@ -188,8 +189,8 @@
 
 "Could not parse %@ from %@" = "Nie udało się zanalizować %@ z %@";
 "Could not find a download URL for" = "Nie udało znaleźć się URL pobierania dla";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Authorizing Download for %@" = "Autoryzacja pobierania %@";
+"Couldn't authorize download for %@." = "Nie można autoryzować pobierania dla %@.";
 "Reason: %@." = "Powód: %@.";
 "The Payment API is not supported on less than iOS 11.0" = "API płatności nie jest obsługiwane na wersjach niższych, niż iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Nie można pobrać pliku Release z %@. Powód: %@";
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Może powodować problemy, jeżeli dodasz je do Zebry, wywołując możliwość odtworzenia.";
 
 "%@ hasn't been modified" = "%@ nie został zmodyfikowany";
+
+"Install All" = "Zainstaluj wszystkie";
 
 // Packages
 

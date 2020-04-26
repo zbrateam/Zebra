@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kunde inte autentisera";
 "Could not complete purchase" = "Kunde inte slutföra köpet";
 "No packages purchased" = "Inga köpta paket";
-"Logged in as %@" = "Inloggad som %@";
-"Logged in as %@ (%@)" = "Inloggad som %@ (%@)";
+"Signed in as %@" = "Inloggad som %@";
+"Signed in as %@ (%@)" = "Inloggad som %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Uppdatera";
 "All Packages" = "Alla paket";
 "Remove Source" = "Ta bort källa";
+"Local File" = "Lokal fil";
 "Local Repository" = "Lokalt förråd";
 "Locally installed packages" = "Lokalt installerade paket";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Det kan orsaka problem om du lägger till det i Zebra och eventuellt resultera i återställning.";
 
 "%@ hasn't been modified" = "%@ har inte ändrats";
+
+"Install All" = "Installera alla";
 
 // Packages
 

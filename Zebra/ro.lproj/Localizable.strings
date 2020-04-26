@@ -144,8 +144,8 @@
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
 "No packages purchased" = "Nu există achiziții";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Autentificat ca %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Reîmprospătează";
 "All Packages" = "Toate Pachetele";
 "Remove Source" = "Elimină Sursă";
+"Local File" = "Local File";
 "Local Repository" = "Depozit local";
 "Locally installed packages" = "Pachete instalate local";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Aceasta actiunea poate cauza probleme rezultand intr-o posibila restaurare a sistemului.";
 
 "%@ hasn't been modified" = "%@ nu a fost modificat";
+
+"Install All" = "Install All";
 
 // Packages
 

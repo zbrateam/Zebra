@@ -25,7 +25,7 @@
 "Wish List" = "ほしいものリスト";
 "Newest First" = "新しい順";
 "Oldest First" = "古い順";
-"No items in Wish List" = "ほしいものリストには何もありません";
+"No items in Wish List" = "ほしいものリストには何も登録されていません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加する";
 "Follow us on Twitter" = "Twitter でフォローする";
@@ -44,7 +44,7 @@
 "Verifying..." = "検証中...";
 "Confirm Import" = "インポートの確認";
 "Import Sources" = "リポジトリを追加する";
-"No sources to import" = "インポートするレポジトリがありません";
+"No sources to import" = "インポートするリポジトリがありません";
 "Would you like to import the following sources?" = "以下のリポジトリを追加しますか？";
 "Are you sure that you want to import 1 source into Zebra?" = "リポジトリを Zebra にインポートしてもよろしいですか？";
 "Are you sure that you want to import %d sources into Zebra?" = "%d リポジトリを Zebra にインポートしてもよろしいですか？";
@@ -99,12 +99,12 @@
 
 // Featured
 
-"Featured Packages" = "注目されているパッケージ";
+"Featured Packages" = "おすすめされているパッケージ";
 "Feature Type" = "表示内容";
-"Repo Featured" = "注目のリポジトリ";
+"Repo Featured" = "おすすめされているリポジトリ";
 "Random" = "ランダム";
 "Select Repos to be Featured" = "リポジトリを選択";
-"Featured Repos" = "注目のリポジトリ";
+"Featured Repos" = "おすすめされているリポジトリ";
 
 // Reset
 
@@ -144,8 +144,8 @@
 "Could not authenticate" = "認証できませんでした";
 "Could not complete purchase" = "購入を完了できませんでした";
 "No packages purchased" = "購入したパッケージはありません";
-"Logged in as %@" = "%@ としてログイン中";
-"Logged in as %@ (%@)" = "%@ としてログイン中 (%@)";
+"Signed in as %@" = "%@ としてサインイン中";
+"Signed in as %@ (%@)" = "%@ としてサインイン中(%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "再読み込み";
 "All Packages" = "すべてのパッケージ";
 "Remove Source" = "リポジトリを消去";
+"Local File" = "ローカルファイル";
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 
@@ -211,6 +212,8 @@
 
 "%@ hasn't been modified" = "%@ は変更されていません";
 
+"Install All" = "全てインストール";
+
 // Packages
 
 "Version" = "バージョン";
@@ -218,24 +221,24 @@
 "Show Updates" = "アップデートを表示";
 "Hide Updates" = "アップデートを非表示";
 "Select Version" = "バージョンを選択";
-"Select a version to upgrade to:" = "アップグレードしたいバージョンを選択:";
+"Select a version to upgrade to:" = "アップデートしたいバージョンを選択:";
 "Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
 "Package" = "パッケージ";
 "Information" = "情報";
-"Upgrade All" = "すべてアップグレード";
+"Upgrade All" = "すべてをアップデート";
 "Loaded" = "読み込み済み";
 "ABC" = "ABC";
 "Date" = "日付";
 "Size" = "サイズ";
-"Available Upgrades" = "利用可能なアップグレード";
-"Ignored Upgrades" = "無視しているアップグレード";
+"Available Upgrades" = "利用可能なアップデート";
+"Ignored Upgrades" = "無視しているアップデート";
 "Recent" = "検索履歴";
 "Source" = "リポジトリ";
-"Installed Files" = "インストールされたファイル";
+"Installed Files" = "インストール済みファイル";
 "Modify" = "変更";
 "Authenticate to initiate purchase." = "認証してから購入します。";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "このパッケージの購入に使用したアカウントに再ログインしてください (たぶん %@)";
-"More by this Developer" = "この開発者による他のパッケージ";
+"More by this Developer" = "この開発者のパッケージ一覧";
 "Installed Version" = "インストール済みバージョン";
 "Installed Size" = "インストール済みサイズ";
 
@@ -254,12 +257,12 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "ほしい物リストに追加する";
-"Remove from Wish List" = "ほしい物リストから削除";
+"Add to Wish List" = "ほしいものリストに追加";
+"Remove from Wish List" = "ほしいものリストから削除";
 
 // Package Section Names
 
-"Administration" = "管理";
+"Administration" = "システム管理";
 "Addons" = "アドオン";
 "App Addons" = "アプリのアドオン";
 "Archiving" = "アーカイブ";
@@ -288,7 +291,7 @@
 "Security" = "セキュリティ";
 "Social" = "ソーシャル";
 "System" = "システム";
-"Terminal Support" = "ターミナルサポート";
+"Terminal Support" = "ターミナル";
 "Text Editors" = "テキスト編集";
 "Themes" = "テーマ";
 "Toys" = "おもちゃ";
@@ -362,7 +365,7 @@
 "Install" = "インストール";
 "Reinstall" = "再インストール";
 "Remove" = "削除";
-"Upgrade" = "アップグレード";
+"Upgrade" = "アップデート";
 "Downgrade" = "ダウングレード";
 "Abort" = "中止";
 "Continue" = "続行";
@@ -416,7 +419,7 @@
 
 "Could not determine device information." = "デバイス情報を特定できませんでした。";
 
-"Display featured packages on the homepage." = "注目されているパッケージをホームに表示します。";
+"Display featured packages on the homepage." = "おすすめされているパッケージをホームに表示します。";
 
 "Refresh Zebra's sources when opening the app." = "Zebraを開いた時にリポジトリを更新します";
 
@@ -430,9 +433,9 @@
 
 "Change the style of Zebra's dark mode when it is enabled." = "Zebra のダークモードが有効の場合に、テーマを変更します。";
 
-"Change the source of the featured packages on the homepage." = "ホームで注目されているパッケージのリポジトリを変更します。";
+"Change the source of the featured packages on the homepage." = "ホームでおすすめされているパッケージを表示するリポジトリを変更します。";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「注目のリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「おすすめされているリポジトリ」は、Featured Package API をサポートしているリポジトリから、ランダムなパッケージを表示します。";
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "「ランダム」は、Zebra に追加したすべてのリポジトリからランダムなパッケージを表示します。";
 

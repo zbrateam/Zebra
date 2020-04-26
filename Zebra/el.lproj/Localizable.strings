@@ -144,8 +144,8 @@
 "Could not authenticate" = "Αδυναμία ταυτοποίησης";
 "Could not complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
 "No packages purchased" = "Κανένα αγορασμένο πακέτο";
-"Logged in as %@" = "Συνδεδεμένος ως %@";
-"Logged in as %@ (%@)" = "Συνδεδεμένος ως %@ (%@)";
+"Signed in as %@" = "Συνδεδεμένος ως %@";
+"Signed in as %@ (%@)" = "Συνδεδεμένος ως %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Ανανέωση";
 "All Packages" = "Όλα τα Πακέτα";
 "Remove Source" = "Αφαίρεσε την Πηγή";
+"Local File" = "Τοπικό Αρχείο";
 "Local Repository" = "Τοπικό Repository";
 "Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
 
 "%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
+
+"Install All" = "Εγκατάσταση Όλων";
 
 // Packages
 

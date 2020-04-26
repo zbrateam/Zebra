@@ -144,8 +144,8 @@
 "Could not authenticate" = "无法验证身份";
 "Could not complete purchase" = "无法完成购买操作";
 "No packages purchased" = "无已购买软件包";
-"Logged in as %@" = "已登录账户：%@";
-"Logged in as %@ (%@)" = "已登录账户：%@（%@）";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "刷新";
 "All Packages" = "所有软件包";
 "Remove Source" = "删除软件源";
+"Local File" = "Local File";
 "Local Repository" = "本地软件源";
 "Locally installed packages" = "本地已安装软件包";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
 
 "%@ hasn't been modified" = "%@ 未被修改";
+
+"Install All" = "Install All";
 
 // Packages
 

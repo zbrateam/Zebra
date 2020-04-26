@@ -11,8 +11,8 @@
 "Done" = "Atlikta";
 "Loading..." = "Kraunasi...";
 "Clear" = "Išvalyti";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Įvyko klaida";
+"Dismiss" = "Atmesti";
 "Downloads" = "Siuntiniai";
 
 // Home
@@ -141,11 +141,11 @@
 "Sign Out" = "Atsijungti";
 "Your Purchases" = "Jūsų pirkiniai";
 "No Storefronts Available" = "Nėra prieinamų parduotuvių";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Nepavyko autentifikuoti";
 "Could not complete purchase" = "Nepavyko baigti pirkimo";
 "No packages purchased" = "Nėra nupirktų paketų";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Prisijungta kaip %@ (%@)";
+"Signed in as %@" = "Prisijungta kaip %@";
+"Signed in as %@ (%@)" = "Prisijungta kaip %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Atnaujinti";
 "All Packages" = "Visi paketai";
 "Remove Source" = "Pašalinti šaltinį";
+"Local File" = "Vietiniai failai";
 "Local Repository" = "Vietinė saugykla";
 "Locally installed packages" = "Įdiegti vietiniai paketai";
 
@@ -188,15 +189,15 @@
 
 "Could not parse %@ from %@" = "Negalima išanalizuoti %@ dėl %@";
 "Could not find a download URL for" = "Neaptiktas atsisiuntimo adresas";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Authorizing Download for %@" = "Autorizuojamas atsiuntimas %@";
+"Couldn't authorize download for %@." = "Nepavyko autorizuoti atsiuntimo %@.";
+"Reason: %@." = "Priežastis: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Mokėjimo API nepalaikomas ant mažesnės nei iOS 11.0 versijos";
+"Could not download Release file from %@. Reason: %@" = "Nepavyko atsiųsti 'Release' failo iš %@. Priežastis: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nepavyko atsiųsti paketų failo iš %@. Priežastis: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nepavyko atsiųsti vieno ar kelių failų iš %@. Priežastis: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Įvyko klaida kęliant failą iš %@ į %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Įvestas adresas klaidingas. Prašom jį patikrinti ir bandyti iš naujo.";
 
@@ -211,12 +212,14 @@
 
 "%@ hasn't been modified" = "%@ nebuvo modifikuotas";
 
+"Install All" = "Įdiegti visus";
+
 // Packages
 
 "Version" = "Versija";
 "Packages" = "Paketai";
 "Show Updates" = "Rodyti atnaujinimus";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Paslėpti atnaujinimus";
 "Select Version" = "Pasirinkti versiją";
 "Select a version to upgrade to:" = "Pasirinkite versiją į kurią norite atsinaujinti:";
 "Select a version to downgrade to:" = "Pasirinkite versiją į kurią norite grįžti:";
@@ -311,7 +314,7 @@
 "Console" = "Konsolė";
 "Performing Actions..." = "Atliekami veiksmai...";
 "Updating icon cache asynchronously..." = "Asinchroniškai atnaujinami piktogramų podeliai...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "'uicache' - simuliatoriuje, nepasiekiamas";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Tai gali užtrukti ir Zebra gali užstrigti/išsijungti. Jei taip atsitiks, tai normalu.";
 "Close Zebra" = "Uždaryti Zebra";
 "Closing Zebra..." = "Uždaroma Zebra...";
@@ -339,15 +342,15 @@
 "Finished importing local packages." = "Pabaigta importuoti vietinius paketus.";
 "One or more packages failed to download." = "Vieną ar daugiau paketų nepavyko atsiųsti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Spausti \"Grįžti į eilę\" , kad grįžtumėte į eilę ir pakartotumėte atsiuntimą.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Nepavyko užbaigti %@ proceso. Priežastis: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Prašom perkrauti Zebra ir patikrinti ar gedimas vis dar išlieka. Jei taip, prašom parašyti apie gedimą mūsų GitHub kanale.";
 "Done..." = "Atlikta...";
 "Done %@" = "Atlikta %@";
 "Removing Zebra..." = "Šalinama Zebra...";
 "Installing Zebra..." = "Įdiegiama Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Įvyko klaida atidarant failą:";
 "Adding Payment Vendor URL for %@" = "Pridedamas pardavėjo mokėjimo adresas %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Šis prietaisas yra imituojamas, čia yra paketai, kurie bus modifikuoti šiame etape:";
 
 // Queue Bar
 
@@ -374,7 +377,7 @@
 "Remove from Queue" = "Pašalinti iš eilės";
 "Clear Queue" = "Išvalyti eilę";
 "%@ is required by:" = "%@ reikalauja:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" nesuderinamas su %@";
 "%@ must be removed because it depends on %@" = "%@ turi būti pašalintas, nes jis priklauso nuo %@";
 "%@ has issues that cannot be resolved:" = "%@ turi problemų, kurių negalima išspręsti:";
 "Are you sure you want to clear the Queue?" = "Ar esate tikri, kad norite išvalyti eilę?";
@@ -398,13 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling neturi leidimų nustatyti uid ar gid. Prašome patikrinti leidimus failo, kuris randasi /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Įvyko klaida kuriant dokumentų direktoriją: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Įvyko klaida kuriant direktorijų sąrašą: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Įvyko klaida kuriant sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Įvyko klaida kuriant 'debs' direktoriją: %@.";
 
 "Could not respring. Please respring manually." = "Nepavyko padaryti respring. Prašome padaryti respring, rankiniu būdu.";
 
@@ -446,7 +449,7 @@
 "Add Filter" = "Pridėti filtrą";
 
 "1 Section Hidden" = "Paslėptas 1-as skyrius";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu skyriai paslėpti";
 
 "Sections" = "Skyriai";
 "Select a Section" = "Pasirinkti skyrių";
@@ -462,7 +465,7 @@
 "Authors" = "Autoriai";
 "Hide packages from these authors." = "Paslėpti paketus iš šių autorių.";
 "Search for an Author" = "Ieškoti autoriaus";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Šis autorius taip pat naudoja šiuos vardus:";
 
 // Language Settings
 

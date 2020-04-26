@@ -144,8 +144,8 @@
 "Could not authenticate" = "No se ha podido autenticar";
 "Could not complete purchase" = "No se pudo completar la compra";
 "No packages purchased" = "No hay paquetes comprados";
-"Logged in as %@" = "Conectado como %@";
-"Logged in as %@ (%@)" = "Registrado como %@(%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Actualizar";
 "All Packages" = "Todos los paquetes";
 "Remove Source" = "Eliminar Fuente";
+"Local File" = "Local File";
 "Local Repository" = "Repositorio local";
 "Locally installed packages" = "Paquetes instalados localmente";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Puede causar problemas si lo agregas a Zebra, resultando en una posible restauración.";
 
 "%@ hasn't been modified" = "%@ no ha sido modificado";
+
+"Install All" = "Install All";
 
 // Packages
 
@@ -398,13 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling no tiene permisos para establecer el uid o el gid. Por favor, comprueba los permisos del archivo ubicado en /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Error al crear el directorio de documentos %@.";
 
 "Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Error al crear sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Error al crear directorio de debs: %@.";
 
 "Could not respring. Please respring manually." = "No se pudo hacer respring. Por favor, inténtalo manualmente.";
 

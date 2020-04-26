@@ -144,8 +144,8 @@
 "Could not authenticate" = "לא ניתן לאמת";
 "Could not complete purchase" = "לא ניתן להשלים רכישה";
 "No packages purchased" = "אין חבילות שנרכשו";
-"Logged in as %@" = "מחובר/ת בתור %@";
-"Logged in as %@ (%@)" = "מחובר/ת בתור %@ (%@)";
+"Signed in as %@" = "מחובר/ת בתור %@";
+"Signed in as %@ (%@)" = "מחובר/ת בתור %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "רענן";
 "All Packages" = "כל החבילות";
 "Remove Source" = "הסר מקור";
+"Local File" = "קובץ מקומי";
 "Local Repository" = "מקור מקומי";
 "Locally installed packages" = "חבילות שהותקנו מקומית";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "אם תוסיף/י אותו לזברה זה עלול לגרום לבעיות שיובילו לשחזור אפשרי.";
 
 "%@ hasn't been modified" = "לא בוצעו שינויים ב-%@";
+
+"Install All" = "התקן הכל";
 
 // Packages
 

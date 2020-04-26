@@ -141,11 +141,11 @@
 "Sign Out" = "Esci";
 "Your Purchases" = "I tuoi acquisti";
 "No Storefronts Available" = "Nessuna vetrina disponibile";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Errore di autenticazione";
 "Could not complete purchase" = "Impossibile completare l'acquisto";
 "No packages purchased" = "Nessun pacchetto acquistato";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Accesso eseguito come %@ (%@)";
+"Signed in as %@" = "Accesso eseguito come %@";
+"Signed in as %@ (%@)" = "Accesso eseguito come %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Ricarica";
 "All Packages" = "Tutti i Pacchetti";
 "Remove Source" = "Rimuovi Sorgente";
+"Local File" = "File Locale";
 "Local Repository" = "Sorgente Locale";
 "Locally installed packages" = "Pacchetti installati localmente";
 
@@ -177,7 +178,7 @@
 "Unable to verify source" = "Impossibile verificare sorgente";
 "Error verifying source" = "Errore di verifica sorgente";
 "Error verifying sources" = "Errore di verifica sorgenti";
-"Failed to add source" = "Errore nell’aggiunta del sorgente";
+"Failed to add source" = "Errore nell’aggiunta della sorgente";
 "Failed to add sources" = "Errore nell’aggiunta dei sorgenti";
 "You have already added this source." = "Hai già aggiunto questa sorgente.";
 "You have already added these sources." = "Hai già aggiunto queste sorgenti.";
@@ -188,15 +189,15 @@
 
 "Could not parse %@ from %@" = "Impossibile analizzare %@ da %@";
 "Could not find a download URL for" = "Impossibile trovare un URL di download per";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "Autorizzo Download per %@";
+"Couldn't authorize download for %@." = "Impossibile autorizzare il download di %@.";
+"Reason: %@." = "Motivo: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "L'API di pagamento non è supportata su versioni minori di iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Impossibile scaricare il file Release da %@. Motivo: %@";
 "Could not download Packages file from %@. Reason: %@" = "Impossibile scaricare i file dei pacchetti da %@. Motivo: %@";
 "Could not download one or more files from %@. Reason: %@" = "Impossibile scaricare uno o più file da %@. Motivo: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Errore durante lo spostamento del file %@ a %@";
 
 "The URL you entered is not valid. Please check it and try again." = "L’URL inserito non è valido. Si prega di controllare e riprovare.";
 
@@ -211,12 +212,14 @@
 
 "%@ hasn't been modified" = "%@ non è stato modificato";
 
+"Install All" = "Installa Tutto";
+
 // Packages
 
 "Version" = "Versione";
 "Packages" = "Pacchetti";
 "Show Updates" = "Mostra Aggiornamenti";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Nascondi Aggiornamenti";
 "Select Version" = "Seleziona Versione";
 "Select a version to upgrade to:" = "Seleziona una versione per aggiornare:";
 "Select a version to downgrade to:" = "Seleziona una versione per il downgrade:";
@@ -311,7 +314,7 @@
 "Console" = "Console";
 "Performing Actions..." = "Eseguo azioni...";
 "Updating icon cache asynchronously..." = "Aggiornamento cache icone in modo asincrono...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache non è disponibile sul simulatore";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Questo potrebbe richiedere del tempo e Zebra potrebbe chiudersi.È ok se lo fa.";
 "Close Zebra" = "Chiudi Zebra";
 "Closing Zebra..." = "Chiusura di Zebra in corso...";
@@ -347,7 +350,7 @@
 "Installing Zebra..." = "Installando Zebra...";
 "Error while opening file:" = "Errore durante l'apertura del file:";
 "Adding Payment Vendor URL for %@" = "Aggiungo URL di pagamento del venditore per %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Questo dispositivo è simulato, ecco i pacchetti che verrebbero modificati in questa fase:";
 
 // Queue Bar
 

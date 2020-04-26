@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kunne ikke autentisere";
 "Could not complete purchase" = "Kunne ikke fullføre kjøpet";
 "No packages purchased" = "Ingen kjøpte pakker";
-"Logged in as %@" = "Innlogget som %@";
-"Logged in as %@ (%@)" = "Innlogget som %@ (%@)";
+"Signed in as %@" = "Innlogget som %@";
+"Signed in as %@ (%@)" = "Innlogget som %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Oppdater";
 "All Packages" = "Alle pakker";
 "Remove Source" = "Fjern kilde";
+"Local File" = "Lokal fil";
 "Local Repository" = "Lokal kilde";
 "Locally installed packages" = "Lokalt installerte pakker";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Den kan forårsake problemer hvis du legger den til i Zebra. Det kan eventuelt føre til at du må gjenopprette enheten din.";
 
 "%@ hasn't been modified" = "%@ har ikke blitt modifisert";
+
+"Install All" = "Installer alle";
 
 // Packages
 
@@ -289,7 +292,7 @@
 "Social" = "Sosialt";
 "System" = "System";
 "Terminal Support" = "Terminalstøtte";
-"Text Editors" = "Tekstredigerings verktøy";
+"Text Editors" = "Tekstredigeringsverktøy";
 "Themes" = "Temaer";
 "Toys" = "Leker";
 "Tweaks" = "Tweaks";

@@ -144,8 +144,8 @@
 "Could not authenticate" = "Doğrulanamadı";
 "Could not complete purchase" = "Satın alma tamamlanamadı";
 "No packages purchased" = "Hiç Paket Satın Alınmadı";
-"Logged in as %@" = "%@ olarak giriş yapıldı";
-"Logged in as %@ (%@)" = "%@ (%@) olarak giriş yapıldı";
+"Signed in as %@" = "%@ olarak giriş yapıldı";
+"Signed in as %@ (%@)" = "%@ olarak giriş yapıldı (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Yenile";
 "All Packages" = "Bütün Paketler";
 "Remove Source" = "Kaynağı Kaldır";
+"Local File" = "Yerel Dosya";
 "Local Repository" = "Yerel Kaynak";
 "Locally installed packages" = "Yerel olarak kurulmuş paketler";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Bu kaynağı Zebra'ya eklerseniz bir sıfırlamaya sebep olucak kadar kötü sonuçlar doğurabilir.";
 
 "%@ hasn't been modified" = "%@ Düzenlenmemiş";
+
+"Install All" = "Hepsini Yükle";
 
 // Packages
 

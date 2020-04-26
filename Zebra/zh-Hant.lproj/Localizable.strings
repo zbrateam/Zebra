@@ -144,8 +144,8 @@
 "Could not authenticate" = "無法認證";
 "Could not complete purchase" = "無法完成購買操作";
 "No packages purchased" = "沒有已購買的套件";
-"Logged in as %@" = "已登入為 %@";
-"Logged in as %@ (%@)" = "已登入為 %@（%@）";
+"Signed in as %@" = "已登入為 %@";
+"Signed in as %@ (%@)" = "已登入為 %@（%@）";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "重新整理";
 "All Packages" = "所有套件";
 "Remove Source" = "移除來源";
+"Local File" = "本地檔案";
 "Local Repository" = "本地來源";
 "Locally installed packages" = "本地已安裝套件";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "若您將此新增到 Zebra，可能會發生問題並導致需要還原裝置。";
 
 "%@ hasn't been modified" = "%@ 未被修改";
+
+"Install All" = "全部安裝";
 
 // Packages
 

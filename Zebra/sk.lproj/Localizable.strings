@@ -144,8 +144,8 @@
 "Could not authenticate" = "Could not authenticate";
 "Could not complete purchase" = "Could not complete purchase";
 "No packages purchased" = "No packages purchased";
-"Logged in as %@" = "Logged in as %@";
-"Logged in as %@ (%@)" = "Logged in as %@ (%@)";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
@@ -155,6 +155,7 @@
 "Refresh" = "Refreshút";
 "All Packages" = "Všetky balíčky";
 "Remove Source" = "Remove Source";
+"Local File" = "Local File";
 "Local Repository" = "Miestné repozitára";
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 
@@ -210,6 +211,8 @@
 "It may cause issues if you add it to Zebra resulting in possible restore." = "Ak ho pridáte do aplikácie Zebra, môže to spôsobiť problémy, čo môže mať za následok nutné obnovenie softvéru.";
 
 "%@ hasn't been modified" = "%@ nebol zmenený";
+
+"Install All" = "Install All";
 
 // Packages
 
