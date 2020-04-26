@@ -144,8 +144,8 @@
 "Could not authenticate" = "Nevarēja autentificēt";
 "Could not complete purchase" = "Nevarēja Pabeigt Pirkumu";
 "No packages purchased" = "Netika iegādātas paketes";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Ielogots kā %@";
+"Signed in as %@ (%@)" = "Ielogots kā %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Atjaunot";
 "All Packages" = "Visas pakas";
 "Remove Source" = "Noņemt Avotu";
-"Local File" = "Local File";
+"Local File" = "Vietējais Fails";
 "Local Repository" = "Lokālais avots";
 "Locally installed packages" = "Lokāli instalētas paketes";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ nav modificēts";
 
-"Install All" = "Install All";
+"Install All" = "Instalēt Visu";
 
 // Packages
 
