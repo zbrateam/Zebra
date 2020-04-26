@@ -3,11 +3,11 @@ Zebra (née AUPM) is a Package Manager for jailbroken iOS devices. It is built t
 
 ## Installation
 #### From an APT Repo
-Zebra is available from Zebra's APT repo for iOS located [here](https://getzbra.com/repo).
+Zebra is available from Zebra's APT repo for iOS located at [https://getzbra.com/repo](https://getzbra.com/repo).
 
 This source can be added to any package manager on your iPhone or iPad, and it is included by default with Zebra to provide future updates.
 
-Zebra also has a beta repository that contains builds for beta testers to try out new features and report potential problems you can add Zebra's beta APT repo for iOS located [here](https://getzbra.com/beta).
+Zebra also has a beta repository that contains builds for beta testers to try out new features and report potential problems you can add Zebra's beta APT repo for iOS located at [https://getzbra.com/beta](https://getzbra.com/beta).
 
 #### Pre-compiled debs
 Pre-compiled debs are available via [GitHub releases](https://github.com/wstyres/Zebra/releases) if that is your fancy.
