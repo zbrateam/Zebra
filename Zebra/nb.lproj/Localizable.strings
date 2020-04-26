@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kunne ikke autentisere";
 "Could not complete purchase" = "Kunne ikke fullføre kjøpet";
 "No packages purchased" = "Ingen kjøpte pakker";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Innlogget som %@";
+"Signed in as %@ (%@)" = "Innlogget som %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Oppdater";
 "All Packages" = "Alle pakker";
 "Remove Source" = "Fjern kilde";
-"Local File" = "Local File";
+"Local File" = "Lokal fil";
 "Local Repository" = "Lokal kilde";
 "Locally installed packages" = "Lokalt installerte pakker";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ har ikke blitt modifisert";
 
-"Install All" = "Install All";
+"Install All" = "Installer alle";
 
 // Packages
 
