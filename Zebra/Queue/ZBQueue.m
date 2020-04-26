@@ -761,6 +761,10 @@
             return NSLocalizedString(@"Upgrade", @"");
         case ZBQueueTypeDowngrade:
             return NSLocalizedString(@"Downgrade", @"");
+        case ZBQueueTypeDependency:
+            return NSLocalizedString(@"Install", @"");
+        case ZBQueueTypeConflict:
+            return NSLocalizedString(@"Remove", @"");
         default:
             return NULL;
     }
@@ -778,6 +782,10 @@
             return [UIColor systemBlueColor];
         case ZBQueueTypeDowngrade:
             return [UIColor systemPurpleColor];
+        case ZBQueueTypeDependency:
+            return [UIColor systemTealColor];
+        case ZBQueueTypeConflict:
+            return [UIColor systemPinkColor];
         default:
             return nil;
     }
