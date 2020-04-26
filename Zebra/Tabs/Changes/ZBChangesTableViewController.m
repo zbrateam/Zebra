@@ -67,7 +67,7 @@
     availableOptions = @[@"release", @"update", @"upcoming", @"news"];
     defaults = [NSUserDefaults standardUserDefaults];
     [self startSettingHeader];
-    self.batchLoadCount = 500;
+    self.batchLoadCount = 250;
     [self refreshTable];
 }
 
@@ -93,93 +93,103 @@
 }
 
 - (void)kickStartReddit {
-    NSDate *creationDate = [defaults objectForKey:@"redditCheck"];
-    if (!creationDate) {
-        [self getRedditToken];
-    } else {
-        double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
-        if (seconds > 3500) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSDate *creationDate = [self->defaults objectForKey:@"redditCheck"];
+        if (!creationDate) {
             [self getRedditToken];
         } else {
-            [self retrieveNewsJson];
+            double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
+            if (seconds > 3500) {
+                [self getRedditToken];
+            } else {
+                [self retrieveNewsJson];
+            }
         }
-    }
+    });
 }
 
 - (void)getRedditToken {
-    NSURL *checkingURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:checkingURL];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
-    NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
-    [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            NSError *error2 = nil;
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
-            [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
-            [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
-            [self->defaults synchronize];
-            [self retrieveNewsJson];
-        }
-        if (error) {
-            NSLog(@"[Zebra] Error getting reddit token: %@", error);
-        }
-    }] resume];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *checkingURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:checkingURL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
+        NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
+        [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (data) {
+                NSError *error2 = nil;
+                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
+                [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
+                [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
+                [self->defaults synchronize];
+                [self retrieveNewsJson];
+            }
+            if (error) {
+                NSLog(@"[Zebra] Error getting reddit token: %@", error);
+            }
+        }] resume];
+    });
 }
 
 - (void)retrieveNewsJson {
-    [self.redditPosts removeAllObjects];
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", [defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            NSError *err = nil;
-            ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
-            for (ZBChild *child in redditPosts.data.children) {
-                if (child.data.title != nil) {
-                    NSArray *post = [self getTags:child.data.title];
-                    for (NSString *string in self->availableOptions) {
-                        if ([post containsObject:string] && ![self.redditPosts containsObject:child.data]) {
-                            [self.redditPosts addObject:child.data];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.redditPosts removeAllObjects];
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
+        [request setHTTPMethod:@"GET"];
+        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+        [request setValue:[NSString stringWithFormat:@"Bearer %@", [self->defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (data) {
+                NSError *err = nil;
+                ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
+                for (ZBChild *child in redditPosts.data.children) {
+                    if (child.data.title != nil) {
+                        NSArray *post = [self getTags:child.data.title];
+                        for (NSString *string in self->availableOptions) {
+                            if ([post containsObject:string] && ![self.redditPosts containsObject:child.data]) {
+                                [self.redditPosts addObject:child.data];
+                            }
                         }
                     }
                 }
             }
-        }
-        if (error) {
-            NSLog(@"[Zebra] Error retrieving news JSON %@", error);
-        } else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self createHeader];
-            });
-        }
-    }] resume];
+            if (error) {
+                NSLog(@"[Zebra] Error retrieving news JSON %@", error);
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self createHeader];
+                });
+            }
+        }] resume];
+    });
 }
 
 - (void)createHeader {
-    [self.tableView beginUpdates];
-    [self.collectionView reloadData];
-    [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
-    }];
-    [self.tableView endUpdates];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.collectionView reloadData];
+        [UIView animateWithDuration:.25f animations:^{
+            self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
+        }];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)hideHeader {
-    [self.tableView beginUpdates];
-    [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 0);
-    }];
-    [self.collectionView reloadData];
-    [self.tableView endUpdates];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [UIView animateWithDuration:.25f animations:^{
+            self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 0);
+        }];
+        [self.collectionView reloadData];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)dealloc {
