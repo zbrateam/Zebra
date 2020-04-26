@@ -55,7 +55,14 @@
         }
     }
     else {
-        return style == ZBInterfaceStylePureBlack ? [UIColor blackColor] : [UIColor systemGroupedBackgroundColor];
+        return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if ([ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
+                return [UIColor blackColor];
+            }
+            else {
+                return [UIColor systemGroupedBackgroundColor];
+            }
+        }];
     }
 }
 
@@ -72,7 +79,14 @@
         }
     }
     else {
-        return style == ZBInterfaceStylePureBlack ? [UIColor blackColor] : [UIColor secondarySystemGroupedBackgroundColor];
+        return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if ([ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
+                return [UIColor blackColor];
+            }
+            else {
+                return [UIColor secondarySystemGroupedBackgroundColor];
+            }
+        }];
     }
 }
 
@@ -89,7 +103,14 @@
         }
     }
     else {
-        return style == ZBInterfaceStylePureBlack ? [[UIColor whiteColor] colorWithAlphaComponent:0.05] : [[UIColor tertiarySystemGroupedBackgroundColor] colorWithAlphaComponent:0.75];
+        return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if ([ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
+                return [[UIColor whiteColor] colorWithAlphaComponent:0.05];
+            }
+            else {
+                return [[UIColor tertiarySystemGroupedBackgroundColor] colorWithAlphaComponent:0.75];
+            }
+        }];
     }
 }
 

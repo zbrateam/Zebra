@@ -91,6 +91,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
+    self.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    
     [self.packageIcon.layer setCornerRadius:20];
     [self.packageIcon.layer setMasksToBounds:YES];
     infos = [NSMutableDictionary new];
@@ -129,8 +131,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [progressView setTintColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     
     webView.navigationDelegate = self;
-    webView.opaque = NO;
-    webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     if ([package depictionURL]) {
         [self prepDepictionLoading:[package depictionURL]];
@@ -157,7 +157,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (void)prepDepictionLoading:(NSURL *)url {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
-    webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
@@ -394,7 +393,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 - (void)reloadDepiction {
     UIColor *tableViewBackgroundColor = [UIColor groupedTableViewBackgroundColor];
     [self prepDepictionLoading:webView.URL];
-    webView.backgroundColor = tableViewBackgroundColor;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     self.navigationController.navigationBar.barTintColor = tableViewBackgroundColor;
     self.tableView.backgroundColor = tableViewBackgroundColor;

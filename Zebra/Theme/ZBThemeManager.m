@@ -155,11 +155,11 @@
         if (@available(iOS 13.0, *)) {
             UITabBarAppearance *app = [[UITabBarAppearance alloc] init];
             [app configureWithOpaqueBackground];
-            [app setBackgroundColor:[UIColor tableViewBackgroundColor]];
+            [app setBackgroundColor:[UIColor blackColor]];
             
             [[UITabBar appearance] setStandardAppearance:app];
         }
-        [[UITabBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[UITabBar appearance] setBackgroundColor:[UIColor blackColor]];
         [[UITabBar appearance] setTranslucent:NO];
     }
     else {
@@ -178,12 +178,12 @@
         if (@available(iOS 13.0, *)) {
             UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
             [app configureWithOpaqueBackground];
-            [app setBackgroundColor:[UIColor tableViewBackgroundColor]];
+            [app setBackgroundColor:[UIColor blackColor]];
             
             [[UINavigationBar appearance] setStandardAppearance:app];
             [[UINavigationBar appearance] setScrollEdgeAppearance:app];
         }
-        [[UINavigationBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[UINavigationBar appearance] setBackgroundColor:[UIColor blackColor]];
         [[UINavigationBar appearance] setTranslucent:NO];
     }
     else {
@@ -225,7 +225,7 @@
 
 - (void)configurePopupBar {
     if (interfaceStyle == ZBInterfaceStylePureBlack) {
-        [[LNPopupBar appearance] setBackgroundColor:[UIColor tableViewBackgroundColor]];
+        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
         [[LNPopupBar appearance] setTranslucent:NO];
     }
     else {

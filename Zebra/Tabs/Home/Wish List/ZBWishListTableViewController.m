@@ -220,7 +220,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         destination.package = [wishedPackages objectAtIndex:indexPath.row];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
 

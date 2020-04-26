@@ -70,7 +70,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
 

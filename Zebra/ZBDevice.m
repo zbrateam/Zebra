@@ -389,7 +389,7 @@
     safariVC.delegate = delegate;
     UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     if (@available(iOS 10.0, *)) {
-        safariVC.preferredBarTintColor = [UIColor tableViewBackgroundColor];
+        safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
         safariVC.preferredControlTintColor = tintColor;
     } else {
         safariVC.view.tintColor = tintColor;

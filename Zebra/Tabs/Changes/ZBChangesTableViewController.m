@@ -337,7 +337,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         [self setDestinationVC:indexPath destination:destination];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
 
@@ -411,13 +411,6 @@
     else {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     }
-}
-
-- (void)darkMode:(NSNotification *)notif {
-    [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor accentColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
-    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 #pragma mark News
@@ -521,7 +514,7 @@
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:cell.redditLink entersReaderIfAvailable:NO];
         safariVC.delegate = self;
         if (@available(iOS 10.0, *)) {
-            [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
+            [safariVC setPreferredBarTintColor:[UIColor groupedTableViewBackgroundColor]];
             [safariVC setPreferredControlTintColor:[UIColor accentColor]];
         } else {
             [safariVC.view setTintColor:[UIColor accentColor]];

@@ -110,7 +110,7 @@
 }
 
 - (void)applyStyle {
-    self.backgroundColor = [[UIColor tableViewBackgroundColor] colorWithAlphaComponent:0.6];
+    self.backgroundColor = [[UIColor groupedTableViewBackgroundColor] colorWithAlphaComponent:0.6];
     if (@available(iOS 10.0, *)) {
         UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
         UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];

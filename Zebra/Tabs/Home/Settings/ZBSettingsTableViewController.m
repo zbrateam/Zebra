@@ -529,8 +529,6 @@ enum ZBMiscOrder {
     if (@available(iOS 10.3, *)) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController pushViewController:altIcon animated:YES];
     }
 }

@@ -368,7 +368,7 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSString *packageID = sender;
         destination.package = [databaseManager topVersionForPackageID:packageID];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     } else {
         ZBPackageListTableViewController *destination = [segue destinationViewController];
         UITableViewCell *cell = (UITableViewCell *)sender;
