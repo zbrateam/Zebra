@@ -21,9 +21,21 @@ jobs:
         git submodule update --init --recursive
 
     - name: Build Package
+      id: build
       env:
         THEOS: theos
-      run: make package FINALPACKAGE=1
+      run: |
+        make package FINALPACKAGE=1
+        echo "##[set-output name=package;]$(ls -t packages/ | head -n1)"
+    - name: Upload package to release
+      uses: actions/upload-release-asset@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}/assets{?name,label}
+        asset_path: packages/${{ steps.build.outputs.package }}
+        asset_name: ${{ steps.build.outputs.package }}
+        asset_content_type: application/vnd.debian.binary-package
     - name: Clone gh-pages
       run: |
         git clone -b gh-pages git@github.com:wstyres/Zebra.git ~/website
