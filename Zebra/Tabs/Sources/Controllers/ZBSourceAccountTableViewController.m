@@ -153,15 +153,6 @@
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 1 || (indexPath.section == 0 && indexPath.row == 0)) {
-        return 65;
-    }
-    else {
-        return 44;
-    }
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
@@ -239,7 +230,6 @@
             ZBPackage *package = [purchases objectAtIndex:indexPath.row];
             [(ZBPackageTableViewCell *)cell updateData:package];
             
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             
             return cell;

@@ -44,7 +44,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
