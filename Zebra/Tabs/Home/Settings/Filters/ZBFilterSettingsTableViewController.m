@@ -166,6 +166,7 @@
     
     cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
     cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    cell.imageView.image = nil;
     
     return cell;
 }
