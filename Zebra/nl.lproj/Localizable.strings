@@ -144,8 +144,8 @@
 "Could not authenticate" = "Kan niet verifiëren";
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "No packages purchased" = "Geen aangekochte pakketten";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Ingelogd als %@";
+"Signed in as %@ (%@)" = "Ingelogd als %@(%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Ververs";
 "All Packages" = "Alle pakketten";
 "Remove Source" = "Verwijder Bron";
-"Local File" = "Local File";
+"Local File" = "Lokaal bestand";
 "Local Repository" = "Lokale bron";
 "Locally installed packages" = "Lokaal geïnstalleerde pakketten";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
 
-"Install All" = "Install All";
+"Install All" = "Alles installeren";
 
 // Packages
 
