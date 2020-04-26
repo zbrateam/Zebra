@@ -144,8 +144,8 @@
 "Could not authenticate" = "인증할 수 없었습니다.";
 "Could not complete purchase" = "결제를 완료할 수 없습니다.";
 "No packages purchased" = "아무런 패키지도 구매하지 않았습니다.";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "%@(으)로 로그인 됨";
+"Signed in as %@ (%@)" = "%@ (%@)으로 로그인 됨.";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "새로고침";
 "All Packages" = "모든 패키지";
 "Remove Source" = "소스 제거";
-"Local File" = "Local File";
+"Local File" = "로컬 파일";
 "Local Repository" = "로컬 저장소";
 "Locally installed packages" = "내부에서 설치된 패키지";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@(이)가 수정되지 않았습니다.";
 
-"Install All" = "Install All";
+"Install All" = "모두 설치";
 
 // Packages
 
