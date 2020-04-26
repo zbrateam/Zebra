@@ -752,7 +752,9 @@
 - (NSString *)displayableNameForQueueType:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall:
+        case ZBQueueTypeDependency:
             return NSLocalizedString(@"Install", @"");
+        case ZBQueueTypeConflict:
         case ZBQueueTypeRemove:
             return NSLocalizedString(@"Remove", @"");
         case ZBQueueTypeReinstall:
@@ -761,10 +763,6 @@
             return NSLocalizedString(@"Upgrade", @"");
         case ZBQueueTypeDowngrade:
             return NSLocalizedString(@"Downgrade", @"");
-        case ZBQueueTypeDependency:
-            return NSLocalizedString(@"Install", @"");
-        case ZBQueueTypeConflict:
-            return NSLocalizedString(@"Remove", @"");
         default:
             return NULL;
     }
@@ -772,8 +770,10 @@
 
 + (UIColor *)colorForQueueType:(ZBQueueType)queue {
     switch (queue) {
+        case ZBQueueTypeDependency:
         case ZBQueueTypeInstall:
             return [UIColor systemTealColor];
+        case ZBQueueTypeConflict:
         case ZBQueueTypeRemove:
             return [UIColor systemPinkColor];
         case ZBQueueTypeReinstall:
@@ -782,10 +782,6 @@
             return [UIColor systemBlueColor];
         case ZBQueueTypeDowngrade:
             return [UIColor systemPurpleColor];
-        case ZBQueueTypeDependency:
-            return [UIColor systemTealColor];
-        case ZBQueueTypeConflict:
-            return [UIColor systemPinkColor];
         default:
             return nil;
     }
