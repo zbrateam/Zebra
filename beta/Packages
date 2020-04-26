@@ -196,3 +196,21 @@ Author: Wilson Styres <wilson@styres.me>
 Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
 Name: Zebra
 
+Package: xyz.willy.zebra
+Version: 1.1~beta7
+Architecture: iphoneos-arm
+Maintainer: Wilson Styres <wilson@styres.me>
+Installed-Size: 58336
+Depends: dpkg, uikittools, firmware (>= 9.0)
+Filename: ./pkgfiles/xyz.willy.zebra_1.1~beta7_iphoneos-arm.deb
+Size: 18936120
+MD5sum: aa1e1f48647df88af5cd61e7a6c58eb5
+SHA1: de21e7374df508b51a1be590d1ad6fecc6190370
+SHA256: 35e100ec5c47366eba85221392758002824481b52db694aa98dd0e66a0da3a65
+Section: Packaging
+Description: A Useful Package Manager
+Tag: compatible::9.0-13.4
+Author: Wilson Styres <wilson@styres.me>
+Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
+Name: Zebra
+
