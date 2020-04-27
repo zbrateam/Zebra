@@ -114,22 +114,22 @@
             self->components = components;
         }
         
-        if ([distribution hasSuffix:@"/"]) { // This is a flat repository, flat repositories must have a '/' at the end to indicate themselves
+        if ([distribution hasSuffix:@"/"] && ![components count]) { // This is a flat repository, flat repositories must have a '/' at the end to indicate themselves
             NSURL *baseURL = [NSURL URLWithString:repositoryURI];
             mainDirectoryURL = [NSURL URLWithString:distribution relativeToURL:baseURL];
             
             packagesDirectoryURL = mainDirectoryURL;
         }
-        else {
+        else if (components && [components count]) {
             //Set packages and release URLs to follow dist format
             NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
             packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
         }
+        if (!mainDirectoryURL) return NULL;
         releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
-        if (!mainDirectoryURL) return NULL;
         NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
         NSString *schemeless = [mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
         self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
