@@ -127,6 +127,12 @@
 
             packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
         }
+        else {
+            NSURL *baseURL = [NSURL URLWithString:repositoryURI];
+            mainDirectoryURL = [NSURL URLWithString:@"./" relativeToURL:baseURL];
+            
+            packagesDirectoryURL = mainDirectoryURL;
+        }
         if (!mainDirectoryURL) return NULL;
         releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
