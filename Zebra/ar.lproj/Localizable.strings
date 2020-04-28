@@ -144,8 +144,8 @@
 "Could not authenticate" = "تعذرت المصادقة";
 "Could not complete purchase" = "تعذر إكمال الشراء";
 "No packages purchased" = "لا توجد حزم مشتراة";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "تم تسجيل الدخول كـ %@";
+"Signed in as %@ (%@)" = "تم تسجيل الدخول كـ %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
 "Remove Source" = "حذف مصدر";
-"Local File" = "Local File";
+"Local File" = "ملف محلي";
 "Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
 
-"Install All" = "Install All";
+"Install All" = "تثبيت الكل";
 
 // Packages
 
