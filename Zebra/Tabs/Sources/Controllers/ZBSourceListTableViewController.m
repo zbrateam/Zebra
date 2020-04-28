@@ -175,8 +175,9 @@
             UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 [self.databaseManager updateSource:source useCaching:YES];
             }];
-                
-            if ([[UIColor accentColor] isEqual:[UIColor colorWithRed:1 green:1 blue:1 alpha:1]]) {
+            
+            ZBAccentColor accentColor = [ZBSettings accentColor];
+            if ((accentColor == ZBAccentColorMonochrome || accentColor == ZBAccentColorShark) && [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
                 refreshAction.backgroundColor = [UIColor grayColor];
             }
             else {

@@ -235,13 +235,9 @@
     if ([ZBThemeManager useCustomTheming]) {
         if (interfaceStyle >= ZBInterfaceStyleDark) {
             [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
-//            [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
-//            [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor secondaryTextColor]}];
         }
         else {
             [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
-//            [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
-//            [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor secondaryTextColor]}];
         }
     }
 }
