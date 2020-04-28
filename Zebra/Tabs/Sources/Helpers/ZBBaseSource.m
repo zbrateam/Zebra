@@ -389,8 +389,16 @@
     if (![object isKindOfClass:[ZBBaseSource class]])
         return NO;
     
+    NSString *repositoryURISchemeless;
+    if ([self.repositoryURI hasPrefix:@"http:"]) {
+        repositoryURISchemeless = [self.repositoryURI stringByReplacingOccurrencesOfString:@"http:" withString:@""];
+    }
+    else if ([self.repositoryURI hasPrefix:@"https:"]) {
+        repositoryURISchemeless = [self.repositoryURI stringByReplacingOccurrencesOfString:@"https:" withString:@""];
+    }
+    
     BOOL archiveTypeEqual = [[object archiveType] isEqualToString:[self archiveType]];
-    BOOL repositoryURIEqual = [[object repositoryURI] isEqualToString:[self repositoryURI]];
+    BOOL repositoryURIEqual = [[object repositoryURI] hasSuffix:repositoryURISchemeless];
     BOOL distributionEqual = [[object distribution] isEqualToString:[self distribution]];
     
     BOOL componentsEqual = NO;
@@ -401,7 +409,15 @@
 }
 
 - (NSUInteger)hash {
-    return [self.archiveType hash] + [self.repositoryURI hash] + [self.distribution hash] + [self.components hash];
+    NSUInteger repositoryURIHash = 0;
+    if ([self.repositoryURI hasPrefix:@"http:"]) {
+        repositoryURIHash = [[self.repositoryURI stringByReplacingOccurrencesOfString:@"http:" withString:@""] hash];
+    }
+    else if ([self.repositoryURI hasPrefix:@"https:"]) {
+        repositoryURIHash = [[self.repositoryURI stringByReplacingOccurrencesOfString:@"https:" withString:@""] hash];
+    }
+    
+    return [self.archiveType hash] + repositoryURIHash + [self.distribution hash] + [self.components hash];
 }
 
 - (BOOL)exists {
