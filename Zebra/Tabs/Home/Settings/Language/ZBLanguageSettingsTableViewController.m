@@ -147,32 +147,23 @@
         cell.accessoryView = languageSwitch;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.text = NSLocalizedString(@"Use System Language", @"");
+        cell.detailTextLabel.text = nil;
         
         return cell;
     }
     else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1) {
         NSString *languageCode = languages[indexPath.row];
         NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
+        NSLocale *currentLocale = [NSLocale currentLocale];
+        
+        NSString *displayName = [[locale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:locale];
+        NSString *localizedDisplayName = [[currentLocale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:currentLocale];
         
         cell.accessoryView = NULL;
         cell.accessoryType = [indexPath isEqual:selectedRow] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        cell.textLabel.text = [[NSLocale currentLocale] localizedStringForLanguageCode:languageCode] ?: languageCode;
-        
-        NSString *countryName = [[NSLocale currentLocale] localizedStringForCountryCode:[locale countryCode]];
-        NSString *scriptName = [[NSLocale currentLocale] localizedStringForScriptCode:[locale scriptCode]];
-        if (countryName && scriptName) {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %@", countryName, scriptName];
-        }
-        else if (countryName) {
-            cell.detailTextLabel.text = countryName;
-        }
-        else if (scriptName) {
-            cell.detailTextLabel.text = scriptName;
-        }
-        else {
-            cell.detailTextLabel.text = NULL;
-        }
+        cell.textLabel.text = displayName;
+        cell.detailTextLabel.text = localizedDisplayName;
         
         return cell;
     }
@@ -180,6 +171,7 @@
         cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
         cell.imageView.image = [UIImage imageNamed:@"Translations"];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.detailTextLabel.text = nil;
         
         return cell;
     }
