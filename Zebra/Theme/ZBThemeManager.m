@@ -124,6 +124,7 @@
         [self configureNavigationBar];
         [self configurePopupBar];
         [self configureTableView];
+        [self configureKeyboard];
         if ([ZBThemeManager useCustomTheming]) {
             [self refreshViews];
         }
@@ -238,6 +239,17 @@
         }
         else {
             [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
+        }
+    }
+}
+
+- (void)configureKeyboard {
+    if ([ZBThemeManager useCustomTheming]) {
+        if ([self darkMode]) {
+            [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+        }
+        else {
+            [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
         }
     }
 }
