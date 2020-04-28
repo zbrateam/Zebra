@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra se mora zatvoriti da bi promenili željeni jezik";
 "Restart" = "Ponovo pokrenite";
 "Use System Language" = "Koristi sistemski jezik";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
