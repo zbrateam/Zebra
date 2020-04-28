@@ -174,19 +174,19 @@
 }
 
 - (void)configureNavigationBar {
-    if (interfaceStyle == ZBInterfaceStylePureBlack) {
-        if (@available(iOS 13.0, *)) {
-            UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
-            [app configureWithOpaqueBackground];
-            [app setBackgroundColor:[UIColor blackColor]];
-            
-            [[UINavigationBar appearance] setStandardAppearance:app];
-            [[UINavigationBar appearance] setScrollEdgeAppearance:app];
-        }
-        [[UINavigationBar appearance] setBackgroundColor:[UIColor blackColor]];
-        [[UINavigationBar appearance] setTranslucent:NO];
-    }
-    else {
+//    if (interfaceStyle == ZBInterfaceStylePureBlack) {
+//        if (@available(iOS 13.0, *)) {
+//            UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
+//            [app configureWithOpaqueBackground];
+//            [app setBackgroundColor:[UIColor blackColor]];
+//
+//            [[UINavigationBar appearance] setStandardAppearance:app];
+//            [[UINavigationBar appearance] setScrollEdgeAppearance:app];
+//        }
+//        [[UINavigationBar appearance] setBackgroundColor:[UIColor blackColor]];
+//        [[UINavigationBar appearance] setTranslucent:NO];
+//    }
+//    else {
         if (@available(iOS 13.0, *)) {
             UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
             [app configureWithDefaultBackground];
@@ -195,7 +195,7 @@
         }
         [[UINavigationBar appearance] setBackgroundColor:nil];
         [[UINavigationBar appearance] setTranslucent:YES];
-    }
+//    }
     
     [[UINavigationBar appearance] setTintColor:[UIColor accentColor]];
     if ([ZBThemeManager useCustomTheming]) {
