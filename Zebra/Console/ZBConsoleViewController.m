@@ -716,6 +716,7 @@
         [fh waitForDataInBackgroundAndNotify];
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str containsString:@"stable CLI interface"]) return;
+        if ([str containsString:@"postinst"]) return;
         CLS_LOG(@"DPKG/APT Error: %@", str);
         if ([str rangeOfString:@"warning"].location != NSNotFound || [str hasPrefix:@"W:"]) {
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
