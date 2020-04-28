@@ -66,19 +66,19 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (sources.count) {
-           ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
-           
-           ZBSource *source = [sources objectAtIndex:indexPath.row];
-           
-           cell.sourceLabel.text = [source label];
-           cell.sourceLabel.textColor = [UIColor primaryTextColor];
-           
-           cell.urlLabel.text = [source repositoryURI];
-           cell.urlLabel.textColor = [UIColor secondaryTextColor];
-           
-           [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
         
-           return cell;
+        ZBSource *source = [sources objectAtIndex:indexPath.row];
+        
+        cell.sourceLabel.text = [source label];
+        cell.sourceLabel.textColor = [UIColor primaryTextColor];
+        
+        cell.urlLabel.text = [source repositoryURI];
+        cell.urlLabel.textColor = [UIColor secondaryTextColor];
+        
+        [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        
+        return cell;
     }
     else {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noStoresCell"];
@@ -94,6 +94,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    if (!sources.count) return;
+    
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
     if (@available(iOS 11.0, *)) {
