@@ -1,5 +1,5 @@
 //
-//  TableViewController.m
+//  ZBWishListTableViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 6/18/19.
@@ -10,7 +10,6 @@
 #import <ZBSettings.h>
 #import <ZBQueue.h>
 #import <ZBDevice.h>
-#import <Extensions/UITableViewRowAction+Image.h>
 #import <Extensions/UINavigationBar+Progress.h>
 #import <ZBSettings.h>
 

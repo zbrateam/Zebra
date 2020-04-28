@@ -208,33 +208,13 @@
 - (void)checkQueueNav {
     if (!queueNav) {
         queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
-        [[LNPopupBar appearance] setTranslucent:YES];
     }
-}
-
-- (void)updateQueueBarColors {
-//    if ([ZBDevice darkModeEnabled]) {
-//        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
-//        [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
-//        
-//        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-//        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-//    }
-//    else {
-//        [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleLight];
-//        [[LNPopupBar appearance] setBackgroundColor:[UIColor whiteColor]];
-//        
-//        [[LNPopupBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-//        [[LNPopupBar appearance] setSubtitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor]}];
-//    }
 }
 
 - (void)updateQueueBar {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self checkQueueNav];
         [self updateQueueBarPackageCount:[ZBQueue count]];
-        
-        [self updateQueueBarColors];
         
         LNPopupPresentationState state = self.popupPresentationState;
         if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {

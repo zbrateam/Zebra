@@ -42,7 +42,6 @@
 		36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7522AB3545004C2332 /* icon@3x.png */; };
 		36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7622AB3545004C2332 /* icon@2x.png */; };
 		36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7922AB6F66004C2332 /* ios7.min.css */; };
-		36D15328229240F70010EC5C /* FTWCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 36D15325229240F60010EC5C /* FTWCache.m */; };
 		36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADC22A2C89A00A4604C /* installed_files.html */; };
 		36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */; };
 		36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */; };
@@ -115,7 +114,6 @@
 		89AD450C23CA5E350008831F /* AUPM@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450A23CA5E340008831F /* AUPM@3x.png */; };
 		89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450B23CA5E350008831F /* AUPM@2x.png */; };
 		89AD450F23CA6D260008831F /* ZBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450E23CA6D260008831F /* ZBSettings.m */; };
-		89C227CE2371259E001C9C59 /* UITableViewRowAction+Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */; };
 		89C4244D24411C1100FE5ED8 /* UIAlertController+Show.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Show.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
 		89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */; };
@@ -252,8 +250,6 @@
 		36AC5A7522AB3545004C2332 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
 		36AC5A7622AB3545004C2332 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
 		36AC5A7922AB6F66004C2332 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
-		36D15325229240F60010EC5C /* FTWCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FTWCache.m; sourceTree = "<group>"; };
-		36D15326229240F70010EC5C /* FTWCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FTWCache.h; sourceTree = "<group>"; };
 		36F77ADC22A2C89A00A4604C /* installed_files.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = installed_files.html; sourceTree = "<group>"; };
 		36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin@3x.png"; sourceTree = "<group>"; };
 		36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin@2x.png"; sourceTree = "<group>"; };
@@ -405,8 +401,6 @@
 		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
 		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
 		89C112A12400E7A200854713 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
-		89C227CC2371259E001C9C59 /* UITableViewRowAction+Image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewRowAction+Image.h"; sourceTree = "<group>"; };
-		89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewRowAction+Image.m"; sourceTree = "<group>"; };
 		89C4244B24411C1100FE5ED8 /* UIAlertController+Show.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Show.h"; sourceTree = "<group>"; };
 		89C4244C24411C1100FE5ED8 /* UIAlertController+Show.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Show.m"; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -864,8 +858,6 @@
 			children = (
 				9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */,
 				9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */,
-				36D15326229240F70010EC5C /* FTWCache.h */,
-				36D15325229240F60010EC5C /* FTWCache.m */,
 				49E1304722715EE5006F450A /* UIColor+GlobalColors.h */,
 				49E1304522715DB8006F450A /* UIColor+GlobalColors.m */,
 				363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */,
@@ -874,8 +866,6 @@
 				9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */,
 				89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */,
 				89F8730223653D280070160A /* UIVisualEffectView+Theme.m */,
-				89C227CC2371259E001C9C59 /* UITableViewRowAction+Image.h */,
-				89C227CD2371259E001C9C59 /* UITableViewRowAction+Image.m */,
 				893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */,
 				893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */,
 				8937CA2F23C3DFD400A4644C /* UINavigationBar+Progress.h */,
@@ -1359,7 +1349,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */,
-				36D15328229240F70010EC5C /* FTWCache.m in Sources */,
 				3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */,
 				8997A9FA24035021001894BF /* ZBProxyPackage.m in Sources */,
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
@@ -1373,7 +1362,6 @@
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
-				89C227CE2371259E001C9C59 /* UITableViewRowAction+Image.m in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
 				4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */,
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
