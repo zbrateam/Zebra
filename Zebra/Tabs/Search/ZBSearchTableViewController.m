@@ -85,6 +85,10 @@
     }
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 #pragma mark - Helper Methods
 
 - (void)clearSearches {
