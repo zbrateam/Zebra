@@ -391,39 +391,41 @@
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([urlString hasPrefix:@"http:"]) {
+            // Warn user for insecure source (has low self esteem)
+            UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSString *repoString = [urlString copy];
+                if (![repoString hasSuffix:@"/"]) {
+                    repoString = [repoString stringByAppendingString:@"/"];
+                }
+                
+                NSURL *sourceURL = [NSURL URLWithString:repoString];
+                [self checkSourceURL:sourceURL];
+            }];
+            [insecureSource addAction:add];
+            
+            UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self showAddSourceAlert:urlString];
+            }];
+            [insecureSource addAction:edit];
+            
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+            [insecureSource addAction:cancel];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self presentViewController:insecureSource animated:YES completion:nil];
+            });
+            return;
+        }
+        
         if (![urlString hasSuffix:@"/"]) {
             urlString = [urlString stringByAppendingString:@"/"];
         }
         
         NSURL *sourceURL = [NSURL URLWithString:urlString];
-        
-        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
-        if (!baseSource) {
-            UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-            [malformed addAction:ok];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:malformed animated:YES completion:nil];
-            });
-        }
-        else if ([baseSource exists]) {
-            //You have already added this source.
-            UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-            [youAlreadyAdded addAction:action];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:youAlreadyAdded animated:YES completion:nil];
-            });
-        }
-        else {
-            if (baseSource) {
-                [self verifyAndAdd:[NSSet setWithObject:baseSource]];
-            }
-        }
+        [self checkSourceURL:sourceURL];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
@@ -444,6 +446,36 @@
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)checkSourceURL:(NSURL *)sourceURL {
+    ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
+    if (!baseSource) {
+        UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [malformed addAction:ok];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:malformed animated:YES completion:nil];
+        });
+    }
+    else if ([baseSource exists]) {
+        //You have already added this source.
+        UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [youAlreadyAdded addAction:action];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:youAlreadyAdded animated:YES completion:nil];
+        });
+    }
+    else {
+        if (baseSource) {
+            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
+        }
+    }
 }
 
 #pragma mark - Table View Helper Methods
