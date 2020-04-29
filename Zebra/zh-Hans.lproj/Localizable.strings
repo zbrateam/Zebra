@@ -144,8 +144,8 @@
 "Could not authenticate" = "无法验证身份";
 "Could not complete purchase" = "无法完成购买操作";
 "No packages purchased" = "无已购买软件包";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "已登录账户：%@";
+"Signed in as %@ (%@)" = "已登录账户：%@（%@）";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "刷新";
 "All Packages" = "所有软件包";
 "Remove Source" = "删除软件源";
-"Local File" = "Local File";
+"Local File" = "本地文件";
 "Local Repository" = "本地软件源";
 "Locally installed packages" = "本地已安装软件包";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ 未被修改";
 
-"Install All" = "Install All";
+"Install All" = "全部安装";
 
 // Packages
 
@@ -476,5 +476,5 @@
 "Restart" = "重启";
 "Use System Language" = "使用系统语言";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "你想要添加的软件源不安全";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "从这个软件源下载的数据没未被加密，你确定要添加吗？";
