@@ -55,25 +55,26 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     
     //Here is where we will set up any old settings that transfer over into new settings
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *rep = [defaults dictionaryRepresentation];
+    NSLog(@"REpo: %@", rep);
     
     if ([defaults objectForKey:tintSelectionKey]) {
         switch ([[defaults objectForKey:tintSelectionKey] integerValue]) {
             case 0:
-            case 1:
                 [self setAccentColor:ZBAccentColorCornflowerBlue];
+                break;
+            case 1:
+                [self setUsesSystemAccentColor:YES];
+                break;
             case 2:
                 [self setAccentColor:ZBAccentColorGoldenTainoi];
+                break;
             case 3:
                 [self setAccentColor:ZBAccentColorMonochrome];
+                break;
                 
         }
         [defaults removeObjectForKey:tintSelectionKey];
-    }
-    
-    if ([defaults boolForKey:thirteenModeKey]) {
-        [self setInterfaceStyle:ZBInterfaceStyleDark];
-        
-        [defaults removeObjectForKey:thirteenModeKey];
     }
     
     if ([defaults boolForKey:oledModeKey]) {
@@ -146,7 +147,7 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
             NSString *baseFilename = [baseURL stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
             [newBlacklist addObject:baseFilename];
         }
-        [ZBSettings setSourceBlacklist:newBlacklist];
+        [self setSourceBlacklist:newBlacklist];
         
         [defaults removeObjectForKey:featuredBlacklistKey];
     }
@@ -515,7 +516,7 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
 }
 
 + (void)setSwipeActionStyle:(NSNumber *)newStyle {
-    ZBFeaturedType style = newStyle.intValue;
+    ZBSwipeActionStyle style = newStyle.intValue;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
