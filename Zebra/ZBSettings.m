@@ -78,7 +78,7 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     }
     
     if ([defaults boolForKey:oledModeKey]) {
-        [self setInterfaceStyle:ZBInterfaceStylePureBlack];
+        [self setPureBlackMode:YES];
         
         [defaults removeObjectForKey:oledModeKey];
     }
@@ -173,7 +173,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:accentColor forKey:AccentColorKey];
-    [defaults synchronize];
 }
 
 + (BOOL)usesSystemAccentColor {
@@ -190,7 +189,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:usesSystemAccentColor forKey:UsesSystemAccentColorKey];
-    [defaults synchronize];
 }
 
 + (ZBInterfaceStyle)interfaceStyle {
@@ -220,7 +218,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:style forKey:InterfaceStyleKey];
-    [defaults synchronize];
 }
 
 + (BOOL)usesSystemAppearance {
@@ -240,7 +237,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:usesSystemAppearance forKey:UseSystemAppearanceKey];
-    [defaults synchronize];
 }
 
 + (BOOL)pureBlackMode {
@@ -257,7 +253,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:pureBlackMode forKey:PureBlackModeKey];
-    [defaults synchronize];
 }
 
 + (NSString *_Nullable)appIconName {
@@ -397,7 +392,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:wantsFeaturedPackages forKey:WantsFeaturedPackagesKey];
-    [defaults synchronize];
 }
 
 + (ZBFeaturedType)featuredPackagesType {
@@ -416,7 +410,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:type forKey:FeaturedPackagesTypeKey];
-    [defaults synchronize];
 }
 
 + (NSArray *)sourceBlacklist {
@@ -521,7 +514,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:style forKey:SwipeActionStyleKey];
-    [defaults synchronize];
 }
 
 #pragma mark - Wishlist
