@@ -476,5 +476,5 @@
 "Restart" = "Перезапустить";
 "Use System Language" = "Использовать язык системы";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Вы добавляете небезопасный репозиторий";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Данные этого репозитория могут быть не зашифрованы. Вы уверены, что хотите добавить его?";
