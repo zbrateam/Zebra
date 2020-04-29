@@ -36,7 +36,16 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 + (ZBSource *)sourceMatchingSourceID:(int)sourceID {
-    return [[ZBSourceManager sharedInstance] sources][@(sourceID)];
+    ZBSource *possibleSource = [[ZBSourceManager sharedInstance] sources][@(sourceID)];
+    if (!possibleSource) {
+        // If we can't find the source in sourceManager, lets just recache and see if it shows up
+        [[ZBSourceManager sharedInstance] needRecaching];
+        
+        // If it still fails, check the database but since we're already checking the database in sourceManager, it is unlikely we will find it
+        possibleSource = [[ZBSourceManager sharedInstance] sources][@(sourceID)] ?: [[ZBDatabaseManager sharedInstance] sourceFromSourceID:sourceID];
+    }
+    
+    return possibleSource;
 }
 
 + (ZBSource *)localSource:(int)sourceID {

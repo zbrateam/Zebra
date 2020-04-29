@@ -749,6 +749,31 @@
     return NULL;
 }
 
+- (ZBSource *)sourceFromSourceID:(int)sourceID {
+    if ([self openDatabase] == SQLITE_OK) {
+        ZBSource *source;
+
+        sqlite3_stmt *statement = NULL;
+        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE REPOID = ?", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_int(statement, 1, sourceID);
+            NSLog(@"%s", sqlite3_expanded_sql(statement));
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBSource *potential = [[ZBSource alloc] initWithSQLiteStatement:statement];
+                if (potential) source = potential;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        [self closeDatabase];
+
+        return source;
+    }
+    
+    [self printDatabaseError];
+    return NULL;
+}
+
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableSet *sources = [NSMutableSet new];

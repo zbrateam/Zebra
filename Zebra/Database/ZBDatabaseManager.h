@@ -207,6 +207,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSSet <ZBSource *> *)sources;
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
+- (ZBSource *)sourceFromSourceID:(int)sourceID;
 
 /*!
  @brief Deletes the source and all the packages that have a matching sourceID.
