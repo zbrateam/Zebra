@@ -127,6 +127,7 @@
         [self configureKeyboard];
         if ([ZBThemeManager useCustomTheming]) {
             [self refreshViews];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
         }
         else if (@available(iOS 13.0, *)) {
             if (![ZBSettings usesSystemAppearance]) {

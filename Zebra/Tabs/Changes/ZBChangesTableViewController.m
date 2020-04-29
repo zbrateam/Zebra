@@ -45,6 +45,7 @@
     [super viewDidLoad];
     [self applyLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
@@ -89,6 +90,15 @@
             [self kickStartReddit];
         });
     }
+}
+
+- (void)configureTheme {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+        self.tableView.sectionIndexColor = [UIColor accentColor];
+        [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+        self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    });
 }
 
 - (void)kickStartReddit {
@@ -193,6 +203,7 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"darkMode" object:nil];
 }
 
 - (void)updateSections {
@@ -290,14 +301,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor primaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
 }
 
 #pragma mark - Swipe actions

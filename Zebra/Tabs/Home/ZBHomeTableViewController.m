@@ -75,6 +75,9 @@ typedef enum ZBLinksOrder : NSUInteger {
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.rightBarButtonItem = settingsButton;
     }
+    else {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
+    }
     
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
@@ -683,6 +686,12 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)scrollToTop {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+}
+
+- (void)configureTheme {
+    [self.tableView reloadData];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+    self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 @end

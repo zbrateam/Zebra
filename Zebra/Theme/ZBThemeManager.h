@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateInterfaceStyle;
 - (void)toggleTheme;
 - (void)configureNavigationBar;
+- (void)refreshViews;
 - (UIImage *)toggleImage;
 @end
 

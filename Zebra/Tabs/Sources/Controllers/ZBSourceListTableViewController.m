@@ -21,6 +21,7 @@
 #import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
+#import "ZBThemeManager.h"
 
 @import FirebaseAnalytics;
 @import SDWebImage;
@@ -57,7 +58,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteSourceTouchAction" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
@@ -65,16 +66,11 @@
     [self refreshTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self checkClipboard];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)dealloc {
@@ -83,11 +79,12 @@
 
 #pragma mark - Dark Mode
 
-- (void)darkMode:(NSNotification *)notification {
-//    [ZBDevice refreshViews];
-    [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor accentColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+- (void)configureTheme {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+        self.tableView.sectionIndexColor = [UIColor accentColor];
+        [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+    });
 }
 
 #pragma mark - Table View Data Source

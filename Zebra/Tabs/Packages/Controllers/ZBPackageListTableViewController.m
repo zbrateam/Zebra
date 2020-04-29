@@ -88,7 +88,6 @@
     [self refreshTable];
     
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-
 }
 
 - (void)dealloc {
