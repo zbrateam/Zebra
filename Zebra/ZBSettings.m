@@ -47,9 +47,6 @@ NSString *const WishlistKey = @"Wishlist";
 
 NSString *const PackageSortingTypeKey = @"PackageSortingType";
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunguarded-availability"
-
 + (void)load {
     [super load];
     
@@ -61,10 +58,8 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     if ([defaults objectForKey:tintSelectionKey]) {
         switch ([[defaults objectForKey:tintSelectionKey] integerValue]) {
             case 0:
-                [self setAccentColor:ZBAccentColorCornflowerBlue];
-                break;
             case 1:
-                [self setUsesSystemAccentColor:YES];
+                [self setAccentColor:ZBAccentColorCornflowerBlue];
                 break;
             case 2:
                 [self setAccentColor:ZBAccentColorGoldenTainoi];
@@ -193,6 +188,9 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
 
 + (ZBInterfaceStyle)interfaceStyle {
     if ([self usesSystemAppearance]) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wunguarded-availability"
+        
         UIUserInterfaceStyle style = [[[UIScreen mainScreen] traitCollection] userInterfaceStyle];
         switch (style) {
             case UIUserInterfaceStyleUnspecified:
@@ -201,6 +199,8 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
             case UIUserInterfaceStyleDark:
                 return [self pureBlackMode] ? ZBInterfaceStylePureBlack : ZBInterfaceStyleDark;
         }
+        
+        #pragma clang diagnostic pop
     }
     else {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -547,7 +547,5 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     
     [defaults setInteger:sortingType forKey:PackageSortingTypeKey];
 }
-
-#pragma clang diagnostic pop
 
 @end
