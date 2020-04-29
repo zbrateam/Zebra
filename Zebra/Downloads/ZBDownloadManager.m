@@ -454,7 +454,7 @@
 #pragma mark - Session Headers
 
 - (NSString *)lastModifiedDateForFile:(NSString *)filename {
-    NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename];
+    NSString *path = [[[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename] stringByDeletingPathExtension];
     
     NSError *fileError = nil;
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&fileError];
