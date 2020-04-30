@@ -476,5 +476,5 @@
 "Restart" = "재시작";
 "Use System Language" = "시스템 언어 사용";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "추가하고 있는 저장소는 보안이 적용되지 않았습니다.";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "이 저장소에서 다운로드한 데이터는 암호화되지 않았을 수 있습니다. 정말로 추가할까요?";
