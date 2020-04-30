@@ -476,5 +476,5 @@
 "Restart" = "Neustart";
 "Use System Language" = "Systemsprache verwenden";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Sie fügen eine unsichere Quelle hinzu";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Daten, die von dieser Quelle heruntergeladen werden, werden möglicherweise unverschlüsselt übertragen. Möchten Sie sie dennoch hinzufügen?";
