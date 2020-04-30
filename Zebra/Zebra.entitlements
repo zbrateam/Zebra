@@ -18,6 +18,8 @@
 		<true/>
 		<key>com.apple.accessibility.AccessibilityUIServer</key>
 		<true/>
+		<key>com.apple.private.system-keychain</key>
+		<true/>
 		<key>com.apple.security.exception.mach-lookup.global-name</key>
 		<array>
 			<string>com.apple.accessibility.AXSpringBoardServer</string>
