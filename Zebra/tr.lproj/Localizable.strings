@@ -476,5 +476,5 @@
 "Restart" = "Yeniden Başlat";
 "Use System Language" = "Sistemin dilini kullan";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Güvenli olmayan bir kaynak ekliyorsunuz";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Bu kaynaktan indirilen veriler şifrelenmemiş olabilir. Eklemek istediğinizden emin misiniz?";
