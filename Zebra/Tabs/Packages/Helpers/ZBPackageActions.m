@@ -214,8 +214,14 @@
                 [selectAction show];
             }
             else {
+                // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
                 ZBPackageActionType action = actions[0].intValue;
-                [self performAction:action forPackage:package completion:nil];
+                if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
+                    [[ZBAppDelegate tabBarController] openQueue:YES];
+                }
+                else {
+                    [self performAction:action forPackage:package completion:nil];
+                }
             }
         };
         
@@ -428,6 +434,23 @@
     else {
         ZBPackageActionType action = actions[0].intValue;
         return [self titleForAction:action useIcon:NO];
+    }
+}
+
++ (ZBQueueType)actionToQueue:(ZBPackageActionType)action {
+    switch (action) {
+        case ZBPackageActionInstall:
+            return ZBQueueTypeInstall;
+        case ZBPackageActionRemove:
+            return ZBQueueTypeRemove;
+        case ZBPackageActionReinstall:
+            return ZBQueueTypeReinstall;
+        case ZBPackageActionDowngrade:
+            return ZBQueueTypeDowngrade;
+        case ZBPackageActionUpgrade:
+            return ZBQueueTypeUpgrade;
+        default:
+            return ZBQueueTypeClear;
     }
 }
 
