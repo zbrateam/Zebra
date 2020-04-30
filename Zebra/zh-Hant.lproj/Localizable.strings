@@ -476,5 +476,5 @@
 "Restart" = "重新啟動";
 "Use System Language" = "使用系統語言";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "你正在加入一個不安全的來源";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "你從這個來源下載的資料可能不會被加密。\n你確定要加入這個來源？";
