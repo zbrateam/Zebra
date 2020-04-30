@@ -289,6 +289,7 @@
     ZBQueue *queue = [ZBQueue sharedQueue];
     int beforeCount = [ZBQueue count];
     [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
     int afterCount = [ZBQueue count];
     if (beforeCount == afterCount) {
         [[ZBAppDelegate tabBarController] openQueue:YES];
