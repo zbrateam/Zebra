@@ -184,6 +184,11 @@ enum PARSEL_RETURN_TYPE addSourceToDatabase(struct ZBBaseSource source, const ch
         char *key = multi_tok(info, &s, ": ");
         char *value = multi_tok(NULL, &s, NULL);
         
+        if (key == NULL || value == NULL) { // y'all suck at maintaining sources, what do you do? make the package files by hand??
+            key = multi_tok(info, &s, ":");
+            value = multi_tok(NULL, &s, NULL);
+        }
+        
         dict_add(sourceDict, key, value);
     }
     

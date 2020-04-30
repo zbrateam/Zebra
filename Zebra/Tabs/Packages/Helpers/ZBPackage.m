@@ -11,6 +11,7 @@
 
 #import <ZBLog.h>
 #import <ZBDevice.h>
+#import <ZBUtils.h>
 #import <Parsel/vercmp.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <ZBAppDelegate.h>
@@ -261,7 +262,7 @@
         if (packageIDChars == 0) return NULL; // There is no "working" situation where a package ID is missing
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
-        [self setName:packageNameChars != 0 ? ([NSString stringWithUTF8String:packageNameChars] ?: [NSString stringWithCString:packageNameChars encoding:NSASCIIStringEncoding]) : (self.identifier ?: @"Unknown")]; // fall back to ID if NULL, or Unknown if things get worse
+        [self setName:[ZBUtils decodeCString:packageNameChars fallback:self.identifier]]; // fall back to ID if NULL, or Unknown if things get worse
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
         [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
