@@ -476,5 +476,5 @@
 "Restart" = "เริ่มใหม่";
 "Use System Language" = "ใช้ภาษาของระบบ";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "ท่านกำลังเพิ่มซอร์สที่ไม่มีการเข้ารหัส";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "ข้อมูลที่ถูกดาวน์โหลดมาจากซอร์สนี้อาจไม่มีการเข้ารหัส ท่านแน่ใจหรือไม่ที่จะเพิ่ม?";
