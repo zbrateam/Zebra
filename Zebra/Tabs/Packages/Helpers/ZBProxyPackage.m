@@ -56,9 +56,8 @@
     if (package) return package;
     
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    package = [databaseManager packageFromProxy:self];
     
-    return package;
+    return [databaseManager topVersionForPackageID:[self identifier]];
 }
 
 - (BOOL)sameAs:(ZBProxyPackage *)package {
