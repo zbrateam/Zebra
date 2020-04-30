@@ -144,8 +144,8 @@
 "Could not authenticate" = "Tidak bisa mengotentikasi";
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
 "No packages purchased" = "Tidak ada paket yang dibeli";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Terhubung atas %@";
+"Signed in as %@ (%@)" = "Masuk sebagai %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Segarkan";
 "All Packages" = "Semua Paket";
 "Remove Source" = "Hapus Sumber";
-"Local File" = "Local File";
+"Local File" = "Berkas Lokal";
 "Local Repository" = "Repositori Lokal";
 "Locally installed packages" = "Paket Lokal terinstall";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ belum dimodifikasi";
 
-"Install All" = "Install All";
+"Install All" = "Pasang semua";
 
 // Packages
 
@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra harus ditutup untuk mengubah bahasa yang diinginkan";
 "Restart" = "Mulai Ulang";
 "Use System Language" = "Gunakan Bahasa Sistem";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";

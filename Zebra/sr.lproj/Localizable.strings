@@ -11,8 +11,8 @@
 "Done" = "Uradjeno";
 "Loading..." = "Učitavanje...";
 "Clear" = "Obriši";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Pojavila se greška";
+"Dismiss" = "Poništi";
 "Downloads" = "Preuzimanja";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Prijavi gresku";
 "Changelog" = "Promene";
 "Wish List" = "Lista želja";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Noviji prvo";
+"Oldest First" = "Stariji prvo";
 "No items in Wish List" = "Nema stavki u listi Želja";
 "Community" = "Zajednica";
 "Join our Discord" = "Pridruži nam se na Discord";
@@ -73,7 +73,7 @@
 
 // "Hide UDID" = "Hide UDID";
 
-"Automatic Refresh" = "Automatic Refresh";
+"Automatic Refresh" = "Automatski osveži";
 
 // Accent Colors
 
@@ -114,7 +114,7 @@
 "Clear Sources Cache" = "Ukloni keš izvora";
 "Clear Web Cache" = "Ukloni web keš";
 "Reset All Settings" = "Resetuj sva podešavanja";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Izbriši sve izvore";
 "Erase All Sources and Settings" = "Obriši sve izvore i podešavanja";
 
 "Are you sure you want to restart the SpringBoard?" = "Da li ste sigurni da ćete da resetujete SpringBoard?";
@@ -131,7 +131,7 @@
 "Open Documents Directory" = "Otvori folder dokumenata";
 
 "Filza Not Installed" = "Filza nije instalirana";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra ne može da otvori ovaj direktorijum zato sto Filza nije instalirana. Direktorijum je: %@";
 
 // Stores
 
@@ -141,11 +141,11 @@
 "Sign Out" = "Odjavi se";
 "Your Purchases" = "Vaše kupovine";
 "No Storefronts Available" = "Nema dostupnih prodavnica";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Nemoguće potvrditi";
 "Could not complete purchase" = "Nije moguće zavrsiti kupovinu";
 "No packages purchased" = "Nema kupljenih paketa";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Prijavljeni ste kao (%@";
+"Signed in as %@ (%@)" = "Prijavljeni ste kao %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Osveži";
 "All Packages" = "Svi paketi";
 "Remove Source" = "Ukloni izvor";
-"Local File" = "Local File";
+"Local File" = "Lokalni fajl";
 "Local Repository" = "Lokalni Repo";
 "Locally installed packages" = "Lokalno instalirani paketi";
 
@@ -189,15 +189,15 @@
 
 "Could not parse %@ from %@" = "Nismo u mogućnosti rasčlaniti %@ iz %@";
 "Could not find a download URL for" = "Nismo u mogućnosti pronaći URL za preuizmanje";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Authorizing Download for %@" = "Autorizovano skidanje za %@";
+"Couldn't authorize download for %@." = "Nije moguće autorizovati skidanje za %@.";
+"Reason: %@." = "Razlog: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "API za plaćanje ne podrzava iOS manji od 11";
+"Could not download Release file from %@. Reason: %@" = "Nije moguće skinuti Paket sa %@. Razlog: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nije moguće skinuti Paket sa %@. Razlog: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nije moguće skinuti jedan ili više Paketa sa %@. Razlog: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Greška prilikom premeštanja fajla sa %@ na %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Url koji ste uneli je netačan. Proverite i pokušajte opet.";
 
@@ -212,14 +212,14 @@
 
 "%@ hasn't been modified" = "%@ nije izmenjen";
 
-"Install All" = "Install All";
+"Install All" = "Instaliraj sve";
 
 // Packages
 
 "Version" = "Verzija";
 "Packages" = "Paketi";
 "Show Updates" = "Prikaži nadogradnje";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Sakrij nadogradnje";
 "Select Version" = "Izaberi verziju";
 "Select a version to upgrade to:" = "Izaberi verziju za nadogradnju:";
 "Select a version to downgrade to:" = "Izaberi stariju verziju za instaliranje:";
@@ -314,7 +314,7 @@
 "Console" = "Konzola";
 "Performing Actions..." = "Izvršavam akcije...";
 "Updating icon cache asynchronously..." = "Nadogradjujem keš ikona asinhrono...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache nije dostupan u simulatoru";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može oboriti. To ne predstavlja problem.";
 "Close Zebra" = "Zatvori Zebru";
 "Closing Zebra..." = "Zebra se zatvara...";
@@ -342,15 +342,15 @@
 "Finished importing local packages." = "Završeno importovanje lokalnih paketa.";
 "One or more packages failed to download." = "Jedan ili više paketa nisu preuzeti.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Vrati se na listu Čekanja\" da bi se vratili na listu čekanja i pomovili preuzimanje.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Nemoguće završiti %@ proces. Razlog: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Molimo vas restartujte Zebru i pogledajte da li se problem jos uvek javlja. Ako se javi, posaljite problem na GitHub.";
 "Done..." = "Uradjeno...";
 "Done %@" = "Urađeno %@";
 "Removing Zebra..." = "Uklanjam Zerbu...";
 "Installing Zebra..." = "Instaliram Zebru...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Greška prikikom otvaranja fajla:";
 "Adding Payment Vendor URL for %@" = "Dodajem link za plaćanje za %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Uređaj je u simulaciji, ovo su pakeketi koji ce biti modifikovani u ovoj fazi:";
 
 // Queue Bar
 
@@ -377,7 +377,7 @@
 "Remove from Queue" = "Ukloni iz liste čekanja";
 "Clear Queue" = "Očisti stavke iz redosleda";
 "%@ is required by:" = "%@ je neophodno za:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" je u konfliktu sa %@";
 "%@ must be removed because it depends on %@" = "%@ more se ukloniti zato što zavisi od %@";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji nisu rešivi:";
 "Are you sure you want to clear the Queue?" = "Da li ste sigurni da želite izbrisati listu Čekanja?";
@@ -401,13 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling ne pripada korisniku root: wheel. Please verify Molimo vas proverite ovlašćenja nad fajlovima u folderu /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Greška prilikom kreiranja direktorijuma: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Greška prilikom kreiranja direktorijuma liste: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Greška prilikom kreiranja sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Greška prilikom kreiranja debs direktorijuma: %@.";
 
 "Could not respring. Please respring manually." = "Ne može se respringovati. Molimo vas probajte manuelno.";
 
@@ -421,7 +421,7 @@
 
 "Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Osveži Zebrine izvore kada otvaraš aplikaciju.";
 
 "Display recent community posts from /r/jailbreak." = "Prikaži najnovije postove sa /r/jailbreak.";
 
@@ -449,7 +449,7 @@
 "Add Filter" = "Dodaj Filter";
 
 "1 Section Hidden" = "1 odeljak skriven";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu Delovi skriveni";
 
 "Sections" = "Odeljci";
 "Select a Section" = "Izabrri odeljak";
@@ -465,7 +465,7 @@
 "Authors" = "Autori";
 "Hide packages from these authors." = "Sakrij pakete od ovih autora.";
 "Search for an Author" = "Pronadju Autora";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "Autor se predstavlja ovim imenima:";
 
 // Language Settings
 
@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra se mora zatvoriti da bi promenili željeni jezik";
 "Restart" = "Ponovo pokrenite";
 "Use System Language" = "Koristi sistemski jezik";
+
+"You are adding a repository that is not secure" = "Dodajete repositoriji koji nije bezbedan";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Podaci skinuti sa ovog repoa nisu enkriptovani. Da li ste sigurni da ćete ga dodati?";

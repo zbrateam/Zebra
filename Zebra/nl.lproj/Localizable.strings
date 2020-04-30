@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra moet gesloten zijn om de voorkeurstaal te wijzigen";
 "Restart" = "Herstarten";
 "Use System Language" = "Systeemtaal gebruiken";
+
+"You are adding a repository that is not secure" = "U voegt een repository toe die niet veilig is";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Gegevens gedownload van deze repository zijn mogelijk niet versleuteld. Weet u zeker dat u deze wilt toevoegen?";

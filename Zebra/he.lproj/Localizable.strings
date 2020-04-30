@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "על זברה להיסגר כדי להחליף לשפה המבוקשת";
 "Restart" = "הפעל מחדש";
 "Use System Language" = "השתמש בשפת המערכת";
+
+"You are adding a repository that is not secure" = "את/ה מוסיפ/ה מקור שאינו מאובטח";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "הנתונים שהורדו ממקור זה עשויים להיות לא מוצפנים. האם ברצונך להוסיף אותו?";

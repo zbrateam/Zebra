@@ -11,8 +11,8 @@
 "Done" = "Hotovo";
 "Loading..." = "Načítanie...";
 "Clear" = "Vyčistiť";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Vyskytla sa chyba";
+"Dismiss" = "Zrušiť";
 "Downloads" = "Stiahnuté";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Nahlásiť Bug";
 "Changelog" = "Zoznam zmien";
 "Wish List" = "Zoznam želaní";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Od najnovšieho";
+"Oldest First" = "Od najstaršieho";
 "No items in Wish List" = "Nič tu nie je.";
 "Community" = "Komunita";
 "Join our Discord" = "Pripoj sa na náš Discord";
@@ -41,13 +41,13 @@
 "Verifying Source" = "Overovanie Zdroja";
 "Verifying Sources" = "Overovanie Zdrojov";
 "Import" = "Importovať";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Verifying..." = "Overuje sa...";
+"Confirm Import" = "Potvrďte import";
 "Import Sources" = "Importovať Zdroje";
-"No sources to import" = "No sources to import";
+"No sources to import" = "Žiadne zdroju na import";
 "Would you like to import the following sources?" = "Chcete importovať nasledujúce zdroje?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Are you sure that you want to import 1 source into Zebra?" = "Naozaj chcete importovať 1 zdroj do Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Naozaj chcete importovať %d zdrojov do Zebra?";
 
 
 // Credits
@@ -73,29 +73,29 @@
 
 // "Hide UDID" = "Hide UDID";
 
-"Automatic Refresh" = "Automatic Refresh";
+"Automatic Refresh" = "Automatická aktualizácia";
 
 // Accent Colors
 
 "Accent Color" = "Doplnková farba";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Aqua Velvet" = "Morský zamat";
+"Cornflower Blue" = "Kukuričná modrá";
+"Golden Tainoi" = "zlatý Tainoi";
+"Iris Blue" = "Irisová modrá";
+"Lotus Pink" = "Rúžový lotus";
+"Monochrome" = "Čiernobielá";
+"Mountain Meadow" = "Horské lúky";
+"Pastel Red" = "Pastelovo červená";
+"Purple Heart" = "Fialové srdce";
+"Royal Blue" = "Kráľovská modrá";
+"Shark" = "Žralok";
+"Storm" = "Búrka";
+"Use System Accent Color" = "Použiť systémovu farbu zvýrazňovača";
+"Appearance" = "Vzhľad";
+"Use System Appearance" = "Použiť systémovy vzhľad";
+"Light" = "Svetlá";
+"Dark" = "Tmavá";
+"Pure Black Mode" = "Čisto čierný mód";
 
 // Featured
 
@@ -108,21 +108,21 @@
 
 // Reset
 
-"Reset" = "Reset";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources" = "Erase All Sources";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset" = "Reštartovať";
+"Refresh Icon Cache" = "Obnoviť pamäť ikon";
+"Clear Image Cache" = "Vyčistiť vyrovnávaciu pamäť obrázkov";
+"Clear Sources Cache" = "Vymazať pamäť zdrojov";
+"Clear Web Cache" = "Vymazať webovu pamäť";
+"Reset All Settings" = "Obnoviť všetky nastavenia";
+"Erase All Sources" = "Vymazať všetky zdroje";
+"Erase All Sources and Settings" = "Vymazať všetky zdroje a nastavenia";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Ste si istý, že chcete reštartovať SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Ste si istý, že chcete obnoviť pamäť ikon? Vaše zariadenie nemusí reagovať pokiaľ nebude proces dokončený.";
+"Image Cache Cleared" = "Pamäť obrazkov bola vymazaná";
+"Web Cache Cleared" = "Webová pamäť bola vymazaná";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Ste si istý, že chcete obnoviť zdrojovú pamäť Zebry? Táto akcia vymaže všetky informacie v pamäti z databázy Zebra a znovu ich stiahne. Zdroje nebudu vymazané.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Naozaj chcete resetovať nastavenia Zebra? Táto akcia obnoví všetky nastavenia Zebry späť na ich štandardné hodnoty a Zebra sa reštartuje.";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
 "Restart" = "Restart";
 "Use System Language" = "Use System Language";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
