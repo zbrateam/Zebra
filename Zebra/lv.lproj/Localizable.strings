@@ -476,5 +476,5 @@
 "Restart" = "Restartēt";
 "Use System Language" = "Izmantot Sistēmas Valodu";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Tu pievieno nedrošu avotu";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Iespējams, ka no šīs krātuves lejupielādētie dati nav šifrēti. Vai tiešām vēlies to pievienot?";
