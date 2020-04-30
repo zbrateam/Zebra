@@ -6,11 +6,11 @@
 "Ok" = "დიახ";
 "Error" = "ერორი";
 "Retry" = "კიდევ სცადეთ";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
+"Edit" = "შეცვლა";
+"Close" = "დახურვა";
+"Done" = "მზად არის";
+"Loading..." = "იტვირთება...";
+"Clear" = "გასუფთავება";
 "An Error Occurred" = "An Error Occurred";
 "Dismiss" = "Dismiss";
 "Downloads" = "Downloads";
