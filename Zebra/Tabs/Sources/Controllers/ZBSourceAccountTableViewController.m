@@ -84,6 +84,8 @@
     
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    
+    [self.tableView reloadData];
 }
 
 - (void)getPurchases {
@@ -201,7 +203,7 @@
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonCell"];
                 
                 cell.textLabel.text = NSLocalizedString(@"Sign Out", @"");
-                cell.textLabel.textColor = [UIColor accentColor];
+                cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
                 cell.selectionStyle = UITableViewCellSelectionStyleDefault;
                 
                 return cell;
