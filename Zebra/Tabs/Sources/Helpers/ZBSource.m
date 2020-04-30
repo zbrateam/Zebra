@@ -13,6 +13,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 #import <ZBDevice.h>
+#import <ZBUtils.h>
 #import <ZBUserInfo.h>
 #import <ZBSourceInfo.h>
 
@@ -111,7 +112,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
         [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NSLocalizedString(@"Unknown", @"")];
-        [self setLabel:labelChars != 0 ? [[NSString alloc] initWithUTF8String:labelChars] : NSLocalizedString(@"Unknown", @"")];
+        [self setLabel:[ZBUtils decodeCString:labelChars fallback:NSLocalizedString(@"Unknown", @"")]];
         [self setVersion:versionChars != 0 ? [[NSString alloc] initWithUTF8String:versionChars] : NSLocalizedString(@"Unknown", @"")];
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NSLocalizedString(@"Unknown", @"")];
         [self setCodename:codenameChars != 0 ? [[NSString alloc] initWithUTF8String:codenameChars] : NSLocalizedString(@"Unknown", @"")];
