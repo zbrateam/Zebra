@@ -86,7 +86,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 #pragma mark - Helper Methods
