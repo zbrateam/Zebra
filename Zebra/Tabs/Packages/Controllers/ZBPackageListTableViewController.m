@@ -294,9 +294,6 @@
             [queue addPackage:upgradeVersion toQueue:ZBQueueTypeUpgrade];
         }
     }
-    
-    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
-    [tabController openQueue:YES];
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {

@@ -335,10 +335,6 @@
                 if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, sourceID, currentDate) != PARSEL_OK) {
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
-                else if (!source.packagesFilePath) {
-                    NSLog(@"No problems here");
-                    //[self bulkPostStatusUpdate:[NSString stringWithFormat:@"No packages file for %@\n", source.repositoryURI] atLevel:ZBLogLevelError];
-                }
                 
                 [self bulkSetSource:[source baseFilename] busy:NO];
 //            });
@@ -756,7 +752,6 @@
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS WHERE REPOID = ?", -1, &statement, nil) == SQLITE_OK) {
             sqlite3_bind_int(statement, 1, sourceID);
-            NSLog(@"%s", sqlite3_expanded_sql(statement));
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *potential = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 if (potential) source = potential;

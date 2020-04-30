@@ -52,8 +52,6 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     
     //Here is where we will set up any old settings that transfer over into new settings
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *rep = [defaults dictionaryRepresentation];
-    NSLog(@"REpo: %@", rep);
     
     if ([defaults objectForKey:tintSelectionKey]) {
         switch ([[defaults objectForKey:tintSelectionKey] integerValue]) {
