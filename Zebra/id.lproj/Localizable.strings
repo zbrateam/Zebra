@@ -144,8 +144,8 @@
 "Could not authenticate" = "Tidak bisa mengotentikasi";
 "Could not complete purchase" = "Tidak dapat menyelesaikan pembelian";
 "No packages purchased" = "Tidak ada paket yang dibeli";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Terhubung atas %@";
+"Signed in as %@ (%@)" = "Masuk sebagai %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "Segarkan";
 "All Packages" = "Semua Paket";
 "Remove Source" = "Hapus Sumber";
-"Local File" = "Local File";
+"Local File" = "Berkas Lokal";
 "Local Repository" = "Repositori Lokal";
 "Locally installed packages" = "Paket Lokal terinstall";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ belum dimodifikasi";
 
-"Install All" = "Install All";
+"Install All" = "Pasang semua";
 
 // Packages
 
