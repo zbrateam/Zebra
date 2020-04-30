@@ -144,8 +144,8 @@
 "Could not authenticate" = "تعذرت المصادقة";
 "Could not complete purchase" = "تعذر إكمال الشراء";
 "No packages purchased" = "لا توجد حزم مشتراة";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "تم تسجيل الدخول كـ %@";
+"Signed in as %@ (%@)" = "تم تسجيل الدخول كـ %@ (%@)";
 
 // Sources
 
@@ -155,7 +155,7 @@
 "Refresh" = "تحديث";
 "All Packages" = "كل الحزم";
 "Remove Source" = "حذف مصدر";
-"Local File" = "Local File";
+"Local File" = "ملف محلي";
 "Local Repository" = "مستودع محلي";
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
@@ -212,7 +212,7 @@
 
 "%@ hasn't been modified" = "%@ لم يتم تعديله";
 
-"Install All" = "Install All";
+"Install All" = "تثبيت الكل";
 
 // Packages
 
@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "يجب إغلاق Zebra لتغيير اللغة المفضلة";
 "Restart" = "إعادة التشغيل";
 "Use System Language" = "استخدام لغة النظام";
+
+"You are adding a repository that is not secure" = "أنت تقوم باضافة مستودع غير آمن";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "المعلومات المحملة من هذا المستودع ممكن ان لا تكون مشفرة. هل انت متأكد من اضافتها؟";

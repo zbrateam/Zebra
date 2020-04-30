@@ -6,11 +6,11 @@
 "Ok" = "დიახ";
 "Error" = "ერორი";
 "Retry" = "კიდევ სცადეთ";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
+"Edit" = "შეცვლა";
+"Close" = "დახურვა";
+"Done" = "მზად არის";
+"Loading..." = "იტვირთება...";
+"Clear" = "გასუფთავება";
 "An Error Occurred" = "An Error Occurred";
 "Dismiss" = "Dismiss";
 "Downloads" = "Downloads";
@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
 "Restart" = "Restart";
 "Use System Language" = "Use System Language";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";

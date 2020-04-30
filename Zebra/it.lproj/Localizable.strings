@@ -38,14 +38,14 @@
 "Transfer sources from %@ to Zebra" = "Trasferisci le sorgenti da %@ a Zebra";
 "Utility source for %@" = "Sorgente utility per %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
-"Verifying Source" = "Verificando Soegente";
-"Verifying Sources" = "Verificando Sorgenti";
+"Verifying Source" = "Verifico sorgente";
+"Verifying Sources" = "Verifico Sorgenti";
 "Import" = "Importa";
 "Verifying..." = "Verifica...";
 "Confirm Import" = "Conferma importazione";
 "Import Sources" = "Importa Sorgenti";
 "No sources to import" = "Nessuna sorgente da importare";
-"Would you like to import the following sources?" = "Vorresti importare le seguenti sorgenti?";
+"Would you like to import the following sources?" = "Vuoi importare le seguenti sorgenti?";
 "Are you sure that you want to import 1 source into Zebra?" = "Sei sicuro di voler importare 1 sorgente su Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Sei sicuro di voler importare %d sorgenti su Zebra?";
 
@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra deve essere chiuso per cambiare la lingua preferita";
 "Restart" = "Riavvia";
 "Use System Language" = "Usa lingua di sistema";
+
+"You are adding a repository that is not secure" = "Stai aggiungendo una repository che non è sicura";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "I dati scaricati da questa repository potrebbero non essere crittografati. Sei sicuro di volerla aggiungere?";

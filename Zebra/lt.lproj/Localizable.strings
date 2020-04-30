@@ -475,3 +475,6 @@
 "Zebra must be closed in order to change preferred language" = "Zebra turi būti uždaryta, pakeitus pasirinktą kalbą";
 "Restart" = "Paleisti iš naujo";
 "Use System Language" = "Naudoti sistemos kalbą";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
