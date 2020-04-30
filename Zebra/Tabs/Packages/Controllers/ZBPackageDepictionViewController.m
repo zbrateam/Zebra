@@ -116,6 +116,8 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 300) configuration:configuration];
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     webView.scrollView.scrollEnabled = NO;
+    webView.opaque = NO;
+    webView.backgroundColor = [UIColor tableViewBackgroundColor];
     
     progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -189,6 +191,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
     [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
     
+    webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
     [webView loadRequest:request];
 }
 
@@ -399,6 +402,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     self.tableView.tableHeaderView.backgroundColor = tableViewBackgroundColor;
     self.tableView.tableFooterView.backgroundColor = tableViewBackgroundColor;
     self.packageName.textColor = [UIColor primaryTextColor];
+    webView.backgroundColor = tableViewBackgroundColor;
 }
 
 - (NSArray *)packageInfoOrder {
