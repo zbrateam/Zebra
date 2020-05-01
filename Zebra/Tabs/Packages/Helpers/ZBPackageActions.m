@@ -34,7 +34,7 @@
 
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
-    if (action < ZBPackageActionInstall || action > ZBPackageActionHideUpdates) return;
+    if (action < ZBPackageActionInstall || action > ZBPackageActionChooseOneToInstall) return;
     if (@available(iOS 11.0, *)) {
         if (checkPayment && action != ZBPackageActionRemove && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
             if (@available(iOS 11.0, *)) {
@@ -103,6 +103,9 @@
         case ZBPackageActionHideUpdates:
             [self hideUpdatesFor:package];
             break;
+        case ZBPackageActionChooseOneToInstall:
+            [self choose:package completion:completion];
+            break;
     }
 }
 
@@ -119,6 +122,32 @@
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
     [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeReinstall];
     if (completion) completion();
+}
+
++ (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
+    NSArray *allVersions = [package allVersions];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
+    
+    NSCountedSet *versionStrings = [NSCountedSet new];
+    for (ZBPackage *otherPackage in allVersions) {
+        [versionStrings addObject:[otherPackage version]];
+    }
+    
+    for (ZBPackage *otherPackage in allVersions) {
+        NSString *title = [versionStrings countForObject:[otherPackage version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", [otherPackage version], [[otherPackage source] label]] : [otherPackage version];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+            
+            if (completion) completion();
+        }];
+        
+        [alert addAction:action];
+    }
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+    
+    [alert show];
 }
 
 + (void)upgrade:(ZBPackage *)package completion:(void (^)(void))completion {
@@ -367,6 +396,8 @@
             return [UIColor systemBlueColor];
         case ZBPackageActionDowngrade:
             return [UIColor systemPurpleColor];
+        case ZBPackageActionChooseOneToInstall:
+            return [UIColor systemYellowColor];
         default:
             return nil;
     }
@@ -396,6 +427,9 @@
         case ZBPackageActionHideUpdates:
             imageName = @"eye.slash";
             break;
+        case ZBPackageActionChooseOneToInstall:
+            imageName = @"arrow.up.arrow.down";
+            break;
     }
     
     UIImageSymbolConfiguration *imgConfig = [UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightHeavy];
@@ -407,7 +441,7 @@
     
     switch (action) {
         case ZBPackageActionInstall:
-            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
+            return useIcon ? @"⤓" : NSLocalizedString(@"Install", @"");
         case ZBPackageActionRemove:
             return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         case ZBPackageActionReinstall:
@@ -415,11 +449,13 @@
         case ZBPackageActionUpgrade:
             return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBPackageActionDowngrade:
-            return useIcon ? @"⇵" : NSLocalizedString(@"Downgrade", @"");
+            return useIcon ? @"↓" : NSLocalizedString(@"Downgrade", @"");
         case ZBPackageActionShowUpdates:
             return NSLocalizedString(@"Show Updates", @"");
         case ZBPackageActionHideUpdates:
             return NSLocalizedString(@"Hide Updates", @"");
+        case ZBPackageActionChooseOneToInstall:
+            return useIcon ? @"⇵" : NSLocalizedString(@"Select version", @"");
         default:
             break;
     }
@@ -449,6 +485,8 @@
             return ZBQueueTypeDowngrade;
         case ZBPackageActionUpgrade:
             return ZBQueueTypeUpgrade;
+        case ZBPackageActionChooseOneToInstall:
+            return ZBQueueTypeInstall;
         default:
             return ZBQueueTypeClear;
     }

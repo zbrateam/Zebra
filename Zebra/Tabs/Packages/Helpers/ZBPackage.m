@@ -617,9 +617,15 @@
     return [databaseManager packageIsAvailable:self versionStrict:YES];
 }
 
-- (NSArray <ZBPackage *> *)otherVersions {
+- (NSMutableArray <ZBPackage *> *)allVersions {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
+    
+    return versions;
+}
+
+- (NSMutableArray <ZBPackage *> *)otherVersions {
+    NSMutableArray *versions = [self allVersions];
     [versions removeObject:self];
     
     return versions;
@@ -782,7 +788,7 @@
         
         return [basePackage possibleActions];
     }
-    else {
+    else { // This means the package is not installed
         if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
             // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
             if ([self ignoreUpdates]) {
@@ -794,7 +800,12 @@
                 [actions addObject:@(ZBPackageActionHideUpdates)];
             }
         }
-        [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
+        if ([[self allVersions] count] > 1) { // Show "Select version" instead of "Install" as it makes more senses
+            [actions addObject:@(ZBPackageActionChooseOneToInstall)];
+        }
+        else {
+            [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
+        }
     }
     
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
