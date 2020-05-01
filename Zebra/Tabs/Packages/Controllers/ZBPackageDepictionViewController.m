@@ -596,7 +596,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.row == ZBPackageInfoID;
+    return indexPath.row == ZBPackageInfoID || (indexPath.row == ZBPackageInfoSource && package.source.sourceID > 0);
 }
 
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
@@ -607,7 +607,18 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (action == @selector(copy:)) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-        [pasteBoard setString:cell.textLabel.text];
+        NSString *content = nil;
+        switch (indexPath.row) {
+            case ZBPackageInfoID:
+                content = cell.textLabel.text;
+                break;
+            case ZBPackageInfoSource:
+                content = package.source.repositoryURI;
+                break;
+        }
+        if (content) {
+            [pasteBoard setString:content];
+        }
     }
 }
 
