@@ -65,6 +65,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     
     if (@available(iOS 13.0, *)) {
     } else {
@@ -150,6 +151,10 @@
 }
 
 #pragma mark - Table view data source
+
+- (void)refreshTable {
+    [self.tableView reloadData];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -288,8 +293,6 @@
         destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
-
-#pragma mark - Navigation
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
