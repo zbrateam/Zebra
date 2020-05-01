@@ -153,7 +153,9 @@
 #pragma mark - Table view data source
 
 - (void)refreshTable {
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
