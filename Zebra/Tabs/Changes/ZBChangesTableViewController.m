@@ -425,14 +425,18 @@
         text = [text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
         text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-        cell.postTitle.text = text;
         
         NSMutableArray *tags = [NSMutableArray new];
+        NSMutableArray *formattedTags = [NSMutableArray new];
         for (NSString *string in [self getTags:post.title]) {
             if ([availableOptions containsObject:string]) {
                 [tags addObject:string];
+                [formattedTags addObject:[NSString stringWithFormat:@"[%@]", string]];
             }
         }
+
+        cell.postTitle.text = [self stripTags:formattedTags fromTitle:text];
+
         cell.postTag.text = [tags componentsJoinedByString:@", "];
         cell.postTag.text = [cell.postTag.text capitalizedString];
     } else {
@@ -464,13 +468,14 @@
     return cell;
 }
 
-- (NSString *)stripTag:(NSString *)title {
-    NSArray *authorName = [title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+- (NSString *)stripTags:(NSArray *)tags fromTitle:(NSString *)title {
+    NSArray *separatedTitle = [title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName) {
-        if (![cut hasPrefix:@"["] && ![cut hasSuffix:@"]"]) {
-            [cleanedStrings addObject:cut];
-        } 
+    for (NSString *cut in separatedTitle) {
+        if ([cut hasPrefix:@"["] && [tags containsObject:[cut lowercaseString]]) {
+            continue;
+        }
+        [cleanedStrings addObject:cut];
     }
     
     return [cleanedStrings componentsJoinedByString:@" "];
