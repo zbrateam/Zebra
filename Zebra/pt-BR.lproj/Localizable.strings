@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Mais Recentes";
 "Version" = "Versão";
 "Packages" = "Pacotes";
 "Show Updates" = "Mostrar Atualizações";
 "Hide Updates" = "Ocultar atualizações";
 "Select Version" = "Selecionar versão";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Selecione uma versão para instalar:";
 "Select a version to upgrade to:" = "Selecione a versão para atualizar para:";
 "Select a version to downgrade to:" = "Selecione uma versão para fazer o downgrade:";
 "Package" = "Pacote";
