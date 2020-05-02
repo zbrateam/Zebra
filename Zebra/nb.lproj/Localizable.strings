@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importere 1 kilde til Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importere %d kilder til Zebra?";
 
-
 // Credits
 
 "Credits" = "Bidragsytere";
@@ -70,9 +69,6 @@
 "Text" = "Tekst";
 "Icon" = "Ikoner";
 "Finish Automatically" = "Fullfør automatisk";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kildene dine vil bli permanent fjernet, og Zebra vil starte på nytt.";
 
 // Documents Directory
-"Open Documents Directory" = "Åpne dokument filplassering";
 
+"Open Documents Directory" = "Åpne dokument filplassering";
 "Filza Not Installed" = "Filza ikke installert";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kunne ikke åpne dokument filplasseringen sin fordi Filza ikke er installert. Dokument filplasseringen din er: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Versjon";
 "Packages" = "Pakker";
 "Show Updates" = "Vis oppdateringer";
 "Hide Updates" = "Skjul oppdateringer";
 "Select Version" = "Velg versjon";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Velg versjonen du vil oppdatere til:";
 "Select a version to downgrade to:" = "Velg versjonen du vil nedgradere til:";
 "Package" = "Pakke";
