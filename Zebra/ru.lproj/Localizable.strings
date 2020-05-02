@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Текущая";
 "Version" = "Версия";
 "Packages" = "Пакеты";
 "Show Updates" = "Показать Обновления";
 "Hide Updates" = "Скрыть обновления";
 "Select Version" = "Выберите версию";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Выберите версию для установки:";
 "Select a version to upgrade to:" = "Выберите версию до которой обновить пакет:";
 "Select a version to downgrade to:" = "Выберите версию до которой откатить пакет:";
 "Package" = "Пакет";
