@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "ล่าสุด";
 "Version" = "รุ่น";
 "Packages" = "โปรแกรม";
 "Show Updates" = "แสดงรุ่นใหม่ถ้ามี";
 "Hide Updates" = "ซ่อนรายการปรับปรุง";
 "Select Version" = "เลือกรุ่น";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "เลือกรุ่นที่จะทำการติดตั้ง:";
 "Select a version to upgrade to:" = "เลือกรุ่นที่ใหม่กว่าที่จะทำการติดตั้ง:";
 "Select a version to downgrade to:" = "เลือกรุ่นที่เก่ากว่าที่จะทำการติดตั้ง:";
 "Package" = "โปรแกรม";
@@ -407,7 +407,7 @@
 
 "Error while creating debs directory: %@." = "เกิดข้อผิดพลาดขณะการสร้างที่อยู่ไฟล์ deb: %@";
 
-"Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวท่านเอง";
+"Could not respring. Please respring manually." = "ไม่สำเร็จ กรุณาเริ่มการทำงาน SpringBoard ด้วยตัวเอง";
 
 "ERROR: Unable to lock status file. Please try again." = "ข้อผิดพลาด: ไม่สามารถล็อคไฟล์ status ได้ กรุณาลองอีกครั้ง";
 
@@ -474,5 +474,5 @@
 "Restart" = "เริ่มใหม่";
 "Use System Language" = "ใช้ภาษาของระบบ";
 
-"You are adding a repository that is not secure" = "ท่านกำลังเพิ่มซอร์สที่ไม่มีการเข้ารหัส";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "ข้อมูลที่ถูกดาวน์โหลดมาจากซอร์สนี้อาจไม่มีการเข้ารหัส ท่านแน่ใจหรือไม่ที่จะเพิ่ม?";
+"You are adding a repository that is not secure" = "คุณกำลังเพิ่มซอร์สที่ไม่มีการเข้ารหัส";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "ข้อมูลที่ถูกดาวน์โหลดมาจากซอร์สนี้อาจไม่มีการเข้ารหัส คุณแน่ใจหรือไม่ที่จะเพิ่ม?";
