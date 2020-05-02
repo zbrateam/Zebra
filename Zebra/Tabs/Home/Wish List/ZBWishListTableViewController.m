@@ -15,6 +15,7 @@
 
 @interface ZBWishListTableViewController () {
     UIImageView *shadowView;
+    UIBarButtonItem *shareButton;
 }
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -46,7 +47,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
+    shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
     self.navigationItem.rightBarButtonItem = shareButton;
 }
 
@@ -79,6 +80,9 @@
 }
 
 - (void)export {
+    if ([wishedPackages count] == 0) {
+        return;
+    }
     NSArray *packages = [wishedPackages copy];
     [packages sortedArrayUsingSelector:@selector(name)];
     
@@ -89,7 +93,8 @@
     
     NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
-    [self presentViewController:controller animated:true completion:nil];
+    controller.popoverPresentationController.barButtonItem = shareButton;
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (UIBarPosition)positionForBar:(id<UIBarPositioning>)bar {
@@ -133,8 +138,8 @@
         NSUInteger j = [wishedPackages count] - 1;
         while (i < j) {
             [wishedPackages exchangeObjectAtIndex:i withObjectAtIndex:j];
-            i++;
-            j--;
+            ++i;
+            --j;
         }
     }
     
