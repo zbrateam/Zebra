@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "אחרונה";
 "Version" = "גירסה";
 "Packages" = "חבילות";
 "Show Updates" = "הצג עדכונים";
 "Hide Updates" = "הסתר עדכונים";
 "Select Version" = "בחר גירסה";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "בחר/י גירסה להתקנה:";
 "Select a version to upgrade to:" = "בחר/י גירסה לעדכן אליה:";
 "Select a version to downgrade to:" = "בחר/י גירסה לעדכן אליה:";
 "Package" = "חבילה";
