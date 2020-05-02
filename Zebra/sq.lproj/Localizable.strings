@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Të Fundit";
 "Version" = "Versioni";
 "Packages" = "Paketat";
 "Show Updates" = "Shfaq përditsimet";
 "Hide Updates" = "Fsheh Përditsimet";
 "Select Version" = "Zgjidh Versionin";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Zgjidh një version për ta instaluar:";
 "Select a version to upgrade to:" = "Zgjidh një verzion për ta përditsuar në:";
 "Select a version to downgrade to:" = "Zgjidhni një version për të zbritur në:";
 "Package" = "Paketa";
