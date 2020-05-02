@@ -138,6 +138,7 @@
     for (ZBPackage *otherPackage in allVersions) {
         NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:otherPackage == allVersions[0]];
         UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
             [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
             
             if (completion) completion();
@@ -168,6 +169,7 @@
         for (ZBPackage *otherPackage in greaterVersions) {
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
                 
                 if (completion) completion();
@@ -204,6 +206,7 @@
             
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
                 if (completion) completion();
             }];
