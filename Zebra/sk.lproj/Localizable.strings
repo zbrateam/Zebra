@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Naozaj chcete importovať 1 zdroj do Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Naozaj chcete importovať %d zdrojov do Zebra?";
 
-
 // Credits
 
 "Credits" = "Kredity";
@@ -70,9 +69,6 @@
 "Text" = "Text";
 "Icon" = "Ikona";
 "Finish Automatically" = "Automaticky Dokončiť";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatická aktualizácia";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
 
+"Open Documents Directory" = "Open Documents Directory";
 "Filza Not Installed" = "Filza Not Installed";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Verzia";
 "Packages" = "Balíčky";
 "Show Updates" = "Zobraziť aktualizácie";
 "Hide Updates" = "Hide Updates";
 "Select Version" = "Vyber verziu";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Vyberte verziu, na ktorú chcete aktualizovať:";
 "Select a version to downgrade to:" = "Vyberte verziu, na ktorú sa chcete vrátiť:";
 "Package" = "Balíček";
