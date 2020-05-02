@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Jeste li sigurni da ćete uvesti 1 izvor u Zebru?";
 "Are you sure that you want to import %d sources into Zebra?" = "Jeste li sigurni da ćete uvesti %d izvore u Zebru?";
 
-
 // Credits
 
 "Credits" = "Zasluge";
@@ -70,9 +69,6 @@
 "Text" = "Tekst";
 "Icon" = "Ikonica";
 "Finish Automatically" = "Završi automatski";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatski osveži";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Svi vaši izvori će biti izabrani za uvek i aplikacija Zebra će se restartovati.";
 
 // Documents Directory
-"Open Documents Directory" = "Otvori folder dokumenata";
 
+"Open Documents Directory" = "Otvori folder dokumenata";
 "Filza Not Installed" = "Filza nije instalirana";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra ne može da otvori ovaj direktorijum zato sto Filza nije instalirana. Direktorijum je: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Verzija";
 "Packages" = "Paketi";
 "Show Updates" = "Prikaži nadogradnje";
 "Hide Updates" = "Sakrij nadogradnje";
 "Select Version" = "Izaberi verziju";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Izaberi verziju za nadogradnju:";
 "Select a version to downgrade to:" = "Izaberi stariju verziju za instaliranje:";
 "Package" = "Paket";
