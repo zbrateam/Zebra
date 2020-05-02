@@ -548,9 +548,9 @@
     [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
     for (NSString *bfn in [sourceIndexes allKeys]) {
         NSInteger pos = [sourceIndexes[bfn] integerValue];
-        int index = (int)(pos >> 16);
+        NSInteger index = pos >> 16;
         NSInteger row = pos & 0xFF;
-        index = (int)[sectionIndexTitles indexOfObject:[NSString stringWithFormat:@"%c", 65 + index]];
+        index = [sectionIndexTitles indexOfObject:index == 26 ? @"#" : [NSString stringWithFormat:@"%c", 65 + (int)index]];
         sourceIndexes[bfn] = @(index << 16 | row);
     }
     return sections;
