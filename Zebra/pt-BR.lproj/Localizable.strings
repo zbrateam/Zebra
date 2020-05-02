@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
 
-
 // Credits
 
 "Credits" = "Créditos";
@@ -70,9 +69,6 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Terminar automaticamente";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Atualização automática";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas as suas fontes serão excluídas para sempre e Zebra será reiniciado.";
 
 // Documents Directory
-"Open Documents Directory" = "Abrir o diretório de documentos";
 
+"Open Documents Directory" = "Abrir o diretório de documentos";
 "Filza Not Installed" = "Filza não instalado";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra não pode abrir seu diretório de documentos porque o Filza não está instalado. Seu diretório de documentos é: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Versão";
 "Packages" = "Pacotes";
 "Show Updates" = "Mostrar Atualizações";
 "Hide Updates" = "Ocultar atualizações";
 "Select Version" = "Selecionar versão";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Selecione a versão para atualizar para:";
 "Select a version to downgrade to:" = "Selecione uma versão para fazer o downgrade:";
 "Package" = "Pacote";
