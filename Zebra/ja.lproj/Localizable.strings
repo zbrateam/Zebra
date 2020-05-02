@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "最新";
 "Version" = "バージョン";
 "Packages" = "パッケージ";
 "Show Updates" = "アップデートを表示";
 "Hide Updates" = "アップデートを非表示";
 "Select Version" = "バージョンを選択";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "インストールしたいバージョンを選択:";
 "Select a version to upgrade to:" = "アップデートしたいバージョンを選択:";
 "Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
 "Package" = "パッケージ";
