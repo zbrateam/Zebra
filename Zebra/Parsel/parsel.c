@@ -14,6 +14,8 @@
 #include <time.h>
 #include <Database/ZBColumn.h>
 
+#define LONG_DESCRIPTION_MAX_LENGTH 32768
+
 char *trim(char *s) {
     size_t size = strlen(s);
     if (!size)
@@ -454,7 +456,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     int safeID = sourceID;
     bool longDescFlag = false;
     
-    char longDescription[32768] = "";
+    char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
     char depends[512] = "";
     
     while (fgets(line, sizeof(line), file)) {
@@ -465,7 +467,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     ++i;
                 }
                 
-                if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
+                if (strlen(&line[i]) + strlen(longDescription) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
                     strcat(longDescription, &line[i]);
                     strcat(longDescription, "\n");
                 }
@@ -539,7 +541,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     int safeID = sourceID;
     bool longDescFlag = false;
     
-    char longDescription[32768] = "";
+    char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
     char depends[512] = "";
     
     while (fgets(line, sizeof(line), file)) {
@@ -550,7 +552,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                     ++i;
                 }
                 
-                if (strlen(&line[i]) + strlen(longDescription) + 1 < 32768) {
+                if (strlen(&line[i]) + strlen(longDescription) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
                     strcat(longDescription, &line[i]);
                     strcat(longDescription, "\n");
                 }
