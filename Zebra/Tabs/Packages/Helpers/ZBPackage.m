@@ -631,7 +631,7 @@
     return versions;
 }
 
-- (NSArray <ZBPackage *> *)lesserVersions {
+- (NSMutableArray <ZBPackage *> *)lesserVersions {
     NSMutableArray *versions = [[self otherVersions] mutableCopy];
     NSMutableArray *lesserVersions = [versions mutableCopy];
     for (ZBPackage *package in versions) {
@@ -643,7 +643,7 @@
     return lesserVersions;
 }
 
-- (NSArray <ZBPackage *> *)greaterVersions {
+- (NSMutableArray <ZBPackage *> *)greaterVersions {
     NSMutableArray *versions = [[self otherVersions] mutableCopy];
     NSMutableArray *greaterVersions = [versions mutableCopy];
     for (ZBPackage *package in versions) {
@@ -801,7 +801,7 @@
             }
         }
         if ([[self allVersions] count] > 1) { // Show "Select version" instead of "Install" as it makes more senses
-            [actions addObject:@(ZBPackageActionChooseOneToInstall)];
+            [actions addObject:@(ZBPackageActionSelectVersion)];
         }
         else {
             [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)

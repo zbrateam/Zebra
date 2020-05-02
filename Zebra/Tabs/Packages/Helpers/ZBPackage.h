@@ -62,8 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isReinstallable;
 - (NSMutableArray <ZBPackage *> *)allVersions;
 - (NSMutableArray <ZBPackage *> *)otherVersions;
-- (NSArray <ZBPackage *> *)lesserVersions;
-- (NSArray <ZBPackage *> *)greaterVersions;
+- (NSMutableArray <ZBPackage *> *)lesserVersions;
+- (NSMutableArray <ZBPackage *> *)greaterVersions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
 - (NSString *)downloadSizeString;
