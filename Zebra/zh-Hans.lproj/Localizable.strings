@@ -11,7 +11,7 @@
 "Done" = "完成";
 "Loading..." = "加载中……";
 "Clear" = "清空";
-"An Error Occurred" = "出现一个错误";
+"An Error Occurred" = "出现了一个错误";
 "Dismiss" = "忽略";
 "Downloads" = "下载";
 
@@ -25,7 +25,7 @@
 "Wish List" = "心愿单";
 "Newest First" = "从新到旧";
 "Oldest First" = "从旧到新";
-"No items in Wish List" = "愿望单中无项目";
+"No items in Wish List" = "心愿单中无项目";
 "Community" = "交流";
 "Join our Discord" = "加入我们的 Discord";
 "Follow us on Twitter" = "在 Twitter 上关注我们";
@@ -101,9 +101,9 @@
 
 "Featured Packages" = "精选软件包";
 "Feature Type" = "推荐类型";
-"Repo Featured" = "推荐的软件源";
+"Repo Featured" = "精选软件源";
 "Random" = "随机";
-"Select Repos to be Featured" = "选择会被推荐的软件源";
+"Select Repos to be Featured" = "选择会被推荐的精选软件源";
 "Featured Repos" = "精选软件源";
 
 // Reset
@@ -193,7 +193,7 @@
 "Couldn't authorize download for %@." = "无法获取下载 %@ 的授权。";
 "Reason: %@." = "原因：%@。";
 "The Payment API is not supported on less than iOS 11.0" = "支付 API 不支持 iOS 11.0 以下的系统";
-"Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
+"Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载软件源信息。原因：%@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
 "Could not download one or more files from %@. Reason: %@" = "无法从 %@ 下载一个或多个文件。原因： %@";
 
@@ -449,13 +449,13 @@
 "Add Filter" = "添加条件";
 
 "1 Section Hidden" = "1个软件源已隐藏";
-"%lu Sections Hidden" = "%lu软件源已隐藏";
+"%lu Sections Hidden" = "%lu个分类已被隐藏";
 
 "Sections" = "分类";
 "Select a Section" = "选择类别";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
-"Sources" = "资料来源";
+"Sources" = "软件源";
 "Select a Source" = "选择软件源";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
 
@@ -465,7 +465,7 @@
 "Authors" = "开发者";
 "Hide packages from these authors." = "隐藏这些开发者的软件包。";
 "Search for an Author" = "搜索开发者";
-"This author also goes by the following names:" = "这位作者还有以下姓名：";
+"This author also goes by the following names:" = "此开发者还使用以下名字：";
 
 // Language Settings
 
