@@ -36,6 +36,7 @@
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
     if (action < ZBPackageActionInstall || action > ZBPackageActionSelectVersion) return;
+    
     if (@available(iOS 11.0, *)) {
         if (checkPayment && action != ZBPackageActionRemove && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
             if (@available(iOS 11.0, *)) {
@@ -123,11 +124,6 @@
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
     [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeReinstall];
     if (completion) completion();
-}
-
-+ (NSString *)determinePackageTitle:(ZBPackage *)package versionStrings:(NSCountedSet *)versionStrings withLatest:(BOOL)latest {
-    NSString *versionString = latest ? [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), [package version]] : [package version];
-    return [versionStrings countForObject:[package version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", versionString, [[package source] label]] : versionString;
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
@@ -495,6 +491,11 @@
         default:
             return ZBQueueTypeClear;
     }
+}
+
++ (NSString *)determinePackageTitle:(ZBPackage *)package versionStrings:(NSCountedSet *)versionStrings withLatest:(BOOL)latest {
+    NSString *versionString = latest ? [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), [package version]] : [package version];
+    return [versionStrings countForObject:[package version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", versionString, [[package source] label]] : versionString;
 }
 
 @end

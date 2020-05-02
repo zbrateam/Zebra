@@ -15,9 +15,9 @@ typedef enum : NSUInteger {
     ZBPackageActionReinstall,
     ZBPackageActionDowngrade,
     ZBPackageActionUpgrade,
+    ZBPackageActionSelectVersion,
     ZBPackageActionShowUpdates,
     ZBPackageActionHideUpdates,
-    ZBPackageActionSelectVersion,
 } ZBPackageActionType;
 
 #endif /* ZBPackageActionType_h */
