@@ -216,11 +216,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Version";
 "Packages" = "Packages";
 "Show Updates" = "Show Updates";
 "Hide Updates" = "Hide Updates";
 "Select Version" = "Select Version";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Package";
