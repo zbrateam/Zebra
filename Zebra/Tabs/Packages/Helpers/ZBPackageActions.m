@@ -126,7 +126,7 @@
 }
 
 + (NSString *)determinePackageTitle:(ZBPackage *)package versionStrings:(NSCountedSet *)versionStrings withLatest:(BOOL)latest {
-    NSString *versionString = latest ? NSLocalizedString(@"Latest", @"") : [package version];
+    NSString *versionString = latest ? [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), [package version]] : [package version];
     return [versionStrings countForObject:[package version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", versionString, [[package source] label]] : versionString;
 }
 
