@@ -60,9 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString * _Nullable)getField:(NSString *)field;
 - (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
-- (NSArray <ZBPackage *> *)otherVersions;
-- (NSArray <ZBPackage *> *)lesserVersions;
-- (NSArray <ZBPackage *> *)greaterVersions;
+- (NSMutableArray <ZBPackage *> *)allVersions;
+- (NSMutableArray <ZBPackage *> *)otherVersions;
+- (NSMutableArray <ZBPackage *> *)lesserVersions;
+- (NSMutableArray <ZBPackage *> *)greaterVersions;
 - (BOOL)ignoreUpdates;
 - (void)setIgnoreUpdates:(BOOL)ignore;
 - (NSString *)downloadSizeString;

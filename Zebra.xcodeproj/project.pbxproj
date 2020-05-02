@@ -471,6 +471,7 @@
 		9ED47D942365886300CF2021 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A53E54A3245B08740082BF69 /* ZBUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBUtils.h; sourceTree = "<group>"; };
 		A53E54A4245B08740082BF69 /* ZBUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBUtils.m; sourceTree = "<group>"; };
+		A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Private.h"; sourceTree = "<group>"; };
 		A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
 		BFC6DB1C236D9B9000DA5534 /* ZBSettingsSelectionTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsSelectionTableViewController.h; sourceTree = "<group>"; };
 		BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsSelectionTableViewController.m; sourceTree = "<group>"; };
@@ -728,6 +729,7 @@
 				89B20FD121B7635300F7EEFE /* NSTask.h */,
 				895071972239E2FD004AE338 /* MobileGestalt.h */,
 				A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */,
+				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
