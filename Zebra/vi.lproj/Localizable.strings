@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Bạn có chắc muốn thêm 1 nguồn vào Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Bạn có chắc rằng bạn muốn thêm nguồn %d vào Zebra?";
 
-
 // Credits
 
 "Credits" = "Thẻ Tín Dụng";
@@ -70,9 +69,6 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tất cả nguồn của bạn sẽ bị xoá vĩnh viễn và Zebra sẽ khởi động lại.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
 
+"Open Documents Directory" = "Open Documents Directory";
 "Filza Not Installed" = "Filza Not Installed";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Phiên bản";
 "Packages" = "Gói";
 "Show Updates" = "Hiển thị cập nhật";
 "Hide Updates" = "Ẩn cập nhật";
 "Select Version" = "Chọn phiên bản";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Chọn một phiên bản để nâng cấp:";
 "Select a version to downgrade to:" = "Chọn một phiên bản để hạ cấp:";
 "Package" = "Gói";
