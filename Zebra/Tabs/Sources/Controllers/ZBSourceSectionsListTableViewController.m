@@ -169,13 +169,15 @@
 
 - (void)accountButtonPressed:(id)sender {
     if (@available(iOS 11.0, *)) {
-        [source authenticate:^(BOOL success, NSError * _Nullable error) {
+        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
             if (!success || error) {
-                if (error) {
-                    if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:NSLocalizedString(@"Could not authenticate: %@", @""), error.localizedDescription]];
-                }
-                else {
-                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                if (notify) {
+                    if (error) {
+                        if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:NSLocalizedString(@"Could not authenticate: %@", @""), error.localizedDescription]];
+                    }
+                    else {
+                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                    }
                 }
             }
             else {

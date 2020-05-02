@@ -173,22 +173,22 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
 }
 
-- (void)authenticate:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
     if (![self suppotsPaymentAPI]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
-        completion(NO, error);
+        completion(NO, YES, error);
         return;
     }
     
     if ([self isSignedIn]) {
-        completion(YES, nil);
+        completion(YES, NO, nil);
         return;
     }
     
     NSURLComponents *components = [NSURLComponents componentsWithURL:[[self paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
     if (![components.scheme isEqualToString:@"https"]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
-        completion(NO, error);
+        completion(NO, YES, error);
         return;
     }
     
@@ -223,11 +223,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
                 
                 [keychain setString:payment forKey:key];
                 
-                completion(YES, NULL);
+                completion(YES, NO, NULL);
             });
         }
-        else if (error && !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
-            completion(NO, error);
+        else if (error) {
+            completion(NO, !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin), error);
+            return;
         }
     }];
     

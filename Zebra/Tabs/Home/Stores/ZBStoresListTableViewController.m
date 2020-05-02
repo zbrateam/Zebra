@@ -94,18 +94,21 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (!sources.count) return;
     
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
     if (@available(iOS 11.0, *)) {
-        [source authenticate:^(BOOL success, NSError * _Nullable error) {
+        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
             if (!success || error) {
-                if (error) {
-                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
-                }
-                else {
-                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                if (notify) {
+                    if (error) {
+                        [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
+                    }
+                    else {
+                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                    }
                 }
             }
             else {

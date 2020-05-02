@@ -893,7 +893,7 @@
     }
     
     // Should only run if we don't have a payment secret or if we aren't logged in.
-    [[self source] authenticate:^(BOOL success, NSError * _Nullable error) {
+    [[self source] authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
         if (success) {
             [self purchase:completion];
         }
