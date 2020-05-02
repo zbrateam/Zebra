@@ -323,6 +323,10 @@
 - (void)checkClipboard {
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
     NSURL *url = [NSURL URLWithString:pasteboard.string];
+    BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
+    if (!isValidURL) {
+        return;
+    }
     NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
                               @"www.youtu.be", @"youtu.be",
                               @"www.google.com", @"google.com",
