@@ -167,6 +167,13 @@ void createTable(sqlite3 *database, int table) {
     }
 }
 
+void printDatabaseError(sqlite3 *database) {
+    const char *error = sqlite3_errmsg(database);
+    if (strcmp(error, "not an error")) {
+        printf("sql error: %s\n", error);
+    }
+}
+
 enum PARSEL_RETURN_TYPE addSourceToDatabase(struct ZBBaseSource source, const char *releasePath, sqlite3 *database, int sourceID, bool update) {
     FILE *file = fopen(releasePath, "r");
     if (file == NULL) {
@@ -214,7 +221,7 @@ enum PARSEL_RETURN_TYPE addSourceToDatabase(struct ZBBaseSource source, const ch
         sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnSourceID, sourceID);
         sqlite3_step(insertStatement);
     } else {
-        printf("sql error: %s", sqlite3_errmsg(database));
+        printDatabaseError(database);
     }
     
     sqlite3_finalize(insertStatement);
@@ -234,19 +241,19 @@ enum PARSEL_RETURN_TYPE updateSourceInDatabase(struct ZBBaseSource source, const
 }
 
 enum PARSEL_RETURN_TYPE addPaymentEndpointForSource(const char *endpointURL, sqlite3 *database, int sourceID) {
-    sqlite3_stmt *insertStatement;
+    sqlite3_stmt *updateStatement;
     const char *query = "UPDATE REPOS SET (VENDOR) = (?) WHERE REPOID = ?;";
-    if (sqlite3_prepare_v2(database, query, -1, &insertStatement, 0) == SQLITE_OK) {
-        sqlite3_bind_text(insertStatement, 1, endpointURL, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(insertStatement, 2, sourceID);
-        if (sqlite3_step(insertStatement) != SQLITE_OK) {
-            printf("sql error: %s", sqlite3_errmsg(database));
+    if (sqlite3_prepare_v2(database, query, -1, &updateStatement, 0) == SQLITE_OK) {
+        sqlite3_bind_text(updateStatement, 1, endpointURL, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(updateStatement, 2, sourceID);
+        if (sqlite3_step(updateStatement) != SQLITE_OK) {
+            printDatabaseError(database);
         }
     }
     else {
-        printf("sql error: %s", sqlite3_errmsg(database));
+        printDatabaseError(database);
     }
-    sqlite3_finalize(insertStatement);
+    sqlite3_finalize(updateStatement);
     
     return PARSEL_OK;
 }
@@ -272,7 +279,7 @@ void createDummySource(struct ZBBaseSource source, sqlite3 *database, int source
         sqlite3_bind_int(insertStatement, 1 + ZBSourceColumnSourceID, sourceID);
         sqlite3_step(insertStatement);
     } else {
-        printf("sql error: %s", sqlite3_errmsg(database));
+        printDatabaseError(database);
     }
     
     sqlite3_finalize(insertStatement);
