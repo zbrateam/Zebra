@@ -169,7 +169,7 @@ void createTable(sqlite3 *database, int table) {
 
 void printDatabaseError(sqlite3 *database) {
     const char *error = sqlite3_errmsg(database);
-    if (strcmp(error, "not an error")) {
+    if (strcmp(error, "not an error") && strcmp(error, "no more rows available")) {
         printf("sql error: %s\n", error);
     }
 }
