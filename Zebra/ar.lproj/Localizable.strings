@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "الأحدث";
 "Version" = "الإصدار";
 "Packages" = "الحزم";
 "Show Updates" = "إظهار التحديثات";
 "Hide Updates" = "إخفاء التحديثات";
 "Select Version" = "اختيار إصدار";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "حدد إصدار لتثبيته:";
 "Select a version to upgrade to:" = "اختر إصدار للترقية إليه:";
 "Select a version to downgrade to:" = "اختر إصدار للخفض إليه:";
 "Package" = "حزمة";
