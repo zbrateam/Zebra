@@ -532,8 +532,7 @@
     }
     for (ZBSource *object in array) {
         NSUInteger index = [collation sectionForObject:object collationStringSelector:selector];
-        NSMutableArray *section = [unsortedSections objectAtIndex:index];
-        sourceIndexes[[object baseFilename]] = @((index << 16) | section.count);
+        NSMutableArray *section = unsortedSections[index];
         [section addObject:object];
     }
     NSUInteger lastIndex = 0;
@@ -550,12 +549,12 @@
         }
     }
     [sectionIndexTitles removeObjectsAtIndexes:sectionsToRemove];
-    for (NSString *bfn in [sourceIndexes allKeys]) {
-        NSInteger pos = [sourceIndexes[bfn] integerValue];
-        NSInteger index = pos >> 16;
-        NSInteger row = pos & 0xFF;
-        index = [sectionIndexTitles indexOfObject:index == 26 ? @"#" : [NSString stringWithFormat:@"%c", 65 + (int)index]];
-        sourceIndexes[bfn] = @(index << 16 | row);
+    for (NSUInteger i = 0; i < [sections count]; ++i) {
+        NSArray <ZBSource *> *section = sections[i];
+        for (NSUInteger j = 0; j < [section count]; ++j) {
+            ZBSource *source = section[j];
+            sourceIndexes[[source baseFilename]] = @((i << 16) | j);
+        }
     }
     return sections;
 }
