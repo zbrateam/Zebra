@@ -35,7 +35,7 @@
 
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
-    if (action < ZBPackageActionInstall || action > ZBPackageActionSelectVersion) return;
+    if (action < ZBPackageActionInstall || action > ZBPackageActionHideUpdates) return;
     
     if (@available(iOS 11.0, *)) {
         if (checkPayment && action != ZBPackageActionRemove && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
