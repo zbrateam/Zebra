@@ -9,9 +9,6 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
-    - uses: webfactory/ssh-agent@v0.1.1
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Install Dependencies
       env:
         THEOS: theos
@@ -30,7 +27,7 @@ jobs:
 
     - name: Clone gh-pages
       run: |
-        git clone -b gh-pages git@github.com:wstyres/Zebra.git ~/website
+        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/wstyres/Zebra.git ~/website
     - name: Move package to repo
       if: "!github.event.release.prerelease"
       run: |
@@ -63,12 +60,12 @@ jobs:
     - name: Attach package to release
       if: "!github.event.release.prerelease"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
     - name: Attach package to beta release
       if: github.event.release.prerelease
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
 
     - name: Build IPA package
@@ -82,5 +79,5 @@ jobs:
     - name: Attach IPA to release
       if: "!github.event.release.prelease"
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: hub release edit -m '' -a ipas/${{ steps.ipa_build.outputs.package }} '${{ github.event.release.tag_name }}'
