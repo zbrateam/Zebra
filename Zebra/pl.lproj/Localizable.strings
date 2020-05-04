@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Najnowsze";
 "Version" = "Wersja";
 "Packages" = "Pakiety";
 "Show Updates" = "Pokaż zmiany";
 "Hide Updates" = "Ukryj aktualizacje";
 "Select Version" = "Wybierz wersje";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Wybierz wersję, którą chcesz zainstalować:";
 "Select a version to upgrade to:" = "Wybierz, do której wersji zaktualizować:";
 "Select a version to downgrade to:" = "Wybierz, do której wersji cofnąć:";
 "Package" = "Pakiet";
@@ -360,119 +360,119 @@
 // Queue
 
 "Queue" = "Kolejka";
-"Install" = "Instaluj";
-"Reinstall" = "Reinstaluj";
-"Remove" = "Usuń";
-"Upgrade" = "Aktualizuj";
-"Downgrade" = "Dezaktualizuj";
-"Abort" = "Anuluj";
-"Continue" = "Kontynuuj";
-"Download Size" = "Rozmiar pobierania";
-"Confirm" = "Potwierdź";
-"Issues" = "Błędy";
-"Required Package" = "Wymagany pakiet";
-"Are you sure?" = "Czy jesteś pewny?";
-"Remove from Queue" = "Usuń z kolejki";
-"Clear Queue" = "Wyczyść Kolejkę";
-"%@ is required by:" = "%@ jest wymagany przez:";
-"\"%@\" conflicts with %@" = "\"%@ koliduje z %@";
-"%@ must be removed because it depends on %@" = "%@ musi zostać usunięte, bo polega na %@";
-"%@ has issues that cannot be resolved:" = "%@ ma błędy, których nie udało się rozwiązać:";
-"Are you sure you want to clear the Queue?" = "Czy na pewno chcesz wyczyścić kolejkę?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ jest wymaganym pakietem. Nie powinien być usuwany, chyba że wiesz dokładnie, co robisz!";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
+"Issues" = "Issues";
+"Required Package" = "Required Package";
+"Are you sure?" = "Are you sure?";
+"Remove from Queue" = "Remove from Queue";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ is required by:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 
 // Search
 
-"Live Search" = "Wyszukiwanie";
-"Tweaks, Themes, and More" = "Tweaki, motywy i więcej";
+"Live Search" = "Live Search";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ jest wymaganym pakietem i musi zostać usunięty, ponieważ zależy od %@. %@ NIE powinien być usunięty, chyba że wiesz dokładnie, co robisz!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Jeden lub więcej pakietów w kolejce do usunięcia jest wymagany. Nie jest zalecane kontynuowanie, chyba że wiesz dokładnie, co robisz. Usuwanie tych pakietów może skutkować nieodwracalnymi uszkodzeniami i może wymagać pełnego odnowienia.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nie była w stanie wypełnić tej komendy, ponieważ nie posiada odpowiednich uprawnień. Zweryfikuj uprawnienia znajdujące się w /usr/libexec/zebra/supersling i zgłoś ten problem na GitHubie.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Nie można uzyskać dostępu do su/sling. Proszę sprawdzić, czy /usr/libexec/zebra/supersling istnieje.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nie należy do root:wheel. Sprawdź uprawnienia pliku znajdującego się w /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nie ma uprawnień do ustawienia uid lub gid. Proszę zweryfikować uprawnienia pliku znajdującego się w /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Wystąpił błąd podczas tworzenia katalogu dokumentów %@.";
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
 
-"Error while creating lists directory: %@." = "Wystąpił błąd podczas tworzenia katalogu list %@.";
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
 
-"Error while creating sources.list: %@." = "Wystąpił błąd podczas tworzenia pliku sources.list: %@.";
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Wystąpił błąd podczas tworzenia katalogu plików . deb: %@.";
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
-"Could not respring. Please respring manually." = "Nie udało się zrestartować SpringBoard. Proszę zrobić to manualnie.";
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
-"ERROR: Unable to lock status file. Please try again." = "BŁĄD: Nie można zablokować pliku statusu. Spróbuj ponownie.";
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
-"ERROR: Process must be restarted. Please try again." = "BŁĄD: Proces musi zostać uruchomiony ponownie. Spróbuj ponownie.";
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Incorrect documents permissions." = "Złe uprawnienia dokumentów.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
 
-"Could not determine device information." = "Nie udało się zdeterminować informacji o urządzeniu.";
+"Could not determine device information." = "Could not determine device information.";
 
-"Display featured packages on the homepage." = "Wyświetlaj polecane pakiety na stronie głównej.";
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Refresh Zebra's sources when opening the app." = "Odśwież źródła Zebry podczas otwierania aplikacji.";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
-"Display recent community posts from /r/jailbreak." = "Wyświetl ostatnie posty społeczności z /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Szukaj pakietów podczas wpisywania. Wyłączenie tej funkcji może zmniejszyć opóźnienie na starszych urządzeniach.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
-"Configure the appearance of table view swipe actions." = "Skonfiguruj wygląd widoku akcji przeciągania.";
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Zmień kolor akcentu, który wyświetla się w Zebrze.";
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Zmień styl ciemnego trybu Zebry, gdy jest włączony.";
+"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Zmień źródło polecanych pakietów na stronie głównej.";
+"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Wyróżnione repozytorium\" wyświetli losowe pakiety z repozytoriów, które obsługują API wyróżnionych pakietów.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Losowy\" wyświetli losowe pakiety ze wszystkich repozytoriów, które dodałeś do Zebry.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Logowanie się do źródeł pozwala na zakup płatnych pakietów.";
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatycznie zwiń konsolę, gdy wszystkie jej zadania zostaną ukończone.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 // Filters
 
-"Filters" = "Filtry";
-"Add Filter" = "Dodaj filtr";
+"Filters" = "Filters";
+"Add Filter" = "Add Filter";
 
-"1 Section Hidden" = "Ukryta 1 Sekcja";
-"%lu Sections Hidden" = "Ukryte %lu sekcje";
+"1 Section Hidden" = "1 Section Hidden";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
-"Sections" = "Sekcje";
-"Select a Section" = "Wybierz sekcję";
-"Hide packages in these sections." = "Ukryj pakiety w tych sekcjach.";
+"Sections" = "Sections";
+"Select a Section" = "Select a Section";
+"Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Źródła";
-"Select a Source" = "Wybierz źródło";
-"Hide packages in these sections from specific sources." = "Ukryj pakiety z określonych źródeł w tych sekcjach.";
+"Sources" = "Sources";
+"Select a Source" = "Select a Source";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
-"Updates" = "Aktualizacje";
-"Hide future updates from these packages." = "Ukryj przyszłe aktualizacje tych pakietów.";
+"Updates" = "Updates";
+"Hide future updates from these packages." = "Hide future updates from these packages.";
 
-"Authors" = "Autorzy";
-"Hide packages from these authors." = "Ukryj pakiety od tych autorów.";
-"Search for an Author" = "Wyszukaj autora";
-"This author also goes by the following names:" = "Ten autor posługuje się również następującymi pseudonimami:";
+"Authors" = "Authors";
+"Hide packages from these authors." = "Hide packages from these authors.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
-"Language" = "Język";
-"Apply" = "Zastosuj";
-"Restart Required" = "Wymagany restart";
-"Zebra must be closed in order to change preferred language" = "Zebra musi zostać zamknięta w celu zmiany preferowanego języka";
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
 "Restart" = "Restart";
-"Use System Language" = "Użyj języka systemowego";
+"Use System Language" = "Use System Language";
 
-"You are adding a repository that is not secure" = "Dodajesz niebezpieczne repozytorium";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dane pobrane z tego repozytorium mogą nie być zaszyfrowane. Czy na pewno chcesz je dodać?";
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
