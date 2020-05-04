@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
 
-
 // Credits
 
 "Credits" = "Благодарности";
@@ -70,9 +69,6 @@
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Finish Automatically" = "Завершить автоматически";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Автоматическое обновление";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Все ваши источники будут удалены навсегда и Zebra перезапустится.";
 
 // Documents Directory
-"Open Documents Directory" = "Открыть каталог документов";
 
+"Open Documents Directory" = "Открыть каталог документов";
 "Filza Not Installed" = "Filza не установлена";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra не может открыть каталог документов, потому что Filza не установлена. Ваш каталог документов: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Текущая";
 "Version" = "Версия";
 "Packages" = "Пакеты";
 "Show Updates" = "Показать Обновления";
 "Hide Updates" = "Скрыть обновления";
 "Select Version" = "Выберите версию";
+"Select a version to install:" = "Выберите версию для установки:";
 "Select a version to upgrade to:" = "Выберите версию до которой обновить пакет:";
 "Select a version to downgrade to:" = "Выберите версию до которой откатить пакет:";
 "Package" = "Пакет";
