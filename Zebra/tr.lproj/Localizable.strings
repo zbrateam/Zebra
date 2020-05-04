@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "%d kaynağını Zebra'ya eklemek istediğinize emin misiniz?";
 "Are you sure that you want to import %d sources into Zebra?" = "%d kaynaklarını Zebra'ya eklemek istediğinize emin misiniz?";
 
-
 // Credits
 
 "Credits" = "Emeği Geçenler";
@@ -70,9 +69,6 @@
 "Text" = "Yazı";
 "Icon" = "İkon";
 "Finish Automatically" = "Otomatik Sonlandır";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Otomatik Yenileme";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tüm kaynaklarınız silinecek ve sonsuza dek yok olacak ve Zebra yeniden başlayacak.";
 
 // Documents Directory
-"Open Documents Directory" = "Dökümanlar Dosya Dizinini Aç";
 
+"Open Documents Directory" = "Dökümanlar Dosya Dizinini Aç";
 "Filza Not Installed" = "Filza Yüklü Değil";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Filza yüklü olmadığı için Zebra döküman dizinini açamıyor. Doküman dizininiz: %@";
 
@@ -166,8 +162,8 @@
 "Would you like to add the URL from your clipboard?" = "Kopyalamış olduğunuz Linki kaynak olarak eklemek ister misiniz?";
 
 "Please Wait..." = "Lütfen Bekleyiniz...";
-"Verifying Source" = "Kaynak doğrulanıyor";
-"Verifying Sources" = "Kaynaklar doğrulanıyor";
+"Verifying Source" = "Kaynak Onaylanıyor";
+"Verifying Sources" = "Kaynaklar Onaylanıyor";
 "Updating Sources" = "Kaynaklar Güncelleniyor";
 
 "Unknown error" = "Bilinmeyen Hata";
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Versiyon";
 "Packages" = "Paketler";
 "Show Updates" = "Güncellemeleri Göster";
 "Hide Updates" = "Güncellemeleri Gizle";
 "Select Version" = "Versiyon Seçin";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Yüklenecek versiyonu seçin:";
 "Select a version to downgrade to:" = "Düşürülecek versiyonu seçin:";
 "Package" = "Paket";
