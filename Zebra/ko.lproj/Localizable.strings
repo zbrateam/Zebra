@@ -454,25 +454,25 @@
 "Hide packages in these sections." = "이 섹션에서 패키지 숨기기";
 
 "Sources" = "소스";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "소스 선택";
+"Hide packages in these sections from specific sources." = "특정 소스의 이 섹션에서 패키지 숨기기";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "업데이트";
+"Hide future updates from these packages." = "이 패키지의 추후 업데이트 숨기기";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "제작자";
+"Hide packages from these authors." = "이 제작자의 패키지 숨기기";
+"Search for an Author" = "제작자 검색";
+"This author also goes by the following names:" = "이 제작자는 다른 이름도 사용합니다:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "언어";
+"Apply" = "적용";
+"Restart Required" = "재시작 필요함";
+"Zebra must be closed in order to change preferred language" = "선호 언어를 변경하려면 Zebra를 닫아야 합니다.";
+"Restart" = "재시작";
+"Use System Language" = "시스템 언어 사용";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "추가하고 있는 저장소는 보안이 적용되지 않았습니다.";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "이 저장소에서 다운로드한 데이터는 암호화되지 않았을 수 있습니다. 정말로 추가할까요?";
