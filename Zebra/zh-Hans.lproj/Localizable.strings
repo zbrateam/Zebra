@@ -477,4 +477,4 @@
 "You are adding a repository that is not secure" = "你想要添加的软件源不安全";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "从这个软件源下载的数据没未被加密，你确定要添加吗？";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "无法完成购买操作";
