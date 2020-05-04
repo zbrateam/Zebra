@@ -413,66 +413,66 @@
 
 "ERROR: Process must be restarted. Please try again." = "FEL: Processen måste startas om. Var god försök igen.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Felaktiga dokumentbehörigheter.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Kunde inte avgöra enhetsinformation.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Visa utvalda paket på startsidan.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Uppdatera Zebras källor när appen öppnas.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Visa nya inlägg från /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Sök efter paket medan du skriver. Att inaktivera den här funktionen kan minska lagg på äldre enheter.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfigurera utseendet på svepåtgärder i tabellvyer.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Ändra accentfärgen som visas i Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Ändra stilen för Zebras mörka läge när det är aktiverat.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Ändra källan för de utvalda paketen på startsidan.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Utvalt av förråd\" kommer att visa slumpmässiga paket från förråd som stöder API:et för utvalda paket.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Slumpmässigt\" kommer att visa slumpmässiga paket från alla förråd som du har lagt till i Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Att logga in på källor möjliggör köp av betalpaket.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Avfärda konsolen automatiskt när alla uppgifter har slutförts.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filter";
+"Add Filter" = "Lägg till filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "1 sektion dold";
+"%lu Sections Hidden" = "%lu sektioner dolda";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Sektioner";
+"Select a Section" = "Välj en sektion";
+"Hide packages in these sections." = "Dölj paket i dessa sektioner.";
 
-"Sources" = "Sources";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Sources" = "Källor";
+"Select a Source" = "Välj en källa";
+"Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Uppdateringar";
+"Hide future updates from these packages." = "Dölj framtida uppdateringar från dessa paket.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Skapare";
+"Hide packages from these authors." = "Dölj paket från dessa skapare.";
+"Search for an Author" = "Sök efter en skapare";
+"This author also goes by the following names:" = "Denna skapare går också under följande namn:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Språk";
+"Apply" = "Verkställ";
+"Restart Required" = "Omstart krävs";
+"Zebra must be closed in order to change preferred language" = "Zebra måste stängas för att ändra önskat språk";
+"Restart" = "Starta om";
+"Use System Language" = "Använd systemspråk";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Du lägger till ett förråd som inte är säkert";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data som laddas ner från detta förråd kanske inte är krypterade. Är du säker på att du vill lägga till det?";
