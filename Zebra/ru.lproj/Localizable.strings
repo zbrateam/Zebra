@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Вы добавляете небезопасный репозиторий";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Данные этого репозитория могут быть не зашифрованы. Вы уверены, что хотите добавить его?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
