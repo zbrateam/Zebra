@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Nyaste";
 "Version" = "Versjon";
 "Packages" = "Pakkar";
 "Show Updates" = "Vis oppdateringar";
 "Hide Updates" = "Skjul oppdateringar";
 "Select Version" = "Vel versjon";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Vel versjonen du vil installera:";
 "Select a version to upgrade to:" = "Vel versjonen du vil oppdatera til:";
 "Select a version to downgrade to:" = "Vel versjonen du vil nedgradera til:";
 "Package" = "Pakke";
