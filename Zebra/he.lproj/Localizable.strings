@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא מקור 1 לזברה?";
 "Are you sure that you want to import %d sources into Zebra?" = "האם את/ה בטוח/ה שברצונך לייבא %d מקורות לזברה?";
 
-
 // Credits
 
 "Credits" = "קרדיטים";
@@ -70,9 +69,6 @@
 "Text" = "טקסט";
 "Icon" = "אייקון";
 "Finish Automatically" = "סיים אוטומטית";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "רענון אוטומטי";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "כל המקורות שלך יימחקו ללא אפשרות שיחזור וזברה תיפתח מחדש.";
 
 // Documents Directory
-"Open Documents Directory" = "פתח תיקיית מסמכים";
 
+"Open Documents Directory" = "פתח תיקיית מסמכים";
 "Filza Not Installed" = "לא זוהתה התקנה של Filza";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "זברה לא יכולה לפתוח את תיקיית המסמכים שלה מכיוון ש-Filza אינה מותקנת. תיקיית המסמכים שלך היא: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "אחרונה";
 "Version" = "גירסה";
 "Packages" = "חבילות";
 "Show Updates" = "הצג עדכונים";
 "Hide Updates" = "הסתר עדכונים";
 "Select Version" = "בחר גירסה";
+"Select a version to install:" = "בחר/י גירסה להתקנה:";
 "Select a version to upgrade to:" = "בחר/י גירסה לעדכן אליה:";
 "Select a version to downgrade to:" = "בחר/י גירסה לעדכן אליה:";
 "Package" = "חבילה";
