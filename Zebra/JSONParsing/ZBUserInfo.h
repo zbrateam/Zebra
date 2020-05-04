@@ -1,9 +1,9 @@
 // To parse this JSON:
 //
-//   NSError *error;
+//   NSError *error = NULL;
 //   ZBUserInfo *userInfo = [ZBUserInfo fromJSON:json encoding:NSUTF8Encoding error:&error];
 // OR
-//   NSError *error;
+//   NSError *error = NULL;
 //   ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&error];
 
 #import <Foundation/Foundation.h>
@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Object interfaces
 
 @interface ZBUserInfo : NSObject
-@property (nonatomic, nullable, copy)   NSArray<NSString *> *items;
+@property (nonatomic, nullable, strong) NSString *error;
+@property (nonatomic, nullable, copy) NSArray<NSString *> *items;
 @property (nonatomic, nullable, strong) ZBUser *user;
 
 + (_Nullable instancetype)fromJSON:(NSString *)json encoding:(NSStringEncoding)encoding error:(NSError *_Nullable *)error;

@@ -14,6 +14,7 @@
 #import <Console/ZBConsoleViewController.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBDevice.h>
+#import <Theme/ZBThemeManager.h>
 
 @import SDWebImage;
 @import LNPopupController;
@@ -40,27 +41,30 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    }
+    
+    self.tableView.sectionHeaderHeight = UITableViewAutomaticDimension;
+    self.tableView.estimatedSectionHeaderHeight = 44;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-    
     // Appearance stuff
-    if ([ZBDevice darkModeEnabled]) {
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-    }
-    else {
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-    }
+//    if ([ZBThemeManager useCustomTheming]) {
+//        if ([ZBDevice darkModeEnabled]) {
+//            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//        }
+//        else {
+//            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
+//        }
+//    }
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.navigationController.navigationBar.tintColor = [UIColor tintColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor cellPrimaryTextColor]}];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
     
     [self refreshTable];
 }
@@ -90,7 +94,7 @@
 }
 
 - (IBAction)clearQueue:(id)sender {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"Are you sure you want to clear the queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"Are you sure you want to clear the Queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self->queue clear];
@@ -100,8 +104,8 @@
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
     [alert addAction:cancel];
     
-    alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
-    [self presentViewController:alert animated:true completion:nil];
+    alert.popoverPresentationController.barButtonItem = sender;
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (IBAction)confirm:(id)sender {
@@ -110,19 +114,19 @@
         
         UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
-            [self.navigationController pushViewController:console animated:true];
+            [self.navigationController pushViewController:console animated:YES];
         }];
         [alert addAction:confirm];
         
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:cancel];
         
-        alert.popoverPresentationController.barButtonItem = self.navigationItem.leftBarButtonItems[1];
-        [self presentViewController:alert animated:true completion:nil];
+        alert.popoverPresentationController.barButtonItem = sender;
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else {
         ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
-        [self.navigationController pushViewController:console animated:true];
+        [self.navigationController pushViewController:console animated:YES];
     }
 }
 
@@ -146,21 +150,29 @@
     }
     else {
         ZBQueueType action = actions[section].intValue;
-        if (action == ZBQueueTypeInstall || action == ZBQueueTypeReinstall || action == ZBQueueTypeUpgrade || action == ZBQueueTypeDowngrade) {
-            return [NSString stringWithFormat:@"%@ (%@: %@)", [queue displayableNameForQueueType:action useIcon:false], NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
-        }
-        return [queue displayableNameForQueueType:action useIcon:false];
+        NSString *downloadSize = [queue downloadSizeForQueue:action];
+        NSMutableString *title = [[queue displayableNameForQueueType:action] mutableCopy];
+        if (downloadSize) [title appendFormat:@" (%@: %@)", NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+        
+        return title;
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    // Text Color
-    if ([view isKindOfClass:[UITableViewHeaderFooterView class]]) {
-        UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-        header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        header.tintColor = [UIColor clearColor];
-        header.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-    }
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
+    contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+    label.numberOfLines = 0;
+    label.textColor = [UIColor primaryTextColor];
+    label.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
+    label.text = [self tableView:tableView titleForHeaderInSection:section];
+    label.translatesAutoresizingMaskIntoConstraints = NO;
+    [contentView addSubview:label];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-16-[label]-16-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    [contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[label]-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)]];
+    
+    return contentView;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,18 +192,8 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    UIImage *sectionImage = [UIImage imageNamed:package.sectionImageName];
-    if (sectionImage == NULL) {
-        sectionImage = [UIImage imageNamed:@"Other"];
-    }
-    
-    if (package.iconPath) {
-        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:package.iconPath] placeholderImage:sectionImage];
-    }
-    else {
-        cell.imageView.image = sectionImage;
-    }
-    
+    [package setIconImageForImageView:cell.imageView];
+
     cell.imageView.layer.cornerRadius = 10;
     cell.imageView.clipsToBounds = YES;
     cell.textLabel.text = package.name;
@@ -208,9 +210,9 @@
         cell.detailTextLabel.textColor = [UIColor systemOrangeColor];
     }
     else {
-        [cell setTintColor:[UIColor tintColor]];
-        cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
-        cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
+        [cell setTintColor:[UIColor accentColor]];
+        cell.textLabel.textColor = [UIColor primaryTextColor];
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     }
     
     CGSize itemSize = CGSizeMake(35, 35);
@@ -233,12 +235,12 @@
                 [self refreshTable];
             }];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                [alert dismissViewControllerAnimated:true completion:nil];
+                [alert dismissViewControllerAnimated:YES completion:nil];
             }];
             
             [alert addAction:deleteAction];
             [alert addAction:okAction];
-            [self presentViewController:alert animated:true completion:nil];
+            [self presentViewController:alert animated:YES completion:nil];
         }
         else {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:[NSString stringWithFormat:NSLocalizedString(@"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!", @""), [package name]] preferredStyle:UIAlertControllerStyleAlert];
@@ -247,12 +249,12 @@
                 [self refreshTable];
             }];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Confirm", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                [alert dismissViewControllerAnimated:true completion:nil];
+                [alert dismissViewControllerAnimated:YES completion:nil];
             }];
             
             [alert addAction:deleteAction];
             [alert addAction:okAction];
-            [self presentViewController:alert animated:true completion:nil];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }
     else if ([package hasIssues]) {
@@ -266,20 +268,20 @@
             [self refreshTable];
         }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
+            [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
         [alert addAction:deleteAction];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else if ([package removedBy] != NULL) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ must be removed because it depends on %@", @""), [package name], [[package removedBy] name]];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
+            [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     else if ([[package dependencyOf] count] > 0) {
         NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ is required by:", @""), [package name]] mutableCopy];
@@ -288,10 +290,10 @@
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [alert dismissViewControllerAnimated:true completion:nil];
+            [alert dismissViewControllerAnimated:YES completion:nil];
         }];
         [alert addAction:okAction];
-        [self presentViewController:alert animated:true completion:nil];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 

@@ -7,20 +7,27 @@
 //
 
 #import "ZBPackage.h"
+#import "ZBPackageActions.h"
+
 #import <ZBLog.h>
 #import <ZBDevice.h>
+#import <ZBUtils.h>
 #import <Parsel/vercmp.h>
-#import <Repos/Helpers/ZBRepo.h>
-#import <Queue/ZBQueueType.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <ZBAppDelegate.h>
 #import <NSTask.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
+#import "ZBPurchaseInfo.h"
+#import "UICKeyChainStore.h"
+#import <Queue/ZBQueue.h>
 
+@import SDWebImage;
 @import Crashlytics;
 
 @interface ZBPackage () {
-    NSUInteger possibleActions;
+    BOOL checkedForPurchaseInfo;
+    ZBPurchaseInfo *purchaseInfo;
 }
 @end
 
@@ -32,15 +39,15 @@
 @synthesize shortDescription;
 @synthesize longDescription;
 @synthesize section;
-@synthesize sectionImageName;
 @synthesize depictionURL;
 @synthesize tags;
 @synthesize dependsOn;
 @synthesize conflictsWith;
 @synthesize provides;
 @synthesize replaces;
-@synthesize author;
-@synthesize repo;
+@synthesize authorName;
+@synthesize authorEmail;
+@synthesize source;
 @synthesize filename;
 @synthesize debPath;
 @synthesize dependencies;
@@ -52,6 +59,7 @@
 @synthesize priority;
 @synthesize essential;
 @synthesize ignoreDependencies;
+@synthesize SHA256;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -61,18 +69,14 @@
     
     NSString *path = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", packageID];
     if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSError *readError;
+        NSError *readError = NULL;
         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
         if (!readError) {
             return [contents componentsSeparatedByString:@"\n"];
         }
-        else {
-            return @[readError.localizedDescription];
-        }
+        return @[readError.localizedDescription];
     }
-    else {
-        return @[@"No files found"];
-    }
+    return @[@"No files found"];
 }
 
 + (BOOL)respringRequiredFor:(NSString *)packageID {
@@ -145,7 +149,7 @@
     return NO;
 }
 
-+ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID {
++ (NSString * _Nullable)applicationBundlePathForIdentifier:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return NULL;
     }
@@ -208,22 +212,6 @@
     return appPath != NULL ? [appPath stringByDeletingLastPathComponent] : NULL;
 }
 
-- (id)initWithIdentifier:(NSString *)identifier name:(NSString *)name version:(NSString *)version description:(NSString *)desc section:(NSString *)section depictionURL:(NSString *)url {
-    
-    self = [super init];
-    
-    if (self) {
-        [self setIdentifier:identifier];
-        [self setName:name];
-        [self setVersion:version];
-        [self setShortDescription:desc];
-        [self setSection:section];
-        [self setDepictionURL:[NSURL URLWithString:url]];
-    }
-    
-    return self;
-}
-
 + (NSCharacterSet *)delimiters {
     static NSCharacterSet *charSet = nil;
     static dispatch_once_t onceToken;
@@ -258,7 +246,8 @@
         const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
         const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
         const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
-        const char *authorChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthor);
+        const char *authorNameChars =       (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorName);
+        const char *authorEmailChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorEmail);
         const char *dependsChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
         const char *conflictsChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
         const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -267,16 +256,20 @@
         const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
         const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
+        const char *sha256Chars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
+        if (packageIDChars == 0) return NULL; // There is no "working" situation where a package ID is missing
+        
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
-        [self setName:packageNameChars != 0 ? [NSString stringWithUTF8String:packageNameChars] : (self.identifier ?: @"Unknown")]; // fall back to ID if NULL, or Unknown if things get worse
+        [self setName:[ZBUtils decodeCString:packageNameChars fallback:self.identifier]]; // fall back to ID if NULL, or Unknown if things get worse
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
         [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
         [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
-        [self setAuthor:authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL];
+        [self setAuthorName:authorNameChars != 0 ? [NSString stringWithUTF8String:authorNameChars] : NULL];
+        [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
         
@@ -284,11 +277,13 @@
         
         NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
         if (es && [es isEqualToString:@"yes"]) {
-            [self setEssential:true];
+            [self setEssential:YES];
         }
         else if (es && [es isEqualToString:@"no"]) {
-            [self setEssential:false];
+            [self setEssential:NO];
         }
+        
+        [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : NULL];
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
         if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
@@ -300,19 +295,13 @@
         [self setProvides:[self extract:providesChars]];
         [self setReplaces:[self extract:replacesChars]];
         
-        int repoID = sqlite3_column_int(statement, ZBPackageColumnRepoID);
-        if (repoID > 0) {
-            [self setRepo:[ZBRepo repoMatchingRepoID:repoID]];
+        int sourceID = sqlite3_column_int(statement, ZBPackageColumnSourceID);
+        if (sourceID > 0) {
+            [self setSource:[ZBSource sourceMatchingSourceID:sourceID]];
         } else {
-            [self setRepo:[ZBRepo localRepo:repoID]];
+            [self setSource:[ZBSource localSource:sourceID]];
         }
         
-        NSString *sectionStripped = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        if ([section characterAtIndex:[section length] - 1] == ')') {
-            NSArray *items = [section componentsSeparatedByString:@"("]; // Remove () from section
-            sectionStripped = [items[0] substringToIndex:[items[0] length] - 1];
-        }
-        [self setSectionImageName:sectionStripped];
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
         [self setInstalledSize:sqlite3_column_int(statement, ZBPackageColumnInstalledSize)];
         [self setDownloadSize:sqlite3_column_int(statement, ZBPackageColumnDownloadSize)];
@@ -321,12 +310,117 @@
     return self;
 }
 
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    self = [super init];
+    
+    if (self) {
+        NSString *packageID = [dictionary objectForKey:@"Package"];
+        if (!packageID) return NULL;  // This should never be NULL
+        
+        NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if NULL
+        NSString *version = [dictionary objectForKey:@"Version"] ?: NULL;
+        NSString *desc = [dictionary objectForKey:@"Description"] ?: NULL;
+        NSString *section = [dictionary objectForKey:@"Section"] ?: NULL;
+        NSString *depiction = [dictionary objectForKey:@"Depiction"] ?: NULL;
+        NSString *author = [dictionary objectForKey:@"Author"] ?: NULL;
+        NSString *depends = [dictionary objectForKey:@"Depends"] ?: NULL;
+        NSString *conflicts = [dictionary objectForKey:@"Conflicts"] ?: NULL;
+        NSString *provides = [dictionary objectForKey:@"Provides"] ?: NULL;
+        NSString *replaces = [dictionary objectForKey:@"Replaces"] ?: NULL;
+        NSString *icon = [dictionary objectForKey:@"Icon"] ?: NULL;
+        NSString *priority = [dictionary objectForKey:@"Priority"] ?: NULL;
+        NSString *essential = [dictionary objectForKey:@"Essential"] ?: NULL;
+        
+        NSString *tagString = [dictionary objectForKey:@"Tag"] ?: NULL;
+        if (tagString) {
+            [self setTags:[tagString componentsSeparatedByString:@", "] ?: NULL];
+        }
+        
+        [self setIdentifier:packageID];
+        [self setName:name];
+        [self setVersion:version];
+        [self setShortDescription:desc];
+        [self setSection:section];
+        [self setDepictionURL:[NSURL URLWithString:depiction]];
+        [self setAuthorName:author];
+        [self setIconPath:icon];
+        [self setPriority:priority];
+        [self setTags:tags];
+        
+        if (essential && [essential isEqualToString:@"yes"]) {
+            [self setEssential:YES];
+        }
+        else if (essential && [essential isEqualToString:@"no"]) {
+            [self setEssential:NO];
+        }
+        
+        if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
+            tags = [tags[0] componentsSeparatedByString:@","];
+        }
+        
+        [self setDependsOn:[self extract:[depends UTF8String]]];
+        [self setConflictsWith:[self extract:[conflicts UTF8String]]];
+        [self setProvides:[self extract:[provides UTF8String]]];
+        [self setReplaces:[self extract:[replaces UTF8String]]];
+        [self setSource:[ZBSource localSource:-2]];
+    }
+    
+    return self;
+}
+
+- (id)initFromDeb:(NSString *)path {
+    if (!path) return NULL;
+    if (![path hasSuffix:@".deb"]) return NULL;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return NULL;
+    
+    NSString *stringRead;
+    if (![ZBDevice needsSimulation]) {
+        NSTask *task = [[NSTask alloc] init];
+        [task setLaunchPath:@"/usr/bin/dpkg"];
+        [ZBDevice asRoot:task arguments:@[@"-I", path, @"control"]];
+        
+        NSPipe *pipe = [NSPipe pipe];
+        [task setStandardOutput:pipe];
+        
+        [task launch];
+        
+        NSFileHandle *read = [pipe fileHandleForReading];
+        NSData *dataRead = [read readDataToEndOfFile];
+        [task waitUntilExit];
+        
+        stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
+        
+        [read closeFile];
+    }
+    else {
+        stringRead = [[NSString alloc] initWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"control" withExtension:@"sample"] encoding:NSUTF8StringEncoding error:nil];
+    }
+    
+    NSMutableDictionary *info = [NSMutableDictionary new];
+    [stringRead enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+        if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+        if (pair.count != 2) return;
+        NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        info[key] = value;
+    }];
+    
+    ZBPackage *package = [self initWithDictionary:info];
+    [package setDebPath:path];
+    
+    return package;
+}
+
 - (BOOL)isEqual:(ZBPackage *)object {
     if (self == object)
         return YES;
     
     if (![object isKindOfClass:[ZBPackage class]])
         return NO;
+    
+    if ([self SHA256] && [object SHA256])
+        return [[self SHA256] isEqual:[object SHA256]];
     
     return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]]);
 }
@@ -340,7 +434,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ (%@) V%@", name, identifier, version];
+    return [NSString stringWithFormat: @"%@ (%@) v%@ by %@ via %@", name, identifier, version, authorName ?: NSLocalizedString(@"Unknown", @""), [source label] ?: NSLocalizedString(@"Unknown", @"")];
 }
 
 - (NSComparisonResult)compare:(id)object {
@@ -367,19 +461,92 @@
     return [tags containsObject:@"cydia::commercial"];
 }
 
-- (NSString *)getField:(NSString *)field {
+- (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0)) {
+    return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] suppotsPaymentAPI]);
+}
+
+- (BOOL)requiresPayment API_AVAILABLE(ios(11.0)) {
+    return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
+}
+
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion API_AVAILABLE(ios(11.0)) {
+    //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
+    if (![self mightRequirePayment]) {
+        completion(NULL);
+        
+        purchaseInfo = NULL;
+        self.requiresAuthorization = NO;
+        return;
+    }
+    
+    checkedForPurchaseInfo = YES;
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    
+    NSURL *packageInfoURL = [[[self source] paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/info", [self identifier]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:packageInfoURL];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
+    NSString *token = [keychain stringForKey:[[self source] repositoryURI]];
+    NSDictionary *requestJSON;
+    if (token) {
+        requestJSON = @{@"token": token, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    }
+    else {
+        requestJSON = @{@"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+    }
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+        NSInteger statusCode = [httpReponse statusCode];
+        
+        if (statusCode == 200) {
+            NSError *error = NULL;
+//            NSString *repsonse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//            NSLog(@"response %@", repsonse);
+            ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
+            
+            if (!error) {
+                completion(info);
+                
+                self->purchaseInfo = info;
+                self.requiresAuthorization = YES;
+                return;
+            }
+            
+            completion(NULL);
+            
+            self->purchaseInfo = NULL;
+            self.requiresAuthorization = NO;
+            return;
+        }
+    }];
+    
+    [task resume];
+}
+
+- (NSString * _Nullable)getField:(NSString *)field {
     NSString *value;
     
-    ZBRepo *repo = [self repo];
+    ZBSource *source = [self source];
     
-    if (repo == NULL) return NULL;
+    if (source == NULL) return NULL;
     
     NSString *listsLocation = [ZBAppDelegate listsLocation];
-    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_Packages"];
+    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_Packages"];
     NSFileManager *filemanager = [NSFileManager defaultManager];
     
     if (![filemanager fileExistsAtPath:filename]) {
-        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [repo baseFileName], @"_main_binary-iphoneos-arm_Packages"];
+        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_main_binary-iphoneos-arm_Packages"];
         
         if (![filemanager fileExistsAtPath:filename]) {
             return NULL;
@@ -401,7 +568,7 @@
     NSScanner *scanner = [[NSScanner alloc] initWithString:contents];
     [scanner scanUpToString:packageIdentifier intoString:NULL];
     [scanner scanUpToString:packageVersion intoString:NULL];
-    NSString *packageInfo;
+    NSString *packageInfo = NULL;
     [scanner scanUpToString:@"\n\n" intoString:&packageInfo];
     if (packageInfo == NULL) return NULL;
     scanner = [[NSScanner alloc] initWithString:packageInfo];
@@ -438,7 +605,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if ([repo repoID] <= 0) { // Package is in repoID 0 or -1 and is installed
+    if (source && [source sourceID] <= 0) { // Package is in sourceID 0 or -1
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -450,15 +617,21 @@
     return [databaseManager packageIsAvailable:self versionStrict:YES];
 }
 
-- (NSArray <ZBPackage *> *)otherVersions {
+- (NSMutableArray <ZBPackage *> *)allVersions {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
+    
+    return versions;
+}
+
+- (NSMutableArray <ZBPackage *> *)otherVersions {
+    NSMutableArray *versions = [self allVersions];
     [versions removeObject:self];
     
     return versions;
 }
 
-- (NSArray <ZBPackage *> *)lesserVersions {
+- (NSMutableArray <ZBPackage *> *)lesserVersions {
     NSMutableArray *versions = [[self otherVersions] mutableCopy];
     NSMutableArray *lesserVersions = [versions mutableCopy];
     for (ZBPackage *package in versions) {
@@ -470,7 +643,7 @@
     return lesserVersions;
 }
 
-- (NSArray <ZBPackage *> *)greaterVersions {
+- (NSMutableArray <ZBPackage *> *)greaterVersions {
     NSMutableArray *versions = [[self otherVersions] mutableCopy];
     NSMutableArray *greaterVersions = [versions mutableCopy];
     for (ZBPackage *package in versions) {
@@ -480,40 +653,6 @@
     }
     
     return greaterVersions;
-}
-
-- (NSUInteger)possibleActions {
-    if (self.repo.repoID == -1) {
-        // We do nothing with virtual dependencies
-        return 0;
-    }
-    if (possibleActions == 0) {
-        // Bits order: Select Ver. - Upgrade - Reinstall - Remove - Install
-        if ([self isInstalled:NO]) {
-            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            if ([self isReinstallable]) {
-                possibleActions |= ZBQueueTypeReinstall; // Reinstall
-            }
-            if ([databaseManager packageHasUpdate:self]) {
-                // A package update is even possible for a package installed from repo A, repo A got deleted, and an update comes from repo B
-                possibleActions |= ZBQueueTypeUpgrade; // Upgrade
-            }
-            possibleActions |= ZBQueueTypeRemove; // Remove
-        } else {
-            possibleActions |= ZBQueueTypeInstall; // Install
-        }
-        NSArray *otherVersions = [self otherVersions];
-        if (otherVersions.count) {
-            // Calculation of otherVersions will ignore local packages and packages of the same version as the current one
-            // Therefore, there will only be packages of the same identifier but different version, though not necessarily downgrades
-            possibleActions |= ZBQueueTypeDowngrade; // Select other versions
-        }
-    }
-    return possibleActions;
-}
-
-- (void)_setPossibleActions:(NSUInteger)actions {
-    possibleActions = actions;
 }
 
 - (NSString *)longDescription {
@@ -531,14 +670,14 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-- (ZBPackage *)installableCandidate {
+- (ZBPackage * _Nullable)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
     
     return candidate;
 }
 
-- (ZBPackage *)removeableCandidate {
+- (ZBPackage * _Nullable)removeableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackage *candidate = [databaseManager installedPackageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
     
@@ -557,7 +696,7 @@
 	return attributes[NSFileModificationDate];
 }
 
-- (NSString *)installedVersion {
+- (NSString * _Nullable)installedVersion {
     NSString *installedVersion = [[ZBDatabaseManager sharedInstance] installedVersionForPackage:self];
     
     if ([self.version isEqualToString:installedVersion]) return NULL;
@@ -592,6 +731,176 @@
 
 - (BOOL)isEssentialOrRequired {
     return essential || [[priority lowercaseString] isEqualToString:@"required"];
+}
+
+- (void)setIconImageForImageView:(UIImageView *)imageView {
+    UIImage *sectionImage = [ZBSource imageForSection:self.section];
+    if (self.iconPath) {
+        [imageView sd_setImageWithURL:[NSURL URLWithString:self.iconPath] placeholderImage:sectionImage];
+    }
+    else {
+        [imageView setImage:sectionImage];
+    }
+}
+
+- (NSArray * _Nullable)possibleActions {    
+    if ([[self source] sourceID] == -1) {
+        return nil; // No actions for virtual dependencies
+    }
+    else if ([[self source] sourceID] == -2) {
+        return @[@(ZBPackageActionInstall)];
+    }
+    
+    NSMutableArray *actions = [NSMutableArray new];
+    ZBQueue *queue = [ZBQueue sharedQueue];
+    
+    if ([[self source] sourceID] == 0) {
+        // If the package is installed then we can show other options
+        if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self isReinstallable]) {
+            // Search for the same version of this package in the database
+            [actions addObject:@(ZBPackageActionReinstall)];
+        }
+            
+        if (![queue contains:self inQueue:ZBQueueTypeUpgrade] && [[self greaterVersions] count] ) {
+            // Only going to explicitly show an "Upgrade" button if there are higher versions available
+            [actions addObject:@(ZBPackageActionUpgrade)]; // Select higher versions
+        }
+            
+        if (![queue contains:self inQueue:ZBQueueTypeDowngrade] && [[self lesserVersions] count]) {
+            // Only going to explicily show a "Downgrade" button if there are lower versions available
+            [actions addObject:@(ZBPackageActionDowngrade)];
+        }
+        
+        if ([self ignoreUpdates]) {
+            // Updates are ignored, show them
+            [actions addObject:@(ZBPackageActionShowUpdates)];
+        }
+        else {
+            // Updates are not ignored, give the option to hide them
+            [actions addObject:@(ZBPackageActionHideUpdates)];
+        }
+        [actions addObject:@(ZBPackageActionRemove)]; // Show the remove button regardless
+    }
+    else if ([self isInstalled:NO]) { // This means the package is installed but this isn't the version that is currently installed
+        // We need to calculate the actions based on the package that is actually installed
+        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+        ZBPackage *basePackage = [databaseManager localVersionForPackage:self];
+        
+        return [basePackage possibleActions];
+    }
+    else { // This means the package is not installed
+        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
+            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
+            if ([self ignoreUpdates]) {
+                // Updates are ignored, show them
+                [actions addObject:@(ZBPackageActionShowUpdates)];
+            }
+            else {
+                // Updates are not ignored, give the option to hide them
+                [actions addObject:@(ZBPackageActionHideUpdates)];
+            }
+        }
+        if ([[self allVersions] count] > 1) { // Show "Select version" instead of "Install" as it makes more senses
+            [actions addObject:@(ZBPackageActionSelectVersion)];
+        }
+        else {
+            [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
+        }
+    }
+    
+    return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+}
+
+- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+    ZBSource *source = [self source];
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    if ([source isSignedIn]) { //Check if we have an access token
+        if ([self mightRequirePayment]) { //Just a small double check to make sure the package is paid and the source supports payment
+            NSError *error;
+            NSString *secret = [source paymentSecret:&error];
+            
+            if (secret && !error) {
+                NSURL *purchaseURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/purchase", [self identifier]]];
+                
+                NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:purchaseURL];
+                
+                NSDictionary *requestJSON = @{@"token": [keychain stringForKey:[source repositoryURI]], @"payment_secret": secret, @"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
+                NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
+                
+                [request setHTTPMethod:@"POST"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+                [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+                [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+                [request setHTTPBody:requestData];
+                
+                NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
+                    NSInteger statusCode = [httpReponse statusCode];
+                    
+                    if (statusCode == 200 && !error) {
+                        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        NSInteger status = [result[@"status"] integerValue];
+                        switch (status) {
+                            case -1: { // An error occurred, payment api doesn't specify that an error must exist here but we may as well check it
+                                NSString *localizedDescription = [result objectForKey:@"error"] ?: NSLocalizedString(@"The Payment Provider returned an unspecified error", @"");
+                                
+                                NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                completion(NO, error);
+                                break;
+                            }
+                            case 0: { // Success, queue the package for install
+                                completion(YES, nil);
+                                break;
+                            }
+                            case 1: { // Action is required, pass this information on to the view controller
+                                NSURL *actionLink = [NSURL URLWithString:result[@"url"]];
+                                if (actionLink && actionLink.host && ([actionLink.scheme isEqualToString:@"https"])) {
+                                    static SFAuthenticationSession *session;
+                                    session = [[SFAuthenticationSession alloc] initWithURL:actionLink callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
+                                        if (callbackURL && !error) {
+                                            completion(YES, nil);
+                                        }
+                                        else if (error && !(error.domain == SFAuthenticationErrorDomain && error.code == SFAuthenticationErrorCanceledLogin)) {
+                                            NSString *localizedDescription = [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not complete purchase", @""), error.localizedDescription];
+                                            
+                                            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                            completion(NO, error);
+                                        }
+                                    }];
+                                    [session start];
+                                }
+                                else {
+                                    NSString *localizedDescription = [NSString stringWithFormat:NSLocalizedString(@"The Payment Provider responded with an improper payment URL: %@", @""), result[@"url"]];
+                                    
+                                    NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:505 userInfo:@{NSLocalizedDescriptionKey: localizedDescription}];
+                                    completion(NO, error);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }];
+                
+                [task resume];
+                return;
+            }
+            else if (error && error.code == -128) { // I believe this error means that the user cancelled authentication prompt
+                return;
+            }
+        }
+    }
+    
+    // Should only run if we don't have a payment secret or if we aren't logged in.
+    [[self source] authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+        if (success) {
+            [self purchase:completion];
+        }
+        else {
+            completion(NO, error);
+        }
+    }];
 }
 
 @end

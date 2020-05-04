@@ -7,31 +7,50 @@
 "Error" = "ارور";
 "Retry" = "دوباره امتحان کن";
 "Edit" = "اصلاح";
-"Login" = "ورود";
 "Close" = "بستن";
 "Done" = "انجام شد";
+"Loading..." = "...در حال بارگذاری";
+"Clear" = "پاک سازی";
+"An Error Occurred" = "یک خطا رخ داده است";
+"Dismiss" = "فسخ";
+"Downloads" = "دانلود ها";
 
 // Home
 
 "Home" = "خانه";
 "Info" = "مشخصات";
 "Welcome to Zebra!" = "به سربروس خوش آمدید!";
+"Report a Bug" = "گزارش باگ نرم افزاری";
 "Changelog" = "لیست تغییرات";
-"Community Sources" = "سورس‌های انجمن";
-"You’ve added all of the community sources" = "شما تمام سورس های انجمن را اضافه کردید";
-"Transfer sources from %@ to Zebra" = "انتقال سورس ها از %@ به زبرا";
-"Utility repo for %@" = "مخرن های نرم افزار های کاربردی برای %@";
-"Transfer Sources" = "جابجایی منابع";
-"Verifying Source(s)" = "در حال تایید کردن مخازن";
-"Stores" = "فروشگاه ها";
-"Purchases" = "خرید ها";
 "Wish List" = "لیست خرید های آینده";
+"Newest First" = "ابتدا جدیدترین";
+"Oldest First" = "ابتدا قدیمی ترین";
 "No items in Wish List" = "لیست خرید های آینده ی شما خالیست";
 "Community" = "جامعه ی جیلبریک";
 "Join our Discord" = "به صفحه ی دیسکورد ما بپیوندید";
-"Follow me on Twitter" = "ما را در توییتر دنبال کنید";
+"Follow us on Twitter" = "مارو در توییتر دنبال کنید";
+"Help translate Zebra!" = "کمک برای ترجمه زبرا!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "سورس‌های انجمن";
+"You’ve added all of the community sources" = "شما تمام سورس های انجمن را اضافه کردید";
+"Transfer sources from %@ to Zebra" = "انتقال سورس ها از %@ به زبرا";
+"Utility source for %@" = "سورس سودمند برای %@";
+"Transfer Sources" = "جابجایی منابع";
+"Verifying Source" = "درحال تایید سورس";
+"Verifying Sources" = "درحال تایید سورس‌ها";
+"Import" = "وارد کردن";
+"Verifying..." = "در حال تأیید…";
+"Confirm Import" = "تایید ورودی";
+"Import Sources" = "وارد کردن سورس‌ها";
+"No sources to import" = "سورسی برای واردکردن نیست";
+"Would you like to import the following sources?" = "آیا می‌خواهید که سورس‌های زیر را وارد کنید؟";
+"Are you sure that you want to import 1 source into Zebra?" = "آیا مطمئنید که می خواهید ۱ سورس را به زبرا اضافه کنید؟";
+"Are you sure that you want to import %d sources into Zebra?" = "آیا مطمئنید که می‌خواهید %d سورس را به زبرا اضافه کنید؟";
+
+
+// Credits
 
 "Credits" = "اعتبار نامه ها";
 "Creators" = "تهیه کنندگان";
@@ -42,94 +61,165 @@
 // Settings
 
 "Settings" = "تنظیمات";
-"Version" = "نسخه";
-"Interface" = "رابط کاربری";
-"Featured" = "ویژه";
-"News" = "اخبار";
+"Display" = "صفحه نمایش";
+"App Icon" = "آیکون برنامه";
+"Changes" = "تغییرات";
+"Community News" = "اخبار انجمن";
 "Miscellaneous" = "متفرقه";
-"Advanced" = "تنظیمات پیشرفته";
-
-"Report a Bug" = "گزارش باگ نرم افزاری";
-
-"Accent Color" = "Accent Color";
-"Blue" = "آبی";
-"Orange" = "نارنجی";
-"White" = "سفید";
-"Black" = "مشکی";
-
-"Dark Mode Style" = "Dark Mode Style";
-"Dark Mode" = "حالت تیره";
-"Default" = "پیشفرض";
-"OLED" = "نمایشگرهای ال ای دی ";
-"iOS 13" = "آی او اس ۱۳";
-
-"App Icon" = "App Icon";
-
-"Featured Packages" = "Featured Packages";
-"Repo Featured" = "مخزن های ویژه";
-"Random" = "رندوم";
-"Feature Type" = "نوع ویژه";
-"Select Repos to be Featured" = "انتخاب مخزن ها برای ویژه شدن";
-
-"News" = "اخبار";
-
-"Live Search" = "جستجوی زنده";
-
 "Swipe Actions Display As" = "کشیدن انگشت بروی صفحه بعنوان";
 "Text" = "متن";
 "Icon" = "آیکون";
-"Open Documents Directory" = " فهرست اسناد را باز کن";
+"Finish Automatically" = "پایان به صورت خودکار";
+
+// "Hide UDID" = "Hide UDID";
+
+"Automatic Refresh" = "Automatic Refresh";
+
+// Accent Colors
+
+"Accent Color" = "رنگ تاکیدی";
+"Aqua Velvet" = "آبی مخملی";
+"Cornflower Blue" = "آبی درتی";
+"Golden Tainoi" = "طنین طلایی";
+"Iris Blue" = "سوسن آبی";
+"Lotus Pink" = "نیلوفر صورتی";
+"Monochrome" = "تک رنگ";
+"Mountain Meadow" = "چمنزار";
+"Pastel Red" = "قرمز";
+"Purple Heart" = "قلب صورتی";
+"Royal Blue" = "آبی سلطنتی";
+"Shark" = "کوسه";
+"Storm" = "طوفان";
+"Use System Accent Color" = "استفاده از رنگ ترجیحی سیستم";
+"Appearance" = "ظاهر";
+"Use System Appearance" = "استفاده از ظاهر سیستم";
+"Light" = "روشن";
+"Dark" = "تاریک";
+"Pure Black Mode" = "حالت سیاه خالص";
+
+// Featured
+
+"Featured Packages" = "پکیج‌های ویژه";
+"Feature Type" = "نوع ویژه";
+"Repo Featured" = "مخزن های ویژه";
+"Random" = "رندوم";
+"Select Repos to be Featured" = "انتخاب مخزن ها برای ویژه شدن";
+"Featured Repos" = "سورس‌های ویژه";
+
+// Reset
+
+"Reset" = "Reset";
+"Refresh Icon Cache" = "بروزکردن حافظه آیکون‌ها";
 "Clear Image Cache" = "پاک کردن حافظه ی کش عکس ها";
-"Clear Keychain" = "پاک کردن کیچین ها";
+"Clear Sources Cache" = "پاک کردن حافظه سورس‌ها";
+"Clear Web Cache" = "پاک کردن حافظه پنهان وب";
+"Reset All Settings" = "ریست کردن تمام تنظیمات";
+"Erase All Sources" = "Erase All Sources";
+"Erase All Sources and Settings" = "حذف تمامی سورس‌ها و تنظیمات";
 
-"Loading..." = "...در حال بارگذاری";
+"Are you sure you want to restart the SpringBoard?" = "مطمئن هستید که می خواهید اسپرینگ‌برد را مجدداً راه اندازی کنید؟";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "آیا مطمئن هستید که می خواهید حافظه آیکون‌ها را تازه کنید؟ ممکن است دستگاه شما تا زمانی که روند کامل شود، پاسخگو نباشد.";
+"Image Cache Cleared" = "حافظه موقت تصویر پاک شد";
+"Web Cache Cleared" = "حافظه موقت وب پاک شد";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "مطمئن هستید که می خواهید حافظه سورس‌های زبرا را مجددا تنظیم کنید؟ با این کار تمام اطلاعات ذخیره شده از پایگاه داده زبرا حذف و مجدداً بارگیری می شود. سورس‌ها حذف نمی شوند.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "آیا مطمئنید که می‌خواهید زبرا را ریست کنید؟ این کار همه تنظیمات زبرا را به حالت اولیه‌شان بر خواهد گرداند و زبرا مجددا شروع به کار خواهد کرد.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "آیا مطمئنید که می خواهید همه سورس‌ها و تنظیمات را ریست کنید؟ همه سورس‌های شما از زبرا حذف خواهند شد و تنظیمات شما به حالت اولیه خود باز خواهند گشت.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "همه سورس‌های شما حذف خواهند شد و برای همیشه از بین خواهند رفت و زبرا مجددا شروع به کار خواهد کرد.";
 
-"Resetting image cache completed" = "پاک کردن حافظه ی کش عکس ها کامل شد";
-"Clearing keychain completed" = "پاک کردن کیچین ها کامل شد";
+// Documents Directory
+"Open Documents Directory" = "Open Documents Directory";
 
-"Drop Tables" = "صفحات شناور";
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
-"Alternate Icons" = "آیکون های جایگزین";
+// Stores
 
-"Featured Repos" = "Featured Repos";
+"Stores" = "فروشگاه ها";
+"My Account" = "حساب من";
+"Sign In" = "ورود";
+"Sign Out" = "خروج";
+"Your Purchases" = "خریدهای شما";
+"No Storefronts Available" = "هیچ ویترینی در دسترس نیست.";
+"Could not authenticate" = "Could not authenticate";
+"Could not complete purchase" = "قادر به تکمیل خرید نیست";
+"No packages purchased" = "هیچ پکیجی خریداری نشده است.";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
 "Sources" = "منابع";
+"Unknown" = "نا شناخته";
+"Delete" = "حذف";
+"Refresh" = "ریفرش کردن";
+"All Packages" = "تمام پکیج ها";
+"Remove Source" = "حذف سورس";
+"Local File" = "Local File";
 "Local Repository" = "مخزن های موجود";
 "Locally installed packages" = "پکیج های نصب شده از منابع موجود";
-"Unknown" = "نا شناخته";
-"No repository urls detected." = "آدرس مخزنی یافت نشد";
-"You have already added these repositories." = "شما این مخزن ها را قبلا اضافه کرده اید";
-"Error verifying repository" = "ارور در حین تایید کردن مخزن";
-"Error verifying repositories" = "ارور در حین تایید کردن مخزن ها";
+
+"Add" = "اضافه کردن";
+"Add Sources" = "افزودن سورس‌ها";
+"Add Multiple" = "اضافه کردن چندتایی";
+"Enter Source URL" = "آدرس سورس را وارد کنید";
+"Would you like to add the URL from your clipboard?" = "میخواهید آدرسی که کپی کرده اید را اضافه کنید؟";
+
+"Please Wait..." = "...منتظر بمانید";
+"Verifying Source" = "درحال تایید سورس";
+"Verifying Sources" = "درحال تایید سورس";
+"Updating Sources" = "بروزرسانی سورس ها";
+
 "Unknown error" = "ارور نا شناخته";
 "Invalid URL" = "آدرس نا معتبر";
-"Enter URL" = "آدرس را وارد کنید";
-"Add Repo(s)" = "اضافه کردن مخزن";
-"Add" = "اضافه کردن";
-"Add Multiple" = "اضافه کردن چندتایی";
-"Would you like to add the URL from your clipboard?" = "میخواهید آدرسی که کپی کرده اید را اضافه کنید؟";
-"Please Wait..." = "...منتظر بمانید";
-"Verifying Source(s)" = "Verifying Source(s)";
-"Unable to verify Repo" = "تایید کردن مخزن امکانپذیر نیست";
-"Refresh" = "ریفرش کردن";
-"Log Out" = "خروج از حساب";
-"Purchased Packages" = "پکیج های خریده شده";
-"Purchased" = "خریده شده";
+"Invalid Source" = "سورس بی اعتبار";
+"Tap to learn more" = "برای اطلاعات بیشتر کلیک کنید";
+"No source URLs detected." = "آدرس سورس شناسایی نشد.";
+"Unable to verify source" = "نمیتوان ارتقاء را تأیید کرد";
+"Error verifying source" = "اخطار تایید سورس";
+"Error verifying sources" = "ارور در حین تایید کردن سورس ها";
+"Failed to add source" = "خطا در اضافه کردن سورس";
+"Failed to add sources" = "خطا در اضافه کردن سورس";
+"You have already added this source." = "قبلا سورس را وارد کرده‌اید.";
+"You have already added these sources." = "شما این سورس‌ها را قبلا اضافه کرده اید.";
+"Unable to locate an APT repository at:" = "خطا در پیدا کردن یک سورس APT در:";
+"Unable to locate APT repositories at:" = "خطا در پیدا کردن سورس‌های APT در:";
 
-"All Packages" = "تمام پکیج ها";
-"Delete" = "حذف";
+"A total of %d files will be downloaded" = "در کل %d فایل دانلود شد";
 
-// Changes
+"Could not parse %@ from %@" = " جدانشد %@ از %@";
+"Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "نتوانست پرونده های بسته را از%@ دانلود کند.\nدلیل: %@";
+"Could not download one or more files from %@. Reason: %@" = "نتوانست یک یا چند فایل را از%@ دانلود کند.\nدلیل: %@";
 
-"Changes" = "تغییرات";
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+
+"The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "زبرا قادر به دانلود سورس مشخص شده در%@ نیست. ممکن است موقتا غیرقابل دسترسی باشد یا به اشتباه اضافه شده باشد.";
+
+"Please remove this source from your sources.list file." = "این سورس را از فایل sources.list پاک کنید.";
+
+"Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "این سورس %@ با جیلبریک شما ناسازگار است.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
+
+"%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
+
+"Install All" = "Install All";
 
 // Packages
 
+"Version" = "نسخه";
 "Packages" = "پکیج ها";
 "Show Updates" = "نمایش آپدیت ها";
-"Ignore Updates" = "رد آپدیت ها";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "انتخاب نسخه";
 "Select a version to upgrade to:" = "انتخاب یک نسخه برای بروزرسانی:";
 "Select a version to downgrade to:" = "انتخاب یک نسخه برای پایین آوردن:";
@@ -140,12 +230,10 @@
 "ABC" = "الفبا";
 "Date" = "تاریخ";
 "Size" = "اندازه";
-"Clear" = "پاک سازی";
-"Are you sure you want to clear Queue?" = "میخواهید صف را پاک کنید؟";
 "Available Upgrades" = "ارتقا ی موجود برای پکیج ها";
 "Ignored Upgrades" = "رد ارتقا ها";
 "Recent" = "اخیرا";
-"Repo" = "مخزن";
+"Source" = "سورس";
 "Installed Files" = "فایل های نصب شده";
 "Modify" = "تغییر";
 "Authenticate to initiate purchase." = "تاییدیه برای آغاز خرید";
@@ -154,10 +242,10 @@
 "Installed Version" = "نسخه ی نصب شده";
 "Installed Size" = "اندازه ی پکیج نصب شده";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(نسخه نصب شده: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (حجم بعد از نصب: %@)";
 
 //Package size in bytes (no deceimal)
@@ -199,7 +287,7 @@
 "Productivity" = "بهره وری";
 "Repositories" = "مخزن ها";
 "Ringtones" = "آهنگ های زنگ ";
-"Scripting" = "Scripting";
+"Scripting" = "برنامه نویسی";
 "Security" = "امنیت";
 "Social" = "اجتماعی";
 "System" = "سیستم";
@@ -215,34 +303,29 @@
 // Search
 
 "Search" = "جستجو";
-"Clear Search" = "پاک کردن سوابق جستجو";
 "This search query is too short for the full search, please use a longer query." = "برای جستجو از واژه های بیشتری استفاده کنید";
 "No Results Found" = "نتیجه ای یافت نشد";
-
-// Downloads
-
-"Downloads" = "دانلود ها";
-"Error while opening sources.list" = "ارور در زمان بازکردن فایل sources.list";
-"The repo %@ is incompatible with your jailbreak." = "این مخزن %@ با جیلبریک شما ناسازگار است ";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "اضافه کردن این مورد ممکن است برای ریستور های زبرا مشکل ساز شود.";
-"Please remove this repo from your sources.list file." = "این مخزن را از این فیل پاک کنید sources.list ";
-"Incorrect documents permissions." = "دسترسی اشتباه اسناد";
-"Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
-"Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
-"%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
-"Could not parse %@ from %@" = " جدانشد %@ از %@";
+"Name" = "نام";
+"Description" = "شرح";
+"Author" = "سازنده";
 
 // Console
 
 "Console" = "کنسول";
 "Performing Actions..." = "در حال اجرا";
 "Updating icon cache asynchronously..." = "بروزرسانی کش آیکون ها بطور همزمان";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "ممکن است مقداری طول بکشه و زبرا بسته بشه اگر اینگونه شد مشکلی نیست";
 "Close Zebra" = "بستن زبرا";
+"Closing Zebra..." = "بستن زبرا...";
 "Restart SpringBoard" = "ری استارت جزءی";
+"Restarting SpringBoard..." = "راه اندازی مجدد اسپرینگ برد...";
+"Parsing %@" = "درحال تجزیه %@";
+"Starting Download" = "در حال آغاز بارگیری";
 "Downloading" = "در حال دانلود";
-"Parsing" = "Parsing";
+"Downloading %@" = "درحال دانلود %@";
 "Downloading Packages..." = "در حال دانلود پکیج ها";
+"Download Completed" = "بارگیری انجام شد";
 "Installing" = "در حال نصب";
 "Installing Packages..." = "در حال نصب پکیج ها";
 "Removing" = "در حال حذف";
@@ -254,12 +337,23 @@
 "Complete" = "کامل شد";
 "Finished!" = "تمام شد";
 "Return to Queue" = "برگشت به صف";
+"Returning to Queue..." = "برگشت به صف...";
 "Importing local packages." = "وارد کردن پکیج های موجود";
 "Finished importing local packages." = "وارد کردن پکیج ها تمام شد";
 "One or more packages failed to download." = "یک یا چند پکیج دانلود نشد";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "روی این گزینه بزنید \"Return to Queue\" تا به صف برگردید و دوباره دانلود کنید";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Done..." = "انجام شد...";
+"Done %@" = "اتمام %@";
+"Removing Zebra..." = "حدف زبرا...";
+"Installing Zebra..." = "نصب زبرا...";
+"Error while opening file:" = "Error while opening file:";
+"Adding Payment Vendor URL for %@" = "افزودن آدرس پرداخت فروشنده برای %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d پگیج ها وارد صف شد";
 "%d Package Queued" = "%d این پکیج وارد صف شد";
 "Tap to manage" = "مدیریت صف";
@@ -277,61 +371,110 @@
 "Continue" = "ادامه";
 "Download Size" = "حجم دانلود";
 "Confirm" = "تایید";
-"%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
-"Required Package" = "پکیج مورد نیاز";
-"%@ is required by:" = "%@ مورد نیاز توسط:";
 "Issues" = "مشکلات";
-"%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
+"Required Package" = "پکیج مورد نیاز";
 "Are you sure?" = "مطمین هستید؟";
-"Are you sure you want to clear the queue?" = "میخواهید صف را پاک کنید؟";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 "Remove from Queue" = "حذف از صف";
+"Clear Queue" = "پاک کردن صف";
+"%@ is required by:" = "%@ مورد نیاز توسط:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
+"%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
+"Are you sure you want to clear the Queue?" = "مطمئن هستید که می خواهید صف را پاک کنید؟";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ بسته مورد نیاز است. نباید حذف شود مگر اینکه شما می دانید که دقیقا چه کار میکنید!";
+
+// Search
+
+"Live Search" = "جستجوی زنده";
+"Tweaks, Themes, and More" = "توییکها، تم‌ها، و بیشتر";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ بسته مورد نیاز است و نباید حذف شود زیرا به %@ بستگی دارد. %@ نباید حذف شود مگر اینکه شما می دانید که دقیقا چه کاری انجام می دهند!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "یک یا چند بسته مورد نیاز، در صف حذف است. ادامه کار توصیه نمی شود مگر اینکه دقیقاً بدانید که چه کاری انجام می دهید. حذف این بسته ها می تواند صدمه جبران ناپذیری به دستگاه شما وارد کند و باعث بازگردانی کامل آن می شود.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "زبرا نتوانست این فرمان را انجام دهد زیرا مجوزهای مناسب را ندارد. لطفاً مجوزهای واقع در /usr/libexec/zebra supersling را بررسی کنید و این موضوع را در GitHub گزارش دهید.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "دسترسی به su/sling امکان پذیر نیست. لطفاً تأیید کنید که /usr/libexec/zebra/supersling وجود دارد.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling متعلق به root: wheel نیست. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
-"Help translate Zebra!" = "Help translate Zebra!";
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
-"Configure the appearance of Zebra." = "Configure the appearance of Zebra.";
+"Could not respring. Please respring manually." = "ریسپرینگ نشد، لطفا بصورت دستی ریسپرینگ کنید.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"ERROR: Unable to lock status file. Please try again." = "خطا: نمی توان پرونده وضعیت را قفل کرد. لطفا دوباره تلاش کنید.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"ERROR: Process must be restarted. Please try again." = "خطا: فرآیند باید دوباره شروع شود. لطفا دوباره تلاش کنید.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Incorrect documents permissions." = "دسترسی اشتباه اسناد";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Could not determine device information." = "تعیین مشخصات دستگاه موفق نبود";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Display featured packages on the homepage." = "بسته های ویژه را در صفحه اصلی نمایش دهید.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Display recent community posts from /r/jailbreak." = "نمایش پست های اخیر انجمن r/jailbreak/.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "بسته ها را هنگام تایپ جستجو کنید. غیرفعال کردن این ویژگی ممکن است باعث کاهش تأخیر دستگاههای قدیمی شود.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"Configure the appearance of table view swipe actions." = "حرکت کشیدن در نمای جدول را پیکربندی کنید.";
 
-"Community News" = "Community News";
-"Import Sources" = "Import Sources";
-"Updating Repositories" = "Updating Repositories";
-"Would you like to import the following repositories?" = "Would you like to import the following repositories?";
-"Download Completed" = "Download Completed";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
+"Change the accent color that displays across Zebra." = "رنگ تاکیدی که در سراسر زبرا نمایش داده می شود، را تغییر دهید.";
+
+"Change the style of Zebra's dark mode when it is enabled." = "حالت تاریک زبرا را هنگام فعال کردن تغییر دهید.";
+
+"Change the source of the featured packages on the homepage." = "سورس، بسته های ویژه در صفحه اصلی را تغییر دهید.";
+
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"سورس‌های ویژه\" بسته های تصادفی از سورس هایی که از API بسته بندی ویژه پشتیبانی می کنند، نمایش میدهد.";
+
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"تصادفی\" بسته های تصادفی را از تمام سورس‌های اضافه شده به زبرا نمایش می دهد.";
+
+"Signing in to sources allows for the purchase of paid packages." = "واردشدن، به سورس‌ها اجازه خرید بسته های پولی را می‌دهد.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "بعد از تکمیل کارها، کنسول را به طور خودکار خارج کن.";
+
+// Filters
+
+"Filters" = "فیلترها";
+"Add Filter" = "افزودن فیلتر";
+
+"1 Section Hidden" = "۱ بخش پنهان شد";
+"%lu Sections Hidden" = "%lu Sections Hidden";
+
+"Sections" = "بخش‌ها";
+"Select a Section" = "بخش انتخاب شده";
+"Hide packages in these sections." = "پنهان کردن بسته ها در این بخش.";
+
+"Sources" = "منابع";
+"Select a Source" = "انتخاب سورس";
+"Hide packages in these sections from specific sources." = "مخفی کردن بسته ها در این بخش از سورس‌های خاص.";
+
+"Updates" = "به روز رسانی‌ها";
+"Hide future updates from these packages." = "مخفی کردن به روز رسانی های آینده این بسته ها.";
+
+"Authors" = "سازندها";
+"Hide packages from these authors." = "مخفی کردن بسته‌های این سازندگان.";
+"Search for an Author" = "جستجوی مؤلف";
+"This author also goes by the following names:" = "This author also goes by the following names:";
+
+// Language Settings
+
+"Language" = "زبان";
+"Apply" = "اعمال تغییرات";
+"Restart Required" = "راه‌اندازی مجدد لازم است";
+"Zebra must be closed in order to change preferred language" = "برای تغییر زبان زبرا باید بسته شود";
+"Restart" = "راه اندازی مجدد";
+"Use System Language" = "استفاده از زبان سیستم";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";

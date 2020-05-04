@@ -19,15 +19,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, WKScriptMessageHandler, UIViewControllerPreviewing, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, ZBConsoleCommandDelegate>
+@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, UIViewControllerPreviewing, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, ZBConsoleCommandDelegate>
 @property (nonatomic, strong) ZBPackage *package;
 @property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
 @property (weak, nonatomic) IBOutlet UILabel *packageName;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property BOOL purchased;
-@property NSString *authorEmail;
-@property (nonatomic, weak) UIViewController *parent;
-- (id)initWithPackageID:(NSString *)packageID fromRepo:(ZBRepo *_Nullable)repo;
+@property (nonatomic, weak) UITableViewController *parent;
+- (id)initWithPackage:(ZBPackage *)package;
+- (NSArray *)contextMenuActionItemsInTableView:(UITableView *_Nullable)tableview;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,6 +1,6 @@
 // To parse this JSON:
 //
-//   NSError *error;
+//   NSError *error = NULL;
 //   ZBRedditPosts *redditPosts = [ZBRedditPosts fromJSON:json encoding:NSUTF8Encoding error:&error];
 
 #import <Foundation/Foundation.h>

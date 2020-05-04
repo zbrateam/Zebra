@@ -7,32 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum  {
-    ZBDefaultAccentColor = 0,
-    ZBBlue,
-    ZBOrange,
-    ZBWhiteOrBlack
-} ZBAccentColorSelection;
-
-typedef NS_ENUM(NSInteger)  {
-    ZBDefaultMode = 0,
-    ZBOled,
-    ZBThirteen
-} ZBDarkModeSelection;
+#import <ZBSettings.h>
 
 @interface UIColor (GlobalColors)
-+ (UIColor *)tintColor;
-+ (UIColor *)navBarTintColor;
++ (UIColor *)accentColor;
 + (UIColor *)badgeColor;
++ (UIColor *)cornflowerBlueColor;
 + (UIColor *)tableViewBackgroundColor;
++ (UIColor *)groupedTableViewBackgroundColor;
 + (UIColor *)cellBackgroundColor;
-+ (UIColor *)cellPrimaryTextColor;
-+ (UIColor *)cellSecondaryTextColor;
-+ (UIColor *)selectedCellBackgroundColorLight:(BOOL)highlighted;
-+ (UIColor *)selectedCellBackgroundColorDark:(BOOL)highlighted oled:(BOOL)oled;
-+ (UIColor *)selectedCellBackgroundColor:(BOOL)highlighted;
++ (UIColor *)cellSelectedBackgroundColor;
++ (UIColor *)primaryTextColor;
++ (UIColor *)secondaryTextColor;
 + (UIColor *)cellSeparatorColor;
++ (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
 @end
 

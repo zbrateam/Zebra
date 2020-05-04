@@ -9,10 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <Tabs/ZBTabBarController.h>
 
-@interface ZBAppDelegate : UIResponder <UIApplicationDelegate>
+extern NSString * const ZBUserWillTakeScreenshotNotification;
+extern NSString * const ZBUserDidTakeScreenshotNotification;
+
+extern NSString * const ZBUserStartedScreenCaptureNotification;
+extern NSString * const ZBUserEndedScreenCaptureNotification;
+
+@interface ZBAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
 + (NSString *)documentsDirectory;
++ (NSURL *)documentsDirectoryURL;
 + (NSString *)listsLocation;
 + (NSURL *)sourcesListURL;
 + (NSString *)sourcesListPath;

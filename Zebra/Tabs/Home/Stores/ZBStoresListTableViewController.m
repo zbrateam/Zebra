@@ -10,17 +10,18 @@
 #import <ZBDevice.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBStoresListTableViewController.h"
-#import <Repos/Helpers/ZBRepo.h>
-#import <Repos/Helpers/ZBRepoTableViewCell.h>
+#import <Sources/Helpers/ZBSource.h>
+#import <Sources/Views/ZBSourceTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Repos/Helpers/ZBRepoManager.h>
-#import <Repos/Controllers/ZBRepoPurchasedPackagesTableViewController.h>
+#import <Sources/Helpers/ZBSourceManager.h>
+#import <Sources/Controllers/ZBSourceAccountTableViewController.h>
 
 @import SDWebImage;
 
 @interface ZBStoresListTableViewController () {
-    NSMutableArray *sources;
-    NSString *currentRepoEndpoint;
+    NSArray <ZBSource *> *sources;
+    UICKeyChainStore *keychain;
+    NSString *callbackURI;
 }
 @end
 
@@ -28,57 +29,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRepoTableViewCell" bundle:nil] forCellReuseIdentifier:@"repoTableViewCell"];
-    _keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationCallBack:) name:@"AuthenticationCallBack" object:nil];
-    currentRepoEndpoint = @"";
-    [self refreshTable];
+    
+    keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES];
+    sources = [[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];
+    
     self.title = NSLocalizedString(@"Stores", @"");
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self refreshTable];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
-- (void)refreshTable {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(refreshTable) withObject:nil waitUntilDone:NO];
-    } else {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateStores];
-            [self.tableView reloadData];
-        });
-    }
-}
-
-- (void)updateStores {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    sources = [[databaseManager repos] mutableCopy];
-    
-    self.tableData = [[NSMutableArray alloc] init];
-    
-    for (ZBRepo *repo in sources) {
-        if ([[self.keychain stringForKey:repo.baseURL] length] != 0) {
-            [self.tableData addObject:repo];
-        }
-    }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 #pragma mark - Table view data source
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
+    return sources.count ? 65 : 44;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -86,115 +61,69 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.tableData.count;
+    return MAX(sources.count, 1);
 }
 
-- (ZBRepoTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBRepoTableViewCell *cell = (ZBRepoTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"repoTableViewCell" forIndexPath:indexPath];
-    
-    ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
-    
-    cell.repoLabel.text = [source origin];
-    cell.repoLabel.textColor = [UIColor cellPrimaryTextColor];
-    cell.urlLabel.textColor = [UIColor cellSecondaryTextColor];
-
-    if (![self checkAuthenticatedRepo:[_keychain stringForKey:[source baseURL]]]) {
-        cell.urlLabel.text = NSLocalizedString(@"Login", @"");
-    } else {
-        cell.urlLabel.text = NSLocalizedString(@"Purchases", @"");
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (sources.count) {
+        ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
+        
+        ZBSource *source = [sources objectAtIndex:indexPath.row];
+        
+        cell.sourceLabel.text = [source label];
+        cell.sourceLabel.textColor = [UIColor primaryTextColor];
+        
+        cell.urlLabel.text = [source repositoryURI];
+        cell.urlLabel.textColor = [UIColor secondaryTextColor];
+        
+        [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        
+        return cell;
     }
-    [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
- 
-    return cell;
+    else {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noStoresCell"];
+        cell.textLabel.text = NSLocalizedString(@"No Storefronts Available", @"");
+        cell.backgroundColor = [UIColor clearColor];
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor secondaryTextColor];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBRepo *source = [self.tableData objectAtIndex:indexPath.row];
-    currentRepoEndpoint = [_keychain stringForKey:[source baseURL]];
-    if (![self checkAuthenticatedRepo:currentRepoEndpoint]) {
-        NSString *urlString = [NSString stringWithFormat:@"%@authenticate?udid=%@&model=%@", currentRepoEndpoint, [ZBDevice UDID], [ZBDevice deviceModelID]];
-        NSURL *destinationUrl = [NSURL URLWithString:urlString];
-        if (destinationUrl == nil) {
-            return;
-        }
-        if (@available(iOS 11.0, *)) {
-            static SFAuthenticationSession *session;
-            session = [[SFAuthenticationSession alloc]
-                       initWithURL:destinationUrl
-                       callbackURLScheme:@"sileo"
-                       completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-                           if (callbackURL) {
-                               NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                               NSArray *queryItems = urlComponents.queryItems;
-                               NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                               for (NSURLQueryItem *q in queryItems) {
-                                   [queryByKeys setValue:[q value] forKey:[q name]];
-                               }
-                               NSString *token = queryByKeys[@"token"];
-                               NSString *payment = queryByKeys[@"payment_secret"];
-                               self->_keychain[self->currentRepoEndpoint] = token;
-                               UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                               securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = nil;
-                               dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                                   [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                                                authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                                   
-                                   securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
-                               });
-                               [self refreshTable];
-                           } else {
-                               return;
-                           }
-                           
-                           
-                       }];
-            [session start];
-        } else {
-            [ZBDevice openURL:destinationUrl delegate:self];
-        }
-    } else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBRepoPurchasedPackagesTableViewController *ivc = (ZBRepoPurchasedPackagesTableViewController *)[storyboard instantiateViewControllerWithIdentifier:@"purchasedController"];
-        ivc.repoName = source.origin;
-        ivc.repoEndpoint = currentRepoEndpoint;
-        ivc.repoImage = [[ZBDatabaseManager sharedInstance] iconForRepo:source];
-        [self.navigationController pushViewController:ivc animated:YES];
-    }
-}
-
-- (BOOL)checkAuthenticatedRepo:(NSString *)repo {
-    return [[_keychain stringForKey:repo] length];
-}
-
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (!sources.count) return;
     
-}
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    [self refreshTable];
-}
-
-- (void)authenticationCallBack:(NSNotification *)notif {
-    [self dismissViewControllerAnimated:YES completion:nil];
-
-    NSURL *callbackURL = [notif.userInfo objectForKey:@"callBack"];
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-    NSArray *queryItems = urlComponents.queryItems;
-    NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-    for (NSURLQueryItem *q in queryItems) {
-        [queryByKeys setValue:[q value] forKey:[q name]];
+    ZBSource *source = [sources objectAtIndex:indexPath.row];
+    
+    if (@available(iOS 11.0, *)) {
+        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+            if (!success || error) {
+                if (notify) {
+                    if (error) {
+                        [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
+                    }
+                    else {
+                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+                    }
+                }
+            }
+            else {
+                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.navigationController pushViewController:accountController animated:YES];
+                });
+            }
+        }];
     }
-    NSString *token = queryByKeys[@"token"];
-    NSString *payment = queryByKeys[@"payment_secret"];
-    self->_keychain[currentRepoEndpoint] = token;
-    UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    securedKeychain[[currentRepoEndpoint stringByAppendingString:@"payment"]] = nil;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                     authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-        securedKeychain[[self->currentRepoEndpoint stringByAppendingString:@"payment"]] = payment;
-    });
-    [self refreshTable];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return sources.count ? NSLocalizedString(@"Signing in to sources allows for the purchase of paid packages.", @"") : NULL;
 }
 
 @end

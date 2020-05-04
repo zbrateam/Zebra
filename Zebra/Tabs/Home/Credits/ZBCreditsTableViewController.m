@@ -9,6 +9,7 @@
 #import "ZBCreditsTableViewController.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 
 @interface ZBCreditsTableViewController ()
 
@@ -24,25 +25,29 @@
     UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.navigationItem.titleView = spinner;
     [spinner startAnimating];
-    
-    if ([ZBDevice darkModeEnabled]) {
-        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
     
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            break;
+        case ZBInterfaceStyleDark:
+        case ZBInterfaceStylePureBlack:
+            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
+            break;
+    }
+    
+    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (credits == NULL) {
         [self fetchCredits];
-    }
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
 }
 
@@ -87,18 +92,18 @@
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+        [cell.textLabel setTextColor:[UIColor primaryTextColor]];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
         if ([item objectForKey:@"link"] != NULL) {
-            [cell.textLabel setTextColor:[UIColor tintColor]];
+            [cell.textLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
         }
         else {
-            [cell.textLabel setTextColor:[UIColor cellPrimaryTextColor]];
+            [cell.textLabel setTextColor:[UIColor primaryTextColor]];
         }
     }
-    [cell.detailTextLabel setTextColor:[UIColor cellSecondaryTextColor]];
+    [cell.detailTextLabel setTextColor:[UIColor secondaryTextColor]];
     
     cell.textLabel.text = [item objectForKey:@"name"];
     cell.detailTextLabel.text = [item objectForKey:@"subtitle"];

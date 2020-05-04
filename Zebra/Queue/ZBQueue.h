@@ -6,6 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+@class UIColor;
 @class ZBPackage;
 
 #import <Foundation/Foundation.h>
@@ -19,18 +20,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
 + (id)sharedQueue;
 + (int)count;
++ (UIColor *)colorForQueueType:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)addDependency:(ZBPackage *)package;
 - (void)addConflict:(ZBPackage *)package;
 - (void)removePackage:(ZBPackage *)package;
-- (NSArray *)tasksToPerform:(NSArray <NSDictionary <NSString*, NSString *> *> *)debs;
+- (NSArray *)tasksToPerform;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
 - (NSArray<NSNumber *> *)actionsToPerform;
-- (NSString *)displayableNameForQueueType:(ZBQueueType)queue useIcon:(BOOL)useIcon;
+- (NSString *)displayableNameForQueueType:(ZBQueueType)queue;
 - (int)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;
+- (NSArray *)packagesToInstall;
 - (BOOL)contains:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue;
 - (NSString *)downloadSizeForQueue:(ZBQueueType)queueType;
@@ -41,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)conflictQueue;
 - (NSMutableArray <NSString *> *)queuedPackagesList;
 - (ZBQueueType)locate:(ZBPackage *)package;
+- (ZBQueueType)locatePackageID:(NSString *)packageID;
 - (BOOL)containsEssentialOrRequiredPackage;
 - (void)addConflict:(ZBPackage *)package removeDependencies:(BOOL)remove;
 

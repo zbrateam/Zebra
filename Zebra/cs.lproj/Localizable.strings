@@ -7,31 +7,50 @@
 "Error" = "Chyba";
 "Retry" = "Zkusit znova";
 "Edit" = "Upravit";
-"Login" = "Přihlásit";
 "Close" = "Zavřít";
 "Done" = "Hotovo";
+"Loading..." = "Načítání...";
+"Clear" = "Vyčistit";
+"An Error Occurred" = "Došlo k chybě";
+"Dismiss" = "Zamítnout";
+"Downloads" = "Stažené";
 
 // Home
 
 "Home" = "Domů";
 "Info" = "Info";
 "Welcome to Zebra!" = "Vítejte v aplikaci Zebra!";
+"Report a Bug" = "Nahlásit Bug";
 "Changelog" = "Seznam změn";
-"Community Sources" = "Zdroje Komunity";
-"You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
-"Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
-"Utility repo for %@" = "Repozitář nástrojů pro %@";
-"Transfer Sources" = "Přenést Repozitáře";
-"Verifying Source(s)" = "Ověřování Repozitáře(ů)";
-"Stores" = "Obchody";
-"Purchases" = "Nákupy";
 "Wish List" = "Seznam přání";
+"Newest First" = "Od nejnovějšího";
+"Oldest First" = "Od nejstaršího";
 "No items in Wish List" = "Nic tu není.";
 "Community" = "Komunita";
 "Join our Discord" = "Připoj se k našemu Discordu";
-"Follow me on Twitter" = "Sleduj mě na Twitteru";
+"Follow us on Twitter" = "Sledujte nás na Twitter";
+"Help translate Zebra!" = "Pomozte přeložit Zebru!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "Zdroje Komunity";
+"You’ve added all of the community sources" = "Přidali jste všechny zdroje komunity";
+"Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
+"Utility source for %@" = "Zdroj nástrojů pro %@";
+"Transfer Sources" = "Přenést Zdroje";
+"Verifying Source" = "Ověřování Zdroje";
+"Verifying Sources" = "Ověřování Zdrojů";
+"Import" = "Importovat";
+"Verifying..." = "Ověřuje se...";
+"Confirm Import" = "Potvrzení importu";
+"Import Sources" = "Importovat zdroje";
+"No sources to import" = "Žádné zdroje k importu";
+"Would you like to import the following sources?" = "Chcete importovat následující zdroje?";
+"Are you sure that you want to import 1 source into Zebra?" = "Souhlasíš s importem 1 zdroje do Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Jste si jisti, že chcete importovat %d zdrojů do Zebra?";
+
+
+// Credits
 
 "Credits" = "Kredity";
 "Creators" = "Autoři";
@@ -42,94 +61,165 @@
 // Settings
 
 "Settings" = "Nastavení";
-"Version" = "Verze";
-"Interface" = "Prostředí";
-"Featured" = "Návrhy";
-"News" = "Novinky";
-"Miscellaneous" = "Různé";
-"Advanced" = "Pokročilé";
-
-"Report a Bug" = "Nahlásit Bug";
-
-"Accent Color" = "Barva zvýraznění";
-"Blue" = "Modrá";
-"Orange" = "Oranžová";
-"White" = "Bílá";
-"Black" = "Černá";
-
-"Dark Mode Style" = "Styl tmavého režimu";
-"Dark Mode" = "Tmavý režim";
-"Default" = "Výchozí";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
+"Display" = "Zobrazit";
 "App Icon" = "Ikona aplikace";
-
-"Featured Packages" = "Doporučené balíčky";
-"Repo Featured" = "Návrhy repozitářů";
-"Random" = "Náhodně";
-"Feature Type" = "Typy Návrhů";
-"Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
-
-"News" = "Novinky";
-
-"Live Search" = "Živé Vyhledávání";
-
+"Changes" = "Změny";
+"Community News" = "Komunitní Novinky";
+"Miscellaneous" = "Různé";
 "Swipe Actions Display As" = "Akce přejetí prstem zobrazovat jako";
 "Text" = "Text";
 "Icon" = "Ikona";
-"Open Documents Directory" = "Otevřít adresář dokumentů";
-"Clear Image Cache" = "Vyčistit Image Cache";
-"Clear Keychain" = "Vyčistit klíčenku";
+"Finish Automatically" = "Automaticky Dokončit";
 
-"Loading..." = "Načítání...";
+// "Hide UDID" = "Hide UDID";
 
-"Resetting image cache completed" = "Resetováví image cache dokončeno";
-"Clearing keychain completed" = "Čištění klíčenky dokončeno";
+"Automatic Refresh" = "Automatická aktualizace";
 
-"Drop Tables" = "Znova načíst data a repozitáře";
+// Accent Colors
 
-"Alternate Icons" = "Alternativní ikony";
+"Accent Color" = "Barva zvýraznění";
+"Aqua Velvet" = "Mořský samet";
+"Cornflower Blue" = "Kukuřičná modř";
+"Golden Tainoi" = "Zlatý Tainoi";
+"Iris Blue" = "Irisová modrá";
+"Lotus Pink" = "Růžový lotus";
+"Monochrome" = "Černobílá";
+"Mountain Meadow" = "Horské louky";
+"Pastel Red" = "Pastelová červená";
+"Purple Heart" = "Fialové srdce";
+"Royal Blue" = "Královská modř";
+"Shark" = "Žralok";
+"Storm" = "Bouře";
+"Use System Accent Color" = "Použít systémovou barvu zvýraznění";
+"Appearance" = "Vzhled";
+"Use System Appearance" = "Použít vzhled systému";
+"Light" = "Světlý";
+"Dark" = "Tmavý";
+"Pure Black Mode" = "Čistě černý režim";
 
+// Featured
+
+"Featured Packages" = "Doporučené balíčky";
+"Feature Type" = "Typy Návrhů";
+"Repo Featured" = "Návrhy repozitářů";
+"Random" = "Náhodně";
+"Select Repos to be Featured" = "Vyberte repozitáře pro návrhy";
 "Featured Repos" = "Doporučené Repozitáře";
+
+// Reset
+
+"Reset" = "Resetovat";
+"Refresh Icon Cache" = "Obnovit mezipaměť ikon";
+"Clear Image Cache" = "Vyčistit vyrovnávací paměť obrázků";
+"Clear Sources Cache" = "Smazat mezipaměť zdrojů";
+"Clear Web Cache" = "Smazat Webovou mezipaměť";
+"Reset All Settings" = "Obnovit všechna nastavení";
+"Erase All Sources" = "Vymazat všechny zdroje";
+"Erase All Sources and Settings" = "Vymazat všechny zdroje a nastavení";
+
+"Are you sure you want to restart the SpringBoard?" = "Opravdu chcete restartovat SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Jste si jisti, že chcete obnovit mezipaměť ikon? Vaše zařízení nemusí reagovat, dokud nebude proces dokončen.";
+"Image Cache Cleared" = "Mezipaměť obrázků vymazána";
+"Web Cache Cleared" = "Webová mezipaměť vymazána";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Jste si jisti, že chcete obnovit zdrojovou mezipaměť Zebry? Tato akce odstraní všechny informace v mezipaměti z databáze Zebra a znovu je stáhne. Zdroje nebudou smazány.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Opravdu chcete resetovat nastavení Zebra? Tato akce obnoví všechna nastavení Zebry zpět na jejich výchozí hodnoty a Zebra se restartuje.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Opravdu chcete vymazat všechny zdroje? Všechny zdroje budou odstraněny ze Zebry a Zebra se restartuje.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Opravdu chcete vymazat všechny zdroje a nastavení? Všechny vaše zdroje budou odstraněny ze Zebry a vaše nastavení bude resetováno.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Všechny vaše zdroje budou navždy smazány a Zebra se restartuje.";
+
+// Documents Directory
+"Open Documents Directory" = "Otevřít adresář dokumentů";
+
+"Filza Not Installed" = "Filza není nainstalována";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nemůže otevřít adresář s dokumenty, protože Filza není nainstalován. Adresář s dokumenty je: %@";
+
+// Stores
+
+"Stores" = "Obchody";
+"My Account" = "Můj účet";
+"Sign In" = "Přihlásit se";
+"Sign Out" = "Odhlásit se";
+"Your Purchases" = "Vaše nákupy";
+"No Storefronts Available" = "Nejsou k dispozici žádné obchody";
+"Could not authenticate" = "Could not authenticate";
+"Could not complete purchase" = "Nelze dokončit nákup";
+"No packages purchased" = "Žádné zakoupené balíčky";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
 "Sources" = "Zdroje";
+"Unknown" = "Neznámý";
+"Delete" = "Vymazat";
+"Refresh" = "Refreshnout";
+"All Packages" = "Všechny balíčky";
+"Remove Source" = "Odstranit zdroj";
+"Local File" = "Local File";
 "Local Repository" = "Místní Repozitář";
 "Locally installed packages" = "Místně nainstalované balíčky";
-"Unknown" = "Neznámý";
-"No repository urls detected." = "Nebyly detekované žádné URL Repozitářů.";
-"You have already added these repositories." = "Tyto repozitáře již byly přidány.";
-"Error verifying repository" = "Chyba při ověřování repozitáře";
-"Error verifying repositories" = "Chyba při ověřování repozitářů";
+
+"Add" = "Přidat";
+"Add Sources" = "Přidat zdroje";
+"Add Multiple" = "Přidat více najednou";
+"Enter Source URL" = "Zadejte URL adresu zdroje";
+"Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
+
+"Please Wait..." = "Prosím čekejte...";
+"Verifying Source" = "Ověřování Zdroje";
+"Verifying Sources" = "Ověřování Zdrojů";
+"Updating Sources" = "Aktualizace zdrojů";
+
 "Unknown error" = "Neznámá chyba";
 "Invalid URL" = "Chybné URL";
-"Enter URL" = "Zadej URL";
-"Add Repo(s)" = "Přidat repozitář(e)";
-"Add" = "Přidat";
-"Add Multiple" = "Přidat více najednou";
-"Would you like to add the URL from your clipboard?" = "Přejete si přidat URL ze schránky?";
-"Please Wait..." = "Prosím čekejte...";
-"Verifying Source(s)" = "Ověřování repozitáře(ů)";
-"Unable to verify Repo" = "Chyba při ověřování repozitáře";
-"Refresh" = "Refreshnout";
-"Log Out" = "Odhlásit se";
-"Purchased Packages" = "Zakoupené balíčky";
-"Purchased" = "Zakoupené";
+"Invalid Source" = "Neplatný zdroj";
+"Tap to learn more" = "Klepnutím zobrazíte další informace";
+"No source URLs detected." = "Nebyly zjištěny žádné URL adresy zdrojů.";
+"Unable to verify source" = "Zdroj nelze ověřit";
+"Error verifying source" = "Chyba při ověřování zdroje";
+"Error verifying sources" = "Chyba při ověřování zdrojů";
+"Failed to add source" = "Přidání zdroje se nezdařilo";
+"Failed to add sources" = "Přidání zdrojů se nezdařilo";
+"You have already added this source." = "Tento zdroj jste již přidali.";
+"You have already added these sources." = "Tyto zdroje jste již přidali.";
+"Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
+"Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
 
-"All Packages" = "Všechny balíčky";
-"Delete" = "Vymazat";
+"A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
 
-// Changes
+"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
+"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Could not download Release file from %@. Reason: %@" = "Soubor Release z %@nelze stáhnout. Důvod: %@";
+"Could not download Packages file from %@. Reason: %@" = "Soubor balíčků z %@nelze stáhnout. Důvod: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nelze stáhnout jeden nebo více souborů z %@. Důvod: %@";
 
-"Changes" = "Změny";
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+
+"The URL you entered is not valid. Please check it and try again." = "Zadaná adresa URL není platná. Zkontrolujte ji a zkuste to znovu.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nebyla schopna stáhnout zdroj, který byl zadán na %@. Může být dočasně nedostupný nebo mohl být přidán nesprávně.";
+
+"Please remove this source from your sources.list file." = "Prosím odeberte tento zdroj ze souboru sources.list.";
+
+"Error while opening sources.list" = "Chyba během otevírání sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
+
+"%@ hasn't been modified" = "%@ nebylo upraveno";
+
+"Install All" = "Install All";
 
 // Packages
 
+"Version" = "Verze";
 "Packages" = "Balíčky";
 "Show Updates" = "Zobrazit Aktualizace";
-"Ignore Updates" = "Ignorovat Aktualizace";
+"Hide Updates" = "Hide Updates";
 "Select Version" = "Vyberte Verzi";
 "Select a version to upgrade to:" = "Vyberte verzi, na kterou chcete aktualizovat:";
 "Select a version to downgrade to:" = "Vyberte verzi, na kterou se chcete vrátit:";
@@ -140,12 +230,10 @@
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Velikost";
-"Clear" = "Vyčistit";
-"Are you sure you want to clear Queue?" = "Jste si jistí, že chcete vyčistit frontu?";
 "Available Upgrades" = "Dostupné Aktualizace";
 "Ignored Upgrades" = "Ignorované Aktualizace";
 "Recent" = "Nedávné";
-"Repo" = "Repozitář";
+"Source" = "Zdroj";
 "Installed Files" = "Instalované Soubory";
 "Modify" = "Upravit";
 "Authenticate to initiate purchase." = "Autorizovat se k zakoupení.";
@@ -154,10 +242,10 @@
 "Installed Version" = "Instalovaná Verze";
 "Installed Size" = "Nainstalovaná velikost";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
+//<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Nainstalovaná verze: %@)";
 
-//<Download size> (Installed Size: <installed size>
+//<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Nainstalovaná velikost: %@)";
 
 //Package size in bytes (no deceimal)
@@ -215,34 +303,29 @@
 // Search
 
 "Search" = "Hledání";
-"Clear Search" = "Vyčistit hledání";
 "This search query is too short for the full search, please use a longer query." = "Tento dotaz je příliš krátký pro úplné hledání, prosím zadejte více.";
 "No Results Found" = "Žádné Výsledky Nenalezeny";
-
-// Downloads
-
-"Downloads" = "Stažené";
-"Error while opening sources.list" = "Chyba během otevírání sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Repozitář %@ je nekompatibilní s Vaším Jailbreakem.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Přidání může způsobit problémy, které mohou vyústit v poškození systému";
-"Please remove this repo from your sources.list file." = "Prosím, odstraňte tento repozitář ze souboru sources.list.";
-"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
-"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
-"Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
-"%@ hasn't been modified" = "%@ nebylo upraveno";
-"Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
+"Name" = "Název";
+"Description" = "Popis";
+"Author" = "Autor";
 
 // Console
 
 "Console" = "Konzola";
 "Performing Actions..." = "Akce probíhají...";
 "Updating icon cache asynchronously..." = "Probíhá asynchonní update icon cache...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Toto může trvat delší dobu a Zebra může spadnout. Nevadí pokud se tak stane.";
 "Close Zebra" = "Zavřít Zebru";
+"Closing Zebra..." = "Zavírám Zebru...";
 "Restart SpringBoard" = "Restartovat SpringBoard";
+"Restarting SpringBoard..." = "Restartuji SpringBoard...";
+"Parsing %@" = "Analýza %@";
+"Starting Download" = "Zahájení stahování";
 "Downloading" = "Stahování";
-"Parsing" = "Analýza";
+"Downloading %@" = "Stahování %@";
 "Downloading Packages..." = "Stahování balíčků...";
+"Download Completed" = "Stahování dokončeno";
 "Installing" = "Instalování";
 "Installing Packages..." = "Instalování balíčků...";
 "Removing" = "Odstraňování";
@@ -254,12 +337,23 @@
 "Complete" = "Hotovo";
 "Finished!" = "Dokončeno!";
 "Return to Queue" = "Návrat do Fronty";
+"Returning to Queue..." = "Vracím do Fronty...";
 "Importing local packages." = "Importování místních balíčků.";
 "Finished importing local packages." = "Importování místních balíčků bylo dokončeno.";
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Done..." = "Hotovo...";
+"Done %@" = "Dokončeno %@";
+"Removing Zebra..." = "Odstraňuji Zebra...";
+"Installing Zebra..." = "Instalace Zebry...";
+"Error while opening file:" = "Error while opening file:";
+"Adding Payment Vendor URL for %@" = "Přidávám URL dodavatele platby pro %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d balíčků ve frontě";
 "%d Package Queued" = "%d balíček ve frontě";
 "Tap to manage" = "Dotykem spravovat";
@@ -277,15 +371,22 @@
 "Continue" = "Pokračovat";
 "Download Size" = "Velikost stažení";
 "Confirm" = "Potvrdit";
-"%@ must be removed because it depends on %@" = "%@ musí být odstraněn, protože závisí na %@";
-"Required Package" = "Požadovaný balíček";
-"%@ is required by:" = "%@ je vyžadováno:";
 "Issues" = "Problémy";
-"%@ has issues that cannot be resolved:" = "%@ má problémy, které nelze vyřešit:";
+"Required Package" = "Požadovaný balíček";
 "Are you sure?" = "Opravdu?";
-"Are you sure you want to clear the queue?" = "Jste si jistí, že chcete vyčistit frontu?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček. Neměl by být odstraněn, pokud přesně nevíte, co děláte!";
 "Remove from Queue" = "Odebrat z fronty";
+"Clear Queue" = "Vyčistit frontu";
+"%@ is required by:" = "%@ je vyžadováno:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"%@ must be removed because it depends on %@" = "%@ musí být odstraněn, protože závisí na %@";
+"%@ has issues that cannot be resolved:" = "%@ má problémy, které nelze vyřešit:";
+"Are you sure you want to clear the Queue?" = "Jste si jisti, že chcete vymazat frontu?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček. Neměl by být odstraněn, pokud přesně nevíte, co děláte!";
+
+// Search
+
+"Live Search" = "Živé Vyhledávání";
+"Tweaks, Themes, and More" = "Vylepšení, motivy a další";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ je požadovaný balíček a musí být odstraněn, protože závisí na %@. %@ by neměl být odstraněn, pokud přesně nevíte, co děláte!";
@@ -300,7 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Pomozte přeložit Zebru!";
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
 "Could not respring. Please respring manually." = "Chyba během auto respringu. Proveďte respring ručně.";
 
@@ -308,13 +415,17 @@
 
 "ERROR: Process must be restarted. Please try again." = "CHYBA: Proces musí být restartován. Prosím zkuste to znovu.";
 
-"Configure the appearance of Zebra." = "Konfiguruje vzhled Zebry.";
+"Incorrect documents permissions." = "Nesprvné oprávnění dokumentu.";
+
+"Could not determine device information." = "Informace o zařízení se nepodařilo obdržet.";
 
 "Display featured packages on the homepage." = "Zobrazí doporučené balíčky na domovské stránce.";
 
+"Refresh Zebra's sources when opening the app." = "Obnovit zdroje Zebry při otevírání aplikace.";
+
 "Display recent community posts from /r/jailbreak." = "Zobrazí poslední příspěvky komunity z r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Hledá balíčky při psaní. Zakázání této funkce může snížit zpoždění na starších zařízeních.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Hledat balíčky při psaní. Zakázání této funkce může snížit zpoždění na starších zařízeních.";
 
 "Configure the appearance of table view swipe actions." = "Nastaví vzhled akcí přetažením.";
 
@@ -328,10 +439,42 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Náhodné\" bude zobrazovat náhodné balíčky ze všech repozitářů, které jste přidali do Zebry.";
 
-"Community News" = "Komunitní Novinky";
-"Import Sources" = "Importovat zdroje";
-"Updating Repositories" = "Aktualizace úložiště";
-"Would you like to import the following repositories?" = "Chcete importovat následující repositáře?";
-"Download Completed" = "Stahování dokončeno";
-"Removing Zebra..." = "Odstraňuji Zebra...";
-"Installing Zebra..." = "Instalace Zebry...";
+"Signing in to sources allows for the purchase of paid packages." = "Přihlášení ke zdrojům umožňuje nákup placených balíčků.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automaticky zavře Konzoli po dokončení všech jejích úkolů.";
+
+// Filters
+
+"Filters" = "Filtry";
+"Add Filter" = "Přidat filtr";
+
+"1 Section Hidden" = "1 Skrytý oddíl";
+"%lu Sections Hidden" = "%lu sekcí skryto";
+
+"Sections" = "Sekce";
+"Select a Section" = "Vyberte kategorii";
+"Hide packages in these sections." = "Skrýt balíčky v těchto sekcích.";
+
+"Sources" = "Zdroje";
+"Select a Source" = "Vyberte zdroj";
+"Hide packages in these sections from specific sources." = "Skrýt balíčky v těchto oddílech z určitých zdrojů.";
+
+"Updates" = "Aktualizace";
+"Hide future updates from these packages." = "Skrýt budoucí aktualizace z těchto balíčků.";
+
+"Authors" = "Autoři";
+"Hide packages from these authors." = "Skrýt balíčky od těchto autorů.";
+"Search for an Author" = "Hledat autora";
+"This author also goes by the following names:" = "Tento autor je také pojmenováván těmito jmény:";
+
+// Language Settings
+
+"Language" = "Jazyk";
+"Apply" = "Použít";
+"Restart Required" = "Je vyžadován restart";
+"Zebra must be closed in order to change preferred language" = "Zebra musí být uzavřena, aby bylo možné změnit preferovaný jazyk";
+"Restart" = "Restartovat";
+"Use System Language" = "Použít systémový jazyk";
+
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";

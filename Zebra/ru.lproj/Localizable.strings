@@ -7,31 +7,50 @@
 "Error" = "Ошибка";
 "Retry" = "Повторить";
 "Edit" = "Изменить";
-"Login" = "Войти";
 "Close" = "Закрыть";
 "Done" = "Готово";
+"Loading..." = "Загрузка...";
+"Clear" = "Очистить";
+"An Error Occurred" = "Произошла ошибка";
+"Dismiss" = "Отклонить";
+"Downloads" = "Загрузки";
 
 // Home
 
 "Home" = "Главная";
 "Info" = "Информация";
 "Welcome to Zebra!" = "Добро пожаловать в Zebra!";
-"Changelog" = "Список Изменений";
-"Community Sources" = "Источники Сообщества";
-"You’ve added all of the community sources" = "Вы добавили все источники сообщества";
-"Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
-"Utility repo for %@" = "Репозиторий утилит для %@";
-"Transfer Sources" = "Перенести Источники";
-"Verifying Source(s)" = "Проверка Источника(ов)";
-"Stores" = "Магазины";
-"Purchases" = "Покупки";
+"Report a Bug" = "Сообщить об ошибке";
+"Changelog" = "Список изменений";
 "Wish List" = "Список желаний";
-"No items in Wish List" = "Нет пакетов в Списке Желаний";
+"Newest First" = "Сначала новые";
+"Oldest First" = "Сначала старые";
+"No items in Wish List" = "Нет пакетов в мписке желаний";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
-"Follow me on Twitter" = "Twitter Разработчика";
+"Follow us on Twitter" = "Подпишитесь на нас в Twitter";
+"Help translate Zebra!" = "Помогите перевести Zebra!";
 
-//Credits
+// Community Source
+
+"Community Sources" = "Источники сообщества";
+"You’ve added all of the community sources" = "Вы добавили все источники сообщества";
+"Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
+"Utility source for %@" = "Источник утилит для %@";
+"Transfer Sources" = "Перенести источники";
+"Verifying Source" = "Проверка источника";
+"Verifying Sources" = "Проверка источников";
+"Import" = "Импорт";
+"Verifying..." = "Проверка...";
+"Confirm Import" = "Подтвердите импорт";
+"Import Sources" = "Импортировать источники";
+"No sources to import" = "Нет источников для импортирования";
+"Would you like to import the following sources?" = "Хотите ли вы импортировать следующие репозитории?";
+"Are you sure that you want to import 1 source into Zebra?" = "Вы уверены, что хотите импортировать 1 источник в Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Вы уверены, что хотите импортировать источники %d в Zebra?";
+
+
+// Credits
 
 "Credits" = "Благодарности";
 "Creators" = "Создатели";
@@ -42,123 +61,192 @@
 // Settings
 
 "Settings" = "Настройки";
-"Version" = "Версия";
-"Interface" = "Интерфейс";
-"Featured" = "Избранное";
-"News" = "Новости";
+"Display" = "Экран";
+"App Icon" = "Иконка приложения";
+"Changes" = "Изменения";
+"Community News" = "Новости сообщества";
 "Miscellaneous" = "Другое";
-"Advanced" = "Расширенное";
-
-"Report a Bug" = "Сообщить об Ошибке";
-
-"Accent Color" = "Цвет";
-"Blue" = "Синий";
-"Orange" = "Оранжевый";
-"White" = "Белый";
-"Black" = "Черный";
-
-"Dark Mode Style" = "Стиль Тёмного Режима";
-"Dark Mode" = "Тёмный Режим";
-"Default" = "Обычный";
-"OLED" = "OLED";
-"iOS 13" = "iOS 13";
-
-"App Icon" = "Иконка Приложения";
-
-"Featured Packages" = "Избранные Пакеты";
-"Repo Featured" = "Избранное из Репозитория";
-"Random" = "Случайно";
-"Feature Type" = "Тип Избранного";
-"Select Repos to be Featured" = "Выберите отбражаемые репозитории";
-
-"News" = "Новости";
-
-"Live Search" = "Живой Поиск";
-
-"Swipe Actions Display As" = "Вид Свайп-действий";
+"Swipe Actions Display As" = "Вид свайп-действий";
 "Text" = "Текст";
 "Icon" = "Иконка";
-"Open Documents Directory" = "Открыть Директорию Документов";
-"Clear Image Cache" = "Очистить Кэш Изображений";
-"Clear Keychain" = "Очистить Keychain";
+"Finish Automatically" = "Завершить автоматически";
 
-"Loading..." = "Загрузка...";
+// "Hide UDID" = "Hide UDID";
 
-"Resetting image cache completed" = "Сброс кэша изображений завершен";
-"Clearing keychain completed" = "Очистка Keychain завершена";
+"Automatic Refresh" = "Автоматическое обновление";
 
-"Drop Tables" = "Очистить Таблицы";
+// Accent Colors
 
-"Alternate Icons" = "Альтернативные Иконки";
+"Accent Color" = "Цвет";
+"Aqua Velvet" = "Бирюзовый";
+"Cornflower Blue" = "Васильковый";
+"Golden Tainoi" = "Золотой Тайной";
+"Iris Blue" = "Синий Ирис";
+"Lotus Pink" = "Розовый Лотос";
+"Monochrome" = "Монохромный";
+"Mountain Meadow" = "Горный Луг";
+"Pastel Red" = "Пастельный Красный";
+"Purple Heart" = "Фиолетовое Сердце";
+"Royal Blue" = "Королевский Синий";
+"Shark" = "Акула";
+"Storm" = "Шторм";
+"Use System Accent Color" = "Использовать системный цвет";
+"Appearance" = "Оформление";
+"Use System Appearance" = "Использовать системное оформление";
+"Light" = "Светлое";
+"Dark" = "Тёмное";
+"Pure Black Mode" = "Режим чистого чёрного";
 
-"Featured Repos" = "Рекомендуемые Репозитории";
+// Featured
+
+"Featured Packages" = "Избранные пакеты";
+"Feature Type" = "Тип избранного";
+"Repo Featured" = "Избранное из репозитория";
+"Random" = "Случайно";
+"Select Repos to be Featured" = "Выберите отбражаемые репозитории";
+"Featured Repos" = "Рекомендуемые репозитории";
+
+// Reset
+
+"Reset" = "Сбросить";
+"Refresh Icon Cache" = "Обновить кэш иконок";
+"Clear Image Cache" = "Очистить кэш изображений";
+"Clear Sources Cache" = "Очистить кэш источников";
+"Clear Web Cache" = "Очистить веб-кэш";
+"Reset All Settings" = "Сбросить все настройки";
+"Erase All Sources" = "Стереть все источники";
+"Erase All Sources and Settings" = "Стереть все источники и настройки";
+
+"Are you sure you want to restart the SpringBoard?" = "Вы уверены, что хотите перезапустить SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Вы уверены, что хотите обновить кэш иконок? Ваше устройство может зависнуть до конца процесса обновления.";
+"Image Cache Cleared" = "Кэш изображений очищен";
+"Web Cache Cleared" = "Веб-Кэш очищен";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Вы уверены что хотите сбросить кэш источников Zebra? Это удалит всю кэшированную информацию из базы данных Zebra и заново скачает ее. Ваши источники не будут удалены.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Вы уверены что хотите сбросить настройки Zebra? Это сбросит их до стандартных значений и перезапустит Zebra.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Вы уверены, что хотите стереть все источники? Все ваши источники будут удалены из Zebra, и Zebra перезапустится.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Вы уверены что хотите стереть все настройки и источники? Все источники будут удалены вместе с вашими настройками.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Все ваши источники будут удалены навсегда и Zebra перезапустится.";
+
+// Documents Directory
+"Open Documents Directory" = "Открыть каталог документов";
+
+"Filza Not Installed" = "Filza не установлена";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra не может открыть каталог документов, потому что Filza не установлена. Ваш каталог документов: %@";
+
+// Stores
+
+"Stores" = "Магазины";
+"My Account" = "Мой Аккаунт";
+"Sign In" = "Войти";
+"Sign Out" = "Выйти";
+"Your Purchases" = "Ваши покупки";
+"No Storefronts Available" = "Нет доступных магазинов";
+"Could not authenticate" = "Не удалось авторизоваться";
+"Could not complete purchase" = "Невозможно завершить покупку";
+"No packages purchased" = "Нет купленных пакетов";
+"Signed in as %@" = "Вы вошли как %@";
+"Signed in as %@ (%@)" = "Вы вошли как %@ (%@)";
 
 // Sources
 
 "Sources" = "Источники";
-"Local Repository" = "Локальный Репозиторий";
-"Locally installed packages" = "Локально установленные пакеты";
 "Unknown" = "Неизвестно";
-"No repository urls detected." = "URL репозиториев не обнаружены.";
-"You have already added these repositories." = "Вы уже добавили эти репозитории.";
-"Error verifying repository" = "Ошибка проверки репозитория";
-"Error verifying repositories" = "Ошибка проверки репозиториев";
+"Delete" = "Удалить";
+"Refresh" = "Обновить";
+"All Packages" = "Все пакеты";
+"Remove Source" = "Удалить источник";
+"Local File" = "Локальный файл";
+"Local Repository" = "Локальный репозиторий";
+"Locally installed packages" = "Локально установленные пакеты";
+
+"Add" = "Добавить";
+"Add Sources" = "Добавить источники";
+"Add Multiple" = "Добавить несколько";
+"Enter Source URL" = "Введите URL источника";
+"Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
+
+"Please Wait..." = "Пожалуйста, подождите...";
+"Verifying Source" = "Проверка источника";
+"Verifying Sources" = "Проверка источников";
+"Updating Sources" = "Обновление источников";
+
 "Unknown error" = "Неизвестная ошибка";
 "Invalid URL" = "Неверный URL";
-"Enter URL" = "Введите URL";
-"Add Repo(s)" = "Добавить репозиторий(и)";
-"Add" = "Добавить";
-"Add Multiple" = "Добавить Несколько";
-"Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
-"Please Wait..." = "Пожалуйста Ожидайте...";
-"Verifying Source(s)" = "Проверка Источника(ов)";
-"Unable to verify Repo" = "Невозможно проверить Репозиторий";
-"Refresh" = "Обновить";
-"Log Out" = "Выйти";
-"Purchased Packages" = "Приобретенные Пакеты";
-"Purchased" = "Покупки";
+"Invalid Source" = "Неверный источник";
+"Tap to learn more" = "Нажмите, чтобы узнать больше";
+"No source URLs detected." = "URL источников не обнаружено.";
+"Unable to verify source" = "Не удалось проверить источник";
+"Error verifying source" = "Ошибка проверки источника";
+"Error verifying sources" = "Ошибка проверки источников";
+"Failed to add source" = "Не удалось добавить источник";
+"Failed to add sources" = "Не удалось добавить источники";
+"You have already added this source." = "Вы уже добавили этот источник.";
+"You have already added these sources." = "Вы уже добавили эти источники.";
+"Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
+"Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
 
-"All Packages" = "Все Пакеты";
-"Delete" = "Удалить";
+"A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
 
-// Changes
+"Could not parse %@ from %@" = "Невозможно получить %@ из %@";
+"Could not find a download URL for" = "Невозможно найти URL загрузки для";
+"Authorizing Download for %@" = "Авторизация загрузки для %@";
+"Couldn't authorize download for %@." = "Не удалось авторизовать загрузку для %@.";
+"Reason: %@." = "Причина: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Платежный API не поддерживается менее чем на iOS 11.0";
+"Could not download Release file from %@. Reason: %@" = "Не удалось загрузить файл Release из %@. Причина: %@";
+"Could not download Packages file from %@. Reason: %@" = "Не удалось загрузить файл Пакета из %@. Причина: %@";
+"Could not download one or more files from %@. Reason: %@" = "Не удалось загрузить один или несколько файлов из %@. Причина: %@";
 
-"Changes" = "Изменения";
+"Error while moving file at %@ to %@" = "Ошибка при перемещении файла из %@ в %@";
+
+"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
+
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra не удалось загрузить источник, указанный в %@. Возможно, он добавлен неправильно или временно недоступен.";
+
+"Please remove this source from your sources.list file." = "Пожалуйста, удалите этот источник из вашего файла sources.list.";
+
+"Error while opening sources.list" = "Ошибка открытия sources.list";
+
+"The source %@ is incompatible with your jailbreak." = "Источник %@ несовместим с вашим джейлбрейком.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
+
+"%@ hasn't been modified" = "%@ не был изменен";
+
+"Install All" = "Установить все";
 
 // Packages
 
+"Version" = "Версия";
 "Packages" = "Пакеты";
 "Show Updates" = "Показать Обновления";
-"Ignore Updates" = "Игнорировать Обновления";
-"Select Version" = "Выберите Версию";
+"Hide Updates" = "Скрыть обновления";
+"Select Version" = "Выберите версию";
 "Select a version to upgrade to:" = "Выберите версию до которой обновить пакет:";
 "Select a version to downgrade to:" = "Выберите версию до которой откатить пакет:";
 "Package" = "Пакет";
 "Information" = "Информация";
-"Upgrade All" = "Обновить Все";
+"Upgrade All" = "Обновить все";
 "Loaded" = "Загружно";
 "ABC" = "Алфавит";
 "Date" = "Дата";
 "Size" = "Размер";
-"Clear" = "Очистить";
-"Are you sure you want to clear Queue?" = "Вы уверены что хотить очистить Очередь?";
-"Available Upgrades" = "Доступные Обновления";
-"Ignored Upgrades" = "Игнорируемые Обновления";
-"Recent" = "Недавнее";
-"Repo" = "Репозиторий";
-"Installed Files" = "Установленные Файлы";
+"Available Upgrades" = "Доступные обновления";
+"Ignored Upgrades" = "Игнорируемые обновления";
+"Recent" = "Недавние";
+"Source" = "Источник";
+"Installed Files" = "Установленные файлы";
 "Modify" = "Изменить";
 "Authenticate to initiate purchase." = "Авторизуйтесь для инициации покупки.";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "Пожалуйста перезайдите в ваш аккаунт, используемый для покупки этого пакета (Возможно %@)";
-"More by this Developer" = "Больше от этого Разработчика";
-"Installed Version" = "Установленная Версия";
+"More by this Developer" = "Больше от этого разработчика";
+"Installed Version" = "Установленная версия";
 "Installed Size" = "Размер после установки";
 
-//<Version available from repo> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (установленная версия: %@)";
+//<Version available from source> (Installed Version: <Installed Version>)
+"%@ (Installed Version: %@)" = "%@ (Установленная версия: %@)";
 
-//<Download size> (Installed Size: <installed size>
-"%@ (Installed Size: %@)" = "%@ (Размер После Установки: %@)";
+//<Download size> (Installed Size: <installed size>)
+"%@ (Installed Size: %@)" = "%@ (Размер после установки: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d байт";
@@ -169,8 +257,8 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f МБ";
 
-"Add to Wish List" = "Добавить в Список Желаний";
-"Remove from Wish List" = "Удалить из Списка Желаний";
+"Add to Wish List" = "Добавить в список желаний";
+"Remove from Wish List" = "Удалить из списка желаний";
 
 // Package Section Names
 
@@ -215,55 +303,61 @@
 // Search
 
 "Search" = "Поиск";
-"Clear Search" = "Очистить Поиск";
 "This search query is too short for the full search, please use a longer query." = "Этот поисковый запрос слишком короткий для полного поиска, пожалуйста используйте более длинный запрос.";
-"No Results Found" = "Результаты Не Найдены";
-
-// Downloads
-
-"Downloads" = "Загрузки";
-"Error while opening sources.list" = "Ошибка открытия sources.list";
-"The repo %@ is incompatible with your jailbreak." = "Репозиторий %@ несовместим с вашим джейлбрейком.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Добавление может привести к проблемам, возможно ведущим к полному восстановлению устройства через iTunes.";
-"Please remove this repo from your sources.list file." = "Пожалуйста удалите этот репозиторий из вашего файла sources.list.";
-"Incorrect documents permissions." = "Неверные права доступа документов.";
-"Could not determine device information." = "Невозможно определить информацию об устройстве.";
-"Could not find a download URL for" = "Невозможно найти URL загрузки для";
-"%@ hasn't been modified" = "%@ не был изменен";
-"Could not parse %@ from %@" = "Невозможно получить %@ из %@";
+"No Results Found" = "Результаты не найдены";
+"Name" = "Имя";
+"Description" = "Описание";
+"Author" = "Автор";
 
 // Console
 
 "Console" = "Консоль";
-"Performing Actions..." = "Выполняются Действия...";
+"Performing Actions..." = "Выполняются действия...";
 "Updating icon cache asynchronously..." = "Асинхронное обновление кэша иконок...";
+"uicache is not available on the simulator" = "uicache недоступен на симуляторе";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Это может занять несколько минут, и Zebra может крашнуться. Это нормально.";
 "Close Zebra" = "Закрыть Zebra";
+"Closing Zebra..." = "Закрытие Zebra...";
 "Restart SpringBoard" = "Перезапустить SpringBoard";
+"Restarting SpringBoard..." = "Перезапуск SpringBoard...";
+"Parsing %@" = "Анализ %@";
+"Starting Download" = "Начало загрузки";
 "Downloading" = "Загрузка";
-"Parsing" = "Анализ";
-"Downloading Packages..." = "Загрузка Пакетов...";
+"Downloading %@" = "Загрузка %@";
+"Downloading Packages..." = "Загрузка пакетов...";
+"Download Completed" = "Загрузка завершена";
 "Installing" = "Установка";
-"Installing Packages..." = "Установка Пакетов...";
+"Installing Packages..." = "Установка пакетов...";
 "Removing" = "Удаление";
-"Removing Packages..." = "Удаление Пакетов...";
+"Removing Packages..." = "Удаление пакетов...";
 "Reinstalling" = "Переустановка";
-"Reinstalling Packages..." = "Переустановка Пакетов...";
+"Reinstalling Packages..." = "Переустановка пакетов...";
 "Upgrading" = "Обновление";
-"Upgrading Packages..." = "Обновление Пакетов...";
+"Upgrading Packages..." = "Обновление пакетов...";
 "Complete" = "Закончено";
 "Finished!" = "Готово!";
-"Return to Queue" = "Вернуться к Очереди";
-"Importing local packages." = "Импортирование Локальных Пакетов.";
+"Return to Queue" = "Вернуться к очереди";
+"Returning to Queue..." = "Возвращение в очередь...";
+"Importing local packages." = "Импортирование локальных пакетов.";
 "Finished importing local packages." = "Импортирование локальных пакетов завершено.";
 "One or more packages failed to download." = "Один или более пакетов не удалось загрузить.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Нажмите \"Вернуться к Очереди\" чтобы вернуться к очереди и повторить загрузку.";
+"Could not complete %@ process. Reason: %@." = "Не удалось завершить процесс %@. Причина: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Пожалуйста, перезапустите Zebra и проверьте, остаётся ли проблема. Если это так, пожалуйста, сообщите об ошибке на GitHub.";
+"Done..." = "Готово...";
+"Done %@" = "Завершено %@";
+"Removing Zebra..." = "Удаление Zebra...";
+"Installing Zebra..." = "Установка Zebra...";
+"Error while opening file:" = "Ошибка при открытии файла:";
+"Adding Payment Vendor URL for %@" = "Добавление URL поставщика платежа для %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Это устройство симулировано, вот пакеты, которые были бы изменены на этом этапе:";
 
 // Queue Bar
+
 "%d Packages Queued" = "%d Пакетов в Очереди";
 "%d Package Queued" = "%d Пакет в Очереди";
 "Tap to manage" = "Нажмите для управления";
-"No Packages Queued" = "Нет Пакетов в Очереди";
+"No Packages Queued" = "Нет пакетов в очереди";
 
 // Queue
 
@@ -277,15 +371,22 @@
 "Continue" = "Продолжить";
 "Download Size" = "Размер загрузки";
 "Confirm" = "Подтвердить";
-"%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
-"Required Package" = "Требуемый Пакет";
-"%@ is required by:" = "%@ требуется пактом:";
 "Issues" = "Проблемы";
-"%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
+"Required Package" = "Требуемый пакет";
 "Are you sure?" = "Вы уверены?";
-"Are you sure you want to clear the queue?" = "Вы уверены что хотите очистить очередь?";
+"Remove from Queue" = "Удалить из очереди";
+"Clear Queue" = "Очистить очередь";
+"%@ is required by:" = "%@ требуется пактом:";
+"\"%@\" conflicts with %@" = "\"%@\" конфликтует с %@";
+"%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
+"%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
+"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить очередь?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
-"Remove from Queue" = "Удалить из Очереди";
+
+// Search
+
+"Live Search" = "Поиск в реальном времени";
+"Tweaks, Themes, and More" = "Твики, Темы и многое другое";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом и должен быть удален, так как он зависит от %@. %@ НЕ должен быть удален, если вы точно не знаете, что делаете!";
@@ -300,7 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не имеет разрешения на установку uid или gid. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
 
-"Help translate Zebra!" = "Помогите перевести Zebra!";
+"Error while creating documents directory: %@." = "Ошибка при создании каталога документов: %@.";
+
+"Error while creating lists directory: %@." = "Ошибка при создании каталога списков: %@.";
+
+"Error while creating sources.list: %@." = "Ошибка при создании sources.list: %@.";
+
+"Error while creating debs directory: %@." = "Ошибка при создании каталога deb файлов: %@.";
 
 "Could not respring. Please respring manually." = "Не удалось перезапустить SpringBoard. Пожалуйста, перезапустите SpringBoard вручную.";
 
@@ -308,11 +415,15 @@
 
 "ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста, попробуйте снова.";
 
-"Configure the appearance of Zebra." = "Настройте внешний вид Zebra.";
+"Incorrect documents permissions." = "Неверные права доступа документов.";
+
+"Could not determine device information." = "Невозможно определить информацию об устройстве.";
 
 "Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
 
-"Display recent community posts from /r/jailbreak." = "Отображать недавние посты с r/jailbreak.";
+"Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
+
+"Display recent community posts from /r/jailbreak." = "Отображать недавние посты из r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Искать пакеты во время ввода. Отключение этой функции может улучшить производительность на старых устройствах.";
 
@@ -328,10 +439,42 @@
 
 "\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех репозиториев, добавленных в Zebra.";
 
-"Community News" = "Новости Сообщества";
-"Import Sources" = "Импортировать Источники";
-"Updating Repositories" = "Обновление Репозиториев";
-"Would you like to import the following repositories?" = "Хотите ли вы импортировать следующие репозитории?";
-"Download Completed" = "Загрузка Завершена";
-"Removing Zebra..." = "Удаление Zebra...";
-"Installing Zebra..." = "Установка Zebra...";
+"Signing in to sources allows for the purchase of paid packages." = "Вход в репозитории позволяет вам покупать платные твики.";
+
+"Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
+
+// Filters
+
+"Filters" = "Фильтры";
+"Add Filter" = "Добавить фильтр";
+
+"1 Section Hidden" = "1 раздел скрыт";
+"%lu Sections Hidden" = "%lu разделов скрыто";
+
+"Sections" = "Разделы";
+"Select a Section" = "Выберите раздел";
+"Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
+
+"Sources" = "Источники";
+"Select a Source" = "Выберите источник";
+"Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
+
+"Updates" = "Обновления";
+"Hide future updates from these packages." = "Скрыть будущие обновления этих пакетов.";
+
+"Authors" = "Авторы";
+"Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
+"Search for an Author" = "Поиск автора";
+"This author also goes by the following names:" = "Этот автор также известен под следующими именами:";
+
+// Language Settings
+
+"Language" = "Язык";
+"Apply" = "Применить";
+"Restart Required" = "Требуется перезапуск";
+"Zebra must be closed in order to change preferred language" = "Zebra должна быть закрыта для изменения предпочитаемого языка";
+"Restart" = "Перезапустить";
+"Use System Language" = "Использовать язык системы";
+
+"You are adding a repository that is not secure" = "Вы добавляете небезопасный репозиторий";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Данные этого репозитория могут быть не зашифрованы. Вы уверены, что хотите добавить его?";

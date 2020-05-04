@@ -15,7 +15,7 @@
 - (void)databaseStartedUpdate;
 - (void)databaseCompletedUpdate:(int)packageUpdates;
 @optional
-- (void)setRepo:(NSString *)bfn busy:(BOOL)busy;
+- (void)setSource:(NSString *)bfn busy:(BOOL)busy;
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 @end
 

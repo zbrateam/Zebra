@@ -12,15 +12,14 @@
 #import "ZBStoresListTableViewController.h"
 #import "ZBSettingsTableViewController.h"
 #import "ZBWishListTableViewController.h"
-#import "ZBWebViewController.h"
 #import "ZBDatabaseManager.h"
-#import "ZBRepo.h"
+#import "ZBSource.h"
 #import "ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import "UIImage+UIKitImage.h"
 @import SDWebImage;
 
-@interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *footerView;

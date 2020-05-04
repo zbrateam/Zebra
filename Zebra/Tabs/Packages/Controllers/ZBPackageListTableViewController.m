@@ -14,10 +14,10 @@
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
 #import <ZBTabBarController.h>
-#import <Repos/Helpers/ZBRepo.h>
+#import <Sources/Helpers/ZBSource.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <UIColor+GlobalColors.h>
 #import "ZBDevice.h"
@@ -29,46 +29,53 @@
     NSArray <ZBPackage *> *packages;
     NSArray <ZBPackage *> *sortedPackages;
     NSMutableArray <ZBPackage *> *updates;
-    NSMutableArray <ZBPackage *> *ignoredUpdates;
     NSMutableArray *sectionIndexTitles;
     UIBarButtonItem *queueButton;
     UIBarButtonItem *clearButton;
     BOOL needsUpdatesSection;
-    BOOL needsIgnoredUpdatesSection;
     BOOL isRefreshingTable;
     int totalNumberOfPackages;
     int numberOfPackages;
     int databaseRow;
 }
+@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBPackageListTableViewController
 
-@synthesize repo;
+@synthesize source;
 @synthesize section;
 
+- (BOOL)supportRefresh {
+    return ![self source];
+}
+
 - (BOOL)useBatchLoad {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];
 
-    selectedSortingType = [[NSUserDefaults standardUserDefaults] integerForKey:packageSortingKey];
-    if (repo.repoID && selectedSortingType == ZBSortingTypeInstalledSize)
+    selectedSortingType = [ZBSettings packageSortingType];
+    if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    if (@available(iOS 11.0, *)) {
+        self.navigationItem.largeTitleDisplayMode = [self source] ? UINavigationItemLargeTitleDisplayModeNever : UINavigationItemLargeTitleDisplayModeAlways;
+    }
+    
+    if (@available(iOS 13.0, *)) {
+    } else {        
+        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
+            [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
-    
-    self.section = [self.section stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 }
 
 - (void)applyLocalization {
@@ -80,9 +87,7 @@
     [super viewWillAppear:animated];
     [self refreshTable];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)dealloc {
@@ -90,7 +95,7 @@
 }
 
 - (void)layoutNavigationButtonsNormal {
-    if ([repo repoID] == 0) {
+    if ([source sourceID] == 0) {
         [self configureUpgradeButton];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -119,7 +124,7 @@
             self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
             break;
         case ZBSortingTypeDate:
-            self.tableData = [self partitionObjects:packages collationStringSelector:repo.repoID ? @selector(lastSeenDate) : @selector(installedDate)];
+            self.tableData = [self partitionObjects:packages collationStringSelector:source.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];
             break;
         default:
             break;
@@ -130,15 +135,13 @@
     if (isRefreshingTable)
         return;
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self->repo repoID] == 0) {
+        if ([self->source sourceID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages:false];
+            self->packages = [self.databaseManager installedPackages:NO];
             self->updates = [self.databaseManager packagesWithUpdates];
-            self->ignoredUpdates = [self.databaseManager packagesWithIgnoredUpdates];
             
             NSUInteger totalUpdates = self->updates.count;
             self->needsUpdatesSection = totalUpdates != 0;
-            self->needsIgnoredUpdatesSection = self->ignoredUpdates.count != 0;
             UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
             [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
@@ -146,9 +149,9 @@
             self->isRefreshingTable = NO;
         } else {
             self.batchLoadCount = 500;
-            self->packages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+            self->packages = [self.databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
-            self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:self->repo section:self->section];
+            self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:self->source section:self->section];
             self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
@@ -176,7 +179,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->numberOfPackages < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self.databaseManager packagesFromRepo:self->repo inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            NSArray *nextPackages = [self.databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
             } else {
@@ -206,14 +209,14 @@
 }
 
 - (void)configureLoadMoreButton {
+    if (![self useBatchLoad]) return;
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.continueBatchLoad) {
             if (self->totalNumberOfPackages) {
                 UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% %@", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages), NSLocalizedString(@"Loaded", @"")] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
                 self.navigationItem.rightBarButtonItem = loadButton;
             }
-        } else {
-            self.navigationItem.rightBarButtonItem = nil;
         }
     });
 }
@@ -221,7 +224,7 @@
 - (void)configureSegmentedController {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
-        if (self->repo.repoID)
+        if (self->source.sourceID)
             [items removeLastObject];
         UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
         segmentedControl.selectedSegmentIndex = self->selectedSortingType;
@@ -230,46 +233,28 @@
     });
 }
 
-- (void)presentQueue {
-    [[ZBAppDelegate tabBarController] openQueue:YES];
-}
-
-- (void)askClearQueue {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Zebra" message:NSLocalizedString(@"Are you sure you want to clear Queue?", @"") preferredStyle:UIAlertControllerStyleActionSheet];
-    
-    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Clear", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self clearQueue];
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
-    [alert addAction:clearAction];
-    [alert addAction:cancelAction];
-    
-    alert.popoverPresentationController.barButtonItem = self->clearButton;
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)clearQueue {
-    [[ZBQueue sharedQueue] clear];
-    [self refreshTable];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateQueueBar" object:nil];
+- (void)installAll {
+    NSMutableArray *installablePackages = [NSMutableArray new];
+    for (ZBPackage *package in packages) {
+        if ([package isInstalled:NO] || ![package isReinstallable] || [package isPaid])
+            continue;
+        [installablePackages addObject:package];
+    }
+    [[ZBQueue sharedQueue] addPackages:installablePackages toQueue:ZBQueueTypeInstall];
 }
 
 - (void)sharePackages {
-    NSArray *packages = [[self.databaseManager installedPackages:false] copy];
-    NSMutableArray *packageIds = [NSMutableArray new];
+    NSArray *packages = [self.databaseManager installedPackages:NO];
+    [packages sortedArrayUsingSelector:@selector(name)];
+    
+    NSMutableArray *descriptions = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        if (package.identifier) {
-            [packageIds addObject:package.identifier];
-        }
+        [descriptions addObject:[package description]];
     }
-    if ([packageIds count]) {
-        packageIds = [[packageIds sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)] mutableCopy];
-        NSString *fullList = [packageIds componentsJoinedByString:@"\n"];
-        NSArray *share = @[fullList];
-        UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:share applicationActivities:nil];
-        [self presentActivityController:controller];
-    }
+    
+    NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
+    [self presentActivityController:controller];
 }
 
 // Share Sheet
@@ -302,23 +287,18 @@
 
 - (void)upgradeAll {
     ZBQueue *queue = [ZBQueue sharedQueue];
-    
-    for (ZBPackage *package in updates) {
-        ZBPackage *upgradeVersion = [[ZBDatabaseManager sharedInstance] topVersionForPackage:package];
-        if (upgradeVersion) {
-            [queue addPackage:upgradeVersion toQueue:ZBQueueTypeUpgrade];
-        }
+    int beforeCount = [ZBQueue count];
+    [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
+    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+    int afterCount = [ZBQueue count];
+    if (beforeCount == afterCount) {
+        [[ZBAppDelegate tabBarController] openQueue:YES];
     }
-    
-    [self presentQueue];
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
     if (needsUpdatesSection && indexPath.section == 0) {
         return [updates objectAtIndex:indexPath.row];
-    }
-    if (needsIgnoredUpdatesSection && indexPath.section == needsUpdatesSection) {
-        return [ignoredUpdates objectAtIndex:indexPath.row];
     }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [self objectAtSection:indexPath.section][indexPath.row];
@@ -328,8 +308,8 @@
 
 - (void)segmentedControlValueChanged:(UISegmentedControl *)segmentedControl {
     selectedSortingType = (ZBSortingType)segmentedControl.selectedSegmentIndex;
-    [[NSUserDefaults standardUserDefaults] setInteger:selectedSortingType forKey:packageSortingKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [ZBSettings setPackageSortingType:selectedSortingType];
     [self refreshTable];
 }
 
@@ -337,13 +317,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        return [sectionIndexTitles count] + needsUpdatesSection + needsIgnoredUpdatesSection;
+        return [sectionIndexTitles count] + needsUpdatesSection;
     }
-    return 1 + needsUpdatesSection + needsIgnoredUpdatesSection;
+    return 1 + needsUpdatesSection;
 }
 
 - (NSInteger)trueSection:(NSInteger)section {
-    return section - needsUpdatesSection - needsIgnoredUpdatesSection;
+    return section - needsUpdatesSection;
 }
 
 - (id)objectAtSection:(NSInteger)section {
@@ -357,9 +337,6 @@
     if (needsUpdatesSection && section == 0) {
         return updates.count;
     }
-    if (needsIgnoredUpdatesSection && section == needsUpdatesSection) {
-        return ignoredUpdates.count;
-    }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
         return [[self objectAtSection:section] count];
     }
@@ -369,7 +346,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize];
-    if ([repo repoID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
+    if ([source sourceID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
         if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1)) {
@@ -389,25 +366,21 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && section == 0;
-    BOOL isIgnoredUpdateSection = [repo repoID] == 0 && needsIgnoredUpdatesSection && section == needsUpdatesSection;
-    BOOL hasDataInSection = !isUpdateSection && !isIgnoredUpdateSection && [[self objectAtSection:section] count];
-    if (isUpdateSection || isIgnoredUpdateSection || hasDataInSection) {
+    BOOL isUpdateSection = [source sourceID] == 0 && needsUpdatesSection && section == 0;
+    BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
+    if (isUpdateSection || hasDataInSection) {
         if (isUpdateSection) {
-            return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Available Upgrades", @""), (unsigned long)updates.count];
-        }
-        if (isIgnoredUpdateSection) {
-            return [NSString stringWithFormat:@"%@ (%lu)", NSLocalizedString(@"Ignored Upgrades", @""), (unsigned long)ignoredUpdates.count];
+            return NSLocalizedString(@"Available Upgrades", @"");
         }
         if (hasDataInSection) {
             NSInteger trueSection = [self trueSection:section];
             if (selectedSortingType == ZBSortingTypeABC)
                 return [self sectionIndexTitlesForTableView:tableView][trueSection];
             if (selectedSortingType == ZBSortingTypeDate)
-                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterShortStyle];
+                return [ZBPackagePartitioner titleForHeaderInDateSection:trueSection sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle];
         }
         if (selectedSortingType == ZBSortingTypeInstalledSize) {
-            return @"Size";
+            return NSLocalizedString(@"Size", @"");
         }
     }
     return nil;
@@ -429,7 +402,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    return index + needsUpdatesSection + needsIgnoredUpdatesSection;
+    return index + needsUpdatesSection;
 }
 
 #pragma mark - Swipe actions
@@ -440,9 +413,8 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [tableView reloadData];
-    }];
+    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
+    //reloadData in completion
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -453,7 +425,7 @@
 
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    BOOL isUpdateSection = [repo repoID] == 0 && needsUpdatesSection && indexPath.section == 0;
+    BOOL isUpdateSection = [source sourceID] == 0 && needsUpdatesSection && indexPath.section == 0;
     ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
     destination.package = candidate ? candidate : package;
     destination.parent = self;
@@ -464,8 +436,26 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         [self setDestinationVC:indexPath destination:destination];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageDepictionVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+    }];
 }
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
@@ -475,19 +465,26 @@
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     [self setDestinationVC:indexPath destination:packageDepictionVC];
     return packageDepictionVC;
-    
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
-- (void)darkMode:(NSNotification *)notif {
-    [self.tableView reloadData];
-    [ZBDevice refreshViews];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    [self.navigationController.navigationBar setBarTintColor:nil];
+- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
+    if (!source) return NULL;
+    if ([[ZBDatabaseManager sharedInstance] numberOfPackagesInSource:source section:section] > 400) return NULL;
+    
+    NSString *title = NSLocalizedString(@"Install All", @"");
+    UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+        [self installAll];
+    }];
+    
+    return @[action];
+}
+
+- (void)scrollToTop {
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 @end

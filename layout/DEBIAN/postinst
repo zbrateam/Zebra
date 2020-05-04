@@ -1,17 +1,16 @@
 #!/bin/sh
 
+# Verify firmware.sh permissions
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
 
 # Verify firmware.sh permissions
-chown root:wheel /usr/libexec/zebra/firmware.sh 
-chmod 6755 /usr/libexec/zebra/firmware.sh
-
-chown -R mobile:mobile /Applications/Zebra.app
+chown root:wheel /usr/libexec/zebra/firmware.sh
+chmod 755 /usr/libexec/zebra/firmware.sh
 
 # Verify startup permissions (Auto-install etc)
 chown root:wheel /usr/libexec/zebra/startup
-chmod 6755 /usr/libexec/zebra/startup
+chmod 755 /usr/libexec/zebra/startup
 
 # Setup Launch Daemon
 chown root:wheel /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist

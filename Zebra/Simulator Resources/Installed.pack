@@ -3795,3 +3795,25 @@ Description: slower, but better, compression algorithm
 Homepage: http://tukaani.org/lzma/
 Name: XZ Utils
 Tag: purpose::console, role::hacker
+
+Status: install ok installed
+Package: ws.hbang.common
+Name: Cephei
+Depends: com.rpetrich.rocketbootstrap, firmware (>= 13.0) | jp.ashikase.techsupport
+Architecture: iphoneos-arm
+Description: Support library for tweaks
+Maintainer: HASHBANG Productions <support@hbang.ws>
+Author: HASHBANG Productions <support@hbang.ws>
+Section: Development
+Icon: file:///Library/PreferenceBundles/Cephei.bundle/icon@2x.png
+Depiction: https://repo.chariz.com/package/ws.hbang.common/
+Support: https://hashbang.productions/support/
+Tag: role::developer, compatible::ios5, compatible::ios6, compatible::ios7, compatible::ios8, compatible::ios9, compatible::ios10, compatible::ios11, compatible::ios12, compatible::ios13
+dev: hbang
+Version: 1.14
+Installed-Size: 1984
+SileoDepiction: https://repo.chariz.com/api/sileo/package/ws.hbang.common/depiction.json
+Filename: debs/ws.hbang.common_1.14_iphoneos-arm.deb
+SHA256: 0dfb13c5ede945a26821b6ad708f49a5ff43b42990cc373401767fcb2834c97c
+MD5sum: 175e38b3300f272d2a59a50f7452c3e0
+Size: 177334

@@ -7,23 +7,35 @@
 //
 
 #import "ZBSettingsTableViewController.h"
-#import "ZBSettingsOptionsTableViewController.h"
+#import "ZBSettingsSelectionTableViewController.h"
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
+#import "UIImageView+Zebra.h"
+#import "ZBRightIconTableViewCell.h"
+#import "ZBDisplaySettingsTableViewController.h"
+#import "ZBSettingsResetTableViewController.h"
+#import "ZBFilterSettingsTableViewController.h"
+#import "ZBLanguageSettingsTableViewController.h"
+#import "ZBSourceSelectTableViewController.h"
+
+#import <Sources/Helpers/ZBSource.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
+    ZBFilters,
     ZBFeatured,
-    ZBNews,
+    ZBSources,
+    ZBChanges,
     ZBSearch,
+    ZBConsole,
     ZBMisc,
-    ZBAdvanced
+    ZBReset
 };
 
-typedef NS_ENUM(NSUInteger, ZBUIOrder) {
-    ZBChangeAccentColor,
-    ZBChangeDarkMode,
-    ZBChangeIcon
+typedef NS_ENUM(NSUInteger, ZBInterfaceOrder) {
+    ZBDisplay,
+    ZBLanguage,
+    ZBAppIcon
 };
 
 typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
@@ -45,8 +57,8 @@ enum ZBMiscOrder {
 
 @interface ZBSettingsTableViewController () {
     NSMutableDictionary *_colors;
-    ZBAccentColorSelection accentColorType;
-    ZBDarkModeSelection selectedDarkMode;
+    ZBAccentColor accentColor;
+    ZBInterfaceStyle interfaceStyle;
 }
 
 @end
@@ -56,37 +68,22 @@ enum ZBMiscOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"");
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    [self configureSelectedAccentColor];
-    [self configureSelectedDarkMode];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    [self.tableView reloadData];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    
+    accentColor = [ZBSettings accentColor];
+    interfaceStyle = [ZBSettings interfaceStyle];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
 }
 
-- (void)configureSelectedAccentColor {
-    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    if (number) {
-        accentColorType = (ZBAccentColorSelection)[number integerValue];
-    } else {
-        accentColorType = ZBDefaultAccentColor;
-    }
-}
-
-- (void)configureSelectedDarkMode {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
-        selectedDarkMode = ZBThirteen;
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
-        selectedDarkMode = ZBOled;
-    } else {
-        selectedDarkMode = ZBDefaultMode;
-    }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
+    
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {
@@ -96,56 +93,56 @@ enum ZBMiscOrder {
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
-        case ZBInterface:
-            return NSLocalizedString(@"Interface", @"");
         case ZBFeatured:
             return NSLocalizedString(@"Home", @"");
-        case ZBNews:
+        case ZBSources:
+            return NSLocalizedString(@"Sources", @"");
+        case ZBChanges:
             return NSLocalizedString(@"Changes", @"");
         case ZBSearch:
             return NSLocalizedString(@"Search", @"");
         case ZBMisc:
             return NSLocalizedString(@"Miscellaneous", @"");
-        case ZBAdvanced:
-            return NSLocalizedString(@"Advanced", @"");
+        case ZBConsole:
+            return NSLocalizedString(@"Console", @"");
         default:
-            return nil;
+            return NULL;
     }
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 6;
+    return 9;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
     ZBSectionOrder section = section_;
     switch (section) {
-        case ZBNews:
+        case ZBFilters:
+        case ZBChanges:
         case ZBMisc:
         case ZBSearch:
+        case ZBSources:
+        case ZBConsole:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
                 return 3;
             }
-            return 2;
+            return 1;
         case ZBFeatured: {
-            int rows = 1;
-            BOOL wantsFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
-            if (wantsFeatured) {
-                BOOL randomFeatured = [[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey];
-                if (randomFeatured) {
+            if ([ZBSettings wantsFeaturedPackages]) {
+                if ([ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom) {
                     return 3;
                 }
                 return 2;
             }
             
-            return rows;
+            return 1;
         }
-        case ZBAdvanced:
-            return 4;
+        case ZBReset:
+            return 2;
         default:
             return 0;
     }
@@ -153,9 +150,21 @@ enum ZBMiscOrder {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
-    if ((indexPath.section == ZBInterface) ||
-        (indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) ||
-        indexPath.section == ZBMisc){
+    if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
+        if (@available(iOS 10.3, *)) {
+            ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
+            
+            cell.label.text = NSLocalizedString(@"App Icon", @"");
+            
+            NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+            UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+            [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
+            
+            return cell;
+        }
+    }
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -173,79 +182,56 @@ enum ZBMiscOrder {
     cell.accessoryView = nil;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.backgroundColor = [UIColor cellBackgroundColor];
+    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
-            ZBUIOrder row = indexPath.row;
+            ZBInterfaceOrder row = indexPath.row;
             switch (row) {
-                case ZBChangeIcon: {
+                case ZBDisplay: {
+                    cell.textLabel.text = NSLocalizedString(@"Display", @"");
+                    break;
+                }
+                case ZBLanguage: {
+                    cell.textLabel.text = NSLocalizedString(@"Language", @"");
+                    break;
+                }
+                case ZBAppIcon: {
                     cell.textLabel.text = NSLocalizedString(@"App Icon", @"");
                     if (@available(iOS 10.3, *)) {
-                        cell.detailTextLabel.text = [self iconName:[[UIApplication sharedApplication] alternateIconName]];
-                        if ([[UIApplication sharedApplication] alternateIconName]) {
-                            cell.imageView.image = [UIImage imageNamed:[[UIApplication sharedApplication] alternateIconName]];
-                            
-                            CGSize itemSize = CGSizeMake(30, 30);
-                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-                            UIGraphicsEndImageContext();
-                            cell.imageView.layer.cornerRadius = 5;
-                            cell.imageView.clipsToBounds = YES;
-                        } else {
-                            cell.imageView.image = [UIImage imageNamed:@"AppIcon60x60"];
-                            
-                            CGSize itemSize = CGSizeMake(30, 30);
-                            UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
-                            CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
-                            [cell.imageView.image drawInRect:imageRect];
-                            cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
-                            UIGraphicsEndImageContext();
-                            cell.imageView.layer.cornerRadius = 5;
-                            cell.imageView.clipsToBounds = YES;
+                        NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+                        
+                        cell.detailTextLabel.text = [icon objectForKey:@"shortName"];
+                        
+                        cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+                        [cell.imageView resize:CGSizeMake(30, 30) applyRadius:YES];
+                        
+                        if ([[icon objectForKey:@"border"] boolValue]) {
+                            [cell.imageView applyBorder];
+                        }
+                        else {
+                            [cell.imageView removeBorder];
                         }
                     }
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
-                }
-                case ZBChangeAccentColor: {
-                    if (self->accentColorType == ZBDefaultAccentColor) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
-                    } else if (self->accentColorType == ZBBlue) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Blue", @"");
-                    } else if (self->accentColorType == ZBOrange) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Orange", @"");
-                    } else if (self->accentColorType == ZBWhiteOrBlack) {
-                        if (ZBDevice.darkModeEnabled) {
-                            cell.detailTextLabel.text = NSLocalizedString(@"White", @"");
-                        } else {
-                            cell.detailTextLabel.text = NSLocalizedString(@"Black", @"");
-                        }
-                    } else {
-                        cell.detailTextLabel.text = @"";
-                    }
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
-                    break;
-                }
-                case ZBChangeDarkMode: {
-                    if (self->selectedDarkMode == ZBDefaultMode) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"Default", @"");
-                    } else if (self->selectedDarkMode == ZBOled) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"OLED", @"");
-                    } else if (self->selectedDarkMode == ZBThirteen) {
-                        cell.detailTextLabel.text = NSLocalizedString(@"iOS 13", @"");
-                    } else {
-                        cell.detailTextLabel.text = @"";
-                    }
-                    cell.textLabel.text = NSLocalizedString(@"Dark Mode Style", @"");
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
             }
-            cell.detailTextLabel.textColor = [UIColor cellSecondaryTextColor];
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            return cell;
+        }
+        case ZBFilters: {
+            cell.textLabel.text = NSLocalizedString(@"Filters", @"");
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
             return cell;
         }
         case ZBFeatured: {
@@ -253,18 +239,18 @@ enum ZBMiscOrder {
             switch (row) {
                 case ZBFeaturedEnable: {
                     UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsFeaturedKey];
+                    enableSwitch.on = [ZBSettings wantsFeaturedPackages];
                     [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
-                    [enableSwitch setOnTintColor:[UIColor tintColor]];
+                    [enableSwitch setOnTintColor:[UIColor accentColor]];
                     cell.accessoryView = enableSwitch;
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
                     break;
                 }
                 case ZBFeatureOrRandomToggle: {
-                    NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue];
+                    ZBFeaturedType type = [ZBSettings featuredPackagesType];
 
-                    if (selected == 0) {
+                    if (type == ZBFeaturedTypeSource) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Repo Featured", @"");
                     } else {
                         cell.detailTextLabel.text = NSLocalizedString(@"Random", @"");
@@ -279,125 +265,130 @@ enum ZBMiscOrder {
                     break;
                 }
             }
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
-        case ZBNews: {
+        case ZBSources: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:wantsNewsKey];
+            enableSwitch.on = [ZBSettings wantsAutoRefresh];
+            [enableSwitch addTarget:self action:@selector(toggleAutoRefresh:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
+            cell.accessoryView = enableSwitch;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+            return cell;
+        }
+        case ZBChanges: {
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = [ZBSettings wantsCommunityNews];
             [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Community News", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
         case ZBSearch: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [[NSUserDefaults standardUserDefaults] boolForKey:liveSearchKey];
+            enableSwitch.on = [ZBSettings wantsLiveSearch];
             [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor tintColor]];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
             cell.accessoryView = enableSwitch;
             cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
         case ZBMisc: {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
                 text = NSLocalizedString(@"Swipe Actions Display As", @"");
-                NSInteger selected = [[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue];
-                if (selected == 0) {
+                ZBSwipeActionStyle selected = [ZBSettings swipeActionStyle];
+                if (selected == ZBSwipeActionStyleText) {
                     cell.detailTextLabel.text = NSLocalizedString(@"Text", @"");
                 } else {
                     cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
                 }
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+                cell.textLabel.textColor = [UIColor primaryTextColor];
             }
             cell.textLabel.text = text;
             return cell;
         }
-        case ZBAdvanced: {
-            NSString *text = nil;
-            if (indexPath.row == ZBDropTables) {
-                text = NSLocalizedString(@"Drop Tables", @""); // This should probably not be localized since DROP TABLE is a SQL thing
-            } else if (indexPath.row == ZBOpenDocs) {
-                text = NSLocalizedString(@"Open Documents Directory", @"");
-            } else if (indexPath.row == ZBClearImageCache) {
-                text = NSLocalizedString(@"Clear Image Cache", @"");
-            } else if (indexPath.row == ZBClearKeychain) {
-                text = NSLocalizedString(@"Clear Keychain", @"");
-            }
-            cell.textLabel.text = text;
-            cell.textLabel.textColor = [UIColor tintColor];
+        case ZBConsole: {
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = [ZBSettings wantsFinishAutomatically];
+            [enableSwitch addTarget:self action:@selector(toggleFinishAutomatically:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
+            cell.accessoryView = enableSwitch;
+            cell.textLabel.text = NSLocalizedString(@"Finish Automatically", @"");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            return cell;
+        }
+        case ZBReset: {
+            cell.textLabel.text = indexPath.row == 0 ? NSLocalizedString(@"Reset", @"") : NSLocalizedString(@"Open Documents Directory", @"");
+            cell.textLabel.textColor = indexPath.row == 0 ? [UIColor primaryTextColor] : [UIColor accentColor] ?: [UIColor systemBlueColor];
+            cell.accessoryType = indexPath.row == 0 ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             return cell;
         }
     }
     return nil;
 }
 
-- (NSString *)iconName:(NSString *)fileName {
-    if (fileName) {
-        NSArray *choices = @[@"darkZebraSkin", @"lightZebraSkin", @"originalBlack", @"zBlack", @"zWhite"];
-        NSUInteger choice = [choices indexOfObject:fileName];
-        switch (choice) {
-            case 0:
-                return @"Pattern (Dark)";
-            case 1:
-                return @"Pattern (Light)";
-            case 2:
-                return @"Original (Dark)";
-            case 3:
-                return @"Embossed (Dark)";
-            case 4:
-                return @"Embossed (Light)";
-            default:
-                return @"Original";
-        }
-    }
-    else {
-        return @"Original";
-    }
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
-            switch (indexPath.row) {
-                case ZBChangeAccentColor:
-                    [self changeAccentColor];
+            ZBInterfaceOrder row = indexPath.row;
+            switch (row) {
+                case ZBDisplay:
+                    [self displaySettings];
                     break;
-                case ZBChangeDarkMode:
-                    [self changeMode];
+                case ZBLanguage:
+                    [self chooseLanguage];
                     break;
-                case ZBChangeIcon:
+                case ZBAppIcon:
                     [self changeIcon];
                     break;
             }
             break;
         }
+        case ZBFilters: {
+            [self filterSettings];
+            break;
+        }
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
-                case ZBFeaturedEnable:
-                    [self getTappedSwitch:indexPath];
+                case ZBFeaturedEnable: {
+                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                    UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                    [switcher setOn:!switcher.on animated:YES];
+                    [self toggleFeatured:switcher];
                     break;
+                }
                 case ZBFeatureOrRandomToggle:
                     [self featureOrRandomToggle];
                     break;
                 case ZBFeatureBlacklist:
-                    [self openBlackList];
+                    [self sourceBlacklist];
                     break;
                 default:
                     break;
             }
             break;
         }
-        case ZBNews: {
+        case ZBSources: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleAutoRefresh:switcher];
+            break;
+        }
+        case ZBChanges: {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             UISwitch *switcher = (UISwitch *)cell.accessoryView;
             [switcher setOn:!switcher.on animated:YES];
@@ -415,23 +406,22 @@ enum ZBMiscOrder {
             [self toggleLiveSearch:switcher];
             break;
         }
-        case ZBAdvanced: {
-            ZBAdvancedOrder row = indexPath.row;
-            switch (row) {
-                case ZBDropTables:
-                    [self nukeDatabase];
+        case ZBConsole: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleFinishAutomatically:switcher];
+            break;
+        }
+        case ZBReset: {
+            switch (indexPath.row) {
+                case 0:
+                    [self resetSettings];
                     break;
-                case ZBOpenDocs:
+                case 1:
                     [self openDocumentsDirectory];
                     break;
-                case ZBClearImageCache:
-                    [self resetImageCache];
-                    break;
-                case ZBClearKeychain:
-                    [self clearKeychain];
-                    break;
             }
-            break;
         }
         default:
             break;
@@ -441,36 +431,24 @@ enum ZBMiscOrder {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
-        case ZBInterface:
-            return NSLocalizedString(@"Configure the appearance of Zebra.", @"");
         case ZBFeatured:
             return NSLocalizedString(@"Display featured packages on the homepage.", @"");
-        case ZBNews:
+        case ZBSources:
+            return NSLocalizedString(@"Refresh Zebra's sources when opening the app.", @"");
+        case ZBChanges:
             return NSLocalizedString(@"Display recent community posts from /r/jailbreak.", @"");
         case ZBSearch:
             return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
         case ZBMisc:
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
-        case ZBAdvanced:
-            return [NSString stringWithFormat:NSLocalizedString(@"Zebra %@", @""), PACKAGE_VERSION];
+        case ZBConsole:
+            return NSLocalizedString(@"Automatically dismiss the Console when all of its tasks have been completed.", @"");
         default:
-            return @"Science rules!";
+            return NULL;
     }
 }
 
 # pragma mark selected cells methods
-
-- (void)openWebView:(NSInteger)cellNumber {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBWebViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"webController"];
-    webController.navigationDelegate = webController;
-    webController.navigationItem.title = NSLocalizedString(@"Loading...", @"");
-    NSURL *url = [NSURL URLWithString:@"https://xtm3x.github.io/repo/depictions/xyz.willy.zebra/bugsbugsbugs.html"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [webController setValue:url forKey:@"_url"];
-    [[self navigationController] pushViewController:webController animated:YES];
-}
 
 - (void)showRefreshView:(NSNumber *)dropTables {
     if (![NSThread isMainThread]) {
@@ -481,110 +459,72 @@ enum ZBMiscOrder {
     }
 }
 
-- (void)nukeDatabase {
-    [self showRefreshView:@(YES)];
+- (void)filterSettings {
+    ZBFilterSettingsTableViewController *filterController = [[ZBFilterSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:filterController animated:YES];
+}
+
+- (void)displaySettings {
+    ZBDisplaySettingsTableViewController *displayController = [[ZBDisplaySettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:displayController animated:YES];
+}
+
+- (void)chooseLanguage {
+    ZBLanguageSettingsTableViewController *languageController = [[ZBLanguageSettingsTableViewController alloc] init];
+    
+    [[self navigationController] pushViewController:languageController animated:YES];
+}
+
+- (void)sourceBlacklist {
+    NSMutableArray *sources = [NSMutableArray new];
+    NSArray *baseFilenames = [ZBSettings sourceBlacklist];
+    for (NSString *baseFilename in baseFilenames) {
+        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        if (source) [sources addObject:source];
+    }
+    
+    ZBSourceSelectTableViewController *selectSource = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeInverse limit:0 selectedSources:sources];
+    [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
+        NSMutableArray *blockedSources = [NSMutableArray new];
+        for (ZBSource *source in selectedSources) {
+            [blockedSources addObject:[source baseFilename]];
+        }
+        [ZBSettings setSourceBlacklist:blockedSources];
+    }];
+    
+    [[self navigationController] pushViewController:selectSource animated:YES];
+}
+
+- (void)resetSettings {
+    ZBSettingsResetTableViewController *advancedController = [[ZBSettingsResetTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    
+    [[self navigationController] pushViewController:advancedController animated:YES];
 }
 
 - (void)openDocumentsDirectory {
-    NSString *documents = [ZBAppDelegate documentsDirectory];
-    NSURL *url = [NSURL URLWithString:[[NSString stringWithFormat:@"filza://view%@/", documents] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
-    [[UIApplication sharedApplication] openURL:url];
-}
-
-- (void)resetImageCache {
-    [[SDImageCache sharedImageCache] clearMemory];
-    [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
-    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Resetting image cache completed", @"")];
-}
-
-- (void)clearKeychain {
-    NSArray *secItemClasses = @[(__bridge id)kSecClassGenericPassword,
-                                (__bridge id)kSecClassInternetPassword,
-                                (__bridge id)kSecClassCertificate,
-                                (__bridge id)kSecClassKey,
-                                (__bridge id)kSecClassIdentity];
-    for (id secItemClass in secItemClasses) {
-        NSDictionary *spec = @{(__bridge id)kSecClass: secItemClass};
-        SecItemDelete((__bridge CFDictionaryRef)spec);
+    if ([[UIApplication sharedApplication] canOpenURL:[ZBAppDelegate documentsDirectoryURL]]) {
+        [[UIApplication sharedApplication] openURL:[ZBAppDelegate documentsDirectoryURL]];
     }
-    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Clearing keychain completed", @"")];
-}
-
-- (void)changeAccentColor {
-    NSString *theme = ZBDevice.darkModeEnabled ? @"White" : @"Black";
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Accent Color";
-    controller.settingFooter = @[@"Change the accent color that displays across Zebra."];
-    controller.settingOptions = @[@"Default", @"Blue", @"Orange", theme];
-    NSNumber *number = [[NSUserDefaults standardUserDefaults] objectForKey:tintSelectionKey];
-    controller.settingSelectedRow = number ? (ZBAccentColorSelection)[number integerValue] : ZBDefaultAccentColor;
-    controller.settingChanged = ^(NSInteger newValue) {
-        self->accentColorType = (ZBAccentColorSelection) newValue;
-        [[NSUserDefaults standardUserDefaults] setObject:@(newValue) forKey:tintSelectionKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [ZBDevice hapticButton];
-        [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:1 initialSpringVelocity:1 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            [self.tableView reloadData];
-            [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-            [ZBDevice refreshViews];
-            [self setNeedsStatusBarAppearanceUpdate];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:nil];
-        } completion:nil];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
-}
-
-- (void)changeMode {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Dark Mode Style";
-    controller.settingFooter = @[@"Change the style of Zebra's dark mode when it is enabled."];
-    
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:thirteenModeKey]) {
-        controller.settingSelectedRow = ZBThirteen;
-    } else if ([[NSUserDefaults standardUserDefaults] boolForKey:oledModeKey]) {
-        controller.settingSelectedRow = ZBOled;
-    } else {
-        controller.settingSelectedRow = ZBDefaultMode;
+    else {
+        UIAlertController *noMagicWord = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Filza Not Installed", @"") message:[NSString stringWithFormat:NSLocalizedString(@"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@", @""), [ZBAppDelegate documentsDirectory]] preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [noMagicWord addAction:ok];
+        
+        [self presentViewController:noMagicWord animated:YES completion:nil];
     }
-    controller.settingOptions = @[@"Default", @"OLED", @"iOS 13"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        self->selectedDarkMode = (ZBDarkModeSelection)newValue;
-        [defaults setBool:self->selectedDarkMode == ZBThirteen forKey:thirteenModeKey];
-        [defaults setBool:self->selectedDarkMode == ZBOled forKey:oledModeKey];
-        [defaults synchronize];
-        [ZBDevice hapticButton];
-        [self oledAnimation];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
 }
 
 - (void)featureOrRandomToggle {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    controller.settingTitle = @"Feature Type";
-    controller.settingFooter = @[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."];
-    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:randomFeaturedKey]] integerValue] == 1) {
-        controller.settingSelectedRow = 1;
-    } else {
-        controller.settingSelectedRow = 0;
-    }
-    
-    controller.settingOptions = @[@"Repo Featured", @"Random"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        BOOL selectedMode = [[NSNumber numberWithInteger:newValue] boolValue];
-        [[NSUserDefaults standardUserDefaults] setBool:selectedMode forKey:randomFeaturedKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [ZBDevice hapticButton];
-        [self.tableView reloadData];
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Repo Featured", @"Random"] getter:@selector(featuredPackagesType) setter:@selector(setFeaturedPackagesType:) settingChangedCallback:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshCollection" object:self];
-        CATransition *transition = [CATransition animation];
-        transition.type = kCATransitionFade;
-        transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-        transition.fillMode = kCAFillModeForwards;
-        transition.duration = 0.35;
-        transition.subtype = kCATransitionFromTop;
-        [self.tableView.layer addAnimation:transition forKey:@"UITableViewReloadDataAnimationKey"];
-    };
+    }];
+    
+    [controller setTitle:@"Feature Type"];
+    [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
+    
     [self.navigationController pushViewController: controller animated:YES];
 }
 
@@ -592,97 +532,84 @@ enum ZBMiscOrder {
     if (@available(iOS 10.3, *)) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
-        [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
         [self.navigationController pushViewController:altIcon animated:YES];
     }
 }
 
-- (void)toggle:(id)sender preference:(NSString *)preferenceKey notification:(NSString *)notificationKey {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+- (void)toggleFeatured:(id)sender {
     UISwitch *switcher = (UISwitch *)sender;
-    BOOL value = [defaults boolForKey:preferenceKey];
-    value = switcher.isOn;
-    [defaults setBool:value forKey:preferenceKey];
-    [defaults synchronize];
-    [ZBDevice hapticButton];
-    if (notificationKey) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:notificationKey object:self];
-    }
     
-    if ([preferenceKey isEqualToString:wantsFeaturedKey]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView beginUpdates];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
-            [self.tableView endUpdates];
-        });
-    }
+    [ZBSettings setWantsFeaturedPackages:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
-- (void)toggleFeatured:(id)sender {
-    [self toggle:sender preference:wantsFeaturedKey notification:@"toggleFeatured"];
+- (void)toggleAutoRefresh:(id)sender {
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsAutoRefresh:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSources] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)toggleNews:(id)sender {
-    [self toggle:sender preference:wantsNewsKey notification:@"toggleNews"];
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsCommunityNews:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBChanges] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)toggleLiveSearch:(id)sender {
-    [self toggle:sender preference:liveSearchKey notification:nil];
-}
-
-- (void)openBlackList {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBRepoBlacklistTableViewController *blackList = [storyboard instantiateViewControllerWithIdentifier:@"repoBlacklistController"];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor tableViewBackgroundColor]];
-    [self.navigationController pushViewController:blackList animated:YES];
-}
-
-- (void)getTappedSwitch:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    UISwitch *switcher = (UISwitch *)cell.accessoryView;
-    [switcher setOn:!switcher.on animated:YES];
-    if (indexPath.section == ZBFeatured) {
-        [self toggleFeatured:switcher];
-    }
-}
-
-- (void)oledAnimation {
-    [self.tableView reloadData];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    [ZBDevice darkModeEnabled] ? [ZBDevice configureDarkMode] : [ZBDevice configureLightMode];
-    [ZBDevice refreshViews];
-    [self setNeedsStatusBarAppearanceUpdate];
+    UISwitch *switcher = (UISwitch *)sender;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
-    CATransition *transition = [CATransition animation];
-    transition.type = kCATransitionFade;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.fillMode = kCAFillModeForwards;
-    transition.duration = 0.35;
-    transition.subtype = kCATransitionFromTop;
-    [self.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController.navigationBar.layer addAnimation:transition forKey:nil];
+    [ZBSettings setWantsLiveSearch:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSearch] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
+}
+
+- (void)toggleFinishAutomatically:(id)sender {
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setWantsFinishAutomatically:switcher.isOn];
+    [ZBDevice hapticButton];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBConsole] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)misc {
-    ZBSettingsOptionsTableViewController * controller = [[ZBSettingsOptionsTableViewController alloc] initWithStyle: UITableViewStyleGrouped];
-    if ([[NSNumber numberWithBool:[[NSUserDefaults standardUserDefaults] boolForKey:iconActionKey]] integerValue] == 1) {
-        controller.settingSelectedRow = 1;
-    } else {
-        controller.settingSelectedRow = 0;
-    }
-    controller.settingTitle = @"Swipe Actions Display As";
-    controller.settingOptions = @[@"Text", @"Icon"];
-    controller.settingChanged = ^(NSInteger newValue) {
-        BOOL useIcon = newValue == 1;
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setBool:useIcon forKey:iconActionKey];
-        [defaults synchronize];
-    };
-    [self.navigationController pushViewController: controller animated:YES];
+    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"Text", @"Icon"] getter:@selector(swipeActionStyle) setter:@selector(setSwipeActionStyle:) settingChangedCallback:nil];
+    [controller setTitle:@"Swipe Actions Display As"];
+    
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (IBAction)doneButtonPressed:(id)sender {

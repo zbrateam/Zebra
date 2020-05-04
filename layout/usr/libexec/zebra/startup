@@ -2,28 +2,13 @@
 
 export PATH=$PATH:/usr/sbin:/usr/bin:/sbin:/bin
 
-if [ ! -d "/chimera " ] && [ ! -d "/electra" ]; then
-  if [[ ! -e /var/lib/cydia/firmware.ver ]]; then
-      cache=
-  fi
+if [[ ! -e /var/lib/cydia/firmware.ver ]]; then
+    cache=
+fi
 
-  if [[ -x "/usr/libexec/firmware.sh" ]]; then
-     /usr/libexec/firmware.sh
-  else
-     /usr/libexec/zebra/firmware.sh
-  fi
+/usr/libexec/zebra/firmware
 
-  debs=(/var/mobile/Documents/xyz.willy.Zebra/debs*.deb)
-  if [[ ${#debs[@]} -ne 0 && -f ${debs[0]} ]]; then
-      dpkg -i "${debs[@]}" 2>/tmp/dpkg.log 1>&2
-      rm -f "${debs[@]}"
-      cache=
-
-      #killall -9 Lowtide AppleTV
-  fi
-
-  if [[ ${cache+@} ]]; then
-      sbdidlaunch
-      su -c uicache mobile
-  fi
+if [[ ${cache+@} ]]; then
+    sbdidlaunch
+    su -c uicache mobile
 fi

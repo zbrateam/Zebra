@@ -12,9 +12,9 @@
 #import "UIColor+GlobalColors.h"
 #import "ZBDatabaseManager.h"
 #import "ZBPackageDepictionViewController.h"
-#import "ZBPackageActionsManager.h"
+#import "ZBPackageActions.h"
 
-@interface ZBWishListTableViewController : UITableViewController
-@property NSUserDefaults *defaults;
+@interface ZBWishListTableViewController : UITableViewController <UIToolbarDelegate>
 @property NSMutableArray *wishedPackages;
+@property NSMutableArray *wishedPackageIdentifiers;
 @end

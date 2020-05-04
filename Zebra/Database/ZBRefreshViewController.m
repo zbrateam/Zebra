@@ -9,11 +9,13 @@
 #import <ZBTabBarController.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
+#import <Extensions/UIFont+Zebra.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
-#import <ZBRepoManager.h>
+#import <ZBSourceManager.h>
 #include <Parsel/parsel.h>
 #import "ZBRefreshViewController.h"
+#import "ZBThemeManager.h"
 
 typedef enum {
     ZBStateCancel = 0,
@@ -24,6 +26,7 @@ typedef enum {
     ZBDatabaseManager *databaseManager;
     BOOL hadAProblem;
     ZBRefreshButtonState buttonState;
+    NSMutableArray *imaginarySources;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeOrCancelButton;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
@@ -31,9 +34,12 @@ typedef enum {
 
 @implementation ZBRefreshViewController
 
+@synthesize delegate;
 @synthesize messages;
 @synthesize completeOrCancelButton;
 @synthesize consoleView;
+
+#pragma mark - Initializers
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -42,7 +48,7 @@ typedef enum {
     if (self) {
         self.messages = NULL;
         self.dropTables = NO;
-        self.repoURLs = NULL;
+        self.baseSources = NULL;
     }
     
     return self;
@@ -68,11 +74,24 @@ typedef enum {
     return self;
 }
 
-- (id)initWithRepoURLs:(NSArray *)repoURLs {
+- (id)initWithBaseSources:(NSSet<ZBBaseSource *> *)baseSources delegate:(id <ZBSourceVerificationDelegate>)delegate {
     self = [self init];
     
     if (self) {
-        self.repoURLs = repoURLs;
+        NSMutableSet *validSources = [NSMutableSet new];
+        
+        for (ZBBaseSource *source in baseSources) {
+            if (source.verificationStatus == ZBSourceExists) {
+                [validSources addObject:source];
+            }
+            else {
+                if (!imaginarySources) imaginarySources = [NSMutableArray new];
+                [imaginarySources addObject:source];
+            }
+        }
+        
+        self.baseSources = validSources;
+        self.delegate = delegate;
     }
     
     return self;
@@ -89,39 +108,41 @@ typedef enum {
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages repoURLs:(NSArray *)repoURLs {
+- (id)initWithMessages:(NSArray *)messages baseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
         self.messages = messages;
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
 }
 
-- (id)initWithDropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs {
+- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
         self.dropTables = dropTables;
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables repoURLs:(NSArray *)repoURLs {
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSSet<ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
         self.messages = messages;
         self.dropTables = dropTables;
-        self.repoURLs = repoURLs;
+        self.baseSources = baseSources;
     }
     
     return self;
 }
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -131,10 +152,18 @@ typedef enum {
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Cancel", @"")];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
-    if ([ZBDevice darkModeEnabled]) {
-        [self setNeedsStatusBarAppearanceUpdate];
-        [self.view setBackgroundColor:[UIColor tableViewBackgroundColor]];
-        [consoleView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [consoleView setBackgroundColor:[UIColor blackColor]];
+    
+    ZBAccentColor color = [ZBSettings accentColor];
+    ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+    if (color == ZBAccentColorMonochrome) {
+        //Flip the colors for readability
+        [[self completeOrCancelButton] setBackgroundColor:[UIColor whiteColor]];
+        [[self completeOrCancelButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+    else {
+        [[self completeOrCancelButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style] ?: [UIColor systemBlueColor]];
     }
 }
 
@@ -143,12 +172,11 @@ typedef enum {
     [self setCompleteOrCancelButtonHidden:YES];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [consoleView setBackgroundColor:[UIColor blackColor]];
     
     if (!messages) {
         databaseManager = [ZBDatabaseManager sharedInstance];
@@ -158,11 +186,11 @@ typedef enum {
             [databaseManager dropTables];
         }
         
-        if (self.repoURLs.count) {
-            // Update only the repos specified
-            [databaseManager updateRepoURLs:self.repoURLs useCaching:NO];
+        if (self.baseSources.count) {
+            // Update only the sources specified
+            [databaseManager updateSources:self.baseSources useCaching:NO];
         } else {
-            // Update every repo
+            // Update every source
             [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
         }
     } else {
@@ -187,11 +215,11 @@ typedef enum {
             return;
         }
         [databaseManager cancelUpdates:self];
-        [((ZBTabBarController *)self.tabBarController) clearRepos];
+        [((ZBTabBarController *)self.tabBarController) clearSources];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
         
         buttonState = ZBStateDone;
-        [self setCompleteOrCancelButtonHidden:false];
+        [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
 }
@@ -208,11 +236,19 @@ typedef enum {
     } else {
         [self clearProblems];
         ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
-        [self dismissViewControllerAnimated:YES completion:^{
-            if ([controller isKindOfClass:[ZBTabBarController class]]) {
-                [controller forwardToPackage];
-            }
-        }];
+        if (controller) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                if (self->delegate) {
+                    [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
+                }
+                else if ([controller isKindOfClass:[ZBTabBarController class]]) {
+                    [controller forwardToPackage]; //this is probably broken now but since this is POC ill fix later
+                }
+            }];
+        }
+        else {
+            [[[UIApplication sharedApplication] windows][0] setRootViewController:[[ZBTabBarController alloc] init]];
+        }
     }
 }
 
@@ -241,26 +277,28 @@ typedef enum {
         return;
     if (![str hasSuffix:@"\n"])
         str = [str stringByAppendingString:@"\n"];
-    __block BOOL isDark = [ZBDevice darkModeEnabled];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UIColor *color = [UIColor whiteColor];
         UIFont *font;
         switch (level) {
-            case ZBLogLevelDescript ... ZBLogLevelInfo: {
-                if (!isDark) {
-                    color = [UIColor blackColor];
+            case ZBLogLevelDescript:
+                font = UIFont.monospaceFont;
+            case ZBLogLevelInfo: {
+                if ([ZBSettings interfaceStyle] < ZBInterfaceStyleDark) {
+                    color = [UIColor whiteColor];
                 }
-                font = [UIFont fontWithName:level == ZBLogLevelDescript ? @"CourierNewPSMT" : @"CourierNewPS-BoldMT" size:10.0];
+                font = font ?: UIFont.boldMonospaceFont;
                 break;
             }
             case ZBLogLevelError: {
-                color = [UIColor redColor];
-                font = [UIFont fontWithName:@"CourierNewPS-BoldMT" size:10.0];
+                color = [UIColor systemRedColor];
+                font = UIFont.boldMonospaceFont;
                 break;
             }
             case ZBLogLevelWarning: {
-                color = [UIColor yellowColor];
-                font = [UIFont fontWithName:@"CourierNewPSMT" size:10.0];
+                color = [UIColor systemYellowColor];
+                font = UIFont.monospaceFont;
                 break;
             }
             default:
@@ -287,17 +325,18 @@ typedef enum {
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
-    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
-    if (packageUpdates != -1) {
-        [tabController setPackageUpdateBadgeValue:packageUpdates];
-    }
+//    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
+//    if (packageUpdates != -1) {
+//        [tabController setPackageUpdateBadgeValue:packageUpdates];
+//    }
+    [databaseManager removeDatabaseDelegate:self];
     if (!hadAProblem) {
         [self goodbye];
     } else {
         [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
-    [[ZBRepoManager sharedInstance] needRecaching];
+    [[ZBSourceManager sharedInstance] needRecaching];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {

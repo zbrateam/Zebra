@@ -10,14 +10,15 @@
 #import <ZBAppDelegate.h>
 #import <ZBSettings.h>
 #import <ZBPackagePartitioner.h>
-#import <ZBSortingType.h>
 #import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActionsManager.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import "ZBRedditPosts.h"
+#import <ZBDevice.h>
+
 @import SDWebImage;
 @import FirebaseAnalytics;
 
@@ -30,6 +31,8 @@
     int numberOfPackages;
     int databaseRow;
 }
+@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, weak) SFSafariViewController *previewSafariVC;
 @end
 
 @implementation ZBChangesTableViewController
@@ -41,32 +44,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self applyLocalization];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(darkMode:) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
     [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
     [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.collectionView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-        [self registerForPreviewingWithDelegate:self sourceView:self.view];
+    if (@available(iOS 13.0, *)) {
+    } else {
+        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
+            [self registerForPreviewingWithDelegate:self sourceView:self.view];
+        }
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
     availableOptions = @[@"release", @"update", @"upcoming", @"news"];
     defaults = [NSUserDefaults standardUserDefaults];
     [self startSettingHeader];
-    self.batchLoadCount = 500;
+    self.batchLoadCount = 250;
     [self refreshTable];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)applyLocalization {
@@ -76,7 +84,7 @@
 
 - (void)startSettingHeader  {
     self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, CGFLOAT_MIN);
-    if ([defaults boolForKey:wantsNewsKey]) {
+    if ([ZBSettings wantsCommunityNews]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             // [self retrieveNewsJson];
             [self kickStartReddit];
@@ -84,97 +92,118 @@
     }
 }
 
+- (void)configureTheme {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+        self.tableView.sectionIndexColor = [UIColor accentColor];
+        [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+        self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    });
+}
+
 - (void)kickStartReddit {
-    NSDate *creationDate = [defaults objectForKey:@"redditCheck"];
-    if (!creationDate) {
-        [self getRedditToken];
-    } else {
-        double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
-        if (seconds > 3500) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSDate *creationDate = [self->defaults objectForKey:@"redditCheck"];
+        if (!creationDate) {
             [self getRedditToken];
         } else {
-            [self retrieveNewsJson];
+            double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
+            if (seconds > 3500) {
+                [self getRedditToken];
+            } else {
+                [self retrieveNewsJson];
+            }
         }
-    }
+    });
 }
 
 - (void)getRedditToken {
-    NSURL *checkingURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:checkingURL];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra %@ iOS:%@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
-    NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
-    [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
-    NSURLSession *session = [NSURLSession sharedSession];
-    [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            NSError *error2 = nil;
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
-            [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
-            [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
-            [self->defaults synchronize];
-            [self retrieveNewsJson];
-        }
-        if (error) {
-            NSLog(@"[Zebra] Error getting reddit token: %@", error);
-        }
-    }] resume];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *checkingURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:checkingURL];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+        [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
+        NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
+        [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
+        NSURLSession *session = [NSURLSession sharedSession];
+        [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (data) {
+                NSError *error2 = nil;
+                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
+                [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
+                [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
+                [self->defaults synchronize];
+                [self retrieveNewsJson];
+            }
+            if (error) {
+                NSLog(@"[Zebra] Error getting reddit token: %@", error);
+            }
+        }] resume];
+    });
 }
 
 - (void)retrieveNewsJson {
-    [self.redditPosts removeAllObjects];
-    NSMutableURLRequest *request = [NSMutableURLRequest new];
-    [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
-    [request setHTTPMethod:@"GET"];
-    [request setValue:[NSString stringWithFormat:@"Zebra %@, iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"Bearer %@", [defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
-    [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data) {
-            NSError *err = nil;
-            ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
-            for (ZBChild *child in redditPosts.data.children) {
-                if (child.data.title != nil) {
-                    NSArray *post = [self getTags:child.data.title];
-                    for (NSString *string in self->availableOptions) {
-                        if ([post containsObject:string] && ![self.redditPosts containsObject:child.data]) {
-                            [self.redditPosts addObject:child.data];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.redditPosts removeAllObjects];
+        NSMutableURLRequest *request = [NSMutableURLRequest new];
+        [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
+        [request setHTTPMethod:@"GET"];
+        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+        [request setValue:[NSString stringWithFormat:@"Bearer %@", [self->defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
+        [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if (data) {
+                NSError *err = nil;
+                ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
+                for (ZBChild *child in redditPosts.data.children) {
+                    if (child.data.title != nil) {
+                        NSArray *post = [self getTags:child.data.title];
+                        for (NSString *string in self->availableOptions) {
+                            if ([post containsObject:string] && ![self.redditPosts containsObject:child.data]) {
+                                [self.redditPosts addObject:child.data];
+                            }
                         }
                     }
                 }
             }
-        }
-        if (error) {
-            NSLog(@"[Zebra] Error retrieving news JSON %@", error);
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self createHeader];
-        });
-    }] resume];
+            if (error) {
+                NSLog(@"[Zebra] Error retrieving news JSON %@", error);
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self createHeader];
+                });
+            }
+        }] resume];
+    });
 }
 
 - (void)createHeader {
-    [self.tableView beginUpdates];
-    [self.collectionView reloadData];
-    [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
-    }];
-    [self.tableView endUpdates];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [self.collectionView reloadData];
+        [UIView animateWithDuration:.25f animations:^{
+            self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
+        }];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)hideHeader {
-    [self.tableView beginUpdates];
-    [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 0);
-    }];
-    [self.collectionView reloadData];
-    [self.tableView endUpdates];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView beginUpdates];
+        [UIView animateWithDuration:.25f animations:^{
+            self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 0);
+        }];
+        [self.collectionView reloadData];
+        [self.tableView endUpdates];
+    });
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"darkMode" object:nil];
 }
 
 - (void)updateSections {
@@ -183,9 +212,9 @@
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->packages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+        self->packages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
         self->databaseRow = self.batchLoadCount - 1;
-        self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInRepo:NULL section:NULL];
+        self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
         self->numberOfPackages = (int)[self->packages count];
         self.batchLoad = YES;
         self.continueBatchLoad = self.batchLoad;
@@ -201,7 +230,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self.databaseManager packagesFromRepo:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            NSArray *nextPackages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;
@@ -239,7 +268,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if ([[self objectAtSection:section] count]) {
-        return [ZBPackagePartitioner titleForHeaderInDateSection:section sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStye:NSDateFormatterMediumStyle];
+        return [ZBPackagePartitioner titleForHeaderInDateSection:section sectionIndexTitles:sectionIndexTitles dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterMediumStyle];
     }
     return nil;
 }
@@ -274,14 +303,6 @@
     [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = (UITableViewHeaderFooterView *)view;
-    header.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    header.textLabel.textColor = [UIColor cellPrimaryTextColor];
-    header.tintColor = [UIColor clearColor];
-    [(UIView *)[header valueForKey:@"_backgroundView"] setBackgroundColor:[UIColor clearColor]];
-}
-
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -290,11 +311,12 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActionsManager rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-        [UIView performWithoutAnimation:^{
-            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-        }];
-    }];
+    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
+//    return [ZBPackageActions rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
+//        [UIView performWithoutAnimation:^{
+//            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//        }];
+//    }];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -317,8 +339,45 @@
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
         [self setDestinationVC:indexPath destination:destination];
-        destination.view.backgroundColor = [UIColor tableViewBackgroundColor];
+        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
+}
+
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        ZBChildData *post = [weakSelf.redditPosts objectAtIndex:indexPath.row];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
+        weakSelf.previewSafariVC = (SFSafariViewController *)[[SFSafariViewController alloc] initWithURL:url];
+        
+        return weakSelf.previewSafariVC;
+    } actionProvider:nil];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:YES completion:nil];
+    }];
+}
+
+- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+        return weakSelf.previewPackageDepictionVC;
+    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
+        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+    }];
+}
+
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+    typeof(self) __weak weakSelf = self;
+    [animator addCompletion:^{
+        [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
+    }];
 }
 
 - (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
@@ -349,18 +408,11 @@
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     
     if ([viewControllerToCommit isKindOfClass:[SFSafariViewController class]]) {
-        [self.navigationController presentViewController:viewControllerToCommit animated:true completion:nil];
+        [self.navigationController presentViewController:viewControllerToCommit animated:YES completion:nil];
     }
     else {
         [self.navigationController pushViewController:viewControllerToCommit animated:YES];
     }
-}
-
-- (void)darkMode:(NSNotification *)notif {
-    [self.tableView reloadData];
-    self.tableView.sectionIndexColor = [UIColor tintColor];
-    [self.navigationController.navigationBar setTintColor:[UIColor tintColor]];
-    [self.collectionView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 #pragma mark News
@@ -464,17 +516,17 @@
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:cell.redditLink entersReaderIfAvailable:NO];
         safariVC.delegate = self;
         if (@available(iOS 10.0, *)) {
-            [safariVC setPreferredBarTintColor:[UIColor tableViewBackgroundColor]];
-            [safariVC setPreferredControlTintColor:[UIColor tintColor]];
+            [safariVC setPreferredBarTintColor:[UIColor groupedTableViewBackgroundColor]];
+            [safariVC setPreferredControlTintColor:[UIColor accentColor]];
         } else {
-            [safariVC.view setTintColor:[UIColor tintColor]];
+            [safariVC.view setTintColor:[UIColor accentColor]];
         }
         [self presentViewController:safariVC animated:YES completion:nil];
     }
 }
 
 - (void)toggleNews {
-    if ([defaults boolForKey:wantsNewsKey]) {
+    if ([ZBSettings wantsCommunityNews]) {
         [self retrieveNewsJson];
     } else {
         [self.redditPosts removeAllObjects];
@@ -489,6 +541,10 @@
 
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
+}
+
+- (void)scrollToTop {
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
 }
 
 @end

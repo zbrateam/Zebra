@@ -23,6 +23,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:@"darkMode" object:nil];
     files = [NSMutableArray new];
     [self getInstalledFiles];
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,14 +46,19 @@
         for (int b = 0; b < components.count - 2; ++b) {
             [displayStr appendString:@"\t"]; // add tab character
         }
-        [displayStr appendString:components[components.count - 1]];
+        if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
+            [displayStr appendString:components[components.count - 1]];
+        } else {
+            [displayStr insertString:components[components.count - 1] atIndex:0];
+        }
+        
         [files addObject:displayStr];
     }
 }
 
 - (void)reloadTableView {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     });
 }
 
@@ -76,13 +82,14 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor cellPrimaryTextColor];
+    cell.textLabel.textColor = [UIColor primaryTextColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
+    return 30;
 }
 
 @end

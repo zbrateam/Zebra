@@ -7,13 +7,13 @@
 #include <limits.h>
 #include <string.h>
 
-int proc_pidpath(int pid, void * buffer, uint32_t  buffersize);
+int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
 
 /* Set platform binary flag */
 #define FLAG_PLATFORMIZE (1 << 1)
 
 void patch_setuidandplatformize() {
-  void* handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
+  void *handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
   if (!handle) return;
 
   // Reset errors
@@ -40,17 +40,22 @@ void patch_setuidandplatformize() {
 int main(int argc, char ** argv) {
   patch_setuidandplatformize();
 
-  struct stat correct;
-  if (lstat("/Applications/Zebra.app/Zebra", &correct) == -1) {
+  struct stat template;
+  if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
     printf("THE TRUE AND NEO CHAOS!\n");
     fflush(stdout);
     return EX_NOPERM;
   }
   else {
     pid_t pid = getppid();
-    char buffer[4 * PATH_MAX];
+
+    char buffer[PATH_MAX];
     int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
-    if (ret < 1 || strcmp(buffer, "/Applications/Zebra.app/Zebra") != 0) {
+
+    struct stat response;
+    lstat(buffer, &response);
+
+    if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
       printf("CHAOS, CHAOS!\n");
       fflush(stdout);
       return EX_NOPERM;

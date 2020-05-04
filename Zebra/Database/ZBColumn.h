@@ -18,19 +18,21 @@ typedef enum {
     ZBPackageColumnSection,
     ZBPackageColumnDepiction,
     ZBPackageColumnTag,
-    ZBPackageColumnAuthor,
+    ZBPackageColumnAuthorName,
+    ZBPackageColumnAuthorEmail,
     ZBPackageColumnDepends,
     ZBPackageColumnConflicts,
     ZBPackageColumnProvides,
     ZBPackageColumnReplaces,
     ZBPackageColumnFilename,
     ZBPackageColumnIconURL,
-    ZBPackageColumnRepoID,
+    ZBPackageColumnSourceID,
     ZBPackageColumnLastSeen,
     ZBPackageColumnInstalledSize,
     ZBPackageColumnDownloadSize,
     ZBPackageColumnPriority,
-    ZBPackageColumnEssential
+    ZBPackageColumnEssential,
+    ZBPackageColumnSHA256,
 } ZBPackageColumn;
 
 typedef enum {
@@ -40,15 +42,20 @@ typedef enum {
 } ZBUpdateColumn;
 
 typedef enum {
-    ZBRepoColumnOrigin = 0,
-    ZBRepoColumnDescription,
-    ZBRepoColumnBaseFilename,
-    ZBRepoColumnBaseURL,
-    ZBRepoColumnSecure,
-    ZBRepoColumnRepoID,
-    ZBRepoColumnDef,
-    ZBRepoColumnSuite,
-    ZBRepoColumnComponents
-} ZBRepoColumn;
+    ZBSourceColumnArchiveType = 0,
+    ZBSourceColumnRepositoryURI,
+    ZBSourceColumnDistribution,
+    ZBSourceColumnComponents,
+    ZBSourceColumnDescription,
+    ZBSourceColumnOrigin,
+    ZBSourceColumnLabel,
+    ZBSourceColumnVersion,
+    ZBSourceColumnSuite,
+    ZBSourceColumnCodename,
+    ZBSourceColumnArchitectures,
+    ZBSourceColumnPaymentVendor,
+    ZBSourceColumnBaseFilename,
+    ZBSourceColumnSourceID
+} ZBSourceColumn;
 
 #endif /* ZBColumn_h */
