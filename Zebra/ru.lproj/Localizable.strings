@@ -369,110 +369,110 @@
 "Continue" = "Продолжить";
 "Download Size" = "Размер загрузки";
 "Confirm" = "Подтвердить";
-"Issues" = "Проблемы";
-"Required Package" = "Требуемый пакет";
-"Are you sure?" = "Вы уверены?";
-"Remove from Queue" = "Удалить из очереди";
-"Clear Queue" = "Очистить очередь";
-"%@ is required by:" = "%@ требуется пактом:";
-"\"%@\" conflicts with %@" = "\"%@\" конфликтует с %@";
-"%@ must be removed because it depends on %@" = "Пакет %@ должен быть удалён так как он зависит от %@";
-"%@ has issues that cannot be resolved:" = "%@ имеет ошибки которые не могут быть решены:";
-"Are you sure you want to clear the Queue?" = "Вы уверены, что хотить очистить очередь?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом. Он НЕ должен быть удален, если вы точно не знаете, что делаете!";
+"Issues" = "Issues";
+"Required Package" = "Required Package";
+"Are you sure?" = "Are you sure?";
+"Remove from Queue" = "Remove from Queue";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ is required by:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 
 // Search
 
-"Live Search" = "Поиск в реальном времени";
-"Tweaks, Themes, and More" = "Твики, Темы и многое другое";
+"Live Search" = "Live Search";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ является обязательным пакетом и должен быть удален, так как он зависит от %@. %@ НЕ должен быть удален, если вы точно не знаете, что делаете!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Один или более пакетов в Очереди на удаление являются основными или обязательными. Не рекомендуется продолжать если вы не знаете что вы делаете. Удаление таких пакетов может привести к непоправимому повреждению вашего устройства, и может привести к восстановлению через iTunes/Finder.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra не смогла выполнить эту команду, потому что она не имеет соответствующих разрешений. Пожалуйста, проверьте права доступа в /usr/libexec/zebra/supersling и сообщите об этой проблеме на GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Не удается получить доступ к su/sling. Пожалуйста, убедитесь, что /usr/libexec/zebra/supersling существует.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не принадлежит root:wheel. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling не имеет разрешения на установку uid или gid. Пожалуйста, проверьте права доступа к файлу, расположенному в /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Ошибка при создании каталога документов: %@.";
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
 
-"Error while creating lists directory: %@." = "Ошибка при создании каталога списков: %@.";
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
 
-"Error while creating sources.list: %@." = "Ошибка при создании sources.list: %@.";
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Ошибка при создании каталога deb файлов: %@.";
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
-"Could not respring. Please respring manually." = "Не удалось перезапустить SpringBoard. Пожалуйста, перезапустите SpringBoard вручную.";
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
-"ERROR: Unable to lock status file. Please try again." = "ОШИБКА: Невозможно найти файл статуса блокировки. Пожалуйста попробуйте снова.";
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
-"ERROR: Process must be restarted. Please try again." = "ОШИБКА: Процесс должен быть перезапущен. Пожалуйста, попробуйте снова.";
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Incorrect documents permissions." = "Неверные права доступа документов.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
 
-"Could not determine device information." = "Невозможно определить информацию об устройстве.";
+"Could not determine device information." = "Could not determine device information.";
 
-"Display featured packages on the homepage." = "Отображать избранные пакеты на главной странице.";
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Refresh Zebra's sources when opening the app." = "Обновлять источники Zebra при открытии приложения.";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
-"Display recent community posts from /r/jailbreak." = "Отображать недавние посты из r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Искать пакеты во время ввода. Отключение этой функции может улучшить производительность на старых устройствах.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
-"Configure the appearance of table view swipe actions." = "Настройте внешний вид таблицы действий свайпом.";
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Изменить цвет элементов, отображаемых по всей Zebra.";
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Изменить стиль тёмного режима Zebra, когда он включен.";
+"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Изменить источник рекомендуемых пакетов на главной странице.";
+"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Избранное из репозитория\" будет показывыть случайные пакеты из репозиториев, которые поддерживают API Рекомендуемых Пакетов.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Случайно\" покажет случайные пакеты из всех репозиториев, добавленных в Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Вход в репозитории позволяет вам покупать платные твики.";
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
 // Filters
 
-"Filters" = "Фильтры";
-"Add Filter" = "Добавить фильтр";
+"Filters" = "Filters";
+"Add Filter" = "Add Filter";
 
-"1 Section Hidden" = "1 раздел скрыт";
-"%lu Sections Hidden" = "%lu разделов скрыто";
+"1 Section Hidden" = "1 Section Hidden";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
-"Sections" = "Разделы";
-"Select a Section" = "Выберите раздел";
-"Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
+"Sections" = "Sections";
+"Select a Section" = "Select a Section";
+"Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Источники";
-"Select a Source" = "Выберите источник";
-"Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
+"Sources" = "Sources";
+"Select a Source" = "Select a Source";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
-"Updates" = "Обновления";
-"Hide future updates from these packages." = "Скрыть будущие обновления этих пакетов.";
+"Updates" = "Updates";
+"Hide future updates from these packages." = "Hide future updates from these packages.";
 
-"Authors" = "Авторы";
-"Hide packages from these authors." = "Скрыть пакеты от этих авторов.";
-"Search for an Author" = "Поиск автора";
-"This author also goes by the following names:" = "Этот автор также известен под следующими именами:";
+"Authors" = "Authors";
+"Hide packages from these authors." = "Hide packages from these authors.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
-"Language" = "Язык";
-"Apply" = "Применить";
-"Restart Required" = "Требуется перезапуск";
-"Zebra must be closed in order to change preferred language" = "Zebra должна быть закрыта для изменения предпочитаемого языка";
-"Restart" = "Перезапустить";
-"Use System Language" = "Использовать язык системы";
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";
 
-"You are adding a repository that is not secure" = "Вы добавляете небезопасный репозиторий";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Данные этого репозитория могут быть не зашифрованы. Вы уверены, что хотите добавить его?";
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
