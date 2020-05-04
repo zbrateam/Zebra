@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Denne kjelda er usikker";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data som blir lasta ned frå denne kjelda er ikkje nødvendigvis kryptert. Er du sikker på at du vil legga han til?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
