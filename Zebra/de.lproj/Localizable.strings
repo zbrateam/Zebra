@@ -477,4 +477,4 @@
 "You are adding a repository that is not secure" = "Sie fügen eine unsichere Quelle hinzu";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Daten, die von dieser Quelle heruntergeladen werden, werden möglicherweise unverschlüsselt übertragen. Möchten Sie sie dennoch hinzufügen?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Der Kauf konnte nicht abgeschlossen werden";
