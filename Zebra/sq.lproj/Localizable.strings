@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Ju jeni duke shtuar një burim që nuk është i sigurt";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Të dhënët e shkarkuara nga ky burim mund të mos jenë të koduara. A jeni të sigurt që dëshironi ta shtoni?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
