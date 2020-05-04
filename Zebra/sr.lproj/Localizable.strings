@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Dodajete repositoriji koji nije bezbedan";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Podaci skinuti sa ovog repoa nisu enkriptovani. Da li ste sigurni da ćete ga dodati?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
