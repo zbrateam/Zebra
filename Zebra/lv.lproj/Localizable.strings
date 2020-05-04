@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Tu pievieno nedrošu avotu";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Iespējams, ka no šīs krātuves lejupielādētie dati nav šifrēti. Vai tiešām vēlies to pievienot?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
