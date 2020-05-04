@@ -15,7 +15,6 @@
 
 @interface ZBWishListTableViewController () {
     UIImageView *shadowView;
-    UIBarButtonItem *shareButton;
 }
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
@@ -47,8 +46,15 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
     self.navigationItem.rightBarButtonItem = shareButton;
+    [self updateShareButtonState];
+}
+
+- (void)updateShareButtonState {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.rightBarButtonItem.enabled = [self->wishedPackages count] != 0;
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,7 +99,7 @@
     
     NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
-    controller.popoverPresentationController.barButtonItem = shareButton;
+    controller.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItem;
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -143,6 +149,7 @@
         }
     }
     
+    [self updateShareButtonState];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -207,6 +214,7 @@
         
         [ZBSettings setWishlist:self->wishedPackageIdentifiers];
         
+        [self updateShareButtonState];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
