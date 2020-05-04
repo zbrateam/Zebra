@@ -467,12 +467,12 @@
 
 // Language Settings
 
-"Language" = "Idioma";
-"Apply" = "Aplicar";
-"Restart Required" = "Requer reinicialização";
-"Zebra must be closed in order to change preferred language" = "O Zebra deve ser fechado para alterar o idioma";
-"Restart" = "Reiniciar";
-"Use System Language" = "Usar Idioma do Sistema";
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";
 
-"You are adding a repository that is not secure" = "Você está adicionando um repositório que não é seguro";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Os dados transferidos deste repositório podem não ser criptografados. Tem certeza de que deseja adicioná-lo?";
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
