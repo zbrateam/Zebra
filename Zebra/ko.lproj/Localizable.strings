@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "최신";
 "Version" = "버전";
 "Packages" = "패키지";
 "Show Updates" = "업데이트 표시";
 "Hide Updates" = "업데이트 숨기기";
 "Select Version" = "버전 선택";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "설치할 버전을 선택하세요:";
 "Select a version to upgrade to:" = "업그레이드할 버전 선택:";
 "Select a version to downgrade to:" = "다운그레이드할 버전 선택:";
 "Package" = "패키지";
