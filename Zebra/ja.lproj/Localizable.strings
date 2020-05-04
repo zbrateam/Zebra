@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "リポジトリを Zebra にインポートしてもよろしいですか？";
 "Are you sure that you want to import %d sources into Zebra?" = "%d リポジトリを Zebra にインポートしてもよろしいですか？";
 
-
 // Credits
 
 "Credits" = "クレジット";
@@ -70,9 +69,6 @@
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Finish Automatically" = "自動的に終了";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "自動更新";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "すべてのリポジトリが削除され、Zebra が再起動します。";
 
 // Documents Directory
-"Open Documents Directory" = "Zebra のディレクトリを開く";
 
+"Open Documents Directory" = "Zebra のディレクトリを開く";
 "Filza Not Installed" = "Filza がインストールされていません";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Filza がインストールされていないため、Zebra のディレクトリを開けません。 Zebra のディレクトリは%@です";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "最新";
 "Version" = "バージョン";
 "Packages" = "パッケージ";
 "Show Updates" = "アップデートを表示";
 "Hide Updates" = "アップデートを非表示";
 "Select Version" = "バージョンを選択";
+"Select a version to install:" = "インストールしたいバージョンを選択:";
 "Select a version to upgrade to:" = "アップデートしたいバージョンを選択:";
 "Select a version to downgrade to:" = "ダウングレードしたいバージョンを選択:";
 "Package" = "パッケージ";
