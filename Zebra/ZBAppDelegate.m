@@ -232,13 +232,6 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
     [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
-    if (@available(iOS 13.0, *)) {
-        UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
-        [app configureWithDefaultBackground];
-        
-        [[UINavigationBar appearance] setScrollEdgeAppearance:app];
-    }
-    
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     [self registerForScreenshotNotifications];

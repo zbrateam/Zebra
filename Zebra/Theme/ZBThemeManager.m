@@ -173,15 +173,8 @@
 }
 
 - (void)configureNavigationBar {
-        if (@available(iOS 13.0, *)) {
-            UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
-            [app configureWithDefaultBackground];
-            
-            [[UINavigationBar appearance] setScrollEdgeAppearance:app];
-        }
-        [[UINavigationBar appearance] setBackgroundColor:nil];
-        [[UINavigationBar appearance] setTranslucent:YES];
-//    }
+    [[UINavigationBar appearance] setBackgroundColor:nil];
+    [[UINavigationBar appearance] setTranslucent:YES];
     
     [[UINavigationBar appearance] setTintColor:[UIColor accentColor]];
     if ([ZBThemeManager useCustomTheming]) {
