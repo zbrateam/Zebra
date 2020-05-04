@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Möchten Sie wirklich eine Quelle nach Zebra importieren?";
 "Are you sure that you want to import %d sources into Zebra?" = "Möchten Sie wirklich %d Quellen in Zebra importieren?";
 
-
 // Credits
 
 "Credits" = "Mitwirkende";
@@ -70,9 +69,6 @@
 "Text" = "Text";
 "Icon" = "Symbol";
 "Finish Automatically" = "Automatisch beenden";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatische Aktualisierung";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle deine Quellen werden gelöscht und können nicht wiederhergestellt werden. Zebra wird neu gestartet.";
 
 // Documents Directory
-"Open Documents Directory" = "Dokumentenverzeichnis öffnen";
 
+"Open Documents Directory" = "Dokumentenverzeichnis öffnen";
 "Filza Not Installed" = "Filza ist nicht installiert";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kann das Dokumentenverzeichnis nicht öffnen, da Filza nicht installiert ist. Ihr Dokumentenverzeichnis ist: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Neuste";
 "Version" = "Version";
 "Packages" = "Pakete";
 "Show Updates" = "Aktualisierungen anzeigen";
 "Hide Updates" = "Aktualisierungen verstecken";
 "Select Version" = "Version auswählen";
+"Select a version to install:" = "Zu installierende Version auswählen:";
 "Select a version to upgrade to:" = "Version auswählen, auf die aktualisiert werden soll:";
 "Select a version to downgrade to:" = "Version auswählen, auf die heruntergestuft werden soll:";
 "Package" = "Paket";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Sie fügen eine unsichere Quelle hinzu";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Daten, die von dieser Quelle heruntergeladen werden, werden möglicherweise unverschlüsselt übertragen. Möchten Sie sie dennoch hinzufügen?";
+
+"Unable to complete purchase" = "Der Kauf konnte nicht abgeschlossen werden";

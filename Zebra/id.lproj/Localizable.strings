@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport 1 sumber ke Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Apa kamu yakin kamu ingin untuk mengimport %d sumber ke Zebra?";
 
-
 // Credits
 
 "Credits" = "Credits";
@@ -70,9 +69,6 @@
 "Text" = "Teks";
 "Icon" = "Ikon";
 "Finish Automatically" = "Otomatis Selesai";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Otomatis Refresh";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Semua sumber Anda akan dihapus dan hilang selamanya dan Zebra akan memulai kembali.";
 
 // Documents Directory
-"Open Documents Directory" = "Buka Direktori Dokumen";
 
+"Open Documents Directory" = "Buka Direktori Dokumen";
 "Filza Not Installed" = "Filza Tidak Terpasang";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra tidak dapat membuka direktori dokumen karena Filza tidak diinstal. Direktori dokumen Anda adalah: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Terbaru";
 "Version" = "Versi";
 "Packages" = "Paket";
 "Show Updates" = "Tampilkan Pembaruan";
 "Hide Updates" = "Sembunyikan Pembaruan";
 "Select Version" = "Pilih Versi";
+"Select a version to install:" = "Pilih versi untuk di pasang:";
 "Select a version to upgrade to:" = "Pilih versi untuk di tingkatkan ke:";
 "Select a version to downgrade to:" = "Pilih versi untuk didowngrade ke:";
 "Package" = "Paket";
@@ -476,5 +474,7 @@
 "Restart" = "Mulai Ulang";
 "Use System Language" = "Gunakan Bahasa Sistem";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Anda menambahkan repositori yang tidak aman";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data yang diunduh dari repositori ini mungkin tidak dienkripsi. Anda yakin ingin menambahkannya?";
+
+"Unable to complete purchase" = "Tidak dapat menyelesaikan pembelian";

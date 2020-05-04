@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Tem certeza que deseja importar 1 fonte para o Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Tem certeza que deseja importar %d fontes para o Zebra?";
 
-
 // Credits
 
 "Credits" = "Créditos";
@@ -70,9 +69,6 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Acabar automaticamente";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas as suas fontes serão excluídas e o Zebra será reiniciado.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
 
+"Open Documents Directory" = "Open Documents Directory";
 "Filza Not Installed" = "Filza Not Installed";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
@@ -166,8 +162,8 @@
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
 
 "Please Wait..." = "Por favor aguarde...";
-"Verifying Source" = "A Verificar a Fonte";
-"Verifying Sources" = "A Verificar Fontes";
+"Verifying Source" = "Verificando a Fonte";
+"Verifying Sources" = "Verificando as Fontes";
 "Updating Sources" = "Atualizando as Fontes";
 
 "Unknown error" = "Erro desconhecido";
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Versão";
 "Packages" = "Pacotes";
 "Show Updates" = "Mostrar Atualizações";
 "Hide Updates" = "Hide Updates";
 "Select Version" = "Selecionar Versão";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Selecione a versão que pretende atualizar para:";
 "Select a version to downgrade to:" = "Selecione versão para downgrade:";
 "Package" = "Pacote";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "You are adding a repository that is not secure";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

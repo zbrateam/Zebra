@@ -11,9 +11,9 @@
 "Done" = "Завършено";
 "Loading..." = "Зареждане…";
 "Clear" = "Изчисти";
-"An Error Occurred" = "An Error Occurred";
+"An Error Occurred" = "Възникна грешка";
 "Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"Downloads" = "Изтегляния";
 
 // Home
 
@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Сигурни ли сте, че искате да импортирате 1 източник в Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Сигурни ли сте, че искате да импортирате %d източници в Zebra?";
 
-
 // Credits
 
 "Credits" = "Заслуги";
@@ -70,10 +69,7 @@
 "Text" = "Текст";
 "Icon" = "Икона";
 "Finish Automatically" = "Завърши автоматично";
-
-// "Hide UDID" = "Hide UDID";
-
-"Automatic Refresh" = "Automatic Refresh";
+"Automatic Refresh" = "Автоматично опресняване";
 
 // Accent Colors
 
@@ -110,27 +106,27 @@
 
 "Reset" = "Reset";
 "Refresh Icon Cache" = "Опресняване на кеша на иконите";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Изчистване на кеша с изображения";
+"Clear Sources Cache" = "Изчистване на кеша с източници";
+"Clear Web Cache" = "Изчистване на уебкеша";
 "Reset All Settings" = "Нулиране на всички настройки";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Изтриване на всички източници";
 "Erase All Sources and Settings" = "Изтриване на всички настройки и източници";
 
 "Are you sure you want to restart the SpringBoard?" = "Сигурни ли сте, че искате да рестартирате играта?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Сигурни ли сте, че искате да опресните кеша на иконите? Вашето устройство може да не реагира, докато процесът не завърши.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Кешът с изображения е изчистен";
+"Web Cache Cleared" = "Уебкешът е изчистен";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
 "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Всичко от източниците ви ще бъде изтрито и ще изчезне завинаги и Zebra ще се рестартира.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
 
-"Filza Not Installed" = "Filza Not Installed";
+"Open Documents Directory" = "Отваряне на директорията с документи";
+"Filza Not Installed" = "Filza не е инсталирано";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
@@ -142,46 +138,46 @@
 "Your Purchases" = "Изход";
 "No Storefronts Available" = "No Storefronts Available";
 "Could not authenticate" = "Could not authenticate";
-"Could not complete purchase" = "Could not complete purchase";
-"No packages purchased" = "No packages purchased";
+"Could not complete purchase" = "Покупката не може да се завърши";
+"No packages purchased" = "Няма закупени пакети";
 "Signed in as %@" = "Signed in as %@";
 "Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
-"Sources" = "Sources";
-"Unknown" = "Unknown";
-"Delete" = "Delete";
-"Refresh" = "Refresh";
-"All Packages" = "All Packages";
-"Remove Source" = "Remove Source";
-"Local File" = "Local File";
+"Sources" = "Източници";
+"Unknown" = "Неизвестно";
+"Delete" = "Изтриване";
+"Refresh" = "Опресняване";
+"All Packages" = "Всички пакети";
+"Remove Source" = "Премахване на източник";
+"Local File" = "Локален файл";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
 
-"Add" = "Add";
-"Add Sources" = "Add Sources";
+"Add" = "Добавяне";
+"Add Sources" = "Добавяне на източници";
 "Add Multiple" = "Add Multiple";
-"Enter Source URL" = "Enter Source URL";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
+"Enter Source URL" = "Въведете URL адрес на източника";
+"Would you like to add the URL from your clipboard?" = "Бихте ли желали да добавите URL адрес от буферната си памет?";
 
-"Please Wait..." = "Please Wait...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Updating Sources" = "Updating Sources";
+"Please Wait..." = "Почакайте...";
+"Verifying Source" = "Проверка на източник";
+"Verifying Sources" = "Проверка на източници";
+"Updating Sources" = "Осъвременяване на източниците";
 
-"Unknown error" = "Unknown error";
-"Invalid URL" = "Invalid URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "No source URLs detected.";
-"Unable to verify source" = "Unable to verify source";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
+"Unknown error" = "Неизвестна грешка";
+"Invalid URL" = "Недействителен URL адрес";
+"Invalid Source" = "Недействителен източник";
+"Tap to learn more" = "Чукнете, за да научите повече";
+"No source URLs detected." = "Няма засечени URL адреси на източника.";
+"Unable to verify source" = "Невъзможно потвърждаване на източника";
+"Error verifying source" = "Грешка, потвърждавайки източник";
+"Error verifying sources" = "Грешка, потвърждавайки източниците";
+"Failed to add source" = "Неуспешно добавяне на източник";
+"Failed to add sources" = "Неуспешно добавяне на източници";
+"You have already added this source." = "Вече сте добавили този източник.";
+"You have already added these sources." = "Вече сте добавили тези източници.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
 
@@ -191,37 +187,39 @@
 "Could not find a download URL for" = "Could not find a download URL for";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
+"Reason: %@." = "Причина: %@.";
 "The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
 "Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
 "Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Грешка, премествайки файла от %@ до %@";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Въвели сте недействителен URL адрес. Проверете го и опитайте пак.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Премахнете този източник от своя файл sources.list";
 
-"Error while opening sources.list" = "Error while opening sources.list";
+"Error while opening sources.list" = "Грешка, отваряйки sources.list";
 
 "The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 
-"%@ hasn't been modified" = "%@ hasn't been modified";
+"%@ hasn't been modified" = "%@ е без промяна";
 
-"Install All" = "Install All";
+"Install All" = "Инсталиране на всичко";
 
 // Packages
 
-"Version" = "Version";
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Hide Updates" = "Hide Updates";
-"Select Version" = "Select Version";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Latest" = "Latest";
+"Version" = "Версия";
+"Packages" = "Пакети";
+"Show Updates" = "Показване на обновяванията";
+"Hide Updates" = "Скриване на обновяванията";
+"Select Version" = "Изберете версия";
+"Select a version to install:" = "Изберете версия за инсталиране:";
+"Select a version to upgrade to:" = "Изберете версия за надграждане до:";
 "Select a version to downgrade to:" = "Изберете версия за понижаване до:";
 "Package" = "Пакет";
 "Information" = "Информация";
@@ -286,51 +284,51 @@
 "Packaging" = "Пакетиране";
 "Productivity" = "Продуктивност";
 "Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
-"System" = "System";
+"Ringtones" = "Мелодии на звънене";
+"Scripting" = "Скриптиране";
+"Security" = "Сигурност";
+"Social" = "Социални мрежи";
+"System" = "Система";
 "Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Text Editors" = "Текстови редактори";
+"Themes" = "Теми";
+"Toys" = "Играчки";
 "Tweaks" = "Tweaks";
 "Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Wallpaper" = "Тапет";
+"Widgets" = "Джаджи";
 
 // Search
 
-"Search" = "Search";
+"Search" = "Търсене";
 "This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
-"No Results Found" = "No Results Found";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"No Results Found" = "Няма намерени резултати";
+"Name" = "Име";
+"Description" = "Описание";
+"Author" = "Автор";
 
 // Console
 
-"Console" = "Console";
+"Console" = "Конзола";
 "Performing Actions..." = "Performing Actions...";
 "Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
 "uicache is not available on the simulator" = "uicache is not available on the simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
-"Close Zebra" = "Close Zebra";
-"Closing Zebra..." = "Closing Zebra...";
+"Close Zebra" = "Затворете Zebra";
+"Closing Zebra..." = "Затваряне на Zebra...";
 "Restart SpringBoard" = "Restart SpringBoard";
 "Restarting SpringBoard..." = "Restarting SpringBoard...";
 "Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
-"Downloading" = "Downloading";
-"Downloading %@" = "Downloading %@";
-"Downloading Packages..." = "Downloading Packages...";
-"Download Completed" = "Download Completed";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
+"Starting Download" = "Започване на изтеглянето";
+"Downloading" = "Изтегляне";
+"Downloading %@" = "Изтегля се %@";
+"Downloading Packages..." = "Изтегляне на пакети...";
+"Download Completed" = "Изтеглянето приключи";
+"Installing" = "Инсталиране";
+"Installing Packages..." = "Инсталиране на пакети...";
+"Removing" = "Премахване";
+"Removing Packages..." = "Премахване на пакети...";
+"Reinstalling" = "Преинсталиране";
 "Reinstalling Packages..." = "Реинсталиране на пакети...";
 "Upgrading" = "Ъпгрейд";
 "Upgrading Packages..." = "Ъпгрейд на пакети...";
@@ -348,7 +346,7 @@
 "Done %@" = "Завършено %@";
 "Removing Zebra..." = "Премахване на Zebra...";
 "Installing Zebra..." = "Инсталиране на Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Грешка, отваряйки файл:";
 "Adding Payment Vendor URL for %@" = "Добавяне на URL адрес на доставчик на плащания за %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
@@ -380,7 +378,7 @@
 "\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
 "%@ must be removed because it depends on %@" = "%@ трябва да бъде премахнат, в зависимост от %@";
 "%@ has issues that cannot be resolved:" = "%@ има проблем, който не може да бъде оправен:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Наистина ли желаете да изчистите опашката?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ се изисква. НЕ трябва да бъде премахван, освен ако наистина знаете какво правите!";
 
 // Search
@@ -411,9 +409,9 @@
 
 "Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ГРЕШКА: Невъзможно да заключите статуса на файла. Опитайте пак.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ГРЕШКА: Процесът трябва да бъде рестартиран. Опитайте пак.";
 
 "Incorrect documents permissions." = "Incorrect documents permissions.";
 
@@ -425,7 +423,7 @@
 
 "Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Търсене на пакети, докато пишете. Изключването на тази функция може да намали забавената производителност на по-стари устройства.";
 
 "Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
@@ -445,36 +443,38 @@
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Филтри";
+"Add Filter" = "Добавяне на филтър";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "1 скрит раздел";
+"%lu Sections Hidden" = "%lu скрити раздела";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Раздели";
+"Select a Section" = "Изберете раздел";
+"Hide packages in these sections." = "Скриване на пакетите в тези раздели.";
 
-"Sources" = "Sources";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Sources" = "Източници";
+"Select a Source" = "Изберете източник";
+"Hide packages in these sections from specific sources." = "Скриване на пакетите в тези раздели от определени източници.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Осъвременявания";
+"Hide future updates from these packages." = "Скриване на бъдещи осъвременявания от тези пакети.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Автори";
+"Hide packages from these authors." = "Скриване на пакети от тези автори.";
+"Search for an Author" = "Търсене на автор";
+"This author also goes by the following names:" = "Този автор е известен още под следните имена:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Език";
+"Apply" = "Прилагане";
+"Restart Required" = "Изисква се рестарт";
+"Zebra must be closed in order to change preferred language" = "Zebra трябва да се затвори, за да се промени на предпочитания език";
+"Restart" = "Рестарт";
+"Use System Language" = "Употреба на системния език";
 
 "You are adding a repository that is not secure" = "You are adding a repository that is not secure";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

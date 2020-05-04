@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "آیا مطمئنید که می خواهید ۱ سورس را به زبرا اضافه کنید؟";
 "Are you sure that you want to import %d sources into Zebra?" = "آیا مطمئنید که می‌خواهید %d سورس را به زبرا اضافه کنید؟";
 
-
 // Credits
 
 "Credits" = "اعتبار نامه ها";
@@ -70,10 +69,7 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
-
-// "Hide UDID" = "Hide UDID";
-
-"Automatic Refresh" = "Automatic Refresh";
+"Automatic Refresh" = "تازه‌سازی خودکار";
 
 // Accent Colors
 
@@ -108,7 +104,7 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "راه اندازی مجدد";
 "Refresh Icon Cache" = "بروزکردن حافظه آیکون‌ها";
 "Clear Image Cache" = "پاک کردن حافظه ی کش عکس ها";
 "Clear Sources Cache" = "پاک کردن حافظه سورس‌ها";
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "همه سورس‌های شما حذف خواهند شد و برای همیشه از بین خواهند رفت و زبرا مجددا شروع به کار خواهد کرد.";
 
 // Documents Directory
-"Open Documents Directory" = "Open Documents Directory";
 
+"Open Documents Directory" = "Open Documents Directory";
 "Filza Not Installed" = "Filza Not Installed";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
@@ -167,7 +163,7 @@
 
 "Please Wait..." = "...منتظر بمانید";
 "Verifying Source" = "درحال تایید سورس";
-"Verifying Sources" = "درحال تایید سورس";
+"Verifying Sources" = "درحال تایید سورس‌ها";
 "Updating Sources" = "بروزرسانی سورس ها";
 
 "Unknown error" = "ارور نا شناخته";
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "نسخه";
 "Packages" = "پکیج ها";
 "Show Updates" = "نمایش آپدیت ها";
 "Hide Updates" = "Hide Updates";
 "Select Version" = "انتخاب نسخه";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "انتخاب یک نسخه برای بروزرسانی:";
 "Select a version to downgrade to:" = "انتخاب یک نسخه برای پایین آوردن:";
 "Package" = "پکیج";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "You are adding a repository that is not secure";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

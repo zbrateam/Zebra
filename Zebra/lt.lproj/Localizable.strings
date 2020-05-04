@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Ar esate įsitikinę, kad norite pridėti 1 šaltinį į Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Ar esate įsitikinę, kad norite importuoti %d šaltinius į Zebra?";
 
-
 // Credits
 
 "Credits" = "Kūrėjų sąrašas";
@@ -70,9 +69,6 @@
 "Text" = "Tekstas";
 "Icon" = "Piktograma";
 "Finish Automatically" = "Baigti automatiškai";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatiškai atnaujinti";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsų šaltiniai bus pašalinti negrįžtamai ir Zebra persikraus.";
 
 // Documents Directory
-"Open Documents Directory" = "Atidaryti dokumentų katalogą";
 
+"Open Documents Directory" = "Atidaryti dokumentų katalogą";
 "Filza Not Installed" = "Filza neįrašyta";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra negali atidaryti dokumentų katalogo nes Filza neįrašyta. Jūsų dokumentų katalogas yra: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Versija";
 "Packages" = "Paketai";
 "Show Updates" = "Rodyti atnaujinimus";
 "Hide Updates" = "Paslėpti atnaujinimus";
 "Select Version" = "Pasirinkti versiją";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Pasirinkite versiją į kurią norite atsinaujinti:";
 "Select a version to downgrade to:" = "Pasirinkite versiją į kurią norite grįžti:";
 "Package" = "Paketas";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "You are adding a repository that is not secure";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Dali ste sigurni da želite uvesti 1 izvor u Zebru?";
 "Are you sure that you want to import %d sources into Zebra?" = "Dali ste sigurni da želite uvesti %d izvore u Zebru?";
 
-
 // Credits
 
 "Credits" = "Zasluge";
@@ -70,9 +69,6 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Završi Automatski";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Svi vaši izvori će biti obrisani iz Zebre nakon ponovnog pokretanja.";
 
 // Documents Directory
-"Open Documents Directory" = "Otvori mapu datoteka";
 
+"Open Documents Directory" = "Otvori mapu datoteka";
 "Filza Not Installed" = "Filza nije instalirana";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra ne može otvoriti mapu datoteka jer Filza nije instalirana. Vaša mapa datoteka je: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Inačica";
 "Packages" = "Paketi";
 "Show Updates" = "Prikaži ažuriranja";
 "Hide Updates" = "Hide Updates";
 "Select Version" = "Odaberi verziju";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Odaberite na koju se verziju želite nadograditi:";
 "Select a version to downgrade to:" = "Odaberite verziju na koju se želite spustiti:";
 "Package" = "Paket";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "You are adding a repository that is not secure";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "هل أنت متأكد أنك تريد استيراد مصدر واحد إلى Zebra؟";
 "Are you sure that you want to import %d sources into Zebra?" = "هل أنت متأكد أنك تريد استيراد %d مصدر إلى Zebra؟";
 
-
 // Credits
 
 "Credits" = "الإعتمادات";
@@ -70,9 +69,6 @@
 "Text" = "نص";
 "Icon" = "أيقونة";
 "Finish Automatically" = "إنهاء تلقائيًا";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "تحديث تلقائي";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "سيتم حذف كل مصادرك للأبد وسيتم إعادة تشغيل Zebra.";
 
 // Documents Directory
-"Open Documents Directory" = "فتح دليل المستندات";
 
+"Open Documents Directory" = "فتح دليل المستندات";
 "Filza Not Installed" = "تطبيق Filza غير مثبت";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "لا يمكن لـ Zebra فتح دليل المستندات لأن تطبيق Filza غير مثبت. دليل المستندات خاصتك هو: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "الأحدث";
 "Version" = "الإصدار";
 "Packages" = "الحزم";
 "Show Updates" = "إظهار التحديثات";
 "Hide Updates" = "إخفاء التحديثات";
 "Select Version" = "اختيار إصدار";
+"Select a version to install:" = "حدد إصدار لتثبيته:";
 "Select a version to upgrade to:" = "اختر إصدار للترقية إليه:";
 "Select a version to downgrade to:" = "اختر إصدار للخفض إليه:";
 "Package" = "حزمة";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "أنت تقوم باضافة مستودع غير آمن";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "المعلومات المحملة من هذا المستودع ممكن ان لا تكون مشفرة. هل انت متأكد من اضافتها؟";
+
+"Unable to complete purchase" = "غير قادر على إكمال عملية الشراء";

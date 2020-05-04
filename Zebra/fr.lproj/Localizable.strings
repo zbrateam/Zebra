@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Êtes-vous sûr de vouloir importer 1 source dans Zebra ?";
 "Are you sure that you want to import %d sources into Zebra?" = "Êtes-vous sûr de vouloir importer %d sources dans Zebra ?";
 
-
 // Credits
 
 "Credits" = "Crédits";
@@ -70,9 +69,6 @@
 "Text" = "Texte";
 "Icon" = "Icône";
 "Finish Automatically" = "Terminer automatiquement";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Rafraîchissement Auto";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Toutes vos sources seront supprimées définitivement et Zebra redémarrera.";
 
 // Documents Directory
-"Open Documents Directory" = "Ouvrir le Répertoire de Documents";
 
+"Open Documents Directory" = "Ouvrir le Répertoire de Documents";
 "Filza Not Installed" = "Filza Non Installé";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra ne peut pas ouvrir son répertoire de documents car Filza n'est pas installé. Votre répertoire de documents est : %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "La plus récente";
 "Version" = "Version";
 "Packages" = "Paquets";
 "Show Updates" = "Afficher les Mises à Jour";
 "Hide Updates" = "Cacher les mises à jour";
 "Select Version" = "Sélectionner la Version";
+"Select a version to install:" = "Sélectionnez une version à installer :";
 "Select a version to upgrade to:" = "Sélectionnez la version vers laquelle mettre à jour :";
 "Select a version to downgrade to:" = "Sélectionnez la version vers laquelle rétrograder :";
 "Package" = "Paquet";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Vous ajoutez une source qui n'est pas sécurisée";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Les données téléchargées à partir de cette source peuvent ne pas être chiffrées. Êtes-vous sûr de vouloir l'ajouter ?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

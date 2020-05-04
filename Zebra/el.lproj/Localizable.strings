@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις 1 πηγή στο Zebra;";
 "Are you sure that you want to import %d sources into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις %d πηγές στο Zebra;";
 
-
 // Credits
 
 "Credits" = "Εύσημα";
@@ -70,9 +69,6 @@
 "Text" = "Κείμενο";
 "Icon" = "Εικονίδιο";
 "Finish Automatically" = "Αυτόματη Ολοκλήρωση";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Αυτόματη Ανανέωση";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Όλες οι πηγές σου θα διαγραφτούν για πάντα και το Ζebra θα κάνει επανεκκίνηση.";
 
 // Documents Directory
-"Open Documents Directory" = "Άνοιγμα του Φακέλου Documents";
 
+"Open Documents Directory" = "Άνοιγμα του Φακέλου Documents";
 "Filza Not Installed" = "Το Filza Δεν είναι εγκαταστημένο";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Το Zebra αδυνατεί να ανοίξει τον φάκελο των αρχείων του διότι το Filza δεν είναι εγκαταστημένο. Ο φάκελος των αρχείων σου βρίσκεται στο: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Έκδοση";
 "Packages" = "Πακέτα";
 "Show Updates" = "Εμφάνισε Ενημερώσεις";
 "Hide Updates" = "Κρύψε Ενημερώσεις";
 "Select Version" = "Διάλεξε Έκδοση";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε:";
 "Select a version to downgrade to:" = "Διάλεξε μία έκδοση για να υποβαθμιστείς σε:";
 "Package" = "Πακέτο";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Προσθέτετε ένα αποθετήριο που δεν είναι ασφαλές";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Τα δεδομένα που λαμβάνονται από αυτό το αποθετήριο ενδέχεται να μην είναι κρυπτογραφημένα. Είστε βέβαιοι ότι θέλετε να το προσθέσετε;";
+
+"Unable to complete purchase" = "Unable to complete purchase";

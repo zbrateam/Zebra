@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "정말로 한개의 소스를 Zebra로 가져올까요?";
 "Are you sure that you want to import %d sources into Zebra?" = "정말로 %d개의 소스들을 Zebra로 가져올까요?";
 
-
 // Credits
 
 "Credits" = "크레딧";
@@ -70,9 +69,6 @@
 "Text" = "텍스트";
 "Icon" = "아이콘";
 "Finish Automatically" = "작업이 완료되면 콘솔 닫기";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "자동 새로고침";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "모든 소스가 영원히 삭제되고, Zebra가 재시작됩니다.";
 
 // Documents Directory
-"Open Documents Directory" = "문서 디렉토리 열기";
 
+"Open Documents Directory" = "문서 디렉토리 열기";
 "Filza Not Installed" = "Filza가 설치되지 않았습니다.";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Filza가 설치되지 않아 Zebra가 문서 디렉토리를 열 수 없습니다. 문서 디렉토리의 위치는 다음과 같습니다: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "최신";
 "Version" = "버전";
 "Packages" = "패키지";
 "Show Updates" = "업데이트 표시";
 "Hide Updates" = "업데이트 숨기기";
 "Select Version" = "버전 선택";
+"Select a version to install:" = "설치할 버전을 선택하세요:";
 "Select a version to upgrade to:" = "업그레이드할 버전 선택:";
 "Select a version to downgrade to:" = "다운그레이드할 버전 선택:";
 "Package" = "패키지";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "추가하고 있는 저장소는 보안이 적용되지 않았습니다.";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "이 저장소에서 다운로드한 데이터는 암호화되지 않았을 수 있습니다. 정말로 추가할까요?";
+
+"Unable to complete purchase" = "Unable to complete purchase";

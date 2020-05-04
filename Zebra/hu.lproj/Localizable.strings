@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Biztos vagy benne hogy 1 forrást szeretnél a Zebrába importálni?";
 "Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 
-
 // Credits
 
 "Credits" = "Készítők";
@@ -70,9 +69,6 @@
 "Text" = "Szöveg";
 "Icon" = "Ikon";
 "Finish Automatically" = "Finish Automatically";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automatikus frissítés";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
 
 // Documents Directory
-"Open Documents Directory" = "Dokumentumok mappa megnyitása";
 
+"Open Documents Directory" = "Dokumentumok mappa megnyitása";
 "Filza Not Installed" = "A Filza nincs telepítve";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "A Zebra nem tudta megnyitni a dokumentumok mappát, mert a Filza nincs telepítve. A dokumentumok mappa jelenleg: %@";
 
@@ -167,7 +163,7 @@
 
 "Please Wait..." = "Kérlek, várj...";
 "Verifying Source" = "Forrás ellenőrzése";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Sources" = "Források ellenőrzése";
 "Updating Sources" = "Updating Sources";
 
 "Unknown error" = "Ismeretlen hiba";
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Verzió";
 "Packages" = "Csomagok";
 "Show Updates" = "Frissítések megjelenítése";
 "Hide Updates" = "Frissítések elrejtése";
 "Select Version" = "Verzió kiválasztása";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Select a version to upgrade to:";
 "Select a version to downgrade to:" = "Select a version to downgrade to:";
 "Package" = "Csomag";
@@ -478,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "You are adding a repository that is not secure";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
