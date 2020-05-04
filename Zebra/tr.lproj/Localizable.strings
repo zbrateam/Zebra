@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "En Son";
 "Version" = "Versiyon";
 "Packages" = "Paketler";
 "Show Updates" = "Güncellemeleri Göster";
 "Hide Updates" = "Güncellemeleri Gizle";
 "Select Version" = "Versiyon Seçin";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Yüklenecek versiyonu seçin:";
 "Select a version to upgrade to:" = "Yüklenecek versiyonu seçin:";
 "Select a version to downgrade to:" = "Düşürülecek versiyonu seçin:";
 "Package" = "Paket";
