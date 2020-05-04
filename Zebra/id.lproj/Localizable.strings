@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Anda menambahkan repositori yang tidak aman";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data yang diunduh dari repositori ini mungkin tidak dienkripsi. Anda yakin ingin menambahkannya?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
