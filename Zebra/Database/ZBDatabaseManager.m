@@ -527,7 +527,7 @@
         sqlite3_exec(database, packDel, NULL, 0, NULL);
         char *sourceDel = "DROP TABLE REPOS;";
         sqlite3_exec(database, sourceDel, NULL, 0, NULL);
-        char *updatesDel = "DROP TABLE UPDATES;";
+        char *updatesDel = "DELETE FROM UPDATES WHERE IGNORE != 1;";
         sqlite3_exec(database, updatesDel, NULL, 0, NULL);
         
         [self closeDatabase];
