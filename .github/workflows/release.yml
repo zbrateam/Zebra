@@ -69,3 +69,17 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
+
+    - name: Build IPA package
+      id: ipa_build
+      if: "!github.event.release.prerelease"
+      env:
+        THEOS: theos
+      run: |
+        make ipa
+        echo "::set-output name=package::$(ls -t ipas | head -n1)"
+    - name: Attach IPA to release
+      if: "!github.event.release.prelease"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: hub release edit -m '' -a ipas/${{ steps.ipa_build.outputs.package }} '${{ github.event.release.tag_name }}'
