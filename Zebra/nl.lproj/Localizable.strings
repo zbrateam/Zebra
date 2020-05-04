@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Nieuwste";
 "Version" = "Versie";
 "Packages" = "Pakketten";
 "Show Updates" = "Toon updates";
 "Hide Updates" = "Updates verbergen";
 "Select Version" = "Kies versie";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Selecteer een versie om te installeren:";
 "Select a version to upgrade to:" = "Selecteer een versie om naar te upgraden:";
 "Select a version to downgrade to:" = "Kies een versie om naar te downgraden:";
 "Package" = "Pakket";
