@@ -140,8 +140,8 @@
 "Could not authenticate" = "No se ha podido autenticar";
 "Could not complete purchase" = "No se pudo completar la compra";
 "No packages purchased" = "No hay paquetes comprados";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Conectado como %@";
+"Signed in as %@ (%@)" = "Conectado como %@ (%@)";
 
 // Sources
 
@@ -151,7 +151,7 @@
 "Refresh" = "Actualizar";
 "All Packages" = "Todos los paquetes";
 "Remove Source" = "Eliminar Fuente";
-"Local File" = "Local File";
+"Local File" = "Archivo local";
 "Local Repository" = "Repositorio local";
 "Locally installed packages" = "Paquetes instalados localmente";
 
@@ -208,11 +208,11 @@
 
 "%@ hasn't been modified" = "%@ no ha sido modificado";
 
-"Install All" = "Install All";
+"Install All" = "Instalar todo";
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Últimas";
 "Version" = "Versión";
 "Packages" = "Paquetes";
 "Show Updates" = "Mostrar actualizaciones";
