@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Stai aggiungendo una repository che non è sicura";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "I dati scaricati da questa repository potrebbero non essere crittografati. Sei sicuro di volerla aggiungere?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
