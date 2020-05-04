@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Terbaru";
 "Version" = "Versi";
 "Packages" = "Paket";
 "Show Updates" = "Tampilkan Pembaruan";
 "Hide Updates" = "Sembunyikan Pembaruan";
 "Select Version" = "Pilih Versi";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Pilih versi untuk di pasang:";
 "Select a version to upgrade to:" = "Pilih versi untuk di tingkatkan ke:";
 "Select a version to downgrade to:" = "Pilih versi untuk didowngrade ke:";
 "Package" = "Paket";
@@ -474,5 +474,5 @@
 "Restart" = "Mulai Ulang";
 "Use System Language" = "Gunakan Bahasa Sistem";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Anda menambahkan repositori yang tidak aman";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data yang diunduh dari repositori ini mungkin tidak dienkripsi. Anda yakin ingin menambahkannya?";
