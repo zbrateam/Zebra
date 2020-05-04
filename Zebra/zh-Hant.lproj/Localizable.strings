@@ -429,50 +429,50 @@
 
 "Change the accent color that displays across Zebra." = "改變 Zebra 的強調顏色。";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "在深色模式啟用時，改變 Zebra 的深色模式風格。";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "更改在首頁顯示的精選套件來源。";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "「套件來源精選」將會從在支援「精選套件 API」的套件來源中，選擇隨機套件來顯示。";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "「隨機」將會從您加入到 Zebra 的所有套件來源中，選擇隨機套件來顯示。";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "在各個來源登入後，可以購買付費套件。";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "篩選條件";
+"Add Filter" = "新增篩選條件";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "已隱藏 1 個類別";
+"%lu Sections Hidden" = "已隱藏 %lu 個類別";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "類別";
+"Select a Section" = "選擇類別";
+"Hide packages in these sections." = "隱藏這些類別的套件";
 
-"Sources" = "Sources";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Sources" = "來源";
+"Select a Source" = "選擇來源";
+"Hide packages in these sections from specific sources." = "從特定來源隱藏這些類別的套件";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "更新";
+"Hide future updates from these packages." = "隱藏這些套件的未來更新";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "作者";
+"Hide packages from these authors." = "隱藏來自這些作者的套件";
+"Search for an Author" = "搜尋作者";
+"This author also goes by the following names:" = "此作者亦有使用以下名稱：";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "語言";
+"Apply" = "套用";
+"Restart Required" = "需要重新啟動";
+"Zebra must be closed in order to change preferred language" = "關閉 Zebra 以更改喜好語言";
+"Restart" = "重新啟動";
+"Use System Language" = "使用系統語言";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "你正在加入一個不安全的來源";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "你從這個來源下載的資料可能不會被加密。\n你確定要加入這個來源？";
