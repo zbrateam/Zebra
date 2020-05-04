@@ -681,4 +681,13 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     }
 }
 
+// For old tweaks
+- (void)modifyPackage {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Deprecated Method" message:@"A tweak is calling a deprecated method, please contact the author of this tweak to get an update so that it will not crash Zebra in the future." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 @end
