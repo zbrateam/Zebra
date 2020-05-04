@@ -49,7 +49,6 @@
 "Are you sure that you want to import 1 source into Zebra?" = "Vai tiešām vēlies importēt 1 avotu Zebrā?";
 "Are you sure that you want to import %d sources into Zebra?" = "Vai tiešām vēlies importēt %d avotus Zebrā?";
 
-
 // Credits
 
 "Credits" = "Kredīti";
@@ -70,9 +69,6 @@
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
 "Finish Automatically" = "Pabeigt Automātiski";
-
-// "Hide UDID" = "Hide UDID";
-
 "Automatic Refresh" = "Automātiska Atsvaidzināšana";
 
 // Accent Colors
@@ -128,8 +124,8 @@
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Visi jūsu avoti tiks izdzēsti un nekad nebūs pieejami, un Zebra tiks restartēts.";
 
 // Documents Directory
-"Open Documents Directory" = "Atvērt Dokumentus";
 
+"Open Documents Directory" = "Atvērt Dokumentus";
 "Filza Not Installed" = "Filza Nav Instalēts";
 "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nevar atvērt savus dokumentus, jo Filza nav instalēts. Jūsu dokumenti atrodās: %@";
 
@@ -216,11 +212,13 @@
 
 // Packages
 
+"Latest" = "Latest";
 "Version" = "Versija";
 "Packages" = "Paketes";
 "Show Updates" = "Rādīt atjauninājumus";
 "Hide Updates" = "Slēpt Atjauninājumus";
 "Select Version" = "Ieslēgt versiju";
+"Select a version to install:" = "Select a version to install:";
 "Select a version to upgrade to:" = "Izvēlies versiju, uz kuru jaunināt:";
 "Select a version to downgrade to:" = "Izvēlies versiju, kuru vaijag instalēt:";
 "Package" = "Pakete";
