@@ -20,6 +20,8 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Device Information (please complete the following information):**
+
+***Please do not use the word "latest" for Zebra Version because it's inconvenient for us to know the actual version you are talking about - harder to pinpoint the issue.***
  - iOS Version [e.g. 12.1.2 or 10.3.3]: <INSERT-HERE>
  - Zebra Version [e.g. 1.0\~beta1 or beta1]: <INSERT-HERE>
  - Device Type [e.g. iPhone or iPad]: <INSERT-HERE>
