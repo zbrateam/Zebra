@@ -204,8 +204,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!baseSources.count) return;
+    
     ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
-    if (source.verificationStatus == ZBSourceExists) {
+    if (source && source.verificationStatus == ZBSourceExists) {
         BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
         
         [self setSource:source selected:!selected];
