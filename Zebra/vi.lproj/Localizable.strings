@@ -342,137 +342,137 @@
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
 "Could not complete %@ process. Reason: %@." = "Không thể hoàn tất %@ quá trình. Lí do: %@.";
 "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Vui lòng khởi chạy lại Zebra và xem vấn đề còn tồn tại không. Nếu có, hãy tạo một vấn đề trên Github.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-"Error while opening file:" = "Error while opening file:";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"Done..." = "Xong...";
+"Done %@" = "Xong %@";
+"Removing Zebra..." = "Đang xoá Zebra...";
+"Installing Zebra..." = "Đang cài đặt Zebra...";
+"Error while opening file:" = "Lỗi khi mở tệp:";
+"Adding Payment Vendor URL for %@" = "Đang thêm nhà cung cấp thanh toán cho %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Thiết bị này đã được mô phỏng, đây là sẽ gói được sửa đổi trong giai đoạn này:";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Gói đang chờ";
+"%d Package Queued" = "%d Gói đang chờ";
+"Tap to manage" = "Nhấn để quản lý";
+"No Packages Queued" = "Không có gói xếp hàng";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
-"Issues" = "Issues";
-"Required Package" = "Required Package";
-"Are you sure?" = "Are you sure?";
-"Remove from Queue" = "Remove from Queue";
-"Clear Queue" = "Clear Queue";
-"%@ is required by:" = "%@ is required by:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Queue" = "Xếp hàng";
+"Install" = "Cài đặt";
+"Reinstall" = "Cài đặt lại";
+"Remove" = "Xóa bỏ";
+"Upgrade" = "Nâng cấp";
+"Downgrade" = "Hạ cấp";
+"Abort" = "Hủy bỏ";
+"Continue" = "Tiếp tục";
+"Download Size" = "Kích thước tải xuống";
+"Confirm" = "Xác nhận";
+"Issues" = "Các vấn đề";
+"Required Package" = "Gói cần thiết";
+"Are you sure?" = "Bạn có chắc không?";
+"Remove from Queue" = "Xóa khỏi hàng đợi";
+"Clear Queue" = "Xoá hàng đợi";
+"%@ is required by:" = "%@ được yêu cầu bởi:";
+"\"%@\" conflicts with %@" = "\"%@\" xung đột với %@";
+"%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
+"%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
 "Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc. Nó KHÔNG nên được loại bỏ trừ khi bạn biết chính xác những gì bạn đang làm!";
 
 // Search
 
-"Live Search" = "Live Search";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Live Search" = "Tìm kiếm nhanh";
+"Tweaks, Themes, and More" = "Các tinh chỉnh, Giao diện và nhiều hơn nữa";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc và phải được xóa vì phụ thuộc vào %@. %@ KHÔNG nên bị xóa trừ khi bạn biết chính xác những gì bạn đang làm!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Một hoặc nhiều gói trong Hàng đợi để xóa là cần thiết hoặc bắt buộc. Không nên tiến hành trừ khi bạn biết chính xác những gì bạn đang làm. Việc xóa các gói này có thể gây ra thiệt hại không thể khắc phục cho thiết bị của bạn và có thể dẫn đến khôi phục hoàn toàn.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra không thể hoàn thành lệnh này vì nó không có quyền thích hợp. Vui lòng xác minh các quyền có tại / usr / libexec / ngựa vằn / thay thế và báo cáo vấn đề này trên GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Không thể truy cập su / sling. Vui lòng xác minh rằng / usr / libexec / ngựa vằn / supersling tồn tại.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không thuộc sở hữu của root: bánh xe. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Lỗi khi tạo thư mục tài liệu: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Lỗi khi tạo danh sách thư mục: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Lỗi khi tạo sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Lỗi khi tạo thư mục debs: %@.";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Không thể sống lại. Vui lòng nối lại thủ công.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "LỖI: Không thể khóa tệp trạng thái. Vui lòng thử lại.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Không thể xác định thông tin thiết bị.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
 
 "Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ / r / jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Tìm kiếm các gói trong khi gõ. Vô hiệu hóa tính năng này có thể làm giảm độ trễ trên các thiết bị cũ.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Cấu hình sự xuất hiện của các hành động vuốt xem bảng.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Thay đổi màu nhấn hiển thị trên Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Thay đổi kiểu chế độ tối của Zebra khi được bật.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Thay đổi nguồn của các gói tính năng trên trang chủ.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo nổi bật\" sẽ hiển thị các gói ngẫu nhiên từ các repos hỗ trợ API gói nổi bật.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Ngẫu nhiên\" sẽ hiển thị các gói ngẫu nhiên từ tất cả các kho lưu trữ mà bạn đã thêm vào Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Đăng nhập vào nguồn để cho phép mua các gói trả phí.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Bộ lọc";
+"Add Filter" = "Thêm bộ lọc";
 
-"1 Section Hidden" = "1 Section Hidden";
+"1 Section Hidden" = "1 mục đã ẩn";
 "%lu Sections Hidden" = "%lu Sections Hidden";
 
-"Sections" = "Sections";
+"Sections" = "Phần";
 "Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Hide packages in these sections." = "Ẩn gói trong các phần.";
 
-"Sources" = "Sources";
+"Sources" = "Nguồn";
 "Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Cập nhật";
+"Hide future updates from these packages." = "Ẩn các bản cập nhật sau này từ những gói này.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
+"Authors" = "Tác giả";
+"Hide packages from these authors." = "Ẩn gói từ các tác giả này.";
 "Search for an Author" = "Search for an Author";
 "This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
 "Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
+"Apply" = "Áp dụng";
+"Restart Required" = "Yêu cầu khởi động lại";
 "Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
 "Restart" = "Restart";
 "Use System Language" = "Use System Language";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Bạn đang thêm kho lưu trữ không an toàn!";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dữ liệu được tải xuống từ kho này không được mã hóa. Bạn chắc chắn có muốn thêm nó ?";
