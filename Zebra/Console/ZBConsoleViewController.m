@@ -79,6 +79,11 @@
     return self;
 }
 
+// Prevent old tweaks from crashing
+- (id)initWithLocalFile:(NSString *)file {
+    return NULL;
+}
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
