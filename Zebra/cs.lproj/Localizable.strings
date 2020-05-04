@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Přidáváte repositář, který není bezpečný";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data stažená z tohoto repozitáře nemusí být zašifrována. Opravdu je chcete přidat?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
