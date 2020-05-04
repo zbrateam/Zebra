@@ -14,9 +14,6 @@
 
 @implementation ZBThemeManager
 
-@synthesize interfaceStyle;
-@synthesize accentColor;
-
 + (id)sharedInstance {
     static ZBThemeManager *instance = nil;
     static dispatch_once_t onceToken;
@@ -116,8 +113,8 @@
 }
 
 - (void)updateInterfaceStyle {
-    self->interfaceStyle = [ZBSettings interfaceStyle];
-    self->accentColor = [ZBSettings accentColor];
+    self.interfaceStyle = [ZBSettings interfaceStyle];
+    self.accentColor = [ZBSettings accentColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self configureTabBar];
@@ -149,11 +146,11 @@
 }
 
 - (BOOL)darkMode {
-    return interfaceStyle >= ZBInterfaceStyleDark;
+    return self.interfaceStyle >= ZBInterfaceStyleDark;
 }
 
 - (void)configureTabBar {
-    if (interfaceStyle == ZBInterfaceStylePureBlack) {
+    if (self.interfaceStyle == ZBInterfaceStylePureBlack) {
         if (@available(iOS 13.0, *)) {
             UITabBarAppearance *app = [[UITabBarAppearance alloc] init];
             [app configureWithOpaqueBackground];
@@ -176,19 +173,6 @@
 }
 
 - (void)configureNavigationBar {
-//    if (interfaceStyle == ZBInterfaceStylePureBlack) {
-//        if (@available(iOS 13.0, *)) {
-//            UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
-//            [app configureWithOpaqueBackground];
-//            [app setBackgroundColor:[UIColor blackColor]];
-//
-//            [[UINavigationBar appearance] setStandardAppearance:app];
-//            [[UINavigationBar appearance] setScrollEdgeAppearance:app];
-//        }
-//        [[UINavigationBar appearance] setBackgroundColor:[UIColor blackColor]];
-//        [[UINavigationBar appearance] setTranslucent:NO];
-//    }
-//    else {
         if (@available(iOS 13.0, *)) {
             UINavigationBarAppearance *app = [[UINavigationBarAppearance alloc] init];
             [app configureWithDefaultBackground];
@@ -217,16 +201,12 @@
     [[UITableViewCell appearance] setTintColor:[UIColor accentColor]];
     if ([ZBThemeManager useCustomTheming]) {
         [[UITableView appearance] setSeparatorColor:[UIColor cellSeparatorColor]];
-        
-        //        [[UITableViewCell appearance] setTextColor:[UIColor primaryTextColor]];
         [[UILabel appearanceWhenContainedInInstancesOfClasses:@[[UITableViewCell class], [UITableView class]]] setTextColor:[UIColor primaryTextColor]];
-        //        [[UILabel appearanceWhenContainedIn:[UITableViewCell class], nil] setFont:[UIFont fontWithName:@"Times" size:17.00]];
-        //        [[UILabel appearanceWhenContainedInInstancesOfClasses:@[NSClassFromString(@"UITableViewCellContentView")]] setTextColor:[UIColor primaryTextColor]];
     }
 }
 
 - (void)configurePopupBar {
-    if (interfaceStyle == ZBInterfaceStylePureBlack) {
+    if (self.interfaceStyle == ZBInterfaceStylePureBlack) {
         [[LNPopupBar appearance] setBackgroundColor:[UIColor blackColor]];
         [[LNPopupBar appearance] setTranslucent:NO];
     }
@@ -235,7 +215,7 @@
         [[LNPopupBar appearance] setTranslucent:YES];
     }
     if ([ZBThemeManager useCustomTheming]) {
-        if (interfaceStyle >= ZBInterfaceStyleDark) {
+        if (self.interfaceStyle >= ZBInterfaceStyleDark) {
             [[LNPopupBar appearance] setBackgroundStyle:UIBlurEffectStyleDark];
         }
         else {
