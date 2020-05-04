@@ -333,146 +333,146 @@
 "Upgrading" = "Aan het upgraden";
 "Upgrading Packages..." = "Pakketten aan het upgraden...";
 "Complete" = "Compleet";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
-"One or more packages failed to download." = "One or more packages failed to download.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-"Error while opening file:" = "Error while opening file:";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"Finished!" = "Klaar!";
+"Return to Queue" = "Terug naar wachtrij";
+"Returning to Queue..." = "Terug naar wachtrij...";
+"Importing local packages." = "Lokale pakketten aan het importeren";
+"Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
+"One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
+"Could not complete %@ process. Reason: %@." = "Kon het %@ proces niet voltooien. Reden: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Herstart Zebra en kijk of het probleem nog steeds aanhoudt. Als dit het geval is, gelieve een probleem op GitHub te versturen.";
+"Done..." = "Gedaan...";
+"Done %@" = "Voltooid %@";
+"Removing Zebra..." = "Zebra Verwijderen...";
+"Installing Zebra..." = "Zebra Installeren...";
+"Error while opening file:" = "Fout bij openen van bestand:";
+"Adding Payment Vendor URL for %@" = "URL van Betalingsleverancier toevoegen voor %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Dit apparaat is gesimuleerd, hier zijn de pakketten die in deze fase zouden worden gewijzigd:";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d pakketten in de wachtrij";
+"%d Package Queued" = "%d Pakket In de wachtrij";
+"Tap to manage" = "Tik om te beheren";
+"No Packages Queued" = "Geen pakketten in de wachtrij";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
-"Issues" = "Issues";
-"Required Package" = "Required Package";
-"Are you sure?" = "Are you sure?";
-"Remove from Queue" = "Remove from Queue";
-"Clear Queue" = "Clear Queue";
-"%@ is required by:" = "%@ is required by:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Queue" = "Wachtrij";
+"Install" = "Installeer";
+"Reinstall" = "Installeer opnieuw";
+"Remove" = "Verwijder";
+"Upgrade" = "Upgraden";
+"Downgrade" = "Downgraden";
+"Abort" = "Stop";
+"Continue" = "Doorgaan";
+"Download Size" = "Downloadgrootte";
+"Confirm" = "Bevestig";
+"Issues" = "Problemen";
+"Required Package" = "Vereist pakket";
+"Are you sure?" = "Weet u het zeker?";
+"Remove from Queue" = "Verwijder uit wachtrij";
+"Clear Queue" = "Wachtrij Wissen";
+"%@ is required by:" = "%@ is vereist door:";
+"\"%@\" conflicts with %@" = "\"%@\" Heeft conflicten met %@";
+"%@ must be removed because it depends on %@" = "%@ moet worden verwijderd omdat het afhankelijk is van %@";
+"%@ has issues that cannot be resolved:" = "%@ heeft problemen die niet kunnen worden opgelost:";
+"Are you sure you want to clear the Queue?" = "Weet je zeker dat je de wachtrij wilt legen?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket. Het mag NIET verwijderd worden tenzij u precies weet wat u doet!";
 
 // Search
 
-"Live Search" = "Live Search";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Live Search" = "Live zoeken";
+"Tweaks, Themes, and More" = "Tweaks, Thema's en Meer";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is een vereist pakket en moet verwijderd worden omdat het afhankelijk is van %@. %@ mag NIET worden verwijderd tenzij u precies weet wat u doet!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Een of meer van de pakketten in de Wachtrij voor verwijdering is essentieel of noodzakelijk. Het is niet aan te raden om verder te gaan tenzij u precies weet wat u doet. Het verwijderen van deze pakketten kan onomkeerbare schade toebrengen aan je apparaat en kan reen volledig herstel veroorzaken.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra kon deze opdracht niet voltooien omdat het niet de juiste machtigingen heeft. Controleer de machtigingen in /usr/libexec/zebra/supersling en rapporteer dit probleem op GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kan geen toegang krijgen tot su/sling. Controleer of /usr/libexec/zebra/supersling bestaat.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is geen eigendom van root:wheel. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling heeft geen toestemming om de uid of gid in te stellen. Controleer de rechten van het bestand op /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Fout bij het aanmaken van de documentenmap: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Fout bij het aanmaken van de lijsten map: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Er is een fout opgetreden tijdens het aanmaken van sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Fout bij het aanmaken van de debs map: %@.";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Kon niet herladen. Laad handmatig opnieuw.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "FOUT: kan statusbestand niet vergrendelen. Probeer het opnieuw.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Incorrecte permissie voor documenten.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Toon aanbevolen pakketten op de startpagina.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Vernieuw de bronnen van Zebra als de app wordt geopend.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Toon recente gemeenschap berichten van /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Doorzoek pakketten tijdens het typen. Het uitschakelen van deze functie kan de vertraging op oudere apparaten verminderen.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Verander het uiterlijk van tafel weergave swipe acties.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Wijzig de accent kleur die wordt weergegeven door Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Wijzig de stijl van de donkere modus van Zebra wanneer deze is ingeschakeld.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Repos \" zullen willekeurige pakketten weergeven van repo's die de Featured Package API ondersteunen.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Aanmelden bij bronnen maakt het mogelijk om betaalde pakketten te kopen.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Sluit de console automatisch wanneer alle taken zijn voltooid.";
 
 // Filters
 
 "Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Add Filter" = "Filter Toevoegen";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "1 Sectie Verborgen";
+"%lu Sections Hidden" = "%lu Secties Verborgen";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Secties";
+"Select a Section" = "Selecteer een sectie";
+"Hide packages in these sections." = "Verberg pakketten in deze secties.";
 
-"Sources" = "Sources";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Sources" = "Bronnen";
+"Select a Source" = "Selecteer een Bron";
+"Hide packages in these sections from specific sources." = "Verberg pakketten in deze secties van specifieke bronnen.";
 
 "Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Hide future updates from these packages." = "Verberg toekomstige updates van deze pakketten.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Auteurs";
+"Hide packages from these authors." = "Verberg pakketten van deze auteurs.";
+"Search for an Author" = "Zoek voor een auteur";
+"This author also goes by the following names:" = "Deze auteur is ook gekend onder de volgende namen:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Taal";
+"Apply" = "Toepassen";
+"Restart Required" = "Herstarten Vereist";
+"Zebra must be closed in order to change preferred language" = "Zebra moet gesloten zijn om de voorkeurstaal te wijzigen";
+"Restart" = "Herstarten";
+"Use System Language" = "Systeemtaal gebruiken";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "U voegt een repository toe die niet veilig is";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Gegevens gedownload van deze repository zijn mogelijk niet versleuteld. Weet u zeker dat u deze wilt toevoegen?";
