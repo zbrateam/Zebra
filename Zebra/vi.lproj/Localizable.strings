@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "Bạn đang thêm kho lưu trữ không an toàn!";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dữ liệu được tải xuống từ kho này không được mã hóa. Bạn chắc chắn có muốn thêm nó ?";
+
+"Unable to complete purchase" = "Unable to complete purchase";
