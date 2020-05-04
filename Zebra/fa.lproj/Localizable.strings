@@ -69,7 +69,7 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
-"Automatic Refresh" = "Automatic Refresh";
+"Automatic Refresh" = "تازه‌سازی خودکار";
 
 // Accent Colors
 
@@ -104,7 +104,7 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "راه اندازی مجدد";
 "Refresh Icon Cache" = "بروزکردن حافظه آیکون‌ها";
 "Clear Image Cache" = "پاک کردن حافظه ی کش عکس ها";
 "Clear Sources Cache" = "پاک کردن حافظه سورس‌ها";
