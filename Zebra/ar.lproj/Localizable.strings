@@ -476,3 +476,5 @@
 
 "You are adding a repository that is not secure" = "أنت تقوم باضافة مستودع غير آمن";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "المعلومات المحملة من هذا المستودع ممكن ان لا تكون مشفرة. هل انت متأكد من اضافتها؟";
+
+"Unable to complete purchase" = "Unable to complete purchase";
