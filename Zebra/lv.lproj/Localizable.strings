@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Jaunākais";
 "Version" = "Versija";
 "Packages" = "Paketes";
 "Show Updates" = "Rādīt atjauninājumus";
 "Hide Updates" = "Slēpt Atjauninājumus";
 "Select Version" = "Ieslēgt versiju";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Izvēlies versiju, kuru instalēt:";
 "Select a version to upgrade to:" = "Izvēlies versiju, uz kuru jaunināt:";
 "Select a version to downgrade to:" = "Izvēlies versiju, kuru vaijag instalēt:";
 "Package" = "Pakete";
