@@ -393,86 +393,86 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nuk ishte në gjendje ta plotësonte këtë komandë sepse nuk ka lejet e duhura. Ju lutemi verifikoni lejet e vendosura në /usr/libexec/zebra/supersling dhe raportoni këtë çështje në GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "E pamundur për të hyrë në su/sling. Ju lutemi verifikoni që ekziston /usr/libexec/zebra/supersling.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk është në pronësi të root:wheel. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nuk ka leje për të përcaktuar uid ose gid. Ju lutemi verifikoni lejet e skedarit të vendosur në /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Gabim gjatë krijimit të direktorit të dokumentave: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Gabim gjatë krijimit të direktorit të listave: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Gabim gjatë krijimit të soruces.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Gabim gjatë krijimit të direktorit të debs: %@.";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Nuk mund të rifilloj. Ju lutemi rifilloni manualisht.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "ERROR: E pamundur që të bllokoj skedarin e statusit. Ju lutemi provoni përsëri.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "ERROR: Procesi duhet të rindizet. Ju lutemi provoni përsëri.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Leje e gabuar e dokumenteve.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Nuk mund të përcaktohet informacioni i pajisjes.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Shfaq paketat e veçuara në faqen bazë.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Rifresko burimet e Zebra-s kur hapet aplikacioni.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Shfaq postimet e fundit të komunitetit nga /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Kërkoni paketat kur jeni duke shkruar. Disaktivizimi i kësaj veçorie mund të zvogëlojë vonesën në pajisjet e vjetra.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfiguroni pamjen e veprimeve të rrëshqitjes së pamjes së tabelës.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Ndryshoni ngjyrën e tekstit që shfaqet në të gjithë Zebrën.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Ndryshoni temën e modës së errët të Zebra kur është aktivizuar.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Ndryshoni burimin e paketave të paraqitura në faqen kryesore.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repot e veçuara\" do të shfaq paketat e rastësishme nga repos që mbështesin API-në e Paketave të Veçuara.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"I rastësishëm\" do të shfaq paketat e rastësishme nga të gjitha repot që keni shtuar në Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Duke hyrë në burime lejon që të blihen paketat me pages.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filter";
+"Add Filter" = "Shto Filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "1 seksion i fshehur";
+"%lu Sections Hidden" = "%lu seksione të fshehur";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Seksione";
+"Select a Section" = "Zgjidhni një seksion";
+"Hide packages in these sections." = "Fsheh paketat në këto seksione.";
 
-"Sources" = "Sources";
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Sources" = "Burimet";
+"Select a Source" = "Zgjidhni një burim";
+"Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Përditësime";
+"Hide future updates from these packages." = "Fsheh përditësimet e ardhshme nga këto paketa.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Autorët";
+"Hide packages from these authors." = "Fsheh paketat nga këto autorë.";
+"Search for an Author" = "Kërkoni për një autor";
+"This author also goes by the following names:" = "Ky autor gjithashtu përngjan edhe me këto emra:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Gjuha";
+"Apply" = "Apliko";
+"Restart Required" = "Kërkohet rifillimi";
+"Zebra must be closed in order to change preferred language" = "Zebra duhet të mbyllet në mënyrë që të ndryshohet gjuha e preferuar";
+"Restart" = "Rifillo";
+"Use System Language" = "Përdorni gjuhën e sistemit";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Ju jeni duke shtuar një burim që nuk është i sigurt";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Të dhënët e shkarkuara nga ky burim mund të mos jenë të koduara. A jeni të sigurt që dëshironi ta shtoni?";
