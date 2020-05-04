@@ -398,7 +398,7 @@
     }
     
     BOOL archiveTypeEqual = [[object archiveType] isEqualToString:[self archiveType]];
-    BOOL repositoryURIEqual = [[object repositoryURI] hasSuffix:repositoryURISchemeless];
+    BOOL repositoryURIEqual = [[object repositoryURI] hasSuffix:repositoryURISchemeless ?: self.repositoryURI];
     BOOL distributionEqual = [[object distribution] isEqualToString:[self distribution]];
     
     BOOL componentsEqual = NO;
