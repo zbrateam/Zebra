@@ -6,12 +6,9 @@ on:
 
 jobs:
   build:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
-    - uses: webfactory/ssh-agent@v0.1.1
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Install Dependencies
       env:
         THEOS: theos
@@ -26,20 +23,12 @@ jobs:
         THEOS: theos
       run: |
         make package FINALPACKAGE=1
-        echo "##[set-output name=package;]$(ls -t packages/ | head -n1)"
-    - name: Upload package to release
-      uses: actions/upload-release-asset@v1.0.2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: https://uploads.github.com/repos/${{ github.repository }}/releases/${{ github.event.release.id }}/assets{?name,label}
-        asset_path: packages/${{ steps.build.outputs.package }}
-        asset_name: ${{ steps.build.outputs.package }}
-        asset_content_type: application/vnd.debian.binary-package
+        echo "::set-output name=package::$(ls -t packages | head -n1)"
+
     - name: Clone gh-pages
       run: |
-        git clone -b gh-pages git@github.com:wstyres/Zebra.git ~/website
-    - name: Move package to repo       
+        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/wstyres/Zebra.git ~/website
+    - name: Move package to repo
       if: "!github.event.release.prerelease"
       run: |
         mkdir ~/website/repo/newpackages
@@ -47,7 +36,7 @@ jobs:
         fn=$(ls -t | head -n1)
         echo $fn
         mv -f -- "$fn" ~/website/repo/newpackages
-    - name: Move package to beta repo       
+    - name: Move package to beta repo
       if: "github.event.release.prerelease"
       run: |
         mkdir ~/website/beta/newpackages
@@ -67,3 +56,28 @@ jobs:
         cd ~/website
         chmod +x beta_update.sh
         ./beta_update.sh
+
+    - name: Attach package to release
+      if: "!github.event.release.prerelease"
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
+    - name: Attach package to beta release
+      if: github.event.release.prerelease
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
+
+    - name: Build IPA package
+      id: ipa_build
+      if: "!github.event.release.prerelease"
+      env:
+        THEOS: theos
+      run: |
+        make ipa
+        echo "::set-output name=package::$(ls -t ipas | head -n1)"
+    - name: Attach IPA to release
+      if: "!github.event.release.prelease"
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      run: hub release edit -m '' -a ipas/${{ steps.ipa_build.outputs.package }} '${{ github.event.release.tag_name }}'
