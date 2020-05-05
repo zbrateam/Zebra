@@ -28,11 +28,16 @@
     ZBDatabaseManager *databaseManager;
     UIActivityIndicatorView *indicator;
     BOOL sourcesUpdating;
-    UINavigationController *queueNav;
 }
+
+@property (nonatomic) UINavigationController *popupController;
+@property (nonatomic, readonly) ZBQueueViewController *queueController;
+
 @end
 
 @implementation ZBTabBarController
+@synthesize queueController = _queueController;
+@synthesize popupController = _popupController;
 
 @synthesize forwardedSourceBaseURL;
 @synthesize forwardToPackageID;
@@ -205,15 +210,24 @@
 
 #pragma mark - Queue Popup Bar
 
-- (void)checkQueueNav {
-    if (!queueNav) {
-        queueNav = [[UINavigationController alloc] initWithRootViewController:[[ZBQueueViewController alloc] init]];
+- (UINavigationController *)popupController {
+    if (!_popupController) {
+        _popupController = [[UINavigationController alloc] initWithRootViewController:self.queueController];
     }
+    
+    return _popupController;
+}
+
+- (ZBQueueViewController *)queueController {
+    if (!_queueController) {
+        _queueController = [ZBQueueViewController new];
+    }
+    
+    return _queueController;
 }
 
 - (void)updateQueueBar {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self checkQueueNav];
         [self updateQueueBarPackageCount:[ZBQueue count]];
         
         LNPopupPresentationState state = self.popupPresentationState;
@@ -229,21 +243,18 @@
 - (void)updateQueueBarPackageCount:(int)count {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (count > 0) {
-            self->queueNav.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
-    //        queueNav.popupItem.image = [UIImage imageNamed:@"Unknown"];
-            self->queueNav.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
+            self.popupController.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+            self.popupController.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
         }
         else {
-            self->queueNav.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
-            self->queueNav.popupItem.subtitle = nil;
+            self.popupController.popupItem.title = NSLocalizedString(@"No Packages Queued", @"");
+            self.popupController.popupItem.subtitle = nil;
         }
     });
 }
 
 - (void)openQueue:(BOOL)openPopup {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self checkQueueNav];
-        
         LNPopupPresentationState state = self.popupPresentationState;
         if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
             return;
@@ -255,9 +266,9 @@
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleHoldGesture:)];
         longPress.minimumPressDuration = 1;
         longPress.delegate = self;
-    
+        
         [self.popupBar addGestureRecognizer:longPress];
-        [self presentPopupBarWithContentViewController:self->queueNav openPopup:openPopup animated:YES completion:nil];
+        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:nil];
     });
 }
 
@@ -289,6 +300,7 @@
         if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning || state == LNPopupPresentationStateClosed) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
             [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
+                self.popupController = nil;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
             }];
         }
