@@ -104,6 +104,8 @@
     } else {
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.edgesForExtendedLayout = UIRectEdgeNone;
+        self.navigationController.navigationBar.translucent = NO;
+        self.tabBarController.tabBar.translucent = NO;
     }
     
     if (!editOnly) {
@@ -378,7 +380,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         
         if (indexPath.row != 0) {
-            NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+            NSString *section = sectionNames[indexPath.row - 1];
             destination.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
             destination.title = section;
         } else {
