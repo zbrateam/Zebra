@@ -79,42 +79,36 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [ignoredUpdates count] ? 4 : 3;
+    return ignoredUpdates.count ? 4 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return [filteredSections count] + 1;
+            return filteredSections.count + 1;
         case 1:
-            return [filteredSources count] + 1;
+            return filteredSources.count + 1;
         case 2:
-            return [blockedAuthors count] + 1;
+            return blockedAuthors.count + 1;
         case 3:
-            return [ignoredUpdates count];
+            return ignoredUpdates.count;
         default:
             return 1;
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 65;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
-    
     switch (indexPath.section) {
-        case 0: {
-            if (indexPath.row < [filteredSections count]) {
-                cell.textLabel.text = filteredSections[indexPath.row];
-                cell.textLabel.textColor = [UIColor primaryTextColor];
-                
-                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
-                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
-                
-                return cell;
-            }
-            break;
-        }
         case 1: {
-            if (indexPath.row < [filteredSources count]) {
+            if (indexPath.row < filteredSources.count) {
                 ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
                 ZBSource *source = sources[indexPath.row];
                 
@@ -132,8 +126,8 @@
             break;
         }
         case 2: {
-            if (indexPath.row < [blockedAuthors count]) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
+            if (indexPath.row < blockedAuthors.count) {
+                UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 
@@ -165,9 +159,19 @@
         }
     }
     
-    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
-    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    cell.imageView.image = nil;
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
+    if (indexPath.row < filteredSections.count) {
+        cell.textLabel.text = filteredSections[indexPath.row];
+        cell.textLabel.textColor = [UIColor primaryTextColor];
+        
+        cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
+        [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+    }
+    else {
+        cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
+        cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+        cell.imageView.image = nil;
+    }
     
     return cell;
 }
@@ -288,7 +292,6 @@
                 [self presentViewController:nav animated:YES completion:nil];
             }
             break;
-            break;
         case 3:
             break;
     }
@@ -349,7 +352,7 @@
                 
                 [package setIgnoreUpdates:NO];
                 
-                if ([self->ignoredUpdates count]) {
+                if (self->ignoredUpdates.count) {
                     [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                 }
                 else {
