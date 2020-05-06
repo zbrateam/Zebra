@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import "ZBLiveSearchResultTableViewCell.h"
 
@@ -45,9 +46,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
-    
-    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, [[[[self presentingViewController] tabBarController] popupBar] frame].size.height, 0)];
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+
+    if ([ZBQueue count]) {
+        ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
+    }
 }
 
 #pragma mark - Table view data source

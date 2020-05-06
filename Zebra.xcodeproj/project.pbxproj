@@ -473,6 +473,7 @@
 		A53E54A4245B08740082BF69 /* ZBUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBUtils.m; sourceTree = "<group>"; };
 		A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Private.h"; sourceTree = "<group>"; };
 		A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
+		A5A7F1252462A66900461335 /* UIImage+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Private.h"; sourceTree = "<group>"; };
 		BFC6DB1C236D9B9000DA5534 /* ZBSettingsSelectionTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsSelectionTableViewController.h; sourceTree = "<group>"; };
 		BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsSelectionTableViewController.m; sourceTree = "<group>"; };
 		C3BF92BE2449144E00D903A7 /* UIFont+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+Zebra.h"; sourceTree = "<group>"; };
@@ -730,6 +731,7 @@
 				895071972239E2FD004AE338 /* MobileGestalt.h */,
 				A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */,
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
+				A5A7F1252462A66900461335 /* UIImage+Private.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
