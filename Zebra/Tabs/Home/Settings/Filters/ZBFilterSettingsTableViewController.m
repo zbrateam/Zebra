@@ -152,11 +152,12 @@
             break;
         }
         case 3: {
-            if (indexPath.row < [ignoredUpdates count]) {
+            if (indexPath.row < ignoredUpdates.count) {
                 ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
                 ZBPackage *package = ignoredUpdates[indexPath.row];
                 
                 [packageCell updateData:package];
+                [packageCell setColors];
                 
                 return packageCell;
             }
