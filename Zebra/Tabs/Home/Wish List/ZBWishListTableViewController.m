@@ -34,8 +34,8 @@
     [self.segmentedControl setTitle:NSLocalizedString(@"Newest First", @"") forSegmentAtIndex:0];
     [self.segmentedControl setTitle:NSLocalizedString(@"Oldest First", @"") forSegmentAtIndex:1];
     [self.segmentedControl addTarget:self action:@selector(selectionChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.segmentedControl setSelectedSegmentIndex:0];
-    [self.segmentedControl setTintColor:[UIColor accentColor]];
+    self.segmentedControl.selectedSegmentIndex = 0;
+    self.segmentedControl.tintColor = [UIColor accentColor];
     [self.toolbar setDelegate:self];
     
     [self selectionChanged:self.segmentedControl];
