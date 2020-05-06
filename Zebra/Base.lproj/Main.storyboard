@@ -1053,7 +1053,7 @@
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" title="Queue" id="uSZ-TC-nHR">
                         <leftBarButtonItems>
-                            <barButtonItem title="Item" image="Chevron Down" id="al0-qb-ba3">
+                            <barButtonItem image="Chevron Down" id="al0-qb-ba3">
                                 <connections>
                                     <action selector="dismissQueue:" destination="Utk-Km-MBH" id="5ty-3Y-xq6"/>
                                 </connections>
