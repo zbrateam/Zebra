@@ -447,7 +447,7 @@
     switch (action) {
         case ZBPackageActionInstall:
         case ZBPackageActionSelectVersion:
-            return useIcon ? @"⤓" : NSLocalizedString(@"Install", @"");
+            return useIcon ? @"⇩" : NSLocalizedString(@"Install", @"");
         case ZBPackageActionRemove:
             return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         case ZBPackageActionReinstall:
