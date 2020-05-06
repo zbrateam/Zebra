@@ -9,8 +9,8 @@
 @import SDWebImage;
 
 #import "ZBSourceImportTableViewController.h"
+#import "ZBAppDelegate.h"
 
-#import <ZBAppDelegate.h>
 #import <Extensions/UINavigationBar+Progress.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
@@ -91,7 +91,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (baseSources == NULL || titles == NULL) {
+    if (baseSources == nil || titles == nil) {
         [self processSourcesFromLists];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,11 +106,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         double trueProgress = self.navigationController.navigationBar.navProgressView.progress + progress;
         if (trueProgress >= 1.0) {
-            [self.navigationController.navigationBar.navProgressView setProgress:1.0f animated:YES];
-            [UIView animateWithDuration:0.5f animations:^{
-                [self.navigationController.navigationBar.navProgressView setAlpha:0.0f];
+            [self.navigationController.navigationBar.navProgressView setProgress:1.0 animated:YES];
+            [UIView animateWithDuration:0.5 animations:^{
+                [self.navigationController.navigationBar.navProgressView setAlpha:0.0];
             } completion:^(BOOL finished) {
-                [self setImportEnabled:YES];
+                [self setImportEnabled:[self shouldEnableImportButton]];
             }];
         }
         else {
@@ -121,8 +121,17 @@
 
 - (void)setImportEnabled:(BOOL)enabled {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.rightBarButtonItem.enabled = YES;
+        self.navigationItem.rightBarButtonItem.enabled = enabled;
     });
+}
+
+- (BOOL)shouldEnableImportButton {
+    for (NSString *bfn in selectedSources) {
+        if ([selectedSources[bfn] boolValue]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)cancel {
@@ -136,17 +145,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [baseSources count] ? [baseSources count] : 1;
+    return baseSources.count ?: 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([baseSources count]) {
+    if (baseSources.count) {
         ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell"];
         if (!cell) {
             cell = (ZBSourceTableViewCell *)[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"sourceTableViewCell"];
         }
         
-        ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+        ZBBaseSource *source = baseSources[indexPath.row];
         ZBSourceVerificationStatus status = source.verificationStatus;
         
         cell.sourceLabel.alpha = 1.0;
@@ -155,7 +164,7 @@
         [cell setSpinning:NO];
         switch (status) {
             case ZBSourceExists: {
-                BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
+                BOOL selected = [selectedSources[[source baseFilename]] boolValue];
                 cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             }
@@ -182,7 +191,7 @@
             }
         }
         
-        cell.sourceLabel.text = [self.titles objectForKey:[source baseFilename]];
+        cell.sourceLabel.text = self.titles[[source baseFilename]];
         cell.urlLabel.text = source.repositoryURI;
         
         [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -206,12 +215,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!baseSources.count) return;
     
-    ZBBaseSource *source = [baseSources objectAtIndex:indexPath.row];
+    ZBBaseSource *source = baseSources[indexPath.row];
     if (source && source.verificationStatus == ZBSourceExists) {
-        BOOL selected = [[selectedSources objectForKey:[source baseFilename]] boolValue];
+        BOOL selected = [selectedSources[[source baseFilename]] boolValue];
         
         [self setSource:source selected:!selected];
         [self updateCellForSource:source];
+        [self setImportEnabled:[self shouldEnableImportButton]];
     }
 }
 
@@ -249,12 +259,12 @@
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
     baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
     
-    sourcesToVerify = [baseSources count];
+    sourcesToVerify = baseSources.count;
     individualIncrement = (double) 1 / sourcesToVerify;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         for (ZBBaseSource *source in self->baseSources) {
-            [self->titles setObject:NSLocalizedString(@"Verifying...", @"") forKey:[source baseFilename]];
+            self->titles[[source baseFilename]] = NSLocalizedString(@"Verifying...", @"");
         }
         
         [self->sourceManager verifySources:[NSSet setWithArray:self->baseSources] delegate:self];
@@ -266,14 +276,14 @@
 - (void)setSource:(ZBBaseSource *)source selected:(BOOL)selected {
     if (source.verificationStatus != ZBSourceExists) return;
     
-    [self->selectedSources setObject:[NSNumber numberWithBool:selected] forKey:[source baseFilename]];
+    self->selectedSources[[source baseFilename]] = @(selected);
 }
 
 - (void)importSelected {
     NSMutableSet *sources = [NSMutableSet new];
     NSMutableArray *baseFilenames = [NSMutableArray new];
     for (NSString *baseFilename in [self->selectedSources allKeys]) {
-        if ([[self->selectedSources objectForKey:baseFilename] boolValue]) {
+        if ([self->selectedSources[baseFilename] boolValue]) {
             if (baseFilename) [baseFilenames addObject:baseFilename];
         }
     }
@@ -312,7 +322,7 @@
                 label = source.repositoryURI;
             }
             
-            [self->titles setObject:label forKey:[source baseFilename]];
+            self->titles[[source baseFilename]] = label;
             [self setSource:source selected:YES];
             [self updateCellForSource:source];
             
@@ -320,7 +330,7 @@
         }];
     }
     else if (status == ZBSourceImaginary) {
-        [self->titles setObject:NSLocalizedString(@"Unable to verify source", @"") forKey:[source baseFilename]];
+        self->titles[[source baseFilename]] = NSLocalizedString(@"Unable to verify source", @"");
         [self updateCellForSource:source];
         
         [self increaseProgressBy:individualIncrement];
