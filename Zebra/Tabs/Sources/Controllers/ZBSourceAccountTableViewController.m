@@ -270,7 +270,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section == 1 && ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
+    return indexPath.section == 1 && [purchases count] && ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -278,7 +278,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 || ![purchases count]) {
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];
@@ -297,6 +297,9 @@
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+    if (indexPath.section == 0 || ![purchases count]) {
+        return nil;
+    }
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         return weakSelf.previewPackageDepictionVC;
@@ -317,6 +320,11 @@
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+
+    if (indexPath.section == 0 || ![purchases count]) {
+        return nil;
+    }
+
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
     ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
