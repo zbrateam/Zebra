@@ -61,6 +61,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if (@available(iOS 11.0, *)) {
+    }
+    else {
+        searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
+        searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
+    }
 //    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
@@ -82,12 +88,6 @@
         searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Search for an Author", @"");
         searchController.hidesNavigationBarDuringPresentation = NO;
-        if (@available(iOS 11.0, *)) {
-        }
-        else {
-            searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-            searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
-        }
     }
     
     if (@available(iOS 13.0, *)) {
