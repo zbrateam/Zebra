@@ -9,6 +9,7 @@
 #import "ZBAuthorSelectorTableViewController.h"
 
 #import <ZBSettings.h>
+#import <Headers/UIImage+Private.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
@@ -81,6 +82,12 @@
         searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Search for an Author", @"");
         searchController.hidesNavigationBarDuringPresentation = NO;
+        if (@available(iOS 11.0, *)) {
+        }
+        else {
+            searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
+            searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
+        }
     }
     
     if (@available(iOS 13.0, *)) {
