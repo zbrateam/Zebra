@@ -41,8 +41,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoInstalledFiles
 };
 
-static const NSUInteger ZBPackageInfoOrderCount = 8;
-
 @interface ZBPackageDepictionViewController () {
     NSMutableDictionary<NSNumber *, NSString *> *infos;
     UIProgressView *progressView;
@@ -498,10 +496,6 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (NSUInteger)rowCount {
-    return infos.count;
-}
-
 - (void)sendEmailToDeveloper {
     NSString *subject = [NSString stringWithFormat:@"Zebra/APT(Z): %@ (%@)", package.name, package.version]; //don't really know what the (Z) is for but Sileo uses (M) and Cydia uses (A) so i figured (Z) was cool
     NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
@@ -631,7 +625,7 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     assert(section == 0);
-    return ZBPackageInfoOrderCount;
+    return infos.count;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
