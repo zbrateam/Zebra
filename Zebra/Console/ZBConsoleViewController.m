@@ -155,17 +155,22 @@
     
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *app = [self.navigationController.navigationBar.standardAppearance copy];
-        [app setBackgroundEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-        [app setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-        [self.navigationController.navigationBar setStandardAppearance:app];
-        [self.navigationController.navigationBar setScrollEdgeAppearance:app];
-        [self.navigationController.navigationBar setOverrideUserInterfaceStyle:UIUserInterfaceStyleDark];
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+        app.backgroundEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        app.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        self.navigationController.navigationBar.standardAppearance = app;
+        self.navigationController.navigationBar.scrollEdgeAppearance = app;
+        self.navigationController.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     }
     else {
-        [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-        [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+        self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
+        if (@available(iOS 11.0, *)) {}
+        else {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+            self.view.preservesSuperviewLayoutMargins = YES;
+            self.navigationController.navigationBar.translucent = NO;
+        }
     }
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     [[[[ZBAppDelegate tabBarController] popupContentView] popupInteractionGestureRecognizer] setDelegate:self];
 }
