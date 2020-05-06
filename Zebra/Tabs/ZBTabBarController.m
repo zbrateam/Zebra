@@ -299,7 +299,7 @@
         LNPopupPresentationState state = self.popupPresentationState;
         if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning || state == LNPopupPresentationStateClosed) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-            [[ZBAppDelegate tabBarController] dismissPopupBarAnimated:YES completion:^{
+            [self dismissPopupBarAnimated:YES completion:^{
                 self.popupController = nil;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
             }];

@@ -438,7 +438,7 @@
                 ZBLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
                 
                 BOOL ignoreUpdates = [topPackage ignoreUpdates];
-                if (!ignoreUpdates) numberOfUpdates++;
+                if (!ignoreUpdates) ++numberOfUpdates;
                 NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [topPackage identifier], [topPackage version], ignoreUpdates ? 1 : 0];
                 
                 if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
