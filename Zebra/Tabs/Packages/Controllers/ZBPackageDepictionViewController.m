@@ -90,6 +90,9 @@ static const NSUInteger ZBPackageInfoOrderCount = 8;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+    else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    }
     
     self.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     
