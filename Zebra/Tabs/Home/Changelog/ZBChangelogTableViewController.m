@@ -132,7 +132,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSDictionary *jsonDict = [releases objectAtIndex:section];
-    return jsonDict[@"name"] ? jsonDict[@"name"] : @"Error";
+    return jsonDict[@"name"] ?: @"Error";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

@@ -64,13 +64,13 @@
     
     //Populate package managers
     NSArray *managers = [self packageManagers];
-    if ([managers count]) {
+    if (managers.count) {
         [communitySources addObject:managers];
     }
     
     //Populate utility source
     NSArray *utilitySources = [self utilitySources];
-    if ([utilitySources count]) {
+    if (utilitySources.count) {
         [communitySources addObject:utilitySources];
     }
     [self.tableView reloadData];
@@ -88,11 +88,11 @@
         NSMutableArray *sources = [NSMutableArray new];
         if (data && !error) {
             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if ([json objectForKey:@"repos"]) {
+            if (json[@"repos"]) {
                 NSArray *jsonSources = json[@"repos"];
                 for (NSDictionary *source in jsonSources) {
-                    NSString *version = [source objectForKey:@"appVersion"];
-                    NSString *url = [source objectForKey:@"url"];
+                    NSString *version = source[@"appVersion"];
+                    NSString *url = source[@"url"];
                     if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
                         [sources addObject:source];
                     }
@@ -112,7 +112,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
-            self.navigationItem.titleView = NULL;
+            self.navigationItem.titleView = nil;
             self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
         });
     }];
@@ -189,17 +189,16 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [communitySources count] == 0 ? 1 : [communitySources count];
+    return communitySources.count == 0 ? 1 : communitySources.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [communitySources count] == 0 ? 1 : [[communitySources objectAtIndex:section] count];
+    return communitySources.count == 0 ? 1 : communitySources[section].count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *info = [[communitySources objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *type = [info objectForKey:@"type"];
+    NSDictionary *info = communitySources[indexPath.section][indexPath.row];
+    NSString *type = info[@"type"];
     
     if ([type isEqualToString:@"none"]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noneLeftCell"];
@@ -220,14 +219,14 @@
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
-    [cell.sourceLabel setText:[info objectForKey:@"name"]];
-    [cell.sourceLabel setTextColor:[UIColor primaryTextColor]];
+    cell.sourceLabel.text = info[@"name"];
+    cell.sourceLabel.textColor = [UIColor primaryTextColor];
     
-    NSString *subtitle = [info objectForKey:@"label"] ? [info objectForKey:@"label"] : [info objectForKey:@"url"];
-    [cell.urlLabel setText:subtitle];
-    [cell.urlLabel setTextColor:[UIColor secondaryTextColor]];
+    NSString *subtitle = info[@"label"] ?: info[@"url"];
+    cell.urlLabel.text = subtitle;
+    cell.urlLabel.textColor = [UIColor secondaryTextColor];
     
-    NSURL *iconURL = [NSURL URLWithString:[info objectForKey:@"icon"]];
+    NSURL *iconURL = [NSURL URLWithString:info[@"icon"]];
     [cell.iconImageView sd_setImageWithURL:iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
@@ -236,9 +235,9 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if ([communitySources count]) {
-        NSDictionary *info = [[communitySources objectAtIndex:section] objectAtIndex:0];
-        NSString *type = [info objectForKey:@"type"];
+    if (communitySources.count) {
+        NSDictionary *info = communitySources[section][0];
+        NSString *type = info[@"type"];
 
         NSArray *options = @[@"transfer", @"utility", @"repo", @"none"];
         switch ([options indexOfObject:type]) {
@@ -256,14 +255,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *info = [[communitySources objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-    NSString *type = [info objectForKey:@"type"];
+    NSDictionary *info = communitySources[indexPath.section][indexPath.row];
+    NSString *type = info[@"type"];
     
     NSArray *options = @[@"transfer", @"utility", @"repo"];
     switch ([options indexOfObject:type]) {
         case 0: {
             dispatch_async(dispatch_get_main_queue(), ^{
-                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[[NSURL URLWithString:[info objectForKey:@"url"]]] extension:[info objectForKey:@"ext"]];
+                ZBSourceImportTableViewController *importController = [[ZBSourceImportTableViewController alloc] initWithPaths:@[[NSURL URLWithString:info[@"url"]]] extension:info[@"ext"]];
                 
                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
                 [self presentViewController:navController animated:YES completion:nil];
@@ -272,7 +271,7 @@
         }
         case 1:
         case 2: {
-            NSString *url = [info objectForKey:@"url"];
+            NSString *url = info[@"url"];
             ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
             if (source) {
                 [sourceManager addBaseSources:[NSSet setWithObject:source]];
