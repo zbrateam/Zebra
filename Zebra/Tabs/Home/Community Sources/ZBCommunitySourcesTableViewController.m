@@ -26,23 +26,15 @@
 @synthesize communitySources;
 @synthesize sourceManager;
 
++ (BOOL)hasSpinner {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
-    [spinner startAnimating];
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            break;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            break;
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];

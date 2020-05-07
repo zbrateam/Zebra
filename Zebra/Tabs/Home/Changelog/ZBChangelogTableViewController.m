@@ -21,25 +21,16 @@
 
 @synthesize releases;
 
++ (BOOL)hasSpinner {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            break;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            break;
-    }
-    
-    [spinner startAnimating];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
