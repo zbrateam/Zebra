@@ -6,18 +6,20 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "ZBChangesTableViewController.h"
+#import "ZBRedditPosts.h"
+
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import <ZBSettings.h>
+#import <ZBDevice.h>
 #import <ZBPackagePartitioner.h>
-#import "ZBChangesTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import "ZBRedditPosts.h"
-#import <ZBDevice.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @import SDWebImage;
 @import FirebaseAnalytics;
@@ -49,10 +51,9 @@
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
     [self.collectionView registerNib:[UINib nibWithNibName:@"ZBNewsCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"newsCell"];
-    [self.collectionView setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
-    [self.collectionView setShowsHorizontalScrollIndicator:NO];
-    [self.collectionView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
+    self.collectionView.showsHorizontalScrollIndicator = NO;
+    self.collectionView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
@@ -69,12 +70,6 @@
     [self startSettingHeader];
     self.batchLoadCount = 250;
     [self refreshTable];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)applyLocalization {

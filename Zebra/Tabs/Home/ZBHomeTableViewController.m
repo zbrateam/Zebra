@@ -6,9 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
+#import "ZBPackageDepictionViewController.h"
+
+#import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Community Sources/ZBCommunitySourcesTableViewController.h>
@@ -67,7 +69,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
-    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
+    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     [self setupFeatured];
     
     if (@available(iOS 13.0, *)) {
@@ -93,7 +95,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserStartedScreenCaptureNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserEndedScreenCaptureNotification object:nil];
     
-    [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
+    self.darkModeButton.image = [[ZBThemeManager sharedInstance] toggleImage];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -664,7 +666,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable {
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];

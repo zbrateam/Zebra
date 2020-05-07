@@ -7,9 +7,11 @@
 //
 
 #import "ZBChangelogTableViewController.h"
+
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBChangelogTableViewController ()
 
@@ -19,33 +21,20 @@
 
 @synthesize releases;
 
++ (BOOL)hasSpinner {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            break;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            break;
-    }
-    
-    [spinner startAnimating];
-    
-    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (releases == NULL) {
         releases = [NSMutableArray new];
@@ -98,7 +87,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [releases count];
+    return releases.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -107,13 +96,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"changeLogCell";
-    NSDictionary *dataDict = [releases objectAtIndex:indexPath.section];
+    NSDictionary *dataDict = releases[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    if ([dataDict objectForKey:@"body"]) {
+    if (dataDict[@"body"]) {
         [cell.textLabel setText:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
@@ -122,16 +111,8 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDictionary *jsonDict = [releases objectAtIndex:section];
+    NSDictionary *jsonDict = releases[section];
     return jsonDict[@"name"] ?: @"Error";
 }
 

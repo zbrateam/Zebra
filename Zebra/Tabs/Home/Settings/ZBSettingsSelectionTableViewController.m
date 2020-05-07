@@ -47,7 +47,6 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(self.title, @"");
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     
     selectedValue = (NSInteger)[ZBSettings performSelector:settingsGetter];
     
@@ -71,7 +70,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [options count];
+    return options.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

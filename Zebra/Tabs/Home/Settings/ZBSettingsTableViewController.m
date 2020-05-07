@@ -8,8 +8,6 @@
 
 #import "ZBSettingsTableViewController.h"
 #import "ZBSettingsSelectionTableViewController.h"
-#import <ZBSettings.h>
-#import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
@@ -18,6 +16,8 @@
 #import "ZBLanguageSettingsTableViewController.h"
 #import "ZBSourceSelectTableViewController.h"
 
+#import <ZBSettings.h>
+#import <Queue/ZBQueue.h>
 #import <Sources/Helpers/ZBSource.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
@@ -81,9 +81,6 @@ enum ZBMiscOrder {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {

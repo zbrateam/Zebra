@@ -50,7 +50,6 @@
     self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
@@ -212,21 +211,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     }
 }
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return [self hasDataInSection:section] ? 30 : 0;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if ([self hasDataInSection:section]) {
-//        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
-//        view.textLabel.textColor = [UIColor primaryTextColor];
-//
-//        return view;
-//    }
-//
-//    return NULL;
-//}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (![self hasDataInSection:section])

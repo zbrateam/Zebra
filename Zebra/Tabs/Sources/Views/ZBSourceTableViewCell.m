@@ -23,7 +23,7 @@
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-    [spinner setColor:[UIColor grayColor]];
+    spinner.color = [UIColor grayColor];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

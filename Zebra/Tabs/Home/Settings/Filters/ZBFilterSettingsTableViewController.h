@@ -6,11 +6,11 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Extensions/ZBTableViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBFilterSettingsTableViewController : UITableViewController
+@interface ZBFilterSettingsTableViewController : ZBTableViewController
 
 @end
 

@@ -7,9 +7,10 @@
 //
 
 #import "ZBAlternateIconController.h"
-#import "UIColor+GlobalColors.h"
+
 #import <ZBDevice.h>
-#import "UIImageView+Zebra.h"
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBAlternateIconController ()
 
@@ -66,7 +67,7 @@
     if (!name) return [self icons][0];
     
     for (NSDictionary *icon in [self icons]) {
-        if ([[icon objectForKey:@"iconName"] isEqualToString:name]) {
+        if ([icon[@"iconName"] isEqualToString:name]) {
             return icon;
         }
     }
@@ -83,11 +84,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -95,29 +91,29 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[ZBAlternateIconController icons] count];
+    return [ZBAlternateIconController icons].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *icon = [[ZBAlternateIconController icons] objectAtIndex:indexPath.row];
+    NSDictionary *icon = [ZBAlternateIconController icons][indexPath.row];
     
-    BOOL border = [[icon objectForKey:@"border"] boolValue];
-    BOOL author = [icon objectForKey:@"author"] != NULL;
+    BOOL border = [icon[@"border"] boolValue];
+    BOOL author = icon[@"author"] != nil;
     NSString *cellIdentifier = author ? @"alternateIconCellSubtitle" : @"alternateIconCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    cell.textLabel.text = [icon objectForKey:@"readableName"];
+    cell.textLabel.text = icon[@"readableName"];
     cell.textLabel.textColor = [UIColor primaryTextColor];
     
     if (author) {
-        cell.detailTextLabel.text = [icon objectForKey:@"author"];
+        cell.detailTextLabel.text = icon[@"author"];
         cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     }
     
-    cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+    cell.imageView.image = [UIImage imageNamed:icon[@"iconName"]];
     [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:YES];
     if (border) [cell.imageView applyBorder];
 
@@ -130,8 +126,8 @@
     }
     
     NSString *iconName = nil;
-    if ([indexPath row] > 0) {
-        iconName = [icon objectForKey:@"iconName"];
+    if (indexPath.row > 0) {
+        iconName = icon[@"iconName"];
     }
     
     if ([iconSelected isEqualToString:iconName] || iconSelected == iconName) {
@@ -140,7 +136,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    [cell setTintColor:[UIColor accentColor]];
+    cell.tintColor = [UIColor accentColor];
     return cell;
 }
 

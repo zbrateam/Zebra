@@ -7,11 +7,17 @@
 //
 
 #import "ZBWishListTableViewController.h"
+#import "ZBPackageDepictionViewController.h"
+#import "ZBPackageActions.h"
+
 #import <ZBSettings.h>
 #import <ZBQueue.h>
 #import <ZBDevice.h>
+#import <Database/ZBDatabaseManager.h>
 #import <Extensions/UINavigationBar+Progress.h>
-#import <ZBSettings.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
+#import <Packages/Helpers/ZBPackage.h>
 
 @interface ZBWishListTableViewController () {
     UIImageView *shadowView;
@@ -53,19 +59,18 @@
 
 - (void)updateShareButtonState {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.rightBarButtonItem.enabled = [self->wishedPackages count] != 0;
+        self.navigationItem.rightBarButtonItem.enabled = self->wishedPackages.count != 0;
     });
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     
     if (!shadowView) {
         shadowView = [self findBorderLineUnder:self.navigationController.navigationBar];
     }
-    [shadowView setHidden:YES];
+    shadowView.hidden = YES;
     
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
             self.toolbar.barStyle = UIBarStyleDefault;
@@ -82,11 +87,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [shadowView setHidden:NO];
+    shadowView.hidden = NO;
 }
 
 - (void)export {
-    if ([wishedPackages count] == 0) {
+    if (wishedPackages.count == 0) {
         return;
     }
     NSArray *packages = [wishedPackages copy];
@@ -118,7 +123,7 @@
             return imageView;
         }
     }
-    return NULL;
+    return nil;
 }
 
 - (void)selectionChanged:(UISegmentedControl *)control {
@@ -130,7 +135,7 @@
     NSArray *nullCheck = [wishedPackageIdentifiers copy];
     for (NSString *packageID in nullCheck) {
         ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-        if (package == NULL) {
+        if (package == nil) {
             [wishedPackageIdentifiers removeObject:package];
         }
         else if (![wishedPackages containsObject:package]) {
@@ -139,9 +144,9 @@
     }
     
     if (index == 0) {
-        if ([wishedPackages count] <= 1) return;
+        if (wishedPackages.count <= 1) return;
         NSUInteger i = 0;
-        NSUInteger j = [wishedPackages count] - 1;
+        NSUInteger j = wishedPackages.count - 1;
         while (i < j) {
             [wishedPackages exchangeObjectAtIndex:i withObjectAtIndex:j];
             ++i;
@@ -155,24 +160,20 @@
 
 #pragma mark - Table View Data Source
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
-}
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if ([wishedPackages count] == 0) {
+    if (wishedPackages.count == 0) {
         return 1;
     }
     
-    return [wishedPackages count];
+    return wishedPackages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([wishedPackages count] == 0) {
+    if (wishedPackages.count == 0) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noWishesCell"];
         cell.textLabel.text = NSLocalizedString(@"No items in Wish List", @"");
         cell.backgroundColor = [UIColor clearColor];
@@ -187,7 +188,7 @@
         ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         [cell setColors];
         
-        ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
+        ZBPackage *package = wishedPackages[indexPath.row];
         [(ZBPackageTableViewCell *)cell updateData:package];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         
@@ -207,7 +208,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        ZBPackage *package = [self->wishedPackages objectAtIndex:indexPath.row];
+        ZBPackage *package = self->wishedPackages[indexPath.row];
         
         [self->wishedPackages removeObject:package];
         [self->wishedPackageIdentifiers removeObject:[package identifier]];
@@ -218,7 +219,7 @@
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     }];
     
-    [remove setBackgroundColor:[UIColor systemPinkColor]];
+    remove.backgroundColor = [UIColor systemPinkColor];
     
     return @[remove];
 }
@@ -231,7 +232,7 @@
     if ([[segue identifier] isEqualToString:@"segueWishToPackageDepiction"]) {
         ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
         NSIndexPath *indexPath = sender;
-        destination.package = [wishedPackages objectAtIndex:indexPath.row];
+        destination.package = wishedPackages[indexPath.row];
         destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
@@ -246,7 +247,7 @@
         }
         typeof(self) __strong strongSelf = weakSelf;
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        weakSelf.previewPackageDepictionVC.package = [strongSelf.wishedPackages objectAtIndex:indexPath.row];
+        weakSelf.previewPackageDepictionVC.package = strongSelf.wishedPackages[indexPath.row];
         weakSelf.previewPackageDepictionVC.parent = weakSelf;
         return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
     }];

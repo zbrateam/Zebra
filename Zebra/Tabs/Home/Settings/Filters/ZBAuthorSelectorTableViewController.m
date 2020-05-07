@@ -65,7 +65,9 @@
     }
     else {
         searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
+        searchController.searchBar.backgroundImage = [searchController.searchBar.backgroundImage _flatImageWithColor:searchController.searchBar.barTintColor];
+        searchController.searchBar.layer.borderColor = searchController.searchBar.barTintColor.CGColor;
+        searchController.searchBar.layer.borderWidth = 1.0;
     }
 //    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
@@ -192,7 +194,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [authors count];
+    return authors.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -220,7 +222,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    if ([selectedAuthors objectForKey:authorDetail[1]]) {
+    if (selectedAuthors[authorDetail[1]]) {
         [selectedAuthors removeObjectForKey:authorDetail[1]];
     }
     else if (authorDetail[1].length) {

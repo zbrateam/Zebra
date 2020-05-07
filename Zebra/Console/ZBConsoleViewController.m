@@ -81,7 +81,7 @@
 
 // Prevent old tweaks from crashing
 - (id)initWithLocalFile:(NSString *)file {
-    return NULL;
+    return nil;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -135,17 +135,17 @@
     progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];
-    [[self progressView] setProgressTintColor:[UIColor accentColor]];
+    self.progressView.progressTintColor = [UIColor accentColor];
     
     ZBAccentColor color = [ZBSettings accentColor];
     ZBInterfaceStyle style = [ZBSettings interfaceStyle];
     if (color == ZBAccentColorMonochrome) {
         //Flip the colors for readability
-        [[self completeButton] setBackgroundColor:[UIColor whiteColor]];
-        [[self completeButton] setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        self.completeButton.backgroundColor = [UIColor whiteColor];
+        [self.completeButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
     else {
-        [[self completeButton] setBackgroundColor:[ZBThemeManager getAccentColor:color forInterfaceStyle:style] ?: [UIColor systemBlueColor]];
+        self.completeButton.backgroundColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:style] ?: [UIColor systemBlueColor];
     }
     
     [self setProgressTextHidden:YES];
@@ -210,7 +210,7 @@
                 }
                 else {
                     if (currentStage == ZBStageRemove) {
-                        for (int i = COMMAND_START; i < [command count]; ++i) {
+                        for (int i = COMMAND_START; i < command.count; ++i) {
                             NSString *packageID = command[i];
                             if (![self isValidPackageID:packageID]) continue;
                             
@@ -284,7 +284,7 @@
                 }
             }
             
-            for (int i = 0; i < [installedPackageIdentifiers count]; i++) {
+            for (int i = 0; i < installedPackageIdentifiers.count; ++i) {
                 NSString *packageIdentifier = installedPackageIdentifiers[i];
                 NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageIdentifier];
                 if (bundlePath && ![applicationBundlePaths containsObject:bundlePath]) {
@@ -603,7 +603,7 @@
             string = [str stringByAppendingString:@"\n"];
         }
         
-        if (string == NULL) {
+        if (string == nil) {
             return;
         }
         
@@ -629,18 +629,18 @@
         }
         else if (self->currentStage == ZBStageFinished) {
             self.cancelOrCloseButton.enabled = !self->zebraRestartRequired;
-            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Close", @"")];
+            self.cancelOrCloseButton.title = NSLocalizedString(@"Close", @"");
         }
         else {
             self.cancelOrCloseButton.enabled = YES;
-            [self.cancelOrCloseButton setTitle:NSLocalizedString(@"Cancel", @"")];
+            self.cancelOrCloseButton.title = NSLocalizedString(@"Cancel", @"");
         }
         
         if (self.cancelOrCloseButton.enabled) {
-            [self.cancelOrCloseButton setTintColor:[UIColor whiteColor]];
+            self.cancelOrCloseButton.tintColor = [UIColor whiteColor];
         }
         else {
-            [self.cancelOrCloseButton setTintColor:[UIColor clearColor]];
+            self.cancelOrCloseButton.tintColor = [UIColor clearColor];
         }
     });
 }
@@ -771,7 +771,7 @@
 }
 
 - (void)finishedAllDownloads {
-    [self performSelectorInBackground:@selector(performTasks) withObject:NULL];
+    [self performSelectorInBackground:@selector(performTasks) withObject:nil];
     
     suppressCancel = YES;
     [self updateCancelOrCloseButton];

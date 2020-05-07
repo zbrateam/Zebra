@@ -30,6 +30,11 @@
     [package setIconImageForImageView:self.packageIconImageView];
 }
 
+- (void)setColors {
+    self.packageNameLabel.textColor = [UIColor primaryTextColor];
+    self.backgroundColor = [UIColor cellBackgroundColor];
+}
+
 - (void)prepareForReuse {
     [super prepareForReuse];
     [[self packageIconImageView] sd_cancelCurrentImageLoad];

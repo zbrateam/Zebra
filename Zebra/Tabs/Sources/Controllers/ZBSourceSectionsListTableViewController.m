@@ -5,18 +5,21 @@
 //  Created by Wilson Styres on 3/24/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
+
 #import "ZBSourceSectionsListTableViewController.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import "UIBarButtonItem+blocks.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import "ZBSourcesAccountBanner.h"
+
+#import <ZBAppDelegate.h>
+#import <ZBDevice.h>
+#import <UIColor+GlobalColors.h>
+#import <Database/ZBDatabaseManager.h>
+#import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
+#import <Sources/Helpers/ZBSource.h>
+#import <Sources/Helpers/ZBSourceManager.h>
+#import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
 
 @import SDWebImage;
@@ -138,13 +141,6 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -311,7 +307,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sectionNames count] + 1;
+    return sectionNames.count + 1;
 }
 
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -335,7 +331,7 @@
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
         cell.imageView.image = nil;
     } else {
-        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+        NSString *section = sectionNames[indexPath.row - 1];
         cell.textLabel.text = NSLocalizedString(section, @"");
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
@@ -348,7 +344,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
     
-    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections removeObject:section];
     [ZBSettings setSection:section filtered:NO forSource:self.source];
 }
@@ -356,7 +352,7 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
     
-    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections addObject:section];
     [ZBSettings setSection:section filtered:YES forSource:self.source];
 }
@@ -427,7 +423,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_featuredPackages count];
+    return _featuredPackages.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

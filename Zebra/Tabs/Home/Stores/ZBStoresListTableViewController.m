@@ -6,10 +6,12 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "ZBStoresListTableViewController.h"
+#import "UICKeyChainStore.h"
+
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <UIColor+GlobalColors.h>
-#import "ZBStoresListTableViewController.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Views/ZBSourceTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
@@ -42,12 +44,6 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 #pragma mark - Table view data source

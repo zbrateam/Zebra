@@ -6,13 +6,13 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Extensions/ZBTableViewController.h>
 
 #import "../Helpers/ZBSourceVerificationDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceImportTableViewController : UITableViewController <ZBSourceVerificationDelegate>
+@interface ZBSourceImportTableViewController : ZBTableViewController <ZBSourceVerificationDelegate>
 @property (nonatomic) NSMutableArray <NSURL *> *sourceFilesToImport;
 - (id)initWithPaths:(NSArray <NSURL *> *)filePaths;
 - (id)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension;

@@ -6,11 +6,11 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Extensions/ZBTableViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSectionSelectorTableViewController : UITableViewController
+@interface ZBSectionSelectorTableViewController : ZBTableViewController
 @property void (^sectionsSelected)(NSArray *selectedSections);
 @end
 

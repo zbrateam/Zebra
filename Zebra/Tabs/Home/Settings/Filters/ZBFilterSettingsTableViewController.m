@@ -73,7 +73,7 @@
     
     ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
     
-    [[self tableView] reloadData];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table View Data Source
@@ -95,14 +95,6 @@
         default:
             return 1;
     }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -208,7 +200,7 @@
         case 3:
             return NSLocalizedString(@"Updates", @"");
     }
-    return NULL;
+    return nil;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
@@ -222,7 +214,7 @@
         case 3:
             return NSLocalizedString(@"Hide future updates from these packages.", @"");
     }
-    return NULL;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -364,7 +356,7 @@
             return @[deleteFilterAction];
         }
         default:
-            return NULL;
+            return nil;
     }
 }
 
