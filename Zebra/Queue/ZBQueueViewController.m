@@ -21,7 +21,7 @@
 
 @interface ZBQueueViewController () {
     ZBQueue *queue;
-    NSArray *packages;
+    NSArray <NSArray *> *packages;
 }
 @end
 
@@ -61,8 +61,6 @@
 //            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
 //        }
 //    }
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
     
@@ -133,29 +131,27 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [packages count];
+    return packages.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [packages[section] count];
+    return packages[section].count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     NSArray <NSNumber *> *actions = [queue actionsToPerform];
-    if ([actions count] == 0) {
+    if (actions.count == 0) {
         return @"No Actions to Perform";
     }
-    else if (section > [actions count] - 1) {
+    if (section > actions.count - 1) {
         return [NSString stringWithFormat:@"Unrecognized Action %ld", (long)section];
     }
-    else {
-        ZBQueueType action = actions[section].intValue;
-        NSString *downloadSize = [queue downloadSizeForQueue:action];
-        NSMutableString *title = [[queue displayableNameForQueueType:action] mutableCopy];
-        if (downloadSize) [title appendFormat:@" (%@: %@)", NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
-        
-        return title;
-    }
+    ZBQueueType action = actions[section].intValue;
+    NSString *downloadSize = [queue downloadSizeForQueue:action];
+    NSMutableString *title = [[queue displayableNameForQueueType:action] mutableCopy];
+    if (downloadSize) [title appendFormat:@" (%@: %@)", NSLocalizedString(@"Download Size", @""), [queue downloadSizeForQueue:action]];
+    
+    return title;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

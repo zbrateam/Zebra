@@ -50,7 +50,6 @@
     self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;

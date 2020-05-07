@@ -6,13 +6,14 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "ZBTableViewController.h"
+
 #import <Database/ZBDatabaseDelegate.h>
 #import <Database/ZBDatabaseManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRefreshableTableViewController : UITableViewController <ZBDatabaseDelegate>
+@interface ZBRefreshableTableViewController : ZBTableViewController <ZBDatabaseDelegate>
 @property (nonatomic, strong) ZBDatabaseManager *databaseManager;
 - (void)setSourceRefreshIndicatorVisible:(BOOL)visible;
 - (void)didEndRefreshing;

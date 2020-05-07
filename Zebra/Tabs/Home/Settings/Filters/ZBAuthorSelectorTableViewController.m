@@ -194,7 +194,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [authors count];
+    return authors.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -222,7 +222,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    if ([selectedAuthors objectForKey:authorDetail[1]]) {
+    if (selectedAuthors[authorDetail[1]]) {
         [selectedAuthors removeObjectForKey:authorDetail[1]];
     }
     else if (authorDetail[1].length) {

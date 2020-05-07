@@ -7,12 +7,15 @@
 //
 
 #import "ZBSearchResultsTableViewController.h"
+#import "ZBLiveSearchResultTableViewCell.h"
+
+#import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Queue/ZBQueue.h>
-#import <ZBAppDelegate.h>
-#import "ZBLiveSearchResultTableViewCell.h"
+#import <Extensions/UIColor+GlobalColors.h>
 
 @import LNPopupController;
 
@@ -46,8 +49,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-
     if ([ZBQueue count]) {
         ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
@@ -85,7 +86,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= filteredResults.count) return NULL;
+    if (indexPath.row >= filteredResults.count) return nil;
     
     NSObject *quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
@@ -93,6 +94,7 @@
         
         ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
         [cell updateData:proxyPackage];
+        [cell setColors];
         
         return cell;
     }
@@ -101,6 +103,7 @@
         
         ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         [cell updateData:package];
+        [cell setColors];
         
         return cell;
     }

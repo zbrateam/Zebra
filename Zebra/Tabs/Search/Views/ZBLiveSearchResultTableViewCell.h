@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 - (void)updateData:(ZBProxyPackage *)package;
+- (void)setColors;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Extensions/ZBTableViewController.h>
 #import "ZBDevice.h"
-#import <Extensions/UIColor+GlobalColors.h>
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
 #import "ZBAlternateIconController.h"
 @import SDWebImage;
 
-@interface ZBSettingsTableViewController : UITableViewController <UINavigationControllerDelegate>
+@interface ZBSettingsTableViewController : ZBTableViewController <UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *headerContainer;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

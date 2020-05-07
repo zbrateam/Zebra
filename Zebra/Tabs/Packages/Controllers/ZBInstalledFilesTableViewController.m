@@ -7,7 +7,9 @@
 //
 
 #import "ZBInstalledFilesTableViewController.h"
-#import "UIColor+GlobalColors.h"
+
+#import <Extensions/UIColor+GlobalColors.h>
+
 @interface ZBInstalledFilesTableViewController ()
 
 @end
@@ -24,11 +26,6 @@
     files = [NSMutableArray new];
     [self getInstalledFiles];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (void)getInstalledFiles {

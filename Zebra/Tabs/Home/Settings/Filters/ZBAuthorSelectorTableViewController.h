@@ -6,11 +6,11 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Extensions/ZBTableViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBAuthorSelectorTableViewController : UITableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
+@interface ZBAuthorSelectorTableViewController : ZBTableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
 @property (nonatomic, strong) UISearchController *searchController;
 @property void (^authorsSelected)(NSDictionary *selectedAuthors);
 @end

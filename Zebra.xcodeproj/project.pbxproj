@@ -148,6 +148,7 @@
 		9E9D3130236D52BF00880215 /* ZBPackagePartitioner.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */; };
 		9EAE364B2289224E004CBBA3 /* ZBPackageActions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActions.m */; };
 		9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */; };
+		A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5122E6824641D3E0059E434 /* ZBTableViewController.m */; };
 		A53E54A5245B08740082BF69 /* ZBUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A53E54A4245B08740082BF69 /* ZBUtils.m */; };
 		BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */; };
 		C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */; };
@@ -469,6 +470,8 @@
 		9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDevice.m; sourceTree = "<group>"; };
 		9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UITabBarItem.h; sourceTree = "<group>"; };
 		9ED47D942365886300CF2021 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A5122E6724641D3E0059E434 /* ZBTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTableViewController.h; sourceTree = "<group>"; };
+		A5122E6824641D3E0059E434 /* ZBTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTableViewController.m; sourceTree = "<group>"; };
 		A53E54A3245B08740082BF69 /* ZBUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBUtils.h; sourceTree = "<group>"; };
 		A53E54A4245B08740082BF69 /* ZBUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBUtils.m; sourceTree = "<group>"; };
 		A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Private.h"; sourceTree = "<group>"; };
@@ -883,6 +886,8 @@
 				89C4244C24411C1100FE5ED8 /* UIAlertController+Show.m */,
 				C3BF92BE2449144E00D903A7 /* UIFont+Zebra.h */,
 				C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */,
+				A5122E6724641D3E0059E434 /* ZBTableViewController.h */,
+				A5122E6824641D3E0059E434 /* ZBTableViewController.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1376,6 +1381,7 @@
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
 				369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */,
 				9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */,
+				A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,

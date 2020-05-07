@@ -58,8 +58,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-
     if ([ZBQueue count]) {
         ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
         self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
@@ -179,7 +177,7 @@
     
     NSString *newSearch = searchBar.text;
     if (![recentSearches containsObject:newSearch]) {
-        if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
+        if (recentSearches.count >= MAX_SEARCH_RECENT_COUNT) {
             [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
         }
         [recentSearches insertObject:newSearch atIndex:0];
@@ -233,15 +231,15 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     
     UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [titleLabel setText:[self tableView:tableView titleForHeaderInSection:section]];
-    [titleLabel setTextColor:[UIColor primaryTextColor]];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    titleLabel.textColor = [UIColor primaryTextColor];
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];
     
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [clearButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    clearButton.translatesAutoresizingMaskIntoConstraints = NO;
     [clearButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:clearButton];
@@ -265,7 +263,7 @@
             [self->searchController.searchBar becomeFirstResponder];
         } else {
             NSArray *path = [url pathComponents];
-            if ([path count] == 2) {
+            if (path.count == 2) {
                 [self setupView];
                 
                 NSString *searchTerm = path[1];
