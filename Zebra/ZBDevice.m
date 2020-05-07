@@ -22,7 +22,7 @@
 #import <unistd.h>
 @import SafariServices;
 @import LNPopupController;
-@import Crashlytics;
+@import FirebaseCrashlytics;
 
 @implementation ZBDevice
 
@@ -156,7 +156,7 @@
                 [self runCommandInPath:@"sbreload" asRoot:NO observer:nil];
             }
             @catch (NSException *e) {
-                CLS_LOG(@"Could not spawn sbreload. %@: %@", e.name, e.reason);
+                [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn sbreload. %@: %@", e.name, e.reason];
                 NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
                 failed = YES;
             }
@@ -174,7 +174,7 @@
                 [self runCommandInPath:@"launchctl stop com.apple.backboardd" asRoot:YES observer:nil];
             }
             @catch (NSException *e) {
-                CLS_LOG(@"Could not spawn launchctl. %@: %@", e.name, e.reason);
+                [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn launchctl. %@: %@", e.name, e.reason];
                 NSLog(@"[Zebra] Could not spawn launchctl. %@: %@", e.name, e.reason);
                 failed = YES;
             }
@@ -189,7 +189,7 @@
                 [self runCommandInPath:@"killall -9 backboardd" asRoot:YES observer:nil];
             }
             @catch (NSException *e) {
-                CLS_LOG(@"Could not spawn killall. %@: %@", e.name, e.reason);
+                [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn killall. %@: %@", e.name, e.reason];
                 NSLog(@"[Zebra] Could not spawn killall. %@: %@", e.name, e.reason);
                 failed = YES;
             }
@@ -209,7 +209,7 @@
             [self runCommandInPath:command asRoot:NO observer:observer];
         }
         @catch (NSException *e) {
-            CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason];
             NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
         }
     }
@@ -224,7 +224,7 @@
             [self runCommandInPath:command asRoot:NO observer:observer];
         }
         @catch (NSException *e) {
-            CLS_LOG(@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason];
             NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
         }
     }
@@ -270,7 +270,7 @@
         [task waitUntilExit];
     }
     @catch (NSException *e) {
-        CLS_LOG(@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
+        [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason];
         NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
         @throw e;
     }

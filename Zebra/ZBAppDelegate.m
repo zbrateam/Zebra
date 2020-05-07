@@ -28,7 +28,7 @@
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
-@import Crashlytics;
+@import FirebaseCrashlytics;
 @import LocalAuthentication;
 
 @interface ZBAppDelegate () {
@@ -212,7 +212,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [FIRApp configure];
 #endif
     
-    [CrashlyticsKit setObjectValue:PACKAGE_VERSION forKey:@"zebra_version"];
+    [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
     
     NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
     if ([ZBDevice isCheckrain]) {
@@ -229,8 +229,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
     
     [FIRAnalytics setUserPropertyString:jailbreak forName:@"Jailbreak"];
-    [CrashlyticsKit setObjectValue:jailbreak forKey:@"jailbreak_type"];
-    [CrashlyticsKit setObjectValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
+    [[FIRCrashlytics crashlytics] setCustomValue:jailbreak forKey:@"jailbreak_type"];
+    [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     

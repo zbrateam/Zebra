@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@import Crashlytics;
+@import FirebaseCrashlytics;
 
 #import "ZBDatabaseManager.h"
 #import "ZBDependencyResolver.h"
@@ -154,7 +154,7 @@
     databaseBeingUpdated = NO;
     const char *error = sqlite3_errmsg(database);
     if (error) {
-        CLS_LOG(@"Database Error: %s", error);
+        [[FIRCrashlytics crashlytics] logWithFormat:@"Database Error: %s", error];
         NSLog(@"[Zebra] Database Error: %s", error);
     }
 }
@@ -269,7 +269,7 @@
     NSLog(@"Parsing Sources");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltDatabaseOperations) {
-        CLS_LOG(@"Database operations halted.");
+        [[FIRCrashlytics crashlytics] logWithFormat:@"Database operations halted."];
         NSLog(@"[Zebra] Database operations halted");
         [self bulkDatabaseCompletedUpdate:numberOfUpdates];
         return;

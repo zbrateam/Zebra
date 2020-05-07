@@ -28,7 +28,7 @@
 #import <objc/runtime.h>
 
 @import SDWebImage;
-@import Crashlytics;
+@import FirebaseCrashlytics;
 
 typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoID = 0,
@@ -143,7 +143,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
     
-    CLS_LOG(@"%@ (%@) from %@", [package name], [package identifier], [[package source] repositoryURI]);
+    [[FIRCrashlytics crashlytics] logWithFormat:@"%@ (%@) from %@", [package name], [package identifier], [[package source] repositoryURI]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -292,7 +292,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     if (webView) {
         [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
             if (error) {
-                CLS_LOG(@"Error when getting depiction height: %@", error.localizedDescription);
+                [[FIRCrashlytics crashlytics] logWithFormat:@"Error when getting depiction height: %@", error.localizedDescription];
             }
             else {
                 if ([completed isEqualToString:@"complete"]) {
