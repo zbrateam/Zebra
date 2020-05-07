@@ -91,6 +91,10 @@
         struct utsname systemInfo;
         uname(&systemInfo);
         modelID = [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+        
+        if ([modelID isEqualToString:@"x86_64"]) {
+            modelID = @"iPhone11,2";
+        }
     });
     return modelID;
 }
