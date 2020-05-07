@@ -52,15 +52,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    // Appearance stuff
-//    if ([ZBThemeManager useCustomTheming]) {
-//        if ([ZBDevice darkModeEnabled]) {
-//            [self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-//        }
-//        else {
-//            [self.navigationController.navigationBar setBarStyle:UIBarStyleDefault];
-//        }
-//    }
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
     
@@ -79,7 +70,7 @@
         self.navigationItem.rightBarButtonItem.enabled = ![self->queue hasIssues];
         [self.tableView reloadData];
         
-        if ([self->packages count] == 0) {
+        if (self->packages.count == 0) {
             [self->queue clear];
         }
     });
@@ -181,7 +172,7 @@
     cell.backgroundColor = [UIColor cellBackgroundColor];
     
     ZBPackage *package = packages[indexPath.section][indexPath.row];
-    if ([[package dependencyOf] count] > 0 || [package hasIssues] || [package removedBy] != NULL || ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]))  {
+    if ([package dependencyOf].count > 0 || [package hasIssues] || [package removedBy] != nil || ([package isEssentialOrRequired] && [queue contains:package inQueue:ZBQueueTypeRemove]))  {
         cell.accessoryType = UITableViewCellAccessoryDetailButton;
     }
     else {
@@ -270,7 +261,7 @@
         [alert addAction:deleteAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    else if ([package removedBy] != NULL) {
+    else if ([package removedBy] != nil) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"%@ must be removed because it depends on %@", @""), [package name], [[package removedBy] name]];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Required Package", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -279,7 +270,7 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
     }
-    else if ([[package dependencyOf] count] > 0) {
+    else if ([package dependencyOf].count > 0) {
         NSMutableString *message = [[NSString stringWithFormat:NSLocalizedString(@"%@ is required by:", @""), [package name]] mutableCopy];
         for (ZBPackage *parent in [package dependencyOf]) {
             [message appendFormat:@"\n%@", [parent name]];
@@ -293,7 +284,7 @@
     }
 }
 
-//swipe actions
+#pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;

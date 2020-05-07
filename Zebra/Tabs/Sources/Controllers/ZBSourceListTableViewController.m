@@ -212,21 +212,6 @@
     }
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return [self hasDataInSection:section] ? 30 : 0;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if ([self hasDataInSection:section]) {
-//        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
-//        view.textLabel.textColor = [UIColor primaryTextColor];
-//
-//        return view;
-//    }
-//
-//    return NULL;
-//}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (![self hasDataInSection:section])
         return nil;
