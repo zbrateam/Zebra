@@ -7,13 +7,16 @@
 //
 
 #import "ZBCommunitySourcesTableViewController.h"
+
+#import <ZBLog.h>
+#import <ZBDevice.h>
+#import <ZBSettings.h>
+#import <ZBDependencyResolver.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Views/ZBSourceTableViewCell.h>
-#import <ZBLog.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
-#import <ZBDependencyResolver.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
-#import <ZBSettings.h>
 
 @interface ZBCommunitySourcesTableViewController ()
 @end
@@ -48,8 +51,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     [self populateSources];
 }

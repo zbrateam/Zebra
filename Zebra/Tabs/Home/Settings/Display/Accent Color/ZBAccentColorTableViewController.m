@@ -8,10 +8,11 @@
 
 #import "ZBAccentColorTableViewController.h"
 #import "UIImageView+Zebra.h"
-#import "UIColor+GlobalColors.h"
+
 #import <ZBThemeManager.h>
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBAccentColorTableViewController () {
     NSArray *colors;
@@ -39,12 +40,6 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Accent Color", @"");
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 #pragma mark - Table view data source
@@ -104,7 +99,7 @@
     
     if (indexPath.section == 1) {
         UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
-        [oldCell setAccessoryType:UITableViewCellAccessoryNone];
+        oldCell.accessoryType = UITableViewCellAccessoryNone;
         
         ZBAccentColor newColor = (ZBAccentColor)[colors[indexPath.row] integerValue];
         selectedColor = newColor;
@@ -117,8 +112,8 @@
         ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
         
         UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-        [newCell setTintColor:[UIColor accentColor]];
-        [newCell setAccessoryType:UITableViewCellAccessoryCheckmark];
+        newCell.tintColor = [UIColor accentColor];
+        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
 }
 

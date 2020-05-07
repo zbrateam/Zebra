@@ -6,9 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
+#import "ZBPackageDepictionViewController.h"
+
+#import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Community Sources/ZBCommunitySourcesTableViewController.h>
@@ -664,7 +666,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable {
         return weakSelf.previewPackageDepictionVC;
     } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
         weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];

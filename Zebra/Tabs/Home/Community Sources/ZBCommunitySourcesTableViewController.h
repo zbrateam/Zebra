@@ -8,12 +8,11 @@
 
 @import SDWebImage;
 
-#import <UIKit/UIKit.h>
-#import "ZBDevice.h"
-#import "UIColor+GlobalColors.h"
 #import "ZBSourceManager.h"
 
-@interface ZBCommunitySourcesTableViewController : UITableViewController
+#import <Extensions/ZBTableViewController.h>
+
+@interface ZBCommunitySourcesTableViewController : ZBTableViewController
 @property NSMutableArray <NSArray <NSDictionary *> *> *communitySources;
 @property ZBSourceManager *sourceManager;
 @end
