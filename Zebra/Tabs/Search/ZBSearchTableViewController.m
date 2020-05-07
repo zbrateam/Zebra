@@ -69,7 +69,9 @@
     }
     else {
         searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
+        searchController.searchBar.backgroundImage = [searchController.searchBar.backgroundImage _flatImageWithColor:searchController.searchBar.barTintColor];
+        searchController.searchBar.layer.borderColor = searchController.searchBar.barTintColor.CGColor;
+        searchController.searchBar.layer.borderWidth = 1.0;
     }
 }
 
