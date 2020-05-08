@@ -10,7 +10,7 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
-#import <Headers/UIImage+Private.h>
+#import <Theme/ZBThemeManager.h>
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Search/ZBSearchResultsTableViewController.h>
@@ -66,10 +66,7 @@
     if (@available(iOS 11.0, *)) {
     }
     else {
-        searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [searchController.searchBar.backgroundImage _flatImageWithColor:searchController.searchBar.barTintColor];
-        searchController.searchBar.layer.borderColor = searchController.searchBar.barTintColor.CGColor;
-        searchController.searchBar.layer.borderWidth = 1.0;
+        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
     }
 }
 

@@ -9,7 +9,7 @@
 #import "ZBAuthorSelectorTableViewController.h"
 
 #import <ZBSettings.h>
-#import <Headers/UIImage+Private.h>
+#import <Theme/ZBThemeManager.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
@@ -64,12 +64,8 @@
     if (@available(iOS 11.0, *)) {
     }
     else {
-        searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [searchController.searchBar.backgroundImage _flatImageWithColor:searchController.searchBar.barTintColor];
-        searchController.searchBar.layer.borderColor = searchController.searchBar.barTintColor.CGColor;
-        searchController.searchBar.layer.borderWidth = 1.0;
+        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
     }
-//    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -136,13 +132,13 @@
 
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
     NSString *searchTerm = searchController.searchBar.text;
-    if ([searchTerm length] <= 1) {
+    if (searchTerm.length <= 1) {
         authors = @[];
     }
     else if (self->shouldPerformSearching) {
         NSString *strippedString = [searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
-        if ([strippedString length] <= 1) {
+        if (strippedString.length <= 1) {
             authors = @[];
             return;
         }
