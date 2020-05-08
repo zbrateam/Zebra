@@ -18,6 +18,10 @@
 
 @implementation ZBPackageDepictionViewController
 
+- (id)initWithPackage:(ZBPackage *)package {
+    return [super init];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
