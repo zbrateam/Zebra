@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -80,7 +80,7 @@
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="p6b-4B-PgN" secondAttribute="height" multiplier="1:1" id="Jyx-aN-UYY"/>
                                                                     </constraints>
-                                                                    <state key="normal" image="dots">
+                                                                    <state key="normal" image="Dots">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
@@ -266,6 +266,6 @@
         </tableViewController>
     </objects>
     <resources>
-        <image name="dots" width="16" height="4"/>
+        <image name="Dots" width="16" height="4"/>
     </resources>
 </document>

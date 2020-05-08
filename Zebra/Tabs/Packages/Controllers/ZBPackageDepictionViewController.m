@@ -27,7 +27,7 @@
     
     _iconImageView.layer.cornerRadius = 20;
     _iconImageView.layer.borderWidth = 1;
-    _iconImageView.layer.borderColor = [[UIColor grayColor] CGColor];
+    _iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
     _iconImageView.image = [UIImage imageNamed:@"icon"];
     
     _getButton.layer.cornerRadius = _getButton.frame.size.height / 2;
