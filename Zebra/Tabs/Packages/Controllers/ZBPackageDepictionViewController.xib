@@ -10,7 +10,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PackageDepictionViewController" customModule="Zebra" customModuleProvider="target">
             <connections>
-                <outlet property="dotButton" destination="p6b-4B-PgN" id="GLG-we-Z3Q"/>
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>

@@ -74,6 +74,10 @@ typedef enum ZBLinksOrder : NSUInteger {
         UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.rightBarButtonItem = settingsButton;
+        
+        // FIXME: Remove when depictions are complete
+        UIBarButtonItem *depictionButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"command"] style:UIBarButtonItemStyleDone target:self action:@selector(openDepiction)];
+        self.navigationItem.leftBarButtonItem = depictionButton;
     }
     else {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
@@ -82,6 +86,12 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
+}
+
+// FIXME: Remove when depictions are complete
+- (void)openDepiction {
+    ZBPackageDepictionViewController *demoDepiction = [[ZBPackageDepictionViewController alloc] init];
+    [self presentViewController:demoDepiction animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
