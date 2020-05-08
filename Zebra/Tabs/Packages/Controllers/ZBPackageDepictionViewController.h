@@ -8,25 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import <Packages/Controllers/ZBPackagesByAuthorTableViewController.h>
-#import "ZBInstalledFilesTableViewController.h"
-#import <Console/ZBConsoleCommandDelegate.h>
-
-@import SafariServices;
-@import MessageUI;
-
-@class ZBPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, UIViewControllerPreviewing, SFSafariViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, ZBConsoleCommandDelegate>
-@property (nonatomic, strong) ZBPackage *package;
-@property (weak, nonatomic) IBOutlet UIImageView *packageIcon;
-@property (weak, nonatomic) IBOutlet UILabel *packageName;
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) UITableViewController *parent;
-- (id)initWithPackage:(ZBPackage *)package;
-- (NSArray *)contextMenuActionItemsInTableView:(UITableView *_Nullable)tableview;
+@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate>
+
 @end
 
 NS_ASSUME_NONNULL_END
