@@ -5,11 +5,6 @@
 int main() {
     NSLog(@"[Zebra Firmware] full steam ahead");
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/lib/dpkg/status.bak"]) {
-        NSLog(@"[Zebra Firmware] Copying status file to backup");
-        [[NSFileManager defaultManager] copyItemAtPath:@"/var/lib/dpkg/status" toPath:@"/var/lib/dpkg/status.bak" error:nil];
-    }
-
     Firmware *firmware = [[Firmware alloc] init];
     [firmware loadInstalledPackages];
 
