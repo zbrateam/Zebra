@@ -10,7 +10,7 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
-#import <Headers/UIImage+Private.h>
+#import <Theme/ZBThemeManager.h>
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Search/ZBSearchResultsTableViewController.h>
@@ -66,10 +66,9 @@
     if (@available(iOS 11.0, *)) {
     }
     else {
-        searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [searchController.searchBar.backgroundImage _flatImageWithColor:searchController.searchBar.barTintColor];
-        searchController.searchBar.layer.borderColor = searchController.searchBar.barTintColor.CGColor;
-        searchController.searchBar.layer.borderWidth = 1.0;
+        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
+        UIView *headerView = [self.tableView headerViewForSection:0];
+        [headerView setNeedsDisplay];
     }
 }
 
@@ -123,7 +122,7 @@
     if (self->shouldPerformSearching) {
         NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
-        if ([strippedString length] <= 1) {
+        if (strippedString.length <= 1) {
             results = @[];
             
             [resultsController setFilteredResults:results];
@@ -233,7 +232,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    titleLabel.textColor = [UIColor primaryTextColor];
+    titleLabel.textColor = [UIColor primaryTextColor]; // FIXME: color doesn't update right away on iOS 10 and below
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];

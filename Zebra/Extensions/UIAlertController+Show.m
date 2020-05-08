@@ -40,7 +40,7 @@
         self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.alertWindow.rootViewController = [[UIViewController alloc] init];
 
-        id<UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
+        id <UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
         if ([delegate respondsToSelector:@selector(window)]) {
             self.alertWindow.tintColor = delegate.window.tintColor;
         }

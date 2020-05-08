@@ -6,16 +6,17 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import "ZBRefreshViewController.h"
+
 #import <ZBTabBarController.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Extensions/UIFont+Zebra.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <Theme/ZBThemeManager.h>
 #import <ZBSourceManager.h>
 #include <Parsel/parsel.h>
-#import "ZBRefreshViewController.h"
-#import "ZBThemeManager.h"
 
 typedef enum {
     ZBStateCancel = 0,
@@ -108,7 +109,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages baseSources:(NSSet<ZBBaseSource *> *)baseSources {
+- (id)initWithMessages:(NSArray *)messages baseSources:(NSSet <ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
@@ -119,7 +120,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSSet<ZBBaseSource *> *)baseSources {
+- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSSet <ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
@@ -130,7 +131,7 @@ typedef enum {
     return self;
 }
 
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSSet<ZBBaseSource *> *)baseSources {
+- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSSet <ZBBaseSource *> *)baseSources {
     self = [self init];
     
     if (self) {
@@ -175,8 +176,8 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.view setBackgroundColor:[UIColor blackColor]];
-    [consoleView setBackgroundColor:[UIColor blackColor]];
+    self.view.backgroundColor = [UIColor blackColor];
+    consoleView.backgroundColor = [UIColor blackColor];
     
     if (!messages) {
         databaseManager = [ZBDatabaseManager sharedInstance];
@@ -225,7 +226,7 @@ typedef enum {
 }
 
 - (void)clearProblems {
-    messages = NULL;
+    messages = nil;
     hadAProblem = NO;
     [self clearConsoleText];
 }
@@ -273,7 +274,7 @@ typedef enum {
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
-    if (str == NULL)
+    if (str == nil)
         return;
     if (![str hasSuffix:@"\n"])
         str = [str stringByAppendingString:@"\n"];
@@ -303,7 +304,6 @@ typedef enum {
             }
             default:
                 break;
-
         }
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
@@ -311,12 +311,11 @@ typedef enum {
         [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
         if (self->consoleView.text.length) {
-            NSRange bottom = NSMakeRange(self->consoleView.text.length -1, 1);
+            NSRange bottom = NSMakeRange(self->consoleView.text.length - 1, 1);
             [self->consoleView scrollRangeToVisible:bottom];
         }
     });
 }
-
 
 #pragma mark - Database Delegate
 

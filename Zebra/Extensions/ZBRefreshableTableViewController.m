@@ -143,18 +143,7 @@
     }
     [self setEditing:NO animated:NO];
     [self setSourceRefreshIndicatorVisible:YES];
-    BOOL singleSource = NO;
-    if ([self respondsToSelector:@selector(source)]) {
-        ZBSource *source = [(ZBPackageListTableViewController *)self source];
-        if ([source sourceID] > 0) {
-            //FIXME: fix me!
-//            [databaseManager updateSource:source useCaching:YES];
-            singleSource = YES;
-        }
-    }
-    if (!singleSource) {
-        [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
-    }
+    [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
     [self updateRefreshView];
 }
 

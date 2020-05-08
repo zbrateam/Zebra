@@ -242,64 +242,6 @@
     // [self.tableView reloadData];
 }
 
-- (void)setupRepoLogin API_AVAILABLE(ios(11.0)) {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
-    if (![components.scheme isEqualToString:@"https"]) {
-        return;
-    }
-    NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
-    NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
-    NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
-    [queryItems addObject:udid];
-    [queryItems addObject:model];
-    
-    [components setQueryItems:queryItems];
-    
-    NSURL *url = [components URL];
-    
-    if (@available(iOS 11.0, *)) {
-        static SFAuthenticationSession *session;
-        session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-            if (callbackURL) {
-                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                NSArray *queryItems = urlComponents.queryItems;
-                NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                for (NSURLQueryItem *q in queryItems) {
-                    [queryByKeys setValue:[q value] forKey:[q name]];
-                }
-                NSString *token = queryByKeys[@"token"];
-                NSString *payment = queryByKeys[@"payment_secret"];
-                
-                [self->keychain setString:token forKey:[self->source repositoryURI]];
-                
-                UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                securedKeychain[[[self->source repositoryURI] stringByAppendingString:@"payment"]] = nil;
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                    [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                                 authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                    
-                    securedKeychain[[[self->source repositoryURI] stringByAppendingString:@"payment"]] = payment;
-                });
-            }
-            else {
-                return;
-            }
-        }];
-        
-        [session start];
-    } else {
-        [ZBDevice openURL:url delegate:self];
-    }
-}
-
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    // Load finished
-}
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -389,9 +331,7 @@
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-//        [databaseManager updateDatabaseUsingCaching:YES singleSource:self->source completion:^(BOOL success, NSError * _Nonnull error) {
-//            NSLog(@"Updated source %@", self->source);
-//        }];
+        [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     
     if ([source canDelete]) {

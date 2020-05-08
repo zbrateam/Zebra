@@ -570,7 +570,7 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
-    if (str == NULL)
+    if (str == nil)
         return;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -651,7 +651,7 @@
         dispatch_block_t finishBlock = nil;
 
         if (self->downloadFailed) {
-            [self updateProgressText:NSLocalizedString(@"Returning to queue...", @"")];
+            [self updateProgressText:NSLocalizedString(@"Returning to Queue...", @"")];
             finishBlock = ^{
                 [self updateProgressText:nil];
                 [self returnToQueue];
