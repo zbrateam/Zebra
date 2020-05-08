@@ -18,6 +18,7 @@
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import "ZBRedditPosts.h"
 #import <ZBDevice.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @import SDWebImage;
 @import FirebaseAnalytics;
@@ -325,22 +326,24 @@
 
 #pragma mark - Navigation
 
+// FIXME: Update for new depictions
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-    
-    ZBPackage *package = [self packageAtIndexPath:indexPath];
-    ZBPackage *candidate = [package installableCandidate];
-    
-    destination.package = candidate ? candidate : package;
-    destination.parent = self;
+//
+//    ZBPackage *package = [self packageAtIndexPath:indexPath];
+//    ZBPackage *candidate = [package installableCandidate];
+//
+//    destination.package = candidate ? candidate : package;
+//    destination.parent = self;
 }
 
+// FIXME: Update for new depictions
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
-        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        NSIndexPath *indexPath = sender;
-        [self setDestinationVC:indexPath destination:destination];
-        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    }
+//    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
+//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+//        NSIndexPath *indexPath = sender;
+//        [self setDestinationVC:indexPath destination:destination];
+//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+//    }
 }
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
@@ -362,16 +365,17 @@
     }];
 }
 
-- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
-    typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
-    }];
-}
+// FIXME: Update for new depictions
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+//    typeof(self) __weak weakSelf = self;
+//    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+//        return weakSelf.previewPackageDepictionVC;
+//    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+//        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+//        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
+//        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;

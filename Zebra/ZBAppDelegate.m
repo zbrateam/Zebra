@@ -16,6 +16,7 @@
 #import <UIColor+GlobalColors.h>
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Helpers/ZBPackage.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
@@ -253,6 +254,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     return YES;
 }
 
+// FIXME: Update for new depictions
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSArray *choices = @[@"file", @"zbra"];
     int index = (int)[choices indexOfObject:[url scheme]];
@@ -268,13 +270,13 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                     NSLog(@"[Zebra] Couldn't move deb %@", moveError.localizedDescription);
                 }
                 else {
-                    ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
-                    ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
-                    
-                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
-                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
+//                    ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
+//                    ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+//                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
+//
+//                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+//                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
+//                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
                 }
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
@@ -313,17 +315,17 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                         NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
                         if (sourceURL != NULL) {
                             if ([ZBSource exists:sourceURL]) {
-                                NSString *packageID = [path substringFromIndex:1];
-                                ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
-                                ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
-                                if (packageController) {
-                                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                                    [tabController presentViewController:navController animated:YES completion:nil];
-                                }
-                                else {
-                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
-                                }
+//                                NSString *packageID = [path substringFromIndex:1];
+//                                ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
+//                                ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
+//                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+//                                if (packageController) {
+//                                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+//                                    [tabController presentViewController:navController animated:YES completion:nil];
+//                                }
+//                                else {
+//                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
+//                                }
                             }
                             else {
                                 NSString *packageID = [path substringFromIndex:1];
@@ -335,16 +337,16 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                             }
                         }
                         else {
-                            NSString *packageID = [path substringFromIndex:1];
-                            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
-                            if (packageController) {
-                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                                [tabController presentViewController:navController animated:YES completion:nil];
-                            }
-                            else {
-                                [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@", @""), packageID]];
-                            }
+//                            NSString *packageID = [path substringFromIndex:1];
+//                            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+//                            ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+//                            if (packageController) {
+//                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+//                                [tabController presentViewController:navController animated:YES completion:nil];
+//                            }
+//                            else {
+//                                [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@", @""), packageID]];
+//                            }
                         }
                     }
                     else {

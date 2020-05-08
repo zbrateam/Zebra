@@ -287,29 +287,31 @@
 
 #pragma mark - Navigation
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
-        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        NSIndexPath *indexPath = sender;
-        destination.package = [purchases objectAtIndex:indexPath.row];
-        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    }
-}
+// FIXME: Update for new depictions
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
+//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+//        NSIndexPath *indexPath = sender;
+//        destination.package = [purchases objectAtIndex:indexPath.row];
+//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+//    }
+//}
 
-- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
-    if (indexPath.section == 0 || ![purchases count]) {
-        return nil;
-    }
-    typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        weakSelf.previewPackageDepictionVC.package = self->purchases[indexPath.row];
-//        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
-    }];
-}
+// FIXME: Update for new depictions
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+//    if (indexPath.section == 0 || ![purchases count]) {
+//        return nil;
+//    }
+//    typeof(self) __weak weakSelf = self;
+//    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+//        return weakSelf.previewPackageDepictionVC;
+//    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+//        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+//        weakSelf.previewPackageDepictionVC.package = self->purchases[indexPath.row];
+////        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
+//        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
@@ -318,20 +320,21 @@
     }];
 }
 
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-
-    if (indexPath.section == 0 || ![purchases count]) {
-        return nil;
-    }
-
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    previewingContext.sourceRect = cell.frame;
-    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    packageDepictionVC.package = purchases[indexPath.row];
-//    [self setDestinationVC:indexPath destination:packageDepictionVC];
-    return packageDepictionVC;
-}
+// FIXME: Update for new depictions
+//- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+//
+//    if (indexPath.section == 0 || ![purchases count]) {
+//        return nil;
+//    }
+//
+//    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    previewingContext.sourceRect = cell.frame;
+//    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+//    packageDepictionVC.package = purchases[indexPath.row];
+////    [self setDestinationVC:indexPath destination:packageDepictionVC];
+//    return packageDepictionVC;
+//}
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];

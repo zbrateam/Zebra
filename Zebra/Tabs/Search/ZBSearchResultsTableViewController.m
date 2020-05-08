@@ -10,8 +10,10 @@
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import "ZBLiveSearchResultTableViewCell.h"
 
 @import LNPopupController;
@@ -106,13 +108,14 @@
     }
 }
 
+// FIXME: Update for new depictions
 - (ZBPackageDepictionViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
     NSObject *quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
         
-    return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];;
+    return NULL; //[[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -139,16 +142,17 @@
     [tableView setEditing:NO animated:YES];
 }
 
-- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
-    typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
-        weakSelf.previewPackageDepictionVC.parent = weakSelf;
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
-    }];
-}
+// FIXME: Update for new depictions
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+//    typeof(self) __weak weakSelf = self;
+//    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+//        return weakSelf.previewPackageDepictionVC;
+//    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+//        weakSelf.previewPackageDepictionVC = [weakSelf getPackageDepictionVC:indexPath];
+//        weakSelf.previewPackageDepictionVC.parent = weakSelf;
+//        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;

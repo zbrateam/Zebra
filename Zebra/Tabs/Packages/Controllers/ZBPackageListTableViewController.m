@@ -424,12 +424,13 @@
 
 #pragma mark - Navigation
 
+// FIXME: Update for new depictions
 - (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-    ZBPackage *package = [self packageAtIndexPath:indexPath];
-    BOOL isUpdateSection = [source sourceID] == 0 && needsUpdatesSection && indexPath.section == 0;
-    ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
-    destination.package = candidate ? candidate : package;
-    destination.parent = self;
+//    ZBPackage *package = [self packageAtIndexPath:indexPath];
+//    BOOL isUpdateSection = [source sourceID] == 0 && needsUpdatesSection && indexPath.section == 0;
+//    ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
+//    destination.package = candidate ? candidate : package;
+//    destination.parent = self;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -441,16 +442,17 @@
     }
 }
 
-- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
-    typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        return weakSelf.previewPackageDepictionVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
-    }];
-}
+// FIXME: Update for new depictions
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+//    typeof(self) __weak weakSelf = self;
+//    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+//        return weakSelf.previewPackageDepictionVC;
+//    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+//        weakSelf.previewPackageDepictionVC = (ZBPackageDepictionViewController*)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+//        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageDepictionVC];
+//        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageDepictionVC contextMenuActionItemsInTableView:tableView]];
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;

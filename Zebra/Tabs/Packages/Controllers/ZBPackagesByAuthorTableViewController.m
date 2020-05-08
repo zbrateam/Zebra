@@ -65,14 +65,15 @@
     [self performSegueWithIdentifier:@"segueMorePackagesToPackageDepiction" sender:indexPath];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"segueMorePackagesToPackageDepiction"]) {
-        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        NSIndexPath *indexPath = sender;
-        destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
-        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    }
-}
+// FIXME: Update for new depictions
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+//    if ([[segue identifier] isEqualToString:@"segueMorePackagesToPackageDepiction"]) {
+//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
+//        NSIndexPath *indexPath = sender;
+//        destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
+//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+//    }
+//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
