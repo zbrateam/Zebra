@@ -7,7 +7,8 @@
 //
 
 #import "UIAlertController+Theme.h"
-#import <UIColor+GlobalColors.h>
+#import "UIColor+GlobalColors.h"
+
 #import <objc/runtime.h>
 #import <ZBDevice.h>
 #import <Theme/ZBThemeManager.h>

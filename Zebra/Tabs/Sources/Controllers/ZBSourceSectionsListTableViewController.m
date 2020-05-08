@@ -389,9 +389,7 @@
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-//        [databaseManager updateDatabaseUsingCaching:YES singleSource:self->source completion:^(BOOL success, NSError * _Nonnull error) {
-//            NSLog(@"Updated source %@", self->source);
-//        }];
+        [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     
     if ([source canDelete]) {
