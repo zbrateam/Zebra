@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "Changes.png",
       "idiom" : "universal",
-      "filename" : "clock.png",
       "scale" : "1x"
     },
     {
+      "filename" : "Changes@2x.png",
       "idiom" : "universal",
-      "filename" : "clock@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "Changes@3x.png",
       "idiom" : "universal",
-      "filename" : "clock@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }
