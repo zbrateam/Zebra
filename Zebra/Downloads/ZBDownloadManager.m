@@ -8,9 +8,9 @@
 
 #import "ZBDownloadManager.h"
 #import "UICKeyChainStore.h"
+
 #import <ZBDevice.h>
 #import <ZBLog.h>
-
 #import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Sources/Helpers/ZBBaseSource.h>
@@ -102,7 +102,7 @@
 - (void)downloadPackagesFileWithExtension:(NSString *_Nullable)extension fromSource:(ZBBaseSource *)source ignoreCaching:(BOOL)ignore {
     self->ignore = ignore;
     
-    if ([extension isEqualToString:@""]) extension = NULL;
+    if ([extension isEqualToString:@""]) extension = nil;
     
     NSString *filename = (extension) ? [NSString stringWithFormat:@"Packages.%@", extension] : @"Packages";
     NSURL *url = [source.packagesDirectoryURL URLByAppendingPathComponent:filename];
@@ -136,7 +136,7 @@
         ZBSource *source = [package source];
         NSString *filename = [package filename];
         
-        if (source == NULL || filename == NULL) {
+        if (source == nil || filename == nil) {
             if ([downloadDelegate respondsToSelector:@selector(postStatusUpdate:atLevel:)]) {
                 [downloadDelegate postStatusUpdate:[NSString stringWithFormat:@"%@ %@ (%@)\n", NSLocalizedString(@"Could not find a download URL for", @""), package.name, package.identifier] atLevel:ZBLogLevelWarning];
             }
@@ -177,7 +177,7 @@
             }
         } else {
             NSString *baseString = [base absoluteString];
-            if ([baseString characterAtIndex:[baseString length] - 1] != '/') baseString = [baseString stringByAppendingString:@"/"];
+            if ([baseString characterAtIndex:baseString.length - 1] != '/') baseString = [baseString stringByAppendingString:@"/"];
             baseString = [baseString stringByAppendingString:filename]; //Avoid URL encoding with characters like '?'
                 
             base = [NSURL URLWithString:baseString];
@@ -253,21 +253,21 @@
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.releaseTaskCompleted = YES;
-            source.releaseFilePath = NULL;
+            source.releaseFilePath = nil;
             [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
         }
         else if (task.taskIdentifier == source.packagesTaskIdentifier) { //This is a packages file that failed, we should be able to try again with a Packages.gz or a Packages file
             NSURL *url = [[task originalRequest] URL];
             if (![url pathExtension]) { //No path extension, Packages file download failed :(
                 NSString *filename = [[task response] suggestedFilename];
-                if ([filename pathExtension] != NULL) {
+                if ([filename pathExtension] != nil) {
                     filename = [filename stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [filename pathExtension]] withString:@""]; //Remove path extension
                 }
                 
                 NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
                 
                 source.packagesTaskCompleted = YES;
-                source.packagesFilePath = NULL;
+                source.packagesFilePath = nil;
                 
                 [self postStatusUpdate:description atLevel:ZBLogLevelError];
                 [self cancelTasksForSource:source];
@@ -277,14 +277,14 @@
             else { //Tries to download another filetype
                 NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
-                if (nextIndex < [options count]) {
+                if (nextIndex < options.count) {
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source ignoreCaching:ignore];
                 }
                 else { //Should never happen but lets catch the error just in case
                     NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
                     
                     source.packagesTaskCompleted = YES;
-                    source.packagesFilePath = NULL;
+                    source.packagesFilePath = nil;
                     
                     [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
                     [self cancelTasksForSource:source];
@@ -297,9 +297,9 @@
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download one or more files from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.packagesTaskCompleted = YES;
-            source.packagesFilePath = NULL;
+            source.packagesFilePath = nil;
             source.releaseTaskCompleted = YES;
-            source.releaseFilePath = NULL;
+            source.releaseFilePath = nil;
             
             [self postStatusUpdate:description atLevel:ZBLogLevelError];
             [self cancelTasksForSource:source];
@@ -318,7 +318,7 @@
         }
         
         if (source.releaseTaskCompleted && source.packagesTaskCompleted) {
-            [downloadDelegate finishedSourceDownload:source withErrors:NULL];
+            [downloadDelegate finishedSourceDownload:source withErrors:nil];
         }
     }
     
@@ -332,7 +332,7 @@
     
     [sourceTasksMap removeObjectForKey:@(task.taskIdentifier)];
     
-    if (![sourceTasksMap count]) {
+    if (!sourceTasksMap.count) {
         [downloadDelegate finishedAllDownloads];
     }
 }
@@ -345,7 +345,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     BOOL movedFileSuccess = NO;
-    NSError *fileManagerError = NULL;
+    NSError *fileManagerError = nil;
     if ([fileManager fileExistsAtPath:finalPath]) {
         movedFileSuccess = [fileManager removeItemAtPath:finalPath error:&fileManagerError];
         
@@ -395,7 +395,7 @@
     NSURL *url = [NSURL URLWithString:baseURL];
     NSString *host = [url host];
     
-    if ([ZBDevice isCheckrain]) { //checkra1n
+    if ([ZBDevice isCheckrain]) { // checkra1n
         return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
     }
     if ([ZBDevice isChimera]) { // chimera
@@ -418,7 +418,7 @@
     NSString *filename = [path lastPathComponent];
     
     NSString *pathExtension = [[filename lastPathComponent] pathExtension];
-    if (pathExtension != NULL && ![pathExtension isEqualToString:@""]) {
+    if (pathExtension != nil && ![pathExtension isEqualToString:@""]) {
         NSString *extension = [filename pathExtension];
         
         if ([extension isEqualToString:@"txt"]) { //Likely Packages.txt or Release.txt
@@ -476,7 +476,7 @@
     
     if (responseCode == 304) {
         //Since we should never get a 304 for a deb, we can assume this is from a source.
-        ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
+        ZBBaseSource *source = sourceTasksMap[@(downloadTask.taskIdentifier)];
         
         [self task:downloadTask completedDownloadedForFile:NULL fromSource:source withError:NULL];
         return;
@@ -486,7 +486,7 @@
     NSString *requestedMIMEType = [self guessMIMETypeForFile:[[response URL] lastPathComponent]];
     NSArray *acceptableMIMETypes = @[@"text/plain", @"application/x-xz", @"application/x-bzip2", @"application/x-gzip", @"application/x-lzma", @"application/x-deb", @"application/x-debian-package"];
     NSUInteger index = [acceptableMIMETypes indexOfObject:MIMEType];
-    if ([packageTasksMap objectForKey:@([downloadTask taskIdentifier])]) {
+    if (packageTasksMap[@([downloadTask taskIdentifier])]) {
         MIMEType = @"application/x-deb";
         index = [acceptableMIMETypes indexOfObject:MIMEType];
     }
@@ -498,7 +498,7 @@
     BOOL downloadFailed = (responseCode != 200 && responseCode != 304);
     switch (index) {
         case 0: { //Uncompressed Packages file or a Release file
-            ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
+            ZBBaseSource *source = sourceTasksMap[@(downloadTask.taskIdentifier)];
             if (source) {
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
@@ -519,7 +519,7 @@
                     NSString *saveName = [self saveNameForURL:[response URL]];
                     NSString *finalPath = [listsPath stringByAppendingPathComponent:saveName];
                     NSString *originalPathExtension = [[response URL] pathExtension];
-                    if (originalPathExtension != NULL && ![originalPathExtension isEqualToString:@""]) {
+                    if (originalPathExtension != nil && ![originalPathExtension isEqualToString:@""]) {
                         finalPath = [finalPath stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [finalPath pathExtension]] withString:@""]; //Remove path extension from Packages or Release
                     }
                 
@@ -537,7 +537,7 @@
         case 2:
         case 3:
         case 4: { //Compressed packages file (.xz, .bz2, .gz, or .lzma)
-            ZBBaseSource *source = [sourceTasksMap objectForKey:@(downloadTask.taskIdentifier)];
+            ZBBaseSource *source = sourceTasksMap[@(downloadTask.taskIdentifier)];
             if (source) {
                 if (downloadFailed) {
                     NSString *suggestedFilename = [response suggestedFilename];
@@ -555,7 +555,7 @@
                             [self task:downloadTask completedDownloadedForFile:finalPath fromSource:source withError:error];
                         }
                         else {
-                            NSError *error = NULL;
+                            NSError *error = nil;
                             NSString *decompressedFilePath = [self decompressFile:finalPath error:&error];
                             
                             [self task:downloadTask completedDownloadedForFile:decompressedFilePath fromSource:source withError:error];
@@ -570,7 +570,7 @@
         }
         case 5:
         case 6: { //Package.deb
-            ZBPackage *package = [packageTasksMap objectForKey:@(downloadTask.taskIdentifier)];
+            ZBPackage *package = packageTasksMap[@(downloadTask.taskIdentifier)];
             NSLog(@"[Zebra] Successfully downloaded file for %@", package);
             
             NSString *suggestedFilename = [response suggestedFilename];
@@ -581,7 +581,7 @@
                 
                 [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
                 
-                if (![self->packageTasksMap count]) {
+                if (!self->packageTasksMap.count) {
                     [self->downloadDelegate finishedAllDownloads];
                 }
             }
@@ -602,7 +602,7 @@
                     } else {
                         package.debPath = finalPath;
                         
-                        [self->downloadDelegate finishedPackageDownload:package withError:NULL];
+                        [self->downloadDelegate finishedPackageDownload:package withError:nil];
                     }
                     
                     [self->packageTasksMap removeObjectForKey:@(downloadTask.taskIdentifier)];
@@ -632,8 +632,8 @@
             [downloadDelegate finishedPackageDownload:package withError:error];
         }
         else { //This should be a source
-            ZBBaseSource *source = [sourceTasksMap objectForKey:@(task.taskIdentifier)];
-            [self task:task completedDownloadedForFile:NULL fromSource:source withError:error];
+            ZBBaseSource *source = sourceTasksMap[@(task.taskIdentifier)];
+            [self task:task completedDownloadedForFile:nil fromSource:source withError:error];
         }
     }
     [packageTasksMap removeObjectForKey:@(task.taskIdentifier)];
@@ -664,7 +664,7 @@
 
 #pragma mark - Decompression
 
-- (NSString *_Nullable)decompressFile:(NSString *)path error:(NSError **)error {
+- (NSString * _Nullable)decompressFile:(NSString *)path error:(NSError **)error {
     //Since some servers and their MIME types are unreliable, we have to detemine the type of compression on our own...
     
     NSMutableArray *availableTypes = [@[@"xz", @"bz2", @"gz", @"lzma"] mutableCopy];
@@ -694,7 +694,7 @@
     return NULL;
 }
 
-- (NSString *_Nullable)decompressFile:(NSString *_Nonnull)path compressionType:(NSString *_Nonnull)compressionType error:(NSError **)error {
+- (NSString * _Nullable)decompressFile:(NSString * _Nonnull)path compressionType:(NSString * _Nonnull)compressionType error:(NSError **)error {
     if (!compressionType) {
         compressionType = [self guessMIMETypeForFile:path];
     }
@@ -707,7 +707,7 @@
                 NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .gz archive"}];
                 *error = invalidFileError;
                 
-                return NULL;
+                return nil;
             }
             
             z_stream stream;
@@ -751,7 +751,7 @@
                 NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .bz2 archive"}];
                 *error = invalidFileError;
                 
-                return NULL;
+                return nil;
             }
             
             bz_stream stream;
@@ -791,7 +791,7 @@
             NSString *finalPath = [path stringByDeletingPathExtension];
             [decompressedData writeToFile:finalPath atomically:NO];
             
-            NSError *removeError = NULL;
+            NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
                 *error = removeError;
@@ -807,7 +807,7 @@
                 NSError *invalidFileError = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
                 *error = invalidFileError;
                 
-                return NULL;
+                return nil;
             }
 
             NSData *compressedData = [NSData dataWithContentsOfFile:path];
@@ -842,7 +842,7 @@
                         
                     case COMPRESSION_STATUS_ERROR:
                         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
-                        return NULL;
+                        return nil;
                         
                     default:
                         break;
@@ -852,7 +852,7 @@
             compression_stream_destroy(&stream);
             [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
             
-            NSError *removeError = NULL;
+            NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
             if (removeError) {
                 *error = removeError;

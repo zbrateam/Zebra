@@ -570,7 +570,7 @@
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(ZBLogLevel)level {
-    if (str == NULL)
+    if (str == nil)
         return;
     
     dispatch_async(dispatch_get_main_queue(), ^{
