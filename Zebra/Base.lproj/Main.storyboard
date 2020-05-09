@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -105,80 +105,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Packages" id="gE6-EQ-6Uj"/>
-                    <connections>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="seguePackagesToPackageDepiction" id="jak-5S-xzd"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ifh-VS-hNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4278" y="444"/>
-        </scene>
-        <!--Package Depiction View Controller-->
-        <scene sceneID="aSD-cr-vZv">
-            <objects>
-                <viewController storyboardIdentifier="packageDepictionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="B5D-p6-E07" customClass="ZBPackageDepictionViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="j8g-ah-bgN"/>
-                        <viewControllerLayoutGuide type="bottom" id="lyr-cW-NJO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1A-46-hKa">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jiz-bw-rBw">
-                                <rect key="frame" x="4" y="140" width="406" height="673"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="7eW-tQ-K6H">
-                                    <rect key="frame" x="0.0" y="0.0" width="406" height="167"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rav-H8-05Q">
-                                            <rect key="frame" x="156.5" y="20" width="93" height="93"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="93" id="fR6-vv-HXc"/>
-                                                <constraint firstAttribute="width" secondItem="Rav-H8-05Q" secondAttribute="height" multiplier="1:1" id="lzg-xG-Iew"/>
-                                                <constraint firstAttribute="height" constant="93" id="nU3-Jb-f4J"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="package-name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLd-KE-N3G">
-                                            <rect key="frame" x="145.5" y="121" width="115" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <constraints>
-                                        <constraint firstItem="Rav-H8-05Q" firstAttribute="centerX" secondItem="7eW-tQ-K6H" secondAttribute="centerX" id="WAJ-8a-O4K"/>
-                                        <constraint firstItem="Rav-H8-05Q" firstAttribute="top" secondItem="7eW-tQ-K6H" secondAttribute="topMargin" constant="12" id="bT0-qR-KvB"/>
-                                        <constraint firstItem="bLd-KE-N3G" firstAttribute="top" secondItem="Rav-H8-05Q" secondAttribute="bottom" constant="8" id="lR4-5J-xbi"/>
-                                        <constraint firstItem="bLd-KE-N3G" firstAttribute="centerX" secondItem="Rav-H8-05Q" secondAttribute="centerX" id="tlg-07-56n"/>
-                                    </constraints>
-                                </view>
-                                <connections>
-                                    <outlet property="dataSource" destination="B5D-p6-E07" id="aLx-DK-IWI"/>
-                                    <outlet property="delegate" destination="B5D-p6-E07" id="akl-Vl-gxN"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Jiz-bw-rBw" firstAttribute="leading" secondItem="o1A-46-hKa" secondAttribute="leadingMargin" constant="-16" id="Ein-Ly-0ap"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Jiz-bw-rBw" secondAttribute="trailing" constant="-16" id="jjt-QW-DEa"/>
-                            <constraint firstItem="Jiz-bw-rBw" firstAttribute="top" secondItem="j8g-ah-bgN" secondAttribute="bottom" id="r0L-ut-TiR"/>
-                            <constraint firstItem="lyr-cW-NJO" firstAttribute="top" secondItem="Jiz-bw-rBw" secondAttribute="bottom" id="sbC-Sb-zLc"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="packageIcon" destination="Rav-H8-05Q" id="yDm-EU-Alr"/>
-                        <outlet property="packageName" destination="bLd-KE-N3G" id="JjK-cT-0Iz"/>
-                        <outlet property="tableView" destination="Jiz-bw-rBw" id="Pv1-Pz-EyS"/>
-                        <segue destination="bfp-la-uN6" kind="show" identifier="seguePackageDepictionToMorePackages" id="cOE-ig-TNf"/>
-                        <segue destination="S2S-wW-UmR" kind="show" identifier="packageDepictionToInstalledFiles" id="7iP-kk-tZx"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="7jM-DB-51u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5285.6000000000004" y="443.92803598200902"/>
+            <point key="canvasLocation" x="3355" y="444"/>
         </scene>
         <!--Installed Files Table View Controller-->
         <scene sceneID="yuu-9C-7ih">
@@ -211,9 +141,6 @@
                             <outlet property="delegate" destination="bfp-la-uN6" id="t51-Kv-Mnc"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="segueMorePackagesToPackageDepiction" id="I4L-pr-ZyX"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DHK-j0-Pcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -295,9 +222,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Account" id="qF9-ad-Phi"/>
-                    <connections>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="seguePurchasesToPackageDepiction" id="l9h-er-JrZ"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nat-By-CV4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -352,9 +276,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Search" id="31H-5B-Xgc"/>
-                    <connections>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="segueSearchToPackageDepiction" id="iGF-3v-Rr4"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7u-ki-pae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -456,7 +377,6 @@
                     <navigationItem key="navigationItem" title="Changes" id="eZC-Ua-ycq"/>
                     <connections>
                         <outlet property="collectionView" destination="N2X-8t-K5n" id="uBA-iU-5ru"/>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="seguePackagesToPackageDepiction" id="jak-5S-dzd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cur-Um-L2Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -689,7 +609,6 @@
                         <outlet property="darkModeButton" destination="2dE-CN-evu" id="5jS-go-D0V"/>
                         <outlet property="featuredCollection" destination="xfR-dj-XUb" id="vl2-XU-77a"/>
                         <outlet property="settingsButton" destination="5Na-Lv-DT1" id="4l3-kP-h4p"/>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="segueHomeFeaturedToDepiction" id="xJk-zG-Xgb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2m6-4q-giw" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -932,7 +851,6 @@
                     <connections>
                         <outlet property="segmentedControl" destination="Zm7-sp-XkJ" id="B0X-Mc-XJd"/>
                         <outlet property="toolbar" destination="h8l-OL-nQZ" id="eFO-Im-dfU"/>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="segueWishToPackageDepiction" id="zKt-1l-gI8"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yz5-O4-SaC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1316,7 +1234,6 @@
                     </tableView>
                     <connections>
                         <outlet property="featuredCollection" destination="H0k-XV-qMt" id="ohM-GF-GcT"/>
-                        <segue destination="B5D-p6-E07" kind="show" identifier="segueFeaturedToPackageDepiction" id="wqW-Kk-qIz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5fT-2U-Yfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1363,7 +1280,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Y2Z-lg-2Ym"/>
-        <segue reference="jak-5S-dzd"/>
         <segue reference="hk8-hZ-Cdu"/>
     </inferredMetricsTieBreakers>
     <resources>

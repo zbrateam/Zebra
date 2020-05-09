@@ -363,7 +363,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
+    ZBPackage *package = [self packageAtIndexPath:indexPath];
+    ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+    
+    [[self navigationController] pushViewController:depiction animated:YES];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -431,15 +434,6 @@
 //    ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
 //    destination.package = candidate ? candidate : package;
 //    destination.parent = self;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"] && [[segue destinationViewController] isKindOfClass:[ZBPackageDepictionViewController class]]) {
-        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        NSIndexPath *indexPath = sender;
-        [self setDestinationVC:indexPath destination:destination];
-        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    }
 }
 
 // FIXME: Update for new depictions
