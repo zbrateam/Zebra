@@ -38,6 +38,10 @@
     return self;
 }
 
+- (BOOL)forceSetColors {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
