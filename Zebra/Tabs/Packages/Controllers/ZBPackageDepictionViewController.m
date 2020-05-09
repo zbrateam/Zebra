@@ -42,7 +42,10 @@
     
     self.webView.hidden = YES;
     self.webView.navigationDelegate = self;
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/"]]];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/"]]];
+    });
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
