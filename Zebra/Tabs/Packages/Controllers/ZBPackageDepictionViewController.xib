@@ -13,6 +13,8 @@
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>
+                <outlet property="nameLabel" destination="buQ-5d-3jA" id="WGd-2j-0Tv"/>
+                <outlet property="shortDescriptionLabel" destination="MOP-zZ-00A" id="9Lh-lJ-WHw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="vZB-BP-HQQ" id="zdc-Jb-0f1"/>
                 <outlet property="webViewHeightConstraint" destination="wLJ-1A-d3b" id="4Nu-yu-xPe"/>
