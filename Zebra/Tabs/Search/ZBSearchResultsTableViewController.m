@@ -42,6 +42,13 @@
     return YES;
 }
 
+- (BOOL)observeQueueBar {
+    if (@available(iOS 11.0, *)) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -50,13 +57,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
+- (void)configureTableContentInsetForQueue {
+    ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
+    UISearchController *searchController = (UISearchController *)self.parentViewController;
+    UISearchBar *searchBar = searchController.searchBar;
+    CGFloat bottomInset = CGRectGetHeight(tabBarController.tabBar.frame);
     if ([ZBQueue count]) {
-        ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
+        LNPopupBar *popup = [tabBarController popupBar];
+        bottomInset += CGRectGetHeight(popup.frame);
     }
+    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(searchBar.superview.frame), 0, bottomInset, 0);
 }
 
 #pragma mark - Table view data source

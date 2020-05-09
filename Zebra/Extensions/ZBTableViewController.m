@@ -7,8 +7,7 @@
 //
 
 #import "ZBTableViewController.h"
-
-#import <UIColor+GlobalColors.h>
+#import "UIColor+GlobalColors.h"
 
 @interface ZBTableViewController ()
 
@@ -21,6 +20,10 @@
 }
 
 - (BOOL)forceSetColors {
+    return NO;
+}
+
+- (BOOL)observeQueueBar {
     return NO;
 }
 
@@ -64,6 +67,9 @@
     if ([self forceSetColors]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncSetColors) name:@"darkMode" object:nil];
     }
+    if ([self observeQueueBar]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTableContentInsetForQueue) name:@"ZBQueueBarHeightDidChange" object:nil];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
@@ -76,6 +82,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+- (void)configureTableContentInsetForQueue {
+    // stub
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBQueueBarHeightDidChange" object:nil];
 }
 
 @end

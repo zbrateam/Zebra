@@ -9,7 +9,6 @@
 #import "ZBSearchTableViewController.h"
 
 #import <ZBAppDelegate.h>
-#import <ZBTabBarController.h>
 #import <Theme/ZBThemeManager.h>
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
@@ -34,6 +33,13 @@
 
 @synthesize searchController;
 
+- (BOOL)observeQueueBar {
+    if (@available(iOS 11.0, *)) {
+        return NO;
+    }
+    return YES;
+}
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
@@ -57,12 +63,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if ([ZBQueue count]) {
-        ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
-    }
-    
+        
     [((ZBSearchResultsTableViewController *)searchController.searchResultsController) setColors];
     
     if (@available(iOS 11.0, *)) {
@@ -72,6 +73,18 @@
         UIView *headerView = [self.tableView headerViewForSection:0];
         [headerView setNeedsDisplay];
     }
+}
+
+- (void)configureTableContentInsetForQueue {
+    ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    CGFloat bottomInset = CGRectGetHeight(tabBarController.tabBar.frame);
+    if ([ZBQueue count]) {
+        LNPopupBar *popup = [tabBarController popupBar];
+        bottomInset += CGRectGetHeight(popup.frame);
+    }
+    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(statusBarFrame) + CGRectGetHeight(navFrame), 0, bottomInset, 0);
 }
 
 - (void)setupView {
@@ -141,7 +154,7 @@
                 results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->liveSearch];
                 break;
             case 2:
-                results = [databaseManager packagesByAuthorName:strippedString email:NULL fullSearch:!self->liveSearch];
+                results = [databaseManager packagesByAuthorName:strippedString email:nil fullSearch:!self->liveSearch];
                 break;
         }
     }
