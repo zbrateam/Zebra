@@ -96,9 +96,14 @@
 }
 
 - (void)configureGetButton {
-    [self.getButton setTitle:@"LOAD" forState:UIControlStateNormal];
+    [self.getButton setTitle:@"LOAD" forState:UIControlStateNormal]; // Activity indicator going here
     [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
-        [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+        if (text) {
+            [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+        }
+        else {
+            [self.getButton setTitle:@"LOAD" forState:UIControlStateNormal]; // Activity indicator is going here
+        }
     }];
 }
 
