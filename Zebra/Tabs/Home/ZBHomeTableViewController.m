@@ -555,7 +555,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     settingsController.presentationController.delegate = self;
 }
 
-#pragma mark - Dark Mode
+#pragma mark - Theming
 
 - (IBAction)toggleTheme:(id)sender {
     [ZBDevice hapticButton];

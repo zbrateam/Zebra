@@ -16,7 +16,11 @@
 
 @implementation ZBTableViewController
 
-+ (BOOL)hasSpinner {
+- (BOOL)hasSpinner {
+    return NO;
+}
+
+- (BOOL)forceSetColors {
     return NO;
 }
 
@@ -31,9 +35,19 @@
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
 }
 
+#pragma mark - Theming
+
+- (void)asyncSetColors {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+        self.tableView.sectionIndexColor = [UIColor accentColor];
+        self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+    });
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ([[self class] hasSpinner]) {
+    if ([self hasSpinner]) {
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
            self.navigationItem.titleView = spinner;
            [spinner startAnimating];
@@ -46,6 +60,9 @@
                    spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
                    break;
            }
+    }
+    if ([self forceSetColors]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncSetColors) name:@"darkMode" object:nil];
     }
 }
 

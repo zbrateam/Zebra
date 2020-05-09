@@ -19,7 +19,7 @@
 
 @synthesize credits;
 
-+ (BOOL)hasSpinner {
+- (BOOL)hasSpinner {
     return YES;
 }
 

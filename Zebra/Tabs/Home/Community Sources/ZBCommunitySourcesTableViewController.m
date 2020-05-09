@@ -26,7 +26,7 @@
 @synthesize communitySources;
 @synthesize sourceManager;
 
-+ (BOOL)hasSpinner {
+- (BOOL)hasSpinner {
     return YES;
 }
 

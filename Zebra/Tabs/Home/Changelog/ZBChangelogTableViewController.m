@@ -21,7 +21,7 @@
 
 @synthesize releases;
 
-+ (BOOL)hasSpinner {
+- (BOOL)hasSpinner {
     return YES;
 }
 
