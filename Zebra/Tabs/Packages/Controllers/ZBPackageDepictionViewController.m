@@ -10,6 +10,8 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 
+#import <Sources/Helpers/ZBSource.h>
+
 @interface ZBPackageDepictionViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -118,7 +120,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 4; // For now just four but once we set up a proper data source this will be variable
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return NSLocalizedString(@"Information", @"");
 }
 
 #pragma mark - UITableViewDelegate
@@ -126,8 +132,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"informationCell"];
     
-    cell.textLabel.text = @"Identifier";
-    cell.detailTextLabel.text = [self.package identifier];
+    // Temporary, need a proper data source
+    switch (indexPath.row) {
+        case 0:
+            cell.textLabel.text = @"Installed Version";
+            cell.detailTextLabel.text = [self.package installedVersion];
+            break;
+        case 1:
+            cell.textLabel.text = @"Bundle Identifier";
+            cell.detailTextLabel.text = [self.package identifier];
+            break;
+        case 2:
+            cell.textLabel.text = @"Size"; // Should this be installed or download size??
+            cell.detailTextLabel.text = [self.package downloadSizeString];
+            break;
+        case 3:
+            cell.textLabel.text = @"Source";
+            cell.detailTextLabel.text = [self.package.source label];
+    }
     
     return cell;
 }
