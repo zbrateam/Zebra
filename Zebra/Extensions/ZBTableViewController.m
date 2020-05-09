@@ -22,6 +22,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setColors];
+}
+
+- (void)setColors {
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.tableView.separatorColor = [UIColor cellSeparatorColor];
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];

@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBTableViewController : UITableViewController
-
+- (void)setColors;
 @end
 
 NS_ASSUME_NONNULL_END
