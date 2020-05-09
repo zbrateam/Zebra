@@ -655,10 +655,6 @@
     return greaterVersions;
 }
 
-- (NSString *)longDescription {
-    return longDescription == NULL ? shortDescription : longDescription;
-}
-
 - (BOOL)ignoreUpdates {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     return [databaseManager areUpdatesIgnoredForPackage:self];

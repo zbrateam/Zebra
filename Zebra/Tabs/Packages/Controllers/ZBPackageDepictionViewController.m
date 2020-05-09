@@ -13,7 +13,7 @@
 @interface ZBPackageDepictionViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *shortDescriptionLabel;
+@property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
 @property (strong, nonatomic) IBOutlet UIButton *getButton;
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet WKWebView *webView;
@@ -49,7 +49,7 @@
 
 - (void)setData {
     self.nameLabel.text = self.package.name;
-    self.shortDescriptionLabel.text = self.package.shortDescription;
+    self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
         
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.package.depictionURL]];

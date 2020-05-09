@@ -17,7 +17,7 @@
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>
                 <outlet property="nameLabel" destination="buQ-5d-3jA" id="WGd-2j-0Tv"/>
                 <outlet property="scrollView" destination="pGb-C7-kl2" id="4u1-R3-Z27"/>
-                <outlet property="shortDescriptionLabel" destination="MOP-zZ-00A" id="9Lh-lJ-WHw"/>
+                <outlet property="tagLineLabel" destination="MOP-zZ-00A" id="fja-Gz-iRW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="vZB-BP-HQQ" id="zdc-Jb-0f1"/>
                 <outlet property="webViewHeightConstraint" destination="wLJ-1A-d3b" id="4Nu-yu-xPe"/>
@@ -59,7 +59,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An Awesome Package Manager!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOP-zZ-00A">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOP-zZ-00A">
                                                                     <rect key="frame" x="0.0" y="28.5" width="270" height="16"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -239,10 +239,6 @@
 
 + (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIBarButtonItemActionHandler handler = ^{
-
-        };
-        
         NSString *title = [self buttonTitleForPackage:package];
         if (@available(iOS 11.0, *)) {
             if ([package mightRequirePayment]) {
