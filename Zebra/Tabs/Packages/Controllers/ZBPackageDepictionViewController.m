@@ -16,7 +16,10 @@
 @property (strong, nonatomic) IBOutlet UIButton *getButton;
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet WKWebView *webView;
+@property (weak, nonatomic) IBOutlet UITableView *informationTableView;
+
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+
 @property (strong, nonatomic) ZBPackage *package;
 @end
 
