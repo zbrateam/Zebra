@@ -467,7 +467,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)readFiles:(ZBPackage *)package {
-    if ([package isInstalled:NO]) {
+    if ([package isInstalled:NO] && [[package source] sourceID] != -2) {
         infos[@(ZBPackageInfoInstalledFiles)] = @"";
     } else {
         [infos removeObjectForKey:@(ZBPackageInfoInstalledFiles)];
