@@ -21,6 +21,7 @@
 #import "ZBPurchaseInfo.h"
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
+#import <ZBSettings.h>
 
 @import SDWebImage;
 @import FirebaseCrashlytics;
@@ -800,7 +801,7 @@
                 [actions addObject:@(ZBPackageActionHideUpdates)];
             }
         }
-        if ([[self allVersions] count] > 1) { // Show "Select version" instead of "Install" as it makes more senses
+        if ([[self allVersions] count] > 1 && ![ZBSettings alwaysInstallLatest]) { // Show "Select version" instead of "Install" as it makes more sense
             [actions addObject:@(ZBPackageActionSelectVersion)];
         }
         else {
