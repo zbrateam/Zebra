@@ -363,7 +363,6 @@
         [self setConflictsWith:[self extract:[conflicts UTF8String]]];
         [self setProvides:[self extract:[provides UTF8String]]];
         [self setReplaces:[self extract:[replaces UTF8String]]];
-        [self setSource:[ZBSource localSource:-2]];
     }
     
     return self;
@@ -409,6 +408,7 @@
     
     ZBPackage *package = [self initWithDictionary:info];
     [package setDebPath:path];
+    [package setSource:[ZBSource localSource:-2]];
     
     return package;
 }
