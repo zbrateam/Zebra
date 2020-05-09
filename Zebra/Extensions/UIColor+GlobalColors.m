@@ -56,7 +56,7 @@
     }
     else {
         return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
-            if ([ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
+            if (style == ZBInterfaceStylePureBlack) {
                 return [UIColor blackColor];
             }
             else {
@@ -80,7 +80,7 @@
     }
     else {
         return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
-            if ([ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
+            if (style == ZBInterfaceStylePureBlack) {
                 return [UIColor blackColor];
             }
             else {
@@ -104,7 +104,7 @@
     }
     else {
         return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
-            if ([ZBSettings interfaceStyle] == ZBInterfaceStylePureBlack) {
+            if (style == ZBInterfaceStylePureBlack) {
                 return [[UIColor whiteColor] colorWithAlphaComponent:0.05];
             }
             else {
