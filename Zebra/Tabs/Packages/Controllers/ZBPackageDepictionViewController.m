@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UITableView *informationTableView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
 
@@ -65,6 +66,11 @@
     self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
     
     self.webView.hidden = YES;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
 }
 
 - (void)setDelegates {
@@ -72,6 +78,8 @@
     
     self.informationTableView.delegate = self;
     self.informationTableView.dataSource = self;
+    
+    self.scrollView.delegate = self;
 }
 
 #pragma mark - UITableViewDataSource
@@ -103,6 +111,17 @@
         [[self view] layoutIfNeeded];
         webView.hidden = NO;
     });
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat maximumVerticalOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+    CGFloat currentVerticalOffset = scrollView.contentOffset.y;
+    CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
+
+    UIColor *color = [UIColor colorWithWhite:1.0 alpha:percentageVerticalOffset];
+    self.navigationController.navigationBar.backgroundColor = color;
 }
 
 @end

@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,6 +15,7 @@
                 <outlet property="informationTableView" destination="6ND-ju-1KY" id="BXN-wW-GaC"/>
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>
                 <outlet property="nameLabel" destination="buQ-5d-3jA" id="WGd-2j-0Tv"/>
+                <outlet property="scrollView" destination="pGb-C7-kl2" id="4u1-R3-Z27"/>
                 <outlet property="shortDescriptionLabel" destination="MOP-zZ-00A" id="9Lh-lJ-WHw"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="vZB-BP-HQQ" id="zdc-Jb-0f1"/>
@@ -69,11 +70,11 @@
                                                             <rect key="frame" x="0.0" y="44.5" width="270" height="50.5"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-3C-qrI">
-                                                                    <rect key="frame" x="0.0" y="20.5" width="70" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="20.5" width="77" height="30"/>
                                                                     <color key="backgroundColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                                     <inset key="contentEdgeInsets" minX="20" minY="6" maxX="20" maxY="6"/>
-                                                                    <state key="normal" title="GET">
+                                                                    <state key="normal" title="FREE">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                 </button>
