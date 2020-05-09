@@ -78,6 +78,9 @@
                                                                     <state key="normal" title="FREE">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="getButtonPressed:" destination="-1" eventType="touchUpInside" id="j2z-ZI-moF"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-4B-PgN">
                                                                     <rect key="frame" x="240" y="20.5" width="30" height="30"/>

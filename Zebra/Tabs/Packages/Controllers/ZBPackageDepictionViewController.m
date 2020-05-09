@@ -102,6 +102,10 @@
     }];
 }
 
+- (IBAction)getButtonPressed:(id)sender {
+    [ZBPackageActions buttonActionForPackage:self.package]();
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

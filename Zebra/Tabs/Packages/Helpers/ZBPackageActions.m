@@ -239,28 +239,9 @@
 
 + (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-//        UIBarButtonItemActionHandler handler = ^{
-//            NSArray <NSNumber *> *actions = [package possibleActions];
-//            if ([actions count] > 1) {
-//                UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
-//
-//                for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
-//                    [selectAction addAction:action];
-//                }
-//
-//                [selectAction show];
-//            }
-//            else {
-//                // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
-//                ZBPackageActionType action = actions[0].intValue;
-//                if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
-//                    [[ZBAppDelegate tabBarController] openQueue:YES];
-//                }
-//                else {
-//                    [self performAction:action forPackage:package completion:nil];
-//                }
-//            }
-//        };
+        UIBarButtonItemActionHandler handler = ^{
+
+        };
         
         NSString *title = [self buttonTitleForPackage:package];
         if (@available(iOS 11.0, *)) {
@@ -287,6 +268,33 @@
             completion(title);
         });
     });
+}
+
++ (void (^)(void))buttonActionForPackage:(ZBPackage *)package {
+    NSArray <NSNumber *> *actions = [package possibleActions];
+    if ([actions count] > 1) {
+        return ^{
+            UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
+
+            for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
+                    [selectAction addAction:action];
+            }
+
+            [selectAction show];
+        };
+    }
+    else {
+        return ^{
+            // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
+            ZBPackageActionType action = actions[0].intValue;
+            if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
+                [[ZBAppDelegate tabBarController] openQueue:YES];
+            }
+            else {
+                [self performAction:action forPackage:package completion:nil];
+            }
+        };
+    }
 }
 
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView {
