@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PackageDepictionViewController" customModule="Zebra" customModuleProvider="target">
             <connections>
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
+                <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
                 <outlet property="informationTableView" destination="6ND-ju-1KY" id="BXN-wW-GaC"/>
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>
