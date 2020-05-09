@@ -24,17 +24,6 @@
     return NO;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self setColors];
-}
-
-- (void)setColors {
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
-}
-
 #pragma mark - Theming
 
 - (void)asyncSetColors {
@@ -43,6 +32,17 @@
         self.tableView.sectionIndexColor = [UIColor accentColor];
         self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     });
+}
+
+- (void)setColors {
+    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    self.tableView.separatorColor = [UIColor cellSeparatorColor];
+    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self setColors];
 }
 
 - (void)viewDidLoad {
