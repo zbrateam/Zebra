@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBAddSourceViewController : UIViewController <UITextViewDelegate>
-+ (UINavigationController *)controllerWithText:(NSString *_Nullable)text delegate:(id <ZBSourceVerificationDelegate>)delegate;
++ (UINavigationController *)controllerWithText:(NSString * _Nullable)text delegate:(id <ZBSourceVerificationDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

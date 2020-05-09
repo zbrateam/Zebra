@@ -220,12 +220,16 @@
 }
 
 - (void)configureKeyboard {
+    [self configureKeyboard:[UITextField appearance]];
+}
+
+- (void)configureKeyboard:(id <UITextInputTraits>)appearance {
     if ([ZBThemeManager useCustomTheming]) {
         if ([self darkMode]) {
-            [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+            [appearance setKeyboardAppearance:UIKeyboardAppearanceDark];
         }
         else {
-            [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            [appearance setKeyboardAppearance:UIKeyboardAppearanceDefault];
         }
     }
 }

@@ -8,9 +8,11 @@
 
 #import "ZBSourceListTableViewController.h"
 #import "ZBAddSourceViewController.h"
-#import "UIColor+GlobalColors.h"
 #import "ZBBaseSource.h"
 #import "ZBSourceManager.h"
+
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Theme/ZBThemeManager.h>
 
 @interface ZBAddSourceViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *addSourceTextView;
@@ -24,7 +26,7 @@
 
 @synthesize delegate;
 
-+ (UINavigationController *)controllerWithText:(NSString *_Nullable)text delegate:(id <ZBSourceVerificationDelegate>)delegate {
++ (UINavigationController *)controllerWithText:(NSString * _Nullable)text delegate:(id <ZBSourceVerificationDelegate>)delegate {
     ZBAddSourceViewController *addSourceVC = [[ZBAddSourceViewController alloc] initWithText:text delegate:delegate];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addSourceVC];
     
@@ -67,12 +69,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[ZBThemeManager sharedInstance] configureKeyboard:self.addSourceTextView];
     [self.addSourceTextView becomeFirstResponder];
 }
 
-- (void)keyboardWillShow:(NSNotification*)notification {
-    double duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    CGRect frame = [[notification.userInfo objectForKey: UIKeyboardFrameEndUserInfoKey] CGRectValue];
+- (void)keyboardWillShow:(NSNotification *)notification {
+    double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    CGRect frame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.textFieldBottomConstraint.constant = frame.size.height;
     
     [UIView animateWithDuration:duration animations:^{
@@ -80,8 +83,8 @@
     }];
 }
 
-- (void)keyboardWillHide:(NSNotification*)notification {
-    double duration = [[notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+- (void)keyboardWillHide:(NSNotification *)notification {
+    double duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     self.textFieldBottomConstraint.constant = 0.0;
     
     [UIView animateWithDuration:duration animations:^{
@@ -97,7 +100,7 @@
 - (IBAction)addButtonTapped:(UIBarButtonItem *)sender {
     [self.addSourceTextView resignFirstResponder];
     
-    NSError *detectorError = NULL;
+    NSError *detectorError = nil;
     NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
     if (detectorError) {
         UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
