@@ -14,28 +14,35 @@
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet WKWebView *webView;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+@property (strong, nonatomic) ZBPackage *package;
 @end
 
 @implementation ZBPackageDepictionViewController
 
 - (id)initWithPackage:(ZBPackage *)package {
-    return [super init];
+    self = [super init];
+    
+    if (self) {
+        self.package = package;
+    }
+    
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _iconImageView.layer.cornerRadius = 20;
-    _iconImageView.layer.borderWidth = 1;
-    _iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
-    _iconImageView.image = [UIImage imageNamed:@"icon"];
+    self.iconImageView.layer.cornerRadius = 20;
+    self.iconImageView.layer.borderWidth = 1;
+    self.iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
+    self.iconImageView.image = [UIImage imageNamed:@"icon"];
     
-    _getButton.layer.cornerRadius = _getButton.frame.size.height / 2;
-    _moreButton.layer.cornerRadius = _moreButton.frame.size.height / 2;
+    self.getButton.layer.cornerRadius = self.getButton.frame.size.height / 2;
+    self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
     
-    _webView.hidden = YES;
-    _webView.navigationDelegate = self;
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/"]]];
+    self.webView.hidden = YES;
+    self.webView.navigationDelegate = self;
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/"]]];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
