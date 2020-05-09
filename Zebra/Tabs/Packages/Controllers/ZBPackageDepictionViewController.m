@@ -8,6 +8,7 @@
 
 #import "ZBPackageDepictionViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
+#import <Packages/Helpers/ZBPackageActions.h>
 
 @interface ZBPackageDepictionViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
@@ -43,6 +44,7 @@
     [self setData];
     [self applyCustomizations];
     [self setDelegates];
+    [self configureGetButton];
 }
 
 - (void)setData {
@@ -91,6 +93,13 @@
     self.informationTableView.dataSource = self;
     
     self.scrollView.delegate = self;
+}
+
+- (void)configureGetButton {
+    [self.getButton setTitle:@"LOAD" forState:UIControlStateNormal];
+    [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
+        [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+    }];
 }
 
 #pragma mark - UITableViewDataSource

@@ -237,49 +237,45 @@
 
 #pragma mark - Display Actions
 
-+ (void)barButtonItemForPackage:(ZBPackage *)package completion:(void (^)(UIBarButtonItem *barButton))completion {
++ (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIBarButtonItemActionHandler handler = ^{
-            NSArray <NSNumber *> *actions = [package possibleActions];
-            if ([actions count] > 1) {
-                UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
-                
-                for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
-                    [selectAction addAction:action];
-                }
-                
-                [selectAction show];
-            }
-            else {
-                // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
-                ZBPackageActionType action = actions[0].intValue;
-                if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
-                    [[ZBAppDelegate tabBarController] openQueue:YES];
-                }
-                else {
-                    [self performAction:action forPackage:package completion:nil];
-                }
-            }
-        };
+//        UIBarButtonItemActionHandler handler = ^{
+//            NSArray <NSNumber *> *actions = [package possibleActions];
+//            if ([actions count] > 1) {
+//                UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
+//
+//                for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
+//                    [selectAction addAction:action];
+//                }
+//
+//                [selectAction show];
+//            }
+//            else {
+//                // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
+//                ZBPackageActionType action = actions[0].intValue;
+//                if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
+//                    [[ZBAppDelegate tabBarController] openQueue:YES];
+//                }
+//                else {
+//                    [self performAction:action forPackage:package completion:nil];
+//                }
+//            }
+//        };
         
-        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:[self buttonTitleForPackage:package] style:UIBarButtonItemStylePlain actionHandler:handler];
+        NSString *title = [self buttonTitleForPackage:package];
         if (@available(iOS 11.0, *)) {
             if ([package mightRequirePayment]) {
                 [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                     if (info) { // Package does have purchase info
                         if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
-                            UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain actionHandler:^{
-                                [self performAction:ZBPackageActionInstall forPackage:package completion:nil];
-                            }];
-                            
                             dispatch_async(dispatch_get_main_queue(), ^{
-                                completion(purchaseButton);
+                                completion(info.price);
                             });
                             return;
                         }
                     }
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(button);
+                        completion(title);
                     });
                     return;
                 }];
@@ -288,7 +284,7 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion(button);
+            completion(title);
         });
     });
 }
@@ -447,7 +443,7 @@
     switch (action) {
         case ZBPackageActionInstall:
         case ZBPackageActionSelectVersion:
-            return useIcon ? @"⇩" : NSLocalizedString(@"Install", @"");
+            return useIcon ? @"⇩" : NSLocalizedString(@"Free", @"");
         case ZBPackageActionRemove:
             return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
         case ZBPackageActionReinstall:
