@@ -34,7 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+        
     [self setData];
     [self applyCustomizations];
     [self setDelegates];
@@ -49,6 +49,9 @@
 }
 
 - (void)applyCustomizations {
+    // Navigation
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
     self.iconImageView.layer.borderWidth = 1;
