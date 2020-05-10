@@ -523,12 +523,16 @@
 
 - (void)dropTables {
     if ([self openDatabase] == SQLITE_OK) {
-        char *packDel = "DROP TABLE PACKAGES;";
-        sqlite3_exec(database, packDel, NULL, 0, NULL);
-        char *sourceDel = "DROP TABLE REPOS;";
-        sqlite3_exec(database, sourceDel, NULL, 0, NULL);
-        char *updatesDel = "DELETE FROM UPDATES WHERE IGNORE != 1;";
-        sqlite3_exec(database, updatesDel, NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE PACKAGES;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE REPOS;", NULL, 0, NULL);
+        
+        // Update UPDATES table schema while retaining user data
+        sqlite3_exec(database, "DELETE FROM UPDATES WHERE IGNORE != 1;", NULL, 0, NULL);
+        sqlite3_exec(database, "CREATE TABLE UPDATES_SNAPSHOT AS SELECT PACKAGE, VERSION, IGNORE FROM UPDATES;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE UPDATES;", NULL, 0, NULL);
+        createTable(database, 2);
+        sqlite3_exec(database, "INSERT INTO UPDATES SELECT PACKAGE, VERSION, IGNORE FROM UPDATES_SNAPSHOT;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE UPDATES_SNAPSHOT;", NULL, 0, NULL);
         
         [self closeDatabase];
     } else {
