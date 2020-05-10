@@ -47,6 +47,8 @@
     [self applyCustomizations];
     [self setDelegates];
     [self configureGetButton];
+    
+    NSLog(@"first sub: %@", self.view.subviews[0]);
 }
 
 - (void)setData {
@@ -72,20 +74,19 @@
     
     self.webView.hidden = YES;
     
-//    if (@available(iOS 13.0, *)) {
-//        UINavigationBarAppearance *navBarAppearance = [UINavigationBarAppearance new];
-//        [navBarAppearance configureWithTransparentBackground];
-//        navBarAppearance.backgroundColor = nil;
-//        self.navigationItem.standardAppearance = navBarAppearance;
-//        self.navigationItem.scrollEdgeAppearance = navBarAppearance;
-//
-//    }
-//    else {
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        self.navigationController.navigationBar.shadowImage = [UIImage new];
-        self.navigationController.navigationBar.translucent = YES;
-        self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
-//    }
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    self.navigationController.navigationBar.translucent = YES;
+//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+    self.navigationController.navigationBar._backgroundOpacity = 0.0;
+    
+//    self.extendedLayoutIncludesOpaqueBars = YES;
+//    self.edgesForExtendedLayout = UIRectEdgeTop;
+    
+//    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    self.scrollView.backgroundColor = [UIColor blueColor];
+//    self.view.backgroundColor = [UIColor purpleColor];
+//    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)setDelegates {
@@ -171,8 +172,9 @@
     CGFloat currentVerticalOffset = scrollView.contentOffset.y;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
 
-    UIColor *color = [UIColor colorWithWhite:1.0 alpha:percentageVerticalOffset];
-    self.navigationController.navigationBar.backgroundColor = color;
+//    UIColor *color = [UIColor colorWithWhite:1.0 alpha:percentageVerticalOffset];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:percentageVerticalOffset];
+    self.navigationController.navigationBar._backgroundOpacity = percentageVerticalOffset;
 }
 
 @end
