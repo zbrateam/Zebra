@@ -47,8 +47,6 @@
     [self applyCustomizations];
     [self setDelegates];
     [self configureGetButton];
-    
-    NSLog(@"first sub: %@", self.view.subviews[0]);
 }
 
 - (void)setData {
@@ -73,20 +71,7 @@
     self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
     
     self.webView.hidden = YES;
-    
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    self.navigationController.navigationBar.translucent = YES;
-//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
     self.navigationController.navigationBar._backgroundOpacity = 0.0;
-    
-//    self.extendedLayoutIncludesOpaqueBars = YES;
-//    self.edgesForExtendedLayout = UIRectEdgeTop;
-    
-//    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//    self.scrollView.backgroundColor = [UIColor blueColor];
-//    self.view.backgroundColor = [UIColor purpleColor];
-//    self.navigationController.navigationBar.translucent = YES;
 }
 
 - (void)setDelegates {
@@ -168,12 +153,12 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView != self.scrollView) return;
+    
     CGFloat maximumVerticalOffset = self.headerView.frame.size.height;
     CGFloat currentVerticalOffset = scrollView.contentOffset.y;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
-
-//    UIColor *color = [UIColor colorWithWhite:1.0 alpha:percentageVerticalOffset];
-//    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:percentageVerticalOffset];
+    
     self.navigationController.navigationBar._backgroundOpacity = percentageVerticalOffset;
 }
 
