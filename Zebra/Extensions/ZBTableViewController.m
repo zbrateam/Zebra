@@ -72,6 +72,12 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
+    if ([UIDevice.currentDevice.systemVersion hasPrefix:@"9."]) {
+        view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
 }
