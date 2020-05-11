@@ -69,7 +69,7 @@
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Finish Automatically" = "自動的に終了";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "常に最新版をインストールする";
 "Automatic Refresh" = "自動更新";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "パッケージがインストールされていない場合は、常に最新バージョンのパッケージをインストールします。";
 
 // Filters
 
