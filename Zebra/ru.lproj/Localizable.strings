@@ -69,7 +69,7 @@
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Finish Automatically" = "Завершить автоматически";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Всегда устанавливать последнюю";
 "Automatic Refresh" = "Автоматическое обновление";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Всегда устанавливать последнюю версию пакета, если он не был установлен.";
 
 // Filters
 
