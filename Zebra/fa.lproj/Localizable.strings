@@ -69,6 +69,7 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "تازه‌سازی خودکار";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "واردشدن، به سورس‌ها اجازه خرید بسته های پولی را می‌دهد.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "بعد از تکمیل کارها، کنسول را به طور خودکار خارج کن.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
