@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
 @end
@@ -42,11 +43,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    [self setData];
-    [self applyCustomizations];
+    
     [self setDelegates];
+    [self applyCustomizations];
+    [self setData];
     [self configureGetButton];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    [self updateTableViewHeightBasedOnContent];
 }
 
 - (void)setData {
@@ -93,6 +100,10 @@
             [self.getButton setTitle:@"LOAD" forState:UIControlStateNormal]; // Activity indicator is going here
         }
     }];
+}
+
+- (void)updateTableViewHeightBasedOnContent {
+    self.informationTableViewHeightConstraint.constant = self.informationTableView.contentSize.height;
 }
 
 - (IBAction)getButtonPressed:(id)sender {

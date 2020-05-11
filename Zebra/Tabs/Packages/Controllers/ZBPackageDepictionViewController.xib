@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
                 <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
                 <outlet property="informationTableView" destination="6ND-ju-1KY" id="BXN-wW-GaC"/>
+                <outlet property="informationTableViewHeightConstraint" destination="v4v-rz-M8J" id="fGa-Hu-Gg8"/>
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>
                 <outlet property="nameLabel" destination="buQ-5d-3jA" id="WGd-2j-0Tv"/>
                 <outlet property="scrollView" destination="pGb-C7-kl2" id="4u1-R3-Z27"/>
@@ -32,10 +33,10 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="729"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="679"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="729"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="679"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5b4-CH-e0H">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
@@ -117,14 +118,14 @@
                                             </wkWebViewConfiguration>
                                         </wkWebView>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6ND-ju-1KY">
-                                            <rect key="frame" x="0.0" y="309" width="414" height="200"/>
+                                            <rect key="frame" x="0.0" y="309" width="414" height="150"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="200" id="v4v-rz-M8J"/>
+                                                <constraint firstAttribute="height" constant="150" id="v4v-rz-M8J"/>
                                             </constraints>
                                         </tableView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pGy-qZ-mOk">
-                                            <rect key="frame" x="0.0" y="541" width="414" height="188"/>
+                                            <rect key="frame" x="0.0" y="491" width="414" height="188"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lm2-pY-Hbk">
                                                     <rect key="frame" x="16" y="0.0" width="382" height="0.5"/>
