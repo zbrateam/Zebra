@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Përfundoni Automatikisht";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Rifreskim Automatik";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Duke hyrë në burime lejon që të blihen paketat me pages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
