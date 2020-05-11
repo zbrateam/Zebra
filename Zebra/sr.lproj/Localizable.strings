@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikonica";
 "Finish Automatically" = "Završi automatski";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatski osveži";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Registrovanje na izvorima omogućava kupovinu paketa.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori Konzolu kada se završe svi zadaci.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
