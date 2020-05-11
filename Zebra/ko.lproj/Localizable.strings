@@ -69,6 +69,7 @@
 "Text" = "텍스트";
 "Icon" = "아이콘";
 "Finish Automatically" = "작업이 완료되면 콘솔 닫기";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "자동 새로고침";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "소스에 로그인하면 유료 패키지를 구매할 수 있습니다.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
