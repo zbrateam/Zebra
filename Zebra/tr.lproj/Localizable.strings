@@ -69,6 +69,7 @@
 "Text" = "Yazı";
 "Icon" = "İkon";
 "Finish Automatically" = "Otomatik Sonlandır";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Otomatik Yenileme";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Kaynaklarda oturum açmak, ücretli paketlerin satın alınmasına izin verir.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
