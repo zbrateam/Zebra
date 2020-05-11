@@ -69,7 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Përfundoni Automatikisht";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Gjithmonë instaloni të fundit";
 "Automatic Refresh" = "Rifreskim Automatik";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Gjithmonë instaloni versionin më të fundit të një pakete në qoftëse nuk është e instaluar akoma.";
 
 // Filters
 
