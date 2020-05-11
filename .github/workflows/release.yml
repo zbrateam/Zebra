@@ -18,7 +18,7 @@ jobs:
         git submodule update --init --recursive
 
     - name: Build Package
-      id: build
+      id: package_build
       env:
         THEOS: theos
       run: |
@@ -61,7 +61,7 @@ jobs:
       if: "!github.event.release.prerelease"
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
+      run: hub release edit -m '' -a ~/website/repo/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
     - name: Attach package to beta release
       if: github.event.release.prerelease
       env:
