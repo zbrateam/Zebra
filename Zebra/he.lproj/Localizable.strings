@@ -69,7 +69,7 @@
 "Text" = "טקסט";
 "Icon" = "אייקון";
 "Finish Automatically" = "סיים אוטומטית";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "התקן תמיד את הגרסה האחרונה";
 "Automatic Refresh" = "רענון אוטומטי";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "התקן תמיד את הגרסה החדשה ביותר של חבילה אם היא לא מותקנת כבר.";
 
 // Filters
 
