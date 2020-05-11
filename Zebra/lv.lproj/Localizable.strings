@@ -69,6 +69,7 @@
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
 "Finish Automatically" = "Pabeigt Automātiski";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automātiska Atsvaidzināšana";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Ielogoties avotos tev ļauj iegādāties paketes ar naudu.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automātiski slēgt konsoli, ja visi tās uzdevumi ir izpildīti.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
