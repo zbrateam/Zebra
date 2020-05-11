@@ -69,6 +69,7 @@
 "Text" = "文字";
 "Icon" = "图标";
 "Finish Automatically" = "自动完成";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "自动刷新";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
