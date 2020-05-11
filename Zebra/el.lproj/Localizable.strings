@@ -8,7 +8,7 @@
 "Retry" = "Ξαναπροσπάθησε";
 "Edit" = "Επεξεργασία";
 "Close" = "Κλείσε";
-"Done" = "Τέλος";
+"Done" = "Ολοκλήρωση";
 "Loading..." = "Γίνεται φόρτωση...";
 "Clear" = "Εκκαθάριση";
 "An Error Occurred" = "Παρουσιάστηκε Ένα Σφάλμα";
@@ -33,8 +33,8 @@
 
 // Community Source
 
-"Community Sources" = "Πηγές της Κοινωνίας";
-"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινωνίας";
+"Community Sources" = "Πηγές της Κοινότητας";
+"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινότητας";
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
 "Utility source for %@" = "Πρακτική πηγή για %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Τελευταία";
 "Version" = "Έκδοση";
 "Packages" = "Πακέτα";
 "Show Updates" = "Εμφάνισε Ενημερώσεις";
 "Hide Updates" = "Κρύψε Ενημερώσεις";
 "Select Version" = "Διάλεξε Έκδοση";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Διάλεξε μία έκδοση για εγκατάσταση:";
 "Select a version to upgrade to:" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε:";
 "Select a version to downgrade to:" = "Διάλεξε μία έκδοση για να υποβαθμιστείς σε:";
 "Package" = "Πακέτο";
@@ -477,4 +477,4 @@
 "You are adding a repository that is not secure" = "Προσθέτετε ένα αποθετήριο που δεν είναι ασφαλές";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Τα δεδομένα που λαμβάνονται από αυτό το αποθετήριο ενδέχεται να μην είναι κρυπτογραφημένα. Είστε βέβαιοι ότι θέλετε να το προσθέσετε;";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";

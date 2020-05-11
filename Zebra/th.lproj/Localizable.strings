@@ -477,4 +477,4 @@
 "You are adding a repository that is not secure" = "คุณกำลังเพิ่มซอร์สที่ไม่มีการเข้ารหัส";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "ข้อมูลที่ถูกดาวน์โหลดมาจากซอร์สนี้อาจไม่มีการเข้ารหัส คุณแน่ใจหรือไม่ที่จะเพิ่ม?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "ไม่สามารถทำการซื้อได้";

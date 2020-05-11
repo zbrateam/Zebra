@@ -230,7 +230,7 @@
 "Size" = "Storlek";
 "Available Upgrades" = "Tillgängliga uppgraderingar";
 "Ignored Upgrades" = "Ignorerade uppgraderingar";
-"Recent" = "Nytt";
+"Recent" = "Senaste";
 "Source" = "Källa";
 "Installed Files" = "Installerade filer";
 "Modify" = "Ändra";
@@ -477,4 +477,4 @@
 "You are adding a repository that is not secure" = "Du lägger till ett förråd som inte är säkert";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data som laddas ner från detta förråd kanske inte är krypterade. Är du säker på att du vill lägga till det?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Kunde inte slutföra köpet";
