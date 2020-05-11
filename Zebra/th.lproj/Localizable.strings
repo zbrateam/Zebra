@@ -69,6 +69,7 @@
 "Text" = "ข้อความ";
 "Icon" = "ไอคอน";
 "Finish Automatically" = "เสร็จสิ้นอัตโนมัติ";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "รีเฟรชอัตโนมัติ";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "การลงชื่อเข้าใช้ในซอร์สนั้นเพื่อที่จะสามารถดูรายการซื้อจากซอร์สนั้นได้";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "ปิดหน้าต่างคอนโซลอัตโนมัติเมื่อการทำงานเสร็จสมบูรณ์";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
