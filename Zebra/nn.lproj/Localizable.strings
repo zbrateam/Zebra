@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikon";
 "Finish Automatically" = "Fullfør automatisk";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Pålogging i kjelder gjer muleg kjøp av betalte pakkar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
