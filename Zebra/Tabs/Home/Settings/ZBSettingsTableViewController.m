@@ -8,8 +8,6 @@
 
 #import "ZBSettingsTableViewController.h"
 #import "ZBSettingsSelectionTableViewController.h"
-#import <ZBSettings.h>
-#import <Queue/ZBQueue.h>
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
@@ -18,6 +16,8 @@
 #import "ZBLanguageSettingsTableViewController.h"
 #import "ZBSourceSelectTableViewController.h"
 
+#import <ZBSettings.h>
+#import <Queue/ZBQueue.h>
 #import <Sources/Helpers/ZBSource.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
@@ -26,6 +26,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBFeatured,
     ZBSources,
     ZBChanges,
+    ZBPackages,
     ZBSearch,
     ZBConsole,
     ZBMisc,
@@ -81,9 +82,6 @@ enum ZBMiscOrder {
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
 }
 
 - (IBAction)closeButtonTapped:(UIBarButtonItem *)sender {
@@ -105,6 +103,8 @@ enum ZBMiscOrder {
             return NSLocalizedString(@"Miscellaneous", @"");
         case ZBConsole:
             return NSLocalizedString(@"Console", @"");
+        case ZBPackages:
+            return NSLocalizedString(@"Packages", @"");
         default:
             return NULL;
     }
@@ -113,7 +113,7 @@ enum ZBMiscOrder {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 9;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
@@ -125,6 +125,7 @@ enum ZBMiscOrder {
         case ZBSearch:
         case ZBSources:
         case ZBConsole:
+        case ZBPackages:
             return 1;
         case ZBInterface:
             if (@available(iOS 10.3, *)) {
@@ -290,6 +291,17 @@ enum ZBMiscOrder {
             cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
+        case ZBPackages: {
+            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            enableSwitch.on = [ZBSettings alwaysInstallLatest];
+            [enableSwitch addTarget:self action:@selector(toggleLatest:) forControlEvents:UIControlEventValueChanged];
+            [enableSwitch setOnTintColor:[UIColor accentColor]];
+            cell.accessoryView = enableSwitch;
+            cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.textColor = [UIColor primaryTextColor];
+            return cell;
+        }
         case ZBSearch: {
             UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
             enableSwitch.on = [ZBSettings wantsLiveSearch];
@@ -395,6 +407,13 @@ enum ZBMiscOrder {
             [self toggleNews:switcher];
             break;
         }
+        case ZBPackages: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self toggleLatest:switcher];
+            break;
+        }
         case ZBMisc: {
             [self misc];
             break;
@@ -443,6 +462,8 @@ enum ZBMiscOrder {
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
         case ZBConsole:
             return NSLocalizedString(@"Automatically dismiss the Console when all of its tasks have been completed.", @"");
+        case ZBPackages:
+            return NSLocalizedString(@"Always install the most recent version of a package if it is not already installed.", @"");
         default:
             return NULL;
     }
@@ -577,6 +598,13 @@ enum ZBMiscOrder {
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBChanges] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
+}
+
+- (void)toggleLatest:(id)sender {
+    UISwitch *switcher = (UISwitch *)sender;
+    
+    [ZBSettings setAlwaysInstallLatest:switcher.isOn];
+    [ZBDevice hapticButton];
 }
 
 - (void)toggleLiveSearch:(id)sender {

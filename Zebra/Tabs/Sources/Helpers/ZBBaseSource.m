@@ -383,10 +383,16 @@
 }
 
 - (BOOL)isEqual:(ZBBaseSource *)object {
+    if (!object)
+        return NO;
+    
     if (self == object)
         return YES;
     
     if (![object isKindOfClass:[ZBBaseSource class]])
+        return NO;
+    
+    if (!object.archiveType || !object.repositoryURI || !object.distribution)
         return NO;
     
     NSString *repositoryURISchemeless;

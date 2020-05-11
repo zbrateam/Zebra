@@ -6,14 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "UICKeyChainStore.h"
-#import <Database/ZBDatabaseManager.h>
-#import "ZBPackage.h"
+#import <Extensions/ZBTableViewController.h>
 
 @class ZBSource;
 
-@interface ZBSourceAccountTableViewController : UITableViewController <UIViewControllerPreviewingDelegate>
+@interface ZBSourceAccountTableViewController : ZBTableViewController <UIViewControllerPreviewingDelegate>
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source;
 @end

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@import Crashlytics;
+@import FirebaseCrashlytics;
 
 #import "ZBDatabaseManager.h"
 #import "ZBDependencyResolver.h"
@@ -154,7 +154,7 @@
     databaseBeingUpdated = NO;
     const char *error = sqlite3_errmsg(database);
     if (error) {
-        CLS_LOG(@"Database Error: %s", error);
+        [[FIRCrashlytics crashlytics] logWithFormat:@"Database Error: %s", error];
         NSLog(@"[Zebra] Database Error: %s", error);
     }
 }
@@ -269,7 +269,7 @@
     NSLog(@"Parsing Sources");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltDatabaseOperations) {
-        CLS_LOG(@"Database operations halted.");
+        [[FIRCrashlytics crashlytics] logWithFormat:@"Database operations halted."];
         NSLog(@"[Zebra] Database operations halted");
         [self bulkDatabaseCompletedUpdate:numberOfUpdates];
         return;
@@ -282,7 +282,7 @@
         createTable(database, 1);
         sqlite3_exec(database, "CREATE TABLE PACKAGES_SNAPSHOT AS SELECT PACKAGE, VERSION, REPOID, LASTSEEN FROM PACKAGES WHERE REPOID > 0;", NULL, 0, NULL);
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
-        sqlite3_int64 currentDate = (int)time(NULL);
+        sqlite3_int64 currentDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
         
 //        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
         for (ZBBaseSource *source in sources) {
@@ -523,12 +523,16 @@
 
 - (void)dropTables {
     if ([self openDatabase] == SQLITE_OK) {
-        char *packDel = "DROP TABLE PACKAGES;";
-        sqlite3_exec(database, packDel, NULL, 0, NULL);
-        char *sourceDel = "DROP TABLE REPOS;";
-        sqlite3_exec(database, sourceDel, NULL, 0, NULL);
-        char *updatesDel = "DELETE FROM UPDATES WHERE IGNORE != 1;";
-        sqlite3_exec(database, updatesDel, NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE PACKAGES;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE REPOS;", NULL, 0, NULL);
+        
+        // Update UPDATES table schema while retaining user data
+        sqlite3_exec(database, "DELETE FROM UPDATES WHERE IGNORE != 1;", NULL, 0, NULL);
+        sqlite3_exec(database, "CREATE TABLE UPDATES_SNAPSHOT AS SELECT PACKAGE, VERSION, IGNORE FROM UPDATES;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE UPDATES;", NULL, 0, NULL);
+        createTable(database, 2);
+        sqlite3_exec(database, "INSERT INTO UPDATES SELECT PACKAGE, VERSION, IGNORE FROM UPDATES_SNAPSHOT;", NULL, 0, NULL);
+        sqlite3_exec(database, "DROP TABLE UPDATES_SNAPSHOT;", NULL, 0, NULL);
         
         [self closeDatabase];
     } else {

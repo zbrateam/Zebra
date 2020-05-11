@@ -9,6 +9,7 @@
 @import SDWebImage;
 
 #import "ZBSettingsResetTableViewController.h"
+
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -91,7 +92,6 @@
             }
             break;
     }
-            
 }
 
 #pragma mark - Button Actions
@@ -221,6 +221,5 @@
 - (UIAlertControllerStyle)alertControllerStyle {
     return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
 }
-
 
 @end

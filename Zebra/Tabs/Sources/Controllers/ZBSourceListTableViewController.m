@@ -6,12 +6,13 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#import "ZBSourceImportTableViewController.h"
+#import "ZBSourceListTableViewController.h"
+
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
-#import <UIColor+GlobalColors.h>
-#import "ZBSourceImportTableViewController.h"
-#import "ZBSourceListTableViewController.h"
+#import <Extensions/UIColor+GlobalColors.h>
 #import "ZBAddSourceViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
@@ -21,7 +22,7 @@
 #import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
-#import "ZBThemeManager.h"
+#import <Theme/ZBThemeManager.h>
 
 @import FirebaseAnalytics;
 @import SDWebImage;
@@ -38,6 +39,10 @@
 
 @implementation ZBSourceListTableViewController
 
+- (BOOL)forceSetColors {
+    return YES;
+}
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
@@ -50,7 +55,6 @@
     self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
@@ -58,7 +62,6 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteSourceTouchAction" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
@@ -70,27 +73,16 @@
     [super viewDidAppear:animated];
     
     [self checkClipboard];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-#pragma mark - Dark Mode
-
-- (void)configureTheme {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-        self.tableView.sectionIndexColor = [UIColor accentColor];
-        [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
-    });
-}
-
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [sectionIndexTitles count];
+    return sectionIndexTitles.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -213,25 +205,10 @@
     }
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return [self hasDataInSection:section] ? 30 : 0;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if ([self hasDataInSection:section]) {
-//        UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
-//        view.textLabel.textColor = [UIColor primaryTextColor];
-//
-//        return view;
-//    }
-//
-//    return NULL;
-//}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (![self hasDataInSection:section])
         return nil;
-    return [sectionIndexTitles objectAtIndex:section];
+    return sectionIndexTitles[section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -281,7 +258,7 @@
 #pragma mark - Navigation Buttons
 
 - (void)addSource:(id)sender {
-    [self showAddSourceAlert:NULL];
+    [self showAddSourceAlert:nil];
 }
 
 - (void)editMode:(id)sender {

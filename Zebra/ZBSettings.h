@@ -49,6 +49,8 @@ extern NSString * _Nonnull const WantsAutoRefreshKey; // Stored as BOOL
 
 extern NSString * _Nonnull const WantsCommunityNewsKey; // Stored as BOOL
 
+extern NSString * _Nonnull const AlwaysInstallLatestKey; // Stored as BOOL
+
 extern NSString * _Nonnull const WantsLiveSearchKey; // Stored as BOOL
 
 extern NSString * _Nonnull const WantsFinishAutomaticallyKey; // Stored as BOOL
@@ -174,6 +176,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)wantsCommunityNews;
 + (void)setWantsCommunityNews:(BOOL)wantsCommunityNews;
+
+#pragma mark - Packages Settings
+
++ (BOOL)alwaysInstallLatest;
++ (void)setAlwaysInstallLatest:(BOOL)alwaysInstallLatest;
 
 #pragma mark - Search Settings
 

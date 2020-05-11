@@ -7,7 +7,9 @@
 //
 
 #import "ZBThemeManager.h"
-#import "UIColor+GlobalColors.h"
+
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Headers/UIImage+Private.h>
 #import <UIKit/UIKit.h>
 
 @import LNPopupController;
@@ -218,14 +220,28 @@
 }
 
 - (void)configureKeyboard {
+    [self configureKeyboard:[UITextField appearance]];
+}
+
+- (void)configureKeyboard:(id <UITextInputTraits>)appearance {
     if ([ZBThemeManager useCustomTheming]) {
         if ([self darkMode]) {
-            [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDark];
+            [appearance setKeyboardAppearance:UIKeyboardAppearanceDark];
         }
         else {
-            [[UITextField appearance] setKeyboardAppearance:UIKeyboardAppearanceDefault];
+            [appearance setKeyboardAppearance:UIKeyboardAppearanceDefault];
         }
     }
+}
+
+- (void)configureSearchBar:(UISearchBar *)searchBar {
+    searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
+    searchBar.backgroundImage = [searchBar.backgroundImage _flatImageWithColor:searchBar.barTintColor];
+    searchBar.layer.borderColor = searchBar.barTintColor.CGColor;
+    searchBar.layer.borderWidth = 1.0;
+    UITextField *textField = [searchBar valueForKey:@"_searchField"];
+    textField.textColor = [UIColor primaryTextColor];
+    textField.backgroundColor = [UIColor cellBackgroundColor];
 }
 
 - (void)refreshViews {

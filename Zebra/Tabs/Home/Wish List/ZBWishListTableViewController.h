@@ -6,15 +6,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "ZBPackage.h"
-#import "ZBPackageTableViewCell.h"
-#import "UIColor+GlobalColors.h"
-#import "ZBDatabaseManager.h"
-#import "ZBPackageDepictionViewController.h"
-#import "ZBPackageActions.h"
+#import <Extensions/ZBTableViewController.h>
 
-@interface ZBWishListTableViewController : UITableViewController <UIToolbarDelegate>
+@interface ZBWishListTableViewController : ZBTableViewController <UIToolbarDelegate>
 @property NSMutableArray *wishedPackages;
 @property NSMutableArray *wishedPackageIdentifiers;
 @end

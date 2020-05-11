@@ -37,6 +37,8 @@ NSString *const WantsAutoRefreshKey = @"AutoRefresh";
 
 NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
+NSString *const AlwaysInstallLatestKey = @"AlwaysInstallLatest";
+
 NSString *const WantsLiveSearchKey = @"LiveSearch";
 
 NSString *const WantsFinishAutomaticallyKey = @"FinishAutomatically";
@@ -456,6 +458,24 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:wantsCommunityNews forKey:WantsCommunityNewsKey];
+}
+
+#pragma mark - Packages Settings
+
++ (BOOL)alwaysInstallLatest {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:AlwaysInstallLatestKey]) {
+        [self setAlwaysInstallLatest:NO];
+        return NO;
+    }
+    return [defaults boolForKey:AlwaysInstallLatestKey];
+}
+
++ (void)setAlwaysInstallLatest:(BOOL)alwaysInstallLatest {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setBool:alwaysInstallLatest forKey:AlwaysInstallLatestKey];
 }
 
 #pragma mark - Search Settings

@@ -7,8 +7,12 @@
 //
 
 #import "ZBSearchResultsTableViewController.h"
+#import "ZBLiveSearchResultTableViewCell.h"
+
+#import <ZBAppDelegate.h>
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Queue/ZBQueue.h>
@@ -37,6 +41,17 @@
     return self;
 }
 
+- (BOOL)forceSetColors {
+    return YES;
+}
+
+- (BOOL)observeQueueBar {
+    if (@available(iOS 11.0, *)) {
+        return NO;
+    }
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -45,15 +60,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-
+- (void)configureTableContentInsetForQueue {
+    ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
+    UISearchController *searchController = (UISearchController *)self.parentViewController;
+    UISearchBar *searchBar = searchController.searchBar;
+    CGFloat bottomInset = CGRectGetHeight(tabBarController.tabBar.frame);
     if ([ZBQueue count]) {
-        ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
+        LNPopupBar *popup = [tabBarController popupBar];
+        bottomInset += CGRectGetHeight(popup.frame);
     }
+    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(searchBar.superview.frame), 0, bottomInset, 0);
 }
 
 #pragma mark - Table view data source
@@ -87,7 +103,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= filteredResults.count) return NULL;
+    if (indexPath.row >= filteredResults.count) return nil;
     
     NSObject *quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
@@ -95,6 +111,7 @@
         
         ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
         [cell updateData:proxyPackage];
+        [cell setColors];
         
         return cell;
     }
@@ -103,6 +120,7 @@
         
         ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
         [cell updateData:package];
+        [cell setColors];
         
         return cell;
     }

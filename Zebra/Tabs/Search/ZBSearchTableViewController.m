@@ -9,8 +9,7 @@
 #import "ZBSearchTableViewController.h"
 
 #import <ZBAppDelegate.h>
-#import <ZBTabBarController.h>
-#import <Headers/UIImage+Private.h>
+#import <Theme/ZBThemeManager.h>
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Search/ZBSearchResultsTableViewController.h>
@@ -33,6 +32,13 @@
 @implementation ZBSearchTableViewController
 
 @synthesize searchController;
+
+- (BOOL)observeQueueBar {
+    if (@available(iOS 11.0, *)) {
+        return NO;
+    }
+    return YES;
+}
 
 #pragma mark - View Controller Lifecycle
 
@@ -57,20 +63,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-
-    if ([ZBQueue count]) {
-        ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, [tabBarController popupBar].frame.size.height, 0);
-    }
+        
+    [((ZBSearchResultsTableViewController *)searchController.searchResultsController) setColors];
     
     if (@available(iOS 11.0, *)) {
     }
     else {
-        searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
+        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
+        UIView *headerView = [self.tableView headerViewForSection:0];
+        [headerView setNeedsDisplay];
     }
+}
+
+- (void)configureTableContentInsetForQueue {
+    ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
+    CGRect navFrame = self.navigationController.navigationBar.frame;
+    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
+    CGFloat bottomInset = CGRectGetHeight(tabBarController.tabBar.frame);
+    if ([ZBQueue count]) {
+        LNPopupBar *popup = [tabBarController popupBar];
+        bottomInset += CGRectGetHeight(popup.frame);
+    }
+    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(statusBarFrame) + CGRectGetHeight(navFrame), 0, bottomInset, 0);
 }
 
 - (void)setupView {
@@ -123,7 +137,7 @@
     if (self->shouldPerformSearching) {
         NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
-        if ([strippedString length] <= 1) {
+        if (strippedString.length <= 1) {
             results = @[];
             
             [resultsController setFilteredResults:results];
@@ -140,7 +154,7 @@
                 results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->liveSearch];
                 break;
             case 2:
-                results = [databaseManager packagesByAuthorName:strippedString email:NULL fullSearch:!self->liveSearch];
+                results = [databaseManager packagesByAuthorName:strippedString email:nil fullSearch:!self->liveSearch];
                 break;
         }
     }
@@ -177,7 +191,7 @@
     
     NSString *newSearch = searchBar.text;
     if (![recentSearches containsObject:newSearch]) {
-        if ([recentSearches count] >= MAX_SEARCH_RECENT_COUNT) {
+        if (recentSearches.count >= MAX_SEARCH_RECENT_COUNT) {
             [recentSearches removeObjectAtIndex:MAX_SEARCH_RECENT_COUNT - 1];
         }
         [recentSearches insertObject:newSearch atIndex:0];
@@ -231,15 +245,15 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)];
     
     UILabel *titleLabel = [[UILabel alloc] init];
-    [titleLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
-    [titleLabel setText:[self tableView:tableView titleForHeaderInSection:section]];
-    [titleLabel setTextColor:[UIColor primaryTextColor]];
+    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
+    titleLabel.textColor = [UIColor primaryTextColor]; // FIXME: color doesn't update right away on iOS 12 and below
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];
     
     UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    [clearButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+    clearButton.translatesAutoresizingMaskIntoConstraints = NO;
     [clearButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
     [clearButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:clearButton];
@@ -263,7 +277,7 @@
             [self->searchController.searchBar becomeFirstResponder];
         } else {
             NSArray *path = [url pathComponents];
-            if ([path count] == 2) {
+            if (path.count == 2) {
                 [self setupView];
                 
                 NSString *searchTerm = path[1];

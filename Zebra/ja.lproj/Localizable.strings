@@ -28,14 +28,14 @@
 "No items in Wish List" = "ほしいものリストには何も登録されていません";
 "Community" = "コミュニティ";
 "Join our Discord" = "Discord に参加する";
-"Follow us on Twitter" = "Twitter でフォローする";
-"Help translate Zebra!" = "Zebra の翻訳に協力する";
+"Follow us on Twitter" = "Twitter をフォローする";
+"Help translate Zebra!" = "Zebra の翻訳に協力してください";
 
 // Community Source
 
 "Community Sources" = "コミュニティリポジトリ";
 "You’ve added all of the community sources" = "すべてのコミュニティリポジトリを追加しました";
-"Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加";
+"Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加する";
 "Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
 "Verifying Source" = "リポジトリを検証中";

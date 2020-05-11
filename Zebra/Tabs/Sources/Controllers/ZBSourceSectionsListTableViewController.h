@@ -6,16 +6,15 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Extensions/ZBTableViewController.h>
 #import "UICKeyChainStore.h"
-@import SafariServices;
 
 @class ZBSource;
 @class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceSectionsListTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, SFSafariViewControllerDelegate>
+@interface ZBSourceSectionsListTableViewController : ZBTableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source;
 - (void)accountButtonPressed:(id)sender;

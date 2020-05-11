@@ -1,0 +1,8 @@
+framework module GoogleDataTransportCCTSupport {
+umbrella header "GoogleDataTransportCCTSupport-umbrella.h"
+export *
+module * { export * }
+  link framework "CoreTelephony"
+  link framework "SystemConfiguration"
+  link "z"
+}

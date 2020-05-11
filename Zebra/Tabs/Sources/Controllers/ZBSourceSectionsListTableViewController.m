@@ -5,19 +5,20 @@
 //  Created by Wilson Styres on 3/24/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
+
 #import "ZBSourceSectionsListTableViewController.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import "UIBarButtonItem+blocks.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import "ZBSourcesAccountBanner.h"
+
+#import <ZBAppDelegate.h>
+#import <ZBDevice.h>
+#import <UIColor+GlobalColors.h>
+#import <Database/ZBDatabaseManager.h>
+#import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
+#import <Sources/Helpers/ZBSourceManager.h>
+#import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
 
 @import SDWebImage;
@@ -141,13 +142,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
-    
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -247,64 +241,6 @@
     // [self.tableView reloadData];
 }
 
-- (void)setupRepoLogin API_AVAILABLE(ios(11.0)) {
-    NSURLComponents *components = [NSURLComponents componentsWithURL:[[source paymentVendorURL] URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
-    if (![components.scheme isEqualToString:@"https"]) {
-        return;
-    }
-    NSMutableArray *queryItems = [components queryItems] ? [[components queryItems] mutableCopy] : [NSMutableArray new];
-    NSURLQueryItem *udid = [NSURLQueryItem queryItemWithName:@"udid" value:[ZBDevice UDID]];
-    NSURLQueryItem *model = [NSURLQueryItem queryItemWithName:@"model" value:[ZBDevice deviceModelID]];
-    [queryItems addObject:udid];
-    [queryItems addObject:model];
-    
-    [components setQueryItems:queryItems];
-    
-    NSURL *url = [components URL];
-    
-    if (@available(iOS 11.0, *)) {
-        static SFAuthenticationSession *session;
-        session = [[SFAuthenticationSession alloc] initWithURL:url callbackURLScheme:@"sileo" completionHandler:^(NSURL * _Nullable callbackURL, NSError * _Nullable error) {
-            if (callbackURL) {
-                NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:callbackURL resolvingAgainstBaseURL:NO];
-                NSArray *queryItems = urlComponents.queryItems;
-                NSMutableDictionary *queryByKeys = [NSMutableDictionary new];
-                for (NSURLQueryItem *q in queryItems) {
-                    [queryByKeys setValue:[q value] forKey:[q name]];
-                }
-                NSString *token = queryByKeys[@"token"];
-                NSString *payment = queryByKeys[@"payment_secret"];
-                
-                [self->keychain setString:token forKey:[self->source repositoryURI]];
-                
-                UICKeyChainStore *securedKeychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-                securedKeychain[[[self->source repositoryURI] stringByAppendingString:@"payment"]] = nil;
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-                    [securedKeychain setAccessibility:UICKeyChainStoreAccessibilityWhenPasscodeSetThisDeviceOnly
-                                 authenticationPolicy:UICKeyChainStoreAuthenticationPolicyUserPresence];
-                    
-                    securedKeychain[[[self->source repositoryURI] stringByAppendingString:@"payment"]] = payment;
-                });
-            }
-            else {
-                return;
-            }
-        }];
-        
-        [session start];
-    } else {
-        [ZBDevice openURL:url delegate:self];
-    }
-}
-
-- (void)safariViewController:(SFSafariViewController *)controller didCompleteInitialLoad:(BOOL)didLoadSuccessfully {
-    // Load finished
-}
-
-- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
-    // Done button pressed
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -312,7 +248,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [sectionNames count] + 1;
+    return sectionNames.count + 1;
 }
 
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -336,7 +272,7 @@
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
         cell.imageView.image = nil;
     } else {
-        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+        NSString *section = sectionNames[indexPath.row - 1];
         cell.textLabel.text = NSLocalizedString(section, @"");
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
@@ -349,7 +285,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
     
-    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections removeObject:section];
     [ZBSettings setSection:section filtered:NO forSource:self.source];
 }
@@ -357,7 +293,7 @@
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing || indexPath.row == 0) return;
     
-    NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+    NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections addObject:section];
     [ZBSettings setSection:section filtered:YES forSource:self.source];
 }
@@ -395,9 +331,7 @@
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-//        [databaseManager updateDatabaseUsingCaching:YES singleSource:self->source completion:^(BOOL success, NSError * _Nonnull error) {
-//            NSLog(@"Updated source %@", self->source);
-//        }];
+        [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     
     if ([source canDelete]) {
@@ -429,7 +363,7 @@
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return [_featuredPackages count];
+    return _featuredPackages.count;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

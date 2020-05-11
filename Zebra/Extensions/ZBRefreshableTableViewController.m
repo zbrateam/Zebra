@@ -9,7 +9,6 @@
 #import "ZBRefreshableTableViewController.h"
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
-#import <UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
@@ -43,6 +42,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     databaseManager = [ZBDatabaseManager sharedInstance];
+    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     [self layoutNavigationButtons];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(layoutNavigationButtons) name:@"ZBUpdateNavigationButtons" object:nil];
     
@@ -60,9 +60,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
     [refreshControl endRefreshing];
     
@@ -146,18 +143,7 @@
     }
     [self setEditing:NO animated:NO];
     [self setSourceRefreshIndicatorVisible:YES];
-    BOOL singleSource = NO;
-    if ([self respondsToSelector:@selector(source)]) {
-        ZBSource *source = [(ZBPackageListTableViewController *)self source];
-        if ([source sourceID] > 0) {
-            //FIXME: fix me!
-//            [databaseManager updateSource:source useCaching:YES];
-            singleSource = YES;
-        }
-    }
-    if (!singleSource) {
-        [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
-    }
+    [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
     [self updateRefreshView];
 }
 
@@ -186,14 +172,6 @@
     }
     [self setSourceRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
 }
 
 @end

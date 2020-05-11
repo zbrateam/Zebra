@@ -9,7 +9,7 @@
 #import "ZBAuthorSelectorTableViewController.h"
 
 #import <ZBSettings.h>
-#import <Headers/UIImage+Private.h>
+#import <Theme/ZBThemeManager.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
@@ -64,10 +64,8 @@
     if (@available(iOS 11.0, *)) {
     }
     else {
-        searchController.searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-        searchController.searchBar.backgroundImage = [[UIImage new] _flatImageWithColor:searchController.searchBar.barTintColor];
+        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
     }
-//    [[self tableView] setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -134,13 +132,13 @@
 
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
     NSString *searchTerm = searchController.searchBar.text;
-    if ([searchTerm length] <= 1) {
+    if (searchTerm.length <= 1) {
         authors = @[];
     }
     else if (self->shouldPerformSearching) {
         NSString *strippedString = [searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
-        if ([strippedString length] <= 1) {
+        if (strippedString.length <= 1) {
             authors = @[];
             return;
         }
@@ -192,7 +190,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [authors count];
+    return authors.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -220,7 +218,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    if ([selectedAuthors objectForKey:authorDetail[1]]) {
+    if (selectedAuthors[authorDetail[1]]) {
         [selectedAuthors removeObjectForKey:authorDetail[1]];
     }
     else if (authorDetail[1].length) {

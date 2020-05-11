@@ -6,9 +6,14 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBAppDelegate.h>
 #import "ZBPackagesByAuthorTableViewController.h"
+
+#import <ZBAppDelegate.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackageActions.h>
+#import <Packages/Views/ZBPackageTableViewCell.h>
+#import <Packages/Controllers/ZBPackageDepictionViewController.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
@@ -26,7 +31,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
     });
@@ -49,16 +54,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
+    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:moreByAuthor[indexPath.row]];
     [(ZBPackageTableViewCell *)cell updateData:package];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return UITableViewAutomaticDimension;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 65;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -80,7 +77,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [moreByAuthor objectAtIndex:indexPath.row];
+    ZBPackage *package = moreByAuthor[indexPath.row];
     return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
     //reloadRow in completion
 }

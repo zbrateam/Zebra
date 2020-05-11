@@ -61,7 +61,6 @@
     selectedSortingType = [ZBSettings packageSortingType];
     if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
@@ -327,11 +326,11 @@
     return section - needsUpdatesSection;
 }
 
-- (id)objectAtSection:(NSInteger)section {
-    if ([self.tableData count] == 0)
+- (NSArray * _Nullable)objectAtSection:(NSInteger)section {
+    if (self.tableData.count == 0)
         return nil;
     NSInteger trueSection = [self trueSection:section];
-    return trueSection < [self.tableData count] ? [self.tableData objectAtIndex:trueSection] : nil;
+    return trueSection < self.tableData.count ? self.tableData[trueSection] : nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -339,7 +338,7 @@
         return updates.count;
     }
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        return [[self objectAtSection:section] count];
+        return [self objectAtSection:section].count;
     }
     return sortedPackages.count;
 }

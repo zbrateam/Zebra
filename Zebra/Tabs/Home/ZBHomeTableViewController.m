@@ -6,9 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBSettings.h>
 #import "ZBHomeTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
+#import "ZBPackageDepictionViewController.h"
+
+#import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Community Sources/ZBCommunitySourcesTableViewController.h>
@@ -67,7 +69,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
     [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
-    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
+    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0, 15, 0, 15)];
     [self setupFeatured];
     
     if (@available(iOS 13.0, *)) {
@@ -93,7 +95,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideUDID) name:ZBUserStartedScreenCaptureNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showUDID) name:ZBUserEndedScreenCaptureNotification object:nil];
     
-    [self.darkModeButton setImage:[[ZBThemeManager sharedInstance] toggleImage]];
+    self.darkModeButton.image = [[ZBThemeManager sharedInstance] toggleImage];
 
     self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     self.headerView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
@@ -553,7 +555,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     settingsController.presentationController.delegate = self;
 }
 
-#pragma mark - Dark Mode
+#pragma mark - Theming
 
 - (IBAction)toggleTheme:(id)sender {
     [ZBDevice hapticButton];

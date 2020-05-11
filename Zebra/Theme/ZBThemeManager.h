@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateInterfaceStyle;
 - (void)toggleTheme;
 - (void)configureNavigationBar;
+- (void)configureKeyboard;
+- (void)configureKeyboard:(id <UITextInputTraits>)appearance;
+- (void)configureSearchBar:(UISearchBar *)searchBar;
 - (void)refreshViews;
 - (UIImage *)toggleImage;
 @end

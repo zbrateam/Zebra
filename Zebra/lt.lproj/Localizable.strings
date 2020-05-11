@@ -212,13 +212,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Naujausi";
 "Version" = "Versija";
 "Packages" = "Paketai";
 "Show Updates" = "Rodyti atnaujinimus";
 "Hide Updates" = "Paslėpti atnaujinimus";
 "Select Version" = "Pasirinkti versiją";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Pasirinkite naujinimo versiją:";
 "Select a version to upgrade to:" = "Pasirinkite versiją į kurią norite atsinaujinti:";
 "Select a version to downgrade to:" = "Pasirinkite versiją į kurią norite grįžti:";
 "Package" = "Paketas";
@@ -474,7 +474,7 @@
 "Restart" = "Paleisti iš naujo";
 "Use System Language" = "Naudoti sistemos kalbą";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Jūs pridedate šaltinį, kuris yra nesaugus";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Duomenys atsiųsti iš šio šaltinio gali būti neužšifruoti. Ar tikrai norite jį pridėti?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Nepavyko užbaigti pirkimo";

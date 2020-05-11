@@ -21,9 +21,10 @@
 #import "ZBPurchaseInfo.h"
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
+#import <ZBSettings.h>
 
 @import SDWebImage;
-@import Crashlytics;
+@import FirebaseCrashlytics;
 
 @interface ZBPackage () {
     BOOL checkedForPurchaseInfo;
@@ -123,7 +124,7 @@
             return contains;
         }
         @catch (NSException *e) {
-            CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
+            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason];
             NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             
             return NO;
@@ -193,7 +194,7 @@
             return path;
         }
         @catch (NSException *e) {
-            CLS_LOG(@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
+            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason];
             NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             
             return NULL;
@@ -362,7 +363,6 @@
         [self setConflictsWith:[self extract:[conflicts UTF8String]]];
         [self setProvides:[self extract:[provides UTF8String]]];
         [self setReplaces:[self extract:[replaces UTF8String]]];
-        [self setSource:[ZBSource localSource:-2]];
     }
     
     return self;
@@ -408,6 +408,7 @@
     
     ZBPackage *package = [self initWithDictionary:info];
     [package setDebPath:path];
+    [package setSource:[ZBSource localSource:-2]];
     
     return package;
 }
@@ -796,7 +797,7 @@
                 [actions addObject:@(ZBPackageActionHideUpdates)];
             }
         }
-        if ([[self allVersions] count] > 1) { // Show "Select version" instead of "Install" as it makes more senses
+        if ([[self allVersions] count] > 1 && ![ZBSettings alwaysInstallLatest]) { // Show "Select version" instead of "Install" as it makes more sense
             [actions addObject:@(ZBPackageActionSelectVersion)];
         }
         else {

@@ -268,7 +268,9 @@
         longPress.delegate = self;
         
         [self.popupBar addGestureRecognizer:longPress];
-        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:nil];
+        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueBarHeightDidChange" object:nil];
+        }];
     });
 }
 
@@ -302,6 +304,7 @@
             [self dismissPopupBarAnimated:YES completion:^{
                 self.popupController = nil;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueBarHeightDidChange" object:nil];
             }];
         }
     });

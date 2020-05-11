@@ -19,32 +19,20 @@
 
 @synthesize credits;
 
+- (BOOL)hasSpinner {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
-    [spinner startAnimating];
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            break;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            break;
-    }
-    
-    [self.tableView setBackgroundColor:[UIColor groupedTableViewBackgroundColor]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     if (credits == NULL) {
         [self fetchCredits];
@@ -77,17 +65,17 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [credits count];
+    return credits.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[[credits objectAtIndex:section] objectForKey:@"items"] count];
+    return [credits[section][@"items"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
     
-    NSDictionary *item = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
+    NSDictionary *item = credits[indexPath.section][@"items"][indexPath.row];
     
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
@@ -96,30 +84,30 @@
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
-        if ([item objectForKey:@"link"] != NULL) {
+        if (item[@"link"]) {
             [cell.textLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
         }
         else {
             [cell.textLabel setTextColor:[UIColor primaryTextColor]];
         }
     }
-    [cell.detailTextLabel setTextColor:[UIColor secondaryTextColor]];
+    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     
-    cell.textLabel.text = [item objectForKey:@"name"];
-    cell.detailTextLabel.text = [item objectForKey:@"subtitle"];
+    cell.textLabel.text = item[@"name"];
+    cell.detailTextLabel.text = item[@"subtitle"];
     
     return cell;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedString([[credits objectAtIndex:section] objectForKey:@"title"], @"");
+    return NSLocalizedString(credits[section][@"title"], @"");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *person = [[[credits objectAtIndex:indexPath.section] objectForKey:@"items"] objectAtIndex:indexPath.row];
-    NSURL *url = [NSURL URLWithString:[person objectForKey:@"link"]];
+    NSDictionary *person = credits[indexPath.section][@"items"][indexPath.row];
+    NSURL *url = [NSURL URLWithString:person[@"link"]];
     
     if (url) {
         [ZBDevice openURL:url delegate:self];

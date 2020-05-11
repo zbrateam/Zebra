@@ -7,7 +7,6 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
-//#import "ZBSettingsSelectionTableViewController.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
@@ -51,8 +50,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     pureBlackMode = [ZBSettings pureBlackMode];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 #pragma mark - Table View Data Source
@@ -218,17 +215,12 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     }
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.tintColor = [UIColor accentColor];
-    cell.backgroundColor = [UIColor cellBackgroundColor];
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
         case ZBSectionSystemStyle:
             return NSLocalizedString(@"Appearance", @"");
         default:
-            return NULL;
+            return nil;
     }
 }
 

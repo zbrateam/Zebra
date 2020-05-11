@@ -7,13 +7,16 @@
 //
 
 #import "ZBCommunitySourcesTableViewController.h"
+
+#import <ZBLog.h>
+#import <ZBDevice.h>
+#import <ZBSettings.h>
+#import <ZBDependencyResolver.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Views/ZBSourceTableViewCell.h>
-#import <ZBLog.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
-#import <ZBDependencyResolver.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
-#import <ZBSettings.h>
 
 @interface ZBCommunitySourcesTableViewController ()
 @end
@@ -23,23 +26,15 @@
 @synthesize communitySources;
 @synthesize sourceManager;
 
+- (BOOL)hasSpinner {
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.navigationItem.titleView = spinner;
-    [spinner startAnimating];
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-    
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            break;
-        case ZBInterfaceStyleDark:
-        case ZBInterfaceStylePureBlack:
-            spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhite;
-            break;
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
@@ -48,8 +43,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
     
     [self populateSources];
 }

@@ -6,17 +6,19 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDevice.h>
-#import <ZBAppDelegate.h>
-#import "ZBSourceAccountTableViewController.h"
+#import "UICKeyChainStore.h"
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
 #import "ZBSourceTableViewCell.h"
+#import "ZBSourceAccountTableViewController.h"
 #import "ZBPackageDepictionViewController.h"
-#import <UIColor+GlobalColors.h>
 #import "ZBUserInfo.h"
-#import <Tabs/Sources/Helpers/ZBSource.h>
 
+#import <ZBDevice.h>
+#import <ZBAppDelegate.h>
+#import <UIColor+GlobalColors.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 
 @import SDWebImage;
@@ -82,10 +84,7 @@
         purchases = [NSMutableArray new];
         [self getPurchases];
     }
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    self.tableView.separatorColor = [UIColor cellSeparatorColor];
-    
+        
     [self.tableView reloadData];
 }
 
@@ -167,7 +166,7 @@
         case 0:
             return 3;
         case 1:
-            return (![purchases count] || loading) ? 1 : [purchases count];
+            return (!purchases.count || loading) ? 1 : purchases.count;
         default:
             return 0;
     }
@@ -236,7 +235,7 @@
             ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
             [cell setColors];
             
-            ZBPackage *package = [purchases objectAtIndex:indexPath.row];
+            ZBPackage *package = purchases[indexPath.row];
             [(ZBPackageTableViewCell *)cell updateData:package];
             
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
@@ -260,7 +259,7 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
-    else if (indexPath.section == 1 && [purchases count] && !loading) {
+    else if (indexPath.section == 1 && purchases.count && !loading) {
         [self performSegueWithIdentifier:@"seguePurchasesToPackageDepiction" sender:indexPath];
     }
 }
@@ -270,7 +269,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section == 1 && [purchases count] && ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
+    return indexPath.section == 1 && purchases.count && ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -278,7 +277,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 || ![purchases count]) {
+    if (indexPath.section == 0 || !purchases.count) {
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];

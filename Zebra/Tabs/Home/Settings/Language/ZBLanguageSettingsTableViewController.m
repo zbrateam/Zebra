@@ -120,7 +120,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self numberOfSectionsInTableView:tableView] == 3) {
-        return section == 0 || section == 2 ? 1 : [languages count];
+        return section == 0 || section == 2 ? 1 : languages.count;
     }
     else {
         return 1;
@@ -133,7 +133,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"languageCell"];
     }
     
-    cell.imageView.image = NULL;
+    cell.imageView.image = nil;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.textColor = [UIColor primaryTextColor];
     cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
@@ -159,7 +159,7 @@
         NSString *displayName = [[locale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:locale];
         NSString *localizedDisplayName = [[currentLocale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:currentLocale];
         
-        cell.accessoryView = NULL;
+        cell.accessoryView = nil;
         cell.accessoryType = [indexPath isEqual:selectedRow] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.textLabel.text = displayName;
