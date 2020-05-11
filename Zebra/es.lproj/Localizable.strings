@@ -69,6 +69,7 @@
 "Text" = "Texto";
 "Icon" = "Icono";
 "Finish Automatically" = "Finalizar automáticamente";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Actualización automática";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Iniciar sesión en fuentes permite la compra de paquetes de pago.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Cerrar automáticamente la Consola cuando se hayan completado todas la tareas.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
