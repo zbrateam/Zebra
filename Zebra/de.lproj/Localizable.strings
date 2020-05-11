@@ -69,7 +69,7 @@
 "Text" = "Text";
 "Icon" = "Symbol";
 "Finish Automatically" = "Automatisch beenden";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Immer die neueste Version installieren";
 "Automatic Refresh" = "Automatische Aktualisierung";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Konsole automatisch schliessen, wenn alle Aufgaben abgeschlossen sind.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Installiert immer die aktuellste Version eines Pakets, falls dieses nicht bereits installiert ist.";
 
 // Filters
 
