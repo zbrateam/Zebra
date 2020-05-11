@@ -69,6 +69,7 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -440,6 +441,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Đăng nhập vào nguồn để cho phép mua các gói trả phí.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
