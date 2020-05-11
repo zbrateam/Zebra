@@ -21,6 +21,8 @@
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
 
+#import <Sources/Helpers/ZBSource.h>
+
 @import SDWebImage;
 
 @interface ZBSourceSectionsListTableViewController () {
