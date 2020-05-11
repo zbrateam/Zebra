@@ -106,7 +106,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4; // For now just four but once we set up a proper data source this will be variable
+    return 10; // For now just four but once we set up a proper data source this will be variable
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -117,6 +117,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"informationCell"];
+    
+    cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+    cell.textLabel.textColor = [UIColor secondaryLabelColor]; // TODO: Use Zebra colors
+    
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
+    cell.detailTextLabel.textColor = [UIColor labelColor]; // TODO: Use Zebra colors
     
     // Temporary, need a proper data source
     switch (indexPath.row) {
@@ -135,6 +141,9 @@
         case 3:
             cell.textLabel.text = @"Source";
             cell.detailTextLabel.text = [self.package.source label];
+        default:
+            cell.textLabel.text = @"Ze";
+            cell.detailTextLabel.text = @"Bruh";
     }
     
     return cell;
