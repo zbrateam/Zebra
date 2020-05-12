@@ -180,9 +180,8 @@
     if (!self.barButton) {
         self.barButton = [[ZBActionButton alloc] init];
         [self.barButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.barButton];
-        [self.barButton applyCustomizations];
+        self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
     }
     
     [UIView animateWithDuration:0.3 animations:^{
