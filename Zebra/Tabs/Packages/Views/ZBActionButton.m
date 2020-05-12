@@ -27,17 +27,19 @@
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.layer setCornerRadius:self.frame.size.height / 2];
     [self.titleLabel setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightBold]];
-}
-
-- (void)showActivityLoader {
-    if (activityIndicatorView == nil) {
+    
+    if (!activityIndicatorView) {
         activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:self.bounds];
+        
         [activityIndicatorView setColor:[UIColor whiteColor]]; // TODO: Use theming engine
         activityIndicatorView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:activityIndicatorView];
         [[activityIndicatorView.centerXAnchor constraintEqualToAnchor:self.centerXAnchor] setActive:YES];
         [[activityIndicatorView.centerYAnchor constraintEqualToAnchor:self.centerYAnchor] setActive:YES];
     }
+}
+
+- (void)showActivityLoader {
     [self setActivityLoaderHidden:NO];
 }
 
@@ -46,13 +48,16 @@
 }
 
 - (void)setActivityLoaderHidden:(BOOL)hidden {
-    if (hidden) {
-        [activityIndicatorView stopAnimating];
-    } else {
-        [activityIndicatorView startAnimating];
-    }
-    [self setUserInteractionEnabled:hidden];
-    [self.titleLabel setAlpha:hidden ? 1 : 0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (hidden) {
+            [self->activityIndicatorView stopAnimating];
+        } else {
+            [self->activityIndicatorView startAnimating];
+        }
+        
+        [self setUserInteractionEnabled:hidden];
+        [self.titleLabel setAlpha:hidden ? 1 : 0];
+    });
 }
 
 @end
