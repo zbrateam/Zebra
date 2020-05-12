@@ -252,8 +252,8 @@
     if (scrollView != self.scrollView) return;
     
     CGFloat topSafeAreaInset = self.view.safeAreaInsets.top;
-    CGFloat maximumVerticalOffset = self.headerView.frame.size.height;
-    CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset + (self.getButton.bounds.size.height / 2);
+    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
+    CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
     
     if (percentageVerticalOffset > 1.0 && !shouldShowNavButtons) {
