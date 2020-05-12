@@ -67,6 +67,12 @@
     [self updateTableViewHeightBasedOnContent];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self setNavigationBarBackgroundOpacity:1];
+}
+
 - (void)setData {
     self.nameLabel.text = self.package.name;
     self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
@@ -180,9 +186,8 @@
     if (!self.barButton) {
         self.barButton = [[ZBActionButton alloc] init];
         [self.barButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.barButton];
-        [self.barButton applyCustomizations];
+        self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
     }
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -195,6 +200,10 @@
             self.navigationItem.titleView.subviews[0].alpha = 0.0;
         }
     }];
+}
+
+- (void)setNavigationBarBackgroundOpacity:(CGFloat)opacity {
+    self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, opacity)); // Ensure the opacity is not negative or greater than 1.
 }
 
 #pragma mark - UITableViewDataSource
@@ -257,8 +266,7 @@
         
         [self configureNavigationButtons];
     }
-    
-    self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, percentageVerticalOffset));
+    [self setNavigationBarBackgroundOpacity:percentageVerticalOffset];
 }
 
 @end

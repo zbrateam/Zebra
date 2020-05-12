@@ -16,18 +16,37 @@
 
 @implementation ZBActionButton
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [self createActivityLoader];
+        [self applyCustomizations];
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    [self createActivityLoader];
+    [self applyCustomizations];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
     [self applyCustomizations];
 }
 
 - (void)applyCustomizations {
-    [self sizeToFit];
     [self setBackgroundColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.layer setCornerRadius:self.frame.size.height / 2];
     [self.titleLabel setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightBold]];
-    
+}
+
+- (void)createActivityLoader {
     if (!activityIndicatorView) {
         activityIndicatorView = [[UIActivityIndicatorView alloc] initWithFrame:self.bounds];
         
