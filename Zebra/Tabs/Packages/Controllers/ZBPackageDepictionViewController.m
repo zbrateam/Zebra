@@ -143,10 +143,11 @@
     
     // Create rightBarButton if doesn't exist
     if (!self.navigationItem.rightBarButtonItem) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-        view.backgroundColor = [UIColor blackColor];
+        ZBActionButton *button = [[ZBActionButton alloc] init];
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+        [button applyCustomizations];
+        [button setTitle:@"FREE" forState:UIControlStateNormal];
     }
     
     [UIView animateWithDuration:0.3 animations:^{

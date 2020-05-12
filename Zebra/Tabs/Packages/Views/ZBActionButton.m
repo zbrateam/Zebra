@@ -22,6 +22,7 @@
 }
 
 - (void)applyCustomizations {
+    [self sizeToFit];
     [self setBackgroundColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.layer setCornerRadius:self.frame.size.height / 2];
