@@ -12,6 +12,7 @@
 #import "ZBActionButton.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <ZBDevice.h>
 
 @interface ZBPackageDepictionViewController () {
     BOOL shouldShowNavButtons;
@@ -76,6 +77,7 @@
 - (void)applyCustomizations {
     // Navigation
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    self.navigationController.navigationBar._backgroundOpacity = 0.0;
     
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
@@ -87,7 +89,17 @@
     self.moreButton.backgroundColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     self.webView.hidden = YES;
-    self.navigationController.navigationBar._backgroundOpacity = 0.0;
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight:
+            self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+            break;
+        case ZBInterfaceStyleDark:
+            self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+            break;
+        case ZBInterfaceStylePureBlack:
+           self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
+            break;
+    }
 }
 
 - (void)setDelegates {
@@ -229,7 +241,7 @@
     
     CGFloat topSafeAreaInset = self.view.safeAreaInsets.top;
     CGFloat maximumVerticalOffset = self.headerView.frame.size.height;
-    CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
+    CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset + (self.getButton.bounds.size.height / 2);
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
     
     if (percentageVerticalOffset > 1.0 && !shouldShowNavButtons) {
