@@ -176,11 +176,11 @@
     if (scrollView != self.scrollView) return;
     
     CGFloat topSafeAreaInset = self.view.safeAreaInsets.top;
-    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - topSafeAreaInset;
-    CGFloat currentVerticalOffset = scrollView.contentOffset.y;
+    CGFloat maximumVerticalOffset = self.headerView.frame.size.height;
+    CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
     
-    self.navigationController.navigationBar._backgroundOpacity = percentageVerticalOffset;
+    self.navigationController.navigationBar._backgroundOpacity = MAX(0, percentageVerticalOffset);
 }
 
 @end
