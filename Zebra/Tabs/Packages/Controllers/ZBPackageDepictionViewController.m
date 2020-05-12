@@ -71,7 +71,39 @@
     self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
         
-    [self.webView loadRequest:[NSURLRequest requestWithURL:self.package.depictionURL]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    NSString *udid = [ZBDevice UDID];
+    NSString *machineIdentifier = [ZBDevice machineID];
+
+    //Set theme settings and user agent
+    NSString *theme;
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight: {
+            theme = @"Light";
+            break;
+        }
+        case ZBInterfaceStyleDark: {
+            theme = @"Dark";
+            break;
+        }
+        case ZBInterfaceStylePureBlack: {
+            theme = @"Pure-Black";
+            break;
+        }
+    }
+    self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion], theme];
+    
+    [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
+    [request setValue:version forHTTPHeaderField:@"X-Firmware"];
+    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
+    [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
+    [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
+    [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
+    [request setValue:[[NSLocale preferredLanguages] firstObject] forHTTPHeaderField:@"Accept-Language"];
+    
+    self.webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
+    [self.webView loadRequest:request];
 }
 
 - (void)applyCustomizations {
@@ -89,17 +121,6 @@
     self.moreButton.backgroundColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     self.webView.hidden = YES;
-    switch ([ZBSettings interfaceStyle]) {
-        case ZBInterfaceStyleLight:
-            self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
-            break;
-        case ZBInterfaceStyleDark:
-            self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Dark", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
-            break;
-        case ZBInterfaceStylePureBlack:
-           self.webView.customUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Pure-Black", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
-            break;
-    }
 }
 
 - (void)setDelegates {
