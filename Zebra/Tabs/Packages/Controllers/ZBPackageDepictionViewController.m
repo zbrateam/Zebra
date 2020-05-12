@@ -180,7 +180,7 @@
     CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
     
-    self.navigationController.navigationBar._backgroundOpacity = MAX(0, percentageVerticalOffset);
+    self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, percentageVerticalOffset));
 }
 
 @end
