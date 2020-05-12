@@ -262,7 +262,7 @@
         
         [self configureNavigationButtons];
     }
-    [self.navigationController.navigationBar _setBackgroundOpacity:MAX(0, MIN(1, percentageVerticalOffset))];
+    [self.navigationController.navigationBar _setBackgroundOpacity:MAX(0, MIN(1, percentageVerticalOffset))]; // Ensure the opacity is not negative or greater than 1.
 }
 
 @end
