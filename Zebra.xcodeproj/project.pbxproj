@@ -55,6 +55,7 @@
 		4910B3A82426BD5C00306C5C /* ZBSourcesAccountBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910B3A72426BD5C00306C5C /* ZBSourcesAccountBanner.m */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
+		49452C28246A414900F45C2D /* ZBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49452C27246A414900F45C2D /* ZBActionButton.m */; };
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
@@ -268,6 +269,8 @@
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
 		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
+		49452C26246A414900F45C2D /* ZBActionButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBActionButton.h; sourceTree = "<group>"; };
+		49452C27246A414900F45C2D /* ZBActionButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBActionButton.m; sourceTree = "<group>"; };
 		4947555424313A30008DC093 /* ZBLiveSearchResultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLiveSearchResultTableViewCell.h; sourceTree = "<group>"; };
 		4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveSearchResultTableViewCell.m; sourceTree = "<group>"; };
 		49C526EC227BCF1700840484 /* ZBSourceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSourceTableViewCell.h; sourceTree = "<group>"; };
@@ -1113,6 +1116,8 @@
 				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
 				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
+				49452C26246A414900F45C2D /* ZBActionButton.h */,
+				49452C27246A414900F45C2D /* ZBActionButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1413,6 +1418,7 @@
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */,
+				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m in Sources */,

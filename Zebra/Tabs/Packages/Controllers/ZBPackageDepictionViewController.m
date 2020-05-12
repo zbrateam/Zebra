@@ -9,7 +9,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
-
+#import "ZBActionButton.h"
 #import <Sources/Helpers/ZBSource.h>
 
 @interface ZBPackageDepictionViewController () {
@@ -18,7 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
-@property (strong, nonatomic) IBOutlet UIButton *getButton;
+@property (strong, nonatomic) IBOutlet ZBActionButton *getButton;
 @property (strong, nonatomic) IBOutlet UIButton *moreButton;
 @property (strong, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UITableView *informationTableView;
@@ -81,7 +81,6 @@
     self.iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
     
     // Buttons
-    self.getButton.layer.cornerRadius = self.getButton.frame.size.height / 2;
     self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
     
     self.webView.hidden = YES;

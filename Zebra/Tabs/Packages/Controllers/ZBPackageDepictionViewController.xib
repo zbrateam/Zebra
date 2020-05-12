@@ -71,11 +71,10 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="neF-uj-Qrl">
                                                             <rect key="frame" x="0.0" y="39.5" width="270" height="55.5"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-3C-qrI">
-                                                                    <rect key="frame" x="0.0" y="27.5" width="73" height="28"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-3C-qrI" customClass="ZBActionButton">
+                                                                    <rect key="frame" x="0.0" y="27.5" width="33" height="28"/>
                                                                     <color key="backgroundColor" red="0.40000000000000002" green="0.50196078431372548" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                                    <inset key="contentEdgeInsets" minX="20" minY="6" maxX="20" maxY="6"/>
                                                                     <state key="normal" title="FREE">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
