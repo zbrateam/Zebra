@@ -79,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEssentialOrRequired;
 - (NSArray * _Nullable)possibleActions;
 - (void)setIconImageForImageView:(UIImageView *)imageView;
-- (NSDictionary *)information;
+- (NSArray *)information;
 
 #pragma mark - Modern Payment API
 - (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0));
