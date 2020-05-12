@@ -69,7 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikoner";
 "Finish Automatically" = "Fullfør automatisk";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Alltid installer nyeste";
 "Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgavene er fullført.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Installer automatisk den siste utgivelsen av en pakke uten å spørre hvilken versjon som skal installeres.";
 
 // Filters
 
