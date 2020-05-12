@@ -83,6 +83,15 @@
     // Buttons
     self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
     
+    // Testing activity loader button
+    [self.getButton showActivityLoader];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.getButton hideActivityLoader];
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.getButton showActivityLoader];
+    });
+    
     self.webView.hidden = YES;
     self.navigationController.navigationBar._backgroundOpacity = 0.0;
 }
