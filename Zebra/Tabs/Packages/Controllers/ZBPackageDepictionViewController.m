@@ -175,7 +175,8 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView != self.scrollView) return;
     
-    CGFloat maximumVerticalOffset = self.headerView.frame.size.height;
+    CGFloat topSafeAreaInset = self.view.safeAreaInsets.top;
+    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - topSafeAreaInset;
     CGFloat currentVerticalOffset = scrollView.contentOffset.y;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
     
