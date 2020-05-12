@@ -89,10 +89,10 @@ const char *sourceInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMP
 const char *sourceUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
 char *packagesSchema() {
-    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHORNAME STRING, AUTHOREMAIL STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING)";
+    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), TAGLINE STRING, DESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHORNAME STRING, AUTHOREMAIL STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICON STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING, HEADER STRING, CHANGELOGTITLE STRING, CHANGELOG STRING, HOMEPAGE STRING, PREVIEWS STRING, MAINTAINERNAME STRING, MAINTAINEREMAIL STRING)";
 }
 
-const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHORNAME, AUTHOREMAIL, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, TAGLINE, DESCRIPTION, SECTION, DEPICTION, TAG, AUTHORNAME, AUTHOREMAIL, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICON, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256, HEADER, CHANGELOGTITLE, CHANGELOG, HOMEPAGE, PREVIEWS, MAINTAINERNAME, MAINTAINEREMAIL) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *updatesSchema() {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION VARCHAR(16) NOT NULL, IGNORE INTEGER DEFAULT 0)";
@@ -144,7 +144,7 @@ int needsMigration(sqlite3 *database, int table) {
 }
 
 void createTable(sqlite3 *database, int table) {
-    char sql[512] = "CREATE TABLE IF NOT EXISTS ";
+    char sql[1024] = "CREATE TABLE IF NOT EXISTS ";
     switch (table) {
         case 0:
             strcat(sql, sourcesSchema());
@@ -332,7 +332,7 @@ pair *splitNameAndEmail(const char *author) {
     return p;
 }
 
-bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescription, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
+bool bindPackage(dict **package_, int sourceID, int safeID, char *description, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
     for (int i = 0; packageIdentifier[i]; ++i) {
@@ -361,11 +361,15 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
                 dict_add(package, "Version", packageVersion = "1.0");
             }
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, packageVersion, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnShortDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
-            if (longDescription[0] == '\0' || isspace(longDescription[0]))
-                sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, NULL, -1, SQLITE_TRANSIENT);
-            else
-                sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, longDescription, -1, SQLITE_TRANSIENT);
+            
+            
+//            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnShortDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
+//            if (longDescription[0] == '\0' || isspace(longDescription[0]))
+//                sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, NULL, -1, SQLITE_TRANSIENT);
+//            else
+//                sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, longDescription, -1, SQLITE_TRANSIENT);
+            
+            
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSection, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTag, tags, -1, SQLITE_TRANSIENT);
@@ -423,8 +427,8 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSHA256, sha256, -1, SQLITE_TRANSIENT);
             }
             
-            if (longDescription[0] != '\0')
-                longDescription[strlen(longDescription) - 1] = '\0';
+//            if (longDescription[0] != '\0')
+//                longDescription[strlen(longDescription) - 1] = '\0';
             if (depends[0] != '\0')
                 depends[strlen(depends) - 1] = '\0';
             sqlite3_step(insertStatement);
@@ -436,12 +440,12 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
         
         dict_free(*package_);
         *package_ = dict_new();
-        longDescription[0] = '\0';
+//        longDescription[0] = '\0';
         depends[0] = '\0';
     } else {
         dict_free(*package_);
         *package_ = dict_new();
-        longDescription[0] = '\0';
+//        longDescription[0] = '\0';
         depends[0] = '\0';
         return true;
     }
@@ -492,7 +496,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             char *key = multi_tok(info, &s, ": ");
             char *value = multi_tok(NULL, &s, NULL);
             
-            if (key == NULL || value == NULL) { // y'all suck at maintaining sources, what do you do? make the package files by hand??
+            if (key == NULL || value == NULL) {
                 key = multi_tok(info, &s, ":");
                 value = multi_tok(NULL, &s, NULL);
             }
@@ -510,8 +514,32 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
             
             dict_add(package, key, value);
             
-            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
-                longDescFlag = true;
+            if (key != NULL && (strcmp(key, "Description") == 0 || strcmp(key, "Changelog") == 0)) { // Check for a long description or changelog
+                if (strcmp(key, "Description") == 0) {
+                    
+                    char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
+                    readMultiLineKey(file, &longDescription);
+                    
+                    if (longDescription[0] != '\0') {
+                        dict_add(package, "Tagline", value);
+                        dict_add(package, "Description", longDescription);
+                    }
+                    
+                    free(longDescription);
+                    continue;
+                }
+                else if (strcmp(key, "Changelog") == 0) {
+                    char *changelog = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
+                    readMultiLineKey(file, &changelog);
+                    
+                    if (changelog[0] != '\0') {
+                        dict_add(package, key, value);
+                        dict_add(package, "ChangelogNotes", changelog);
+                    }
+                    
+                    free(changelog);
+                    continue;
+                }
             }
         } else if (dict_get(package, "Package") != 0) {
             if (bindPackage(&package, sourceID, safeID, longDescription, depends, database, true, 0))
@@ -530,6 +558,32 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
     return PARSEL_OK;
+}
+
+void readMultiLineKey(FILE *file, char **buffer) {
+    char line[2048];
+    
+    while (fgets(line, sizeof(line), file)) {
+        char *info = strtok(line, "\n");
+        info = strtok(line, "\r");
+        
+        if (isspace(line[0])) { // Still contained in the multiline
+            int i = 0;
+            while (line[i] != '\0' && isspace(line[i])) {
+                ++i;
+            }
+            
+            if (strlen(&line[i]) + strlen(*buffer) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
+                strcat(*buffer, &line[i]);
+                strcat(*buffer, "\n");
+            }
+            
+            continue;
+        }
+        else {
+            break;
+        }
+    }
 }
 
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int sourceID, sqlite3_int64 currentDate) {
@@ -593,11 +647,34 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 continue;
             }
             
-            dict_add(package, key, value);
-            
-            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
-                longDescFlag = true;
+            if (key != NULL && (strcmp(key, "Description") == 0 || strcmp(key, "Changelog") == 0)) { // Check for a long description or changelog
+                if (strcmp(key, "Description") == 0) {
+                    
+                    char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
+                    readMultiLineKey(file, &longDescription);
+                    
+                    if (longDescription[0] != '\0') {
+                        dict_add(package, "Tagline", value);
+                        dict_add(package, "Description", longDescription);
+                    }
+                    
+                    free(longDescription);
+                    continue;
+                }
+                else if (strcmp(key, "Changelog") == 0) {
+                    char *changelog = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
+                    readMultiLineKey(file, &changelog);
+                    
+                    if (changelog[0] != '\0') {
+                        dict_add(package, key, value);
+                        dict_add(package, "ChangelogNotes", changelog);
+                    }
+                    
+                    free(changelog);
+                    continue;
+                }
             }
+            dict_add(package, key, value);
         } else if (dict_get(package, "Package") != 0) {
             bindPackage(&package, sourceID, safeID, longDescription, depends, database, false, currentDate);
         } else {
