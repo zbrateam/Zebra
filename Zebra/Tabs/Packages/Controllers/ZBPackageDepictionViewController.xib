@@ -82,7 +82,7 @@
                                                                         <action selector="getButtonPressed:" destination="-1" eventType="touchUpInside" id="j2z-ZI-moF"/>
                                                                     </connections>
                                                                 </button>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-4B-PgN">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p6b-4B-PgN" customClass="ZBActionButton">
                                                                     <rect key="frame" x="242" y="27.5" width="28" height="28"/>
                                                                     <color key="backgroundColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <constraints>
@@ -94,7 +94,7 @@
                                                                 </button>
                                                             </subviews>
                                                             <constraints>
-                                                                <constraint firstItem="p6b-4B-PgN" firstAttribute="height" secondItem="4kv-3C-qrI" secondAttribute="height" id="SL5-yP-YFh"/>
+                                                                <constraint firstItem="p6b-4B-PgN" firstAttribute="height" secondItem="4kv-3C-qrI" secondAttribute="height" id="4GU-Lx-K4h"/>
                                                             </constraints>
                                                         </stackView>
                                                     </subviews>

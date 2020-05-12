@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
 @property (strong, nonatomic) IBOutlet ZBActionButton *getButton;
-@property (strong, nonatomic) IBOutlet UIButton *moreButton;
+@property (strong, nonatomic) IBOutlet ZBActionButton *moreButton;
 @property (strong, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UITableView *informationTableView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -124,10 +124,9 @@
     self.iconImageView.layer.borderWidth = 1;
     self.iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
     
-    // Buttons
-    self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
-    self.moreButton.backgroundColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    
+    // More Button
+    [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
+
     self.webView.hidden = YES;
 }
 
