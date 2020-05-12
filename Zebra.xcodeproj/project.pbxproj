@@ -74,7 +74,7 @@
 		8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */; };
 		89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89308E2623FF4BBB00D4641D /* ZBSettingsResetTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
-		8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */; };
+		8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
 		893F51CC2447D83C00B2C64E /* control.sample in Resources */ = {isa = PBXBuildFile; fileRef = 893F51CB2447D83C00B2C64E /* control.sample */; };
@@ -317,8 +317,8 @@
 		8932F0CE2364F61100F16E5E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0CF2364F78400F16E5E /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0D02364F8A500F16E5E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8937CA2F23C3DFD400A4644C /* UINavigationBar+Progress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Progress.h"; sourceTree = "<group>"; };
-		8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Progress.m"; sourceTree = "<group>"; };
+		8937CA2F23C3DFD400A4644C /* UINavigationBar+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Extensions.h"; sourceTree = "<group>"; };
+		8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Extensions.m"; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
 		893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+Theme.h"; sourceTree = "<group>"; };
@@ -884,8 +884,8 @@
 				89F8730223653D280070160A /* UIVisualEffectView+Theme.m */,
 				893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */,
 				893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */,
-				8937CA2F23C3DFD400A4644C /* UINavigationBar+Progress.h */,
-				8937CA3023C3DFD400A4644C /* UINavigationBar+Progress.m */,
+				8937CA2F23C3DFD400A4644C /* UINavigationBar+Extensions.h */,
+				8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */,
 				89AD450223CA4F010008831F /* UIImageView+Zebra.h */,
 				89AD450323CA4F010008831F /* UIImageView+Zebra.m */,
 				89C4244B24411C1100FE5ED8 /* UIAlertController+Show.h */,
@@ -1444,7 +1444,7 @@
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				A53E54A5245B08740082BF69 /* ZBUtils.m in Sources */,
 				8916AC1B23CAAE51008BA02C /* ZBAlternateIconController.m in Sources */,
-				8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */,
+				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */,

@@ -13,11 +13,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UINavigationBar ()
-@property (assign,setter=_setBackgroundOpacity:,nonatomic) double _backgroundOpacity;
-@property (nonatomic,copy) NSArray * backgroundEffects;  
-@end
-
 @interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 - (id)initWithPackage:(ZBPackage *)package;
 @end

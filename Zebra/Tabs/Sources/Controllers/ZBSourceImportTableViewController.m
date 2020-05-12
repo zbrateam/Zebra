@@ -11,7 +11,7 @@
 #import "ZBSourceImportTableViewController.h"
 #import "ZBAppDelegate.h"
 
-#import <Extensions/UINavigationBar+Progress.h>
+#import <Extensions/UINavigationBar+Extensions.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import <Sources/Views/ZBSourceTableViewCell.h>

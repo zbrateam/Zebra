@@ -12,6 +12,7 @@
 #import "ZBActionButton.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
 
 @interface ZBPackageDepictionViewController () {
@@ -70,7 +71,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self setNavigationBarBackgroundOpacity:1];
+    [self.navigationController.navigationBar _setBackgroundOpacity:1];
 }
 
 - (void)setData {
@@ -117,8 +118,8 @@
 - (void)applyCustomizations {
     // Navigation
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    self.navigationController.navigationBar._backgroundOpacity = 0.0;
-    
+    [self.navigationController.navigationBar _setBackgroundOpacity:0];
+
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
     self.iconImageView.layer.borderWidth = 1;
@@ -201,10 +202,6 @@
     }];
 }
 
-- (void)setNavigationBarBackgroundOpacity:(CGFloat)opacity {
-    self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, opacity)); // Ensure the opacity is not negative or greater than 1.
-}
-
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -265,7 +262,7 @@
         
         [self configureNavigationButtons];
     }
-    [self setNavigationBarBackgroundOpacity:percentageVerticalOffset];
+    [self.navigationController.navigationBar _setBackgroundOpacity:MAX(0, MIN(1, percentageVerticalOffset))];
 }
 
 @end

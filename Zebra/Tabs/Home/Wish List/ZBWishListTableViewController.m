@@ -14,7 +14,7 @@
 #import <ZBQueue.h>
 #import <ZBDevice.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Extensions/UINavigationBar+Progress.h>
+#import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Helpers/ZBPackage.h>

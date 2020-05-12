@@ -1,5 +1,5 @@
 //
-//  UINavigationBar+Progress.h
+//  UINavigationBar+Extensions.h
 //  Zebra
 //
 //  Created by Wilson Styres on 1/6/20.
@@ -10,8 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UINavigationBar (Progress)
+@interface UINavigationBar (Extensions)
 @property (strong, nonatomic, readonly) UIProgressView *navProgressView;
+@property (assign, setter=_setBackgroundOpacity:, nonatomic) double _backgroundOpacity;
 @end
 
 NS_ASSUME_NONNULL_END

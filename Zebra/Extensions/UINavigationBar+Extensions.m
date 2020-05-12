@@ -1,16 +1,17 @@
 //
-//  UINavigationBar+Progress.m
+//  UINavigationBar+Extensions.m
 //  Zebra
 //
 //  Created by Wilson Styres on 1/6/20.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "UINavigationBar+Progress.h"
-
+#import "UINavigationBar+Extensions.h"
 #import <objc/runtime.h>
 
-@implementation UINavigationBar (Progress)
+@implementation UINavigationBar (Extensions)
+
+@dynamic _backgroundOpacity;
 
 - (UIProgressView *)navProgressView {
     UIProgressView *progress = objc_getAssociatedObject(self, "navProgressView");
