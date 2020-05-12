@@ -67,6 +67,12 @@
     [self updateTableViewHeightBasedOnContent];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self setNavigationBarBackgroundOpacity:1];
+}
+
 - (void)setData {
     self.nameLabel.text = self.package.name;
     self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
@@ -196,6 +202,10 @@
     }];
 }
 
+- (void)setNavigationBarBackgroundOpacity:(CGFloat)opacity {
+    self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, opacity)); // Ensure the opacity is not negative or greater than 1.
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -256,8 +266,7 @@
         
         [self configureNavigationButtons];
     }
-    
-    self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, percentageVerticalOffset));
+    [self setNavigationBarBackgroundOpacity:percentageVerticalOffset];
 }
 
 @end
