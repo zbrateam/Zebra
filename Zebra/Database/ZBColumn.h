@@ -13,8 +13,8 @@ typedef enum {
     ZBPackageColumnPackage = 0,
     ZBPackageColumnName,
     ZBPackageColumnVersion,
-    ZBPackageColumnShortDescription,
-    ZBPackageColumnLongDescription,
+    ZBPackageColumnTagline,
+    ZBPackageColumnDescription,
     ZBPackageColumnSection,
     ZBPackageColumnDepiction,
     ZBPackageColumnTag,
@@ -33,6 +33,13 @@ typedef enum {
     ZBPackageColumnPriority,
     ZBPackageColumnEssential,
     ZBPackageColumnSHA256,
+    ZBPackageColumnHeader,
+    ZBPackageColumnChangelogTitle,
+    ZBPackageColumnChangelog,
+    ZBPackageColumnHomepage,
+    ZBPackageColumnPreviews,
+    ZBPackageColumnMaintainerName,
+    ZBPackageColumnMaintainerEmail
 } ZBPackageColumn;
 
 typedef enum {

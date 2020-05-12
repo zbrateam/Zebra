@@ -242,8 +242,8 @@
         const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
         const char *packageNameChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnName);
         const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
-        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnShortDescription);
-        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnLongDescription);
+        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnTagline);
+        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnDescription);
         const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
         const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
         const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);

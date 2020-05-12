@@ -34,6 +34,7 @@ enum PARSEL_RETURN_TYPE updateSourceInDatabase(struct ZBBaseSource source, const
 enum PARSEL_RETURN_TYPE addPaymentEndpointForSource(const char *endpointURL, sqlite3 *database, int sourceID);
 void createDummySource(struct ZBBaseSource source, sqlite3 *database, int sourceID);
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int sourceID);
+void readMultiLineKey(FILE *file, char **buffer);
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int sourceID, sqlite3_int64 currentDate);
 
 #endif /* parsel_h */
