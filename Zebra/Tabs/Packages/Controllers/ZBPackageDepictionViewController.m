@@ -126,6 +126,7 @@
 }
 
 - (void)configureNavigationButtons {
+    // Create titleView if it doesn't exist
     if (!self.navigationItem.titleView) {
         UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -133,12 +134,14 @@
         imageView.contentMode = UIViewContentModeScaleAspectFit;
         imageView.layer.cornerRadius = 5;
         imageView.layer.masksToBounds = YES;
+        imageView.alpha = 0.0;
         [self.package setIconImageForImageView:imageView];
         
         [container addSubview:imageView];
         self.navigationItem.titleView = container;
     }
     
+    // Create rightBarButton if doesn't exist
     if (!self.navigationItem.rightBarButtonItem) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
         view.backgroundColor = [UIColor blackColor];
@@ -149,11 +152,11 @@
     [UIView animateWithDuration:0.3 animations:^{
         if (self->shouldShowNavButtons) {
             self.navigationItem.rightBarButtonItem.customView.alpha = 1.0;
-            self.navigationItem.titleView.alpha = 1.0;
+            self.navigationItem.titleView.subviews[0].alpha = 1.0;
         }
         else {
             self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
-            self.navigationItem.titleView.alpha = 0.0;
+            self.navigationItem.titleView.subviews[0].alpha = 0.0;
         }
     }];
 }
