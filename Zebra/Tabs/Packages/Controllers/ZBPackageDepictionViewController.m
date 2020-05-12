@@ -31,7 +31,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
-@property (strong, nonatomic) NSDictionary *packageInformation;
+@property (strong, nonatomic) NSArray *packageInformation;
 @property (strong, nonatomic) ZBActionButton *barButton;
 @end
 
@@ -78,7 +78,7 @@
     self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
-        
+    
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
@@ -213,7 +213,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[self.packageInformation allValues] count];
+    return [self.packageInformation count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -225,11 +225,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"informationCell"];
     
-    cell.textLabel.text = [self.packageInformation allKeys][indexPath.row];
+    cell.textLabel.text = self.packageInformation[indexPath.row][@"name"];
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.textLabel.textColor = [UIColor secondaryLabelColor]; // TODO: Use Zebra colors
     
-    cell.detailTextLabel.text = [self.packageInformation allValues][indexPath.row];
+    cell.detailTextLabel.text = self.packageInformation[indexPath.row][@"value"];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
     cell.detailTextLabel.textColor = [UIColor labelColor]; // TODO: Use Zebra colors
     

@@ -807,15 +807,52 @@
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }
 
-- (NSDictionary *)information {
-    NSMutableDictionary *information = [NSMutableDictionary new];
+- (NSArray *)information {
+    NSMutableArray *information = [NSMutableArray new];
     
-    if ([self installedVersion]) [information setObject:[self installedVersion] forKey:@"Installed Version"];
-    if ([self identifier]) [information setObject:[self identifier] forKey:@"Bundle Identifier"];
-    if ([self downloadSizeString]) [information setObject:[self downloadSizeString] forKey:@"Size"];
-    if ([self authorName]) [information setObject:[self authorName] forKey:@"Author"];
-    if ([self source]) [information setObject:[[self source] origin] forKey:@"Source"];
-    if ([self section]) [information setObject:[self section] forKey:@"Category"];
+    NSString *installedVersion = [self installedVersion];
+    if (installedVersion) {
+        NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion};
+        [information addObject:installedVersionInfo];
+    }
+    
+    NSString *bundleIdentifier = [self identifier];
+    if (bundleIdentifier) {
+        NSDictionary *bundleIdentifierInfo = @{@"name": NSLocalizedString(@"Bundle Identifier", @""), @"value": bundleIdentifier};
+        [information addObject:bundleIdentifierInfo];
+    }
+    
+    NSString *downloadSize = [self downloadSizeString];
+    if (downloadSize) {
+        NSDictionary *downloadSizeInfo = @{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize};
+        [information addObject:downloadSizeInfo];
+    }
+    
+    NSString *authorName = [self authorName];
+    if (authorName) {
+        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName};
+        [information addObject:authorNameInfo];
+    }
+    else {
+        // Show maintainer name if no author
+//        NSString *maintainerName = [self authorName];
+//        if (authorName) {
+//            NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Maintainer", @""), @"value": authorName};
+//            [information addObject:authorNameInfo];
+//        }
+    }
+    
+    NSString *sourceOrigin = [[self source] origin];
+    if (sourceOrigin) {
+        NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin};
+        [information addObject:sourceOriginInfo];
+    }
+    
+    NSString *section = [self section];
+    if (section) {
+        NSDictionary *sectionInfo = @{@"name": NSLocalizedString(@"Section", @""), @"value": section};
+        [information addObject:sectionInfo];
+    }
     
     return information;
 }
