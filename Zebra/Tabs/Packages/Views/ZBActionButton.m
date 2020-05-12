@@ -13,6 +13,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    [self applyCustomizations];
+}
+
+- (void)applyCustomizations {
     [self setBackgroundColor:[UIColor accentColor]];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.layer setCornerRadius:self.frame.size.height / 2];
