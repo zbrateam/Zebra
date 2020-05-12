@@ -694,10 +694,9 @@
 }
 
 - (NSString * _Nullable)installedVersion {
-    NSString *installedVersion = [[ZBDatabaseManager sharedInstance] installedVersionForPackage:self];
+    if ([[self source] sourceID] == 0) return self.version;
     
-    if ([self.version isEqualToString:installedVersion]) return NULL;
-    return installedVersion;
+    return [[ZBDatabaseManager sharedInstance] installedVersionForPackage:self];
 }
 
 - (void)addDependency:(ZBPackage *)package {
