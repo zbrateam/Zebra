@@ -12,7 +12,9 @@
 #import "ZBActionButton.h"
 #import <Sources/Helpers/ZBSource.h>
 
-@interface ZBPackageDepictionViewController ()
+@interface ZBPackageDepictionViewController () {
+    BOOL shouldShowNavButtons;
+}
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
@@ -31,6 +33,8 @@
 
 @implementation ZBPackageDepictionViewController
 
+#pragma mark - Initializers
+
 - (id)initWithPackage:(ZBPackage *)package {
     self = [super init];
     
@@ -40,6 +44,8 @@
     
     return self;
 }
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -67,6 +73,7 @@
 - (void)applyCustomizations {
     // Navigation
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    [self configureNavigationButtons];
     
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
@@ -107,6 +114,39 @@
 
 - (IBAction)getButtonPressed:(id)sender {
     [ZBPackageActions buttonActionForPackage:self.package]();
+}
+
+- (void)configureNavigationButtons {
+    if (!self.navigationItem.titleView) {
+        UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+        imageView.center = self.navigationItem.titleView.center;
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        imageView.layer.cornerRadius = 5;
+        imageView.layer.masksToBounds = YES;
+        [self.package setIconImageForImageView:imageView];
+        
+        [container addSubview:imageView];
+        self.navigationItem.titleView = container;
+    }
+    
+    if (!self.navigationItem.rightBarButtonItem) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        view.backgroundColor = [UIColor blackColor];
+        
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:view];
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        if (self->shouldShowNavButtons) {
+            self.navigationItem.rightBarButtonItem.customView.alpha = 1.0;
+            self.navigationItem.titleView.alpha = 1.0;
+        }
+        else {
+            self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
+            self.navigationItem.titleView.alpha = 0.0;
+        }
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -178,6 +218,17 @@
     CGFloat maximumVerticalOffset = self.headerView.frame.size.height;
     CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
+    
+    if (percentageVerticalOffset > 1.0 && !shouldShowNavButtons) {
+        shouldShowNavButtons = YES;
+        
+        [self configureNavigationButtons];
+    }
+    else if (percentageVerticalOffset < 1.0 && shouldShowNavButtons) {
+        shouldShowNavButtons = NO;
+        
+        [self configureNavigationButtons];
+    }
     
     self.navigationController.navigationBar._backgroundOpacity = MAX(0, MIN(1, percentageVerticalOffset));
 }
