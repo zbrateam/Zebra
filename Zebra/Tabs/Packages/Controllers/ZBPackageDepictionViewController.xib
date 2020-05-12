@@ -30,7 +30,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pGb-C7-kl2">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="679"/>
@@ -270,7 +270,7 @@
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="pGb-C7-kl2" secondAttribute="bottom" id="Ckr-js-RFV"/>
+                <constraint firstAttribute="bottom" secondItem="pGb-C7-kl2" secondAttribute="bottom" id="Ckr-js-RFV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pGb-C7-kl2" secondAttribute="trailing" id="Yhe-Po-XRd"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bCc-JN-qu1"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="z2k-I9-9Mb"/>
