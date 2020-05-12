@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
+@property (strong, nonatomic) NSDictionary *packageInformation;
 @property (strong, nonatomic) ZBActionButton *barButton;
 @end
 
@@ -70,6 +71,7 @@
     self.nameLabel.text = self.package.name;
     self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
+    self.packageInformation = [self.package information];
         
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
     NSString *version = [[UIDevice currentDevice] systemVersion];
@@ -202,7 +204,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10; // For now just four but once we set up a proper data source this will be variable
+    return [[self.packageInformation allValues] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -214,33 +216,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"informationCell"];
     
+    cell.textLabel.text = [self.packageInformation allKeys][indexPath.row];
     cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     cell.textLabel.textColor = [UIColor secondaryLabelColor]; // TODO: Use Zebra colors
     
+    cell.detailTextLabel.text = [self.packageInformation allValues][indexPath.row];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
     cell.detailTextLabel.textColor = [UIColor labelColor]; // TODO: Use Zebra colors
-    
-    // Temporary, need a proper data source
-    switch (indexPath.row) {
-        case 0:
-            cell.textLabel.text = @"Installed Version";
-            cell.detailTextLabel.text = [self.package installedVersion];
-            break;
-        case 1:
-            cell.textLabel.text = @"Bundle Identifier";
-            cell.detailTextLabel.text = [self.package identifier];
-            break;
-        case 2:
-            cell.textLabel.text = @"Size"; // Should this be installed or download size??
-            cell.detailTextLabel.text = [self.package downloadSizeString];
-            break;
-        case 3:
-            cell.textLabel.text = @"Source";
-            cell.detailTextLabel.text = [self.package.source label];
-        default:
-            cell.textLabel.text = @"Ze";
-            cell.detailTextLabel.text = @"Bruh";
-    }
     
     return cell;
 }

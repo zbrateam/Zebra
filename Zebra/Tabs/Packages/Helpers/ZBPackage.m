@@ -810,12 +810,12 @@
 - (NSDictionary *)information {
     NSMutableDictionary *information = [NSMutableDictionary new];
     
-    [information setObject:[self installedVersion] forKey:@"Installed Version"];
-    [information setObject:[self identifier] forKey:@"Bundle Identifier"];
-    [information setObject:[self downloadSizeString] forKey:@"Size"];
-    [information setObject:[self authorName] forKey:@"Author"];
-    [information setObject:[[self source] origin] forKey:@"Source"];
-    [information setObject:[self section] forKey:@"Category"];
+    if ([self installedVersion]) [information setObject:[self installedVersion] forKey:@"Installed Version"];
+    if ([self identifier]) [information setObject:[self identifier] forKey:@"Bundle Identifier"];
+    if ([self downloadSizeString]) [information setObject:[self downloadSizeString] forKey:@"Size"];
+    if ([self authorName]) [information setObject:[self authorName] forKey:@"Author"];
+    if ([self source]) [information setObject:[[self source] origin] forKey:@"Source"];
+    if ([self section]) [information setObject:[self section] forKey:@"Category"];
     
     return information;
 }
