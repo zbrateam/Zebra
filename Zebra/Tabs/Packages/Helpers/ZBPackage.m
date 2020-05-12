@@ -807,6 +807,19 @@
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }
 
+- (NSDictionary *)information {
+    NSMutableDictionary *information = [NSMutableDictionary new];
+    
+    [information setObject:[self installedVersion] forKey:@"Installed Version"];
+    [information setObject:[self identifier] forKey:@"Bundle Identifier"];
+    [information setObject:[self downloadSizeString] forKey:@"Size"];
+    [information setObject:[self authorName] forKey:@"Author"];
+    [information setObject:[[self source] origin] forKey:@"Source"];
+    [information setObject:[self section] forKey:@"Category"];
+    
+    return information;
+}
+
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
     ZBSource *source = [self source];
     
