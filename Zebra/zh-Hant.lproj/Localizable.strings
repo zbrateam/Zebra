@@ -69,7 +69,7 @@
 "Text" = "文字";
 "Icon" = "圖示";
 "Finish Automatically" = "自動完成";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "默認安裝最新版本";
 "Automatic Refresh" = "自動重新整理";
 
 // Accent Colors
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "如尚未安裝套件，則默認安裝最新版本。";
 
 // Filters
 
