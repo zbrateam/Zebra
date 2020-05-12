@@ -22,7 +22,7 @@
 }
 
 - (void)applyCustomizations {
-    [self setBackgroundColor:[UIColor accentColor]];
+    [self setBackgroundColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.layer setCornerRadius:self.frame.size.height / 2];
     [self.titleLabel setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightBold]];
