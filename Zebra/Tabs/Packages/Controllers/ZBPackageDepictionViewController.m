@@ -11,6 +11,7 @@
 #import <Packages/Helpers/ZBPackageActions.h>
 #import "ZBActionButton.h"
 #import <Sources/Helpers/ZBSource.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBPackageDepictionViewController () {
     BOOL shouldShowNavButtons;
@@ -29,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
+@property (strong, nonatomic) ZBActionButton *barButton;
 @end
 
 @implementation ZBPackageDepictionViewController
@@ -53,6 +55,7 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
+    [self configureNavigationButtons];
     [self configureGetButton];
 }
 
@@ -73,7 +76,6 @@
 - (void)applyCustomizations {
     // Navigation
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    [self configureNavigationButtons];
     
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
@@ -82,6 +84,7 @@
     
     // Buttons
     self.moreButton.layer.cornerRadius = self.moreButton.frame.size.height / 2;
+    self.moreButton.backgroundColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     self.webView.hidden = YES;
     self.navigationController.navigationBar._backgroundOpacity = 0.0;
@@ -97,13 +100,18 @@
 }
 
 - (void)configureGetButton {
+    [self.barButton showActivityLoader];
     [self.getButton showActivityLoader];
     [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
         if (text) {
+            [self.barButton hideActivityLoader];
+            [self.barButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+            
             [self.getButton hideActivityLoader];
             [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
         }
         else {
+            [self.barButton showActivityLoader];
             [self.getButton showActivityLoader];
         }
     }];
@@ -134,12 +142,12 @@
     }
     
     // Create rightBarButton if doesn't exist
-    if (!self.navigationItem.rightBarButtonItem) {
-        ZBActionButton *button = [[ZBActionButton alloc] init];
+    if (!self.barButton) {
+        self.barButton = [[ZBActionButton alloc] init];
+        [self.barButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-        [button applyCustomizations];
-        [button setTitle:@"FREE" forState:UIControlStateNormal];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.barButton];
+        [self.barButton applyCustomizations];
     }
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -204,7 +212,7 @@
     return cell;
 }
 
-#pragma mark - WKNavigtaionDelegate
+#pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
