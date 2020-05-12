@@ -270,7 +270,6 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="pGb-C7-kl2" secondAttribute="bottom" id="Ckr-js-RFV"/>
-                <constraint firstItem="pGb-C7-kl2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="VR1-SS-A8A"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pGb-C7-kl2" secondAttribute="trailing" id="Yhe-Po-XRd"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="bCc-JN-qu1"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="z2k-I9-9Mb"/>
