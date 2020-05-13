@@ -69,7 +69,7 @@
 "Text" = "Texte";
 "Icon" = "Icône";
 "Finish Automatically" = "Terminer automatiquement";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Toujours installer la dernière version";
 "Automatic Refresh" = "Rafraîchissement Auto";
 
 // Accent Colors
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Fermer automatiquement la console une fois toutes ses tâches terminées.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Installez toujours la version la plus récente d'un paquet s'il n'est pas déjà installé.";
 
 // Filters
 
@@ -481,4 +481,4 @@
 "You are adding a repository that is not secure" = "Vous ajoutez une source qui n'est pas sécurisée";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Les données téléchargées à partir de cette source peuvent ne pas être chiffrées. Êtes-vous sûr de vouloir l'ajouter ?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Impossible de finaliser l'achat";
