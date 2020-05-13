@@ -303,34 +303,39 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return timestamp;
 }
 
-pair *splitNameAndEmail(const char *author) {
+pair *splitNameAndEmail(const char *author_) {
     pair *p = malloc(sizeof(pair));
-    if (author == NULL) {
+    
+    if (author_ == NULL) {
         p->key = NULL;
         p->value = NULL;
     } else {
+        p->key = malloc(strlen(author_) + 1);
+        
+        char *author = malloc(strlen(author_) + 1);
+        strcpy(author, author_);
+        
         char *l = strchr(author, '<');
         char *r = strchr(author, '>');
         
         if (l && r) {
+            p->value = malloc(strlen(author_) + 1);
+            
             int nameSize = (int)(l - author);
             int emailSize = (int)(r - author) - nameSize - 1;
             
-            char name[nameSize + 1];
-            strncpy(name, author, nameSize);
-            name[nameSize] = 0;
+            strncpy(p->key, author, nameSize);
+            p->key[nameSize] = 0;
             
-            char email[emailSize + 1];
-            strncpy(email, l + 1, emailSize);
-            email[emailSize] = 0;
-            
-            p->key = trim(name);
-            p->value = trim(email);
+            strncpy(p->value, l + 1, emailSize);
+            p->value[emailSize] = 0;
         }
         else {
-            p->key = trim((char *)author);
+            strcpy(p->key, author);
             p->value = NULL;
         }
+        
+        free(author);
     }
     
     return p;
@@ -377,6 +382,8 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             pair *author = splitNameAndEmail(dict_get(package, "Author"));
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorName, author->key, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorEmail, author->value, -1, SQLITE_TRANSIENT);
+            free(author->key);
+            free(author->value);
             free(author);
             
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, depends[0] == '\0' ? NULL : depends, -1, SQLITE_TRANSIENT);
