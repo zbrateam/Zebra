@@ -181,6 +181,7 @@
 "You have already added these sources." = "Već ste dodali ove repoe.";
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
 
