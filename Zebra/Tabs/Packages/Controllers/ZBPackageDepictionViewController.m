@@ -222,6 +222,20 @@
     });
 }
 
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // This is a pretty simple implementation now, it might cause problems later for depictions with ads but not sure at the moment.
+    NSURL *url = navigationAction.request.URL;
+    if ([url isEqual:self.package.depictionURL]) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    }
+    else {
+        decisionHandler(WKNavigationActionPolicyCancel);
+        
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        [self presentViewController:safariVC animated:YES completion:nil];
+    }
+}
+
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
