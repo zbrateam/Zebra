@@ -548,6 +548,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
 
 void readMultiLineKey(FILE *file, char **buffer) {
     char line[2048];
+    long int position = 0;
     
     while (fgets(line, sizeof(line), file)) {
         char *info = strtok(line, "\n");
@@ -564,9 +565,10 @@ void readMultiLineKey(FILE *file, char **buffer) {
                 strcat(*buffer, "\n");
             }
             
-            continue;
+            position = ftell(file);
         }
         else {
+            fseek(file, position, SEEK_SET);
             break;
         }
     }
