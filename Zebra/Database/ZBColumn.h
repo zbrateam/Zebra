@@ -39,7 +39,8 @@ typedef enum {
     ZBPackageColumnHomepage,
     ZBPackageColumnPreviews,
     ZBPackageColumnMaintainerName,
-    ZBPackageColumnMaintainerEmail
+    ZBPackageColumnMaintainerEmail,
+    ZBPackageColumnPreferNative
 } ZBPackageColumn;
 
 typedef enum {

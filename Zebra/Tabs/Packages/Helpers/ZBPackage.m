@@ -265,6 +265,7 @@
         const char *previewsChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPreviews);
         const char *maintainerNameChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
         const char *maintainerEmailChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
+        const char *preferNativeChars =     (const char *)sqlite3_column_text(statement, ZBPackageColumnPreferNative);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         if (packageIDChars == 0) return NULL; // There is no "working" situation where a package ID is missing
@@ -295,6 +296,14 @@
         }
         else if (es && [es isEqualToString:@"no"]) {
             [self setEssential:NO];
+        }
+        
+        NSString *pn = preferNativeChars != 0 ? [[NSString stringWithUTF8String:preferNativeChars] lowercaseString] : NULL;
+        if (pn && [pn isEqualToString:@"yes"]) {
+            [self setPreferNative:YES];
+        }
+        else {
+            [self setPreferNative:NO];
         }
         
         [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : NULL];

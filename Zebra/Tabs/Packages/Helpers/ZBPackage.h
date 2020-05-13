@@ -54,6 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL requiresAuthorization;
 @property BOOL essential;
 @property BOOL ignoreDependencies;
+@property BOOL preferNative;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
