@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *version;
-@property (nonatomic, strong) NSString *shortDescription;
-@property (nonatomic, strong) NSString *longDescription;
+@property (nonatomic, strong) NSString *tagline;
+@property (nonatomic, strong) NSString *packageDescription;
 @property (nonatomic, strong) NSString *section;
 @property (nonatomic, strong) NSURL *depictionURL;
 @property (nonatomic, strong) NSArray *tags;
@@ -42,6 +42,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBPackage * _Nullable removedBy;
 @property (nonatomic, strong) NSString *priority;
 @property (nonatomic, strong) NSString *SHA256;
+@property (nonatomic, strong) NSURL *headerURL;
+@property (nonatomic, strong) NSString *changelogTitle;
+@property (nonatomic, strong) NSString *changelogNotes;
+@property (nonatomic, strong) NSString *homepageURL;
+@property (nonatomic, strong) NSArray *previewImageURLs;
+@property (nonatomic, strong) NSString *maintainerName;
+@property (nonatomic, strong) NSString *maintainerEmail;
 @property int installedSize;
 @property int downloadSize;
 @property BOOL requiresAuthorization;

@@ -3774,7 +3774,6 @@ Architecture: iphoneos-arm
 Version: 1:0
 Depends: dpkg, uikittools, firmware (>= 9.0)
 Description: A Useful Package Manager
-  Zebra is a super cool package manager!
 Name: Zebra
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
