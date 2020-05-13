@@ -312,19 +312,23 @@ pair *splitNameAndEmail(const char *author) {
         char *l = strchr(author, '<');
         char *r = strchr(author, '>');
         
-        char *author_ = strdup(author);
         if (l && r) {
-            multi_tok_t s = init();
-            char *name = multi_tok(author_, &s, " <");
-            if (strcmp(name, author) == 0)
-                name = multi_tok(author_, &s, "<");
-            char *email = multi_tok(NULL, &s, NULL);
-            if (email)
-                email = multi_tok(email, &s, ">");
+            int nameSize = (int)(l - author);
+            int emailSize = (int)(r - author) - nameSize - 1;
+            
+            char name[nameSize + 1];
+            strncpy(name, author, nameSize);
+            name[nameSize] = 0;
+            
+            char email[emailSize + 1];
+            strncpy(email, l + 1, emailSize);
+            email[emailSize] = 0;
+            
             p->key = trim(name);
             p->value = trim(email);
-        } else {
-            p->key = trim(author_);
+        }
+        else {
+            p->key = trim((char *)author);
             p->value = NULL;
         }
     }
@@ -369,9 +373,12 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSection, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTag, tags, -1, SQLITE_TRANSIENT);
+            
             pair *author = splitNameAndEmail(dict_get(package, "Author"));
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorName, author->key, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorEmail, author->value, -1, SQLITE_TRANSIENT);
+            free(author);
+            
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, depends[0] == '\0' ? NULL : depends, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnConflicts, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnProvides, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);

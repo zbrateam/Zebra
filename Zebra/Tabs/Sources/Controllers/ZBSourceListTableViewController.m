@@ -441,9 +441,18 @@
     else if ([baseSource exists]) {
         //You have already added this source.
         UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-        [youAlreadyAdded addAction:action];
+
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+        [youAlreadyAdded addAction:cancelAction];
+
+        UIAlertAction *viewAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"View", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSInteger pos = [self->sourceIndexes[baseSource.baseFilename] integerValue];
+            NSIndexPath *indexPath = [self indexPathForPosition:pos];
+
+            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+        }];
+        [youAlreadyAdded addAction:viewAction];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self presentViewController:youAlreadyAdded animated:YES completion:nil];
