@@ -1,80 +1,80 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
-"No" = "No";
+"Cancel" = "Batal";
+"Yes" = "Ya";
+"No" = "Tidak";
 "Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"Error" = "Ralat";
+"Retry" = "Cuba Lagi";
+"Edit" = "Sunting";
+"Close" = "Tutup";
+"Done" = "Selesai";
+"Loading..." = "Memuatkan…";
+"Clear" = "Padam";
+"An Error Occurred" = "Ralat Berlaku";
+"Dismiss" = "Abaikan";
+"Downloads" = "Dimuat turun";
 
 // Home
 
-"Home" = "Home";
+"Home" = "Laman Utama";
 "Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Welcome to Zebra!" = "Selamat datang ke Zebra!";
+"Report a Bug" = "Laporkan Gangguan";
+"Changelog" = "Log Perubahan";
+"Wish List" = "Daftar Keinginan";
+"Newest First" = "Terbaru Dahulu";
+"Oldest First" = "Lama Dahulu";
+"No items in Wish List" = "Tiada item di Daftar Keinginan";
+"Community" = "Komuniti";
+"Join our Discord" = "Sertai Discord kami";
+"Follow us on Twitter" = "Ikuti kami di Twitter";
+"Help translate Zebra!" = "Bantu terjemahkan Zebra!";
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
-"Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Community Sources" = "Sumber Komuniti";
+"You’ve added all of the community sources" = "Anda telah menambahkan semua sumber komuniti";
+"Transfer sources from %@ to Zebra" = "Pindah sumber dari %@ ke Zebra";
+"Utility source for %@" = "Sumber Utiliti untuk %@";
+"Transfer Sources" = "Pindah Sumber";
+"Verifying Source" = "Sahkan Sumber";
+"Verifying Sources" = "Sahkan Sumber";
 "Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Verifying..." = "Mengesahkan...";
+"Confirm Import" = "Mengesahkan Import";
+"Import Sources" = "Import Sumber";
+"No sources to import" = "Tiada sumber untuk diimport";
+"Would you like to import the following sources?" = "Adakah Anda ingin mengimport sumber berikut?";
+"Are you sure that you want to import 1 source into Zebra?" = "Adakah Anda pasti ingin untuk mengimport 1 sumber ke Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Adakah Anda pasti ingin untuk mengimport %d sumber ke Zebra?";
 
 // Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
+"Credits" = "Penghargaan";
+"Creators" = "Pencipta";
+"Contributors" = "Penyumbang";
+"Translators" = "Penterjemah";
 "Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Settings";
-"Display" = "Display";
-"App Icon" = "App Icon";
-"Changes" = "Changes";
-"Community News" = "Community News";
-"Miscellaneous" = "Miscellaneous";
-"Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
-"Always Install Latest" = "Always Install Latest";
-"Automatic Refresh" = "Automatic Refresh";
+"Settings" = "Tetapan";
+"Display" = "Paparan";
+"App Icon" = "Ikon Aplikasi";
+"Changes" = "Perubahan";
+"Community News" = "Berita Komuniti";
+"Miscellaneous" = "Lain-lain";
+"Swipe Actions Display As" = "Tindakan Leret Paparan Sebagai";
+"Text" = "Teks";
+"Icon" = "Ikon";
+"Finish Automatically" = "Selesai Secara Automatik";
+"Always Install Latest" = "Selalu Memasang Terkini";
+"Automatic Refresh" = "Automatik Refresh";
 
 // Accent Colors
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Warna Aksen";
 "Aqua Velvet" = "Aqua Velvet";
 "Cornflower Blue" = "Cornflower Blue";
 "Golden Tainoi" = "Golden Tainoi";
@@ -87,36 +87,36 @@
 "Royal Blue" = "Royal Blue";
 "Shark" = "Shark";
 "Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Use System Accent Color" = "Gunakan Warna aksen sistem";
+"Appearance" = "Penampilan";
+"Use System Appearance" = "Gunakan Tampilan Sistem";
+"Light" = "Cerah";
+"Dark" = "Gelap";
+"Pure Black Mode" = "Mode Hitam Asli";
 
 // Featured
 
-"Featured Packages" = "Featured Packages";
-"Feature Type" = "Feature Type";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
+"Featured Packages" = "Pakej Pilihan";
+"Feature Type" = "Jenis Pilihan";
+"Repo Featured" = "Repo Pilihan";
+"Random" = "Rawak";
+"Select Repos to be Featured" = "Pilih Repo yang akan Dipilih";
+"Featured Repos" = "Repo Pilihan";
 
 // Reset
 
 "Reset" = "Reset";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources" = "Erase All Sources";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Segarkan Cache Ikon";
+"Clear Image Cache" = "Padamkan Cache Gambar";
+"Clear Sources Cache" = "Padamkan Cache Sumber";
+"Clear Web Cache" = "Padamkan Cache Web";
+"Reset All Settings" = "Tetapkan semula tetapan";
+"Erase All Sources" = "Hapus Semua Sumber";
+"Erase All Sources and Settings" = "Hapus Semua Sumber dan Pengaturan";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Cleared" = "Image Cache Cleared";
+"Are you sure you want to restart the SpringBoard?" = "Adakah kamu pasti untuk mengulang Springboard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Adakah anda pasti ingin menyegarkan ikon cache? Peranti anda mungkin menjadi tidak responsif hingga prosesnya selesai.";
+"Image Cache Cleared" = "Cache Gambar Dipadamkan";
 "Web Cache Cleared" = "Web Cache Cleared";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
