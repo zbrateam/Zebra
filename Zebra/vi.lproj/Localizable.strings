@@ -69,7 +69,7 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Luôn cài đặt mới nhất";
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -181,7 +181,7 @@
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
-"View" = "View";
+"View" = "Xem";
 
 "A total of %d files will be downloaded" = "Tất cả %d tập tin sẽ được tải về";
 
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Luôn cài đặt phiên bản mới nhất của gói nếu nó chưa được cài đặt.";
 
 // Filters
 
@@ -481,4 +481,4 @@
 "You are adding a repository that is not secure" = "Bạn đang thêm kho lưu trữ không an toàn!";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dữ liệu được tải xuống từ kho này không được mã hóa. Bạn chắc chắn có muốn thêm nó ?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Không thể hoàn tất mua";
