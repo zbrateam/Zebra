@@ -181,6 +181,7 @@
 "You have already added these sources." = "Ai adăugat deja aceste surse.";
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Un total de %d fișiere va fi descărcat";
 
