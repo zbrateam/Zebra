@@ -181,6 +181,7 @@
 "You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Total %d file akan diunduh";
 
