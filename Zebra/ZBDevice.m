@@ -423,4 +423,18 @@
     
     return @{@"X-Cydia-ID" : udid, @"User-Agent" : [self downloadUserAgent], @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
+
++ (NSString *)depictionUserAgent {
+    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion], [ZBThemeManager stringForCurrentInterfaceStyle]];
+}
+
++ (NSDictionary *)depictionHeaders {
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    NSString *udid = [ZBDevice UDID];
+    NSString *machineIdentifier = [ZBDevice machineID];
+    NSString *tintColor = [UIColor hexStringFromColor:[UIColor accentColor]];
+    
+    return @{@"X-Cydia-ID": udid, @"X-Firmware": version, @"X-Unique-ID": udid, @"X-Machine": machineIdentifier, @"Payment-Provider": @"API", @"Theme": [ZBThemeManager stringForCurrentInterfaceStyle], @"Tint-Color": tintColor, @"Accept-Language": [[NSLocale preferredLanguages] firstObject]};
+}
+
 @end

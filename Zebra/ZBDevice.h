@@ -50,4 +50,7 @@
 
 + (NSString *_Nonnull)downloadUserAgent;
 + (NSDictionary *_Nonnull)downloadHeaders;
++ (NSString *_Nonnull)depictionUserAgent;
++ (NSDictionary *_Nonnull)depictionHeaders;
+
 @end
