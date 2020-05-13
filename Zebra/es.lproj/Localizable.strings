@@ -69,7 +69,7 @@
 "Text" = "Texto";
 "Icon" = "Icono";
 "Finish Automatically" = "Finalizar automáticamente";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Siempre Instalar la Última Versión";
 "Automatic Refresh" = "Actualización automática";
 
 // Accent Colors
@@ -403,7 +403,7 @@
 
 "Error while creating documents directory: %@." = "Error al crear el directorio de documentos %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Error al crear el directorio de listas: %@.";
 
 "Error while creating sources.list: %@." = "Error al crear sources.list: %@.";
 
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Cerrar automáticamente la Consola cuando se hayan completado todas la tareas.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Siempre instalar la versión más reciente de paquete si aún no está instalado.";
 
 // Filters
 
@@ -478,7 +478,7 @@
 "Restart" = "Reiniciar";
 "Use System Language" = "Usar idioma del sistema";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Estás añadiendo un repositorio que no es seguro";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Los datos descargados de este repositorio podrían no ser cifrados. ¿Estás seguro que deseas añadirlo?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "No se puede realizar la compra";
