@@ -499,8 +499,6 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 continue;
             }
             
-            dict_add(package, key, value);
-            
             if (key != NULL && (strcmp(key, "Description") == 0 || strcmp(key, "Changelog") == 0)) { // Check for a long description or changelog
                 if (strcmp(key, "Description") == 0) {
                     
@@ -510,6 +508,9 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     if (longDescription[0] != '\0') {
                         dict_add(package, "Tagline", value);
                         dict_add(package, "Description", longDescription);
+                    }
+                    else {
+                        dict_add(package, "Description", value);
                     }
                     
                     free(longDescription);
@@ -528,6 +529,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     continue;
                 }
             }
+            
+            dict_add(package, key, value);
         } else if (dict_get(package, "Package") != 0) {
             if (bindPackage(&package, sourceID, safeID, depends, database, true, 0))
                 continue;
@@ -626,6 +629,9 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                     if (longDescription[0] != '\0') {
                         dict_add(package, "Tagline", value);
                         dict_add(package, "Description", longDescription);
+                    }
+                    else {
+                        dict_add(package, "Description", value);
                     }
                     
                     free(longDescription);
