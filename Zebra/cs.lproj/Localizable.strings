@@ -181,6 +181,7 @@
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
 "Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
 "Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
 
