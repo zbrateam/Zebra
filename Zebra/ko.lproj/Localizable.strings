@@ -181,6 +181,7 @@
 "You have already added these sources." = "이미 해당 소스들을 추가했습니다.";
 "Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 "Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "총 %d개의 파일이 다운로드됩니다.";
 
