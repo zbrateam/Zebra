@@ -122,6 +122,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="v4v-rz-M8J"/>
                                             </constraints>
+                                            <inset key="separatorInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
                                         </tableView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pGy-qZ-mOk">
                                             <rect key="frame" x="0.0" y="491" width="414" height="188"/>
