@@ -181,6 +181,7 @@
 "You have already added these sources." = "Zaten bu kaynakları eklediniz.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT depoları şu konumda bulunamadı:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
 
