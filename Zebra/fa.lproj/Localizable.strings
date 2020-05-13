@@ -69,7 +69,7 @@
 "Text" = "متن";
 "Icon" = "آیکون";
 "Finish Automatically" = "پایان به صورت خودکار";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "همیشه آخرین نسخه را نصب کن";
 "Automatic Refresh" = "تازه‌سازی خودکار";
 
 // Accent Colors
@@ -111,7 +111,7 @@
 "Clear Sources Cache" = "پاک کردن حافظه سورس‌ها";
 "Clear Web Cache" = "پاک کردن حافظه پنهان وب";
 "Reset All Settings" = "ریست کردن تمام تنظیمات";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "حذف تمامی سورس ها";
 "Erase All Sources and Settings" = "حذف تمامی سورس‌ها و تنظیمات";
 
 "Are you sure you want to restart the SpringBoard?" = "مطمئن هستید که می خواهید اسپرینگ‌برد را مجدداً راه اندازی کنید؟";
@@ -120,15 +120,15 @@
 "Web Cache Cleared" = "حافظه موقت وب پاک شد";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "مطمئن هستید که می خواهید حافظه سورس‌های زبرا را مجددا تنظیم کنید؟ با این کار تمام اطلاعات ذخیره شده از پایگاه داده زبرا حذف و مجدداً بارگیری می شود. سورس‌ها حذف نمی شوند.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "آیا مطمئنید که می‌خواهید زبرا را ریست کنید؟ این کار همه تنظیمات زبرا را به حالت اولیه‌شان بر خواهد گرداند و زبرا مجددا شروع به کار خواهد کرد.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "آیا مطمئنید که می خواهید همه سورس‌ها و تنظیمات را ریست کنید؟ همه سورس‌های شما از زبرا حذف خواهند شد و تنظیمات شما به حالت اولیه خود باز خواهند گشت.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "آیا مطمئنید که می خواهید همه سورس‌ها و تنظیمات را ریست کنید؟ همه سورس‌های شما از زبرا حذف خواهند شد و تنظیمات شما به حالت اولیه خود باز خواهند گشت.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "همه سورس‌های شما حذف خواهند شد و برای همیشه از بین خواهند رفت و زبرا مجددا شروع به کار خواهد کرد.";
 
 // Documents Directory
 
-"Open Documents Directory" = "Open Documents Directory";
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Open Documents Directory" = "فهرست اسناد را باز کن";
+"Filza Not Installed" = "فایلزا نصب نشده است";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "زبرا نمیتواند این فایل را باز کند زیرا فایلزا نصب نشده. فایل تو: %@";
 
 // Stores
 
@@ -138,11 +138,11 @@
 "Sign Out" = "خروج";
 "Your Purchases" = "خریدهای شما";
 "No Storefronts Available" = "هیچ ویترینی در دسترس نیست.";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "امکان تأیید اعتبار وجود ندارد";
 "Could not complete purchase" = "قادر به تکمیل خرید نیست";
 "No packages purchased" = "هیچ پکیجی خریداری نشده است.";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "ورود توسط %@";
+"Signed in as %@ (%@)" = "ورود توسط %@(%@)";
 
 // Sources
 
@@ -152,7 +152,7 @@
 "Refresh" = "ریفرش کردن";
 "All Packages" = "تمام پکیج ها";
 "Remove Source" = "حذف سورس";
-"Local File" = "Local File";
+"Local File" = "فایل داخلی";
 "Local Repository" = "مخزن های موجود";
 "Locally installed packages" = "پکیج های نصب شده از منابع موجود";
 
@@ -187,15 +187,15 @@
 
 "Could not parse %@ from %@" = " جدانشد %@ از %@";
 "Could not find a download URL for" = "آدرسی برای این مورد پیدا نشد";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Authorizing Download for %@" = "مجوز بارگیری برای %@";
+"Couldn't authorize download for %@." = "تایید مجوز برای بارگیری %@ ناموفق بود.";
+"Reason: %@." = "دلیل: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "سرویس پرداخت در iOS 11.0 به پایین پشتیبانی نمی شود";
+"Could not download Release file from %@. Reason: %@" = "نمی توان فایل ریلیز %@ را دانلود کرد. دلیل اشکال: %@";
 "Could not download Packages file from %@. Reason: %@" = "نتوانست پرونده های بسته را از%@ دانلود کند.\nدلیل: %@";
 "Could not download one or more files from %@. Reason: %@" = "نتوانست یک یا چند فایل را از%@ دانلود کند.\nدلیل: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "خطا هنگام انتقال فایل از %@ به %@";
 
 "The URL you entered is not valid. Please check it and try again." = "آدرس اینترنتی که شما وارد کرده‌اید معتبر نیست. لطفا آن را بررسی کرده و مجددا تلاش نمایید.";
 
@@ -210,17 +210,17 @@
 
 "%@ hasn't been modified" = "%@ این مورد اصلاح نشده است ";
 
-"Install All" = "Install All";
+"Install All" = "نصب همه";
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "آخرین";
 "Version" = "نسخه";
 "Packages" = "پکیج ها";
 "Show Updates" = "نمایش آپدیت ها";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "مخفی کردن بروزرسانی ها";
 "Select Version" = "انتخاب نسخه";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "انتخاب یک نسخه برای نصب:";
 "Select a version to upgrade to:" = "انتخاب یک نسخه برای بروزرسانی:";
 "Select a version to downgrade to:" = "انتخاب یک نسخه برای پایین آوردن:";
 "Package" = "پکیج";
@@ -314,7 +314,7 @@
 "Console" = "کنسول";
 "Performing Actions..." = "در حال اجرا";
 "Updating icon cache asynchronously..." = "بروزرسانی کش آیکون ها بطور همزمان";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache در این شبیه ساز موجود نیست";
 "This may take awhile and Zebra may crash. It is okay if it does." = "ممکن است مقداری طول بکشه و زبرا بسته بشه اگر اینگونه شد مشکلی نیست";
 "Close Zebra" = "بستن زبرا";
 "Closing Zebra..." = "بستن زبرا...";
@@ -342,15 +342,15 @@
 "Finished importing local packages." = "وارد کردن پکیج ها تمام شد";
 "One or more packages failed to download." = "یک یا چند پکیج دانلود نشد";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "روی این گزینه بزنید \"Return to Queue\" تا به صف برگردید و دوباره دانلود کنید";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "پروسه %@ کامل نشد. دلیل اشکال: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "لطفا زبرا رو دوباره اجرا کرده و ببینید که آیا مشکل هنوز ادامه دارد یا خیر. اگر چنین است، مشکل را در گیت هاب برای ما بگذارید.";
 "Done..." = "انجام شد...";
 "Done %@" = "اتمام %@";
 "Removing Zebra..." = "حدف زبرا...";
 "Installing Zebra..." = "نصب زبرا...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "ارور هنگام بازکردن فایل:";
 "Adding Payment Vendor URL for %@" = "افزودن آدرس پرداخت فروشنده برای %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "این دستگاه شبیه سازی شده است ، در اینجا بسته هایی که در این مرحله اصلاح می شوند آورده شده است:";
 
 // Queue Bar
 
@@ -377,7 +377,7 @@
 "Remove from Queue" = "حذف از صف";
 "Clear Queue" = "پاک کردن صف";
 "%@ is required by:" = "%@ مورد نیاز توسط:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "تضاد بین \\"%@\\" و %@";
 "%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure you want to clear the Queue?" = "مطمئن هستید که می خواهید صف را پاک کنید؟";
@@ -401,13 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling اجازه تنظیم uid یا gid را ندارد. لطفا مجوزهای پرونده واقع در usr/libexec/zebra/supersling را تأیید کنید.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "خطا در هنگام ایجاد سند: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "خطا در هنگام ایجاد لیست سند ها: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "ارور در زمان ایجاد فایل sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "خطا هنگام ایجاد پوشه deb ها: %@.";
 
 "Could not respring. Please respring manually." = "ریسپرینگ نشد، لطفا بصورت دستی ریسپرینگ کنید.";
 
@@ -421,7 +421,7 @@
 
 "Display featured packages on the homepage." = "بسته های ویژه را در صفحه اصلی نمایش دهید.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "بروزرسانی مجدد سورس های زبرا هنگام باز کردن این برنامه.";
 
 "Display recent community posts from /r/jailbreak." = "نمایش پست های اخیر انجمن r/jailbreak/.";
 
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "بعد از تکمیل کارها، کنسول را به طور خودکار خارج کن.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "همه آخرین نسخه از پکیج که نصب نشده را نصب کن.";
 
 // Filters
 
@@ -451,7 +451,7 @@
 "Add Filter" = "افزودن فیلتر";
 
 "1 Section Hidden" = "۱ بخش پنهان شد";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu بخش پنهان است";
 
 "Sections" = "بخش‌ها";
 "Select a Section" = "بخش انتخاب شده";
@@ -467,7 +467,7 @@
 "Authors" = "سازندها";
 "Hide packages from these authors." = "مخفی کردن بسته‌های این سازندگان.";
 "Search for an Author" = "جستجوی مؤلف";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"This author also goes by the following names:" = "این سازنده همچنان با نام های زیر موجود است:";
 
 // Language Settings
 
@@ -478,7 +478,7 @@
 "Restart" = "راه اندازی مجدد";
 "Use System Language" = "استفاده از زبان سیستم";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "شما در حال اضافه کردن سورسی هستید که ایمن نیست";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "اطلاعات دانلود شده از این سورس رمزنگاری نشده اند. آیا مطمئن هستید برای اضافه کردن آن؟";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "اشکال در انجام پرداخت";
