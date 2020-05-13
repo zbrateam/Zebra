@@ -69,6 +69,7 @@
 "Text" = "Teks";
 "Icon" = "Ikon";
 "Finish Automatically" = "Otomatis Selesai";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Otomatis Refresh";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Total %d file akan diunduh";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Masuk ke sumber memungkinkan untuk pembelian paket berbayar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Secara otomatis mengabaikan Konsol ketika semua tugasnya telah selesai.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 

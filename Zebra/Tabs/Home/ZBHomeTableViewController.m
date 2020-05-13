@@ -177,7 +177,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
     if (![allFeatured count]) {
         [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:nil];
-        [self startFeaturedPackages];
+        return;
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{

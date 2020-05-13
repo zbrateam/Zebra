@@ -69,6 +69,7 @@
 "Text" = "نص";
 "Icon" = "أيقونة";
 "Finish Automatically" = "إنهاء تلقائيًا";
+"Always Install Latest" = "تثبيت الأحدث دائمًا";
 "Automatic Refresh" = "تحديث تلقائي";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "سيتم تنزيل مجموعة من ملفات %d";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "تسجيل الدخول إلى المصادر يسمح بشراء الحزم المدفوعة.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "تجاهل تلقائي لوحدة التحكم عند انتهاء كل مهامها.";
+
+"Always install the most recent version of a package if it is not already installed." = "تثبيت أحدث إصدار من أي حزمة دائمًا إذا لم تكن مثبتة بالفعل.";
 
 // Filters
 

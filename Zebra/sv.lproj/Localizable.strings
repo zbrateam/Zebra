@@ -69,6 +69,7 @@
 "Text" = "Text";
 "Icon" = "Ikon";
 "Finish Automatically" = "Slutför automatiskt";
+"Always Install Latest" = "Installera alltid senaste";
 "Automatic Refresh" = "Automatisk uppdatering";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Du har redan lagt till dessa källor.";
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
+"View" = "Visa";
 
 "A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Att logga in på källor möjliggör köp av betalpaket.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avfärda konsolen automatiskt när alla uppgifter har slutförts.";
+
+"Always install the most recent version of a package if it is not already installed." = "Installera alltid den senaste versionen av ett paket om det inte redan är installerat.";
 
 // Filters
 

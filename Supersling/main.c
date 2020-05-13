@@ -53,7 +53,7 @@ int main(int argc, char ** argv) {
     int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
 
     struct stat response;
-    lstat(buffer, &response);
+    stat(buffer, &response);
 
     if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
       printf("CHAOS, CHAOS!\n");

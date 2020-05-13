@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikon";
 "Finish Automatically" = "Færdiggør automatisk";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Du har allerede tilføjet disse kilder.";
 "Unable to locate an APT repository at:" = "Kunne ikke finde et APT arkiv ved:";
 "Unable to locate APT repositories at:" = "Kunne ikke finde APT arkiver ved:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "%d filer vil blive downloadet";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Ved at logge ind på kilderne, er det muligt at købe pakker.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Luk konsollen automatisk når alle opgaver er udført.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 

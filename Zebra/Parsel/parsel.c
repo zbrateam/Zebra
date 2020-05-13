@@ -303,30 +303,39 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return timestamp;
 }
 
-pair *splitNameAndEmail(const char *author) {
+pair *splitNameAndEmail(const char *author_) {
     pair *p = malloc(sizeof(pair));
-    if (author == NULL) {
+    
+    if (author_ == NULL) {
         p->key = NULL;
         p->value = NULL;
     } else {
+        p->key = malloc(strlen(author_) + 1);
+        
+        char *author = malloc(strlen(author_) + 1);
+        strcpy(author, author_);
+        
         char *l = strchr(author, '<');
         char *r = strchr(author, '>');
         
-        char *author_ = strdup(author);
         if (l && r) {
-            multi_tok_t s = init();
-            char *name = multi_tok(author_, &s, " <");
-            if (strcmp(name, author) == 0)
-                name = multi_tok(author_, &s, "<");
-            char *email = multi_tok(NULL, &s, NULL);
-            if (email)
-                email = multi_tok(email, &s, ">");
-            p->key = trim(name);
-            p->value = trim(email);
-        } else {
-            p->key = trim(author_);
+            p->value = malloc(strlen(author_) + 1);
+            
+            int nameSize = (int)(l - author);
+            int emailSize = (int)(r - author) - nameSize - 1;
+            
+            strncpy(p->key, author, nameSize);
+            p->key[nameSize] = 0;
+            
+            strncpy(p->value, l + 1, emailSize);
+            p->value[emailSize] = 0;
+        }
+        else {
+            strcpy(p->key, author);
             p->value = NULL;
         }
+        
+        free(author);
     }
     
     return p;
@@ -368,9 +377,14 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSection, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTag, tags, -1, SQLITE_TRANSIENT);
+            
             pair *author = splitNameAndEmail(dict_get(package, "Author"));
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorName, author->key, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorEmail, author->value, -1, SQLITE_TRANSIENT);
+            free(author->key);
+            free(author->value);
+            free(author);
+            
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, depends[0] == '\0' ? NULL : depends, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnConflicts, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnProvides, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);

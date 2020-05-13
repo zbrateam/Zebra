@@ -69,6 +69,7 @@
 "Text" = "Текст";
 "Icon" = "Иконка";
 "Finish Automatically" = "Завершить автоматически";
+"Always Install Latest" = "Всегда устанавливать последнюю";
 "Automatic Refresh" = "Автоматическое обновление";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
+"View" = "Просмотр";
 
 "A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Вход в репозитории позволяет вам покупать платные твики.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Автоматически закрывать Консоль после завершения всех задач.";
+
+"Always install the most recent version of a package if it is not already installed." = "Всегда устанавливать последнюю версию пакета, если он не был установлен.";
 
 // Filters
 
