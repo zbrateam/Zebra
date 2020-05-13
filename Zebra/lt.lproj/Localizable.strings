@@ -181,7 +181,7 @@
 "You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
-"View" = "View";
+"View" = "Peržiūrėti";
 
 "A total of %d files will be downloaded" = "Iš viso bus atsiųsti %d failai";
 
