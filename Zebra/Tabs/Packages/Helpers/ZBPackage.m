@@ -852,12 +852,11 @@
         [information addObject:authorNameInfo];
     }
     else {
-        // Show maintainer name if no author
-//        NSString *maintainerName = [self authorName];
-//        if (authorName) {
-//            NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Maintainer", @""), @"value": authorName};
-//            [information addObject:authorNameInfo];
-//        }
+        NSString *maintainerName = [self maintainerName];
+        if (maintainerName) {
+            NSDictionary *maintainerNameInfo = @{@"name": NSLocalizedString(@"Maintainer", @""), @"value": maintainerName};
+            [information addObject:maintainerNameInfo];
+        }
     }
     
     NSString *sourceOrigin = [[self source] origin];
