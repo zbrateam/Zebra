@@ -69,6 +69,7 @@
 "Text" = "Tekstas";
 "Icon" = "Piktograma";
 "Finish Automatically" = "Baigti automatiškai";
+"Always Install Latest" = "Visada įdiegti naujausią";
 "Automatic Refresh" = "Automatiškai atnaujinti";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Jūs jau pridėjote šiuos šaltinius.";
 "Unable to locate an APT repository at:" = "Nepavyko rasti APT saugyklos:";
 "Unable to locate APT repositories at:" = "Nepavyko rasti APT saugyklų:";
+"View" = "Peržiūrėti";
 
 "A total of %d files will be downloaded" = "Iš viso bus atsiųsti %d failai";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Prisijungimas prie šaltinių leidžia pirkti mokamus paketus.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatiškai uždaryti konsolę, kai visos jos užduotys įvykdytos.";
+
+"Always install the most recent version of a package if it is not already installed." = "Visada įdiegti naujausią paketo versiją, jei ji dar neįdiegta.";
 
 // Filters
 

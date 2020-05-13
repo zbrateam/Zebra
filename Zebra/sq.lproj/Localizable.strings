@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Përfundoni Automatikisht";
+"Always Install Latest" = "Gjithmonë instaloni të fundit";
 "Automatic Refresh" = "Rifreskim Automatik";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
+"View" = "Shiko";
 
 "A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Duke hyrë në burime lejon që të blihen paketat me pages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Hiqni automatikisht Konzollen kur të gjitha detyrat e saj kanë përfunduar.";
+
+"Always install the most recent version of a package if it is not already installed." = "Gjithmonë instaloni versionin më të fundit të një pakete në qoftëse nuk është e instaluar akoma.";
 
 // Filters
 

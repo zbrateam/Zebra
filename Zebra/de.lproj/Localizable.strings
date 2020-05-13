@@ -69,6 +69,7 @@
 "Text" = "Text";
 "Icon" = "Symbol";
 "Finish Automatically" = "Automatisch beenden";
+"Always Install Latest" = "Immer die neueste Version installieren";
 "Automatic Refresh" = "Automatische Aktualisierung";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Du hast diese Quellen bereits hinzugefügt.";
 "Unable to locate an APT repository at:" = "APT-Quelle konnte nicht gefunden werden:";
 "Unable to locate APT repositories at:" = "APT-Quellen konnten nicht gefunden werden:";
+"View" = "Ansehen";
 
 "A total of %d files will be downloaded" = "Es werden insgesamt %d Dateien runtergeladen";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Das Anmelden in Quellen ermöglicht den Kauf von kostenpflichtigen Paketen.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Konsole automatisch schliessen, wenn alle Aufgaben abgeschlossen sind.";
+
+"Always install the most recent version of a package if it is not already installed." = "Installiert immer die aktuellste Version eines Pakets, falls dieses nicht bereits installiert ist.";
 
 // Filters
 

@@ -69,6 +69,7 @@
 "Text" = "Szöveg";
 "Icon" = "Ikon";
 "Finish Automatically" = "Finish Automatically";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatikus frissítés";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "You have already added these sources.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 

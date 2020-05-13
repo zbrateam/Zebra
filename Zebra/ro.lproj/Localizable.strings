@@ -69,6 +69,7 @@
 "Text" = "Text";
 "Icon" = "Iconita";
 "Finish Automatically" = "Termină Automat";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Reîmprospătare automată";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Ai adăugat deja aceste surse.";
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Un total de %d fișiere va fi descărcat";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Inregistrarea in surse permite cumpararea pachetelor platite.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Inchide automat consola atunci cand toate sarcinile au fost completate.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 

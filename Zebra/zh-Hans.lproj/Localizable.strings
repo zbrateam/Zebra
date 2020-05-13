@@ -69,6 +69,7 @@
 "Text" = "文字";
 "Icon" = "图标";
 "Finish Automatically" = "自动完成";
+"Always Install Latest" = "默认安装最新版本";
 "Automatic Refresh" = "自动刷新";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "你已经添加过这些软件源。";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
+"View" = "查看";
 
 "A total of %d files will be downloaded" = "总共将下载%d个文件";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
+
+"Always install the most recent version of a package if it is not already installed." = "如果软件包当前安装的不是最新版，则默认安装最新版。";
 
 // Filters
 

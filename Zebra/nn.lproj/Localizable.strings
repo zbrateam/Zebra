@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikon";
 "Finish Automatically" = "Fullfør automatisk";
+"Always Install Latest" = "Alltid installer nyaste";
 "Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Du har allereie lagt til dei kjeldene.";
 "Unable to locate an APT repository at:" = "Kunne ikkje finna eit APT-kjelde på:";
 "Unable to locate APT repositories at:" = "Kunne ikkje finna APT-kjelder på:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "%d filer vil lastast ned";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Pålogging i kjelder gjer muleg kjøp av betalte pakkar.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
+
+"Always install the most recent version of a package if it is not already installed." = "Installer automatisk den siste utgivinga av ein pakke utan å spørja kva versjon som skal installerast.";
 
 // Filters
 

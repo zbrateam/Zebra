@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Icoon";
 "Finish Automatically" = "Automatisch Voltooien";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatisch vernieuwen";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Je hebt deze bronnen al toegevoegd.";
 "Unable to locate an APT repository at:" = "Kan de APT repository niet vinden op:";
 "Unable to locate APT repositories at:" = "Kan de APT repositories niet vinden op:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Er worden in totaal %d bestanden gedownload";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Aanmelden bij bronnen maakt het mogelijk om betaalde pakketten te kopen.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Sluit de console automatisch wanneer alle taken zijn voltooid.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 

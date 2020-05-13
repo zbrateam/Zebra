@@ -69,6 +69,7 @@
 "Text" = "Tekst";
 "Icon" = "Ikonica";
 "Finish Automatically" = "Završi automatski";
+"Always Install Latest" = "Uvek instaliraj Najnovije";
 "Automatic Refresh" = "Automatski osveži";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Već ste dodali ove repoe.";
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
+"View" = "Pregled";
 
 "A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
 
@@ -212,13 +214,13 @@
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Najnovije";
 "Version" = "Verzija";
 "Packages" = "Paketi";
 "Show Updates" = "Prikaži nadogradnje";
 "Hide Updates" = "Sakrij nadogradnje";
 "Select Version" = "Izaberi verziju";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Izaberi verziju za instalaciju:";
 "Select a version to upgrade to:" = "Izaberi verziju za nadogradnju:";
 "Select a version to downgrade to:" = "Izaberi stariju verziju za instaliranje:";
 "Package" = "Paket";
@@ -441,6 +443,8 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori Konzolu kada se završe svi zadaci.";
 
+"Always install the most recent version of a package if it is not already installed." = "Uvek instaliraj najnoviju verziju paketa, ako već nije instaliran.";
+
 // Filters
 
 "Filters" = "Filteri";
@@ -477,4 +481,4 @@
 "You are adding a repository that is not secure" = "Dodajete repositoriji koji nije bezbedan";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Podaci skinuti sa ovog repoa nisu enkriptovani. Da li ste sigurni da ćete ga dodati?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Nije moguće potvrditi kupovinu";

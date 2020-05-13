@@ -69,6 +69,7 @@
 "Text" = "Yazı";
 "Icon" = "İkon";
 "Finish Automatically" = "Otomatik Sonlandır";
+"Always Install Latest" = "Her zaman en son versiyonu yükle";
 "Automatic Refresh" = "Otomatik Yenileme";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Zaten bu kaynakları eklediniz.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT depoları şu konumda bulunamadı:";
+"View" = "Görüntüle";
 
 "A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
 
@@ -441,6 +443,8 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Tüm görevler tamamlandığında Konsolu otomatik olarak kapat.";
 
+"Always install the most recent version of a package if it is not already installed." = "Eğer zaten yüklenmemişse, paketin her zaman en son versiyonunu yükle.";
+
 // Filters
 
 "Filters" = "Filtreler";
@@ -477,4 +481,4 @@
 "You are adding a repository that is not secure" = "Güvenli olmayan bir kaynak ekliyorsunuz";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Bu kaynaktan indirilen veriler şifrelenmemiş olabilir. Eklemek istediğinizden emin misiniz?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Satın alma tamamlanamadı";

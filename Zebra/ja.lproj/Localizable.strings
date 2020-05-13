@@ -69,6 +69,7 @@
 "Text" = "テキスト";
 "Icon" = "アイコン";
 "Finish Automatically" = "自動的に終了";
+"Always Install Latest" = "常に最新版をインストールする";
 "Automatic Refresh" = "自動更新";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "リポジトリにサインインすると、有料パッケージを購入できます。";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "すべてのタスクが完了したら、コンソールを自動的に閉じます。";
+
+"Always install the most recent version of a package if it is not already installed." = "パッケージがインストールされていない場合は、常に最新バージョンのパッケージをインストールします。";
 
 // Filters
 

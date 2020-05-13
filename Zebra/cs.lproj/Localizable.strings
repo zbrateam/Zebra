@@ -69,6 +69,7 @@
 "Text" = "Text";
 "Icon" = "Ikona";
 "Finish Automatically" = "Automaticky Dokončit";
+"Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatická aktualizace";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
 "Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
 "Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "Přihlášení ke zdrojům umožňuje nákup placených balíčků.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automaticky zavře Konzoli po dokončení všech jejích úkolů.";
+
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 

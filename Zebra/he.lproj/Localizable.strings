@@ -69,6 +69,7 @@
 "Text" = "טקסט";
 "Icon" = "אייקון";
 "Finish Automatically" = "סיים אוטומטית";
+"Always Install Latest" = "התקן תמיד את הגרסה האחרונה";
 "Automatic Refresh" = "רענון אוטומטי";
 
 // Accent Colors
@@ -180,6 +181,7 @@
 "You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
+"View" = "הצג";
 
 "A total of %d files will be downloaded" = "יורדו %d קבצים";
 
@@ -440,6 +442,8 @@
 "Signing in to sources allows for the purchase of paid packages." = "התחברות למקורות מאפשרת רכישה של חבילות בתשלום.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "משחרר את המסוף אוטומטית כשכל משימותיו הושלמו.";
+
+"Always install the most recent version of a package if it is not already installed." = "התקן תמיד את הגרסה החדשה ביותר של חבילה אם היא לא מותקנת כבר.";
 
 // Filters
 
