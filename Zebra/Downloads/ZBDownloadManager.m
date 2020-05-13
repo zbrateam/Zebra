@@ -35,20 +35,11 @@
 @synthesize downloadDelegate;
 @synthesize session;
 
-#pragma mark - Initializers
-
 + (NSDictionary *)headers {
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDevice UDID];
-    NSString *machineIdentifier = [ZBDevice machineID];
-    
-    return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+    return NULL; // TODO: Remove after 1.2 final
 }
 
-- (NSDictionary *)headers {
-    //For tweak compatibility...ugh...
-    return [[self class] headers];
-}
+#pragma mark - Initializers
 
 - (id)init {
     self = [super init];
@@ -78,7 +69,7 @@
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSDictionary *headers = [ZBDownloadManager headers];
+    NSDictionary *headers = [ZBDevice downloadHeaders];
     if (headers == NULL) {
         [self postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
         return;
@@ -129,7 +120,7 @@
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
+    configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {

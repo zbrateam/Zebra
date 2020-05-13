@@ -9,6 +9,7 @@
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Theme/ZBThemeManager.h>
 #import <WebKit/WebKit.h>
 #import <Queue/ZBQueue.h>
 #import "ZBAppDelegate.h"
@@ -409,4 +410,17 @@
     return [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark;
 }
 
+#pragma mark - Headers
+
++ (NSString *)downloadUserAgent {
+    return @"Telesphoreo (Zebra) APT-HTTP/1.0.592";
+}
+
++ (NSDictionary *)downloadHeaders {
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    NSString *udid = [ZBDevice UDID];
+    NSString *machineIdentifier = [ZBDevice machineID];
+    
+    return @{@"X-Cydia-ID" : udid, @"User-Agent" : [self downloadUserAgent], @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
+}
 @end

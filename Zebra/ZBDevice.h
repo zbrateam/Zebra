@@ -48,4 +48,6 @@
 
 + (BOOL)darkModeEnabled; //Only provided for legacy tweak support
 
++ (NSString *_Nonnull)downloadUserAgent;
++ (NSDictionary *_Nonnull)downloadHeaders;
 @end
