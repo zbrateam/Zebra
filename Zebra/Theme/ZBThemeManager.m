@@ -97,6 +97,20 @@
     }
 }
 
++ (NSString *)stringForCurrentInterfaceStyle {
+    switch ([ZBSettings interfaceStyle]) {
+        case ZBInterfaceStyleLight: {
+            return @"Light";
+        }
+        case ZBInterfaceStyleDark: {
+            return @"Dark";
+        }
+        case ZBInterfaceStylePureBlack: {
+            return @"Pure-Black";
+        }
+    }
+}
+
 + (NSArray *)colors {
     NSMutableArray *colors = [NSMutableArray new];
     for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorStorm; color++) {

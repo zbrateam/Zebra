@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor;
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style;
 + (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor;
++ (NSString *)stringForCurrentInterfaceStyle;
 + (NSArray *)colors;
 + (BOOL)useCustomTheming;
 - (BOOL)darkMode;
