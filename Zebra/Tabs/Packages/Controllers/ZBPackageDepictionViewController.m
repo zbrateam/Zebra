@@ -97,6 +97,11 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     [self.navigationController.navigationBar _setBackgroundOpacity:0];
     [self configureNavigationItems];
+    
+    // Tagline label tapping
+    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
+    self.tagLineLabel.userInteractionEnabled = YES;
+    [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
 
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
@@ -107,9 +112,16 @@
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
     [self configureGetButton];
 
+    // Web View
     self.webView.hidden = YES;
     self.webView.customUserAgent = [ZBDevice depictionUserAgent];
     self.webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
+}
+
+- (void)showAuthorName {
+    [UIView transitionWithView:self.tagLineLabel duration:0.25f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        self.tagLineLabel.text = self.package.authorName;
+    } completion:nil];
 }
 
 - (void)setDelegates {
