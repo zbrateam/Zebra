@@ -77,7 +77,7 @@
 
 - (void)setData {
     self.nameLabel.text = self.package.name;
-    self.tagLineLabel.text = self.package.longDescription ? self.package.shortDescription : self.package.authorName;
+    self.tagLineLabel.text = self.package.tagline ?: self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
     

@@ -376,7 +376,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnProvides, dict_get(package, "Provides"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnReplaces, dict_get(package, "Replaces"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnFilename, dict_get(package, "Filename"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnIconURL, dict_get(package, "Icon"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnIcon, dict_get(package, "Icon"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnSourceID, sourceID);
             sqlite3_int64 previousTimestamp = import ? -1 : getCurrentPackageTimestamp(database, packageIdentifier, dict_get(package, "Version"), sourceID);
             sqlite3_int64 newTimestamp = 0;

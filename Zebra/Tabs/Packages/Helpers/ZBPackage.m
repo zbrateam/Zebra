@@ -37,8 +37,8 @@
 @synthesize identifier;
 @synthesize name;
 @synthesize version;
-@synthesize shortDescription;
-@synthesize longDescription;
+@synthesize tagline;
+@synthesize packageDescription;
 @synthesize section;
 @synthesize depictionURL;
 @synthesize tags;
@@ -242,8 +242,8 @@
         const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
         const char *packageNameChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnName);
         const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
-        const char *shortDescriptionChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnTagline);
-        const char *longDescriptionChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnDescription);
+        const char *taglineChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnTagline);
+        const char *descriptionChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnDescription);
         const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
         const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
         const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
@@ -254,10 +254,17 @@
         const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
         const char *replacesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
         const char *filenameChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
-        const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
+        const char *iconChars =             (const char *)sqlite3_column_text(statement, ZBPackageColumnIcon);
         const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
         const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
         const char *sha256Chars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
+        const char *headerChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnHeader);
+        const char *changelogTitleChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnChangelog);
+        const char *changelogNotesChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnChangelogNotes);
+        const char *homepageChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepage);
+        const char *previewsChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPreviews);
+        const char *maintainerNameChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
+        const char *maintainerEmailChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         if (packageIDChars == 0) return NULL; // There is no "working" situation where a package ID is missing
@@ -265,14 +272,20 @@
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
         [self setName:[ZBUtils decodeCString:packageNameChars fallback:self.identifier]]; // fall back to ID if NULL, or Unknown if things get worse
         [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
-        [self setShortDescription:shortDescriptionChars != 0 ? [NSString stringWithUTF8String:shortDescriptionChars] : NULL];
-        [self setLongDescription:longDescriptionChars != 0 ? [NSString stringWithUTF8String:longDescriptionChars] : NULL];
+        [self setTagline:taglineChars != 0 ? [NSString stringWithUTF8String:taglineChars] : NULL];
+        [self setPackageDescription:descriptionChars != 0 ? [NSString stringWithUTF8String:descriptionChars] : NULL];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
         [self setAuthorName:authorNameChars != 0 ? [NSString stringWithUTF8String:authorNameChars] : NULL];
         [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
-        [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
+        [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL]; // TODO: Should change to iconURL later
+        [self setHeaderURL:headerChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:headerChars]] : NULL];
+        [self setChangelogTitle:changelogTitleChars != 0 ? [NSString stringWithUTF8String:changelogTitleChars] : NULL];
+        [self setChangelogNotes:changelogNotesChars != 0 ? [NSString stringWithUTF8String:changelogNotesChars] : NULL];
+        [self setHomepageURL:homepageChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:homepageChars]] : NULL];
+        [self setMaintainerName:maintainerNameChars != 0 ? [NSString stringWithUTF8String:maintainerNameChars] : NULL];
+        [self setMaintainerEmail:maintainerEmailChars != 0 ? [NSString stringWithUTF8String:maintainerEmailChars] : NULL];
         
         [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : NULL];
         
@@ -287,8 +300,13 @@
         [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : NULL];
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
-        if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
+        if ([tags count] == 1 && [tags[0] containsString:@","]) {
             tags = [tags[0] componentsSeparatedByString:@","];
+        }
+        
+        [self setPreviewImageURLs:previewsChars != 0 ? [[NSString stringWithUTF8String:previewsChars] componentsSeparatedByString:@", "] : NULL];
+        if ([_previewImageURLs count] == 1 && [_previewImageURLs[0] containsString:@","]) {
+            _previewImageURLs = [_previewImageURLs[0] componentsSeparatedByString:@","];
         }
         
         [self setDependsOn:[self extract:dependsChars]];
@@ -340,7 +358,7 @@
         [self setIdentifier:packageID];
         [self setName:name];
         [self setVersion:version];
-        [self setShortDescription:desc];
+        [self setPackageDescription:desc];
         [self setSection:section];
         [self setDepictionURL:[NSURL URLWithString:depiction]];
         [self setAuthorName:author];

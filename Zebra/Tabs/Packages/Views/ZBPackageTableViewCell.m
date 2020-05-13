@@ -36,7 +36,7 @@
 
 - (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize {
     self.packageLabel.text = package.name;
-    self.descriptionLabel.text = package.shortDescription;
+    self.descriptionLabel.text = package.tagline ?: package.packageDescription;
     ZBSource *source = package.source;
     NSString *name = source.origin;
     NSString *author = package.authorName;
