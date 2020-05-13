@@ -11,7 +11,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBActionButton : UIButton
-- (void)applyCustomizations;
 - (void)showActivityLoader;
 - (void)hideActivityLoader;
 @end
