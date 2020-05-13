@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import "ZBActionButton.h"
+#import "ZBBoldHeaderView.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
@@ -201,8 +202,11 @@
     return [self.packageInformation count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NSLocalizedString(@"Information", @"");
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    ZBBoldHeaderView *headerView = [[ZBBoldHeaderView alloc] initWithFrame:CGRectZero];
+    headerView.titleLabel.text = NSLocalizedString(@"Information", @"");
+    
+    return headerView;
 }
 
 #pragma mark - UITableViewDelegate
