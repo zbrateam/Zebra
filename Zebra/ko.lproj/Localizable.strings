@@ -69,7 +69,7 @@
 "Text" = "텍스트";
 "Icon" = "아이콘";
 "Finish Automatically" = "작업이 완료되면 콘솔 닫기";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "항상 최신 버전 설치";
 "Automatic Refresh" = "자동 새로고침";
 
 // Accent Colors
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "모든 작업이 완료되면 콘솔이 자동으로 닫힙니다.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "만약 최신 버전의 패키지가 설치되지 않았다면, 항상 최신 버전의 패키지를 설치합니다.";
 
 // Filters
 
@@ -481,4 +481,4 @@
 "You are adding a repository that is not secure" = "추가하고 있는 저장소는 보안이 적용되지 않았습니다.";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "이 저장소에서 다운로드한 데이터는 암호화되지 않았을 수 있습니다. 정말로 추가할까요?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "구매를 완료할 수 없음";
