@@ -181,6 +181,7 @@
 "You have already added these sources." = "Du har allerede tilføjet disse kilder.";
 "Unable to locate an APT repository at:" = "Kunne ikke finde et APT arkiv ved:";
 "Unable to locate APT repositories at:" = "Kunne ikke finde APT arkiver ved:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "%d filer vil blive downloadet";
 
