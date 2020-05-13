@@ -181,6 +181,7 @@
 "You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
 "Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Ένα σύνολο από %d αρχεία θα ληφθεί";
 
