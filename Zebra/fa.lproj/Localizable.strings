@@ -181,6 +181,7 @@
 "You have already added these sources." = "شما این سورس‌ها را قبلا اضافه کرده اید.";
 "Unable to locate an APT repository at:" = "خطا در پیدا کردن یک سورس APT در:";
 "Unable to locate APT repositories at:" = "خطا در پیدا کردن سورس‌های APT در:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "در کل %d فایل دانلود شد";
 
