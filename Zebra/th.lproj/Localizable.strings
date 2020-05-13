@@ -181,6 +181,7 @@
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
 
