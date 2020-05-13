@@ -58,6 +58,8 @@
 		49452C28246A414900F45C2D /* ZBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49452C27246A414900F45C2D /* ZBActionButton.m */; };
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		499B0E25246B8437008825E4 /* ZBBoldHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E24246B8437008825E4 /* ZBBoldHeaderView.m */; };
+		499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */; };
+		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
@@ -276,6 +278,9 @@
 		4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveSearchResultTableViewCell.m; sourceTree = "<group>"; };
 		499B0E23246B8437008825E4 /* ZBBoldHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBBoldHeaderView.h; sourceTree = "<group>"; };
 		499B0E24246B8437008825E4 /* ZBBoldHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBBoldHeaderView.m; sourceTree = "<group>"; };
+		499B0E2D246B945B008825E4 /* ZBInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInfoTableViewCell.h; sourceTree = "<group>"; };
+		499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInfoTableViewCell.m; sourceTree = "<group>"; };
+		499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBInfoTableViewCell.xib; sourceTree = "<group>"; };
 		49C526EC227BCF1700840484 /* ZBSourceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSourceTableViewCell.h; sourceTree = "<group>"; };
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
@@ -1119,6 +1124,9 @@
 				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
 				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
+				499B0E2D246B945B008825E4 /* ZBInfoTableViewCell.h */,
+				499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */,
+				499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */,
 				49452C26246A414900F45C2D /* ZBActionButton.h */,
 				49452C27246A414900F45C2D /* ZBActionButton.m */,
 				499B0E23246B8437008825E4 /* ZBBoldHeaderView.h */,
@@ -1317,6 +1325,7 @@
 				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
 				36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */,
 				36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */,
+				499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */,
 				4910B3A02426BD2F00306C5C /* ZBSourcesAccountBanner.xib in Resources */,
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
@@ -1387,6 +1396,7 @@
 				8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */,
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
+				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
