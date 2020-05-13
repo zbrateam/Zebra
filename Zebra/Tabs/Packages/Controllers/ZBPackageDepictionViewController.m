@@ -251,18 +251,21 @@
     CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
     CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
+    CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+
+    if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
     
     if (percentageVerticalOffset > 1.0 && !shouldShowNavButtons) {
         shouldShowNavButtons = YES;
         
         [self configureNavigationButtons];
-    }
-    else if (percentageVerticalOffset < 1.0 && shouldShowNavButtons) {
+    } else if (percentageVerticalOffset < 1.0 && shouldShowNavButtons) {
         shouldShowNavButtons = NO;
         
         [self configureNavigationButtons];
     }
-    [self.navigationController.navigationBar _setBackgroundOpacity:MAX(0, MIN(1, percentageVerticalOffset))]; // Ensure the opacity is not negative or greater than 1.
+    
+    [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
 }
 
 @end
