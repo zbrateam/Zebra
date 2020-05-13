@@ -181,6 +181,7 @@
 "You have already added these sources." = "Te źródła zostały już dodane.";
 "Unable to locate an APT repository at:" = "Nie można zlokalizować repozytorium APT na:";
 "Unable to locate APT repositories at:" = "Nie można zlokalizować repozytoriów APT na:";
+"View" = "View";
 
 "A total of %d files will be downloaded" = "Zostaną pobrane %d plik/i";
 
