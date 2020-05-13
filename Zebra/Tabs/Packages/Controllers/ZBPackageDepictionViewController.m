@@ -11,6 +11,7 @@
 #import <Packages/Helpers/ZBPackageActions.h>
 #import "ZBActionButton.h"
 #import "ZBBoldHeaderView.h"
+#import "ZBInfoTableViewCell.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
@@ -59,6 +60,7 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
 }
 
 - (void)viewDidLayoutSubviews {
@@ -212,15 +214,10 @@
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"informationCell"];
+    ZBInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoTableViewCell" forIndexPath:indexPath];
     
-    cell.textLabel.text = self.packageInformation[indexPath.row][@"name"];
-    cell.textLabel.font = [UIFont systemFontOfSize:14.0];
-    cell.textLabel.textColor = [UIColor secondaryLabelColor]; // TODO: Use Zebra colors
-    
-    cell.detailTextLabel.text = self.packageInformation[indexPath.row][@"value"];
-    cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
-    cell.detailTextLabel.textColor = [UIColor labelColor]; // TODO: Use Zebra colors
+    cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
+    cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
     
     return cell;
 }
