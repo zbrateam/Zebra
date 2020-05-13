@@ -69,7 +69,7 @@
 "Text" = "Tekstu";
 "Icon" = "Ikonu";
 "Finish Automatically" = "Pabeigt Automātiski";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Vienmēr Instalēt Jaunāko";
 "Automatic Refresh" = "Automātiska Atsvaidzināšana";
 
 // Accent Colors
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automātiski slēgt konsoli, ja visi tās uzdevumi ir izpildīti.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Vienmēr instalēt jaunāko paketes versiju, ja tā vēl nav instalēta.";
 
 // Filters
 
@@ -481,4 +481,4 @@
 "You are adding a repository that is not secure" = "Tu pievieno nedrošu avotu";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Iespējams, ka no šīs krātuves lejupielādētie dati nav šifrēti. Vai tiešām vēlies to pievienot?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Nevarēja pabeigt pirkumu";
