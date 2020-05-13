@@ -58,8 +58,6 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
-    [self configureNavigationButtons];
-    [self configureGetButton];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -119,14 +117,16 @@
     // Navigation
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     [self.navigationController.navigationBar _setBackgroundOpacity:0];
+    [self configureNavigationItems];
 
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
     self.iconImageView.layer.borderWidth = 1;
     self.iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
     
-    // More Button
+    // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
+    [self configureGetButton];
 
     self.webView.hidden = YES;
 }
@@ -166,39 +166,28 @@
     [ZBPackageActions buttonActionForPackage:self.package]();
 }
 
-- (void)configureNavigationButtons {
-    // Create titleView if it doesn't exist
-    if (!self.navigationItem.titleView) {
-        UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-        imageView.center = self.navigationItem.titleView.center;
-        imageView.contentMode = UIViewContentModeScaleAspectFit;
-        imageView.layer.cornerRadius = 5;
-        imageView.layer.masksToBounds = YES;
-        imageView.alpha = 0.0;
-        [self.package setIconImageForImageView:imageView];
-        
-        [container addSubview:imageView];
-        self.navigationItem.titleView = container;
-    }
+- (void)configureNavigationItems {
+    UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    imageView.center = self.navigationItem.titleView.center;
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    imageView.layer.cornerRadius = 5;
+    imageView.layer.masksToBounds = YES;
+    imageView.alpha = 0.0;
+    [self.package setIconImageForImageView:imageView];
+    [container addSubview:imageView];
+    self.navigationItem.titleView = container;
     
-    // Create rightBarButton if doesn't exist
-    if (!self.barButton) {
-        self.barButton = [[ZBActionButton alloc] init];
-        [self.barButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.barButton];
-        self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
-    }
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        if (self->shouldShowNavButtons) {
-            self.navigationItem.rightBarButtonItem.customView.alpha = 1.0;
-            self.navigationItem.titleView.subviews[0].alpha = 1.0;
-        }
-        else {
-            self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
-            self.navigationItem.titleView.subviews[0].alpha = 0.0;
-        }
+    self.barButton = [[ZBActionButton alloc] init];
+    [self.barButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.barButton];
+    self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
+}
+
+- (void)setNavigationItemsHidden:(BOOL)hidden {
+    [UIView animateWithDuration:0.25 animations:^{
+        self.navigationItem.rightBarButtonItem.customView.alpha = hidden ? 0.0 : 1.0;
+        self.navigationItem.titleView.subviews[0].alpha = hidden ? 0.0 : 1.0;
     }];
 }
 
@@ -247,24 +236,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView != self.scrollView) return;
     
-    CGFloat topSafeAreaInset = self.view.safeAreaInsets.top;
     CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
-    CGFloat currentVerticalOffset = scrollView.contentOffset.y + topSafeAreaInset;
+    CGFloat currentVerticalOffset = scrollView.contentOffset.y + self.view.safeAreaInsets.top;
     CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
     CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
 
     if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
     
-    if (percentageVerticalOffset > 1.0 && !shouldShowNavButtons) {
-        shouldShowNavButtons = YES;
-        
-        [self configureNavigationButtons];
-    } else if (percentageVerticalOffset < 1.0 && shouldShowNavButtons) {
-        shouldShowNavButtons = NO;
-        
-        [self configureNavigationButtons];
-    }
-    
+    [self setNavigationItemsHidden:(opacity < 1)];
     [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
 }
 
