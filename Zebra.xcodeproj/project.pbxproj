@@ -74,6 +74,8 @@
 		8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2223CAAECC008BA02C /* ZBChangelogTableViewController.m */; };
 		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m */; };
 		891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */; };
+		8926D394246CAA900043B2EF /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8926D384246CAA700043B2EF /* CocoaMarkdown.framework */; };
+		8926D395246CAA900043B2EF /* CocoaMarkdown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8926D384246CAA700043B2EF /* CocoaMarkdown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */; };
 		89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89308E2623FF4BBB00D4641D /* ZBSettingsResetTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
@@ -161,6 +163,48 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8926D383246CAA700043B2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F53DA1A68641400CC7448;
+			remoteInfo = "CocoaMarkdown-iOS";
+		};
+		8926D385246CAA700043B2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F53E51A68641400CC7448;
+			remoteInfo = "CocoaMarkdownTests-iOS";
+		};
+		8926D387246CAA700043B2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F53FB1A68649200CC7448;
+			remoteInfo = "CocoaMarkdown-Mac";
+		};
+		8926D389246CAA700043B2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729F54051A68649200CC7448;
+			remoteInfo = "CocoaMarkdownTests-Mac";
+		};
+		8926D38B246CAA700043B2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 72FE7EC91A68692400F23F46;
+			remoteInfo = "Example-iOS";
+		};
+		8926D38D246CAA700043B2EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 72FE7EF41A68695100F23F46;
+			remoteInfo = "Example-Mac";
+		};
 		89E9806B2360DE34005A3C35 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */;
@@ -198,6 +242,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8926D395246CAA900043B2EF /* CocoaMarkdown.framework in Embed Frameworks */,
 				9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */,
 				89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */,
 			);
@@ -309,6 +354,7 @@
 		891A92C7242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLanguageSettingsTableViewController.h; sourceTree = "<group>"; };
 		891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLanguageSettingsTableViewController.m; sourceTree = "<group>"; };
 		892552C3237B288000120F9B /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CocoaMarkdown.xcodeproj; path = Vendor/CocoaMarkdown/CocoaMarkdown.xcodeproj; sourceTree = "<group>"; };
 		8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportTableViewController.h; sourceTree = "<group>"; };
 		8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportTableViewController.m; sourceTree = "<group>"; };
 		89308E2523FF4BBA00D4641D /* ZBSettingsResetTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsResetTableViewController.h; sourceTree = "<group>"; };
@@ -513,6 +559,7 @@
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */,
 				9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */,
+				8926D394246CAA900043B2EF /* CocoaMarkdown.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
 				89F205422463A75000896021 /* PromisesObjC.xcframework in Frameworks */,
 				89F205482463A75000896021 /* GoogleAppMeasurement.framework in Frameworks */,
@@ -708,6 +755,19 @@
 				891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */,
 			);
 			path = Language;
+			sourceTree = "<group>";
+		};
+		8926D379246CAA6F0043B2EF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8926D384246CAA700043B2EF /* CocoaMarkdown.framework */,
+				8926D386246CAA700043B2EF /* CocoaMarkdownTests-iOS.xctest */,
+				8926D388246CAA700043B2EF /* CocoaMarkdown.framework */,
+				8926D38A246CAA700043B2EF /* CocoaMarkdownTests-Mac.xctest */,
+				8926D38C246CAA700043B2EF /* Example-iOS.app */,
+				8926D38E246CAA700043B2EF /* Example-Mac.app */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		89308E1F23FF4BA200D4641D /* Reset */ = {
@@ -1030,6 +1090,7 @@
 				8905171F2372398F000F0A32 /* SystemConfiguration.framework */,
 				89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */,
 				9E0D95222358AFEE00C6C2B2 /* SDWebImage.xcodeproj */,
+				8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */,
 				9E2B413C22C86A31009BC12B /* UIKit.framework */,
 				363FE2412287854E00B69929 /* Security.framework */,
 				89463CDF2277B5C300A92FC5 /* libz.tbd */,
@@ -1257,6 +1318,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 8926D379246CAA6F0043B2EF /* Products */;
+					ProjectRef = 8926D378246CAA6F0043B2EF /* CocoaMarkdown.xcodeproj */;
+				},
+				{
 					ProductGroup = 89EB935E235BFCE30038BCEC /* Products */;
 					ProjectRef = 89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */;
 				},
@@ -1273,6 +1338,48 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8926D384246CAA700043B2EF /* CocoaMarkdown.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaMarkdown.framework;
+			remoteRef = 8926D383246CAA700043B2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8926D386246CAA700043B2EF /* CocoaMarkdownTests-iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CocoaMarkdownTests-iOS.xctest";
+			remoteRef = 8926D385246CAA700043B2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8926D388246CAA700043B2EF /* CocoaMarkdown.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CocoaMarkdown.framework;
+			remoteRef = 8926D387246CAA700043B2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8926D38A246CAA700043B2EF /* CocoaMarkdownTests-Mac.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CocoaMarkdownTests-Mac.xctest";
+			remoteRef = 8926D389246CAA700043B2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8926D38C246CAA700043B2EF /* Example-iOS.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-iOS.app";
+			remoteRef = 8926D38B246CAA700043B2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8926D38E246CAA700043B2EF /* Example-Mac.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = "Example-Mac.app";
+			remoteRef = 8926D38D246CAA700043B2EF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		89E9806C2360DE34005A3C35 /* libSDWebImage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;

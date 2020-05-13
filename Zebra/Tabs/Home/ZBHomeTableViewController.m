@@ -18,6 +18,7 @@
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
 
+@import CocoaMarkdown;
 @import FirebaseAnalytics;
 
 typedef enum ZBHomeOrder : NSUInteger {
@@ -76,6 +77,9 @@ typedef enum ZBLinksOrder : NSUInteger {
         UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.rightBarButtonItem = settingsButton;
+        
+        UIBarButtonItem *testButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"command"] style:UIBarButtonItemStylePlain target:self action:@selector(presentMarkdownTest)];
+        self.navigationItem.leftBarButtonItem = testButton;
     }
     else {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
@@ -84,6 +88,21 @@ typedef enum ZBLinksOrder : NSUInteger {
     if (@available(iOS 11.0, *)) {
         self.navigationController.navigationBar.prefersLargeTitles = YES;
     }
+}
+
+- (void)presentMarkdownTest {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    CMDocument *document = [[CMDocument alloc] initWithString:@"Hello!\n***How are you??***\n1. Cool!\n2. Coolllll!" options:0];
+    CMAttributedStringRenderer *renderer = [[CMAttributedStringRenderer alloc] initWithDocument:document attributes:[[CMTextAttributes alloc] init]];
+
+    [alert setValue:[renderer render] forKey:@"attributedMessage"];
+    
+    UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+    [alert addAction:dismiss];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

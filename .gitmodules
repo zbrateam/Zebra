@@ -4,3 +4,6 @@
 [submodule "Vendor/LNPopupController"]
 	path = Vendor/LNPopupController
 	url = https://github.com/LeoNatan/LNPopupController.git
+[submodule "Vendor/CocoaMarkdown"]
+	path = Vendor/CocoaMarkdown
+	url = https://github.com/indragiek/CocoaMarkdown.git
