@@ -332,7 +332,7 @@ pair *splitNameAndEmail(const char *author) {
     return p;
 }
 
-bool bindPackage(dict **package_, int sourceID, int safeID, char *description, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
+bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
     for (int i = 0; packageIdentifier[i]; ++i) {
@@ -362,13 +362,8 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *description, c
             }
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnVersion, packageVersion, -1, SQLITE_TRANSIENT);
             
-            
-//            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnShortDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
-//            if (longDescription[0] == '\0' || isspace(longDescription[0]))
-//                sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, NULL, -1, SQLITE_TRANSIENT);
-//            else
-//                sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnLongDescription, longDescription, -1, SQLITE_TRANSIENT);
-            
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTagline, dict_get(package, "Tagline"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDescription, dict_get(package, "Description"), -1, SQLITE_TRANSIENT);
             
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSection, dict_get(package, "Section"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
@@ -427,8 +422,18 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *description, c
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSHA256, sha256, -1, SQLITE_TRANSIENT);
             }
             
-//            if (longDescription[0] != '\0')
-//                longDescription[strlen(longDescription) - 1] = '\0';
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHeader, dict_get(package, "Header"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnChangelog, dict_get(package, "Changelog"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnChangelogNotes, dict_get(package, "ChangelogNotes"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHomepage, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPreviews, dict_get(package, "Previews"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerName, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHomepage, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
+            
+            pair *maintainer = splitNameAndEmail(dict_get(package, "Maintainer"));
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerName, maintainer->key, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerEmail, maintainer->value, -1, SQLITE_TRANSIENT);
+            
             if (depends[0] != '\0')
                 depends[strlen(depends) - 1] = '\0';
             sqlite3_step(insertStatement);
@@ -465,29 +470,11 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = sourceID;
-    bool longDescFlag = false;
     
-    char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
     char depends[512] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDescFlag && isspace(line[0])) {
-                int i = 0;
-                while (line[i] != '\0' && isspace(line[i])) {
-                    ++i;
-                }
-                
-                if (strlen(&line[i]) + strlen(longDescription) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
-                    strcat(longDescription, &line[i]);
-                    strcat(longDescription, "\n");
-                }
-                
-                continue;
-            } else {
-                longDescFlag = false;
-            }
-            
             char *info = strtok(line, "\n");
             info = strtok(line, "\r");
             
@@ -542,17 +529,16 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 }
             }
         } else if (dict_get(package, "Package") != 0) {
-            if (bindPackage(&package, sourceID, safeID, longDescription, depends, database, true, 0))
+            if (bindPackage(&package, sourceID, safeID, depends, database, true, 0))
                 continue;
         } else {
             dict_free(package);
             package = dict_new();
-            longDescription[0] = '\0';
             depends[0] = '\0';
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, sourceID, safeID, longDescription, depends, database, true, 0);
+        bindPackage(&package, sourceID, safeID, depends, database, true, 0);
     }
     
     fclose(file);
@@ -600,29 +586,11 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     dict *package = dict_new();
     int safeID = sourceID;
-    bool longDescFlag = false;
-    
-    char longDescription[LONG_DESCRIPTION_MAX_LENGTH] = "";
+
     char depends[512] = "";
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            if (longDescFlag && isspace(line[0])) {
-                int i = 0;
-                while (line[i] != '\0' && isspace(line[i])) {
-                    ++i;
-                }
-                
-                if (strlen(&line[i]) + strlen(longDescription) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
-                    strcat(longDescription, &line[i]);
-                    strcat(longDescription, "\n");
-                }
-                                
-                continue;
-            } else {
-                longDescFlag = false;
-            }
-            
             char *info = strtok(line, "\n");
             info = strtok(line, "\r");
             
@@ -676,16 +644,15 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             }
             dict_add(package, key, value);
         } else if (dict_get(package, "Package") != 0) {
-            bindPackage(&package, sourceID, safeID, longDescription, depends, database, false, currentDate);
+            bindPackage(&package, sourceID, safeID, depends, database, false, currentDate);
         } else {
             dict_free(package);
             package = dict_new();
-            longDescription[0] = '\0';
             depends[0] = '\0';
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, sourceID, safeID, longDescription, depends, database, false, currentDate);
+        bindPackage(&package, sourceID, safeID, depends, database, false, currentDate);
     }
     
     fclose(file);
