@@ -912,6 +912,18 @@
         [information addObject:sectionInfo];
     }
     
+    NSArray *dependencies = [self dependsOn];
+    if ([dependencies count]) {
+        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)dependencies.count], @"more": [dependencies componentsJoinedByString:@"\n"]};
+        [information addObject:dependsInfo];
+    }
+    
+    NSArray *conflicts = [self conflictsWith];
+    if ([conflicts count]) {
+        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)conflicts.count], @"more": [conflicts componentsJoinedByString:@"\n"]};
+        [information addObject:conflictsInfo];
+    }
+    
     return information;
 }
 
