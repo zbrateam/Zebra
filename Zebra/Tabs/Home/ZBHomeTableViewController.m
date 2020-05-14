@@ -654,7 +654,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)setPackageOnDestinationVC:(ZBPackageDepictionViewController *)destination withPackage:(NSString *)packageID {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     destination.package = [databaseManager topVersionForPackageID:packageID];
-    [databaseManager closeDatabase];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
