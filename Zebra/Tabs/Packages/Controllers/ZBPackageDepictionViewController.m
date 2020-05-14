@@ -165,6 +165,16 @@
     [ZBPackageActions buttonActionForPackage:self.package]();
 }
 
+- (IBAction)moreButtonPressed:(id)sender {
+    UIAlertController *extraActions = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (UIAlertAction *action in [ZBPackageActions extraAlertActionsForPackage:self.package]) {
+        [extraActions addAction:action];
+    }
+    
+    [self presentViewController:extraActions animated:YES completion:nil];
+}
+
 - (void)configureNavigationItems {
     UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];

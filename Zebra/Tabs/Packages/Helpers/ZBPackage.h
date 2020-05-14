@@ -86,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)hasIssues;
 - (BOOL)isEssentialOrRequired;
 - (NSArray * _Nullable)possibleActions;
+- (NSArray * _Nullable)possibleExtraActions;
 - (void)setIconImageForImageView:(UIImageView *)imageView;
 - (NSArray *)information;
 
