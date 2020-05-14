@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "このリポジトリからダウンロードされたデータは暗号化されていない可能性があります。 追加してもよろしいですか？";
 
 "Unable to complete purchase" = "購入処理を完了できませんでした。";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

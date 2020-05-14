@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Duomenys atsiųsti iš šio šaltinio gali būti neužšifruoti. Ar tikrai norite jį pridėti?";
 
 "Unable to complete purchase" = "Nepavyko užbaigti pirkimo";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

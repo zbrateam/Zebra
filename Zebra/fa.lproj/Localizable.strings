@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "اطلاعات دانلود شده از این سورس رمزنگاری نشده اند. آیا مطمئن هستید برای اضافه کردن آن؟";
 
 "Unable to complete purchase" = "اشکال در انجام پرداخت";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
