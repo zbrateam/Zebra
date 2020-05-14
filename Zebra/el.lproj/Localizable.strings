@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Τα δεδομένα που λαμβάνονται από αυτό το αποθετήριο ενδέχεται να μην είναι κρυπτογραφημένα. Είστε βέβαιοι ότι θέλετε να το προσθέσετε;";
 
 "Unable to complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
