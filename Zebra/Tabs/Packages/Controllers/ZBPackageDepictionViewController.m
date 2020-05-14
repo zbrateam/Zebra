@@ -36,7 +36,7 @@
 
 @property (strong, nonatomic) ZBPackage *package;
 @property (strong, nonatomic) NSArray *packageInformation;
-@property (strong, nonatomic) ZBActionButton *barButton;
+@property (strong, nonatomic) ZBActionButton *getBarButton;
 @end
 
 @implementation ZBPackageDepictionViewController
@@ -61,7 +61,6 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
-    [self loadDepiction];
     
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
 }
@@ -78,18 +77,15 @@
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
 }
 
-- (void)loadDepiction {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
-    [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
-    
-    [self.webView loadRequest:request];
-}
+#pragma mark - Methods Called From viewDidLoad
 
-- (void)setData {
-    self.nameLabel.text = self.package.name;
-    self.tagLineLabel.text = self.package.tagline ?: self.package.authorName;
-    [self.package setIconImageForImageView:self.iconImageView];
-    self.packageInformation = [self.package information];
+- (void)setDelegates {
+    self.webView.navigationDelegate = self;
+    
+    self.informationTableView.delegate = self;
+    self.informationTableView.dataSource = self;
+    
+    self.scrollView.delegate = self;
 }
 
 - (void)applyCustomizations {
@@ -110,12 +106,33 @@
     
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
-    [self configureGetButton];
+    [self configureGetButton:self.getButton];
+    [self configureGetButton:self.getBarButton];
 
     // Web View
     self.webView.hidden = YES;
-    self.webView.customUserAgent = [ZBDevice depictionUserAgent];
     self.webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
+}
+
+- (void)setData {
+    self.nameLabel.text = self.package.name;
+    self.tagLineLabel.text = self.package.tagline ?: self.package.authorName;
+    [self.package setIconImageForImageView:self.iconImageView];
+    self.packageInformation = [self.package information];
+    [self loadDepiction];
+}
+
+#pragma mark - Helper Methods
+
+- (void)updateTableViewHeightBasedOnContent {
+    self.informationTableViewHeightConstraint.constant = self.informationTableView.contentSize.height;
+}
+
+- (void)loadDepiction {
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
+    [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
+    self.webView.customUserAgent = [ZBDevice depictionUserAgent];
+    [self.webView loadRequest:request];
 }
 
 - (void)showAuthorName {
@@ -124,35 +141,16 @@
     } completion:nil];
 }
 
-- (void)setDelegates {
-    self.webView.navigationDelegate = self;
-    
-    self.informationTableView.delegate = self;
-    self.informationTableView.dataSource = self;
-    
-    self.scrollView.delegate = self;
-}
-
-- (void)configureGetButton {
-    [self.barButton showActivityLoader];
-    [self.getButton showActivityLoader];
+- (void)configureGetButton:(ZBActionButton *)button {
+    [button showActivityLoader];
     [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
         if (text) {
-            [self.barButton hideActivityLoader];
-            [self.barButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
-            
-            [self.getButton hideActivityLoader];
-            [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
-        }
-        else {
-            [self.barButton showActivityLoader];
-            [self.getButton showActivityLoader];
+            [button hideActivityLoader];
+            [button setTitle:[text uppercaseString] forState:UIControlStateNormal];
+        } else {
+            [button showActivityLoader];
         }
     }];
-}
-
-- (void)updateTableViewHeightBasedOnContent {
-    self.informationTableViewHeightConstraint.constant = self.informationTableView.contentSize.height;
 }
 
 - (IBAction)getButtonPressed:(id)sender {
@@ -171,9 +169,9 @@
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
     
-    self.barButton = [[ZBActionButton alloc] init];
-    [self.barButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.barButton];
+    self.getBarButton = [[ZBActionButton alloc] init];
+    [self.getBarButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.getBarButton];
     self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
 }
 
@@ -227,8 +225,7 @@
     NSURL *url = navigationAction.request.URL;
     if ([url isEqual:self.package.depictionURL]) {
         decisionHandler(WKNavigationActionPolicyAllow);
-    }
-    else {
+    } else {
         decisionHandler(WKNavigationActionPolicyCancel);
         
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
