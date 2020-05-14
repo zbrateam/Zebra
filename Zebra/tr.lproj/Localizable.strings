@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Bu kaynaktan indirilen veriler şifrelenmemiş olabilir. Eklemek istediğinizden emin misiniz?";
 
 "Unable to complete purchase" = "Satın alma tamamlanamadı";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
