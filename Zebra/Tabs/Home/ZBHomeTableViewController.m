@@ -227,7 +227,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         
         for (int i = 1; i <= self.cellNumber; ++i) {
             NSDictionary *dict = [self->allFeatured objectAtIndex:(arc4random() % allFeatured.count)];
-            if (![selectedFeatured containsObject:dict] && [[ZBDatabaseManager sharedInstance] packageIDIsAvailable:[dict objectForKey:@"package"] version:NULL]) {
+            if (![selectedFeatured containsObject:dict]) {
                 [self->selectedFeatured addObject:dict];
             } else {
                 --i;

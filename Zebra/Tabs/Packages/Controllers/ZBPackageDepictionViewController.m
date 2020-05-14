@@ -74,6 +74,15 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (package == NULL) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package Not Available", @"") message:NSLocalizedString(@"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.", @"") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:action];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+    
     UIActivityIndicatorViewStyle style = [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray;
     UIActivityIndicatorView *uiBusy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:style];
     [uiBusy startAnimating];
