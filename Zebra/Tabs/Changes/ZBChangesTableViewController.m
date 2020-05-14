@@ -361,30 +361,31 @@
     }];
 }
 
-- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    if (indexPath != nil) {
-        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        previewingContext.sourceRect = cell.frame;
-        ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-        
-        [self setDestinationVC:indexPath destination:packageDepictionVC];
-        return packageDepictionVC;
-    }
-    else {
-        CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
-        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
-        if ([self.redditPosts count] && indexPath.row < [self.redditPosts count]) {
-            ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
-            
-            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
-            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
-            
-            return sfVC;
-        }
-        return NULL;
-    }
-}
+//FIXME: Update for new depictions
+//- (UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+//    if (indexPath != nil) {
+//        ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//        previewingContext.sourceRect = cell.frame;
+//        ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+//
+//        [self setDestinationVC:indexPath destination:packageDepictionVC];
+//        return packageDepictionVC;
+//    }
+//    else {
+//        CGPoint locationCell = [self.collectionView convertPoint:location fromView:self.view];
+//        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:locationCell];
+//        if ([self.redditPosts count] && indexPath.row < [self.redditPosts count]) {
+//            ZBChildData *post = [self.redditPosts objectAtIndex:indexPath.row];
+//
+//            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://reddit.com/%@", post.identifier]];
+//            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+//
+//            return sfVC;
+//        }
+//        return NULL;
+//    }
+//}
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     

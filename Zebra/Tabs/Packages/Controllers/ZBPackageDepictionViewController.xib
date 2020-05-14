@@ -114,8 +114,8 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="wLJ-1A-d3b"/>
                                             </constraints>
-                                            <wkWebViewConfiguration key="configuration">
-                                                <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
+                                                <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" audio="YES"/>
                                                 <wkPreferences key="preferences"/>
                                             </wkWebViewConfiguration>
                                         </wkWebView>
