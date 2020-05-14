@@ -3779,6 +3779,27 @@ Name: Zebra
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
 
+Package: applist
+Status: install ok installed
+Name: AppList
+Architecture: iphoneos-arm
+Description: Allow extensions to read the list of installed apps
+Maintainer: Ryan Petrich <rpetrich@gmail.com>
+Author: Ryan Petrich <rpetrich@gmail.com>
+Depends: mobilesubstrate (>= 0.9.5000), firmware (>= 3.0), com.rpetrich.rocketbootstrap (>= 1.0.7~beta3) | firmware (<< 7.0)
+Conflicts: com.a3tweaks.polus (<< 2.0.7)
+Section: System
+Depiction: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=AppListDp
+Website: http://moreinfo.thebigboss.org/moreinfo/depiction.php?file=AppListDp
+dev: rpetrich
+Version: 1.5.16~beta1
+Installed-Size: 780
+Filename: ./debs/applist_1.5.16~beta1_iphoneos-arm.deb
+MD5sum: 55a1932ed038b5d53985cfd66a590dfa
+SHA1: 77431fdde32351bf07d2c340ef87c8c83872b210
+SHA256: e0903791e57fa54e97b464df28d02f0a07110f741fc9bc032a69c0d1c9d57a80
+Size: 105762
+
 Package: xz
 Essential: yes
 Status: install ok installed

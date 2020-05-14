@@ -93,7 +93,6 @@
 - (void)setDelegates {
     self.webView.navigationDelegate = self;
     self.webView.scrollView.delegate = self;
-    self.webView.UIDelegate = self;
     
     self.informationTableView.delegate = self;
     self.informationTableView.dataSource = self;
@@ -268,9 +267,12 @@
     } else {
         decisionHandler(WKNavigationActionPolicyCancel);
         
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
-        safariVC.preferredControlTintColor = [UIColor accentColor];
-        [self presentViewController:safariVC animated:YES completion:nil];
+        if (![[url absoluteString] isEqualToString:@"about:blank"] && ([[url scheme] isEqualToString:@"https"] || [[url scheme] isEqualToString:@"http"])) {
+            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+            safariVC.preferredControlTintColor = [UIColor accentColor];
+            
+            [self presentViewController:safariVC animated:YES completion:nil];
+        }
     }
 }
 
