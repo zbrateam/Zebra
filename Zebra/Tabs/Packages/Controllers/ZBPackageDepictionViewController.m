@@ -111,7 +111,6 @@
 
     // Web View
     self.webView.hidden = YES;
-    self.webView.scrollView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)setData {
