@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "從這個套件來源下載的資料可能不會被加密。您確定要新增這個來源？";
 
 "Unable to complete purchase" = "無法完成購買";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
