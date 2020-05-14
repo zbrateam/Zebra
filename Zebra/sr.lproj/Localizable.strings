@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Podaci skinuti sa ovog repoa nisu enkriptovani. Da li ste sigurni da ćete ga dodati?";
 
 "Unable to complete purchase" = "Nije moguće potvrditi kupovinu";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
