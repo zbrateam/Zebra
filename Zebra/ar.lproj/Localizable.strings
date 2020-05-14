@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "المعلومات المحملة من هذا المستودع ممكن ان لا تكون مشفرة. هل انت متأكد من اضافتها؟";
 
 "Unable to complete purchase" = "غير قادر على إكمال عملية الشراء";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
