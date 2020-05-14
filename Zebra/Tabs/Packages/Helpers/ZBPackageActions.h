@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void (^)(void))buttonActionForPackage:(ZBPackage *)package;
 + (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
++ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView;
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0));
 @end
