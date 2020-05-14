@@ -10,14 +10,13 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import "ZBActionButton.h"
-#import "ZBBoldHeaderView.h"
+#import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
-
 @interface ZBPackageDepictionViewController () {
     BOOL shouldShowNavButtons;
 }
@@ -63,6 +62,7 @@
     [self setData];
     
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldTableViewHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"ZBBoldTableViewHeaderView"]; // TODO: Find a home for this line
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -213,10 +213,17 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ZBBoldHeaderView *headerView = [[ZBBoldHeaderView alloc] initWithFrame:CGRectZero];
-    headerView.titleLabel.text = NSLocalizedString(@"Information", @"");
-    
-    return headerView;
+    ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"ZBBoldTableViewHeaderView"];
+    cell.titleLabel.text = NSLocalizedString(@"Information", @"");
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return 58;
 }
 
 #pragma mark - UITableViewDelegate

@@ -1,5 +1,5 @@
 //
-//  ZBBoldHeaderView.h
+//  ZBBoldTableViewHeaderView.h
 //  Zebra
 //
 //  Created by Andrew Abosh on 2020-05-12.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBBoldHeaderView : UIView
-@property (nonatomic, strong) UILabel *titleLabel;
+@interface ZBBoldTableViewHeaderView : UITableViewHeaderFooterView
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @end
 
 NS_ASSUME_NONNULL_END
