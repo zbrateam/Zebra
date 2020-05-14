@@ -65,6 +65,12 @@
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self updateNavigationBarBackgroundOpacityForCurrentScrollOffset];
+}
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
@@ -91,7 +97,6 @@
 - (void)applyCustomizations {
     // Navigation
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    [self.navigationController.navigationBar _setBackgroundOpacity:0];
     [self configureNavigationItems];
     
     // Tagline label tapping
@@ -183,6 +188,18 @@
     }];
 }
 
+- (void)updateNavigationBarBackgroundOpacityForCurrentScrollOffset {
+    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
+    CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
+    CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
+    CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+
+    if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
+    
+    [self setNavigationItemsHidden:(opacity < 1)];
+    [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -232,6 +249,7 @@
 }
 
 #pragma mark - WKWebView contentSize Observer
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == self.webView.scrollView && [keyPath isEqual:@"contentSize"] && self.webViewHeightConstraint.constant != self.webView.scrollView.contentSize.height) {
         self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
@@ -247,16 +265,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView != self.scrollView) return;
-    
-    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
-    CGFloat currentVerticalOffset = scrollView.contentOffset.y + self.view.safeAreaInsets.top;
-    CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
-    CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
-
-    if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
-    
-    [self setNavigationItemsHidden:(opacity < 1)];
-    [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+    [self updateNavigationBarBackgroundOpacityForCurrentScrollOffset];
 }
 
 @end
