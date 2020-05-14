@@ -427,15 +427,6 @@
 #pragma mark - Navigation
 
 // FIXME: Update for new depictions
-- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-//    ZBPackage *package = [self packageAtIndexPath:indexPath];
-//    BOOL isUpdateSection = [source sourceID] == 0 && needsUpdatesSection && indexPath.section == 0;
-//    ZBPackage *candidate = isUpdateSection ? [[ZBDatabaseManager sharedInstance] topVersionForPackage:package] : [package installableCandidate];
-//    destination.package = candidate ? candidate : package;
-//    destination.parent = self;
-}
-
-// FIXME: Update for new depictions
 //- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
 //    typeof(self) __weak weakSelf = self;
 //    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{

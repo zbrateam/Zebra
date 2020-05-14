@@ -306,28 +306,28 @@
     return !self.editing;
 }
 
-// FIXME: Update for new depictions
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
+// FIXME: Remove segues
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
 //        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
 //        NSString *packageID = sender;
 //        destination.package = [databaseManager topVersionForPackageID:packageID];
 //        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-//    } else {
-//        ZBPackageListTableViewController *destination = [segue destinationViewController];
-//        UITableViewCell *cell = (UITableViewCell *)sender;
-//        destination.source = source;
-//        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//
-//        if (indexPath.row != 0) {
-//            NSString *section = sectionNames[indexPath.row - 1];
-//            destination.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-//            destination.title = section;
-//        } else {
-//            destination.title = NSLocalizedString(@"All Packages", @"");
-//        }
-//    }
-//}
+    } else {
+        ZBPackageListTableViewController *destination = [segue destinationViewController];
+        UITableViewCell *cell = (UITableViewCell *)sender;
+        destination.source = source;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+        if (indexPath.row != 0) {
+            NSString *section = sectionNames[indexPath.row - 1];
+            destination.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+            destination.title = section;
+        } else {
+            destination.title = NSLocalizedString(@"All Packages", @"");
+        }
+    }
+}
 
 // 3D Touch Actions
 

@@ -59,18 +59,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"segueMorePackagesToPackageDepiction" sender:indexPath];
+    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
+    if (package) {
+        ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+        
+        [[self navigationController] pushViewController:packageDepiction animated:YES];
+    }
 }
-
-// FIXME: Update for new depictions
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"segueMorePackagesToPackageDepiction"]) {
-//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-//        NSIndexPath *indexPath = sender;
-//        destination.package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
-//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-//    }
-//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;

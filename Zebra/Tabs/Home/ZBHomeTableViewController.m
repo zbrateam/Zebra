@@ -665,23 +665,15 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"segueHomeFeaturedToDepiction" sender:cell.packageID];
+    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+    
+    if (package) {
+        ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+        [[self navigationController] pushViewController:packageDepiction animated:YES];
+    }
 }
 
 #pragma mark - Navigation
-
-// FIXME: Update for new depictions
-- (void)setPackageOnDestinationVC:(ZBPackageDepictionViewController *)destination withPackage:(NSString *)packageID {
-//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-//    destination.package = [databaseManager topVersionForPackageID:packageID];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"segueHomeFeaturedToDepiction"]) {
-        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-        [self setPackageOnDestinationVC:destination withPackage:sender];
-    }
-}
 
 // FIXME: Update for new depictions
 //- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){

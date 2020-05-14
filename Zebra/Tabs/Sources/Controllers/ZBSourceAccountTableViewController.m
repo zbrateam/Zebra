@@ -260,7 +260,12 @@
         }
     }
     else if (indexPath.section == 1 && purchases.count && !loading) {
-        [self performSegueWithIdentifier:@"seguePurchasesToPackageDepiction" sender:indexPath];
+        ZBPackage *package = [purchases objectAtIndex:indexPath.row];
+        if (package) {
+            ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+            
+            [[self navigationController] pushViewController:packageDepiction animated:YES];
+        }
     }
 }
 
@@ -285,16 +290,6 @@
 }
 
 #pragma mark - Navigation
-
-// FIXME: Update for new depictions
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"seguePurchasesToPackageDepiction"]) {
-//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-//        NSIndexPath *indexPath = sender;
-//        destination.package = [purchases objectAtIndex:indexPath.row];
-//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-//    }
-//}
 
 // FIXME: Update for new depictions
 //- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){

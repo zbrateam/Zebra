@@ -126,14 +126,13 @@
     }
 }
 
-// FIXME: Update for new depictions
 - (ZBPackageDepictionViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
-    NSObject *quantumPackage = filteredResults[indexPath.row];
+    id quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
         
-    return NULL; //[[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
+    return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -147,7 +146,7 @@
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSObject *quantumPackage = filteredResults[indexPath.row];
+    id quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         // This is a proxy package, load it first
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];

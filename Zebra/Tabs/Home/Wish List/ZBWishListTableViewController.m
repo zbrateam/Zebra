@@ -198,7 +198,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (wishedPackages.count != 0) {
-        [self performSegueWithIdentifier:@"segueWishToPackageDepiction" sender:indexPath];
+        ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
+        if (package) {
+            ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+            
+            [[self navigationController] pushViewController:packageDepiction animated:YES];
+        }
     }
 }
 
@@ -226,16 +231,6 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView setEditing:NO animated:YES];
-}
-
-// FIXME: Update for new depictions
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"segueWishToPackageDepiction"]) {
-//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-//        NSIndexPath *indexPath = sender;
-//        destination.package = [wishedPackages objectAtIndex:indexPath.row];
-//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-//    }
 }
 
 // FIXME: Update for new depictions

@@ -297,7 +297,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"seguePackagesToPackageDepiction" sender:indexPath];
+    ZBPackage *package = [self packageAtIndexPath:indexPath];
+//    ZBPackage *candidate = [package installableCandidate];
+    if (package) {
+        ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+        
+        [[self navigationController] pushViewController:packageDepiction animated:YES];
+    }
 }
 
 #pragma mark - Swipe actions
@@ -309,11 +315,6 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
-//    return [ZBPackageActions rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-//        [UIView performWithoutAnimation:^{
-//            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//        }];
-//    }];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -321,26 +322,6 @@
 }
 
 #pragma mark - Navigation
-
-// FIXME: Update for new depictions
-- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination {
-//
-//    ZBPackage *package = [self packageAtIndexPath:indexPath];
-//    ZBPackage *candidate = [package installableCandidate];
-//
-//    destination.package = candidate ? candidate : package;
-//    destination.parent = self;
-}
-
-// FIXME: Update for new depictions
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    if ([[segue identifier] isEqualToString:@"seguePackagesToPackageDepiction"]) {
-//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-//        NSIndexPath *indexPath = sender;
-//        [self setDestinationVC:indexPath destination:destination];
-//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-//    }
-}
 
 - (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
