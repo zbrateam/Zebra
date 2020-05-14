@@ -21,19 +21,19 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ek-fm-Nhm">
-                                <rect key="frame" x="16" y="8" width="242" height="28"/>
+                                <rect key="frame" x="16" y="10" width="242" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Value" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IB2-MH-Nqa">
-                                <rect key="frame" x="266" y="8" width="38" height="28"/>
+                                <rect key="frame" x="266" y="10" width="38" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <edgeInsets key="layoutMargins" top="8" left="16" bottom="8" right="16"/>
+                        <edgeInsets key="layoutMargins" top="10" left="16" bottom="10" right="16"/>
                     </stackView>
                 </subviews>
                 <constraints>
