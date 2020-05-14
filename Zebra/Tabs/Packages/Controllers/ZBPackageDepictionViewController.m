@@ -261,8 +261,11 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // This is a pretty simple implementation now, it might cause problems later for depictions with ads but not sure at the moment.
     NSURL *url = navigationAction.request.URL;
-    NSLog(@"URL: %@", url);
+    WKNavigationType type = navigationAction.navigationType;
+    
     if ([url isEqual:self.webView.URL]) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else if (type == WKNavigationTypeOther) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         decisionHandler(WKNavigationActionPolicyCancel);
