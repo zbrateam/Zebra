@@ -234,12 +234,9 @@
 
 #pragma mark - WKWebView contentSize Observer
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == self.webView.scrollView && [keyPath isEqual:@"contentSize"]) {
-        if (self.webViewHeightConstraint.constant != self.webView.scrollView.contentSize.height) {
-            NSLog(@"%f", self.webView.scrollView.contentSize.height);
-            self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
-            [[self view] layoutIfNeeded];
-        }
+    if (object == self.webView.scrollView && [keyPath isEqual:@"contentSize"] && self.webViewHeightConstraint.constant != self.webView.scrollView.contentSize.height) {
+        self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
+        [[self view] layoutIfNeeded];
     }
 }
 
