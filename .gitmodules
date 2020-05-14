@@ -7,3 +7,4 @@
 [submodule "Vendor/CocoaMarkdown"]
 	path = Vendor/CocoaMarkdown
 	url = https://github.com/indragiek/CocoaMarkdown.git
+	ignore = dirty
