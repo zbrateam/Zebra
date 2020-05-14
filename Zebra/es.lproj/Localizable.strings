@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Los datos descargados de este repositorio podrían no ser cifrados. ¿Estás seguro que deseas añadirlo?";
 
 "Unable to complete purchase" = "No se puede realizar la compra";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

@@ -181,7 +181,7 @@
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Unable to locate an APT repository at:" = "Kunne ikke finne et APT-kilde på:";
 "Unable to locate APT repositories at:" = "Kunne ikke finne APT-kilder på:";
-"View" = "View";
+"View" = "Vis";
 
 "A total of %d files will be downloaded" = "%d filer vil lastes ned";
 
@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data som lastes ned fra denne kilden er ikke nødvendigvis kryptert. Er du sikker på at du vil legge den til?";
 
 "Unable to complete purchase" = "Kunne ikke fullføre kjøpet";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";

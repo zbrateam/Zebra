@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dữ liệu được tải xuống từ kho này không được mã hóa. Bạn chắc chắn có muốn thêm nó ?";
 
 "Unable to complete purchase" = "Không thể hoàn tất mua";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
