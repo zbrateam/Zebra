@@ -302,9 +302,16 @@
             if ([package mightRequirePayment]) {
                 [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                     if (info) { // Package does have purchase info
-                        if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
+                        BOOL installed = [package isInstalled:NO];
+                        if (!info.purchased && !installed) { // If the user has not purchased the package
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 completion(info.price);
+                            });
+                            return;
+                        }
+                        else if (info.purchased && !installed) {
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                completion(@"Install");
                             });
                             return;
                         }
