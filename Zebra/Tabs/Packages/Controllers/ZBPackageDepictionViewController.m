@@ -129,9 +129,11 @@
 }
 
 - (void)loadDepiction {
+    if (self.package.depictionURL == nil) return;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
     self.webView.customUserAgent = [ZBDevice depictionUserAgent];
+    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView loadRequest:request];
 }
 
@@ -213,11 +215,7 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
-        [[self view] layoutIfNeeded];
         webView.hidden = NO;
-    });
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -232,6 +230,21 @@
         safariVC.preferredControlTintColor = [UIColor accentColor];
         [self presentViewController:safariVC animated:YES completion:nil];
     }
+}
+
+#pragma mark - WKWebView contentSize Observer
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self.webView.scrollView && [keyPath isEqual:@"contentSize"]) {
+        if (self.webViewHeightConstraint.constant != self.webView.scrollView.contentSize.height) {
+            NSLog(@"%f", self.webView.scrollView.contentSize.height);
+            self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
+            [[self view] layoutIfNeeded];
+        }
+    }
+}
+
+- (void)dealloc {
+    if (self.package.depictionURL != nil) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
 }
 
 #pragma mark - UIScrollViewDelegate
