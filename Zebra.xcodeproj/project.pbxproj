@@ -23,7 +23,6 @@
 		365CAE2E22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 365CAE2C22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib */; };
 		3671B52222CB07F9008FD737 /* ZBHomeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */; };
 		367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */; };
-		367D810122C437D300581D60 /* ios7oled.css in Resources */ = {isa = PBXBuildFile; fileRef = 367D810022C437D200581D60 /* ios7oled.css */; };
 		369B7AE022C56009007521DB /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 369B7ADF22C56009007521DB /* banner.png */; };
 		369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */; };
 		369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */; };
@@ -39,10 +38,6 @@
 		36AC5A7222AB30E9004C2332 /* zBlack~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6E22AB30E9004C2332 /* zBlack~ipad@3x.png */; };
 		36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A6F22AB30E9004C2332 /* zBlack@2x.png */; };
 		36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7022AB30E9004C2332 /* zBlack~ipad@2x.png */; };
-		36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7522AB3545004C2332 /* icon@3x.png */; };
-		36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7622AB3545004C2332 /* icon@2x.png */; };
-		36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */ = {isa = PBXBuildFile; fileRef = 36AC5A7922AB6F66004C2332 /* ios7.min.css */; };
-		36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADC22A2C89A00A4604C /* installed_files.html */; };
 		36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */; };
 		36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */; };
 		36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AE322A3412C00A4604C /* darkZebraSkin~ipad@2x.png */; };
@@ -127,9 +122,6 @@
 		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
 		89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */; };
 		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
-		89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637621D5AFA90081E485 /* package_depiction.html */; };
-		89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637721D5AFA90081E485 /* ios7.min.js */; };
-		89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 89E8637D21D5AFAA0081E485 /* ios7dark.css */; };
 		89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EA4ED1241B166D008DFE15 /* ZBFilterSettingsTableViewController.m */; };
 		89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; };
 		89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -278,7 +270,6 @@
 		3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomeTableViewController.m; sourceTree = "<group>"; };
 		367D80F322C3D1CF00581D60 /* ZBSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewController.m; sourceTree = "<group>"; };
 		367D80F422C3D1CF00581D60 /* ZBSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewController.h; sourceTree = "<group>"; };
-		367D810022C437D200581D60 /* ios7oled.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7oled.css; sourceTree = "<group>"; };
 		369B7ADF22C56009007521DB /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInstalledFilesTableViewController.h; sourceTree = "<group>"; };
 		369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInstalledFilesTableViewController.m; sourceTree = "<group>"; };
@@ -300,10 +291,6 @@
 		36AC5A6E22AB30E9004C2332 /* zBlack~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zBlack~ipad@3x.png"; sourceTree = "<group>"; };
 		36AC5A6F22AB30E9004C2332 /* zBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zBlack@2x.png"; sourceTree = "<group>"; };
 		36AC5A7022AB30E9004C2332 /* zBlack~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zBlack~ipad@2x.png"; sourceTree = "<group>"; };
-		36AC5A7522AB3545004C2332 /* icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@3x.png"; sourceTree = "<group>"; };
-		36AC5A7622AB3545004C2332 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
-		36AC5A7922AB6F66004C2332 /* ios7.min.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7.min.css; sourceTree = "<group>"; };
-		36F77ADC22A2C89A00A4604C /* installed_files.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = installed_files.html; sourceTree = "<group>"; };
 		36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin@3x.png"; sourceTree = "<group>"; };
 		36F77AE022A33EDF00A4604C /* darkZebraSkin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin@2x.png"; sourceTree = "<group>"; };
 		36F77AE322A3412C00A4604C /* darkZebraSkin~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "darkZebraSkin~ipad@2x.png"; sourceTree = "<group>"; };
@@ -484,9 +471,6 @@
 		89E3BD9824285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAuthorSelectorTableViewController.h; sourceTree = "<group>"; };
 		89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAuthorSelectorTableViewController.m; sourceTree = "<group>"; };
 		89E8633C21D5A8C00081E485 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		89E8637621D5AFA90081E485 /* package_depiction.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = package_depiction.html; sourceTree = "<group>"; };
-		89E8637721D5AFA90081E485 /* ios7.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ios7.min.js; sourceTree = "<group>"; };
-		89E8637D21D5AFAA0081E485 /* ios7dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ios7dark.css; sourceTree = "<group>"; };
 		89EA4ED0241B166D008DFE15 /* ZBFilterSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBFilterSettingsTableViewController.h; sourceTree = "<group>"; };
 		89EA4ED1241B166D008DFE15 /* ZBFilterSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBFilterSettingsTableViewController.m; sourceTree = "<group>"; };
 		89EB935D235BFCE30038BCEC /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
@@ -1108,26 +1092,10 @@
 			children = (
 				36F77ADE22A33B6100A4604C /* Alternate Icons */,
 				369B7ADF22C56009007521DB /* banner.png */,
-				89E8637521D5AF920081E485 /* HTML */,
 				89D230172242B27500837C3B /* default.list */,
 				8931E4D2226D6E9300F35DFD /* utiicon.png */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		89E8637521D5AF920081E485 /* HTML */ = {
-			isa = PBXGroup;
-			children = (
-				36AC5A7622AB3545004C2332 /* icon@2x.png */,
-				36AC5A7522AB3545004C2332 /* icon@3x.png */,
-				36F77ADC22A2C89A00A4604C /* installed_files.html */,
-				89E8637621D5AFA90081E485 /* package_depiction.html */,
-				89E8637D21D5AFAA0081E485 /* ios7dark.css */,
-				367D810022C437D200581D60 /* ios7oled.css */,
-				36AC5A7922AB6F66004C2332 /* ios7.min.css */,
-				89E8637721D5AFA90081E485 /* ios7.min.js */,
-			);
-			path = HTML;
 			sourceTree = "<group>";
 		};
 		89EA4ECA241B1624008DFE15 /* Filters */ = {
@@ -1420,7 +1388,6 @@
 			files = (
 				89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */,
 				3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */,
-				36AC5A7722AB3545004C2332 /* icon@3x.png in Resources */,
 				36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */,
 				89B312882465D9640027FE29 /* ZBPackageDepictionViewController.xib in Resources */,
 				49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */,
@@ -1428,14 +1395,12 @@
 				9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */,
 				36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */,
 				36F77AE622A3414B00A4604C /* darkZebraSkin~ipad@3x.png in Resources */,
-				36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */,
 				893F51CC2447D83C00B2C64E /* control.sample in Resources */,
 				36AC5A7222AB30E9004C2332 /* zBlack~ipad@3x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */,
 				36F77AE922A34EE800A4604C /* lightZebraSkin@2x.png in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
-				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
 				36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */,
 				36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */,
 				499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */,
@@ -1443,7 +1408,6 @@
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
-				367D810122C437D300581D60 /* ios7oled.css in Resources */,
 				2627B6112321A65200B141E5 /* originalBlack@2x.png in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				365CAE2E22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib in Resources */,
@@ -1459,14 +1423,10 @@
 				8916AC0E23CA9447008BA02C /* ZBRightIconTableViewCell.xib in Resources */,
 				896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */,
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
-				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				369B7AE022C56009007521DB /* banner.png in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
-				89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
-				36F77ADD22A2C89A00A4604C /* installed_files.html in Resources */,
-				36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
