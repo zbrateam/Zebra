@@ -377,7 +377,7 @@
 "Remove from Queue" = "حذف از صف";
 "Clear Queue" = "پاک کردن صف";
 "%@ is required by:" = "%@ مورد نیاز توسط:";
-"\"%@\" conflicts with %@" = "تضاد بین \\"%@\\" و %@";
+"\"%@\" conflicts with %@" = "تضاد بین \"%@\" و %@";
 "%@ must be removed because it depends on %@" = "%@ این پکیج باید حذف بشه چون از زیر مجموعه های این پکیج است %@";
 "%@ has issues that cannot be resolved:" = "%@ مشکلاتی دارد که قابل حل نیست";
 "Are you sure you want to clear the Queue?" = "مطمئن هستید که می خواهید صف را پاک کنید؟";
@@ -482,3 +482,7 @@
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "اطلاعات دانلود شده از این سورس رمزنگاری نشده اند. آیا مطمئن هستید برای اضافه کردن آن؟";
 
 "Unable to complete purchase" = "اشکال در انجام پرداخت";
+
+
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
