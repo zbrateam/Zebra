@@ -17,6 +17,11 @@
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
+
+@interface WKWebView ()
+@property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
+@end
+
 @interface ZBPackageDepictionViewController () {
     BOOL shouldShowNavButtons;
 }
@@ -88,6 +93,7 @@
 - (void)setDelegates {
     self.webView.navigationDelegate = self;
     self.webView.scrollView.delegate = self;
+    self.webView.UIDelegate = self;
     
     self.informationTableView.delegate = self;
     self.informationTableView.dataSource = self;
@@ -138,7 +144,7 @@
     if (self.package.depictionURL == nil) return;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
-    self.webView.customUserAgent = [ZBDevice depictionUserAgent];
+    self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView loadRequest:request];
 }
@@ -256,6 +262,7 @@
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     // This is a pretty simple implementation now, it might cause problems later for depictions with ads but not sure at the moment.
     NSURL *url = navigationAction.request.URL;
+    NSLog(@"URL: %@", url);
     if ([url isEqual:self.webView.URL]) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
