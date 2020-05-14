@@ -229,6 +229,7 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        safariVC.preferredControlTintColor = [UIColor accentColor];
         [self presentViewController:safariVC animated:YES completion:nil];
     }
 }
