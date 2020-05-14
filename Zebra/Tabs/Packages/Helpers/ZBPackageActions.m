@@ -255,23 +255,42 @@
 }
 
 + (void)addToWishlist:(ZBPackage *)package {
-    
+    NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
+    BOOL inWishList = [wishList containsObject:package.identifier];
+    if (!inWishList) {
+        [wishList addObject:package.identifier];
+    }
+    [ZBSettings setWishlist:wishList];
 }
 
 + (void)removeFromWishlist:(ZBPackage *)package {
-    
+    NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
+    BOOL inWishList = [wishList containsObject:package.identifier];
+    if (inWishList) {
+        [wishList removeObject:package.identifier];
+    }
+    [ZBSettings setWishlist:wishList];
 }
 
 + (void)blockAuthorOf:(ZBPackage *)package {
+    NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
+    [blockedAuthors setObject:[package authorName] forKey:[package authorEmail]];
+    
+    [ZBSettings setBlockedAuthors:blockedAuthors];
 }
 
 + (void)unblockAuthorOf:(ZBPackage *)package {
+    NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
+    [blockedAuthors removeObjectForKey:[package authorName]];
+    [blockedAuthors removeObjectForKey:[package authorEmail]];
+    
+    [ZBSettings setBlockedAuthors:blockedAuthors];
 }
 
 + (void)share:(ZBPackage *)package {
-    
+    // Likely implement later, gets a bit complicated due to presentation
 }
 
 #pragma mark - Display Actions
