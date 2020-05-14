@@ -794,14 +794,6 @@
             [actions addObject:@(ZBPackageActionDowngrade)];
         }
         
-        if ([self ignoreUpdates]) {
-            // Updates are ignored, show them
-            [actions addObject:@(ZBPackageActionShowUpdates)];
-        }
-        else {
-            // Updates are not ignored, give the option to hide them
-            [actions addObject:@(ZBPackageActionHideUpdates)];
-        }
         [actions addObject:@(ZBPackageActionRemove)]; // Show the remove button regardless
     }
     else if ([self isInstalled:NO]) { // This means the package is installed but this isn't the version that is currently installed
@@ -812,17 +804,6 @@
         return [basePackage possibleActions];
     }
     else { // This means the package is not installed
-        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
-            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
-            if ([self ignoreUpdates]) {
-                // Updates are ignored, show them
-                [actions addObject:@(ZBPackageActionShowUpdates)];
-            }
-            else {
-                // Updates are not ignored, give the option to hide them
-                [actions addObject:@(ZBPackageActionHideUpdates)];
-            }
-        }
         if ([[self allVersions] count] > 1 && ![ZBSettings alwaysInstallLatest]) { // Show "Select version" instead of "Install" as it makes more sense
             [actions addObject:@(ZBPackageActionSelectVersion)];
         }
@@ -830,6 +811,57 @@
             [actions addObject:@(ZBPackageActionInstall)]; // Show "Install" otherwise (could be disabled if its already in the Queue)
         }
     }
+    
+    return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+}
+
+- (NSArray *_Nullable)possibleExtraActions {
+    if ([[self source] sourceID] == -1) {
+        return nil; // No actions for virtual dependencies
+    }
+    
+    NSMutableArray *actions = [NSMutableArray new];
+
+    if (![ZBSettings isAuthorBlocked:[self authorName] email:[self authorEmail]]) {
+        [actions addObject:@(ZBPackageExtraActionBlockAuthor)];
+    }
+    else {
+        [actions addObject:@(ZBPackageExtraActionUnblockAuthor)];
+    }
+    
+    if (![self isInstalled:NO]) {
+        // Only allow adding/removing from wishlist if the package is not installed
+        if (![[ZBSettings wishlist] containsObject:[self identifier]]) {
+            [actions addObject:@(ZBPackageExtraActionAddWishlist)];
+        }
+        else {
+            [actions addObject:@(ZBPackageExtraActionRemoveWishlist)];
+        }
+        
+        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
+            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
+            if ([self ignoreUpdates]) {
+                // Updates are ignored, show them
+                [actions addObject:@(ZBPackageExtraActionShowUpdates)];
+            }
+            else {
+                // Updates are not ignored, give the option to hide them
+                [actions addObject:@(ZBPackageExtraActionHideUpdates)];
+            }
+        }
+    }
+    else {
+        if ([self ignoreUpdates]) {
+            // Updates are ignored, show them
+            [actions addObject:@(ZBPackageExtraActionShowUpdates)];
+        }
+        else {
+            // Updates are not ignored, give the option to hide them
+            [actions addObject:@(ZBPackageExtraActionHideUpdates)];
+        }
+    }
+    
+    
     
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }
