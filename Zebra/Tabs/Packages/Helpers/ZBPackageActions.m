@@ -29,16 +29,41 @@
     return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
 }
 
++ (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(ZBPackage *)package completion:(void (^)(void))completion {
+    switch (action) {
+        case ZBPackageExtraActionShowUpdates:
+            [self showUpdatesFor:package];
+            break;
+        case ZBPackageExtraActionHideUpdates:
+            [self hideUpdatesFor:package];
+        case ZBPackageExtraActionAddWishlist:
+            [self addToWishlist:package];
+            break;
+        case ZBPackageExtraActionRemoveWishlist:
+            [self removeFromWishlist:package];
+            break;
+        case ZBPackageExtraActionBlockAuthor:
+            [self blockAuthorOf:package];
+            break;
+        case ZBPackageExtraActionUnblockAuthor:
+            [self unblockAuthorOf:package];
+            break;
+        case ZBPackageExtraActionShare:
+            [self share:package];
+            break;
+    }
+}
+
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package completion:(void (^)(void))completion {
     [self performAction:action forPackage:package checkPayment:YES completion:completion];
 }
 
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
-    if (action < ZBPackageActionInstall || action > ZBPackageActionHideUpdates) return;
+    if (action < ZBPackageActionInstall || action > ZBPackageActionSelectVersion) return;
     
     if (@available(iOS 11.0, *)) {
-        if (checkPayment && action != ZBPackageActionRemove && action < ZBPackageActionShowUpdates && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
+        if (checkPayment && action != ZBPackageActionRemove && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
             if (@available(iOS 11.0, *)) {
                 [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                     if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
@@ -98,12 +123,6 @@
             break;
         case ZBPackageActionDowngrade:
             [self downgrade:package completion:completion];
-            break;
-        case ZBPackageActionShowUpdates:
-            [self showUpdatesFor:package];
-            break;
-        case ZBPackageActionHideUpdates:
-            [self hideUpdatesFor:package];
             break;
         case ZBPackageActionSelectVersion:
             [self choose:package completion:completion];
@@ -235,6 +254,26 @@
     [package setIgnoreUpdates:YES];
 }
 
++ (void)addToWishlist:(ZBPackage *)package {
+    
+}
+
++ (void)removeFromWishlist:(ZBPackage *)package {
+    
+}
+
++ (void)blockAuthorOf:(ZBPackage *)package {
+    
+}
+
++ (void)unblockAuthorOf:(ZBPackage *)package {
+    
+}
+
++ (void)share:(ZBPackage *)package {
+    
+}
+
 #pragma mark - Display Actions
 
 + (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion {
@@ -299,7 +338,6 @@
     NSArray *actions = [package possibleActions];
     for (NSNumber *number in actions) {
         ZBPackageActionType action = number.intValue;
-        if (action == ZBPackageActionShowUpdates || action == ZBPackageActionHideUpdates) continue;
         
         NSString *title = [self titleForAction:action useIcon:YES];
         UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
@@ -331,6 +369,25 @@
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
             [self performAction:action forPackage:package completion:nil];
+        }];
+        [alertActions addObject:alertAction];
+    }
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
+    [alertActions addObject:cancel];
+    
+    return alertActions;
+}
+
++ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package {
+    NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
+    
+    NSArray *actions = [package possibleExtraActions];
+    for (NSNumber *number in actions) {
+        ZBPackageExtraActionType action = number.intValue;
+        
+        NSString *title = [self titleForExtraAction:action];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+            [self performExtraAction:action forPackage:package completion:nil];
         }];
         [alertActions addObject:alertAction];
     }
@@ -429,12 +486,6 @@
         case ZBPackageActionDowngrade:
             imageName = @"arrow.down";
             break;
-        case ZBPackageActionShowUpdates:
-            imageName = @"eye";
-            break;
-        case ZBPackageActionHideUpdates:
-            imageName = @"eye.slash";
-            break;
     }
     
     UIImageSymbolConfiguration *imgConfig = [UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightHeavy];
@@ -456,14 +507,31 @@
             return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBPackageActionDowngrade:
             return useIcon ? @"↓" : NSLocalizedString(@"Downgrade", @"");
-        case ZBPackageActionShowUpdates:
-            return NSLocalizedString(@"Show Updates", @"");
-        case ZBPackageActionHideUpdates:
-            return NSLocalizedString(@"Hide Updates", @"");
         default:
             break;
     }
     return @"Undefined";
+}
+
++ (NSString *)titleForExtraAction:(ZBPackageExtraActionType)action {
+    switch (action) {
+        case ZBPackageExtraActionShowUpdates:
+            return NSLocalizedString(@"Show Updates", @"");
+        case ZBPackageExtraActionHideUpdates:
+            return NSLocalizedString(@"Hide Updates", @"");
+        case ZBPackageExtraActionAddWishlist:
+            return NSLocalizedString(@"Add to Wishlist", @"");
+        case ZBPackageExtraActionRemoveWishlist:
+            return NSLocalizedString(@"Remove from Wishlist", @"");
+        case ZBPackageExtraActionBlockAuthor:
+            return NSLocalizedString(@"Block Author", @"");
+        case ZBPackageExtraActionUnblockAuthor:
+            return NSLocalizedString(@"Unblock Author", @"");
+        case ZBPackageExtraActionShare:
+            return NSLocalizedString(@"Share Package", @"");
+        default:
+            return @"Undefined";
+    }
 }
 
 + (NSString *)buttonTitleForPackage:(ZBPackage *)package {
