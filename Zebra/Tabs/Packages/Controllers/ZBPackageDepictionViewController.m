@@ -87,6 +87,7 @@
 
 - (void)setDelegates {
     self.webView.navigationDelegate = self;
+    self.webView.scrollView.delegate = self;
     
     self.informationTableView.delegate = self;
     self.informationTableView.dataSource = self;
@@ -116,6 +117,7 @@
 
     // Web View
     self.webView.hidden = YES;
+    self.webView.scrollView.scrollEnabled = NO;
 }
 
 - (void)setData {
@@ -246,6 +248,15 @@
         safariVC.preferredControlTintColor = [UIColor accentColor];
         [self presentViewController:safariVC animated:YES completion:nil];
     }
+}
+
+// Following two methods disable double tap and pinch to zoom on the webView.
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    [scrollView.pinchGestureRecognizer setEnabled:NO];
 }
 
 #pragma mark - WKWebView contentSize Observer
