@@ -17,8 +17,8 @@
 #import <Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
+#import <Extensions/NSAttributedString+Markdown.h>
 
-@import CocoaMarkdown;
 @import FirebaseAnalytics;
 
 typedef enum ZBHomeOrder : NSUInteger {
@@ -93,11 +93,8 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)presentMarkdownTest {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
-    
-    CMDocument *document = [[CMDocument alloc] initWithString:@"Hello!\n***How are you??***\n1. Cool!\n2. Coolllll!" options:0];
-    CMAttributedStringRenderer *renderer = [[CMAttributedStringRenderer alloc] initWithDocument:document attributes:[[CMTextAttributes alloc] init]];
-
-    [alert setValue:[renderer render] forKey:@"attributedMessage"];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithMarkdownString:@"**Hey!** *Hi!* ***Hello!***"];
+    [alert setValue:attributedString forKey:@"attributedMessage"];
     
     UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
     [alert addAction:dismiss];
