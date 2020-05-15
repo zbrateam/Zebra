@@ -9,6 +9,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
+#import <Packages/Helpers/ZBPackageInfoController.h>
 #import "ZBActionButton.h"
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
@@ -297,7 +298,20 @@
         [ZBDevice openURL:packageInformation[@"link"] sender:self];
     }
     else if ([packageInformation objectForKey:@"class"]) {
+        Class infoControllerClass = NSClassFromString(packageInformation[@"class"]);
+        if ([infoControllerClass conformsToProtocol:@protocol(ZBPackageInfoController)]) {
+            UIViewController <ZBPackageInfoController> *infoController = [[infoControllerClass alloc] initWithPackage:self.package];
+            if (infoController) {
+                [[self navigationController] pushViewController:infoController animated:YES];
+                return;
+            }
+        }
+        UIAlertController *doesNotConform = [UIAlertController alertControllerWithTitle:@"ZBPackageInfoController" message:[NSString stringWithFormat:@"The class %@ does not conform to the ZBPackageInfoController protocol and therefore cannot be presented.", packageInformation[@"class"]] preferredStyle:UIAlertControllerStyleAlert];
         
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+        [doesNotConform addAction:okAction];
+        
+        [self presentViewController:doesNotConform animated:YES completion:nil];
     }
 }
 

@@ -889,7 +889,7 @@
     
     NSString *authorName = [self authorName];
     if (authorName) {
-        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName, @"cellType": @"info"};
+        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName, @"cellType": @"info", @"class": @"ZBPackageListTableViewController"};
         [information addObject:authorNameInfo];
     }
     else {
@@ -912,6 +912,12 @@
         [information addObject:sectionInfo];
     }
     
+//    BOOL showInstalledFiles = [self isInstalled:NO];
+//    if (showInstalledFiles) {
+//        NSDictionary *installedFilesInfo = @{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @""]};
+//        [information addObject:installedFilesInfo];
+//    }
+    
     NSArray *dependencies = [self dependsOn];
     if ([dependencies count]) {
         NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)dependencies.count], @"cellType": @"info", @"more": [dependencies componentsJoinedByString:@"\n"]};
@@ -932,7 +938,7 @@
     
     BOOL showSupport = [self authorEmail] || [self maintainerEmail];
     if (showSupport) {
-        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Support", @""), @"cellType": @"link", @"class": @"ZBPackagesByAuthorTableViewController", @"image": @"Web Link"};
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Support", @""), @"cellType": @"link", @"image": @"Web Link"};
         [information addObject:homepageInfo];
     }
     
