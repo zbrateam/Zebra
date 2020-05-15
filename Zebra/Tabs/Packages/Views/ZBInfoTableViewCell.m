@@ -12,13 +12,12 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    // TODO: Tint chevron
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setChevronHidden:(BOOL)hidden {
+    self.chevronImageView.hidden = hidden;
 }
 
 @end

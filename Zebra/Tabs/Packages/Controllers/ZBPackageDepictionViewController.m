@@ -264,6 +264,10 @@
         cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
         cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+//        if (cell has a subsection) {
+//            [cell setChevronHidden:NO];
+//        }
 
         return cell;
     }
