@@ -69,7 +69,7 @@
 "Text" = "ข้อความ";
 "Icon" = "ไอคอน";
 "Finish Automatically" = "เสร็จสิ้นอัตโนมัติ";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "ติดตั้งรุ่นล่าสุดเสมอ";
 "Automatic Refresh" = "รีเฟรชอัตโนมัติ";
 
 // Accent Colors
@@ -181,7 +181,7 @@
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
-"View" = "View";
+"View" = "ดู";
 
 "A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
 
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "ปิดหน้าต่างคอนโซลอัตโนมัติเมื่อการทำงานเสร็จสมบูรณ์";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "ติดตั้งรุ่นล่าสุดของโปรแกรมหากยังไม่ถูกติดตั้ง";
 
 // Filters
 
@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "ไม่สามารถทำการซื้อได้";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "ไม่มีโปรแกรม";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "ไม่มีโปรแกรมที่คุณต้องการ มันอาจถูกลบไปจากซอร์สของคุณ หรือ ID ของโปรแกรมที่ร้องขอนั้นไม่ถูกต้อง";
