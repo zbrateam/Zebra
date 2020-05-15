@@ -34,7 +34,7 @@
 + (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer;
 + (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer;
 
-+ (void)openURL:(NSURL *_Nonnull)url delegate:(UIViewController <SFSafariViewControllerDelegate> *_Nonnull)delegate;
++ (void)openURL:(NSURL *_Nonnull)url sender:(UIViewController *_Nonnull)sender;
 
 + (BOOL)isCheckrain;
 + (BOOL)isChimera;

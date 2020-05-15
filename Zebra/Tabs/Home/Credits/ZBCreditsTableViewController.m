@@ -110,7 +110,7 @@
     NSURL *url = [NSURL URLWithString:person[@"link"]];
     
     if (url) {
-        [ZBDevice openURL:url delegate:self];
+        [ZBDevice openURL:url sender:self];
     }
 }
 
