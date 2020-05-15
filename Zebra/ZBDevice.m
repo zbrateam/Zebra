@@ -389,17 +389,13 @@
 
 #pragma mark - Theming
 
-+ (void)openURL:(NSURL *)url delegate:(UIViewController <SFSafariViewControllerDelegate> *)delegate {
++ (void)openURL:(NSURL *)url sender:(UIViewController *)sender {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
-    safariVC.delegate = delegate;
+    
     UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    if (@available(iOS 10.0, *)) {
-        safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
-        safariVC.preferredControlTintColor = tintColor;
-    } else {
-        safariVC.view.tintColor = tintColor;
-    }
-    [delegate presentViewController:safariVC animated:YES completion:nil];
+    safariVC.preferredControlTintColor = tintColor;
+    
+    [sender presentViewController:safariVC animated:YES completion:nil];
 }
 
 + (BOOL)useIcon {

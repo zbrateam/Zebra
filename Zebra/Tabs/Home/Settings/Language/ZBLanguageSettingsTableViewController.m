@@ -190,7 +190,7 @@
         [tableView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, 2)] withRowAnimation:UITableViewRowAnimationFade];
     }
     else if (([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 2) || ([self numberOfSectionsInTableView:tableView] == 2 && indexPath.section == 1)) {
-        [ZBDevice openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"] delegate:self];
+        [ZBDevice openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"] sender:self];
     }
 }
 

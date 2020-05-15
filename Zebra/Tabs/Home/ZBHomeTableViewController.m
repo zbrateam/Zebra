@@ -524,7 +524,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)openBug {
     NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
 
-    [ZBDevice openURL:url delegate:self];
+    [ZBDevice openURL:url sender:self];
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {

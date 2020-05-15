@@ -275,10 +275,7 @@
     NSDictionary *packageInformation = self.packageInformation[indexPath.row];
     
     if ([packageInformation objectForKey:@"link"]) {
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:packageInformation[@"link"]];
-        safariVC.preferredControlTintColor = [UIColor accentColor];
-        
-        [self presentViewController:safariVC animated:YES completion:nil];
+        [ZBDevice openURL:packageInformation[@"link"] sender:self];
     }
     else if ([packageInformation objectForKey:@"class"]) {
         
@@ -304,10 +301,7 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         
         if (![[url absoluteString] isEqualToString:@"about:blank"] && ([[url scheme] isEqualToString:@"https"] || [[url scheme] isEqualToString:@"http"])) {
-            SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
-            safariVC.preferredControlTintColor = [UIColor accentColor];
-            
-            [self presentViewController:safariVC animated:YES completion:nil];
+            [ZBDevice openURL:url sender:self];
         }
     }
 }
