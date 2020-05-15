@@ -12,6 +12,7 @@
 #import "ZBActionButton.h"
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
+#import "ZBLinkTableViewCell.h"
 #import <Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
@@ -67,6 +68,7 @@
     [self setData];
     
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBLinkTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"LinkTableViewCell"]; // TODO: Find a home for this line
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldTableViewHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"ZBBoldTableViewHeaderView"]; // TODO: Find a home for this line
 }
 
@@ -244,12 +246,23 @@
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoTableViewCell" forIndexPath:indexPath];
+    NSDictionary *packageInformation = self.packageInformation[indexPath.row];
     
-    cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
-    cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
-    
-    return cell;
+    if ([packageInformation objectForKey:@"link"]) {
+        ZBLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LinkTableViewCell" forIndexPath:indexPath];
+        
+        cell.nameLabel.text = packageInformation[@"name"];
+        
+        return cell;
+    }
+    else {
+        ZBInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoTableViewCell" forIndexPath:indexPath];
+        
+        cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
+        cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
+        
+        return cell;
+    }
 }
 
 #pragma mark - WKNavigationDelegate

@@ -3778,6 +3778,7 @@ Description: A Useful Package Manager
 Name: Zebra
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
+Homepage: https://getzbra.com/
 
 Package: applist
 Status: install ok installed

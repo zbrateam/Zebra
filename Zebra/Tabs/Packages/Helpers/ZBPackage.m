@@ -924,6 +924,12 @@
         [information addObject:conflictsInfo];
     }
     
+    NSURL *homepage = [self homepageURL];
+    if (homepage) {
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"link": homepage};
+        [information addObject:homepageInfo];
+    }
+    
     return information;
 }
 
