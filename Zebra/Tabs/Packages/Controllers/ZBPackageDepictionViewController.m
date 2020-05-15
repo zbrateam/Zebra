@@ -247,28 +247,43 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *packageInformation = self.packageInformation[indexPath.row];
+    NSString *cellType = packageInformation[@"cellType"];
     
-    if ([packageInformation objectForKey:@"link"]) {
+    if ([cellType isEqualToString:@"link"]) {
         ZBLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LinkTableViewCell" forIndexPath:indexPath];
         
         cell.nameLabel.text = packageInformation[@"name"];
         if ([packageInformation objectForKey:@"image"]) {
             cell.iconImageView.image = [UIImage imageNamed:packageInformation[@"image"]];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         
         return cell;
     }
-    else {
+    else if ([cellType isEqualToString:@"info"]) {
         ZBInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoTableViewCell" forIndexPath:indexPath];
         
         cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
         cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
+        
+        if ([packageInformation objectForKey:@"class"]) {
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            [cell setChevronHidden:NO];
+        }
+        else {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell setChevronHidden:YES];
+        }
+
+        return cell;
+    }
+    else {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"UnknownCell"];
+        
+        cell.textLabel.text = @"Unknown cellType";
+        cell.textLabel.text = cellType ?: @"NULL";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-//        if (cell has a subsection) {
-//            [cell setChevronHidden:NO];
-//        }
-
         return cell;
     }
 }
