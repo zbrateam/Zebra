@@ -9,6 +9,8 @@
 #ifndef ZBPackageInfoController_h
 #define ZBPackageInfoController_h
 
+@class ZBPackage;
+
 @protocol ZBPackageInfoController <NSObject>
 - (id)initWithPackage:(ZBPackage *)package;
 @end

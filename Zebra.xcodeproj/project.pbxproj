@@ -94,6 +94,7 @@
 		897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 897FFD4A23CFA4A30082DD31 /* ZBThemeManager.m */; };
 		898E010E22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m */; };
 		898F4CC5246E2E8900FC577B /* NSAttributedString+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 898F4CC4246E2E8900FC577B /* NSAttributedString+Markdown.m */; };
+		898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */; };
 		8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
 		899203B722490D4C0098AC7B /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 899203B622490D4C0098AC7B /* dict.c */; };
@@ -419,6 +420,8 @@
 		898F4CC3246E2E8900FC577B /* NSAttributedString+Markdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Markdown.h"; sourceTree = "<group>"; };
 		898F4CC4246E2E8900FC577B /* NSAttributedString+Markdown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Markdown.m"; sourceTree = "<group>"; };
 		898F4CD1246EF5E500FC577B /* ZBPackageInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageInfoController.h; sourceTree = "<group>"; };
+		898F4CD2246EFFEC00FC577B /* ZBPackageSupportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageSupportViewController.h; sourceTree = "<group>"; };
+		898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageSupportViewController.m; sourceTree = "<group>"; };
 		8990FF0B224ABE9700190BEB /* ZBDependencyResolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDependencyResolver.h; sourceTree = "<group>"; };
 		8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDependencyResolver.m; sourceTree = "<group>"; };
 		8991FF9C21B2109E004FCE23 /* parsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parsel.h; sourceTree = "<group>"; };
@@ -850,6 +853,8 @@
 				369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */,
 				369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */,
 				369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */,
+				898F4CD2246EFFEC00FC577B /* ZBPackageSupportViewController.h */,
+				898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1538,6 +1543,7 @@
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
+				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
 				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
@@ -1752,7 +1758,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NYV24DF4EN;
+				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1790,7 +1796,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NYV24DF4EN;
+				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

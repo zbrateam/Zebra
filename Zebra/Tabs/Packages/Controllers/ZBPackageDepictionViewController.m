@@ -302,7 +302,13 @@
         if ([infoControllerClass conformsToProtocol:@protocol(ZBPackageInfoController)]) {
             UIViewController <ZBPackageInfoController> *infoController = [[infoControllerClass alloc] initWithPackage:self.package];
             if (infoController) {
-                [[self navigationController] pushViewController:infoController animated:YES];
+                
+                if ([packageInformation[@"cellType"] isEqualToString:@"link"]) {
+                    [self presentViewController:infoController animated:YES completion:nil];
+                }
+                else {
+                    [[self navigationController] pushViewController:infoController animated:YES];
+                }
                 return;
             }
         }
