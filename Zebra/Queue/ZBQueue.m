@@ -95,6 +95,7 @@
 
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBPackageStatusUpdate" object:nil];
     [self updateQueueBarData];
 }
 
@@ -215,6 +216,7 @@
     [[self dependencyQueue] removeAllObjects];
     [[self conflictQueue] removeAllObjects];
     [queuedPackagesList removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBPackageStatusUpdate" object:nil];
     [self updateQueueBarData];
     [self dismissQueueBar];
 }

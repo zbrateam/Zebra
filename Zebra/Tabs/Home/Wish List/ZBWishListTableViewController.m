@@ -55,6 +55,7 @@
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(export)];
     self.navigationItem.rightBarButtonItem = shareButton;
     [self updateShareButtonState];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBPackageStatusUpdate" object:nil];
 }
 
 - (void)updateShareButtonState {
@@ -158,6 +159,12 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)refreshTable {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -258,6 +265,10 @@
     [animator addCompletion:^{
         [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];
     }];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBPackageStatusUpdate" object:nil];
 }
 
 @end
