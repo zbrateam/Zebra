@@ -889,7 +889,7 @@
     
     NSString *authorName = [self authorName];
     if (authorName) {
-        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName, @"cellType": @"info", @"class": @"ZBPackageListTableViewController"};
+        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName, @"cellType": @"info", @"class": @"ZBPackagesByAuthorTableViewController"};
         [information addObject:authorNameInfo];
     }
     else {
@@ -912,11 +912,11 @@
         [information addObject:sectionInfo];
     }
     
-//    BOOL showInstalledFiles = [self isInstalled:NO];
-//    if (showInstalledFiles) {
-//        NSDictionary *installedFilesInfo = @{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @""]};
-//        [information addObject:installedFilesInfo];
-//    }
+    BOOL showInstalledFiles = [self isInstalled:NO];
+    if (showInstalledFiles) {
+        NSDictionary *installedFilesInfo = @{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @"ZBInstalledFilesTableViewController"};
+        [information addObject:installedFilesInfo];
+    }
     
     NSArray *dependencies = [self dependsOn];
     if ([dependencies count]) {

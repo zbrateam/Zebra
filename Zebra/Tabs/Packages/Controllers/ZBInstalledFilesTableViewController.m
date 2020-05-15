@@ -10,15 +10,23 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 
-@interface ZBInstalledFilesTableViewController ()
-
-@end
-
-@implementation ZBInstalledFilesTableViewController {
+@interface ZBInstalledFilesTableViewController () {
     NSMutableArray *files;
 }
+@property (nonatomic, strong) ZBPackage *package;
+@end
 
-@synthesize package;
+@implementation ZBInstalledFilesTableViewController
+
+- (id)initWithPackage:(ZBPackage *)package {
+    self = [super init];
+    
+    if (self) {
+        self.package = package;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +37,7 @@
 }
 
 - (void)getInstalledFiles {
-    NSArray *installedFiles = [ZBPackage filesInstalledBy:package.identifier];
+    NSArray *installedFiles = [ZBPackage filesInstalledBy:self.package.identifier];
     installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
     
     for (int i = 0; i < installedFiles.count; ++i) {
