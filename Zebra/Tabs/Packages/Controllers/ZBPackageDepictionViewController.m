@@ -115,8 +115,8 @@
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
     self.iconImageView.layer.borderWidth = 1;
-    self.iconImageView.layer.borderColor = [[UIColor colorWithRed: 0.90 green: 0.90 blue: 0.92 alpha: 1.00] CGColor]; // TODO: Don't hardcode
-    
+    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
+
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
     [self configureGetButton:self.getButton];

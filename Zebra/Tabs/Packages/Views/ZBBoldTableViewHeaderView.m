@@ -7,13 +7,14 @@
 //
 
 #import "ZBBoldTableViewHeaderView.h"
+#import "UIColor+GlobalColors.h"
 
 @implementation ZBBoldTableViewHeaderView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.contentView.backgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 @end
