@@ -418,6 +418,7 @@
 		898E010D22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceSectionsListTableViewController.m; sourceTree = "<group>"; };
 		898F4CC3246E2E8900FC577B /* NSAttributedString+Markdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Markdown.h"; sourceTree = "<group>"; };
 		898F4CC4246E2E8900FC577B /* NSAttributedString+Markdown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Markdown.m"; sourceTree = "<group>"; };
+		898F4CD1246EF5E500FC577B /* ZBPackageInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageInfoController.h; sourceTree = "<group>"; };
 		8990FF0B224ABE9700190BEB /* ZBDependencyResolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDependencyResolver.h; sourceTree = "<group>"; };
 		8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDependencyResolver.m; sourceTree = "<group>"; };
 		8991FF9C21B2109E004FCE23 /* parsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parsel.h; sourceTree = "<group>"; };
@@ -691,6 +692,7 @@
 				9EAE364A2289224E004CBBA3 /* ZBPackageActions.m */,
 				9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */,
 				9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */,
+				898F4CD1246EF5E500FC577B /* ZBPackageInfoController.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";

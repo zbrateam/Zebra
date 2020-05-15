@@ -8,8 +8,7 @@
 
 #import <Packages/Helpers/ZBPackage.h>
 #import <Extensions/ZBTableViewController.h>
+#import <Packages/Helpers/ZBPackageInfoController.h>
 
-@interface ZBPackagesByAuthorTableViewController : ZBTableViewController
-@property ZBPackage *package;
-@property NSString *developerName;
+@interface ZBPackagesByAuthorTableViewController : ZBTableViewController <ZBPackageInfoController>
 @end

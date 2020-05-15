@@ -18,15 +18,26 @@
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
 }
+@property (nonatomic, strong) ZBPackage *package;
 @end
 
 @implementation ZBPackagesByAuthorTableViewController
+
+- (id)initWithPackage:(ZBPackage *)package {
+    self = [super init];
+    
+    if (self) {
+        self.package = package;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthorName:self.package.authorName email:self.package.authorEmail fullSearch:YES];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    self.navigationItem.title = self.developerName;
+    self.navigationItem.title = self.package.authorName;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
