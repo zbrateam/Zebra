@@ -46,6 +46,8 @@
 		36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AE822A34EE800A4604C /* lightZebraSkin@3x.png */; };
 		36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AEB22A34F1300A4604C /* lightZebraSkin~ipad@2x.png */; };
 		36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36F77AED22A34F2700A4604C /* lightZebraSkin~ipad@3x.png */; };
+		4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4902F53A246E15C6007B7E25 /* ZBLinkTableViewCell.m */; };
+		4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */; };
 		4910B3A02426BD2F00306C5C /* ZBSourcesAccountBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */; };
 		4910B3A82426BD5C00306C5C /* ZBSourcesAccountBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910B3A72426BD5C00306C5C /* ZBSourcesAccountBanner.m */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
@@ -299,6 +301,9 @@
 		36F77AE822A34EE800A4604C /* lightZebraSkin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin@3x.png"; sourceTree = "<group>"; };
 		36F77AEB22A34F1300A4604C /* lightZebraSkin~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin~ipad@2x.png"; sourceTree = "<group>"; };
 		36F77AED22A34F2700A4604C /* lightZebraSkin~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightZebraSkin~ipad@3x.png"; sourceTree = "<group>"; };
+		4902F539246E15C6007B7E25 /* ZBLinkTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLinkTableViewCell.h; sourceTree = "<group>"; };
+		4902F53A246E15C6007B7E25 /* ZBLinkTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLinkTableViewCell.m; sourceTree = "<group>"; };
+		4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBLinkTableViewCell.xib; sourceTree = "<group>"; };
 		4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBSourcesAccountBanner.xib; sourceTree = "<group>"; };
 		4910B3A62426BD5C00306C5C /* ZBSourcesAccountBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourcesAccountBanner.h; sourceTree = "<group>"; };
 		4910B3A72426BD5C00306C5C /* ZBSourcesAccountBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourcesAccountBanner.m; sourceTree = "<group>"; };
@@ -1159,6 +1164,9 @@
 				499B0E2D246B945B008825E4 /* ZBInfoTableViewCell.h */,
 				499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */,
 				499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */,
+				4902F539246E15C6007B7E25 /* ZBLinkTableViewCell.h */,
+				4902F53A246E15C6007B7E25 /* ZBLinkTableViewCell.m */,
+				4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */,
 				49452C26246A414900F45C2D /* ZBActionButton.h */,
 				49452C27246A414900F45C2D /* ZBActionButton.m */,
 				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
@@ -1425,6 +1433,7 @@
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
 				369B7AE022C56009007521DB /* banner.png in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
+				4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
 			);
@@ -1482,6 +1491,7 @@
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
+				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
 				3671B52222CB07F9008FD737 /* ZBHomeTableViewController.m in Sources */,
 				899BDCBC241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m in Sources */,
 				89AD450F23CA6D260008831F /* ZBSettings.m in Sources */,
