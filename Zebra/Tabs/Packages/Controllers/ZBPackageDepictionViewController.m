@@ -238,7 +238,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    return 58;
+    return 50;
 }
 
 #pragma mark - UITableViewDelegate
