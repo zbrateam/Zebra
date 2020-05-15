@@ -871,62 +871,68 @@
     
     NSString *installedVersion = [self installedVersion];
     if (installedVersion) {
-        NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion};
+        NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
         [information addObject:installedVersionInfo];
     }
     
     NSString *bundleIdentifier = [self identifier];
     if (bundleIdentifier) {
-        NSDictionary *bundleIdentifierInfo = @{@"name": NSLocalizedString(@"Bundle Identifier", @""), @"value": bundleIdentifier};
+        NSDictionary *bundleIdentifierInfo = @{@"name": NSLocalizedString(@"Bundle Identifier", @""), @"value": bundleIdentifier, @"cellType": @"info"};
         [information addObject:bundleIdentifierInfo];
     }
     
     NSString *downloadSize = [self downloadSizeString];
     if (downloadSize) {
-        NSDictionary *downloadSizeInfo = @{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize};
+        NSDictionary *downloadSizeInfo = @{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize, @"cellType": @"info"};
         [information addObject:downloadSizeInfo];
     }
     
     NSString *authorName = [self authorName];
     if (authorName) {
-        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName};
+        NSDictionary *authorNameInfo = @{@"name": NSLocalizedString(@"Author", @""), @"value": authorName, @"cellType": @"info"};
         [information addObject:authorNameInfo];
     }
     else {
         NSString *maintainerName = [self maintainerName];
         if (maintainerName) {
-            NSDictionary *maintainerNameInfo = @{@"name": NSLocalizedString(@"Maintainer", @""), @"value": maintainerName};
+            NSDictionary *maintainerNameInfo = @{@"name": NSLocalizedString(@"Maintainer", @""), @"value": maintainerName, @"cellType": @"info"};
             [information addObject:maintainerNameInfo];
         }
     }
     
     NSString *sourceOrigin = [[self source] origin];
     if (sourceOrigin) {
-        NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin};
+        NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info"};
         [information addObject:sourceOriginInfo];
     }
     
     NSString *section = [self section];
     if (section) {
-        NSDictionary *sectionInfo = @{@"name": NSLocalizedString(@"Section", @""), @"value": section};
+        NSDictionary *sectionInfo = @{@"name": NSLocalizedString(@"Section", @""), @"value": section, @"cellType": @"info"};
         [information addObject:sectionInfo];
     }
     
     NSArray *dependencies = [self dependsOn];
     if ([dependencies count]) {
-        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)dependencies.count], @"more": [dependencies componentsJoinedByString:@"\n"]};
+        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)dependencies.count], @"cellType": @"info", @"more": [dependencies componentsJoinedByString:@"\n"]};
         [information addObject:dependsInfo];
     }
     
     NSArray *conflicts = [self conflictsWith];
     if ([conflicts count]) {
-        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)conflicts.count], @"more": [conflicts componentsJoinedByString:@"\n"]};
+        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)conflicts.count], @"cellType": @"info", @"more": [conflicts componentsJoinedByString:@"\n"]};
         [information addObject:conflictsInfo];
     }
     
     NSURL *homepage = [self homepageURL];
     if (homepage) {
-        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"link": homepage, @"image": @"Web Link"};
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"cellType": @"link", @"link": homepage, @"image": @"Web Link"};
+        [information addObject:homepageInfo];
+    }
+    
+    BOOL showSupport = [self authorEmail] || [self maintainerEmail];
+    if (showSupport) {
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Support", @""), @"cellType": @"link", @"class": @"ZBPackagesByAuthorTableViewController", @"image": @"Web Link"};
         [information addObject:homepageInfo];
     }
     
