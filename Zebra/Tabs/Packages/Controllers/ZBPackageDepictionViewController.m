@@ -252,6 +252,9 @@
         ZBLinkTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"LinkTableViewCell" forIndexPath:indexPath];
         
         cell.nameLabel.text = packageInformation[@"name"];
+        if ([packageInformation objectForKey:@"image"]) {
+            cell.iconImageView.image = [UIImage imageNamed:packageInformation[@"image"]];
+        }
         
         return cell;
     }

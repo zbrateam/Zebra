@@ -926,7 +926,7 @@
     
     NSURL *homepage = [self homepageURL];
     if (homepage) {
-        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"link": homepage};
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"link": homepage, @"image": @"imageName"};
         [information addObject:homepageInfo];
     }
     
