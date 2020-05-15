@@ -269,6 +269,22 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary *packageInformation = self.packageInformation[indexPath.row];
+    
+    if ([packageInformation objectForKey:@"link"]) {
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:packageInformation[@"link"]];
+        safariVC.preferredControlTintColor = [UIColor accentColor];
+        
+        [self presentViewController:safariVC animated:YES completion:nil];
+    }
+    else if ([packageInformation objectForKey:@"class"]) {
+        
+    }
+}
+
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
