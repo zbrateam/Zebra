@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZBPackageViewController">
             <connections>
+                <outlet property="depictionContainerView" destination="C2a-Ql-t3V" id="CRO-dn-iko"/>
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
                 <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
@@ -33,10 +34,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="459"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="591"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="459"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="591"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5b4-CH-e0H">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
@@ -108,8 +109,15 @@
                                             </constraints>
                                             <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
                                         </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2a-Ql-t3V">
+                                            <rect key="frame" x="0.0" y="127" width="414" height="100"/>
+                                            <color key="backgroundColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" placeholder="YES" id="JTi-Y9-jzK"/>
+                                            </constraints>
+                                        </view>
                                         <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZB-BP-HQQ">
-                                            <rect key="frame" x="0.0" y="127" width="414" height="150"/>
+                                            <rect key="frame" x="0.0" y="259" width="414" height="150"/>
                                             <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="wLJ-1A-d3b"/>
@@ -120,7 +128,7 @@
                                             </wkWebViewConfiguration>
                                         </wkWebView>
                                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6ND-ju-1KY">
-                                            <rect key="frame" x="0.0" y="309" width="414" height="150"/>
+                                            <rect key="frame" x="0.0" y="441" width="414" height="150"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="150" id="v4v-rz-M8J"/>

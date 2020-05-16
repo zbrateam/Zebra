@@ -19,6 +19,7 @@
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
+#import <ZBPackageDepictionViewController.h>
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
@@ -36,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *informationTableView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
+@property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
@@ -68,9 +70,22 @@
     [self applyCustomizations];
     [self setData];
     
+    // TODO: Clean up
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBLinkTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"LinkTableViewCell"]; // TODO: Find a home for this line
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldTableViewHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"ZBBoldTableViewHeaderView"]; // TODO: Find a home for this line
+    
+    // TODO: Clean up
+    ZBPackageDepictionViewController *packageDepictionVC = [[ZBPackageDepictionViewController alloc] initWithPackage:self.package];
+    [self.depictionContainerView addSubview:packageDepictionVC.view];
+    [self.depictionContainerView.topAnchor constraintEqualToAnchor: packageDepictionVC.view.topAnchor].active = YES;
+    [self.depictionContainerView.bottomAnchor constraintEqualToAnchor: packageDepictionVC.view.bottomAnchor].active = YES;
+    [self.depictionContainerView.leftAnchor constraintEqualToAnchor: packageDepictionVC.view.leftAnchor].active = YES;
+    [self.depictionContainerView.rightAnchor constraintEqualToAnchor: packageDepictionVC.view.rightAnchor].active = YES;
+    packageDepictionVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addChildViewController:packageDepictionVC];
+    [packageDepictionVC didMoveToParentViewController:self];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
