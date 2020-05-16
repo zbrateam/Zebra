@@ -99,7 +99,7 @@
     
     if (![selectedIndex isEqual:indexPath]) {
         self->selectedIndex = indexPath;
-        self->selectedOption = options[indexPath.row];;
+        self->selectedOption = options[indexPath.row];
         
         [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
         

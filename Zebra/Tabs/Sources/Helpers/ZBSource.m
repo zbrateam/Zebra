@@ -237,7 +237,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (BOOL)isSignedIn API_AVAILABLE(ios(11.0)) {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:self.repositoryURI];
+    return [keychain stringForKey:self.repositoryURI] ? YES : NO;
 }
 
 - (NSString *)paymentSecret:(NSError **)error API_AVAILABLE(ios(11.0)) {

@@ -129,7 +129,7 @@
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
         
-    return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];;
+    return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

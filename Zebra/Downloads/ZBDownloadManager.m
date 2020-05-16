@@ -888,7 +888,7 @@
         case BZ_MEM_ERROR:
             return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Insufficient memory is available", @"Failing-File": file}];
         default:
-            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown BZ2 Error (%d)", bzError], @"Failing-File": file}];;
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown BZ2 Error (%d)", bzError], @"Failing-File": file}];
     }
 }
 

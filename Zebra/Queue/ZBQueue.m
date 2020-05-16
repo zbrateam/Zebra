@@ -101,7 +101,7 @@
 
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
     for (ZBPackage *package in packages) {
-        [self addPackage:package toQueue:queue];;
+        [self addPackage:package toQueue:queue];
     }
 }
 
