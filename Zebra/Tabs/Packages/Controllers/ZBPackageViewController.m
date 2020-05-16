@@ -21,10 +21,6 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBPackageDepictionViewController.h>
 
-@interface WKWebView ()
-@property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
-@end
-
 @interface ZBPackageViewController () {
     BOOL shouldShowNavButtons;
 }
@@ -33,13 +29,11 @@
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
 @property (strong, nonatomic) IBOutlet ZBActionButton *getButton;
 @property (strong, nonatomic) IBOutlet ZBActionButton *moreButton;
-@property (strong, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UITableView *informationTableView;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
 
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
@@ -94,9 +88,6 @@
 #pragma mark - Methods Called From viewDidLoad
 
 - (void)setDelegates {
-    self.webView.navigationDelegate = self;
-    self.webView.scrollView.delegate = self;
-    
     self.informationTableView.delegate = self;
     self.informationTableView.dataSource = self;
     
@@ -122,10 +113,6 @@
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
     [self configureGetButton:self.getButton];
     [self configureGetButton:self.getBarButton];
-
-    // Web View
-    self.webView.hidden = YES;
-    self.webView.scrollView.scrollEnabled = NO;
 }
 
 - (void)setData {
@@ -133,7 +120,6 @@
     self.tagLineLabel.text = self.package.tagline ?: self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
-    [self loadDepiction];
 }
 
 - (void)registerTableViewCells {
@@ -158,15 +144,6 @@
 
 - (void)updateTableViewHeightBasedOnContent {
     self.informationTableViewHeightConstraint.constant = self.informationTableView.contentSize.height;
-}
-
-- (void)loadDepiction {
-    if (self.package.depictionURL == nil) return;
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
-    [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
-    self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
-    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    [self.webView loadRequest:request];
 }
 
 - (void)showAuthorName {
@@ -337,52 +314,6 @@
         
         [self presentViewController:doesNotConform animated:YES completion:nil];
     }
-}
-
-#pragma mark - WKNavigationDelegate
-
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-        webView.hidden = NO;
-}
-
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    // This is a pretty simple implementation now, it might cause problems later for depictions with ads but not sure at the moment.
-    NSURL *url = navigationAction.request.URL;
-    WKNavigationType type = navigationAction.navigationType;
-    
-    if ([url isEqual:self.webView.URL]) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    } else if (type == WKNavigationTypeOther) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    } else {
-        decisionHandler(WKNavigationActionPolicyCancel);
-        
-        if (![[url absoluteString] isEqualToString:@"about:blank"] && ([[url scheme] isEqualToString:@"https"] || [[url scheme] isEqualToString:@"http"])) {
-            [ZBDevice openURL:url sender:self];
-        }
-    }
-}
-
-// Following two methods disable double tap and pinch to zoom on the webView.
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    return nil;
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-    [scrollView.pinchGestureRecognizer setEnabled:NO];
-}
-
-#pragma mark - WKWebView contentSize Observer
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if (object == self.webView.scrollView && [keyPath isEqual:@"contentSize"] && self.webViewHeightConstraint.constant != self.webView.scrollView.contentSize.height) {
-        self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
-        [[self view] layoutIfNeeded];
-    }
-}
-
-- (void)dealloc {
-    if (self.package.depictionURL != nil) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
 }
 
 #pragma mark - UIScrollViewDelegate

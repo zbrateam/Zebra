@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageDepictionViewController : UIViewController
+@interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, UIScrollViewDelegate>
 - (id)initWithPackage:(ZBPackage *)package;
 @end
 

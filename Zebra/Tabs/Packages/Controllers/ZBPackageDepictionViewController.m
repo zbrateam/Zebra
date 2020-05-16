@@ -7,6 +7,12 @@
 //
 
 #import "ZBPackageDepictionViewController.h"
+#import <Packages/Helpers/ZBPackage.h>
+#import <ZBDevice.h>
+
+@interface WKWebView ()
+@property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
+@end
 
 @interface ZBPackageDepictionViewController ()
 
@@ -37,8 +43,79 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    [self configureWebView];
+    [self loadWebDepiction];
 }
 
+- (void)configureWebView {
+    // Delegates
+    self.webView.navigationDelegate = self;
+    self.webView.scrollView.delegate = self;
+    
+    // Customizations
+    self.webView.hidden = YES;
+    self.webView.scrollView.scrollEnabled = NO;
+    
+    // User agents
+    self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
+    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)loadWebDepiction {
+    if (self.package.depictionURL == nil) return;
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
+    [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
+    
+    [self.webView loadRequest:request];
+}
+
+#pragma mark - WKNavigationDelegate
+
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+        webView.hidden = NO;
+}
+
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    // This is a pretty simple implementation now, it might cause problems later for depictions with ads but not sure at the moment.
+    NSURL *url = navigationAction.request.URL;
+    WKNavigationType type = navigationAction.navigationType;
+    
+    if ([url isEqual:self.webView.URL]) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else if (type == WKNavigationTypeOther) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else {
+        decisionHandler(WKNavigationActionPolicyCancel);
+        
+        if (![[url absoluteString] isEqualToString:@"about:blank"] && ([[url scheme] isEqualToString:@"https"] || [[url scheme] isEqualToString:@"http"])) {
+            [ZBDevice openURL:url sender:self];
+        }
+    }
+}
+
+#pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return nil;
+}
+
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
+    [scrollView.pinchGestureRecognizer setEnabled:NO];
+}
+
+#pragma mark - WKWebView contentSize Observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self.webView.scrollView && [keyPath isEqual:@"contentSize"] && self.webViewHeightConstraint.constant != self.webView.scrollView.contentSize.height) {
+        self.webViewHeightConstraint.constant = self.webView.scrollView.contentSize.height;
+        [[self view] layoutIfNeeded];
+    }
+}
+
+- (void)dealloc {
+    if (self.package.depictionURL != nil) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
+}
 
 @end
