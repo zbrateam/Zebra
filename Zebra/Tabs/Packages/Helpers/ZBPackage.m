@@ -883,7 +883,10 @@
     
     NSString *downloadSize = [self downloadSizeString];
     if (downloadSize) {
-        NSDictionary *downloadSizeInfo = @{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize, @"cellType": @"info"};
+        NSMutableDictionary *downloadSizeInfo = [@{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize, @"cellType": @"info"} mutableCopy];
+        if ([self isInstalled:NO]) {
+            downloadSizeInfo[@"class"] = @"ZBInstalledFilesTableViewController";
+        }
         [information addObject:downloadSizeInfo];
     }
     
@@ -910,12 +913,6 @@
     if (section) {
         NSDictionary *sectionInfo = @{@"name": NSLocalizedString(@"Section", @""), @"value": section, @"cellType": @"info"};
         [information addObject:sectionInfo];
-    }
-    
-    BOOL showInstalledFiles = [self isInstalled:NO];
-    if (showInstalledFiles) {
-        NSDictionary *installedFilesInfo = @{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @"ZBInstalledFilesTableViewController"};
-        [information addObject:installedFilesInfo];
     }
     
     NSArray *dependencies = [self dependsOn];
