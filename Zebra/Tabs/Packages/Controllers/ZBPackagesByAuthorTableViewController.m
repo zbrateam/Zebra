@@ -13,7 +13,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Controllers/ZBPackageViewController.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
@@ -72,7 +72,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
     if (package) {
-        ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
         
         [[self navigationController] pushViewController:packageDepiction animated:YES];
     }

@@ -11,7 +11,7 @@
 #import "ZBPackageTableViewCell.h"
 #import "ZBSourceTableViewCell.h"
 #import "ZBSourceAccountTableViewController.h"
-#import "ZBPackageDepictionViewController.h"
+#import "ZBPackageViewController.h"
 #import "ZBUserInfo.h"
 
 #import <ZBDevice.h>
@@ -32,7 +32,7 @@
     NSString *userEmail;
     BOOL loading;
 }
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBSourceAccountTableViewController
@@ -262,7 +262,7 @@
     else if (indexPath.section == 1 && purchases.count && !loading) {
         ZBPackage *package = [purchases objectAtIndex:indexPath.row];
         if (package) {
-            ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+            ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
             
             [[self navigationController] pushViewController:packageDepiction animated:YES];
         }

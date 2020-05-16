@@ -18,7 +18,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Controllers/ZBPackageViewController.h>
 #import "ZBRedditPosts.h"
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
@@ -35,7 +35,7 @@
     int numberOfPackages;
     int databaseRow;
 }
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @property (nonatomic, weak) SFSafariViewController *previewSafariVC;
 @end
 
@@ -300,7 +300,7 @@
     ZBPackage *package = [self packageAtIndexPath:indexPath];
 //    ZBPackage *candidate = [package installableCandidate];
     if (package) {
-        ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
         
         [[self navigationController] pushViewController:packageDepiction animated:YES];
     }

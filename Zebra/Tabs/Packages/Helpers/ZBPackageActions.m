@@ -14,7 +14,7 @@
 #import <Headers/UIAlertController+Private.h>
 #import <Sources/Helpers/ZBSource.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
 #import <UIColor+GlobalColors.h>
 #import <Packages/Controllers/ZBPackageListTableViewController.h>

@@ -7,7 +7,7 @@
 //
 
 #import "ZBWishListTableViewController.h"
-#import "ZBPackageDepictionViewController.h"
+#import "ZBPackageViewController.h"
 #import "ZBPackageActions.h"
 
 #import <ZBSettings.h>
@@ -24,7 +24,7 @@
 }
 @property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBWishListTableViewController
@@ -200,7 +200,7 @@
     if (wishedPackages.count != 0) {
         ZBPackage *package = [wishedPackages objectAtIndex:indexPath.row];
         if (package) {
-            ZBPackageDepictionViewController *packageDepiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+            ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
             
             [[self navigationController] pushViewController:packageDepiction animated:YES];
         }

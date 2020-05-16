@@ -38,7 +38,7 @@
     int numberOfPackages;
     int databaseRow;
 }
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBPackageListTableViewController
@@ -363,7 +363,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    ZBPackageDepictionViewController *depiction = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+    ZBPackageViewController *depiction = [[ZBPackageViewController alloc] initWithPackage:package];
     
     [[self navigationController] pushViewController:depiction animated:YES];
 }
@@ -449,7 +449,7 @@
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
     ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     previewingContext.sourceRect = cell.frame;
-    ZBPackageDepictionViewController *packageDepictionVC = (ZBPackageDepictionViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+    ZBPackageViewController *packageDepictionVC = (ZBPackageViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
     [self setDestinationVC:indexPath destination:packageDepictionVC];
     return packageDepictionVC;
 }

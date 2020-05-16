@@ -15,7 +15,7 @@
 #import <UserNotifications/UserNotifications.h>
 #import <UIColor+GlobalColors.h>
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Controllers/ZBPackageViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
 #import <SDImageCacheConfig.h>
 #import <SDImageCache.h>
@@ -270,7 +270,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 }
                 else {
                     ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
-                    ZBPackageDepictionViewController *depicition = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+                    ZBPackageViewController *depicition = [[ZBPackageViewController alloc] initWithPackage:package];
                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
                     
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
@@ -319,7 +319,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                                 ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
                                 
                                 if (package) {
-                                    ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+                                    ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:package];
                                     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                     [tabController presentViewController:navController animated:YES completion:nil];
                                 }
@@ -340,7 +340,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                             NSString *packageID = [path substringFromIndex:1];
                             ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
                             if (package) {
-                                ZBPackageDepictionViewController *packageController = [[ZBPackageDepictionViewController alloc] initWithPackage:package];
+                                ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:package];
                                 UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
                                 [tabController presentViewController:navController animated:YES completion:nil];
                             }

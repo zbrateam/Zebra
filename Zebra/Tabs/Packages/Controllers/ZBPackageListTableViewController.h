@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <ZBRefreshableTableViewController.h>
-#import "ZBPackageDepictionViewController.h"
+#import "ZBPackageViewController.h"
 
 @class ZBSource;
 @class ZBDatabaseManager;
@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray <NSArray *> *tableData;
 - (void)refreshTable;
-- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageDepictionViewController *)destination;
+- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageViewController *)destination;
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath;
 @end
 

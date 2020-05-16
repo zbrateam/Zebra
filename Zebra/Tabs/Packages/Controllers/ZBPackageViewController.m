@@ -1,12 +1,12 @@
 //
-//  ZBPackageDepictionViewController.m
+//  ZBPackageViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 1/23/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBPackageDepictionViewController.h"
+#import "ZBPackageViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Helpers/ZBPackageInfoController.h>
@@ -24,7 +24,7 @@
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
 @end
 
-@interface ZBPackageDepictionViewController () {
+@interface ZBPackageViewController () {
     BOOL shouldShowNavButtons;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
@@ -45,7 +45,7 @@
 @property (strong, nonatomic) ZBActionButton *getBarButton;
 @end
 
-@implementation ZBPackageDepictionViewController
+@implementation ZBPackageViewController
 
 #pragma mark - Initializers
 

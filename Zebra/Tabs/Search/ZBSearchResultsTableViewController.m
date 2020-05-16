@@ -13,7 +13,7 @@
 #import <Packages/Helpers/ZBProxyPackage.h>
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import <Packages/Controllers/ZBPackageViewController.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
@@ -23,7 +23,7 @@
 @import LNPopupController;
 
 @interface ZBSearchResultsTableViewController ()
-@property (nonatomic, weak) ZBPackageDepictionViewController *previewPackageDepictionVC;
+@property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBSearchResultsTableViewController
@@ -126,13 +126,13 @@
     }
 }
 
-- (ZBPackageDepictionViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
+- (ZBPackageViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
     id quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
         
-    return [[ZBPackageDepictionViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
+    return [[ZBPackageViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
