@@ -99,6 +99,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
+        case 0: {
+            if (indexPath.row < filteredSections.count) {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
+                cell.textLabel.text = filteredSections[indexPath.row];
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+
+                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
+                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+                return cell;
+            }
+            break;
+        }
         case 1: {
             if (indexPath.row < filteredSources.count) {
                 ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
@@ -152,18 +164,9 @@
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
-    if (indexPath.row < filteredSections.count) {
-        cell.textLabel.text = filteredSections[indexPath.row];
-        cell.textLabel.textColor = [UIColor primaryTextColor];
-        
-        cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
-        [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
-    }
-    else {
-        cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
-        cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-        cell.imageView.image = nil;
-    }
+    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
+    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    cell.imageView.image = nil;
     
     return cell;
 }
