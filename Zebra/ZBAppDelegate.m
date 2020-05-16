@@ -456,9 +456,14 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     static UITableViewController *previousController = nil;
     UITableViewController *currentController = [navigationController viewControllers][0];
     if (previousController == currentController) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wundeclared-selector"
+
         if ([currentController respondsToSelector:@selector(scrollToTop)]) {
             [currentController performSelector:@selector(scrollToTop)];
         }
+
+        #pragma clang diagnostic pop
     }
     previousController = [navigationController viewControllers][0]; // Should set the previousController to the rootVC
 }
