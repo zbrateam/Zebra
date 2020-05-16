@@ -822,11 +822,13 @@
     
     NSMutableArray *actions = [NSMutableArray new];
 
-    if (![ZBSettings isAuthorBlocked:[self authorName] email:[self authorEmail]]) {
-        [actions addObject:@(ZBPackageExtraActionBlockAuthor)];
-    }
-    else {
-        [actions addObject:@(ZBPackageExtraActionUnblockAuthor)];
+    if ([self authorName]) {
+        if (![ZBSettings isAuthorBlocked:[self authorName] email:[self authorEmail]]) {
+            [actions addObject:@(ZBPackageExtraActionBlockAuthor)];
+        }
+        else {
+            [actions addObject:@(ZBPackageExtraActionUnblockAuthor)];
+        }
     }
     
     if (![self isInstalled:NO]) {
