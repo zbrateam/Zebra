@@ -33,6 +33,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:@"darkMode" object:nil];
     files = [NSMutableArray new];
     [self getInstalledFiles];
+    [self setTitle:NSLocalizedString(@"Installed Files", @"")];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
