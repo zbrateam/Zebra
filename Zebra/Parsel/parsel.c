@@ -473,6 +473,34 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
     return false;
 }
 
+void readMultiLineKey(FILE **file, char **buffer) {
+    char line[2048];
+    long int position = ftell(*file);
+    
+    while (fgets(line, sizeof(line), *file)) {
+        char *info = strtok(line, "\n");
+        info = strtok(line, "\r");
+        
+        if (isspace(line[0])) { // Still contained in the multiline
+            int i = 0;
+            while (line[i] != '\0' && isspace(line[i])) {
+                ++i;
+            }
+            
+            if (strlen(&line[i]) + strlen(*buffer) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
+                strcat(*buffer, &line[i]);
+                strcat(*buffer, "\n");
+            }
+            
+            position = ftell(*file);
+        }
+        else {
+            fseek(*file, position, SEEK_SET);
+            break;
+        }
+    }
+}
+
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int sourceID) {
     FILE *file = fopen(path, "r");
     if (file == NULL) {
@@ -519,7 +547,7 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 if (strcmp(key, "Description") == 0) {
                     
                     char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-                    readMultiLineKey(file, &longDescription);
+                    readMultiLineKey(&file, &longDescription);
                     
                     if (longDescription[0] != '\0') {
                         dict_add(package, "Tagline", value);
@@ -530,11 +558,16 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     }
                     
                     free(longDescription);
+                    
+                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
+                    longDescription[0] = '\0';
+                    longDescription = NULL;
+                    
                     continue;
                 }
                 else if (strcmp(key, "Changelog") == 0) {
                     char *changelog = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-                    readMultiLineKey(file, &changelog);
+                    readMultiLineKey(&file, &changelog);
                     
                     if (changelog[0] != '\0') {
                         dict_add(package, key, value);
@@ -542,6 +575,11 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                     }
                     
                     free(changelog);
+                    
+                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
+                    changelog[0] = '\0';
+                    changelog = NULL;
+                    
                     continue;
                 }
             }
@@ -563,34 +601,6 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
     return PARSEL_OK;
-}
-
-void readMultiLineKey(FILE *file, char **buffer) {
-    char line[2048];
-    long int position = ftell(file);
-    
-    while (fgets(line, sizeof(line), file)) {
-        char *info = strtok(line, "\n");
-        info = strtok(line, "\r");
-        
-        if (isspace(line[0])) { // Still contained in the multiline
-            int i = 0;
-            while (line[i] != '\0' && isspace(line[i])) {
-                ++i;
-            }
-            
-            if (strlen(&line[i]) + strlen(*buffer) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
-                strcat(*buffer, &line[i]);
-                strcat(*buffer, "\n");
-            }
-            
-            position = ftell(file);
-        }
-        else {
-            fseek(file, position, SEEK_SET);
-            break;
-        }
-    }
 }
 
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int sourceID, sqlite3_int64 currentDate) {
@@ -640,7 +650,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 if (strcmp(key, "Description") == 0) {
                     
                     char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-                    readMultiLineKey(file, &longDescription);
+                    readMultiLineKey(&file, &longDescription);
                     
                     if (longDescription[0] != '\0') {
                         dict_add(package, "Tagline", value);
@@ -651,11 +661,16 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                     }
                     
                     free(longDescription);
+                    
+                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
+                    longDescription[0] = '\0';
+                    longDescription = NULL;
+                    
                     continue;
                 }
                 else if (strcmp(key, "Changelog") == 0) {
                     char *changelog = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-                    readMultiLineKey(file, &changelog);
+                    readMultiLineKey(&file, &changelog);
                     
                     if (changelog[0] != '\0') {
                         dict_add(package, key, value);
@@ -663,6 +678,11 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                     }
                     
                     free(changelog);
+                    
+                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
+                    changelog[0] = '\0';
+                    changelog = NULL;
+                    
                     continue;
                 }
             }
