@@ -69,23 +69,8 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
-    
-    // TODO: Clean up
-    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"]; // TODO: Find a home for this line
-    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBLinkTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"LinkTableViewCell"]; // TODO: Find a home for this line
-    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldTableViewHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"ZBBoldTableViewHeaderView"]; // TODO: Find a home for this line
-    
-    // TODO: Clean up
-    ZBPackageDepictionViewController *packageDepictionVC = [[ZBPackageDepictionViewController alloc] initWithPackage:self.package];
-    [self.depictionContainerView addSubview:packageDepictionVC.view];
-    [self.depictionContainerView.topAnchor constraintEqualToAnchor: packageDepictionVC.view.topAnchor].active = YES;
-    [self.depictionContainerView.bottomAnchor constraintEqualToAnchor: packageDepictionVC.view.bottomAnchor].active = YES;
-    [self.depictionContainerView.leftAnchor constraintEqualToAnchor: packageDepictionVC.view.leftAnchor].active = YES;
-    [self.depictionContainerView.rightAnchor constraintEqualToAnchor: packageDepictionVC.view.rightAnchor].active = YES;
-    packageDepictionVC.view.translatesAutoresizingMaskIntoConstraints = NO;
-    [self addChildViewController:packageDepictionVC];
-    [packageDepictionVC didMoveToParentViewController:self];
-    
+    [self configureDepictionVC];
+    [self registerTableViewCells];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,6 +134,24 @@
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
     [self loadDepiction];
+}
+
+- (void)registerTableViewCells {
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"];
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBLinkTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"LinkTableViewCell"];
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldTableViewHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"ZBBoldTableViewHeaderView"];
+}
+
+- (void)configureDepictionVC {
+    ZBPackageDepictionViewController *packageDepictionVC = [[ZBPackageDepictionViewController alloc] initWithPackage:self.package];
+    [self.depictionContainerView addSubview:packageDepictionVC.view];
+    [self.depictionContainerView.topAnchor constraintEqualToAnchor: packageDepictionVC.view.topAnchor].active = YES;
+    [self.depictionContainerView.bottomAnchor constraintEqualToAnchor: packageDepictionVC.view.bottomAnchor].active = YES;
+    [self.depictionContainerView.leftAnchor constraintEqualToAnchor: packageDepictionVC.view.leftAnchor].active = YES;
+    [self.depictionContainerView.rightAnchor constraintEqualToAnchor: packageDepictionVC.view.rightAnchor].active = YES;
+    packageDepictionVC.view.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addChildViewController:packageDepictionVC];
+    [packageDepictionVC didMoveToParentViewController:self];
 }
 
 #pragma mark - Helper Methods
