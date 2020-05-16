@@ -861,7 +861,7 @@
         }
     }
     
-    [actions addObject:@(ZBPackageExtraActionShare)];
+//    [actions addObject:@(ZBPackageExtraActionShare)];
     
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }

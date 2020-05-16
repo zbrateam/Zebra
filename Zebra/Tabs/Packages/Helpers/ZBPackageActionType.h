@@ -11,11 +11,11 @@
 
 typedef enum : NSUInteger {
     ZBPackageActionInstall,
+    ZBPackageActionSelectVersion,
+    ZBPackageActionUpgrade,
     ZBPackageActionRemove,
     ZBPackageActionReinstall,
     ZBPackageActionDowngrade,
-    ZBPackageActionUpgrade,
-    ZBPackageActionSelectVersion,
 } ZBPackageActionType;
 
 typedef enum : NSUInteger {
@@ -25,7 +25,7 @@ typedef enum : NSUInteger {
     ZBPackageExtraActionRemoveWishlist,
     ZBPackageExtraActionBlockAuthor,
     ZBPackageExtraActionUnblockAuthor,
-    ZBPackageExtraActionShare,
+//    ZBPackageExtraActionShare,
 } ZBPackageExtraActionType;
 
 

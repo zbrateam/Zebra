@@ -48,9 +48,9 @@
         case ZBPackageExtraActionUnblockAuthor:
             [self unblockAuthorOf:package];
             break;
-        case ZBPackageExtraActionShare:
-            [self share:package];
-            break;
+//        case ZBPackageExtraActionShare:
+//            [self share:package];
+//            break;
     }
 }
 
@@ -553,8 +553,8 @@
             return NSLocalizedString(@"Block Author", @"");
         case ZBPackageExtraActionUnblockAuthor:
             return NSLocalizedString(@"Unblock Author", @"");
-        case ZBPackageExtraActionShare:
-            return NSLocalizedString(@"Share Package", @"");
+//        case ZBPackageExtraActionShare:
+//            return NSLocalizedString(@"Share Package", @"");
         default:
             return @"Undefined";
     }
