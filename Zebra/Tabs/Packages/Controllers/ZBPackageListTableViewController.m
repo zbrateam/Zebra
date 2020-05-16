@@ -317,7 +317,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        return [sectionIndexTitles count] + needsUpdatesSection;
+        return sectionIndexTitles.count + needsUpdatesSection;
     }
     return 1 + needsUpdatesSection;
 }
@@ -414,7 +414,6 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
-    //reloadData in completion
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -313,7 +313,7 @@
             }];
         }];
         
-        [rowAction setBackgroundColor:[self colorForAction:action]];
+        rowAction.backgroundColor = [self colorForAction:action];
         [rowActions addObject:rowAction];
     }
     
