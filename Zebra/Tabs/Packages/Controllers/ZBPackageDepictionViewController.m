@@ -13,6 +13,8 @@
 @property (weak, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet UIView *nativeView;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+
 @property (strong, nonatomic) ZBPackage *package;
 
 @end
