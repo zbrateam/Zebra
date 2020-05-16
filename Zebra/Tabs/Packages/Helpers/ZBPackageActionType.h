@@ -25,7 +25,7 @@ typedef enum : NSUInteger {
     ZBPackageExtraActionRemoveWishlist,
     ZBPackageExtraActionBlockAuthor,
     ZBPackageExtraActionUnblockAuthor,
-    ZBPackageExtraActionShare,
+//    ZBPackageExtraActionShare,
 } ZBPackageExtraActionType;
 
 
