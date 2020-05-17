@@ -23,9 +23,10 @@
 
 // Native Outlets
 @property (weak, nonatomic) IBOutlet UIView *nativeView;
-@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changelogNotesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changelogVersionTitleLabel;
+@property (weak, nonatomic) IBOutlet UICollectionView *previewCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (strong, nonatomic) ZBPackage *package;
 
