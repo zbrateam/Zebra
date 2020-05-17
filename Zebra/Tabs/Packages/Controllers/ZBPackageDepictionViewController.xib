@@ -60,6 +60,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAT-Xp-MhO">
                                                             <rect key="frame" x="238" y="0.0" width="105" height="30"/>
                                                             <state key="normal" title="Version History"/>
+                                                            <connections>
+                                                                <action selector="versionHistoryButtonTapped:" destination="-1" eventType="touchUpInside" id="1Bm-Cj-L5n"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>

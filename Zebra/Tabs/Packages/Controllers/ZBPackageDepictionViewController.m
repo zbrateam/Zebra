@@ -93,7 +93,10 @@
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
     self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-    [self.webView loadRequest:request];
+//    [self.webView loadRequest:request];
+}
+
+- (IBAction)versionHistoryButtonTapped:(id)sender {
 }
 
 #pragma mark - WKNavigationDelegate
