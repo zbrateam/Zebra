@@ -347,16 +347,16 @@
     }
 }
 
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView {
-    NSMutableArray *rowActions = [NSMutableArray new];
-    
++ (UISwipeActionsConfiguration *)swipeActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView {
+    NSMutableArray *swipeActions = [NSMutableArray new];
+
     NSArray *actions = [package possibleActions];
     for (NSNumber *number in actions) {
         ZBPackageActionType action = number.intValue;
-        
+
         NSString *title = [self titleForAction:action useIcon:YES];
-        UITableViewRowActionStyle style = action == ZBPackageActionRemove ? UITableViewRowActionStyleDestructive : UITableViewRowActionStyleNormal;
-        UITableViewRowAction *rowAction = [UITableViewRowAction rowActionWithStyle:style title:title handler:^(UITableViewRowAction *rowAction, NSIndexPath *indexPath) {
+        UIContextualActionStyle style = action == ZBPackageActionRemove ? UIContextualActionStyleDestructive : UIContextualActionStyleNormal;
+        UIContextualAction *swipeAction = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self performAction:action forPackage:package completion:^{
                 if (tableView) {
                     dispatch_async(dispatch_get_main_queue(), ^{
@@ -365,12 +365,12 @@
                 }
             }];
         }];
-        
-        [rowAction setBackgroundColor:[self colorForAction:action]];
-        [rowActions addObject:rowAction];
+
+        swipeAction.backgroundColor = [self colorForAction:action];
+        [swipeActions addObject:swipeAction];
     }
-    
-    return rowActions;
+
+    return [UISwipeActionsConfiguration configurationWithActions:swipeActions];
 }
 
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package {

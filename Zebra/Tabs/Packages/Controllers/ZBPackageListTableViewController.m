@@ -411,9 +411,9 @@
     return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
+    return [ZBPackageActions swipeActionsForPackage:package inTableView:tableView];
     //reloadData in completion
 }
 

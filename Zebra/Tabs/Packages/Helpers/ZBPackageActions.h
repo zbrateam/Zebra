@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBPackageActions : NSObject
 + (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion;
 + (void (^)(void))buttonActionForPackage:(ZBPackage *)package;
-+ (NSArray <UITableViewRowAction *> *)rowActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
++ (UISwipeActionsConfiguration *)swipeActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package;
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView;

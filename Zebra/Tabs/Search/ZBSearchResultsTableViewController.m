@@ -138,14 +138,14 @@
     return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     id quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         // This is a proxy package, load it first
         quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
     }
-    
-    return [ZBPackageActions rowActionsForPackage:(ZBPackage *)quantumPackage inTableView:tableView];
+
+    return [ZBPackageActions swipeActionsForPackage:(ZBPackage *)quantumPackage inTableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
