@@ -111,8 +111,7 @@
 
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
-    [self configureGetButton:self.getButton];
-    [self configureGetButton:self.getBarButton];
+    [self configureGetButtons];
 }
 
 - (void)setData {
@@ -152,14 +151,20 @@
     } completion:nil];
 }
 
-- (void)configureGetButton:(ZBActionButton *)button {
-    [button showActivityLoader];
+- (void)configureGetButtons {
+    [self.getButton showActivityLoader];
+    [self.getBarButton showActivityLoader];
+    
     [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
         if (text) {
-            [button hideActivityLoader];
-            [button setTitle:[text uppercaseString] forState:UIControlStateNormal];
+            [self.getButton hideActivityLoader];
+            [self.getBarButton hideActivityLoader];
+            
+            [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+            [self.getBarButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
         } else {
-            [button showActivityLoader];
+            [self.getButton showActivityLoader];
+            [self.getBarButton showActivityLoader];
         }
     }];
 }
@@ -297,22 +302,22 @@
         if ([infoControllerClass conformsToProtocol:@protocol(ZBPackageInfoController)]) {
             UIViewController <ZBPackageInfoController> *infoController = [[infoControllerClass alloc] initWithPackage:self.package];
             if (infoController) {
-                
                 if ([packageInformation[@"cellType"] isEqualToString:@"link"]) {
                     [self presentViewController:infoController animated:YES completion:nil];
                 }
                 else {
                     [[self navigationController] pushViewController:infoController animated:YES];
                 }
-                return;
             }
         }
-        UIAlertController *doesNotConform = [UIAlertController alertControllerWithTitle:@"ZBPackageInfoController" message:[NSString stringWithFormat:@"The class %@ does not conform to the ZBPackageInfoController protocol and therefore cannot be presented.", packageInformation[@"class"]] preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-        [doesNotConform addAction:okAction];
-        
-        [self presentViewController:doesNotConform animated:YES completion:nil];
+        else {
+            UIAlertController *doesNotConform = [UIAlertController alertControllerWithTitle:@"ZBPackageInfoController" message:[NSString stringWithFormat:@"The class %@ does not conform to the ZBPackageInfoController protocol and therefore cannot be presented.", packageInformation[@"class"]] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
+            [doesNotConform addAction:okAction];
+            
+            [self presentViewController:doesNotConform animated:YES completion:nil];
+        }
     }
 }
 
