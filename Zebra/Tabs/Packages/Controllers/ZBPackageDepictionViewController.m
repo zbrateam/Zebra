@@ -10,6 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
 #import "NSAttributedString+Markdown.h"
+#import <Packages/Controllers/ZBPackageVersionHistoryTableViewController.h>
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
@@ -97,6 +98,8 @@
 }
 
 - (IBAction)versionHistoryButtonTapped:(id)sender {
+    ZBPackageVersionHistoryTableViewController *changelog = [[ZBPackageVersionHistoryTableViewController alloc] initWithPackage:self.package];
+    [[self navigationController] pushViewController:changelog animated:YES];
 }
 
 #pragma mark - WKNavigationDelegate
