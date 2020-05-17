@@ -557,11 +557,9 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                         dict_add(package, "Description", value);
                     }
                     
-                    free(longDescription);
-                    
                     // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
                     longDescription[0] = '\0';
-                    longDescription = NULL;
+                    free(longDescription);
                     
                     continue;
                 }
@@ -574,11 +572,9 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                         dict_add(package, "ChangelogNotes", changelog);
                     }
                     
-                    free(changelog);
-                    
                     // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
                     changelog[0] = '\0';
-                    changelog = NULL;
+                    free(changelog);
                     
                     continue;
                 }
@@ -660,12 +656,10 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                         dict_add(package, "Description", value);
                     }
                     
-                    free(longDescription);
-                    
                     // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
                     longDescription[0] = '\0';
-                    longDescription = NULL;
-                    
+                    free(longDescription);
+
                     continue;
                 }
                 else if (strcmp(key, "Changelog") == 0) {
@@ -677,12 +671,10 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                         dict_add(package, "ChangelogNotes", changelog);
                     }
                     
-                    free(changelog);
-                    
                     // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
                     changelog[0] = '\0';
-                    changelog = NULL;
-                    
+                    free(changelog);
+
                     continue;
                 }
             }
