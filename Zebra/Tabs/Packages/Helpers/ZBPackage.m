@@ -965,6 +965,20 @@
     return information;
 }
 
+- (NSString *)changelogTitle {
+    if (_changelogTitle) {
+        return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), version, _changelogTitle];
+    }
+    return [NSString stringWithFormat:NSLocalizedString(@"Version %@", @""), version];
+}
+
+- (NSString *)changelogNotes {
+    if (_changelogNotes) {
+        return _changelogNotes;
+    }
+    return NSLocalizedString(@"No Release Notes Available", @"");
+}
+
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion {
     ZBSource *source = [self source];
     

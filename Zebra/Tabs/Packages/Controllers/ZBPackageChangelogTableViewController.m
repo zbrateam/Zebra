@@ -1,20 +1,20 @@
 //
-//  ZBPackageVersionHistoryTableViewController.m
+//  ZBPackageChangelogTableViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 5/17/20.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBPackageVersionHistoryTableViewController.h"
+#import "ZBPackageChangelogTableViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Views/ZBChangelogTableViewCell.h>
 
-@interface ZBPackageVersionHistoryTableViewController ()
+@interface ZBPackageChangelogTableViewController ()
 @property (nonatomic, strong) NSArray <ZBPackage *> *allVersions;
 @end
 
-@implementation ZBPackageVersionHistoryTableViewController
+@implementation ZBPackageChangelogTableViewController
 
 #pragma mark - Initializers
 
@@ -58,13 +58,10 @@
     ZBChangelogTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ChangelogTableViewCell" forIndexPath:indexPath];
     
     ZBPackage *package = self.allVersions[indexPath.row];
-    NSMutableString *changelogTitleString = [NSMutableString stringWithFormat:@"Version %@", package.version];
-    if (package.changelogTitle != nil) {
-        [changelogTitleString appendString:[NSString stringWithFormat:@" — %@", package.changelogTitle]];
-    }
-    cell.changelogTitleLabel.text = changelogTitleString;
-    cell.changelogNotesLabel.text = package.changelogNotes ?: @"No Release Notes Available";
-    cell.dateLabel.text = @"Today";
+    
+    cell.changelogTitleLabel.text = package.changelogTitle;
+    cell.changelogNotesLabel.text = package.changelogNotes;
+    cell.dateLabel.text = package.lastSeenDate;
     
     return cell;
 }

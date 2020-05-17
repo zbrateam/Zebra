@@ -1,5 +1,5 @@
 //
-//  ZBPackageVersionHistoryTableViewController.h
+//  ZBPackageChangelogTableViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 5/17/20.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageVersionHistoryTableViewController : UITableViewController <ZBPackageInfoController>
+@interface ZBPackageChangelogTableViewController : UITableViewController <ZBPackageInfoController>
 
 @end
 

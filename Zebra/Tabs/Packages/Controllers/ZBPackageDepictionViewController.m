@@ -10,7 +10,7 @@
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
 #import "NSAttributedString+Markdown.h"
-#import <Packages/Controllers/ZBPackageVersionHistoryTableViewController.h>
+#import <Packages/Controllers/ZBPackageChangelogTableViewController.h>
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
@@ -78,11 +78,7 @@
     NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes];
     [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
     
-    NSMutableString *changelogVersionTitleString = [NSMutableString stringWithFormat:@"Version %@", self.package.version];
-    if (self.package.changelogTitle != nil) {
-        [changelogVersionTitleString appendString:[NSString stringWithFormat:@" — %@", self.package.changelogTitle]];
-    }
-    [self.changelogVersionTitleLabel setText:changelogVersionTitleString];
+    [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
 }
 
 #pragma mark - Helper Methods
@@ -98,7 +94,7 @@
 }
 
 - (IBAction)versionHistoryButtonTapped:(id)sender {
-    ZBPackageVersionHistoryTableViewController *changelog = [[ZBPackageVersionHistoryTableViewController alloc] initWithPackage:self.package];
+    ZBPackageChangelogTableViewController *changelog = [[ZBPackageChangelogTableViewController alloc] initWithPackage:self.package];
     [[self navigationController] pushViewController:changelog animated:YES];
 }
 
