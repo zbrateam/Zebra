@@ -9,6 +9,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
+#import "NSAttributedString+Markdown.h"
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
@@ -16,10 +17,15 @@
 
 @interface ZBPackageDepictionViewController ()
 
+// Web Outlets
 @property (weak, nonatomic) IBOutlet WKWebView *webView;
-@property (weak, nonatomic) IBOutlet UIView *nativeView;
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+
+// Native Outlets
+@property (weak, nonatomic) IBOutlet UIView *nativeView;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *changelogNotesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *changelogVersionTitleLabel;
 
 @property (strong, nonatomic) ZBPackage *package;
 
@@ -63,6 +69,18 @@
 
 - (void)setData {
     [self loadWebDepiction];
+    
+    NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription];
+    [self.descriptionLabel setAttributedText:descriptionAttributedString];
+    
+    NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes];
+    [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
+    
+    NSMutableString *changelogVersionTitleString = [NSMutableString stringWithFormat:@"Version %@", self.package.version];
+    if (self.package.changelogTitle != nil) {
+        [changelogVersionTitleString appendString:[NSString stringWithFormat:@" — %@", self.package.changelogTitle]];
+    }
+    [self.changelogVersionTitleLabel setText:changelogVersionTitleString];
 }
 
 #pragma mark - Helper Methods
