@@ -203,7 +203,7 @@
             urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedSourceBaseURL];
             forwardedSourceBaseURL = NULL;
         }
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
         forwardToPackageID = NULL;
     }
 }

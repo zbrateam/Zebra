@@ -554,11 +554,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)openURL:(NSURL *)url {
     UIApplication *application = [UIApplication sharedApplication];
-    if (@available(iOS 10.0, *)) {
-        [application openURL:url options:@{} completionHandler:nil];
-    } else {
-        [application openURL:url];
-    }
+    [application openURL:url options:@{} completionHandler:nil];
 }
 
 #pragma mark - Settings

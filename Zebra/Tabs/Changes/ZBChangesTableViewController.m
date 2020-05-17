@@ -498,9 +498,11 @@
     UIApplication *application = [UIApplication sharedApplication];
     ZBNewsCollectionViewCell *cell = (ZBNewsCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if ([application canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]]]) {
-        [application openURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]]];
+        [application openURL:[NSURL URLWithString:[NSString stringWithFormat:@"apollo://reddit.com/%@", cell.redditID]] options:@{} completionHandler:nil];
     } else {
-        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:cell.redditLink entersReaderIfAvailable:NO];
+        SFSafariViewControllerConfiguration *config = [[SFSafariViewControllerConfiguration alloc] init];
+        config.entersReaderIfAvailable = NO;
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:cell.redditLink configuration:config];
         safariVC.delegate = self;
         if (@available(iOS 10.0, *)) {
             [safariVC setPreferredBarTintColor:[UIColor groupedTableViewBackgroundColor]];

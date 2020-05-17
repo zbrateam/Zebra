@@ -102,15 +102,7 @@
     self.title = [source label];
     self.tableView.allowsSelectionDuringEditing = YES;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-        self.navigationController.navigationBar.translucent = NO;
-        self.tabBarController.tabBar.translucent = NO;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     if (!editOnly) {
         [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
