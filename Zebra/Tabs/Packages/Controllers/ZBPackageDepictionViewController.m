@@ -44,30 +44,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self configureWebView];
+    [self setDelegates];
+    [self applyCustomizations];
     [self loadWebDepiction];
 }
 
-- (void)configureWebView {
-    // Delegates
+#pragma mark - Methods Called From viewDidLoad
+
+- (void)setDelegates {
     self.webView.navigationDelegate = self;
     self.webView.scrollView.delegate = self;
-    
-    // Customizations
+}
+
+- (void)applyCustomizations {
     self.webView.hidden = YES;
     self.webView.scrollView.scrollEnabled = NO;
-    
-    // User agents
-    self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
-    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
 }
+
+- (void)setData {
+    [self loadWebDepiction];
+}
+
+#pragma mark - Helper Methods
 
 - (void)loadWebDepiction {
     if (self.package.depictionURL == nil) return;
     
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
-    
+    self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
+    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView loadRequest:request];
 }
 
@@ -82,9 +88,7 @@
     NSURL *url = navigationAction.request.URL;
     WKNavigationType type = navigationAction.navigationType;
     
-    if ([url isEqual:self.webView.URL]) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    } else if (type == WKNavigationTypeOther) {
+    if ([url isEqual:self.webView.URL] || type == WKNavigationTypeOther) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         decisionHandler(WKNavigationActionPolicyCancel);
