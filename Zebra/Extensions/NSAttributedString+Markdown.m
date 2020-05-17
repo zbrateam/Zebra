@@ -13,6 +13,7 @@
 @implementation NSAttributedString (Markdown)
 
 - (id)initWithMarkdownString:(NSString *)markdownString {
+    if (markdownString == nil) return nil;
     CMDocument *document = [[CMDocument alloc] initWithString:markdownString options:0];
     CMTextAttributes *attributes = [[CMTextAttributes alloc] init];
     [attributes addParagraphStyleAttributes:@{CMParagraphStyleAttributeListItemBulletString: @"\u2022", CMParagraphStyleAttributeFirstLineHeadExtraIndent: @(0), CMParagraphStyleAttributeHeadExtraIndent: @(0)} forElementWithKinds:CMElementKindUnorderedList];
