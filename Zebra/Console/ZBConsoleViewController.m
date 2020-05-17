@@ -89,9 +89,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Console", @"");
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) {
@@ -163,12 +161,6 @@
     }
     else {
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-        if (@available(iOS 11.0, *)) {}
-        else {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-            self.view.preservesSuperviewLayoutMargins = YES;
-            self.navigationController.navigationBar.translucent = NO;
-        }
     }
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     

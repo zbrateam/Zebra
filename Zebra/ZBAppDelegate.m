@@ -188,21 +188,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     [self setupSDWebImageCache];
     
-    if (@available(iOS 10.0, *)) {
-        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
-            } else if (!granted) {
-                NSLog(@"[Zebra] Authorization was not granted.");
-            } else {
-                NSLog(@"[Zebra] Notification access granted.");
-            }
-        }];
-    } else {
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
+    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"[Zebra] Error: %@", error.localizedDescription);
+        } else if (!granted) {
+            NSLog(@"[Zebra] Authorization was not granted.");
+        } else {
+            NSLog(@"[Zebra] Notification access granted.");
         }
-    }
+    }];
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
     
@@ -242,14 +236,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
     
-    if (@available(iOS 11.0, *)) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
-    }
-    else {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenDidConnectNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenDidDisconnectNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenModeDidChangeNotification object:nil];
-    }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
     
     return YES;
 }
@@ -432,25 +419,13 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     UIScreen *screen = [notif object];
     if (!screen) return;
     
-    if (@available(iOS 11.0, *)) {
-        if ([screen isCaptured] || [screen mirroredScreen]) {
-            screenRecording = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserStartedScreenCaptureNotification object:nil];
-        }
-        else if (screenRecording) {
-            screenRecording = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserEndedScreenCaptureNotification object:nil];
-        }
+    if ([screen isCaptured] || [screen mirroredScreen]) {
+        screenRecording = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserStartedScreenCaptureNotification object:nil];
     }
-    else {
-        if ([screen mirroredScreen]) {
-            screenRecording = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserStartedScreenCaptureNotification object:nil];
-        }
-        else if (screenRecording) {
-            screenRecording = NO;
-            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserEndedScreenCaptureNotification object:nil];
-        }
+    else if (screenRecording) {
+        screenRecording = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserEndedScreenCaptureNotification object:nil];
     }
 }
 

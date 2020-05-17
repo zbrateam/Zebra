@@ -55,10 +55,7 @@
     self.navigationItem.title = NSLocalizedString([self.navigationItem.title capitalizedString], @"");
     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
     self.extendedLayoutIncludesOpaqueBars = YES;
-    
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     

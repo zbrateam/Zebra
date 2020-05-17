@@ -69,8 +69,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
     self.featuredCollection.delegate = self;
     self.featuredCollection.dataSource = self;
-    [self.featuredCollection setShowsHorizontalScrollIndicator:NO];
-    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0, 15, 0, 15)];
+    self.featuredCollection.showsHorizontalScrollIndicator = NO;
+    self.featuredCollection.contentInset = UIEdgeInsetsMake(0, 15, 0, 15);
     [self setupFeatured];
     
     if (@available(iOS 13.0, *)) {
@@ -85,9 +85,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     }
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
-    }
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
 }
 
 - (void)presentMarkdownTest {
@@ -273,12 +271,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBInfo:
             return 2;
         case ZBViews:
-            if (@available(iOS 11.0, *)) {
-                return 4;
-            }
-            else {
-                return 3;
-            }
+            return 4;
         case ZBLinks:
             return 2;
         case ZBCredits:
@@ -351,11 +344,9 @@ typedef enum ZBLinksOrder : NSUInteger {
                     image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
-                    if (@available(iOS 11.0, *)) {
-                        text = NSLocalizedString(@"Stores", @"");
-                        image = [UIImage imageNamed:@"Stores"];
-                        break;
-                    }
+                    text = NSLocalizedString(@"Stores", @"");
+                    image = [UIImage imageNamed:@"Stores"];
+                    break;
                 case ZBWishList:
                     text = NSLocalizedString(@"Wish List", @"");
                     image = [UIImage imageNamed:@"Wishlist"];
@@ -498,11 +489,9 @@ typedef enum ZBLinksOrder : NSUInteger {
             break;
         }
         case ZBStores: {
-            if (@available(iOS 11.0, *)) {
-                ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
-                [[self navigationController] pushViewController:webController animated:YES];
-                break;
-            }
+            ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
+            [[self navigationController] pushViewController:webController animated:YES];
+            break;
         }
         case ZBWishList: {
             ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];

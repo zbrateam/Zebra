@@ -44,28 +44,13 @@
     
     [self setupView];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.searchController = searchController;
-        self.navigationItem.hidesSearchBarWhenScrolling = NO;
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
-    else {
-        self.tableView.tableHeaderView = searchController.searchBar;
-    }
+    self.navigationItem.searchController = searchController;
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     self.title = NSLocalizedString(@"Search", @"");
     self.definesPresentationContext = YES;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    if (@available(iOS 11.0, *)) {
-    }
-    else {
-        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -95,10 +80,7 @@
         searchController.searchBar.showsCancelButton = NO;
     }
     
-    
-    if (@available(iOS 9.1, *)) {
-        searchController.obscuresBackgroundDuringPresentation = NO;
-    }
+    searchController.obscuresBackgroundDuringPresentation = NO;
     
     [self layoutNaviationButtons];
 }

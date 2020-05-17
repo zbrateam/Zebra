@@ -79,9 +79,7 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"App Icon", @"");
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 #pragma mark - Table view data source
@@ -117,13 +115,7 @@
     [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:YES];
     if (border) [cell.imageView applyBorder];
 
-    NSString *iconSelected = nil;
-    if (@available(iOS 10.3, *)) {
-        iconSelected = [[UIApplication sharedApplication] alternateIconName];
-    }
-    else {
-        iconSelected = @"You shouldn't be here";
-    }
+    NSString *iconSelected = [[UIApplication sharedApplication] alternateIconName];
     
     NSString *iconName = nil;
     if (indexPath.row > 0) {
@@ -149,19 +141,15 @@
 }
 
 - (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {
-    if (@available(iOS 10.3, *)) {
-        if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
-            if ([name isEqualToString:@"AppIcon60x60"]) name = nil;
-            
-            [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
-                if (error) {
-                    NSLog(@"[Zebra] Error while setting icon: %@ %@", error.localizedDescription, name);
-                }
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
-        }
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
+    if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
+        if ([name isEqualToString:@"AppIcon60x60"]) name = nil;
+        
+        [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"[Zebra] Error while setting icon: %@ %@", error.localizedDescription, name);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
     }
 }
 

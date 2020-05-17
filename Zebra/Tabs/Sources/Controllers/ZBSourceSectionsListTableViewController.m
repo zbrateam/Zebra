@@ -114,21 +114,19 @@
         [self.tableView layoutIfNeeded];
     }
     
-    if (@available(iOS 11.0, *)) {
-        if (!editOnly && [source paymentVendorURL]) { // If the source supports payments/external accounts
-            ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
-            [self.view addSubview:accountBanner];
-            
-            accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
-            [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
-            [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
-            [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
-            [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
-            
-            accountBanner.layer.zPosition = 100;
-            self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
-            [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO]; // hack
-        }
+    if (!editOnly && [source paymentVendorURL]) { // If the source supports payments/external accounts
+        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
+        [self.view addSubview:accountBanner];
+        
+        accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
+        [accountBanner.topAnchor constraintEqualToAnchor: self.view.layoutMarginsGuide.topAnchor].active = YES;
+        [accountBanner.leadingAnchor constraintEqualToAnchor: self.view.leadingAnchor].active = YES;
+        [accountBanner.widthAnchor constraintEqualToAnchor: self.view.widthAnchor].active = YES; // You can't use a trailing anchor with a UITableView apparently?
+        [accountBanner.heightAnchor constraintEqualToConstant:75].active = YES;
+        
+        accountBanner.layer.zPosition = 100;
+        self.tableView.contentInset = UIEdgeInsetsMake(75, 0, 0, 0);
+        [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO]; // hack
     }
 }
 
@@ -159,29 +157,27 @@
 }
 
 - (void)accountButtonPressed:(id)sender {
-    if (@available(iOS 11.0, *)) {
-        [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
-            if (!success || error) {
-                if (notify) {
-                    if (error) {
-                        if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:NSLocalizedString(@"Could not authenticate: %@", @""), error.localizedDescription]];
-                    }
-                    else {
-                        [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
-                    }
+    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+        if (!success || error) {
+            if (notify) {
+                if (error) {
+                    if (error.code != 1) [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:NSLocalizedString(@"Could not authenticate: %@", @""), error.localizedDescription]];
+                }
+                else {
+                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
                 }
             }
-            else {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
-                    ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->source];
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
-                    
-                    [self presentViewController:navController animated:YES completion:nil];
-                });
-            }
-        }];
-    }
+        }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+                ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:self->source];
+                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:accountController];
+                
+                [self presentViewController:navController animated:YES completion:nil];
+            });
+        }
+    }];
 }
 
 - (void)checkFeaturedPackages {

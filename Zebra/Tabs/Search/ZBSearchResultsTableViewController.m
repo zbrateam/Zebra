@@ -45,13 +45,6 @@
     return YES;
 }
 
-- (BOOL)observeQueueBar {
-    if (@available(iOS 11.0, *)) {
-        return NO;
-    }
-    return YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

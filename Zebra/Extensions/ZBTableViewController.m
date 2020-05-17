@@ -23,10 +23,6 @@
     return NO;
 }
 
-- (BOOL)observeQueueBar {
-    return NO;
-}
-
 #pragma mark - Theming
 
 - (void)asyncSetColors {
@@ -67,15 +63,6 @@
     if ([self forceSetColors]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncSetColors) name:@"darkMode" object:nil];
     }
-    if ([self observeQueueBar]) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTableContentInsetForQueue) name:@"ZBQueueBarHeightDidChange" object:nil];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
-    if ([UIDevice.currentDevice.systemVersion hasPrefix:@"9."]) {
-        view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,14 +71,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
-}
-
-- (void)configureTableContentInsetForQueue {
-    // stub
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBQueueBarHeightDidChange" object:nil];
 }
 
 @end

@@ -256,10 +256,7 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
 }
 
 + (NSString *_Nullable)appIconName {
-    if (@available(iOS 10.3, *)) {
-        return [[UIApplication sharedApplication] alternateIconName];
-    }
-    return NULL;
+    return [[UIApplication sharedApplication] alternateIconName];
 }
 
 + (void)setAppIconName:(NSString *_Nullable)appIconName {

@@ -26,9 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

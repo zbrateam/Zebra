@@ -123,12 +123,10 @@
 }
 
 + (void)hapticButton {
-    if (@available(iOS 10.0, *)) {
-        UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
-        [feedback prepare];
-        [feedback selectionChanged];
-        feedback = nil;
-    }
+    UISelectionFeedbackGenerator *feedback = [[UISelectionFeedbackGenerator alloc] init];
+    [feedback prepare];
+    [feedback selectionChanged];
+    feedback = nil;
 }
 
 + (void)asRoot:(NSTask *)task arguments:(NSArray *)arguments {
@@ -154,20 +152,15 @@
     if (![self needsSimulation]) {
         BOOL failed = NO;
         
-        if (@available(iOS 11.0, *)) {
-            //Try sbreload
-            NSLog(@"[Zebra] Trying sbreload");
-            @try {
-                [self runCommandInPath:@"sbreload" asRoot:NO observer:nil];
-            }
-            @catch (NSException *e) {
-                [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn sbreload. %@: %@", e.name, e.reason];
-                NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
-                failed = YES;
-            }
+        //Try sbreload
+        NSLog(@"[Zebra] Trying sbreload");
+        @try {
+            [self runCommandInPath:@"sbreload" asRoot:NO observer:nil];
         }
-        else {
-            failed = YES; //sbreload hangs on < 10 apparently so we have to mark it as failed in order to continue
+        @catch (NSException *e) {
+            [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn sbreload. %@: %@", e.name, e.reason];
+            NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
+            failed = YES;
         }
         
         //Try launchctl

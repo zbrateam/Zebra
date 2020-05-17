@@ -54,10 +54,8 @@
     [super viewDidLoad];
     [self applyLocalization];
 
-    if (@available(iOS 10.0, *)) {
-        UITabBar.appearance.tintColor = [UIColor accentColor];
-        UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
-    }
+    UITabBar.appearance.tintColor = [UIColor accentColor];
+    UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     
     self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
     self->indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
@@ -100,10 +98,8 @@
     }
     
     //poor hack to get the tab bar to re-layout
-    if (@available(iOS 11.0, *)) {
-        self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
-        self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    }
+    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
+    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)setPackageUpdateBadgeValue:(int)updates {
@@ -268,9 +264,7 @@
         longPress.delegate = self;
         
         [self.popupBar addGestureRecognizer:longPress];
-        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueBarHeightDidChange" object:nil];
-        }];
+        [self presentPopupBarWithContentViewController:self.popupController openPopup:openPopup animated:YES completion:nil];
     });
 }
 
@@ -304,7 +298,6 @@
             [self dismissPopupBarAnimated:YES completion:^{
                 self.popupController = nil;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueBarHeightDidChange" object:nil];
             }];
         }
     });

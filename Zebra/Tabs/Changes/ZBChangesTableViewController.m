@@ -504,12 +504,8 @@
         config.entersReaderIfAvailable = NO;
         SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:cell.redditLink configuration:config];
         safariVC.delegate = self;
-        if (@available(iOS 10.0, *)) {
-            [safariVC setPreferredBarTintColor:[UIColor groupedTableViewBackgroundColor]];
-            [safariVC setPreferredControlTintColor:[UIColor accentColor]];
-        } else {
-            [safariVC.view setTintColor:[UIColor accentColor]];
-        }
+        safariVC.preferredBarTintColor = [UIColor groupedTableViewBackgroundColor];
+        safariVC.preferredControlTintColor = [UIColor accentColor];
         [self presentViewController:safariVC animated:YES completion:nil];
     }
 }

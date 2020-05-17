@@ -33,13 +33,6 @@
 
 @synthesize searchController;
 
-- (BOOL)observeQueueBar {
-    if (@available(iOS 11.0, *)) {
-        return NO;
-    }
-    return YES;
-}
-
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
@@ -47,14 +40,9 @@
     
     [self setupView];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.searchController = searchController;
-        self.navigationItem.hidesSearchBarWhenScrolling = NO;
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
-    }
-    else {
-        self.tableView.tableHeaderView = searchController.searchBar;
-    }
+    self.navigationItem.searchController = searchController;
+    self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
     
     self.title = NSLocalizedString(@"Search", @"");
     self.definesPresentationContext = YES;
@@ -65,14 +53,6 @@
     [super viewWillAppear:animated];
         
     [((ZBSearchResultsTableViewController *)searchController.searchResultsController) setColors];
-    
-    if (@available(iOS 11.0, *)) {
-    }
-    else {
-        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
-        UIView *headerView = [self.tableView headerViewForSection:0];
-        [headerView setNeedsDisplay];
-    }
 }
 
 - (void)configureTableContentInsetForQueue {
@@ -108,9 +88,7 @@
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
-    if (@available(iOS 9.1, *)) {
-        searchController.obscuresBackgroundDuringPresentation = NO;
-    }
+    searchController.obscuresBackgroundDuringPresentation = NO;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

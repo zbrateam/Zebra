@@ -69,9 +69,7 @@ enum ZBMiscOrder {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"Settings", @"");
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-    }
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
@@ -128,10 +126,7 @@ enum ZBMiscOrder {
         case ZBPackages:
             return 1;
         case ZBInterface:
-            if (@available(iOS 10.3, *)) {
-                return 3;
-            }
-            return 1;
+            return 3;
         case ZBFeatured: {
             if ([ZBSettings wantsFeaturedPackages]) {
                 if ([ZBSettings featuredPackagesType] == ZBFeaturedTypeRandom) {
@@ -152,18 +147,16 @@ enum ZBMiscOrder {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell;
     if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
-        if (@available(iOS 10.3, *)) {
-            ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
-            cell.backgroundColor = [UIColor cellBackgroundColor];
-            
-            cell.label.text = NSLocalizedString(@"App Icon", @"");
-            
-            NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
-            UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-            [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
-            
-            return cell;
-        }
+        ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+        cell.backgroundColor = [UIColor cellBackgroundColor];
+        
+        cell.label.text = NSLocalizedString(@"App Icon", @"");
+        
+        NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+        UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+        [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
+        
+        return cell;
     }
     else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
@@ -203,20 +196,18 @@ enum ZBMiscOrder {
                 }
                 case ZBAppIcon: {
                     cell.textLabel.text = NSLocalizedString(@"App Icon", @"");
-                    if (@available(iOS 10.3, *)) {
-                        NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
-                        
-                        cell.detailTextLabel.text = [icon objectForKey:@"shortName"];
-                        
-                        cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-                        [cell.imageView resize:CGSizeMake(30, 30) applyRadius:YES];
-                        
-                        if ([[icon objectForKey:@"border"] boolValue]) {
-                            [cell.imageView applyBorder];
-                        }
-                        else {
-                            [cell.imageView removeBorder];
-                        }
+                    NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+                    
+                    cell.detailTextLabel.text = [icon objectForKey:@"shortName"];
+                    
+                    cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+                    [cell.imageView resize:CGSizeMake(30, 30) applyRadius:YES];
+                    
+                    if ([[icon objectForKey:@"border"] boolValue]) {
+                        [cell.imageView applyBorder];
+                    }
+                    else {
+                        [cell.imageView removeBorder];
                     }
                     break;
                 }
@@ -550,11 +541,9 @@ enum ZBMiscOrder {
 }
 
 - (void)changeIcon {
-    if (@available(iOS 10.3, *)) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
-        [self.navigationController pushViewController:altIcon animated:YES];
-    }
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    ZBAlternateIconController *altIcon = [storyboard instantiateViewControllerWithIdentifier:@"alternateIconController"];
+    [self.navigationController pushViewController:altIcon animated:YES];
 }
 
 - (void)toggleFeatured:(id)sender {

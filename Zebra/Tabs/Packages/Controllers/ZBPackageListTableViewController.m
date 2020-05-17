@@ -64,9 +64,7 @@
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = [self source] ? UINavigationItemLargeTitleDisplayModeNever : UINavigationItemLargeTitleDisplayModeAlways;
-    }
+    self.navigationItem.largeTitleDisplayMode = [self source] ? UINavigationItemLargeTitleDisplayModeNever : UINavigationItemLargeTitleDisplayModeAlways;
     
     if (@available(iOS 13.0, *)) {
     } else {        
