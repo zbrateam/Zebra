@@ -870,11 +870,21 @@
 
 - (NSArray *)information {
     NSMutableArray *information = [NSMutableArray new];
+    BOOL installed = [self isInstalled:NO];
     
-    NSString *installedVersion = [self installedVersion];
-    if (installedVersion) {
-        NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
-        [information addObject:installedVersionInfo];
+    if (installed) {
+        NSString *installedVersion = [self installedVersion];
+        if (installedVersion) {
+            NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
+            [information addObject:installedVersionInfo];
+        }
+    }
+    else {
+        NSString *latestVersion = [[self allVersions][0] version];
+        if (latestVersion) {
+            NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
+            [information addObject:latestVersionInfo];
+        }
     }
     
     NSString *bundleIdentifier = [self identifier];
@@ -883,13 +893,24 @@
         [information addObject:bundleIdentifierInfo];
     }
     
-    NSString *downloadSize = [self downloadSizeString];
-    if (downloadSize) {
-        NSMutableDictionary *downloadSizeInfo = [@{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize, @"cellType": @"info"} mutableCopy];
-        if ([self isInstalled:NO]) {
-            downloadSizeInfo[@"class"] = @"ZBInstalledFilesTableViewController";
+    
+    if (installed) {
+        NSString *installedSize = [self installedSizeString];
+        if (installedSize) { // Show the installed size
+            NSMutableDictionary *installedSizeInfo = [@{@"name": NSLocalizedString(@"Size", @""), @"value": installedSize, @"cellType": @"info", @"class": @"ZBInstalledFilesTableViewController"} mutableCopy];
+            [information addObject:installedSizeInfo];
         }
-        [information addObject:downloadSizeInfo];
+        else { // Package is installed but has no installed size, just display installed files
+            NSMutableDictionary *installedFilesInfo = [@{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @"ZBInstalledFilesTableViewController"} mutableCopy];
+            [information addObject:installedFilesInfo];
+        }
+    }
+    else { // Show the download size
+        NSString *downloadSize = [self downloadSizeString];
+        if (downloadSize) {
+            NSMutableDictionary *downloadSizeInfo = [@{@"name": NSLocalizedString(@"Size", @""), @"value": downloadSize, @"cellType": @"info"} mutableCopy];
+            [information addObject:downloadSizeInfo];
+        }
     }
     
     NSString *authorName = [self authorName];
