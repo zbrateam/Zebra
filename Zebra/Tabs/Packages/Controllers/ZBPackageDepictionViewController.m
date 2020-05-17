@@ -60,7 +60,7 @@
     [self.previewCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBScreenshotCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"ScreenshotCollectionViewCell"];
 }
 
-#pragma mark - Methods Called From viewDidLoad
+#pragma mark - View Setup
 
 - (void)setDelegates {
     self.webView.navigationDelegate = self;

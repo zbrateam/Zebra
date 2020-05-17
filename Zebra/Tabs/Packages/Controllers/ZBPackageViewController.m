@@ -88,7 +88,7 @@
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
 }
 
-#pragma mark - Methods Called From viewDidLoad
+#pragma mark - View Setup
 
 - (void)setDelegates {
     self.informationTableView.delegate = self;

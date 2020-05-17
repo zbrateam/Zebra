@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBChangelogTableViewCell : UITableViewCell
 @property (strong, nonatomic) IBOutlet UILabel *changelogTitleLabel;
 @property (strong, nonatomic) IBOutlet UILabel *changelogNotesLabel;
-@property (strong, nonatomic) IBOutlet UILabel *dateLabel;
 
 @end
 

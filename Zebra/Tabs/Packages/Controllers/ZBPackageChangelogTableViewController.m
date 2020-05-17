@@ -9,6 +9,7 @@
 #import "ZBPackageChangelogTableViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <Packages/Views/ZBChangelogTableViewCell.h>
+#import "UIColor+GlobalColors.h"
 
 @interface ZBPackageChangelogTableViewController ()
 @property (nonatomic, strong) NSArray <ZBPackage *> *allVersions;
@@ -34,12 +35,24 @@
     [super viewDidLoad];
     
     [self registerTableViewCells];
+    [self applyCustomizations];
+    [self setData];
 }
 
 #pragma mark - View Setup
 
+- (void)applyCustomizations {
+    [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
+    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
+}
+
 - (void)registerTableViewCells {
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBChangelogTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"ChangelogTableViewCell"];
+}
+
+- (void)setData {
+    [self setTitle:@"Version History"];
 }
 
 #pragma mark - UITableViewDataSource
@@ -61,7 +74,6 @@
     
     cell.changelogTitleLabel.text = package.changelogTitle;
     cell.changelogNotesLabel.text = package.changelogNotes;
-    cell.dateLabel.text = package.lastSeenDate;
     
     return cell;
 }
