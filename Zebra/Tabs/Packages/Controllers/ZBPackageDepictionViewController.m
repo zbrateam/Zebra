@@ -59,6 +59,8 @@
 - (void)applyCustomizations {
     self.webView.hidden = YES;
     self.webView.scrollView.scrollEnabled = NO;
+    
+    self.nativeView.hidden = YES;
 }
 
 - (void)setData {
