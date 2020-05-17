@@ -21,6 +21,8 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBPackageDepictionViewController.h>
 
+@import SDWebImage;
+
 @interface ZBPackageViewController () {
     BOOL shouldShowNavButtons;
 }
@@ -33,6 +35,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
+@property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 
@@ -119,6 +122,13 @@
     self.tagLineLabel.text = self.package.tagline ?: self.package.authorName;
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
+    
+    if (self.package.headerURL) {
+        [self.headerImageView sd_setImageWithURL:self.package.headerURL];
+    }
+    else {
+        self.headerImageView.hidden = YES;
+    }
 }
 
 - (void)registerTableViewCells {
