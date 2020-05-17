@@ -46,7 +46,7 @@
     
     [self setDelegates];
     [self applyCustomizations];
-    [self loadWebDepiction];
+    [self setData];
 }
 
 #pragma mark - Methods Called From viewDidLoad
