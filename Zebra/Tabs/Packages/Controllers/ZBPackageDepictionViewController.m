@@ -11,6 +11,7 @@
 #import <ZBDevice.h>
 #import "NSAttributedString+Markdown.h"
 #import <Packages/Controllers/ZBPackageChangelogTableViewController.h>
+#import "ZBScreenshotCollectionViewCell.h"
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
@@ -55,6 +56,8 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
+    
+    [self.previewCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBScreenshotCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"ScreenshotCollectionViewCell"];
 }
 
 #pragma mark - Methods Called From viewDidLoad
@@ -62,6 +65,9 @@
 - (void)setDelegates {
     self.webView.navigationDelegate = self;
     self.webView.scrollView.delegate = self;
+    
+    self.previewCollectionView.delegate = self;
+    self.previewCollectionView.dataSource = self;
 }
 
 - (void)applyCustomizations {
@@ -141,6 +147,19 @@
 
 - (void)dealloc {
     if (self.package.depictionURL != nil) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
+}
+
+#pragma mark - UICollectionViewDelegate
+
+- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 3;
+}
+
+#pragma mark - UICollectionViewDataSource
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    ZBScreenshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ScreenshotCollectionViewCell" forIndexPath:indexPath];
+    return cell;
 }
 
 @end
