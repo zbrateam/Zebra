@@ -937,7 +937,7 @@
     
     BOOL showSupport = [self authorEmail] || [self maintainerEmail];
     if (showSupport) {
-        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Support", @""), @"cellType": @"link", @"class": @"ZBPackageSupportViewController", @"image": @"Web Link"};
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Support", @""), @"cellType": @"link", @"class": @"ZBPackageSupportViewController", @"image": @"Email"};
         [information addObject:homepageInfo];
     }
     
