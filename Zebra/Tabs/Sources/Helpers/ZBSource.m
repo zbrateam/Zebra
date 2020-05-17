@@ -156,7 +156,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (BOOL)canDelete {
-    return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_._"];
+    return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_"];
 }
 
 - (BOOL)isEqual:(ZBSource *)object {
