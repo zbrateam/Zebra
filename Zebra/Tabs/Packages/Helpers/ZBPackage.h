@@ -91,9 +91,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)information;
 
 #pragma mark - Modern Payment API
-- (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0));
-- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion API_AVAILABLE(ios(11.0));
-- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
+- (BOOL)mightRequirePayment;
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *info))completion;
+- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion;
 @end
 
 NS_ASSUME_NONNULL_END

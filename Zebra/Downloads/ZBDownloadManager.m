@@ -183,7 +183,7 @@
     }
 }
 
-- (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion API_AVAILABLE(ios(11.0)) {
+- (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion {
     ZBSource *source = [package source];
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     

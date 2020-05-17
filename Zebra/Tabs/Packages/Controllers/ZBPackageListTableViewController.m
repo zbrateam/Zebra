@@ -219,7 +219,6 @@
 }
 
 - (void)configureSegmentedController {
-    // FIXME: On iOS 10, navigating back from Package Depiction page to Packages page makes the segmented control at the top left for a brief amount of time
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
         if (self->source.sourceID)

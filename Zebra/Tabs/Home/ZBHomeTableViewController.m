@@ -658,7 +658,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 #pragma mark - Navigation
 
 // FIXME: Update for new depictions
-//- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+//- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
 //    typeof(self) __weak weakSelf = self;
 //    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
 //        return weakSelf.previewPackageDepictionVC;
@@ -673,7 +673,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 //    }];
 //}
 
-- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
         [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];

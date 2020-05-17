@@ -323,7 +323,7 @@
 
 #pragma mark - Navigation
 
-- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+- (UIContextMenuConfiguration *)collectionView:(UICollectionView *)collectionView contextMenuConfigurationForItemAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
         ZBChildData *post = [weakSelf.redditPosts objectAtIndex:indexPath.row];
@@ -335,7 +335,7 @@
     } actionProvider:nil];
 }
 
-- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+- (void)collectionView:(UICollectionView *)collectionView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
         [weakSelf.navigationController presentViewController:weakSelf.previewSafariVC animated:YES completion:nil];
@@ -343,7 +343,7 @@
 }
 
 // FIXME: Update for new depictions
-//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point  API_AVAILABLE(ios(13.0)){
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
 //    typeof(self) __weak weakSelf = self;
 //    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
 //        return weakSelf.previewPackageDepictionVC;
@@ -354,7 +354,7 @@
 //    }];
 //}
 
-- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator  API_AVAILABLE(ios(13.0)){
+- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
     [animator addCompletion:^{
         [weakSelf.navigationController pushViewController:weakSelf.previewPackageDepictionVC animated:YES];

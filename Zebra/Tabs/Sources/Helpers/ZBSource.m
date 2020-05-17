@@ -173,7 +173,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
 }
 
-- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {
     if (![self suppotsPaymentAPI]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
         completion(NO, YES, error);
@@ -235,12 +235,12 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [session start];
 }
 
-- (BOOL)isSignedIn API_AVAILABLE(ios(11.0)) {
+- (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     return [keychain stringForKey:self.repositoryURI];
 }
 
-- (NSString *)paymentSecret:(NSError **)error API_AVAILABLE(ios(11.0)) {
+- (NSString *)paymentSecret:(NSError **)error {
     __block NSString *paymentSecret = NULL;
     __block NSError *paymentError = NULL;
     
@@ -266,7 +266,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return paymentSecret;
 }
 
-- (NSURL *)paymentVendorURL API_AVAILABLE(ios(11.0)) {
+- (NSURL *)paymentVendorURL {
     if (self->paymentVendorURI && self->paymentVendorURI.host && self->paymentVendorURI.scheme) {
         return self->paymentVendorURI;
     }
@@ -276,13 +276,13 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return self->paymentVendorURI;
 }
 
-- (BOOL)suppotsPaymentAPI API_AVAILABLE(ios(11.0)) {
+- (BOOL)suppotsPaymentAPI {
     NSURL *paymentVendorURL = [self paymentVendorURL];
     
     return paymentVendorURL && paymentVendorURL.host && paymentVendorURL.scheme;
 }
 
-- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0)) {
+- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
     if (![self paymentVendorURL] || ![self isSignedIn]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
@@ -323,7 +323,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [task resume];
 }
 
-- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0)) {
+- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion {
     if (![self paymentVendorURL]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];

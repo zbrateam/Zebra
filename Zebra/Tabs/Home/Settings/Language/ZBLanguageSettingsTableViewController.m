@@ -26,7 +26,7 @@
 
 @implementation ZBLanguageSettingsTableViewController
 
-- (id)init API_AVAILABLE(ios(10.0)) {
+- (id)init {
     self = [super initWithStyle:UITableViewStyleGrouped];
     
     if (self) {
@@ -127,7 +127,7 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(10.0)) {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"languageCell"];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"languageCell"];

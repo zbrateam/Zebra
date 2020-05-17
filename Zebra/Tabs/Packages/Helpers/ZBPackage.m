@@ -489,15 +489,15 @@
     return [tags containsObject:@"cydia::commercial"];
 }
 
-- (BOOL)mightRequirePayment API_AVAILABLE(ios(11.0)) {
+- (BOOL)mightRequirePayment {
     return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] suppotsPaymentAPI]);
 }
 
-- (BOOL)requiresPayment API_AVAILABLE(ios(11.0)) {
+- (BOOL)requiresPayment {
     return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
 }
 
-- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
     //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
     if (![self mightRequirePayment]) {
         completion(NULL);
@@ -944,7 +944,7 @@
     return information;
 }
 
-- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0)) {
+- (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion {
     ZBSource *source = [self source];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];

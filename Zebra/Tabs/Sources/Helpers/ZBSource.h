@@ -40,13 +40,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Modern Payment API
 
-- (NSString *)paymentSecret:(NSError **)error API_AVAILABLE(ios(11.0));
-- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion API_AVAILABLE(ios(11.0));
-- (BOOL)isSignedIn API_AVAILABLE(ios(11.0));
-- (NSURL *)paymentVendorURL API_AVAILABLE(ios(11.0));
-- (BOOL)suppotsPaymentAPI API_AVAILABLE(ios(11.0));
-- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0));
-- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion API_AVAILABLE(ios(11.0));
+- (NSString *)paymentSecret:(NSError **)error;
+- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion;
+- (BOOL)isSignedIn;
+- (NSURL *)paymentVendorURL;
+- (BOOL)suppotsPaymentAPI;
+- (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion;
+- (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion;
 
 @end
 
