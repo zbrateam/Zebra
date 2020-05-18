@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "Impossible de finaliser l'achat";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paquet non disponible";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Le paquet que vous demandez n'est plus disponible. Il est possible qu'il ait été supprimé de vos sources ou que l'identifiant du paquet demandé soit incorrect.";
