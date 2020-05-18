@@ -2123,6 +2123,10 @@
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Done %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
     if (baseSource) [completedSources addObject:baseSource];
+    if (errors && [errors count]) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
+        [self postStatusUpdate:message atLevel:ZBLogLevelError];
+    }
 }
 
 - (void)finishedAllDownloads {

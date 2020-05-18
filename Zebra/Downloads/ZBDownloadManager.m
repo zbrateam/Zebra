@@ -78,6 +78,9 @@
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.timeoutIntervalForResource = 25;
+    configuration.timeoutIntervalForRequest = 10;
+    
     NSDictionary *headers = [ZBDownloadManager headers];
     if (headers == NULL) {
         [self postStatusUpdate:[NSString stringWithFormat:@"%@\n", NSLocalizedString(@"Could not determine device information.", @"")] atLevel:ZBLogLevelError];
@@ -130,6 +133,8 @@
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
+    configuration.timeoutIntervalForResource = 25;
+    configuration.timeoutIntervalForRequest = 10;
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
@@ -249,7 +254,12 @@
 
 - (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
     if (error) { //An error occured, we should handle it accordingly
-        if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
+        if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
+            
+            [self cancelTasksForSource:source]; // Cancel the other task for this source.
+            [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+        }
+        else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.releaseTaskCompleted = YES;
