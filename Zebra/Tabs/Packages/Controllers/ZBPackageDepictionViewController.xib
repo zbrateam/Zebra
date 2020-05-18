@@ -15,6 +15,7 @@
                 <outlet property="descriptionLabel" destination="eo3-0T-gZY" id="6Rh-Yp-FZc"/>
                 <outlet property="nativeView" destination="ZiN-gy-d8H" id="Wxq-Dk-gFK"/>
                 <outlet property="previewCollectionView" destination="vat-X7-27P" id="JZJ-Ea-5fw"/>
+                <outlet property="previewCollectionViewHeightConstraint" destination="MXW-k6-bdc" id="eYb-in-hfG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="zA9-Lw-XqB" id="5OS-7C-Z0b"/>
                 <outlet property="webViewHeightConstraint" destination="DR0-CG-RQS" id="c9s-gP-syw"/>

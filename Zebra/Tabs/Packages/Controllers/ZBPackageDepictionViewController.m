@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *changelogVersionTitleLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewCollectionViewHeightConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
 
@@ -58,6 +59,12 @@
     [self setData];
     
     [self.previewCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBScreenshotCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"ScreenshotCollectionViewCell"];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    [self updatePreviewCollectionViewHeightBasedOnContent];
 }
 
 #pragma mark - View Setup
@@ -102,6 +109,11 @@
 - (IBAction)versionHistoryButtonTapped:(id)sender {
     ZBPackageChangelogTableViewController *changelog = [[ZBPackageChangelogTableViewController alloc] initWithPackage:self.package];
     [[self navigationController] pushViewController:changelog animated:YES];
+}
+
+- (void) updatePreviewCollectionViewHeightBasedOnContent {
+    self.previewCollectionViewHeightConstraint.constant = 400;
+//    self.previewCollectionViewHeightConstraint.constant = self.previewCollectionView.collectionViewLayout.collectionViewContentSize.height;
 }
 
 #pragma mark - WKNavigationDelegate
@@ -151,15 +163,19 @@
 
 #pragma mark - UICollectionViewDelegate
 
+#pragma mark - UICollectionViewDataSource
+
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return 3;
 }
-
-#pragma mark - UICollectionViewDataSource
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBScreenshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ScreenshotCollectionViewCell" forIndexPath:indexPath];
     return cell;
 }
 
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(200, 400);
+
+}
 @end

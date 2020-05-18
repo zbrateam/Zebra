@@ -12,7 +12,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    [self applyCustomizations];
+}
+     
+- (void)applyCustomizations {
+    self.screenshotImageView.layer.cornerRadius = 5;
+    self.screenshotImageView.layer.masksToBounds = YES;
 }
 
 @end
