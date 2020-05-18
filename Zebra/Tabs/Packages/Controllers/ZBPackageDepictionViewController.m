@@ -86,10 +86,10 @@
 - (void)setData {
     [self loadWebDepiction];
     
-    NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription];
+    NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
     [self.descriptionLabel setAttributedText:descriptionAttributedString];
     
-    NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes];
+    NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
     [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
     
     [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
