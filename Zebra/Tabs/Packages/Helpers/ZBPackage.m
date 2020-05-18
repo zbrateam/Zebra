@@ -969,14 +969,14 @@
 }
 
 - (NSString *)changelogTitle {
-    if (_changelogTitle) {
+    if (_changelogTitle && ![_changelogTitle isEqualToString:@""]) {
         return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), version, _changelogTitle];
     }
     return [NSString stringWithFormat:NSLocalizedString(@"Version %@", @""), version];
 }
 
 - (NSString *)changelogNotes {
-    if (_changelogNotes) {
+    if (_changelogNotes  && ![_changelogNotes isEqualToString:@""]) {
         return _changelogNotes;
     }
     return NSLocalizedString(@"No Release Notes Available", @"");
