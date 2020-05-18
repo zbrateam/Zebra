@@ -880,10 +880,13 @@
         }
     }
     else {
-        NSString *latestVersion = [[self allVersions][0] version];
-        if (latestVersion) {
-            NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
-            [information addObject:latestVersionInfo];
+        NSArray <ZBPackage *> *allVersions = [self allVersions];
+        if (allVersions.count) { // Theres at least one package
+            NSString *latestVersion = [allVersions[0] version];
+            if (latestVersion) {
+                NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
+                [information addObject:latestVersionInfo];
+            }
         }
     }
     
