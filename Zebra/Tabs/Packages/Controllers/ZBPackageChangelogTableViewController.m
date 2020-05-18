@@ -74,7 +74,7 @@
     ZBPackage *package = self.allVersions[indexPath.row];
     
     cell.changelogTitleLabel.text = package.changelogTitle;
-    cell.changelogNotesLabel.attributedText = [[NSAttributedString alloc] initWithMarkdownString:package.changelogNotes];
+    cell.changelogNotesLabel.attributedText = [[NSAttributedString alloc] initWithMarkdownString:package.changelogNotes fontSize:cell.changelogNotesLabel.font.pointSize];
     
     return cell;
 }
