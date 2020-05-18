@@ -494,7 +494,14 @@ void readMultiLineKey(FILE **file, char **buffer) {
             
             position = ftell(*file);
         }
-        else {
+        else { // Next line is another key or a newline
+            if (strlen(*buffer) != 0) { // If we actually found multi-line information
+                char *end = strrchr(*buffer, '\n');
+                if (end != NULL) {
+                    *end = '\0';
+                }
+            }
+            
             fseek(*file, position, SEEK_SET);
             break;
         }
