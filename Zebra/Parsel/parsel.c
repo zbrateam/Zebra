@@ -488,7 +488,7 @@ void readMultiLineKey(FILE **file, char **buffer) {
             }
             
             if (strlen(&line[i]) + strlen(*buffer) + 1 < LONG_DESCRIPTION_MAX_LENGTH) {
-                strcat(*buffer, &line[i]);
+                if (strlen(&line[i]) > 1 && line[i] != '.') strcat(*buffer, &line[i]);
                 strcat(*buffer, "\n");
             }
             
