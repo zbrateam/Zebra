@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSAttributedString (Markdown)
 - (id)initWithMarkdownString:(NSString *)markdownString;
+- (id)initWithMarkdownString:(NSString *)markdownString fontSize:(CGFloat)fontSize;
 @end
 
 NS_ASSUME_NONNULL_END
