@@ -355,6 +355,15 @@
     return value;
 }
 
++ (BOOL)isMystery {
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? YES : [self _isRegularFile:@"/.procursus_strapped"];
+    });
+    return value;
+}
+
 + (NSString *)packageManagementBinary {
     static NSString *packageManagementBinary = nil;
     static dispatch_once_t onceToken;

@@ -40,6 +40,7 @@
 + (BOOL)isChimera;
 + (BOOL)isElectra;
 + (BOOL)isUncover;
++ (BOOL)isMystery;
 
 + (BOOL)useIcon;
 
