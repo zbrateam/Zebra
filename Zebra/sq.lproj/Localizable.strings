@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "Pagesa nuk mund të kryhet";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paketa nuk është në dispozicion";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paketa që ju kërkuat nuk është më në dispozicion. Ajo mund të jet hequr nga burimi ose package ID që kërkuat është gabim.";

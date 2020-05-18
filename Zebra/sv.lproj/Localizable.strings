@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "Kunde inte slutföra köpet";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paket inte tillgängligt";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paketet du begär är inte längre tillgängligt. Det kan ha tagits bort från dina källor, eller så var det begärda paket-ID:t felaktigt.";

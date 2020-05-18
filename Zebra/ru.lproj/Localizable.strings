@@ -28,7 +28,7 @@
 "No items in Wish List" = "Нет пакетов в мписке желаний";
 "Community" = "Сообщество";
 "Join our Discord" = "Наш Discord";
-"Follow us on Twitter" = "Подпишитесь на нас в Twitter";
+"Follow us on Twitter" = "Подпишитесь на наш Тwitter";
 "Help translate Zebra!" = "Помогите перевести Zebra!";
 
 // Community Source
@@ -197,7 +197,7 @@
 
 "Error while moving file at %@ to %@" = "Ошибка при перемещении файла из %@ в %@";
 
-"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL неверный. Пожалуйста, проверьте его и попробуйте снова.";
+"The URL you entered is not valid. Please check it and try again." = "Введённый вами URL - неверный. Пожалуйста, проверьте его и попробуйте снова.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra не удалось загрузить источник, указанный в %@. Возможно, он добавлен неправильно или временно недоступен.";
 
@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "Не удалось завершить покупку";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Пакет недоступен";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Запрошенный пакет больше не доступен. Возможно, он был удалён из источников или был запрошен неверный идентификатор пакета.";

@@ -69,7 +69,7 @@
 "Text" = "Text";
 "Icon" = "Ikona";
 "Finish Automatically" = "Automaticky Dokončit";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Vždy instalovat nejnovější";
 "Automatic Refresh" = "Automatická aktualizace";
 
 // Accent Colors
@@ -181,16 +181,16 @@
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
 "Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
 "Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
-"View" = "View";
+"View" = "Zobrazit";
 
 "A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
 
 "Could not parse %@ from %@" = "Chyba při analýze %@ z %@";
 "Could not find a download URL for" = "ULR pro stažení nebylo nalezeno";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Authorizing Download for %@" = "Autorizuji stažení %@";
+"Couldn't authorize download for %@." = "Stahování %@ se nepodařilo autorizovat.";
 "Reason: %@." = "Důvod: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"The Payment API is not supported on less than iOS 11.0" = "Platební API není podporováno na verzi menší, než iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Soubor Release z %@nelze stáhnout. Důvod: %@";
 "Could not download Packages file from %@. Reason: %@" = "Soubor balíčků z %@nelze stáhnout. Důvod: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nelze stáhnout jeden nebo více souborů z %@. Důvod: %@";
@@ -342,7 +342,7 @@
 "Finished importing local packages." = "Importování místních balíčků bylo dokončeno.";
 "One or more packages failed to download." = "Jeden nebo více balíčků nemohlo být nainstalováno.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klikni na \"Návrat do Fronty\" pro návrat do fronty a zkus stahování opakovat.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Could not complete %@ process. Reason: %@." = "Nelze dokončit proces %@. Důvod: %@.";
 "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Restartujte Zebru a zjistěte, zda problém stále přetrvává. Pokud ano, nahlaste problém na GitHub.";
 "Done..." = "Hotovo...";
 "Done %@" = "Dokončeno %@";
@@ -350,7 +350,7 @@
 "Installing Zebra..." = "Instalace Zebry...";
 "Error while opening file:" = "Chyba při otevírání souboru:";
 "Adding Payment Vendor URL for %@" = "Přidávám URL dodavatele platby pro %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Toto zařízení je simulováno, zde jsou balíčky, které by byly v tomto stadiu upraveny:";
 
 // Queue Bar
 
@@ -401,13 +401,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nemá oprávnění nastavit uid nebo gid. Zkontrolujte oprávnění souboru umístěného v /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Při vytváření adresáře dokumentů došlo k chybě: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Při vytváření adresáře lists došlo k chybě: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Při vytváření souboru sources.list došlo k chybě: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Při vytváření adresáře debs došlo k chybě: %@.";
 
 "Could not respring. Please respring manually." = "Chyba během auto respringu. Proveďte respring ručně.";
 
@@ -443,7 +443,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automaticky zavře Konzoli po dokončení všech jejích úkolů.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Vždy nainstalovat nejnovější verzi balíčku, pokud již není nainstalována.";
 
 // Filters
 
@@ -481,8 +481,8 @@
 "You are adding a repository that is not secure" = "Přidáváte repositář, který není bezpečný";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data stažená z tohoto repozitáře nemusí být zašifrována. Opravdu je chcete přidat?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Nákup nebylo možné dokončit";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Balíček není k dispozici";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Požadovaný balíček již není k dispozici. Možná byl odstraněn ze zdrojů nebo požadované ID balíčku není správné.";

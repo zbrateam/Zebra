@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "לא ניתן להשלים רכישה";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "חבילה לא זמינה";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "החבילה שביקשת אינה זמינה יותר. ייתכן שהוסרה מהמקורות שלך או שמזהה החבילה היה שגוי.";

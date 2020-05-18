@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "Không thể hoàn tất mua";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Gói không khả dụng";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Gói bạn yêu cầu không còn nữa.  Nó có thể đã bị xóa khỏi nguồn của bạn hoặc ID gói được yêu cầu không chính xác.";
