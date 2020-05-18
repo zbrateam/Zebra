@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "无法完成购买操作";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "软件包不存在";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "你请求的软件包不存在，可能已经从软件源中被移除，或者请求的软件包ID不正确。";
