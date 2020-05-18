@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBScreenshotCollectionViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *screenshotImageView;
 
 @end
 

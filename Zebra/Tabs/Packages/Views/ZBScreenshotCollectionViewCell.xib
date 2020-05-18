@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="2SB-fL-L6Z">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="2SB-fL-L6Z">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                     </imageView>
                 </subviews>
@@ -29,6 +29,9 @@
                 <constraint firstItem="2SB-fL-L6Z" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="lVd-zo-YQO"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="SEy-5g-ep8"/>
+            <connections>
+                <outlet property="screenshotImageView" destination="2SB-fL-L6Z" id="5G4-5C-KAd"/>
+            </connections>
             <point key="canvasLocation" x="139" y="107"/>
         </collectionViewCell>
     </objects>
