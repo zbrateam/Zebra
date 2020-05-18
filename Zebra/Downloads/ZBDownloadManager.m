@@ -285,7 +285,7 @@
                 [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
             }
             else { //Tries to download another filetype
-                NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma", @""];
+                NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < options.count) {
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source ignoreCaching:ignore];
