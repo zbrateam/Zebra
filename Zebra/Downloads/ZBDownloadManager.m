@@ -96,7 +96,7 @@
         [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
         [releaseTask resume];
         
-        [self downloadPackagesFileWithExtension:@"xz" fromSource:source ignoreCaching:ignore];
+        [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
         
         [downloadDelegate startedSourceDownload:source];
     }
