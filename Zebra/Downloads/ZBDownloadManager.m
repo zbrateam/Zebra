@@ -45,11 +45,6 @@
     return @{@"X-Cydia-ID" : udid, @"User-Agent" : @"Telesphoreo (Zebra) APT-HTTP/1.0.592", @"X-Firmware": version, @"X-Unique-ID" : udid, @"X-Machine" : machineIdentifier};
 }
 
-- (NSDictionary *)headers {
-    //For tweak compatibility...ugh...
-    return [[self class] headers];
-}
-
 - (id)init {
     self = [super init];
     
@@ -851,8 +846,9 @@
                         
                     case COMPRESSION_STATUS_ERROR:
                         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                        compression_stream_destroy(&stream);
+                        free(destinationBuffer);
                         return nil;
-                        
                     default:
                         break;
                 }
@@ -860,6 +856,7 @@
 
             compression_stream_destroy(&stream);
             [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
+            free(destinationBuffer);
             
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
@@ -902,8 +899,8 @@
 }
 
 - (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(NSString *)file {
-    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, statusCode, NULL, kCFHTTPVersion1_1));
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingFormat:@": %@\n", file]}];
+    NSString *reasonPhrase = [[NSHTTPURLResponse localizedStringForStatusCode:statusCode] localizedCapitalizedString];
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%lu %@: %@", (unsigned long)statusCode, reasonPhrase, file]}];
     
     return error;
 }
