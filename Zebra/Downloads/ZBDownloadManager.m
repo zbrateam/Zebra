@@ -78,8 +78,6 @@
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    configuration.timeoutIntervalForResource = 25;
-    configuration.timeoutIntervalForRequest = 10;
     
     NSDictionary *headers = [ZBDownloadManager headers];
     if (headers == NULL) {
@@ -133,8 +131,6 @@
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
-    configuration.timeoutIntervalForResource = 25;
-    configuration.timeoutIntervalForRequest = 10;
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
