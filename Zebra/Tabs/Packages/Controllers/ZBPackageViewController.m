@@ -103,10 +103,12 @@
     [self configureNavigationItems];
     
     // Tagline label tapping
-    UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
-    self.tagLineLabel.userInteractionEnabled = YES;
-    [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
-
+    if (self.package.tagline) { // Only enable the tap recognizer if there is a tagline
+        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
+        self.tagLineLabel.userInteractionEnabled = YES;
+        [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
+    }
+    
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
     self.iconImageView.layer.borderWidth = 1;
@@ -119,7 +121,7 @@
 
 - (void)setData {
     self.nameLabel.text = self.package.name;
-    self.tagLineLabel.text = self.package.tagline ?: self.package.authorName;
+    self.tagLineLabel.text = self.package.tagline ?: self.package.authorName ?: self.package.maintainerName;
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
     
