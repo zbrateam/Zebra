@@ -363,7 +363,12 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     self.editing = NO;
     ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    [self performSegueWithIdentifier:@"segueFeaturedToPackageDepiction" sender:cell.packageID];
+    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+    
+    if (package) {
+        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
+        [[self navigationController] pushViewController:packageDepiction animated:YES];
+    }
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
