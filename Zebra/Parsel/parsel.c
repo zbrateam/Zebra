@@ -541,6 +541,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
         bindPackage(&package, sourceID, safeID, longDescription, depends, database, true, 0);
     }
     
+    dict_free(package);
+    
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
     return PARSEL_OK;
@@ -624,6 +626,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     if (dict_get(package, "Package") != 0) {
         bindPackage(&package, sourceID, safeID, longDescription, depends, database, false, currentDate);
     }
+    
+    dict_free(package);
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
