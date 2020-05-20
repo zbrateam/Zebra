@@ -396,6 +396,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+        return;
+    }
+    
     ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
