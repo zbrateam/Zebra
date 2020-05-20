@@ -97,7 +97,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
     }
     
-    self = [super initWithArchiveType:[NSString stringWithUTF8String:archiveTypeChars] repositoryURI:[NSString stringWithUTF8String:repositoryURIChars] distribution:[NSString stringWithUTF8String:distributionChars] components:components];
+    self = [super initWithArchiveType:archiveTypeChars != 0 ? [NSString stringWithUTF8String:archiveTypeChars] : @"deb" repositoryURI:[NSString stringWithUTF8String:repositoryURIChars] distribution:[NSString stringWithUTF8String:distributionChars] components:components];
     
     if (self) {
         const char *descriptionChars   = textColumn(statement, ZBSourceColumnDescription);
