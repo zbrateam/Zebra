@@ -241,6 +241,22 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     self.window.tintColor = [UIColor accentColor];
     if ([ZBDatabaseManager needsMigration]) {
+        NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+        if (url) {
+            if ([[url scheme] isEqualToString:@"file"] && [[url pathExtension] isEqualToString:@"list"]) {
+                NSString *listPath = [ZBAppDelegate sourcesListPath];
+                
+                NSError *removeError;
+                if ([[NSFileManager defaultManager] fileExistsAtPath:listPath]) {
+                    [[NSFileManager defaultManager] removeItemAtPath:listPath error:&removeError];
+                }
+                
+                if (!removeError) {
+                    [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:listPath error:nil];
+                }
+            }
+        }
+        
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
     
@@ -260,9 +276,14 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSArray *choices = @[@"file", @"zbra"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
+    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+        return NO;
+    }
+    
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
+                
                 NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
                 
                 NSError *moveError;
@@ -282,7 +303,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
-                
+                    
                 ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 [sourceListController handleImportOf:url];
             }
@@ -290,6 +311,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         }
         case 1: { // zbra
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+            
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
             index = (int)[choices indexOfObject:components[0]];
