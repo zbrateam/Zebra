@@ -187,7 +187,14 @@
 - (IBAction)moreButtonPressed:(id)sender {
     UIAlertController *extraActions = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     
-    for (UIAlertAction *action in [ZBPackageActions extraAlertActionsForPackage:self.package]) {
+    NSArray <UIAlertAction *> *actions = [ZBPackageActions extraAlertActionsForPackage:self.package selectionCallback:^(ZBPackageExtraActionType action) {
+        if (action == ZBPackageExtraActionShare) {
+            UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[self.package] applicationActivities:nil];
+            
+            [self presentViewController:shareSheet animated:YES completion:nil];
+        }
+    }];
+    for (UIAlertAction *action in actions) {
         [extraActions addAction:action];
     }
     

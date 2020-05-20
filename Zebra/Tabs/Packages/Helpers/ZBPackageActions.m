@@ -29,28 +29,35 @@
     return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
 }
 
-+ (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(ZBPackage *)package completion:(void (^)(void))completion {
++ (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(ZBPackage *)package completion:(void (^)(ZBPackageExtraActionType action))completion {
     switch (action) {
         case ZBPackageExtraActionShowUpdates:
             [self showUpdatesFor:package];
+            if (completion) completion(action);
             break;
         case ZBPackageExtraActionHideUpdates:
             [self hideUpdatesFor:package];
+            if (completion) completion(action);
+            break;
         case ZBPackageExtraActionAddWishlist:
             [self addToWishlist:package];
+            if (completion) completion(action);
             break;
         case ZBPackageExtraActionRemoveWishlist:
             [self removeFromWishlist:package];
+            if (completion) completion(action);
             break;
         case ZBPackageExtraActionBlockAuthor:
             [self blockAuthorOf:package];
+            if (completion) completion(action);
             break;
         case ZBPackageExtraActionUnblockAuthor:
             [self unblockAuthorOf:package];
+            if (completion) completion(action);
             break;
-//        case ZBPackageExtraActionShare:
-//            [self share:package];
-//            break;
+        case ZBPackageExtraActionShare:
+            if (completion) completion(action);
+            break;
     }
 }
 
@@ -393,7 +400,7 @@
     return alertActions;
 }
 
-+ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package {
++ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback {
     NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
     
     NSArray *actions = [package possibleExtraActions];
@@ -402,7 +409,7 @@
         
         NSString *title = [self titleForExtraAction:action];
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
-            [self performExtraAction:action forPackage:package completion:nil];
+            [self performExtraAction:action forPackage:package completion:callback];
         }];
         [alertActions addObject:alertAction];
     }
@@ -542,8 +549,8 @@
             return NSLocalizedString(@"Block Author", @"");
         case ZBPackageExtraActionUnblockAuthor:
             return NSLocalizedString(@"Unblock Author", @"");
-//        case ZBPackageExtraActionShare:
-//            return NSLocalizedString(@"Share Package", @"");
+        case ZBPackageExtraActionShare:
+            return NSLocalizedString(@"Share Package", @"");
         default:
             return @"Undefined";
     }

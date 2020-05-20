@@ -23,6 +23,7 @@
 #import <Queue/ZBQueue.h>
 #import <ZBSettings.h>
 
+@import LinkPresentation;
 @import SDWebImage;
 @import FirebaseCrashlytics;
 
@@ -863,7 +864,7 @@
         }
     }
     
-//    [actions addObject:@(ZBPackageExtraActionShare)];
+    [actions addObject:@(ZBPackageExtraActionShare)];
     
     return [actions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
 }
@@ -1072,6 +1073,50 @@
             completion(NO, error);
         }
     }];
+}
+
+#pragma mark - UIActivityItemSource
+
+- (id)activityViewControllerPlaceholderItem:(UIActivityViewController *)activityViewController {
+    return self.name;
+}
+
+- (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(UIActivityType)activityType {
+    if (self.source.sourceID > 0) {
+        if (self.authorName) {
+            return [NSString stringWithFormat:@"Check out %@ by %@ on Zebra! zbra://packages/%@?source=%@", self.name, self.authorName, self.identifier, self.source.repositoryURI];
+        }
+        else {
+            return [NSString stringWithFormat:@"Check out %@ on Zebra! zbra://packages/%@?source=%@", self.name, self.identifier, self.source.repositoryURI];
+        }
+    }
+    else {
+        ZBPackage *installableCandidate = [self installableCandidate];
+        if (installableCandidate && installableCandidate.source.sourceID > 0) {
+            return [installableCandidate activityViewController:activityViewController itemForActivityType:activityType];
+        }
+        else {
+            return [NSString stringWithFormat:@"Check out %@ on Zebra! zbra://packages/%@", self.name, self.identifier];
+        }
+    }
+}
+
+- (NSString *)activityViewController:(UIActivityViewController *)activityViewController subjectForActivityType:(UIActivityType)activityType {
+    return @"Check out this package on Zebra";
+}
+
+- (UIImage *)activityViewController:(UIActivityViewController *)activityViewController thumbnailImageForActivityType:(UIActivityType)activityType suggestedSize:(CGSize)size {
+    return [ZBSource imageForSection:self.section];
+}
+
+- (LPLinkMetadata *)activityViewControllerLinkMetadata:(UIActivityViewController *)activityViewController API_AVAILABLE(ios(13.0)) {
+    LPLinkMetadata *metaData = [[LPLinkMetadata alloc] init];
+    metaData.originalURL = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"zbra://package/xyz.willy.zebra"]];
+    metaData.URL = metaData.originalURL;
+    metaData.title = self.name;
+    metaData.imageProvider = [[NSItemProvider alloc] initWithObject:[ZBSource imageForSection:self.section]];
+    
+    return metaData;
 }
 
 @end

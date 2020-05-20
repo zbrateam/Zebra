@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
+#import <UIKit/UIKit.h>
 
 @class UIImageView;
 @class ZBSource;
@@ -15,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackage : NSObject
+@interface ZBPackage : NSObject <UIActivityItemSource>
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *version;
