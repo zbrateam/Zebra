@@ -303,23 +303,21 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return timestamp;
 }
 
-pair *splitNameAndEmail(const char *author_) {
+pair *splitNameAndEmail(const char *author) {
     pair *p = malloc(sizeof(pair));
     
-    if (author_ == NULL) {
+    if (author == NULL) {
         p->key = NULL;
         p->value = NULL;
     } else {
-        p->key = malloc(strlen(author_) + 1);
-        
-        char *author = malloc(strlen(author_) + 1);
-        strcpy(author, author_);
+        unsigned long length = strlen(author);
+        p->key = malloc(length + 1);
         
         char *l = strchr(author, '<');
         char *r = strchr(author, '>');
         
         if (l && r) {
-            p->value = malloc(strlen(author_) + 1);
+            p->value = malloc(length + 1);
             
             int nameSize = (int)(l - author);
             int emailSize = (int)(r - author) - nameSize - 1;
@@ -334,8 +332,6 @@ pair *splitNameAndEmail(const char *author_) {
             strcpy(p->key, author);
             p->value = NULL;
         }
-        
-        free(author);
     }
     
     return p;
