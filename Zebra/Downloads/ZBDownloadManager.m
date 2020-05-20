@@ -80,6 +80,7 @@
         return;
     }
     configuration.HTTPAdditionalHeaders = headers;
+    configuration.timeoutIntervalForRequest = 30;
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
@@ -126,6 +127,7 @@
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDownloadManager headers];
+    configuration.timeoutIntervalForRequest = 30;
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBPackage *package in packages) {
