@@ -636,6 +636,10 @@
         ZBPackage *package = packageTasksMap[taskIdentifier];
         if (package) {
             [downloadDelegate finishedPackageDownload:package withError:error];
+            
+            if (packageTasksMap.count - 1 == 0) {
+                [downloadDelegate finishedAllDownloads];
+            }
         }
         else { //This should be a source
             ZBBaseSource *source = sourceTasksMap[@(task.taskIdentifier)];
