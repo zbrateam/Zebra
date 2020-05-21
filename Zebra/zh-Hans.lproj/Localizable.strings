@@ -338,7 +338,7 @@
 "Finished!" = "完成！";
 "Return to Queue" = "返回队列";
 "Returning to Queue..." = "正在返回队列……";
-"Importing local packages." = "正在导入本地软件包";
+"Importing local packages." = "正在导入本地软件包……";
 "Finished importing local packages." = "导入本地软件包完成";
 "One or more packages failed to download." = "一个或多个软件包下载失败";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载";
