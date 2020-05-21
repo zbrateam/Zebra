@@ -395,29 +395,29 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "因为没有适当的权限，Zebra 无法完成此命令。 请验证位于 /usr/libexec/zebra/supersling 的权限，并在 GitHub 上报告这个问题。";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "无法访问 su/sling 。请验证 /usr/libexec/zebra/supersling 是否存在。";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "无法访问 su/sling ，请验证 /usr/libexec/zebra/supersling 是否存在。";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 用户权限非 root:wheel 。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 用户权限非 root:wheel ，请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限，请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"Error while creating documents directory: %@." = "创建文档目录时出错：%@。";
+"Error while creating documents directory: %@." = "创建文档目录时出错：%@";
 
-"Error while creating lists directory: %@." = "创建列表目录时出错：%@。";
+"Error while creating lists directory: %@." = "创建列表目录时出错：%@";
 
-"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@。";
+"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@";
 
-"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@。";
+"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@";
 
-"Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
+"Could not respring. Please respring manually." = "自动 Respring 失败，请手动 Respring 。";
 
 "ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
-"Incorrect documents permissions." = "文档权限不正确。";
+"Incorrect documents permissions." = "文档权限不正确";
 
-"Could not determine device information." = "无法获取设备信息。";
+"Could not determine device information." = "无法获取设备信息";
 
 "Display featured packages on the homepage." = "在主页上显示精选软件包";
 
@@ -429,17 +429,17 @@
 
 "Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观";
 
-"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色。";
+"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色";
 
-"Change the style of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题。";
+"Change the style of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题";
 
-"Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源。";
+"Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包";
 
-"Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
+"Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台";
 
@@ -459,13 +459,13 @@
 
 "Sources" = "软件源";
 "Select a Source" = "选择软件源";
-"Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
+"Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类";
 
 "Updates" = "更新";
-"Hide future updates from these packages." = "隐藏这些软件包的更新。";
+"Hide future updates from these packages." = "隐藏这些软件包的更新";
 
 "Authors" = "开发者";
-"Hide packages from these authors." = "隐藏这些开发者的软件包。";
+"Hide packages from these authors." = "隐藏这些开发者的软件包";
 "Search for an Author" = "搜索开发者";
 "This author also goes by the following names:" = "此开发者还使用以下名字：";
 
