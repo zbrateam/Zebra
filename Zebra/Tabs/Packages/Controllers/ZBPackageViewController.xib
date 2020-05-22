@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -34,16 +34,16 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-sR-U6A">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
-                                    <rect key="frame" x="58" y="52" width="240" height="76"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
+                                    <rect key="frame" x="0.0" y="34" width="414" height="256"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" secondItem="dhG-sR-U6A" secondAttribute="width" multiplier="0.7" id="M6A-gc-PyH"/>
-                                <constraint firstAttribute="trailing" secondItem="XDv-c4-fFn" secondAttribute="trailing" constant="116" id="trD-ga-0y2"/>
-                                <constraint firstItem="XDv-c4-fFn" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" constant="58" id="wbS-0S-qqC"/>
-                                <constraint firstAttribute="bottom" secondItem="XDv-c4-fFn" secondAttribute="bottom" constant="162" id="wee-eA-Kq6"/>
+                                <constraint firstAttribute="trailing" secondItem="XDv-c4-fFn" secondAttribute="trailing" id="trD-ga-0y2"/>
+                                <constraint firstItem="XDv-c4-fFn" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" id="wbS-0S-qqC"/>
+                                <constraint firstAttribute="bottom" secondItem="XDv-c4-fFn" secondAttribute="bottom" id="wee-eA-Kq6"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
@@ -168,7 +168,7 @@
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bCc-JN-qu1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="l4K-FQ-BSJ" secondAttribute="trailing" id="jEY-rL-Mj2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dhG-sR-U6A" secondAttribute="trailing" id="m76-nq-oxc"/>
-                <constraint firstItem="XDv-c4-fFn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="52" id="s0x-HN-aKt"/>
+                <constraint firstItem="XDv-c4-fFn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="s0x-HN-aKt"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="z2k-I9-9Mb"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
