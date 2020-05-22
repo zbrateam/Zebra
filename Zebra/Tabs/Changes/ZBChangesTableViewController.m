@@ -309,7 +309,7 @@
 #pragma mark - Swipe actions
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];;
+    return ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {

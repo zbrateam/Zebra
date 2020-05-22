@@ -283,14 +283,17 @@
 }
 
 - (void)upgradeAll {
-    ZBQueue *queue = [ZBQueue sharedQueue];
     int beforeCount = [ZBQueue count];
-    [queue addPackages:updates toQueue:ZBQueueTypeUpgrade];
-    [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-    int afterCount = [ZBQueue count];
-    if (beforeCount == afterCount) {
-        [[ZBAppDelegate tabBarController] openQueue:YES];
-    }
+    
+    [ZBPackageActions performAction:ZBPackageActionUpgrade forPackages:updates completion:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+            int afterCount = [ZBQueue count];
+            if (beforeCount == afterCount) {
+                [[ZBAppDelegate tabBarController] openQueue:YES];
+            }
+        });
+    }];
 }
 
 - (ZBPackage *)packageAtIndexPath:(NSIndexPath *)indexPath {
@@ -314,7 +317,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (selectedSortingType == ZBSortingTypeABC || selectedSortingType == ZBSortingTypeDate) {
-        return [sectionIndexTitles count] + needsUpdatesSection;
+        return sectionIndexTitles.count + needsUpdatesSection;
     }
     return 1 + needsUpdatesSection;
 }
@@ -414,7 +417,6 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
-    //reloadData in completion
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

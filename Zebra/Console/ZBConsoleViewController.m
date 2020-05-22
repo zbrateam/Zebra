@@ -41,6 +41,7 @@
     BOOL updateIconCache;
     BOOL zebraRestartRequired;
     int autoFinishDelay;
+    BOOL blockDatabaseMessages;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelOrCloseButton;
@@ -73,15 +74,11 @@
         installedPackageIdentifiers = [NSMutableArray new];
         respringRequired = NO;
         updateIconCache = NO;
+        blockDatabaseMessages = NO;
         autoFinishDelay = 3;
     }
     
     return self;
-}
-
-// Prevent old tweaks from crashing
-- (id)initWithLocalFile:(NSString *)file {
-    return nil;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -512,6 +509,7 @@
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager addDatabaseDelegate:self];
     [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
+    [databaseManager removeDatabaseDelegate:self];
 }
 
 - (void)removeAllDebs {
@@ -729,7 +727,7 @@
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    [self writeToConsole:status atLevel:level];
+    if (!blockDatabaseMessages) [self writeToConsole:status atLevel:level];
 }
 
 #pragma mark - Download Delegate
@@ -772,10 +770,12 @@
 #pragma mark - Database Delegate
 
 - (void)databaseStartedUpdate {
+    blockDatabaseMessages = YES; // Prevents random database messages from coming in to the console
     [self writeToConsole:NSLocalizedString(@"Importing local packages.", @"") atLevel:ZBLogLevelInfo];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
+    blockDatabaseMessages = NO;
     [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
     if (packageUpdates != -1) {
         dispatch_async(dispatch_get_main_queue(), ^{

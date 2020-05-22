@@ -252,6 +252,10 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [self tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
+
 #pragma mark - Navigation Buttons
 
 - (void)addSource:(id)sender {

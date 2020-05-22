@@ -181,7 +181,7 @@
 "You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
-"View" = "View";
+"View" = "表示";
 
 "A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "購入処理を完了できませんでした。";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "このパッケージは利用できません";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "リクエストしたパッケージは利用できなくなりました。リポジトリから削除されたか、リクエストされたパッケージIDが正しくありません。";

@@ -484,5 +484,5 @@
 "Unable to complete purchase" = "Satın alma tamamlanamadı";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paket Bulunamadı";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "İstediğiniz pakete ulaşılamadı. Paket kaynağından kaldırılmış ya da sorgu yanlış girilmiş olabilir.";

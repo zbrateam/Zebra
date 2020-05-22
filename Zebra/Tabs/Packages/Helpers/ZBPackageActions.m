@@ -61,6 +61,21 @@
     }
 }
 
++ (void)performAction:(ZBPackageActionType)action forPackages:(NSArray <ZBPackage *> *)packages completion:(void (^)(void))completion {
+    dispatch_group_t group = dispatch_group_create();
+    
+    for (ZBPackage *package in packages) {
+        dispatch_group_enter(group);
+        [self performAction:action forPackage:package completion:^{
+            dispatch_group_leave(group);
+        }];
+    }
+    
+    dispatch_group_notify(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+        if (completion) completion();
+    });
+}
+
 + (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package completion:(void (^)(void))completion {
     [self performAction:action forPackage:package checkPayment:YES completion:completion];
 }
@@ -373,7 +388,7 @@
             }];
         }];
         
-        [rowAction setBackgroundColor:[self colorForAction:action]];
+        rowAction.backgroundColor = [self colorForAction:action];
         [rowActions addObject:rowAction];
     }
     

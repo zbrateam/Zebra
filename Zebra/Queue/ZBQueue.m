@@ -95,12 +95,13 @@
 
         }
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBPackageStatusUpdate" object:nil];
     [self updateQueueBarData];
 }
 
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue {
     for (ZBPackage *package in packages) {
-        [self addPackage:package toQueue:queue];;
+        [self addPackage:package toQueue:queue];
     }
 }
 
@@ -215,6 +216,7 @@
     [[self dependencyQueue] removeAllObjects];
     [[self conflictQueue] removeAllObjects];
     [queuedPackagesList removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBPackageStatusUpdate" object:nil];
     [self updateQueueBarData];
     [self dismissQueueBar];
 }

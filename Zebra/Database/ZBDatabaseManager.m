@@ -2113,6 +2113,7 @@
 }
 
 - (void)startedSourceDownload:(ZBBaseSource *)baseSource {
+    [self bulkSetSource:[baseSource baseFilename] busy:YES];
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
 }
 
@@ -2121,6 +2122,11 @@
 }
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
+    [self bulkSetSource:[baseSource baseFilename] busy:NO];
+    if (errors && [errors count]) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
+        [self postStatusUpdate:message atLevel:ZBLogLevelError];
+    }
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Done %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
     if (baseSource) [completedSources addObject:baseSource];
 }

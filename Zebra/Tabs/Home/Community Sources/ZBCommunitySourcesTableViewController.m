@@ -146,7 +146,20 @@
 
 - (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice isChimera]) {
+    if ([ZBDevice isMystery]) {
+        NSDictionary *dict = @{@"type": @"utility",
+                               @"name": @"Procursus",
+                               @"url" : @"https://apt.procurs.us/",
+                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
+        [result addObject:dict];
+        
+        NSDictionary *dict2 = @{@"type": @"utility",
+                               @"name": @"Mystery",
+                               @"url" : @"https://myste.ry/repo/",
+                               @"icon": @"https://myste.ry/repo/CydiaIcon.png"};
+        [result addObject:dict2];
+    }
+    else if ([ZBDevice isChimera]) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Chimera",
                                @"url" : @"https://repo.chimera.sh/",

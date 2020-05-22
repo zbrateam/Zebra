@@ -210,7 +210,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
     
     NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
-    if ([ZBDevice isCheckrain]) {
+    if ([ZBDevice isMystery]) {
+        jailbreak = @"Mystery";
+    }
+    else if ([ZBDevice isCheckrain]) {
         jailbreak = @"checkra1n";
     }
     else if ([ZBDevice isChimera]) {
@@ -233,6 +236,22 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     self.window.tintColor = [UIColor accentColor];
     if ([ZBDatabaseManager needsMigration]) {
+        NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
+        if (url) {
+            if ([[url scheme] isEqualToString:@"file"] && [[url pathExtension] isEqualToString:@"list"]) {
+                NSString *listPath = [ZBAppDelegate sourcesListPath];
+                
+                NSError *removeError;
+                if ([[NSFileManager defaultManager] fileExistsAtPath:listPath]) {
+                    [[NSFileManager defaultManager] removeItemAtPath:listPath error:&removeError];
+                }
+                
+                if (!removeError) {
+                    [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:listPath error:nil];
+                }
+            }
+        }
+        
         self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
     }
     
@@ -245,9 +264,14 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSArray *choices = @[@"file", @"zbra"];
     int index = (int)[choices indexOfObject:[url scheme]];
     
+    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+        return NO;
+    }
+    
     switch (index) {
         case 0: { // file
             if ([[url pathExtension] isEqualToString:@"deb"]) {
+                
                 NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
                 
                 NSError *moveError;
@@ -267,7 +291,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
-                
+                    
                 ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 [sourceListController handleImportOf:url];
             }
@@ -275,6 +299,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         }
         case 1: { // zbra
             ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+            
             NSArray *components = [[url host] componentsSeparatedByString:@"/"];
             choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
             index = (int)[choices indexOfObject:components[0]];
@@ -360,6 +385,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+        return;
+    }
+    
     ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
@@ -433,9 +462,14 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     static UITableViewController *previousController = nil;
     UITableViewController *currentController = [navigationController viewControllers][0];
     if (previousController == currentController) {
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wundeclared-selector"
+
         if ([currentController respondsToSelector:@selector(scrollToTop)]) {
             [currentController performSelector:@selector(scrollToTop)];
         }
+
+        #pragma clang diagnostic pop
     }
     previousController = [navigationController viewControllers][0]; // Should set the previousController to the rootVC
 }

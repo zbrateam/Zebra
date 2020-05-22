@@ -75,6 +75,7 @@
         return;
     }
     configuration.HTTPAdditionalHeaders = headers;
+//    configuration.timeoutIntervalForRequest = 30;
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
@@ -84,7 +85,7 @@
         [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
         [releaseTask resume];
         
-        [self downloadPackagesFileWithExtension:@"xz" fromSource:source ignoreCaching:ignore];
+        [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
         
         [downloadDelegate startedSourceDownload:source];
     }
@@ -236,7 +237,12 @@
 
 - (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
     if (error) { //An error occured, we should handle it accordingly
-        if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
+        if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
+            
+            [self cancelTasksForSource:source]; // Cancel the other task for this source.
+            [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+        }
+        else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.releaseTaskCompleted = YES;
@@ -262,7 +268,7 @@
                 [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
             }
             else { //Tries to download another filetype
-                NSArray *options = @[@"xz", @"bz2", @"gz", @"lzma", @""];
+                NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < options.count) {
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source ignoreCaching:ignore];
@@ -382,6 +388,9 @@
     NSURL *url = [NSURL URLWithString:baseURL];
     NSString *host = [url host];
     
+    if ([ZBDevice isMystery]) { // mystery
+        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
+    }
     if ([ZBDevice isCheckrain]) { // checkra1n
         return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
     }
@@ -617,6 +626,10 @@
         ZBPackage *package = packageTasksMap[taskIdentifier];
         if (package) {
             [downloadDelegate finishedPackageDownload:package withError:error];
+            
+            if (packageTasksMap.count - 1 == 0) {
+                [downloadDelegate finishedAllDownloads];
+            }
         }
         else { //This should be a source
             ZBBaseSource *source = sourceTasksMap[@(task.taskIdentifier)];
@@ -829,8 +842,9 @@
                         
                     case COMPRESSION_STATUS_ERROR:
                         *error = [NSError errorWithDomain:NSCocoaErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Invalid .lzma or .xz archive"}];
+                        compression_stream_destroy(&stream);
+                        free(destinationBuffer);
                         return nil;
-                        
                     default:
                         break;
                 }
@@ -838,6 +852,7 @@
 
             compression_stream_destroy(&stream);
             [decompressedData writeToFile:[path stringByDeletingPathExtension] atomically:YES];
+            free(destinationBuffer);
             
             NSError *removeError = nil;
             [[NSFileManager defaultManager] removeItemAtPath:path error:&removeError];
@@ -875,13 +890,13 @@
         case BZ_MEM_ERROR:
             return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: @"Insufficient memory is available", @"Failing-File": file}];
         default:
-            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown BZ2 Error (%d)", bzError], @"Failing-File": file}];;
+            return [NSError errorWithDomain:NSPOSIXErrorDomain code:1337 userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"Unknown BZ2 Error (%d)", bzError], @"Failing-File": file}];
     }
 }
 
 - (NSError *)errorForHTTPStatusCode:(NSUInteger)statusCode forFile:(NSString *)file {
-    NSString *reasonPhrase = (__bridge_transfer NSString *)CFHTTPMessageCopyResponseStatusLine(CFHTTPMessageCreateResponse(kCFAllocatorDefault, statusCode, NULL, kCFHTTPVersion1_1));
-    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: [reasonPhrase stringByAppendingFormat:@": %@\n", file]}];
+    NSString *reasonPhrase = [[NSHTTPURLResponse localizedStringForStatusCode:statusCode] localizedCapitalizedString];
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:statusCode userInfo:@{NSLocalizedDescriptionKey: [NSString stringWithFormat:@"%lu %@: %@", (unsigned long)statusCode, reasonPhrase, file]}];
     
     return error;
 }

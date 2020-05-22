@@ -276,14 +276,15 @@
 - (void)setSource:(ZBBaseSource *)source selected:(BOOL)selected {
     if (source.verificationStatus != ZBSourceExists) return;
     
-    self->selectedSources[[source baseFilename]] = @(selected);
+    self.selectedSources[[source baseFilename]] = @(selected);
 }
 
 - (void)importSelected {
     NSMutableSet *sources = [NSMutableSet new];
     NSMutableArray *baseFilenames = [NSMutableArray new];
-    for (NSString *baseFilename in [self->selectedSources allKeys]) {
-        if ([self->selectedSources[baseFilename] boolValue]) {
+    
+    for (NSString *baseFilename in [self.selectedSources allKeys]) {
+        if ([self.selectedSources[baseFilename] boolValue]) {
             if (baseFilename) [baseFilenames addObject:baseFilename];
         }
     }

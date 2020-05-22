@@ -97,7 +97,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         components = [[NSString stringWithUTF8String:componenetsChars] componentsSeparatedByString:@" "];
     }
     
-    self = [super initWithArchiveType:[NSString stringWithUTF8String:archiveTypeChars] repositoryURI:[NSString stringWithUTF8String:repositoryURIChars] distribution:[NSString stringWithUTF8String:distributionChars] components:components];
+    self = [super initWithArchiveType:archiveTypeChars != 0 ? [NSString stringWithUTF8String:archiveTypeChars] : @"deb" repositoryURI:[NSString stringWithUTF8String:repositoryURIChars] distribution:[NSString stringWithUTF8String:distributionChars] components:components];
     
     if (self) {
         const char *descriptionChars   = textColumn(statement, ZBSourceColumnDescription);
@@ -156,7 +156,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (BOOL)canDelete {
-    return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_._"];
+    return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_"];
 }
 
 - (BOOL)isEqual:(ZBSource *)object {
@@ -237,7 +237,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    return [keychain stringForKey:self.repositoryURI];
+    return [keychain stringForKey:self.repositoryURI] ? YES : NO;
 }
 
 - (NSString *)paymentSecret:(NSError **)error {
