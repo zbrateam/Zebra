@@ -32,22 +32,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-sR-U6A">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="290"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="165.5"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
-                                    <rect key="frame" x="0.0" y="34" width="414" height="256"/>
+                                    <rect key="frame" x="0.0" y="34" width="414" height="131.5"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" secondItem="dhG-sR-U6A" secondAttribute="width" multiplier="0.7" id="M6A-gc-PyH"/>
+                                <constraint firstAttribute="height" secondItem="dhG-sR-U6A" secondAttribute="width" multiplier="0.4" id="M6A-gc-PyH"/>
                                 <constraint firstAttribute="trailing" secondItem="XDv-c4-fFn" secondAttribute="trailing" id="trD-ga-0y2"/>
                                 <constraint firstItem="XDv-c4-fFn" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" id="wbS-0S-qqC"/>
                                 <constraint firstAttribute="bottom" secondItem="XDv-c4-fFn" secondAttribute="bottom" id="wee-eA-Kq6"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="290" width="414" height="441"/>
+                            <rect key="frame" x="0.0" y="165.5" width="414" height="441"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
                                     <rect key="frame" x="0.0" y="32" width="414" height="409"/>
@@ -153,7 +153,7 @@
                     <constraints>
                         <constraint firstItem="l4K-FQ-BSJ" firstAttribute="top" secondItem="dhG-sR-U6A" secondAttribute="bottom" id="Akb-ql-AtU"/>
                         <constraint firstItem="dhG-sR-U6A" firstAttribute="top" secondItem="pGb-C7-kl2" secondAttribute="top" id="Mh6-OB-aTm"/>
-                        <constraint firstAttribute="bottom" secondItem="l4K-FQ-BSJ" secondAttribute="bottom" constant="153" id="wHO-Td-V7z"/>
+                        <constraint firstAttribute="bottom" secondItem="l4K-FQ-BSJ" secondAttribute="bottom" id="wHO-Td-V7z"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="d3o-3J-4f9"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="5ZQ-3T-bZ3"/>
