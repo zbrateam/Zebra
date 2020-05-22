@@ -32,22 +32,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-sR-U6A">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="165.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
-                                    <rect key="frame" x="0.0" y="34" width="414" height="131.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="height" secondItem="dhG-sR-U6A" secondAttribute="width" multiplier="0.4" id="M6A-gc-PyH"/>
+                                <constraint firstAttribute="width" secondItem="dhG-sR-U6A" secondAttribute="height" multiplier="16:9" id="IJN-hZ-Zha"/>
                                 <constraint firstAttribute="trailing" secondItem="XDv-c4-fFn" secondAttribute="trailing" id="trD-ga-0y2"/>
                                 <constraint firstItem="XDv-c4-fFn" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" id="wbS-0S-qqC"/>
                                 <constraint firstAttribute="bottom" secondItem="XDv-c4-fFn" secondAttribute="bottom" id="wee-eA-Kq6"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="165.5" width="414" height="441"/>
+                            <rect key="frame" x="0.0" y="233" width="414" height="441"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
                                     <rect key="frame" x="0.0" y="32" width="414" height="409"/>
