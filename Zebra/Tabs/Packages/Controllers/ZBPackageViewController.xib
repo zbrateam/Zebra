@@ -47,10 +47,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="290" width="414" height="409"/>
+                            <rect key="frame" x="0.0" y="290" width="414" height="441"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
+                                    <rect key="frame" x="0.0" y="32" width="414" height="409"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5b4-CH-e0H">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
@@ -143,7 +143,7 @@
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="Bfw-gG-ypV" secondAttribute="trailingMargin" id="Hmw-N8-Dgu"/>
-                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="top" secondItem="l4K-FQ-BSJ" secondAttribute="top" priority="999" id="ZpP-Yt-c1S"/>
+                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="top" secondItem="l4K-FQ-BSJ" secondAttribute="top" priority="999" constant="32" id="ZpP-Yt-c1S"/>
                                 <constraint firstAttribute="bottom" secondItem="Bfw-gG-ypV" secondAttribute="bottom" id="zGu-FC-rVK"/>
                                 <constraint firstItem="Bfw-gG-ypV" firstAttribute="leadingMargin" secondItem="l4K-FQ-BSJ" secondAttribute="leading" id="zKM-6p-laB"/>
                             </constraints>
