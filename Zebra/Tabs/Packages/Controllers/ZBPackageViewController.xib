@@ -28,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGb-C7-kl2">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGb-C7-kl2">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-sR-U6A">
@@ -142,21 +142,21 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="Bfw-gG-ypV" secondAttribute="trailingMargin" id="Hmw-N8-Dgu"/>
                                 <constraint firstItem="Bfw-gG-ypV" firstAttribute="top" secondItem="l4K-FQ-BSJ" secondAttribute="top" priority="999" constant="32" id="ZpP-Yt-c1S"/>
+                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="trailing" secondItem="E03-JQ-Lvv" secondAttribute="trailing" id="fja-cy-ylP"/>
+                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="leading" secondItem="E03-JQ-Lvv" secondAttribute="leading" id="xVl-nN-Ksl"/>
                                 <constraint firstAttribute="bottom" secondItem="Bfw-gG-ypV" secondAttribute="bottom" id="zGu-FC-rVK"/>
-                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="leadingMargin" secondItem="l4K-FQ-BSJ" secondAttribute="leading" id="zKM-6p-laB"/>
                             </constraints>
                             <viewLayoutGuide key="safeArea" id="E03-JQ-Lvv"/>
                         </view>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="l4K-FQ-BSJ" firstAttribute="leading" secondItem="pGb-C7-kl2" secondAttribute="leading" id="43E-4g-hm8"/>
                         <constraint firstItem="l4K-FQ-BSJ" firstAttribute="top" secondItem="dhG-sR-U6A" secondAttribute="bottom" id="Akb-ql-AtU"/>
                         <constraint firstItem="dhG-sR-U6A" firstAttribute="top" secondItem="pGb-C7-kl2" secondAttribute="top" id="Mh6-OB-aTm"/>
+                        <constraint firstAttribute="trailing" secondItem="l4K-FQ-BSJ" secondAttribute="trailing" id="Qf6-Oi-x0R"/>
                         <constraint firstAttribute="bottom" secondItem="l4K-FQ-BSJ" secondAttribute="bottom" id="wHO-Td-V7z"/>
                     </constraints>
-                    <viewLayoutGuide key="contentLayoutGuide" id="d3o-3J-4f9"/>
-                    <viewLayoutGuide key="frameLayoutGuide" id="5ZQ-3T-bZ3"/>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
