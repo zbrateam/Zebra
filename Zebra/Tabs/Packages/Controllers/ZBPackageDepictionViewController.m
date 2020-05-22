@@ -104,7 +104,7 @@
             self.previewHeaderLabel.text = NSLocalizedString(@"Description", @"");
         };
         
-        if (true /*TODO: self.package.hasChangelog*/) {
+        if ([self.package hasChangelog]) {
             NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
             [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
             

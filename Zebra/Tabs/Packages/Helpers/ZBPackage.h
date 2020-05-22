@@ -90,6 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray * _Nullable)possibleExtraActions;
 - (void)setIconImageForImageView:(UIImageView *)imageView;
 - (NSArray *)information;
+- (BOOL)hasChangelog;
 
 #pragma mark - Modern Payment API
 - (BOOL)mightRequirePayment;

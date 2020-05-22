@@ -969,6 +969,10 @@
     return information;
 }
 
+- (BOOL)hasChangelog {
+    return _changelogTitle != NULL && _changelogNotes != NULL;
+}
+
 - (NSString *)changelogTitle {
     if (_changelogTitle && ![_changelogTitle isEqualToString:@""]) {
         return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), version, _changelogTitle];
