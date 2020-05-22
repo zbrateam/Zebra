@@ -241,6 +241,7 @@
 "More by this Developer" = "More by this Developer";
 "Installed Version" = "Installed Version";
 "Installed Size" = "Installed Size";
+"Preview" = "Preview";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";

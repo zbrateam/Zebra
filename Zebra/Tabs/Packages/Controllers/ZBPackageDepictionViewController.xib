@@ -10,12 +10,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZBPackageDepictionViewController">
             <connections>
+                <outlet property="changelogContainerStackView" destination="N2l-3O-bvb" id="2mb-Am-mxZ"/>
                 <outlet property="changelogNotesLabel" destination="8re-UT-mNy" id="OYL-Uy-g8E"/>
                 <outlet property="changelogVersionTitleLabel" destination="e7t-ZC-bhm" id="uSn-aX-eYJ"/>
                 <outlet property="descriptionLabel" destination="eo3-0T-gZY" id="6Rh-Yp-FZc"/>
                 <outlet property="nativeView" destination="ZiN-gy-d8H" id="Wxq-Dk-gFK"/>
                 <outlet property="previewCollectionView" destination="vat-X7-27P" id="JZJ-Ea-5fw"/>
                 <outlet property="previewCollectionViewHeightConstraint" destination="MXW-k6-bdc" id="eYb-in-hfG"/>
+                <outlet property="previewHeaderLabel" destination="nhe-qt-IhJ" id="oSI-Cf-hMe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="zA9-Lw-XqB" id="5OS-7C-Z0b"/>
                 <outlet property="webViewHeightConstraint" destination="DR0-CG-RQS" id="c9s-gP-syw"/>
@@ -78,7 +80,7 @@
                                                     <attributedString key="attributedText">
                                                         <fragment content="Description">
                                                             <attributes>
-                                                                <font key="NSFont" metaFont="menu" size="14"/>
+                                                                <font key="NSFont" metaFont="system" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
                                                         </fragment>
@@ -124,7 +126,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Description">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>

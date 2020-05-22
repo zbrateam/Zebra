@@ -29,11 +29,13 @@
 
 // Native Outlets
 @property (weak, nonatomic) IBOutlet UIView *nativeView;
+@property (weak, nonatomic) IBOutlet UIStackView *changelogContainerStackView;
 @property (weak, nonatomic) IBOutlet UILabel *changelogNotesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *changelogVersionTitleLabel;
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewCollectionViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UILabel *previewHeaderLabel;
 
 @property (strong, nonatomic) ZBPackage *package;
 
@@ -94,13 +96,26 @@
 - (void)setData {
     if (shouldBeNative) {
         self.nativeView.hidden = NO;
+
+        if (self.package.previewImageURLs != nil) {
+            self.previewHeaderLabel.text = NSLocalizedString(@"Preview", @"");
+        } else {
+            self.previewCollectionView.hidden = YES;
+            self.previewHeaderLabel.text = NSLocalizedString(@"Description", @"");
+        };
+        
+        if (true /*TODO: self.package.hasChangelog*/) {
+            NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
+            [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
+            
+            [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
+        } else {
+            self.changelogContainerStackView.hidden = YES;
+        }
+        
         NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
         [self.descriptionLabel setAttributedText:descriptionAttributedString];
         
-        NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
-        [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
-        
-        [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
     } else {
         [self loadWebDepiction];
     }
