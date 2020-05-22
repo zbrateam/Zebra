@@ -103,8 +103,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     
     self.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     
-    [self.packageIcon.layer setCornerRadius:20];
-    [self.packageIcon.layer setMasksToBounds:YES];
+    self.packageIcon.layer.cornerRadius = 20;
+    self.packageIcon.layer.masksToBounds = YES;
     infos = [NSMutableDictionary new];
     [self setPackage];
     
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [progressView.leadingAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.leadingAnchor].active = YES;
     [progressView.topAnchor constraintEqualToAnchor:self.tableView.tableHeaderView.topAnchor].active = YES;
     
-    [progressView setTintColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
+    progressView.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     
     webView.navigationDelegate = self;
     
@@ -207,14 +207,14 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
-        [progressView setAlpha:1.0f];
+        progressView.alpha = 1.0;
         [progressView setProgress:webView.estimatedProgress animated:YES];
         
-        if (webView.estimatedProgress >= 1.0f) {
+        if (webView.estimatedProgress >= 1.0) {
             [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
-                [self->progressView setAlpha:0.0f];
+                [self->progressView setAlpha:0.0];
             } completion:^(BOOL finished) {
-                [self->progressView setProgress:0.0f animated:NO];
+                [self->progressView setProgress:0.0 animated:NO];
             }];
         }
     } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
