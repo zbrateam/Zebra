@@ -23,9 +23,7 @@
 
 @import SDWebImage;
 
-@interface ZBPackageViewController () {
-    BOOL shouldShowNavButtons;
-}
+@interface ZBPackageViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
