@@ -12,13 +12,16 @@
 #import "NSAttributedString+Markdown.h"
 #import <Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"
+#import "UIColor+GlobalColors.h"
 @import SDWebImage;
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
 @end
 
-@interface ZBPackageDepictionViewController ()
+@interface ZBPackageDepictionViewController () {
+    BOOL shouldBeNative;
+}
 
 // Web Outlets
 @property (weak, nonatomic) IBOutlet WKWebView *webView;
@@ -45,6 +48,7 @@
     
     if (self) {
         self.package = package;
+        self->shouldBeNative = self.package.preferNative || self.package.depictionURL == nil;
     }
     
     return self;
@@ -71,28 +75,35 @@
 #pragma mark - View Setup
 
 - (void)setDelegates {
-    self.webView.navigationDelegate = self;
-    self.webView.scrollView.delegate = self;
-    
-    self.previewCollectionView.delegate = self;
-    self.previewCollectionView.dataSource = self;
+    if (shouldBeNative) {
+        self.previewCollectionView.delegate = self;
+        self.previewCollectionView.dataSource = self;
+    } else {
+        self.webView.navigationDelegate = self;
+        self.webView.scrollView.delegate = self;
+    }
 }
 
 - (void)applyCustomizations {
+    self.nativeView.hidden = YES;
     self.webView.hidden = YES;
     self.webView.scrollView.scrollEnabled = NO;
+    self.webView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)setData {
-    [self loadWebDepiction];
-    
-    NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
-    [self.descriptionLabel setAttributedText:descriptionAttributedString];
-    
-    NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
-    [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
-    
-    [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
+    if (shouldBeNative) {
+        self.nativeView.hidden = NO;
+        NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
+        [self.descriptionLabel setAttributedText:descriptionAttributedString];
+        
+        NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
+        [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
+        
+        [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
+    } else {
+        [self loadWebDepiction];
+    }
 }
 
 #pragma mark - Helper Methods
@@ -104,7 +115,7 @@
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
     self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-//    [self.webView loadRequest:request];
+    [self.webView loadRequest:request];
 }
 
 - (IBAction)versionHistoryButtonTapped:(id)sender {
@@ -159,7 +170,7 @@
 }
 
 - (void)dealloc {
-    if (self.package.depictionURL != nil) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
+    if (!shouldBeNative) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
 }
 
 #pragma mark - UICollectionViewDelegate
