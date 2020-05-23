@@ -26,7 +26,7 @@ after-stage::
 	$(FAKEROOT) chmod 755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/firmware
 
 ipa::
-	make all
+	$(MAKE) all
 	mkdir -p $(THEOS_STAGING_DIR)/Payload
 	mv Zebra.xcarchive/Products/Applications/Zebra.app $(THEOS_STAGING_DIR)/Payload/Zebra.app
 	rm -rf Zebra.xcarchive
