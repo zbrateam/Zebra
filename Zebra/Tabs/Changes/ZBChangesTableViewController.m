@@ -307,11 +307,6 @@
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
-//    return [ZBPackageActions rowActionsForPackage:package indexPath:indexPath viewController:self parent:nil completion:^(void) {
-//        [UIView performWithoutAnimation:^{
-//            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//        }];
-//    }];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
