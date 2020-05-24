@@ -14,6 +14,7 @@
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
                 <outlet property="headerImageContainerView" destination="dhG-sR-U6A" id="1OU-Mh-maY"/>
                 <outlet property="headerImageContainerViewVerticalSpaceConstraint" destination="Akb-ql-AtU" id="YMB-hm-BQY"/>
+                <outlet property="headerImageGradientView" destination="a1A-Z4-7Uq" id="kja-kB-yXc"/>
                 <outlet property="headerImageView" destination="XDv-c4-fFn" id="2Tj-eS-brq"/>
                 <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
@@ -40,9 +41,15 @@
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
                                     <rect key="frame" x="0.0" y="-44" width="414" height="147.5"/>
                                 </imageView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1A-Z4-7Uq">
+                                    <rect key="frame" x="0.0" y="-44" width="414" height="88.5"/>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
+                                <constraint firstItem="a1A-Z4-7Uq" firstAttribute="height" secondItem="XDv-c4-fFn" secondAttribute="height" multiplier="0.6" id="CbQ-yv-jiw"/>
+                                <constraint firstItem="a1A-Z4-7Uq" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" id="Fds-rf-FLW"/>
+                                <constraint firstAttribute="trailing" secondItem="a1A-Z4-7Uq" secondAttribute="trailing" id="GMG-fy-lZU"/>
                                 <constraint firstAttribute="width" secondItem="dhG-sR-U6A" secondAttribute="height" multiplier="4:1" id="IJN-hZ-Zha"/>
                                 <constraint firstAttribute="trailing" secondItem="XDv-c4-fFn" secondAttribute="trailing" id="trD-ga-0y2"/>
                                 <constraint firstItem="XDv-c4-fFn" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" id="wbS-0S-qqC"/>
@@ -168,6 +175,7 @@
                 <constraint firstItem="l4K-FQ-BSJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="48n-8D-SMu"/>
                 <constraint firstItem="dhG-sR-U6A" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CIh-3D-7Jt"/>
                 <constraint firstAttribute="bottom" secondItem="pGb-C7-kl2" secondAttribute="bottom" id="Ckr-js-RFV"/>
+                <constraint firstItem="a1A-Z4-7Uq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Krj-Kd-TLy"/>
                 <constraint firstAttribute="trailing" secondItem="pGb-C7-kl2" secondAttribute="trailing" id="Yhe-Po-XRd"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bCc-JN-qu1"/>
                 <constraint firstAttribute="trailing" secondItem="l4K-FQ-BSJ" secondAttribute="trailing" id="jEY-rL-Mj2"/>

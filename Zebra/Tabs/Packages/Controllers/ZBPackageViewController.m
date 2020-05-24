@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
 @property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UIView *headerImageContainerView;
+@property (weak, nonatomic) IBOutlet UIView *headerImageGradientView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewVerticalSpaceConstraint;
@@ -42,6 +43,7 @@
 @property (strong, nonatomic) ZBPackage *package;
 @property (strong, nonatomic) NSArray *packageInformation;
 @property (strong, nonatomic) ZBActionButton *getBarButton;
+@property (strong, nonatomic) CAGradientLayer *headerImageGradientLayer;
 @end
 
 @implementation ZBPackageViewController
@@ -80,6 +82,7 @@
     [super viewDidLayoutSubviews];
     
     [self updateTableViewHeightBasedOnContent];
+    self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -117,6 +120,12 @@
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
     [self configureGetButtons];
+    
+    // Image Header
+    self.headerImageGradientLayer = [CAGradientLayer layer];
+    self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
+    self.headerImageGradientLayer.colors = @[(id)[[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor, (id)[UIColor clearColor].CGColor];
+    [self.headerImageGradientView.layer insertSublayer:self.headerImageGradientLayer atIndex:0];
 }
 
 - (void)setData {
