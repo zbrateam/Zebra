@@ -127,7 +127,8 @@
     if (self.package.headerURL) {
         [self.headerImageView sd_setImageWithURL:self.package.headerURL];
     } else {
-        self.headerImageView.hidden = YES;
+        self.headerContainerView.hidden = YES;
+        [[self.headerContainerView.heightAnchor constraintEqualToConstant:0] setActive:YES];
     }
 }
 
