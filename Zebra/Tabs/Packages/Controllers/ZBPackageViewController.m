@@ -34,9 +34,10 @@
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
 @property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
-@property (weak, nonatomic) IBOutlet UIView *headerContainerView;
+@property (weak, nonatomic) IBOutlet UIView *headerImageContainerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewVerticalSpaceConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
 @property (strong, nonatomic) NSArray *packageInformation;
@@ -126,9 +127,10 @@
     
     if (self.package.headerURL) {
         [self.headerImageView sd_setImageWithURL:self.package.headerURL];
+        [self.headerImageContainerViewVerticalSpaceConstraint setConstant:16];
     } else {
-        self.headerContainerView.hidden = YES;
-        [[self.headerContainerView.heightAnchor constraintEqualToConstant:0] setActive:YES];
+        self.headerImageContainerView.hidden = YES;
+        [[self.headerImageContainerView.heightAnchor constraintEqualToConstant:0] setActive:YES];
     }
 }
 
@@ -228,8 +230,8 @@
 
 - (void)updateNavigationBarBackgroundOpacityForCurrentScrollOffset {
     if (self.package.headerURL) {
-        CGFloat maximumVerticalOffsetForOpacity = self.headerContainerView.frame.size.height;
-        CGFloat maximumVerticalOffsetForButtons = (self.headerContainerView.frame.size.height + self.headerView.frame.size.height) - (self.getButton.frame.size.height / 2);
+        CGFloat maximumVerticalOffsetForOpacity = self.headerImageContainerView.frame.size.height;
+        CGFloat maximumVerticalOffsetForButtons = (self.headerImageContainerView.frame.size.height + self.headerView.frame.size.height) - (self.getButton.frame.size.height / 2) + self.headerImageContainerViewVerticalSpaceConstraint.constant;
 
         CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
         CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;

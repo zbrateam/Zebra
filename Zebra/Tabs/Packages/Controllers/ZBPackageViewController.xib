@@ -12,8 +12,9 @@
             <connections>
                 <outlet property="depictionContainerView" destination="C2a-Ql-t3V" id="CRO-dn-iko"/>
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
-                <outlet property="headerContainerView" destination="dhG-sR-U6A" id="fCI-ca-G8w"/>
-                <outlet property="headerImageView" destination="XDv-c4-fFn" id="Uk5-VZ-xfc"/>
+                <outlet property="headerImageContainerView" destination="dhG-sR-U6A" id="1OU-Mh-maY"/>
+                <outlet property="headerImageContainerViewVerticalSpaceConstraint" destination="Akb-ql-AtU" id="YMB-hm-BQY"/>
+                <outlet property="headerImageView" destination="XDv-c4-fFn" id="2Tj-eS-brq"/>
                 <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
                 <outlet property="informationTableView" destination="6ND-ju-1KY" id="BXN-wW-GaC"/>
@@ -49,10 +50,10 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="103.5" width="414" height="441"/>
+                            <rect key="frame" x="0.0" y="103.5" width="414" height="409"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
-                                    <rect key="frame" x="0.0" y="32" width="414" height="409"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="409"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="5b4-CH-e0H">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="95"/>
@@ -144,7 +145,7 @@
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="top" secondItem="l4K-FQ-BSJ" secondAttribute="top" priority="999" constant="32" id="ZpP-Yt-c1S"/>
+                                <constraint firstItem="Bfw-gG-ypV" firstAttribute="top" secondItem="l4K-FQ-BSJ" secondAttribute="top" priority="999" id="ZpP-Yt-c1S"/>
                                 <constraint firstItem="Bfw-gG-ypV" firstAttribute="trailing" secondItem="E03-JQ-Lvv" secondAttribute="trailing" id="fja-cy-ylP"/>
                                 <constraint firstItem="Bfw-gG-ypV" firstAttribute="leading" secondItem="E03-JQ-Lvv" secondAttribute="leading" id="xVl-nN-Ksl"/>
                                 <constraint firstAttribute="bottom" secondItem="Bfw-gG-ypV" secondAttribute="bottom" id="zGu-FC-rVK"/>
