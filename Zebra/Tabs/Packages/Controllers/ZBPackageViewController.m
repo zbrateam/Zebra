@@ -226,15 +226,32 @@
 }
 
 - (void)updateNavigationBarBackgroundOpacityForCurrentScrollOffset {
-    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
-    CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
-    CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
-    CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+    if (self.package.headerURL) {
+        CGFloat maximumVerticalOffsetForOpacity = self.headerContainerView.frame.size.height;
+        CGFloat maximumVerticalOffsetForButtons = (self.headerContainerView.frame.size.height + self.headerView.frame.size.height) - (self.getButton.frame.size.height / 2);
 
-    if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
-    
-    [self setNavigationItemsHidden:(opacity < 1)];
-    [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+        CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
+        CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;
+        CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+        
+        NSLog(@"Opac: %f", currentVerticalOffset / maximumVerticalOffsetForButtons);
+        
+        [self setNavigationItemsHidden:currentVerticalOffset / maximumVerticalOffsetForButtons < 1];
+        
+        if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
+        [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+    }
+    else {
+        CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
+        CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
+        CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
+        CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+
+        if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
+        
+        [self setNavigationItemsHidden:(opacity < 1)];
+        [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+    }
 }
 
 #pragma mark - UITableViewDataSource
