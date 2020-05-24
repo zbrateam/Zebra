@@ -234,7 +234,11 @@
         CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
         CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;
         CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
-                
+        
+        UIColor *blendedColor = [[UIColor whiteColor] blendWithColor:[UIColor accentColor] progress:opacity];
+        
+        self.navigationController.navigationBar.tintColor = blendedColor;
+        
         [self setNavigationItemsHidden:currentVerticalOffset / maximumVerticalOffsetForButtons < 1];
         
         if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
