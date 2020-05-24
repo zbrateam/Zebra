@@ -32,22 +32,22 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-sR-U6A">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="103.5"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="233"/>
+                                    <rect key="frame" x="0.0" y="-44" width="414" height="147.5"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="dhG-sR-U6A" secondAttribute="height" multiplier="16:9" id="IJN-hZ-Zha"/>
+                                <constraint firstAttribute="width" secondItem="dhG-sR-U6A" secondAttribute="height" multiplier="4:1" id="IJN-hZ-Zha"/>
                                 <constraint firstAttribute="trailing" secondItem="XDv-c4-fFn" secondAttribute="trailing" id="trD-ga-0y2"/>
                                 <constraint firstItem="XDv-c4-fFn" firstAttribute="leading" secondItem="dhG-sR-U6A" secondAttribute="leading" id="wbS-0S-qqC"/>
                                 <constraint firstAttribute="bottom" secondItem="XDv-c4-fFn" secondAttribute="bottom" id="wee-eA-Kq6"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l4K-FQ-BSJ">
-                            <rect key="frame" x="0.0" y="233" width="414" height="441"/>
+                            <rect key="frame" x="0.0" y="103.5" width="414" height="441"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="Bfw-gG-ypV">
                                     <rect key="frame" x="0.0" y="32" width="414" height="409"/>
@@ -153,25 +153,24 @@
                     <constraints>
                         <constraint firstItem="l4K-FQ-BSJ" firstAttribute="leading" secondItem="pGb-C7-kl2" secondAttribute="leading" id="43E-4g-hm8"/>
                         <constraint firstItem="l4K-FQ-BSJ" firstAttribute="top" secondItem="dhG-sR-U6A" secondAttribute="bottom" id="Akb-ql-AtU"/>
-                        <constraint firstItem="dhG-sR-U6A" firstAttribute="top" secondItem="pGb-C7-kl2" secondAttribute="top" id="Mh6-OB-aTm"/>
                         <constraint firstAttribute="trailing" secondItem="l4K-FQ-BSJ" secondAttribute="trailing" id="Qf6-Oi-x0R"/>
+                        <constraint firstItem="dhG-sR-U6A" firstAttribute="top" secondItem="pGb-C7-kl2" secondAttribute="top" id="hsZ-ys-Oe4"/>
                         <constraint firstAttribute="bottom" secondItem="l4K-FQ-BSJ" secondAttribute="bottom" id="wHO-Td-V7z"/>
                     </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="l4K-FQ-BSJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="48n-8D-SMu"/>
-                <constraint firstItem="dhG-sR-U6A" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="CIh-3D-7Jt"/>
+                <constraint firstAttribute="top" secondItem="XDv-c4-fFn" secondAttribute="top" id="3Uy-4T-1dY"/>
+                <constraint firstItem="l4K-FQ-BSJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="48n-8D-SMu"/>
+                <constraint firstItem="dhG-sR-U6A" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CIh-3D-7Jt"/>
                 <constraint firstAttribute="bottom" secondItem="pGb-C7-kl2" secondAttribute="bottom" id="Ckr-js-RFV"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pGb-C7-kl2" secondAttribute="trailing" id="Yhe-Po-XRd"/>
+                <constraint firstAttribute="trailing" secondItem="pGb-C7-kl2" secondAttribute="trailing" id="Yhe-Po-XRd"/>
                 <constraint firstItem="pGb-C7-kl2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bCc-JN-qu1"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="l4K-FQ-BSJ" secondAttribute="trailing" id="jEY-rL-Mj2"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dhG-sR-U6A" secondAttribute="trailing" id="m76-nq-oxc"/>
-                <constraint firstItem="XDv-c4-fFn" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="s0x-HN-aKt"/>
-                <constraint firstItem="pGb-C7-kl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="z2k-I9-9Mb"/>
+                <constraint firstAttribute="trailing" secondItem="l4K-FQ-BSJ" secondAttribute="trailing" id="jEY-rL-Mj2"/>
+                <constraint firstAttribute="trailing" secondItem="dhG-sR-U6A" secondAttribute="trailing" id="m76-nq-oxc"/>
+                <constraint firstItem="pGb-C7-kl2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z2k-I9-9Mb"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
         </view>
         <tableViewController id="zUi-q6-Lpr">
