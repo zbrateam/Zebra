@@ -1952,7 +1952,7 @@
             }
         }
         
-        return [packages count] > 0 ? packages : NULL;
+        return packages.count ? packages : nil;
     } else {
         [self printDatabaseError];
     }
@@ -2001,8 +2001,9 @@
             }
         }
         
+        sqlite3_finalize(statement);
         [self closeDatabase];
-        return [packages count] > 0 ? packages : NULL;
+        return packages.count ? packages : nil;
     } else {
         [self printDatabaseError];
     }
