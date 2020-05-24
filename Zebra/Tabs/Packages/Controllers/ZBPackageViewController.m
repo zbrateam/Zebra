@@ -81,7 +81,6 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    if (self.package.headerURL) [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self updateTableViewHeightBasedOnContent];
     self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
 }
@@ -89,7 +88,6 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [UIApplication sharedApplication].statusBarStyle = [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
 }
 
@@ -253,13 +251,6 @@
         self.navigationController.navigationBar.tintColor = blendedColor;
         
         [self setNavigationItemsHidden:currentVerticalOffset / maximumVerticalOffsetForButtons < 1];
-        
-        if (opacity >= 1.0) {
-            [UIApplication sharedApplication].statusBarStyle = [ZBDevice darkModeEnabled] ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-        }
-        else {
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        }
         
         if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
         [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.

@@ -289,7 +289,7 @@
 	<key>UISupportsDocumentBrowser</key>
 	<false/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
