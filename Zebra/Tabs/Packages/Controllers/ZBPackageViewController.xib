@@ -36,7 +36,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dhG-sR-U6A">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="103.5"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner.png" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XDv-c4-fFn">
                                     <rect key="frame" x="0.0" y="-44" width="414" height="147.5"/>
                                 </imageView>
                             </subviews>
@@ -181,6 +181,5 @@
     </objects>
     <resources>
         <image name="Dots" width="16" height="4"/>
-        <image name="banner.png" width="823.5616455078125" height="770.3013916015625"/>
     </resources>
 </document>
