@@ -16,6 +16,14 @@
 		<true/>
 		<key>com.apple.private.security.disk-device-access</key>
 		<true/>
+		<key>com.apple.private.security.storage.universalaccess</key>
+    	<true/>
+		<key>com.apple.private.security.storage.containers</key>
+    	<true/>
+		<key>com.apple.private.security.storage.AppBundles</key>
+		<true/>
+		<key>com.apple.private.security.storage.AppDataContainers</key>
+		<true/>
 		<key>com.apple.accessibility.AccessibilityUIServer</key>
 		<true/>
 		<key>com.apple.private.tcc.allow</key>
