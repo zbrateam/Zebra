@@ -283,7 +283,15 @@
                 [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                     if (info) { // Package does have purchase info
                         if (!info.purchased && ![package isInstalled:NO]) { // If the user has not purchased the package
-                            UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:info.price style:UIBarButtonItemStylePlain actionHandler:^{
+                            NSString *title = info.price;
+                            if ([title isKindOfClass:[NSNumber class]] && [title integerValue] == 0) {
+                                // Free package even with purchase info
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    completion(button);
+                                });
+                                return;
+                            }
+                            UIBarButtonItem *purchaseButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain actionHandler:^{
                                 [self performAction:ZBPackageActionInstall forPackage:package completion:nil];
                             }];
                             
