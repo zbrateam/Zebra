@@ -72,7 +72,7 @@
                     else if (!info.purchased) { // Package isn't purchased, purchase it.
                         [package purchase:^(BOOL success, NSError * _Nullable error) {
                             if (success && !error) {
-                                [self performAction:action forPackage:package completion:completion];
+                                [self performAction:action forPackage:package checkPayment:NO completion:completion];
                             }
                             else if (error) {
                                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
