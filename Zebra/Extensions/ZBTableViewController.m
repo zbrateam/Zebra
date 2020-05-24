@@ -73,7 +73,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
-    if ([UIDevice.currentDevice.systemVersion hasPrefix:@"9."]) {
+    if (@available(iOS 13.0, *)) {}
+    else {
         view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
