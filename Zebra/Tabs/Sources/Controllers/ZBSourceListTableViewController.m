@@ -430,6 +430,7 @@
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.keyboardType = UIKeyboardTypeURL;
         textField.returnKeyType = UIReturnKeyNext;
+        [[ZBThemeManager sharedInstance] configureTextField:textField];
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];

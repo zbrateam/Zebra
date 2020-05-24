@@ -100,6 +100,21 @@
     });
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (@available(iOS 13.0, *)) {}
+    else {
+        for (UIView* textField in self.textFields) {
+            UIView *container = textField.superview;
+            UIView *effectView = container.superview.subviews[0];
+
+            if (effectView && [effectView class] == [UIVisualEffectView class]) {
+                container.backgroundColor = [UIColor clearColor];
+            }
+        }
+    }
+}
+
 - (void)zb_viewDidLayoutSubviews {
     self.view.tintColor = [UIColor accentColor];
     if (self.preferredStyle == UIAlertControllerStyleActionSheet) {

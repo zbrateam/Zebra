@@ -234,14 +234,18 @@
     }
 }
 
+- (void)configureTextField:(UITextField *)textField {
+    textField.textColor = [UIColor primaryTextColor];
+    textField.backgroundColor = [UIColor cellBackgroundColor];
+}
+
 - (void)configureSearchBar:(UISearchBar *)searchBar {
     searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
     searchBar.backgroundImage = [searchBar.backgroundImage _flatImageWithColor:searchBar.barTintColor];
     searchBar.layer.borderColor = searchBar.barTintColor.CGColor;
     searchBar.layer.borderWidth = 1.0;
     UITextField *textField = [searchBar valueForKey:@"_searchField"];
-    textField.textColor = [UIColor primaryTextColor];
-    textField.backgroundColor = [UIColor cellBackgroundColor];
+    [self configureTextField:textField];
 }
 
 - (void)refreshViews {
