@@ -34,6 +34,7 @@
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
 @property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UIView *headerContainerView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 

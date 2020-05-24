@@ -12,6 +12,8 @@
             <connections>
                 <outlet property="depictionContainerView" destination="C2a-Ql-t3V" id="CRO-dn-iko"/>
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
+                <outlet property="headerContainerView" destination="dhG-sR-U6A" id="fCI-ca-G8w"/>
+                <outlet property="headerImageView" destination="XDv-c4-fFn" id="Uk5-VZ-xfc"/>
                 <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
                 <outlet property="iconImageView" destination="6cU-JB-5L1" id="JWp-fz-LuW"/>
                 <outlet property="informationTableView" destination="6ND-ju-1KY" id="BXN-wW-GaC"/>
