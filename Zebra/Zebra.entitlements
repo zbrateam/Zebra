@@ -17,9 +17,9 @@
 		<key>com.apple.private.security.disk-device-access</key>
 		<true/>
 		<key>com.apple.private.security.storage.universalaccess</key>
-    	<true/>
+		<true/>
 		<key>com.apple.private.security.storage.containers</key>
-    	<true/>
+		<true/>
 		<key>com.apple.private.security.storage.AppBundles</key>
 		<true/>
 		<key>com.apple.private.security.storage.AppDataContainers</key>
