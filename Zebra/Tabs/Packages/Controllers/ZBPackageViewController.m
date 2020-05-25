@@ -23,7 +23,9 @@
 
 @import SDWebImage;
 
-@interface ZBPackageViewController ()
+@interface ZBPackageViewController () {
+    UIStatusBarStyle style;
+}
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
@@ -252,6 +254,15 @@
         self.navigationController.navigationBar.tintColor = blendedColor;
         
         [self setNavigationItemsHidden:currentVerticalOffset / maximumVerticalOffsetForButtons < 1];
+        if (opacity < 0.5) {
+            style = UIStatusBarStyleLightContent;
+        }
+        else {
+            style = UIStatusBarStyleDefault;
+        }
+        [UIView animateWithDuration:0.5 animations:^{
+            [self setNeedsStatusBarAppearanceUpdate];
+        }];
         
         if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
         [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
@@ -266,6 +277,10 @@
         [self setNavigationItemsHidden:(opacity < 1)];
         [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
     }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return style;
 }
 
 #pragma mark - UITableViewDataSource
