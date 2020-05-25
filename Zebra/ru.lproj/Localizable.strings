@@ -157,6 +157,7 @@
 "Locally installed packages" = "Локально установленные пакеты";
 
 "Add" = "Добавить";
+"View" = "Просмотр";
 "Add Sources" = "Добавить источники";
 "Add Multiple" = "Добавить несколько";
 "Enter Source URL" = "Введите URL источника";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
-"View" = "Просмотр";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
 
