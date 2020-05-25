@@ -13,6 +13,7 @@
                 <outlet property="depictionContainerView" destination="C2a-Ql-t3V" id="CRO-dn-iko"/>
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
                 <outlet property="headerImageContainerView" destination="dhG-sR-U6A" id="1OU-Mh-maY"/>
+                <outlet property="headerImageContainerViewAspectRatioConstraint" destination="IJN-hZ-Zha" id="fax-Pu-jQC"/>
                 <outlet property="headerImageContainerViewVerticalSpaceConstraint" destination="Akb-ql-AtU" id="YMB-hm-BQY"/>
                 <outlet property="headerImageGradientView" destination="a1A-Z4-7Uq" id="kja-kB-yXc"/>
                 <outlet property="headerImageView" destination="XDv-c4-fFn" id="2Tj-eS-brq"/>

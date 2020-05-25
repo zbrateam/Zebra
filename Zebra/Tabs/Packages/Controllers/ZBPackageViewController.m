@@ -39,6 +39,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewVerticalSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewAspectRatioConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
 @property (strong, nonatomic) NSArray *packageInformation;
@@ -141,6 +142,7 @@
         [self.headerImageContainerViewVerticalSpaceConstraint setConstant:16];
     } else {
         self.headerImageContainerView.hidden = YES;
+        [self.headerImageContainerViewAspectRatioConstraint setActive:NO];
         [[self.headerImageContainerView.heightAnchor constraintEqualToConstant:0] setActive:YES];
     }
 }
