@@ -260,11 +260,10 @@
         [self setNavigationItemsHidden:currentVerticalOffset / maximumVerticalOffsetForButtons < 1];
         if (opacity < 0.5) {
             style = UIStatusBarStyleLightContent;
-        }
-        else {
+        } else {
             style = UIStatusBarStyleDefault;
         }
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.25 animations:^{
             [self setNeedsStatusBarAppearanceUpdate];
         }];
         
