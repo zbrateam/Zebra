@@ -157,6 +157,7 @@
 "Locally installed packages" = "Gói cài đặt cục bộ";
 
 "Add" = "Thêm";
+"View" = "Xem";
 "Add Sources" = "Thêm nguồn";
 "Add Multiple" = "Thêm nhiều";
 "Enter Source URL" = "Nhập liên kết của nguồn";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
-"View" = "Xem";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Tất cả %d tập tin sẽ được tải về";
 
