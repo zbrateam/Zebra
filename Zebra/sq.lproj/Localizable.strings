@@ -157,6 +157,7 @@
 "Locally installed packages" = "Paketat e instaluara në lokalitet";
 
 "Add" = "Shto";
+"View" = "Shiko";
 "Add Sources" = "Shto burimet";
 "Add Multiple" = "Shto disa";
 "Enter Source URL" = "Shkruaj URL-në e burimit";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Ti tashmë ke shtuar këto burime.";
 "Unable to locate an APT repository at:" = "E pamundur që të gjej një APT të repos në:";
 "Unable to locate APT repositories at:" = "E pamundur që të gjej APT të repove në:";
-"View" = "Shiko";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Një total prej %d skedarësh do të shkarkohet";
 
