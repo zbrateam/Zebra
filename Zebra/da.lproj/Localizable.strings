@@ -157,6 +157,7 @@
 "Locally installed packages" = "Lokalt installeret pakker";
 
 "Add" = "Tilføj";
+"View" = "View";
 "Add Sources" = "Tilføj kilder";
 "Add Multiple" = "Tilføj Flere";
 "Enter Source URL" = "Angiv URL for kilde";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Du har allerede tilføjet disse kilder.";
 "Unable to locate an APT repository at:" = "Kunne ikke finde et APT arkiv ved:";
 "Unable to locate APT repositories at:" = "Kunne ikke finde APT arkiver ved:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "%d filer vil blive downloadet";
 
