@@ -69,7 +69,7 @@
 "Text" = "文字";
 "Icon" = "圖示";
 "Finish Automatically" = "自動完成";
-"Always Install Latest" = "默認安裝最新版本";
+"Always Install Latest" = "預設安裝最新版本";
 "Automatic Refresh" = "自動重新整理";
 
 // Accent Colors
@@ -157,6 +157,7 @@
 "Locally installed packages" = "本地已安裝套件";
 
 "Add" = "新增";
+"View" = "查看";
 "Add Sources" = "新增來源";
 "Add Multiple" = "新增多個";
 "Enter Source URL" = "輸入來源網址";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "您已經新增過這些來源。";
 "Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
 "Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
-"View" = "查看";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "總共將下載 %d 個檔案";
 
@@ -443,7 +444,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
-"Always install the most recent version of a package if it is not already installed." = "如尚未安裝套件，則默認安裝最新版本。";
+"Always install the most recent version of a package if it is not already installed." = "如尚未安裝套件，則預設安裝最新版本。";
 
 // Filters
 
