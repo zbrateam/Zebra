@@ -157,6 +157,7 @@
 "Locally installed packages" = "Lokāli instalētas paketes";
 
 "Add" = "Pievienot";
+"View" = "View";
 "Add Sources" = "Pievienot Avotus";
 "Add Multiple" = "Pievienot vairākus";
 "Enter Source URL" = "Ievadi Avota URL";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Tu jau pievienoji šos avotus.";
 "Unable to locate an APT repository at:" = "Nevar atrast APT avotu vietnē:";
 "Unable to locate APT repositories at:" = "Nevar atrast APT avotus vietnēs:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
 
