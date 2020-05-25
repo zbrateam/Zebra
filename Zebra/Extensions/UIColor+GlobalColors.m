@@ -180,6 +180,22 @@
     return [NSString stringWithFormat:@"#%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255)];
 }
 
+- (UIColor *)blendWithColor:(UIColor *)color2 progress:(CGFloat)progress {
+    // Partially from https://stackoverflow.com/a/34077839
+    
+    progress = MIN(1.0, MAX(0.0, progress));
+    
+    CGFloat r1, g1, b1, r2, g2, b2;
+    [self   getRed:&r1 green:&g1 blue:&b1 alpha:nil];
+    [color2 getRed:&r2 green:&g2 blue:&b2 alpha:nil];
+    
+    CGFloat newRed   = (1.0 - progress) * r1 + progress * r2;
+    CGFloat newGreen = (1.0 - progress) * g1 + progress * g2;
+    CGFloat newBlue  = (1.0 - progress) * b1 + progress * b2;
+    
+    return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:1.0];
+}
+
 #pragma clang diagnostic pop
 
 @end

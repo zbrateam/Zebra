@@ -23,7 +23,9 @@
 
 @import SDWebImage;
 
-@interface ZBPackageViewController ()
+@interface ZBPackageViewController () {
+    UIStatusBarStyle style;
+}
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (strong, nonatomic) IBOutlet UILabel *tagLineLabel;
@@ -34,12 +36,17 @@
 @property (strong, nonatomic) IBOutlet UIStackView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *depictionContainerView;
 @property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (weak, nonatomic) IBOutlet UIView *headerImageContainerView;
+@property (weak, nonatomic) IBOutlet UIView *headerImageGradientView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewVerticalSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewAspectRatioConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
 @property (strong, nonatomic) NSArray *packageInformation;
 @property (strong, nonatomic) ZBActionButton *getBarButton;
+@property (strong, nonatomic) CAGradientLayer *headerImageGradientLayer;
 @end
 
 @implementation ZBPackageViewController
@@ -78,12 +85,15 @@
     [super viewDidLayoutSubviews];
     
     [self updateTableViewHeightBasedOnContent];
+    self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(-self.navigationController.navigationBar.frame.size.height, 0, 0, 0); // Kinda hacky
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
 }
 
 #pragma mark - View Setup
@@ -115,6 +125,13 @@
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
     [self configureGetButtons];
+    
+    // Image Header
+    self.headerImageGradientLayer = [CAGradientLayer layer];
+    self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
+    self.headerImageGradientLayer.colors = @[(id)[[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor, (id)[UIColor clearColor].CGColor];
+    self.headerImageGradientLayer.masksToBounds = YES;
+    [self.headerImageGradientView.layer insertSublayer:self.headerImageGradientLayer atIndex:0];
 }
 
 - (void)setData {
@@ -125,8 +142,11 @@
     
     if (self.package.headerURL) {
         [self.headerImageView sd_setImageWithURL:self.package.headerURL];
+        [self.stackViewVerticalSpaceConstraint setConstant:16];
     } else {
-        self.headerImageView.hidden = YES;
+        self.headerImageContainerView.hidden = YES;
+        [self.headerImageContainerViewAspectRatioConstraint setActive:NO];
+        [[self.headerImageContainerView.heightAnchor constraintEqualToConstant:0] setActive:YES];
     }
 }
 
@@ -225,15 +245,45 @@
 }
 
 - (void)updateNavigationBarBackgroundOpacityForCurrentScrollOffset {
-    CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
-    CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
-    CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
-    CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+    if (self.package.headerURL) {
+        CGFloat maximumVerticalOffsetForOpacity = self.headerImageContainerView.frame.size.height;
+        CGFloat maximumVerticalOffsetForButtons = (self.headerImageContainerView.frame.size.height + self.headerView.frame.size.height) - (self.getButton.frame.size.height / 2) + self.stackViewVerticalSpaceConstraint.constant;
 
-    if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
-    
-    [self setNavigationItemsHidden:(opacity < 1)];
-    [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+        CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
+        CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;
+        CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+        
+        UIColor *blendedColor = [[UIColor whiteColor] blendWithColor:[UIColor accentColor] progress:opacity];
+        
+        self.navigationController.navigationBar.tintColor = blendedColor;
+        
+        [self setNavigationItemsHidden:currentVerticalOffset / maximumVerticalOffsetForButtons < 1];
+        if (opacity < 0.5) {
+            style = UIStatusBarStyleLightContent;
+        } else {
+            style = UIStatusBarStyleDefault;
+        }
+        [UIView animateWithDuration:0.25 animations:^{
+            [self setNeedsStatusBarAppearanceUpdate];
+        }];
+        
+        if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
+        [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+    } else {
+        CGFloat maximumVerticalOffset = self.headerView.frame.size.height - (self.getButton.bounds.size.height / 2);
+        CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
+        CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffset;
+        CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
+
+        if (self.navigationController.navigationBar._backgroundOpacity == opacity) return; // Return if the opacity doesn't differ from what it is currently.
+        
+        [self setNavigationItemsHidden:(opacity < 1)];
+        [self.navigationController.navigationBar _setBackgroundOpacity:opacity]; // Ensure the opacity is not negative or greater than 1.
+    }
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return style;
 }
 
 #pragma mark - UITableViewDataSource
