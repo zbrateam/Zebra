@@ -182,7 +182,7 @@
 "You have already added these sources." = "你已经添加过这些软件源";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "下载 %@ 时出错：%@";
 
 "A total of %d files will be downloaded" = "总共将下载%d个文件";
 
