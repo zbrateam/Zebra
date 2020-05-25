@@ -157,6 +157,7 @@
 "Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
 
 "Add" = "เพิ่ม";
+"View" = "ดู";
 "Add Sources" = "เพิ่มซอร์ส";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Enter Source URL" = "Masukkan URL Sumber";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
-"View" = "ดู";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
 
