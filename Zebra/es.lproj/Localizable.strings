@@ -157,6 +157,7 @@
 "Locally installed packages" = "Paquetes instalados localmente";
 
 "Add" = "Añadir";
+"View" = "View";
 "Add Sources" = "Añadir Fuentes";
 "Add Multiple" = "Añadir múltiples";
 "Enter Source URL" = "Introduce la Fuente URL";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Ya has añadido estas fuentes.";
 "Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
 "Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Se descargarán un total de %d archivos";
 
