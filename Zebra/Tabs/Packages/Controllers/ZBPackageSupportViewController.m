@@ -9,6 +9,7 @@
 #import "ZBPackageSupportViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
+#import "UIColor+GlobalColors.h"
 
 @interface ZBPackageSupportViewController ()
 @property (nonatomic, strong) ZBPackage *package;
@@ -29,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
