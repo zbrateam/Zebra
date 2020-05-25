@@ -157,6 +157,7 @@
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
 "Add" = "إضافة";
+"View" = "عرض";
 "Add Sources" = "إضافة مصادر";
 "Add Multiple" = "إضافة متعددة";
 "Enter Source URL" = "أدخل عنوان URL المصدر";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
-"View" = "عرض";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "سيتم تنزيل مجموعة من ملفات %d";
 
