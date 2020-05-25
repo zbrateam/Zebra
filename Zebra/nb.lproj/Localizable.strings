@@ -157,6 +157,7 @@
 "Locally installed packages" = "Lokalt installerte pakker";
 
 "Add" = "Legg til";
+"View" = "Vis";
 "Add Sources" = "Legg til kilder";
 "Add Multiple" = "Legg til flere";
 "Enter Source URL" = "Skriv inn kildenettadresse";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Unable to locate an APT repository at:" = "Kunne ikke finne et APT-kilde på:";
 "Unable to locate APT repositories at:" = "Kunne ikke finne APT-kilder på:";
-"View" = "Vis";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "%d filer vil lastes ned";
 
@@ -484,5 +485,5 @@
 "Unable to complete purchase" = "Kunne ikke fullføre kjøpet";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pakken er utilgjengelig";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pakken du ber om er utilgjengelig. Den kan ha blitt fjernet fra vertskilden eller så ble feil pakke-ID forespurt.";
