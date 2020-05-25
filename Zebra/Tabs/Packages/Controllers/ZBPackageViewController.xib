@@ -14,7 +14,6 @@
                 <outlet property="getButton" destination="4kv-3C-qrI" id="ZT7-py-JS8"/>
                 <outlet property="headerImageContainerView" destination="dhG-sR-U6A" id="1OU-Mh-maY"/>
                 <outlet property="headerImageContainerViewAspectRatioConstraint" destination="IJN-hZ-Zha" id="fax-Pu-jQC"/>
-                <outlet property="headerImageContainerViewVerticalSpaceConstraint" destination="Akb-ql-AtU" id="YMB-hm-BQY"/>
                 <outlet property="headerImageGradientView" destination="a1A-Z4-7Uq" id="kja-kB-yXc"/>
                 <outlet property="headerImageView" destination="XDv-c4-fFn" id="2Tj-eS-brq"/>
                 <outlet property="headerView" destination="5b4-CH-e0H" id="cLe-QE-WHT"/>
@@ -24,6 +23,7 @@
                 <outlet property="moreButton" destination="p6b-4B-PgN" id="Bmp-me-qln"/>
                 <outlet property="nameLabel" destination="buQ-5d-3jA" id="WGd-2j-0Tv"/>
                 <outlet property="scrollView" destination="pGb-C7-kl2" id="4u1-R3-Z27"/>
+                <outlet property="stackViewVerticalSpaceConstraint" destination="ZpP-Yt-c1S" id="UY3-4y-dfE"/>
                 <outlet property="tagLineLabel" destination="MOP-zZ-00A" id="fja-Gz-iRW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

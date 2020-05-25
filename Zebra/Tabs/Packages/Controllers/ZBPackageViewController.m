@@ -38,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet UIView *headerImageGradientView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *informationTableViewHeightConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewVerticalSpaceConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewVerticalSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewAspectRatioConstraint;
 
 @property (strong, nonatomic) ZBPackage *package;
@@ -128,6 +128,7 @@
     self.headerImageGradientLayer = [CAGradientLayer layer];
     self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
     self.headerImageGradientLayer.colors = @[(id)[[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor, (id)[UIColor clearColor].CGColor];
+    self.headerImageGradientLayer.masksToBounds = YES;
     [self.headerImageGradientView.layer insertSublayer:self.headerImageGradientLayer atIndex:0];
 }
 
@@ -139,7 +140,7 @@
     
     if (self.package.headerURL) {
         [self.headerImageView sd_setImageWithURL:self.package.headerURL];
-        [self.headerImageContainerViewVerticalSpaceConstraint setConstant:16];
+        [self.stackViewVerticalSpaceConstraint setConstant:16];
     } else {
         self.headerImageContainerView.hidden = YES;
         [self.headerImageContainerViewAspectRatioConstraint setActive:NO];
@@ -244,7 +245,7 @@
 - (void)updateNavigationBarBackgroundOpacityForCurrentScrollOffset {
     if (self.package.headerURL) {
         CGFloat maximumVerticalOffsetForOpacity = self.headerImageContainerView.frame.size.height;
-        CGFloat maximumVerticalOffsetForButtons = (self.headerImageContainerView.frame.size.height + self.headerView.frame.size.height) - (self.getButton.frame.size.height / 2) + self.headerImageContainerViewVerticalSpaceConstraint.constant;
+        CGFloat maximumVerticalOffsetForButtons = (self.headerImageContainerView.frame.size.height + self.headerView.frame.size.height) - (self.getButton.frame.size.height / 2) + self.stackViewVerticalSpaceConstraint.constant;
 
         CGFloat currentVerticalOffset = self.scrollView.contentOffset.y + self.view.safeAreaInsets.top;
         CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;
