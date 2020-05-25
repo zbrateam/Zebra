@@ -157,6 +157,7 @@
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 
 "Add" = "追加";
+"View" = "表示";
 "Add Sources" = "リポジトリを追加";
 "Add Multiple" = "複数追加";
 "Enter Source URL" = "リポジトリ URL を入力する";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
-"View" = "表示";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
