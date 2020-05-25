@@ -89,6 +89,7 @@
     [super viewWillDisappear:animated];
     
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
 }
 
 #pragma mark - View Setup
