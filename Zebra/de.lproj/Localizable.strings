@@ -182,7 +182,7 @@
 "You have already added these sources." = "Du hast diese Quellen bereits hinzugefügt.";
 "Unable to locate an APT repository at:" = "APT-Quelle konnte nicht gefunden werden:";
 "Unable to locate APT repositories at:" = "APT-Quellen konnten nicht gefunden werden:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Fehler beim Herunterladen von %@: %@";
 
 "A total of %d files will be downloaded" = "Es werden insgesamt %d Dateien runtergeladen";
 
