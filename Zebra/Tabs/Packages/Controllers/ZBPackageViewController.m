@@ -83,6 +83,7 @@
     
     [self updateTableViewHeightBasedOnContent];
     self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(-self.navigationController.navigationBar.frame.size.height, 0, 0, 0); // Kinda hacky
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
