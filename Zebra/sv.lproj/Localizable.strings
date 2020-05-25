@@ -182,7 +182,7 @@
 "You have already added these sources." = "Du har redan lagt till dessa källor.";
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Fel när %@ skulle laddas ner: %@";
 
 "A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
 
