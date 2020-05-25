@@ -182,7 +182,7 @@
 "You have already added these sources." = "您已經新增過這些來源。";
 "Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
 "Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "下載 %@ 時發生錯誤：%@";
 
 "A total of %d files will be downloaded" = "總共將下載 %d 個檔案";
 
