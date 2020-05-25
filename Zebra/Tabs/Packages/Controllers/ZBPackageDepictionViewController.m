@@ -19,6 +19,10 @@
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
 @end
 
+@interface ZBScreenshotCollectionViewFlowLayout : UICollectionViewFlowLayout
+
+@end
+
 @interface ZBPackageDepictionViewController () {
     BOOL shouldBeNative;
 }
@@ -80,6 +84,11 @@
     if (shouldBeNative) {
         self.previewCollectionView.delegate = self;
         self.previewCollectionView.dataSource = self;
+        
+        ZBScreenshotCollectionViewFlowLayout *layout = [[ZBScreenshotCollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        
+        self.previewCollectionView.collectionViewLayout = layout;
     } else {
         self.webView.navigationDelegate = self;
         self.webView.scrollView.delegate = self;
@@ -96,7 +105,7 @@
 - (void)setData {
     if (shouldBeNative) {
         self.nativeView.hidden = NO;
-
+        
         if (self.package.previewImageURLs != nil) {
             self.previewHeaderLabel.text = NSLocalizedString(@"Preview", @"");
         } else {
@@ -140,13 +149,13 @@
 
 - (void) updatePreviewCollectionViewHeightBasedOnContent {
     self.previewCollectionViewHeightConstraint.constant = 400;
-//    self.previewCollectionViewHeightConstraint.constant = self.previewCollectionView.collectionViewLayout.collectionViewContentSize.height;
+    //    self.previewCollectionViewHeightConstraint.constant = self.previewCollectionView.collectionViewLayout.collectionViewContentSize.height;
 }
 
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-        webView.hidden = NO;
+    webView.hidden = NO;
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
@@ -188,8 +197,6 @@
     if (!shouldBeNative) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
 }
 
-#pragma mark - UICollectionViewDelegate
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
@@ -204,6 +211,37 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     return CGSizeMake(200, 400);
-
+    
 }
+
+@end
+
+@implementation ZBScreenshotCollectionViewFlowLayout
+
+#pragma mark - UICollectionViewFlowLayout
+
+- (CGFloat)pageWidth {
+    return self.itemSize.width + self.minimumLineSpacing;
+}
+
+- (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset withScrollingVelocity:(CGPoint)velocity {
+    CGFloat rawPageValue = self.collectionView.contentOffset.x / self.pageWidth;
+    CGFloat currentPage = (velocity.x > 0.0) ? floor(rawPageValue) : ceil(rawPageValue);
+    CGFloat nextPage = (velocity.x > 0.0) ? ceil(rawPageValue) : floor(rawPageValue);
+    
+    BOOL pannedLessThanAPage = fabs(1 + currentPage - rawPageValue) > 0.5;
+    BOOL flicked = fabs(velocity.x) > [self flickVelocity];
+    if (pannedLessThanAPage && flicked) {
+        proposedContentOffset.x = nextPage * self.pageWidth;
+    } else {
+        proposedContentOffset.x = round(rawPageValue) * self.pageWidth;
+    }
+    
+    return proposedContentOffset;
+}
+
+- (CGFloat)flickVelocity {
+    return 0.3;
+}
+
 @end
