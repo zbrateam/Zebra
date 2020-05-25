@@ -157,6 +157,7 @@
 "Locally installed packages" = "Pakej yang dipasang secara tempatan";
 
 "Add" = "Tambah";
+"View" = "Paparkan";
 "Add Sources" = "Tambah Sumber";
 "Add Multiple" = "Tambah Berganda";
 "Enter Source URL" = "Masukkan URL Sumber";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Anda telah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat mencari repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat mencari repositori APT di:";
-"View" = "Paparkan";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Sebanyak %d fail akan dimuat turun";
 
