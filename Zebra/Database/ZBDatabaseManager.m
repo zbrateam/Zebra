@@ -1093,7 +1093,7 @@
         NSMutableArray *searchResults = [NSMutableArray new];
         NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END) COLLATE NOCASE%@", columns, name, name, name, limit];
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END), NAME COLLATE NOCASE%@", columns, name, name, name, limit];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
