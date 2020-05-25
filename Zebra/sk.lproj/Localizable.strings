@@ -157,6 +157,7 @@
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 
 "Add" = "Pridať";
+"View" = "View";
 "Add Sources" = "Pridaj Zdroj";
 "Add Multiple" = "Pridať viac";
 "Enter Source URL" = "Zadajte URL adresu zdroja";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Unable to locate an APT repository at:" = "Nemožno nájsť úložisko APT na:";
 "Unable to locate APT repositories at:" = "Nemožno nájsť úložiska APT na:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
