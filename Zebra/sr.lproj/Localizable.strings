@@ -157,6 +157,7 @@
 "Locally installed packages" = "Lokalno instalirani paketi";
 
 "Add" = "Dodaj";
+"View" = "Pregled";
 "Add Sources" = "Dodaj Repo";
 "Add Multiple" = "Dodaj više";
 "Enter Source URL" = "Unesite URL Repoa";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Već ste dodali ove repoe.";
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
-"View" = "Pregled";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
 
