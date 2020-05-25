@@ -182,7 +182,7 @@
 "You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "תקלה בעת הורדת %@: %@";
 
 "A total of %d files will be downloaded" = "יורדו %d קבצים";
 
