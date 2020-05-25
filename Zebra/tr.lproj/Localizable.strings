@@ -157,6 +157,7 @@
 "Locally installed packages" = "Yerel olarak kurulmuş paketler";
 
 "Add" = "Ekle";
+"View" = "Görüntüle";
 "Add Sources" = "Kaynakları Ekle";
 "Add Multiple" = "Birden Fazla Ekle";
 "Enter Source URL" = "Kaynak URL'sini Gir";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "Zaten bu kaynakları eklediniz.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT depoları şu konumda bulunamadı:";
-"View" = "Görüntüle";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
 
