@@ -157,6 +157,7 @@
 "Locally installed packages" = "本地已安装软件包";
 
 "Add" = "添加";
+"View" = "查看";
 "Add Sources" = "添加软件源";
 "Add Multiple" = "批量添加";
 "Enter Source URL" = "输入软件源地址";
@@ -181,7 +182,7 @@
 "You have already added these sources." = "你已经添加过这些软件源";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
-"View" = "查看";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "总共将下载%d个文件";
 
