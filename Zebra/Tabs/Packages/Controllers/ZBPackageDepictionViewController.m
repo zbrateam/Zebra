@@ -138,9 +138,8 @@
     [[self navigationController] pushViewController:changelog animated:YES];
 }
 
-    self.previewCollectionViewHeightConstraint.constant = 400;
 - (void)updatePreviewCollectionViewHeightBasedOnContent {
-//    self.previewCollectionViewHeightConstraint.constant = self.previewCollectionView.collectionViewLayout.collectionViewContentSize.height;
+    self.previewCollectionViewHeightConstraint.constant = [self collectionView:nil layout:nil sizeForItemAtIndexPath:nil].height;
 }
 
 #pragma mark - WKNavigationDelegate
