@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "انتقال سورس ها از %@ به زبرا";
 "Utility source for %@" = "سورس سودمند برای %@";
 "Transfer Sources" = "جابجایی منابع";
-"Verifying Source" = "درحال تایید سورس";
-"Verifying Sources" = "درحال تایید سورس‌ها";
 "Import" = "وارد کردن";
 "Verifying..." = "در حال تأیید…";
 "Confirm Import" = "تایید ورودی";
@@ -458,7 +456,6 @@
 "Select a Section" = "بخش انتخاب شده";
 "Hide packages in these sections." = "پنهان کردن بسته ها در این بخش.";
 
-"Sources" = "منابع";
 "Select a Source" = "انتخاب سورس";
 "Hide packages in these sections from specific sources." = "مخفی کردن بسته ها در این بخش از سورس‌های خاص.";
 
