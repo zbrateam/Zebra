@@ -443,14 +443,23 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     [defaults setBool:autoRefresh forKey:WantsAutoRefreshKey];
 }
 
-+ (NSTimeInterval)sourceRefreshTimeout {
++ (NSInteger)sourceRefreshTimeoutIndex {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
+    return 5;
     if (![defaults objectForKey:SourceTimeoutKey]) {
-        [self setSourceRefreshTimeout:60];
-        return 60;
+        [self setSourceRefreshTimeout:5];
+        return 5;
     }
     return [defaults integerForKey:SourceTimeoutKey];
+}
+
++ (NSTimeInterval)sourceRefreshTimeout {
+    NSArray *choices = @[@5, @15, @20, @30, @45, @60];
+    NSInteger index = [self sourceRefreshTimeoutIndex];
+    if (index > [choices count]) return (NSTimeInterval)[[choices lastObject] doubleValue];
+    
+    return (NSTimeInterval)[[choices objectAtIndex:index] doubleValue];
 }
 
 + (void)setSourceRefreshTimeout:(NSTimeInterval)time {

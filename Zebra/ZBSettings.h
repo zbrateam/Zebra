@@ -138,6 +138,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)wantsAutoRefresh;
 + (void)setWantsAutoRefresh:(BOOL)autoRefresh;
 
++ (NSInteger)sourceRefreshTimeoutIndex;
 + (NSTimeInterval)sourceRefreshTimeout;
 + (void)setSourceRefreshTimeout:(NSTimeInterval)time;
 

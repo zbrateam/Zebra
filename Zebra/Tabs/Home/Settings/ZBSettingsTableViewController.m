@@ -123,7 +123,6 @@ enum ZBMiscOrder {
         case ZBChanges:
         case ZBMisc:
         case ZBSearch:
-        case ZBSources:
         case ZBConsole:
         case ZBPackages:
             return 1;
@@ -142,6 +141,8 @@ enum ZBMiscOrder {
             
             return 1;
         }
+        case ZBSources:
+            return 2;
         case ZBReset:
             return 2;
         default:
@@ -165,7 +166,7 @@ enum ZBMiscOrder {
             return cell;
         }
     }
-    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc || (indexPath.section == ZBSources && indexPath.row == 1)) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -270,14 +271,23 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBSources: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings wantsAutoRefresh];
-            [enableSwitch addTarget:self action:@selector(toggleAutoRefresh:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+            if (indexPath.row == 0) {
+                UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+                enableSwitch.on = [ZBSettings wantsAutoRefresh];
+                [enableSwitch addTarget:self action:@selector(toggleAutoRefresh:) forControlEvents:UIControlEventValueChanged];
+                [enableSwitch setOnTintColor:[UIColor accentColor]];
+                cell.accessoryView = enableSwitch;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+                cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+            }
+            else {
+                NSTimeInterval timeoutTime = [ZBSettings sourceRefreshTimeout];
+                
+                cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), (int)timeoutTime];
+                cell.textLabel.text = NSLocalizedString(@"Download Timeout", @"");
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
             return cell;
         }
         case ZBChanges: {
@@ -394,11 +404,27 @@ enum ZBMiscOrder {
             break;
         }
         case ZBSources: {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            UISwitch *switcher = (UISwitch *)cell.accessoryView;
-            [switcher setOn:!switcher.on animated:YES];
-            [self toggleAutoRefresh:switcher];
-            break;
+            if (indexPath.row == 0) {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                [switcher setOn:!switcher.on animated:YES];
+                [self toggleAutoRefresh:switcher];
+                break;
+            }
+            else {
+                NSArray *options = @[@"5 Seconds",
+                                     @"10 Seconds",
+                                     @"15 Seconds",
+                                     @"30 Seconds",
+                                     @"45 Seconds",
+                                     @"60 Seconds"];
+                ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:options getter:@selector(sourceRefreshTimeoutIndex) setter:@selector(setSourceRefreshTimeout:) settingChangedCallback:nil];
+                
+                [controller setTitle:@"Download Timeout"];
+                [controller setFooterText:@[@"Configure the amount of time that Zebra will wait for a source to respond before timing out.", @"This timer will reset every time that Zebra receives new information from a source."]];
+                
+                [self.navigationController pushViewController:controller animated:YES];
+            }
         }
         case ZBChanges: {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
