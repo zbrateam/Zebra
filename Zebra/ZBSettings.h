@@ -140,7 +140,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSInteger)sourceRefreshTimeoutIndex;
 + (NSTimeInterval)sourceRefreshTimeout;
-+ (void)setSourceRefreshTimeout:(NSTimeInterval)time;
++ (void)setSourceRefreshTimeout:(NSNumber *)time;
 
 #pragma mark - Changes Settings
 

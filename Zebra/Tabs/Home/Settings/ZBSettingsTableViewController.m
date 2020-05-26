@@ -421,7 +421,7 @@ enum ZBMiscOrder {
                 ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:options getter:@selector(sourceRefreshTimeoutIndex) setter:@selector(setSourceRefreshTimeout:) settingChangedCallback:nil];
                 
                 [controller setTitle:@"Download Timeout"];
-                [controller setFooterText:@[@"Configure the amount of time that Zebra will wait for a source to respond before timing out.", @"This timer will reset every time that Zebra receives new information from a source."]];
+                [controller setFooterText:@[@"Configure the amount of time Zebra will wait for a source to respond before timing out.", @"This timer will reset every time Zebra receives new information from a source."]];
                 
                 [self.navigationController pushViewController:controller animated:YES];
             }

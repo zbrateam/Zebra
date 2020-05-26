@@ -446,26 +446,25 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
 + (NSInteger)sourceRefreshTimeoutIndex {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    return 5;
     if (![defaults objectForKey:SourceTimeoutKey]) {
-        [self setSourceRefreshTimeout:5];
+        [self setSourceRefreshTimeout:@(5)];
         return 5;
     }
     return [defaults integerForKey:SourceTimeoutKey];
 }
 
 + (NSTimeInterval)sourceRefreshTimeout {
-    NSArray *choices = @[@5, @15, @20, @30, @45, @60];
+    NSArray *choices = @[@5, @10, @15, @30, @45, @60];
     NSInteger index = [self sourceRefreshTimeoutIndex];
     if (index > [choices count]) return (NSTimeInterval)[[choices lastObject] doubleValue];
     
     return (NSTimeInterval)[[choices objectAtIndex:index] doubleValue];
 }
 
-+ (void)setSourceRefreshTimeout:(NSTimeInterval)time {
++ (void)setSourceRefreshTimeout:(NSNumber *)time {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setInteger:time forKey:SourceTimeoutKey];
+    [defaults setInteger:time.intValue forKey:SourceTimeoutKey];
 }
 
 #pragma mark - Changes Settings
