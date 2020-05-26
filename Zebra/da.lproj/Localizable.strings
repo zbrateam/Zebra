@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Flyt kilder fra %@ til Zebra";
 "Utility source for %@" = "Værktøjsarkiv til %@";
 "Transfer Sources" = "Overfør Kilder";
-"Verifying Source" = "Verificerer kilde";
-"Verifying Sources" = "Verificerer kilder";
 "Import" = "Importer";
 "Verifying..." = "Verificerer...";
 "Confirm Import" = "Bekræft importering";
@@ -458,7 +456,6 @@
 "Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Kilder";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
