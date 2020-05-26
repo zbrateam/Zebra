@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility source for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
-"Verifying Source" = "מאמת מקור";
-"Verifying Sources" = "מאמת מקורות";
 "Import" = "ייבוא";
 "Verifying..." = "מאמת...";
 "Confirm Import" = "אשר ייבוא";
@@ -458,7 +456,6 @@
 "Select a Section" = "בחר קטגוריה";
 "Hide packages in these sections." = "הסתר חבילות בקטגוריות אלו.";
 
-"Sources" = "מקורות";
 "Select a Source" = "בחר מקור";
 "Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
 
