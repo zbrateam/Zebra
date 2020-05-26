@@ -484,3 +484,8 @@
 
 "Package Not Available" = "ไม่มีโปรแกรม";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "ไม่มีโปรแกรมที่คุณต้องการ มันอาจถูกลบไปจากซอร์สของคุณ หรือ ID ของโปรแกรมที่ร้องขอนั้นไม่ถูกต้อง";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
