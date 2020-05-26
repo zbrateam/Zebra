@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Kaynakların hepsini %@ 'dan Zebra'ya taşı";
 "Utility source for %@" = "%@ için araç kaynağı";
 "Transfer Sources" = "Kaynakları Transfer Et";
-"Verifying Source" = "Kaynak Onaylanıyor";
-"Verifying Sources" = "Kaynaklar Onaylanıyor";
 "Import" = "İçeri Aktar";
 "Verifying..." = "Doğrulanıyor...";
 "Confirm Import" = "İçeri Aktarmayı Onayla";
@@ -458,7 +456,6 @@
 "Select a Section" = "Bir Bölüm Seçin";
 "Hide packages in these sections." = "Bu bölümlerdeki paketleri gizle.";
 
-"Sources" = "Kaynaklar";
 "Select a Source" = "Bir Kaynak Seçin";
 "Hide packages in these sections from specific sources." = "Bu bölümlerdeki paketleri belirli kaynaklardan gizleyin.";
 
