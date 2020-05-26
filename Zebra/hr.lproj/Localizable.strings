@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Prenesi izvore iz %@ u Zebru";
 "Utility source for %@" = "Korisni izvori za %@";
 "Transfer Sources" = "Prenesi Izvore";
-"Verifying Source" = "Verifikacija izvora";
-"Verifying Sources" = "Verifikacija izvora";
 "Import" = "Uvezi";
 "Verifying..." = "Provjeravanje...";
 "Confirm Import" = "Potvrda uvoza";
@@ -458,7 +456,6 @@
 "Select a Section" = "Odaberi sekciju";
 "Hide packages in these sections." = "Sakrij proizvode u ovim odjeljcima.";
 
-"Sources" = "Izvori";
 "Select a Source" = "Odabir izvora";
 "Hide packages in these sections from specific sources." = "Sakrij proizvode u ovim odjeljcima od specifičnih izvora.";
 
