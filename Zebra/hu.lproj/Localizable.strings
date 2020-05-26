@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Források átvitele %@-ból a Zebrába";
 "Utility source for %@" = "Forrás a %@";
 "Transfer Sources" = "Források átvitele";
-"Verifying Source" = "Forrás ellenőrzése";
-"Verifying Sources" = "Források ellenőrzése";
 "Import" = "Importálás";
 "Verifying..." = "Ellenőrzés...";
 "Confirm Import" = "Importálás jóváhagyása";
@@ -458,7 +456,6 @@
 "Select a Section" = "Válassz szekciót";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Források";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
