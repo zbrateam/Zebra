@@ -99,7 +99,12 @@
 }
 
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components {
+    
+    // Making sure our parameters are correct
     if (!archiveType || !repositoryURI || !distribution) return NULL;
+    if (![repositoryURI hasSuffix:@"/"]) {
+        repositoryURI = [repositoryURI stringByAppendingString:@"/"];
+    }
     
     self = [super init];
     
@@ -111,29 +116,30 @@
         self->label = repositoryURI;
         self->distribution = distribution;
         if (components && [components count]) {
-            self->components = components;
+            NSMutableArray *check = [components mutableCopy];
+            [check removeObject:@""];
+            
+            if ([check count]) {
+                self->components = components;
+            }
         }
         
-        if ([distribution hasSuffix:@"/"] && ![components count]) { // This is a flat repository, flat repositories must have a '/' at the end to indicate themselves
-            NSURL *baseURL = [NSURL URLWithString:repositoryURI];
-            mainDirectoryURL = [NSURL URLWithString:distribution relativeToURL:baseURL];
+        if ([self->distribution hasSuffix:@"/"]) { // If the distribution has a '/' at the end of it, it is likely a flat format
+            if ([self->components count]) return NULL; // If you have components and a / at the end of your distribution, your source is malformed
+            
+            NSURL *baseURL = [NSURL URLWithString:self->repositoryURI];
+            mainDirectoryURL = [NSURL URLWithString:self->distribution relativeToURL:baseURL];
             
             packagesDirectoryURL = mainDirectoryURL;
         }
-        else if (components && [components count]) {
-            //Set packages and release URLs to follow dist format
-            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", repositoryURI, distribution];
+        else if (self->components && [self->components count]) { // This repository has a non-flat format with a distribution and components
+            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", self->repositoryURI, self->distribution];
             mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
-            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", components[0], [ZBDevice debianArchitecture]]];
+            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", self->components[0], [ZBDevice debianArchitecture]]];
         }
-        else {
-            NSURL *baseURL = [NSURL URLWithString:repositoryURI];
-            mainDirectoryURL = [NSURL URLWithString:@"./" relativeToURL:baseURL];
-            
-            packagesDirectoryURL = mainDirectoryURL;
-        }
-        if (!mainDirectoryURL) return NULL;
+        
+        if (!mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
         releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
         NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
@@ -148,17 +154,17 @@
     if (!debLine) return NULL;
     
     if ([debLine characterAtIndex:0] == '#') return NULL;
-    debLine = [debLine stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    debLine = [debLine stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    debLine = [debLine stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     NSMutableArray *lineComponents = [[debLine componentsSeparatedByString:@" "] mutableCopy];
     [lineComponents removeObject:@""]; //Remove empty strings from the line which exist for some reason
     
     NSUInteger count = [lineComponents count];
-    NSString *archiveType = @"";
-    NSString *repositoryURI = @"";
-    NSString *distribution = @"";
+    NSString *archiveType = NULL;
+    NSString *repositoryURI = NULL;
+    NSString *distribution = NULL;
     NSMutableArray *sourceComponents = [NSMutableArray new];
+    
     if (count > 0) {
         archiveType = lineComponents[0];
         if (count > 1) {
@@ -199,32 +205,27 @@
 - (id)initFromSourceGroup:(NSString *)sourceGroup {
     if (!sourceGroup) return NULL;
     
-    if ([sourceGroup characterAtIndex:0] == '#') return NULL;
-    
     NSMutableDictionary *source = [NSMutableDictionary new];
     [sourceGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-        NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
-        if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
-        if (pair.count != 2) return;
-        NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        source[key] = value;
+        if (![line hasPrefix:@"#"]) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            source[key] = value;
+        }
     }];
     
     if ([source count] >= 3) {
+        if (![source objectForKey:@"Types"] || ![source objectForKey:@"URIs"] || ![source objectForKey:@"Suites"]) return NULL;
+        
         NSString *archiveType = source[@"Types"];
         NSString *repositoryURI = source[@"URIs"];
-        if (repositoryURI && ![repositoryURI hasSuffix:@"/"]) {
-            repositoryURI = [repositoryURI stringByAppendingString:@"/"];
-        }
-        
         NSString *distribution = source[@"Suites"];
         
-        NSString *components = source[@"Components"];
-        NSArray *sourceComponents;
-        if (![[components stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
-            sourceComponents = [components componentsSeparatedByString:@" "];
-        }
+        NSString *components = source[@"Components"] ?: @"";
+        NSArray *sourceComponents = [components componentsSeparatedByString:@" "];
         
         ZBBaseSource *baseSource = [self initWithArchiveType:archiveType repositoryURI:repositoryURI distribution:distribution components:sourceComponents];
         
