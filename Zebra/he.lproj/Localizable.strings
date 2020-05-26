@@ -486,6 +486,6 @@
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "החבילה שביקשת אינה זמינה יותר. ייתכן שהוסרה מהמקורות שלך או שמזהה החבילה היה שגוי.";
 
 "%d Seconds" = "%d שניות";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"Download Timeout" = "תם הזמן הקצוב להורדה";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "הגדר את פרק הזמן שזברה תמתין לתגובה ממקור.";
+"This timer will reset every time Zebra receives new information from a source." = "שעון עצר זה יאופס בכל פעם שזברה תקבל מידע חדש ממקור.";
