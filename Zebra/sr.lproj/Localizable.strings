@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Prebaci sve izvore %@ u Zebru";
 "Utility source for %@" = "Korisni repo za %@";
 "Transfer Sources" = "Prebaci izvore";
-"Verifying Source" = "Verifikacija izvora";
-"Verifying Sources" = "Verifikacija izvora";
 "Import" = "Uvеzi";
 "Verifying..." = "Verifikacija...";
 "Confirm Import" = "Potvrdi uvoz";
@@ -458,7 +456,6 @@
 "Select a Section" = "Izabrri odeljak";
 "Hide packages in these sections." = "Sakri pakete iz ovog odeljka.";
 
-"Sources" = "Izvori";
 "Select a Source" = "Izaberi Izvor";
 "Hide packages in these sections from specific sources." = "Sakrij pakete u ovom odeljku iz specifičnog izvora.";
 
