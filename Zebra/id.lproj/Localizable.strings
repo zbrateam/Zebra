@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Transfer sumber dari %@ ke Zebra";
 "Utility source for %@" = "Sumber utilitas untuk %@";
 "Transfer Sources" = "Transfer Sumber";
-"Verifying Source" = "Memverifikasi Sumber";
-"Verifying Sources" = "Memverifikasi Sumber";
 "Import" = "Impor";
 "Verifying..." = "Memverifikasi...";
 "Confirm Import" = "Konfirmasi impor";
@@ -458,7 +456,6 @@
 "Select a Section" = "Pilih Bagian";
 "Hide packages in these sections." = "Sembunyikan paket di bagian ini.";
 
-"Sources" = "Sumber";
 "Select a Source" = "Pilih Sumber";
 "Hide packages in these sections from specific sources." = "Sembunyikan paket di bagian ini dari sumber tertentu.";
 
