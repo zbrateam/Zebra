@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Transfero burimet nga %@ në Zebra";
 "Utility source for %@" = "Burimet e shërbimit për %@";
 "Transfer Sources" = "Transfero Burimet";
-"Verifying Source" = "Duke verifikuar burimin";
-"Verifying Sources" = "Duke verifikuar burimet";
 "Import" = "Importo";
 "Verifying..." = "Duke verifikuar...";
 "Confirm Import" = "Konfirmo Importin";
@@ -458,7 +456,6 @@
 "Select a Section" = "Zgjidhni një seksion";
 "Hide packages in these sections." = "Fsheh paketat në këto seksione.";
 
-"Sources" = "Burimet";
 "Select a Source" = "Zgjidhni një burim";
 "Hide packages in these sections from specific sources." = "Fsheh paketat në këto seksione nga burimet e specifikuara.";
 
