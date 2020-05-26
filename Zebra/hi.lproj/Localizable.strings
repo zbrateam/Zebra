@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "%@ Zebra से स्रोत स्थानांतरण";
 "Utility source for %@" = "%@ के लिए उपयोगिता स्रोत";
 "Transfer Sources" = "स्रोत स्थानांतरण";
-"Verifying Source" = "स्रोत का सत्यापन";
-"Verifying Sources" = "स्रोत का सत्यापन";
 "Import" = "आयात";
 "Verifying..." = "जांचना";
 "Confirm Import" = "आयात की पुष्टि करें";
@@ -458,7 +456,6 @@
 "Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Sources";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
