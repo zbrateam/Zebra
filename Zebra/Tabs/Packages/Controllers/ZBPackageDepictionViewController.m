@@ -73,6 +73,7 @@
     [super viewDidLayoutSubviews];
     
     [self updatePreviewCollectionViewHeightBasedOnContent];
+    if (self.package.previewImageURLs != nil) [self.previewCollectionView.collectionViewLayout invalidateLayout];
 }
 
 #pragma mark - View Setup
