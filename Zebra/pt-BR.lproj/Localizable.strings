@@ -485,7 +485,7 @@
 "Package Not Available" = "Pacote não disponível";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "O pacote que você solicitou não está mais disponível. Ele pode ter sido removido de suas fontes ou o ID do pacote solicitado está incorreto.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d segundos";
+"Download Timeout" = "Tempo limite do Download";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configurar a quantidade de tempo que o Zebra irá aguardar uma fonte responder antes do alcançar o tempo limite.";
+"This timer will reset every time Zebra receives new information from a source." = "Esse temporizador será redefinido toda vez que o Zebra receber novas informações de uma fonte.";
