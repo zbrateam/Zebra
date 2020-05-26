@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Transfera sursele din %@ la Zebra";
 "Utility source for %@" = "Sursă de utilitate pentru %@";
 "Transfer Sources" = "Transfera sursele";
-"Verifying Source" = "Verificare Sursă";
-"Verifying Sources" = "Verificare Surse";
 "Import" = "Importa";
 "Verifying..." = "Verificare...";
 "Confirm Import" = "Confirmă Importul";
@@ -458,7 +456,6 @@
 "Select a Section" = "Selectaţi o secţiune";
 "Hide packages in these sections." = "Ascunde pachetele in aceste secțiuni.";
 
-"Sources" = "Surse";
 "Select a Source" = "Selectați o sursă";
 "Hide packages in these sections from specific sources." = "Ascunde pachetele in aceste secțiuni din surse specifice.";
 
