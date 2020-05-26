@@ -486,6 +486,6 @@
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paketa që ju kërkuat nuk është më në dispozicion. Ajo mund të jet hequr nga burimi ose package ID që kërkuat është gabim.";
 
 "%d Seconds" = "%d Sekonda";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"Download Timeout" = "Koha e shkarkimit";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfiguroni kohën që Zebra do të pres që një burim të përgjigjet para se të mbaroj koha.";
+"This timer will reset every time Zebra receives new information from a source." = "Kjo orë do të resetohet qdo herë kur Zebra pranon informacione të reja nga një burim.";
