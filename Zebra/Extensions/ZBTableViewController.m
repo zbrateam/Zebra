@@ -23,6 +23,10 @@
     return NO;
 }
 
+- (BOOL)observeQueueBar {
+    return NO;
+}
+
 #pragma mark - Theming
 
 - (void)asyncSetColors {
@@ -81,6 +85,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+- (void)configureTableContentInsetForQueue {
+    // stub
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBQueueBarHeightDidChange" object:nil];
 }
 
 @end
