@@ -209,15 +209,14 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    // TODO: This method should return a CGSize that falls in between a min/max width. Currently, it scales up/down all images to match the CGFloat height, while maintaining the aspect ratio.
-    
-    CGFloat height = UIScreen.mainScreen.bounds.size.height * 0.60;
+    CGFloat placeholderHeight = UIScreen.mainScreen.bounds.size.height * 0.40;
     if (!CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
+        CGFloat height = MIN(placeholderHeight, self.firstScreenshotSize.height);
         CGFloat ratio = self.firstScreenshotSize.height / height;
         CGFloat width = self.firstScreenshotSize.width / ratio;
         return CGSizeMake(width, height);
     }
-    CGFloat placeholderWidth = UIScreen.mainScreen.bounds.size.width * 0.60;
-    return CGSizeMake(placeholderWidth, height);
+    CGFloat placeholderWidth = UIScreen.mainScreen.bounds.size.width * 0.40;
+    return CGSizeMake(placeholderWidth, placeholderHeight);
 }
 @end
