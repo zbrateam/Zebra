@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Прехвърляне на източници от %@ към Zebra";
 "Utility source for %@" = "Полезен източник за %@";
 "Transfer Sources" = "Прехвърляне на източници";
-"Verifying Source" = "Проверка на източник";
-"Verifying Sources" = "Проверка на източници";
 "Import" = "Импортиране";
 "Verifying..." = "Проверява се...";
 "Confirm Import" = "Потвърдете импортирането";
@@ -458,7 +456,6 @@
 "Select a Section" = "Изберете раздел";
 "Hide packages in these sections." = "Скриване на пакетите в тези раздели.";
 
-"Sources" = "Източници";
 "Select a Source" = "Изберете източник";
 "Hide packages in these sections from specific sources." = "Скриване на пакетите в тези раздели от определени източници.";
 
