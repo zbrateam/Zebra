@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加する";
 "Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Verifying Source" = "リポジトリを検証中";
-"Verifying Sources" = "リポジトリを検証中";
 "Import" = "インポート";
 "Verifying..." = "検証中...";
 "Confirm Import" = "インポートの確認";
@@ -458,7 +456,6 @@
 "Select a Section" = "セクションを選択";
 "Hide packages in these sections." = "このセクションでパッケージを非表示にします";
 
-"Sources" = "リポジトリ";
 "Select a Source" = "リポジトリを選択";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
