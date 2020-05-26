@@ -182,7 +182,7 @@
 "You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "%@ のダウンロード中にエラーが発生しました：%@";
 
 "A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
