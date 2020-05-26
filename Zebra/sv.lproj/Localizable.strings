@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Överför källor från %@ till Zebra";
 "Utility source for %@" = "Verktygskälla för %@";
 "Transfer Sources" = "Överför källor";
-"Verifying Source" = "Verifierar källa";
-"Verifying Sources" = "Verifierar källor";
 "Import" = "Importera";
 "Verifying..." = "Verifierar...";
 "Confirm Import" = "Bekräfta importering";
@@ -458,7 +456,6 @@
 "Select a Section" = "Välj en sektion";
 "Hide packages in these sections." = "Dölj paket i dessa sektioner.";
 
-"Sources" = "Källor";
 "Select a Source" = "Välj en källa";
 "Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
 
