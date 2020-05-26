@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
 "Utility source for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
-"Verifying Source" = "正在验证软件源";
-"Verifying Sources" = "正在验证软件源";
 "Import" = "导入";
 "Verifying..." = "正在验证……";
 "Confirm Import" = "确认导入";
@@ -458,7 +456,6 @@
 "Select a Section" = "选择类别";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
-"Sources" = "软件源";
 "Select a Source" = "选择软件源";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类";
 
