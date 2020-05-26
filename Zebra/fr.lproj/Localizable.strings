@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Importer les sources de %@ vers Zebra";
 "Utility source for %@" = "Source utilitaire pour %@";
 "Transfer Sources" = "Transférer les Sources";
-"Verifying Source" = "Vérification de la Source";
-"Verifying Sources" = "Vérification des Sources";
 "Import" = "Importer";
 "Verifying..." = "Vérification...";
 "Confirm Import" = "Confirmer l'import";
@@ -458,7 +456,6 @@
 "Select a Section" = "Sélectionner une Section";
 "Hide packages in these sections." = "Cacher les paquets dans ces sections.";
 
-"Sources" = "Sources";
 "Select a Source" = "Sélectionner une Source";
 "Hide packages in these sections from specific sources." = "Cacher les paquets de ces sections de sources spécifiques.";
 
