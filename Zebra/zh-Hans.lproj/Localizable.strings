@@ -484,3 +484,8 @@
 
 "Package Not Available" = "软件包不存在";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "你请求的软件包不存在，可能已经从软件源中被移除，或者请求的软件包ID不正确。";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
