@@ -214,10 +214,17 @@
     if ([source count] >= 3) {
         NSString *archiveType = source[@"Types"];
         NSString *repositoryURI = source[@"URIs"];
+        if (repositoryURI && ![repositoryURI hasSuffix:@"/"]) {
+            repositoryURI = [repositoryURI stringByAppendingString:@"/"];
+        }
+        
         NSString *distribution = source[@"Suites"];
         
         NSString *components = source[@"Components"];
-        NSArray *sourceComponents = [components componentsSeparatedByString:@" "];
+        NSArray *sourceComponents;
+        if (![[components stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
+            sourceComponents = [components componentsSeparatedByString:@" "];
+        }
         
         ZBBaseSource *baseSource = [self initWithArchiveType:archiveType repositoryURI:repositoryURI distribution:distribution components:sourceComponents];
         
