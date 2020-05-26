@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
 "Utility source for %@" = "Πρακτική πηγή για %@";
 "Transfer Sources" = "Μετατόπισε Πηγές";
-"Verifying Source" = "Γίνεται επαλήθευση της Πηγής";
-"Verifying Sources" = "Γίνεται επαλήθευση των Πηγών";
 "Import" = "Εισαγωγή";
 "Verifying..." = "Γίνεται επιβεβαίωση...";
 "Confirm Import" = "Επιβεβαίωση Εισαγωγής";
@@ -458,7 +456,6 @@
 "Select a Section" = "Επίλεξε μία Ενότητα";
 "Hide packages in these sections." = "Κρύψε πακέτα σε αυτές τις ενότητες.";
 
-"Sources" = "Πηγές";
 "Select a Source" = "Επίλεξε μία πηγή";
 "Hide packages in these sections from specific sources." = "Κρύψε πακέτα σε αυτές τις ενότητες από συγκεκριμένες πηγές.";
 
