@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
 "Utility source for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
-"Verifying Source" = "Đang xác minh nguồn";
-"Verifying Sources" = "Đang xác minh nguồn";
 "Import" = "Nhập";
 "Verifying..." = "Đang xác minh...";
 "Confirm Import" = "Xác nhận nhập";
@@ -458,7 +456,6 @@
 "Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Ẩn gói trong các phần.";
 
-"Sources" = "Nguồn";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
 
