@@ -210,14 +210,14 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat placeholderHeight = UIScreen.mainScreen.bounds.size.height * 0.40;
+    CGFloat placeholderHeight = UIScreen.mainScreen.bounds.size.height * 0.60;
     if (!CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
         CGFloat height = MIN(placeholderHeight, self.firstScreenshotSize.height);
         CGFloat ratio = self.firstScreenshotSize.height / height;
         CGFloat width = self.firstScreenshotSize.width / ratio;
         return CGSizeMake(width, height);
     }
-    CGFloat placeholderWidth = UIScreen.mainScreen.bounds.size.width * 0.40;
+    CGFloat placeholderWidth = UIScreen.mainScreen.bounds.size.width * 0.60;
     return CGSizeMake(placeholderWidth, placeholderHeight);
 }
 @end
