@@ -484,3 +484,8 @@
 
 "Package Not Available" = "패키지 사용 불가능";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "요청한 패키지는 더 이상 사용할 수 없습니다. 내 소스에서 패키지가 제거되었거나, 패키지 ID가 잘못되었을 수 있습니다.";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
