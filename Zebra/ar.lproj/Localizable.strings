@@ -180,7 +180,7 @@
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "حدث خطأ أثناء تنزيل %@: %@";
 
 "A total of %d files will be downloaded" = "سيتم تنزيل مجموعة من ملفات %d";
 
@@ -485,7 +485,7 @@
 "Package Not Available" = "الحزمة غير متوفرة";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "الحزمة التي طلبتها لم تعد متاحة. ربما قد تم إزالتها من مصادرك أو أن معرف الحزمة المطلوب غير صحيح.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d ثانية";
+"Download Timeout" = "انتهت مهلة التنزيل";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "قم بإعداد الوقت الذي سينتظره Zebra حتى يستجيب المصدر قبل انتهاء المهلة.";
+"This timer will reset every time Zebra receives new information from a source." = "سيتم إعادة تعيين هذا المؤقت في كل مرة يتلقى فيها Zebra معلومات جديدة من المصدر.";
