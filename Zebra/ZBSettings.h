@@ -138,6 +138,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)wantsAutoRefresh;
 + (void)setWantsAutoRefresh:(BOOL)autoRefresh;
 
++ (NSTimeInterval)sourceRefreshTimeout;
++ (void)setSourceRefreshTimeout:(NSTimeInterval)time;
+
 #pragma mark - Changes Settings
 
 + (BOOL)wantsCommunityNews;

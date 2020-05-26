@@ -34,6 +34,7 @@ NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
 
 NSString *const WantsAutoRefreshKey = @"AutoRefresh";
+NSString *const SourceTimeoutKey = @"SourceTimeout";
 
 NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
@@ -440,6 +441,22 @@ NSString *const PackageSortingTypeKey = @"PackageSortingType";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:autoRefresh forKey:WantsAutoRefreshKey];
+}
+
++ (NSTimeInterval)sourceRefreshTimeout {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:SourceTimeoutKey]) {
+        [self setSourceRefreshTimeout:60];
+        return 60;
+    }
+    return [defaults integerForKey:SourceTimeoutKey];
+}
+
++ (void)setSourceRefreshTimeout:(NSTimeInterval)time {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:time forKey:SourceTimeoutKey];
 }
 
 #pragma mark - Changes Settings
