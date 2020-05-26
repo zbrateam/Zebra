@@ -485,7 +485,7 @@
 "Package Not Available" = "このパッケージは利用できません";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "リクエストしたパッケージは利用できなくなりました。リポジトリから削除されたか、リクエストされたパッケージIDが正しくありません。";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d 秒";
+"Download Timeout" = "ダウンロードタイムアウト";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Zebra がタイムアウトする前にリポジトリが応答するのを待ちます。";
+"This timer will reset every time Zebra receives new information from a source." = "このタイマーは、Zebra がリポジトリから新しい情報を受信するたびにリセットされます。";
