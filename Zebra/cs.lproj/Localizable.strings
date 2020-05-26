@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Přesunout všechny repozitáře z %@ do Zebry";
 "Utility source for %@" = "Zdroj nástrojů pro %@";
 "Transfer Sources" = "Přenést Zdroje";
-"Verifying Source" = "Ověřování Zdroje";
-"Verifying Sources" = "Ověřování Zdrojů";
 "Import" = "Importovat";
 "Verifying..." = "Ověřuje se...";
 "Confirm Import" = "Potvrzení importu";
@@ -458,7 +456,6 @@
 "Select a Section" = "Vyberte kategorii";
 "Hide packages in these sections." = "Skrýt balíčky v těchto sekcích.";
 
-"Sources" = "Zdroje";
 "Select a Source" = "Vyberte zdroj";
 "Hide packages in these sections from specific sources." = "Skrýt balíčky v těchto oddílech z určitých zdrojů.";
 
