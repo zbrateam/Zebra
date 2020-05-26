@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Pindah sumber dari %@ ke Zebra";
 "Utility source for %@" = "Sumber Utiliti untuk %@";
 "Transfer Sources" = "Pindah Sumber";
-"Verifying Source" = "Sahkan Sumber";
-"Verifying Sources" = "Sahkan Sumber";
 "Import" = "Import";
 "Verifying..." = "Mengesahkan...";
 "Confirm Import" = "Mengesahkan Import";
@@ -164,8 +162,8 @@
 "Would you like to add the URL from your clipboard?" = "Adakah anda ingin menambahkan URL dari papan keratan anda?";
 
 "Please Wait..." = "Sila tunggu...";
-"Verifying Source" = "Mengesahkan Sumber";
-"Verifying Sources" = "Mengesahkan Sumber";
+"Verifying Source" = "Sahkan Sumber";
+"Verifying Sources" = "Sahkan Sumber";
 "Updating Sources" = "Mengemas kini Sumber";
 
 "Unknown error" = "Ralat tidak diketahui";
@@ -458,7 +456,6 @@
 "Select a Section" = "Pilih Bahagian";
 "Hide packages in these sections." = "Sembunyikan pakej di bahagian ini.";
 
-"Sources" = "Sumber";
 "Select a Source" = "Pilih Sumber";
 "Hide packages in these sections from specific sources." = "Sembunyikan pakej di bahagian ini dari sumber tertentu.";
 
