@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Overfør kjelder frå %@ til Zebra";
 "Utility source for %@" = "Verktøykjelde for %@";
 "Transfer Sources" = "Overfør kjelder";
-"Verifying Source" = "Verifiserer kjelde";
-"Verifying Sources" = "Verifiserer kjelder";
 "Import" = "Importer";
 "Verifying..." = "Verifiserer...";
 "Confirm Import" = "Stadfest importering";
@@ -458,7 +456,6 @@
 "Select a Section" = "Vel ein seksjon";
 "Hide packages in these sections." = "Skjul pakkane i desse seksjonane.";
 
-"Sources" = "Kjelder";
 "Select a Source" = "Vel ei kjelde";
 "Hide packages in these sections from specific sources." = "Skjul pakkane i desse seksjonane frå spesifikke kjelder.";
 
