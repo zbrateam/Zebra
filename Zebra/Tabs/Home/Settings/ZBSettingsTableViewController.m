@@ -412,12 +412,11 @@ enum ZBMiscOrder {
                 break;
             }
             else {
-                NSArray *options = @[@"5 Seconds",
-                                     @"10 Seconds",
-                                     @"15 Seconds",
-                                     @"30 Seconds",
-                                     @"45 Seconds",
-                                     @"60 Seconds"];
+                NSMutableArray *options = [NSMutableArray new];
+                NSArray *choices = @[@5, @10, @15, @30, @45, @60];
+                for (NSNumber *choice in choices) {
+                    [options addObject:[NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), choice.intValue]];
+                }
                 ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:options getter:@selector(sourceRefreshTimeoutIndex) setter:@selector(setSourceRefreshTimeout:) settingChangedCallback:nil];
                 
                 [controller setTitle:@"Download Timeout"];
