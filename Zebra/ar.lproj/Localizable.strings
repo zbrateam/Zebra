@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
 "Utility source for %@" = "مصدر الأداة المساعدة لـ %@";
 "Transfer Sources" = "تحويل المصادر";
-"Verifying Source" = "جارِ التحقق من المصدر";
-"Verifying Sources" = "جارِ التحقق من المصادر";
 "Import" = "استيراد";
 "Verifying..." = "جارِ التحقق...";
 "Confirm Import" = "تأكيد الاستيراد";
@@ -458,7 +456,6 @@
 "Select a Section" = "حدد قسم";
 "Hide packages in these sections." = "إخفاء الحزم في هذه الأقسام.";
 
-"Sources" = "المصادر";
 "Select a Source" = "حدد مصدر";
 "Hide packages in these sections from specific sources." = "إخفاء الحزم في هذه الأقسام من مصادر محددة.";
 
