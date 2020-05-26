@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Perkelti šaltinius iš %@ į Zebra";
 "Utility source for %@" = "Naudingas šaltinis %@";
 "Transfer Sources" = "Perkelti šaltinius";
-"Verifying Source" = "Tikrinamas šaltinis";
-"Verifying Sources" = "Tikrinami šaltiniai";
 "Import" = "Importuoti";
 "Verifying..." = "Tikrinama...";
 "Confirm Import" = "Patvirtinkite importavimą";
@@ -458,7 +456,6 @@
 "Select a Section" = "Pasirinkti skyrių";
 "Hide packages in these sections." = "Paslėpti paketus, šiuose skyriuose.";
 
-"Sources" = "Šaltiniai";
 "Select a Source" = "Pasirinkti šaltinį";
 "Hide packages in these sections from specific sources." = "Paslėpti paketus šiuose skyriuose iš konkrečių šaltinių.";
 
