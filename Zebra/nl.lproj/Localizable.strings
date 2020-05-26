@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
 "Utility source for %@" = "Benodigde repo voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
-"Verifying Source" = "Bron verifiëren";
-"Verifying Sources" = "Bronnen verifiëren";
 "Import" = "Importeer";
 "Verifying..." = "Verifiëren...";
 "Confirm Import" = "Bevestig Import";
@@ -458,7 +456,6 @@
 "Select a Section" = "Selecteer een categorie";
 "Hide packages in these sections." = "Verberg pakketten in deze categorieën.";
 
-"Sources" = "Bronnen";
 "Select a Source" = "Selecteer een bron";
 "Hide packages in these sections from specific sources." = "Verberg pakketten in deze categorieën van specifieke bronnen.";
 
