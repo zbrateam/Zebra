@@ -20,7 +20,7 @@
 "Home" = "主页";
 "Info" = "信息";
 "Welcome to Zebra!" = "欢迎使用 Zebra ！";
-"Report a Bug" = "报告 Bug";
+"Report a Bug" = "反馈 Bug";
 "Changelog" = "更新日志";
 "Wish List" = "心愿单";
 "Newest First" = "从新到旧";
@@ -171,14 +171,14 @@
 "Invalid URL" = "无效的 URL";
 "Invalid Source" = "无效的软件源";
 "Tap to learn more" = "点击了解更多";
-"No source URLs detected." = "未检测到软件源 URL 。";
+"No source URLs detected." = "未检测到软件源 URL";
 "Unable to verify source" = "无法验证软件源";
 "Error verifying source" = "验证软件源时出错";
 "Error verifying sources" = "验证软件源时出错";
 "Failed to add source" = "添加软件源失败";
 "Failed to add sources" = "添加软件源失败";
-"You have already added this source." = "你已经添加了这个软件源。";
-"You have already added these sources." = "你已经添加过这些软件源。";
+"You have already added this source." = "你已经添加过这个软件源";
+"You have already added these sources." = "你已经添加过这些软件源";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
 "View" = "查看";
@@ -188,8 +188,8 @@
 "Could not parse %@ from %@" = "无法解析 %@ 自 %@";
 "Could not find a download URL for" = "无法获取下载链接";
 "Authorizing Download for %@" = "正在获取下载 %@ 的授权";
-"Couldn't authorize download for %@." = "无法获取下载 %@ 的授权。";
-"Reason: %@." = "原因：%@。";
+"Couldn't authorize download for %@." = "无法获取下载 %@ 的授权";
+"Reason: %@." = "原因：%@";
 "The Payment API is not supported on less than iOS 11.0" = "支付 API 不支持 iOS 11.0 以下的系统";
 "Could not download Release file from %@. Reason: %@" = "无法从 %@ 下载软件源信息。原因：%@";
 "Could not download Packages file from %@. Reason: %@" = "无法从 %@ 下载一个或多个软件包。原因： %@";
@@ -201,11 +201,11 @@
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra 无法下载在 %@ 软件源。该软件源可能暂时无法访问，或添加方式不正确。";
 
-"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除。";
+"Please remove this source from your sources.list file." = "请将此软件源从 sources.list 文件中移除";
 
 "Error while opening sources.list" = "打开 sources.list 时错误";
 
-"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容。";
+"The source %@ is incompatible with your jailbreak." = "软件源 %@ 与你的越狱不兼容";
 "It may cause issues if you add it to Zebra resulting in possible restore." = "添加到 Zebra 可能会产生错误，导致设备需要重置。";
 
 "%@ hasn't been modified" = "%@ 未被修改";
@@ -236,7 +236,7 @@
 "Source" = "软件源";
 "Installed Files" = "已安装的文件";
 "Modify" = "修改";
-"Authenticate to initiate purchase." = "登录后购买。";
+"Authenticate to initiate purchase." = "登录后购买";
 "Please relogin your account that is used to purchase this package (Possibly %@)" = "购买此软件包请重新登录你的账号（可能是 %@）";
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
@@ -303,7 +303,7 @@
 // Search
 
 "Search" = "搜索";
-"This search query is too short for the full search, please use a longer query." = "你输入的文字太短，无法进行搜索。请使用更长的文字。";
+"This search query is too short for the full search, please use a longer query." = "你输入的文字太短，无法进行搜索，请输入更长的关键词。";
 "No Results Found" = "未找到结果";
 "Name" = "名称";
 "Description" = "说明";
@@ -338,11 +338,11 @@
 "Finished!" = "完成！";
 "Return to Queue" = "返回队列";
 "Returning to Queue..." = "正在返回队列……";
-"Importing local packages." = "正在导入本地软件包。";
-"Finished importing local packages." = "导入本地软件包完成。";
-"One or more packages failed to download." = "一个或多个软件包下载失败。";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载。";
-"Could not complete %@ process. Reason: %@." = "无法完成 %@。原因：%@。";
+"Importing local packages." = "正在导入本地软件包……";
+"Finished importing local packages." = "导入本地软件包完成";
+"One or more packages failed to download." = "一个或多个软件包下载失败";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "点击 \"返回队列\" 以返回至队列页面并尝试重新下载";
+"Could not complete %@ process. Reason: %@." = "无法完成 %@。原因：%@";
 "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "请重启 Zebra 并查看问题是否仍然存在。如果是，请在 GitHub 上提交问题报告。";
 "Done..." = "完成……";
 "Done %@" = "%@ 已完成";
@@ -395,55 +395,55 @@
 
 "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "因为没有适当的权限，Zebra 无法完成此命令。 请验证位于 /usr/libexec/zebra/supersling 的权限，并在 GitHub 上报告这个问题。";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "无法访问 su/sling 。请验证 /usr/libexec/zebra/supersling 是否存在。";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "无法访问 su/sling ，请验证 /usr/libexec/zebra/supersling 是否存在。";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 用户权限非 root:wheel 。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 用户权限非 root:wheel ，请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限。请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling 没有设置 uid 或 gid 的权限，请验证位于 /usr/libexec/zebra/supersling 的文件权限。";
 
-"Error while creating documents directory: %@." = "创建文档目录时出错：%@。";
+"Error while creating documents directory: %@." = "创建文档目录时出错：%@";
 
-"Error while creating lists directory: %@." = "创建列表目录时出错：%@。";
+"Error while creating lists directory: %@." = "创建列表目录时出错：%@";
 
-"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@。";
+"Error while creating sources.list: %@." = "创建 sources.list 时出错：%@";
 
-"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@。";
+"Error while creating debs directory: %@." = "创建 debs 目录时出错：%@";
 
-"Could not respring. Please respring manually." = "无法自动 Respring ，请手动 Respring 。";
+"Could not respring. Please respring manually." = "自动 Respring 失败，请手动 Respring 。";
 
 "ERROR: Unable to lock status file. Please try again." = "错误：无法锁定状态文件，请重试。";
 
 "ERROR: Process must be restarted. Please try again." = "错误：需要重启进程，请重试。";
 
-"Incorrect documents permissions." = "文档权限不正确。";
+"Incorrect documents permissions." = "文档权限不正确";
 
-"Could not determine device information." = "无法获取设备信息。";
+"Could not determine device information." = "无法获取设备信息";
 
-"Display featured packages on the homepage." = "在主页上显示精选软件包。";
+"Display featured packages on the homepage." = "在主页上显示精选软件包";
 
-"Refresh Zebra's sources when opening the app." = "打开 Zebra 时自动刷新软件源。";
+"Refresh Zebra's sources when opening the app." = "打开 Zebra 时自动刷新软件源";
 
-"Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子。";
+"Display recent community posts from /r/jailbreak." = "显示 /r/jailbreak 的最新帖子";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "实时显示软件包搜索结果。在旧设备上禁用此功能可能会减少卡顿。";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "实时显示软件包搜索结果，在旧设备上禁用此功能可能会减少卡顿";
 
-"Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观。";
+"Configure the appearance of table view swipe actions." = "配置表格视图滑动操作的外观";
 
-"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色。";
+"Change the accent color that displays across Zebra." = "更改 Zebra 所有界面的主体颜色";
 
-"Change the style of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题。";
+"Change the style of Zebra's dark mode when it is enabled." = "启用时更改 Zebra 的黑暗模式主题";
 
-"Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源。";
+"Change the source of the featured packages on the homepage." = "更改主页上精选软件包的来源";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包。";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "“精选软件源”将从支持精选软件包 API 的软件源中随机显示软件包";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包。";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "“随机”将从你加入 Zebra 的软件源中随机显示软件包";
 
-"Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包。";
+"Signing in to sources allows for the purchase of paid packages." = "在各个软件源登录后可以购买付费软件包";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台。";
+"Automatically dismiss the Console when all of its tasks have been completed." = "所有任务完成后自动关闭控制台";
 
-"Always install the most recent version of a package if it is not already installed." = "如果软件包当前安装的不是最新版，则默认安装最新版。";
+"Always install the most recent version of a package if it is not already installed." = "如果软件包当前安装的不是最新版，则默认安装最新版";
 
 // Filters
 
@@ -459,13 +459,13 @@
 
 "Sources" = "软件源";
 "Select a Source" = "选择软件源";
-"Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类。";
+"Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类";
 
 "Updates" = "更新";
-"Hide future updates from these packages." = "隐藏这些软件包的更新。";
+"Hide future updates from these packages." = "隐藏这些软件包的更新";
 
 "Authors" = "开发者";
-"Hide packages from these authors." = "隐藏这些开发者的软件包。";
+"Hide packages from these authors." = "隐藏这些开发者的软件包";
 "Search for an Author" = "搜索开发者";
 "This author also goes by the following names:" = "此开发者还使用以下名字：";
 

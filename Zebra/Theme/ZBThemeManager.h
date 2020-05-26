@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)configureKeyboard;
 - (void)configureKeyboard:(id <UITextInputTraits>)appearance;
 - (void)configureSearchBar:(UISearchBar *)searchBar;
+- (void)configureTextField:(UITextField *)textField;
 - (void)refreshViews;
 - (UIImage *)toggleImage;
 @end

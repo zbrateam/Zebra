@@ -63,6 +63,16 @@
     if ([self forceSetColors]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(asyncSetColors) name:@"darkMode" object:nil];
     }
+    if ([self observeQueueBar]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTableContentInsetForQueue) name:@"ZBQueueBarHeightDidChange" object:nil];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
+    if (@available(iOS 13.0, *)) {}
+    else {
+        view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

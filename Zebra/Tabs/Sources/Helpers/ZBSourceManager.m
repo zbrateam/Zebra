@@ -96,7 +96,7 @@
     
     NSUInteger index = [[self knownDistURLs] indexOfObject:[URL host]];
     if (index != NSNotFound) {
-        return [[self knownDebLines] objectAtIndex:index];
+        return [self knownDebLines][index];
     }
     else {
         return [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];

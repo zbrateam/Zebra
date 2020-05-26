@@ -331,7 +331,12 @@
             }
         }
         if (![sources containsObject:url.host]) {
-            ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:url];
+            NSString *finalURLString = url.absoluteString;
+            if (![finalURLString hasSuffix:@"/"]) {
+                finalURLString = [finalURLString stringByAppendingString:@"/"];
+            }
+            NSURL *finalURL = [NSURL URLWithString:finalURLString];
+            ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:finalURL];
             if (baseSource) {
                 [baseSource verify:^(ZBSourceVerificationStatus status) {
                     if (status == ZBSourceExists) {
@@ -422,6 +427,7 @@
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.keyboardType = UIKeyboardTypeURL;
         textField.returnKeyType = UIReturnKeyNext;
+        [[ZBThemeManager sharedInstance] configureTextField:textField];
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];

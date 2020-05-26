@@ -122,7 +122,7 @@
 }
 
 - (void)resetSourcesCache:(NSIndexPath *)indexPath {
-    [self confirmationControllerWithTitle:NSLocalizedString(@"Reset Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
         ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
         [self presentViewController:refreshController animated:YES completion:nil];
     } indexPath:indexPath];

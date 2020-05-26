@@ -8,6 +8,11 @@
 
 #import "UIAlertController+Show.h"
 #import <objc/runtime.h>
+#import <Theme/ZBThemeManager.h>
+
+@interface ZBAlertViewController : UIViewController
+
+@end
 
 @interface UIAlertController (Private)
 
@@ -38,7 +43,7 @@
 - (void)show:(BOOL)animated {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        self.alertWindow.rootViewController = [[UIViewController alloc] init];
+        self.alertWindow.rootViewController = [[ZBAlertViewController alloc] init];
 
         id <UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
         if ([delegate respondsToSelector:@selector(window)]) {
@@ -60,6 +65,15 @@
         self.alertWindow.hidden = YES;
         self.alertWindow = nil;
     });
+}
+
+@end
+
+// Small class just to set status bar color on the alert popup
+@implementation ZBAlertViewController
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [[ZBThemeManager sharedInstance] interfaceStyle] >= ZBInterfaceStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 @end

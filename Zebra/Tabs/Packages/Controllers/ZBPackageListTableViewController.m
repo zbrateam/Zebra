@@ -283,12 +283,12 @@
 }
 
 - (void)upgradeAll {
-    int beforeCount = [ZBQueue count];
+    NSUInteger beforeCount = [ZBQueue count];
     
     [ZBPackageActions performAction:ZBPackageActionUpgrade forPackages:updates completion:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-            int afterCount = [ZBQueue count];
+            NSUInteger afterCount = [ZBQueue count];
             if (beforeCount == afterCount) {
                 [[ZBAppDelegate tabBarController] openQueue:YES];
             }
@@ -459,7 +459,7 @@
 
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
     if (!source) return NULL;
-    if ([[ZBDatabaseManager sharedInstance] numberOfPackagesInSource:source section:section] > 400) return NULL;
+    if ([self.databaseManager numberOfPackagesInSource:source section:section] > 400) return NULL;
     
     NSString *title = NSLocalizedString(@"Install All", @"");
     UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
