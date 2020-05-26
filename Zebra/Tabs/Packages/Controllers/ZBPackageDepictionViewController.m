@@ -138,8 +138,8 @@
     [[self navigationController] pushViewController:changelog animated:YES];
 }
 
-- (void) updatePreviewCollectionViewHeightBasedOnContent {
     self.previewCollectionViewHeightConstraint.constant = 400;
+- (void)updatePreviewCollectionViewHeightBasedOnContent {
 //    self.previewCollectionViewHeightConstraint.constant = self.previewCollectionView.collectionViewLayout.collectionViewContentSize.height;
 }
 
