@@ -484,3 +484,8 @@
 
 "Package Not Available" = "Gói không khả dụng";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Gói bạn yêu cầu không còn nữa.  Nó có thể đã bị xóa khỏi nguồn của bạn hoặc ID gói được yêu cầu không chính xác.";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
