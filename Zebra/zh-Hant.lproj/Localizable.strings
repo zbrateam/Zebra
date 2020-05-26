@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility source for %@" = "%@ 的工具軟體來源";
 "Transfer Sources" = "匯入來源";
-"Verifying Source" = "正在驗證來源";
-"Verifying Sources" = "正在驗證來源";
 "Import" = "匯入";
 "Verifying..." = "正在驗證...";
 "Confirm Import" = "確認匯入";
@@ -458,7 +456,6 @@
 "Select a Section" = "選擇類別";
 "Hide packages in these sections." = "隱藏這些類別的套件。";
 
-"Sources" = "來源";
 "Select a Source" = "選擇來源";
 "Hide packages in these sections from specific sources." = "從特定來源隱藏這些類別的套件。";
 
