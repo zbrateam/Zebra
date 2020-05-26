@@ -109,6 +109,15 @@
 				<key>UIPrerenderedIcon</key>
 				<true/>
 			</dict>
+			<key>viola</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>viola</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 		</dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>

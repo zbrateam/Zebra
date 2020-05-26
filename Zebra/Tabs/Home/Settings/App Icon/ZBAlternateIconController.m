@@ -59,6 +59,12 @@
             @"author": @"xerus (@xerusdesign)",
             @"readableName": @"Embossed Zebra Pattern (Dark)",
             @"border": @NO
+        },
+        @{
+            @"iconName": @"viola",
+            @"author": @"Bossgfx (@bossgfx_)",
+            @"readableName": @"Viola",
+            @"border": @NO
         }
     ];
 }

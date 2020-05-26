@@ -56,6 +56,10 @@
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49452C28246A414900F45C2D /* ZBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49452C27246A414900F45C2D /* ZBActionButton.m */; };
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
+		49990644247DDAA000AE75BC /* viola~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990635247DDA9F00AE75BC /* viola~ipad@3x.png */; };
+		49990645247DDAA000AE75BC /* viola~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990641247DDA9F00AE75BC /* viola~ipad@2x.png */; };
+		49990646247DDAA000AE75BC /* viola@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990642247DDAA000AE75BC /* viola@3x.png */; };
+		49990647247DDAA000AE75BC /* viola@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990643247DDAA000AE75BC /* viola@2x.png */; };
 		499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */; };
 		499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */; };
 		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
@@ -327,6 +331,10 @@
 		49452C27246A414900F45C2D /* ZBActionButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBActionButton.m; sourceTree = "<group>"; };
 		4947555424313A30008DC093 /* ZBLiveSearchResultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLiveSearchResultTableViewCell.h; sourceTree = "<group>"; };
 		4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveSearchResultTableViewCell.m; sourceTree = "<group>"; };
+		49990635247DDA9F00AE75BC /* viola~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola~ipad@3x.png"; sourceTree = "<group>"; };
+		49990641247DDA9F00AE75BC /* viola~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola~ipad@2x.png"; sourceTree = "<group>"; };
+		49990642247DDAA000AE75BC /* viola@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola@3x.png"; sourceTree = "<group>"; };
+		49990643247DDAA000AE75BC /* viola@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola@2x.png"; sourceTree = "<group>"; };
 		499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBBoldTableViewHeaderView.h; sourceTree = "<group>"; };
 		499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBBoldTableViewHeaderView.m; sourceTree = "<group>"; };
 		499B0E2D246B945B008825E4 /* ZBInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInfoTableViewCell.h; sourceTree = "<group>"; };
@@ -691,6 +699,10 @@
 				2627B6102321A65200B141E5 /* originalBlack@2x.png */,
 				36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */,
 				2627B60E2321A64D00B141E5 /* originalBlack@3x.png */,
+				49990643247DDAA000AE75BC /* viola@2x.png */,
+				49990642247DDAA000AE75BC /* viola@3x.png */,
+				49990641247DDA9F00AE75BC /* viola~ipad@2x.png */,
+				49990635247DDA9F00AE75BC /* viola~ipad@3x.png */,
 			);
 			path = "Alternate Icons";
 			sourceTree = "<group>";
@@ -1445,8 +1457,10 @@
 				36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */,
 				49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */,
 				89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */,
+				49990646247DDAA000AE75BC /* viola@3x.png in Resources */,
 				49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */,
 				36AC5A6B22AB30E4004C2332 /* zWhite~ipad@3x.png in Resources */,
+				49990645247DDAA000AE75BC /* viola~ipad@2x.png in Resources */,
 				9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */,
 				36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */,
 				894894032471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib in Resources */,
@@ -1457,9 +1471,11 @@
 				36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */,
 				36F77AE922A34EE800A4604C /* lightZebraSkin@2x.png in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
+				49990647247DDAA000AE75BC /* viola@2x.png in Resources */,
 				36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */,
 				36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */,
 				499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */,
+				49990644247DDAA000AE75BC /* viola~ipad@3x.png in Resources */,
 				4910B3A02426BD2F00306C5C /* ZBSourcesAccountBanner.xib in Resources */,
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
