@@ -38,6 +38,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *previewHeaderLabel;
 
 @property (strong, nonatomic) ZBPackage *package;
+@property (nonatomic) CGSize firstScreenshotSize;
 
 @end
 
@@ -197,12 +198,26 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBScreenshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ScreenshotCollectionViewCell" forIndexPath:indexPath];
-    [cell.screenshotImageView sd_setImageWithURL:self.package.previewImageURLs[indexPath.item]];
+    [cell.screenshotImageView sd_setImageWithURL:self.package.previewImageURLs[indexPath.item] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        if (indexPath.item == 0 && CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
+            self.firstScreenshotSize = CGSizeMake(image.size.width / UIScreen.mainScreen.scale, image.size.height / UIScreen.mainScreen.scale);
+            [self.previewCollectionView reloadSections:[[NSIndexSet alloc] initWithIndex:0]];
+            [self updatePreviewCollectionViewHeightBasedOnContent];
+        }
+    }];
     return cell;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(200, 400);
-
+    // TODO: This method should return a CGSize that falls in between a min/max width. Currently, it scales up/down all images to match the CGFloat height, while maintaining the aspect ratio.
+    
+    CGFloat height = UIScreen.mainScreen.bounds.size.height * 0.60;
+    if (!CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
+        CGFloat ratio = self.firstScreenshotSize.height / height;
+        CGFloat width = self.firstScreenshotSize.width / ratio;
+        return CGSizeMake(width, height);
+    }
+    CGFloat placeholderWidth = UIScreen.mainScreen.bounds.size.width * 0.60;
+    return CGSizeMake(placeholderWidth, height);
 }
 @end
