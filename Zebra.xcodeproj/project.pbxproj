@@ -113,6 +113,10 @@
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
 		8997A9F224031007001894BF /* ZBSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8997A9F124031007001894BF /* ZBSearchResultsTableViewController.m */; };
 		8997A9FA24035021001894BF /* ZBProxyPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8997A9F924035021001894BF /* ZBProxyPackage.m */; };
+		899AE9FE247F03BA00FCA61E /* quda~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */; };
+		899AE9FF247F03BA00FCA61E /* quda@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FB247F03BA00FCA61E /* quda@2x.png */; };
+		899AEA00247F03BA00FCA61E /* quda~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FC247F03BA00FCA61E /* quda~ipad@3x.png */; };
+		899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FD247F03BA00FCA61E /* quda@3x.png */; };
 		899BDCBC241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 899BDCBB241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m */; };
 		89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1297A247B49F000C7310B /* UINavigationController+SBS.m */; };
 		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
@@ -464,6 +468,10 @@
 		8997A9F124031007001894BF /* ZBSearchResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		8997A9F824035021001894BF /* ZBProxyPackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBProxyPackage.h; sourceTree = "<group>"; };
 		8997A9F924035021001894BF /* ZBProxyPackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBProxyPackage.m; sourceTree = "<group>"; };
+		899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda~ipad@2x.png"; sourceTree = "<group>"; };
+		899AE9FB247F03BA00FCA61E /* quda@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda@2x.png"; sourceTree = "<group>"; };
+		899AE9FC247F03BA00FCA61E /* quda~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda~ipad@3x.png"; sourceTree = "<group>"; };
+		899AE9FD247F03BA00FCA61E /* quda@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda@3x.png"; sourceTree = "<group>"; };
 		899BDCBA241DBB6300A2CC3A /* ZBSourceSelectTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceSelectTableViewController.h; sourceTree = "<group>"; };
 		899BDCBB241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceSelectTableViewController.m; sourceTree = "<group>"; };
 		89A12979247B49F000C7310B /* UINavigationController+SBS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SBS.h"; sourceTree = "<group>"; };
@@ -699,6 +707,10 @@
 				2627B6102321A65200B141E5 /* originalBlack@2x.png */,
 				36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */,
 				2627B60E2321A64D00B141E5 /* originalBlack@3x.png */,
+				899AE9FB247F03BA00FCA61E /* quda@2x.png */,
+				899AE9FD247F03BA00FCA61E /* quda@3x.png */,
+				899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */,
+				899AE9FC247F03BA00FCA61E /* quda~ipad@3x.png */,
 				49990643247DDAA000AE75BC /* viola@2x.png */,
 				49990642247DDAA000AE75BC /* viola@3x.png */,
 				49990641247DDA9F00AE75BC /* viola~ipad@2x.png */,
@@ -1453,6 +1465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */,
+				899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */,
 				3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */,
 				36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */,
 				49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */,
@@ -1470,6 +1483,7 @@
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
 				36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */,
 				36F77AE922A34EE800A4604C /* lightZebraSkin@2x.png in Resources */,
+				899AE9FE247F03BA00FCA61E /* quda~ipad@2x.png in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
 				49990647247DDAA000AE75BC /* viola@2x.png in Resources */,
 				36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */,
@@ -1492,9 +1506,11 @@
 				36AC5A6A22AB30E4004C2332 /* zWhite@2x.png in Resources */,
 				2627B60D2321A64400B141E5 /* originalBlack~ipad@2x.png in Resources */,
 				36AC5A6C22AB30E4004C2332 /* zWhite@3x.png in Resources */,
+				899AE9FF247F03BA00FCA61E /* quda@2x.png in Resources */,
 				8916AC0E23CA9447008BA02C /* ZBRightIconTableViewCell.xib in Resources */,
 				896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */,
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
+				899AEA00247F03BA00FCA61E /* quda~ipad@3x.png in Resources */,
 				369B7AE022C56009007521DB /* banner.png in Resources */,
 				49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
@@ -1835,7 +1851,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = "1.2~beta1a";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
@@ -1869,7 +1885,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = "1.2~beta1a";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;

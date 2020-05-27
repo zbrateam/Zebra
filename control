@@ -1,11 +1,20 @@
 Package: xyz.willy.zebra
 Name: Zebra
-Version: 1.1.9
+Version: 1.2~beta1a
 Architecture: iphoneos-arm
-Depends: dpkg, uikittools, firmware (>= 9.0)
-Description: A Useful Package Manager
+Depends: dpkg, uikittools, firmware (>= 11.0)
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
 Section: Packaging
-Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
-Tag: compatible::9.0-13.5
+Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
+Prefer-Native: Yes
+Description: A Useful Package Manager
+  A *modern*, **fast**, and ***powerful*** open source package manager for jailbroken iOS devices.
+Changelog: Depiction Redesign
+  This update is the first in our app-wide redesign. Each beta will include a new view that is redesigned and we'd appreciate your feedback as we go through the redesign process.
+  .
+  This beta brings a redesinged package depiction view complete with a new native depiction format. It also includes new alternate icons created by [Bossgfx](https://twitter.com/bossgfx_) and [heysyemeh](https://twitter.com/heysyemeh).
+Previews: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra1.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra2.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra3.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra4.png
+Header: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/banner.jpg
+Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
+Tag: compatible::11.0-13.5

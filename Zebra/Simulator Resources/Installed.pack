@@ -3766,20 +3766,26 @@ Description: simple HTTP file transfer client
 Tag: purpose::console, role::hacker
 
 Package: xyz.willy.zebra
-Status: install ok installed
-Section: Packaging
-Installed-Size: 47724
-Maintainer: Wilson Styres <wilson@styres.me>
-Architecture: iphoneos-arm
-Version: 1:0
-Depends: dpkg, uikittools, firmware (>= 9.0)
-Description: A Useful Package Manager
-  A Super Useful Package Manager!
 Name: Zebra
+Version: 1.2~beta1a
+Architecture: iphoneos-arm
+Depends: dpkg, uikittools, firmware (>= 11.0)
+Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
-Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
-Homepage: https://getzbra.com/
+Section: Packaging
+Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
+Prefer-Native: Yes
+Description: A Useful Package Manager
+  A *modern*, **fast**, and ***powerful*** open source package manager for jailbroken iOS devices.
+Changelog: Depiction Redesign
+  This update is the first in our app-wide redesign. Each beta will include a new view that is redesigned and we'd appreciate your feedback as we go through the redesign process.
+  .
+  This beta brings a redesinged package depiction view complete with a new native depiction format. It also includes new alternate icons created by [Bossgfx](https://twitter.com/bossgfx_) and [heysyemeh](https://twitter.com/heysyemeh).
+Previews: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra1.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra2.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra3.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra4.png
+Header: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/banner.jpg
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
+Tag: compatible::11.0-13.5
+Status: install ok installed
 
 Package: applist
 Status: install ok installed
