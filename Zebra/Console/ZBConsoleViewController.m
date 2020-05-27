@@ -46,6 +46,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelOrCloseButton;
 @property (strong, nonatomic) IBOutlet UILabel *progressText;
+@property (strong, nonatomic) IBOutlet UIView *progressTextView;
 @property (strong, nonatomic) IBOutlet UIProgressView *progressView;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @end
@@ -55,6 +56,7 @@
 @synthesize completeButton;
 @synthesize cancelOrCloseButton;
 @synthesize progressText;
+@synthesize progressTextView;
 @synthesize progressView;
 @synthesize consoleView;
 
@@ -128,7 +130,7 @@
     downloadMap = [NSMutableDictionary new];
     
     [self updateProgress:0.0];
-    progressText.layer.cornerRadius = 3.0;
+    progressTextView.layer.cornerRadius = 3.0;
     progressText.layer.masksToBounds = YES;
     [self updateProgressText:nil];
     [self setProgressViewHidden:YES];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -1184,22 +1184,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dm5-ws-jdr" userLabel="Progress Text View">
+                                <rect key="frame" x="168" y="766" width="78" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuP-O1-Zgo">
+                                        <rect key="frame" x="3" y="3" width="72" height="14"/>
+                                        <accessibility key="accessibilityConfiguration">
+                                            <accessibilityTraits key="traits" staticText="YES" notEnabled="YES" updatesFrequently="YES"/>
+                                        </accessibility>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="BuP-O1-Zgo" secondAttribute="bottom" constant="3" id="H7j-oY-EcN"/>
+                                    <constraint firstItem="BuP-O1-Zgo" firstAttribute="top" secondItem="dm5-ws-jdr" secondAttribute="top" constant="3" id="LUj-sg-Rln"/>
+                                    <constraint firstAttribute="trailing" secondItem="BuP-O1-Zgo" secondAttribute="trailing" constant="3" id="uDd-yy-hyc"/>
+                                    <constraint firstItem="BuP-O1-Zgo" firstAttribute="leading" secondItem="dm5-ws-jdr" secondAttribute="leading" constant="3" id="xdU-l8-vAK"/>
+                                </constraints>
+                            </view>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Mo4-QY-oSm">
                                 <rect key="frame" x="20" y="794" width="374" height="2"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="progressTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress Text" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BuP-O1-Zgo">
-                                <rect key="frame" x="171" y="772" width="72" height="14"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <accessibility key="accessibilityConfiguration">
-                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES" updatesFrequently="YES"/>
-                                </accessibility>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwm-vr-TSr">
                                 <rect key="frame" x="20" y="804" width="374" height="50"/>
                                 <color key="backgroundColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1218,7 +1229,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lpS-Lu-3mG">
-                                <rect key="frame" x="20" y="88" width="374" height="676"/>
+                                <rect key="frame" x="20" y="44" width="374" height="714"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" name="Courier" family="Courier" pointSize="12"/>
@@ -1228,16 +1239,16 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Mo4-QY-oSm" firstAttribute="trailing" secondItem="Dwm-vr-TSr" secondAttribute="trailing" id="0u7-SS-DpM"/>
-                            <constraint firstItem="BuP-O1-Zgo" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="bottom" constant="8" id="4Fz-Ga-3j3"/>
-                            <constraint firstItem="BuP-O1-Zgo" firstAttribute="centerX" secondItem="Mo4-QY-oSm" secondAttribute="centerX" id="79r-f7-LVr"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="Mo4-QY-oSm" secondAttribute="trailing" id="Izs-y4-2TW"/>
+                            <constraint firstItem="dm5-ws-jdr" firstAttribute="centerX" secondItem="Mo4-QY-oSm" secondAttribute="centerX" id="MXX-CF-PSz"/>
+                            <constraint firstItem="dm5-ws-jdr" firstAttribute="top" secondItem="lpS-Lu-3mG" secondAttribute="bottom" constant="8" id="N1H-rk-WjU"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="top" secondItem="4S3-dv-b0f" secondAttribute="topMargin" id="RkW-VJ-x4b"/>
                             <constraint firstItem="Mo4-QY-oSm" firstAttribute="leading" secondItem="Dwm-vr-TSr" secondAttribute="leading" id="S97-7L-GlK"/>
                             <constraint firstItem="yRT-0e-41R" firstAttribute="top" secondItem="Dwm-vr-TSr" secondAttribute="bottom" constant="8" id="Y96-Ry-qrP"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="Mo4-QY-oSm" secondAttribute="leading" id="dbM-34-eXA"/>
+                            <constraint firstItem="Mo4-QY-oSm" firstAttribute="top" secondItem="dm5-ws-jdr" secondAttribute="bottom" constant="8" id="eIL-qe-E9e"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="leading" secondItem="4S3-dv-b0f" secondAttribute="leadingMargin" id="iVw-tZ-Pcw"/>
                             <constraint firstItem="Dwm-vr-TSr" firstAttribute="top" secondItem="Mo4-QY-oSm" secondAttribute="bottom" constant="8" id="pqz-q1-7Uq"/>
-                            <constraint firstItem="Mo4-QY-oSm" firstAttribute="top" secondItem="BuP-O1-Zgo" secondAttribute="bottom" constant="8" id="wCU-2b-VLV"/>
                             <constraint firstItem="lpS-Lu-3mG" firstAttribute="trailing" secondItem="4S3-dv-b0f" secondAttribute="trailingMargin" id="yzE-SA-aAG"/>
                         </constraints>
                     </view>
@@ -1254,6 +1265,7 @@
                         <outlet property="completeButton" destination="Dwm-vr-TSr" id="pUE-50-T7j"/>
                         <outlet property="consoleView" destination="lpS-Lu-3mG" id="HdC-0Y-Hug"/>
                         <outlet property="progressText" destination="BuP-O1-Zgo" id="fz7-VU-Op6"/>
+                        <outlet property="progressTextView" destination="dm5-ws-jdr" id="Qja-D4-aUv"/>
                         <outlet property="progressView" destination="Mo4-QY-oSm" id="Ny2-Rh-LsX"/>
                     </connections>
                 </viewController>
