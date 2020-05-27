@@ -19,6 +19,7 @@
 - (void)applyCustomizations {
     [self.nameLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     [self.iconImageView setTintColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
+    [self.contentView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 @end

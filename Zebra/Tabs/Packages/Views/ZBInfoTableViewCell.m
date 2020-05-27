@@ -7,13 +7,18 @@
 //
 
 #import "ZBInfoTableViewCell.h"
+#import "UIColor+GlobalColors.h"
 
 @implementation ZBInfoTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    // TODO: Tint chevron
+    [self applyCustomizations];
+}
+
+- (void)applyCustomizations {
+    [self.contentView setBackgroundColor:[UIColor tableViewBackgroundColor]];
 }
 
 - (void)setChevronHidden:(BOOL)hidden {
