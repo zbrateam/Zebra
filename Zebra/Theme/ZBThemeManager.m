@@ -220,7 +220,9 @@
 }
 
 - (void)configureKeyboard {
-    [self configureKeyboard:[UITextField appearance]];
+    if ([ZBThemeManager useCustomTheming]) {
+        [self configureKeyboard:[UITextField appearance]];
+    }
 }
 
 - (void)configureKeyboard:(id <UITextInputTraits>)appearance {
@@ -235,17 +237,21 @@
 }
 
 - (void)configureTextField:(UITextField *)textField {
-    textField.textColor = [UIColor primaryTextColor];
-    textField.backgroundColor = [UIColor cellBackgroundColor];
+    if ([ZBThemeManager useCustomTheming]) {
+        textField.textColor = [UIColor primaryTextColor];
+        textField.backgroundColor = [UIColor cellBackgroundColor];
+    }
 }
 
 - (void)configureSearchBar:(UISearchBar *)searchBar {
-    searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
-    searchBar.backgroundImage = [searchBar.backgroundImage _flatImageWithColor:searchBar.barTintColor];
-    searchBar.layer.borderColor = searchBar.barTintColor.CGColor;
-    searchBar.layer.borderWidth = 1.0;
-    UITextField *textField = [searchBar valueForKey:@"_searchField"];
-    [self configureTextField:textField];
+    if ([ZBThemeManager useCustomTheming]) {
+        searchBar.barTintColor = [UIColor groupedTableViewBackgroundColor];
+        searchBar.backgroundImage = [searchBar.backgroundImage _flatImageWithColor:searchBar.barTintColor];
+        searchBar.layer.borderColor = searchBar.barTintColor.CGColor;
+        searchBar.layer.borderWidth = 1.0;
+        UITextField *textField = [searchBar valueForKey:@"_searchField"];
+        [self configureTextField:textField];
+    }
 }
 
 - (void)refreshViews {
