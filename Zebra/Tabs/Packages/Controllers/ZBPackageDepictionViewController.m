@@ -34,10 +34,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *changelogVersionTitleLabel;
 @property (weak, nonatomic) IBOutlet UIStackView *previewContainerStackView;
 @property (weak, nonatomic) IBOutlet UICollectionView *previewCollectionView;
-@property (weak, nonatomic) IBOutlet UIView *previewContainerSeperatorView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewCollectionViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *previewHeaderLabel;
+@property(retain) IBOutletCollection(UIView) NSArray *lineSeperatorViews;
 
 @property (strong, nonatomic) ZBPackage *package;
 @property (nonatomic) CGSize firstScreenshotSize;
@@ -103,7 +103,6 @@
 
         if (self.package.previewImageURLs != nil) {
             self.previewHeaderLabel.text = NSLocalizedString(@"Preview", @"");
-            self.previewContainerSeperatorView.backgroundColor = [UIColor cellSeparatorColor];
         } else {
             self.previewContainerStackView.hidden = YES;
             self.previewHeaderLabel.text = NSLocalizedString(@"Description", @"");
@@ -120,6 +119,10 @@
         
         NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
         [self.descriptionLabel setAttributedText:descriptionAttributedString];
+        
+        for (UIView *lineSeperatorView in self.lineSeperatorViews) {
+            lineSeperatorView.backgroundColor = [UIColor cellSeparatorColor];
+        }
         
     } else {
         [self loadWebDepiction];
