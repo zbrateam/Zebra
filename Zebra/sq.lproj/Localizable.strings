@@ -490,4 +490,4 @@
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfiguroni kohën që Zebra do të pres që një burim të përgjigjet para se të mbaroj koha.";
 "This timer will reset every time Zebra receives new information from a source." = "Kjo orë do të resetohet qdo herë kur Zebra pranon informacione të reja nga një burim.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Informacionet e llogarisë nuk të merren nga burimi. Ju lutemi dilni nga llogaria e burimit, kyçuni, dhe provoni përsëri.";
