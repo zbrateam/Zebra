@@ -206,6 +206,8 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBScreenshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ScreenshotCollectionViewCell" forIndexPath:indexPath];
+    
+    cell.screenshotImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
     [cell.screenshotImageView sd_setImageWithURL:self.package.previewImageURLs[indexPath.item] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
         if (indexPath.item == 0 && CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
             self.firstScreenshotSize = CGSizeMake(image.size.width / UIScreen.mainScreen.scale, image.size.height / UIScreen.mainScreen.scale);

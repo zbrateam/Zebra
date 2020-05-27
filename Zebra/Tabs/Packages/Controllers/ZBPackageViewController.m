@@ -142,6 +142,7 @@
     self.packageInformation = [self.package information];
     
     if (self.package.headerURL) {
+        self.headerImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
         [self.headerImageView sd_setImageWithURL:self.package.headerURL];
         [self.stackViewVerticalSpaceConstraint setConstant:16];
     } else {
