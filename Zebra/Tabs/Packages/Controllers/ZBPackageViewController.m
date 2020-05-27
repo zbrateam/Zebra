@@ -227,8 +227,10 @@
     UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     imageView.center = self.navigationItem.titleView.center;
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    imageView.layer.cornerRadius = 5;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.layer.cornerRadius = imageView.frame.size.height * 0.2237;
+    imageView.layer.borderWidth = 1;
+    imageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     imageView.layer.masksToBounds = YES;
     imageView.alpha = 0.0;
     [self.package setIconImageForImageView:imageView];
