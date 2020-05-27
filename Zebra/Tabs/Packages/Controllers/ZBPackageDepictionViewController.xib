@@ -21,6 +21,7 @@
                 <outlet property="previewHeaderLabel" destination="nhe-qt-IhJ" id="oSI-Cf-hMe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="zA9-Lw-XqB" id="5OS-7C-Z0b"/>
+                <outlet property="webViewContainerStackView" destination="7aN-iY-Mvz" id="euY-yO-36o"/>
                 <outlet property="webViewHeightConstraint" destination="DR0-CG-RQS" id="c9s-gP-syw"/>
                 <outletCollection property="lineSeperatorViews" destination="K5i-aL-UCS" id="4Fx-J0-GE3"/>
                 <outletCollection property="lineSeperatorViews" destination="fyW-Xx-SdR" id="CXP-al-P5Z"/>
@@ -35,31 +36,42 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="hEQ-rn-G9V">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="533"/>
                     <subviews>
-                        <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-Lw-XqB">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
-                            <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="100" id="DR0-CG-RQS"/>
-                            </constraints>
-                            <wkWebViewConfiguration key="configuration">
-                                <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                <wkPreferences key="preferences"/>
-                            </wkWebViewConfiguration>
-                        </wkWebView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-iY-Mvz">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
+                            <subviews>
+                                <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-Lw-XqB">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="100" id="DR0-CG-RQS"/>
+                                    </constraints>
+                                    <wkWebViewConfiguration key="configuration">
+                                        <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                        <wkPreferences key="preferences"/>
+                                    </wkWebViewConfiguration>
+                                </wkWebView>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-Ig-qpj">
+                                    <rect key="frame" x="0.0" y="100" width="375" height="16"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="16" id="HWx-1y-bLX"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                        </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZiN-gy-d8H" userLabel="Native View">
-                            <rect key="frame" x="0.0" y="100" width="375" height="383"/>
+                            <rect key="frame" x="0.0" y="116" width="375" height="305"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KnB-RJ-XKI">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="305"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kxy-wa-5jc">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="263"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="185"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-MH-017">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="105.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="27.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhe-qt-IhJ">
-                                                            <rect key="frame" x="16" y="0.0" width="343" height="103.5"/>
+                                                            <rect key="frame" x="16" y="0.0" width="343" height="25.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -68,7 +80,7 @@
                                                     <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="2" right="16"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Eb6-al-rcS">
-                                                    <rect key="frame" x="0.0" y="113.5" width="375" height="124.5"/>
+                                                    <rect key="frame" x="0.0" y="35.5" width="375" height="124.5"/>
                                                     <subviews>
                                                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vat-X7-27P">
                                                             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -99,14 +111,14 @@
                                                     </subviews>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gy1-Wb-D6r">
-                                                    <rect key="frame" x="0.0" y="246" width="375" height="17"/>
+                                                    <rect key="frame" x="0.0" y="168" width="375" height="17"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eo3-0T-gZY">
                                                             <rect key="frame" x="16" y="0.0" width="343" height="17"/>
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Description">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -119,7 +131,7 @@
                                             </subviews>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N2l-3O-bvb">
-                                            <rect key="frame" x="0.0" y="263" width="375" height="103.5"/>
+                                            <rect key="frame" x="0.0" y="185" width="375" height="103.5"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fyW-Xx-SdR">
                                                     <rect key="frame" x="16" y="16" width="343" height="0.5"/>
@@ -156,6 +168,7 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C9D-1W-tuf">
                                                     <rect key="frame" x="16" y="82.5" width="343" height="21"/>
@@ -165,7 +178,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Description">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="menu" size="14"/>
+                                                                        <font key="NSFont" metaFont="system" size="14"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -179,7 +192,7 @@
                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="0.0" right="16"/>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DWt-tB-nfI">
-                                            <rect key="frame" x="0.0" y="366.5" width="375" height="16.5"/>
+                                            <rect key="frame" x="0.0" y="288.5" width="375" height="16.5"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ezE-Ll-nNI">
                                                     <rect key="frame" x="16" y="16" width="343" height="0.5"/>
@@ -202,7 +215,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXY-fz-gLr" userLabel="Expanding View (DO NOT DELETE)">
-                            <rect key="frame" x="0.0" y="483" width="375" height="50"/>
+                            <rect key="frame" x="0.0" y="421" width="375" height="112"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Fil-el-Xbx"/>
                             </constraints>
