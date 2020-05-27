@@ -59,13 +59,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="105.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nhe-qt-IhJ">
-                                                            <rect key="frame" x="16" y="0.0" width="343" height="105.5"/>
+                                                            <rect key="frame" x="16" y="0.0" width="343" height="103.5"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
+                                                    <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="2" right="16"/>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Eb6-al-rcS">
                                                     <rect key="frame" x="0.0" y="113.5" width="375" height="124.5"/>
