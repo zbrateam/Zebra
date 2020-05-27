@@ -12,6 +12,7 @@
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/NSAttributedString+Markdown.h>
 
 @interface ZBChangelogTableViewController ()
 
@@ -101,7 +102,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     if (dataDict[@"body"]) {
-        [cell.textLabel setText:dataDict[@"body"]];
+        cell.textLabel.attributedText = [[NSAttributedString alloc] initWithMarkdownString:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.textColor = [UIColor primaryTextColor];
