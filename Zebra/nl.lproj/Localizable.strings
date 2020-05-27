@@ -140,7 +140,7 @@
 "Could not complete purchase" = "Kan aankoop niet voltooien";
 "No packages purchased" = "Geen aangekochte pakketten";
 "Signed in as %@" = "Ingelogd als %@";
-"Signed in as %@ (%@)" = "Ingelogd als %@(%@)";
+"Signed in as %@ (%@)" = "Ingelogd als %@ (%@)";
 
 // Sources
 
