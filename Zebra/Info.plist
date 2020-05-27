@@ -91,6 +91,24 @@
 				<key>UIPrerenderedIcon</key>
 				<true/>
 			</dict>
+			<key>viola</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>viola</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>quda</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>quda</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>zBlack</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -105,15 +123,6 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>zWhite</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>viola</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>viola</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -144,11 +153,38 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AUPM</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AUPM</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>quda</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>quda~ipad</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>viola</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>viola~ipad</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>darkZebraSkin</string>
+					<string>darkZebraSkin~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -157,7 +193,7 @@
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>lightZebraSkin</string>
+					<string>lightZebraSkin~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -166,7 +202,7 @@
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>originalBlack</string>
+					<string>originalBlack~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -175,7 +211,7 @@
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>zBlack</string>
+					<string>zBlack~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -184,7 +220,7 @@
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>zWhite</string>
+					<string>zWhite~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
