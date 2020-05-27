@@ -485,9 +485,9 @@
 "Package Not Available" = "Пакет недоступен";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Запрошенный пакет больше не доступен. Возможно, он был удалён из источников или был запрошен неверный идентификатор пакета.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d секунд";
+"Download Timeout" = "Таймаут загрузки";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Укажите время ожидания источника до ошибки соединения.";
+"This timer will reset every time Zebra receives new information from a source." = "Этот таймер будет сброшен каждый раз когда Zebra получает новую информацию из источника.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Информация об учетной записи не может быть получена из источника. Пожалуйста, выйдите из источника, войдите в него и повторите попытку.";
