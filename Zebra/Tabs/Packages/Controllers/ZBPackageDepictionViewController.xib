@@ -17,6 +17,8 @@
                 <outlet property="nativeView" destination="ZiN-gy-d8H" id="Wxq-Dk-gFK"/>
                 <outlet property="previewCollectionView" destination="vat-X7-27P" id="JZJ-Ea-5fw"/>
                 <outlet property="previewCollectionViewHeightConstraint" destination="MXW-k6-bdc" id="eYb-in-hfG"/>
+                <outlet property="previewContainerSeperatorView" destination="K5i-aL-UCS" id="M2p-Uz-OXP"/>
+                <outlet property="previewContainerStackView" destination="Eb6-al-rcS" id="oaD-XC-apD"/>
                 <outlet property="previewHeaderLabel" destination="nhe-qt-IhJ" id="oSI-Cf-hMe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="zA9-Lw-XqB" id="5OS-7C-Z0b"/>
@@ -49,7 +51,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="383"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N2l-3O-bvb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="192.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3eQ-8g-CZd">
                                                     <rect key="frame" x="16" y="16" width="343" height="30"/>
@@ -70,13 +72,13 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7t-ZC-bhm">
-                                                    <rect key="frame" x="16" y="54" width="343" height="97.5"/>
+                                                    <rect key="frame" x="16" y="54" width="343" height="73"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8re-UT-mNy">
-                                                    <rect key="frame" x="16" y="159.5" width="343" height="17"/>
+                                                    <rect key="frame" x="16" y="135" width="343" height="17"/>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Description">
                                                             <attributes>
@@ -91,7 +93,7 @@
                                             <edgeInsets key="layoutMargins" top="16" left="16" bottom="16" right="16"/>
                                         </stackView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kxy-wa-5jc">
-                                            <rect key="frame" x="0.0" y="192.5" width="375" height="190.5"/>
+                                            <rect key="frame" x="0.0" y="168" width="375" height="215"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sDr-MH-017">
                                                     <rect key="frame" x="0.0" y="16" width="375" height="25.5"/>
@@ -105,21 +107,40 @@
                                                     </subviews>
                                                     <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="0.0" right="16"/>
                                                 </stackView>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vat-X7-27P">
-                                                    <rect key="frame" x="0.0" y="49.5" width="375" height="100"/>
-                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="100" id="MXW-k6-bdc"/>
-                                                    </constraints>
-                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GFp-mE-q4X">
-                                                        <size key="itemSize" width="128" height="128"/>
-                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
-                                                    </collectionViewFlowLayout>
-                                                </collectionView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Eb6-al-rcS">
+                                                    <rect key="frame" x="0.0" y="49.5" width="375" height="124.5"/>
+                                                    <subviews>
+                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="vat-X7-27P">
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="100" id="MXW-k6-bdc"/>
+                                                            </constraints>
+                                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="GFp-mE-q4X">
+                                                                <size key="itemSize" width="128" height="128"/>
+                                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                                <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                                            </collectionViewFlowLayout>
+                                                        </collectionView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lZQ-32-kph">
+                                                            <rect key="frame" x="0.0" y="116" width="375" height="8.5"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K5i-aL-UCS">
+                                                                    <rect key="frame" x="16" y="0.0" width="343" height="0.5"/>
+                                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="0.5" id="apL-EU-dZy"/>
+                                                                    </constraints>
+                                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                                </view>
+                                                            </subviews>
+                                                            <edgeInsets key="layoutMargins" top="0.0" left="16" bottom="8" right="16"/>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gy1-Wb-D6r">
-                                                    <rect key="frame" x="0.0" y="157.5" width="375" height="17"/>
+                                                    <rect key="frame" x="0.0" y="182" width="375" height="17"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eo3-0T-gZY">
                                                             <rect key="frame" x="16" y="0.0" width="343" height="17"/>
