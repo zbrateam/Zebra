@@ -489,3 +489,5 @@
 "Download Timeout" = "下载超时";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "配置 Zebra 等待软件源响应超时的时长";
 "This timer will reset every time Zebra receives new information from a source." = "每次 Zebra 从软件源获取更新时会重置此计时器";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
