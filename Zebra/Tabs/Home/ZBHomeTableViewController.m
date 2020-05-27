@@ -77,27 +77,12 @@ typedef enum ZBLinksOrder : NSUInteger {
         UIBarButtonItem *settingsButton = self.navigationItem.rightBarButtonItems[0];
         self.navigationItem.rightBarButtonItems = nil;
         self.navigationItem.rightBarButtonItem = settingsButton;
-        
-        UIBarButtonItem *testButton = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"command"] style:UIBarButtonItemStylePlain target:self action:@selector(presentMarkdownTest)];
-        self.navigationItem.leftBarButtonItem = testButton;
     }
     else {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
     }
     
     self.navigationController.navigationBar.prefersLargeTitles = YES;
-}
-
-- (void)presentMarkdownTest {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Test" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithMarkdownString:@"**Hey!** *Hi!* ***Hello!***"];
-    [alert setValue:attributedString forKey:@"attributedMessage"];
-    
-    UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:nil];
-    [alert addAction:dismiss];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
