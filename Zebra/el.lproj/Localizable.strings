@@ -67,7 +67,7 @@
 "Text" = "Κείμενο";
 "Icon" = "Εικονίδιο";
 "Finish Automatically" = "Αυτόματη Ολοκλήρωση";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Να γίνεται πάντα εγκατάσταση του πιο πρόσφατου";
 "Automatic Refresh" = "Αυτόματη Ανανέωση";
 
 // Accent Colors
@@ -155,7 +155,7 @@
 "Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
 
 "Add" = "Πρόσθεσε";
-"View" = "View";
+"View" = "Προβολή";
 "Add Sources" = "Πρόσθεσε Πηγές";
 "Add Multiple" = "Πρόσθεσε Πολλαπλά";
 "Enter Source URL" = "Καταχώρησε URL Πηγής";
@@ -180,7 +180,7 @@
 "You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
 "Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
 "Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Σφάλμα κατά την λήψη του %@: %@";
 
 "A total of %d files will be downloaded" = "Ένα σύνολο από %d αρχεία θα ληφθεί";
 
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Αυτόματη αγνόηση της Κονσόλας όταν όλες οι εργασίες έχουν ολοκληρωθεί.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Να γίνεται πάντα εγκατάσταση της πιο πρόσφατης έκδοσης του πακέτου αν δεν είναι ήδη εγκαταστημένη.";
 
 // Filters
 
@@ -482,11 +482,11 @@
 "Unable to complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Το πακέτο δεν είναι διαθέσιμο";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Το πακέτο που ζητάς δεν είναι πια διαθέσιμο. Μπορεί να έχει αφαιρεθεί από τις πηγές σου ή το ID του πακέτου που ζητήθηκε να είναι λανθασμένο.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
+"%d Seconds" = "%d Δευτερόλεπτα";
+"Download Timeout" = "Λήξη χρονικού ορίου λήψης";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
 "This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
 
