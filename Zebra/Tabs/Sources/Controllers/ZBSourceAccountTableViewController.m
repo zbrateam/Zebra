@@ -249,7 +249,7 @@
     if (indexPath.section == 0 && indexPath.row == 2) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        [keychain removeItemForKey:[source repositoryURI]];
+        [source signOut];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
 
         if (self.presentingViewController) {

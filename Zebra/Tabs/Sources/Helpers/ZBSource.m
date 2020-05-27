@@ -235,6 +235,36 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [session start];
 }
 
+- (void)signOut API_AVAILABLE(ios(11.0)) {
+    if (![self suppotsPaymentAPI]) {
+//        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
+        return;
+    }
+    
+    if (![self isSignedIn]) {
+        return;
+    }
+    
+    NSURL *URL = [[self paymentVendorURL] URLByAppendingPathComponent:@"sign_out"];
+    if (!URL || ![URL.scheme isEqualToString:@"https"]) {
+//        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
+        return;
+    }
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    NSDictionary *question = @{@"token": [keychain stringForKey:[self repositoryURI]] ?: @"none"};
+    [keychain removeItemForKey:[self repositoryURI]];
+    
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
+    
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:URL];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:requestData];
+    
+    NSURLSessionDataTask *signOutTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest]; // This will silently fail if there is an error
+    [signOutTask resume];
+}
+
 - (BOOL)isSignedIn API_AVAILABLE(ios(11.0)) {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     return [keychain stringForKey:self.repositoryURI] ? YES : NO;
