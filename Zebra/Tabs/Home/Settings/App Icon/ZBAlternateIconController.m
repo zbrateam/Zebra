@@ -65,6 +65,12 @@
             @"author": @"Bossgfx (@bossgfx_)",
             @"readableName": @"Viola",
             @"border": @NO
+        },
+        @{
+            @"iconName": @"quda",
+            @"author": @"heysyemeh (@heysyemeh)",
+            @"readableName": @"quda",
+            @"border": @NO
         }
     ];
 }
