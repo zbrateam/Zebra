@@ -902,6 +902,10 @@
         if (tryAgain && success && !error) {
             [self purchase:NO completion:completion]; // Try again, but only try once
         }
+        else if (!tryAgain) {
+            NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:4122 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.", @"")}];
+            completion(NO, error);
+        }
         else {
             completion(NO, error);
         }
