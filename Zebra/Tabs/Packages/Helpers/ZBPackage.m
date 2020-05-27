@@ -760,7 +760,6 @@
 - (void)setIconImageForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [ZBSource imageForSection:self.section];
     if (self.iconPath) {
-        imageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
         [imageView sd_setImageWithURL:[NSURL URLWithString:self.iconPath] placeholderImage:sectionImage];
     }
     else {
