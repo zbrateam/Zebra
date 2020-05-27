@@ -132,6 +132,9 @@
     self.headerImageGradientLayer.colors = @[(id)[[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor, (id)[UIColor clearColor].CGColor];
     self.headerImageGradientLayer.masksToBounds = YES;
     [self.headerImageGradientView.layer insertSublayer:self.headerImageGradientLayer atIndex:0];
+    
+    // Information Table View
+    [self.informationTableView setSeparatorColor:[UIColor cellSeparatorColor]];
 }
 
 - (void)setData {
