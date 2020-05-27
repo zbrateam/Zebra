@@ -249,14 +249,17 @@
     if (indexPath.section == 0 && indexPath.row == 2) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         
-        [source signOut];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
+        if (@available(iOS 11.0, *)) {
+            [source signOut];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBSourcesAccountBannerNeedsUpdate" object:nil];
 
-        if (self.presentingViewController) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }
-        else {
-            [self.navigationController popViewControllerAnimated:YES];
+            if (self.presentingViewController) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     }
     else if (indexPath.section == 1 && purchases.count && !loading) {
