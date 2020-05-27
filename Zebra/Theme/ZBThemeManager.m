@@ -189,15 +189,15 @@
 }
 
 - (void)configureNavigationBar {
-//    [[UINavigationBar appearance] setBackgroundColor:nil];
-//    [[UINavigationBar appearance] setTranslucent:YES];
-//    
-//    [[UINavigationBar appearance] setTintColor:[UIColor accentColor]];
-//    if ([ZBThemeManager useCustomTheming]) {
-//        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]}];
-//        [[UINavigationBar appearance] setBarStyle:[self darkMode] ? UIBarStyleBlack : UIBarStyleDefault];
-//        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
-//    }
+    [[UINavigationBar appearance] setBackgroundColor:nil];
+    [[UINavigationBar appearance] setTranslucent:YES];
+    
+    [[UINavigationBar appearance] setTintColor:[UIColor accentColor]];
+    if ([ZBThemeManager useCustomTheming]) {
+        [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor primaryTextColor]}];
+        [[UINavigationBar appearance] setBarStyle:[self darkMode] ? UIBarStyleBlack : UIBarStyleDefault];
+        [[UINavigationBar appearance] setLargeTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor primaryTextColor]}];
+    }
 }
 
 - (void)configureTableView {
