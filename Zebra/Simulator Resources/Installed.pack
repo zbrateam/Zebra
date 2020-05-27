@@ -3779,6 +3779,7 @@ Name: Zebra
 Author: Wilson Styres <wilson@styres.me>
 Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
 Homepage: https://getzbra.com/
+Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
 
 Package: applist
 Status: install ok installed
