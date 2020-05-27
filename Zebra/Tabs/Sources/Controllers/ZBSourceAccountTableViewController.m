@@ -273,12 +273,12 @@
     [tableView setEditing:NO animated:YES];
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 || !purchases.count) {
         return nil;
     }
     ZBPackage *package = purchases[indexPath.row];
-    return [ZBPackageActions rowActionsForPackage:package inTableView:tableView];
+    return [ZBPackageActions swipeActionsForPackage:package inTableView:tableView];
 }
 
 #pragma mark - Navigation

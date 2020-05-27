@@ -216,22 +216,24 @@
     return wishedPackages.count != 0;
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewRowAction *remove = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIContextualAction *remove = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:(ZBDevice.useIcon ? @"╳" : NSLocalizedString(@"Remove", @"")) handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         ZBPackage *package = self->wishedPackages[indexPath.row];
-        
+
         [self->wishedPackages removeObject:package];
         [self->wishedPackageIdentifiers removeObject:[package identifier]];
-        
+
         [ZBSettings setWishlist:self->wishedPackageIdentifiers];
-        
+
         [self updateShareButtonState];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+
+        completionHandler(YES);
     }];
-    
+
     remove.backgroundColor = [UIColor systemPinkColor];
-    
-    return @[remove];
+
+    return [UISwipeActionsConfiguration configurationWithActions:@[remove]];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

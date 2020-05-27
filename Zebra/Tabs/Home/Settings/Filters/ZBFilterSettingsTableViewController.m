@@ -302,64 +302,68 @@
     }
 }
 
-- (NSArray <UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case 0:
-        case 1:
-        case 2: {
-            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                switch (indexPath.section) {
-                    case 0: {
-                        NSString *section = self->filteredSections[indexPath.row];
-                        [self->filteredSections removeObject:section];
-                        
-                        [ZBSettings setFilteredSections:self->filteredSections];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-                        break;
-                    }
-                    case 1: {
-                        ZBSource *source = self->sources[indexPath.row];
-                        [self->filteredSources removeObjectForKey:[source baseFilename]];
-                        [self->sources removeObjectAtIndex:indexPath.row];
-                        
-                        [ZBSettings setFilteredSources:self->filteredSources];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-                        break;
-                    }
-                    case 2: {
-                        NSString *author = [self->blockedAuthors allKeys][indexPath.row];
-                        [self->blockedAuthors removeObjectForKey:author];
+    case 0:
+    case 1:
+    case 2: {
+        UIContextualAction *deleteFilterAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
-                        [ZBSettings setBlockedAuthors:self->blockedAuthors];
-                        [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-                        break;
-                    }
-                }
-            }];
-            [deleteFilterAction setBackgroundColor:[UIColor systemRedColor]];
-            
-            return @[deleteFilterAction];
-        }
-        case 3: {
-            UITableViewRowAction *deleteFilterAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-                ZBPackage *package = self->ignoredUpdates[indexPath.row];
-                [self->ignoredUpdates removeObject:package];
-                
-                [package setIgnoreUpdates:NO];
-                
-                if (self->ignoredUpdates.count) {
+            switch (indexPath.section) {
+                case 0: {
+                    NSString *section = self->filteredSections[indexPath.row];
+                    [self->filteredSections removeObject:section];
+
+                    [ZBSettings setFilteredSections:self->filteredSections];
                     [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    break;
                 }
-                else {
-                    [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                case 1: {
+                    ZBSource *source = self->sources[indexPath.row];
+                    [self->filteredSources removeObjectForKey:[source baseFilename]];
+                    [self->sources removeObjectAtIndex:indexPath.row];
+
+                    [ZBSettings setFilteredSources:self->filteredSources];
+                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    break;
                 }
-            }];
-            [deleteFilterAction setBackgroundColor:[UIColor systemGreenColor]];
-            
-            return @[deleteFilterAction];
-        }
-        default:
-            return nil;
+                case 2: {
+                    NSString *author = [self->blockedAuthors allKeys][indexPath.row];
+                    [self->blockedAuthors removeObjectForKey:author];
+
+                    [ZBSettings setBlockedAuthors:self->blockedAuthors];
+                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    break;
+                }
+            }
+            completionHandler(YES);
+        }];
+        deleteFilterAction.backgroundColor = [UIColor systemRedColor];
+
+        return [UISwipeActionsConfiguration configurationWithActions:@[deleteFilterAction]];
+    }
+    case 3: {
+        UIContextualAction *deleteFilterAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+
+            ZBPackage *package = self->ignoredUpdates[indexPath.row];
+            [self->ignoredUpdates removeObject:package];
+
+            [package setIgnoreUpdates:NO];
+
+            if (self->ignoredUpdates.count) {
+                [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            else {
+                [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            completionHandler(YES);
+        }];
+        deleteFilterAction.backgroundColor = [UIColor systemGreenColor];
+
+        return [UISwipeActionsConfiguration configurationWithActions:@[deleteFilterAction]];
+    }
+    default:
+        return [UISwipeActionsConfiguration configurationWithActions:@[]];
     }
 }
 

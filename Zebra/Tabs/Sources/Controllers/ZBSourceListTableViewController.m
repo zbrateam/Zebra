@@ -147,26 +147,44 @@
     return [source canDelete] ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
 }
 
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    UIContextualAction *copyAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Copy",@"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        ZBSource *source = [self sourceAtIndexPath:indexPath];
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        [pasteBoard setString:source.repositoryURI];
+        completionHandler(YES);
+    }];
+
+    copyAction.backgroundColor = [UIColor systemTealColor];
+
+    return [UISwipeActionsConfiguration configurationWithActions:@[copyAction]];
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray<UIContextualAction *> *actions = [NSMutableArray array];
+
     ZBBaseSource *baseSource = [self sourceAtIndexPath:indexPath];
-    NSMutableArray *actions = [NSMutableArray array];
     if ([baseSource isKindOfClass:[ZBSource class]]) {
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
             NSString *title = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
-            UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
                 [self refreshTable];
+                completionHandler(YES);
             }];
+
             [actions addObject:deleteAction];
         }
         if (![self.databaseManager isDatabaseBeingUpdated]) {
             NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
-            UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
                 [self.databaseManager updateSource:source useCaching:YES];
+                completionHandler(YES);
             }];
-            
+
             ZBAccentColor accentColor = [ZBSettings accentColor];
             if ((accentColor == ZBAccentColorMonochrome || accentColor == ZBAccentColorShark) && [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark) {
                 refreshAction.backgroundColor = [UIColor grayColor];
@@ -174,20 +192,22 @@
             else {
                 refreshAction.backgroundColor = [UIColor accentColor];
             }
-                
+
             [actions addObject:refreshAction];
         }
     }
     else if ([baseSource canDelete]) {
-        UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self->sources removeObject:baseSource];
             [self->sourceManager deleteSource:(ZBSource *)baseSource];
             [self refreshTable];
+            completionHandler(YES);
         }];
+
         [actions addObject:deleteAction];
     }
-    
-    return actions;
+
+    return [UISwipeActionsConfiguration configurationWithActions:actions];
 }
 
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -219,18 +239,6 @@
 
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
-}
-
-- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    return (action == @selector(copy:));
-}
-
-- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    if (action == @selector(copy:)) {
-        ZBSource *source = [self sourceAtIndexPath:indexPath];
-        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
-        [pasteBoard setString:source.repositoryURI];
-    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
