@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIStackView *webViewContainerStackView;
 @property (weak, nonatomic) IBOutlet WKWebView *webView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIStackView *loadingContainerStackView;
 
 // Native Outlets
 @property (weak, nonatomic) IBOutlet UIView *nativeView;
@@ -94,6 +95,7 @@
 - (void)applyCustomizations {
     self.nativeView.hidden = YES;
     self.webViewContainerStackView.hidden = YES;
+    self.webView.hidden = YES;
     self.webView.scrollView.scrollEnabled = NO;
     self.webView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
@@ -126,6 +128,7 @@
         }
         
     } else {
+        self.webViewContainerStackView.hidden = NO;
         [self loadWebDepiction];
     }
 }
@@ -154,7 +157,8 @@
 #pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    self.webViewContainerStackView.hidden = NO;
+    self.webView.hidden = NO;
+    self.loadingContainerStackView.hidden = YES;
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {

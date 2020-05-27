@@ -14,6 +14,7 @@
                 <outlet property="changelogNotesLabel" destination="8re-UT-mNy" id="OYL-Uy-g8E"/>
                 <outlet property="changelogVersionTitleLabel" destination="e7t-ZC-bhm" id="uSn-aX-eYJ"/>
                 <outlet property="descriptionLabel" destination="eo3-0T-gZY" id="6Rh-Yp-FZc"/>
+                <outlet property="loadingContainerStackView" destination="xqN-D2-Kdb" id="rBM-Z4-EcF"/>
                 <outlet property="nativeView" destination="ZiN-gy-d8H" id="Wxq-Dk-gFK"/>
                 <outlet property="previewCollectionView" destination="vat-X7-27P" id="JZJ-Ea-5fw"/>
                 <outlet property="previewCollectionViewHeightConstraint" destination="MXW-k6-bdc" id="eYb-in-hfG"/>
@@ -37,10 +38,25 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="533"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7aN-iY-Mvz">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="116"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="222.5"/>
                             <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xqN-D2-Kdb">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="106.5"/>
+                                    <subviews>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Vic-S8-K0o">
+                                            <rect key="frame" x="16" y="32" width="343" height="20"/>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading Depiction…" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foy-RZ-nfl">
+                                            <rect key="frame" x="16" y="60" width="343" height="14.5"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <edgeInsets key="layoutMargins" top="32" left="16" bottom="32" right="16"/>
+                                </stackView>
                                 <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zA9-Lw-XqB">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <rect key="frame" x="0.0" y="106.5" width="375" height="100"/>
                                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="100" id="DR0-CG-RQS"/>
@@ -51,7 +67,7 @@
                                     </wkWebViewConfiguration>
                                 </wkWebView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-Ig-qpj">
-                                    <rect key="frame" x="0.0" y="100" width="375" height="16"/>
+                                    <rect key="frame" x="0.0" y="206.5" width="375" height="16"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="16" id="HWx-1y-bLX"/>
                                     </constraints>
@@ -59,7 +75,7 @@
                             </subviews>
                         </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZiN-gy-d8H" userLabel="Native View">
-                            <rect key="frame" x="0.0" y="116" width="375" height="305"/>
+                            <rect key="frame" x="0.0" y="222.5" width="375" height="305"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="KnB-RJ-XKI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="305"/>
@@ -118,7 +134,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Description">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -178,7 +194,7 @@
                                                             <attributedString key="attributedText">
                                                                 <fragment content="Description">
                                                                     <attributes>
-                                                                        <font key="NSFont" metaFont="system" size="14"/>
+                                                                        <font key="NSFont" metaFont="menu" size="14"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -215,7 +231,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXY-fz-gLr" userLabel="Expanding View (DO NOT DELETE)">
-                            <rect key="frame" x="0.0" y="421" width="375" height="112"/>
+                            <rect key="frame" x="0.0" y="527.5" width="375" height="5.5"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Fil-el-Xbx"/>
                             </constraints>
