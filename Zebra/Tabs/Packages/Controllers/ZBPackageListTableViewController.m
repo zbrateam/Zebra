@@ -348,7 +348,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize];
+    [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize showVersion:needsUpdatesSection && indexPath.section == 0];
     if ([source sourceID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];

@@ -31,10 +31,10 @@
 }
 
 - (void)updateData:(ZBPackage *)package {
-    [self updateData:package calculateSize:NO];
+    [self updateData:package calculateSize:NO showVersion:NO];
 }
 
-- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize {
+- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.shortDescription;
     ZBSource *source = package.source;
@@ -42,6 +42,8 @@
     NSString *author = package.authorName;
     NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
+    if (showVersion)
+        [info addObject:[package version]];
     if (author.length)
         [info addObject:author];
     if (name.length)
