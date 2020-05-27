@@ -153,41 +153,41 @@
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",
                                @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-        [result addObject:dict];
+        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
         
         NSDictionary *dict2 = @{@"type": @"utility",
                                @"name": @"Mystery",
                                @"url" : @"https://myste.ry/repo/",
                                @"icon": @"https://myste.ry/repo/CydiaIcon.png"};
-        [result addObject:dict2];
+        if (![ZBSource exists:dict2[@"url"]]) [result addObject:dict2];
     }
     else if ([ZBDevice isChimera]) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Chimera",
                                @"url" : @"https://repo.chimera.sh/",
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
-        [result addObject:dict];
+        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
     }
     else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",
                                @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
-        [result addObject:dict];
+        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
     }
     else if ([ZBDevice isElectra]) { // electra
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Electra's iOS Utilities",
                                @"url" : @"https://electrarepo64.coolstar.org/",
                                @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
-        [result addObject:dict];
+        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
     }
     else { // cydia
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Cydia/Telesphoreo",
                                @"url" : @"http://apt.saurik.com/",
                                @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"};
-        [result addObject:dict];
+        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
     }
     return result;
 }
