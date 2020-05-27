@@ -38,6 +38,7 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateSources) name:@"ZBDatabaseCompletedUpdate" object:nil];
     sourceManager = [ZBSourceManager sharedInstance];
 }
 
@@ -45,6 +46,10 @@
     [super viewWillAppear:animated];
     
     [self populateSources];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)populateSources {
@@ -66,7 +71,9 @@
     if (utilitySources.count) {
         [communitySources addObject:utilitySources];
     }
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
     
     //Fetch community sources
     [self fetchCommunitySources];
