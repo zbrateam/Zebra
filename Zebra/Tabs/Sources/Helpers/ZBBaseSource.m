@@ -425,6 +425,10 @@
     
     BOOL archiveTypeEqual = [[object archiveType] isEqualToString:[self archiveType]];
     BOOL repositoryURIEqual = [[object repositoryURI] hasSuffix:repositoryURISchemeless ?: self.repositoryURI];
+    if (repositoryURIEqual && [self hasCFVersionComponent:self.repositoryURI]) {
+        return YES;
+    }
+    
     BOOL distributionEqual = [[object distribution] isEqualToString:[self distribution]];
     
     BOOL componentsEqual = NO;
