@@ -24,7 +24,6 @@
 @implementation ZBNotificationManager
 
 - (void)performBackgroundFetch:(BackgroundCompletionHandler)completionHandler {
-    NSLog(@"[Zebra] Background fetch started");
     self.completionHandler = completionHandler;
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
@@ -55,8 +54,8 @@
     note.body = [NSString stringWithFormat:NSLocalizedString(@"Version %@ is available on %@.", @""), package.version, [package.source label]];
     
     id userInfoData[] = { [NSString stringWithFormat:@"zbra://packages/%@", package.identifier ] };
-    id userInfoIndex[] = { @"openURL" };
-    note.userInfo = [NSDictionary dictionaryWithObjects:userInfoData forKeys:userInfoIndex count:1];
+    id userInfoKeys[] = { @"openURL" };
+    note.userInfo = [NSDictionary dictionaryWithObjects:userInfoData forKeys:userInfoKeys count:1];
     
     [self.delegate notify:note];
 }
@@ -65,7 +64,6 @@
     if (self.completionHandler != nil) {
         BackgroundCompletionHandler completionHandler = self.completionHandler;
         self.completionHandler = nil;
-        NSLog(@"[Zebra] Background fetch finished");
         completionHandler(result);
     }
 }

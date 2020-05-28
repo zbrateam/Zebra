@@ -181,6 +181,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self sendErrorToTabController:error actionLabel:nil block:NULL];
 }
 
+#pragma mark Application start
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
@@ -254,9 +255,17 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenModeDidChangeNotification object:nil];
     }
     
+    UILocalNotification *notification = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+
+    if (notification) {
+        NSURL *openURL = [NSURL URLWithString:[notification.userInfo objectForKey:@"openURL"]];
+        [UIApplication.sharedApplication openURL:openURL];
+    }
+
     return YES;
 }
 
+#pragma mark URL scheme
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     NSArray *choices = @[@"file", @"zbra"];
     int index = (int)[choices indexOfObject:[url scheme]];
@@ -380,6 +389,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     return YES;
 }
 
+#pragma mark Shorcuts
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
         return;
@@ -399,8 +409,25 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
 }
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    [[ZBNotificationManager sharedInstance] performBackgroundFetch:completionHandler];
+#pragma mark Background fetch
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(BackgroundCompletionHandler)completionHandler {
+    NSDate *fetchStart = [NSDate date];
+    NSLog(@"[Zebra] Background fetch started");
+
+    self.backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        NSLog(@"[Zebra] WARNING: Background refresh timed out");
+        [application endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+        completionHandler(UIBackgroundFetchResultFailed);
+    }];
+
+    [[ZBNotificationManager sharedInstance] performBackgroundFetch:^(UIBackgroundFetchResult result) {
+        NSTimeInterval fetchDuration = [[NSDate date] timeIntervalSinceDate:fetchStart];
+        NSLog(@"[Zebra] Background refresh finished in %f seconds", fetchDuration);
+        [application endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+        completionHandler(UIBackgroundFetchResultNewData);
+    }];
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification {
@@ -408,11 +435,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         return;
     }
     
-    NSString *openURL = [notification.userInfo objectForKey:@"openURL"];
-    if (openURL) {
-        NSDictionary<UIApplicationOpenURLOptionsKey,id> *options = [[NSDictionary alloc] init];
-        [self application:application openURL:[NSURL URLWithString:openURL] options:options];
-    }
+    NSURL *openURL = [NSURL URLWithString:[notification.userInfo objectForKey:@"openURL"]];
+    [UIApplication.sharedApplication openURL:openURL];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

@@ -17,6 +17,7 @@ extern NSString * const ZBUserEndedScreenCaptureNotification;
 
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate>
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 + (NSString *)bundleID;
 + (NSString *)documentsDirectory;
 + (NSURL *)documentsDirectoryURL;
