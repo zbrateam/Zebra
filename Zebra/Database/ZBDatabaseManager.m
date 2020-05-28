@@ -1091,7 +1091,7 @@
 - (NSArray * _Nullable)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END), NAME COLLATE NOCASE%@", columns, name, name, name, limit];
         
@@ -1751,7 +1751,7 @@
         NSMutableArray *searchResults = [NSMutableArray new];
         
         sqlite3_stmt *statement = NULL;
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON";
         NSString *emailMatch = email ? @" AND AUTHOREMAIL = ?" : @"";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHORNAME = ? OR AUTHORNAME LIKE \'%%%@%%\'%@%@", columns, name, emailMatch, limit];
@@ -1801,9 +1801,9 @@
         NSMutableArray *searchResults = [NSMutableArray new];
         
         sqlite3_stmt *statement = NULL;
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICONURL";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE SHORTDESCRIPTION LIKE \'%%%@%%\'%@", columns, description, limit];
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE DESCRIPTION LIKE \'%%%@%%\'%@", columns, description, limit];
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 if (fullSearch) {
@@ -1851,7 +1851,7 @@
             [sourceIDs addObject:[NSNumber numberWithInt:[source sourceID]]];
         }
         NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceIDs componentsJoinedByString:@", "]];
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICONURL IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICON IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
