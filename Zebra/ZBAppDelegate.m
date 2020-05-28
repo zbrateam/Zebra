@@ -190,6 +190,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     [[ZBNotificationManager sharedInstance].delegate requireNotificationsAccess];
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
+    [UIApplication.sharedApplication setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
 #if DEBUG
     NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
