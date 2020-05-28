@@ -671,6 +671,17 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
+- (BOOL)didNotifyUser {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    return [databaseManager userWasNotifiedForPackage:self];
+}
+
+- (void)setDidNotifyUser:(BOOL)didNotifyUser {
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    [databaseManager setUserWasNotified:didNotifyUser forPackage:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
+}
+
 - (ZBPackage * _Nullable)installableCandidate {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];

@@ -139,6 +139,10 @@
 		89F205482463A75000896021 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F2053B2463A74F00896021 /* GoogleAppMeasurement.framework */; };
 		89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */; };
 		89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F8730223653D280070160A /* UIVisualEffectView+Theme.m */; };
+		8E00AE99247FDBD3004EAE2B /* ZBNotificationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E00AE98247FDBD3004EAE2B /* ZBNotificationProvider.m */; };
+		8E00AE9C247FDE79004EAE2B /* ZBLegacyNotificationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E00AE9B247FDE79004EAE2B /* ZBLegacyNotificationProvider.m */; };
+		8E00AE9E247FE014004EAE2B /* ZBNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E00AE9D247FE014004EAE2B /* ZBNotification.m */; };
+		8E08C882247F092E00AC0D1D /* ZBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E08C881247F092E00AC0D1D /* ZBNotificationManager.m */; };
 		9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */; };
 		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
 		9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -448,6 +452,15 @@
 		89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Theme.h"; sourceTree = "<group>"; };
 		89F8730223653D280070160A /* UIVisualEffectView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIVisualEffectView+Theme.m"; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
+		8E00AE92247FDB90004EAE2B /* ZBNotificationProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNotificationProvider.h; sourceTree = "<group>"; };
+		8E00AE98247FDBD3004EAE2B /* ZBNotificationProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNotificationProvider.m; sourceTree = "<group>"; };
+		8E00AE9A247FDE58004EAE2B /* ZBLegacyNotificationProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLegacyNotificationProvider.h; sourceTree = "<group>"; };
+		8E00AE9B247FDE79004EAE2B /* ZBLegacyNotificationProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLegacyNotificationProvider.m; sourceTree = "<group>"; };
+		8E00AE9D247FE014004EAE2B /* ZBNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNotification.m; sourceTree = "<group>"; };
+		8E08C880247F083F00AC0D1D /* ZBNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNotificationManager.h; sourceTree = "<group>"; };
+		8E08C881247F092E00AC0D1D /* ZBNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNotificationManager.m; sourceTree = "<group>"; };
+		8E5275B6247FD8F6006C1354 /* ZBNotificationProviderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNotificationProviderDelegate.h; sourceTree = "<group>"; };
+		8E5275B7247FD9A4006C1354 /* ZBNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNotification.h; sourceTree = "<group>"; };
 		95B7FFF323643B74003616EC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F1BEE92363DAB3009B0D27 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBSourceTableViewCell.xib; sourceTree = "<group>"; };
@@ -929,6 +942,7 @@
 				8958F28E23C3C56800FB64D9 /* Headers */,
 				36A1D8F8230A15FC002694BE /* JSONParsing */,
 				363FE2432287858200B69929 /* Keychain */,
+				8E5275AF247FD7C0006C1354 /* Notifications */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				89DD2683220156F800CD31A0 /* Queue */,
 				89E8633E21D5A9CE0081E485 /* Resources */,
@@ -1113,6 +1127,22 @@
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8E5275AF247FD7C0006C1354 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8E08C880247F083F00AC0D1D /* ZBNotificationManager.h */,
+				8E08C881247F092E00AC0D1D /* ZBNotificationManager.m */,
+				8E00AE92247FDB90004EAE2B /* ZBNotificationProvider.h */,
+				8E00AE98247FDBD3004EAE2B /* ZBNotificationProvider.m */,
+				8E00AE9A247FDE58004EAE2B /* ZBLegacyNotificationProvider.h */,
+				8E00AE9B247FDE79004EAE2B /* ZBLegacyNotificationProvider.m */,
+				8E5275B6247FD8F6006C1354 /* ZBNotificationProviderDelegate.h */,
+				8E5275B7247FD9A4006C1354 /* ZBNotification.h */,
+				8E00AE9D247FE014004EAE2B /* ZBNotification.m */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		9E0D95232358AFEE00C6C2B2 /* Products */ = {
@@ -1364,6 +1394,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E00AE9E247FE014004EAE2B /* ZBNotification.m in Sources */,
 				895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */,
 				3639D19522CC600D0012E18F /* ZBNoScrollHeaderTableView.m in Sources */,
 				8997A9FA24035021001894BF /* ZBProxyPackage.m in Sources */,
@@ -1410,6 +1441,7 @@
 				367D80F522C3D1CF00581D60 /* ZBSettingsTableViewController.m in Sources */,
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */,
+				8E08C882247F092E00AC0D1D /* ZBNotificationManager.m in Sources */,
 				7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
@@ -1423,6 +1455,7 @@
 				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */,
+				8E00AE9C247FDE79004EAE2B /* ZBLegacyNotificationProvider.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
 				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
@@ -1431,6 +1464,7 @@
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
+				8E00AE99247FDBD3004EAE2B /* ZBNotificationProvider.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,

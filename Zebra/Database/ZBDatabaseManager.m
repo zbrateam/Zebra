@@ -1421,6 +1421,51 @@
     }
 }
 
+- (BOOL)userWasNotifiedForPackage:(ZBPackage *)package {
+    if ([self openDatabase] == SQLITE_OK) {
+        BOOL didNotifyUser = NO;
+        sqlite3_stmt *statement = NULL;
+        if (sqlite3_prepare_v2(database, "SELECT NOTIFIED FROM PACKAGES WHERE PACKAGE = ? AND VERSION = ? LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [[package identifier] UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [[package version] UTF8String], -1, SQLITE_TRANSIENT);
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                if (sqlite3_column_int(statement, 0) == 1)
+                    didNotifyUser = YES;
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+        return didNotifyUser;
+    } else {
+        [self printDatabaseError];
+    }
+    return NO;
+}
+
+- (void)setUserWasNotified:(BOOL)didNotifyUser forPackage:(ZBPackage *)package {
+    if ([self openDatabase] == SQLITE_OK) {
+        NSString *query = [NSString stringWithFormat:@"UPDATE PACKAGES SET NOTIFIED = %d WHERE PACKAGE = '%@' AND VERSION = '%@'", didNotifyUser ? 1 : 0, package.identifier, package.version];
+        
+        sqlite3_stmt *statement = NULL;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                break;
+            }
+        } else {
+            NSLog(@"[Zebra] Error preparing setting package notification status statement: %s", sqlite3_errmsg(database));
+        }
+        sqlite3_finalize(statement);
+        
+        [self closeDatabase];
+    } else {
+        [self printDatabaseError];
+    }
+}
+
 #pragma mark - Package lookup
 
 - (ZBPackage * _Nullable)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {

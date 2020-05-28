@@ -33,6 +33,7 @@ typedef enum {
     ZBPackageColumnPriority,
     ZBPackageColumnEssential,
     ZBPackageColumnSHA256,
+    ZBPackageColumnNotified
 } ZBPackageColumn;
 
 typedef enum {

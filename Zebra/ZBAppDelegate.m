@@ -12,7 +12,7 @@
 #import <ZBTab.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
-#import <UserNotifications/UserNotifications.h>
+#import <ZBNotificationManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Controllers/ZBPackageDepictionViewController.h>
@@ -187,22 +187,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     [self setupSDWebImageCache];
     
-    if (@available(iOS 10.0, *)) {
-        [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"[Zebra] Error: %@", error.localizedDescription);
-            } else if (!granted) {
-                NSLog(@"[Zebra] Authorization was not granted.");
-            } else {
-                NSLog(@"[Zebra] Notification access granted.");
-            }
-        }];
-    } else {
-        if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-            [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil]];            
-        }
-    }
-    
+    [[ZBNotificationManager sharedInstance].delegate requireNotificationsAccess];
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
     
 #if DEBUG
@@ -411,6 +396,19 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         
         ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
+    }
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+    [[ZBNotificationManager sharedInstance] performBackgroundFetch:completionHandler];
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification {
+    NSString *openURL = [notification.userInfo objectForKey:@"openURL"];
+
+    if (openURL) {
+        NSDictionary<UIApplicationOpenURLOptionsKey,id> *options = [[NSDictionary alloc] init];
+        [self application:application openURL:[NSURL URLWithString:openURL] options:options];
     }
 }
 

@@ -369,6 +369,20 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package;
 
 /*!
+ @brief Check to see if the user already received a notification for this package.
+ @param package The package.
+ @return YES if user has already received one, NO if otherwise
+ */
+- (BOOL)userWasNotifiedForPackage:(ZBPackage *)package;
+
+/*!
+ @brief Set this to true so a user does not receive a notification again from this package.
+ @param didNotifyUser true if the user received a notification.
+ @param package The package.
+ */
+- (void)setUserWasNotified:(BOOL)didNotifyUser forPackage:(ZBPackage *)package;
+
+/*!
  @brief Sets the ignore colum in the UPDATES table for the corresponding package
  @param ignore whether or want the package needs to be ignored
  @param package The package.
