@@ -16,15 +16,15 @@
 
 typedef void (^BackgroundCompletionHandler)(UIBackgroundFetchResult);
 
-@interface ZBNotificationManager : UIResponder<ZBDatabaseDelegate>
+@interface ZBNotificationManager : NSObject <ZBDatabaseDelegate>
 
 @property (nonatomic, nullable) id <ZBNotificationProviderDelegate> delegate;
 
-- (void)performBackgroundFetch:(nonnull void (^)(UIBackgroundFetchResult))completionHandler;
+- (void)performBackgroundFetch:(nonnull BackgroundCompletionHandler)completionHandler;
 - (void)notifyUpdateForPackage:(nonnull ZBPackage *)package;
 - (UIBackgroundFetchResult)notifyUpdatesIfNeeded;
 
-+ (instancetype _Nonnull)sharedInstance;
++ (nonnull instancetype)sharedInstance;
 
 @end
 
