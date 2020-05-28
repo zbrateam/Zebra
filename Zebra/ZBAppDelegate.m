@@ -404,8 +404,11 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification {
+    if (UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
+        return;
+    }
+    
     NSString *openURL = [notification.userInfo objectForKey:@"openURL"];
-
     if (openURL) {
         NSDictionary<UIApplicationOpenURLOptionsKey,id> *options = [[NSDictionary alloc] init];
         [self application:application openURL:[NSURL URLWithString:openURL] options:options];
