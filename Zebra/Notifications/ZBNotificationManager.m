@@ -24,17 +24,15 @@
 @implementation ZBNotificationManager
 
 - (void)performBackgroundFetch:(BackgroundCompletionHandler)completionHandler {
+    NSLog(@"[Zebra] Background fetch started");
     self.completionHandler = completionHandler;
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
+    [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
 }
 
 - (UIBackgroundFetchResult)notifyUpdatesIfNeeded {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     NSMutableArray<ZBPackage *> *packages = [databaseManager packagesWithUpdates];
-    
-    ZBPackage *p = [databaseManager packageForID:@"xyz.willy.zebra" equalVersion:@"1.1"];
-    [packages addObject:p];
     
     UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
     for (ZBPackage *package in packages) {
@@ -67,13 +65,12 @@
     if (self.completionHandler != nil) {
         BackgroundCompletionHandler completionHandler = self.completionHandler;
         self.completionHandler = nil;
+        NSLog(@"[Zebra] Background fetch finished");
         completionHandler(result);
     }
 }
 
 - (void)databaseCompletedUpdate:(int)numberOfUpdates {
-    numberOfUpdates += 1;
-
     if (numberOfUpdates <= 0) {
         [self fetchCompleted:UIBackgroundFetchResultNoData];
         return;

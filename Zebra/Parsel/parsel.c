@@ -552,9 +552,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     char line[2048];
     
     sqlite3_exec(database, "BEGIN TRANSACTION", NULL, NULL, NULL);
-    char sql[64];
-    snprintf(sql, sizeof(sql), "DELETE FROM PACKAGES WHERE REPOID = %d", sourceID);
-    sqlite3_exec(database, sql, NULL, 0, NULL);
+    deletePackagesFromSource(database, sourceID);
     
     dict *package = dict_new();
     int safeID = sourceID;
@@ -627,5 +625,24 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     fclose(file);
     sqlite3_exec(database, "COMMIT TRANSACTION", NULL, NULL, NULL);
+    return PARSEL_OK;
+}
+
+enum PARSEL_RETURN_TYPE deletePackagesFromSource(sqlite3 *database, int sourceID) {
+    char sql[128];
+    
+    // Move packages that has been notified to a temp table, which will be deleted later
+    sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS PACKAGES_NOTIFIED (PACKAGE STRING, VERSION STRING);", NULL, 0, NULL);
+    snprintf(sql, sizeof(sql), "INSERT INTO PACKAGES_NOTIFIED SELECT PACKAGE, VERSION FROM PACKAGES WHERE REPOID = %d AND NOTIFIED = 1", sourceID);
+    sqlite3_exec(database, sql, NULL, 0, NULL);
+    
+    snprintf(sql, sizeof(sql), "DELETE FROM PACKAGES WHERE REPOID = %d", sourceID);
+    sqlite3_exec(database, sql, NULL, 0, NULL);
+    return PARSEL_OK;
+}
+
+enum PARSEL_RETURN_TYPE reimportNotifiedStatus(sqlite3 *database) {
+    sqlite3_exec(database, "UPDATE PACKAGES SET NOTIFIED = 1 WHERE EXISTS (SELECT * FROM PACKAGES_NOTIFIED WHERE PACKAGES.PACKAGE = PACKAGES_NOTIFIED.PACKAGE AND PACKAGES.VERSION = PACKAGES_NOTIFIED.VERSION);", NULL, 0, NULL);
+    sqlite3_exec(database, "DROP TABLE PACKAGES_NOTIFIED;", NULL, 0, NULL);
     return PARSEL_OK;
 }

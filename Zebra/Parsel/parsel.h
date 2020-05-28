@@ -36,4 +36,7 @@ void createDummySource(struct ZBBaseSource source, sqlite3 *database, int source
 enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *database, int sourceID);
 enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *database, int sourceID, sqlite3_int64 currentDate);
 
+enum PARSEL_RETURN_TYPE deletePackagesFromSource(sqlite3 *database, int sourceID);
+enum PARSEL_RETURN_TYPE reimportNotifiedStatus(sqlite3 *database);
+
 #endif /* parsel_h */
