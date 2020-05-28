@@ -208,10 +208,14 @@
 
 - (IBAction)moreButtonPressed:(id)sender {
     UIAlertController *extraActions = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    
+    [extraActions.popoverPresentationController setSourceView:self.moreButton];
+    [extraActions.popoverPresentationController setSourceRect:self.moreButton.bounds];
+
     NSArray <UIAlertAction *> *actions = [ZBPackageActions extraAlertActionsForPackage:self.package selectionCallback:^(ZBPackageExtraActionType action) {
         if (action == ZBPackageExtraActionShare) {
             UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[self.package] applicationActivities:nil];
+            [shareSheet.popoverPresentationController setSourceView:self.moreButton];
+            [shareSheet.popoverPresentationController setSourceRect:self.moreButton.bounds];
             
             [self presentViewController:shareSheet animated:YES completion:nil];
         }
