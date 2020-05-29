@@ -257,6 +257,8 @@
     searchBar.layer.borderWidth = 1.0;
     UITextField *textField = [searchBar valueForKey:@"_searchField"];
     [self configureTextField:textField];
+    UIButton *clearButton = [textField valueForKey:@"_clearButton"];
+    clearButton.tintColor = searchBar.barTintColor;
 }
 
 - (void)refreshViews {
