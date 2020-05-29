@@ -85,8 +85,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshTable];
-    
-    self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
 - (void)dealloc {
