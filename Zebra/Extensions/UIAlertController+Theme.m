@@ -59,9 +59,11 @@
     @try {
         view.subviews[0].subviews[0].subviews[0].backgroundColor = [UIColor cellBackgroundColor];
     }
-    @catch (NSException *e) {
-        return;
+    @catch (NSException *e) {}
+    @try {
+        view.subviews[0].subviews[0].subviews[1].subviews[0].backgroundColor = [UIColor cellBackgroundColor];
     }
+    @catch (NSException *e) {}
     
     for (UIView *groupView in view.subviews) {
         [self recursiveSetColor:groupView];
