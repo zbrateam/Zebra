@@ -487,7 +487,7 @@
 
 "%d Seconds" = "%d 秒";
 "Download Timeout" = "下載逾時";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "調整 Zebra 等待來源回應逾時的時長。";
+"This timer will reset every time Zebra receives new information from a source." = "當 Zebra 從來源收到新資訊時，此計時器將會重置。";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "無法從來源取得帳號資訊，請重新登入後再試。";
