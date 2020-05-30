@@ -134,7 +134,7 @@
         iconName = icon[@"iconName"];
     }
     
-    if ([iconSelected isEqualToString:iconName] || iconSelected == iconName) {
+    if (iconName && ([iconSelected isEqualToString:iconName] || iconSelected == iconName)) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;

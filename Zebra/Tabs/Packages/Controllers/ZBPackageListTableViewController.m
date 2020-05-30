@@ -456,8 +456,7 @@
 }
 
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    if (!source) return NULL;
-    if ([self.databaseManager numberOfPackagesInSource:source section:section] > 400) return NULL;
+    if (!source || [self.databaseManager numberOfPackagesInSource:source section:section] > 400) return @[];
     
     NSString *title = NSLocalizedString(@"Install All", @"");
     UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {

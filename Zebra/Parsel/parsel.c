@@ -443,6 +443,9 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             pair *maintainer = splitNameAndEmail(dict_get(package, "Maintainer"));
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerName, maintainer->key, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerEmail, maintainer->value, -1, SQLITE_TRANSIENT);
+            free(maintainer->key);
+            free(maintainer->value);
+            free(maintainer);
             
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPreferNative, dict_get(package, "Prefer-Native"), -1, SQLITE_TRANSIENT);
             

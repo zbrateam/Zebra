@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSource : ZBBaseSource
-@property (nonatomic) NSString *sourceDescription;
+@property (nonatomic) NSString * _Nullable sourceDescription;
 @property (nonatomic) NSString *origin;
 @property (nonatomic) NSString *version;
 @property (nonatomic) NSString *suite;

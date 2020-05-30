@@ -194,12 +194,12 @@
 - (void)forwardToPackage {
     if (forwardToPackageID != NULL) { //this is pretty hacky
         NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
-        if (forwardedSourceBaseURL != NULL) {
+        if (forwardedSourceBaseURL != nil) {
             urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedSourceBaseURL];
-            forwardedSourceBaseURL = NULL;
+            forwardedSourceBaseURL = nil;
         }
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
-        forwardToPackageID = NULL;
+        forwardToPackageID = nil;
     }
 }
 

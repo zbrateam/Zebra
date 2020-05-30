@@ -346,23 +346,23 @@
         NSString *packageID = [dictionary objectForKey:@"Package"];
         if (!packageID) return NULL;  // This should never be NULL
         
-        NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if NULL
-        NSString *version = [dictionary objectForKey:@"Version"] ?: NULL;
-        NSString *desc = [dictionary objectForKey:@"Description"] ?: NULL;
-        NSString *section = [dictionary objectForKey:@"Section"] ?: NULL;
-        NSString *depiction = [dictionary objectForKey:@"Depiction"] ?: NULL;
-        NSString *author = [dictionary objectForKey:@"Author"] ?: NULL;
-        NSString *depends = [dictionary objectForKey:@"Depends"] ?: NULL;
-        NSString *conflicts = [dictionary objectForKey:@"Conflicts"] ?: NULL;
-        NSString *provides = [dictionary objectForKey:@"Provides"] ?: NULL;
-        NSString *replaces = [dictionary objectForKey:@"Replaces"] ?: NULL;
-        NSString *icon = [dictionary objectForKey:@"Icon"] ?: NULL;
-        NSString *priority = [dictionary objectForKey:@"Priority"] ?: NULL;
-        NSString *essential = [dictionary objectForKey:@"Essential"] ?: NULL;
+        NSString *name = [dictionary objectForKey:@"Name"] ?: packageID; // fall back to ID if nil
+        NSString *version = [dictionary objectForKey:@"Version"] ?: nil;
+        NSString *desc = [dictionary objectForKey:@"Description"] ?: nil;
+        NSString *section = [dictionary objectForKey:@"Section"] ?: nil;
+        NSString *depiction = [dictionary objectForKey:@"Depiction"] ?: nil;
+        NSString *author = [dictionary objectForKey:@"Author"] ?: nil;
+        NSString *depends = [dictionary objectForKey:@"Depends"] ?: nil;
+        NSString *conflicts = [dictionary objectForKey:@"Conflicts"] ?: nil;
+        NSString *provides = [dictionary objectForKey:@"Provides"] ?: nil;
+        NSString *replaces = [dictionary objectForKey:@"Replaces"] ?: nil;
+        NSString *icon = [dictionary objectForKey:@"Icon"] ?: nil;
+        NSString *priority = [dictionary objectForKey:@"Priority"] ?: nil;
+        NSString *essential = [dictionary objectForKey:@"Essential"] ?: nil;
         
-        NSString *tagString = [dictionary objectForKey:@"Tag"] ?: NULL;
+        NSString *tagString = [dictionary objectForKey:@"Tag"] ?: nil;
         if (tagString) {
-            [self setTags:[tagString componentsSeparatedByString:@", "] ?: NULL];
+            [self setTags:[tagString componentsSeparatedByString:@", "] ?: nil];
         }
         
         [self setIdentifier:packageID];
@@ -370,7 +370,7 @@
         [self setVersion:version];
         [self setPackageDescription:desc];
         [self setSection:section];
-        [self setDepictionURL:[NSURL URLWithString:depiction]];
+        [self setDepictionURL:depiction ? [NSURL URLWithString:depiction] : nil];
         [self setAuthorName:author];
         [self setIconPath:icon];
         [self setPriority:priority];

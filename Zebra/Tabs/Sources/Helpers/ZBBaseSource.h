@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *_Nullable releaseFilePath;
 
 /*! @brief The base filename of the repository, based on the URL */
-@property (nonatomic) NSString *baseFilename;
+@property (nonatomic) NSString * _Nullable baseFilename;
 
 @property ZBSourceVerificationStatus verificationStatus;
 @property (nonatomic) NSString *label;

@@ -13,15 +13,15 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
-#import <Downloads/ZBDownloadDelegate.h>
-#import <ZBDatabaseDelegate.h>
+#import <ZBDownloadDelegate.h>
+#import "ZBDatabaseDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
 /*! @brief A reference to the database. */
-@property (atomic) sqlite3 *database;
+@property (atomic) sqlite3 * _Nullable database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
 @property (nonatomic) BOOL needsToPresentRefresh;

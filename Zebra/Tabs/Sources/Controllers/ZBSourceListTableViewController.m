@@ -8,12 +8,12 @@
 
 #import "ZBSourceImportTableViewController.h"
 #import "ZBSourceListTableViewController.h"
+#import "ZBAddSourceViewController.h"
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <ZBTabBarController.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import "ZBAddSourceViewController.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
 #import <Sources/Helpers/ZBSourceManager.h>
@@ -510,7 +510,7 @@
 
 #pragma mark - Table View Helper Methods
 
-- (NSObject *)sourceAtIndexPath:(NSIndexPath *)indexPath {
+- (ZBSource * _Nullable)sourceAtIndexPath:(NSIndexPath *)indexPath {
     if (![self hasDataInSection:indexPath.section])
         return nil;
     return self.tableData[indexPath.section][indexPath.row];

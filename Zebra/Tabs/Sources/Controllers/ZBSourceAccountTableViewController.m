@@ -207,7 +207,7 @@
                 return cell;
             }
             default:
-                return NULL; // FIXME: This should not be null
+                return nil; // FIXME: This should not be null
         }
     }
     else {

@@ -81,7 +81,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= filteredResults.count) return nil;
+    if (indexPath.row >= filteredResults.count) return nil; // FIXME: This should not be null
     
     NSObject *quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {

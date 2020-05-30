@@ -110,7 +110,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *vendorChars        = textColumn(statement, ZBSourceColumnPaymentVendor);
         const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
         
-        [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : NULL];
+        [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : nil];
         [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NSLocalizedString(@"Unknown", @"")];
         [self setLabel:[ZBUtils decodeCString:labelChars fallback:NSLocalizedString(@"Unknown", @"")]];
         [self setVersion:versionChars != 0 ? [[NSString alloc] initWithUTF8String:versionChars] : NSLocalizedString(@"Unknown", @"")];
@@ -130,7 +130,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             [self setArchitectures:@[@"all"]];
         }
         
-        [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
+        [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : nil];
         [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
         

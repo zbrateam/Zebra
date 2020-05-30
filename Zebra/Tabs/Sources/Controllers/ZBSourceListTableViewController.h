@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSource:(id)sender;
 - (void)handleImportOf:(NSURL *)url;
 - (void)updateCollation;
-- (ZBSource *)sourceAtIndexPath:(NSIndexPath *)indexPath;
+- (ZBSource * _Nullable)sourceAtIndexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END
