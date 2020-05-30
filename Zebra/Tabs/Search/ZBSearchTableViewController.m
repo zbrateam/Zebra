@@ -65,6 +65,7 @@
     [super viewWillAppear:animated];
         
     [((ZBSearchResultsTableViewController *)searchController.searchResultsController) setColors];
+    [self.tableView reloadData];
     
     if (@available(iOS 11.0, *)) {
     }
@@ -247,7 +248,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    titleLabel.textColor = [UIColor primaryTextColor]; // FIXME: color doesn't update right away on iOS 12 and below
+    titleLabel.textColor = [UIColor primaryTextColor];
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];
