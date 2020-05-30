@@ -63,6 +63,10 @@
 		499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */; };
 		499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */; };
 		499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */; };
+		499B9F38248308C800358A84 /* zebrine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F29248308C700358A84 /* zebrine@3x.png */; };
+		499B9F39248308C800358A84 /* zebrine~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F35248308C700358A84 /* zebrine~ipad@3x.png */; };
+		499B9F3A248308C800358A84 /* zebrine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F36248308C700358A84 /* zebrine@2x.png */; };
+		499B9F3B248308C800358A84 /* zebrine~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F37248308C800358A84 /* zebrine~ipad@2x.png */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
@@ -344,6 +348,10 @@
 		499B0E2D246B945B008825E4 /* ZBInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInfoTableViewCell.h; sourceTree = "<group>"; };
 		499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInfoTableViewCell.m; sourceTree = "<group>"; };
 		499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBInfoTableViewCell.xib; sourceTree = "<group>"; };
+		499B9F29248308C700358A84 /* zebrine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zebrine@3x.png"; sourceTree = "<group>"; };
+		499B9F35248308C700358A84 /* zebrine~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zebrine~ipad@3x.png"; sourceTree = "<group>"; };
+		499B9F36248308C700358A84 /* zebrine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zebrine@2x.png"; sourceTree = "<group>"; };
+		499B9F37248308C800358A84 /* zebrine~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zebrine~ipad@2x.png"; sourceTree = "<group>"; };
 		49C526EC227BCF1700840484 /* ZBSourceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSourceTableViewCell.h; sourceTree = "<group>"; };
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
@@ -715,6 +723,10 @@
 				49990642247DDAA000AE75BC /* viola@3x.png */,
 				49990641247DDA9F00AE75BC /* viola~ipad@2x.png */,
 				49990635247DDA9F00AE75BC /* viola~ipad@3x.png */,
+				499B9F36248308C700358A84 /* zebrine@2x.png */,
+				499B9F29248308C700358A84 /* zebrine@3x.png */,
+				499B9F37248308C800358A84 /* zebrine~ipad@2x.png */,
+				499B9F35248308C700358A84 /* zebrine~ipad@3x.png */,
 			);
 			path = "Alternate Icons";
 			sourceTree = "<group>";
@@ -1466,6 +1478,7 @@
 			files = (
 				89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */,
 				899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */,
+				499B9F3A248308C800358A84 /* zebrine@2x.png in Resources */,
 				3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */,
 				36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */,
 				49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */,
@@ -1475,6 +1488,7 @@
 				36AC5A6B22AB30E4004C2332 /* zWhite~ipad@3x.png in Resources */,
 				49990645247DDAA000AE75BC /* viola~ipad@2x.png in Resources */,
 				9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */,
+				499B9F38248308C800358A84 /* zebrine@3x.png in Resources */,
 				36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */,
 				894894032471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib in Resources */,
 				36F77AE622A3414B00A4604C /* darkZebraSkin~ipad@3x.png in Resources */,
@@ -1500,6 +1514,7 @@
 				36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */,
 				36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */,
 				00ED302E235C23C5005E8302 /* Localizable.strings in Resources */,
+				499B9F3B248308C800358A84 /* zebrine~ipad@2x.png in Resources */,
 				2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */,
 				2627B60B2321A63E00B141E5 /* originalBlack~ipad@3x.png in Resources */,
 				89AD450C23CA5E350008831F /* AUPM@3x.png in Resources */,
@@ -1512,6 +1527,7 @@
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
 				899AEA00247F03BA00FCA61E /* quda~ipad@3x.png in Resources */,
 				369B7AE022C56009007521DB /* banner.png in Resources */,
+				499B9F39248308C800358A84 /* zebrine~ipad@3x.png in Resources */,
 				49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */,

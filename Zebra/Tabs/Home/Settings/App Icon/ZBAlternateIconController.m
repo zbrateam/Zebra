@@ -69,8 +69,14 @@
         @{
             @"iconName": @"quda",
             @"author": @"heysyemeh (@heysyemeh)",
-            @"readableName": @"quda",
+            @"readableName": @"Quda",
             @"border": @NO
+        },
+        @{
+            @"iconName": @"zebrine",
+            @"author": @"Ciprian Ciocoiu (@qiuChuck)",
+            @"readableName": @"Zebrine",
+            @"border": @YES
         }
     ];
 }

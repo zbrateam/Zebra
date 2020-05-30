@@ -55,6 +55,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>zebrine</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zebrine</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>AUPM</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -153,6 +162,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>zebrine</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zebrine~ipad</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>AUPM</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
