@@ -58,7 +58,7 @@
     
     if (self.text && [self.text hasPrefix:@"http"]) {
         self.addSourceTextView.text = self.text;
-        self.addButton.enabled = self.addSourceTextView.text.length;
+        [self textViewDidChange:self.addSourceTextView];
     }
 }
 
