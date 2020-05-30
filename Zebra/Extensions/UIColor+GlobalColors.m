@@ -19,6 +19,10 @@
     return [ZBThemeManager getAccentColor:[ZBSettings accentColor]];
 }
 
++ (UIColor *)legibleColor {
+    return [ZBThemeManager getLegibleColorFor:[ZBSettings accentColor]];
+}
+
 + (UIColor *)badgeColor {
     return [UIColor colorWithRed:0.98 green:0.40 blue:0.51 alpha:1.0];
 }

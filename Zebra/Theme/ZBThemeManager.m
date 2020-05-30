@@ -65,6 +65,20 @@
     }
 }
 
++ (UIColor *)getLegibleColorFor:(ZBAccentColor)accentColor {
+    return [self getLegibleColorFor:accentColor andInterfaceStyle:[ZBSettings interfaceStyle]];
+}
+
++ (UIColor * _Nullable)getLegibleColorFor:(ZBAccentColor)accentColor andInterfaceStyle:(ZBInterfaceStyle)style {    
+    BOOL darkMode = style >= ZBInterfaceStyleDark;
+    switch (accentColor) {
+        case ZBAccentColorMonochrome:
+            return darkMode ? [UIColor blackColor] : [UIColor whiteColor];
+        default:
+            return [UIColor whiteColor];
+    }
+}
+
 + (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor {
     if ([ZBSettings usesSystemAccentColor]) return NSLocalizedString(@"System", @"");
     switch (accentColor) {

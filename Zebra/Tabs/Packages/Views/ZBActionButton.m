@@ -43,6 +43,8 @@
     [self setBackgroundColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.titleLabel setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightBold]];
+    [self setTitleColor:[UIColor legibleColor] forState:UIControlStateNormal];
+    [self.imageView setTintColor:[UIColor legibleColor]];
 }
 
 - (void)createActivityLoader {

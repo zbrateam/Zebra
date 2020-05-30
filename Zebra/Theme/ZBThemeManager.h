@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)sharedInstance;
 + (UIColor *)getAccentColor:(ZBAccentColor)accentColor;
 + (UIColor * _Nullable)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style;
++ (UIColor *)getLegibleColorFor:(ZBAccentColor)accentColor;
++ (UIColor * _Nullable)getLegibleColorFor:(ZBAccentColor)accentColor andInterfaceStyle:(ZBInterfaceStyle)style;
 + (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor;
 + (NSString *)stringForCurrentInterfaceStyle;
 + (NSArray *)colors;
