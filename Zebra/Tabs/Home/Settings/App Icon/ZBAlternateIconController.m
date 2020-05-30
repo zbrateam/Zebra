@@ -22,13 +22,13 @@
     return @[
         @{
             @"iconName": @"AppIcon60x60",
-            @"readableName": @"White with Black Stripes",
+            @"readableName": @"Default",
             @"shortName": @"Black Stripes",
             @"border": @YES
         },
         @{
             @"iconName": @"originalBlack",
-            @"readableName": @"Black with White Stripes",
+            @"readableName": @"Default (Dark)",
             @"border": @NO
         },
         @{
@@ -39,7 +39,7 @@
         @{
             @"iconName": @"lightZebraSkin",
             @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Zebra Pattern (Light)",
+            @"readableName": @"Zebra Pattern",
             @"border": @NO
         },
         @{
@@ -51,13 +51,13 @@
         @{
             @"iconName": @"zWhite",
             @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Embossed Zebra Pattern (Light)",
+            @"readableName": @"Felicity Pro",
             @"border": @NO
         },
         @{
             @"iconName": @"zBlack",
             @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Embossed Zebra Pattern (Dark)",
+            @"readableName": @"Felicity Pro (Dark)",
             @"border": @NO
         },
         @{
