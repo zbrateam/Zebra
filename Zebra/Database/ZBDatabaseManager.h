@@ -205,9 +205,9 @@ NS_ASSUME_NONNULL_BEGIN
  @brief All of the sources that are in the database.
  @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
  */
-- (NSSet <ZBSource *> *)sources;
+- (NSSet <ZBSource *> * _Nullable)sources;
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
-- (ZBSource *)sourceFromSourceID:(int)sourceID;
+- (ZBSource * _Nullable)sourceFromSourceID:(int)sourceID;
 
 /*!
  @brief Deletes the source and all the packages that have a matching sourceID.
@@ -491,7 +491,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 
-- (ZBPackage *)localVersionForPackage:(ZBPackage *)package;
+- (ZBPackage * _Nullable)localVersionForPackage:(ZBPackage *)package;
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package;
 @end
 

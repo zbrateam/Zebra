@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray<NSString *> *queuedPackagesList;
 + (id)sharedQueue;
 + (int)count;
-+ (UIColor *)colorForQueueType:(ZBQueueType)queue;
++ (UIColor * _Nullable)colorForQueueType:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
 - (void)addDependency:(ZBPackage *)package;
@@ -28,15 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removePackage:(ZBPackage *)package;
 - (NSArray *)tasksToPerform;
 - (NSMutableArray *)queueFromType:(ZBQueueType)queue;
-- (NSArray<NSNumber *> *)actionsToPerform;
-- (NSString *)displayableNameForQueueType:(ZBQueueType)queue;
+- (NSArray <NSNumber *> *)actionsToPerform;
+- (NSString * _Nullable)displayableNameForQueueType:(ZBQueueType)queue;
 - (int)numberOfPackagesInQueue:(ZBQueueType)queue;
 - (BOOL)needsToDownloadPackages;
 - (NSArray *)packagesToDownload;
 - (NSArray *)packagesToInstall;
 - (BOOL)contains:(ZBPackage *)package inQueue:(ZBQueueType)queue;
 - (NSArray <NSArray <ZBPackage *> *> *)topDownQueue;
-- (NSString *)downloadSizeForQueue:(ZBQueueType)queueType;
+- (NSString * _Nullable)downloadSizeForQueue:(ZBQueueType)queueType;
 - (BOOL)hasIssues;
 - (NSArray <NSArray <NSString *> *> *)issues;
 - (void)clear;

@@ -746,7 +746,7 @@
     }
     
     [self printDatabaseError];
-    return NULL;
+    return nil;
 }
 
 - (ZBSource * _Nullable)sourceFromSourceID:(int)sourceID {
@@ -770,7 +770,7 @@
     }
     
     [self printDatabaseError];
-    return NULL;
+    return nil;
 }
 
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint {
@@ -794,7 +794,7 @@
     }
     
     [self printDatabaseError];
-    return NULL;
+    return nil;
 }
 
 - (void)deleteSource:(ZBSource *)source {
