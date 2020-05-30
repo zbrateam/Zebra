@@ -468,11 +468,8 @@
     regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){1}((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
     error:nil];
     NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
-    if (isURL) {
-        [add setEnabled:YES];
-    } else {
-        [add setEnabled:NO];
-    }
+    
+    [add setEnabled:isURL];
 }
 
 - (void)checkSourceURL:(NSURL *)sourceURL {
