@@ -451,12 +451,24 @@
     UITextField *textField = alertController.textFields.firstObject;
     UIAlertAction * add = alertController.actions[1];
     
-    // check if it is URL or not
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"http(s)?://((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
+    // This will be useful when pasting the url in text field
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){2}" options:NSRegularExpressionCaseInsensitive
     error:nil];
     NSTextCheckingResult *match = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
-    
     if (match) {
+        if ([textField.text hasPrefix:@"https"]) {
+            textField.text = [textField.text substringFromIndex:8];
+        }
+        else {
+            textField.text = [textField.text substringFromIndex:7];
+        }
+    }
+    
+    // check if it is URL or not
+    regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){1}((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
+    error:nil];
+    NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
+    if (isURL) {
         [add setEnabled:YES];
     }
     else {
