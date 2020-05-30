@@ -480,7 +480,7 @@ void readMultiLineKey(FILE **file, char **buffer) {
         strtok(line, "\n");
         strtok(line, "\r");
         
-        if (isspace(line[0])) { // Still contained in the multiline
+        if (isspace(line[0]) && strlen(trim(line)) != 0) { // Still contained in the multiline
             int i = 0;
             while (line[i] != '\0' && isspace(line[i])) {
                 ++i;

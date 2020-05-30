@@ -35,10 +35,6 @@
 @synthesize downloadDelegate;
 @synthesize session;
 
-+ (NSDictionary *)headers {
-    return NULL; // TODO: Remove after 1.2 final
-}
-
 #pragma mark - Initializers
 
 - (id)init {
