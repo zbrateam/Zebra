@@ -242,7 +242,9 @@
         return;
     }
     
-    completion(ZBSourceVerifying);
+    if (completion) {
+        completion(ZBSourceVerifying);
+    }
     
     __block int tasks = 5;
     

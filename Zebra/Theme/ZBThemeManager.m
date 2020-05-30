@@ -31,7 +31,7 @@
     return [self getAccentColor:accentColor forInterfaceStyle:[ZBSettings interfaceStyle]];
 }
 
-+ (UIColor *)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style {
++ (UIColor * _Nullable)getAccentColor:(ZBAccentColor)accentColor forInterfaceStyle:(ZBInterfaceStyle)style {
     if ([ZBSettings usesSystemAccentColor]) return nil; //nil here defaults to the view tint color (switches have different tints)
     
     BOOL darkMode = style >= ZBInterfaceStyleDark;

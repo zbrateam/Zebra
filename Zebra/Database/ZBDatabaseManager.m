@@ -718,7 +718,7 @@
     return [self numberOfPackagesInSource:source section:section enableFiltering:NO];
 }
 
-- (NSSet <ZBSource *> *)sources {
+- (NSSet <ZBSource *> * _Nullable)sources {
     if ([self openDatabase] == SQLITE_OK) {
         NSError *readError = NULL;
         NSMutableSet *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError] mutableCopy];
@@ -749,7 +749,7 @@
     return NULL;
 }
 
-- (ZBSource *)sourceFromSourceID:(int)sourceID {
+- (ZBSource * _Nullable)sourceFromSourceID:(int)sourceID {
     if ([self openDatabase] == SQLITE_OK) {
         ZBSource *source;
 
@@ -1111,7 +1111,7 @@
                     
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
-                    NSURL *iconURL = [NSURL URLWithString:iconURLString];
+                    NSURL *iconURL = iconURLString ? [NSURL URLWithString:iconURLString] : nil;
                     
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
@@ -1776,7 +1776,7 @@
                     
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
-                    NSURL *iconURL = [NSURL URLWithString:iconURLString];
+                    NSURL *iconURL = iconURLString ? [NSURL URLWithString:iconURLString] : nil;
                     
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
@@ -1822,7 +1822,7 @@
                     
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
-                    NSURL *iconURL = [NSURL URLWithString:iconURLString];
+                    NSURL *iconURL = iconURLString ? [NSURL URLWithString:iconURLString] : nil;
                     
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
@@ -2187,7 +2187,7 @@
     }
 }
 
-- (ZBPackage *)localVersionForPackage:(ZBPackage *)package {
+- (ZBPackage * _Nullable)localVersionForPackage:(ZBPackage *)package {
     if ([[package source] sourceID] == 0) return package;
     if (![package isInstalled:NO]) return NULL;
     

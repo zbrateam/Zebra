@@ -531,8 +531,8 @@
     }
 }
 
-- (NSString *)downloadSizeForQueue:(ZBQueueType)queueType {
-    if (queueType == ZBQueueTypeClear || queueType == ZBQueueTypeRemove || queueType == ZBQueueTypeConflict || queueType == ZBQueueTypeDependency) return NULL;
+- (NSString * _Nullable)downloadSizeForQueue:(ZBQueueType)queueType {
+    if (queueType == ZBQueueTypeClear || queueType == ZBQueueTypeRemove || queueType == ZBQueueTypeConflict || queueType == ZBQueueTypeDependency) return nil;
     
     double totalDownloadSize = 0;
     NSMutableArray *packages = [[self queueFromType:queueType] mutableCopy];
@@ -556,7 +556,7 @@
         return [NSString stringWithFormat:@"%.2f %@", totalDownloadSize, unit];
     }
     
-    return NULL;
+    return nil;
 }
 
 - (ZBQueueType)locate:(ZBPackage *)package {
@@ -751,7 +751,7 @@
     return managedQueue[@(ZBQueueTypeConflict)];
 }
 
-- (NSString *)displayableNameForQueueType:(ZBQueueType)queue {
+- (NSString * _Nullable)displayableNameForQueueType:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeInstall:
         case ZBQueueTypeDependency:
@@ -766,11 +766,11 @@
         case ZBQueueTypeDowngrade:
             return NSLocalizedString(@"Downgrade", @"");
         default:
-            return NULL;
+            return nil;
     }
 }
 
-+ (UIColor *)colorForQueueType:(ZBQueueType)queue {
++ (UIColor * _Nullable)colorForQueueType:(ZBQueueType)queue {
     switch (queue) {
         case ZBQueueTypeDependency:
         case ZBQueueTypeInstall:

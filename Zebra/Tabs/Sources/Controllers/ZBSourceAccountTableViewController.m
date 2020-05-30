@@ -207,7 +207,7 @@
                 return cell;
             }
             default:
-                return NULL;
+                return NULL; // FIXME: This should not be null
         }
     }
     else {

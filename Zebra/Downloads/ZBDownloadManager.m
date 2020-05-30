@@ -254,6 +254,7 @@
             if (![url pathExtension]) { //No path extension, Packages file download failed :(
                 NSString *filename = [[task response] suggestedFilename];
                 if ([filename pathExtension] != nil) {
+                    // FIXME: this value is never read
                     filename = [filename stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@".%@", [filename pathExtension]] withString:@""]; //Remove path extension
                 }
                 
@@ -348,6 +349,7 @@
         }
     }
     
+    // FIXME: this value is never used
     movedFileSuccess = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
     
     if (completion) {

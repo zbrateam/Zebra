@@ -223,9 +223,9 @@
     return charSet;
 }
 
-- (NSArray *)extract:(const char *)packages_ {
+- (NSArray * _Nullable)extract:(const char *)packages_ {
     NSCharacterSet *delimiters = [[self class] delimiters];
-    NSArray *packages = packages_ != 0 ? [[NSString stringWithUTF8String:packages_] componentsSeparatedByCharactersInSet:delimiters] : NULL;
+    NSArray *packages = packages_ != 0 ? [[NSString stringWithUTF8String:packages_] componentsSeparatedByCharactersInSet:delimiters] : nil;
     if (packages) {
         NSMutableArray *finalPackages = [NSMutableArray array];
         for (NSString *line in packages) {
@@ -273,25 +273,25 @@
         
         [self setIdentifier:[NSString stringWithUTF8String:packageIDChars]]; // This should never be NULL
         [self setName:[ZBUtils decodeCString:packageNameChars fallback:self.identifier]]; // fall back to ID if NULL, or Unknown if things get worse
-        [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : NULL];
-        [self setTagline:taglineChars != 0 ? [NSString stringWithUTF8String:taglineChars] : NULL];
-        [self setPackageDescription:descriptionChars != 0 ? [NSString stringWithUTF8String:descriptionChars] : NULL];
-        [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL];
-        [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
+        [self setVersion:versionChars != 0 ? [NSString stringWithUTF8String:versionChars] : nil];
+        [self setTagline:taglineChars != 0 ? [NSString stringWithUTF8String:taglineChars] : nil];
+        [self setPackageDescription:descriptionChars != 0 ? [NSString stringWithUTF8String:descriptionChars] : nil];
+        [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : nil];
+        [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : nil];
         [self setAuthorName:authorNameChars != 0 ? [NSString stringWithUTF8String:authorNameChars] : NULL];
-        [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : NULL];
-        [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
-        [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL]; // TODO: Should change to iconURL later
-        [self setHeaderURL:headerChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:headerChars]] : NULL];
-        [self setChangelogTitle:changelogTitleChars != 0 ? [NSString stringWithUTF8String:changelogTitleChars] : NULL];
-        [self setChangelogNotes:changelogNotesChars != 0 ? [NSString stringWithUTF8String:changelogNotesChars] : NULL];
-        [self setHomepageURL:homepageChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:homepageChars]] : NULL];
-        [self setMaintainerName:maintainerNameChars != 0 ? [NSString stringWithUTF8String:maintainerNameChars] : NULL];
-        [self setMaintainerEmail:maintainerEmailChars != 0 ? [NSString stringWithUTF8String:maintainerEmailChars] : NULL];
+        [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : nil];
+        [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : nil];
+        [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : nil]; // TODO: Should change to iconURL later
+        [self setHeaderURL:headerChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:headerChars]] : nil];
+        [self setChangelogTitle:changelogTitleChars != 0 ? [NSString stringWithUTF8String:changelogTitleChars] : nil];
+        [self setChangelogNotes:changelogNotesChars != 0 ? [NSString stringWithUTF8String:changelogNotesChars] : nil];
+        [self setHomepageURL:homepageChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:homepageChars]] : nil];
+        [self setMaintainerName:maintainerNameChars != 0 ? [NSString stringWithUTF8String:maintainerNameChars] : nil];
+        [self setMaintainerEmail:maintainerEmailChars != 0 ? [NSString stringWithUTF8String:maintainerEmailChars] : nil];
         
-        [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : NULL];
+        [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : nil];
         
-        NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : NULL;
+        NSString *es = essentialChars != 0 ? [[NSString stringWithUTF8String:essentialChars] lowercaseString] : nil;
         if (es && [es isEqualToString:@"yes"]) {
             [self setEssential:YES];
         }
@@ -299,7 +299,7 @@
             [self setEssential:NO];
         }
         
-        NSString *pn = preferNativeChars != 0 ? [[NSString stringWithUTF8String:preferNativeChars] lowercaseString] : NULL;
+        NSString *pn = preferNativeChars != 0 ? [[NSString stringWithUTF8String:preferNativeChars] lowercaseString] : nil;
         if (pn && [pn isEqualToString:@"yes"]) {
             [self setPreferNative:YES];
         }
@@ -307,9 +307,9 @@
             [self setPreferNative:NO];
         }
         
-        [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : NULL];
+        [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : nil];
         
-        [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : NULL];
+        [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : nil];
         if ([tags count] == 1 && [tags[0] containsString:@","]) {
             tags = [tags[0] componentsSeparatedByString:@","];
         }
@@ -498,7 +498,7 @@
     return self.requiresAuthorization || (checkedForPurchaseInfo && purchaseInfo);
 }
 
-- (void)purchaseInfo:(void (^)(ZBPurchaseInfo *_Nullable info))completion {
+- (void)purchaseInfo:(void (^)(ZBPurchaseInfo * _Nullable info))completion {
     //Package must have cydia::commercial in its tags in order for Zebra to send the POST request for modern API
     if (![self mightRequirePayment]) {
         completion(NULL);
@@ -612,8 +612,8 @@
     return [[value componentsSeparatedByString:@": "] objectAtIndex:1];
 }
 
-- (NSString *)downloadSizeString {
-    if (downloadSize <= 0) return NULL;
+- (NSString * _Nullable)downloadSizeString {
+    if (downloadSize <= 0) return nil;
     double size = (double)downloadSize;
     if (size > 1024 * 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
@@ -624,8 +624,8 @@
     return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), downloadSize];
 }
 
-- (NSString *)installedSizeString {
-    if (installedSize <= 0) return NULL;
+- (NSString * _Nullable)installedSizeString {
+    if (installedSize <= 0) return nil;
     double size = (double)installedSize;
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];

@@ -467,7 +467,7 @@
     body = [body lowercaseString];
     NSArray *authorName = [body componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName) {
+    for (NSString *cut in authorName) {
         if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
             NSString *cutCopy = [cut copy];
             cutCopy = [cut substringFromIndex:1];
