@@ -128,6 +128,10 @@
     }
 }
 
++ (UIStatusBarStyle)preferredStatusBarStyle {
+    return [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+}
+
 - (void)updateInterfaceStyle {
     self.interfaceStyle = [ZBSettings interfaceStyle];
     self.accentColor = [ZBSettings accentColor];

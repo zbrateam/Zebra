@@ -91,10 +91,6 @@
     searchController.obscuresBackgroundDuringPresentation = NO;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-}
-
 #pragma mark - Helper Methods
 
 - (void)clearSearches {

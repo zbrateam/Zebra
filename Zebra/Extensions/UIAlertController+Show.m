@@ -73,7 +73,7 @@
 @implementation ZBAlertViewController
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return [[ZBThemeManager sharedInstance] interfaceStyle] >= ZBInterfaceStyleDark ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
+    return [ZBThemeManager preferredStatusBarStyle];
 }
 
 @end

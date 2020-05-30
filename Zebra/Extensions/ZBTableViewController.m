@@ -8,6 +8,7 @@
 
 #import "ZBTableViewController.h"
 #import "UIColor+GlobalColors.h"
+#import <ZBThemeManager.h>
 
 @interface ZBTableViewController ()
 
@@ -85,6 +86,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return UITableViewAutomaticDimension;
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [ZBThemeManager preferredStatusBarStyle];
 }
 
 - (void)configureTableContentInsetForQueue {

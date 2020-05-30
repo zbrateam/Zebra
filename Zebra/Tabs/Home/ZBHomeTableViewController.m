@@ -675,4 +675,8 @@ typedef enum ZBLinksOrder : NSUInteger {
     self.tableView.tableHeaderView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return [ZBThemeManager preferredStatusBarStyle];
+}
+
 @end

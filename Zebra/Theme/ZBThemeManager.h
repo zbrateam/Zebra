@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)localizedNameForAccentColor:(ZBAccentColor)accentColor;
 + (NSString *)stringForCurrentInterfaceStyle;
 + (NSArray *)colors;
++ (UIStatusBarStyle)preferredStatusBarStyle;
 + (BOOL)useCustomTheming;
 - (BOOL)darkMode;
 - (void)updateInterfaceStyle;
