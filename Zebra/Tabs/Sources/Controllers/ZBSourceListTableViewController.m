@@ -420,7 +420,6 @@
         [self checkSourceURL:sourceURL];
     }];
     
-    [add setEnabled:false];
     [alertController addAction:add];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -432,8 +431,10 @@
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         if (placeholder != NULL) {
             textField.text = placeholder;
+            [add setEnabled:YES];
         } else {
             textField.text = @"https://";
+            [add setEnabled:NO];
         }
         textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -458,8 +459,7 @@
     if (match) {
         if ([textField.text hasPrefix:@"https"]) {
             textField.text = [textField.text substringFromIndex:8];
-        }
-        else {
+        } else {
             textField.text = [textField.text substringFromIndex:7];
         }
     }
@@ -470,8 +470,7 @@
     NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
     if (isURL) {
         [add setEnabled:YES];
-    }
-    else {
+    } else {
         [add setEnabled:NO];
     }
 }
@@ -652,7 +651,14 @@
     if (![path isEqualToString:@""]) {
         NSArray *components = [path pathComponents];
         if ([components count] == 2) {
-            [self showAddSourceAlert:NULL];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            NSURL *url = [NSURL URLWithString:pasteboard.string];
+            BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
+            if (!isValidURL) {
+                [self showAddSourceAlert:NULL];
+            } else {
+                [self showAddSourceAlert:[url absoluteString]];
+            }
         } else if ([components count] >= 4) {
             NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
             
