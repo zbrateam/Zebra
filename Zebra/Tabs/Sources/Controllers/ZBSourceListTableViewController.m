@@ -378,13 +378,13 @@
     alertController.view.tintColor = [UIColor accentColor];
     
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if ([urlString hasPrefix:@"http:"]) {
             // Warn user for insecure source (has low self esteem)
             UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 NSString *repoString = [urlString copy];
                 if (![repoString hasSuffix:@"/"]) {
                     repoString = [repoString stringByAppendingString:@"/"];
@@ -393,7 +393,7 @@
                 NSURL *sourceURL = [NSURL URLWithString:repoString];
                 [self checkSourceURL:sourceURL];
             }];
-            [insecureSource addAction:add];
+            [insecureSource addAction:addInsecure];
             
             UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 [self showAddSourceAlert:urlString];
@@ -415,7 +415,10 @@
         
         NSURL *sourceURL = [NSURL URLWithString:urlString];
         [self checkSourceURL:sourceURL];
-    }]];
+    }];
+    
+    [alertController addAction:add];
+    
     [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
         
@@ -423,19 +426,47 @@
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        if (placeholder != NULL) {
+        if (placeholder != nil) {
             textField.text = placeholder;
+            [add setEnabled:YES];
         } else {
             textField.text = @"https://";
+            [add setEnabled:NO];
         }
         textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
         textField.autocorrectionType = UITextAutocorrectionTypeNo;
         textField.keyboardType = UIKeyboardTypeURL;
         textField.returnKeyType = UIReturnKeyNext;
         [[ZBThemeManager sharedInstance] configureTextField:textField];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
     }];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)textDidChange:(NSNotification *)notification {
+    UIAlertController * alertController = (UIAlertController *)self.presentedViewController;
+    UITextField *textField = alertController.textFields.firstObject;
+    UIAlertAction * add = alertController.actions[1];
+    
+    // This will be useful when pasting the url in text field
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){2}" options:NSRegularExpressionCaseInsensitive
+    error:nil];
+    NSTextCheckingResult *match = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
+    if (match) {
+        if ([textField.text hasPrefix:@"https"]) {
+            textField.text = [textField.text substringFromIndex:8];
+        } else {
+            textField.text = [textField.text substringFromIndex:7];
+        }
+    }
+    
+    // check if it is URL or not
+    regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){1}((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
+    error:nil];
+    NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
+    
+    [add setEnabled:isURL];
 }
 
 - (void)checkSourceURL:(NSURL *)sourceURL {
@@ -614,7 +645,14 @@
     if (![path isEqualToString:@""]) {
         NSArray *components = [path pathComponents];
         if ([components count] == 2) {
-            [self showAddSourceAlert:NULL];
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            NSURL *url = [NSURL URLWithString:pasteboard.string];
+            BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
+            if (!isValidURL) {
+                [self showAddSourceAlert:nil];
+            } else {
+                [self showAddSourceAlert:[url absoluteString]];
+            }
         } else if ([components count] >= 4) {
             NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
             
