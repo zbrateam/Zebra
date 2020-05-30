@@ -429,7 +429,7 @@
     }]];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        if (placeholder != NULL) {
+        if (placeholder != nil) {
             textField.text = placeholder;
             [add setEnabled:YES];
         } else {
@@ -655,7 +655,7 @@
             NSURL *url = [NSURL URLWithString:pasteboard.string];
             BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
             if (!isValidURL) {
-                [self showAddSourceAlert:NULL];
+                [self showAddSourceAlert:nil];
             } else {
                 [self showAddSourceAlert:[url absoluteString]];
             }
