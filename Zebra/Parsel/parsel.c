@@ -477,8 +477,8 @@ void readMultiLineKey(FILE **file, char **buffer) {
     long int position = ftell(*file);
     
     while (fgets(line, sizeof(line), *file)) {
-        char *info = strtok(line, "\n");
-        info = strtok(line, "\r");
+        strtok(line, "\n");
+        strtok(line, "\r");
         
         if (isspace(line[0])) { // Still contained in the multiline
             int i = 0;
@@ -525,8 +525,8 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            char *info = strtok(line, "\n");
-            info = strtok(line, "\r");
+            strtok(line, "\n");
+            char *info = strtok(line, "\r");
             
             multi_tok_t s = init();
             
@@ -626,8 +626,8 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
     
     while (fgets(line, sizeof(line), file)) {
         if (strlen(trim(line)) != 0) {
-            char *info = strtok(line, "\n");
-            info = strtok(line, "\r");
+            strtok(line, "\n");
+            char *info = strtok(line, "\r");
             
             multi_tok_t s = init();
             

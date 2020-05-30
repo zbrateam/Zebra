@@ -469,8 +469,7 @@
     NSMutableArray *cleanedStrings = [NSMutableArray new];
     for (NSString *cut in authorName) {
         if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
-            NSString *cutCopy = [cut copy];
-            cutCopy = [cut substringFromIndex:1];
+            NSString *cutCopy = [cut substringFromIndex:1];
             cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
             if ([cutCopy containsString:@"]["]) {
                 [cleanedStrings addObjectsFromArray:[cutCopy componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
