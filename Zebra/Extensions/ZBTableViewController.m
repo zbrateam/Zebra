@@ -75,10 +75,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UITableViewHeaderFooterView *)view forSection:(NSInteger)section {
     if (@available(iOS 13.0, *)) {}
     else {
-        @try {
-            UIView *backgroundView = [view valueForKey:@"_backgroundView"];
-            backgroundView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-        } @catch (NSException *e) {}
+        view.contentView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
     }
 }
 
