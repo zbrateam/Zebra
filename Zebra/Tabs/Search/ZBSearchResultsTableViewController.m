@@ -15,10 +15,7 @@
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageViewController.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Queue/ZBQueue.h>
-#import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import "ZBLiveSearchResultTableViewCell.h"
 
 @import LNPopupController;
 
@@ -51,18 +48,6 @@
     self.tableView.tableFooterView = [[UIView alloc] init]; // Hide seperators after last cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
-}
-
-- (void)configureTableContentInsetForQueue {
-    ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
-    UISearchController *searchController = (UISearchController *)self.parentViewController;
-    UISearchBar *searchBar = searchController.searchBar;
-    CGFloat bottomInset = CGRectGetHeight(tabBarController.tabBar.frame);
-    if ([ZBQueue count]) {
-        LNPopupBar *popup = [tabBarController popupBar];
-        bottomInset += CGRectGetHeight(popup.frame);
-    }
-    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(searchBar.superview.frame), 0, bottomInset, 0);
 }
 
 #pragma mark - Table view data source

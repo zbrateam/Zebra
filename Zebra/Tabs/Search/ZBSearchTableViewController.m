@@ -55,18 +55,6 @@
     [((ZBSearchResultsTableViewController *)searchController.searchResultsController) setColors];
 }
 
-- (void)configureTableContentInsetForQueue {
-    ZBTabBarController *tabBarController = (ZBTabBarController *)[ZBAppDelegate tabBarController];
-    CGRect navFrame = self.navigationController.navigationBar.frame;
-    CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
-    CGFloat bottomInset = CGRectGetHeight(tabBarController.tabBar.frame);
-    if ([ZBQueue count]) {
-        LNPopupBar *popup = [tabBarController popupBar];
-        bottomInset += CGRectGetHeight(popup.frame);
-    }
-    self.tableView.contentInset = UIEdgeInsetsMake(CGRectGetHeight(statusBarFrame) + CGRectGetHeight(navFrame), 0, bottomInset, 0);
-}
-
 - (void)setupView {
     recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"] mutableCopy];
     if (!recentSearches) {
