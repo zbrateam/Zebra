@@ -180,7 +180,7 @@
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "ข้อผิดพลาดขณะดาวน์โหลด %@: %@";
 
 "A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
 
@@ -485,9 +485,9 @@
 "Package Not Available" = "ไม่มีโปรแกรม";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "ไม่มีโปรแกรมที่คุณต้องการ มันอาจถูกลบไปจากซอร์สของคุณ หรือ ID ของโปรแกรมที่ร้องขอนั้นไม่ถูกต้อง";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d วินาที";
+"Download Timeout" = "หมดเวลาการดาวน์โหลด";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "ปรับระยะเวลาที่ Zebra จะใช้ในการรอให้ซอร์สตอบสนองก่อนหมดเวลาที่กำหนดไว้";
+"This timer will reset every time Zebra receives new information from a source." = "ตัวจับเวลาจะเริ่มต้นใหม่ทุกครั้งที่ Zebra ได้รับข้อมูลใหม่จากซอร์สนั้นๆ";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "ไม่สามารถเข้าถึงข้อมูลบัญชีจากซอร์สนี้ได้ โปรดลงชื่อออกและลงชื่อเข้าใช้บัญชีนี้อีกครั้ง";
