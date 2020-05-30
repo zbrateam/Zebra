@@ -442,14 +442,14 @@
     }];
 }
 
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    previewingContext.sourceRect = cell.frame;
-    ZBPackageViewController *packageDepictionVC = (ZBPackageViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
-    [self setDestinationVC:indexPath destination:packageDepictionVC];
-    return packageDepictionVC;
-}
+//- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+//    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    previewingContext.sourceRect = cell.frame;
+//    ZBPackageViewController *packageDepictionVC = (ZBPackageViewController*)[self.storyboard instantiateViewControllerWithIdentifier:@"packageDepictionVC"];
+//    [self setDestinationVC:indexPath destination:packageDepictionVC];
+//    return packageDepictionVC;
+//}
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
