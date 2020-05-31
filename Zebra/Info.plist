@@ -55,15 +55,6 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>zebrine</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zebrine</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
 			<key>AUPM</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -100,20 +91,20 @@
 				<key>UIPrerenderedIcon</key>
 				<true/>
 			</dict>
-			<key>viola</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>viola</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
 			<key>quda</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>quda</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>viola</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>viola</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -132,6 +123,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>zWhite</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>zebrine</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zebrine</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -162,38 +162,11 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>zebrine</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>zebrine~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
 			<key>AUPM</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>AUPM</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>quda</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>quda~ipad</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>viola</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>viola~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -225,6 +198,24 @@
 				<key>UIPrerenderedIcon</key>
 				<true/>
 			</dict>
+			<key>quda</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>quda~ipad</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>viola</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>viola~ipad</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>zBlack</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -239,6 +230,15 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>zWhite~ipad</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>zebrine</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>zebrine~ipad</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
