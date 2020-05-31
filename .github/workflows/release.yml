@@ -77,7 +77,7 @@ jobs:
         make ipa
         echo "::set-output name=package::$(ls -t ipas | head -n1)"
     - name: Attach IPA to release
-      if: "!github.event.release.prelease"
+      if: "!github.event.release.prerelease"
       env:
         GITHUB_TOKEN: ${{ github.token }}
       run: hub release edit -m '' -a ipas/${{ steps.ipa_build.outputs.package }} '${{ github.event.release.tag_name }}'
