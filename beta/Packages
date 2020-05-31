@@ -313,3 +313,30 @@ Name: Zebra
 Prefer-Native: Yes
 Previews: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra1.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra2.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra3.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra4.png
 
+Package: xyz.willy.zebra
+Version: 1.2~beta1b
+Architecture: iphoneos-arm
+Maintainer: Wilson Styres <wilson@styres.me>
+Installed-Size: 43200
+Depends: dpkg, uikittools, firmware (>= 11.0)
+Filename: ./pkgfiles/xyz.willy.zebra_1.2~beta1b_iphoneos-arm.deb
+Size: 15630444
+MD5sum: 06c21dbee4e9425e8971fe4b5dfa4bd2
+SHA1: f7b2bfdbae8b959c2e5362d3ebe633a12d94accf
+SHA256: bd2be236ba0da814fcdeb8eb9d2ebcadc409a9656fce3b58589272b24551cda8
+Section: Packaging
+Description: A Useful Package Manager
+  A *modern*, **fast**, and ***powerful*** open source package manager for jailbroken iOS devices.
+Tag: compatible::11.0-13.5
+Author: Wilson Styres <wilson@styres.me>
+Changelog: Depiction Redesign
+  This update is the first in our app-wide redesign. Each beta will include a new view that is redesigned and we'd appreciate your feedback as we go through the redesign process.
+  .
+  This beta brings a redesinged package depiction view complete with a new native depiction format. It also includes new alternate icons created by [Bossgfx](https://twitter.com/bossgfx_) and [heysyemeh](https://twitter.com/heysyemeh).
+Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
+Header: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/banner.jpg
+Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
+Name: Zebra
+Prefer-Native: Yes
+Previews: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra1.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra2.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra3.png, https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/zebra4.png
+
