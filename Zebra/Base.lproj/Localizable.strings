@@ -150,6 +150,7 @@
 "Unknown" = "Unknown";
 "Delete" = "Delete";
 "Refresh" = "Refresh";
+"Copy" = "Copy";
 "All Packages" = "All Packages";
 "Remove Source" = "Remove Source";
 "Local File" = "Local File";
