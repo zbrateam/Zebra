@@ -180,7 +180,7 @@
 "You have already added these sources." = "Anda telah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat mencari repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat mencari repositori APT di:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Ralat semasa memuat turun %@: %@";
 
 "A total of %d files will be downloaded" = "Sebanyak %d fail akan dimuat turun";
 
@@ -485,9 +485,9 @@
 "Package Not Available" = "Pakej Tidak Ada";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pakej yang anda minta tidak lagi tersedia. Mungkin telah dikeluarkan dari sumber anda atau ID paket yang diminta tidak betul.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d Detik";
+"Download Timeout" = "Muat turun Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurasikan jumlah masa yang akan ditunggu oleh Zebra untuk mendapatkan sumber sebelum habis masa.";
+"This timer will reset every time Zebra receives new information from a source." = "Pemasa ini akan diset semula setiap kali Zebra menerima maklumat baru dari sumber.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Maklumat akaun tidak dapat diambil dari sumbernya. Sila log keluar dari sumber, log masuk, dan cuba lagi.";
