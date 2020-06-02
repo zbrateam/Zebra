@@ -180,7 +180,7 @@
 "You have already added these sources." = "Zaten bu kaynakları eklediniz.";
 "Unable to locate an APT repository at:" = "APT deposu şu konumda bulunamadı:";
 "Unable to locate APT repositories at:" = "APT depoları şu konumda bulunamadı:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "%@ indirilirken hata oluştu: %@";
 
 "A total of %d files will be downloaded" = "Toplam %d dosyalar indirilecek";
 
@@ -485,9 +485,9 @@
 "Package Not Available" = "Paket Bulunamadı";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "İstediğiniz pakete ulaşılamadı. Paket kaynağından kaldırılmış ya da sorgu yanlış girilmiş olabilir.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d Saniye";
+"Download Timeout" = "İndirme Zaman Aşımına Uğradı";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Zaman aşımına uğramadan önce Zebra'nın bir kaynağın yanıt vermesini bekleyeceği süreyi ayarlayın.";
+"This timer will reset every time Zebra receives new information from a source." = "Bu zamanlayıcı, Zebra bir kaynaktan yeni bilgi aldığında her zaman sıfırlanır.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Hesap bilgileri kaynaktan alınamadı. Lütfen kaynaktan çıkış yapın, oturum açın ve tekrar deneyin.";
