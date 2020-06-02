@@ -180,7 +180,7 @@
 "You have already added these sources." = "Već ste dodali ove repoe.";
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT repo na:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT repo na:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Greška prilikom preuzimanja %@: %@";
 
 "A total of %d files will be downloaded" = "Ukupno %d fajlova će biti skinuto";
 
@@ -482,12 +482,12 @@
 "Unable to complete purchase" = "Nije moguće potvrditi kupovinu";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paket nije dostupan";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paket koji zahtevate nije više dostupan. Možda je uklonjen sa repo-a ili je ID paketa neispravan.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d sekundi";
+"Download Timeout" = "Download je zaustavljen";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfiguriši vreme za koje će Zebra čekati Repo da odgovori na zahtev pre nego se zaustavi zahtev.";
+"This timer will reset every time Zebra receives new information from a source." = "Ovaj brojač će se resetovati svaki put kada Zebra dobije novu informaciju od Repo-a.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Informacije o Nalogu je nemoguće dobiti od Repo-a. Odlogujte se, pa se ponovo ulogujte na nalog";
