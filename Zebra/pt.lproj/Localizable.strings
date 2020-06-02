@@ -11,8 +11,8 @@
 "Done" = "Concluir";
 "Loading..." = "A Carregar...";
 "Clear" = "Apagar";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Ocorreu um erro";
+"Dismiss" = "Ignorar";
 "Downloads" = "Downloads";
 
 // Home
@@ -23,8 +23,8 @@
 "Report a Bug" = "Reportar um Erro";
 "Changelog" = "Alterações";
 "Wish List" = "Lista de Desejos";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Novos primeiro";
+"Oldest First" = "Antigos primeiro";
 "No items in Wish List" = "Nenhum item na lista de desejos";
 "Community" = "Comunidade";
 "Join our Discord" = "Junte-se ao nosso Discord";
@@ -67,8 +67,8 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Acabar automaticamente";
-"Always Install Latest" = "Always Install Latest";
-"Automatic Refresh" = "Automatic Refresh";
+"Always Install Latest" = "Instalar sempre a recente";
+"Automatic Refresh" = "Atualização automática";
 
 // Accent Colors
 
@@ -103,30 +103,30 @@
 
 // Reset
 
-"Reset" = "Reset";
+"Reset" = "Redefinir";
 "Refresh Icon Cache" = "Atualizar cache";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
+"Clear Image Cache" = "Limpar imagem cache";
+"Clear Sources Cache" = "Limpar cache das fontes";
+"Clear Web Cache" = "Limpar cache web";
 "Reset All Settings" = "Repor todas as configurações";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Apagar todas as fontes";
 "Erase All Sources and Settings" = "Apagar todas as Fontes e Configurações";
 
 "Are you sure you want to restart the SpringBoard?" = "Tem a certeza que quer reiniciar o SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Tem a certeza de que pretende limpar a cache dos icons? O seu dispositivo pode ficar irrespondível até que o processo acabe.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Cache das imagens limpa";
+"Web Cache Cleared" = "Cache da web limpa";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Tem certeza de que deseja limpar a cache de fontes do Zebra? Todas as informações armazenadas em cache da base de dados do Zebra serão removidas e o zebre será reinstalado. As suas fontes não serão removidas.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Tem a certeza de que deseja limpar as configurações do Zebra? Todas as configurações do Zebra irão ser redefinidas de volta aos seus valores padrão e o Zebra será reiniciado.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Tem certeza de que deseja apagar todas as fontes e configurações? Todas as suas fontes serão removidas do Zebra e suas configurações serão redefinidas.";
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Tem certeza de que deseja apagar todas as fontes e configurações? Todas as suas fontes serão removidas do Zebra e suas configurações serão redefinidas.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Todas as suas fontes serão excluídas e o Zebra será reiniciado.";
 
 // Documents Directory
 
-"Open Documents Directory" = "Open Documents Directory";
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Open Documents Directory" = "Abrir Diretório dos Documentos";
+"Filza Not Installed" = "Filza não foi instalado";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra não pode abrir seu diretório de documentos porque o Filza não está instalado. Seu diretório de documentos é: %@";
 
 // Stores
 
@@ -136,11 +136,11 @@
 "Sign Out" = "Terminar Sessão";
 "Your Purchases" = "As suas compras";
 "No Storefronts Available" = "Nenhuma loja disponível";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Não foi possível autenticar";
 "Could not complete purchase" = "Não foi possível concluir a compra";
 "No packages purchased" = "Nenhum pacote comprado";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Sessão iniciada como %@";
+"Signed in as %@ (%@)" = "Sessão iniciado como %@ (%@)";
 
 // Sources
 
@@ -150,12 +150,12 @@
 "Refresh" = "Atualidade";
 "All Packages" = "Todos os Pacotes";
 "Remove Source" = "Remover fonte";
-"Local File" = "Local File";
+"Local File" = "Ficheiro local";
 "Local Repository" = "Repositório Local";
 "Locally installed packages" = "Pacotes instalados localmente";
 
 "Add" = "Adicionar";
-"View" = "View";
+"View" = "Ver";
 "Add Sources" = "Adicionar Fontes";
 "Add Multiple" = "Adicionar Multiplos";
 "Enter Source URL" = "Digite a URL da Fonte";
@@ -180,21 +180,21 @@
 "You have already added these sources." = "Essas fontes já foram adicionadas.";
 "Unable to locate an APT repository at:" = "Não foi possível localizar um repositório APT em:";
 "Unable to locate APT repositories at:" = "Não foi possível localizar os repositórios de APT em:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Erro ao descarregar %@: %@";
 
 "A total of %d files will be downloaded" = "Um total de %d arquivos serão transferidos";
 
 "Could not parse %@ from %@" = "Não foi possível analisar %@ de %@";
 "Could not find a download URL for" = "Não foi possível encontrar um URL de download para";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Authorizing Download for %@" = "A autorizar descarga para %@";
+"Couldn't authorize download for %@." = "Não foi possível autorizar o download de %@.";
+"Reason: %@." = "Motivo: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "A API de pagamento não é suportada em menos do que o iOS 11.0";
+"Could not download Release file from %@. Reason: %@" = "Não foi possível descarregar o arquivo do lançamento do %@. Motivo: %@";
+"Could not download Packages file from %@. Reason: %@" = "Não foi possível descarregar o arquivo de pacotes de %@. Motivo: %@";
+"Could not download one or more files from %@. Reason: %@" = "Não foi possível descarregar um ou mais arquivos do %@. Motivo: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Erro ao mover o arquivo em %@ para %@";
 
 "The URL you entered is not valid. Please check it and try again." = "O endereço de email que inseriu não é válido. Por favor verifique e tente novamente.";
 
@@ -209,17 +209,17 @@
 
 "%@ hasn't been modified" = "%@ não foi modificado";
 
-"Install All" = "Install All";
+"Install All" = "Instalar todos";
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Recentes";
 "Version" = "Versão";
 "Packages" = "Pacotes";
 "Show Updates" = "Mostrar Atualizações";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Ocultar atualizações";
 "Select Version" = "Selecionar Versão";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Selecione uma versão para instalar:";
 "Select a version to upgrade to:" = "Selecione a versão que pretende atualizar para:";
 "Select a version to downgrade to:" = "Selecione versão para downgrade:";
 "Package" = "Pacote";
@@ -313,7 +313,7 @@
 "Console" = "Consola";
 "Performing Actions..." = "A executar ações...";
 "Updating icon cache asynchronously..." = "A atualizar o cache do ícon de forma assíncrona...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache não está disponível no simulador";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Isto pode demorar e o Zebra pode crashar. Não ha problema se isso acontecer.";
 "Close Zebra" = "Fechar o Zebra";
 "Closing Zebra..." = "Fechar o Zebra...";
@@ -341,15 +341,15 @@
 "Finished importing local packages." = "Importação de pacotes locais terminado.";
 "One or more packages failed to download." = "Um ou mais pacotes falharam o download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Clica \"Voltar à Fila\" para voltar a Fila e tentar novamente.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Não foi possível completar o processo %@. Motivo: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Por favor reinicie o Zebra e veja se o problema ainda persiste. Se sim, por favor registre um problema no GitHub.";
 "Done..." = "Concluído...";
 "Done %@" = "Concluído %@";
 "Removing Zebra..." = "Removendo Zebra...";
 "Installing Zebra..." = "Instalando Zebra...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Erro ao abrir o arquivo:";
 "Adding Payment Vendor URL for %@" = "A adicionar URL do operador de pagamento para %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Este dispositivo é simulado, aqui estão os pacotes que seriam modificados neste estágio:";
 
 // Queue Bar
 
@@ -376,10 +376,10 @@
 "Remove from Queue" = "Remover da fila de espera";
 "Clear Queue" = "Limpar Lista";
 "%@ is required by:" = "%@ é necessário para:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" em conflito com %@";
 "%@ must be removed because it depends on %@" = "%@ precisa de ser removido porque depende de %@";
 "%@ has issues that cannot be resolved:" = "%@ tem problemas que não conseguem ser resolvidos:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Tem certeza de que deseja limpar a fila?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ é um pacote necessário. NÃO DEVE ser removido se não sabe o que está a fazer!";
 
 // Search
@@ -400,13 +400,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling não tem permissão para definir o uid ou gid. Por favor, verifique as permissões do arquivo localizado em /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Erro ao criar o diretório de documentos: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Erro ao criar o diretório das listas: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Erro ao criar sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Erro ao criar diretório de debs: %@.";
 
 "Could not respring. Please respring manually." = "O \"respring\" não foi possível. Por favor, faça-o manualmente.";
 
@@ -420,7 +420,7 @@
 
 "Display featured packages on the homepage." = "Exibir pacotes em destaque na página inicial.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Atualize as fontes da Zebra ao abrir o aplicativo.";
 
 "Display recent community posts from /r/jailbreak." = "Exibir postagens da comunidade recentes de /r/jailbreak.";
 
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Fechar a consola automaticamente após todas as suas tarefas forem concluídas.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Sempre instale a versão mais recente de um pacote se ainda não estiver instalado.";
 
 // Filters
 
@@ -450,13 +450,13 @@
 "Add Filter" = "Adicionar Filtro";
 
 "1 Section Hidden" = "1 seção oculta";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu seções ocultas";
 
 "Sections" = "Secções";
-"Select a Section" = "Select a Section";
+"Select a Section" = "Selecione uma seção";
 "Hide packages in these sections." = "Ocultar pacotes nestas seções.";
 
-"Select a Source" = "Select a Source";
+"Select a Source" = "Selecione uma fonte";
 "Hide packages in these sections from specific sources." = "Ocultar pacotes nessas seções de fontes específicas.";
 
 "Updates" = "Atualizações";
@@ -464,28 +464,28 @@
 
 "Authors" = "Autores";
 "Hide packages from these authors." = "Ocultar pacotes destes autores.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Search for an Author" = "Procurar um Autor";
+"This author also goes by the following names:" = "Este autor também usa os seguintes nomes:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Idioma";
+"Apply" = "Aplicar";
+"Restart Required" = "Requer Reinicialização";
+"Zebra must be closed in order to change preferred language" = "O Zebra deve ser fechado para alterar o idioma preferido";
+"Restart" = "Reiniciar";
+"Use System Language" = "Usar Idioma do Sistema";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Você está adicionando um repositório que não é seguro";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Os dados transferidos deste repositório podem não ser criptografados. Tem certeza de que deseja adicioná-los?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Não foi possível concluir a compra";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pacote não disponível";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "O pacote que solicitou já não está disponível. Pode ter sido removido das fontes ou o ID do pacote solicitado está incorreto.";
 
-"%d Seconds" = "%d Seconds";
+"%d Seconds" = "%d Segundos";
 "Download Timeout" = "Download Timeout";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
 "This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
