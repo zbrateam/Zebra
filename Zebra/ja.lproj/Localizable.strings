@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "%@ のリポジトリを Zebra に追加する";
 "Utility source for %@" = "%@ 専用リポジトリ";
 "Transfer Sources" = "リポジトリの読み込み";
-"Verifying Source" = "リポジトリを検証中";
-"Verifying Sources" = "リポジトリを検証中";
 "Import" = "インポート";
 "Verifying..." = "検証中...";
 "Confirm Import" = "インポートの確認";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
 
 "Add" = "追加";
+"View" = "表示";
 "Add Sources" = "リポジトリを追加";
 "Add Multiple" = "複数追加";
 "Enter Source URL" = "リポジトリ URL を入力する";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "これらのリポジトリはすでに追加されています。";
 "Unable to locate an APT repository at:" = "以下の APT リポジトリを検出できませんでした";
 "Unable to locate APT repositories at:" = "以下の APT リポジトリを検出できませんでした";
-"View" = "表示";
+"Error while downloading %@: %@" = "%@ のダウンロード中にエラーが発生しました：%@";
 
 "A total of %d files will be downloaded" = "%d 件のファイルがダウンロードされます";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "セクションを選択";
 "Hide packages in these sections." = "このセクションでパッケージを非表示にします";
 
-"Sources" = "リポジトリ";
 "Select a Source" = "リポジトリを選択";
 "Hide packages in these sections from specific sources." = "これらのセクションのパッケージを特定のリポジトリから非表示にします。";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "このパッケージは利用できません";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "リクエストしたパッケージは利用できなくなりました。リポジトリから削除されたか、リクエストされたパッケージIDが正しくありません。";
+
+"%d Seconds" = "%d 秒";
+"Download Timeout" = "ダウンロードタイムアウト";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Zebra がタイムアウトする前にリポジトリが応答するのを待ちます。";
+"This timer will reset every time Zebra receives new information from a source." = "このタイマーは、Zebra がリポジトリから新しい情報を受信するたびにリセットされます。";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "アカウント情報をリポジトリから取得できませんでした。一度サインアウトし、ログインし直してから再度お試し下さい。";

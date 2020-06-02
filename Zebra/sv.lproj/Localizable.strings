@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Överför källor från %@ till Zebra";
 "Utility source for %@" = "Verktygskälla för %@";
 "Transfer Sources" = "Överför källor";
-"Verifying Source" = "Verifierar källa";
-"Verifying Sources" = "Verifierar källor";
 "Import" = "Importera";
 "Verifying..." = "Verifierar...";
 "Confirm Import" = "Bekräfta importering";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Lokalt installerade paket";
 
 "Add" = "Lägg till";
+"View" = "Visa";
 "Add Sources" = "Lägg till källor";
 "Add Multiple" = "Lägg till flera";
 "Enter Source URL" = "Ange käll-URL";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Du har redan lagt till dessa källor.";
 "Unable to locate an APT repository at:" = "Kunde inte hitta ett APT-förråd på:";
 "Unable to locate APT repositories at:" = "Kunde inte hitta APT-förråd på:";
-"View" = "Visa";
+"Error while downloading %@: %@" = "Fel när %@ skulle laddas ner: %@";
 
 "A total of %d files will be downloaded" = "Totalt %d filer kommer att laddas ner";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Välj en sektion";
 "Hide packages in these sections." = "Dölj paket i dessa sektioner.";
 
-"Sources" = "Källor";
 "Select a Source" = "Välj en källa";
 "Hide packages in these sections from specific sources." = "Dölj paket i dessa sektioner från specifika källor.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Paket inte tillgängligt";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paketet du begär är inte längre tillgängligt. Det kan ha tagits bort från dina källor, eller så var det begärda paket-ID:t felaktigt.";
+
+"%d Seconds" = "%d sekunder";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "Denna tid kommer att återställas varje gång Zebra får ny information från en källa.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Kontoinformation kunde inte hämtas från källan. Logga ut från källan, logga in och försök igen.";

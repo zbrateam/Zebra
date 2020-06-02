@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Trasferisci le sorgenti da %@ a Zebra";
 "Utility source for %@" = "Sorgente utility per %@";
 "Transfer Sources" = "Trasferisci Sorgenti";
-"Verifying Source" = "Verifico sorgente";
-"Verifying Sources" = "Verifico Sorgenti";
 "Import" = "Importa";
 "Verifying..." = "Verifica...";
 "Confirm Import" = "Conferma importazione";
@@ -69,7 +67,7 @@
 "Text" = "Testo";
 "Icon" = "Icona";
 "Finish Automatically" = "Termina automaticamente";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Installa sempre l'ultima versione";
 "Automatic Refresh" = "Aggiornamento Automatico";
 
 // Accent Colors
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Pacchetti installati localmente";
 
 "Add" = "Aggiungi";
+"View" = "Vedi";
 "Add Sources" = "Aggiungi Sorgenti";
 "Add Multiple" = "Aggiungi Multiple";
 "Enter Source URL" = "Inserire URL sorgente";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Hai già aggiunto queste sorgenti.";
 "Unable to locate an APT repository at:" = "Nessuna repo APT trovata al link:";
 "Unable to locate APT repositories at:" = "Nessuna repo APT trovata al link:";
-"View" = "View";
+"Error while downloading %@: %@" = "Errore durante il download di %@: %@";
 
 "A total of %d files will be downloaded" = "Un totale di %d file saranno scaricati";
 
@@ -443,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Chiudi automaticamente la Console quando tutti i suoi processi sono stati completati.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Installa sempre la versione più recente di un pacchetto se non è già installato.";
 
 // Filters
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Seleziona una sezione";
 "Hide packages in these sections." = "Nascondi pacchetti in queste categorie.";
 
-"Sources" = "Sorgenti";
 "Select a Source" = "Seleziona una Sorgente";
 "Hide packages in these sections from specific sources." = "Nascondi i pacchetti in queste categorie da sorgenti specifiche.";
 
@@ -481,8 +479,15 @@
 "You are adding a repository that is not secure" = "Stai aggiungendo una repository che non è sicura";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "I dati scaricati da questa repository potrebbero non essere crittografati. Sei sicuro di volerla aggiungere?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Impossibile completare l’acquisto";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pacchetto non disponibile";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Il pacchetto che hai richiesto non è più disponibile. Potrebbe essere stato rimosso dalle tue sorgenti o l’ID del pacchetto richiesto non è corretto.";
+
+"%d Seconds" = "%d Secondi";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Scegli il lasso di tempo in cui Zebra aspetterà una risposta della sorgente prima di fallire.";
+"This timer will reset every time Zebra receives new information from a source." = "Questo timer si ripristinerà ogni volta che Zebra riceve nuove informazioni da una sorgente.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Impossibile recuperare le informazioni dell’account dalla sorgente. Esci dalla sorgente, effettua il login e riprova.";

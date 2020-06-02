@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Transferir fuentes de %@ a Zebra";
 "Utility source for %@" = "Fuente de utilidad para %@";
 "Transfer Sources" = "Transferir fuentes";
-"Verifying Source" = "Verificando fuente";
-"Verifying Sources" = "Verificando Fuentes";
 "Import" = "Importar";
 "Verifying..." = "Verificando...";
 "Confirm Import" = "Confirmar entrada";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Paquetes instalados localmente";
 
 "Add" = "Añadir";
+"View" = "Ver";
 "Add Sources" = "Añadir Fuentes";
 "Add Multiple" = "Añadir múltiples";
 "Enter Source URL" = "Introduce la Fuente URL";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Ya has añadido estas fuentes.";
 "Unable to locate an APT repository at:" = "Imposible encontrar repositorio APT en:";
 "Unable to locate APT repositories at:" = "Imposible encontrar repositorios APT en:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error al descargar el paquete";
 
 "A total of %d files will be downloaded" = "Se descargarán un total de %d archivos";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Escoger una sección";
 "Hide packages in these sections." = "Ocultar paquetes en estas secciones.";
 
-"Sources" = "Fuentes";
 "Select a Source" = "Seleccionar origen";
 "Hide packages in these sections from specific sources." = "Ocultar paquetes de fuentes específicas en estas secciones.";
 
@@ -484,5 +482,12 @@
 "Unable to complete purchase" = "No se puede realizar la compra";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paquete no disponible";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "El paquete que solicita ya no está disponible. Podría haber sido eliminado de sus fuentes o el ID del paquete solicitado era incorrecto.";
+
+"%d Seconds" = "1 segundo ";
+"Download Timeout" = "Tiempo de descarga agotado";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configura el tiempo estimado de zebra por el cual esperara a que un repositorio responda";
+"This timer will reset every time Zebra receives new information from a source." = "Este temporizador se reiniciará cada vez que Zebra reciba nueva información de una fuente.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "La información de la cuenta no se pudo recuperar de la fuente. Por favor, cierre la sesión de la fuente, inicie sesión y vuelva a intentarlo.";

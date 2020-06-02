@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
 "Utility source for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
-"Verifying Source" = "Đang xác minh nguồn";
-"Verifying Sources" = "Đang xác minh nguồn";
 "Import" = "Nhập";
 "Verifying..." = "Đang xác minh...";
 "Confirm Import" = "Xác nhận nhập";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Gói cài đặt cục bộ";
 
 "Add" = "Thêm";
+"View" = "Xem";
 "Add Sources" = "Thêm nguồn";
 "Add Multiple" = "Thêm nhiều";
 "Enter Source URL" = "Nhập liên kết của nguồn";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
 "Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
 "Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
-"View" = "Xem";
+"Error while downloading %@: %@" = "Lỗi trong khi tải về %@: %@";
 
 "A total of %d files will be downloaded" = "Tất cả %d tập tin sẽ được tải về";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Ẩn gói trong các phần.";
 
-"Sources" = "Nguồn";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Gói không khả dụng";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Gói bạn yêu cầu không còn nữa.  Nó có thể đã bị xóa khỏi nguồn của bạn hoặc ID gói được yêu cầu không chính xác.";
+
+"%d Seconds" = "%d giây";
+"Download Timeout" = "tải xuống hết thời gian chờ";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Định cấu hình lượng thời gian Zebra sẽ đợi nguồn phản hồi trước khi hết thời gian.";
+"This timer will reset every time Zebra receives new information from a source." = "Đồng hồ bấm giờ này sẽ đặt lại mỗi khi Zebra nhận được thông tin mới từ một nguồn.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";

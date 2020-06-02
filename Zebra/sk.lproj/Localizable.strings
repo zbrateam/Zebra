@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Presunúť všetky repozitára z %@ do Zebry";
 "Utility source for %@" = "Repozitár nástrojov pre %@";
 "Transfer Sources" = "Prenos Repozitárov";
-"Verifying Source" = "Overovanie Zdroja";
-"Verifying Sources" = "Overovanie Zdrojov";
 "Import" = "Importovať";
 "Verifying..." = "Overuje sa...";
 "Confirm Import" = "Potvrďte import";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Lokálne nainštalované balíčky";
 
 "Add" = "Pridať";
+"View" = "View";
 "Add Sources" = "Pridaj Zdroj";
 "Add Multiple" = "Pridať viac";
 "Enter Source URL" = "Zadajte URL adresu zdroja";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Tieto repozitáre ste už pridali.";
 "Unable to locate an APT repository at:" = "Nemožno nájsť úložisko APT na:";
 "Unable to locate APT repositories at:" = "Nemožno nájsť úložiska APT na:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Zdroje";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
