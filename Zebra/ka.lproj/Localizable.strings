@@ -11,25 +11,25 @@
 "Done" = "მზად არის";
 "Loading..." = "იტვირთება...";
 "Clear" = "გასუფთავება";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"An Error Occurred" = "დაფიქსირდა შეცდომა";
+"Dismiss" = "უარყოფა";
+"Downloads" = "ჩამოტვირთულები";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
+"Home" = "მთავარი";
+"Info" = "ინფორმაცია";
+"Welcome to Zebra!" = "კეთილი იყოს თქვენი მობრძანება!";
+"Report a Bug" = "შეგვატყობინეთ შეცდომების შესახებ";
+"Changelog" = "ცვლილებები";
+"Wish List" = "სურვილების სია";
 "Newest First" = "Newest First";
 "Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
+"No items in Wish List" = "ამ სიაში არაა არც ერთი ერთეული";
+"Community" = "საზოგადოება";
+"Join our Discord" = "შემოგვიერთდით Discord_ზე";
 "Follow us on Twitter" = "გამოგვყევით ტვიტერზე";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "დაგვეხმარეთ თარგმნაში!";
 
 // Community Source
 
@@ -38,9 +38,9 @@
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility source for %@" = "კომუნალური წყარო %@-თვის";
 "Transfer Sources" = "Transfer Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Import" = "შემოტანა";
+"Verifying..." = "მიმდინარეობს დადასტურება...";
+"Confirm Import" = "იმპორტის დადასტურება";
 "Import Sources" = "Import Sources";
 "No sources to import" = "No sources to import";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
