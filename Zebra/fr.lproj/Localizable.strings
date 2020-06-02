@@ -155,7 +155,7 @@
 "Locally installed packages" = "Paquets installés";
 
 "Add" = "Ajouter";
-"View" = "View";
+"View" = "Afficher";
 "Add Sources" = "Ajouter des Sources";
 "Add Multiple" = "Ajouter plusieurs";
 "Enter Source URL" = "Entrer l'URL de la source";
@@ -180,7 +180,7 @@
 "You have already added these sources." = "Vous avez déjà ajouté ces sources.";
 "Unable to locate an APT repository at:" = "Impossible de localiser une source APT à :";
 "Unable to locate APT repositories at:" = "Impossible de localiser des sources APT à :";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Erreur lors du téléchargement de %@: %@";
 
 "A total of %d files will be downloaded" = "%d fichiers seront téléchargés au total";
 
@@ -485,9 +485,9 @@
 "Package Not Available" = "Paquet non disponible";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Le paquet que vous demandez n'est plus disponible. Il est possible qu'il ait été supprimé de vos sources ou que l'identifiant du paquet demandé soit incorrect.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d secondes";
+"Download Timeout" = "Délai de téléchargement dépassé";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configurez le temps après lequel Zebra marquera le rafraîchissement de la source comme expiré.";
+"This timer will reset every time Zebra receives new information from a source." = "Ce minuteur sera réinitialisé à chaque fois que Zebra recevra de nouvelles informations d'une source.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Les informations du compte n'ont pas pu être récupérées à partir de la source. Veuillez vous déconnecter de la source, vous connecter et réessayer.";
