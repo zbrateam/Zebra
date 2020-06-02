@@ -67,7 +67,7 @@
 "Text" = "Teks";
 "Icon" = "Ikon";
 "Finish Automatically" = "Otomatis Selesai";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Selalu Instal Terbaru";
 "Automatic Refresh" = "Otomatis Refresh";
 
 // Accent Colors
@@ -155,7 +155,7 @@
 "Locally installed packages" = "Paket Lokal terinstall";
 
 "Add" = "Tambah";
-"View" = "View";
+"View" = "Lihat";
 "Add Sources" = "Tambahkan Sumber";
 "Add Multiple" = "Tambahkan Beberapa";
 "Enter Source URL" = "Masukkan URL Sumber";
@@ -180,7 +180,7 @@
 "You have already added these sources." = "Kamu sudah menambahkan sumber ini.";
 "Unable to locate an APT repository at:" = "Tidak dapat menemukan repositori APT di:";
 "Unable to locate APT repositories at:" = "Tidak dapat menemukan repositori APT di:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Kesalahan saat mengunduh %@: %@";
 
 "A total of %d files will be downloaded" = "Total %d file akan diunduh";
 
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Secara otomatis mengabaikan Konsol ketika semua tugasnya telah selesai.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Selalu instal versi terbaru dari paket jika belum diinstal.";
 
 // Filters
 
@@ -482,12 +482,12 @@
 "Unable to complete purchase" = "Tidak dapat menyelesaikan pembelian";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paket Tidak Tersedia";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paket yang Anda minta tidak lagi tersedia. Itu mungkin telah dihapus dari sumber Anda atau ID paket yang diminta salah.";
 
-"%d Seconds" = "%d Seconds";
+"%d Seconds" = "%d Detik";
 "Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurasikan jumlah waktu Zebra akan menunggu sumber merespons sebelum waktunya habis.";
+"This timer will reset every time Zebra receives new information from a source." = "Timer ini akan mengatur ulang setiap kali Zebra menerima informasi baru dari sumber.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Informasi akun tidak dapat diambil dari sumber. Harap keluar dari sumber, masuk, dan coba lagi.";
