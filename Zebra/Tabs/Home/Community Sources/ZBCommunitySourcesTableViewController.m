@@ -155,7 +155,7 @@
 
 - (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice isMystery]) {
+    if ([ZBDevice isOdyssey]) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",
@@ -163,9 +163,9 @@
         if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
         
         NSDictionary *dict2 = @{@"type": @"utility",
-                               @"name": @"Mystery",
-                               @"url" : @"https://myste.ry/repo/",
-                               @"icon": @"https://myste.ry/repo/CydiaIcon.png"};
+                               @"name": @"Odyssey",
+                               @"url" : @"https://repo.theodyssey.dev/",
+                               @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
         if (![ZBSource exists:dict2[@"url"]]) [result addObject:dict2];
     }
     else if ([ZBDevice isChimera]) {
