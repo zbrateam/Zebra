@@ -67,7 +67,7 @@
 "Text" = "Testo";
 "Icon" = "Icona";
 "Finish Automatically" = "Termina automaticamente";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Installa sempre l'ultima versione";
 "Automatic Refresh" = "Aggiornamento Automatico";
 
 // Accent Colors
@@ -155,7 +155,7 @@
 "Locally installed packages" = "Pacchetti installati localmente";
 
 "Add" = "Aggiungi";
-"View" = "View";
+"View" = "Vedi";
 "Add Sources" = "Aggiungi Sorgenti";
 "Add Multiple" = "Aggiungi Multiple";
 "Enter Source URL" = "Inserire URL sorgente";
@@ -487,7 +487,7 @@
 
 "%d Seconds" = "%d Secondi";
 "Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Scegli il lasso di tempo in cui Zebra aspetterà una risposta della sorgente prima di fallire.";
+"This timer will reset every time Zebra receives new information from a source." = "Questo timer si ripristinerà ogni volta che Zebra riceve nuove informazioni da una sorgente.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Impossibile recuperare le informazioni dell’account dalla sorgente. Esci dalla sorgente, effettua il login e riprova.";
