@@ -485,9 +485,9 @@
 "Package Not Available" = "ǝןqɐןıɐʌ∀ ʇoN ǝƃɐʞɔɐԀ";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "˙ʇɔǝɹɹoɔuı sɐʍ pǝʇsǝnbǝɹ ᗡI ǝƃɐʞɔɐd ǝɥʇ ɹo sǝɔɹnos ɹnoʎ ɯoɹɟ pǝʌoɯǝɹ uǝǝq ǝʌɐɥ ʇɥƃıɯ ʇI ˙ǝןqɐןıɐʌɐ ɹǝƃuoן ou sı ʇsǝnbǝɹ noʎ ǝƃɐʞɔɐd ǝɥ⊥";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "spuoɔǝS %d";
+"Download Timeout" = "ʇnoǝɯı⊥ pɐoןuʍoᗡ";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "˙ʇno ƃuıɯıʇ ǝɹoɟǝq puodsǝɹ oʇ ǝɔɹnos ɐ ɹoɟ ʇıɐʍ ןןıʍ ɐɹqǝZ ǝɯıʇ ɟo ʇunoɯɐ ǝɥʇ ǝɹnƃıɟuoϽ";
+"This timer will reset every time Zebra receives new information from a source." = "˙ǝɔɹnos ɐ ɯoɹɟ uoıʇɐɯɹoɟuı ʍǝu sǝʌıǝɔǝɹ ɐɹqǝZ ǝɯıʇ ʎɹǝʌǝ ʇǝsǝɹ ןןıʍ ɹǝɯıʇ sıɥ⊥";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "˙uıɐƃɐ ʎɹʇ puɐ 'uı uƃıs 'ǝɔɹnos ǝɥʇ ɟo ʇno uƃıs ǝsɐǝןԀ ˙ǝɔɹnos ǝɥʇ ɯoɹɟ pǝʌǝıɹʇǝɹ ǝq ʇou pןnoɔ uoıʇɐɯɹoɟuı ʇunoɔɔ∀";
