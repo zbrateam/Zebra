@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Przenieś wszystkie źródła z %@ do Zebry";
 "Utility source for %@" = "Użyteczne źródło dla %@";
 "Transfer Sources" = "Przenieś źródła";
-"Verifying Source" = "Weryfikowanie źródła";
-"Verifying Sources" = "Weryfikowanie źródeł";
 "Import" = "Importuj";
 "Verifying..." = "Weryfikowanie...";
 "Confirm Import" = "Potwierdź import";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Lokalnie zainstalowane pakiety";
 
 "Add" = "Dodaj";
+"View" = "Widok";
 "Add Sources" = "Dodaj źródła";
 "Add Multiple" = "Dodaj wiele";
 "Enter Source URL" = "Wprowadź URL źródła";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Te źródła zostały już dodane.";
 "Unable to locate an APT repository at:" = "Nie można zlokalizować repozytorium APT na:";
 "Unable to locate APT repositories at:" = "Nie można zlokalizować repozytoriów APT na:";
-"View" = "Widok";
+"Error while downloading %@: %@" = "Wystąpił błąd podczas pobierania %@: %@";
 
 "A total of %d files will be downloaded" = "Zostaną pobrane %d plik/i";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Wybierz sekcję";
 "Hide packages in these sections." = "Ukryj pakiety w tych sekcjach.";
 
-"Sources" = "Źródła";
 "Select a Source" = "Wybierz źródło";
 "Hide packages in these sections from specific sources." = "Ukryj pakiety z określonych źródeł w tych sekcjach.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Pakiet niedostępny";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pakiet, który próbujesz zainstalować, nie jest już dostępny. Mógł zostać usunięty z twoich źródeł lub jego identyfikator jest nieprawidłowy.";
+
+"%d Seconds" = "%d sekund";
+"Download Timeout" = "Przekroczono limit czasu pobierania";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Skonfiguruj limit czasu oczekiwania Zebry na odpowiedź źródła.";
+"This timer will reset every time Zebra receives new information from a source." = "Ten zegar zresetuje się za każdym razem, gdy Zebra otrzyma nowe informacje ze źródła.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Nie udało się pobrać informacji o koncie ze źródła. Proszę wylogować się ze źródła, zalogować jeszcze raz i spróbować ponownie.";

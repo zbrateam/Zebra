@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Overfør kilder fra %@ til Zebra";
 "Utility source for %@" = "Verktøyskilde for %@";
 "Transfer Sources" = "Overfør kilder";
-"Verifying Source" = "Verifiserer kilde";
-"Verifying Sources" = "Verifiserer kilder";
 "Import" = "Importer";
 "Verifying..." = "Verifiserer...";
 "Confirm Import" = "Bekreft importering";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Lokalt installerte pakker";
 
 "Add" = "Legg til";
+"View" = "Vis";
 "Add Sources" = "Legg til kilder";
 "Add Multiple" = "Legg til flere";
 "Enter Source URL" = "Skriv inn kildenettadresse";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Unable to locate an APT repository at:" = "Kunne ikke finne et APT-kilde på:";
 "Unable to locate APT repositories at:" = "Kunne ikke finne APT-kilder på:";
-"View" = "Vis";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "%d filer vil lastes ned";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Velg en seksjon";
 "Hide packages in these sections." = "Skjul pakkene i disse seksjonene.";
 
-"Sources" = "Kilder";
 "Select a Source" = "Velg en kilde";
 "Hide packages in these sections from specific sources." = "Skjul pakkene i disse seksjonene fra spesifikke kilder.";
 
@@ -484,5 +482,12 @@
 "Unable to complete purchase" = "Kunne ikke fullføre kjøpet";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pakken er utilgjengelig";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pakken du ber om er utilgjengelig. Den kan ha blitt fjernet fra vertskilden eller så ble feil pakke-ID forespurt.";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";

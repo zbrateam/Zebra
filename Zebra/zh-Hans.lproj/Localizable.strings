@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "将 %@ 中所有的软件源转移至 Zebra";
 "Utility source for %@" = "%@ 的工具软件源";
 "Transfer Sources" = "导入软件源";
-"Verifying Source" = "正在验证软件源";
-"Verifying Sources" = "正在验证软件源";
 "Import" = "导入";
 "Verifying..." = "正在验证……";
 "Confirm Import" = "确认导入";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "本地已安装软件包";
 
 "Add" = "添加";
+"View" = "查看";
 "Add Sources" = "添加软件源";
 "Add Multiple" = "批量添加";
 "Enter Source URL" = "输入软件源地址";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "你已经添加过这些软件源";
 "Unable to locate an APT repository at:" = "无法找到 APT 软件源：";
 "Unable to locate APT repositories at:" = "无法找到 APT 软件源：";
-"View" = "查看";
+"Error while downloading %@: %@" = "下载 %@ 时出错：%@";
 
 "A total of %d files will be downloaded" = "总共将下载%d个文件";
 
@@ -283,7 +282,7 @@
 "Multimedia" = "多媒体";
 "Navigation" = "导航";
 "Networking" = "网络";
-"Packaging" = "打包";
+"Packaging" = "软件包管理";
 "Productivity" = "生产力";
 "Repositories" = "软件源";
 "Ringtones" = "铃声";
@@ -457,7 +456,6 @@
 "Select a Section" = "选择类别";
 "Hide packages in these sections." = "隐藏这些分类的软件包";
 
-"Sources" = "软件源";
 "Select a Source" = "选择软件源";
 "Hide packages in these sections from specific sources." = "在特定软件源中隐藏这些特定的软件包分类";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "软件包不存在";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "你请求的软件包不存在，可能已经从软件源中被移除，或者请求的软件包ID不正确。";
+
+"%d Seconds" = "%d 秒";
+"Download Timeout" = "下载超时";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "配置 Zebra 等待软件源响应超时的时长";
+"This timer will reset every time Zebra receives new information from a source." = "每次 Zebra 从软件源获取更新时会重置此计时器";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "无法从软件源获取账户信息，请尝试登出该源并重新登录";

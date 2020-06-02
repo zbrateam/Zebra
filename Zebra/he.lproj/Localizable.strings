@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "ייבא את כל המקורות מ-%@ לזברה";
 "Utility source for %@" = "מקור כלים עבור %@";
 "Transfer Sources" = "ייבוא מקורות";
-"Verifying Source" = "מאמת מקור";
-"Verifying Sources" = "מאמת מקורות";
 "Import" = "ייבוא";
 "Verifying..." = "מאמת...";
 "Confirm Import" = "אשר ייבוא";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "חבילות שהותקנו מקומית";
 
 "Add" = "הוסף";
+"View" = "הצג";
 "Add Sources" = "הוסף מקורות";
 "Add Multiple" = "הוסף מרובים";
 "Enter Source URL" = "הזן/י כתובת מקור";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "כבר הוספת את המקורות האלו.";
 "Unable to locate an APT repository at:" = "לא ניתן לאתר מקור APT ב:";
 "Unable to locate APT repositories at:" = "לא ניתן לאתר מקורות APT ב:";
-"View" = "הצג";
+"Error while downloading %@: %@" = "תקלה בעת הורדת %@: %@";
 
 "A total of %d files will be downloaded" = "יורדו %d קבצים";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "בחר קטגוריה";
 "Hide packages in these sections." = "הסתר חבילות בקטגוריות אלו.";
 
-"Sources" = "מקורות";
 "Select a Source" = "בחר מקור";
 "Hide packages in these sections from specific sources." = "הסתר חבילות בקטגוריות אלו ממקורות ספציפיים.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "חבילה לא זמינה";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "החבילה שביקשת אינה זמינה יותר. ייתכן שהוסרה מהמקורות שלך או שמזהה החבילה היה שגוי.";
+
+"%d Seconds" = "%d שניות";
+"Download Timeout" = "תם הזמן הקצוב להורדה";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "הגדר את פרק הזמן שזברה תמתין לתגובה ממקור.";
+"This timer will reset every time Zebra receives new information from a source." = "שעון עצר זה יאופס בכל פעם שזברה תקבל מידע חדש ממקור.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "לא ניתן להשיג מידע אודות החשבון מהמקור. אנא התנתק/י מהמקור, התחבר/י חזרה, ונסה/י שוב.";

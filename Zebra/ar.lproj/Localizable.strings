@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "نقل المصادر من %@ إلى Zebra";
 "Utility source for %@" = "مصدر الأداة المساعدة لـ %@";
 "Transfer Sources" = "تحويل المصادر";
-"Verifying Source" = "جارِ التحقق من المصدر";
-"Verifying Sources" = "جارِ التحقق من المصادر";
 "Import" = "استيراد";
 "Verifying..." = "جارِ التحقق...";
 "Confirm Import" = "تأكيد الاستيراد";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "الحزم المثبتة محليًا";
 
 "Add" = "إضافة";
+"View" = "عرض";
 "Add Sources" = "إضافة مصادر";
 "Add Multiple" = "إضافة متعددة";
 "Enter Source URL" = "أدخل عنوان URL المصدر";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "لقد أضفت هذه المصادر بالفعل.";
 "Unable to locate an APT repository at:" = "غير قادر على تحديد موقع APT مستودع على:";
 "Unable to locate APT repositories at:" = "غير قادر على تحديد موقع APT مستودعات على:";
-"View" = "عرض";
+"Error while downloading %@: %@" = "حدث خطأ أثناء تنزيل %@: %@";
 
 "A total of %d files will be downloaded" = "سيتم تنزيل مجموعة من ملفات %d";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "حدد قسم";
 "Hide packages in these sections." = "إخفاء الحزم في هذه الأقسام.";
 
-"Sources" = "المصادر";
 "Select a Source" = "حدد مصدر";
 "Hide packages in these sections from specific sources." = "إخفاء الحزم في هذه الأقسام من مصادر محددة.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "الحزمة غير متوفرة";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "الحزمة التي طلبتها لم تعد متاحة. ربما قد تم إزالتها من مصادرك أو أن معرف الحزمة المطلوب غير صحيح.";
+
+"%d Seconds" = "%d ثانية";
+"Download Timeout" = "انتهت مهلة التنزيل";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "قم بإعداد الوقت الذي سينتظره Zebra حتى يستجيب المصدر قبل انتهاء المهلة.";
+"This timer will reset every time Zebra receives new information from a source." = "سيتم إعادة تعيين هذا المؤقت في كل مرة يتلقى فيها Zebra معلومات جديدة من المصدر.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "تعذر استرداد معلومات الحساب من المصدر. يرجى تسجيل الخروج من المصدر ثم تسجيل الدخول مرة أخرى والمحاولة مجددًا.";
