@@ -67,8 +67,8 @@
 "Text" = "Tekst";
 "Icon" = "Ikona";
 "Finish Automatically" = "Završi Automatski";
-"Always Install Latest" = "Always Install Latest";
-"Automatic Refresh" = "Automatic Refresh";
+"Always Install Latest" = "Uvijek instaliraj najnovije";
+"Automatic Refresh" = "Automatsko osvježavanje";
 
 // Accent Colors
 
@@ -136,11 +136,11 @@
 "Sign Out" = "Odjavite se";
 "Your Purchases" = "Vaše Kupovine";
 "No Storefronts Available" = "Nema istaknutih izloga";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Nije bilo moguće provjeriti autentičnost";
 "Could not complete purchase" = "Narudžba nije mogla biti izvršena";
 "No packages purchased" = "Nema kupljenih proizvoda";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Prijavljeni kao %@";
+"Signed in as %@ (%@)" = "Prijavljeni kao %@ (%@)";
 
 // Sources
 
@@ -150,12 +150,12 @@
 "Refresh" = "Osvježi";
 "All Packages" = "Svi Paketi";
 "Remove Source" = "Ukloni izvor";
-"Local File" = "Local File";
+"Local File" = "Lokalna datoteka";
 "Local Repository" = "Lokalno Spremište";
 "Locally installed packages" = "Lokalno instalirani paketi";
 
 "Add" = "Dodaj";
-"View" = "View";
+"View" = "Pregled";
 "Add Sources" = "Dodaj izvore";
 "Add Multiple" = "Višestruko dodavanje";
 "Enter Source URL" = "Unesite URL izvora";
@@ -180,21 +180,21 @@
 "You have already added these sources." = "Već ste dodali ove izvore.";
 "Unable to locate an APT repository at:" = "Nije moguće locirati APT skladišta u:";
 "Unable to locate APT repositories at:" = "Nije moguće locirati APT skladišta u:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Greška pri preuzimanju %@: %@";
 
 "A total of %d files will be downloaded" = "Datoteka za preuzimanje: %d";
 
 "Could not parse %@ from %@" = "Ne može rasčlaniti %@ iz %@";
 "Could not find a download URL for" = "Ne mogu pronaći URL preuzimanje za";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "Autorizacija preuzimanja za %@";
+"Couldn't authorize download for %@." = "Nije bilo moguće autorizirati preuzimanje za %@.";
+"Reason: %@." = "Razlog: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "Sustav plaćanja nije podržan na sustave starije od iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Pogreška pri preuzimanju Release datoteke od %@. Razlog: %@";
 "Could not download Packages file from %@. Reason: %@" = "Pogreška pri preuzimanju od %@. Razlog: %@";
 "Could not download one or more files from %@. Reason: %@" = "Pogreška pri preuzimanju od %@. Razlog: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Greška pri premještanju datoteke od %@ do %@";
 
 "The URL you entered is not valid. Please check it and try again." = "Uneseni URL nije ispravan. Molimo pokušajte ponovno.";
 
@@ -209,17 +209,17 @@
 
 "%@ hasn't been modified" = "%@ nije izmjenjeno";
 
-"Install All" = "Install All";
+"Install All" = "Instaliraj sve";
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Najnovije";
 "Version" = "Inačica";
 "Packages" = "Paketi";
 "Show Updates" = "Prikaži ažuriranja";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Sakrij ažuriranja";
 "Select Version" = "Odaberi verziju";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Odaberite koju verziju želite instalirati:";
 "Select a version to upgrade to:" = "Odaberite na koju se verziju želite nadograditi:";
 "Select a version to downgrade to:" = "Odaberite verziju na koju se želite spustiti:";
 "Package" = "Paket";
@@ -313,7 +313,7 @@
 "Console" = "Konzole";
 "Performing Actions..." = "Izvođenje radnji...";
 "Updating icon cache asynchronously..." = "Ažuriranje predmemorije ikona asinkrono...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache nije dostupan na simulatoru";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Ovo može potrajati i Zebra se može srušiti. To je normalno ukoliko se desi.";
 "Close Zebra" = "Zatvori Zebru";
 "Closing Zebra..." = "Zatvaranje Zebre...";
@@ -341,15 +341,15 @@
 "Finished importing local packages." = "Dovršen uvoz lokalnih paketa.";
 "One or more packages failed to download." = "Pogreška pri preuzimanju jednog ili više paketa.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Kliknite \"Povratak u red\" da biste se vratili u red i pokušali ponovo preuzeti.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Could not complete %@ process. Reason: %@." = "Nije bilo moguće izvršiti %@ proces. Razlog: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Ponovno pokrenite Zebru kako bi ste utvrdili je li greška još uvijek prisutna. Ako je, prijavite ju na našem GitHubu.";
 "Done..." = "Gotovo...";
 "Done %@" = "Dovršeno %@";
 "Removing Zebra..." = "Uklanjanje Zebre...";
 "Installing Zebra..." = "Instaliranje Zebre...";
-"Error while opening file:" = "Error while opening file:";
+"Error while opening file:" = "Greška pri otvaranju datoteke:";
 "Adding Payment Vendor URL for %@" = "Dodavanje URL-a dobavljača plaćanja za %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Ovaj uređaj je simuliran, ovdje su paketi koji bi bili modificirani u ovom trenutku:";
 
 // Queue Bar
 
@@ -376,7 +376,7 @@
 "Remove from Queue" = "Ukloni iz Liste";
 "Clear Queue" = "Očisti red čekanja";
 "%@ is required by:" = "%@ je potreban od strane:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"\"%@\" conflicts with %@" = "\"%@\" se sukobljava s %@";
 "%@ must be removed because it depends on %@" = "%@ mora biti uklonjeno jer ovisi o %@";
 "%@ has issues that cannot be resolved:" = "%@ ima probleme koji se ne mogu riješiti:";
 "Are you sure you want to clear the Queue?" = "Jeste li sigurni da želite očistiti popis?";
@@ -400,13 +400,13 @@
 
 "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nema dopuštenje da podesi uid ili gid. Molimo, potvrdite dopuštenja na datoteke locirane u /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Greška tijekom kreiranja mape datoteke: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Greška pri kreiranju liste mape: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Greška pri kreiranju datoteke sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Greška pri kreiranju mape debs datoteka: %@.";
 
 "Could not respring. Please respring manually." = "Ne mogu respring. Molimo izvršite respring ručno.";
 
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Automatski zatvori konzolu kada se svi zadatci dovrše.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Uvijek instaliraj najnoviju verziju paketa ako već nije instalirana.";
 
 // Filters
 
