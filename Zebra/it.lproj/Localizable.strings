@@ -180,7 +180,7 @@
 "You have already added these sources." = "Hai già aggiunto queste sorgenti.";
 "Unable to locate an APT repository at:" = "Nessuna repo APT trovata al link:";
 "Unable to locate APT repositories at:" = "Nessuna repo APT trovata al link:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Errore durante il download di %@: %@";
 
 "A total of %d files will be downloaded" = "Un totale di %d file saranno scaricati";
 
@@ -442,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Chiudi automaticamente la Console quando tutti i suoi processi sono stati completati.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Installa sempre la versione più recente di un pacchetto se non è già installato.";
 
 // Filters
 
@@ -479,13 +479,13 @@
 "You are adding a repository that is not secure" = "Stai aggiungendo una repository che non è sicura";
 "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "I dati scaricati da questa repository potrebbero non essere crittografati. Sei sicuro di volerla aggiungere?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Impossibile completare l’acquisto";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pacchetto non disponibile";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Il pacchetto che hai richiesto non è più disponibile. Potrebbe essere stato rimosso dalle tue sorgenti o l’ID del pacchetto richiesto non è corretto.";
 
-"%d Seconds" = "%d Seconds";
+"%d Seconds" = "%d Secondi";
 "Download Timeout" = "Download Timeout";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
 "This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
