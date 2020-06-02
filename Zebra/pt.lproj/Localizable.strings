@@ -486,8 +486,8 @@
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "O pacote que solicitou já não está disponível. Pode ter sido removido das fontes ou o ID do pacote solicitado está incorreto.";
 
 "%d Seconds" = "%d Segundos";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"Download Timeout" = "Fim do tempo limite de Download";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configurar o tempo que o Zebra irá aguardar uma fonte para responder antes do tempo limite.";
+"This timer will reset every time Zebra receives new information from a source." = "O temporizador será redefinido sempre que o Zebra receber novas informações de uma fonte.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Não foi possível obter as informações da conta da fonte. Por favor, saia da fonte, faça o login e tente novamente.";
