@@ -14,6 +14,7 @@
     UISearchController *searchControlller;
     NSMutableArray <ZBBaseSource *> *sources;
     NSArray <ZBBaseSource *> *filteredSources;
+    BOOL searchTermIsEmpty;
 }
 @end
 
@@ -35,6 +36,7 @@
         searchControlller.searchBar.placeholder = @"Enter a Source Name or URL";
         searchControlller.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
+        searchTermIsEmpty = YES;
         [self downloadSources];
     }
     
@@ -88,11 +90,15 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return searchTermIsEmpty ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : filteredSources.count;
+    if (searchTermIsEmpty) {
+        return 0;
+    } else {
+        return section == 0 ? 1 : filteredSources.count;
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -129,10 +135,12 @@
     NSString *term = searchController.searchBar.text;
     if ([[term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
         filteredSources = [sources copy];
+        searchTermIsEmpty = YES;
     }
     else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"repositoryURI contains[c] %@ OR label contains[c] %@", term, term];
         filteredSources = [sources filteredArrayUsingPredicate:predicate];
+        searchTermIsEmpty = NO;
     }
     
     [self.tableView reloadData];
