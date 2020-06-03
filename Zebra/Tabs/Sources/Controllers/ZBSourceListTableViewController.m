@@ -8,7 +8,7 @@
 
 #import "ZBSourceImportTableViewController.h"
 #import "ZBSourceListTableViewController.h"
-#import "ZBAddSourceViewController.h"
+#import "ZBSourceAddViewController.h"
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
@@ -272,7 +272,10 @@
 #pragma mark - Navigation Buttons
 
 - (void)addSource:(id)sender {
-    [self showAddSourceAlert:nil];
+    ZBSourceAddViewController *controller = [[ZBSourceAddViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
+    
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 - (void)editMode:(id)sender {
@@ -381,140 +384,140 @@
 
 #pragma mark - Adding a Source
 
-- (void)showAddSourceAlert:(NSString *_Nullable)placeholder {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Source URL", @"") message:nil preferredStyle:UIAlertControllerStyleAlert];
-    alertController.view.tintColor = [UIColor accentColor];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
-    UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if ([urlString hasPrefix:@"http:"]) {
-            // Warn user for insecure source (has low self esteem)
-            UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSString *repoString = [urlString copy];
-                if (![repoString hasSuffix:@"/"]) {
-                    repoString = [repoString stringByAppendingString:@"/"];
-                }
-                
-                NSURL *sourceURL = [NSURL URLWithString:repoString];
-                [self checkSourceURL:sourceURL];
-            }];
-            [insecureSource addAction:addInsecure];
-            
-            UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [self showAddSourceAlert:urlString];
-            }];
-            [insecureSource addAction:edit];
-            
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-            [insecureSource addAction:cancel];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self presentViewController:insecureSource animated:YES completion:nil];
-            });
-            return;
-        }
-        
-        if (![urlString hasSuffix:@"/"]) {
-            urlString = [urlString stringByAppendingString:@"/"];
-        }
-        
-        NSURL *sourceURL = [NSURL URLWithString:urlString];
-        [self checkSourceURL:sourceURL];
-    }];
-    
-    [alertController addAction:add];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
-        
-        [self presentViewController:controller animated:YES completion:nil];
-    }]];
-    
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        if (placeholder != nil) {
-            textField.text = placeholder;
-            [add setEnabled:YES];
-        } else {
-            textField.text = @"https://";
-            [add setEnabled:NO];
-        }
-        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        textField.autocorrectionType = UITextAutocorrectionTypeNo;
-        textField.keyboardType = UIKeyboardTypeURL;
-        textField.returnKeyType = UIReturnKeyNext;
-        [[ZBThemeManager sharedInstance] configureTextField:textField];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
-    }];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
+//- (void)showAddSourceAlert:(NSString *_Nullable)placeholder {
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Enter Source URL", @"") message:nil preferredStyle:UIAlertControllerStyleAlert];
+//    alertController.view.tintColor = [UIColor accentColor];
+//
+//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
+//    UIAlertAction *add = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        NSString *urlString = [alertController.textFields[0].text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        if ([urlString hasPrefix:@"http:"]) {
+//            // Warn user for insecure source (has low self esteem)
+//            UIAlertController *insecureSource = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"You are adding a repository that is not secure", @"") message:NSLocalizedString(@"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?", @"") preferredStyle:UIAlertControllerStyleAlert];
+//
+//            UIAlertAction *addInsecure = [UIAlertAction actionWithTitle:NSLocalizedString(@"Add", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                NSString *repoString = [urlString copy];
+//                if (![repoString hasSuffix:@"/"]) {
+//                    repoString = [repoString stringByAppendingString:@"/"];
+//                }
+//
+//                NSURL *sourceURL = [NSURL URLWithString:repoString];
+//                [self checkSourceURL:sourceURL];
+//            }];
+//            [insecureSource addAction:addInsecure];
+//
+//            UIAlertAction *edit = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                [self showAddSourceAlert:urlString];
+//            }];
+//            [insecureSource addAction:edit];
+//
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//            [insecureSource addAction:cancel];
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self presentViewController:insecureSource animated:YES completion:nil];
+//            });
+//            return;
+//        }
+//
+//        if (![urlString hasSuffix:@"/"]) {
+//            urlString = [urlString stringByAppendingString:@"/"];
+//        }
+//
+//        NSURL *sourceURL = [NSURL URLWithString:urlString];
+//        [self checkSourceURL:sourceURL];
+//    }];
+//
+//    [alertController addAction:add];
+//
+//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Add Multiple", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:alertController.textFields[0].text delegate:self];
+//
+//        [self presentViewController:controller animated:YES completion:nil];
+//    }]];
+//
+//    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+//        if (placeholder != nil) {
+//            textField.text = placeholder;
+//            [add setEnabled:YES];
+//        } else {
+//            textField.text = @"https://";
+//            [add setEnabled:NO];
+//        }
+//        textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//        textField.autocorrectionType = UITextAutocorrectionTypeNo;
+//        textField.keyboardType = UIKeyboardTypeURL;
+//        textField.returnKeyType = UIReturnKeyNext;
+//        [[ZBThemeManager sharedInstance] configureTextField:textField];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:UITextFieldTextDidChangeNotification object:textField];
+//    }];
+//
+//    [self presentViewController:alertController animated:YES completion:nil];
+//}
 
-- (void)textDidChange:(NSNotification *)notification {
-    UIAlertController * alertController = (UIAlertController *)self.presentedViewController;
-    UITextField *textField = alertController.textFields.firstObject;
-    UIAlertAction * add = alertController.actions[1];
-    
-    // This will be useful when pasting the url in text field
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){2}" options:NSRegularExpressionCaseInsensitive
-    error:nil];
-    NSTextCheckingResult *match = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
-    if (match) {
-        if ([textField.text hasPrefix:@"https"]) {
-            textField.text = [textField.text substringFromIndex:8];
-        } else {
-            textField.text = [textField.text substringFromIndex:7];
-        }
-    }
-    
-    // check if it is URL or not
-    regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){1}((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
-    error:nil];
-    NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
-    
-    [add setEnabled:isURL];
-}
+//- (void)textDidChange:(NSNotification *)notification {
+//    UIAlertController * alertController = (UIAlertController *)self.presentedViewController;
+//    UITextField *textField = alertController.textFields.firstObject;
+//    UIAlertAction * add = alertController.actions[1];
+//
+//    // This will be useful when pasting the url in text field
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){2}" options:NSRegularExpressionCaseInsensitive
+//    error:nil];
+//    NSTextCheckingResult *match = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
+//    if (match) {
+//        if ([textField.text hasPrefix:@"https"]) {
+//            textField.text = [textField.text substringFromIndex:8];
+//        } else {
+//            textField.text = [textField.text substringFromIndex:7];
+//        }
+//    }
+//
+//    // check if it is URL or not
+//    regex = [NSRegularExpression regularExpressionWithPattern:@"(http(s)?://){1}((\\w)|([0-9])|([-|_]))+(\\.|/)+((\\w)|([0-9])|([-|_]))+" options:NSRegularExpressionCaseInsensitive
+//    error:nil];
+//    NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
+//
+//    [add setEnabled:isURL];
+//}
 
-- (void)checkSourceURL:(NSURL *)sourceURL {
-    ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
-    if (!baseSource) {
-        UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-        [malformed addAction:ok];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:malformed animated:YES completion:nil];
-        });
-    }
-    else if ([baseSource exists]) {
-        //You have already added this source.
-        UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-        [youAlreadyAdded addAction:cancelAction];
-
-        UIAlertAction *viewAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"View", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            NSInteger pos = [self->sourceIndexes[baseSource.baseFilename] integerValue];
-            NSIndexPath *indexPath = [self indexPathForPosition:pos];
-
-            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
-        }];
-        [youAlreadyAdded addAction:viewAction];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self presentViewController:youAlreadyAdded animated:YES completion:nil];
-        });
-    }
-    else {
-        if (baseSource) {
-            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
-        }
-    }
-}
+//- (void)checkSourceURL:(NSURL *)sourceURL {
+//    ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:sourceURL];
+//    if (!baseSource) {
+//        UIAlertController *malformed = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Invalid URL", @"") message:NSLocalizedString(@"The URL you entered is not valid. Please check it and try again.", @"") preferredStyle:UIAlertControllerStyleAlert];
+//
+//        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+//        [malformed addAction:ok];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self presentViewController:malformed animated:YES completion:nil];
+//        });
+//    }
+//    else if ([baseSource exists]) {
+//        //You have already added this source.
+//        UIAlertController *youAlreadyAdded = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Failed to add source", @"") message:NSLocalizedString(@"You have already added this source.", @"") preferredStyle:UIAlertControllerStyleAlert];
+//
+//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//        [youAlreadyAdded addAction:cancelAction];
+//
+//        UIAlertAction *viewAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"View", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            NSInteger pos = [self->sourceIndexes[baseSource.baseFilename] integerValue];
+//            NSIndexPath *indexPath = [self indexPathForPosition:pos];
+//
+//            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+//            [self tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+//        }];
+//        [youAlreadyAdded addAction:viewAction];
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self presentViewController:youAlreadyAdded animated:YES completion:nil];
+//        });
+//    }
+//    else {
+//        if (baseSource) {
+//            [self verifyAndAdd:[NSSet setWithObject:baseSource]];
+//        }
+//    }
+//}
 
 #pragma mark - Table View Helper Methods
 
@@ -651,32 +654,33 @@
     NSString *path = [url path];
     
     if (![path isEqualToString:@""]) {
-        NSArray *components = [path pathComponents];
-        if ([components count] == 2) {
-            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-            NSURL *url = [NSURL URLWithString:pasteboard.string];
-            BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
-            if (!isValidURL) {
-                [self showAddSourceAlert:nil];
-            } else {
-                [self showAddSourceAlert:[url absoluteString]];
-            }
-        } else if ([components count] >= 4) {
-            NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
-            
-            NSURL *url;
-            if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
-                url = [NSURL URLWithString:urlString];
-            } else {
-                url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
-            }
-            
-            if (url && url.scheme && url.host) {
-                [self showAddSourceAlert:[url absoluteString]]; //This should probably be changed
-            } else {
-                [self showAddSourceAlert:NULL];
-            }
-        }
+        // TODO: Re-Implement
+//        NSArray *components = [path pathComponents];
+//        if ([components count] == 2) {
+//            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//            NSURL *url = [NSURL URLWithString:pasteboard.string];
+//            BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
+//            if (!isValidURL) {
+//                [self showAddSourceAlert:nil];
+//            } else {
+//                [self showAddSourceAlert:[url absoluteString]];
+//            }
+//        } else if ([components count] >= 4) {
+//            NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
+//
+//            NSURL *url;
+//            if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
+//                url = [NSURL URLWithString:urlString];
+//            } else {
+//                url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
+//            }
+//
+//            if (url && url.scheme && url.host) {
+//                [self showAddSourceAlert:[url absoluteString]]; //This should probably be changed
+//            } else {
+//                [self showAddSourceAlert:NULL];
+//            }
+//        }
     }
 }
 
@@ -718,49 +722,49 @@
         });
     }
     else if ([imaginarySources count]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self->verifyPopup dismissViewControllerAnimated:YES completion:^{
-                NSMutableArray *urls = [NSMutableArray new];
-
-                NSMutableString *message = [NSMutableString new];
-                NSString *title;
-                BOOL multiple = [imaginarySources count] > 1;
-                if (multiple) {
-                    title = NSLocalizedString(@"Failed to add sources", @"");
-                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
-                }
-                else {
-                    title = NSLocalizedString(@"Failed to add source", @"");
-                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
-                }
-                [message appendString:@"\n"];
-
-                for (ZBBaseSource *source in imaginarySources) {
-                    [urls addObject:[source repositoryURI]];
-                }
-                [message appendString:[urls componentsJoinedByString:@"\n"]];
-
-                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-
-                [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
-
-                UIAlertAction *editAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    if (multiple) {
-                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
-
-                        [self presentViewController:controller animated:YES completion:nil];
-                    }
-                    else {
-                        [self showAddSourceAlert:urls[0]];
-                    }
-                }];
-                [errorPopup addAction:editAction];
-
-                [errorPopup setPreferredAction:editAction];
-
-                [self presentViewController:errorPopup animated:YES completion:nil];
-            }];
-        });
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self->verifyPopup dismissViewControllerAnimated:YES completion:^{
+//                NSMutableArray *urls = [NSMutableArray new];
+//
+//                NSMutableString *message = [NSMutableString new];
+//                NSString *title;
+//                BOOL multiple = [imaginarySources count] > 1;
+//                if (multiple) {
+//                    title = NSLocalizedString(@"Failed to add sources", @"");
+//                    [message appendString:NSLocalizedString(@"Unable to locate APT repositories at:", @"")];
+//                }
+//                else {
+//                    title = NSLocalizedString(@"Failed to add source", @"");
+//                    [message appendString:NSLocalizedString(@"Unable to locate an APT repository at:", @"")];
+//                }
+//                [message appendString:@"\n"];
+//
+//                for (ZBBaseSource *source in imaginarySources) {
+//                    [urls addObject:[source repositoryURI]];
+//                }
+//                [message appendString:[urls componentsJoinedByString:@"\n"]];
+//
+//                UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+//
+//                [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
+//
+//                UIAlertAction *editAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Edit", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    if (multiple) {
+//                        UINavigationController *controller = [ZBAddSourceViewController controllerWithText:[urls componentsJoinedByString:@"\n"] delegate:self];
+//
+//                        [self presentViewController:controller animated:YES completion:nil];
+//                    }
+//                    else {
+//                        [self showAddSourceAlert:urls[0]];
+//                    }
+//                }];
+//                [errorPopup addAction:editAction];
+//
+//                [errorPopup setPreferredAction:editAction];
+//
+//                [self presentViewController:errorPopup animated:YES completion:nil];
+//            }];
+//        });
     }
 }
 
