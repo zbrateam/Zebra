@@ -34,7 +34,7 @@
         searchControlller.obscuresBackgroundDuringPresentation = NO;
         searchControlller.searchResultsUpdater = self;
         searchControlller.delegate = self;
-        searchControlller.searchBar.placeholder = @"Enter a Source Name or URL";
+        searchControlller.searchBar.placeholder = @"Source Name or URL";
         searchControlller.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         searchTermIsEmpty = YES;
@@ -117,7 +117,8 @@
         ZBBaseSource *source = filteredSources[indexPath.row];
         cell.sourceLabel.text = source.label;
         cell.urlLabel.text = source.repositoryURI;
-        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];    }
+        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    }
     
     return cell;
 }
