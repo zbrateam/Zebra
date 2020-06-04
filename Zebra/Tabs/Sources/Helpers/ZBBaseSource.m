@@ -37,6 +37,7 @@
 
 @synthesize verificationStatus;
 @synthesize label;
+@synthesize iconURL;
 
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
@@ -139,6 +140,7 @@
         NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
         NSString *schemeless = [mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
         self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        self->iconURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"];
     }
     
     return self;

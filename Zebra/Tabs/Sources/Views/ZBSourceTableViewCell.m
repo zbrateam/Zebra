@@ -9,6 +9,7 @@
 #import "ZBSourceTableViewCell.h"
 #import <UIColor+GlobalColors.h>
 #import <ZBBaseSource.h>
+@import SDWebImage;
 
 @interface ZBSourceTableViewCell () {
     UIActivityIndicatorView *spinner;
@@ -19,6 +20,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.backgroundColor = [UIColor cellBackgroundColor];
+    self.sourceLabel.textColor = [UIColor primaryTextColor];
+    self.urlLabel.textColor = [UIColor secondaryTextColor];
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
@@ -50,11 +54,7 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
-    
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-    self.backgroundColor = [UIColor cellBackgroundColor];
-    self.sourceLabel.textColor = [UIColor primaryTextColor];
-    self.urlLabel.textColor = [UIColor secondaryTextColor];
+    [self.iconImageView sd_cancelCurrentImageLoad];
 }
 
 @end

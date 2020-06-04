@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="sourceTableViewCell" rowHeight="59" id="5cb-z3-1Jc" customClass="ZBSourceTableViewCell">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="59" id="5cb-z3-1Jc" customClass="ZBSourceTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="416" height="59"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5cb-z3-1Jc" id="xDS-c2-OkW">
@@ -23,29 +23,31 @@
                             <constraint firstAttribute="width" secondItem="lz1-B6-foX" secondAttribute="height" multiplier="1:1" id="Kjb-5c-ttQ"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG1-gF-WiI">
-                        <rect key="frame" x="61" y="11" width="329" height="21"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                        <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvT-B5-ng0">
-                        <rect key="frame" x="61" y="32" width="321" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-mE-96S">
+                        <rect key="frame" x="61" y="12" width="317" height="35"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG1-gF-WiI">
+                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source URL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qvT-B5-ng0">
+                                <rect key="frame" x="0.0" y="19.5" width="71.5" height="15.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="DG1-gF-WiI" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="12" id="2go-Eg-dFx"/>
                     <constraint firstItem="lz1-B6-foX" firstAttribute="leading" secondItem="xDS-c2-OkW" secondAttribute="leadingMargin" id="JgW-E1-WDf"/>
-                    <constraint firstItem="qvT-B5-ng0" firstAttribute="trailing" secondItem="xDS-c2-OkW" secondAttribute="trailingMargin" id="PNV-4q-pkO"/>
-                    <constraint firstAttribute="trailing" secondItem="DG1-gF-WiI" secondAttribute="trailing" id="Q8p-ub-HAr"/>
-                    <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="qvT-B5-ng0" secondAttribute="bottom" id="VSq-8J-LQz"/>
-                    <constraint firstItem="qvT-B5-ng0" firstAttribute="top" secondItem="DG1-gF-WiI" secondAttribute="bottom" id="VwX-la-ihP"/>
+                    <constraint firstAttribute="bottom" secondItem="HHL-mE-96S" secondAttribute="bottom" constant="12" id="Sua-pY-gh0"/>
                     <constraint firstItem="lz1-B6-foX" firstAttribute="centerY" secondItem="xDS-c2-OkW" secondAttribute="centerY" id="XIX-Hg-hfl"/>
-                    <constraint firstItem="DG1-gF-WiI" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="top" constant="11" id="nak-8I-r6k"/>
-                    <constraint firstItem="qvT-B5-ng0" firstAttribute="leading" secondItem="DG1-gF-WiI" secondAttribute="leading" id="yo2-If-vkk"/>
+                    <constraint firstItem="HHL-mE-96S" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="12" id="ge3-Xq-ymp"/>
+                    <constraint firstItem="HHL-mE-96S" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="top" constant="12" id="mTd-AP-Cz4"/>
+                    <constraint firstAttribute="trailing" secondItem="HHL-mE-96S" secondAttribute="trailing" constant="12" id="zgC-PO-Xet"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

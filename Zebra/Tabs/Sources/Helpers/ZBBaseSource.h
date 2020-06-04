@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property ZBSourceVerificationStatus verificationStatus;
 @property (nonatomic) NSString *label;
+@property (nonatomic) NSURL *iconURL;
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;

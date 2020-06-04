@@ -7,8 +7,9 @@
 //
 
 #import "ZBSourceAddViewController.h"
-
 #import <Sources/Helpers/ZBBaseSource.h>
+#import "ZBSourceTableViewCell.h"
+@import SDWebImage;
 
 @interface ZBSourceAddViewController () {
     UISearchController *searchControlller;
@@ -79,6 +80,7 @@
     
     self.navigationItem.searchController = searchControlller;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBSourceTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"SourceTableViewCell"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -104,19 +106,18 @@
 #pragma mark - UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"sourceCell"];
-    
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
+
     NSString *searchTerm = searchControlller.searchBar.text;
     if (indexPath.section == 0) {
-        cell.textLabel.text = searchTerm;
+        cell.urlLabel.text = searchTerm;
+        cell.sourceLabel.hidden = YES;
     }
     else {
-        NSString *label = filteredSources[indexPath.row].label;
-        NSString *repositoryURI = filteredSources[indexPath.row].repositoryURI;
-        
-        cell.textLabel.text = label;
-        cell.detailTextLabel.text = repositoryURI;
-    }
+        ZBBaseSource *source = filteredSources[indexPath.row];
+        cell.sourceLabel.text = source.label;
+        cell.urlLabel.text = source.repositoryURI;
+        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];    }
     
     return cell;
 }
