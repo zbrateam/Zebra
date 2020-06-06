@@ -12,7 +12,7 @@
 #import <ZBTab.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
-#import <UserNotifications/UserNotifications.h>
+#import <ZBNotificationManager.h>
 #import <UIColor+GlobalColors.h>
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Controllers/ZBPackageViewController.h>
@@ -36,6 +36,8 @@
     NSString *forwardToPackageID;
     BOOL screenRecording;
 }
+
+@property () UIBackgroundTaskIdentifier backgroundTask;
 
 @end
 
@@ -187,17 +189,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
     
     [self setupSDWebImageCache];
-    
-    [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (error) {
-            NSLog(@"[Zebra] Error: %@", error.localizedDescription);
-        } else if (!granted) {
-            NSLog(@"[Zebra] Authorization was not granted.");
-        } else {
-            NSLog(@"[Zebra] Notification access granted.");
-        }
-    }];
-    
+    [ZBNotificationManager.sharedInstance ensureNotificationAccess];
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
     
 #if DEBUG
@@ -401,6 +393,28 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
     }
+}
+
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(BackgroundCompletionHandler)completionHandler {
+    NSDate *fetchStart = [NSDate date];
+    NSLog(@"[Zebra] Background fetch started");
+
+    self.backgroundTask = [application beginBackgroundTaskWithExpirationHandler:^{
+        NSLog(@"[Zebra] WARNING: Background refresh timed out");
+        [application endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+        completionHandler(UIBackgroundFetchResultFailed);
+    }];
+
+    [[ZBNotificationManager sharedInstance] performBackgroundFetch:^(UIBackgroundFetchResult result) {
+        NSTimeInterval fetchDuration = [[NSDate date] timeIntervalSinceDate:fetchStart];
+        NSLog(@"[Zebra] Background refresh finished in %f seconds", fetchDuration);
+        [application endBackgroundTask:self.backgroundTask];
+        self.backgroundTask = UIBackgroundTaskInvalid;
+        
+        // Hard-coded "NewData" for (hopefully) better fetch intervals
+        completionHandler(UIBackgroundFetchResultNewData);
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
