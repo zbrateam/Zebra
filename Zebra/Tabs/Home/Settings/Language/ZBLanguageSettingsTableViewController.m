@@ -184,7 +184,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UISwitch *switcher = (UISwitch *)cell.accessoryView;
+        [switcher setOn:!switcher.on animated:YES];
+        [self toggleSystemLanguage:switcher];
+    }
+    else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
         NSString *newLanguage = languages[indexPath.row];
         
         selectedLanguage = newLanguage;

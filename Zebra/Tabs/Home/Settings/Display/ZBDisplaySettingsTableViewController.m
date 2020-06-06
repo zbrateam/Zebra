@@ -163,6 +163,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             break;
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                UISwitch *switcher = (UISwitch *)cell.accessoryView;
+                [switcher setOn:!switcher.on animated:YES];
+                [self toggleSystemStyle:switcher];
                 break;
             }
         }
@@ -208,7 +212,15 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 cell.tintColor = [UIColor accentColor];
                 self.navigationController.navigationBar.tintColor = [UIColor accentColor];
                 [self updateInterfaceStyle];
+                break;
             }
+        }
+        case ZBSectionPureBlack: {
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            UISwitch *switcher = (UISwitch *)cell.accessoryView;
+            [switcher setOn:!switcher.on animated:YES];
+            [self togglePureBlack:switcher];
+            break;
         }
         default:
             break;

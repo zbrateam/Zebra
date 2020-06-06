@@ -97,7 +97,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        UISwitch *switcher = (UISwitch *)cell.accessoryView;
+        [switcher setOn:!switcher.on animated:YES];
+        [self toggleSystemColor:switcher];
+    } else {
         UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
         oldCell.accessoryType = UITableViewCellAccessoryNone;
         
