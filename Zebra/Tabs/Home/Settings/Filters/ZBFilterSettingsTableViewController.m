@@ -46,6 +46,11 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"filterCell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshTable];
+}
+
 - (void)refreshTable {
     filteredSections = [[ZBSettings filteredSections] mutableCopy];
     
@@ -107,6 +112,9 @@
 
                 cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
                 [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
                 return cell;
             }
             break;
@@ -261,13 +269,13 @@
                     }
                     
                     [ZBSettings setFilteredSources:sources];
-                    [self refreshTable];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
                 
                 [self presentViewController:nav animated:YES completion:nil];
             }
+            [self refreshTable];
             break;
         }
         case 2:
