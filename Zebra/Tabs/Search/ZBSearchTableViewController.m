@@ -8,6 +8,7 @@
 
 #import "ZBSearchTableViewController.h"
 
+#import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Theme/ZBThemeManager.h>
 #import <Queue/ZBQueue.h>
@@ -266,6 +267,24 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[button]-0-|" options:0 metrics:nil views:views]];
  
     return headerView;
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *actions = [NSMutableArray array];
+    NSString *remove = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:remove handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self->recentSearches removeObjectAtIndex:(long)indexPath.row];
+        [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];
+        
+        if (self->recentSearches.count == 0) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+        } else {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        }
+    }];
+    [actions addObject:deleteAction];
+    
+    return actions;
 }
 
 #pragma mark - URL Handling
