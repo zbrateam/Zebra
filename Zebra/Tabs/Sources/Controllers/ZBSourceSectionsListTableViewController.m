@@ -282,18 +282,18 @@
     }
     return cell;
 }
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editing || indexPath.row == 0) return nil;
+    return indexPath;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.editing || indexPath.row == 0) return;
-    
     NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections removeObject:section];
     [ZBSettings setSection:section filtered:NO forSource:self.source];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.editing || indexPath.row == 0) return;
-    
     NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections addObject:section];
     [ZBSettings setSection:section filtered:YES forSource:self.source];
