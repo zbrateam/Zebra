@@ -91,7 +91,7 @@
                 imageView.image = image;
             }
             else {
-                self.navigationItem.titleView = NULL;
+                self.navigationItem.titleView = nil;
                 self.navigationItem.title = [self->source label];
             }
         });
