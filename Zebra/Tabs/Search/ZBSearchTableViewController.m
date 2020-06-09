@@ -240,7 +240,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : NULL;
+    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -291,7 +291,7 @@
 
 - (void)handleURL:(NSURL *_Nullable)url {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (url == NULL) {
+        if (url == nil) {
             [self setupView];
             
             [self->searchController.searchBar becomeFirstResponder];
