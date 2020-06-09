@@ -269,13 +269,13 @@
                     }
                     
                     [ZBSettings setFilteredSources:sources];
+                    [self refreshTable];
                 }];
                 
                 UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
                 
                 [self presentViewController:nav animated:YES completion:nil];
             }
-            [self refreshTable];
             break;
         }
         case 2:
