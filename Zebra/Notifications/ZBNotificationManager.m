@@ -79,11 +79,9 @@
     NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Update available for %@", @""), package.name];
     NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Version %@ is available on %@.", @""), package.version, [package.source label]];
 
-    id userInfoData[] = { [NSString stringWithFormat:@"zbra://packages/%@", package.identifier ] };
-    id userInfoKeys[] = { @"openURL" };
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObjects:userInfoData forKeys:userInfoKeys count:1];
-
-    [self notify:text withTitle:title withUserInfo:userInfo];
+    [self notify:text withTitle:title withUserInfo:@{
+        @"openURL": [NSString stringWithFormat:@"zbra://packages/%@", package.identifier],
+    }];
 }
 
 - (void)notify:(NSString *)body withTitle:(NSString *)title withUserInfo:(NSDictionary *)userInfo {
