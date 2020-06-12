@@ -8,6 +8,7 @@
 
 #import "ZBSearchTableViewController.h"
 
+#import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Theme/ZBThemeManager.h>
 #import <Queue/ZBQueue.h>
@@ -239,7 +240,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : NULL;
+    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -268,11 +269,29 @@
     return headerView;
 }
 
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *actions = [NSMutableArray array];
+    NSString *remove = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:remove handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [self->recentSearches removeObjectAtIndex:(long)indexPath.row];
+        [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];
+        
+        if (self->recentSearches.count == 0) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+        } else {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        }
+    }];
+    [actions addObject:deleteAction];
+    
+    return actions;
+}
+
 #pragma mark - URL Handling
 
 - (void)handleURL:(NSURL *_Nullable)url {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (url == NULL) {
+        if (url == nil) {
             [self setupView];
             
             [self->searchController.searchBar becomeFirstResponder];
