@@ -142,7 +142,6 @@ enum ZBMiscOrder {
             return 1;
         }
         case ZBSources:
-            return 2;
         case ZBReset:
             return 2;
         default:
@@ -424,6 +423,7 @@ enum ZBMiscOrder {
                 
                 [self.navigationController pushViewController:controller animated:YES];
             }
+            break;
         }
         case ZBChanges: {
             UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
@@ -466,6 +466,7 @@ enum ZBMiscOrder {
                     [self openDocumentsDirectory];
                     break;
             }
+            break;
         }
         default:
             break;
