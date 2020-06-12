@@ -127,6 +127,9 @@
 }
 
 - (void)goodbye {
+    if (searchController.active) {
+        [searchController setActive:NO];
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
