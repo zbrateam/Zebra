@@ -56,7 +56,7 @@
     NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
         ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
-        if (source == nil) {
+        if (!source) {
             // This source has been removed after filtering sections in it, we need to remove this baseFilename
             [outdatedFilteredSources addObject:baseFilename];
             continue;
@@ -133,10 +133,12 @@
             if (indexPath.row < blockedAuthors.count) {
                 UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 
                 cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
                 cell.textLabel.textColor = [UIColor primaryTextColor];
+                
+                NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
+                if (aliases.count > 1) cell.accessoryType = UITableViewCellAccessoryDetailButton;
                 
                 NSString *email = [blockedAuthors allKeys][indexPath.row];
                 if (![email isEqualToString:cell.textLabel.text]) {
@@ -175,10 +177,9 @@
     if (indexPath.section == 2) {
         NSMutableString *message = [NSLocalizedString(@"This author also goes by the following names:", @"") mutableCopy];
         
-        ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
         NSString *email = [blockedAuthors allKeys][indexPath.row];
         NSString *name = blockedAuthors[email];
-        NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
+        NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
         for (NSArray *alias in aliases) {
             if (![alias[0] isEqual:name]) [message appendFormat:@"\n%@", alias[0]];
         }
@@ -361,6 +362,14 @@
         default:
             return nil;
     }
+}
+
+- (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
+    ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
+    NSString *email = [blockedAuthors allKeys][indexPath.row];
+    NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
+    
+    return aliases;
 }
 
 @end
