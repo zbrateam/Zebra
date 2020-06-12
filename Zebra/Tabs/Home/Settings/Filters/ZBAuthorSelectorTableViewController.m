@@ -178,7 +178,6 @@
     self->shouldPerformSearching = YES;
     
     [self updateSearchResultsForSearchController:searchController];
-    [self.searchController setActive:NO];
 }
 
 #pragma mark - Table View Data Source
