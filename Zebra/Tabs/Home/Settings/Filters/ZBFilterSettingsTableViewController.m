@@ -255,7 +255,14 @@
                 [[self navigationController] pushViewController:sections animated:YES];
             }
             else {
-                ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:1];
+                NSMutableArray <ZBSource *> *selectedSources = [NSMutableArray array];
+                for (NSString *baseFilename in [ZBSettings filteredSources]) {
+                    ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+                    if (source) {
+                        [selectedSources addObject:source];
+                    }
+                }
+                ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:0 selectedSources:selectedSources];
                 [sourcePicker setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
                     NSMutableDictionary *sources = [self->filteredSources mutableCopy];
                     

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBSource *)sourceMatchingSourceID:(int)sourceID;
 + (ZBSource *)localSource:(int)sourceID;
-+ (ZBSource *)sourceFromBaseURL:(NSString *)baseURL;
++ (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL;
 + (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;
 + (BOOL)exists:(NSString *)urlString;
 + (UIImage *)imageForSection:(NSString *)section;

@@ -15,6 +15,7 @@
 
 @interface ZBSourceSelectTableViewController () {
     NSMutableArray <ZBSource *>    *selectedSources;
+    NSArray <ZBSource *>           *preSelectedSources;
     NSMutableArray <NSIndexPath *> *selectedIndexes;
 }
 @end
@@ -37,10 +38,11 @@
     return self;
 }
 
-- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit selectedSources:(NSArray *)preSelectedSources {
+- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit selectedSources:(NSArray <ZBSource *> *)preSelectedSources {
     self = [self initWithSelectionType:type limit:sourceLimit];
     
     if (self) {
+        self->preSelectedSources = [preSelectedSources copy];
         [selectedSources addObjectsFromArray:preSelectedSources];
     }
     
@@ -76,11 +78,15 @@
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addFilters)];
-        if (limit > 0) self.navigationItem.rightBarButtonItem.enabled = [selectedSources count];
+        [self updateAddButtonAvailability];
     }
 }
 
 - (void)checkClipboard {}
+
+- (void)updateAddButtonAvailability {
+    self.navigationItem.rightBarButtonItem.enabled = selectedIndexes.count && preSelectedSources.count != selectedIndexes.count;
+}
 
 - (void)addFilters {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -161,13 +167,17 @@
 
 - (void)addSourceAtIndexPath:(NSIndexPath *)indexPath {
     ZBSource *source = [self sourceAtIndexPath:indexPath];
+    if ([preSelectedSources containsObject:source]) {
+        // We will not unselect the sources that have already been added.
+        return;
+    }
     
     if ([selectedIndexes containsObject:indexPath]) {
         [selectedIndexes removeObject:indexPath];
         [selectedSources removeObject:source];
     }
     else {
-        if (limit > 0 && [selectedIndexes count] >= limit) {
+        if (limit > 0 && selectedIndexes.count >= limit) {
             // Remove first object selected
             [selectedIndexes removeObjectAtIndex:0];
             [selectedSources removeObjectAtIndex:0];
@@ -178,7 +188,7 @@
     }
     
     [[self tableView] reloadData];
-    [self layoutNavigationButtonsNormal];
+    [self updateAddButtonAvailability];
 }
 
 @end
