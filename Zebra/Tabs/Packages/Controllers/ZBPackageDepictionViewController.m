@@ -83,13 +83,13 @@
 #pragma mark - View Setup
 
 - (void)setDelegates {
-    if (shouldBeNative) {
-        self.previewCollectionView.delegate = self;
-        self.previewCollectionView.dataSource = self;
-    } else {
+//    if (shouldBeNative) {
+//        self.previewCollectionView.delegate = self;
+//        self.previewCollectionView.dataSource = self;
+//    } else {
         self.webView.navigationDelegate = self;
         self.webView.scrollView.delegate = self;
-    }
+//    }
 }
 
 - (void)applyCustomizations {
@@ -104,25 +104,26 @@
     if (shouldBeNative) {
         self.nativeView.hidden = NO;
 
-        if (self.package.previewImageURLs != nil) {
-            self.previewHeaderLabel.text = NSLocalizedString(@"Preview", @"");
-        } else {
+//        if (self.package.previewImageURLs != nil) {
+//            self.previewHeaderLabel.text = NSLocalizedString(@"Preview", @"");
+//        } else {
             self.previewContainerStackView.hidden = YES;
             self.previewHeaderLabel.text = NSLocalizedString(@"Description", @"");
-        };
-        
-        if ([self.package hasChangelog]) {
-            NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
-            [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
-            
-            [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
-        } else {
+//        };
+//
+//        if ([self.package hasChangelog]) {
+//            NSAttributedString *changelogNotesAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.changelogNotes fontSize:self.changelogNotesLabel.font.pointSize];
+//            [self.changelogNotesLabel setAttributedText:changelogNotesAttributedString];
+//
+//            [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
+//        } else {
             self.changelogContainerStackView.hidden = YES;
-        }
-        
-        NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
-        [self.descriptionLabel setAttributedText:descriptionAttributedString];
-        
+//        }
+//
+//        NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
+//        [self.descriptionLabel setAttributedText:descriptionAttributedString];
+        [self.descriptionLabel setText:self.package.packageDescription];
+
         for (UIView *lineSeperatorView in self.lineSeperatorViews) {
             lineSeperatorView.backgroundColor = [UIColor cellSeparatorColor];
         }
