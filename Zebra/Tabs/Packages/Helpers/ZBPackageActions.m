@@ -336,6 +336,14 @@
                 if (info) { // Package does have purchase info
                     BOOL installed = [package isInstalled:NO];
                     if (!info.purchased && !installed) { // If the user has not purchased the package
+                        NSString *title = info.price;
+                        if ([title isKindOfClass:[NSNumber class]]) {
+                            // Free package even with purchase info
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                completion([(NSNumber *)title stringValue]);
+                            });
+                            return;
+                        }
                         dispatch_async(dispatch_get_main_queue(), ^{
                             completion(info.price);
                         });
@@ -594,7 +602,7 @@
 
 + (NSString *)buttonTitleForPackage:(ZBPackage *)package {
     NSArray <NSNumber *> *actions = [package possibleActions];
-    if ([actions count] > 1) {
+    if (actions.count > 1) {
         return NSLocalizedString(@"Modify", @"");
     }
     else {
