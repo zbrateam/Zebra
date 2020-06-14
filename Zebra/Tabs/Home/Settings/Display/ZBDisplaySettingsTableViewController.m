@@ -7,6 +7,7 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
+#import "ZBSwitchSettingsTableViewCell.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
@@ -40,6 +41,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     pureBlackMode = [ZBSettings pureBlackMode];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsColorCell"];
+    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,16 +98,15 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+
                 cell.textLabel.text = NSLocalizedString(@"Use System Appearance", @"");
                 
-                UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-                [enableSwitch addTarget:self action:@selector(toggleSystemStyle:) forControlEvents:UIControlEventValueChanged];
-                [enableSwitch setOnTintColor:[UIColor accentColor]];
-                
-                enableSwitch.on = usesSystemAppearance;
-                cell.accessoryView = enableSwitch;
-                break;
+                [cell setOn:usesSystemAppearance];
+                [cell setTarget:self action:@selector(toggleSystemStyle:)];
+                [cell applyStyling];
+
+                return cell;
             }
         }
         case ZBSectionStyleChooser: {
@@ -135,16 +136,15 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             }
         }
         case ZBSectionPureBlack: {
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+
             cell.textLabel.text = NSLocalizedString(@"Pure Black Mode", @"");
             
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            [enableSwitch addTarget:self action:@selector(togglePureBlack:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            
-            enableSwitch.on = pureBlackMode;
-            cell.accessoryView = enableSwitch;
-            break;
+            [cell setOn:pureBlackMode];
+            [cell setTarget:self action:@selector(togglePureBlack:)];
+            [cell applyStyling];
+
+            return cell;
         }
     }
     cell.textLabel.textColor = [UIColor primaryTextColor];
@@ -163,6 +163,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             break;
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {
+                ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                [cell toggle];
                 break;
             }
         }
@@ -208,7 +210,13 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 cell.tintColor = [UIColor accentColor];
                 self.navigationController.navigationBar.tintColor = [UIColor accentColor];
                 [self updateInterfaceStyle];
+                break;
             }
+        }
+        case ZBSectionPureBlack: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            [cell toggle];
+            break;
         }
         default:
             break;
@@ -232,31 +240,27 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)toggleSystemStyle:(UISwitch *)sender {
-    BOOL setting = sender.on;
-    
-    usesSystemAppearance = setting;
-    [ZBSettings setUsesSystemAppearance:setting];
+- (void)toggleSystemStyle:(NSNumber *)newUsesSystemAppearance {
+    usesSystemAppearance = [newUsesSystemAppearance boolValue];
+    [ZBSettings setUsesSystemAppearance:usesSystemAppearance];
     
     [self updateInterfaceStyle];
     
-    if (!setting) { //Insert style picker section
-        [self.tableView beginUpdates];
-        [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    }
-    else { //Delete style picker section
+    if (usesSystemAppearance) { // Delete style picker section
         [self.tableView beginUpdates];
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+    else { // Insert style picker section
+        [self.tableView beginUpdates];
+        [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
 }
 
-- (void)togglePureBlack:(UISwitch *)sender {
-    BOOL setting = sender.on;
-    
-    pureBlackMode = setting;
-    [ZBSettings setPureBlackMode:setting];
+- (void)togglePureBlack:(NSNumber *)newPureBlackMode {
+    pureBlackMode = [newPureBlackMode boolValue];
+    [ZBSettings setPureBlackMode:pureBlackMode];
     [self updateInterfaceStyle];
 }
 

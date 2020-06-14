@@ -7,6 +7,7 @@
 //
 
 #import "ZBLanguageSettingsTableViewController.h"
+#import "ZBSwitchSettingsTableViewCell.h"
 
 #import <ZBDevice.h>
 #import <ZBSettings.h>
@@ -62,6 +63,7 @@
     
     self.title = NSLocalizedString(@"Language", @"");
 //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"languageCell"];
+    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
     
     [self layoutNavigationButtons];
 }
@@ -103,9 +105,9 @@
     }
 }
 
-- (void)toggleSystemLanguage:(UISwitch *)sender {
-    useSystemLanguage = sender.isOn;
-    
+- (void)toggleSystemLanguage:(NSNumber *)newUseSystemLanguage {
+    useSystemLanguage = [newUseSystemLanguage boolValue];
+
     if (useSystemLanguage) {
         [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
     }
@@ -132,59 +134,61 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"languageCell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"languageCell"];
-    }
-    
-    cell.imageView.image = nil;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.textLabel.textColor = [UIColor primaryTextColor];
-    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-    
     if (indexPath.section == 0) {
-        UISwitch *languageSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-        [languageSwitch setOn:useSystemLanguage];
-        [languageSwitch addTarget:self action:@selector(toggleSystemLanguage:) forControlEvents:UIControlEventValueChanged];
-        [languageSwitch setOnTintColor:[UIColor accentColor]];
-        
-        cell.accessoryView = languageSwitch;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+
         cell.textLabel.text = NSLocalizedString(@"Use System Language", @"");
-        cell.detailTextLabel.text = nil;
         
+        [cell setOn:useSystemLanguage];
+        [cell setTarget:self action:@selector(toggleSystemLanguage:)];
+        [cell applyStyling];
+
         return cell;
-    }
-    else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1) {
-        NSString *languageCode = languages[indexPath.row];
-        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
-        NSLocale *currentLocale = [NSLocale currentLocale];
-        
-        NSString *displayName = [[locale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:locale];
-        NSString *localizedDisplayName = [[currentLocale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:currentLocale];
-        
-        cell.accessoryView = nil;
-        cell.accessoryType = [indexPath isEqual:selectedRow] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        cell.textLabel.text = displayName;
-        cell.detailTextLabel.text = localizedDisplayName;
-        
-        return cell;
-    }
-    else {
-        cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
-        cell.imageView.image = [UIImage imageNamed:@"Translations"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.text = nil;
-        
-        return cell;
+    } else {
+        UITableViewCell *cell;
+        cell = [tableView dequeueReusableCellWithIdentifier:@"languageCell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"languageCell"];
+        }
+
+        cell.imageView.image = nil;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.textColor = [UIColor primaryTextColor];
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+
+        if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1) {
+            NSString *languageCode = languages[indexPath.row];
+            NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
+            NSLocale *currentLocale = [NSLocale currentLocale];
+            
+            NSString *displayName = [[locale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:locale];
+            NSString *localizedDisplayName = [[currentLocale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:currentLocale];
+            
+            cell.accessoryView = nil;
+            cell.accessoryType = [indexPath isEqual:selectedRow] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            cell.textLabel.text = displayName;
+            cell.detailTextLabel.text = localizedDisplayName;
+            
+            return cell;
+        } else {
+            cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
+            cell.imageView.image = [UIImage imageNamed:@"Translations"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.detailTextLabel.text = nil;
+            
+            return cell;
+        }
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
+    if (indexPath.section == 0) {
+        ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell toggle];
+    }
+    else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
         NSString *newLanguage = languages[indexPath.row];
         
         selectedLanguage = newLanguage;

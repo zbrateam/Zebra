@@ -8,6 +8,7 @@
 
 #import "ZBAccentColorTableViewController.h"
 #import "UIImageView+Zebra.h"
+#import "ZBSwitchSettingsTableViewCell.h"
 
 #import <ZBThemeManager.h>
 #import <ZBSettings.h>
@@ -40,6 +41,9 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"Accent Color", @"");
+
+    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"colorCell"];
 }
 
 #pragma mark - Table view data source
@@ -54,23 +58,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"systemColorCell"];
+        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.text = NSLocalizedString(@"Use System Accent Color", @"");
-        cell.textLabel.textColor = [UIColor primaryTextColor];
         
-        UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-        [enableSwitch addTarget:self action:@selector(toggleSystemColor:) forControlEvents:UIControlEventValueChanged];
-        [enableSwitch setOnTintColor:[UIColor accentColor]];
-        
-        enableSwitch.on = usesSystemAccentColor;
-        cell.accessoryView = enableSwitch;
+        [cell setOn:usesSystemAccentColor];
+        [cell setTarget:self action:@selector(toggleSystemColor:)];
+        [cell applyStyling];
         
         return cell;
     }
     else {
-        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"colorCell"];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"colorCell"];
         
         ZBAccentColor color = (ZBAccentColor)[colors[indexPath.row] integerValue];
         if (color == selectedColor) {
@@ -97,7 +96,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 1) {
+    if (indexPath.section == 0) {
+        ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        [cell toggle];
+    }
+    else {
         UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
         oldCell.accessoryType = UITableViewCellAccessoryNone;
         
@@ -117,24 +120,22 @@
     }
 }
 
-- (void)toggleSystemColor:(UISwitch *)sender {
-    BOOL setting = sender.on;
+- (void)toggleSystemColor:(NSNumber *)newUseSystemColor {
+    usesSystemAccentColor = [newUseSystemColor boolValue];
+    [ZBSettings setUsesSystemAccentColor:usesSystemAccentColor];
     
-    usesSystemAccentColor = setting;
-    [ZBSettings setUsesSystemAccentColor:setting];
-    
-    if (!setting) { //Insert style picker section
-        [self.tableView beginUpdates];
-        [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    }
-    else { //Delete style picker section
+    if (usesSystemAccentColor) { //Delete style picker section
         [self.tableView beginUpdates];
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+    else { //Insert style picker section
+        [self.tableView beginUpdates];
+        [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        [self.tableView endUpdates];
+    }
     
-    sender.onTintColor = [UIColor accentColor];
+    [(ZBSwitchSettingsTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] applyStyling];
     
     [[ZBThemeManager sharedInstance] configureNavigationBar];
     

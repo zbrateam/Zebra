@@ -10,6 +10,7 @@
 #import "ZBSettingsSelectionTableViewController.h"
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
+#import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
 #import "ZBSettingsResetTableViewController.h"
 #import "ZBFilterSettingsTableViewController.h"
@@ -75,6 +76,7 @@ enum ZBMiscOrder {
     interfaceStyle = [ZBSettings interfaceStyle];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
+    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -158,6 +160,54 @@ enum ZBMiscOrder {
         
         return cell;
     }
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeaturedEnable) || (indexPath.section >= ZBSources && indexPath.section <= ZBConsole)) {
+        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+        
+        ZBSectionOrder section = indexPath.section;
+        switch (section) {
+            case ZBFeatured: {
+                cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
+                [cell setOn:[ZBSettings wantsFeaturedPackages]];
+                [cell setTarget:self action:@selector(toggleFeatured:)];
+                break;
+            }
+            case ZBSources: {
+                cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+                [cell setOn:[ZBSettings wantsAutoRefresh]];
+                [cell setTarget:self action:@selector(toggleAutoRefresh:)];
+                break;
+            }
+            case ZBChanges: {
+                cell.textLabel.text = NSLocalizedString(@"Community News", @"");
+                [cell setOn:[ZBSettings wantsCommunityNews]];
+                [cell setTarget:self action:@selector(toggleNews:)];
+                break;
+            }
+            case ZBPackages: {
+                cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
+                [cell setOn:[ZBSettings alwaysInstallLatest]];
+                [cell setTarget:self action:@selector(toggleLatest:)];
+                break;
+            }
+            case ZBSearch: {
+                cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
+                [cell setOn:[ZBSettings wantsLiveSearch]];
+                [cell setTarget:self action:@selector(toggleLiveSearch:)];
+                break;
+            }
+            case ZBConsole: {
+                cell.textLabel.text = NSLocalizedString(@"Finish Automatically", @"");
+                [cell setOn:[ZBSettings wantsFinishAutomatically]];
+                [cell setTarget:self action:@selector(toggleFinishAutomatically:)];
+                break;
+            }
+            default:
+                break;
+        }
+        
+        [cell applyStyling];
+        return cell;
+    }
     else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -229,16 +279,6 @@ enum ZBMiscOrder {
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
-                case ZBFeaturedEnable: {
-                    UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-                    enableSwitch.on = [ZBSettings wantsFeaturedPackages];
-                    [enableSwitch addTarget:self action:@selector(toggleFeatured:) forControlEvents:UIControlEventValueChanged];
-                    [enableSwitch setOnTintColor:[UIColor accentColor]];
-                    cell.accessoryView = enableSwitch;
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
-                    break;
-                }
                 case ZBFeatureOrRandomToggle: {
                     ZBFeaturedType type = [ZBSettings featuredPackagesType];
 
@@ -256,51 +296,9 @@ enum ZBMiscOrder {
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     break;
                 }
+                default:
+                    break;
             }
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            return cell;
-        }
-        case ZBSources: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings wantsAutoRefresh];
-            [enableSwitch addTarget:self action:@selector(toggleAutoRefresh:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
-            return cell;
-        }
-        case ZBChanges: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings wantsCommunityNews];
-            [enableSwitch addTarget:self action:@selector(toggleNews:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.textLabel.text = NSLocalizedString(@"Community News", @"");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            return cell;
-        }
-        case ZBPackages: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings alwaysInstallLatest];
-            [enableSwitch addTarget:self action:@selector(toggleLatest:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            return cell;
-        }
-        case ZBSearch: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings wantsLiveSearch];
-            [enableSwitch addTarget:self action:@selector(toggleLiveSearch:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
@@ -320,23 +318,14 @@ enum ZBMiscOrder {
             cell.textLabel.text = text;
             return cell;
         }
-        case ZBConsole: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings wantsFinishAutomatically];
-            [enableSwitch addTarget:self action:@selector(toggleFinishAutomatically:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.textLabel.text = NSLocalizedString(@"Finish Automatically", @"");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            return cell;
-        }
         case ZBReset: {
             cell.textLabel.text = indexPath.row == 0 ? NSLocalizedString(@"Reset", @"") : NSLocalizedString(@"Open Documents Directory", @"");
             cell.textLabel.textColor = indexPath.row == 0 ? [UIColor primaryTextColor] : [UIColor accentColor] ?: [UIColor systemBlueColor];
             cell.accessoryType = indexPath.row == 0 ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             return cell;
         }
+        default:
+            break;
     }
     return nil;
 }
@@ -367,10 +356,8 @@ enum ZBMiscOrder {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
                 case ZBFeaturedEnable: {
-                    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                    UISwitch *switcher = (UISwitch *)cell.accessoryView;
-                    [switcher setOn:!switcher.on animated:YES];
-                    [self toggleFeatured:switcher];
+                    ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    [cell toggle];
                     break;
                 }
                 case ZBFeatureOrRandomToggle:
@@ -384,43 +371,17 @@ enum ZBMiscOrder {
             }
             break;
         }
-        case ZBSources: {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            UISwitch *switcher = (UISwitch *)cell.accessoryView;
-            [switcher setOn:!switcher.on animated:YES];
-            [self toggleAutoRefresh:switcher];
-            break;
-        }
-        case ZBChanges: {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            UISwitch *switcher = (UISwitch *)cell.accessoryView;
-            [switcher setOn:!switcher.on animated:YES];
-            [self toggleNews:switcher];
-            break;
-        }
-        case ZBPackages: {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            UISwitch *switcher = (UISwitch *)cell.accessoryView;
-            [switcher setOn:!switcher.on animated:YES];
-            [self toggleLatest:switcher];
+        case ZBSources:
+        case ZBChanges:
+        case ZBPackages:
+        case ZBSearch:
+        case ZBConsole: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            [cell toggle];
             break;
         }
         case ZBMisc: {
             [self misc];
-            break;
-        }
-        case ZBSearch: {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            UISwitch *switcher = (UISwitch *)cell.accessoryView;
-            [switcher setOn:!switcher.on animated:YES];
-            [self toggleLiveSearch:switcher];
-            break;
-        }
-        case ZBConsole: {
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-            UISwitch *switcher = (UISwitch *)cell.accessoryView;
-            [switcher setOn:!switcher.on animated:YES];
-            [self toggleFinishAutomatically:switcher];
             break;
         }
         case ZBReset: {
@@ -546,11 +507,8 @@ enum ZBMiscOrder {
     [self.navigationController pushViewController:altIcon animated:YES];
 }
 
-- (void)toggleFeatured:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-    
-    [ZBSettings setWantsFeaturedPackages:switcher.isOn];
-    [ZBDevice hapticButton];
+- (void)toggleFeatured:(NSNumber *)newValue {
+    [ZBSettings setWantsFeaturedPackages:[newValue boolValue]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
     
@@ -561,11 +519,8 @@ enum ZBMiscOrder {
     });
 }
 
-- (void)toggleAutoRefresh:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-    
-    [ZBSettings setWantsAutoRefresh:switcher.isOn];
-    [ZBDevice hapticButton];
+- (void)toggleAutoRefresh:(NSNumber *)newValue {
+    [ZBSettings setWantsAutoRefresh:[newValue boolValue]];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
@@ -574,11 +529,8 @@ enum ZBMiscOrder {
     });
 }
 
-- (void)toggleNews:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-    
-    [ZBSettings setWantsCommunityNews:switcher.isOn];
-    [ZBDevice hapticButton];
+- (void)toggleNews:(NSNumber *)newValue {
+    [ZBSettings setWantsCommunityNews:[newValue boolValue]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
     
@@ -589,18 +541,12 @@ enum ZBMiscOrder {
     });
 }
 
-- (void)toggleLatest:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-    
-    [ZBSettings setAlwaysInstallLatest:switcher.isOn];
-    [ZBDevice hapticButton];
+- (void)toggleLatest:(NSNumber *)newValue {
+    [ZBSettings setAlwaysInstallLatest:[newValue boolValue]];
 }
 
-- (void)toggleLiveSearch:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-    
-    [ZBSettings setWantsLiveSearch:switcher.isOn];
-    [ZBDevice hapticButton];
+- (void)toggleLiveSearch:(NSNumber *)newValue {
+    [ZBSettings setWantsLiveSearch:[newValue boolValue]];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
@@ -609,11 +555,8 @@ enum ZBMiscOrder {
     });
 }
 
-- (void)toggleFinishAutomatically:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-    
-    [ZBSettings setWantsFinishAutomatically:switcher.isOn];
-    [ZBDevice hapticButton];
+- (void)toggleFinishAutomatically:(NSNumber *)newValue {
+    [ZBSettings setWantsFinishAutomatically:[newValue boolValue]];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
