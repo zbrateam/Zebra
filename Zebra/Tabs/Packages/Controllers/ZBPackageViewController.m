@@ -20,6 +20,7 @@
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBPackageDepictionViewController.h>
+#import "UIViewController+Extensions.h"
 
 @import SDWebImage;
 
@@ -227,6 +228,10 @@
     [self presentViewController:extraActions animated:YES completion:nil];
 }
 
+- (IBAction)cancelButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
 - (void)configureNavigationItems {
     UIView *container = [[UIView alloc] initWithFrame:self.navigationItem.titleView.frame];
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -245,6 +250,10 @@
     [self.getBarButton addTarget:self action:@selector(getButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.getBarButton];
     self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
+    
+    if ([self isModal]) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
+    }
 }
 
 - (void)setNavigationItemsHidden:(BOOL)hidden {
