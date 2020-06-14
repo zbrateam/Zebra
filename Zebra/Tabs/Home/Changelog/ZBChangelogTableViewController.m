@@ -119,7 +119,7 @@
     UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
     view.textLabel.font = [UIFont boldSystemFontOfSize:15];
     view.textLabel.textColor = [UIColor primaryTextColor];
-    view.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+    view.contentView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
         
     return view;
 }
