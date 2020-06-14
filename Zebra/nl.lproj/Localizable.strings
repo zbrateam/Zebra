@@ -63,12 +63,12 @@
 "Changes" = "Veranderingen";
 "Community News" = "Gemeenschapsnieuws";
 "Miscellaneous" = "Diversen";
-"Swipe Actions Display As" = "Veeg Acties Weergeven Als";
+"Swipe Actions Display As" = "Geef veegacties weer als";
 "Text" = "Tekst";
 "Icon" = "Icoon";
-"Finish Automatically" = "Automatisch Voltooien";
+"Finish Automatically" = "Voltooi automatisch";
 "Always Install Latest" = "Installeer altijd de nieuwste";
-"Automatic Refresh" = "Automatisch vernieuwen";
+"Automatic Refresh" = "Ververs automatisch";
 
 // Accent Colors
 
