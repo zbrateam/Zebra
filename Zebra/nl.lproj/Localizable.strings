@@ -59,7 +59,7 @@
 
 "Settings" = "Instellingen";
 "Display" = "Weergave";
-"App Icon" = "App Icoon";
+"App Icon" = "App-icoon";
 "Changes" = "Veranderingen";
 "Community News" = "Gemeenschapsnieuws";
 "Miscellaneous" = "Diversen";
@@ -87,7 +87,7 @@
 "Storm" = "Storm";
 "Use System Accent Color" = "Gebruik Accent Kleur van het systeem";
 "Appearance" = "Uiterlijk";
-"Use System Appearance" = "Gebruik Systeem Uiterlijk";
+"Use System Appearance" = "Gebruik systeemuiterlijk";
 "Light" = "Licht";
 "Dark" = "Donker";
 "Pure Black Mode" = "Puur Zwart Modus";
@@ -348,7 +348,7 @@
 "Removing Zebra..." = "Zebra verwijderen...";
 "Installing Zebra..." = "Zebra installeren...";
 "Error while opening file:" = "Fout bij openen van bestand:";
-"Adding Payment Vendor URL for %@" = "URL van Betalingsleverancier toevoegen voor %@";
+"Adding Payment Vendor URL for %@" = "URL van betalingsleverancier toevoegen voor %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "Dit apparaat is gesimuleerd, hier zijn de pakketten die in deze fase zouden worden gewijzigd:";
 
 // Queue Bar
