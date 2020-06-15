@@ -11,6 +11,7 @@
 #import "UIImageView+Zebra.h"
 #import "ZBRightIconTableViewCell.h"
 #import "ZBSwitchSettingsTableViewCell.h"
+#import "ZBButtonSettingsTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
 #import "ZBSettingsResetTableViewController.h"
 #import "ZBFilterSettingsTableViewController.h"
@@ -77,6 +78,7 @@ enum ZBMiscOrder {
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
     [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
+    [self.tableView registerClass:[ZBButtonSettingsTableViewCell class] forCellReuseIdentifier:@"settingsButtonCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -214,6 +216,12 @@ enum ZBMiscOrder {
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
         }
+    } else if (indexPath.section == ZBReset && indexPath.row == 1) {
+        ZBButtonSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsButtonCell" forIndexPath:indexPath];
+
+        cell.textLabel.text = NSLocalizedString(@"Open Documents Directory", @"");
+        [cell applyStyling];
+        return cell;
     } else {
         static NSString *cellIdentifier = @"settingsCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -319,9 +327,11 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBReset: {
-            cell.textLabel.text = indexPath.row == 0 ? NSLocalizedString(@"Reset", @"") : NSLocalizedString(@"Open Documents Directory", @"");
-            cell.textLabel.textColor = indexPath.row == 0 ? [UIColor primaryTextColor] : [UIColor accentColor] ?: [UIColor systemBlueColor];
-            cell.accessoryType = indexPath.row == 0 ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            if (indexPath.row == 0) {
+                cell.textLabel.text = NSLocalizedString(@"Reset", @"");
+                cell.textLabel.textColor = [UIColor primaryTextColor];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
             return cell;
         }
         default:

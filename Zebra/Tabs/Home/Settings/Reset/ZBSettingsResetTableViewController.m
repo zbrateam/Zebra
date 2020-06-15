@@ -9,6 +9,7 @@
 @import SDWebImage;
 
 #import "ZBSettingsResetTableViewController.h"
+#import "ZBButtonSettingsTableViewCell.h"
 
 #import <UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
@@ -29,8 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = NSLocalizedString(@"Reset", @"");
-    
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsResetCell"];
+
+    [self.tableView registerClass:[ZBButtonSettingsTableViewCell class] forCellReuseIdentifier:@"settingsButtonCell"];
 }
 
 #pragma mark - Table view data source
@@ -44,10 +45,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsResetCell"];
+    ZBButtonSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsButtonCell" forIndexPath:indexPath];
     
     cell.textLabel.text = NSLocalizedString([[self class] titles][indexPath.section][indexPath.row], @"");
-    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    [cell applyStyling];
     return cell;
 }
 
