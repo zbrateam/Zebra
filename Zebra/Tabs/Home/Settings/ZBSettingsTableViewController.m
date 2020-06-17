@@ -9,7 +9,9 @@
 #import "ZBSettingsTableViewController.h"
 #import "ZBSettingsSelectionTableViewController.h"
 #import "UIImageView+Zebra.h"
+#import "ZBLinkSettingsTableViewCell.h"
 #import "ZBRightIconTableViewCell.h"
+#import "ZBDetailedLinkSettingsTableViewCell.h"
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBButtonSettingsTableViewCell.h"
 #import "ZBDisplaySettingsTableViewController.h"
@@ -76,7 +78,9 @@ enum ZBMiscOrder {
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
     
+    [self.tableView registerClass:[ZBLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsLinkCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
+    [self.tableView registerClass:[ZBDetailedLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsDetailedLinkCell"];
     [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
     [self.tableView registerClass:[ZBButtonSettingsTableViewCell class] forCellReuseIdentifier:@"settingsButtonCell"];
 }
@@ -149,190 +153,165 @@ enum ZBMiscOrder {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
-    if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
-        ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
-        cell.backgroundColor = [UIColor cellBackgroundColor];
-        
-        cell.label.text = NSLocalizedString(@"App Icon", @"");
-        
-        NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
-        UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-        [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
-        
-        return cell;
-    }
-    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeaturedEnable) || (indexPath.section >= ZBSources && indexPath.section <= ZBConsole)) {
-        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
-        
-        ZBSectionOrder section = indexPath.section;
-        switch (section) {
-            case ZBFeatured: {
-                cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
-                [cell setOn:[ZBSettings wantsFeaturedPackages]];
-                [cell setTarget:self action:@selector(toggleFeatured:)];
-                break;
-            }
-            case ZBSources: {
-                cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
-                [cell setOn:[ZBSettings wantsAutoRefresh]];
-                [cell setTarget:self action:@selector(toggleAutoRefresh:)];
-                break;
-            }
-            case ZBChanges: {
-                cell.textLabel.text = NSLocalizedString(@"Community News", @"");
-                [cell setOn:[ZBSettings wantsCommunityNews]];
-                [cell setTarget:self action:@selector(toggleNews:)];
-                break;
-            }
-            case ZBPackages: {
-                cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
-                [cell setOn:[ZBSettings alwaysInstallLatest]];
-                [cell setTarget:self action:@selector(toggleLatest:)];
-                break;
-            }
-            case ZBSearch: {
-                cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
-                [cell setOn:[ZBSettings wantsLiveSearch]];
-                [cell setTarget:self action:@selector(toggleLiveSearch:)];
-                break;
-            }
-            case ZBConsole: {
-                cell.textLabel.text = NSLocalizedString(@"Finish Automatically", @"");
-                [cell setOn:[ZBSettings wantsFinishAutomatically]];
-                [cell setTarget:self action:@selector(toggleFinishAutomatically:)];
-                break;
-            }
-            default:
-                break;
-        }
-        
-        [cell applyStyling];
-        return cell;
-    }
-    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc) {
-        static NSString *cellIdentifier = @"settingsRightDetailCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        }
-    } else if (indexPath.section == ZBReset && indexPath.row == 1) {
-        ZBButtonSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsButtonCell" forIndexPath:indexPath];
-
-        cell.textLabel.text = NSLocalizedString(@"Open Documents Directory", @"");
-        [cell applyStyling];
-        return cell;
-    } else {
-        static NSString *cellIdentifier = @"settingsCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-        }
-    }
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    cell.imageView.image = nil;
-    cell.accessoryView = nil;
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.backgroundColor = [UIColor cellBackgroundColor];
-    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-    
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
+            ZBLinkSettingsTableViewCell *cell;
             ZBInterfaceOrder row = indexPath.row;
             switch (row) {
                 case ZBDisplay: {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
                     cell.textLabel.text = NSLocalizedString(@"Display", @"");
                     break;
                 }
                 case ZBLanguage: {
+                    cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
                     cell.textLabel.text = NSLocalizedString(@"Language", @"");
                     break;
                 }
                 case ZBAppIcon: {
-                    cell.textLabel.text = NSLocalizedString(@"App Icon", @"");
+                    ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell" forIndexPath:indexPath];
+                    
+                    cell.backgroundColor = [UIColor cellBackgroundColor];
+                    cell.label.text = NSLocalizedString(@"App Icon", @"");
+                    
                     NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+                    UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+                    [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
                     
-                    cell.detailTextLabel.text = [icon objectForKey:@"shortName"];
-                    
-                    cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-                    [cell.imageView resize:CGSizeMake(30, 30) applyRadius:YES];
-                    
-                    if ([[icon objectForKey:@"border"] boolValue]) {
-                        [cell.imageView applyBorder];
-                    }
-                    else {
-                        [cell.imageView removeBorder];
-                    }
-                    break;
+                    return cell;
                 }
             }
-            
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            
+            [cell applyStyling];
             return cell;
         }
         case ZBFilters: {
+            ZBLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+
             cell.textLabel.text = NSLocalizedString(@"Filters", @"");
-            cell.textLabel.textColor = [UIColor primaryTextColor];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            
+
+            [cell applyStyling];
             return cell;
         }
         case ZBFeatured: {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
-                case ZBFeatureOrRandomToggle: {
-                    ZBFeaturedType type = [ZBSettings featuredPackagesType];
+                case ZBFeaturedEnable: {
+                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
 
+                    cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
+                    [cell setOn:[ZBSettings wantsFeaturedPackages]];
+                    [cell setTarget:self action:@selector(toggleFeatured:)];
+
+                    [cell applyStyling];
+                    return cell;
+                }
+                case ZBFeatureOrRandomToggle: {
+                    ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsDetailedLinkCell" forIndexPath:indexPath];
+
+                    ZBFeaturedType type = [ZBSettings featuredPackagesType];
                     if (type == ZBFeaturedTypeSource) {
                         cell.detailTextLabel.text = NSLocalizedString(@"Repo Featured", @"");
                     } else {
                         cell.detailTextLabel.text = NSLocalizedString(@"Random", @"");
                     }
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     cell.textLabel.text = NSLocalizedString(@"Feature Type", @"");
-                    break;
+                    
+                    [cell applyStyling];
+                    return cell;
                 }
                 case ZBFeatureBlacklist: {
+                    ZBLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+                    
                     cell.textLabel.text = NSLocalizedString(@"Select Repos to be Featured", @"");
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    break;
+                    
+                    [cell applyStyling];
+                    return cell;
                 }
                 default:
                     break;
             }
-            cell.textLabel.textColor = [UIColor primaryTextColor];
+        }
+        case ZBSources: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            
+            cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+            [cell setOn:[ZBSettings wantsAutoRefresh]];
+            [cell setTarget:self action:@selector(toggleAutoRefresh:)];
+
+            [cell applyStyling];
+            return cell;
+        }
+        case ZBChanges: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            
+            cell.textLabel.text = NSLocalizedString(@"Community News", @"");
+            [cell setOn:[ZBSettings wantsCommunityNews]];
+            [cell setTarget:self action:@selector(toggleNews:)];
+
+            [cell applyStyling];
+            return cell;
+        }
+        case ZBPackages: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            
+            cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
+            [cell setOn:[ZBSettings alwaysInstallLatest]];
+            [cell setTarget:self action:@selector(toggleLatest:)];
+
+            [cell applyStyling];
+            return cell;
+        }
+        case ZBSearch: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            
+            cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
+            [cell setOn:[ZBSettings wantsLiveSearch]];
+            [cell setTarget:self action:@selector(toggleLiveSearch:)];
+
+            [cell applyStyling];
+            return cell;
+        }
+        case ZBConsole: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            
+            cell.textLabel.text = NSLocalizedString(@"Finish Automatically", @"");
+            [cell setOn:[ZBSettings wantsFinishAutomatically]];
+            [cell setTarget:self action:@selector(toggleFinishAutomatically:)];
+
+            [cell applyStyling];
             return cell;
         }
         case ZBMisc: {
-            NSString *text = nil;
-            if (indexPath.row == ZBIconAction) {
-                text = NSLocalizedString(@"Swipe Actions Display As", @"");
-                ZBSwipeActionStyle selected = [ZBSettings swipeActionStyle];
-                if (selected == ZBSwipeActionStyleText) {
-                    cell.detailTextLabel.text = NSLocalizedString(@"Text", @"");
-                } else {
-                    cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
-                }
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.textColor = [UIColor primaryTextColor];
+            ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsDetailedLinkCell" forIndexPath:indexPath];
+            
+            ZBSwipeActionStyle style = [ZBSettings swipeActionStyle];
+            if (style == ZBSwipeActionStyleText) {
+                cell.detailTextLabel.text = NSLocalizedString(@"Text", @"");
+            } else {
+                cell.detailTextLabel.text = NSLocalizedString(@"Icon", @"");
             }
-            cell.textLabel.text = text;
+            cell.textLabel.text = NSLocalizedString(@"Swipe Actions Display As", @"");;
+            
+            [cell applyStyling];
             return cell;
         }
         case ZBReset: {
             if (indexPath.row == 0) {
+                ZBLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+                
                 cell.textLabel.text = NSLocalizedString(@"Reset", @"");
-                cell.textLabel.textColor = [UIColor primaryTextColor];
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+                [cell applyStyling];
+                return cell;
+            } else {
+                ZBButtonSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsButtonCell" forIndexPath:indexPath];
+
+                cell.textLabel.text = NSLocalizedString(@"Open Documents Directory", @"");
+
+                [cell applyStyling];
+                return cell;
             }
-            return cell;
         }
         default:
             break;

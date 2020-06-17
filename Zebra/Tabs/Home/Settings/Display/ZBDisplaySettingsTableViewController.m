@@ -7,6 +7,7 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
+#import "ZBDetailedLinkSettingsTableViewCell.h"
 #import "ZBSwitchSettingsTableViewCell.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
@@ -40,6 +41,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     pureBlackMode = [ZBSettings pureBlackMode];
     
+    [self.tableView registerClass:[ZBDetailedLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsDetailedLinkCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsColorCell"];
     [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
 }
@@ -90,11 +92,13 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBSectionAccentColor: {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"colorCell"];
+            ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsDetailedLinkCell" forIndexPath:indexPath];
+
             cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
             cell.detailTextLabel.text = [ZBThemeManager localizedNameForAccentColor:[ZBSettings accentColor]];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            break;
+
+            [cell applyStyling];
+            return cell;
         }
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {

@@ -8,6 +8,7 @@
 
 #import "ZBLanguageSettingsTableViewController.h"
 #import "ZBSwitchSettingsTableViewCell.h"
+#import "ZBLinkSettingsTableViewCell.h"
 
 #import <ZBDevice.h>
 #import <ZBSettings.h>
@@ -64,6 +65,7 @@
     self.title = NSLocalizedString(@"Language", @"");
 //    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"languageCell"];
     [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
+    [self.tableView registerClass:[ZBLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsLinkCell"];
     
     [self layoutNavigationButtons];
 }
@@ -172,11 +174,12 @@
             
             return cell;
         } else {
+            ZBLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+            
             cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
             cell.imageView.image = [UIImage imageNamed:@"Translations"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.detailTextLabel.text = nil;
             
+            [cell applyStyling];
             return cell;
         }
     }
