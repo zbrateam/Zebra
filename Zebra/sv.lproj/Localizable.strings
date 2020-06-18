@@ -486,8 +486,8 @@
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paketet du begär är inte längre tillgängligt. Det kan ha tagits bort från dina källor, eller så var det begärda paket-ID:t felaktigt.";
 
 "%d Seconds" = "%d sekunder";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"Download Timeout" = "Tidsgräns för nedladdningar";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurerar hur länge Zebra kommer att vänta på att en källa ska svara innan tidsgränsen är uppnådd.";
 "This timer will reset every time Zebra receives new information from a source." = "Denna tid kommer att återställas varje gång Zebra får ny information från en källa.";
 
 "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Kontoinformation kunde inte hämtas från källan. Logga ut från källan, logga in och försök igen.";
