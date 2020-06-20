@@ -110,6 +110,11 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
     
+    configuration.allowsInlineMediaPlayback = YES;
+    if (@available(iOS 10.0, *)) {
+        configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeAudio;
+    }
+    
     switch ([ZBSettings interfaceStyle]) {
         case ZBInterfaceStyleLight:
             configuration.applicationNameForUserAgent = [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) Light", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
