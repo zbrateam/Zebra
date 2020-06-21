@@ -9,6 +9,7 @@
 #import "ZBDisplaySettingsTableViewController.h"
 #import "ZBDetailedLinkSettingsTableViewCell.h"
 #import "ZBSwitchSettingsTableViewCell.h"
+#import "ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
@@ -44,6 +45,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     [self.tableView registerClass:[ZBDetailedLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsDetailedLinkCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsColorCell"];
     [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
+    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsCheckableCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,8 +89,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"settingsDisplayCell"];
-    
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBSectionAccentColor: {
@@ -116,27 +116,31 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionStyleChooser: {
             if (@available(iOS 13.0, *)) {
                 if (!usesSystemAppearance) {
+                    ZBOptionSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCheckableCell" forIndexPath:indexPath];
                     if (indexPath.row == 0) {
                         cell.textLabel.text = NSLocalizedString(@"Light", @"");
-                        cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                        [cell setChosen:interfaceStyle == ZBInterfaceStyleLight];
                     }
                     else {
                         cell.textLabel.text = NSLocalizedString(@"Dark", @"");
-                        cell.accessoryType = interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                        [cell setChosen:interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack];
                     }
-                    break;
+                    [cell applyStyling];
+                    return cell;
                 }
             }
-            else if (indexPath.section == 1) {
+            else if (indexPath.section == ZBSectionSystemStyle) {
+                ZBOptionSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCheckableCell" forIndexPath:indexPath];
                 if (indexPath.row == 0) {
                     cell.textLabel.text = NSLocalizedString(@"Light", @"");
-                    cell.accessoryType = interfaceStyle == ZBInterfaceStyleLight ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    [cell setChosen:interfaceStyle == ZBInterfaceStyleLight];
                 }
                 else {
                     cell.textLabel.text = NSLocalizedString(@"Dark", @"");
-                    cell.accessoryType = interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                    [cell setChosen:interfaceStyle == ZBInterfaceStyleDark || interfaceStyle == ZBInterfaceStylePureBlack];
                 }
-                break;
+                [cell applyStyling];
+                return cell;
             }
         }
         case ZBSectionPureBlack: {
@@ -150,11 +154,9 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
 
             return cell;
         }
+        default:
+            return nil;
     }
-    cell.textLabel.textColor = [UIColor primaryTextColor];
-    cell.backgroundColor = [UIColor cellBackgroundColor];
-    
-    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -174,46 +176,31 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         case ZBSectionStyleChooser: {
             if (!usesSystemAppearance) {
-                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                UITableViewCell *otherCell;
+                ZBOptionSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                 
-                if (indexPath.row == 0) { //Light
-                    if (@available(iOS 13.0, *)) {
-                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionStyleChooser]];
+                if (![cell isChosen]) {
+                    if (indexPath.row == 0) { //Light
+                        
+                        interfaceStyle = ZBInterfaceStyleLight;
+                        [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
                     }
-                    else {
-                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:ZBSectionSystemStyle]];
+                    else { //Dark
+                        
+                        if (pureBlackMode) {
+                            interfaceStyle = ZBInterfaceStylePureBlack;
+                            [ZBSettings setInterfaceStyle:ZBInterfaceStylePureBlack];
+                        }
+                        else {
+                            interfaceStyle = ZBInterfaceStyleDark;
+                            [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
+                        }
                     }
                     
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                    otherCell.accessoryType = UITableViewCellAccessoryNone;
+                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
                     
-                    interfaceStyle = ZBInterfaceStyleLight;
-                    [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
+                    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+                    [self updateInterfaceStyle];
                 }
-                else { //Dark
-                    if (@available(iOS 13.0, *)) {
-                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionStyleChooser]];
-                    }
-                    else {
-                        otherCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:ZBSectionSystemStyle]];
-                    }
-                    
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                    otherCell.accessoryType = UITableViewCellAccessoryNone;
-                    
-                    if (pureBlackMode) {
-                        interfaceStyle = ZBInterfaceStylePureBlack;
-                        [ZBSettings setInterfaceStyle:ZBInterfaceStylePureBlack];
-                    }
-                    else {
-                        interfaceStyle = ZBInterfaceStyleDark;
-                        [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
-                    }
-                }
-                cell.tintColor = [UIColor accentColor];
-                self.navigationController.navigationBar.tintColor = [UIColor accentColor];
-                [self updateInterfaceStyle];
                 break;
             }
         }

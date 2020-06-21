@@ -75,6 +75,8 @@
 		49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */; };
 		7514035C24994ABF00B3C4C9 /* ZBLinkSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7514035B24994ABF00B3C4C9 /* ZBLinkSettingsTableViewCell.m */; };
 		7514035F2499598000B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7514035E2499598000B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.m */; };
+		75823619249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75823618249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m */; };
+		758933F1249D7A610008315D /* ZBOptionSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 758933F0249D7A610008315D /* ZBOptionSettingsTableViewCell.m */; };
 		759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759A7BA32496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m */; };
 		759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759A7BCC2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m */; };
 		759B59E32494F7B400457158 /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759B59E22494F7B400457158 /* ZBSettingsTableViewCell.m */; };
@@ -368,10 +370,14 @@
 		49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
 		49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageDepictionViewController.xib; sourceTree = "<group>"; };
+		75052D19249E3F2600C2F796 /* ZBOptionSubtitleSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBOptionSubtitleSettingsTableViewCell.h; sourceTree = "<group>"; };
 		7514034F24994A0B00B3C4C9 /* ZBLinkSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLinkSettingsTableViewCell.h; sourceTree = "<group>"; };
 		7514035B24994ABF00B3C4C9 /* ZBLinkSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLinkSettingsTableViewCell.m; sourceTree = "<group>"; };
 		7514035D249958B800B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDetailedLinkSettingsTableViewCell.h; sourceTree = "<group>"; };
 		7514035E2499598000B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDetailedLinkSettingsTableViewCell.m; sourceTree = "<group>"; };
+		75823618249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBOptionSubtitleSettingsTableViewCell.m; sourceTree = "<group>"; };
+		758933E4249D79DA0008315D /* ZBOptionSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBOptionSettingsTableViewCell.h; sourceTree = "<group>"; };
+		758933F0249D7A610008315D /* ZBOptionSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBOptionSettingsTableViewCell.m; sourceTree = "<group>"; };
 		759A7BA32496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSwitchSettingsTableViewCell.m; sourceTree = "<group>"; };
 		759A7BB02496E09100F0C54F /* ZBSwitchSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSwitchSettingsTableViewCell.h; sourceTree = "<group>"; };
 		759A7BC02496F35A00F0C54F /* ZBButtonSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBButtonSettingsTableViewCell.h; sourceTree = "<group>"; };
@@ -828,6 +834,10 @@
 				7514035B24994ABF00B3C4C9 /* ZBLinkSettingsTableViewCell.m */,
 				7514035D249958B800B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.h */,
 				7514035E2499598000B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.m */,
+				758933E4249D79DA0008315D /* ZBOptionSettingsTableViewCell.h */,
+				758933F0249D7A610008315D /* ZBOptionSettingsTableViewCell.m */,
+				75052D19249E3F2600C2F796 /* ZBOptionSubtitleSettingsTableViewCell.h */,
+				75823618249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1613,6 +1623,7 @@
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
+				75823619249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
 				4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */,
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
@@ -1665,6 +1676,7 @@
 				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				7514035C24994ABF00B3C4C9 /* ZBLinkSettingsTableViewCell.m in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
+				758933F1249D7A610008315D /* ZBOptionSettingsTableViewCell.m in Sources */,
 				89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */,
 				8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */,
 				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */,

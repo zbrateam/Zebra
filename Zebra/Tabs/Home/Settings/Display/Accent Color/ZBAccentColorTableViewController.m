@@ -9,6 +9,7 @@
 #import "ZBAccentColorTableViewController.h"
 #import "UIImageView+Zebra.h"
 #import "ZBSwitchSettingsTableViewCell.h"
+#import "ZBOptionSettingsTableViewCell.h"
 
 #import <ZBThemeManager.h>
 #import <ZBSettings.h>
@@ -43,7 +44,7 @@
     self.title = NSLocalizedString(@"Accent Color", @"");
 
     [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"colorCell"];
+    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsCheckableCell"];
 }
 
 #pragma mark - Table view data source
@@ -69,17 +70,10 @@
         return cell;
     }
     else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"colorCell"];
+        ZBOptionSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCheckableCell"];
         
         ZBAccentColor color = (ZBAccentColor)[colors[indexPath.row] integerValue];
-        if (color == selectedColor) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        
-        cell.tintColor = [UIColor accentColor];
+        [cell setChosen:color == selectedColor];
         
         UIColor *leftColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleLight];
         UIColor *rightColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleDark];
@@ -87,7 +81,8 @@
         [[cell imageView] applyBorder];
         
         cell.textLabel.text = [ZBThemeManager localizedNameForAccentColor:color];
-        cell.textLabel.textColor = [UIColor primaryTextColor];
+        
+        [cell applyStyling];
         
         return cell;
     }
@@ -101,8 +96,8 @@
         [cell toggle];
     }
     else {
-        UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
-        oldCell.accessoryType = UITableViewCellAccessoryNone;
+        ZBOptionSettingsTableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
+        [oldCell setChosen:NO];
         
         ZBAccentColor newColor = (ZBAccentColor)[colors[indexPath.row] integerValue];
         selectedColor = newColor;
@@ -114,9 +109,9 @@
         [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
         ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
         
-        UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-        newCell.tintColor = [UIColor accentColor];
-        newCell.accessoryType = UITableViewCellAccessoryCheckmark;
+        ZBOptionSettingsTableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+        [newCell applyStyling];
+        [newCell setChosen:YES];
     }
 }
 

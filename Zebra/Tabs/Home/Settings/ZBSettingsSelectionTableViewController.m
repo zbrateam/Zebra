@@ -7,6 +7,7 @@
 //
 
 #import "ZBSettingsSelectionTableViewController.h"
+#import "ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
 #import "ZBDevice.h"
 #import <Extensions/UIColor+GlobalColors.h>
@@ -56,7 +57,7 @@
     self->selectedIndex = selectedIndex;
     self->selectedOption = selectedOption;
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"settingsOptionCell"];
+    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsOptionCell"];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -74,14 +75,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"settingsOptionCell" forIndexPath:indexPath];
+    ZBOptionSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"settingsOptionCell" forIndexPath:indexPath];
     
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.textLabel.text = NSLocalizedString(options[indexPath.row], @"");
-    cell.tintColor = [UIColor accentColor];
-    cell.textLabel.textColor = [UIColor primaryTextColor];
     
-    cell.accessoryType = [selectedIndex isEqual:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    [cell setChosen:[selectedIndex isEqual:indexPath]];
+    [cell applyStyling];
 
     return cell;
 }
@@ -98,12 +97,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (![selectedIndex isEqual:indexPath]) {
+        NSIndexPath *previousChoice = selectedIndex;
+        
         self->selectedIndex = indexPath;
         self->selectedOption = options[indexPath.row];
         
-        [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
+        [self.tableView reloadRowsAtIndexPaths:@[previousChoice, indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
-        [[self tableView] reloadData];
+        [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
     }
 }
 
