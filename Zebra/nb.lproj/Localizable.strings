@@ -180,7 +180,7 @@
 "You have already added these sources." = "Du har allerede lagt til de kildene.";
 "Unable to locate an APT repository at:" = "Kunne ikke finne et APT-kilde på:";
 "Unable to locate APT repositories at:" = "Kunne ikke finne APT-kilder på:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Feil under nedlasting av %@: %@";
 
 "A total of %d files will be downloaded" = "%d filer vil lastes ned";
 
@@ -485,9 +485,9 @@
 "Package Not Available" = "Pakken er utilgjengelig";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pakken du ber om er utilgjengelig. Den kan ha blitt fjernet fra vertskilden eller så ble feil pakke-ID forespurt.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d sekunder";
+"Download Timeout" = "Tidsavbrudd for nedlasting";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurer hvor lenge Zebra skal vente på at en kilde skal svare før tidsavbrudd.";
+"This timer will reset every time Zebra receives new information from a source." = "Denne tidtakeren tilbakestilles hver gang Zebra mottar ny informasjon fra en kilde.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Kontoinformasjon kunne ikke hentes fra kilden. Logg deg av kilden, logg deg inn på nytt og prøv igjen.";
