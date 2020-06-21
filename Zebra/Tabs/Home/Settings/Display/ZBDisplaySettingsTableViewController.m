@@ -7,6 +7,7 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
+#import "ZBSettingsTableViewCell.h"
 #import "ZBDetailedLinkSettingsTableViewCell.h"
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
@@ -235,7 +236,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     usesSystemAppearance = [newUsesSystemAppearance boolValue];
     [ZBSettings setUsesSystemAppearance:usesSystemAppearance];
     
-    [self updateInterfaceStyle];
+    interfaceStyle = interfaceStyle = [ZBSettings interfaceStyle];
     
     if (usesSystemAppearance) { // Delete style picker section
         [self.tableView beginUpdates];
@@ -247,6 +248,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     }
+    
+    [self updateInterfaceStyle];
 }
 
 - (void)togglePureBlack:(NSNumber *)newPureBlackMode {
@@ -263,6 +266,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     
     [UIView animateWithDuration:0.5 animations:^{
         self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+        
+        for (ZBSettingsTableViewCell *cell in self.tableView.visibleCells) {
+            [cell applyStyling];
+        }
     }];
 }
 
