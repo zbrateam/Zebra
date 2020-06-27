@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int limit;
 
 - (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)limit;
-- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit selectedSources:(NSArray *)preSelectedSources;
+- (id)initWithSelectionType:(ZBSourceSelectionType)type limit:(int)sourceLimit selectedSources:(NSArray <ZBSource *> *)preSelectedSources;
 @end
 
 NS_ASSUME_NONNULL_END

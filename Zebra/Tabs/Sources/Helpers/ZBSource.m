@@ -59,11 +59,11 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return local;
 }
 
-+ (ZBSource *)sourceFromBaseURL:(NSString *)baseURL {
++ (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL {
     return [[ZBDatabaseManager sharedInstance] sourceFromBaseURL:baseURL];
 }
 
-+ (ZBSource *)sourceFromBaseFilename:(NSString *)baseFilename {
++ (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename {
     return [[ZBDatabaseManager sharedInstance] sourceFromBaseFilename:baseFilename];
 }
 
