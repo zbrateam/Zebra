@@ -50,17 +50,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     ZBFeatureBlacklist
 };
 
-typedef NS_ENUM(NSUInteger, ZBAdvancedOrder) {
-    ZBDropTables,
-    ZBOpenDocs,
-    ZBClearImageCache,
-    ZBClearKeychain
-};
-
-enum ZBMiscOrder {
-    ZBIconAction
-};
-
 @interface ZBMainSettingsTableViewController () {
     NSMutableDictionary *_colors;
     ZBAccentColor accentColor;
@@ -498,32 +487,18 @@ enum ZBMiscOrder {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleFeatured" object:self];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBFeatured] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
     });
 }
 
 - (void)toggleAutoRefresh:(NSNumber *)newValue {
     [ZBSettings setWantsAutoRefresh:[newValue boolValue]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSources] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    });
 }
 
 - (void)toggleNews:(NSNumber *)newValue {
     [ZBSettings setWantsCommunityNews:[newValue boolValue]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleNews" object:self];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBChanges] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    });
 }
 
 - (void)toggleLatest:(NSNumber *)newValue {
@@ -532,22 +507,10 @@ enum ZBMiscOrder {
 
 - (void)toggleLiveSearch:(NSNumber *)newValue {
     [ZBSettings setWantsLiveSearch:[newValue boolValue]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBSearch] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    });
 }
 
 - (void)toggleFinishAutomatically:(NSNumber *)newValue {
     [ZBSettings setWantsFinishAutomatically:[newValue boolValue]];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBConsole] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    });
 }
 
 - (void)misc {

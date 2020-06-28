@@ -123,14 +123,10 @@
     [ZBSettings setUsesSystemAccentColor:usesSystemAccentColor];
     
     if (usesSystemAccentColor) { //Delete style picker section
-        [self.tableView beginUpdates];
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
     }
     else { //Insert style picker section
-        [self.tableView beginUpdates];
         [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
     }
     
     [(ZBSwitchSettingsTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] applyStyling];

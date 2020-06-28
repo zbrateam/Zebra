@@ -237,14 +237,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = interfaceStyle = [ZBSettings interfaceStyle];
     
     if (usesSystemAppearance) { // Delete style picker section
-        [self.tableView beginUpdates];
         [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
     }
     else { // Insert style picker section
-        [self.tableView beginUpdates];
         [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
     }
     
     [self updateInterfaceStyle];
