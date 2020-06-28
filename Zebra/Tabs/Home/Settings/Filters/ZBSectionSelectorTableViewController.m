@@ -7,6 +7,8 @@
 //
 
 #import "ZBSectionSelectorTableViewController.h"
+#import "UITableView+Settings.h"
+#import "ZBOptionSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
 #import <Database/ZBDatabaseManager.h>
@@ -26,7 +28,7 @@
 #pragma mark - View Controller Lifecycle
 
 - (id)init {
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super init];
     
     if (self) {
         selectedSections = [NSMutableArray new];
@@ -49,7 +51,7 @@
     sections = (NSArray *)allSections;
     
     [self layoutNaviationButtons];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"sectionSelectorCell"];
+    [self.tableView registerCellType:ZBOptionSettingsCell];
 }
 
 #pragma mark - Bar Button Actions
@@ -84,15 +86,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sectionSelectorCell" forIndexPath:indexPath];
+    ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
     
     cell.textLabel.text = sections[indexPath.row];
-    cell.textLabel.textColor = [UIColor primaryTextColor];
     
     cell.imageView.image = [ZBSource imageForSection:sections[indexPath.row]];
     [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     
-    cell.accessoryType = [selectedIndexes containsObject:indexPath] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    [cell setChosen:[selectedIndexes containsObject:indexPath]];
+    [cell applyStyling];
     
     return cell;
 }
@@ -111,7 +113,7 @@
         [selectedSections addObject:section];
     }
     
-    [[self tableView] reloadData];
+    [self chooseUnchooseOptionAtIndexPath:indexPath];
     [self layoutNaviationButtons];
 }
 

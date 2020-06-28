@@ -7,6 +7,9 @@
 //
 
 #import "ZBAuthorSelectorTableViewController.h"
+#import "UITableView+Settings.h"
+#import "ZBOptionSettingsTableViewCell.h"
+#import "ZBOptionSubtitleSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
 #import <Theme/ZBThemeManager.h>
@@ -29,7 +32,7 @@
 #pragma mark - View Controller Lifecycle
 
 - (id)init {
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super init];
     
     if (self) {
         authors = @[];
@@ -51,6 +54,8 @@
     self.title = NSLocalizedString(@"Search", @"");
     self.definesPresentationContext = YES;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
+    [self.tableView registerCellTypes:@[@(ZBOptionSettingsCell), @(ZBOptionSubtitleSettingsCell)]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -177,21 +182,21 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    UITableViewCellStyle style = [authorDetail[0] isEqualToString:authorDetail[1]] ? UITableViewCellStyleDefault : UITableViewCellStyleSubtitle;
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:style reuseIdentifier:@"sectionSelectorCell"];
+    ZBOptionSettingsTableViewCell *cell;
     
-    if (style == UITableViewCellStyleSubtitle) {
-        cell.textLabel.text = authorDetail[0];
-        cell.textLabel.textColor = [UIColor primaryTextColor];
+    if ([authorDetail[0] isEqualToString:authorDetail[1]]) {
+        cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
         
-        cell.detailTextLabel.text = authorDetail[1];
-        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-    } else {
         cell.textLabel.text = authorDetail[0] ?: authorDetail[1];
-        cell.textLabel.textColor = [UIColor primaryTextColor];
+    } else {
+        cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
+        
+        cell.textLabel.text = authorDetail[0];
+        cell.detailTextLabel.text = authorDetail[1];
     }
-
-    cell.accessoryType = authorDetail[1].length && [[selectedAuthors allKeys] containsObject:authorDetail[1]] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    
+    [cell setChosen:authorDetail[1].length && [[selectedAuthors allKeys] containsObject:authorDetail[1]]];
+    [cell applyStyling];
     
     return cell;
 }
@@ -207,7 +212,7 @@
         [selectedAuthors setObject:authorDetail[0] forKey:authorDetail[1]];
     }
     
-    [self refreshTable];
+    [self chooseUnchooseOptionAtIndexPath:indexPath];
     [self layoutNaviationButtons];
 }
 

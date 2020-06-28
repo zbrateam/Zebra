@@ -10,7 +10,7 @@
 #import "UIColor+GlobalColors.h"
 #import "ZBDevice.h"
 #import "ZBStoresListTableViewController.h"
-#import "ZBSettingsTableViewController.h"
+#import "ZBMainSettingsTableViewController.h"
 #import "ZBWishListTableViewController.h"
 #import "ZBDatabaseManager.h"
 #import "ZBSource.h"

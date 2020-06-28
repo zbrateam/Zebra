@@ -7,6 +7,7 @@
 //
 
 #import "ZBAlternateIconController.h"
+#import "UITableView+Settings.h"
 #import "ZBOptionSettingsTableViewCell.h"
 #import "ZBOptionSubtitleSettingsTableViewCell.h"
 
@@ -102,8 +103,7 @@
     self.title = NSLocalizedString(@"App Icon", @"");
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
-    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsOptionCell"];
-    [self.tableView registerClass:[ZBOptionSubtitleSettingsTableViewCell class] forCellReuseIdentifier:@"settingsOptionSubtitleCell"];
+    [self.tableView registerCellTypes:@[@(ZBOptionSettingsCell), @(ZBOptionSubtitleSettingsCell)]];
 }
 
 #pragma mark - Table view data source
@@ -124,9 +124,9 @@
     
     ZBOptionSettingsTableViewCell *cell;
     if (author) {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsOptionSubtitleCell" forIndexPath:indexPath];
+        cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
     } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsOptionCell" forIndexPath:indexPath];
+        cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
     }
     
     cell.textLabel.text = icon[@"readableName"];
@@ -161,8 +161,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (currentChoice != indexPath) {
-        [(ZBOptionSettingsTableViewCell *)[tableView cellForRowAtIndexPath:currentChoice] setChosen:NO];
-        [(ZBOptionSettingsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath] setChosen:YES];
+        [self chooseOptionAtIndexPath:indexPath previousIndexPath:currentChoice animated:NO];
     
         NSString *iconName = [[[ZBAlternateIconController icons] objectAtIndex:indexPath.row] objectForKey:@"iconName"];
         [self setIconWithName:iconName fromIndex:indexPath];

@@ -7,6 +7,7 @@
 //
 
 #import "ZBAccentColorTableViewController.h"
+#import "UITableView+Settings.h"
 #import "UIImageView+Zebra.h"
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
@@ -43,8 +44,7 @@
     
     self.title = NSLocalizedString(@"Accent Color", @"");
 
-    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
-    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsCheckableCell"];
+    [self.tableView registerCellTypes:@[@(ZBSwitchSettingsCell), @(ZBOptionSettingsCell)]];
 }
 
 #pragma mark - Table view data source
@@ -59,7 +59,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
         
         cell.textLabel.text = NSLocalizedString(@"Use System Accent Color", @"");
         
@@ -70,7 +70,7 @@
         return cell;
     }
     else {
-        ZBOptionSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCheckableCell"];
+        ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
         
         ZBAccentColor color = (ZBAccentColor)[colors[indexPath.row] integerValue];
         [cell setChosen:color == selectedColor];
@@ -92,26 +92,29 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        [cell toggle];
+        [self toggleSwitchAtIndexPath:indexPath];
     }
     else {
-        ZBOptionSettingsTableViewCell *oldCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:[colors indexOfObject:@(selectedColor)] inSection:1]];
-        [oldCell setChosen:NO];
+        NSInteger newRow = [colors indexOfObject:@(selectedColor)];
         
-        ZBAccentColor newColor = (ZBAccentColor)[colors[indexPath.row] integerValue];
-        selectedColor = newColor;
-        
-        [ZBSettings setAccentColor:newColor];
-        [[ZBThemeManager sharedInstance] configureNavigationBar];
-        
-        self.navigationController.navigationBar.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-        [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-        ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
-        
-        ZBOptionSettingsTableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
-        [newCell applyStyling];
-        [newCell setChosen:YES];
+        if (newRow != indexPath.row) {
+            NSIndexPath *previousChoice = [NSIndexPath indexPathForRow:newRow inSection:1];
+            
+            ZBAccentColor newColor = (ZBAccentColor)[colors[indexPath.row] integerValue];
+            selectedColor = newColor;
+            
+            [ZBSettings setAccentColor:newColor];
+            [[ZBThemeManager sharedInstance] configureNavigationBar];
+            
+            self.navigationController.navigationBar.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+            [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+            ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
+            
+            ZBOptionSettingsTableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+            [newCell applyStyling];
+            
+            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
+#import "UITableView+Settings.h"
 #import "ZBSettingsTableViewCell.h"
 #import "ZBDetailedLinkSettingsTableViewCell.h"
 #import "ZBSwitchSettingsTableViewCell.h"
@@ -43,10 +44,8 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     interfaceStyle = [ZBSettings interfaceStyle];
     pureBlackMode = [ZBSettings pureBlackMode];
     
-    [self.tableView registerClass:[ZBDetailedLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsDetailedLinkCell"];
+    [self.tableView registerCellTypes:@[@(ZBDetailedLinkSettingsCell), @(ZBSwitchSettingsCell), @(ZBOptionSettingsCell)]];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsColorCell"];
-    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
-    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsCheckableCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,8 +92,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBSectionAccentColor: {
-            ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsDetailedLinkCell" forIndexPath:indexPath];
-
+            ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
             cell.detailTextLabel.text = [ZBThemeManager localizedNameForAccentColor:[ZBSettings accentColor]];
 
@@ -103,7 +101,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         }
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {
-                ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+                ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
 
                 cell.textLabel.text = NSLocalizedString(@"Use System Appearance", @"");
                 
@@ -117,7 +115,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionStyleChooser: {
             if (@available(iOS 13.0, *)) {
                 if (!usesSystemAppearance) {
-                    ZBOptionSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCheckableCell" forIndexPath:indexPath];
+                    ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
                     if (indexPath.row == 0) {
                         cell.textLabel.text = NSLocalizedString(@"Light", @"");
                         [cell setChosen:interfaceStyle == ZBInterfaceStyleLight];
@@ -131,7 +129,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                 }
             }
             else if (indexPath.section == ZBSectionSystemStyle) {
-                ZBOptionSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCheckableCell" forIndexPath:indexPath];
+                ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
                 if (indexPath.row == 0) {
                     cell.textLabel.text = NSLocalizedString(@"Light", @"");
                     [cell setChosen:interfaceStyle == ZBInterfaceStyleLight];
@@ -145,7 +143,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             }
         }
         case ZBSectionPureBlack: {
-            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
 
             cell.textLabel.text = NSLocalizedString(@"Pure Black Mode", @"");
             
@@ -170,20 +168,20 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             break;
         case ZBSectionSystemStyle: {
             if (@available(iOS 13.0, *)) {
-                ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                [cell toggle];
+                [self toggleSwitchAtIndexPath:indexPath];
                 break;
             }
         }
         case ZBSectionStyleChooser: {
             if (!usesSystemAppearance) {
-                ZBOptionSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                NSInteger previousRow;
                 
-                if (![cell isChosen]) {
+                if (![[tableView cellForRowAtIndexPath:indexPath] isChosen]) {
                     if (indexPath.row == 0) { //Light
                         
                         interfaceStyle = ZBInterfaceStyleLight;
                         [ZBSettings setInterfaceStyle:ZBInterfaceStyleLight];
+                        previousRow = 1;
                     }
                     else { //Dark
                         
@@ -195,9 +193,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                             interfaceStyle = ZBInterfaceStyleDark;
                             [ZBSettings setInterfaceStyle:ZBInterfaceStyleDark];
                         }
+                        previousRow = 0;
                     }
                     
-                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                    [self chooseOptionAtIndexPath:indexPath previousIndexPath:[NSIndexPath indexPathForRow:previousRow inSection:indexPath.section] animated:YES];
                     
                     self.navigationController.navigationBar.tintColor = [UIColor accentColor];
                     [self updateInterfaceStyle];
@@ -206,8 +205,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
             }
         }
         case ZBSectionPureBlack: {
-            ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            [cell toggle];
+            [self toggleSwitchAtIndexPath:indexPath];
             break;
         }
         default:

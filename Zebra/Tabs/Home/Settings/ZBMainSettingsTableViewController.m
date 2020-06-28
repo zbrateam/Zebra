@@ -1,13 +1,14 @@
 //
-//  SettingsTableViewController.m
+//  MainSettingsTableViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 6/22/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSettingsTableViewController.h"
+#import "ZBMainSettingsTableViewController.h"
 #import "ZBSettingsSelectionTableViewController.h"
+#import "UITableView+Settings.h"
 #import "UIImageView+Zebra.h"
 #import "ZBLinkSettingsTableViewCell.h"
 #import "ZBRightIconTableViewCell.h"
@@ -60,7 +61,7 @@ enum ZBMiscOrder {
     ZBIconAction
 };
 
-@interface ZBSettingsTableViewController () {
+@interface ZBMainSettingsTableViewController () {
     NSMutableDictionary *_colors;
     ZBAccentColor accentColor;
     ZBInterfaceStyle interfaceStyle;
@@ -68,7 +69,7 @@ enum ZBMiscOrder {
 
 @end
 
-@implementation ZBSettingsTableViewController
+@implementation ZBMainSettingsTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,11 +79,8 @@ enum ZBMiscOrder {
     accentColor = [ZBSettings accentColor];
     interfaceStyle = [ZBSettings interfaceStyle];
     
-    [self.tableView registerClass:[ZBLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsLinkCell"];
+    [self.tableView registerCellTypes:@[@(ZBLinkSettingsCell), @(ZBDetailedLinkSettingsCell), @(ZBSwitchSettingsCell), @(ZBButtonSettingsCell)]];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBRightIconTableViewCell" bundle:nil] forCellReuseIdentifier:@"settingsAppIconCell"];
-    [self.tableView registerClass:[ZBDetailedLinkSettingsTableViewCell class] forCellReuseIdentifier:@"settingsDetailedLinkCell"];
-    [self.tableView registerClass:[ZBSwitchSettingsTableViewCell class] forCellReuseIdentifier:@"settingsSwitchCell"];
-    [self.tableView registerClass:[ZBButtonSettingsTableViewCell class] forCellReuseIdentifier:@"settingsButtonCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -160,12 +158,12 @@ enum ZBMiscOrder {
             ZBInterfaceOrder row = indexPath.row;
             switch (row) {
                 case ZBDisplay: {
-                    cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+                    cell = [tableView dequeueLinkSettingsCellForIndexPath:indexPath];
                     cell.textLabel.text = NSLocalizedString(@"Display", @"");
                     break;
                 }
                 case ZBLanguage: {
-                    cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+                    cell = [tableView dequeueLinkSettingsCellForIndexPath:indexPath];
                     cell.textLabel.text = NSLocalizedString(@"Language", @"");
                     break;
                 }
@@ -186,7 +184,7 @@ enum ZBMiscOrder {
             return cell;
         }
         case ZBFilters: {
-            ZBLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsLinkCell" forIndexPath:indexPath];
+            ZBLinkSettingsTableViewCell *cell = [tableView dequeueLinkSettingsCellForIndexPath:indexPath];
 
             cell.textLabel.text = NSLocalizedString(@"Filters", @"");
 
@@ -197,7 +195,7 @@ enum ZBMiscOrder {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
                 case ZBFeaturedEnable: {
-                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
 
                     cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
                     [cell setOn:[ZBSettings wantsFeaturedPackages]];
@@ -207,7 +205,7 @@ enum ZBMiscOrder {
                     return cell;
                 }
                 case ZBFeatureOrRandomToggle: {
-                    ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsDetailedLinkCell" forIndexPath:indexPath];
+                    ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
 
                     ZBFeaturedType type = [ZBSettings featuredPackagesType];
                     if (type == ZBFeaturedTypeSource) {
@@ -345,8 +343,7 @@ enum ZBMiscOrder {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
                 case ZBFeaturedEnable: {
-                    ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                    [cell toggle];
+                    [self toggleSwitchAtIndexPath:indexPath];
                     break;
                 }
                 case ZBFeatureOrRandomToggle:
@@ -365,8 +362,7 @@ enum ZBMiscOrder {
         case ZBPackages:
         case ZBSearch:
         case ZBConsole: {
-            ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            [cell toggle];
+            [self toggleSwitchAtIndexPath:indexPath];
             break;
         }
         case ZBMisc: {

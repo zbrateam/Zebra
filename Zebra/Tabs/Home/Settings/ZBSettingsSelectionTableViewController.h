@@ -6,11 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBSettingsTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSettingsSelectionTableViewController : ZBTableViewController
+@interface ZBSettingsSelectionTableViewController : ZBSettingsTableViewController
 @property void (^settingChanged)(void);
 
 @property NSString *settingsKey;

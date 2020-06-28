@@ -23,6 +23,7 @@
 
 #import <UIColor+GlobalColors.h>
 #import <UIImageView+Zebra.h>
+#import "UITableView+Settings.h"
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
@@ -45,7 +46,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"filterCell"];
-    [self.tableView registerClass:[ZBButtonSettingsTableViewCell class] forCellReuseIdentifier:@"settingsButtonCell"];
+    [self.tableView registerCellType:ZBButtonSettingsCell];
 }
 
 - (void)refreshTable {
@@ -168,7 +169,7 @@
         }
     }
     
-    ZBButtonSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsButtonCell" forIndexPath:indexPath];
+    ZBButtonSettingsTableViewCell *cell = [tableView dequeueButtonSettingsCellForIndexPath:indexPath];
     
     cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
     

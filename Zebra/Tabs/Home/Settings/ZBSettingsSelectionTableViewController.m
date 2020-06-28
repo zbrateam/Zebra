@@ -7,6 +7,7 @@
 //
 
 #import "ZBSettingsSelectionTableViewController.h"
+#import "UITableView+Settings.h"
 #import "ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
 #import "ZBDevice.h"
@@ -30,7 +31,7 @@
 @synthesize options;
 
 - (id)initWithOptions:(NSArray *)selectionOptions getter:(SEL)getter setter:(SEL)setter settingChangedCallback:(void (^)(void))callback {
-    self = [super initWithStyle:UITableViewStyleGrouped];
+    self = [super init];
     
     if (self) {
         options = selectionOptions;
@@ -57,7 +58,7 @@
     self->selectedIndex = selectedIndex;
     self->selectedOption = selectedOption;
     
-    [self.tableView registerClass:[ZBOptionSettingsTableViewCell class] forCellReuseIdentifier:@"settingsOptionCell"];
+    [self.tableView registerCellType:ZBOptionSettingsCell];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -75,7 +76,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBOptionSettingsTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"settingsOptionCell" forIndexPath:indexPath];
+    ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
     
     cell.textLabel.text = NSLocalizedString(options[indexPath.row], @"");
     
@@ -102,7 +103,7 @@
         self->selectedIndex = indexPath;
         self->selectedOption = options[indexPath.row];
         
-        [self.tableView reloadRowsAtIndexPaths:@[previousChoice, indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
         
         [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
     }
