@@ -257,8 +257,15 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "加入心愿单";
-"Remove from Wish List" = "从心愿单中移除";
+"Add to Wishlist" = "加入心愿单";
+"Remove from Wishlist" = "从心愿单中移除";
+"Share Package" = "分享插件";
+"GET" = "获取";
+"Block Author" = "关注作者";
+"Unblock Author" = "取关作者";
+"Bundle Identifier" = "系统标识";
+"Section" = "分类";
+"Dependencies" = "依赖";
 
 // Package Section Names
 
