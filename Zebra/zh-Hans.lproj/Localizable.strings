@@ -241,6 +241,13 @@
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
 "Installed Size" = "安装大小";
+"Bundle Identifier" = "系统标识";
+"Section" = "分类";
+"Dependencies" = "依赖";
+"Conflicts" = "冲突";
+"Developer Website" = "开发者网站";
+"Support" = "支持";
+
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
@@ -257,8 +264,8 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "加入心愿单";
-"Remove from Wish List" = "从心愿单中移除";
+"Add to Wishlist" = "加入心愿单";
+"Remove from Wishlist" = "从心愿单中移除";
 
 // Package Section Names
 
