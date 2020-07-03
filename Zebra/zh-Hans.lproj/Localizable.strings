@@ -266,6 +266,9 @@
 
 "Add to Wishlist" = "加入心愿单";
 "Remove from Wishlist" = "从心愿单中移除";
+"Block Author" = "关注作者";
+"Unblock Author" = "取关作者";
+"Share Package" = "分享插件";
 
 // Package Section Names
 
