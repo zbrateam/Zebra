@@ -49,6 +49,7 @@
 - (UIBackgroundFetchResult)notifyNewUpdatesBetween:(ZBPackageList *)oldUpdates
                                         newUpdates:(ZBPackageList *)newUpdates {
     UIBackgroundFetchResult result = UIBackgroundFetchResultNoData;
+    ZBPackageList *packagesToNotify = [ZBPackageList new];
     
     for (ZBPackage *package in newUpdates) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier == %@", package.identifier];
@@ -59,29 +60,44 @@
             continue;
         }
         else if (filteredPackages.count <= 0) {
-            [self notifyUpdateForPackage:package];
-            result = UIBackgroundFetchResultNewData;
+            [packagesToNotify addObject:package];
         }
         else {
             ZBPackage *oldPackage = filteredPackages[0];
             
             if (![package.version isEqualToString:oldPackage.version]) {
-                [self notifyUpdateForPackage:package];
-                result = UIBackgroundFetchResultNewData;
+                [packagesToNotify addObject:package];
             }
         }
+    }
+
+    if (packagesToNotify.count > 0) {
+        [self notifyUpdateForPackages:packagesToNotify];
+        result = UIBackgroundFetchResultNewData;
     }
 
     return result;
 }
 
-- (void)notifyUpdateForPackage:(ZBPackage *)package {
-    NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Update available for %@", @""), package.name];
-    NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Version %@ is available on %@.", @""), package.version, [package.source label]];
+- (void)notifyUpdateForPackages:(ZBPackageList *)packages {
+    if (packages.count == 1) {
+        ZBPackage *package = packages[0];
 
-    [self notify:text withTitle:title withUserInfo:@{
-        @"openURL": [NSString stringWithFormat:@"zbra://packages/%@", package.identifier],
-    }];
+        NSString *title = [NSString stringWithFormat:NSLocalizedString(@"Update available for %@", @""), package.name];
+        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"Version %@ is available on %@.", @""), package.version, [package.source label]];
+
+        [self notify:text withTitle:title withUserInfo:@{
+            @"openURL": [NSString stringWithFormat:@"zbra://packages/%@", package.identifier],
+        }];
+    }
+    else if (packages.count > 1) {
+        NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%d updates available", @""), packages.count];
+        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"%@ and %d more can be updated.", @""), packages[0].name, packages.count - 1];
+
+        [self notify:text withTitle:title withUserInfo:@{
+            @"openURL": @"zbra://changes",
+        }];
+    }
 }
 
 - (void)notify:(NSString *)body withTitle:(NSString *)title withUserInfo:(NSDictionary *)userInfo {

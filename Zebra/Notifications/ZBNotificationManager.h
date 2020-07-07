@@ -23,7 +23,7 @@ typedef NSMutableArray<ZBPackage *> ZBPackageList;
 - (void)ensureNotificationAccess;
 - (void)performBackgroundFetch:(nonnull BackgroundCompletionHandler)completionHandler;
 - (UIBackgroundFetchResult)notifyNewUpdatesBetween:(nonnull ZBPackageList *)oldUpdates newUpdates:(nonnull ZBPackageList *)newUpdates;
-- (void)notifyUpdateForPackage:(nonnull ZBPackage *)package;
+- (void)notifyUpdateForPackages:(nonnull ZBPackageList *)packages;
 - (void)notify:(nonnull NSString *)body withTitle:(nonnull NSString *)title withUserInfo:(nonnull NSDictionary *)userInfo;
 
 + (nonnull instancetype)sharedInstance;

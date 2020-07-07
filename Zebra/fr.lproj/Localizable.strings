@@ -491,3 +491,5 @@
 
 "Update available for %@" = "Mise à jour disponible pour %@";
 "Version %@ is available on %@." = "La version %@ est disponible sur %@.";
+"%d updates available" = "%d mises à jour disponibles";
+"%@ and %d more can be updated." = "%@ et %d autre(s) peuvent être mis à jour.";

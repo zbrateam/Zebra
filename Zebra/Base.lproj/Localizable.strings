@@ -494,3 +494,5 @@
 
 "Update available for %@" = "Update available for %@";
 "Version %@ is available on %@." = "Version %@ is available on %@.";
+"%d updates available" = "%d updates available";
+"%@ and %d more can be updated." = "%@ and %d more can be updated.";
