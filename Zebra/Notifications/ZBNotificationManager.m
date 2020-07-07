@@ -98,7 +98,7 @@
     content.userInfo = userInfo;
 
     UNNotificationRequest* request = [UNNotificationRequest
-           requestWithIdentifier:@"MorningAlarm" content:content trigger:trigger];
+           requestWithIdentifier:@"xyz.willy.Zebra.updates" content:content trigger:trigger];
 
     UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
