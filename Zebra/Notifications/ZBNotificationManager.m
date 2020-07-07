@@ -43,7 +43,7 @@
     self.completionHandler = completionHandler;
     self.oldUpdates = [databaseManager packagesWithUpdates];
 
-    [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
+    [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
 }
 
 - (UIBackgroundFetchResult)notifyNewUpdatesBetween:(ZBPackageList *)oldUpdates
