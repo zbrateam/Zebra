@@ -67,7 +67,7 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
-    availableOptions = @[@"release", @"update", @"upcoming", @"news"];
+    availableOptions = @[@"paid release", @"free release", @"update", @"upcoming", @"news"];
     defaults = [NSUserDefaults standardUserDefaults];
     [self startSettingHeader];
     self.batchLoadCount = 250;
@@ -408,19 +408,11 @@
         text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
         text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
         
-        NSMutableArray *tags = [NSMutableArray new];
-        NSMutableArray *formattedTags = [NSMutableArray new];
-        for (NSString *string in [self getTags:post.title]) {
-            if ([availableOptions containsObject:string]) {
-                [tags addObject:string];
-                [formattedTags addObject:[NSString stringWithFormat:@"[%@]", string]];
-            }
-        }
+        NSArray *tags = [self getTags:post.title];
 
-        cell.postTitle.text = [self stripTags:formattedTags fromTitle:text];
+        cell.postTitle.text = [self stripTags:tags fromTitle:text];
 
-        cell.postTag.text = [tags componentsJoinedByString:@", "];
-        cell.postTag.text = [cell.postTag.text capitalizedString];
+        cell.postTag.text = [[tags componentsJoinedByString:@", "] capitalizedString];
     } else {
         cell.postTitle.text = @"Error";
     }
@@ -451,34 +443,25 @@
 }
 
 - (NSString *)stripTags:(NSArray *)tags fromTitle:(NSString *)title {
-    NSArray *separatedTitle = [title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for (NSString *cut in separatedTitle) {
-        if ([cut hasPrefix:@"["] && [tags containsObject:[cut lowercaseString]]) {
-            continue;
-        }
-        [cleanedStrings addObject:cut];
+    NSMutableString *cleanedTitle = [title mutableCopy];
+    
+    for (NSString *tag in tags) {
+        NSString *formattedTag = [NSString stringWithFormat:@"[%@]", tag];
+        [cleanedTitle replaceOccurrencesOfString:formattedTag withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [cleanedTitle length])];
     }
     
-    return [cleanedStrings componentsJoinedByString:@" "];
+    return cleanedTitle;
 }
 
 - (NSArray *)getTags:(NSString *)body {
-    body = [body lowercaseString];
-    NSArray *authorName = [body componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for (NSString *cut in authorName) {
-        if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
-            NSString *cutCopy = [cut substringFromIndex:1];
-            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
-            if ([cutCopy containsString:@"]["]) {
-                [cleanedStrings addObjectsFromArray:[cutCopy componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-            } else {
-                [cleanedStrings addObject:cutCopy];
-            }
+    NSString *lowerBody = [body lowercaseString];
+    NSMutableArray *tags = [NSMutableArray new];
+    for (NSString *possibleTag in self->availableOptions) {
+        if ([lowerBody containsString:[NSString stringWithFormat:@"[%@]", possibleTag]]) {
+            [tags addObject:possibleTag];
         }
     }
-    return cleanedStrings;
+    return tags;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
