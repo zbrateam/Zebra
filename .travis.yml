@@ -16,4 +16,9 @@ script:
 before_install:
 - gem install xcpretty
 - brew install ldid fakeroot
-- git clone --depth=1 --recursive https://github.com/theos/theos.git $THEOS
+- git clone --single-branch -b master https://github.com/theos/theos.git $THEOS
+- cd $THEOS
+- git config advice.detachedHead false
+- git checkout 8771215
+- git submodule update --init --recursive
+- cd $TRAVIS_BUILD_DIR
