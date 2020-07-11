@@ -9,13 +9,19 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
+      with:
+        submodules: recursive
+
     - name: Install Dependencies
-      env:
-        THEOS: theos
-      run: |
-        brew install ldid dpkg fakeroot
-        git clone --depth=1 --recursive https://github.com/theos/theos.git $THEOS
-        git submodule update --init --recursive
+      run: brew install ldid fakeroot
+
+    - name: Setup Theos
+      uses: actions/checkout@master
+      with:
+        repository: theos/theos
+        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
+        path: theos
+        submodules: recursive
 
     - name: Build Package
       id: package_build
