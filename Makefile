@@ -4,7 +4,7 @@ include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/null.mk
 
 all::
-	xcodebuild CODE_SIGN_IDENTITY="" AD_HOC_CODE_SIGNING_ALLOWED=YES -scheme Zebra archive -archivePath Zebra.xcarchive PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' | xcpretty && exit ${PIPESTATUS[0]}
+	set -o pipefail && xcodebuild CODE_SIGN_IDENTITY="" AD_HOC_CODE_SIGNING_ALLOWED=YES -scheme Zebra archive -archivePath Zebra.xcarchive PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' | xcpretty
 
 after-stage::
 	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
