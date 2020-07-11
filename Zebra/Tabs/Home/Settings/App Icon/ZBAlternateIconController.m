@@ -7,13 +7,17 @@
 //
 
 #import "ZBAlternateIconController.h"
+#import "UITableView+Settings.h"
+#import "ZBOptionSettingsTableViewCell.h"
+#import "ZBOptionSubtitleSettingsTableViewCell.h"
 
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIImageView+Zebra.h>
 
-@interface ZBAlternateIconController ()
-
+@interface ZBAlternateIconController () {
+    NSIndexPath *currentChoice;
+}
 @end
 
 @implementation ZBAlternateIconController
@@ -98,6 +102,8 @@
     
     self.title = NSLocalizedString(@"App Icon", @"");
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    
+    [self.tableView registerCellTypes:@[@(ZBOptionSettingsCell), @(ZBOptionSubtitleSettingsCell)]];
 }
 
 #pragma mark - Table view data source
@@ -115,18 +121,18 @@
     
     BOOL border = [icon[@"border"] boolValue];
     BOOL author = icon[@"author"] != nil;
-    NSString *cellIdentifier = author ? @"alternateIconCellSubtitle" : @"alternateIconCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    
+    ZBOptionSettingsTableViewCell *cell;
+    if (author) {
+        cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
+    } else {
+        cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
     }
     
     cell.textLabel.text = icon[@"readableName"];
-    cell.textLabel.textColor = [UIColor primaryTextColor];
     
     if (author) {
         cell.detailTextLabel.text = icon[@"author"];
-        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
     }
     
     cell.imageView.image = [UIImage imageNamed:icon[@"iconName"]];
@@ -141,21 +147,25 @@
     }
     
     if (iconName && ([iconSelected isEqualToString:iconName] || iconSelected == iconName)) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        [cell setChosen:YES];
+        currentChoice = indexPath;
     } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell setChosen:NO];
     }
     
-    cell.tintColor = [UIColor accentColor];
+    [cell applyStyling];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [ZBDevice hapticButton];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSString *iconName = [[[ZBAlternateIconController icons] objectAtIndex:indexPath.row] objectForKey:@"iconName"];
-    [self setIconWithName:iconName fromIndex:indexPath];
+    if (currentChoice != indexPath) {
+        [self chooseOptionAtIndexPath:indexPath previousIndexPath:currentChoice animated:NO];
+    
+        NSString *iconName = [[[ZBAlternateIconController icons] objectAtIndex:indexPath.row] objectForKey:@"iconName"];
+        [self setIconWithName:iconName fromIndex:indexPath];
+    }
 }
 
 - (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {

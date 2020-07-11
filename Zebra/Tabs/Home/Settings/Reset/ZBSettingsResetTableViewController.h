@@ -6,11 +6,11 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBSettingsTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSettingsResetTableViewController : ZBTableViewController
+@interface ZBSettingsResetTableViewController : ZBSettingsTableViewController
 
 @end
 

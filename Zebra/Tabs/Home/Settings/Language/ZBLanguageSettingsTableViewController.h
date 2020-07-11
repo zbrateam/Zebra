@@ -6,12 +6,12 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBSettingsTableViewController.h"
 @import SafariServices;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBLanguageSettingsTableViewController : ZBTableViewController <SFSafariViewControllerDelegate>
+@interface ZBLanguageSettingsTableViewController : ZBSettingsTableViewController <SFSafariViewControllerDelegate>
 
 @end
 

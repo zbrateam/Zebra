@@ -11,6 +11,7 @@
 #import "ZBFilterSettingsTableViewController.h"
 #import "ZBSectionSelectorTableViewController.h"
 #import "ZBAuthorSelectorTableViewController.h"
+#import "ZBButtonSettingsTableViewCell.h"
 
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
@@ -22,6 +23,7 @@
 
 #import <UIColor+GlobalColors.h>
 #import <UIImageView+Zebra.h>
+#import "UITableView+Settings.h"
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;
@@ -44,6 +46,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"filterCell"];
+    [self.tableView registerCellType:ZBButtonSettingsCell];
 }
 
 - (void)refreshTable {
@@ -166,11 +169,11 @@
         }
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
-    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
-    cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    cell.imageView.image = nil;
+    ZBButtonSettingsTableViewCell *cell = [tableView dequeueButtonSettingsCellForIndexPath:indexPath];
     
+    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
+    
+    [cell applyStyling];
     return cell;
 }
 

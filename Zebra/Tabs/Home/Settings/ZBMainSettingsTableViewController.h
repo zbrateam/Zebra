@@ -1,5 +1,5 @@
 //
-//  SettingsTableViewController.h
+//  MainSettingsTableViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 6/22/19.
@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Extensions/ZBTableViewController.h>
+#import "ZBSettingsTableViewController.h"
 #import "ZBDevice.h"
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"
 #import "ZBAlternateIconController.h"
 @import SDWebImage;
 
-@interface ZBSettingsTableViewController : ZBTableViewController <UINavigationControllerDelegate>
+@interface ZBMainSettingsTableViewController : ZBSettingsTableViewController <UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *headerView;
 @property (weak, nonatomic) IBOutlet UIView *headerContainer;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;

@@ -6,9 +6,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBSettingsTableViewController.h"
 
-@interface ZBAlternateIconController : ZBTableViewController
+@interface ZBAlternateIconController : ZBSettingsTableViewController
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *closeButton;
 + (NSArray <NSDictionary *> *)icons;
 + (NSDictionary *)iconForName:(NSString *)name;
