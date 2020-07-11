@@ -7,11 +7,14 @@
 //
 
 #import "ZBSourceAddViewController.h"
+#import <Database/ZBRefreshViewController.h>
 #import <Sources/Helpers/ZBBaseSource.h>
+#import <Sources/Helpers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
 @import SDWebImage;
 
 @interface ZBSourceAddViewController () {
+    UIViewController *delegate;
     UISearchController *searchControlller;
     NSMutableArray <ZBBaseSource *> *sources;
     NSArray <ZBBaseSource *> *filteredSources;
@@ -23,12 +26,13 @@
 
 #pragma mark - Initializers
 
-- (id)init {
+- (id)initWithDelegate:(UIViewController *)delegate {
     self = [super init];
     
     if (self) {
         self.title = @"Add Source";
         self.definesPresentationContext = YES;
+        self->delegate = delegate;
         
         searchControlller = [[UISearchController alloc] init];
         searchControlller.obscuresBackgroundDuringPresentation = NO;
@@ -121,6 +125,38 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    ZBBaseSource *source = filteredSources[indexPath.row];
+    [[ZBSourceManager sharedInstance] verifySources:[NSSet setWithObject:source] delegate:self];
+}
+
+#pragma mark - ZBSourceVerificationDelegate
+
+- (void)startedSourceVerification:(BOOL)multiple {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources {
+    if (existingSources.count) {
+        [[ZBSourceManager sharedInstance] addBaseSources:[NSSet setWithArray:existingSources]];
+        
+        NSMutableSet *existing = [NSMutableSet setWithArray:existingSources];
+        if (imaginarySources.count) {
+            [existing unionSet:[NSSet setWithArray:imaginarySources]];
+        }
+        
+        ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:existing delegate:self];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self dismissViewControllerAnimated:YES completion:^{
+                [self->delegate presentViewController:refreshVC animated:YES completion:nil];
+            }];
+        });
+    }
 }
 
 #pragma mark - UISearchContollerDelegate

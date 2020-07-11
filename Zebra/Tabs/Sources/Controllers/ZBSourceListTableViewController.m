@@ -272,7 +272,7 @@
 #pragma mark - Navigation Buttons
 
 - (void)addSource:(id)sender {
-    ZBSourceAddViewController *controller = [[ZBSourceAddViewController alloc] init];
+    ZBSourceAddViewController *controller = [[ZBSourceAddViewController alloc] initWithDelegate:self];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     
     [self presentViewController:navController animated:YES completion:nil];
@@ -705,7 +705,7 @@
 }
 
 - (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources {
-    if ([existingSources count]) { //If there are any existing sources, go ahead and add them
+    if (existingSources.count) { //If there are any existing sources, go ahead and add them
         [sourceManager addBaseSources:[NSSet setWithArray:existingSources]];
         
         NSMutableSet *existing = [NSMutableSet setWithArray:existingSources];
@@ -721,7 +721,7 @@
             }];
         });
     }
-    else if ([imaginarySources count]) {
+    else if (imaginarySources.count) {
 //        dispatch_async(dispatch_get_main_queue(), ^{
 //            [self->verifyPopup dismissViewControllerAnimated:YES completion:^{
 //                NSMutableArray *urls = [NSMutableArray new];

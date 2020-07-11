@@ -198,9 +198,9 @@
 }
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
-    if ([delegate respondsToSelector:@selector(startedSourceVerification:)]) [delegate startedSourceVerification:[sources count] > 1];
+    if ([delegate respondsToSelector:@selector(startedSourceVerification:)]) [delegate startedSourceVerification:sources.count > 1];
     
-    NSUInteger sourcesToVerify = [sources count];
+    NSUInteger sourcesToVerify = sources.count;
     NSMutableArray *existingSources = [NSMutableArray new];
     NSMutableArray *imaginarySources = [NSMutableArray new];
     
@@ -216,7 +216,7 @@
                     [imaginarySources addObject:source];
                 }
                 
-                if ([delegate respondsToSelector:@selector(finishedSourceVerification:imaginarySources:)] && sourcesToVerify == [existingSources count] + [imaginarySources count]) {
+                if ([delegate respondsToSelector:@selector(finishedSourceVerification:imaginarySources:)] && sourcesToVerify == existingSources.count + imaginarySources.count) {
                     [delegate finishedSourceVerification:existingSources imaginarySources:imaginarySources];
                 }
             }];
