@@ -147,7 +147,7 @@
         } else if (package.requiresAuthorization) {
             [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Authorizing Download for %@", @""), package.name] atLevel:ZBLogLevelDescript];
             [self authorizeDownloadForPackage:package completion:^(NSURL *downloadURL, NSError *error) {
-                if (downloadURL && !error) {
+                if (downloadURL && !error && self->session != nil) {
                     NSURLSessionDownloadTask *downloadTask = [self->session downloadTaskWithURL:downloadURL];
                     [downloadTask resume];
                     
@@ -365,6 +365,7 @@
     [packageTasksMap removeAllObjects];
     [sourceTasksMap removeAllObjects];
     [session invalidateAndCancel];
+    self->session = nil;
 }
 
 - (void)stopAllDownloads {
