@@ -450,7 +450,8 @@
         [cleanedTitle replaceOccurrencesOfString:formattedTag withString:@"" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [cleanedTitle length])];
     }
     
-    return cleanedTitle;
+    NSString *cleanerTitle = [cleanedTitle stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return [[cleanerTitle componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@" "];
 }
 
 - (NSArray *)getTags:(NSString *)body {
