@@ -281,8 +281,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 }
                 else {
                     ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
-                    ZBPackageViewController *depicition = [[ZBPackageViewController alloc] initWithPackage:package];
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depicition];
+                    ZBPackageViewController *depiction = [[ZBPackageViewController alloc] initWithPackage:package];
+                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depiction];
                     
                     [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
                     [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
