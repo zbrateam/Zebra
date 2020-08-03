@@ -180,7 +180,7 @@
 "You have already added these sources." = "Tyto zdroje jste již přidali.";
 "Unable to locate an APT repository at:" = "Nelze nalézt úložiště APT na:";
 "Unable to locate APT repositories at:" = "Nelze nalézt úložiště APT na:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Při stahování %@ nastala chyba: %@";
 
 "A total of %d files will be downloaded" = "Bude staženo celkem %d souborů";
 
@@ -485,9 +485,9 @@
 "Package Not Available" = "Balíček není k dispozici";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Požadovaný balíček již není k dispozici. Možná byl odstraněn ze zdrojů nebo požadované ID balíčku není správné.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d sekund";
+"Download Timeout" = "Vypršel časový limit pro stažení";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfiguruj čas, který Zebra čeká na odpověď zdroje před vypršením časového limitu.";
+"This timer will reset every time Zebra receives new information from a source." = "Tento časovač se resetuje pokaždé, když Zebra obdrží nové informace ze zdroje.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Informace o účtu nelze načíst ze zdroje. Odhlaste se prosím ze zdroje, přihlaste se a zkuste to znovu.";
