@@ -83,6 +83,8 @@
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
 		895C2ADA2402303B0065F424 /* ZBSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */; };
+		896CC20424DC8E3700CDF2CC /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 896CC1FD24DC8E3700CDF2CC /* AUPM~ipad@3x.png */; };
+		896CC20524DC8E3700CDF2CC /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 896CC20324DC8E3700CDF2CC /* AUPM~ipad@2x.png */; };
 		896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBSourceManager.m */; };
 		896F11C321B231900017B581 /* ZBSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBSource.m */; };
 		896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 896F72E423723139007727FD /* GoogleService-Info.plist */; };
@@ -348,6 +350,8 @@
 		895C2AD82402303B0065F424 /* ZBSearchTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchTableViewController.h; sourceTree = "<group>"; };
 		895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchTableViewController.m; sourceTree = "<group>"; };
 		896B4A79237A0E5C007C4ABB /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = sq.lproj/Localizable.strings; sourceTree = "<group>"; };
+		896CC1FD24DC8E3700CDF2CC /* AUPM~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@3x.png"; sourceTree = "<group>"; };
+		896CC20324DC8E3700CDF2CC /* AUPM~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@2x.png"; sourceTree = "<group>"; };
 		896F11BB21B231490017B581 /* ZBSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceManager.h; sourceTree = "<group>"; };
 		896F11BC21B231490017B581 /* ZBSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceManager.m; sourceTree = "<group>"; };
 		896F11C121B231900017B581 /* ZBSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSource.h; sourceTree = "<group>"; };
@@ -590,6 +594,8 @@
 		36F77ADE22A33B6100A4604C /* Alternate Icons */ = {
 			isa = PBXGroup;
 			children = (
+				896CC20324DC8E3700CDF2CC /* AUPM~ipad@2x.png */,
+				896CC1FD24DC8E3700CDF2CC /* AUPM~ipad@3x.png */,
 				89AD450B23CA5E350008831F /* AUPM@2x.png */,
 				89AD450A23CA5E340008831F /* AUPM@3x.png */,
 				36AC5A6F22AB30E9004C2332 /* zBlack@2x.png */,
@@ -1315,6 +1321,7 @@
 				365CAE2E22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib in Resources */,
 				36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */,
 				36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */,
+				896CC20524DC8E3700CDF2CC /* AUPM~ipad@2x.png in Resources */,
 				00ED302E235C23C5005E8302 /* Localizable.strings in Resources */,
 				2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */,
 				2627B60B2321A63E00B141E5 /* originalBlack~ipad@3x.png in Resources */,
@@ -1323,6 +1330,7 @@
 				2627B60D2321A64400B141E5 /* originalBlack~ipad@2x.png in Resources */,
 				36AC5A6C22AB30E4004C2332 /* zWhite@3x.png in Resources */,
 				8916AC0E23CA9447008BA02C /* ZBRightIconTableViewCell.xib in Resources */,
+				896CC20424DC8E3700CDF2CC /* AUPM~ipad@3x.png in Resources */,
 				896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */,
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
 				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,

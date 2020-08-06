@@ -135,6 +135,15 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
+			<key>AUPM</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AUPM</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
