@@ -345,7 +345,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
     }
     const char *tags = dict_get(package, "Tag");
     const char *status = dict_get(package, "Status");
-    if (!import || (strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
+    if (!import || (strcasestr(status, "config-files") == NULL && strcasestr(status, "not-installed") == NULL && strcasestr(status, "deinstall") == NULL)) {
         if (tags != NULL && strcasestr(tags, "role::cydia") != NULL) {
             sourceID = -1;
         } else if (sourceID == -1) {
