@@ -77,7 +77,7 @@
         [sources addObject:communitySources];
     }
     
-    if (sources.count == 0) {
+    if (!communitySources.count) {
         [sources addObject:@[@{@"type": @"none"}]];
     }
     
