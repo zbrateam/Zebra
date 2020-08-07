@@ -18,16 +18,32 @@
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
 
-@interface ZBCommunitySourcesTableViewController ()
+@interface ZBCommunitySourcesTableViewController () {
+    NSArray <NSDictionary *> *communitySourceCache;
+    ZBSourceManager *sourceManager;
+    NSMutableArray <NSArray <NSDictionary *> *> *sources;
+}
 @end
 
 @implementation ZBCommunitySourcesTableViewController
 
-@synthesize communitySources;
-@synthesize sourceManager;
+- (id)init {
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateSources) name:@"ZBDatabaseCompletedUpdate" object:nil];
+        
+        sourceManager = [ZBSourceManager sharedInstance];
+        sources = [NSMutableArray new];
+        
+        [self populateSources];
+    }
+    
+    return self;
+}
 
-- (BOOL)hasSpinner {
-    return YES;
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -38,87 +54,36 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(populateSources) name:@"ZBDatabaseCompletedUpdate" object:nil];
-    sourceManager = [ZBSourceManager sharedInstance];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self populateSources];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)populateSources {
-    if (!communitySources) {
-        communitySources = [NSMutableArray new];
-    }
-    else {
-        [communitySources removeAllObjects];
-    }
+    [sources removeAllObjects];
     
     //Populate package managers
     NSArray *managers = [self packageManagers];
     if (managers.count) {
-        [communitySources addObject:managers];
+        [sources addObject:managers];
     }
     
     //Populate utility source
     NSArray *utilitySources = [self utilitySources];
     if (utilitySources.count) {
-        [communitySources addObject:utilitySources];
+        [sources addObject:utilitySources];
     }
+    
+    //Populate community sources
+    NSArray *communitySources = [self communitySources];
+    if (communitySources.count) {
+        [sources addObject:communitySources];
+    }
+    
+    if (sources.count == 0) {
+        [sources addObject:@[@{@"type": @"none"}]];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
-    
-    //Fetch community sources
-    [self fetchCommunitySources];
-}
-
-- (void)fetchCommunitySources {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:@"https://getzbra.com/api/sources.json"]];
-    
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSMutableArray *sources = [NSMutableArray new];
-        if (data && !error) {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if (json[@"repos"]) {
-                NSArray *jsonSources = json[@"repos"];
-                for (NSDictionary *source in jsonSources) {
-                    NSString *version = source[@"appVersion"];
-                    NSString *url = source[@"url"];
-                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
-                        [sources addObject:source];
-                    }
-                }
-            }
-        }
-        if (error) {
-            ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
-        }
-        
-        if ([sources count]) {
-            [self->communitySources addObject:sources];
-        }
-        else {
-            [self->communitySources addObject:@[@{@"type": @"none"}]]; //None left message
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            self.navigationItem.titleView = nil;
-            self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
-        });
-    }];
-    
-    [task resume];
-    
 }
 
 - (NSArray *)packageManagers {
@@ -199,18 +164,70 @@
     return result;
 }
 
+- (NSArray *)communitySources {
+    if (!communitySourceCache) {
+        [self fetchCommunitySources];
+        
+        return NULL;
+    }
+    else {
+        NSMutableArray *result = [NSMutableArray new];
+        for (NSDictionary *source in communitySourceCache) {
+            if (![ZBSource exists:source[@"url"]]) [result addObject:source];
+        }
+        
+        return result;
+    }
+}
+
+- (void)fetchCommunitySources {
+    communitySourceCache = [NSMutableArray new];
+    
+    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/api/sources.json"];
+    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSMutableArray *sources = [NSMutableArray new];
+        if (data && !error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            if (json[@"repos"]) {
+                NSArray *jsonSources = json[@"repos"];
+                for (NSDictionary *source in jsonSources) {
+                    NSString *version = source[@"appVersion"];
+                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version]) {
+                        [sources addObject:source];
+                    }
+                }
+            }
+            
+            if (sources.count) {
+                self->communitySourceCache = sources;
+            }
+        }
+        else if (error) {
+            ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
+        }
+        
+        [self populateSources];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.navigationItem.titleView = nil;
+            self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
+        });
+    }];
+    
+    [task resume];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return communitySources.count == 0 ? 1 : communitySources.count;
+    return sources.count == 0 ? 1 : sources.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return communitySources.count == 0 ? 1 : communitySources[section].count;
+    return sources.count == 0 ? 1 : sources[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *info = communitySources[indexPath.section][indexPath.row];
+    NSDictionary *info = sources[indexPath.section][indexPath.row];
     NSString *type = info[@"type"];
     
     if ([type isEqualToString:@"none"]) {
@@ -248,8 +265,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (communitySources.count) {
-        NSDictionary *info = communitySources[section][0];
+    if (sources.count) {
+        NSDictionary *info = sources[section][0];
         NSString *type = info[@"type"];
 
         NSArray *options = @[@"transfer", @"utility", @"repo", @"none"];
@@ -268,7 +285,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *info = communitySources[indexPath.section][indexPath.row];
+    NSDictionary *info = sources[indexPath.section][indexPath.row];
     NSString *type = info[@"type"];
     
     NSArray *options = @[@"transfer", @"utility", @"repo"];

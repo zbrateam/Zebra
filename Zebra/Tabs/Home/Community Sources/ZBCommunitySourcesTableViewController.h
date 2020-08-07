@@ -13,6 +13,5 @@
 #import <Extensions/ZBTableViewController.h>
 
 @interface ZBCommunitySourcesTableViewController : ZBTableViewController
-@property NSMutableArray <NSArray <NSDictionary *> *> *communitySources;
-@property ZBSourceManager *sourceManager;
+
 @end
