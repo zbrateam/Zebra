@@ -242,7 +242,7 @@ typedef enum {
                 if (self->delegate) {
                     [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
                 }
-                if (controller.forwardToPackageID != NULL) {
+                if ([controller isKindOfClass:[ZBTabBarController class]] && controller.forwardToPackageID != NULL) {
                     [controller forwardToPackage];
                 }
             }];
