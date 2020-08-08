@@ -77,10 +77,6 @@
         [sources addObject:communitySources];
     }
     
-    if (!communitySources.count) {
-        [sources addObject:@[@{@"type": @"none"}]];
-    }
-    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
     });
@@ -125,41 +121,41 @@
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",
                                @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
+        [result addObject:dict];
         
         NSDictionary *dict2 = @{@"type": @"utility",
                                @"name": @"Odyssey",
                                @"url" : @"https://repo.theodyssey.dev/",
                                @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
-        if (![ZBSource exists:dict2[@"url"]]) [result addObject:dict2];
+        [result addObject:dict2];
     }
     else if ([ZBDevice isChimera]) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Chimera",
                                @"url" : @"https://repo.chimera.sh/",
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
-        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
+        [result addObject:dict];
     }
     else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Bingner/Elucubratus",
                                @"url" : @"https://apt.bingner.com/",
                                @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
-        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
+        [result addObject:dict];
     }
     else if ([ZBDevice isElectra]) { // electra
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Electra's iOS Utilities",
                                @"url" : @"https://electrarepo64.coolstar.org/",
                                @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
-        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
+        [result addObject:dict];
     }
     else { // cydia
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Cydia/Telesphoreo",
                                @"url" : @"http://apt.saurik.com/",
                                @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"};
-        if (![ZBSource exists:dict[@"url"]]) [result addObject:dict];
+        [result addObject:dict];
     }
     return result;
 }
@@ -171,12 +167,14 @@
         return NULL;
     }
     else {
-        NSMutableArray *result = [NSMutableArray new];
-        for (NSDictionary *source in communitySourceCache) {
-            if (![ZBSource exists:source[@"url"]]) [result addObject:source];
-        }
-        
-        return result;
+        // This is supposed to filter out sources that you already have added but since we're redoing this in 1.2 it can be disabled to reduce crashes
+//        NSMutableArray *result = [NSMutableArray new];
+//        for (NSDictionary *source in communitySourceCache) {
+//            if (![ZBSource exists:source[@"url"]]) [result addObject:source];
+//        }
+//
+//        return result;
+        return communitySourceCache;
     }
 }
 
@@ -219,11 +217,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return sources.count == 0 ? 1 : sources.count;
+    return sources.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sources.count == 0 ? 1 : sources[section].count;
+    return sources[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
