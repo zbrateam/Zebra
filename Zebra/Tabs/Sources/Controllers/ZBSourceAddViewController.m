@@ -15,7 +15,7 @@
 
 @interface ZBSourceAddViewController () {
     UIViewController *delegate;
-    UISearchController *searchControlller;
+    UISearchController *searchController;
     NSMutableArray <ZBBaseSource *> *sources;
     NSArray <ZBBaseSource *> *filteredSources;
     BOOL searchTermIsEmpty;
@@ -31,16 +31,18 @@
     self = [super init];
     
     if (self) {
-        self.title = @"Add Source";
+        self.title = @"Add Sources";
         self.definesPresentationContext = YES;
         self->delegate = delegate;
         
-        searchControlller = [[UISearchController alloc] init];
-        searchControlller.obscuresBackgroundDuringPresentation = NO;
-        searchControlller.searchResultsUpdater = self;
-        searchControlller.delegate = self;
-        searchControlller.searchBar.placeholder = @"Source Name or URL";
-        searchControlller.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        searchController = [[UISearchController alloc] init];
+        searchController.obscuresBackgroundDuringPresentation = NO;
+        searchController.hidesNavigationBarDuringPresentation = NO;
+        searchController.searchResultsUpdater = self;
+        searchController.delegate = self;
+        searchController.searchBar.placeholder = @"Source Name or URL";
+        searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        searchController.searchBar.showsCancelButton = NO;
         
         searchTermIsEmpty = YES;
         searchTermIsURL = NO;
@@ -84,15 +86,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.searchController = searchControlller;
+    self.navigationItem.searchController = searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
+    self.navigationItem.leftBarButtonItem = cancelButton;
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(dismissViewControllerAnimated:completion:)];
+    addButton.enabled = NO;
+    self.navigationItem.rightBarButtonItem = addButton;
+    
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBSourceTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"SourceTableViewCell"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    searchControlller.active = YES;
+    searchController.active = YES;
+}
+
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDelegate
@@ -123,6 +137,7 @@
     }
     else {
         ZBBaseSource *source = filteredSources[indexPath.row];
+        cell.sourceLabel.hidden = NO;
         cell.sourceLabel.text = source.label;
         cell.urlLabel.text = source.repositoryURI;
         [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -144,15 +159,22 @@
 }
 
 - (NSURL *)searchAsURL {
-    NSString *urlString = [searchControlller.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *urlString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (urlString.length > 0) {
-        if (![urlString hasPrefix:@"https://"] && ![urlString hasPrefix:@"http://"]) {
-            urlString = [@"https://" stringByAppendingString:urlString];
+        NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:nil];
+        NSTextCheckingResult *result = [detector firstMatchInString:urlString options:0 range:NSMakeRange(0, urlString.length)];
+        if (result && result.range.length == urlString.length) {
+            if (![urlString hasPrefix:@"https://"] && ![urlString hasPrefix:@"http://"]) {
+                urlString = [@"https://" stringByAppendingString:urlString];
+            }
+            if (![urlString hasSuffix:@"/"]) {
+                urlString = [urlString stringByAppendingString:@"/"];
+            }
+            
+            return [NSURL URLWithString:urlString];
+        } else {
+            return nil;
         }
-        if (![urlString hasSuffix:@"/"]) {
-            urlString = [urlString stringByAppendingString:@"/"];
-        }
-        return [NSURL URLWithString:urlString];
     } else {
         return nil;
     }
