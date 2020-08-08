@@ -446,8 +446,8 @@
 
 // Filters
 
-"Filters" = "搜索条件";
-"Add Filter" = "添加条件";
+"Filters" = "过滤规则";
+"Add Filter" = "添加过滤规则";
 
 "1 Section Hidden" = "1个软件源已隐藏";
 "%lu Sections Hidden" = "%lu个分类已被隐藏";

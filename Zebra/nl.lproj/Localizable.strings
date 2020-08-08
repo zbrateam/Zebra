@@ -58,17 +58,17 @@
 // Settings
 
 "Settings" = "Instellingen";
-"Display" = "Weergeven";
-"App Icon" = "App Icoon";
+"Display" = "Weergave";
+"App Icon" = "App-icoon";
 "Changes" = "Veranderingen";
 "Community News" = "Gemeenschapsnieuws";
 "Miscellaneous" = "Diversen";
-"Swipe Actions Display As" = "Veeg Acties Weergeven Als";
+"Swipe Actions Display As" = "Geef veegacties weer als";
 "Text" = "Tekst";
 "Icon" = "Icoon";
-"Finish Automatically" = "Automatisch Voltooien";
+"Finish Automatically" = "Voltooi automatisch";
 "Always Install Latest" = "Installeer altijd de nieuwste";
-"Automatic Refresh" = "Automatisch vernieuwen";
+"Automatic Refresh" = "Ververs automatisch";
 
 // Accent Colors
 
@@ -87,14 +87,14 @@
 "Storm" = "Storm";
 "Use System Accent Color" = "Gebruik Accent Kleur van het systeem";
 "Appearance" = "Uiterlijk";
-"Use System Appearance" = "Gebruik Systeem Uiterlijk";
+"Use System Appearance" = "Gebruik systeemuiterlijk";
 "Light" = "Licht";
 "Dark" = "Donker";
 "Pure Black Mode" = "Puur Zwart Modus";
 
 // Featured
 
-"Featured Packages" = "Uitgelichte Pakketten";
+"Featured Packages" = "Uitgelichte pakketten";
 "Feature Type" = "Uitgelicht type";
 "Repo Featured" = "Uitgelichte Bron";
 "Random" = "Willekeurig";
@@ -348,7 +348,7 @@
 "Removing Zebra..." = "Zebra verwijderen...";
 "Installing Zebra..." = "Zebra installeren...";
 "Error while opening file:" = "Fout bij openen van bestand:";
-"Adding Payment Vendor URL for %@" = "URL van Betalingsleverancier toevoegen voor %@";
+"Adding Payment Vendor URL for %@" = "URL van betalingsleverancier toevoegen voor %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "Dit apparaat is gesimuleerd, hier zijn de pakketten die in deze fase zouden worden gewijzigd:";
 
 // Queue Bar
@@ -485,7 +485,7 @@
 "Package Not Available" = "Pakket niet beschikbaar";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Het pakket dat je hebt opgevraagd is niet langer beschikbaar. Het kan zijn verwijderd uit je bronnen of het opgevraagde pakket-ID was onjuist.";
 
-"%d Seconds" = "%d Seconden";
+"%d Seconds" = "%d seconden";
 "Download Timeout" = "Download Timeout";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configureer de tijd dat Zebra wacht tot een bron reageert voordat er een time-out optreedt.";
 "This timer will reset every time Zebra receives new information from a source." = "Deze timer wordt gereset elke keer dat Zebra nieuwe informatie van een bron ontvangt.";

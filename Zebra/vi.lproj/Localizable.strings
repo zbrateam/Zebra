@@ -67,7 +67,7 @@
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
-"Always Install Latest" = "Luôn cài đặt mới nhất";
+"Always Install Latest" = "Luôn cài đặt phiên bản mới nhất";
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
@@ -105,9 +105,9 @@
 
 "Reset" = "Đặt lại";
 "Refresh Icon Cache" = "Làm mới bộ nhớ icon";
-"Clear Image Cache" = "Xóa bộ nhớ cache hình ảnh";
-"Clear Sources Cache" = "Đặt lại Cache Nguồn";
-"Clear Web Cache" = "Xóa bộ nhớ Cache Web";
+"Clear Image Cache" = "Xóa bộ nhớ cache";
+"Clear Sources Cache" = "Dọn sạch cache Nguồn";
+"Clear Web Cache" = "Xoá bộ nhớ đệm trang web";
 "Reset All Settings" = "Đặt lại tất cả các cài đặt";
 "Erase All Sources" = "Erase All Sources";
 "Erase All Sources and Settings" = "Xoá tất cả các nguồn và cài đặt";

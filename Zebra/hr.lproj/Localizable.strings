@@ -420,7 +420,7 @@
 
 "Display featured packages on the homepage." = "Prikaži istaknute pakete na početnoj stranici.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Pri otvaranju aplikacije osvježi Zebra izvore.";
 
 "Display recent community posts from /r/jailbreak." = "Prikaži nedavne objave iz zajednice /r/jailbreak.";
 
@@ -476,18 +476,18 @@
 "Restart" = "Ponovo pokreni";
 "Use System Language" = "Koristi jezik sustava";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Dodajete repozitoriju koja nije sigurna";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Podaci sa ove repozitorije nisu zaštićeni. Jeste li sigurni da želite dodati ovu repozitoriju?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Nemoguće dovršiti kupnju";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Paket nije dostupan";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Paket koji tražite više nije dostupan. Možda je uklonjen sa vašeg izvora ili je traženi ID paketa netočan.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d sekundi";
+"Download Timeout" = "Vremensko ograničenje preuzimanja";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurirajte količinu vremena kada će Zebra čekati na izvor da uzvrati prije isteka vremena.";
+"This timer will reset every time Zebra receives new information from a source." = "Tajmer se resetuje svaki puta kada Zebra primi nove informacije od izvora.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Nije moguće dohvatiti podatke o računu. Molimo vas odjavite se sa računa, ponovo se prijavite i pokušajte ponovo.";

@@ -155,7 +155,7 @@
 "Locally installed packages" = "Lokāli instalētas paketes";
 
 "Add" = "Pievienot";
-"View" = "View";
+"View" = "Skatīties";
 "Add Sources" = "Pievienot Avotus";
 "Add Multiple" = "Pievienot vairākus";
 "Enter Source URL" = "Ievadi Avota URL";
@@ -180,7 +180,7 @@
 "You have already added these sources." = "Tu jau pievienoji šos avotus.";
 "Unable to locate an APT repository at:" = "Nevar atrast APT avotu vietnē:";
 "Unable to locate APT repositories at:" = "Nevar atrast APT avotus vietnēs:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Lejuplādējot, radās kļūda %@: %@";
 
 "A total of %d files will be downloaded" = "Kopā tiks lejupielādēti %d faili";
 
@@ -482,12 +482,12 @@
 "Unable to complete purchase" = "Nevarēja pabeigt pirkumu";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pakete nav Pieejama";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Tava pieprasītā pakete vairs nav pieejama. Iespējams, ka tā tika noņemta no taviem avotiem, vai pieprasītais paketes ID bija nepareizs.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d Sekundes";
+"Download Timeout" = "Lejupielādes Partraukšana";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurē laiku, kuru Zebra gaidīs, līdz avots reaģēs, pirms pārtraukšanas.";
+"This timer will reset every time Zebra receives new information from a source." = "Šis taimeris tiks atiestatīts katru reizi, kad Zebra saņem jaunu informāciju no avota.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Konta informāciju nevarēja iegūt no avota. Lūdzu, izraksties no avota, pieraksties un mēģini vēlreiz.";
