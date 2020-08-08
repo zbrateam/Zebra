@@ -19,6 +19,7 @@
     NSMutableArray <ZBBaseSource *> *sources;
     NSArray <ZBBaseSource *> *filteredSources;
     BOOL searchTermIsEmpty;
+    BOOL searchTermIsURL;
 }
 @end
 
@@ -42,6 +43,7 @@
         searchControlller.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         searchTermIsEmpty = YES;
+        searchTermIsURL = NO;
         [self downloadSources];
     }
     
@@ -96,14 +98,16 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return searchTermIsEmpty ? 1 : 2;
+    return searchTermIsEmpty || !searchTermIsURL ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (searchTermIsEmpty) {
         return 0;
+    } else if (section == 0 && searchTermIsURL) {
+        return 1;
     } else {
-        return section == 0 ? 1 : filteredSources.count;
+        return filteredSources.count;
     }
 }
 
@@ -112,10 +116,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
 
-    NSString *searchTerm = searchControlller.searchBar.text;
-    if (indexPath.section == 0) {
-        cell.urlLabel.text = searchTerm;
+    if (indexPath.section == 0 && searchTermIsURL) {
+        cell.urlLabel.text = [self searchAsURL].absoluteString;
         cell.sourceLabel.hidden = YES;
+        cell.iconImageView.image = nil;
     }
     else {
         ZBBaseSource *source = filteredSources[indexPath.row];
@@ -130,8 +134,28 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    ZBBaseSource *source = filteredSources[indexPath.row];
+    ZBBaseSource *source;
+    if (indexPath.section == 0 && searchTermIsURL) {
+        source = [[ZBBaseSource alloc] initFromURL:[self searchAsURL]];
+    } else {
+        source = filteredSources[indexPath.row];
+    }
     [[ZBSourceManager sharedInstance] verifySources:[NSSet setWithObject:source] delegate:self];
+}
+
+- (NSURL *)searchAsURL {
+    NSString *urlString = [searchControlller.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (urlString.length > 0) {
+        if (![urlString hasPrefix:@"https://"] && ![urlString hasPrefix:@"http://"]) {
+            urlString = [@"https://" stringByAppendingString:urlString];
+        }
+        if (![urlString hasSuffix:@"/"]) {
+            urlString = [urlString stringByAppendingString:@"/"];
+        }
+        return [NSURL URLWithString:urlString];
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark - ZBSourceVerificationDelegate
@@ -171,14 +195,18 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *term = searchController.searchBar.text;
-    if ([[term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""]) {
+    term = [term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if (term.length == 0) {
         filteredSources = [sources copy];
         searchTermIsEmpty = YES;
+        searchTermIsURL = NO;
     }
     else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"repositoryURI contains[c] %@ OR label contains[c] %@", term, term];
         filteredSources = [sources filteredArrayUsingPredicate:predicate];
         searchTermIsEmpty = NO;
+        searchTermIsURL = [self searchAsURL] == nil ? NO : YES;
     }
     
     [self.tableView reloadData];
