@@ -17,9 +17,12 @@
     UIViewController *delegate;
     UISearchController *searchController;
     NSMutableArray <ZBBaseSource *> *sources;
+    NSMutableArray <ZBBaseSource *> *selectedSources;
     NSArray <ZBBaseSource *> *filteredSources;
     BOOL searchTermIsEmpty;
     BOOL searchTermIsURL;
+    ZBBaseSource *enteredSource;
+    BOOL enteredSourceSelected;
 }
 @end
 
@@ -55,6 +58,7 @@
 - (void)downloadSources {
     if (!sources) sources = [NSMutableArray new];
     if (!filteredSources) filteredSources = [NSMutableArray new];
+    if (!selectedSources) selectedSources = [NSMutableArray new];
     
     NSURL *url = [NSURL URLWithString:@"https://api.ios-repo-updates.com/1.0/repositories/"];
     NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -129,14 +133,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
+    cell.accessoryType = UITableViewCellAccessoryNone;
 
     if (indexPath.section == 0 && searchTermIsURL) {
-        cell.urlLabel.text = [self searchAsURL].absoluteString;
-        cell.sourceLabel.hidden = YES;
-        cell.iconImageView.image = nil;
+        if (enteredSource) {
+            if (enteredSource.verificationStatus == ZBSourceVerifying || enteredSource.verificationStatus == ZBSourceUnverified) {
+                cell.urlLabel.text = [self searchAsURL].absoluteString;
+                cell.sourceLabel.hidden = YES;
+                cell.iconImageView.image = nil;
+            }
+            else if (enteredSource.verificationStatus == ZBSourceExists) {
+                if (enteredSourceSelected) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                
+                cell.sourceLabel.hidden = NO;
+                cell.sourceLabel.text = enteredSource.label;
+                cell.urlLabel.text = enteredSource.repositoryURI;
+                [cell.iconImageView sd_setImageWithURL:enteredSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+            }
+        }
     }
     else {
         ZBBaseSource *source = filteredSources[indexPath.row];
+        if ([selectedSources containsObject:source]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        
         cell.sourceLabel.hidden = NO;
         cell.sourceLabel.text = source.label;
         cell.urlLabel.text = source.repositoryURI;
@@ -149,13 +168,30 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    ZBBaseSource *source;
     if (indexPath.section == 0 && searchTermIsURL) {
-        source = [[ZBBaseSource alloc] initFromURL:[self searchAsURL]];
+        if (enteredSourceSelected) {
+            enteredSourceSelected = NO;
+        } else {
+            enteredSourceSelected = YES;
+        }
     } else {
-        source = filteredSources[indexPath.row];
+        ZBBaseSource *source = filteredSources[indexPath.row];
+        if ([selectedSources containsObject:source]) {
+            [selectedSources removeObject:source];
+        } else {
+            [selectedSources addObject:source];
+        }
     }
-    [[ZBSourceManager sharedInstance] verifySources:[NSSet setWithObject:source] delegate:self];
+    
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    
+//    ZBBaseSource *source;
+//    if (indexPath.section == 0 && searchTermIsURL) {
+//        source = [[ZBBaseSource alloc] initFromURL:[self searchAsURL]];
+//    } else {
+//        source = filteredSources[indexPath.row];
+//    }
+//    [[ZBSourceManager sharedInstance] verifySources:[NSSet setWithObject:source] delegate:self];
 }
 
 - (NSURL *)searchAsURL {
@@ -228,7 +264,53 @@
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"repositoryURI contains[c] %@ OR label contains[c] %@", term, term];
         filteredSources = [sources filteredArrayUsingPredicate:predicate];
         searchTermIsEmpty = NO;
-        searchTermIsURL = [self searchAsURL] == nil ? NO : YES;
+        enteredSource = NULL;
+        enteredSourceSelected = NO;
+        
+        NSURL *enteredURL = [self searchAsURL];
+        NSPredicate *doubleCheck = [NSPredicate predicateWithFormat:@"repositoryURI = %@", enteredURL.absoluteString];
+        if (enteredURL && [sources filteredArrayUsingPredicate:doubleCheck].count == 0) {
+            searchTermIsURL = YES;
+            
+            ZBBaseSource *newEnteredSource = [[ZBBaseSource alloc] initFromURL:enteredURL];
+            if (newEnteredSource) {
+                enteredSource = newEnteredSource;
+                [newEnteredSource verify:^(ZBSourceVerificationStatus status) {
+                    if ([newEnteredSource isEqual:self->enteredSource]) {
+                        if (status == ZBSourceExists) {
+                            self->enteredSource = newEnteredSource;
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.tableView beginUpdates];
+                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                [self.tableView endUpdates];
+                            });
+                            
+                            [self->enteredSource getLabel:^(NSString * _Nonnull label) {
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self.tableView beginUpdates];
+                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                    [self.tableView endUpdates];
+                                });
+                            }];
+                        }
+                        else if (status == ZBSourceImaginary) {
+                            self->enteredSource = NULL;
+                            self->searchTermIsURL = NO;
+                            
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self.tableView beginUpdates];
+                                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                [self.tableView endUpdates];
+                            });
+                        }
+                    }
+                }];
+            } else {
+                
+            }
+        } else {
+            searchTermIsURL = NO;
+        }
     }
     
     [self.tableView reloadData];

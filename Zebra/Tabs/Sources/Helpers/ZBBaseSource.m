@@ -350,7 +350,7 @@
 }
 
 - (void)getLabel:(void (^)(NSString *label))completion {
-    if (![label isEqualToString:repositoryURI]) completion(label);
+    if (![label isEqualToString:repositoryURI] && completion) completion(label);
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
@@ -376,12 +376,12 @@
         
         if (label) {
             self->label = label;
-            completion(label);
+            if (completion) completion(label);
             return;
         }
         
         self->label = [self->repositoryURI copy];
-        completion(label);
+        if (completion) completion(label);
     }];
     [releaseTask resume];
 }
