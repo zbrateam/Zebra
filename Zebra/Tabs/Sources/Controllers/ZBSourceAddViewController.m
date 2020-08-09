@@ -22,7 +22,6 @@
     BOOL searchTermIsEmpty;
     BOOL searchTermIsURL;
     ZBBaseSource *enteredSource;
-    BOOL enteredSourceSelected;
 }
 @end
 
@@ -117,13 +116,8 @@
 #pragma mark - Adding Sources
 
 - (void)addSelectedSources {
-    NSSet *baseSources = [NSSet setWithArray:selectedSources];
-    if (enteredSourceSelected && enteredSource) {
-        baseSources = [baseSources setByAddingObject:enteredSource];
-    }
-    
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
-    [sourceManager addBaseSources:baseSources];
+    [sourceManager addBaseSources:[NSSet setWithArray:selectedSources]];
     
     [self dismiss];
 }
@@ -158,7 +152,7 @@
                 cell.iconImageView.image = nil;
             }
             else if (enteredSource.verificationStatus == ZBSourceExists) {
-                if (enteredSourceSelected) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                if ([selectedSources containsObject:enteredSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                 
                 cell.sourceLabel.hidden = NO;
                 cell.sourceLabel.text = enteredSource.label;
@@ -183,11 +177,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0 && searchTermIsURL) {
-        if (enteredSourceSelected) {
-            enteredSourceSelected = NO;
+    if (indexPath.section == 0 && enteredSource) {
+        if ([selectedSources containsObject:enteredSource]) {
+            [selectedSources removeObject:enteredSource];
         } else {
-            enteredSourceSelected = YES;
+            [selectedSources addObject:enteredSource];
         }
     } else {
         ZBBaseSource *source = filteredSources[indexPath.row];
@@ -198,7 +192,7 @@
         }
     }
     
-    self.navigationItem.rightBarButtonItem.enabled = selectedSources.count || enteredSourceSelected;
+    self.navigationItem.rightBarButtonItem.enabled = selectedSources.count;
     
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
@@ -249,7 +243,6 @@
         filteredSources = [sources filteredArrayUsingPredicate:predicate];
         searchTermIsEmpty = NO;
         enteredSource = NULL;
-        enteredSourceSelected = NO;
         
         NSURL *enteredURL = [self searchAsURL];
         NSPredicate *doubleCheck = [NSPredicate predicateWithFormat:@"repositoryURI = %@", enteredURL.absoluteString];
