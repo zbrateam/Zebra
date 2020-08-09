@@ -7,7 +7,7 @@
 //
 
 #import "ZBSourceAddViewController.h"
-#import <Database/ZBRefreshViewController.h>
+#import <Database/ZBDatabaseManager.h>
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
@@ -110,7 +110,9 @@
 
 - (void)dismiss {
     searchController.active = NO;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[ZBDatabaseManager sharedInstance] updateDatabaseUsingCaching:YES userRequested:YES];
+    }];
 }
 
 #pragma mark - Adding Sources
