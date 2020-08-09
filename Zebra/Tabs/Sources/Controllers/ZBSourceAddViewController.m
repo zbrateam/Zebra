@@ -195,6 +195,12 @@
     }
     
     self.navigationItem.rightBarButtonItem.enabled = selectedSources.count;
+    if (selectedSources.count) {
+        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"Add (%lu)", (unsigned long)selectedSources.count];
+    }
+    else {
+        self.navigationItem.rightBarButtonItem.title = @"Add";
+    }
     
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
