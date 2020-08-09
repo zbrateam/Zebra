@@ -96,7 +96,7 @@
     UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss)];
     self.navigationItem.leftBarButtonItem = cancelButton;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(dismissViewControllerAnimated:completion:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Add", @"") style:UIBarButtonItemStyleDone target:self action:@selector(addSelectedSources)];
     addButton.enabled = NO;
     self.navigationItem.rightBarButtonItem = addButton;
     
@@ -110,7 +110,22 @@
 }
 
 - (void)dismiss {
+    searchController.active = NO;
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Adding Sources
+
+- (void)addSelectedSources {
+    NSSet *baseSources = [NSSet setWithArray:selectedSources];
+    if (enteredSourceSelected && enteredSource) {
+        baseSources = [baseSources setByAddingObject:enteredSource];
+    }
+    
+    ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
+    [sourceManager addBaseSources:baseSources];
+    
+    [self dismiss];
 }
 
 #pragma mark - UITableViewDelegate
@@ -183,15 +198,9 @@
         }
     }
     
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    self.navigationItem.rightBarButtonItem.enabled = selectedSources.count || enteredSourceSelected;
     
-//    ZBBaseSource *source;
-//    if (indexPath.section == 0 && searchTermIsURL) {
-//        source = [[ZBBaseSource alloc] initFromURL:[self searchAsURL]];
-//    } else {
-//        source = filteredSources[indexPath.row];
-//    }
-//    [[ZBSourceManager sharedInstance] verifySources:[NSSet setWithObject:source] delegate:self];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (NSURL *)searchAsURL {
@@ -213,31 +222,6 @@
         }
     } else {
         return nil;
-    }
-}
-
-#pragma mark - ZBSourceVerificationDelegate
-
-- (void)startedSourceVerification:(BOOL)multiple {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources {
-    if (existingSources.count) {
-        [[ZBSourceManager sharedInstance] addBaseSources:[NSSet setWithArray:existingSources]];
-        
-        NSMutableSet *existing = [NSMutableSet setWithArray:existingSources];
-        if (imaginarySources.count) {
-            [existing unionSet:[NSSet setWithArray:imaginarySources]];
-        }
-        
-        ZBRefreshViewController *refreshVC = [[ZBRefreshViewController alloc] initWithBaseSources:existing delegate:self];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self dismissViewControllerAnimated:YES completion:^{
-                [self->delegate presentViewController:refreshVC animated:YES completion:nil];
-            }];
-        });
     }
 }
 
@@ -305,8 +289,6 @@
                         }
                     }
                 }];
-            } else {
-                
             }
         } else {
             searchTermIsURL = NO;
