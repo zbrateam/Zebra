@@ -299,16 +299,16 @@
 - (void)layoutNavigationButtonsNormal {
     if (self.editing) {
         UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(editMode:)];
-        self.navigationItem.rightBarButtonItem = doneButton;
+        self.navigationItem.leftBarButtonItem = doneButton;
         
         UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
-        self.navigationItem.leftBarButtonItem = exportButton;
+        self.navigationItem.rightBarButtonItem = exportButton;
     } else {
         self.editButtonItem.action = @selector(editMode:);
-        self.navigationItem.rightBarButtonItem = self.editButtonItem;
+        self.navigationItem.leftBarButtonItem = self.editButtonItem;
         
         UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addSource:)];
-        self.navigationItem.leftBarButtonItems = @[addButton];
+        self.navigationItem.rightBarButtonItems = @[addButton];
     }
 }
 
