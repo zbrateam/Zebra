@@ -20,6 +20,7 @@
 + (UIColor *)cellSelectedBackgroundColor;
 + (UIColor *)primaryTextColor;
 + (UIColor *)secondaryTextColor;
++ (UIColor *)tertiaryTextColor;
 + (UIColor *)cellSeparatorColor;
 + (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;

@@ -148,6 +148,21 @@
     }
 }
 
++ (UIColor *)tertiaryTextColor {
+    if ([ZBThemeManager useCustomTheming]) {
+        switch ([ZBSettings interfaceStyle]) {
+            case ZBInterfaceStyleLight:
+                return [UIColor colorWithRed:0.23529411764705882 green:0.23529411764705882 blue:0.2627450980392157 alpha:0.3];
+            case ZBInterfaceStyleDark:
+            case ZBInterfaceStylePureBlack:
+                return [UIColor colorWithRed:0.23529411764705882 green:0.23529411764705882 blue:0.2627450980392157 alpha:0.3];
+        }
+    }
+    else {
+        return [UIColor tertiaryLabelColor];
+    }
+}
+
 + (UIColor *)cellSeparatorColor {
     if ([ZBThemeManager useCustomTheming]) {
         switch ([ZBSettings interfaceStyle]) {
