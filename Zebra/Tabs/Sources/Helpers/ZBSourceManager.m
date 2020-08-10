@@ -116,7 +116,10 @@
         }
     }
     
-    if ([sourcesToAdd count]) [self appendBaseSources:sourcesToAdd toFile:[ZBAppDelegate sourcesListPath]];
+    if ([sourcesToAdd count]) {
+        [self appendBaseSources:sourcesToAdd toFile:[ZBAppDelegate sourcesListPath]];
+        [self needRecaching];
+    }
 }
 
 - (void)deleteSource:(ZBSource *)source {
@@ -157,6 +160,8 @@
         [featured removeObjectForKey:[source baseFilename]];
     }
     [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
+    
+    [self needRecaching];
 }
 
 //TODO: This needs error pointers
