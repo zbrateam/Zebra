@@ -122,9 +122,11 @@
 
 - (void)addSelectedSources {
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
-    [sourceManager addBaseSources:[NSSet setWithArray:selectedSources]];
     
-    [[ZBDatabaseManager sharedInstance] updateDatabaseUsingCaching:YES userRequested:YES];
+    NSSet *sourcesToAdd = [NSSet setWithArray:selectedSources];
+    [sourceManager addBaseSources:sourcesToAdd];
+    [[ZBDatabaseManager sharedInstance] updateSources:sourcesToAdd useCaching:YES];
+    
     [self dismiss];
 }
 
