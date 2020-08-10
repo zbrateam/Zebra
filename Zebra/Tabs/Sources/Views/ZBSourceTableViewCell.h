@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
+- (void)setDisabled:(BOOL)disabled;
 @end
 
 NS_ASSUME_NONNULL_END
