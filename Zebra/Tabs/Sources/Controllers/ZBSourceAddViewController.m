@@ -11,11 +11,13 @@
 #import <Sources/Helpers/ZBBaseSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
+#import <Extensions/UIColor+GlobalColors.h>
 @import SDWebImage;
 
 @interface ZBSourceAddViewController () {
     UIViewController *delegate;
     UISearchController *searchController;
+    NSArray *addedSources;
     NSMutableArray <ZBBaseSource *> *sources;
     NSMutableArray <ZBBaseSource *> *selectedSources;
     NSArray <ZBBaseSource *> *filteredSources;
@@ -58,6 +60,7 @@
     if (!sources) sources = [NSMutableArray new];
     if (!filteredSources) filteredSources = [NSMutableArray new];
     if (!selectedSources) selectedSources = [NSMutableArray new];
+    if (!addedSources) addedSources = [[[ZBSourceManager sharedInstance] sources] allObjects];
     
     NSURL *url = [NSURL URLWithString:@"https://api.ios-repo-updates.com/1.0/repositories/"];
     NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -100,6 +103,8 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBSourceTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"SourceTableViewCell"];
+    
+    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -110,9 +115,7 @@
 
 - (void)dismiss {
     searchController.active = NO;
-    [self dismissViewControllerAnimated:YES completion:^{
-        [[ZBDatabaseManager sharedInstance] updateDatabaseUsingCaching:YES userRequested:YES];
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Adding Sources
@@ -121,6 +124,7 @@
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     [sourceManager addBaseSources:[NSSet setWithArray:selectedSources]];
     
+    [[ZBDatabaseManager sharedInstance] updateDatabaseUsingCaching:YES userRequested:YES];
     [self dismiss];
 }
 
@@ -144,11 +148,20 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryNone;
 
     if (indexPath.section == 0 && searchTermIsURL) {
         if (enteredSource) {
+            if ([addedSources containsObject:enteredSource]) {
+                [cell setDisabled:YES];
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else {
+                [cell setDisabled:NO];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
             if (enteredSource.verificationStatus == ZBSourceVerifying || enteredSource.verificationStatus == ZBSourceUnverified) {
+                [cell setSpinning:YES];
                 cell.urlLabel.text = [self searchAsURL].absoluteString;
                 cell.sourceLabel.hidden = YES;
                 cell.iconImageView.image = nil;
@@ -156,6 +169,7 @@
             else if (enteredSource.verificationStatus == ZBSourceExists) {
                 if ([selectedSources containsObject:enteredSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                 
+                [cell setSpinning:NO];
                 cell.sourceLabel.hidden = NO;
                 cell.sourceLabel.text = enteredSource.label;
                 cell.urlLabel.text = enteredSource.repositoryURI;
@@ -165,7 +179,16 @@
     }
     else {
         ZBBaseSource *source = filteredSources[indexPath.row];
-        if ([selectedSources containsObject:source]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        if ([addedSources containsObject:(ZBSource *)source]) {
+            [cell setDisabled:YES];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else if ([selectedSources containsObject:source]) {
+            [cell setDisabled:NO];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        } else {
+            [cell setDisabled:NO];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         
         cell.sourceLabel.hidden = NO;
         cell.sourceLabel.text = source.label;
@@ -180,17 +203,21 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0 && enteredSource) {
-        if ([selectedSources containsObject:enteredSource]) {
-            [selectedSources removeObject:enteredSource];
-        } else {
-            [selectedSources addObject:enteredSource];
+        if (![addedSources containsObject:enteredSource] && enteredSource.verificationStatus == ZBSourceExists) {
+            if ([selectedSources containsObject:enteredSource]) {
+                [selectedSources removeObject:enteredSource];
+            } else {
+                [selectedSources addObject:enteredSource];
+            }
         }
     } else {
         ZBBaseSource *source = filteredSources[indexPath.row];
-        if ([selectedSources containsObject:source]) {
-            [selectedSources removeObject:source];
-        } else {
-            [selectedSources addObject:source];
+        if (![addedSources containsObject:source]) {
+            if ([selectedSources containsObject:source]) {
+                [selectedSources removeObject:source];
+            } else {
+                [selectedSources addObject:source];
+            }
         }
     }
     
