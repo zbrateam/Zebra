@@ -259,6 +259,12 @@
 
 #pragma mark - UISearchContollerDelegate
 
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [searchController.searchBar setShowsCancelButton:NO];
+    });
+}
+
 - (void)didPresentSearchController:(UISearchController *)searchController {
     dispatch_async(dispatch_get_main_queue(), ^{
         [searchController.searchBar becomeFirstResponder];
