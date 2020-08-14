@@ -39,7 +39,7 @@
         self.definesPresentationContext = YES;
         self->delegate = delegate;
         
-        searchController = [[UISearchController alloc] init];
+        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;
         searchController.hidesNavigationBarDuringPresentation = NO;
         searchController.searchResultsUpdater = self;
