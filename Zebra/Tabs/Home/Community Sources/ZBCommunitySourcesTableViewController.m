@@ -27,12 +27,13 @@
 @synthesize sourceManager;
 
 - (BOOL)hasSpinner {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"Transfer Sources";
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
@@ -59,58 +60,58 @@
         [communitySources addObject:managers];
     }
     
-    //Populate utility source
-    NSArray *utilitySources = [self utilitySources];
-    if (utilitySources.count) {
-        [communitySources addObject:utilitySources];
-    }
-    [self.tableView reloadData];
+//    //Populate utility source
+//    NSArray *utilitySources = [self utilitySources];
+//    if (utilitySources.count) {
+//        [communitySources addObject:utilitySources];
+//    }
+//    [self.tableView reloadData];
     
-    //Fetch community sources
-    [self fetchCommunitySources];
+//    //Fetch community sources
+//    [self fetchCommunitySources];
 }
 
-- (void)fetchCommunitySources {
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:@"https://getzbra.com/api/sources.json"]];
-    
-    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSMutableArray *sources = [NSMutableArray new];
-        if (data && !error) {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if (json[@"repos"]) {
-                NSArray *jsonSources = json[@"repos"];
-                for (NSDictionary *source in jsonSources) {
-                    NSString *version = source[@"appVersion"];
-                    NSString *url = source[@"url"];
-                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
-                        [sources addObject:source];
-                    }
-                }
-            }
-        }
-        if (error) {
-            ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
-        }
-        
-        if ([sources count]) {
-            [self->communitySources addObject:sources];
-        }
-        else {
-            [self->communitySources addObject:@[@{@"type": @"none"}]]; //None left message
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-            self.navigationItem.titleView = nil;
-            self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
-        });
-    }];
-    
-    [task resume];
-    
-}
+//- (void)fetchCommunitySources {
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    [request setHTTPMethod:@"GET"];
+//    [request setURL:[NSURL URLWithString:@"https://getzbra.com/api/sources.json"]];
+//
+//    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        NSMutableArray *sources = [NSMutableArray new];
+//        if (data && !error) {
+//            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//            if (json[@"repos"]) {
+//                NSArray *jsonSources = json[@"repos"];
+//                for (NSDictionary *source in jsonSources) {
+//                    NSString *version = source[@"appVersion"];
+//                    NSString *url = source[@"url"];
+//                    if ([ZBDependencyResolver doesVersion:PACKAGE_VERSION satisfyComparison:@">=" ofVersion:version] && ![ZBSource exists:url]) {
+//                        [sources addObject:source];
+//                    }
+//                }
+//            }
+//        }
+//        if (error) {
+//            ZBLog(@"[Zebra] Error while trying to access community sources: %@", error);
+//        }
+//
+//        if ([sources count]) {
+//            [self->communitySources addObject:sources];
+//        }
+//        else {
+//            [self->communitySources addObject:@[@{@"type": @"none"}]]; //None left message
+//        }
+//
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tableView reloadData];
+//            self.navigationItem.titleView = nil;
+//            self.navigationItem.title = NSLocalizedString(@"Community Sources", @"");
+//        });
+//    }];
+//
+//    [task resume];
+//
+//}
 
 - (NSArray *)packageManagers {
     NSMutableArray *result = [NSMutableArray new];
@@ -144,60 +145,60 @@
     return result;
 }
 
-- (NSArray *)utilitySources {
-    NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice isMystery]) {
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Procursus",
-                               @"url" : @"https://apt.procurs.us/",
-                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
-        [result addObject:dict];
-        
-        NSDictionary *dict2 = @{@"type": @"utility",
-                               @"name": @"Mystery",
-                               @"url" : @"https://myste.ry/repo/",
-                               @"icon": @"https://myste.ry/repo/CydiaIcon.png"};
-        [result addObject:dict2];
-    }
-    else if ([ZBDevice isChimera]) {
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Chimera",
-                               @"url" : @"https://repo.chimera.sh/",
-                               @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Bingner/Elucubratus",
-                               @"url" : @"https://apt.bingner.com/",
-                               @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else if ([ZBDevice isElectra]) { // electra
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Electra's iOS Utilities",
-                               @"url" : @"https://electrarepo64.coolstar.org/",
-                               @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    else { // cydia
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Cydia/Telesphoreo",
-                               @"url" : @"http://apt.saurik.com/",
-                               @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"};
-        [result addObject:dict];
-    }
-    return result;
-}
+//- (NSArray *)utilitySources {
+//    NSMutableArray *result = [NSMutableArray new];
+//    if ([ZBDevice isOdyssey]) {
+//        NSDictionary *dict = @{@"type": @"utility",
+//                               @"name": @"Procursus",
+//                               @"url" : @"https://apt.procurs.us/",
+//                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
+//        [result addObject:dict];
+//
+//        NSDictionary *dict2 = @{@"type": @"utility",
+//                                @"name": @"Odyssey",
+//                                @"url" : @"https://repo.theodyssey.dev/",
+//                                @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
+//        [result addObject:dict2];
+//    }
+//    else if ([ZBDevice isChimera]) {
+//        NSDictionary *dict = @{@"type": @"utility",
+//                               @"name": @"Chimera",
+//                               @"url" : @"https://repo.chimera.sh/",
+//                               @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
+//        [result addObject:dict];
+//    }
+//    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
+//        NSDictionary *dict = @{@"type": @"utility",
+//                               @"name": @"Bingner/Elucubratus",
+//                               @"url" : @"https://apt.bingner.com/",
+//                               @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
+//        [result addObject:dict];
+//    }
+//    else if ([ZBDevice isElectra]) { // electra
+//        NSDictionary *dict = @{@"type": @"utility",
+//                               @"name": @"Electra's iOS Utilities",
+//                               @"url" : @"https://electrarepo64.coolstar.org/",
+//                               @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
+//        [result addObject:dict];
+//    }
+//    else { // cydia
+//        NSDictionary *dict = @{@"type": @"utility",
+//                               @"name": @"Cydia/Telesphoreo",
+//                               @"url" : @"http://apt.saurik.com/",
+//                               @"icon": @"http://apt.saurik.com/dists/ios/CydiaIcon.png"};
+//        [result addObject:dict];
+//    }
+//    return result;
+//}
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return communitySources.count == 0 ? 1 : communitySources.count;
+    return communitySources.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return communitySources.count == 0 ? 1 : communitySources[section].count;
+    return communitySources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

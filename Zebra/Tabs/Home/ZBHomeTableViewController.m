@@ -325,7 +325,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                     image = [UIImage imageNamed:@"Changelog"];
                     break;
                 case ZBCommunity:
-                    text = NSLocalizedString(@"Community Sources", @"");
+                    text = NSLocalizedString(@"Transfer Sources", @"");
                     image = [UIImage imageNamed:@"Repos"];
                     break;
                 case ZBStores:
