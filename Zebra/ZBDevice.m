@@ -349,11 +349,13 @@
     return value;
 }
 
-+ (BOOL)isMystery {
++ (BOOL)isOdyssey {
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? YES : [self _isRegularFile:@"/.procursus_strapped"];
+        if ([self _isRegularFile:@"/.procursus_strapped"]) {
+            value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_odyssey"];
+        }
     });
     return value;
 }

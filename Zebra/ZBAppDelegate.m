@@ -210,8 +210,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
     
     NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
-    if ([ZBDevice isMystery]) {
-        jailbreak = @"Mystery";
+    if ([ZBDevice isOdyssey]) {
+        jailbreak = @"Odyssey";
     }
     else if ([ZBDevice isCheckrain]) {
         jailbreak = @"checkra1n";
