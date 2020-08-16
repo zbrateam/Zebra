@@ -13,11 +13,11 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
+      with:
+        github-token: ${{ secrets.GIT_TOKEN }}
 
     - name: Install Dependencies
       run: brew install ldid fakeroot
-      with:
-        github-token: ${{ secrets.GIT_TOKEN }}
 
     - name: Build Dependencies
       run: carthage update --platform ios --new-resolver
