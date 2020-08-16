@@ -14,7 +14,6 @@ script:
 - make package
 
 before_install:
-- brew install ldid fakeroot carthage
-- git clone --single-branch -b master --recursive https://github.com/theos/theos.git $THEOS
-- cd $TRAVIS_BUILD_DIR
 - carthage update
+- brew install ldid fakeroot
+- git clone --depth=1 --recursive https://github.com/theos/theos.git $THEOS
