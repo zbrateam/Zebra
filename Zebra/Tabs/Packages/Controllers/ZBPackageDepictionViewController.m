@@ -9,7 +9,6 @@
 #import "ZBPackageDepictionViewController.h"
 #import <Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
-#import "NSAttributedString+Markdown.h"
 #import <Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"
 #import "UIColor+GlobalColors.h"

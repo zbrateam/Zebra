@@ -17,7 +17,6 @@
 #import <Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
-#import <Extensions/NSAttributedString+Markdown.h>
 
 @import FirebaseAnalytics;
 
