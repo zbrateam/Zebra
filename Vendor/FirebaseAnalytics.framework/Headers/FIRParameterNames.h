@@ -368,6 +368,26 @@ static NSString *const kFIRParameterQuantity NS_SWIFT_NAME(AnalyticsParameterQua
 /// </pre>
 static NSString *const kFIRParameterScore NS_SWIFT_NAME(AnalyticsParameterScore) = @"score";
 
+/// Current screen class, such as the class name of the UIViewController, logged with screen_view
+/// event and added to every event (NSString). <pre>
+///     NSDictionary *params = @{
+///       kFIRParameterScreenClass : @"LoginViewController",
+///       // ...
+///     };
+/// </pre>
+static NSString *const kFIRParameterScreenClass NS_SWIFT_NAME(AnalyticsParameterScreenClass) =
+    @"screen_class";
+
+/// Current screen name, such as the name of the UIViewController, logged with screen_view event and
+/// added to every event (NSString). <pre>
+///     NSDictionary *params = @{
+///       kFIRParameterScreenName : @"LoginView",
+///       // ...
+///     };
+/// </pre>
+static NSString *const kFIRParameterScreenName NS_SWIFT_NAME(AnalyticsParameterScreenName) =
+    @"screen_name";
+
 /// The search string/keywords used (NSString).
 /// <pre>
 ///     NSDictionary *params = @{
