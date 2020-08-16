@@ -15,7 +15,9 @@ jobs:
     - uses: actions/checkout@master
 
     - name: Install Dependencies
-      run: brew install ldid fakeroot carthage
+      run: brew install ldid fakeroot
+      with:
+        github-token: ${{ secrets.GIT_TOKEN }}
 
     - name: Build Dependencies
       run: carthage update --platform ios --new-resolver
