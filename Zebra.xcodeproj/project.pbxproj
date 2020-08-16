@@ -93,8 +93,6 @@
 		8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2223CAAECC008BA02C /* ZBChangelogTableViewController.m */; };
 		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m */; };
 		891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */; };
-		8926D394246CAA900043B2EF /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8926D384246CAA700043B2EF /* CocoaMarkdown.framework */; };
-		8926D395246CAA900043B2EF /* CocoaMarkdown.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8926D384246CAA700043B2EF /* CocoaMarkdown.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */; };
 		89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89308E2623FF4BBB00D4641D /* ZBSettingsResetTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
@@ -151,14 +149,14 @@
 		89C7E49221B240D4003DB4E8 /* parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* parsel.c */; };
 		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
+		89CD4E1C24E9B6CD00F76913 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89CD4E1A24E9B6CD00F76913 /* LNPopupController.framework */; };
+		89CD4E1E24E9B6CE00F76913 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89CD4E1B24E9B6CD00F76913 /* SDWebImage.framework */; };
 		89D230182242B27500837C3B /* default.list in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.list */; };
 		89DD26862201571900CD31A0 /* ZBQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DD26852201571900CD31A0 /* ZBQueue.m */; };
 		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
 		89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD9924285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m */; };
 		89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89E8633C21D5A8C00081E485 /* WebKit.framework */; };
 		89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EA4ED1241B166D008DFE15 /* ZBFilterSettingsTableViewController.m */; };
-		89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; };
-		89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 89EB9362235BFCE30038BCEC /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		89F2053D2463A75000896021 /* GoogleDataTransport.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F205302463A74E00896021 /* GoogleDataTransport.xcframework */; };
 		89F2053E2463A75000896021 /* FirebaseCrashlytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F205312463A74E00896021 /* FirebaseCrashlytics.xcframework */; };
 		89F2053F2463A75000896021 /* FirebaseInstallations.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F205322463A74E00896021 /* FirebaseInstallations.xcframework */; };
@@ -175,8 +173,6 @@
 		89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F8730223653D280070160A /* UIVisualEffectView+Theme.m */; };
 		8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA226AF248BC4E100596838 /* ZBNotificationManager.m */; };
 		9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */; };
-		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
-		9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */; };
 		9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */; };
 		9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */; };
@@ -262,22 +258,6 @@
 			remoteInfo = SDWebImage;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		9E0D951D2358AD7000C6C2B2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8926D395246CAA900043B2EF /* CocoaMarkdown.framework in Embed Frameworks */,
-				9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */,
-				89EB9369235BFDE00038BCEC /* LNPopupController.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00ED302D235C23C5005E8302 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -550,6 +530,8 @@
 		89CADA142263FEF3000101EE /* ZBDownloadManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDownloadManager.m; sourceTree = "<group>"; };
 		89CADA162263FF00000101EE /* ZBDownloadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadDelegate.h; sourceTree = "<group>"; };
 		89CCC6CC239D696600B7D85C /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		89CD4E1A24E9B6CD00F76913 /* LNPopupController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LNPopupController.framework; path = Carthage/Build/iOS/LNPopupController.framework; sourceTree = "<group>"; };
+		89CD4E1B24E9B6CD00F76913 /* SDWebImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDWebImage.framework; path = Carthage/Build/iOS/SDWebImage.framework; sourceTree = "<group>"; };
 		89D230172242B27500837C3B /* default.list */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.list; sourceTree = "<group>"; };
 		89DD26842201571900CD31A0 /* ZBQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueue.h; sourceTree = "<group>"; };
 		89DD26852201571900CD31A0 /* ZBQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueue.m; sourceTree = "<group>"; };
@@ -627,21 +609,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				89F2053D2463A75000896021 /* GoogleDataTransport.xcframework in Frameworks */,
+				89CD4E1C24E9B6CD00F76913 /* LNPopupController.framework in Frameworks */,
 				89F205462463A75000896021 /* nanopb.xcframework in Frameworks */,
 				363FE2422287854F00B69929 /* Security.framework in Frameworks */,
+				89CD4E1E24E9B6CE00F76913 /* SDWebImage.framework in Frameworks */,
 				89F2053F2463A75000896021 /* FirebaseInstallations.xcframework in Frameworks */,
 				89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */,
 				899784402242D25800C1138C /* libbz2.tbd in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */,
-				9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */,
-				8926D394246CAA900043B2EF /* CocoaMarkdown.framework in Frameworks */,
 				89E8633D21D5A8C00081E485 /* WebKit.framework in Frameworks */,
 				89F205422463A75000896021 /* PromisesObjC.xcframework in Frameworks */,
 				89F205482463A75000896021 /* GoogleAppMeasurement.framework in Frameworks */,
 				89F205442463A75000896021 /* FIRAnalyticsConnector.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
-				89EB9368235BFDE00038BCEC /* LNPopupController.framework in Frameworks */,
 				89F205452463A75000896021 /* FirebaseCore.xcframework in Frameworks */,
 				89F205472463A75000896021 /* GoogleUtilities.xcframework in Frameworks */,
 				89F205432463A75000896021 /* FirebaseCoreDiagnostics.xcframework in Frameworks */,
@@ -1201,6 +1182,8 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				89CD4E1A24E9B6CD00F76913 /* LNPopupController.framework */,
+				89CD4E1B24E9B6CD00F76913 /* SDWebImage.framework */,
 				89F205372463A74F00896021 /* FIRAnalyticsConnector.framework */,
 				89F2053C2463A74F00896021 /* Firebase.h */,
 				89F205332463A74E00896021 /* FirebaseAnalytics.framework */,
@@ -1368,8 +1351,8 @@
 				89C5FDD921B1B13700A10E58 /* Sources */,
 				89C5FDDA21B1B13700A10E58 /* Frameworks */,
 				89C5FDDB21B1B13700A10E58 /* Resources */,
-				9E0D951D2358AD7000C6C2B2 /* Embed Frameworks */,
 				8905171D23723900000F0A32 /* ShellScript */,
+				89CD4E2124E9B70F00F76913 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1627,6 +1610,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PROJECT_DIR}/Vendor/FirebaseCrashlytics.xcframework/run\"\n";
+		};
+		89CD4E2124E9B70F00F76913 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+				"$(SRCROOT)/output.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1937,6 +1939,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
@@ -1976,6 +1979,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Vendor",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
 				HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";

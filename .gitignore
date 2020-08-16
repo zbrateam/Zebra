@@ -7,3 +7,5 @@ Index/
 xcuserdata/
 update.sh
 ipas/
+Carthage/Build
+Carthage/Checkouts
