@@ -486,3 +486,10 @@
 
 "Package Not Available" = "Paquet non disponible";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Le paquet que vous demandez n'est plus disponible. Il est possible qu'il ait été supprimé de vos sources ou que l'identifiant du paquet demandé soit incorrect.";
+
+// Notifications
+
+"Update available for %@" = "Mise à jour disponible pour %@";
+"Version %@ is available on %@." = "La version %@ est disponible sur %@.";
+"%d updates available" = "%d mises à jour disponibles";
+"%@ and %d more can be updated." = "%@ et %d autre(s) peuvent être mis à jour.";

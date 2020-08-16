@@ -173,6 +173,7 @@
 		89F205482463A75000896021 /* GoogleAppMeasurement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89F2053B2463A74F00896021 /* GoogleAppMeasurement.framework */; };
 		89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */; };
 		89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 89F8730223653D280070160A /* UIVisualEffectView+Theme.m */; };
+		8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA226AF248BC4E100596838 /* ZBNotificationManager.m */; };
 		9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */; };
 		9E0D952F2358AFF500C6C2B2 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; };
 		9E0D95302358AFF500C6C2B2 /* SDWebImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0D952C2358AFEF00C6C2B2 /* SDWebImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -580,6 +581,8 @@
 		89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Theme.h"; sourceTree = "<group>"; };
 		89F8730223653D280070160A /* UIVisualEffectView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIVisualEffectView+Theme.m"; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
+		8EA226AF248BC4E100596838 /* ZBNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNotificationManager.m; sourceTree = "<group>"; };
+		8EA226B1248BC50400596838 /* ZBNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNotificationManager.h; sourceTree = "<group>"; };
 		95B7FFF323643B74003616EC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		96F1BEE92363DAB3009B0D27 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBSourceTableViewCell.xib; sourceTree = "<group>"; };
@@ -1128,6 +1131,7 @@
 				8958F28E23C3C56800FB64D9 /* Headers */,
 				36A1D8F8230A15FC002694BE /* JSONParsing */,
 				363FE2432287858200B69929 /* Keychain */,
+				8EA226AE248BC4B000596838 /* Notifications */,
 				8991FF9A21B21069004FCE23 /* Parsel */,
 				89DD2683220156F800CD31A0 /* Queue */,
 				89E8633E21D5A9CE0081E485 /* Resources */,
@@ -1314,6 +1318,15 @@
 				49009A632471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		8EA226AE248BC4B000596838 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8EA226B1248BC50400596838 /* ZBNotificationManager.h */,
+				8EA226AF248BC4E100596838 /* ZBNotificationManager.m */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		9E0D95232358AFEE00C6C2B2 /* Products */ = {
@@ -1674,6 +1687,7 @@
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.m in Sources */,
+				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
 				4910B3A82426BD5C00306C5C /* ZBSourcesAccountBanner.m in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */,
 				759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */,
