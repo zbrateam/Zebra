@@ -1,7 +1,6 @@
 name: Build Zebra
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
@@ -13,18 +12,17 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
-      with:
-        submodules: recursive
 
     - name: Install Dependencies
-      run: brew install ldid fakeroot
+      run: brew install ldid fakeroot carthage
+
+    - name: Build Dependencies
+      run: carthage update --platform ios --new-resolver
 
     - name: Setup Theos
       uses: actions/checkout@master
       with:
         repository: theos/theos
-        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
-        path: theos
         submodules: recursive
 
     - name: Build Package
