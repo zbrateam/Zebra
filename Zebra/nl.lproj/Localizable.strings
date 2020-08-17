@@ -198,14 +198,14 @@
 
 "The URL you entered is not valid. Please check it and try again." = "De ingevoerde URL is niet geldig. Controleer deze en probeer het opnieuw.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kon de bron die is opgegeven bij %@ niet downloaden. Het kan tijdelijk ontoegankelijk zijn of kan onjuist zijn toegevoegd.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kan de bron die is opgegeven bij %@ niet downloaden. Deze kan tijdelijk ontoegankelijk zijn of kan onjuist zijn toegevoegd.";
 
 "Please remove this source from your sources.list file." = "Verwijder alstublieft deze bron van uw sources.list bestand.";
 
 "Error while opening sources.list" = "Er is een fout opgetreden tijdens het openen van sources.list";
 
 "The source %@ is incompatible with your jailbreak." = "De bron %@ is niet compatibel met uw jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze repo toevoegt, wat kan leiden tot een reset van Zebra.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Het kan zijn dat er problemen ontstaan als u deze bron toevoegt, wat kan leiden tot een reset van Zebra.";
 
 "%@ hasn't been modified" = "%@ is niet gewijzigd";
 
@@ -218,19 +218,19 @@
 "Packages" = "Pakketten";
 "Show Updates" = "Toon updates";
 "Hide Updates" = "Verberg updates";
-"Select Version" = "Kies versie";
+"Select Version" = "Selecteer versie";
 "Select a version to install:" = "Selecteer een versie om te installeren:";
-"Select a version to upgrade to:" = "Selecteer een versie om naar te upgraden:";
-"Select a version to downgrade to:" = "Kies een versie om naar te downgraden:";
+"Select a version to upgrade to:" = "Selecteer een versie om naar op te waarderen:";
+"Select a version to downgrade to:" = "Selecteer een versie om naar te downgraden:";
 "Package" = "Pakket";
 "Information" = "Informatie";
-"Upgrade All" = "Upgrade alles";
+"Upgrade All" = "Waardeer alles op";
 "Loaded" = "Geladen";
 "ABC" = "ABC";
 "Date" = "Datum";
 "Size" = "Grootte";
-"Available Upgrades" = "Beschikbare upgrades";
-"Ignored Upgrades" = "Genegeerde upgrades";
+"Available Upgrades" = "Beschikbare opwaarderingen";
+"Ignored Upgrades" = "Genegeerde opwaarderingen";
 "Recent" = "Recent";
 "Source" = "Bron";
 "Installed Files" = "Geïnstalleerde bestanden";
@@ -242,7 +242,7 @@
 "Installed Size" = "Geïnstalleerde grootte";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (geïnstalleerde versie: %@)";
+"%@ (Installed Version: %@)" = "%@ (Geïnstalleerde versie: %@)";
 
 //<Download size> (Installed Size: <installed size>)
 "%@ (Installed Size: %@)" = "%@ (Geïnstalleerde grootte: %@)";
@@ -291,7 +291,7 @@
 "Social" = "Sociaal";
 "System" = "Systeem";
 "Terminal Support" = "Terminal-ondersteuning";
-"Text Editors" = "Teksteditors";
+"Text Editors" = "Tekstverwerkers";
 "Themes" = "Thema's";
 "Toys" = "Speelgoed";
 "Tweaks" = "Tweaks";
@@ -312,14 +312,14 @@
 
 "Console" = "Console";
 "Performing Actions..." = "Acties uitvoeren...";
-"Updating icon cache asynchronously..." = "De icoon cache asynchroon aan het updaten...";
+"Updating icon cache asynchronously..." = "De iconcache asynchroon aan het updaten...";
 "uicache is not available on the simulator" = "uicache is niet beschikbaar op de simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Dit kan een tijdje duren en Zebra kan crashen. Het is niet erg als dit gebeurt.";
 "Close Zebra" = "Sluit Zebra";
 "Closing Zebra..." = "Zebra sluiten...";
 "Restart SpringBoard" = "Herstart SpringBoard";
 "Restarting SpringBoard..." = "SpringBoard herstarten...";
-"Parsing %@" = "Parseren %@";
+"Parsing %@" = "Verwerken %@";
 "Starting Download" = "Download Starten";
 "Downloading" = "Downloaden";
 "Downloading %@" = "Downloaden %@";
@@ -331,8 +331,8 @@
 "Removing Packages..." = "Pakketten verwijderen...";
 "Reinstalling" = "Opnieuw installeren";
 "Reinstalling Packages..." = "Pakketten opnieuw installeren...";
-"Upgrading" = "Upgraden";
-"Upgrading Packages..." = "Pakketten upgraden...";
+"Upgrading" = "Opwaarderen";
+"Upgrading Packages..." = "Pakketten aan het opwaarderen...";
 "Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
@@ -364,7 +364,7 @@
 "Install" = "Installeer";
 "Reinstall" = "Installeer opnieuw";
 "Remove" = "Verwijder";
-"Upgrade" = "Upgrade";
+"Upgrade" = "Waardeer op";
 "Downgrade" = "Downgrade";
 "Abort" = "Stop";
 "Continue" = "Doorgaan";
