@@ -476,8 +476,8 @@
 "Restart" = "Herstart";
 "Use System Language" = "Gebruik systeemtaal";
 
-"You are adding a repository that is not secure" = "U voegt een repository toe die niet veilig is";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Gegevens gedownload van deze repository zijn mogelijk niet versleuteld. Weet u zeker dat u deze wilt toevoegen?";
+"You are adding a repository that is not secure" = "U voegt een bron toe die niet veilig is";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Gegevens gedownload van deze bron zijn mogelijk niet versleuteld. Weet u zeker dat u deze wilt toevoegen?";
 
 "Unable to complete purchase" = "Kan aankoop niet voltooien";
 
@@ -486,7 +486,7 @@
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Het pakket dat u heeft opgevraagd is niet langer beschikbaar. Het kan zijn verwijderd uit uw bronnen of het opgevraagde pakket-ID was onjuist.";
 
 "%d Seconds" = "%d seconden";
-"Download Timeout" = "Download Timeout";
+"Download Timeout" = "Download Time-out";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configureer de tijd dat Zebra wacht tot een bron reageert voordat er een time-out optreedt.";
 "This timer will reset every time Zebra receives new information from a source." = "Deze timer wordt gereset elke keer dat Zebra nieuwe informatie van een bron ontvangt.";
 
