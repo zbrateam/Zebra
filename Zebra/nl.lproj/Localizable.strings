@@ -321,32 +321,32 @@
 "Restarting SpringBoard..." = "SpringBoard herstarten...";
 "Parsing %@" = "Verwerken %@";
 "Starting Download" = "Download Starten";
-"Downloading" = "Downloaden";
-"Downloading %@" = "Downloaden %@";
-"Downloading Packages..." = "Pakketten downloaden...";
-"Download Completed" = "Download Compleet";
+"Downloading" = "Aan het downloaden";
+"Downloading %@" = "%@ aan het downloaden";
+"Downloading Packages..." = "Pakketten aan het downloaden...";
+"Download Completed" = "Download Voltooid";
 "Installing" = "Installeren";
-"Installing Packages..." = "Pakketten installeren...";
-"Removing" = "Verwijderen";
-"Removing Packages..." = "Pakketten verwijderen...";
-"Reinstalling" = "Opnieuw installeren";
-"Reinstalling Packages..." = "Pakketten opnieuw installeren...";
+"Installing Packages..." = "Pakketten aan het installeren...";
+"Removing" = "Aan het verwijderen";
+"Removing Packages..." = "Pakketten aan het verwijderen...";
+"Reinstalling" = "Opnieuw aan het installeren";
+"Reinstalling Packages..." = "Pakketten opnieuw aan het installeren...";
 "Upgrading" = "Opwaarderen";
 "Upgrading Packages..." = "Pakketten aan het opwaarderen...";
 "Complete" = "Compleet";
 "Finished!" = "Klaar!";
 "Return to Queue" = "Terug naar wachtrij";
-"Returning to Queue..." = "Terug naar wachtrij...";
+"Returning to Queue..." = "Terug naar wachtrij aan het gaan...";
 "Importing local packages." = "Lokale pakketten aan het importeren";
 "Finished importing local packages." = "Klaar met het importeren van lokale pakketten.";
 "One or more packages failed to download." = "Een of meer pakketten zijn niet gedownload";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Klik op \"Terug naar wachtrij\" om terug te gaan naar de wachtrij en de download opnieuw te proberen.";
 "Could not complete %@ process. Reason: %@." = "Kon het %@ proces niet voltooien. Reden: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Herstart Zebra en kijk of het probleem nog steeds aanhoudt. Als dit het geval is, gelieve een probleem op GitHub te versturen.";
-"Done..." = "Gedaan...";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Herstart Zebra en kijk of het probleem nog steeds aanhoudt. Als dit het geval is, gelieve een probleem via GitHub te versturen.";
+"Done..." = "Voltooid...";
 "Done %@" = "Voltooid %@";
-"Removing Zebra..." = "Zebra verwijderen...";
-"Installing Zebra..." = "Zebra installeren...";
+"Removing Zebra..." = "Zebra wordt verwijdert...";
+"Installing Zebra..." = "Zebra wordt geïnstalleerd...";
 "Error while opening file:" = "Fout bij openen van bestand:";
 "Adding Payment Vendor URL for %@" = "URL van betalingsleverancier toevoegen voor %@";
 "This device is simulated, here are the packages that would be modified in this stage:" = "Dit apparaat is gesimuleerd, hier zijn de pakketten die in deze fase zouden worden gewijzigd:";
@@ -366,7 +366,7 @@
 "Remove" = "Verwijder";
 "Upgrade" = "Waardeer op";
 "Downgrade" = "Downgrade";
-"Abort" = "Stop";
+"Abort" = "Breek af";
 "Continue" = "Doorgaan";
 "Download Size" = "Downloadgrootte";
 "Confirm" = "Bevestig";
@@ -408,25 +408,25 @@
 
 "Error while creating debs directory: %@." = "Fout bij het aanmaken van de debs map: %@.";
 
-"Could not respring. Please respring manually." = "Kon niet herladen. Laad handmatig opnieuw.";
+"Could not respring. Please respring manually." = "Kon systeem niet herladen. Laad systeem handmatig opnieuw.";
 
 "ERROR: Unable to lock status file. Please try again." = "FOUT: kan statusbestand niet vergrendelen. Probeer het opnieuw.";
 
 "ERROR: Process must be restarted. Please try again." = "FOUT: proces moet opnieuw worden gestart. Probeer het opnieuw.";
 
-"Incorrect documents permissions." = "Incorrecte permissie voor documenten.";
+"Incorrect documents permissions." = "Incorrecte permissies voor dit document.";
 
 "Could not determine device information." = "Kan geen informatie van dit apparaat opvragen.";
 
 "Display featured packages on the homepage." = "Toon aanbevolen pakketten op de startpagina.";
 
-"Refresh Zebra's sources when opening the app." = "Vernieuw de bronnen van Zebra als de app wordt geopend.";
+"Refresh Zebra's sources when opening the app." = "Vernieuw de bronnen van Zebra wanneer de app wordt geopend.";
 
 "Display recent community posts from /r/jailbreak." = "Toon recente gemeenschap berichten van /r/jailbreak.";
 
 "Search packages while typing. Disabling this feature may reduce lag on older devices." = "Doorzoek pakketten tijdens het typen. Het uitschakelen van deze functie kan de vertraging op oudere apparaten verminderen.";
 
-"Configure the appearance of table view swipe actions." = "Verander het uiterlijk van tafel weergave swipe acties.";
+"Configure the appearance of table view swipe actions." = "Verander het uiterlijk van tabel weergave veeg acties.";
 
 "Change the accent color that displays across Zebra." = "Wijzig de accent kleur die wordt weergegeven door Zebra.";
 
@@ -434,9 +434,9 @@
 
 "Change the source of the featured packages on the homepage." = "Wijzig de bron van de aanbevolen pakketten op de startpagina.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Repos \" zullen willekeurige pakketten weergeven van repo's die de Featured Package API ondersteunen.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Aanbevolen Bronnen\" zullen willekeurige pakketten weergeven van bronnen die de Featured Package API ondersteunen.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" zal willekeurige pakketten weergeven van alle repositories die u aan Zebra hebt toegevoegd.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Willekeurig\" zal willekeurige pakketten weergeven van alle bronnen die u aan Zebra heeft toegevoegd.";
 
 "Signing in to sources allows for the purchase of paid packages." = "Aanmelden bij bronnen maakt het mogelijk om betaalde pakketten te kopen.";
 
