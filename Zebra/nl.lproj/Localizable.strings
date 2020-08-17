@@ -36,11 +36,11 @@
 "Community Sources" = "Gemeenschapsbronnen";
 "You’ve added all of the community sources" = "Je hebt alle gemeenschapsbronnen toegevoegd";
 "Transfer sources from %@ to Zebra" = "Overdracht bronnen van %@ naar Zebra";
-"Utility source for %@" = "Benodigde repo voor %@";
+"Utility source for %@" = "Benodigde bron voor %@";
 "Transfer Sources" = "Verplaats Bronnen";
 "Import" = "Importeer";
 "Verifying..." = "Verifiëren...";
-"Confirm Import" = "Bevestig Import";
+"Confirm Import" = "Bevestig Importeren";
 "Import Sources" = "Importeer Bronnen";
 "No sources to import" = "Geen bronnen om te importeren";
 "Would you like to import the following sources?" = "Wil je de volgende bronnen importeren?";
