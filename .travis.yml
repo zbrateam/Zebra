@@ -5,6 +5,8 @@ branches:
   except:
     - localization
     - localization_1.1
+    - carthage
+    - 1.2
 
 env:
   global:
