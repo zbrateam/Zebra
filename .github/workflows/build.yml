@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-      - 1.2
-      - carthage
   
 
 jobs:
