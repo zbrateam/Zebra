@@ -31,6 +31,7 @@ jobs:
       with:
         repository: theos/theos
         path: theos
+        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
         submodules: recursive
 
     - name: Build Package
