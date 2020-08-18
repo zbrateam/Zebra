@@ -11,9 +11,9 @@
 "Done" = "समाप्त";
 "Loading..." = "लोड हो रहा है...";
 "Clear" = "साफ़";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"An Error Occurred" = "कोई त्रुटि हुई।";
+"Dismiss" = "खारिज करें";
+"Downloads" = "डाउनलोड करें";
 
 // Home
 
@@ -43,90 +43,90 @@
 "Confirm Import" = "आयात की पुष्टि करें";
 "Import Sources" = "आयात सूत्र";
 "No sources to import" = "आयात करने के लिए कोई स्रोत नहीं";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Would you like to import the following sources?" = "क्या आप निम्नलिखित स्रोतों को आयात करना चाहेंगे?";
+"Are you sure that you want to import 1 source into Zebra?" = "क्या आप वाकई ज़ेबरा में 1 स्रोत आयात करना चाहते हैं?";
+"Are you sure that you want to import %d sources into Zebra?" = "क्या आप वाकई ज़ेबरा में % d स्रोतों को आयात करना चाहते हैं?";
 
 // Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "आभार";
+"Creators" = "निर्माता:";
+"Contributors" = "योगदानकर्ता";
+"Translators" = "अनुवादक";
+"Libraries" = "फाइल संग्रह";
 
 // Settings
 
-"Settings" = "Settings";
-"Display" = "Display";
-"App Icon" = "App Icon";
-"Changes" = "Changes";
-"Community News" = "Community News";
-"Miscellaneous" = "Miscellaneous";
-"Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
-"Always Install Latest" = "Always Install Latest";
-"Automatic Refresh" = "Automatic Refresh";
+"Settings" = "सेटिंग्स";
+"Display" = "प्रदर्शन";
+"App Icon" = "एप आइकॉन";
+"Changes" = "बदलें";
+"Community News" = "समुदाय समाचार";
+"Miscellaneous" = "विविध";
+"Swipe Actions Display As" = "स्वाइप ऐक्शन प्रदर्शित करें";
+"Text" = "टेक्स्ट";
+"Icon" = "प्रतीक";
+"Finish Automatically" = "स्वचालित रूप से समाप्त करें";
+"Always Install Latest" = "हमेशा नवीनतम स्थापित करें";
+"Automatic Refresh" = "स्वचालित ताज़ा";
 
 // Accent Colors
 
-"Accent Color" = "Accent Color";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Accent Color" = "एक्सेंट रंग";
+"Aqua Velvet" = "एक्वा मखमली";
+"Cornflower Blue" = "कॉर्नफ़्लावर";
+"Golden Tainoi" = "स्वर्ण तेनोई";
+"Iris Blue" = "आइरिस ब्लू";
+"Lotus Pink" = "कमल गुलाबी";
+"Monochrome" = "एक रंग का";
+"Mountain Meadow" = "पर्वतीय घास का मैदान";
+"Pastel Red" = "पेस्टल रेड";
+"Purple Heart" = "बैंगनी दिल";
+"Royal Blue" = "शाही नीला";
+"Shark" = "शार्क";
+"Storm" = "तूफान";
+"Use System Accent Color" = "सिस्टम एक्सेंट रंग का इस्तेमाल करें";
+"Appearance" = "स्वरूप";
+"Use System Appearance" = "सिस्टम उपस्थिति का उपयोग करें";
+"Light" = "रोशनी";
+"Dark" = "अँधेरा";
+"Pure Black Mode" = "शुद्ध काली विधा";
 
 // Featured
 
-"Featured Packages" = "Featured Packages";
-"Feature Type" = "Feature Type";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
+"Featured Packages" = "विशेष रुप से पैकेज";
+"Feature Type" = "फ़ीचर प्रकार";
+"Repo Featured" = "रेपो फीचर्ड";
+"Random" = "कोई भी";
+"Select Repos to be Featured" = "चुनिंदा के लिए सुधार का चयन करें";
+"Featured Repos" = "फीचर्ड रिपोज";
 
 // Reset
 
-"Reset" = "Reset";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources" = "Erase All Sources";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset" = "रीसेट करें";
+"Refresh Icon Cache" = "ताज़ा करें आइकन कैश";
+"Clear Image Cache" = "साफ छवि कैश";
+"Clear Sources Cache" = "स्पष्ट स्रोत कैश";
+"Clear Web Cache" = "वेब कैश साफ़ करें";
+"Reset All Settings" = "सभी सेटिंग को रीसेट करें";
+"Erase All Sources" = "सभी स्रोतों को मिटा दें";
+"Erase All Sources and Settings" = "सभी स्रोतों और सेटिंग्स को मिटा दें";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "क्या आप वाकई स्प्रिंगबोर्ड को पुनः आरंभ करना चाहते हैं?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "क्या आप वाकई आइकन कैश ताज़ा करना चाहते हैं? प्रक्रिया पूरी होने तक आपका डिवाइस अनुत्तरदायी हो सकता है।";
+"Image Cache Cleared" = "छवि कैश साफ़ की गई";
+"Web Cache Cleared" = "वेब कैश क्लीयर किया गया";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "क्या आप वाकई ज़ेबरा के स्रोत कैश को रीसेट करना चाहते हैं? यह ज़ेबरा के डेटाबेस से सभी कैश्ड जानकारी को हटा देगा और इसे फिर से डाउनलोड करेगा। आपके स्रोत हटाए नहीं जाएंगे।";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "क्या आप वाकई ज़ेबरा की सेटिंग रीसेट करना चाहते हैं? यह ज़ेबरा की सभी सेटिंग्स को उनके डिफ़ॉल्ट मानों पर वापस रीसेट करेगा और ज़ेबरा पुनः आरंभ करेगा।";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "क्या आप वाकई सभी स्रोतों को मिटाना चाहते हैं? आपके सभी स्रोत ज़ेबरा से हटा दिए जाएंगे और ज़ेबरा फिर से शुरू हो जाएगा।";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "क्या आप वाकई सभी स्रोतों और सेटिंग्स को मिटाना चाहते हैं? आपके सभी स्रोत ज़ेबरा से हटा दिए जाएंगे और आपकी सेटिंग्स रीसेट हो जाएंगी।";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "आपके सभी स्रोत हटा दिए जाएंगे और हमेशा के लिए चले जाएंगे और ज़ेबरा पुनः आरंभ हो जाएगा।";
 
 // Documents Directory
 
-"Open Documents Directory" = "Open Documents Directory";
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Open Documents Directory" = "दस्तावेज़ निर्देशिका खोलें";
+"Filza Not Installed" = "Filza स्थापित नहीं";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "ज़ेबरा अपने दस्तावेज़ निर्देशिका नहीं खोल सकता क्योंकि फाइलज़ा स्थापित नहीं है। आपके दस्तावेज़ निर्देशिका है: %@";
 
 // Stores
 
@@ -188,67 +188,67 @@
 "Could not find a download URL for" = "Could not find a download URL for";
 "Authorizing Download for %@" = "Authorizing Download for %@";
 "Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Reason: %@." = "कारण: %@";
+"The Payment API is not supported on less than iOS 11.0" = "भुगतान API iOS 11.0 से कम पर समर्थित नहीं है";
+"Could not download Release file from %@. Reason: %@" = "%@ से रिलीज़ फ़ाइल डाउनलोड नहीं कर सका। कारण: %@";
+"Could not download Packages file from %@. Reason: %@" = "%@ से संकुल फ़ाइल को डाउनलोड नहीं किया जा सका। कारण: %@";
+"Could not download one or more files from %@. Reason: %@" = "%@ से एक या अधिक फ़ाइलों को डाउनलोड नहीं किया जा सका। कारण: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "%@ पर %@ पर फ़ाइल ले जाने में त्रुटि";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "आपके द्वारा दर्ज किया गया URL मान्य नहीं है। कृपया इसे जांचें और पुनः प्रयास करें।";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "ज़ेबरा %@ पर निर्दिष्ट स्रोत को डाउनलोड करने में असमर्थ था। यह अस्थायी रूप से दुर्गम हो सकता है या गलत तरीके से जोड़ा जा सकता है।";
 
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "कृपया इस स्रोत को अपनी स्रोत सूची फ़ाइल से हटा दें।";
 
-"Error while opening sources.list" = "Error while opening sources.list";
+"Error while opening sources.list" = "स्रोत सूची खोलते समय त्रुटि";
 
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"The source %@ is incompatible with your jailbreak." = "स्रोत %@ आपके जेलब्रेक से असंगत है।";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "यदि आप इसे ज़ेबरा में जोड़ देते हैं तो यह संभव हो सकता है।";
 
-"%@ hasn't been modified" = "%@ hasn't been modified";
+"%@ hasn't been modified" = "%@ संशोधित किया गया";
 
-"Install All" = "Install All";
+"Install All" = "सभी स्थापित करें";
 
 // Packages
 
-"Latest" = "Latest";
-"Version" = "Version";
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Hide Updates" = "Hide Updates";
-"Select Version" = "Select Version";
-"Select a version to install:" = "Select a version to install:";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
+"Latest" = "नवीनतम";
+"Version" = "संस्करण";
+"Packages" = "पॅकेजस";
+"Show Updates" = "अद्यतन दिखाएँ";
+"Hide Updates" = "अद्यतन छिपाएँ";
+"Select Version" = "संस्करण का चयन करें";
+"Select a version to install:" = "स्थापित करने के लिए एक संस्करण का चयन करें:";
+"Select a version to upgrade to:" = "अपग्रेड करने के लिए एक संस्करण चुनें:";
+"Select a version to downgrade to:" = "निम्न करने के लिए एक संस्करण चुनें:";
+"Package" = "पैकेज:";
+"Information" = "जानकारी";
+"Upgrade All" = "सभी अपग्रेड करो";
+"Loaded" = "लदा हुआ";
 "ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
-"Source" = "Source";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
+"Date" = "दिनांक";
+"Size" = "आकार";
+"Available Upgrades" = "उपलब्ध उन्नयन";
+"Ignored Upgrades" = "उपेक्षित अपग्रेड";
+"Recent" = "हाल ही में";
+"Source" = "स्रोत";
+"Installed Files" = "स्थापित फ़ाइलें";
+"Modify" = "परिवर्तित करें";
+"Authenticate to initiate purchase." = "खरीद शुरू करने के लिए प्रमाणीकरण।";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "खरीद शुरू करने के लिए प्रमाणीकरण।";
+"More by this Developer" = "इस डेवलपर द्वारा अधिक";
+"Installed Version" = "इस डेवलपर द्वारा अधिक";
+"Installed Size" = "स्थापित आकार";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (स्थापित संस्करण:%@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (स्थापित आकार:%@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d बाइट्स";
 //Package size in Kilobytes (no decimal)
 "%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
@@ -256,12 +256,12 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Add to Wish List";
-"Remove from Wish List" = "Remove from Wish List";
+"Add to Wish List" = "इच्छा सूचि में डालें";
+"Remove from Wish List" = "विश लिस्ट से निकालें";
 
 // Package Section Names
 
-"Administration" = "Administration";
+"Administration" = "शासन प्रबंध";
 "Addons" = "Addons";
 "App Addons" = "App Addons";
 "Archiving" = "Archiving";
@@ -318,27 +318,27 @@
 "Close Zebra" = "Close Zebra";
 "Closing Zebra..." = "Closing Zebra...";
 "Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
-"Downloading" = "Downloading";
-"Downloading %@" = "Downloading %@";
-"Downloading Packages..." = "Downloading Packages...";
-"Download Completed" = "Download Completed";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
+"Restarting SpringBoard..." = "स्प्रिंगबोर्ड पुनर्प्रारंभ हो रहा है...";
+"Parsing %@" = "पर्सन %@";
+"Starting Download" = "डाउनलोड प्रारम्भ हो रहा है";
+"Downloading" = "डाउनलोड कर रहा है";
+"Downloading %@" = "डाउनलोड कर रहा है %@";
+"Downloading Packages..." = "पैकेज डाउनलोड हो रहे हैं ...";
+"Download Completed" = "डाउनलोड सम्पन्न हुआ";
+"Installing" = "स्थापित कर रहा है";
+"Installing Packages..." = "पैकेज इंस्टॉल हो रहा है";
+"Removing" = "हटाया जा रहा हैं...";
+"Removing Packages..." = "पैकेज निकाल रहा है ...";
+"Reinstalling" = "पुन: स्थापित करें";
+"Reinstalling Packages..." = "पैकेज इंस्टॉल हो रहा है";
+"Upgrading" = "अपग्रेड कर रहा है…";
+"Upgrading Packages..." = "पैकेज अपग्रेड हो रहे हैं ...";
+"Complete" = "पूर्ण";
+"Finished!" = "समाप्त";
+"Return to Queue" = "कतार में लौटें";
+"Returning to Queue..." = "कतार में लौटें";
+"Importing local packages." = "स्थानीय परियोजना का आयात करना";
+"Finished importing local packages." = "स्थानीय परियोजना का आयात करना";
 "One or more packages failed to download." = "One or more packages failed to download.";
 "Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
 "Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
