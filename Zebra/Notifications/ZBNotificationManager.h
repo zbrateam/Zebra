@@ -12,8 +12,8 @@
 @import UIKit;
 @import UserNotifications;
 
-#import <ZBDatabaseDelegate.h>
-#import <ZBPackage.h>
+#import <Database/ZBDatabaseDelegate.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 typedef void (^BackgroundCompletionHandler)(UIBackgroundFetchResult);
 

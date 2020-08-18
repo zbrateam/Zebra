@@ -8,9 +8,9 @@
 
 @import UIKit;
 
-#import <ZBDatabaseDelegate.h>
+#import <Database/ZBDatabaseDelegate.h>
 #import "UIColor+GlobalColors.h"
-#import <Sources/Helpers/ZBSourceVerificationDelegate.h>
+#import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 
 @class ZBBaseSource;
 

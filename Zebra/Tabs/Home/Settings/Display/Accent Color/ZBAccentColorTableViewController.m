@@ -8,11 +8,11 @@
 
 #import "ZBAccentColorTableViewController.h"
 #import "UITableView+Settings.h"
-#import "UIImageView+Zebra.h"
+#import <Extensions/UIImageView+Zebra.h>
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
 
-#import <ZBThemeManager.h>
+#import <Theme/ZBThemeManager.h>
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>

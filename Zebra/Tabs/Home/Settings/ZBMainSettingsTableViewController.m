@@ -8,22 +8,22 @@
 
 #import "ZBMainSettingsTableViewController.h"
 #import "ZBSettingsSelectionTableViewController.h"
-#import "UITableView+Settings.h"
-#import "UIImageView+Zebra.h"
-#import "ZBLinkSettingsTableViewCell.h"
-#import "ZBRightIconTableViewCell.h"
-#import "ZBDetailedLinkSettingsTableViewCell.h"
-#import "ZBSwitchSettingsTableViewCell.h"
-#import "ZBButtonSettingsTableViewCell.h"
-#import "ZBDisplaySettingsTableViewController.h"
-#import "ZBSettingsResetTableViewController.h"
-#import "ZBFilterSettingsTableViewController.h"
-#import "ZBLanguageSettingsTableViewController.h"
-#import "ZBSourceSelectTableViewController.h"
+#import "Table/UITableView+Settings.h"
+#import <Extensions/UIImageView+Zebra.h>
+#import "Cells/ZBLinkSettingsTableViewCell.h"
+#import "Cells/ZBRightIconTableViewCell.h"
+#import "Cells/ZBDetailedLinkSettingsTableViewCell.h"
+#import "Cells/ZBSwitchSettingsTableViewCell.h"
+#import "Cells/ZBButtonSettingsTableViewCell.h"
+#import "Display/ZBDisplaySettingsTableViewController.h"
+#import "Reset/ZBSettingsResetTableViewController.h"
+#import "Filters/ZBFilterSettingsTableViewController.h"
+#import "Language/ZBLanguageSettingsTableViewController.h"
+#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
-#import <Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,

@@ -7,8 +7,8 @@
 //
 
 #import <ZBDevice.h>
-#import "ZBThemeManager.h"
-#import "UIColor+GlobalColors.h"
+#import <Theme/ZBThemeManager.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @implementation UIColor (GlobalColors)
 

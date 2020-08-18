@@ -7,10 +7,10 @@
 //
 
 #import "ZBSettingsTableViewController.h"
-#import "ZBDevice.h"
-#import "ZBRefreshViewController.h"
-#import "ZBAppDelegate.h"
-#import "ZBAlternateIconController.h"
+#import <ZBDevice.h>
+#import <Database/ZBRefreshViewController.h>
+#import <ZBAppDelegate.h>
+#import "App Icon/ZBAlternateIconController.h"
 
 @import SDWebImage;
 @import UIKit;

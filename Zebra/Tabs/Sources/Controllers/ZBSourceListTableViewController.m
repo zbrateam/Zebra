@@ -12,15 +12,15 @@
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
-#import <ZBTabBarController.h>
+#import <Tabs/ZBTabBarController.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
-#import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 #import <Theme/ZBThemeManager.h>
 

@@ -16,10 +16,10 @@
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
-#import <UIColor+GlobalColors.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/ZBTabBarController.h>
 
 @import SDWebImage;

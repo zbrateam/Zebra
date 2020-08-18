@@ -12,10 +12,10 @@
 #import "ZBAppDelegate.h"
 
 #import <Extensions/UINavigationBar+Extensions.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <UIColor+GlobalColors.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>
 
 @interface ZBSourceImportTableViewController () {

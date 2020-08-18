@@ -11,10 +11,10 @@
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
-#import <ZBDependencyResolver.h>
+#import <Database/ZBDependencyResolver.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
+#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
 

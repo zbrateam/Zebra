@@ -7,9 +7,9 @@
 //
 
 #import "ZBAlternateIconController.h"
-#import "UITableView+Settings.h"
-#import "ZBOptionSettingsTableViewCell.h"
-#import "ZBOptionSubtitleSettingsTableViewCell.h"
+#import "../Table/UITableView+Settings.h"
+#import "../Cells/ZBOptionSettingsTableViewCell.h"
+#import "../Cells/ZBOptionSubtitleSettingsTableViewCell.h"
 
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>

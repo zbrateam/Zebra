@@ -17,8 +17,8 @@
 #import <Database/ZBColumn.h>
 #import <ZBDevice.h>
 #import <ZBUtils.h>
-#import <ZBUserInfo.h>
-#import <ZBSourceInfo.h>
+#import <JSONParsing/ZBUserInfo.h>
+#import <JSONParsing/ZBSourceInfo.h>
 #import <Tabs/ZBTabBarController.h>
 
 @interface ZBSource () {

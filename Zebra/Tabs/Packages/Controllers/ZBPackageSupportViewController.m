@@ -7,9 +7,9 @@
 //
 
 #import "ZBPackageSupportViewController.h"
-#import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
-#import "UIColor+GlobalColors.h"
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBPackageSupportViewController ()
 @property (nonatomic, strong) ZBPackage *package;

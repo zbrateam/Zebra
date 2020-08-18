@@ -14,7 +14,7 @@
 @import Foundation;
 @import SQLite3;
 
-#import <ZBDownloadDelegate.h>
+#import <Downloads/ZBDownloadDelegate.h>
 #import "ZBDatabaseDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN

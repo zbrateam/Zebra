@@ -8,7 +8,7 @@
 
 #import "ZBTableViewController.h"
 #import "UIColor+GlobalColors.h"
-#import <ZBThemeManager.h>
+#import <Theme/ZBThemeManager.h>
 
 @interface ZBTableViewController ()
 

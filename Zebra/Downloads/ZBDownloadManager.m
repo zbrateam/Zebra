@@ -12,10 +12,10 @@
 #import <ZBDevice.h>
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Helpers/ZBSourceManager.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 
 @import MobileCoreServices;
 @import zlib;

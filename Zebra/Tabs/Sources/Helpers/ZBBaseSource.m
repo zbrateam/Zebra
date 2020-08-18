@@ -10,8 +10,8 @@
 
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
-#import <Sources/Helpers/ZBSourceManager.h>
 #import <ZBAppDelegate.h>
+#import "ZBSourceManager.h"
 
 @implementation ZBBaseSource
 

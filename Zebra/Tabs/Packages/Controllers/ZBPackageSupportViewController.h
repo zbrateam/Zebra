@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <Packages/Helpers/ZBPackageInfoController.h>
+#import "ZBPackageInfoController.h"
 
 @import UIKit;
 @import MessageUI;

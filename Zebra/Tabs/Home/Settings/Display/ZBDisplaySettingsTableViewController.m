@@ -13,8 +13,8 @@
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
-#import <UIColor+GlobalColors.h>
-#import <ZBThemeManager.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Theme/ZBThemeManager.h>
 #import "Accent Color/ZBAccentColorTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {

@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import <Sources/Helpers/ZBSourceVerificationDelegate.h>
+#import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

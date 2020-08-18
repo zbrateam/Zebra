@@ -14,7 +14,7 @@
 #import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
 #import <UIKit/UIDevice.h>
-#import <NSTask.h>
+#import <Headers/NSTask.h>
 #import <sys/utsname.h>
 #import <sys/sysctl.h>
 #import <sys/types.h>

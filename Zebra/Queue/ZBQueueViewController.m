@@ -10,9 +10,9 @@
 #import <ZBLog.h>
 #import <ZBAppDelegate.h>
 #import "ZBQueue.h"
-#import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Console/ZBConsoleViewController.h>
-#import <UIColor+GlobalColors.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
 #import <Theme/ZBThemeManager.h>
 #import <Tabs/ZBTabBarController.h>

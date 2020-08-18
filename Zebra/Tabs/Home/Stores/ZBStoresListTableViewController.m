@@ -11,12 +11,12 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Controllers/ZBSourceAccountTableViewController.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Tabs/Sources/Controllers/ZBSourceAccountTableViewController.h>
 
 @import SDWebImage;
 

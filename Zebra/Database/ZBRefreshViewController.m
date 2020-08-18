@@ -8,14 +8,14 @@
 
 #import "ZBRefreshViewController.h"
 
-#import <ZBTabBarController.h>
+#import <Tabs/ZBTabBarController.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Extensions/UIFont+Zebra.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Theme/ZBThemeManager.h>
-#import <ZBSourceManager.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Parsel/parsel.h>
 
 typedef enum {

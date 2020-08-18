@@ -7,11 +7,11 @@
 //
 
 #import "ZBPackageDepictionViewController.h"
-#import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <ZBDevice.h>
-#import <Packages/Controllers/ZBPackageChangelogTableViewController.h>
+#import <Tabs/Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"
-#import "UIColor+GlobalColors.h"
+#import <Extensions/UIColor+GlobalColors.h>
 @import SDWebImage;
 
 @interface WKWebView ()

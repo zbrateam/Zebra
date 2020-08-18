@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import <ZBRefreshableTableViewController.h>
+#import <Extensions/ZBRefreshableTableViewController.h>
 #import "ZBPackageViewController.h"
 
 @class ZBSource;

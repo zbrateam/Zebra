@@ -8,10 +8,10 @@
 
 #import "ZBRefreshableTableViewController.h"
 #import <ZBAppDelegate.h>
-#import <ZBTabBarController.h>
+#import <Tabs/ZBTabBarController.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
 #import <ZBDevice.h>
 
 @interface ZBRefreshableTableViewController () {

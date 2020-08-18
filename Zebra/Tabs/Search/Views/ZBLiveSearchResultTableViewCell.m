@@ -7,7 +7,7 @@
 //
 
 #import "ZBLiveSearchResultTableViewCell.h"
-#import "UIColor+GlobalColors.h"
+#import <Extensions/UIColor+GlobalColors.h>
 @import SDWebImage;
 
 @implementation ZBLiveSearchResultTableViewCell

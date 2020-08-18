@@ -12,12 +12,12 @@
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageViewController.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
-#import <UIColor+GlobalColors.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Extensions/UIAlertController+Show.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import <Tabs/ZBTabBarController.h>

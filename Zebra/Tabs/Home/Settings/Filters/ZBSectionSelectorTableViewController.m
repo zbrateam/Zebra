@@ -14,7 +14,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @interface ZBSectionSelectorTableViewController () {
     NSArray *sections;

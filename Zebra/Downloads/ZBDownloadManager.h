@@ -12,7 +12,7 @@
 @import Foundation;
 
 #import "ZBDownloadDelegate.h"
-#import <Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

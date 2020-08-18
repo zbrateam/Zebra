@@ -7,9 +7,9 @@
 //
 
 #import "ZBPackageChangelogTableViewController.h"
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Views/ZBChangelogTableViewCell.h>
-#import "UIColor+GlobalColors.h"
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Views/ZBChangelogTableViewCell.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBPackageChangelogTableViewController ()
 @property (nonatomic, strong) NSArray <ZBPackage *> *allVersions;
