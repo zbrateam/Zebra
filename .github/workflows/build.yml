@@ -10,17 +10,8 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - id: clean1
-      run: xcrun -k
-    - id: clean2
-      run: xcodebuild -alltargets clean
-    - id: clean3
-      run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
-    - id: clean4
-      run: rm -rf ~/Library/Caches/com.apple.dt.Xcode/*
-    - uses: actions/cache@v1
+    - uses: actions/checkout@master
+    - uses: actions/cache@master
       id: carthage-cache
       with:
         path: Carthage
