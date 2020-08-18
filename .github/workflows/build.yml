@@ -4,21 +4,29 @@ on:
   push:
     branches:
       - master
-  
+      - carthage
 
 jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@master
-
-    - name: Install Dependencies
-      run: brew install ldid fakeroot
+    - name: Checkout
+      uses: actions/checkout@v1
+    - uses: actions/cache@v1
+      id: carthage-cache
+      with:
+        path: Carthage
+        key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
 
     - name: Build Dependencies
-      run: carthage update --platform ios --new-resolver --no-use-binaries
+      if: steps.carthage-cache.outputs.cache-hit != 'true'
+      run: |
+        carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
-    - name: Setup Theos
+    - name: Install Theos Dependencies
+      run: brew install ldid fakeroot
+
+    - name: Install Theos
       uses: actions/checkout@master
       with:
         repository: theos/theos
