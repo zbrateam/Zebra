@@ -10,6 +10,12 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
+    - name: Force Clean
+      run: |
+        xcrun -k
+        xcodebuild -alltargets clean
+        rm -rf ~/Library/Developer/Xcode/DerivedData/*
+        rm -rf ~/Library/Caches/com.apple.dt.Xcode/*
     - name: Checkout
       uses: actions/checkout@v1
     - uses: actions/cache@v1
