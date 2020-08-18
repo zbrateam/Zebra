@@ -1,2 +1,2 @@
-github "LeoNatan/LNPopupController" ~> 2.9.6
-github "SDWebImage/SDWebImage" ~> 5.8.4
+github "LeoNatan/LNPopupController" "2.10.0"
+github "SDWebImage/SDWebImage" "5.8.4"
