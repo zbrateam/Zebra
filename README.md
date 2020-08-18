@@ -15,7 +15,7 @@ Pre-compiled debs are available via [GitHub releases](https://github.com/wstyres
 #### Using Xcode & theos
 If you want to compile Zebra yourself, you can use the following steps. A computer running macOS is _required_ and must have Xcode installed.
 
-1. Clone this repository using `git clone --recursive https://github.com/wstyres/Zebra.git`
+1. Clone this repository using `git clone https://github.com/wstyres/Zebra.git`
 2. `cd` into the `Zebra` folder
 3. (One time only) 
     - Install `carthage` and `fakeroot` if you haven't already via `brew install carthage fakeroot`
