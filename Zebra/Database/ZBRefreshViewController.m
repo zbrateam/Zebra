@@ -16,7 +16,7 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <Theme/ZBThemeManager.h>
 #import <ZBSourceManager.h>
-#include <Parsel/parsel.h>
+#import <Parsel/parsel.h>
 
 typedef enum {
     ZBStateCancel = 0,
