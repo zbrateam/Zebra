@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface UIFont (Zebra)
 

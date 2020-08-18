@@ -7,14 +7,15 @@
 //
 
 #import "ZBQueue.h"
-#import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBDevice.h>
 #import <Console/ZBStage.h>
+#import <Tabs/ZBTabBarController.h>
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray <ZBPackage *> *> *managedQueue;

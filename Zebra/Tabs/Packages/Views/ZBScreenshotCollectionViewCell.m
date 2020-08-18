@@ -7,7 +7,7 @@
 //
 
 #import "ZBScreenshotCollectionViewCell.h"
-#import "UIColor+GlobalColors.h"
+#import <Extensions/UIColor+GlobalColors.h>
 
 @implementation ZBScreenshotCollectionViewCell
 

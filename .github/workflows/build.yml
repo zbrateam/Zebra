@@ -1,31 +1,40 @@
 name: Build Zebra
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - master
       - 1.2
-  
+      - carthage
 
 jobs:
   build:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/cache@master
+      id: carthage-cache
       with:
-        submodules: recursive
+        path: Carthage
+        key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile') }}
 
-    - name: Install Dependencies
-      run: brew install ldid fakeroot
+    - name: Install Theos Dependencies
+      run: brew install ldid fakeroot make
+    
+    - name: Add GNU make to PATH
+      run: echo "::add-path::$(brew --prefix make)/libexec/gnubin"
 
-    - name: Setup Theos
+    - name: Install Theos
       uses: actions/checkout@master
       with:
         repository: theos/theos
-        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
         path: theos
         submodules: recursive
+
+    - name: Build Dependencies
+      if: steps.carthage-cache.outputs.cache-hit != 'true'
+      run: |
+        carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
     - name: Build Package
       env:

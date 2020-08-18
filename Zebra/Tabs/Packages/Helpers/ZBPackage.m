@@ -13,12 +13,12 @@
 #import <ZBDevice.h>
 #import <ZBUtils.h>
 #import <Parsel/vercmp.h>
-#import <Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <ZBAppDelegate.h>
-#import <NSTask.h>
+#import <Headers/NSTask.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
-#import "ZBPurchaseInfo.h"
+#import <JSONParsing/ZBPurchaseInfo.h>
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
 #import <ZBSettings.h>
@@ -26,6 +26,7 @@
 @import LinkPresentation;
 @import SDWebImage;
 @import FirebaseCrashlytics;
+@import SafariServices;
 
 @interface ZBPackage () {
     BOOL checkedForPurchaseInfo;

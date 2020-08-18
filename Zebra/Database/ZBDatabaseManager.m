@@ -17,13 +17,13 @@
 #import <Parsel/parsel.h>
 #import <Parsel/vercmp.h>
 #import <ZBAppDelegate.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
 #import <Queue/ZBQueue.h>
-#import <Packages/Helpers/ZBProxyPackage.h>
+#import <Tabs/Packages/Helpers/ZBProxyPackage.h>
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;

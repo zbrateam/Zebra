@@ -7,19 +7,19 @@
 //
 
 #import "ZBPackageViewController.h"
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Packages/Helpers/ZBPackageInfoController.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 #import "ZBActionButton.h"
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import "ZBLinkTableViewCell.h"
-#import <Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
-#import <ZBPackageDepictionViewController.h>
+#import "ZBPackageDepictionViewController.h"
 #import "UIViewController+Extensions.h"
 
 @import SDWebImage;

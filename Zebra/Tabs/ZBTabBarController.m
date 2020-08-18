@@ -9,14 +9,14 @@
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Sources/Controllers/ZBSourceListTableViewController.h>
-#import <Packages/Helpers/ZBPackage.h>
+#import "Packages/Controllers/ZBPackageListTableViewController.h"
+#import "Sources/Controllers/ZBSourceListTableViewController.h"
+#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
-#import <UITabBarItem.h>
+#import <Headers/UITabBarItem.h>
 #import <Database/ZBRefreshViewController.h>
-#import <UIColor+GlobalColors.h>
-#import <ZBQueue.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Queue/ZBQueue.h>
 #import <Queue/ZBQueueViewController.h>
 #import <ZBDevice.h>
 

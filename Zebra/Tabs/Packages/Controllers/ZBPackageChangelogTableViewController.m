@@ -7,10 +7,9 @@
 //
 
 #import "ZBPackageChangelogTableViewController.h"
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Views/ZBChangelogTableViewCell.h>
-#import "UIColor+GlobalColors.h"
-#import <Extensions/NSAttributedString+Markdown.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Views/ZBChangelogTableViewCell.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBPackageChangelogTableViewController ()
 @property (nonatomic, strong) NSArray <ZBPackage *> *allVersions;
@@ -74,7 +73,7 @@
     ZBPackage *package = self.allVersions[indexPath.row];
     
     cell.changelogTitleLabel.text = package.changelogTitle;
-    cell.changelogNotesLabel.attributedText = [[NSAttributedString alloc] initWithMarkdownString:package.changelogNotes fontSize:cell.changelogNotesLabel.font.pointSize];
+    cell.changelogNotesLabel.text = package.changelogNotes;
     
     return cell;
 }

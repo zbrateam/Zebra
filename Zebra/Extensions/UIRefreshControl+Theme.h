@@ -6,8 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 

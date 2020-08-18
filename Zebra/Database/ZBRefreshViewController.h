@@ -6,10 +6,11 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <ZBDatabaseDelegate.h>
+@import UIKit;
+
+#import <Database/ZBDatabaseDelegate.h>
 #import "UIColor+GlobalColors.h"
-#import <Sources/Helpers/ZBSourceVerificationDelegate.h>
+#import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 
 @class ZBBaseSource;
 

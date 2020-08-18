@@ -9,8 +9,8 @@
 @class UIImageView;
 @class ZBPackage;
 
-#import <Foundation/Foundation.h>
-#import <sqlite3.h>
+@import Foundation;
+@import SQLite3;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -13,15 +13,15 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Sources/Helpers/ZBSourceManager.h>
+#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
 
-#import <Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @import SDWebImage;
 

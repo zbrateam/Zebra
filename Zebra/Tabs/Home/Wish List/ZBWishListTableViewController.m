@@ -11,13 +11,13 @@
 #import "ZBPackageActions.h"
 
 #import <ZBSettings.h>
-#import <ZBQueue.h>
+#import <Queue/ZBQueue.h>
 #import <ZBDevice.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 @interface ZBWishListTableViewController () {
     UIImageView *shadowView;

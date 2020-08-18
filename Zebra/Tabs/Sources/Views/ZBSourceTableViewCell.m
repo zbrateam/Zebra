@@ -7,8 +7,8 @@
 //
 
 #import "ZBSourceTableViewCell.h"
-#import <UIColor+GlobalColors.h>
-#import <ZBBaseSource.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
 @import SDWebImage;
 
 @interface ZBSourceTableViewCell () {

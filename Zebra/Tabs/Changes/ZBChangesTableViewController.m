@@ -13,15 +13,16 @@
 #import <ZBAppDelegate.h>
 #import <ZBSettings.h>
 #import <ZBDevice.h>
-#import <ZBPackagePartitioner.h>
+#import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageViewController.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import "ZBRedditPosts.h"
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Tabs/ZBTabBarController.h>
 
 @import SDWebImage;
 @import FirebaseAnalytics;

@@ -8,18 +8,18 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBLog.h>
-#import <ZBTab.h>
+#import <Tabs/ZBTab.h>
 #import <ZBSettings.h>
-#import <ZBPackagePartitioner.h>
+#import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
 #import "ZBPackageListTableViewController.h"
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
-#import <ZBTabBarController.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <UIColor+GlobalColors.h>
+#import <Tabs/ZBTabBarController.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import "ZBDevice.h"
 
 @import FirebaseAnalytics;

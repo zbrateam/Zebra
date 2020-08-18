@@ -6,8 +6,8 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <Tabs/ZBTabBarController.h>
+@import UIKit;
+@class ZBTabBarController;
 
 extern NSString * const ZBUserWillTakeScreenshotNotification;
 extern NSString * const ZBUserDidTakeScreenshotNotification;

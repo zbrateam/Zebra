@@ -6,7 +6,7 @@
 //  Copyright © 2563 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @interface ZBUtils : NSObject
 + (NSString * _Nonnull)decodeCString:(const char * _Nullable)cString fallback:(NSString * _Nullable)fallback;

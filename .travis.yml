@@ -1,10 +1,12 @@
 language: objective-c
-osx_image: xcode11.2
+osx_image: xcode11.6
 
 branches:
   except:
     - localization
     - localization_1.1
+    - carthage
+    - 1.2
 
 env:
   global:
@@ -14,11 +16,6 @@ script:
 - make package
 
 before_install:
-- gem install xcpretty
+- carthage update --platform ios --new-resolver
 - brew install ldid fakeroot
-- git clone --single-branch -b master https://github.com/theos/theos.git $THEOS
-- cd $THEOS
-- git config advice.detachedHead false
-- git checkout 8771215
-- git submodule update --init --recursive
-- cd $TRAVIS_BUILD_DIR
+- git clone --depth=1 --recursive https://github.com/theos/theos.git $THEOS

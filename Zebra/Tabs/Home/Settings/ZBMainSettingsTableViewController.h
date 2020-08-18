@@ -6,13 +6,14 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "ZBSettingsTableViewController.h"
-#import "ZBDevice.h"
-#import "ZBRefreshViewController.h"
-#import "ZBAppDelegate.h"
-#import "ZBAlternateIconController.h"
+#import <ZBDevice.h>
+#import <Database/ZBRefreshViewController.h>
+#import <ZBAppDelegate.h>
+#import "App Icon/ZBAlternateIconController.h"
+
 @import SDWebImage;
+@import UIKit;
 
 @interface ZBMainSettingsTableViewController : ZBSettingsTableViewController <UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *headerView;

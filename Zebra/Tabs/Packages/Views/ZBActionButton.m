@@ -7,7 +7,7 @@
 //
 
 #import "ZBActionButton.h"
-#import "UIColor+GlobalColors.h"
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBActionButton () {
     UIActivityIndicatorView *activityIndicatorView;

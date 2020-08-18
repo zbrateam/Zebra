@@ -9,10 +9,11 @@
 #ifndef ZBNotificationManager_h
 #define ZBNotificationManager_h
 
-#import <UIKit/UIKit.h>
-#import <UserNotifications/UserNotifications.h>
-#import <ZBDatabaseDelegate.h>
-#import <ZBPackage.h>
+@import UIKit;
+@import UserNotifications;
+
+#import <Database/ZBDatabaseDelegate.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 typedef void (^BackgroundCompletionHandler)(UIBackgroundFetchResult);
 

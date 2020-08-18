@@ -10,7 +10,7 @@
 #import "ZBPackage.h"
 
 #import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 
 @import SDWebImage;
 

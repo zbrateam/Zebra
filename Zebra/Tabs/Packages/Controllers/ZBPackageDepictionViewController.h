@@ -6,8 +6,8 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>
+@import UIKit;
+@import WebKit;
 
 @class ZBPackage;
 

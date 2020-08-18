@@ -8,7 +8,7 @@
 
 #import <Extensions/ZBTableViewController.h>
 
-#import "../Helpers/ZBSourceVerificationDelegate.h"
+#import "ZBSourceVerificationDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

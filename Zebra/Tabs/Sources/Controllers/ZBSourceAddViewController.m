@@ -8,14 +8,13 @@
 
 #import "ZBSourceAddViewController.h"
 #import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSourceManager.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 @import SDWebImage;
 
 @interface ZBSourceAddViewController () {
-    UIViewController *delegate;
     UISearchController *searchController;
     NSArray *addedSources;
     NSMutableArray <ZBBaseSource *> *sources;
@@ -37,7 +36,6 @@
     if (self) {
         self.title = @"Add Sources";
         self.definesPresentationContext = YES;
-        self->delegate = delegate;
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;

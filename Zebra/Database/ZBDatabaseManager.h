@@ -11,9 +11,10 @@
 @class ZBSource;
 @class UIImage;
 
-#import <Foundation/Foundation.h>
-#import <sqlite3.h>
-#import <ZBDownloadDelegate.h>
+@import Foundation;
+@import SQLite3;
+
+#import <Downloads/ZBDownloadDelegate.h>
 #import "ZBDatabaseDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN

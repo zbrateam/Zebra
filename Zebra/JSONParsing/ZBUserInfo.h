@@ -6,7 +6,7 @@
 //   NSError *error = NULL;
 //   ZBUserInfo *userInfo = [ZBUserInfo fromData:data error:&error];
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class ZBUserInfo;
 @class ZBUser;

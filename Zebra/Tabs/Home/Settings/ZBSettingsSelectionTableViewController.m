@@ -7,10 +7,10 @@
 //
 
 #import "ZBSettingsSelectionTableViewController.h"
-#import "UITableView+Settings.h"
-#import "ZBOptionSettingsTableViewCell.h"
+#import "Table/UITableView+Settings.h"
+#import "Cells/ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
-#import "ZBDevice.h"
+#import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBSettingsSelectionTableViewController () {

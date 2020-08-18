@@ -6,8 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <ZBRefreshableTableViewController.h>
+@import UIKit;
+#import <Extensions/ZBRefreshableTableViewController.h>
 #import "ZBNewsCollectionViewCell.h"
 @import SafariServices;
 @class ZBDatabaseManager;

@@ -11,9 +11,10 @@
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageViewController.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
+#import <Tabs/ZBTabBarController.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;

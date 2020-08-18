@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import <Database/ZBDatabaseDelegate.h>
 
 #ifndef _TABBAR_H_

@@ -8,7 +8,7 @@
 
 #import "ZBSourceListTableViewController.h"
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 typedef enum : NSUInteger {
     ZBSourceSelectionTypeNormal,

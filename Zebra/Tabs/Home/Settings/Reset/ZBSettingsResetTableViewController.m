@@ -12,11 +12,12 @@
 #import "UITableView+Settings.h"
 #import "ZBButtonSettingsTableViewCell.h"
 
-#import <UIColor+GlobalColors.h>
+#import <Extensions/UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
-#import <WebKit/WebKit.h>
+
+@import WebKit;
 
 @interface ZBSettingsResetTableViewController ()
 

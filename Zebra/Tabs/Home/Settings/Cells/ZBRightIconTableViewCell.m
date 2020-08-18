@@ -7,7 +7,7 @@
 //
 
 #import "ZBRightIconTableViewCell.h"
-#import "UIImageView+Zebra.h"
+#import <Extensions/UIImageView+Zebra.h>
 
 @implementation ZBRightIconTableViewCell
 

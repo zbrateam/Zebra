@@ -8,9 +8,9 @@
 
 #import "ZBSourcesAccountBanner.h"
 #import "UIColor+GlobalColors.h"
-#import <ZBSource.h>
-#import <ZBSourceInfo.h>
-#import <ZBUserInfo.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <JSONParsing/ZBSourceInfo.h>
+#import <JSONParsing/ZBUserInfo.h>
 #import <ZBAppDelegate.h>
 #import "ZBSourceSectionsListTableViewController.h"
 

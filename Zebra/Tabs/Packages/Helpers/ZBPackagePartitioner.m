@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackagePartitioner.h"
-#import <ZBPackage.h>
+#import "ZBPackage.h"
 
 @implementation ZBPackagePartitioner
 

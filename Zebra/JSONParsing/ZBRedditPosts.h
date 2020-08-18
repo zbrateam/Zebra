@@ -3,7 +3,7 @@
 //   NSError *error = NULL;
 //   ZBRedditPosts *redditPosts = [ZBRedditPosts fromJSON:json encoding:NSUTF8Encoding error:&error];
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class ZBRedditPosts;
 @class ZBRedditPostsData;

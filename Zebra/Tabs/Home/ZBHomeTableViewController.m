@@ -13,11 +13,10 @@
 #import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Community Sources/ZBCommunitySourcesTableViewController.h>
-#import <Changelog/ZBChangelogTableViewController.h>
+#import "Community Sources/ZBCommunitySourcesTableViewController.h"
+#import "Changelog/ZBChangelogTableViewController.h"
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
-#import <Extensions/NSAttributedString+Markdown.h>
 
 @import FirebaseAnalytics;
 

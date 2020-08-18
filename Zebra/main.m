@@ -6,7 +6,8 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import "ZBAppDelegate.h"
 
 int main(int argc, char * argv[]) {

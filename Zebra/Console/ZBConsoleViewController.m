@@ -18,9 +18,10 @@
 #import <ZBDevice.h>
 #import <ZBLog.h>
 #import <ZBSettings.h>
-#import <UIColor+GlobalColors.h>
-#import <ZBThemeManager.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Theme/ZBThemeManager.h>
 #import <Extensions/UIFont+Zebra.h>
+#import <Headers/NSTask.h>
 
 #include <sysexits.h>
 

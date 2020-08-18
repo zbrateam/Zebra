@@ -14,15 +14,15 @@
 #import "ZBButtonSettingsTableViewCell.h"
 
 #import <Database/ZBDatabaseManager.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Controllers/ZBSourceSelectTableViewController.h>
-#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
+#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
+#import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 
-#import <UIColor+GlobalColors.h>
-#import <UIImageView+Zebra.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIImageView+Zebra.h>
 #import "UITableView+Settings.h"
 
 @interface ZBFilterSettingsTableViewController () {

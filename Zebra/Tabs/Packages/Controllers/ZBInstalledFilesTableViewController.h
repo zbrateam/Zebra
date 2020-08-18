@@ -7,8 +7,8 @@
 //
 
 #import <Extensions/ZBTableViewController.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageInfoController.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 
 @interface ZBInstalledFilesTableViewController : ZBTableViewController <ZBPackageInfoController>
 @end

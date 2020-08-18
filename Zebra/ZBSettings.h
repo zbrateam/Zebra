@@ -9,7 +9,7 @@
 @class ZBSource;
 @class ZBPackage;
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 #pragma mark - Settings Keys
 

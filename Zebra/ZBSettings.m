@@ -8,11 +8,12 @@
 
 #import "ZBSettings.h"
 
-#import <UIKit/UIApplication.h>
-#import <UIKit/UIScreen.h>
-#import <UIKit/UIWindow.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackage.h>
+@import UIKit.UIApplication;
+@import UIKit.UIScreen;
+@import UIKit.UIWindow;
+
+#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 @implementation ZBSettings
 
