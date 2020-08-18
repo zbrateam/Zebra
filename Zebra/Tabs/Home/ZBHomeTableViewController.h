@@ -6,7 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "UIColor+GlobalColors.h"
 #import "ZBDevice.h"
 #import "ZBStoresListTableViewController.h"
@@ -17,7 +16,10 @@
 #import "ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import "UIImage+UIKitImage.h"
+
 @import SDWebImage;
+@import SafariServices;
+@import UIKit;
 
 @interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;

@@ -7,7 +7,7 @@
 //
 
 #import "ZBSourceManager.h"
-#import <UIKit/UIDevice.h>
+@import UIKit.UIDevice;
 #import <Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
 #import <ZBAppDelegate.h>

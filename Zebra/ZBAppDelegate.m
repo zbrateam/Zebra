@@ -17,8 +17,6 @@
 #import <Sources/Controllers/ZBSourceListTableViewController.h>
 #import <Packages/Controllers/ZBPackageViewController.h>
 #import <Packages/Helpers/ZBPackage.h>
-#import <SDImageCacheConfig.h>
-#import <SDImageCache.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
 #import <Database/ZBRefreshViewController.h>
@@ -31,6 +29,7 @@
 @import FirebaseAnalytics;
 @import FirebaseCrashlytics;
 @import LocalAuthentication;
+@import SDWebImage;
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;

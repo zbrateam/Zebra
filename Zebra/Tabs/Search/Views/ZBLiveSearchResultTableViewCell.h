@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import "ZBProxyPackage.h"
 NS_ASSUME_NONNULL_BEGIN
 

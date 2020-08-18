@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import <ZBRefreshableTableViewController.h>
 #import "ZBPackageViewController.h"
 

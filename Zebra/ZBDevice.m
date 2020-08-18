@@ -10,7 +10,6 @@
 #import <ZBSettings.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Theme/ZBThemeManager.h>
-#import <WebKit/WebKit.h>
 #import <Queue/ZBQueue.h>
 #import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
@@ -21,9 +20,12 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <unistd.h>
+
 @import SafariServices;
 @import LNPopupController;
 @import FirebaseCrashlytics;
+@import Foundation;
+@import SafariServices;
 
 @implementation ZBDevice
 

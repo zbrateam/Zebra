@@ -14,6 +14,7 @@
 #import <Packages/Helpers/ZBPackageActions.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Packages/Controllers/ZBPackageViewController.h>
+#import <Tabs/ZBTabBarController.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;

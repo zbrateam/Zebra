@@ -15,6 +15,7 @@
 #import <Database/ZBDatabaseManager.h>
 #import <ZBDevice.h>
 #import <Console/ZBStage.h>
+#import <Tabs/ZBTabBarController.h>
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray <ZBPackage *> *> *managedQueue;

@@ -5,7 +5,7 @@
 //   NSError *error = NULL;
 //   ZBSourceInfo *sourceInfo = [ZBSourceInfo fromJSON:json encoding:NSUTF8Encoding error:&error];
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 @class ZBSourceInfo;
 @class ZBAuthenticationBanner;

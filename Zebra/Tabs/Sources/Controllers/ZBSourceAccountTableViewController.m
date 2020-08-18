@@ -20,6 +20,7 @@
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
 #import <Packages/Helpers/ZBPackageActions.h>
+#import <Tabs/ZBTabBarController.h>
 
 @import SDWebImage;
 

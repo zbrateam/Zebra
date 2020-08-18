@@ -6,6 +6,9 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+@import UIKit;
+@import SafariServices;
+
 #import "ZBSource.h"
 #import "ZBSourceManager.h"
 #import "UICKeyChainStore.h"
@@ -16,6 +19,7 @@
 #import <ZBUtils.h>
 #import <ZBUserInfo.h>
 #import <ZBSourceInfo.h>
+#import <Tabs/ZBTabBarController.h>
 
 @interface ZBSource () {
     NSURL *paymentVendorURI;

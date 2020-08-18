@@ -20,6 +20,7 @@
 #import <Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Extensions/UIAlertController+Show.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
+#import <Tabs/ZBTabBarController.h>
 
 @implementation ZBPackageActions
 

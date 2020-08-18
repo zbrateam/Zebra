@@ -9,9 +9,9 @@
 @class ZBQueue;
 @class ZBSource;
 
-#import "ZBDownloadDelegate.h"
+@import Foundation;
 
-#import <Foundation/Foundation.h>
+#import "ZBDownloadDelegate.h"
 #import <Sources/Helpers/ZBBaseSource.h>
 
 NS_ASSUME_NONNULL_BEGIN

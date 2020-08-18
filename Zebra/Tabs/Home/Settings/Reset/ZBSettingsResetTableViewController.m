@@ -16,7 +16,8 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Database/ZBRefreshViewController.h>
-#import <WebKit/WebKit.h>
+
+@import WebKit;
 
 @interface ZBSettingsResetTableViewController ()
 

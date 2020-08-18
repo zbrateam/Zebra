@@ -11,7 +11,7 @@
 
 @class ZBPackage;
 
-@protocol ZBPackageInfoController <NSObject>
+@protocol ZBPackageInfoController
 - (id)initWithPackage:(ZBPackage *)package;
 @end
 

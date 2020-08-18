@@ -6,9 +6,9 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <sqlite3.h>
-#import <UIKit/UIKit.h>
+@import Foundation;
+@import SQLite3;
+@import UIKit;
 
 @class UIImageView;
 @class ZBSource;

@@ -73,7 +73,7 @@
     ZBPackage *package = self.allVersions[indexPath.row];
     
     cell.changelogTitleLabel.text = package.changelogTitle;
-    cell.changelogNotesLabel.attributedText = package.changelogNotes;
+    cell.changelogNotesLabel.text = package.changelogNotes;
     
     return cell;
 }

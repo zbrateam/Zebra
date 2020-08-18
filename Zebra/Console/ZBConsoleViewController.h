@@ -10,7 +10,8 @@
 
 @class ZBQueue;
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import <Downloads/ZBDownloadDelegate.h>
 #import <Database/ZBDatabaseDelegate.h>
 #import <ZBConsoleCommandDelegate.h>

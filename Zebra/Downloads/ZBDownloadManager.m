@@ -17,10 +17,11 @@
 #import <Sources/Helpers/ZBSource.h>
 #import <Sources/Helpers/ZBSourceManager.h>
 
+@import MobileCoreServices;
+@import zlib;
+@import Compression;
+
 #import <bzlib.h>
-#import <zlib.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <compression.h>
 
 @interface ZBDownloadManager () {
     BOOL ignore;

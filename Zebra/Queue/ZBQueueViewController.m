@@ -15,6 +15,7 @@
 #import <UIColor+GlobalColors.h>
 #import <ZBDevice.h>
 #import <Theme/ZBThemeManager.h>
+#import <Tabs/ZBTabBarController.h>
 
 @import SDWebImage;
 @import LNPopupController;

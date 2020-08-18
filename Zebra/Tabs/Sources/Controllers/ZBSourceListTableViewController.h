@@ -10,7 +10,7 @@
 
 #import "ZBSourceVerificationDelegate.h"
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 #import <Database/ZBDatabaseDelegate.h>
 #import <ZBRefreshableTableViewController.h>
 

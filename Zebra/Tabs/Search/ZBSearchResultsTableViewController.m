@@ -16,6 +16,7 @@
 #import <Packages/Controllers/ZBPackageViewController.h>
 #import <Packages/Views/ZBPackageTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Tabs/ZBTabBarController.h>
 
 @import LNPopupController;
 

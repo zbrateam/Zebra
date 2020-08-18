@@ -6,7 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+
 #import <ZBSettings.h>
 
 @interface UIColor (GlobalColors)

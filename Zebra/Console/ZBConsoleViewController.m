@@ -21,6 +21,7 @@
 #import <UIColor+GlobalColors.h>
 #import <ZBThemeManager.h>
 #import <Extensions/UIFont+Zebra.h>
+#import <NSTask.h>
 
 #include <sysexits.h>
 

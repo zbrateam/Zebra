@@ -11,8 +11,9 @@
 @class ZBSource;
 @class UIImage;
 
-#import <Foundation/Foundation.h>
-#import <sqlite3.h>
+@import Foundation;
+@import SQLite3;
+
 #import <ZBDownloadDelegate.h>
 #import "ZBDatabaseDelegate.h"
 

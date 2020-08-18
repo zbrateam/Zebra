@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Kishikawa Katsumi. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
 
 #if !__has_feature(nullability)
 #define NS_ASSUME_NONNULL_BEGIN

@@ -6,11 +6,12 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <NSTask.h>
-#import <Console/ZBConsoleCommandDelegate.h>
+@class NSTask;
 
-@import SafariServices;
+@import Foundation;
+
+#import <UIKit/UIApplication.h>
+#import <Console/ZBConsoleCommandDelegate.h>
 
 @interface UIApplication ()
 - (void)suspend;

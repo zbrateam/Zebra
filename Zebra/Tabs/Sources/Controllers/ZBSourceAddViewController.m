@@ -15,7 +15,6 @@
 @import SDWebImage;
 
 @interface ZBSourceAddViewController () {
-    UIViewController *delegate;
     UISearchController *searchController;
     NSArray *addedSources;
     NSMutableArray <ZBBaseSource *> *sources;
@@ -37,7 +36,6 @@
     if (self) {
         self.title = @"Add Sources";
         self.definesPresentationContext = YES;
-        self->delegate = delegate;
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;

@@ -9,8 +9,9 @@
 #ifndef ZBNotificationManager_h
 #define ZBNotificationManager_h
 
-#import <UIKit/UIKit.h>
-#import <UserNotifications/UserNotifications.h>
+@import UIKit;
+@import UserNotifications;
+
 #import <ZBDatabaseDelegate.h>
 #import <ZBPackage.h>
 

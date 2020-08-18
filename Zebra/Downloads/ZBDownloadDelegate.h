@@ -6,13 +6,14 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import <Console/ZBLogLevel.h>
-
 @class ZBDownloadManager;
 @class ZBPackage;
 @class ZBBaseSource;
+
+@import CoreGraphics;
+@import Foundation;
+
+#import <Console/ZBLogLevel.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

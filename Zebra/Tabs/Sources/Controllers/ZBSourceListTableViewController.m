@@ -272,7 +272,7 @@
 #pragma mark - Navigation Buttons
 
 - (void)addSource:(id)sender {
-    ZBSourceAddViewController *controller = [[ZBSourceAddViewController alloc] initWithDelegate:self];
+    ZBSourceAddViewController *controller = [[ZBSourceAddViewController alloc] init];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:controller];
     
     [self presentViewController:navController animated:YES completion:nil];

@@ -6,9 +6,9 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <Packages/Helpers/ZBPackageInfoController.h>
 
+@import UIKit;
 @import MessageUI;
 
 NS_ASSUME_NONNULL_BEGIN
