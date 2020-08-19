@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceListTableViewController : ZBRefreshableTableViewController {
+@interface ZBSourceListViewController : ZBRefreshableTableViewController {
     NSMutableArray <ZBSource *> *sources;
 }
 @end

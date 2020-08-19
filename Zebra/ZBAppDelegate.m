@@ -14,7 +14,7 @@
 #import <ZBSettings.h>
 #import <Notifications/ZBNotificationManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Controllers/ZBSourceListTableViewController.h>
+#import <Tabs/Sources/Controllers/ZBSourceListViewController.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
@@ -283,7 +283,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                     
-                ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                 //FIXME: Fix!
                 //                [sourceListController handleImportOf:url];
             }
@@ -304,7 +304,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
                     
-                    ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
                     //FIXME: Fix!
                     //                    [sourceListController handleURL:url];
                     break;
@@ -391,7 +391,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         //FIXME: Fix!
 //        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     }

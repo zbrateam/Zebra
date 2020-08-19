@@ -10,7 +10,7 @@
 #import "ZBTab.h"
 #import <Database/ZBDatabaseManager.h>
 #import "Packages/Controllers/ZBPackageListTableViewController.h"
-#import "Sources/Controllers/ZBSourceListTableViewController.h"
+#import "Sources/Controllers/ZBSourceListViewController.h"
 #import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
@@ -79,7 +79,7 @@
     
     // Temporary, remove when all views are decoupled from storyboard
     UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
-    [sourcesNavController setViewControllers:@[[[ZBSourceListTableViewController alloc] init]] animated:NO];
+    [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
 }
 
 - (void)applyLocalization {
@@ -161,7 +161,7 @@
     [sourceBusyList setObject:@(busy) forKey:bfn];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
+        ZBSourceListViewController *sourcesVC = (ZBSourceListViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
         //FIXME: Update for new tableview
 //        [sourcesVC setSpinnerVisible:busy forSource:bfn];
     });

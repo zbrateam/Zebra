@@ -6,18 +6,18 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceListTableViewController.h"
+#import "ZBSourceListViewController.h"
 
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 
-@interface ZBSourceListTableViewController () {
+@interface ZBSourceListViewController () {
     ZBSourceManager *sourceManager;
 }
 @end
 
-@implementation ZBSourceListTableViewController
+@implementation ZBSourceListViewController
 
 #pragma mark - Initializers
 
