@@ -18,6 +18,10 @@ include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
 SUBPROJECTS = Supersling Firmware
 
+after-stage::
+	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections$(ECHO_END)
+	$(ECHO_NOTHING)rm -f $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack$(ECHO_END)
+
 after-install::
 	install.exec 'uicache -p /Applications/Zebra.app; uiopen zbra:'
 
