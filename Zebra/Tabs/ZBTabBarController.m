@@ -76,6 +76,10 @@
     if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
         [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
     }
+    
+    // Temporary, remove when all views are decoupled from storyboard
+    UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
+    [sourcesNavController setViewControllers:@[[[ZBSourceListTableViewController alloc] init]] animated:NO];
 }
 
 - (void)applyLocalization {
@@ -158,7 +162,8 @@
     
     dispatch_async(dispatch_get_main_queue(), ^{
         ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-        [sourcesVC setSpinnerVisible:busy forSource:bfn];
+        //FIXME: Update for new tableview
+//        [sourcesVC setSpinnerVisible:busy forSource:bfn];
     });
 }
 

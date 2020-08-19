@@ -8,7 +8,7 @@
 
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 @import SDWebImage;
 
 @interface ZBSourceTableViewCell () {
@@ -28,6 +28,12 @@
     self.chevronView = (UIImageView *)(self.accessoryView);
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     spinner.color = [UIColor grayColor];
+}
+
+- (void)setSource:(ZBSource *)source {
+    self.sourceLabel.text = source.label;
+    self.urlLabel.text = source.repositoryURI;
+    [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

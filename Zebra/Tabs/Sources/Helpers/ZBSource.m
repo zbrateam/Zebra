@@ -150,16 +150,6 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_"];
 }
 
-- (BOOL)isEqual:(ZBSource *)object {
-    if (self == object)
-        return YES;
-    
-    if (![object isKindOfClass:[ZBSource class]])
-        return NO;
-    
-    return [[object baseFilename] isEqual:[self baseFilename]];
-}
-
 - (NSString *)description {
     return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
 }

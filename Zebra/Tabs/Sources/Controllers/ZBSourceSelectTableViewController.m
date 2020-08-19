@@ -106,7 +106,7 @@
 }
 
 - (void)refreshTable {
-    self->sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+    sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
     
     NSMutableArray *fakeSources = [NSMutableArray new];
     for (NSObject *source in sources) {
@@ -117,14 +117,13 @@
     [sources removeObjectsInArray:fakeSources];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateCollation];
         [self.tableView reloadData];
     });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
-    ZBSource *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = sources[indexPath.row];
     
     cell.sourceLabel.text = [source label];
     cell.sourceLabel.textColor = [UIColor primaryTextColor];
@@ -166,7 +165,7 @@
 }
 
 - (void)addSourceAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = sources[indexPath.row];
     if ([preSelectedSources containsObject:source]) {
         // We will not unselect the sources that have already been added.
         return;

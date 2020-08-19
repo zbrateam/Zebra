@@ -52,8 +52,8 @@
     }
     NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
     
-    NSSet *unionSet = [baseSources setByAddingObjectsFromSet:sourcesFromDatabase];
-    sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"origin" ascending:TRUE]]];
+    NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
+    sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE]]];
     
     return sources;
 }
