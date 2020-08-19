@@ -23,6 +23,7 @@
 #import <Downloads/ZBDownloadManager.h>
 #import <Database/ZBColumn.h>
 #import <Queue/ZBQueue.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Tabs/Packages/Helpers/ZBProxyPackage.h>
 
 @interface ZBDatabaseManager () {
@@ -689,7 +690,7 @@
                         const char *packageAuthorEmail = (const char *)sqlite3_column_text(statement, 3);
                         if (packageSection != 0 && packageAuthor != 0 && packageAuthorEmail != 0) {
                             int sourceID = sqlite3_column_int(statement, 3);
-                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[ZBSource sourceMatchingSourceID:sourceID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor] email:[NSString stringWithUTF8String:packageAuthorEmail]])
+                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor] email:[NSString stringWithUTF8String:packageAuthorEmail]])
                                 ++packages;
                         }
                         else {
@@ -720,21 +721,14 @@
 
 - (NSSet <ZBSource *> * _Nullable)sources {
     if ([self openDatabase] == SQLITE_OK) {
-        NSError *readError = NULL;
-        NSMutableSet *baseSources = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError] mutableCopy];
         NSMutableSet *sources = [NSMutableSet new];
-
+        
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS", -1, &statement, nil) == SQLITE_OK) {
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                for (ZBBaseSource *baseSource in [baseSources copy]) {
-                    if ([baseSource isEqual:source]) {
-                        [sources addObject:source];
-                        [baseSources removeObject:baseSource];
-                        break;
-                    }
-                }
+                
+                [sources addObject:source];
             }
         } else {
             [self printDatabaseError];
@@ -742,9 +736,9 @@
         sqlite3_finalize(statement);
         [self closeDatabase];
 
-        return [sources setByAddingObjectsFromSet:baseSources];
+        return sources;
     }
-    
+
     [self printDatabaseError];
     return nil;
 }

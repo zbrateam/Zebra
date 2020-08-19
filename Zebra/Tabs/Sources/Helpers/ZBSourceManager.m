@@ -15,7 +15,7 @@
 #import <ZBLog.h>
 
 @interface ZBSourceManager () {
-    NSMutableDictionary <NSNumber *, ZBSource *> *sources;
+    NSArray <ZBSource *> *sources;
     BOOL recachingNeeded;
 }
 @end
@@ -38,26 +38,23 @@
     recachingNeeded = YES;
 }
 
-- (NSMutableDictionary <NSNumber *, ZBSource *> *)sources {
-    if (recachingNeeded) {
-        recachingNeeded = NO;
-        sources = [NSMutableDictionary new];
-
-        sqlite3 *database;
-        sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
-
-        sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS;", -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                sources[@(source.sourceID)] = source;
-            }
-        } else {
-            [[ZBDatabaseManager sharedInstance] printDatabaseError];
-        }
-        sqlite3_finalize(statement);
-        sqlite3_close(database);
+- (NSArray <ZBSource *> *)sources {
+    if (!recachingNeeded)
+        return sources;
+    
+    recachingNeeded = NO;
+    NSError *readError = NULL;
+    NSSet *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
+    if (readError) {
+        ZBLog(@"[Zebra] Error when reading baseSourcse from %@: %@", [ZBAppDelegate sourcesListURL], readError.localizedDescription);
+        
+        return [NSArray new];
     }
+    NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
+    
+    NSSet *unionSet = [baseSources setByAddingObjectsFromSet:sourcesFromDatabase];
+    sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"origin" ascending:TRUE]]];
+    
     return sources;
 }
 
@@ -234,5 +231,18 @@
     
     return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", [source baseFilename]]];
 }
+
+- (ZBSource *)sourceMatchingSourceID:(int)sourceID {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sourceID == %d", sourceID];
+    NSArray *filteredArray = [sources filteredArrayUsingPredicate:predicate];
+    if (!filteredArray.count) {
+        // If we can't find the source in sourceManager, lets just recache and see if it shows up
+        [[ZBSourceManager sharedInstance] needRecaching];
+        filteredArray = [sources filteredArrayUsingPredicate:predicate];
+    }
+    
+    return filteredArray[0];
+}
+
 
 @end

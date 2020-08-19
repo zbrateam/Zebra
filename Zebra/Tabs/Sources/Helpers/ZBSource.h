@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 @property (nonatomic) NSURL *iconURL;
 
-+ (ZBSource *)sourceMatchingSourceID:(int)sourceID;
 + (ZBSource *)localSource:(int)sourceID;
 + (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL;
 + (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;

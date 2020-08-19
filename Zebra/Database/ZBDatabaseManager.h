@@ -204,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief All of the sources that are in the database.
- @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
+ @return An array of ZBSources that represent the sources that are in the database.
  */
 - (NSSet <ZBSource *> * _Nullable)sources;
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
