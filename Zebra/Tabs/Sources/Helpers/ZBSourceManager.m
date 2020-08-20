@@ -53,7 +53,7 @@
     NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
     
     NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
-    sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE]]];
+    sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
     
     return sources;
 }
