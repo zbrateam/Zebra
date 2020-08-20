@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)bulkDatabaseStartedUpdate;
 - (void)bulkDatabaseCompletedUpdate:(int)updates;
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
-- (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy;
+- (void)bulkSetSource:(ZBBaseSource *)source busy:(BOOL)busy;
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
 
 /*!

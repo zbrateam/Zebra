@@ -7,11 +7,13 @@
 //
 
 @import UIKit;
+
+#import <Database/ZBDatabaseManager.h>
 #import <Extensions/ZBRefreshableTableViewController.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceListViewController : ZBRefreshableTableViewController <UISearchResultsUpdating, UISearchControllerDelegate> {
+@interface ZBSourceListViewController : ZBRefreshableTableViewController <ZBDatabaseDelegate, UISearchResultsUpdating, UISearchControllerDelegate> {
     NSMutableArray <ZBSource *> *sources;
     NSMutableArray <ZBSource *> *filteredSources;
 }

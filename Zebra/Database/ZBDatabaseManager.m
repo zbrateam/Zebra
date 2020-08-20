@@ -194,11 +194,11 @@
     }
 }
 
-- (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy {
+- (void)bulkSetSource:(ZBBaseSource *)source busy:(BOOL)busy {
     for (int i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
         if ([delegate respondsToSelector:@selector(setSource:busy:)]) {
-            [delegate setSource:bfn busy:busy];
+            [delegate setSource:source busy:busy];
         }
     }
 }
@@ -288,7 +288,7 @@
 //        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
         for (ZBBaseSource *source in sources) {
 //            dispatch_async(queue, ^{
-                [self bulkSetSource:[source baseFilename] busy:YES];
+                [self bulkSetSource:source busy:YES];
                 [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
                 
                 //Deal with the source first
@@ -304,7 +304,7 @@
                         sourceID = [self nextSourceID];
                         if (importSourceToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
-                        }
+                        }/var/folders/zb/0qxwxtk145vgfjxp823gfjy80000gn/T/simulator_screenshot_28558CA3-A72A-4C88-BE61-FFE3C736468A.png
                     } else {
                         if (updateSourceInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
@@ -337,7 +337,7 @@
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
                 
-                [self bulkSetSource:[source baseFilename] busy:NO];
+                [self bulkSetSource:source busy:NO];
 //            });
         }
         
@@ -2108,7 +2108,7 @@
 }
 
 - (void)startedSourceDownload:(ZBBaseSource *)baseSource {
-    [self bulkSetSource:[baseSource baseFilename] busy:YES];
+    [self bulkSetSource:baseSource busy:YES];
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
 }
 
@@ -2117,7 +2117,7 @@
 }
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
-    [self bulkSetSource:[baseSource baseFilename] busy:NO];
+    [self bulkSetSource:baseSource busy:NO];
     if (errors && [errors count]) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
         [self postStatusUpdate:message atLevel:ZBLogLevelError];

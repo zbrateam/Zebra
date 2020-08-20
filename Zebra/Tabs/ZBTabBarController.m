@@ -40,7 +40,6 @@
 
 @synthesize forwardedSourceBaseURL;
 @synthesize forwardToPackageID;
-@synthesize sourceBusyList;
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -149,27 +148,10 @@
             sourcesItem.badgeValue = nil;
             self->sourcesUpdating = NO;
         }
-        [self clearSources];
     });
 }
 
 #pragma mark - Database Delegate
-
-- (void)setSource:(NSString *)bfn busy:(BOOL)busy {
-    if (bfn == NULL) return;
-    if (!sourceBusyList) sourceBusyList = [NSMutableDictionary new];
-    [sourceBusyList setObject:@(busy) forKey:bfn];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        ZBSourceListViewController *sourcesVC = (ZBSourceListViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-        //FIXME: Update for new tableview
-//        [sourcesVC setSpinnerVisible:busy forSource:bfn];
-    });
-}
-
-- (void)clearSources {
-    [sourceBusyList removeAllObjects];
-}
 
 - (void)databaseStartedUpdate {
     [self setSourceRefreshIndicatorVisible:YES];

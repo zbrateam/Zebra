@@ -29,7 +29,6 @@
 
 - (void)cancelRefresh:(id)sender {
     [databaseManager cancelUpdates:self];
-    [[ZBAppDelegate tabBarController] clearSources];
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];

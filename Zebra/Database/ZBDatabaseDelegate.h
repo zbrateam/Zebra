@@ -8,6 +8,8 @@
 
 #import <Console/ZBLogLevel.h>
 
+@class ZBBaseSource;
+
 #ifndef ZBDatabaseDelegate_h
 #define ZBDatabaseDelegate_h
 
@@ -15,7 +17,7 @@
 - (void)databaseStartedUpdate;
 - (void)databaseCompletedUpdate:(int)packageUpdates;
 @optional
-- (void)setSource:(NSString *)bfn busy:(BOOL)busy;
+- (void)setSource:(ZBBaseSource *)source busy:(BOOL)busy;
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 @end
 

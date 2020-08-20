@@ -16,6 +16,7 @@
 @interface ZBSourceListViewController () {
     UISearchController *searchController;
     ZBSourceManager *sourceManager;
+    NSMutableDictionary *busyList;
 }
 @end
 
@@ -42,6 +43,8 @@
         sourceManager = [ZBSourceManager sharedInstance];
         sources = [sourceManager.sources mutableCopy];
         filteredSources = [sources copy];
+        
+        [[ZBDatabaseManager sharedInstance] addDatabaseDelegate:self];
     }
     
     return self;
@@ -92,7 +95,10 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [(ZBSourceTableViewCell *)cell setSpinning:YES];
+    ZBBaseSource *source = filteredSources[indexPath.row];
+    
+    BOOL busy = [[busyList objectForKey:source.baseFilename] boolValue];
+    [(ZBSourceTableViewCell *)cell setSpinning:busy];
 }
 
 #pragma mark - UISearchResultsUpdating
@@ -112,6 +118,27 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark - UISearchControllerDelegate
+#pragma mark - ZBDatabaseDelegate
+
+- (void)databaseStartedUpdate {
+    if (!busyList) busyList = [NSMutableDictionary new];
+    
+    for (ZBBaseSource *baseSource in sources) {
+        [busyList setObject:@NO forKey:baseSource.baseFilename];
+    }
+}
+
+- (void)setSource:(ZBSource *)baseSource busy:(BOOL)busy {
+    [busyList setObject:@(busy) forKey:baseSource.baseFilename];
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:baseSource] inSection:0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    });
+}
+
+- (void)databaseCompletedUpdate:(int)packageUpdates {
+    [busyList removeAllObjects];
+}
 
 @end
