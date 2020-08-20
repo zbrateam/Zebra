@@ -229,8 +229,19 @@
     return [super init];
 }
 
-- (id)initFromURL:(NSURL *)url {
-    return [self initFromSourceLine:[ZBSourceManager debLineForURL:url]];
+- (id)initFromURL:(NSURL *)URL {
+    if (!URL) return NULL;
+    
+    NSDictionary *knownDistSources = @{
+        @"apt.thebigboss.org": @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
+        @"apt.modmyi.com": @"deb http://apt.modmyi.com/ stable main",
+        @"apt.saurik.com": [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+        @"apt.bingner.com": [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+        @"cydia.zodttd.com": @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
+    };
+    
+    NSString *debLine = knownDistSources[[URL host]] ?: [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];
+    return [self initFromSourceLine:debLine];
 }
 
 - (BOOL)hasCFVersionComponent:(NSString * _Nullable)repositoryURI_ {

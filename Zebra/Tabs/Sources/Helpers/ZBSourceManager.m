@@ -15,32 +15,37 @@
 #import <ZBLog.h>
 
 @interface ZBSourceManager () {
-    NSArray <ZBSource *> *sources;
+    NSArray <ZBSource *> *sourceCache;
     BOOL recachingNeeded;
 }
 @end
 
 @implementation ZBSourceManager
 
-@synthesize verifiedSources;
+//@synthesize verifiedSources;
 
 + (id)sharedInstance {
     static ZBSourceManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [ZBSourceManager new];
-        instance->recachingNeeded = YES;
     });
     return instance;
 }
 
-- (void)needRecaching {
-    recachingNeeded = YES;
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        recachingNeeded = YES;
+    }
+    
+    return self;
 }
 
 - (NSArray <ZBSource *> *)sources {
     if (!recachingNeeded)
-        return sources;
+        return sourceCache;
     
     recachingNeeded = NO;
     NSError *readError = NULL;
@@ -53,51 +58,9 @@
     NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
     
     NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
-    sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    sourceCache = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
     
-    return sources;
-}
-
-+ (NSArray <NSString *> *)knownDistURLs {
-    static NSArray *urls = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        urls = @[
-            @"apt.thebigboss.org",
-            @"apt.modmyi.com",
-            @"apt.saurik.com",
-            @"apt.bingner.com",
-            @"cydia.zodttd.com"
-        ];
-    });
-    return urls;
-}
-
-+ (NSArray <NSString *> *)knownDebLines {
-    static NSArray *lines = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        lines = @[
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
-            @"deb http://apt.modmyi.com/ stable main",
-            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
-        ];
-    });
-    return lines;
-}
-
-+ (NSString *_Nullable)debLineForURL:(NSURL *)URL {
-    if (!URL) return NULL;
-    
-    NSUInteger index = [[self knownDistURLs] indexOfObject:[URL host]];
-    if (index != NSNotFound) {
-        return [self knownDebLines][index];
-    }
-    else {
-        return [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];
-    }
+    return sourceCache;
 }
 
 //TODO: This needs error pointers
@@ -115,7 +78,8 @@
     
     if ([sourcesToAdd count]) {
         [self appendBaseSources:sourcesToAdd toFile:[ZBAppDelegate sourcesListPath]];
-        [self needRecaching];
+        
+        //TODO: Send out source added notification
     }
 }
 
@@ -158,7 +122,7 @@
     }
     [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
     
-    [self needRecaching];
+    //TODO: Send out source update notificaiton
 }
 
 //TODO: This needs error pointers
@@ -234,11 +198,11 @@
 
 - (ZBSource *)sourceMatchingSourceID:(int)sourceID {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sourceID == %d", sourceID];
-    NSArray *filteredArray = [sources filteredArrayUsingPredicate:predicate];
+    NSArray *filteredArray = [sourceCache filteredArrayUsingPredicate:predicate];
     if (!filteredArray.count) {
         // If we can't find the source in sourceManager, lets just recache and see if it shows up
-        [[ZBSourceManager sharedInstance] needRecaching];
-        filteredArray = [sources filteredArrayUsingPredicate:predicate];
+        // TODO: Send out source update notification
+        filteredArray = [sourceCache filteredArrayUsingPredicate:predicate];
     }
     
     return filteredArray[0];

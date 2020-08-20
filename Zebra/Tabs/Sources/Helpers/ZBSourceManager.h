@@ -16,14 +16,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceManager : NSObject
-@property (nonatomic) NSMutableSet <ZBBaseSource *> *verifiedSources;
+@property (readonly) NSArray <ZBSource *> *sources;
+//@property NSMutableSet <ZBBaseSource *> *verifiedSources;
 + (id)sharedInstance;
-+ (NSString *_Nullable)debLineForURL:(NSURL *)URL;
-- (NSArray <ZBSource *> *)sources;
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 - (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources;
 - (void)deleteSource:(ZBSource *)source;
-- (void)needRecaching;
 - (ZBSource *)sourceMatchingSourceID:(int)sourceID;
 @end
 
