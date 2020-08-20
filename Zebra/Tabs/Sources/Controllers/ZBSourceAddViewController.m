@@ -30,7 +30,7 @@
 
 #pragma mark - Initializers
 
-- (id)initWithDelegate:(UIViewController *)delegate {
+- (id)init {
     self = [super init];
     
     if (self) {
