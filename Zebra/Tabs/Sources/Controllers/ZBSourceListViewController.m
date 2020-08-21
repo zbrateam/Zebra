@@ -101,6 +101,44 @@
     [(ZBSourceTableViewCell *)cell setSpinning:busy];
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSource *source = filteredSources[indexPath.row];
+    
+    UIContextualAction *copyAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Copy",@"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        UIPasteboard *pasteBoard = [UIPasteboard generalPasteboard];
+        [pasteBoard setString:source.repositoryURI];
+        completionHandler(YES);
+    }];
+    
+    copyAction.backgroundColor = [UIColor systemTealColor];
+    copyAction.image = [UIImage systemImageNamed:@"doc.on.clipboard.fill"];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[copyAction]];
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSource *source = filteredSources[indexPath.row];
+    
+    NSMutableArray *actions = [NSMutableArray new];
+    if ([source canDelete]) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:nil];
+        }];
+        deleteAction.backgroundColor = [UIColor systemRedColor];
+        deleteAction.image = [UIImage systemImageNamed:@"delete.right.fill"];
+        [actions addObject:deleteAction];
+    }
+    
+    UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] error:nil];
+    }];
+    refreshAction.backgroundColor = [UIColor systemPurpleColor];
+    refreshAction.image = [UIImage systemImageNamed:@"arrow.clockwise"];
+    [actions addObject:refreshAction];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:actions];
+}
+
 #pragma mark - UISearchResultsUpdating
 
 - (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
