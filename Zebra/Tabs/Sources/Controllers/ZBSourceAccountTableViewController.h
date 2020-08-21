@@ -10,7 +10,7 @@
 
 @class ZBSource;
 
-@interface ZBSourceAccountTableViewController : ZBTableViewController <UIViewControllerPreviewingDelegate>
+@interface ZBSourceAccountTableViewController : ZBTableViewController
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source;
 @end

@@ -1131,9 +1131,9 @@
 				49C526EC227BCF1700840484 /* ZBSourceTableViewCell.h */,
 				49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */,
 				9E06A9EE22D0842400DBBC38 /* ZBSourceTableViewCell.xib */,
-				4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */,
 				4910B3A62426BD5C00306C5C /* ZBSourcesAccountBanner.h */,
 				4910B3A72426BD5C00306C5C /* ZBSourcesAccountBanner.m */,
+				4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";

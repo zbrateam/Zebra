@@ -123,8 +123,7 @@
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     
     NSSet *sourcesToAdd = [NSSet setWithArray:selectedSources];
-    [sourceManager addBaseSources:sourcesToAdd];
-    [[ZBDatabaseManager sharedInstance] updateSources:sourcesToAdd useCaching:YES];
+    [sourceManager addSources:sourcesToAdd error:nil];
     
     [self dismiss];
 }

@@ -275,17 +275,7 @@
             break;
         }
         case 1:
-        case 2: {
-            NSString *url = info[@"url"];
-            ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:url]];
-            if (source) {
-                [sourceManager addBaseSources:[NSSet setWithObject:source]];
-                ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:[NSSet setWithObject:source]];
-                
-                [self presentViewController:refresh animated:YES completion:nil];
-            }
-            break;
-        }
+        case 2:
         default:
             break;
     }

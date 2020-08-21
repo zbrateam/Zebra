@@ -57,7 +57,7 @@
     return baseSources;
 }
 
-+ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error {
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **_Nullable)error {
     NSError *readError = NULL;
     NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];
     if (readError) {
@@ -456,6 +456,12 @@
 - (BOOL)exists {
     NSSet *sources = [[self class] baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
     return [sources containsObject:self];
+}
+
+- (NSArray <NSString *> *)lists {
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
+    
+    return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", self.baseFilename]];
 }
 
 @end

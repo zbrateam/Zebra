@@ -299,11 +299,9 @@
     UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm Import", @"") message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self->sourceManager addBaseSources:sources];
-        ZBRefreshViewController *refresh = [[ZBRefreshViewController alloc] initWithDropTables:NO baseSources:sources];
+        [self->sourceManager addSources:sources error:nil];
         
-        [self.navigationController pushViewController:refresh animated:YES];
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
     [areYouSure addAction:yesAction];
     

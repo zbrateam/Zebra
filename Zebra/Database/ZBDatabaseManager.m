@@ -304,7 +304,7 @@
                         sourceID = [self nextSourceID];
                         if (importSourceToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
-                        }/var/folders/zb/0qxwxtk145vgfjxp823gfjy80000gn/T/simulator_screenshot_28558CA3-A72A-4C88-BE61-FFE3C736468A.png
+                        }
                     } else {
                         if (updateSourceInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
                             [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];

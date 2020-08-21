@@ -19,10 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSArray <ZBSource *> *sources;
 //@property NSMutableSet <ZBBaseSource *> *verifiedSources;
 + (id)sharedInstance;
-- (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
-- (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources;
-- (void)deleteSource:(ZBSource *)source;
 - (ZBSource *)sourceMatchingSourceID:(int)sourceID;
+- (void)addSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
+- (void)removeSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
+- (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 @end
 
 NS_ASSUME_NONNULL_END

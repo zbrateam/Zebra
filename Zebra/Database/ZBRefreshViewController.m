@@ -334,7 +334,8 @@ typedef enum {
         [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
-    [[ZBSourceManager sharedInstance] needRecaching];
+    //TODO: Maybe send source update notification? Might not be needed.
+//    [[ZBSourceManager sharedInstance] needRecaching];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
