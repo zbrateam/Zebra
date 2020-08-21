@@ -104,22 +104,27 @@
 }
 
 - (void)removeSources:(NSSet <ZBBaseSource *> *)sources error:(NSError**_Nullable)error {
-    
-    
-    
-    
-    
-    
+    NSMutableSet *sourcesToRemove = [sources mutableCopy];
     for (ZBSource *source in sources) {
-        if ([source canDelete]) {
-            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            
-            NSMutableSet *sourcesToWrite = [[databaseManager sources] mutableCopy];
-            [sourcesToWrite removeObject:source];
-            
-            NSError *writeError = NULL;
-            [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
-            
+        if (![source canDelete]) {
+            ZBLog(@"[Zebra] %@ cannot be removed", source.repositoryURI); // This isn't going to trigger a failure, should it?
+            [sourcesToRemove removeObject:source];
+        }
+    }
+    
+    if ([sourcesToRemove count]) {
+        NSMutableSet *sourcesToWrite = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil] mutableCopy];
+        [sourcesToWrite minusSet:sourcesToRemove];
+        
+        NSError *writeError = NULL;
+        [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
+        if (writeError) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+            *error = writeError;
+            return;
+        }
+        
+        for (ZBSource *source in sourcesToRemove) {
             if ([source isKindOfClass:[ZBSource class]]) {
                 // These actions should theoretically only be performed if the source is in the database as a base sources wouldn't be downloaded
                 // Delete cached release/packages files (if they exist)
@@ -142,10 +147,11 @@
                 }
                 [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
                 
-                [databaseManager deleteSource:source];
+                // Delete source and respective packages from database
+                [[ZBDatabaseManager sharedInstance] deleteSource:source];
             }
-            //TODO: Send source update notification
         }
+        //TODO: Send source update notification
     }
 }
 
