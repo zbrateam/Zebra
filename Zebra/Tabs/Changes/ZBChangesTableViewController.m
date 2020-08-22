@@ -496,7 +496,7 @@
 
 - (void)toggleNews {
     if ([ZBSettings wantsCommunityNews]) {
-        [self retrieveNewsJson];
+        [self kickStartReddit];
     } else {
         [self.redditPosts removeAllObjects];
         [self hideHeader];
