@@ -49,6 +49,11 @@
     [self.tableView registerCellType:ZBButtonSettingsCell];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshTable];
+}
+
 - (void)refreshTable {
     filteredSections = [[ZBSettings filteredSections] mutableCopy];
     
@@ -110,6 +115,8 @@
 
                 cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
                 [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
