@@ -115,8 +115,6 @@
 
                 cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
                 [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
-                
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
