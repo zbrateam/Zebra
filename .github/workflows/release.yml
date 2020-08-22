@@ -2,6 +2,11 @@ name: Upload Release
 
 on:
   workflow_dispatch:
+    inputs:
+      release:
+        description: The tag of the release to edit (attach the packages)
+        default: "v"
+        required: true
   release:
     types: [published]
 
@@ -10,19 +15,29 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
+    - uses: actions/cache@master
+      id: carthage-cache
       with:
-        submodules: recursive
+        path: Carthage
+        key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile') }}
 
-    - name: Install Dependencies
-      run: brew install ldid fakeroot dpkg
+    - name: Install Theos Dependencies
+      run: brew install ldid fakeroot make
+    
+    - name: Add GNU make to PATH
+      run: echo "::add-path::$(brew --prefix make)/libexec/gnubin"
 
-    - name: Setup Theos
+    - name: Install Theos
       uses: actions/checkout@master
       with:
         repository: theos/theos
-        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
         path: theos
         submodules: recursive
+
+    - name: Build Dependencies
+      if: steps.carthage-cache.outputs.cache-hit != 'true'
+      run: |
+        carthage bootstrap --no-use-binaries --platform iOS --cache-builds
 
     - name: Build Package
       id: package_build
@@ -32,11 +47,42 @@ jobs:
         make package FINALPACKAGE=1
         echo "::set-output name=package::$(ls -t packages | head -n1)"
 
+    - name: Configure Variables
+      id: config
+      shell: bash
+      run: |
+        if [[ -n '${{ github.event.release }}' ]]; then  # release
+          echo '::set-output name=release::${{ github.event.release.tag_name }}'
+          ###
+          if [[ '${{ github.event.release.prerelease }}' == 'true' ]]; then 
+            echo '::set-output name=beta::1'
+          else
+            echo '::set-output name=beta::'
+          fi
+        else  # manual
+          echo '::set-output name=release::${{ github.event.inputs.release }}'
+          version="$(grep '^Version:' control | cut -d' ' -f2 | tr '~' '-')"
+          echo "::set-output name=tag::v${version}"
+          ###
+          if [[ "$version" == *beta* ]]; then 
+            echo '::set-output name=beta::1'
+          else
+            echo '::set-output name=beta::'
+          fi
+          ###
+        fi
+
+    - name: Create Tag
+      if: steps.config.outputs.tag
+      run: |
+        git tag '${{ steps.config.outputs.tag }}'
+        git push origin '${{ steps.config.outputs.tag }}'
+
     - name: Clone gh-pages
       run: |
         git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/wstyres/Zebra.git ~/website
     - name: Move package to repo
-      if: "!github.event.release.prerelease"
+      if: '!steps.config.outputs.beta'
       run: |
         mkdir ~/website/repo/newpackages
         cd packages
@@ -44,7 +90,7 @@ jobs:
         echo $fn
         mv -f -- "$fn" ~/website/repo/newpackages
     - name: Move package to beta repo
-      if: "github.event.release.prerelease"
+      if: steps.config.outputs.beta
       run: |
         mkdir ~/website/beta/newpackages
         cd packages
@@ -52,39 +98,39 @@ jobs:
         echo $fn
         mv -f -- "$fn" ~/website/beta/newpackages
     - name: Push repo
-      if: "!github.event.release.prerelease"
+      if: '!steps.config.outputs.beta'
       run: |
         cd ~/website
         chmod +x repo_update.sh
         ./repo_update.sh
     - name: Push beta repo
-      if: "github.event.release.prerelease"
+      if: steps.config.outputs.beta
       run: |
         cd ~/website
         chmod +x beta_update.sh
         ./beta_update.sh
 
     - name: Attach package to release
-      if: "!github.event.release.prerelease"
+      if: '!steps.config.outputs.beta'
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/repo/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
+      run: hub release edit -m '' -a ~/website/repo/pkgfiles/${{ steps.package_build.outputs.package }} '${{ steps.config.outputs.release }}'
     - name: Attach package to beta release
-      if: github.event.release.prerelease
+      if: steps.config.outputs.beta
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
+      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ steps.config.outputs.release }}'
 
     - name: Build IPA package
       id: ipa_build
-      if: "!github.event.release.prerelease"
+      if: '!steps.config.outputs.beta'
       env:
         THEOS: theos
       run: |
-        make ipa
-        echo "::set-output name=package::$(ls -t ipas | head -n1)"
+        make package FINALPACKAGE=1 PACKAGE_FORMAT=ipa
+        echo "::set-output name=package::$(ls -t packages | head -n1)"
     - name: Attach IPA to release
-      if: "!github.event.release.prelease"
+      if: '!steps.config.outputs.beta'
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ipas/${{ steps.ipa_build.outputs.package }} '${{ github.event.release.tag_name }}'
+      run: hub release edit -m '' -a 'packages/${{ steps.ipa_build.outputs.package }}' ''${{ steps.config.outputs.release }}'
