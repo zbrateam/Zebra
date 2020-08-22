@@ -92,7 +92,7 @@
                 imageView.image = image;
             }
             else {
-                self.navigationItem.titleView = NULL;
+                self.navigationItem.titleView = nil;
                 self.navigationItem.title = [self->source label];
             }
         });
@@ -272,8 +272,13 @@
     return cell;
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing && indexPath.row == 0) return nil;
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.editing || indexPath.row == 0) return;
+    if (indexPath.row == 0) return;
     
     NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections removeObject:section];
@@ -281,8 +286,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.editing || indexPath.row == 0) return;
-    
     NSString *section = sectionNames[indexPath.row - 1];
     [filteredSections addObject:section];
     [ZBSettings setSection:section filtered:YES forSource:self.source];
