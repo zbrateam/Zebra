@@ -1,11 +1,11 @@
 name: Build Zebra
 
 on:
+  pull_request:
   push:
     branches:
       - master
       - 1.2
-      - carthage
 
 jobs:
   build:
