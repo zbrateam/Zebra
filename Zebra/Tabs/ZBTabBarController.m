@@ -64,6 +64,7 @@
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
     [self setPackageUpdateBadgeValue:(int)badgeValue];
+    [self updatePackagesTableView];
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     if (![databaseManager needsToPresentRefresh]) {
