@@ -9,6 +9,7 @@
 #import "ZBNotificationManager.h"
 #import <Database/ZBDatabaseManager.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 
 @interface ZBNotificationManager ()
 
@@ -39,11 +40,12 @@
 
 - (void)performBackgroundFetch:(BackgroundCompletionHandler)completionHandler {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     
     self.completionHandler = completionHandler;
     self.oldUpdates = [databaseManager packagesWithUpdates];
 
-    [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
 - (UIBackgroundFetchResult)notifyNewUpdatesBetween:(ZBPackageList *)oldUpdates

@@ -195,7 +195,7 @@
         return baseSource;
     }
     
-    return [super init];
+    return NULL;
 }
 
 - (id)initFromSourceGroup:(NSString *)sourceGroup {

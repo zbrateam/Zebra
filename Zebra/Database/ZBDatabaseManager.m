@@ -253,7 +253,6 @@
 }
 
 - (void)parseSources:(NSArray <ZBBaseSource *> *)sources {
-    NSLog(@"Parsing Sources");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"disableCancelRefresh" object:nil];
     if (haltDatabaseOperations) {
         [[FIRCrashlytics crashlytics] logWithFormat:@"Database operations halted."];
@@ -262,7 +261,6 @@
         return;
     }
     [self bulkPostStatusUpdate:NSLocalizedString(@"Download Completed", @"") atLevel:ZBLogLevelInfo];
-    self.downloadManager = nil;
     
     if ([self openDatabase] == SQLITE_OK) {
         createTable(database, 0);

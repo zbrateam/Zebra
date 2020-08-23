@@ -8,7 +8,7 @@
 
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
-#import <Database/ZBDatabaseManager.h>
+#import "Sources/Helpers/ZBSourceManager.h"
 #import "Packages/Controllers/ZBPackageListTableViewController.h"
 #import "Sources/Controllers/ZBSourceListViewController.h"
 #import "Packages/Helpers/ZBPackage.h"
@@ -24,9 +24,8 @@
 
 @interface ZBTabBarController () {
     NSMutableArray *errorMessages;
-    ZBDatabaseManager *databaseManager;
+    ZBSourceManager *sourceManager;
     UIActivityIndicatorView *indicator;
-    BOOL sourcesUpdating;
 }
 
 @property (nonatomic) UINavigationController *popupController;
@@ -65,11 +64,8 @@
     [self setPackageUpdateBadgeValue:(int)badgeValue];
     [self updatePackagesTableView];
     
-    databaseManager = [ZBDatabaseManager sharedInstance];
-    if (![databaseManager needsToPresentRefresh]) {
-        [databaseManager addDatabaseDelegate:self];
-        [databaseManager updateDatabaseUsingCaching:YES userRequested:NO];
-    }
+    //TODO: Refresh sources on load if they need to be
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
     
     NSError *error = NULL;
@@ -88,21 +84,6 @@
         // This isn't exactly "best practice", but this way the text in IB isn't useless.
         vc.tabBarItem.title = NSLocalizedString([vc.tabBarItem.title capitalizedString], @"");
     }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    if ([databaseManager needsToPresentRefresh]) {
-        [databaseManager setNeedsToPresentRefresh:NO];
-        
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
-        [self presentViewController:refreshController animated:YES completion:nil];
-    }
-    
-    //poor hack to get the tab bar to re-layout
-    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
-    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
 }
 
 - (void)setPackageUpdateBadgeValue:(int)updates {
@@ -134,9 +115,9 @@
         UITabBarItem *sourcesItem = [sourcesController tabBarItem];
         [sourcesItem setAnimatedBadge:visible];
         if (visible) {
-            if (self->sourcesUpdating) {
-                return;
-            }
+//            if (self->sourcesUpdating) {
+//                return;
+//            }
             sourcesItem.badgeValue = @"";
             
             UIView *badge = [[sourcesItem view] valueForKey:@"_badge"];
@@ -144,10 +125,10 @@
             self->indicator.center = badge.center;
             [self->indicator startAnimating];
             [badge addSubview:self->indicator];
-            self->sourcesUpdating = YES;
+//            self->sourcesUpdating = YES;
         } else {
             sourcesItem.badgeValue = nil;
-            self->sourcesUpdating = NO;
+//            self->sourcesUpdating = NO;
         }
     });
 }

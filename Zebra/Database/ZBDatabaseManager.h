@@ -19,7 +19,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBDatabaseManager : NSObject
+@interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
 /*! @brief A reference to the database. */
 @property (atomic) sqlite3 * _Nullable database;

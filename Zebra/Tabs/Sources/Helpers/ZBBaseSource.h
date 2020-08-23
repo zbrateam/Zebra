@@ -72,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
-- (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components NS_DESIGNATED_INITIALIZER; 
+- (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components; 
 - (id)initFromSourceLine:(NSString *)debLine;
 - (id)initFromSourceGroup:(NSString *)sourceGroup;
 - (id)initFromURL:(NSURL *)url;

@@ -210,9 +210,9 @@
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->packages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
+        self->packages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
         self->databaseRow = self.batchLoadCount - 1;
-        self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
+        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
         self->numberOfPackages = (int)[self->packages count];
         self.batchLoad = YES;
         self.continueBatchLoad = self.batchLoad;
@@ -228,7 +228,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->databaseRow < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self.databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
+            NSArray *nextPackages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
                 return;

@@ -20,14 +20,15 @@
 
 @interface ZBSourceManager () {
     BOOL recachingNeeded;
-    BOOL sourcesBeingRefreshed;
     ZBDownloadManager *downloadManager;
+    NSMutableArray <id <ZBSourceDelegate>> *delegates;
 }
 @end
 
 @implementation ZBSourceManager
 
 @synthesize sources = _sources;
+@synthesize refreshInProgress;
 
 #pragma mark - Initializers
 
@@ -45,7 +46,7 @@
     
     if (self) {
         recachingNeeded = YES;
-        sourcesBeingRefreshed = NO;
+        refreshInProgress = NO;
     }
     
     return self;
@@ -164,7 +165,7 @@
 }
 
 - (void)refreshSourcesUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested error:(NSError **_Nullable)error {
-    if (sourcesBeingRefreshed)
+    if (refreshInProgress)
         return;
     
     BOOL needsRefresh = NO;
@@ -189,7 +190,7 @@
 }
 
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
-    if (sourcesBeingRefreshed)
+    if (refreshInProgress)
         return;
     
     downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
@@ -270,24 +271,42 @@
 #pragma mark - ZBDownloadDelegate
 
 - (void)startedDownloads {
-    sourcesBeingRefreshed = YES;
+    NSLog(@"Started source downloads");
+    refreshInProgress = YES;
 }
 
 - (void)startedSourceDownload:(ZBBaseSource *)baseSource {
-    
+    NSLog(@"Started downloading %@", baseSource);
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
-    
+    NSLog(@"Progress update for %@", baseSource);
 }
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray<NSError *> *)errors {
-    
+    NSLog(@"Finished downloading %@", baseSource);
 }
 
 - (void)finishedAllDownloads {
-    sourcesBeingRefreshed = NO;
+    NSLog(@"Finished all downloads");
+    refreshInProgress = NO;
     downloadManager = NULL;
+}
+
+- (void)addDelegate:(id<ZBSourceDelegate>)delegate {
+    if (!delegates) delegates = [NSMutableArray new];
+    
+    [delegates addObject:delegate];
+}
+
+- (void)removeDelegate:(id<ZBSourceDelegate>)delegate {
+    if (!delegates) return;
+    
+    [delegates removeObject:delegate];
+}
+
+- (void)cancelSourceRefresh {
+    
 }
 
 @end

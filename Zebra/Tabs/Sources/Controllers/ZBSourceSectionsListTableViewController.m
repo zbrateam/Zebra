@@ -324,6 +324,7 @@
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        //TODO: Update for new refresh
         [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     

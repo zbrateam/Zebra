@@ -21,14 +21,12 @@
 
 @implementation ZBRefreshableTableViewController
 
-@synthesize databaseManager;
-
 - (BOOL)supportRefresh {
     return YES;
 }
 
 - (void)cancelRefresh:(id)sender {
-    [databaseManager cancelUpdates:self];
+    [sourceManager cancelSourceRefresh];
     if (self.refreshControl.refreshing) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
@@ -40,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    sourceManager = [ZBSourceManager sharedInstance];
     databaseManager = [ZBDatabaseManager sharedInstance];
     self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
     [self layoutNavigationButtons];
@@ -63,7 +62,7 @@
     [refreshControl endRefreshing];
     
     if ([self supportRefresh] && refreshControl == nil) {
-        [databaseManager addDatabaseDelegate:self];
+        [sourceManager addDelegate:self];
         refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         self.refreshControl = refreshControl;
@@ -81,7 +80,7 @@
 
 - (BOOL)updateRefreshView {
     if (self.refreshControl) {
-        if ([databaseManager isDatabaseBeingUpdated]) {
+        if ([sourceManager isRefreshInProgress]) {
             if (!self.refreshControl.refreshing) {
                 dispatch_async(dispatch_get_main_queue(), ^{
 //                    if ([ZBDevice darkModeEnabled]) {
@@ -142,7 +141,7 @@
     }
     [self setEditing:NO animated:NO];
     [self setSourceRefreshIndicatorVisible:YES];
-    [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
     [self updateRefreshView];
 }
 
@@ -171,6 +170,18 @@
     }
     [self setSourceRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
+}
+
+- (void)finishedSourceRefresh:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+    // Nothing at the moment
+}
+
+- (void)progressUpdateForSource:(ZBBaseSource *)source progress:(CGFloat)progress {
+    // Nothing at the moment
+}
+
+- (void)startedSourceRefresh:(ZBBaseSource *)source {
+    // Nothing at the moment
 }
 
 @end

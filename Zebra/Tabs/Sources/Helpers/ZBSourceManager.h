@@ -10,6 +10,7 @@
 @class ZBBaseSource;
 
 #import "ZBSourceVerificationDelegate.h"
+#import "ZBSourceDelegate.h"
 #import <Downloads/ZBDownloadDelegate.h>
 
 @import Foundation;
@@ -20,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*! @brief An array of source objects, from the database and sources.list (if the source is not loaded), that Zebra keeps track of */
 @property (readonly) NSArray <ZBSource *> *sources;
+
+@property (readonly, getter=isRefreshInProgress) BOOL refreshInProgress;
 
 /*! @brief A shared instance of ZBSourceManager */
 + (id)sharedInstance;
@@ -58,6 +61,12 @@ NS_ASSUME_NONNULL_BEGIN
  @parameter error an error pointer that will be set if an error occurs while refreshing a source
 */
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
+
+- (void)cancelSourceRefresh;
+
+- (void)addDelegate:(id <ZBSourceDelegate>)delegate;
+- (void)removeDelegate:(id <ZBSourceDelegate>)delegate;
+
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 @end
 

@@ -480,6 +480,7 @@
 		89F86869236377660057D3D9 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89F8730023653CC90070160A /* UIVisualEffectView+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIVisualEffectView+Theme.h"; sourceTree = "<group>"; };
 		89F8730223653D280070160A /* UIVisualEffectView+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIVisualEffectView+Theme.m"; sourceTree = "<group>"; };
+		89FC55B424F32FC90062E37D /* ZBSourceDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceDelegate.h; sourceTree = "<group>"; };
 		89FEA4132264BF68002647A2 /* ZBLogLevel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLogLevel.h; sourceTree = "<group>"; };
 		8EA226AF248BC4E100596838 /* ZBNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBNotificationManager.m; sourceTree = "<group>"; };
 		8EA226B1248BC50400596838 /* ZBNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBNotificationManager.h; sourceTree = "<group>"; };
@@ -869,6 +870,7 @@
 				89F213BF23BED9D300F3E5E5 /* ZBBaseSource.m */,
 				896F11C121B231900017B581 /* ZBSource.h */,
 				896F11C221B231900017B581 /* ZBSource.m */,
+				89FC55B424F32FC90062E37D /* ZBSourceDelegate.h */,
 				896F11BB21B231490017B581 /* ZBSourceManager.h */,
 				896F11BC21B231490017B581 /* ZBSourceManager.m */,
 				8958F28823C3C2CC00FB64D9 /* ZBSourceVerificationStatus.h */,
