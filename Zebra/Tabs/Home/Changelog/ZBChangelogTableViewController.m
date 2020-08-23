@@ -101,7 +101,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     if (dataDict[@"body"]) {
-        cell.textLabel.attributedText = dataDict[@"body"];
+        cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
     cell.textLabel.textColor = [UIColor primaryTextColor];

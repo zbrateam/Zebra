@@ -174,8 +174,14 @@
         
         [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
             if (error) {
-                NSLog(@"[Zebra] Error while setting icon: %@ %@", error.localizedDescription, name);
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to set application icon" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+
+                [alert addAction:ok];
+                [self presentViewController:alert animated:YES completion:nil];
             }
+            
+            NSLog(@"%@", [[NSBundle mainBundle] pathForResource:@"AUPM~ipad@2x" ofType:@"png"]);
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }

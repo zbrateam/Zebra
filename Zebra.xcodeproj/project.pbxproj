@@ -80,6 +80,8 @@
 		759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759A7BA32496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m */; };
 		759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759A7BCC2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m */; };
 		759B59E32494F7B400457158 /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759B59E22494F7B400457158 /* ZBSettingsTableViewCell.m */; };
+		75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B124F2669B00216395 /* AUPM~ipad@2x.png */; };
+		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
 		75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
@@ -289,6 +291,8 @@
 		759A7BC02496F35A00F0C54F /* ZBButtonSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBButtonSettingsTableViewCell.h; sourceTree = "<group>"; };
 		759A7BCC2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBButtonSettingsTableViewCell.m; sourceTree = "<group>"; };
 		759B59E22494F7B400457158 /* ZBSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewCell.m; sourceTree = "<group>"; };
+		75A918B124F2669B00216395 /* AUPM~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@2x.png"; sourceTree = "<group>"; };
+		75A918B224F2669B00216395 /* AUPM~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@3x.png"; sourceTree = "<group>"; };
 		75D0A77D24A013A7007D84EF /* ZBSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewController.h; sourceTree = "<group>"; };
 		75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewController.m; sourceTree = "<group>"; };
 		75F92C9A24941BA8009DA035 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
@@ -616,6 +620,8 @@
 		36F77ADE22A33B6100A4604C /* Alternate Icons */ = {
 			isa = PBXGroup;
 			children = (
+				75A918B124F2669B00216395 /* AUPM~ipad@2x.png */,
+				75A918B224F2669B00216395 /* AUPM~ipad@3x.png */,
 				89AD450B23CA5E350008831F /* AUPM@2x.png */,
 				89AD450A23CA5E340008831F /* AUPM@3x.png */,
 				36AC5A6F22AB30E9004C2332 /* zBlack@2x.png */,
@@ -1320,6 +1326,7 @@
 				49990646247DDAA000AE75BC /* viola@3x.png in Resources */,
 				49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */,
 				36AC5A6B22AB30E4004C2332 /* zWhite~ipad@3x.png in Resources */,
+				75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */,
 				49990645247DDAA000AE75BC /* viola~ipad@2x.png in Resources */,
 				9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */,
 				499B9F38248308C800358A84 /* zebrine@3x.png in Resources */,
@@ -1335,6 +1342,7 @@
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
 				49990647247DDAA000AE75BC /* viola@2x.png in Resources */,
 				36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */,
+				75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */,
 				36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */,
 				499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */,
 				49990644247DDAA000AE75BC /* viola~ipad@3x.png in Resources */,
