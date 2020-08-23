@@ -7,15 +7,21 @@
 //
 
 #import "ZBSourceManager.h"
-@import UIKit.UIDevice;
+
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <ZBLog.h>
+#import <ZBSettings.h>
+
+@import UIKit.UIDevice;
 
 @interface ZBSourceManager () {
     BOOL recachingNeeded;
+    BOOL sourcesBeingRefreshed;
+    ZBDownloadManager *downloadManager;
 }
 @end
 
@@ -39,6 +45,7 @@
     
     if (self) {
         recachingNeeded = YES;
+        sourcesBeingRefreshed = NO;
     }
     
     return self;
@@ -49,7 +56,6 @@
 - (NSArray <ZBSource *> *)sources {
     if (!recachingNeeded)
         return _sources;
-    recachingNeeded = NO;
     
     NSError *readError = NULL;
     NSSet *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
@@ -61,6 +67,8 @@
     
     NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
     NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
+    
+    recachingNeeded = NO;
     _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
     
     return _sources;
@@ -155,6 +163,39 @@
     }
 }
 
+- (void)refreshSourcesUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested error:(NSError **_Nullable)error {
+    if (sourcesBeingRefreshed)
+        return;
+    
+    BOOL needsRefresh = NO;
+    if (!requested && [ZBSettings wantsAutoRefresh]) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
+
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+
+            needsRefresh = ([components minute] >= 30);
+        } else {
+            needsRefresh = YES;
+        }
+    }
+    
+    if (requested || needsRefresh) {
+        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:YES error:nil];
+    }
+}
+
+- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
+    if (sourcesBeingRefreshed)
+        return;
+    
+    downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+    [downloadManager downloadSources:sources useCaching:TRUE];
+}
+
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
     NSError *readError = NULL;
     NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&readError];
@@ -224,6 +265,29 @@
             }];
         });
     }
+}
+
+#pragma mark - ZBDownloadDelegate
+
+- (void)startedDownloads {
+    sourcesBeingRefreshed = YES;
+}
+
+- (void)startedSourceDownload:(ZBBaseSource *)baseSource {
+    
+}
+
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
+    
+}
+
+- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray<NSError *> *)errors {
+    
+}
+
+- (void)finishedAllDownloads {
+    sourcesBeingRefreshed = NO;
+    downloadManager = NULL;
 }
 
 @end

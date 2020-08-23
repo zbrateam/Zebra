@@ -214,21 +214,7 @@
     if (requested && haltDatabaseOperations) { //Halt database operations may need to be rethought
         [self setHaltDatabaseOperations:NO];
     }
-    
-    if (!requested && [ZBSettings wantsAutoRefresh]) {
-        NSDate *currentDate = [NSDate date];
-        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
 
-        if (lastUpdatedDate != NULL) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSUInteger unitFlags = NSCalendarUnitMinute;
-            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
-
-            needsUpdate = ([components minute] >= 30);
-        } else {
-            needsUpdate = YES;
-        }
-    }
     
     if (requested || needsUpdate) {
         [self bulkDatabaseStartedUpdate];

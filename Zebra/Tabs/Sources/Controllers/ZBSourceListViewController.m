@@ -124,7 +124,6 @@
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:nil];
         }];
-        deleteAction.backgroundColor = [UIColor systemRedColor];
         deleteAction.image = [UIImage systemImageNamed:@"delete.right.fill"];
         [actions addObject:deleteAction];
     }
@@ -132,8 +131,7 @@
     UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] error:nil];
     }];
-    refreshAction.backgroundColor = [UIColor systemPurpleColor];
-    refreshAction.image = [UIImage systemImageNamed:@"arrow.clockwise"];
+    refreshAction.image = [UIImage systemImageNamed:@"arrow.clockwise.circle.fill"];
     [actions addObject:refreshAction];
     
     return [UISwipeActionsConfiguration configurationWithActions:actions];
@@ -145,7 +143,6 @@
     NSString *searchTerm = searchController.searchBar.text;
     if ([[searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
         filteredSources = [sources copy];
-        
     }
     else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(repositoryURI CONTAINS[cd] %@) OR (origin CONTAINS[cd] %@)", searchTerm, searchTerm];
