@@ -10,6 +10,7 @@
 
 #import <ZBAppDelegate.h>
 #import <Theme/ZBThemeManager.h>
+#import <ZBDevice.h>
 #import <Queue/ZBQueue.h>
 #import <Database/ZBDatabaseManager.h>
 #import "ZBSearchResultsTableViewController.h"
@@ -200,7 +201,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : NULL;
+    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -227,6 +228,37 @@
     [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[button]-0-|" options:0 metrics:nil views:views]];
  
     return headerView;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *title = [ZBDevice useIcon] ? @"╳" : NSLocalizedString(@"Remove", @"");
+    
+    UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        
+        if (self->recentSearches.count == 1) {
+            [self->recentSearches removeAllObjects];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
+            
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+        } else {
+            [self->recentSearches removeObjectAtIndex:indexPath.row];
+            [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];
+            
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        }
+        
+        completionHandler(YES);
+    }];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[action]];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView setEditing:NO animated:YES];
 }
 
 #pragma mark - URL Handling
