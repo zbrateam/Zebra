@@ -116,7 +116,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBChanges:
         case ZBMisc:
         case ZBSearch:
-        case ZBSources:
         case ZBConsole:
         case ZBPackages:
             return 1;
@@ -132,6 +131,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             
             return 1;
         }
+        case ZBSources:
         case ZBReset:
             return 2;
         default:
@@ -184,7 +184,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             ZBFeatureOrder row = indexPath.row;
             switch (row) {
                 case ZBFeaturedEnable: {
-                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
+                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
 
                     cell.textLabel.text = NSLocalizedString(@"Featured Packages", @"");
                     [cell setOn:[ZBSettings wantsFeaturedPackages]];
@@ -220,14 +220,27 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             }
         }
         case ZBSources: {
-            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
-            
-            cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
-            [cell setOn:[ZBSettings wantsAutoRefresh]];
-            [cell setTarget:self action:@selector(toggleAutoRefresh:)];
+            if (indexPath.row == 0) {
+                ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+                
+                cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+                [cell setOn:[ZBSettings wantsAutoRefresh]];
+                [cell setTarget:self action:@selector(toggleAutoRefresh:)];
 
-            [cell applyStyling];
-            return cell;
+                [cell applyStyling];
+                return cell;
+            }
+            else {
+                ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
+                
+                NSTimeInterval timeoutTime = [ZBSettings sourceRefreshTimeout];
+                
+                cell.textLabel.text = NSLocalizedString(@"Download Timeout", @"");
+                cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), (int)timeoutTime];
+                
+                [cell applyStyling];
+                return cell;
+            }
         }
         case ZBChanges: {
             ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
@@ -346,7 +359,17 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             }
             break;
         }
-        case ZBSources:
+        case ZBSources: {
+            switch (indexPath.row) {
+                case 0:
+                    [self toggleSwitchAtIndexPath:indexPath];
+                    break;
+                case 1:
+                    [self timeoutToggle];
+                    break;
+            }
+            break;
+        }
         case ZBChanges:
         case ZBPackages:
         case ZBSearch:
@@ -473,6 +496,22 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     [controller setFooterText:@[@"Change the source of the featured packages on the homepage.", @"\"Repo Featured\" will display random packages from repos that support the Featured Package API.", @"\"Random\" will display random packages from all repositories that you have added to Zebra."]];
     
     [self.navigationController pushViewController: controller animated:YES];
+}
+
+- (void)timeoutToggle {
+    NSArray *choices = @[@5, @15, @20, @30, @45, @60];
+    NSMutableArray *options = [NSMutableArray new];
+    
+    for (NSNumber *choice in choices) {
+        [options addObject:[NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), [choice intValue]]];
+    }
+    
+    ZBSettingsSelectionTableViewController *controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:options getter:@selector(sourceRefreshTimeoutIndex) setter:@selector(setSourceRefreshTimeout:) settingChangedCallback:nil];
+
+    [controller setTitle:@"Download Timeout"];
+    [controller setFooterText:@[@"Configure the amount of time Zebra will wait for a source to respond before timing out.", @"This timer will reset every time that Zebra receives new information from a source."]];
+
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)changeIcon {
