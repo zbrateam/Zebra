@@ -27,6 +27,40 @@
 #define finishAutomaticallyKey @"finishAutomatically"
 #define featuredBlacklistKey @"blackListedRepos"
 
+//New settings keys
+extern NSString * _Nonnull const AccentColorKey; // Stored as ZBAccentColor
+extern NSString * _Nonnull const UsesSystemAccentColorKey; // Stored as BOOL
+extern NSString * _Nonnull const InterfaceStyleKey; // Stored as ZBInterfaceStyle
+extern NSString * _Nonnull const UseSystemAppearanceKey; // Stored as BOOL
+extern NSString * _Nonnull const PureBlackModeKey; // Stored as BOOL
+
+extern NSString * _Nonnull const UseSystemLanguageKey; // Stored as BOOL
+extern NSString * _Nonnull const SelectedLanguageKey; // Stored as NSString
+
+extern NSString * _Nonnull const FilteredSectionsKey; // Stored as NSArray
+extern NSString * _Nonnull const FilteredSourcesKey; // Stored as NSDictionary
+extern NSString * _Nonnull const BlockedAuthorsKey; // Stored as NSArray
+
+extern NSString * _Nonnull const WantsFeaturedPackagesKey; // Stored as BOOL
+extern NSString * _Nonnull const FeaturedPackagesTypeKey; // Stored as ZBFeaturedType
+extern NSString * _Nonnull const FeaturedSourceBlacklistKey; // Stored as NSArray
+
+extern NSString * _Nonnull const WantsAutoRefreshKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsCommunityNewsKey; // Stored as BOOL
+
+extern NSString * _Nonnull const AlwaysInstallLatestKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsLiveSearchKey; // Stored as BOOL
+
+extern NSString * _Nonnull const WantsFinishAutomaticallyKey; // Stored as BOOL
+
+extern NSString * _Nonnull const SwipeActionStyleKey; // Stored as NSInteger
+
+extern NSString * _Nonnull const WishlistKey; // Stored as NSArray
+
+extern NSString * _Nonnull const PackageSortingTypeKey; // Stored as ZBSortingType
+
 #pragma mark - Accent Colors
 
 typedef enum : NSUInteger {
@@ -137,10 +171,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)wantsAutoRefresh;
 + (void)setWantsAutoRefresh:(BOOL)autoRefresh;
-
-+ (NSInteger)sourceRefreshTimeoutIndex;
-+ (NSTimeInterval)sourceRefreshTimeout;
-+ (void)setSourceRefreshTimeout:(NSNumber *)time;
 
 #pragma mark - Changes Settings
 

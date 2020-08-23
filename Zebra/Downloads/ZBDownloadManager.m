@@ -11,7 +11,6 @@
 
 #import <ZBDevice.h>
 #import <ZBLog.h>
-#import <ZBSettings.h>
 #import <ZBAppDelegate.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Sources/Helpers/ZBBaseSource.h>
@@ -73,7 +72,7 @@
         return;
     }
     configuration.HTTPAdditionalHeaders = headers;
-    configuration.timeoutIntervalForRequest = [ZBSettings sourceRefreshTimeout];
+//    configuration.timeoutIntervalForRequest = 30;
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
