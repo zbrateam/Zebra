@@ -131,7 +131,7 @@
     }
     
     UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] error:nil];
+        [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] useCaching:YES error:nil];
     }];
     refreshAction.image = [UIImage systemImageNamed:@"arrow.clockwise.circle.fill"];
     [actions addObject:refreshAction];
@@ -141,16 +141,20 @@
 
 #pragma mark - UISearchResultsUpdating
 
-- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
-    NSString *searchTerm = searchController.searchBar.text;
+- (void)filterSourcesForSearchTerm:(NSString *)searchTerm {
     if ([[searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""]) {
         filteredSources = [sources copy];
     }
     else {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(repositoryURI CONTAINS[cd] %@) OR (origin CONTAINS[cd] %@)", searchTerm, searchTerm];
         
-        filteredSources = [[sources filteredArrayUsingPredicate:predicate] mutableCopy];
+        filteredSources = [sources filteredArrayUsingPredicate:predicate];
     }
+}
+
+- (void)updateSearchResultsForSearchController:(nonnull UISearchController *)searchController {
+    NSString *searchTerm = searchController.searchBar.text;
+    [self filterSourcesForSearchTerm:searchTerm];
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -181,7 +185,7 @@
 
 - (void)addedSources:(NSSet<ZBBaseSource *> *)sources {
     self->sources = sourceManager.sources;
-    self->filteredSources = [self->sources copy];
+    [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
@@ -200,7 +204,8 @@
     }
     
     self->sources = sourceManager.sources;
-    self->filteredSources = [self->sources copy];
+    [self filterSourcesForSearchTerm:searchController.searchBar.text];
+    
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

@@ -59,9 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Refresh only certain sources in zebra's sources.list
  @param sources the sources to refresh
+ @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
  @param error an error pointer that will be set if an error occurs while refreshing a source
 */
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
+- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
 
 - (void)cancelSourceRefresh;
 
