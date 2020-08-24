@@ -15,12 +15,13 @@
 #define ZBSourceDelegate_h
 
 @protocol ZBSourceDelegate
+- (void)startedSourceRefresh;
+- (void)finishedSourceRefresh;
+@optional
 - (void)startedRefreshForSource:(ZBBaseSource *)source;
 - (void)finishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors;
-
 - (void)addedSources:(NSSet <ZBBaseSource *> *)sources;
 - (void)removedSources:(NSSet <ZBBaseSource *> *)sources;
-@optional
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)source;
 @end
 

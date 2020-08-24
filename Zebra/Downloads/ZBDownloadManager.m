@@ -83,7 +83,7 @@
         
         [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
         
-        [downloadDelegate startedSourceDownload:source];
+        [downloadDelegate startedDownloadingSource:source];
     }
 }
 
@@ -236,7 +236,7 @@
         if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
             
             [self cancelTasksForSource:source]; // Cancel the other task for this source.
-            [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+            [downloadDelegate finishedDownloadingSource:source withErrors:@[error]];
         }
         else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
@@ -262,7 +262,7 @@
                 [self postStatusUpdate:description atLevel:ZBLogLevelError];
                 [self cancelTasksForSource:source];
                 
-                [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+                [downloadDelegate finishedDownloadingSource:source withErrors:@[error]];
             }
             else { //Tries to download another filetype
                 NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
@@ -279,7 +279,7 @@
                     [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
                     [self cancelTasksForSource:source];
                     
-                    [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+                    [downloadDelegate finishedDownloadingSource:source withErrors:@[error]];
                 }
             }
         }
@@ -294,7 +294,7 @@
             [self postStatusUpdate:description atLevel:ZBLogLevelError];
             [self cancelTasksForSource:source];
             
-            [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+            [downloadDelegate finishedDownloadingSource:source withErrors:@[error]];
         }
     }
     else {
@@ -308,7 +308,7 @@
         }
         
         if (source.releaseTaskCompleted && source.packagesTaskCompleted) {
-            [downloadDelegate finishedSourceDownload:source withErrors:nil];
+            [downloadDelegate finishedDownloadingSource:source withErrors:nil];
         }
     }
     

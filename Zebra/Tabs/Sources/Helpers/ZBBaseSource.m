@@ -38,6 +38,7 @@
 @synthesize verificationStatus;
 @synthesize label;
 @synthesize iconURL;
+@synthesize sourceID;
 
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
@@ -111,6 +112,8 @@
         self->repositoryURI = repositoryURI;
         self->label = repositoryURI;
         self->distribution = distribution;
+        self->sourceID = INT_MIN;
+        
         if (components && [components count]) {
             self->components = components;
         }

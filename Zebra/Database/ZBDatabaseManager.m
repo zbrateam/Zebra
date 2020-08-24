@@ -203,6 +203,22 @@
     }
 }
 
+- (void)bulkStartedImportingSource:(ZBBaseSource *)source {
+    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+        if ([delegate respondsToSelector:@selector(startedImportingSource:)]) {
+            [delegate startedImportingSource:source];
+        }
+    }
+}
+
+- (void)bulkFinishedImportingSource:(ZBBaseSource *)source error:(NSError *_Nullable)error {
+    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+        if ([delegate respondsToSelector:@selector(finishedImportingSource:error:)]) {
+            [delegate finishedImportingSource:source error:error];
+        }
+    }
+}
+
 #pragma mark - Populating the database
 
 - (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested {
@@ -272,7 +288,7 @@
 //        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
         for (ZBBaseSource *source in sources) {
 //            dispatch_async(queue, ^{
-                [self bulkSetSource:source busy:YES];
+                [self bulkStartedImportingSource:source];
                 [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
                 
                 //Deal with the source first
@@ -321,7 +337,7 @@
                     [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
                 }
                 
-                [self bulkSetSource:source busy:NO];
+                [self bulkFinishedImportingSource:source error:nil];
 //            });
         }
         
@@ -2085,22 +2101,22 @@
 
 #pragma mark - Download Delegate
 
-- (void)startedDownloads DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2."){
+- (void)startedDownloads {
     if (!completedSources) {
         completedSources = [NSMutableArray new];
     }
 }
 
-- (void)startedSourceDownload:(ZBBaseSource *)baseSource DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
+- (void)startedDownloadingSource:(ZBBaseSource *)baseSource {
     [self bulkSetSource:baseSource busy:YES];
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
 }
 
-- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
     //TODO: Implement
 }
 
-- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
+- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
     [self bulkSetSource:baseSource busy:NO];
     if (errors && [errors count]) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
@@ -2110,7 +2126,7 @@
     if (baseSource) [completedSources addObject:baseSource];
 }
 
-- (void)finishedAllDownloads DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
+- (void)finishedAllDownloads {
     [self parseSources:[completedSources copy]];
     [completedSources removeAllObjects];
 }
@@ -2148,21 +2164,6 @@
     }
     
     return results;
-}
-
-- (void)checkForZebraSource {
-    NSError *readError = NULL;
-    NSString *sources = [NSString stringWithContentsOfFile:[ZBAppDelegate sourcesListPath] encoding:NSUTF8StringEncoding error:&readError];
-    if (readError != nil) {
-        NSLog(@"[Zebra] Error while reading source list");
-    }
-
-    if (![sources containsString:@"deb https://getzbra.com/repo/ ./"]) {
-        NSFileHandle *fileHandle = [NSFileHandle fileHandleForWritingAtPath:[ZBAppDelegate sourcesListPath]];
-        [fileHandle seekToEndOfFile];
-        [fileHandle writeData:[@"\ndeb https://getzbra.com/repo/ ./\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [fileHandle closeFile];
-    }
 }
 
 - (ZBPackage * _Nullable)localVersionForPackage:(ZBPackage *)package {

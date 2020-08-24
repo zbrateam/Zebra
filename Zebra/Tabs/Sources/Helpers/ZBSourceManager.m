@@ -23,6 +23,7 @@
     ZBDownloadManager *downloadManager;
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
     NSMutableDictionary *busyList;
+    NSMutableArray *completedSources;
 }
 @end
 
@@ -269,41 +270,66 @@
     }
 }
 
-#pragma mark - Database Delegate
-
-
-
 #pragma mark - Download Delegate
 
 - (void)startedDownloads {
-    NSLog(@"[Zebra](ZBSourceManager) Started downloads");
+    ZBLog(@"[Zebra](ZBSourceManager) Started downloads");
     
     if (!busyList) busyList = [NSMutableDictionary new];
+    if (!completedSources) completedSources = [NSMutableArray new];
     refreshInProgress = YES;
 }
 
-- (void)startedSourceDownload:(ZBBaseSource *)baseSource {
-    NSLog(@"[Zebra](ZBSourceManager) Started downloading %@", baseSource);
+- (void)startedDownloadingSource:(ZBBaseSource *)source {
+    ZBLog(@"[Zebra](ZBSourceManager) Started downloading %@", source);
     
-    [busyList setObject:@YES forKey:baseSource.baseFilename];
-    [self bulkStartedRefreshForSource:baseSource];
+    [busyList setObject:@YES forKey:source.baseFilename];
+    [self bulkStartedRefreshForSource:source];
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
-    NSLog(@"[Zebra](ZBSourceManager) Progress update for %@", baseSource);
+    ZBLog(@"[Zebra](ZBSourceManager) Progress update for %@", baseSource);
 }
 
-- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray<NSError *> *)errors {
-    NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", baseSource);
+- (void)finishedDownloadingSource:(ZBBaseSource *)source withErrors:(NSArray<NSError *> *)errors {
+    ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
-    [busyList setObject:@NO forKey:baseSource.baseFilename];
-    [self bulkFinishedRefreshForSource:baseSource warnings:NULL errors:NULL];
+    if (source) {
+        [completedSources addObject:source];
+        [busyList setObject:@NO forKey:source.baseFilename];
+    }
 }
 
 - (void)finishedAllDownloads {
-    NSLog(@"[Zebra](ZBSourceManager) Finished all downloads");
-    refreshInProgress = NO;
+    ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     downloadManager = NULL;
+    
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    [databaseManager addDatabaseDelegate:self];
+    [databaseManager parseSources:completedSources];
+}
+
+#pragma mark - Database Delegate
+
+- (void)databaseStartedUpdate {
+    ZBLog(@"[Zebra](ZBSourceManager) Started parsing sources");
+}
+
+- (void)startedImportingSource:(ZBBaseSource *)source {
+    ZBLog(@"[Zebra](ZBSourceManager) Started parsing %@", source);
+    [busyList setObject:@YES forKey:source.baseFilename];
+}
+
+- (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
+    ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
+    [busyList setObject:@NO forKey:source.baseFilename];
+    [self bulkFinishedRefreshForSource:source warnings:NULL errors:error ? @[error] : NULL];
+}
+
+- (void)databaseCompletedUpdate:(int)packageUpdates {
+    ZBLog(@"[Zebra](ZBSourceManager) Finished parsing sources");
+    refreshInProgress = YES;
+    busyList = NULL;
 }
 
 #pragma mark - Source Delegate Notifiers

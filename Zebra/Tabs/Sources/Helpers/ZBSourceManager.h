@@ -30,36 +30,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Obtain a ZBSource instance from the database that matches a certain sourceID
- @parameter sourceID the sourceID you want to search for
+ @param sourceID the sourceID you want to search for
  @return A ZBSource instance with a corresponding sourceID
  */
 - (ZBSource *)sourceMatchingSourceID:(int)sourceID;
 
 /*!
  @brief Adds sources to Zebra's sources.list
- @parameter sources a set of unique sources to add to Zebra
- @parameter error an error pointer that will be set if an error occurs while adding a source
+ @param sources a set of unique sources to add to Zebra
+ @param error an error pointer that will be set if an error occurs while adding a source
  */
 - (void)addSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
 
 /*!
  @brief Removes sources from Zebra's sources.list and database
- @parameter sources a set of unique sources to remove from Zebra
- @parameter error an error pointer that will be set if an error occurs while removing a source
+ @param sources a set of unique sources to remove from Zebra
+ @param error an error pointer that will be set if an error occurs while removing a source
  */
 - (void)removeSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
 
 /*!
- @brief Refresh all sources in Zebra's sources.list
- @parameter useCaching whether or not to use cached information that Zebra has already downloaded
- @parameter requested whether this is an automatic update or if the user requested it
- @parameter error an error pointer that will be set if an error occurs while refreshing a source
+ @brief Update Zebra's sources.
+ @discussion Updates the database from the sources contained in sources.list and from the local packages contained in /var/lib/dpkg/status
+ @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
+ @param requested If YES, the user has requested this update and it should be performed. If NO, the database should only be updated if it hasn't been updated in the last 30 minutes.
  */
 - (void)refreshSourcesUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested error:(NSError **_Nullable)error;
 /*!
  @brief Refresh only certain sources in zebra's sources.list
- @parameter sources the sources to refresh
- @parameter error an error pointer that will be set if an error occurs while refreshing a source
+ @param sources the sources to refresh
+ @param error an error pointer that will be set if an error occurs while refreshing a source
 */
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
 

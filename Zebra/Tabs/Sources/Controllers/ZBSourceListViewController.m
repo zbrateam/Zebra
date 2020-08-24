@@ -154,6 +154,10 @@
 
 #pragma mark - ZBSourceDelegate
 
+- (void)startedSourceRefresh {
+    
+}
+
 - (void)startedRefreshForSource:(ZBBaseSource *)source {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -166,6 +170,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
+}
+
+- (void)finishedSourceRefresh {
+    
 }
 
 @end
