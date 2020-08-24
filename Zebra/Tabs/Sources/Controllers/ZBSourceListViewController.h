@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceListViewController : ZBRefreshableTableViewController <ZBSourceDelegate, UISearchResultsUpdating, UISearchControllerDelegate> {
-    NSArray <ZBSource *> *sources;
+    NSMutableArray <ZBSource *> *sources;
     NSArray <ZBSource *> *filteredSources;
 }
 @end

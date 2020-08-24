@@ -112,6 +112,7 @@
         
         recachingNeeded = YES;
         [self bulkAddedSources:sourcesToAdd];
+        [self refreshSources:sourcesToAdd useCaching:YES error:nil];
     }
 }
 
@@ -189,7 +190,8 @@
     }
     
     if (requested || needsRefresh) {
-        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:YES error:nil];
+        //FIXME: This is just a temporary call, caching will be needed in the final release
+        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:NO error:nil];
     }
 }
 
@@ -324,6 +326,8 @@
 
 - (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
+    
+    recachingNeeded = YES;
     [busyList setObject:@NO forKey:source.baseFilename];
     [self bulkFinishedRefreshForSource:source warnings:NULL errors:error ? @[error] : NULL];
 }
@@ -373,7 +377,8 @@
 }
 
 - (void)cancelSourceRefresh {
-    
+    // TODO: More things are probably required here
+    [downloadManager stopAllDownloads];
 }
 
 - (BOOL)isSourceBusy:(ZBBaseSource *)source {

@@ -40,10 +40,8 @@
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         sourceManager = [ZBSourceManager sharedInstance];
-        sources = sourceManager.sources;
+        sources = [sourceManager.sources mutableCopy];
         filteredSources = [sources copy];
-        
-        [[ZBDatabaseManager sharedInstance] addDatabaseDelegate:self];
     }
     
     return self;
@@ -173,9 +171,23 @@
 }
 
 - (void)finishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+        
+        self->sources = [self->sourceManager.sources mutableCopy];
+        [self filterSourcesForSearchTerm:self->searchController.searchBar.text];
+        
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+        
+        if ([oldIndexPath isEqual:newIndexPath]) {
+            [self.tableView reloadRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+        else {
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+        }
     });
 }
 
@@ -184,7 +196,7 @@
 }
 
 - (void)addedSources:(NSSet<ZBBaseSource *> *)sources {
-    self->sources = sourceManager.sources;
+    self->sources = [sourceManager.sources mutableCopy];
     [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
     NSMutableArray *indexPaths = [NSMutableArray new];
@@ -203,7 +215,7 @@
         [indexPaths addObject:indexPath];
     }
     
-    self->sources = sourceManager.sources;
+    self->sources = [sourceManager.sources mutableCopy];
     [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
