@@ -40,7 +40,7 @@
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
         sourceManager = [ZBSourceManager sharedInstance];
-        sources = [sourceManager.sources mutableCopy];
+        sources = sourceManager.sources;
         filteredSources = [sources copy];
         
         [[ZBDatabaseManager sharedInstance] addDatabaseDelegate:self];
@@ -121,7 +121,10 @@
     NSMutableArray *actions = [NSMutableArray new];
     if ([source canDelete]) {
         UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:nil];
+            NSError *error = NULL;
+            [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:&error];
+            
+            completionHandler(error == NULL);
         }];
         deleteAction.image = [UIImage systemImageNamed:@"delete.right.fill"];
         [actions addObject:deleteAction];
@@ -174,6 +177,22 @@
 
 - (void)finishedSourceRefresh {
     
+}
+
+- (void)addedSources:(NSSet<ZBBaseSource *> *)sources {
+    
+}
+
+- (void)removedSources:(NSSet<ZBBaseSource *> *)sources {
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    for (ZBSource *source in sources) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->sources indexOfObject:source] inSection:0];
+        [indexPaths addObject:indexPath];
+    }
+    
+    self->sources = sourceManager.sources;
+    self->filteredSources = [self->sources copy];
+    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

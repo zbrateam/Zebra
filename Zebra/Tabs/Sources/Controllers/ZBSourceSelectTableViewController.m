@@ -15,9 +15,10 @@
 #import "UIColor+GlobalColors.h"
 
 @interface ZBSourceSelectTableViewController () {
-    NSMutableArray <ZBSource *>    *selectedSources;
-    NSArray <ZBSource *>           *preSelectedSources;
-    NSMutableArray <NSIndexPath *> *selectedIndexes;
+    NSMutableArray <ZBBaseSource *> *sources;
+    NSMutableArray <ZBSource *>     *selectedSources;
+    NSArray <ZBSource *>            *preSelectedSources;
+    NSMutableArray <NSIndexPath *>  *selectedIndexes;
 }
 @end
 

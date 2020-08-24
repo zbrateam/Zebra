@@ -162,7 +162,8 @@
                 [[ZBDatabaseManager sharedInstance] deleteSource:source];
             }
         }
-        //TODO: Send source update notification
+        recachingNeeded = YES;
+        [self bulkRemovedSources:sourcesToRemove];
     }
 }
 
@@ -343,6 +344,12 @@
 - (void)bulkFinishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
     for (id <ZBSourceDelegate> delegate in delegates) {
         [delegate finishedRefreshForSource:source warnings:warnings errors:errors];
+    }
+}
+
+- (void)bulkRemovedSources:(NSSet <ZBBaseSource *> *)sources {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate removedSources:sources];
     }
 }
 
