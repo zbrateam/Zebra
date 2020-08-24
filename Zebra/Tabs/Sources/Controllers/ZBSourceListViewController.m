@@ -180,13 +180,22 @@
 }
 
 - (void)addedSources:(NSSet<ZBBaseSource *> *)sources {
+    self->sources = sourceManager.sources;
+    self->filteredSources = [self->sources copy];
     
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    for (ZBSource *source in sources) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:0];
+        [indexPaths addObject:indexPath];
+    }
+    
+    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)removedSources:(NSSet<ZBBaseSource *> *)sources {
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->sources indexOfObject:source] inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:0];
         [indexPaths addObject:indexPath];
     }
     

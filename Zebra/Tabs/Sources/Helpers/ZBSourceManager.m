@@ -110,7 +110,8 @@
             return;
         }
         
-        //TODO: Send out source added notification
+        recachingNeeded = YES;
+        [self bulkAddedSources:sourcesToAdd];
     }
 }
 
@@ -344,6 +345,12 @@
 - (void)bulkFinishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
     for (id <ZBSourceDelegate> delegate in delegates) {
         [delegate finishedRefreshForSource:source warnings:warnings errors:errors];
+    }
+}
+
+- (void)bulkAddedSources:(NSSet <ZBBaseSource *> *)sources {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate addedSources:sources];
     }
 }
 
