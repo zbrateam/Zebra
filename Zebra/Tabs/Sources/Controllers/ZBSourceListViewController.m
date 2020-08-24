@@ -16,7 +16,6 @@
 @interface ZBSourceListViewController () {
     UISearchController *searchController;
     ZBSourceManager *sourceManager;
-    NSMutableDictionary *busyList;
 }
 @end
 
@@ -97,7 +96,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBBaseSource *source = filteredSources[indexPath.row];
     
-    BOOL busy = [[busyList objectForKey:source.baseFilename] boolValue];
+    BOOL busy = [sourceManager isSourceBusy:source];
     [(ZBSourceTableViewCell *)cell setSpinning:busy];
 }
 
@@ -153,27 +152,20 @@
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-#pragma mark - ZBDatabaseDelegate
+#pragma mark - ZBSourceDelegate
 
-- (void)databaseStartedUpdate {
-    if (!busyList) busyList = [NSMutableDictionary new];
-    
-    for (ZBBaseSource *baseSource in sources) {
-        [busyList setObject:@NO forKey:baseSource.baseFilename];
-    }
-}
-
-- (void)setSource:(ZBSource *)baseSource busy:(BOOL)busy {
-    [busyList setObject:@(busy) forKey:baseSource.baseFilename];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:baseSource] inSection:0];
+- (void)startedRefreshForSource:(ZBBaseSource *)source {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
-    [busyList removeAllObjects];
+- (void)finishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    });
 }
 
 @end

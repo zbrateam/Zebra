@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  @brief The current download manager
  @discussion The current download manager used during database update.
  */
-@property (nonatomic, strong) ZBDownloadManager *_Nullable downloadManager DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead");
+@property (nonatomic, strong) ZBDownloadManager *_Nullable downloadManager DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This property will be removed in the final release of Zebra 1.2.");
 
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
@@ -99,10 +99,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
  @param requested If YES, the user has requested this update and it should be performed. If NO, the database should only be updated if it hasn't been updated in the last 30 minutes.
  */
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in Zebra 1.3.");
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
 
-- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in Zebra 1.3.");
-- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in Zebra 1.3.");
+- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
+- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief Parses files located in the filenames dictionary.

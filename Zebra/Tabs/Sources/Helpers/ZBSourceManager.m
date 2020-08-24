@@ -22,6 +22,7 @@
     BOOL recachingNeeded;
     ZBDownloadManager *downloadManager;
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
+    NSMutableDictionary *busyList;
 }
 @end
 
@@ -268,29 +269,55 @@
     }
 }
 
-#pragma mark - ZBDownloadDelegate
+#pragma mark - Database Delegate
+
+
+
+#pragma mark - Download Delegate
 
 - (void)startedDownloads {
-    NSLog(@"Started source downloads");
+    NSLog(@"[Zebra](ZBSourceManager) Started downloads");
+    
+    if (!busyList) busyList = [NSMutableDictionary new];
     refreshInProgress = YES;
 }
 
 - (void)startedSourceDownload:(ZBBaseSource *)baseSource {
-    NSLog(@"Started downloading %@", baseSource);
+    NSLog(@"[Zebra](ZBSourceManager) Started downloading %@", baseSource);
+    
+    [busyList setObject:@YES forKey:baseSource.baseFilename];
+    [self bulkStartedRefreshForSource:baseSource];
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
-    NSLog(@"Progress update for %@", baseSource);
+    NSLog(@"[Zebra](ZBSourceManager) Progress update for %@", baseSource);
 }
 
 - (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray<NSError *> *)errors {
-    NSLog(@"Finished downloading %@", baseSource);
+    NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", baseSource);
+    
+    [busyList setObject:@NO forKey:baseSource.baseFilename];
+    [self bulkFinishedRefreshForSource:baseSource warnings:NULL errors:NULL];
 }
 
 - (void)finishedAllDownloads {
-    NSLog(@"Finished all downloads");
+    NSLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     refreshInProgress = NO;
     downloadManager = NULL;
+}
+
+#pragma mark - Source Delegate Notifiers
+
+- (void)bulkStartedRefreshForSource:(ZBBaseSource *)source {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate startedRefreshForSource:source];
+    }
+}
+
+- (void)bulkFinishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate finishedRefreshForSource:source warnings:warnings errors:errors];
+    }
 }
 
 - (void)addDelegate:(id<ZBSourceDelegate>)delegate {
@@ -307,6 +334,10 @@
 
 - (void)cancelSourceRefresh {
     
+}
+
+- (BOOL)isSourceBusy:(ZBBaseSource *)source {
+    return [[busyList objectForKey:source.baseFilename] boolValue];
 }
 
 @end

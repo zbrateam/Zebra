@@ -2085,22 +2085,22 @@
 
 #pragma mark - Download Delegate
 
-- (void)startedDownloads {
+- (void)startedDownloads DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2."){
     if (!completedSources) {
         completedSources = [NSMutableArray new];
     }
 }
 
-- (void)startedSourceDownload:(ZBBaseSource *)baseSource {
+- (void)startedSourceDownload:(ZBBaseSource *)baseSource DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
     [self bulkSetSource:baseSource busy:YES];
     [self postStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@", @""), [baseSource repositoryURI]] atLevel:ZBLogLevelDescript];
 }
 
-- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
     //TODO: Implement
 }
 
-- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
+- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
     [self bulkSetSource:baseSource busy:NO];
     if (errors && [errors count]) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
@@ -2110,7 +2110,7 @@
     if (baseSource) [completedSources addObject:baseSource];
 }
 
-- (void)finishedAllDownloads {
+- (void)finishedAllDownloads DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.") {
     [self parseSources:[completedSources copy]];
     [completedSources removeAllObjects];
 }

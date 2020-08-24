@@ -11,13 +11,14 @@
 
 #import "ZBSourceVerificationDelegate.h"
 #import "ZBSourceDelegate.h"
+#import <Database/ZBDatabaseDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
 
 @import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceManager : NSObject <ZBDownloadDelegate>
+@interface ZBSourceManager : NSObject <ZBDatabaseDelegate, ZBDownloadDelegate>
 
 /*! @brief An array of source objects, from the database and sources.list (if the source is not loaded), that Zebra keeps track of */
 @property (readonly) NSArray <ZBSource *> *sources;
@@ -66,6 +67,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)addDelegate:(id <ZBSourceDelegate>)delegate;
 - (void)removeDelegate:(id <ZBSourceDelegate>)delegate;
+
+- (BOOL)isSourceBusy:(ZBBaseSource *)source;
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 @end
