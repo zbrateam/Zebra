@@ -22,7 +22,7 @@ jobs:
         key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile') }}
 
     - name: Install Theos Dependencies
-      run: brew install ldid fakeroot make
+      run: brew install ldid fakeroot make dpkg
     
     - name: Add GNU make to PATH
       run: echo "::add-path::$(brew --prefix make)/libexec/gnubin"
