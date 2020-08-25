@@ -288,19 +288,20 @@
     ZBLog(@"[Zebra](ZBSourceManager) Started downloading %@", source);
     
     [busyList setObject:@YES forKey:source.baseFilename];
-    [self bulkStartedRefreshForSource:source];
+    [self bulkStartedDownloadForSource:source];
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
     ZBLog(@"[Zebra](ZBSourceManager) Progress update for %@", baseSource);
 }
 
-- (void)finishedDownloadingSource:(ZBBaseSource *)source withErrors:(NSArray<NSError *> *)errors {
+- (void)finishedDownloadingSource:(ZBBaseSource *)source warnings:(NSArray <NSError *> *)warnings errors:(NSArray <NSError *> *)errors {
     ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
         [completedSources addObject:source];
         [busyList setObject:@NO forKey:source.baseFilename];
+        [self bulkFinishedDownloadForSource:source warnings:warnings errors:errors];
     }
 }
 
@@ -322,6 +323,7 @@
 - (void)startedImportingSource:(ZBBaseSource *)source {
     ZBLog(@"[Zebra](ZBSourceManager) Started parsing %@", source);
     [busyList setObject:@YES forKey:source.baseFilename];
+    [self bulkStartedImportForSource:source];
 }
 
 - (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
@@ -329,26 +331,39 @@
     
     recachingNeeded = YES;
     [busyList setObject:@NO forKey:source.baseFilename];
-    [self bulkFinishedRefreshForSource:source warnings:NULL errors:error ? @[error] : NULL];
+    [self bulkFinishedImportForSource:source errors:error ? @[error] : NULL];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing sources");
-    refreshInProgress = YES;
+    refreshInProgress = NO;
     busyList = NULL;
+    completedSources = NULL;
 }
 
 #pragma mark - Source Delegate Notifiers
 
-- (void)bulkStartedRefreshForSource:(ZBBaseSource *)source {
+- (void)bulkStartedDownloadForSource:(ZBBaseSource *)source {
     for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate startedRefreshForSource:source];
+        [delegate startedDownloadForSource:source];
     }
 }
 
-- (void)bulkFinishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+- (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
     for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate finishedRefreshForSource:source warnings:warnings errors:errors];
+        [delegate finishedDownloadForSource:source warnings:warnings errors:errors];
+    }
+}
+
+- (void)bulkStartedImportForSource:(ZBBaseSource *)source {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate startedImportForSource:source];
+    }
+}
+
+- (void)bulkFinishedImportForSource:(ZBBaseSource *)source errors:(NSArray *)errors {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate finishedImportForSource:source errors:errors];
     }
 }
 

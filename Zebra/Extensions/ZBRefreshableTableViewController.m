@@ -172,7 +172,7 @@
     [self layoutNavigationButtons];
 }
 
-- (void)finishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+- (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
     // Nothing at the moment
 }
 
@@ -180,7 +180,7 @@
     // Nothing at the moment
 }
 
-- (void)startedRefreshForSource:(ZBBaseSource *)source {
+- (void)startedDownloadForSource:(ZBBaseSource *)source {
     // Nothing at the moment
 }
 

@@ -159,18 +159,22 @@
 
 #pragma mark - ZBSourceDelegate
 
-- (void)startedSourceRefresh {
-    
-}
-
-- (void)startedRefreshForSource:(ZBBaseSource *)source {
+- (void)startedDownloadForSource:(ZBBaseSource *)source {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
 }
 
-- (void)finishedRefreshForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+- (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+
+}
+
+- (void)startedImportForSource:(ZBBaseSource *)source {
+    
+}
+
+- (void)finishedImportForSource:(ZBBaseSource *)source errors:(NSArray<NSError *> *)errors {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:0];
         
@@ -189,10 +193,6 @@
             [self.tableView endUpdates];
         }
     });
-}
-
-- (void)finishedSourceRefresh {
-    
 }
 
 - (void)addedSources:(NSSet<ZBBaseSource *> *)sources {

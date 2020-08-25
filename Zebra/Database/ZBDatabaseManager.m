@@ -2116,7 +2116,7 @@
     //TODO: Implement
 }
 
-- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors {
+- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource errors:(NSArray <NSError *> *_Nullable)errors {
     [self bulkSetSource:baseSource busy:NO];
     if (errors && [errors count]) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
