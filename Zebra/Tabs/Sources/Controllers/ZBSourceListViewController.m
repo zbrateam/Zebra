@@ -9,6 +9,8 @@
 #import "ZBSourceListViewController.h"
 #import "ZBSourceAddViewController.h"
 
+#import <ZBDevice.h>
+
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
@@ -107,8 +109,8 @@
         completionHandler(YES);
     }];
     
+    copyAction.image = [UIImage imageNamed:@"doc_fill"];
     copyAction.backgroundColor = [UIColor systemTealColor];
-    copyAction.image = [UIImage systemImageNamed:@"doc.on.clipboard.fill"];
     
     return [UISwipeActionsConfiguration configurationWithActions:@[copyAction]];
 }
@@ -124,14 +126,14 @@
             
             completionHandler(error == NULL);
         }];
-        deleteAction.image = [UIImage systemImageNamed:@"delete.right.fill"];
+        deleteAction.image = [UIImage imageNamed:@"delete_left"];
         [actions addObject:deleteAction];
     }
     
     UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
         [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] useCaching:YES error:nil];
     }];
-    refreshAction.image = [UIImage systemImageNamed:@"arrow.clockwise.circle.fill"];
+    refreshAction.image = [UIImage imageNamed:@"arrow_clockwise"];
     [actions addObject:refreshAction];
     
     return [UISwipeActionsConfiguration configurationWithActions:actions];
@@ -167,11 +169,17 @@
 }
 
 - (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
-
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    });
 }
 
 - (void)startedImportForSource:(ZBBaseSource *)source {
-    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    });
 }
 
 - (void)finishedImportForSource:(ZBBaseSource *)source errors:(NSArray<NSError *> *)errors {
