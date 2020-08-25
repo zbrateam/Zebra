@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageListTableViewController : ZBRefreshableTableViewController <UIViewControllerPreviewingDelegate>
+@interface ZBPackageListTableViewController : ZBRefreshableTableViewController
 @property (nonatomic, strong) ZBSource *source;
 @property (nonatomic, strong) NSString *section;
 @property (nonatomic, assign) BOOL batchLoad;
@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) int batchLoadCount;
 @property (readwrite, copy, nonatomic) NSArray <NSArray *> *tableData;
 - (void)refreshTable;
-- (void)setDestinationVC:(NSIndexPath *)indexPath destination:(ZBPackageViewController *)destination;
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath;
 @end
 

@@ -91,8 +91,8 @@
         }];
     }
     else if (packages.count > 1) {
-        NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%d updates available", @""), packages.count];
-        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"%@ and %d more can be updated.", @""), packages[0].name, packages.count - 1];
+        NSString *title = [NSString stringWithFormat:NSLocalizedString(@"%lu updates available", @""), (unsigned long)packages.count];
+        NSString *text = [NSString stringWithFormat:NSLocalizedString(@"%@ and %lu more can be updated.", @""), packages[0].name, packages.count - 1];
 
         [self notify:text withTitle:title withUserInfo:@{
             @"openURL": @"zbra://changes",
