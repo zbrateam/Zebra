@@ -67,7 +67,7 @@
 "Text" = "Text";
 "Icon" = "Iconita";
 "Finish Automatically" = "Termină Automat";
-"Always Install Latest" = "Always Install Latest";
+"Always Install Latest" = "Instalează întotdeauna Ultimele";
 "Automatic Refresh" = "Reîmprospătare automată";
 
 // Accent Colors
@@ -136,11 +136,11 @@
 "Sign Out" = "Delogare";
 "Your Purchases" = "Achizițiile mele";
 "No Storefronts Available" = "Nu sunt disponibile surse cu plată";
-"Could not authenticate" = "Could not authenticate";
+"Could not authenticate" = "Nu s-a putut autentifica";
 "Could not complete purchase" = "Achiziția nu a putut fi completată";
 "No packages purchased" = "Nu există achiziții";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Signed in as %@" = "Conectat ca %@";
+"Signed in as %@ (%@)" = "Conectat ca %@(%@)";
 
 // Sources
 
@@ -150,12 +150,12 @@
 "Refresh" = "Reîmprospătează";
 "All Packages" = "Toate Pachetele";
 "Remove Source" = "Elimină Sursă";
-"Local File" = "Local File";
+"Local File" = "Fișier local";
 "Local Repository" = "Depozit local";
 "Locally installed packages" = "Pachete instalate local";
 
 "Add" = "Adaugă";
-"View" = "View";
+"View" = "Vizualizați";
 "Add Sources" = "Adaugă surse";
 "Add Multiple" = "Adaugă mai multe";
 "Enter Source URL" = "Introdu URL-ul sursei";
@@ -180,21 +180,21 @@
 "You have already added these sources." = "Ai adăugat deja aceste surse.";
 "Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
 "Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Error while downloading %@: %@" = "Eroare la descărcarea %@: %@";
 
 "A total of %d files will be downloaded" = "Un total de %d fișiere va fi descărcat";
 
 "Could not parse %@ from %@" = "Nu s-a putut analiza %@ de la %@";
 "Could not find a download URL for" = "Nu s-a putut găsi un URL de descărcare pentru";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Authorizing Download for %@" = "Autorizarea descărcării pentru %@";
+"Couldn't authorize download for %@." = "Nu s-a putut autoriza descărcarea pentru %@.";
+"Reason: %@." = "Motiv: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "API-ul de plată nu este acceptat pe mai puțin de iOS 11.0";
 "Could not download Release file from %@. Reason: %@" = "Nu s-a putut descărca fișierul de lansare de la %@. Motiv: %@";
 "Could not download Packages file from %@. Reason: %@" = "Nu s-a putut descărca fișierul Packages de la %@. Motiv: %@";
 "Could not download one or more files from %@. Reason: %@" = "Nu s-au putut descărca unul sau mai multe fișiere de la %@. Motiv: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Eroare la mutarea fișierului de la %@ la %@";
 
 "The URL you entered is not valid. Please check it and try again." = "URL introdus nu este valid. Te rugăm să îl verifici și să încerci din nou.";
 
@@ -209,17 +209,17 @@
 
 "%@ hasn't been modified" = "%@ nu a fost modificat";
 
-"Install All" = "Install All";
+"Install All" = "Instalaţi tot";
 
 // Packages
 
-"Latest" = "Latest";
+"Latest" = "Cele mai recente";
 "Version" = "Versiune";
 "Packages" = "Pachete";
 "Show Updates" = "Afișare Actualizări";
-"Hide Updates" = "Hide Updates";
+"Hide Updates" = "Ascunde Actualizări";
 "Select Version" = "Selectați Versiunea";
-"Select a version to install:" = "Select a version to install:";
+"Select a version to install:" = "Selectați o versiune pe care să o instalați:";
 "Select a version to upgrade to:" = "Selectați o versiune la care să se facă upgrade:";
 "Select a version to downgrade to:" = "Selectați o versiune la care să se facă downgrade:";
 "Package" = "Pachet";
@@ -313,7 +313,7 @@
 "Console" = "Consolă";
 "Performing Actions..." = "Efectuare acțiuni...";
 "Updating icon cache asynchronously..." = "Actualizare cache iconițe sincron...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"uicache is not available on the simulator" = "uicache nu este disponibil in simulator";
 "This may take awhile and Zebra may crash. It is okay if it does." = "Acest lucru poate dura mai mult, iar Zebra se poate prăbuşi. Este în regulă dacă se întâmplă.";
 "Close Zebra" = "Închide Zebra";
 "Closing Zebra..." = "Zebra se inchide...";
@@ -339,47 +339,47 @@
 "Returning to Queue..." = "Se revine la coada...";
 "Importing local packages." = "Importul pachetelor locale.";
 "Finished importing local packages." = "Se termină importul pachetelor locale.";
-"One or more packages failed to download." = "One or more packages failed to download.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"One or more packages failed to download." = "Unul sau mai multe pachete nu s-au descarcat.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Faceți clic pe \"Revenire la coadă\" pentru a reveni la coadă și reîncercați descărcarea.";
+"Could not complete %@ process. Reason: %@." = "Imposibil de terminat procesul %@. Motivul: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Reporniți Zebra și vedeți dacă problema persistă. Dacă da, vă rugăm să depuneți o problemă pe GitHub.";
 "Done..." = "Gata...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-"Error while opening file:" = "Error while opening file:";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"Done %@" = "Terminat %@";
+"Removing Zebra..." = "Se îndepărteaza Zebra...";
+"Installing Zebra..." = "Se instaleaza Zebra...";
+"Error while opening file:" = "Eroare la deschiderea fişierului:";
+"Adding Payment Vendor URL for %@" = "Adăugarea URL-ului furnizorului de plată pentru %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Acest dispozitiv este simulat, aici sunt pachetele care ar fi modificate în această etapă:";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Pachete în coadă";
+"%d Package Queued" = "%d Pachet în coadă";
+"Tap to manage" = "Atingeţi pentru a gestiona";
+"No Packages Queued" = "Nici un pachet în coadă";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
+"Queue" = "Coadă";
+"Install" = "Instalează";
+"Reinstall" = "Reinstalează";
+"Remove" = "Ștergeți";
+"Upgrade" = "Actualizează";
+"Downgrade" = "Retrogradare";
+"Abort" = "Anuleaza";
+"Continue" = "Continuă";
 "Download Size" = "Dimensiune Descărcare";
-"Confirm" = "Confirm";
-"Issues" = "Issues";
-"Required Package" = "Required Package";
-"Are you sure?" = "Are you sure?";
+"Confirm" = "Confirmă";
+"Issues" = "Probleme";
+"Required Package" = "Pachete necesare";
+"Are you sure?" = "Sunteți sigur?";
 "Remove from Queue" = "Elimină din coada";
-"Clear Queue" = "Clear Queue";
-"%@ is required by:" = "%@ is required by:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Clear Queue" = "Șterge coada";
+"%@ is required by:" = "%@ este solicitat de:";
+"\"%@\" conflicts with %@" = "\"%@\" intră în conflict cu %@";
+"%@ must be removed because it depends on %@" = "%@ trebuie eliminat, deoarece depinde de %@";
+"%@ has issues that cannot be resolved:" = "%@ are probleme care nu pot fi rezolvate:";
+"Are you sure you want to clear the Queue?" = "Sunteți sigur că doriți să ştergeţi coada?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ este un pachet necesar. Nu ar trebuii sa fie eliminat decat in cazul in care stii exact ce faci!";
 
 // Search
@@ -402,11 +402,11 @@
 
 "Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Eroare la crearea directorului de liste: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Eroare la crearea sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Eroare la crearea directorului debs: %@.";
 
 "Could not respring. Please respring manually." = "Nu am putut sa facem respring. Te rog sa faci respring manual.";
 
@@ -414,40 +414,40 @@
 
 "ERROR: Process must be restarted. Please try again." = "EROARE: Procesul trebuie restartat. Incearca din nou.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Permisiuni incorecte pentru documente.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Imposibil de determinat informațiile despre dispozitiv.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Afișați pachetele recomandate pe pagina de pornire.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Reîmprospătați sursele Zebra atunci când deschideți aplicația.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Afișează postări recente ale comunității /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Căutați pachete în timp ce tastați. Dezactivarea acestei caracteristici poate reduce decalajul pe dispozitivele mai vechi.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Configurați aspectul acțiunilor de glisare a vizualizării tabelului.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Modificați culoarea de accent care se afișează pe Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Modificați stilul modului întunecat Zebra atunci când este activat.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Schimbați sursa pachetelor recomandate pe pagina de pornire.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo-ul recomandat\" va afișa pachete aleatorii de la repo-uri care acceptă API-ul pachetului recomandat.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatoar\" va afișa pachete aleatorii din toate repo-urile pe care le-ați adăugat la Zebra.";
 
 "Signing in to sources allows for the purchase of paid packages." = "Inregistrarea in surse permite cumpararea pachetelor platite.";
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "Inchide automat consola atunci cand toate sarcinile au fost completate.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Instalați întotdeauna cea mai recentă versiune a unui pachet dacă nu este deja instalat.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtre";
+"Add Filter" = "Adăugați filtrul";
 
 "1 Section Hidden" = "1 secțiune ascunsă";
 "%lu Sections Hidden" = "%lu secţiuni ascunse";
@@ -476,18 +476,18 @@
 "Restart" = "Repornire";
 "Use System Language" = "Utilizați limba sistemului";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Adăugați un repo care nu este sigur";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Este posibil ca datele descărcate din acest repo să nu fie criptate. Sigur îl adăugați?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Imposibil de terminat achiziția";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pachetul nu este disponibil";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pachetul solicitat nu mai este disponibil. Este posibil să fi fost eliminat din surse sau ID-ul pachetului solicitat să fie incorect.";
 
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d secunde";
+"Download Timeout" = "Expirare descărcare";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configurați timpul în care Zebra va aștepta ca o sursă să răspundă înainte de expirare.";
+"This timer will reset every time Zebra receives new information from a source." = "Acest cronometru se va reseta de fiecare dată când Zebra primește informații noi de la o sursă.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Imposibil de regăsit informațiile contului din sursă. Deconectați-vă de la sursă, conectați-vă și încercați din nou.";
