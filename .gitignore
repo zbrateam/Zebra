@@ -7,3 +7,5 @@ Index/
 xcuserdata/
 repo/newpackages
 update.sh
+Carthage/
+Cartfile.resolved
