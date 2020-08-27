@@ -103,6 +103,7 @@
         if (!sourcesToRemove) sourcesToRemove = [NSMutableArray new];
         
         UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(removeSources)];
+        deleteButton.enabled = NO;
         self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
     }
     else {
@@ -152,6 +153,18 @@
     }
     else {
         [sourcesToRemove addObject:source];
+        
+        self.navigationItem.rightBarButtonItems[1].enabled = sourcesToRemove.count;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing) {
+        ZBSource *source = filteredSources[indexPath.row];
+        if ([sourcesToRemove containsObject:source]) {
+            [sourcesToRemove removeObject:source];
+        }
+        self.navigationItem.rightBarButtonItems[1].enabled = sourcesToRemove.count;
     }
 }
 
