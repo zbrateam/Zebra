@@ -19,6 +19,8 @@
 @interface ZBSourceListViewController () {
     UISearchController *searchController;
     ZBSourceManager *sourceManager;
+    NSMutableArray *sourcesToRemove;
+    UIBarButtonItem *addButton;
 }
 @end
 
@@ -57,7 +59,8 @@
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(presentAddView)];
+    addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(presentAddView)];
+    self.navigationItem.rightBarButtonItem = addButton;
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceCell"];
 }
@@ -76,10 +79,36 @@
     [self presentViewController:navController animated:YES completion:nil];
 }
 
+- (void)removeSources {
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to remove %lu sources?", @""), (unsigned long)sourcesToRemove.count];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self->sourceManager removeSources:[NSSet setWithArray:self->sourcesToRemove] error:nil];
+    }];
+    [alert addAction:confirm];
+    
+    UIAlertAction *deny = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:deny];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:YES completion:nil];
+    });
+}
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     
-    
+    if (editing) {
+        if (!sourcesToRemove) sourcesToRemove = [NSMutableArray new];
+        
+        UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(removeSources)];
+        self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
+    }
+    else {
+        self.navigationItem.rightBarButtonItems = @[addButton];
+        [sourcesToRemove removeAllObjects];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -114,12 +143,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
     ZBSource *source = filteredSources[indexPath.row];
-    ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:source editOnly:NO];
-    
-    [self.navigationController pushViewController:sections animated:YES];
+    if (!self.editing) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:source editOnly:NO];
+        [self.navigationController pushViewController:sections animated:YES];
+    }
+    else {
+        [sourcesToRemove addObject:source];
+    }
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
