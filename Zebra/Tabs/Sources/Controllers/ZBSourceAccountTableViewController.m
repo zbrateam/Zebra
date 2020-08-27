@@ -70,12 +70,12 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     
-    if (@available(iOS 13.0, *)) {
-    } else {
-        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-            [self registerForPreviewingWithDelegate:self sourceView:self.view];
-        }
-    }
+//    if (@available(iOS 13.0, *)) {
+//    } else {
+//        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
+//            [self registerForPreviewingWithDelegate:self sourceView:self.view];
+//        }
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

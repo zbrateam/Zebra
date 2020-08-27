@@ -243,7 +243,7 @@
         }
         
         [self bulkPostStatusUpdate:NSLocalizedString(@"Updating Sources", @"") atLevel:ZBLogLevelInfo];
-        [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"A total of %d files will be downloaded", @""), [baseSources count] * 2] atLevel:ZBLogLevelDescript];
+        [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"A total of %lu files will be downloaded", @""), [baseSources count] * 2] atLevel:ZBLogLevelDescript];
         [self updateSources:baseSources useCaching:useCaching];
     } else {
         [self importLocalPackagesAndCheckForUpdates:YES sender:self];

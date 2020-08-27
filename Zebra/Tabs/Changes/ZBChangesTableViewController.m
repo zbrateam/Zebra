@@ -60,12 +60,12 @@
     self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-    if (@available(iOS 13.0, *)) {
-    } else {
-        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-            [self registerForPreviewingWithDelegate:self sourceView:self.view];
-        }
-    }
+//    if (@available(iOS 13.0, *)) {
+//    } else {
+//        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
+//            [self registerForPreviewingWithDelegate:self sourceView:self.view];
+//        }
+//    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     self.redditPosts = [NSMutableArray new];
     availableOptions = @[@"paid release", @"free release", @"update", @"upcoming", @"news"];

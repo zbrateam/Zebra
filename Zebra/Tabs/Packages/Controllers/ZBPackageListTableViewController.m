@@ -66,12 +66,12 @@
     
     self.navigationItem.largeTitleDisplayMode = [self source] ? UINavigationItemLargeTitleDisplayModeNever : UINavigationItemLargeTitleDisplayModeAlways;
     
-    if (@available(iOS 13.0, *)) {
-    } else {        
-        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-            [self registerForPreviewingWithDelegate:self sourceView:self.view];
-        }
-    }
+//    if (@available(iOS 13.0, *)) {
+//    } else {        
+//        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
+//            [self registerForPreviewingWithDelegate:self sourceView:self.view];
+//        }
+//    }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 

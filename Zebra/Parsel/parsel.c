@@ -400,7 +400,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
             
             const char *installedSizeString = dict_get(package, "Installed-Size");
-            if (installedSizeString != '\0') {
+            if (installedSizeString != (void *)0) {
                 int installedSize = atoi(installedSizeString);
                 sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnInstalledSize, installedSize);
             }
@@ -409,7 +409,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             }
             
             const char *downloadSizeString = dict_get(package, "Size");
-            if (downloadSizeString != '\0') {
+            if (downloadSizeString != (void *)0) {
                 int downloadSize = atoi(downloadSizeString);
                 sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnDownloadSize, downloadSize);
             }
@@ -418,17 +418,17 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             }
             
             const char *priority = dict_get(package, "Priority");
-            if (priority != '\0') {
+            if (priority != (void *)0) {
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPriority, priority, -1, SQLITE_TRANSIENT);
             }
             
             const char *essential = dict_get(package, "Essential");
-            if (essential != '\0') {
+            if (essential != (void *)0) {
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnEssential, essential, -1, SQLITE_TRANSIENT);
             }
             
             const char *sha256 = dict_get(package, "SHA256");
-            if (sha256 != '\0') {
+            if (sha256 != (void *)0) {
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSHA256, sha256, -1, SQLITE_TRANSIENT);
             }
             
