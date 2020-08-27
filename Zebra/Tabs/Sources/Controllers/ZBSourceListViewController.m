@@ -8,6 +8,7 @@
 
 #import "ZBSourceListViewController.h"
 #import "ZBSourceAddViewController.h"
+#import "ZBSourceSectionsListTableViewController.h"
 
 #import <ZBDevice.h>
 
@@ -34,6 +35,7 @@
     
     if (self) {
         self.title = NSLocalizedString(@"Sources", @"");
+        self.tableView.allowsMultipleSelectionDuringEditing = YES;
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;
@@ -74,6 +76,12 @@
     [self presentViewController:navController animated:YES completion:nil];
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    
+}
+
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -91,6 +99,11 @@
     return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSource *source = filteredSources[indexPath.row];
+    return [source canDelete];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,6 +111,15 @@
     
     BOOL busy = [sourceManager isSourceBusy:source];
     [(ZBSourceTableViewCell *)cell setSpinning:busy];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    ZBSource *source = filteredSources[indexPath.row];
+    ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:source editOnly:NO];
+    
+    [self.navigationController pushViewController:sections animated:YES];
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {

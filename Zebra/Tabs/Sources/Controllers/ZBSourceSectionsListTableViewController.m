@@ -48,13 +48,13 @@
 
 #pragma mark - Initializers
 
-- (id)initWithSource:(ZBSource *)source {
+- (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"sourceSectionsController"];
     
     if (self) {
         self.source = source;
-        editOnly = YES;
+        editOnly = edit;
     }
     
     return self;

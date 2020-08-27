@@ -112,7 +112,7 @@
 
 - (void)layoutNavigationButtonsNormal {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.leftBarButtonItems = @[];
+//        self.navigationItem.leftBarButtonItems = @[];
     });
 }
 

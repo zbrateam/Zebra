@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceSectionsListTableViewController : ZBTableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) ZBSource *source;
-- (id)initWithSource:(ZBSource *)source;
+- (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit;
 - (void)accountButtonPressed:(id)sender;
 @end
 
