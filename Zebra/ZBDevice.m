@@ -377,9 +377,7 @@
 }
 
 + (NSString * _Nonnull)deviceType {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        return @"iPad"; /* Device is iPad */
-    return @"iPhone/iPod";
+    return [[UIDevice currentDevice] model];
 }
 
 + (void)exitZebra {
