@@ -66,10 +66,23 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief The base filename of the repository, based on the URL */
 @property (nonatomic) NSString * _Nullable baseFilename;
 
+/*! @brief The verification status of the source */
 @property ZBSourceVerificationStatus verificationStatus;
+
+/*! @brief the source's label if one has been retrieved */
 @property (nonatomic) NSString *label;
+
+/*! @brief the source's icon URL*/
 @property (nonatomic) NSURL *iconURL;
+
+/*! @brief the source's identifier */
 @property int sourceID;
+
+/*! @brief warnings (issues that could arise) that might have occured when downloading or parsing the source */
+@property (nonatomic) NSArray * _Nullable warnings;
+
+/*! @brief errors (indicating a failure) that might have occured when downloading or parsing the source */
+@property (nonatomic) NSArray * _Nullable errors;
 
 + (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
