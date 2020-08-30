@@ -40,10 +40,10 @@
     [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     if (source.errors.count) {
-        self.accessoryType = UITableViewCellAccessoryDetailButton;
+        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         self.tintColor = [UIColor systemPinkColor];
     } else if (source.warnings.count) {
-        self.accessoryType = UITableViewCellAccessoryDetailButton;
+        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
         self.tintColor = [UIColor systemYellowColor];
     }
 }

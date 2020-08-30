@@ -299,9 +299,11 @@
     ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
-        [completedSources addObject:source];
-        [busyList setObject:@NO forKey:source.baseFilename];
+        if (source.sourceID == 1) source.warnings = @[[NSError errorWithDomain:NSCocoaErrorDomain code:0115 userInfo:@{NSLocalizedDescriptionKey: @"oh no! http!"}]];
+        if (source.sourceID == 3) source.errors = @[[NSError errorWithDomain:NSCocoaErrorDomain code:0115 userInfo:@{NSLocalizedDescriptionKey: @"failed 2 download :("}]];
         [self bulkFinishedDownloadForSource:source warnings:warnings errors:errors];
+        [busyList setObject:@NO forKey:source.baseFilename];
+        if (errors.count) [completedSources addObject:source];
     }
 }
 
@@ -329,6 +331,8 @@
 - (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
     
+//    source.warnings = @[];
+//    source.errors = @[error];
     recachingNeeded = YES;
     [busyList setObject:@NO forKey:source.baseFilename];
     [self bulkFinishedImportForSource:source errors:error ? @[error] : NULL];

@@ -115,18 +115,25 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self hasProblems] ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return filteredSources.count;
+    return section == 0 ? 1 : filteredSources.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceCell"];
-    [cell setSource:filteredSources[indexPath.row]];
-    
-    return cell;
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"problemChild"];
+        
+        return cell;
+    }
+    else {
+        ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceCell"];
+        [cell setSource:filteredSources[indexPath.row]];
+        
+        return cell;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,13 +141,28 @@
     return [source canDelete];
 }
 
+- (BOOL)hasProblems {
+//    NSPredicate *search = [NSPredicate predicateWithFormat:@""]
+    return YES;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBBaseSource *source = filteredSources[indexPath.row];
-    
-    BOOL busy = [sourceManager isSourceBusy:source];
-    [(ZBSourceTableViewCell *)cell setSpinning:busy];
+    if (indexPath.section == 0) {
+        cell.detailTextLabel.text = @"Some of your sources have warnings and errors.";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        CGFloat size = cell.detailTextLabel.font.pointSize;
+        cell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
+        cell.detailTextLabel.numberOfLines = 0;
+        cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
+    }
+    else {
+        ZBBaseSource *source = filteredSources[indexPath.row];
+        
+        BOOL busy = [sourceManager isSourceBusy:source];
+        [(ZBSourceTableViewCell *)cell setSpinning:busy];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -224,27 +246,27 @@
     NSString *searchTerm = searchController.searchBar.text;
     [self filterSourcesForSearchTerm:searchTerm];
     
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - ZBSourceDelegate
 
 - (void)startedDownloadForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:1];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
 }
 
 - (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:1];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
 }
 
 - (void)startedImportForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:1];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
@@ -252,12 +274,12 @@
 
 - (void)finishedImportForSource:(ZBBaseSource *)source errors:(NSArray<NSError *> *)errors {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+        NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:1];
         
         self->sources = [self->sourceManager.sources mutableCopy];
         [self filterSourcesForSearchTerm:self->searchController.searchBar.text];
         
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:0];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:1];
         
         if ([oldIndexPath isEqual:newIndexPath]) {
             [self.tableView reloadRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -277,7 +299,7 @@
     
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:1];
         [indexPaths addObject:indexPath];
     }
     
@@ -287,7 +309,7 @@
 - (void)removedSources:(NSSet<ZBBaseSource *> *)sources {
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:0];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:1];
         [indexPaths addObject:indexPath];
     }
     
