@@ -21,6 +21,7 @@
     ZBSourceManager *sourceManager;
     NSMutableArray *sourcesToRemove;
     UIBarButtonItem *addButton;
+    BOOL hasProblems;
 }
 @end
 
@@ -48,6 +49,7 @@
         sourceManager = [ZBSourceManager sharedInstance];
         sources = [sourceManager.sources mutableCopy];
         filteredSources = [sources copy];
+        hasProblems = NO;
     }
     
     return self;
@@ -115,15 +117,19 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self hasProblems] ? 2 : 1;
+    return hasProblems + 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return section == 0 ? 1 : filteredSources.count;
+    if (section == 0 && hasProblems) {
+        return 1;
+    } else {
+        return filteredSources.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && hasProblems) {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"problemChild"];
         
         return cell;
@@ -141,15 +147,10 @@
     return [source canDelete];
 }
 
-- (BOOL)hasProblems {
-//    NSPredicate *search = [NSPredicate predicateWithFormat:@""]
-    return YES;
-}
-
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && hasProblems) {
         cell.detailTextLabel.text = @"Some of your sources have warnings and errors.";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         CGFloat size = cell.detailTextLabel.font.pointSize;
@@ -246,27 +247,27 @@
     NSString *searchTerm = searchController.searchBar.text;
     [self filterSourcesForSearchTerm:searchTerm];
     
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:hasProblems] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - ZBSourceDelegate
 
 - (void)startedDownloadForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:1];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
 }
 
 - (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:1];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
 }
 
 - (void)startedImportForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[filteredSources indexOfObject:(ZBSource *)source] inSection:1];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     });
@@ -274,12 +275,12 @@
 
 - (void)finishedImportForSource:(ZBBaseSource *)source errors:(NSArray<NSError *> *)errors {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:1];
+        NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
         
         self->sources = [self->sourceManager.sources mutableCopy];
         [self filterSourcesForSearchTerm:self->searchController.searchBar.text];
         
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:1];
+        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
         
         if ([oldIndexPath isEqual:newIndexPath]) {
             [self.tableView reloadRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -293,13 +294,26 @@
     });
 }
 
+- (void)finishedSourceRefresh {
+    NSPredicate *search = [NSPredicate predicateWithFormat:@"(warnings != nil AND warnings[SIZE] > 0) OR (errors != nil AND errors[SIZE] > 0)"];
+    hasProblems = [sources filteredArrayUsingPredicate:search].count;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->hasProblems && self.tableView.numberOfSections == 1) {
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (self.tableView.numberOfSections == 2) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    });
+}
+
 - (void)addedSources:(NSSet<ZBBaseSource *> *)sources {
     self->sources = [sourceManager.sources mutableCopy];
     [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:self->hasProblems];
         [indexPaths addObject:indexPath];
     }
     
@@ -309,7 +323,7 @@
 - (void)removedSources:(NSSet<ZBBaseSource *> *)sources {
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:1];
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:self->hasProblems];
         [indexPaths addObject:indexPath];
     }
     

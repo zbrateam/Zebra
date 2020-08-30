@@ -343,6 +343,7 @@
     refreshInProgress = NO;
     busyList = NULL;
     completedSources = NULL;
+    [self bulkFinishedSourceRefresh];
 }
 
 #pragma mark - Source Delegate Notifiers
@@ -355,7 +356,9 @@
 
 - (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
     for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate finishedDownloadForSource:source warnings:warnings errors:errors];
+//        if ([delegate respondsToSelector:@selector(finishedDownloadingSource:warnings:errors:)]) {
+            [delegate finishedDownloadForSource:source warnings:warnings errors:errors];
+//        }
     }
 }
 
@@ -370,6 +373,13 @@
         [delegate finishedImportForSource:source errors:errors];
     }
 }
+
+- (void)bulkFinishedSourceRefresh {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate finishedSourceRefresh];
+    }
+}
+
 
 - (void)bulkAddedSources:(NSSet <ZBBaseSource *> *)sources {
     for (id <ZBSourceDelegate> delegate in delegates) {
