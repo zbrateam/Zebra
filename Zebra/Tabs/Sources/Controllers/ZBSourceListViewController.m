@@ -258,7 +258,7 @@
     });
 }
 
-- (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+- (void)finishedDownloadForSource:(ZBBaseSource *)source {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -272,7 +272,7 @@
     });
 }
 
-- (void)finishedImportForSource:(ZBBaseSource *)source errors:(NSArray<NSError *> *)errors {
+- (void)finishedImportForSource:(ZBBaseSource *)source {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
         

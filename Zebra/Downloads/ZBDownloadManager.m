@@ -308,7 +308,7 @@
         }
         
         if (source.releaseTaskCompleted && source.packagesTaskCompleted) {
-            [downloadDelegate finishedDownloadingSource:source warnings:NULL errors:NULL];
+            [downloadDelegate finishedDownloadingSource:source warnings:[self warningsForSource:source] errors:NULL];
         }
     }
     
@@ -327,8 +327,27 @@
     }
 }
 
-- (void)handleDownloadedFile:(NSString *)path forPackage:(ZBPackage *)package withError:(NSError *)error {
-    NSLog(@"Final Path: %@ Package: %@", path, package);
+- (NSArray <NSError *> *)warningsForSource:(ZBBaseSource *)source {
+    NSMutableArray *warnings = [NSMutableArray new];
+    if ([source.mainDirectoryURL.scheme isEqual:@"http"]) {
+        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningInsecure userInfo:@{
+            NSLocalizedDescriptionKey: NSLocalizedString(@"This repository is being accessed using an inseucure scheme (http). Please consider upgrading this repository to https.", @""),
+            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Switch to https to remove this warning", @""),
+            NSLocalizedRecoveryOptionsErrorKey: @[NSLocalizedString(@"Switch to https", @""), NSLocalizedString(@"Continue", @"")],
+        }];
+        [warnings addObject:insecureError];
+    }
+    
+    if ([self checkForInvalidRepo:source.mainDirectoryURL.host]) {
+        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningIncompatible userInfo:@{
+            NSLocalizedDescriptionKey: NSLocalizedString(@"This repository has been marked as incompatible with your jailbreak (%@). Installing packages from incompatible sources could result in crashes, inability to manage packages, and loss of jailbreak.", @""),
+            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Remove this source to remove this warning.", @""),
+            NSLocalizedRecoveryOptionsErrorKey: @[NSLocalizedString(@"Remove %@", @""), NSLocalizedString(@"Continue", @"")],
+        }];
+        [warnings addObject:insecureError];
+    }
+    
+    return warnings.count ? warnings : NULL;
 }
 
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(NSError *error))completion {
