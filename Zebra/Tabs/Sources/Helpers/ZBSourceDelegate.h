@@ -20,9 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)startedSourceRefresh;
 - (void)startedDownloadForSource:(ZBBaseSource *)source;
-- (void)finishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray <NSError *> *_Nullable)warnings errors:(NSArray <NSError *> *_Nullable)errors;
+- (void)finishedDownloadForSource:(ZBBaseSource *)source;
 - (void)startedImportForSource:(ZBBaseSource *)source;
-- (void)finishedImportForSource:(ZBBaseSource *)source errors:(NSArray <NSError *> *_Nullable)errors;
+- (void)finishedImportForSource:(ZBBaseSource *)source;
 - (void)finishedSourceRefresh;
 - (void)addedSources:(NSSet <ZBBaseSource *> *)sources;
 - (void)removedSources:(NSSet <ZBBaseSource *> *)sources;

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -1246,6 +1246,7 @@
 		89C5FDD521B1B13700A10E58 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Wilson Styres";
@@ -1802,7 +1803,7 @@
 				89C5FDF221B1B13800A10E58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		89C5FDF321B1B13800A10E58 /* Build configuration list for PBXNativeTarget "Zebra" */ = {
 			isa = XCConfigurationList;
@@ -1811,7 +1812,7 @@
 				89C5FDF521B1B13800A10E58 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

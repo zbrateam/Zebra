@@ -299,11 +299,11 @@
     ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
-        if (source.sourceID == 1) source.warnings = @[[NSError errorWithDomain:NSCocoaErrorDomain code:0115 userInfo:@{NSLocalizedDescriptionKey: @"oh no! http!"}]];
-        if (source.sourceID == 3) source.errors = @[[NSError errorWithDomain:NSCocoaErrorDomain code:0115 userInfo:@{NSLocalizedDescriptionKey: @"failed 2 download :("}]];
-        [self bulkFinishedDownloadForSource:source warnings:warnings errors:errors];
+        source.warnings = warnings;
+        source.errors = errors;
+        [self bulkFinishedDownloadForSource:source];
         [busyList setObject:@NO forKey:source.baseFilename];
-        if (errors.count) [completedSources addObject:source];
+        if (!errors.count) [completedSources addObject:source];
     }
 }
 
@@ -330,12 +330,9 @@
 
 - (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
-    
-//    source.warnings = @[];
-//    source.errors = @[error];
     recachingNeeded = YES;
     [busyList setObject:@NO forKey:source.baseFilename];
-    [self bulkFinishedImportForSource:source errors:error ? @[error] : NULL];
+    [self bulkFinishedImportForSource:source];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
@@ -354,10 +351,10 @@
     }
 }
 
-- (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source warnings:(NSArray *)warnings errors:(NSArray *)errors {
+- (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source {
     for (id <ZBSourceDelegate> delegate in delegates) {
 //        if ([delegate respondsToSelector:@selector(finishedDownloadingSource:warnings:errors:)]) {
-            [delegate finishedDownloadForSource:source warnings:warnings errors:errors];
+            [delegate finishedDownloadForSource:source];
 //        }
     }
 }
@@ -368,9 +365,9 @@
     }
 }
 
-- (void)bulkFinishedImportForSource:(ZBBaseSource *)source errors:(NSArray *)errors {
+- (void)bulkFinishedImportForSource:(ZBBaseSource *)source {
     for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate finishedImportForSource:source errors:errors];
+        [delegate finishedImportForSource:source];
     }
 }
 

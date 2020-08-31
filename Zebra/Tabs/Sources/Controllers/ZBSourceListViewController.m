@@ -153,7 +153,6 @@
     if (indexPath.section == 0 && hasProblems) {
         cell.detailTextLabel.text = @"Some of your sources have warnings and errors.";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        CGFloat size = cell.detailTextLabel.font.pointSize;
         cell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
         cell.detailTextLabel.numberOfLines = 0;
         cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
@@ -304,6 +303,7 @@
         } else if (self.tableView.numberOfSections == 2) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
+        [self didEndRefreshing];
     });
 }
 

@@ -12,6 +12,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern NSString *const ZBSourceErrorDomain;
+
+typedef enum : NSUInteger {
+    ZBSourceErrorUnknown = -1,
+    ZBSourceWarningInsecure = 1000,
+    ZBSourceWarningIncompatible = 1001,
+} ZBSourceError;
+
 @interface ZBBaseSource : NSObject
 
 /*!

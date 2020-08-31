@@ -40,6 +40,8 @@
 @synthesize iconURL;
 @synthesize sourceID;
 
+NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
+
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
 }
