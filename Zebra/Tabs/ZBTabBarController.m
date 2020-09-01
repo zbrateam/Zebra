@@ -23,14 +23,12 @@
 @import LNPopupController;
 
 @interface ZBTabBarController () {
-    NSMutableArray *errorMessages;
     ZBSourceManager *sourceManager;
     UIActivityIndicatorView *indicator;
 }
 
 @property (nonatomic) UINavigationController *popupController;
 @property (nonatomic, readonly) ZBQueueViewController *queueController;
-
 @end
 
 @implementation ZBTabBarController
@@ -44,12 +42,16 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
     
+    if (self) {
+        sourceManager = [ZBSourceManager sharedInstance];
+        [sourceManager addDelegate:self];
+    }
+    
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self applyLocalization];
 
     UITabBar.appearance.tintColor = [UIColor accentColor];
     UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
@@ -76,14 +78,6 @@
     // Temporary, remove when all views are decoupled from storyboard
     UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
-}
-
-- (void)applyLocalization {
-    for(UINavigationController *vc in self.viewControllers) {
-        assert([vc isKindOfClass:UINavigationController.class]);
-        // This isn't exactly "best practice", but this way the text in IB isn't useless.
-        vc.tabBarItem.title = NSLocalizedString([vc.tabBarItem.title capitalizedString], @"");
-    }
 }
 
 - (void)setPackageUpdateBadgeValue:(int)updates {
@@ -133,31 +127,15 @@
     });
 }
 
-#pragma mark - Database Delegate
+#pragma mark - Source Delegate
 
-- (void)databaseStartedUpdate {
+- (void)startedSourceRefresh {
     [self setSourceRefreshIndicatorVisible:YES];
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
-    if (packageUpdates != -1) {
-        [self setPackageUpdateBadgeValue:packageUpdates];
-    }
+- (void)finishedSourceRefresh {
+    // TODO: We need to set the packages tab bar badge value here
     [self setSourceRefreshIndicatorVisible:NO];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->errorMessages) {
-            ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];
-            [self presentViewController:refreshController animated:YES completion:nil];
-            self->errorMessages = nil;
-        }
-    });
-}
-
-- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    if (level == ZBLogLevelError) {
-        if (!errorMessages) errorMessages = [NSMutableArray new];
-        [errorMessages addObject:status];
-    }
 }
 
 - (void)forwardToPackage {

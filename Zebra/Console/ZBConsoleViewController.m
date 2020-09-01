@@ -778,11 +778,11 @@
 - (void)databaseCompletedUpdate:(int)packageUpdates {
     blockDatabaseMessages = NO;
     [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
-    if (packageUpdates != -1) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
-        });
-    }
+//    if (packageUpdates != -1) {
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [[ZBAppDelegate tabBarController] setPackageUpdateBadgeValue:packageUpdates];
+//        });
+//    }
 }
 
 @end

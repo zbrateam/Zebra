@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)startedDownloadingSource:(ZBBaseSource *)source;
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)source;
-- (void)finishedDownloadingSource:(ZBBaseSource *)source warnings:(NSArray <NSError *> *_Nullable)warnings errors:(NSArray <NSError *> *_Nullable)errors;
+- (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *_Nullable)errors;
 
 - (void)startedPackageDownload:(ZBPackage *)package;
 - (void)progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package;

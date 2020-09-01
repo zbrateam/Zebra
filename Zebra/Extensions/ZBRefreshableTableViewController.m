@@ -126,21 +126,21 @@
     });
 }
 
-- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
-    if (![self supportRefresh]) {
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [(ZBTabBarController *)self.tabBarController setSourceRefreshIndicatorVisible:visible];
-    });
-}
+//- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
+//    if (![self supportRefresh]) {
+//        return;
+//    }
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [(ZBTabBarController *)self.tabBarController setSourceRefreshIndicatorVisible:visible];
+//    });
+//}
 
 - (void)refreshSources:(id)sender {
     if (![self supportRefresh] || [self updateRefreshView]) {
         return;
     }
     [self setEditing:NO animated:NO];
-    [self setSourceRefreshIndicatorVisible:YES];
+//    [self setSourceRefreshIndicatorVisible:YES];
     [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
     [self updateRefreshView];
 }
@@ -153,11 +153,11 @@
     if (![self supportRefresh]) {
         return;
     }
-    [self setSourceRefreshIndicatorVisible:NO];
+//    [self setSourceRefreshIndicatorVisible:NO];
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (packageUpdates != -1) {
-            [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
-        }
+//        if (packageUpdates != -1) {
+//            [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+//        }
         [self->refreshControl endRefreshing];
         [self didEndRefreshing];
 //        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
@@ -168,7 +168,7 @@
     if (![self supportRefresh]) {
         return;
     }
-    [self setSourceRefreshIndicatorVisible:YES];
+//    [self setSourceRefreshIndicatorVisible:YES];
     [self layoutNavigationButtons];
 }
 

@@ -236,7 +236,7 @@
         if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
             
             [self cancelTasksForSource:source]; // Cancel the other task for this source.
-            [downloadDelegate finishedDownloadingSource:source warnings:NULL errors:@[error]];
+            [downloadDelegate finishedDownloadingSource:source withError:@[error]];
         }
         else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
@@ -262,7 +262,7 @@
                 [self postStatusUpdate:description atLevel:ZBLogLevelError];
                 [self cancelTasksForSource:source];
                 
-                [downloadDelegate finishedDownloadingSource:source warnings:NULL errors:@[error]];
+                [downloadDelegate finishedDownloadingSource:source withError:@[error]];
             }
             else { //Tries to download another filetype
                 NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
@@ -279,7 +279,7 @@
                     [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
                     [self cancelTasksForSource:source];
                     
-                    [downloadDelegate finishedDownloadingSource:source warnings:NULL errors:@[error]];
+                    [downloadDelegate finishedDownloadingSource:source withError:@[error]];
                 }
             }
         }
@@ -294,7 +294,7 @@
             [self postStatusUpdate:description atLevel:ZBLogLevelError];
             [self cancelTasksForSource:source];
             
-            [downloadDelegate finishedDownloadingSource:source warnings:NULL errors:@[error]];
+            [downloadDelegate finishedDownloadingSource:source withError:@[error]];
         }
     }
     else {
@@ -308,7 +308,7 @@
         }
         
         if (source.releaseTaskCompleted && source.packagesTaskCompleted) {
-            [downloadDelegate finishedDownloadingSource:source warnings:[self warningsForSource:source] errors:NULL];
+            [downloadDelegate finishedDownloadingSource:source withError:NULL];
         }
     }
     
@@ -325,29 +325,6 @@
     if (!sourceTasksMap.count) {
         [downloadDelegate finishedAllDownloads];
     }
-}
-
-- (NSArray <NSError *> *)warningsForSource:(ZBBaseSource *)source {
-    NSMutableArray *warnings = [NSMutableArray new];
-    if ([source.mainDirectoryURL.scheme isEqual:@"http"]) {
-        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningInsecure userInfo:@{
-            NSLocalizedDescriptionKey: NSLocalizedString(@"This repository is being accessed using an inseucure scheme (http). Please consider upgrading this repository to https.", @""),
-            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Switch to https to remove this warning", @""),
-            NSLocalizedRecoveryOptionsErrorKey: @[NSLocalizedString(@"Switch to https", @""), NSLocalizedString(@"Continue", @"")],
-        }];
-        [warnings addObject:insecureError];
-    }
-    
-    if ([self checkForInvalidRepo:source.mainDirectoryURL.host]) {
-        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningIncompatible userInfo:@{
-            NSLocalizedDescriptionKey: NSLocalizedString(@"This repository has been marked as incompatible with your jailbreak (%@). Installing packages from incompatible sources could result in crashes, inability to manage packages, and loss of jailbreak.", @""),
-            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Remove this source to remove this warning.", @""),
-            NSLocalizedRecoveryOptionsErrorKey: @[NSLocalizedString(@"Remove %@", @""), NSLocalizedString(@"Continue", @"")],
-        }];
-        [warnings addObject:insecureError];
-    }
-    
-    return warnings.count ? warnings : NULL;
 }
 
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(NSError *error))completion {
@@ -401,32 +378,6 @@
 }
 
 #pragma mark - Helper Methods
-
-- (BOOL)checkForInvalidRepo:(NSString *)baseURL {
-    NSURL *url = [NSURL URLWithString:baseURL];
-    NSString *host = [url host];
-    
-    if ([ZBDevice isOdyssey]) { // odyssey
-        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    if ([ZBDevice isCheckrain]) { // checkra1n
-        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
-    }
-    if ([ZBDevice isChimera]) { // chimera
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
-    }
-    if ([ZBDevice isUncover]) { // uncover
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
-    }
-    if ([ZBDevice isElectra]) { // electra
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    
-    return NO;
-}
 
 - (NSString *)guessMIMETypeForFile:(NSString *)path {
     NSString *filename = [path lastPathComponent];

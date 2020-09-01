@@ -136,7 +136,7 @@
 		89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450B23CA5E350008831F /* AUPM@2x.png */; };
 		89AD450F23CA6D260008831F /* ZBSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450E23CA6D260008831F /* ZBSettings.m */; };
 		89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B312822465D9640027FE29 /* ZBPackageViewController.xib */; };
-		89C4244D24411C1100FE5ED8 /* UIAlertController+Show.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Show.m */; };
+		89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
 		89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */; };
 		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
@@ -428,8 +428,8 @@
 		89B312822465D9640027FE29 /* ZBPackageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBPackageViewController.xib; sourceTree = "<group>"; };
 		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
 		89C112A12400E7A200854713 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
-		89C4244B24411C1100FE5ED8 /* UIAlertController+Show.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Show.h"; sourceTree = "<group>"; };
-		89C4244C24411C1100FE5ED8 /* UIAlertController+Show.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Show.m"; sourceTree = "<group>"; };
+		89C4244B24411C1100FE5ED8 /* UIAlertController+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Zebra.h"; sourceTree = "<group>"; };
+		89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Zebra.m"; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
@@ -963,8 +963,8 @@
 				8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */,
 				89AD450223CA4F010008831F /* UIImageView+Zebra.h */,
 				89AD450323CA4F010008831F /* UIImageView+Zebra.m */,
-				89C4244B24411C1100FE5ED8 /* UIAlertController+Show.h */,
-				89C4244C24411C1100FE5ED8 /* UIAlertController+Show.m */,
+				89C4244B24411C1100FE5ED8 /* UIAlertController+Zebra.h */,
+				89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */,
 				C3BF92BE2449144E00D903A7 /* UIFont+Zebra.h */,
 				C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */,
 				A5122E6724641D3E0059E434 /* ZBTableViewController.h */,
@@ -1496,7 +1496,7 @@
 				8997A9F224031007001894BF /* ZBSearchResultsTableViewController.m in Sources */,
 				896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */,
 				365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */,
-				89C4244D24411C1100FE5ED8 /* UIAlertController+Show.m in Sources */,
+				89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.m in Sources */,
 				89F213C023BED9D300F3E5E5 /* ZBBaseSource.m in Sources */,
 				7514035C24994ABF00B3C4C9 /* ZBLinkSettingsTableViewCell.m in Sources */,

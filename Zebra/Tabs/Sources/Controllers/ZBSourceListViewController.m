@@ -12,6 +12,7 @@
 
 #import <ZBDevice.h>
 
+#import <Extensions/UIAlertController+Zebra.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
@@ -143,8 +144,13 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *source = filteredSources[indexPath.row];
-    return [source canDelete];
+    if (indexPath.section == 0 && hasProblems) {
+        return NO;
+    }
+    else {
+        ZBSource *source = filteredSources[indexPath.row];
+        return [source canDelete];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -187,6 +193,41 @@
             [sourcesToRemove removeObject:source];
         }
         self.navigationItem.rightBarButtonItems[1].enabled = sourcesToRemove.count;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 1 || !hasProblems) {
+        ZBSource *source = filteredSources[indexPath.row];
+        NSError *error = source.warnings[0];
+        UIAlertController *alert = [UIAlertController alertControllerWithError:error];
+    
+        switch (error.code) {
+            case ZBSourceWarningInsecure: {
+                UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alert addAction:switchAction];
+                
+                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", @"") style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:continueAction];
+                break;
+            }
+            case ZBSourceWarningIncompatible: {
+                UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    
+                }];
+                [alert addAction:switchAction];
+                
+                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", @"") style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:continueAction];
+                break;
+            }
+            case ZBSourceErrorUnknown:
+                break;
+        }
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -294,7 +335,7 @@
 }
 
 - (void)finishedSourceRefresh {
-    NSPredicate *search = [NSPredicate predicateWithFormat:@"(warnings != nil AND warnings[SIZE] > 0) OR (errors != nil AND errors[SIZE] > 0)"];
+    NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
     hasProblems = [sources filteredArrayUsingPredicate:search].count;
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -303,7 +344,7 @@
         } else if (self.tableView.numberOfSections == 2) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        [self didEndRefreshing];
+        [self.refreshControl endRefreshing];
     });
 }
 

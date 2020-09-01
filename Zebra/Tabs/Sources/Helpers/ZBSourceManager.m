@@ -274,6 +274,57 @@
     }
 }
 
+#pragma mark - Warnings
+
+- (NSArray <NSError *> *)warningsForSource:(ZBBaseSource *)source {
+    NSMutableArray *warnings = [NSMutableArray new];
+    if ([source.mainDirectoryURL.scheme isEqual:@"http"]) {
+        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningInsecure userInfo:@{
+            NSLocalizedDescriptionKey: NSLocalizedString(@"Insecure Source", @""),
+            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository is being accessed using an inseucure scheme (http).", @""),
+            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Switch to https to remove this warning.", @""),
+        }];
+        [warnings addObject:insecureError];
+    }
+    
+    if ([self checkForInvalidRepo:source.mainDirectoryURL.host]) {
+        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningIncompatible userInfo:@{
+            NSLocalizedDescriptionKey: NSLocalizedString(@"Incompatible Source", @""),
+            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository has been marked as incompatible with your jailbreak (%@). Installing packages from incompatible sources could result in crashes, inability to manage packages, and loss of jailbreak.", @""),
+            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Remove this source to remove this warning.", @""),
+        }];
+        [warnings addObject:insecureError];
+    }
+    
+    return warnings.count ? warnings : NULL;
+}
+
+- (BOOL)checkForInvalidRepo:(NSString *)baseURL {
+    NSURL *url = [NSURL URLWithString:baseURL];
+    NSString *host = [url host];
+    
+    if ([ZBDevice isOdyssey]) { // odyssey
+        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    if ([ZBDevice isCheckrain]) { // checkra1n
+        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
+    }
+    if ([ZBDevice isChimera]) { // chimera
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
+    }
+    if ([ZBDevice isUncover]) { // uncover
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
+    }
+    if ([ZBDevice isElectra]) { // electra
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    
+    return NO;
+}
+
 #pragma mark - Download Delegate
 
 - (void)startedDownloads {
@@ -295,15 +346,21 @@
     ZBLog(@"[Zebra](ZBSourceManager) Progress update for %@", baseSource);
 }
 
-- (void)finishedDownloadingSource:(ZBBaseSource *)source warnings:(NSArray <NSError *> *)warnings errors:(NSArray <NSError *> *)errors {
+- (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *)errors {
     ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
-        source.warnings = warnings;
-        source.errors = errors;
-        [self bulkFinishedDownloadForSource:source];
         [busyList setObject:@NO forKey:source.baseFilename];
-        if (!errors.count) [completedSources addObject:source];
+        
+        if (source.errors) {
+            source.errors = errors;
+            source.warnings = [self warningsForSource:source];
+        }
+        else {
+            [completedSources addObject:source];
+        }
+        
+        [self bulkFinishedDownloadForSource:source];
     }
 }
 
@@ -330,8 +387,14 @@
 
 - (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
-    recachingNeeded = YES;
+//    recachingNeeded = YES;
     [busyList setObject:@NO forKey:source.baseFilename];
+    
+    if (error) {
+        source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
+    }
+    source.warnings = [self warningsForSource:source];
+    
     [self bulkFinishedImportForSource:source];
 }
 
