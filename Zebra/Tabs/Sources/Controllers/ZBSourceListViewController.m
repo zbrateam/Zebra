@@ -199,35 +199,41 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1 || !hasProblems) {
         ZBSource *source = filteredSources[indexPath.row];
-        NSError *error = source.warnings[0];
-        UIAlertController *alert = [UIAlertController alertControllerWithError:error];
-    
-        switch (error.code) {
-            case ZBSourceWarningInsecure: {
-                UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alert addAction:switchAction];
-                
-                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
-                [alert addAction:continueAction];
-                break;
-            }
-            case ZBSourceWarningIncompatible: {
-                UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                    
-                }];
-                [alert addAction:switchAction];
-                
-                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
-                [alert addAction:continueAction];
-                break;
-            }
-            case ZBSourceErrorUnknown:
-                break;
+        NSError *error;
+        if (source.errors && source.errors.count) {
+            error = source.errors.firstObject;
+        }
+        else if (source.warnings && source.warnings.count) {
+            error = source.warnings.firstObject;
         }
         
-        [self presentViewController:alert animated:YES completion:nil];
+        if (error) {
+            UIAlertController *alert = [UIAlertController alertControllerWithError:error];
+        
+            switch (error.code) {
+                case ZBSourceWarningInsecure: {
+                    UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alert addAction:switchAction];
+                    
+                    UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
+                    [alert addAction:continueAction];
+                    break;
+                }
+                default: {
+                    UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                        
+                    }];
+                    [alert addAction:switchAction];
+                    
+                    UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
+                    [alert addAction:continueAction];
+                    break;
+                }
+            }
+            [self presentViewController:alert animated:YES completion:nil];
+        }
     }
 }
 

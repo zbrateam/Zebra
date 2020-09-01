@@ -37,7 +37,9 @@
 @implementation UIAlertController (Zebra)
 
 + (id)alertControllerWithError:(NSError *)error {
-    return [UIAlertController alertControllerWithTitle:error.localizedDescription message:error.localizedFailureReason preferredStyle:UIAlertControllerStyleAlert];
+    NSString *title = error.localizedFailureReason ? error.localizedDescription : [NSString stringWithFormat:NSLocalizedString(@"Error %ld", @""), (long)error.code];
+    NSString *message = error.localizedFailureReason ?: error.localizedDescription;
+    return [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
 }
 
 - (void)show {

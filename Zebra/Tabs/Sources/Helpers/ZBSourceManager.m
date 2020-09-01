@@ -346,12 +346,12 @@
 }
 
 - (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *)errors {
-    ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
+    NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
         [busyList setObject:@NO forKey:source.baseFilename];
         
-        if (source.errors) {
+        if (errors && errors.count) {
             source.errors = errors;
             source.warnings = [self warningsForSource:source];
         }
