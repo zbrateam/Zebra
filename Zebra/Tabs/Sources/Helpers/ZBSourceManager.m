@@ -281,8 +281,7 @@
     if ([source.mainDirectoryURL.scheme isEqual:@"http"]) {
         NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningInsecure userInfo:@{
             NSLocalizedDescriptionKey: NSLocalizedString(@"Insecure Source", @""),
-            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository is being accessed using an inseucure scheme (http).", @""),
-            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Switch to https to remove this warning.", @""),
+            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository is being accessed using an insecure scheme (HTTP).", @""),
         }];
         [warnings addObject:insecureError];
     }

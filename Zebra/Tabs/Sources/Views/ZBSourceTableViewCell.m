@@ -85,6 +85,8 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.iconImageView sd_cancelCurrentImageLoad];
+    self.tintColor = [UIColor accentColor];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 @end

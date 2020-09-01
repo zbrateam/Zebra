@@ -209,17 +209,17 @@
                 }];
                 [alert addAction:switchAction];
                 
-                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", @"") style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
                 [alert addAction:continueAction];
                 break;
             }
             case ZBSourceWarningIncompatible: {
-                UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                     
                 }];
                 [alert addAction:switchAction];
                 
-                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Continue", @"") style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
                 [alert addAction:continueAction];
                 break;
             }
