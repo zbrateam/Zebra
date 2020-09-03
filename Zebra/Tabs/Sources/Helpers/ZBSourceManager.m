@@ -408,53 +408,67 @@
 #pragma mark - Source Delegate Notifiers
 
 - (void)bulkStartedSourceRefresh {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate startedSourceRefresh];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(startedSourceRefresh)]) {
+            [delegate startedSourceRefresh];
+        }
     }
 }
 
 - (void)bulkStartedDownloadForSource:(ZBBaseSource *)source {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate startedDownloadForSource:source];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(startedDownloadForSource:)]) {
+            [delegate startedDownloadForSource:source];
+        }
     }
 }
 
 - (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-//        if ([delegate respondsToSelector:@selector(finishedDownloadingSource:warnings:errors:)]) {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(finishedDownloadForSource:)]) {
             [delegate finishedDownloadForSource:source];
-//        }
+        }
     }
 }
 
 - (void)bulkStartedImportForSource:(ZBBaseSource *)source {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate startedImportForSource:source];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(startedImportForSource:)]) {
+            [delegate startedImportForSource:source];
+        }
     }
 }
 
 - (void)bulkFinishedImportForSource:(ZBBaseSource *)source {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate finishedImportForSource:source];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(finishedImportForSource:)]) {
+            [delegate finishedImportForSource:source];
+        }
     }
 }
 
 - (void)bulkFinishedSourceRefresh {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate finishedSourceRefresh];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(finishedSourceRefresh)]) {
+            [delegate finishedSourceRefresh];
+        }
     }
 }
 
 
 - (void)bulkAddedSources:(NSSet <ZBBaseSource *> *)sources {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate addedSources:sources];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(addedSources:)]) {
+            [delegate addedSources:sources];
+        }
     }
 }
 
 - (void)bulkRemovedSources:(NSSet <ZBBaseSource *> *)sources {
-    for (id <ZBSourceDelegate> delegate in delegates) {
-        [delegate removedSources:sources];
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(removedSources:)]) {
+            [delegate removedSources:sources];
+        }
     }
 }
 
