@@ -28,6 +28,7 @@
 @import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
+    ZBDatabaseManager *databaseManager;
     NSUserDefaults *defaults;
     NSArray *packages;
     NSArray *availableOptions;

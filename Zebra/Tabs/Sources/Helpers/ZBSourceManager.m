@@ -190,8 +190,7 @@
     }
     
     if (requested || needsRefresh) {
-        //FIXME: This is just a temporary call, caching will be needed in the final release
-        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:NO error:nil];
+        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:YES error:nil];
     }
 }
 
@@ -199,6 +198,7 @@
     if (refreshInProgress)
         return;
     
+    [self bulkStartedSourceRefresh];
     downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
     [downloadManager downloadSources:sources useCaching:TRUE];
 }
@@ -406,6 +406,12 @@
 }
 
 #pragma mark - Source Delegate Notifiers
+
+- (void)bulkStartedSourceRefresh {
+    for (id <ZBSourceDelegate> delegate in delegates) {
+        [delegate startedSourceRefresh];
+    }
+}
 
 - (void)bulkStartedDownloadForSource:(ZBBaseSource *)source {
     for (id <ZBSourceDelegate> delegate in delegates) {

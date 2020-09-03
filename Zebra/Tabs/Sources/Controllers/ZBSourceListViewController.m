@@ -19,7 +19,6 @@
 
 @interface ZBSourceListViewController () {
     UISearchController *searchController;
-    ZBSourceManager *sourceManager;
     NSMutableArray *sourcesToRemove;
     UIBarButtonItem *addButton;
     BOOL hasProblems;
@@ -47,7 +46,6 @@
         searchController.delegate = self;
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         
-        sourceManager = [ZBSourceManager sharedInstance];
         sources = [sourceManager.sources mutableCopy];
         filteredSources = [sources copy];
         hasProblems = NO;
@@ -342,6 +340,8 @@
 }
 
 - (void)finishedSourceRefresh {
+    [super finishedSourceRefresh];
+    
     NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
     hasProblems = [sources filteredArrayUsingPredicate:search].count;
 
@@ -351,7 +351,6 @@
         } else if (!self->hasProblems && self.tableView.numberOfSections == 2) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        [self.refreshControl endRefreshing];
     });
 }
 

@@ -25,6 +25,7 @@
 @import FirebaseAnalytics;
 
 @interface ZBPackageListTableViewController () {
+    ZBDatabaseManager *databaseManager;
     ZBSortingType selectedSortingType;
     NSArray <ZBPackage *> *packages;
     NSArray <ZBPackage *> *sortedPackages;
@@ -46,8 +47,8 @@
 @synthesize source;
 @synthesize section;
 
-- (BOOL)supportRefresh {
-    return ![self source];
++ (BOOL)supportRefresh {
+    return NO;
 }
 
 - (BOOL)useBatchLoad {
@@ -106,13 +107,6 @@
     [self configureSegmentedController];
 }
 
-- (void)layoutNavigationButtonsRefreshing {
-    [super layoutNavigationButtonsRefreshing];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.rightBarButtonItem = nil;
-    });
-}
-
 - (void)updateCollation {
     switch (selectedSortingType) {
         case ZBSortingTypeABC:
@@ -159,7 +153,6 @@
         } else {
             self->sortedPackages = nil;
         }
-        [self layoutNavigationButtons];
         self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
