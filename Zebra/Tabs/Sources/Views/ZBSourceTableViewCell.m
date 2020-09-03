@@ -34,13 +34,13 @@
     spinner.color = [UIColor grayColor];
 }
 
-- (void)setSource:(ZBSource *)source {
+- (void)setSource:(ZBBaseSource *)source {
     self.sourceLabel.text = source.label;
     self.urlLabel.text = source.repositoryURI;
     [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     if (source.errors.count) {
-        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        self.accessoryType = [source isKindOfClass:[ZBSource class]] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryDetailButton;
         self.tintColor = [UIColor systemPinkColor];
     } else if (source.warnings.count) {
         self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;

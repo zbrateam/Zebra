@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-@class ZBSource;
+@class ZBBaseSource;
 
 @import UIKit;
 
@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
 - (void)setDisabled:(BOOL)disabled;
-- (void)setSource:(ZBSource *)source;
+- (void)setSource:(ZBBaseSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END
