@@ -269,7 +269,7 @@
     }
     
     UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] useCaching:YES error:nil];
+        [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] useCaching:NO error:nil];
     }];
     refreshAction.image = [UIImage imageNamed:@"arrow_clockwise"];
     [actions addObject:refreshAction];
@@ -348,7 +348,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->hasProblems && self.tableView.numberOfSections == 1) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (self.tableView.numberOfSections == 2) {
+        } else if (!self->hasProblems && self.tableView.numberOfSections == 2) {
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
         [self.refreshControl endRefreshing];
