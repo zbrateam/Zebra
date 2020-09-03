@@ -175,9 +175,10 @@
     ZBSource *source = filteredSources[indexPath.row];
     if (!self.editing) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        
-        ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:source editOnly:NO];
-        [self.navigationController pushViewController:sections animated:YES];
+        if ([source isKindOfClass:[ZBSource class]]) {
+            ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:source editOnly:NO];
+            [self.navigationController pushViewController:sections animated:YES];
+        }
     }
     else {
         [sourcesToRemove addObject:source];
