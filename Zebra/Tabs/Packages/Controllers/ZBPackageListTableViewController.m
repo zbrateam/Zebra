@@ -59,13 +59,12 @@
     [super viewDidLoad];
     [self applyLocalization];
 
+    databaseManager = [ZBDatabaseManager sharedInstance];
     selectedSortingType = [ZBSettings packageSortingType];
     if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    
-    self.navigationItem.largeTitleDisplayMode = [self source] ? UINavigationItemLargeTitleDisplayModeNever : UINavigationItemLargeTitleDisplayModeAlways;
     
 //    if (@available(iOS 13.0, *)) {
 //    } else {        
@@ -156,7 +155,7 @@
         self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
-        [self.tableView reloadData];
+        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationAutomatic];
     });
 }
 
