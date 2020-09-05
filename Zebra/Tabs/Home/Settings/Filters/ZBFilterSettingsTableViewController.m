@@ -54,11 +54,6 @@
     [self refreshTable];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self refreshTable];
-}
-
 - (void)refreshTable {
     filteredSections = [[ZBSettings filteredSections] mutableCopy];
     
@@ -396,14 +391,6 @@
     NSString *email = [blockedAuthors allKeys][indexPath.row];
     NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
 
-    return aliases;
-}
-
-- (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
-    ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
-    NSString *email = [blockedAuthors allKeys][indexPath.row];
-    NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
-    
     return aliases;
 }
 

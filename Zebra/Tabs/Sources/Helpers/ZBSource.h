@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)paymentSecret:(NSError **)error;
 - (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion;
+- (void)signOut;
 - (BOOL)isSignedIn;
 - (NSURL *)paymentVendorURL;
 - (BOOL)suppotsPaymentAPI;

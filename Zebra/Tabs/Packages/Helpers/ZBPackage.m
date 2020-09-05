@@ -989,6 +989,10 @@
 }
 
 - (void)purchase:(void (^)(BOOL success, NSError *_Nullable error))completion {
+    [self purchase:YES completion:completion];
+}
+
+- (void)purchase:(BOOL)tryAgain completion:(void (^)(BOOL success, NSError *_Nullable error))completion {
     ZBSource *source = [self source];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
