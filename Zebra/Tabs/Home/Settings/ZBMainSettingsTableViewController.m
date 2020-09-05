@@ -118,6 +118,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBSearch:
         case ZBConsole:
         case ZBPackages:
+        case ZBSources:
             return 1;
         case ZBInterface:
             return 3;
@@ -131,7 +132,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             
             return 1;
         }
-        case ZBSources:
         case ZBReset:
             return 2;
         default:
