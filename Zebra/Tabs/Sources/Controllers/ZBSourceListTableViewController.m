@@ -346,7 +346,7 @@
                 [sources addObject:host];
             }
         }
-        if (![sources containsObject:url.host]) {
+        if (![sources containsObject:url]) {
             NSString *finalURLString = url.absoluteString;
             if (![finalURLString hasSuffix:@"/"]) {
                 finalURLString = [finalURLString stringByAppendingString:@"/"];

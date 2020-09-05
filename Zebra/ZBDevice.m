@@ -319,7 +319,7 @@
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.bootstrapped"];
+        value = [self needsSimulation] ? YES : [self _isRegularFile:@"/.bootstrapped"];
     });
     return value;
 }

@@ -54,6 +54,11 @@
     [self refreshTable];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshTable];
+}
+
 - (void)refreshTable {
     filteredSections = [[ZBSettings filteredSections] mutableCopy];
     
@@ -64,7 +69,7 @@
     NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
         ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
-        if (source == nil) {
+        if (!source) {
             // This source has been removed after filtering sections in it, we need to remove this baseFilename
             [outdatedFilteredSources addObject:baseFilename];
             continue;
@@ -391,6 +396,14 @@
     NSString *email = [blockedAuthors allKeys][indexPath.row];
     NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
 
+    return aliases;
+}
+
+- (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
+    ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
+    NSString *email = [blockedAuthors allKeys][indexPath.row];
+    NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
+    
     return aliases;
 }
 

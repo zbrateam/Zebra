@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Kopiere alle Quellen von %@ nach Zebra";
 "Utility source for %@" = "Dienstprogrammquelle für %@";
 "Transfer Sources" = "Quellen übertragen";
-"Verifying Source" = "Quelle wird verifiziert";
-"Verifying Sources" = "Quellen werden verifiziert";
 "Import" = "Importieren";
 "Verifying..." = "Wird überprüft …";
 "Confirm Import" = "Import bestätigen";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Lokal installierte Pakete";
 
 "Add" = "Hinzufügen";
+"View" = "Ansehen";
 "Add Sources" = "Quellen hinzufügen";
 "Add Multiple" = "Mehrere hinzufügen";
 "Enter Source URL" = "Quellen-URL eingeben";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Du hast diese Quellen bereits hinzugefügt.";
 "Unable to locate an APT repository at:" = "APT-Quelle konnte nicht gefunden werden:";
 "Unable to locate APT repositories at:" = "APT-Quellen konnten nicht gefunden werden:";
-"View" = "Ansehen";
+"Error while downloading %@: %@" = "Fehler beim Herunterladen von %@: %@";
 
 "A total of %d files will be downloaded" = "Es werden insgesamt %d Dateien runtergeladen";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Einen Abschnitt auswählen";
 "Hide packages in these sections." = "Pakete in diesen Abschnitten ausblenden.";
 
-"Sources" = "Quellen";
 "Select a Source" = "Eine Quelle auswählen";
 "Hide packages in these sections from specific sources." = "Pakete in diesen Abschnitten von bestimmten Quellen ausblenden.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Paket nicht verfügbar";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Das von Ihnen angeforderte Paket ist nicht mehr verfügbar. Es wurde möglicherweise aus Ihren Quellen entfernt oder die angeforderte Paket-ID war falsch.";
+
+"%d Seconds" = "%d Sekunden";
+"Download Timeout" = "Zeitüberschreitung beim Herunterladen";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurieren Sie die Zeitspanne, die Zebra auf die Antwort einer Quelle wartet, bevor es mit einer Zeitüberschreitung antwortet.";
+"This timer will reset every time Zebra receives new information from a source." = "Dieser Timer wird jedes Mal zurückgesetzt, wenn Zebra neue Informationen von einer Quelle erhält.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Konteninformationen konnten von der Quelle nicht abgerufen werden. Bitte melden Sie sich bei der Quelle ab und wieder an und versuchen Sie es anschließend erneut.";

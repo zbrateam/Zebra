@@ -180,10 +180,10 @@
 - (void)createHeader {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
-        [self.collectionView reloadData];
         [UIView animateWithDuration:.25f animations:^{
             self.tableView.tableHeaderView.frame = CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 180);
         }];
+        [self.collectionView reloadData];
         [self.tableView endUpdates];
     });
 }

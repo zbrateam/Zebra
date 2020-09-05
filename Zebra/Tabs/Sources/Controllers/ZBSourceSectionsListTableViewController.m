@@ -276,6 +276,10 @@
     }
     return cell;
 }
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing && indexPath.row == 0) return nil;
+    return indexPath;
+}
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editing && indexPath.row == 0) return nil;

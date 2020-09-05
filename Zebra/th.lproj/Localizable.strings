@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "นำซอร์สทั้งหมดจาก %@ ไปยัง Zebra";
 "Utility source for %@" = "ซอร์สจิปาถะสำหรับ %@";
 "Transfer Sources" = "ถ่ายโอนซอร์ส";
-"Verifying Source" = "กำลังตรวจสอบซอร์ส";
-"Verifying Sources" = "Verifikacija izvora";
 "Import" = "นําเข้า";
 "Verifying..." = "กำลังตรวจสอบ...";
 "Confirm Import" = "ยืนยันการนำเข้า";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "โปรแกรมที่ลงจากเครื่อง";
 
 "Add" = "เพิ่ม";
+"View" = "ดู";
 "Add Sources" = "เพิ่มซอร์ส";
 "Add Multiple" = "เพิ่มหลายอัน";
 "Enter Source URL" = "Masukkan URL Sumber";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "คุณได้เพิ่มซอร์สเหล่านี้ไปแล้ว";
 "Unable to locate an APT repository at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
 "Unable to locate APT repositories at:" = "ไม่สามารถระบุที่อยู่ของซอร์ส APT ที่:";
-"View" = "ดู";
+"Error while downloading %@: %@" = "ข้อผิดพลาดขณะดาวน์โหลด %@: %@";
 
 "A total of %d files will be downloaded" = "%d ไฟล์จะถูกดาวน์โหลด";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "เลือกประเภท";
 "Hide packages in these sections." = "ซ่อนโปรแกรมจากประเภทเหล่านี้";
 
-"Sources" = "ซอร์ส";
 "Select a Source" = "เลือกซอร์ส";
 "Hide packages in these sections from specific sources." = "ซ่อนโปรแกรมประเภทนี้ จากเฉพาะซอร์สนี้";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "ไม่มีโปรแกรม";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "ไม่มีโปรแกรมที่คุณต้องการ มันอาจถูกลบไปจากซอร์สของคุณ หรือ ID ของโปรแกรมที่ร้องขอนั้นไม่ถูกต้อง";
+
+"%d Seconds" = "%d วินาที";
+"Download Timeout" = "หมดเวลาการดาวน์โหลด";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "ปรับระยะเวลาที่ Zebra จะใช้ในการรอให้ซอร์สตอบสนองก่อนหมดเวลาที่กำหนดไว้";
+"This timer will reset every time Zebra receives new information from a source." = "ตัวจับเวลาจะเริ่มต้นใหม่ทุกครั้งที่ Zebra ได้รับข้อมูลใหม่จากซอร์สนั้นๆ";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "ไม่สามารถเข้าถึงข้อมูลบัญชีจากซอร์สนี้ได้ โปรดลงชื่อออกและลงชื่อเข้าใช้บัญชีนี้อีกครั้ง";
