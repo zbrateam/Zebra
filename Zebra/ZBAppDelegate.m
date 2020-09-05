@@ -226,26 +226,6 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self registerForScreenshotNotifications];
     
     self.window.tintColor = [UIColor accentColor];
-    if ([ZBDatabaseManager needsMigration]) {
-        NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
-        if (url) {
-            if ([[url scheme] isEqualToString:@"file"] && [[url pathExtension] isEqualToString:@"list"]) {
-                NSString *listPath = [ZBAppDelegate sourcesListPath];
-                
-                NSError *removeError;
-                if ([[NSFileManager defaultManager] fileExistsAtPath:listPath]) {
-                    [[NSFileManager defaultManager] removeItemAtPath:listPath error:&removeError];
-                }
-                
-                if (!removeError) {
-                    [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:listPath error:nil];
-                }
-            }
-        }
-        
-        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
-    }
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
     
     return YES;

@@ -24,7 +24,7 @@
 
 @interface ZBTabBarController () {
     ZBSourceManager *sourceManager;
-    UIActivityIndicatorView *indicator;
+    UIActivityIndicatorView *sourceRefreshIndicator;
 }
 
 @property (nonatomic) UINavigationController *popupController;
@@ -45,6 +45,14 @@
     if (self) {
         sourceManager = [ZBSourceManager sharedInstance];
         [sourceManager addDelegate:self];
+        
+        UITabBar.appearance.tintColor = [UIColor accentColor];
+        UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
+        
+        self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+        sourceRefreshIndicator.color = [UIColor whiteColor];
     }
     
     return self;
@@ -52,23 +60,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    UITabBar.appearance.tintColor = [UIColor accentColor];
-    UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     
-    self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
-    self->indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-    CGRect indicatorFrame = self->indicator.frame;
-    self->indicator.frame = indicatorFrame;
-    self->indicator.color = [UIColor whiteColor];
+    NSError *refreshError = NULL;
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:NO error:&refreshError];
+    if (refreshError) {
+        [ZBAppDelegate sendErrorToTabController:refreshError.localizedDescription];
+    }
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-    [self setPackageUpdateBadgeValue:(int)badgeValue];
-    [self updatePackagesTableView];
-    
-    //TODO: Refresh sources on load if they need to be
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
+    [self setPackageUpdateBadgeValue:badgeValue];
     
     NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
@@ -80,13 +80,13 @@
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
 }
 
-- (void)setPackageUpdateBadgeValue:(int)updates {
+- (void)setPackageUpdateBadgeValue:(NSInteger)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
         if (updates > 0) {
-            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
+            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld", (long)updates]];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
         } else {
             [packagesTabBarItem setBadgeValue:nil];
@@ -115,10 +115,10 @@
             sourcesItem.badgeValue = @"";
             
             UIView *badge = [[sourcesItem view] valueForKey:@"_badge"];
-            self->indicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-            self->indicator.center = badge.center;
-            [self->indicator startAnimating];
-            [badge addSubview:self->indicator];
+            self->sourceRefreshIndicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+            self->sourceRefreshIndicator.center = badge.center;
+            [self->sourceRefreshIndicator startAnimating];
+            [badge addSubview:self->sourceRefreshIndicator];
 //            self->sourcesUpdating = YES;
         } else {
             sourcesItem.badgeValue = nil;

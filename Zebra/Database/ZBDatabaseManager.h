@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic) sqlite3 * _Nullable database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
-@property (nonatomic) BOOL needsToPresentRefresh;
+@property (nonatomic) BOOL needsToPresentRefresh DEPRECATED_MSG_ATTRIBUTE("ZBRefreshController should no longer be presented. This property will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief The database delegates

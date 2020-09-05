@@ -12,6 +12,7 @@
 
 #import <ZBDevice.h>
 
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Helpers/ZBSourceManager.h>
@@ -157,7 +158,7 @@
     if (indexPath.section == 0 && hasProblems) {
         cell.detailTextLabel.text = @"Some of your sources have warnings and errors.";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
         cell.detailTextLabel.numberOfLines = 0;
         cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
     }

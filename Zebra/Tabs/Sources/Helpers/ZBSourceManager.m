@@ -189,7 +189,7 @@
         }
     }
     
-    if (requested || needsRefresh) {
+    if (requested || needsRefresh || [ZBDatabaseManager needsMigration]) {
         [self refreshSources:[NSSet setWithArray:self.sources] useCaching:YES error:nil];
     }
 }
