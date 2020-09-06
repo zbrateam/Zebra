@@ -394,7 +394,7 @@
     
     NSMutableArray *mutableSources = [_sources mutableCopy];
     [mutableSources replaceObjectAtIndex:[mutableSources indexOfObject:source] withObject:source];
-    _sources = mutableSources;
+    _sources = [mutableSources sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
     
     if (error) {
         source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
