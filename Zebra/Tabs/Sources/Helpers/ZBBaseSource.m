@@ -469,4 +469,13 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", self.baseFilename]];
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
+}
+
+- (NSString *)debugDescription
+{
+    return self.label;
+}
+
 @end

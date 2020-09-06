@@ -9,6 +9,7 @@
 #import <Console/ZBLogLevel.h>
 
 @class ZBBaseSource;
+@class ZBSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)databaseCompletedUpdate:(int)packageUpdates;
 @optional
 - (void)startedImportingSource:(ZBBaseSource *)source;
-- (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *_Nullable)error;
+- (void)finishedImportingSource:(ZBSource *)source error:(NSError *_Nullable)error;
 - (void)setSource:(ZBBaseSource *)source busy:(BOOL)busy DEPRECATED_MSG_ATTRIBUTE("Please use startedImportingSource or finishedImportingSource instead");
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 @end

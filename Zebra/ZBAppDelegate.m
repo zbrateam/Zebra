@@ -226,6 +226,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self registerForScreenshotNotifications];
     
     self.window.tintColor = [UIColor accentColor];
+    self.window.rootViewController = [[ZBTabBarController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
     
     return YES;

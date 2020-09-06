@@ -150,10 +150,6 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_"];
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
-}
-
 - (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {
     if (![self suppotsPaymentAPI]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];

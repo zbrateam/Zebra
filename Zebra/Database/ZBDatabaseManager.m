@@ -285,60 +285,58 @@
         sqlite3_exec(database, "CREATE INDEX tag_PACKAGEVERSION_SNAPSHOT ON PACKAGES_SNAPSHOT (PACKAGE, VERSION);", NULL, 0, NULL);
         sqlite3_int64 currentDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
         
-//        dispatch_queue_t queue = dispatch_queue_create("xyz.willy.Zebra.repoParsing", NULL);
         for (ZBBaseSource *source in sources) {
-//            dispatch_async(queue, ^{
-                [self bulkStartedImportingSource:source];
-                [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
-                
-                //Deal with the source first
-                int sourceID = [self sourceIDFromBaseFileName:[source baseFilename]];
-                if (!source.releaseFilePath && source.packagesFilePath) { //We need to create a dummy source (for sources with no Release file)
-                    if (sourceID == -1) {
-                        sourceID = [self nextSourceID];
-                        createDummySource([ZBDatabaseManager baseSourceStructFromSource:source], self->database, sourceID);
+            [self bulkStartedImportingSource:source];
+            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Parsing %@", @""), [source repositoryURI]] atLevel:ZBLogLevelDescript];
+            
+            //Deal with the source first
+            int sourceID = [self sourceIDFromBaseFileName:[source baseFilename]];
+            if (!source.releaseFilePath && source.packagesFilePath) { //We need to create a dummy source (for sources with no Release file)
+                if (sourceID == -1) {
+                    sourceID = [self nextSourceID];
+                    createDummySource([ZBDatabaseManager baseSourceStructFromSource:source], self->database, sourceID);
+                }
+            }
+            else if (source.releaseFilePath) {
+                if (sourceID == -1) { // Source does not exist in database, create it.
+                    sourceID = [self nextSourceID];
+                    if (importSourceToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
+                        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
+                    }
+                } else {
+                    if (updateSourceInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
+                        [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
                     }
                 }
-                else if (source.releaseFilePath) {
-                    if (sourceID == -1) { // Source does not exist in database, create it.
-                        sourceID = [self nextSourceID];
-                        if (importSourceToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
-                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
-                        }
-                    } else {
-                        if (updateSourceInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
-                            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
-                        }
-                    }
+                
+                if ([source.repositoryURI hasPrefix:@"https"]) {
+                    NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
                     
-                    if ([source.repositoryURI hasPrefix:@"https"]) {
-                        NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
-
-                        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                            NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                            if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-                                if ([endpoint hasPrefix:@"https"]) {
-                                    [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Adding Payment Vendor URL for %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
-                                    if ([self openDatabase] == SQLITE_OK) {
-                                        addPaymentEndpointForSource([endpoint UTF8String], self->database, sourceID);
-                                        [self closeDatabase];
-                                    }
+                    NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                        NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                        if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
+                            if ([endpoint hasPrefix:@"https"]) {
+                                [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Adding Payment Vendor URL for %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
+                                if ([self openDatabase] == SQLITE_OK) {
+                                    addPaymentEndpointForSource([endpoint UTF8String], self->database, sourceID);
+                                    [self closeDatabase];
                                 }
                             }
-                        }];
-
-                        [task resume];
-                    }
+                        }
+                    }];
+                    
+                    [task resume];
                 }
-                
-                //Deal with the packages
-                if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, sourceID, currentDate) != PARSEL_OK) {
-                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
-                }
-                
-                [self bulkFinishedImportingSource:source error:nil];
-//            });
+            }
+            
+            //Deal with the packages
+            if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, sourceID, currentDate) != PARSEL_OK) {
+                [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
+            }
+            
+            ZBSource *importedSource = [self sourceFromSourceID:sourceID];
+            [self bulkFinishedImportingSource:importedSource error:nil];
         }
         
         sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);

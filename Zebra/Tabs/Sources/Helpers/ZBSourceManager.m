@@ -384,10 +384,13 @@
     [self bulkStartedImportForSource:source];
 }
 
-- (void)finishedImportingSource:(ZBBaseSource *)source error:(NSError *)error {
+- (void)finishedImportingSource:(ZBSource *)source error:(NSError *)error {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
-//    recachingNeeded = YES;
     [busyList setObject:@NO forKey:source.baseFilename];
+    
+    NSMutableArray *mutableSources = [_sources mutableCopy];
+    [mutableSources replaceObjectAtIndex:[mutableSources indexOfObject:source] withObject:source];
+    _sources = mutableSources;
     
     if (error) {
         source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
