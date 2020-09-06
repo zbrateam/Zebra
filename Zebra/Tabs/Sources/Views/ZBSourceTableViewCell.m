@@ -36,7 +36,7 @@
 
 - (void)setSource:(ZBBaseSource *)source {
     self.sourceLabel.text = source.label;
-    self.urlLabel.text = source.repositoryURI;
+    self.urlLabel.text = [source isKindOfClass:[ZBSource class]] ? ((ZBSource *)source).sourceDescription : source.repositoryURI;
     [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     if (source.errors.count) {
