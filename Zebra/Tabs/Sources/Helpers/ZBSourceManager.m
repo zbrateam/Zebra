@@ -278,7 +278,7 @@
 
 - (NSArray <NSError *> *)warningsForSource:(ZBBaseSource *)source {
     NSMutableArray *warnings = [NSMutableArray new];
-    if ([source.mainDirectoryURL.scheme isEqual:@"http"]) {
+    if ([source.mainDirectoryURL.scheme isEqual:@"http"] && ![self checkForAncientRepo:source.mainDirectoryURL.host]) {
         NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningInsecure userInfo:@{
             NSLocalizedDescriptionKey: NSLocalizedString(@"Insecure Source", @""),
             NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository is being accessed using an insecure scheme (HTTP).", @""),
@@ -296,6 +296,10 @@
     }
     
     return warnings.count ? warnings : NULL;
+}
+
+- (BOOL)checkForAncientRepo:(NSString *)baseURL {
+    return [baseURL isEqualToString:@"apt.thebigboss.org"] || [baseURL isEqualToString:@"apt.modmyi.com"] || [baseURL isEqualToString:@"cydia.zodttd.com"] || [baseURL isEqualToString:@"apt.saurik.com"];
 }
 
 - (BOOL)checkForInvalidRepo:(NSString *)baseURL {
