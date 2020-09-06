@@ -155,7 +155,7 @@
         self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
-        [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView reloadData];
     });
 }
 
