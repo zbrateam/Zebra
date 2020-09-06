@@ -54,6 +54,18 @@
     return self;
 }
 
+- (id)initWithURL:(NSURL *)url {
+    self = [self init];
+    
+    if (self) {
+        searchController.searchBar.text = [url absoluteString];
+        ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:url];
+        
+    }
+    
+    return self;
+}
+
 - (void)downloadSources {
     if (!sources) sources = [NSMutableArray new];
     if (!filteredSources) filteredSources = [NSMutableArray new];

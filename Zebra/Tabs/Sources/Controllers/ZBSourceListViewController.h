@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray <ZBSource *> *sources;
     NSArray <ZBSource *> *filteredSources;
 }
+- (void)handleURL:(NSURL *)url;
 @end
 
 NS_ASSUME_NONNULL_END

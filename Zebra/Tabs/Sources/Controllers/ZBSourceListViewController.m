@@ -81,6 +81,13 @@
     [self presentViewController:navController animated:YES completion:nil];
 }
 
+- (void)presentAddViewWithURL:(NSURL *)url {
+    ZBSourceAddViewController *addView = [[ZBSourceAddViewController alloc] initWithURL:url];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addView];
+    
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
 - (void)removeSources {
     NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to remove %lu sources?", @""), (unsigned long)sourcesToRemove.count];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -111,6 +118,43 @@
     else {
         self.navigationItem.rightBarButtonItems = @[addButton];
         [sourcesToRemove removeAllObjects];
+    }
+}
+
+- (void)handleURL:(NSURL *)url {
+    NSString *scheme = [url scheme];
+    NSArray *choices = @[@"file", @"zbra"];
+    
+    switch ([choices indexOfObject:scheme]) {
+        case 0:
+            // TODO: Re-implement source importing from .list
+            break;
+        case 1: {
+            NSString *path = [url path];
+            if (![path isEqualToString:@""]) {
+                NSArray *components = [path pathComponents];
+                if ([components count] >= 4) {
+                    NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
+                    if (![urlString hasSuffix:@"/"]) {
+                        urlString = [urlString stringByAppendingString:@"/"];
+                    }
+                    
+                    NSURL *url;
+                    if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
+                        url = [NSURL URLWithString:urlString];
+                    } else {
+                        url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
+                    }
+                    
+                    if (url && url.scheme && url.host) {
+                        [self presentAddViewWithURL:url];
+                    } else {
+                        [self presentAddView];
+                    }
+                }
+                break;
+            }
+        }
     }
 }
 
@@ -213,7 +257,6 @@
             switch (error.code) {
                 case ZBSourceWarningInsecure: {
                     UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        
                     }];
                     [alert addAction:switchAction];
                     

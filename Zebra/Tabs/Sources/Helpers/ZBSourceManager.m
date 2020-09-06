@@ -213,7 +213,7 @@
         return;
     }
     else {
-        NSMutableArray *debLines = [NSMutableArray arrayWithObject:[NSString stringWithFormat:@"\n# Added at %@\n", [NSDate date]]];
+        NSMutableArray *debLines = [NSMutableArray new];
         for (ZBBaseSource *baseSource in sources) {
             [debLines addObject:[baseSource debLine]];
         }

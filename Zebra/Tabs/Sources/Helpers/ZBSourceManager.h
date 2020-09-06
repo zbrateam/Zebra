@@ -72,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isSourceBusy:(ZBBaseSource *)source;
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
+
+- (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error;
 @end
 
 NS_ASSUME_NONNULL_END

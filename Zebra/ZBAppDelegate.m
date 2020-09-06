@@ -265,8 +265,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 [tabController setSelectedIndex:ZBTabSources];
                     
                 ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                //FIXME: Fix!
-                //                [sourceListController handleImportOf:url];
+                
+                [sourceListController handleURL:url];
             }
             break;
         }
@@ -286,8 +286,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                     [tabController setSelectedIndex:ZBTabSources];
                     
                     ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    //FIXME: Fix!
-                    //                    [sourceListController handleURL:url];
+                    
+                    [sourceListController handleURL:url];
                     break;
                 }
                 case 2: {
@@ -373,8 +373,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [tabController setSelectedIndex:ZBTabSources];
         
         ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        //FIXME: Fix!
-//        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
+        
+        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     }
 }
 

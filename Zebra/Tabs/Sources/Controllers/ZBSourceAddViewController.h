@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceAddViewController : UITableViewController <ZBSourceVerificationDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
 - (instancetype)init;
+- (instancetype)initWithURL:(NSURL *)url;
 @end
 
 NS_ASSUME_NONNULL_END
