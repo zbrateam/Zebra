@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "Перенести источники из %@ в Zebra";
 "Utility source for %@" = "Источник утилит для %@";
 "Transfer Sources" = "Перенести источники";
-"Verifying Source" = "Проверка источника";
-"Verifying Sources" = "Проверка источников";
 "Import" = "Импорт";
 "Verifying..." = "Проверка...";
 "Confirm Import" = "Подтвердите импорт";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Локально установленные пакеты";
 
 "Add" = "Добавить";
+"View" = "Просмотр";
 "Add Sources" = "Добавить источники";
 "Add Multiple" = "Добавить несколько";
 "Enter Source URL" = "Введите URL источника";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "Вы уже добавили эти источники.";
 "Unable to locate an APT repository at:" = "Не удалось найти APT репозиторий в:";
 "Unable to locate APT repositories at:" = "Не удалось найти APT репозитории в:";
-"View" = "Просмотр";
+"Error while downloading %@: %@" = "Ошибка при загрузке %@: %@";
 
 "A total of %d files will be downloaded" = "Всего будет загружено %d файлов";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Выберите раздел";
 "Hide packages in these sections." = "Скрыть пакеты в этих разделах.";
 
-"Sources" = "Источники";
 "Select a Source" = "Выберите источник";
 "Hide packages in these sections from specific sources." = "Скрыть пакеты в этих разделах из определенных источников.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Пакет недоступен";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Запрошенный пакет больше не доступен. Возможно, он был удалён из источников или был запрошен неверный идентификатор пакета.";
+
+"%d Seconds" = "%d секунд";
+"Download Timeout" = "Таймаут загрузки";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Укажите время ожидания источника до ошибки соединения.";
+"This timer will reset every time Zebra receives new information from a source." = "Этот таймер будет сброшен каждый раз когда Zebra получает новую информацию из источника.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Информация об учетной записи не может быть получена из источника. Пожалуйста, выйдите из источника, войдите в него и повторите попытку.";

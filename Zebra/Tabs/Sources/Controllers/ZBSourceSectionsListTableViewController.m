@@ -71,7 +71,12 @@
     
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForSource:source];
-    sectionNames = [[sectionReadout allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    sectionNames = [[sectionReadout allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
+            NSString *section1 = NSLocalizedString(obj1, @"");
+            NSString *section2 = NSLocalizedString(obj2, @"");
+            
+            return [section1 compare:section2];
+        }];
     if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     filteredSections = [[[ZBSettings filteredSources] objectForKey:[source baseFilename]] mutableCopy];
@@ -271,7 +276,6 @@
     }
     return cell;
 }
-
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editing && indexPath.row == 0) return nil;
     return indexPath;

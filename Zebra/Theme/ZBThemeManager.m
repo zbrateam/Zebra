@@ -249,7 +249,9 @@
 }
 
 - (void)configureKeyboard {
-    [self configureKeyboard:[UITextField appearance]];
+    if ([ZBThemeManager useCustomTheming]) {
+        [self configureKeyboard:[UITextField appearance]];
+    }
 }
 
 - (void)configureKeyboard:(id <UITextInputTraits>)appearance {

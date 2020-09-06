@@ -37,6 +37,7 @@
     
     if (self) {
         authors = @[];
+        newSelectedAuthors = [NSMutableArray new];
         selectedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
         newSelectedAuthors = [NSMutableArray new];
     }

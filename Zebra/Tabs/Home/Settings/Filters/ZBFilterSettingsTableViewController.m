@@ -64,7 +64,7 @@
     NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
         ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
-        if (source == nil) {
+        if (!source) {
             // This source has been removed after filtering sections in it, we need to remove this baseFilename
             [outdatedFilteredSources addObject:baseFilename];
             continue;

@@ -116,9 +116,9 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBChanges:
         case ZBMisc:
         case ZBSearch:
-        case ZBSources:
         case ZBConsole:
         case ZBPackages:
+        case ZBSources:
             return 1;
         case ZBInterface:
             return 3;
@@ -140,6 +140,44 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell;
+    if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
+        if (@available(iOS 10.3, *)) {
+            ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
+            cell.backgroundColor = [UIColor cellBackgroundColor];
+            
+            cell.label.text = NSLocalizedString(@"App Icon", @"");
+            
+            NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
+            UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+            [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
+            
+            return cell;
+        }
+    }
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc || (indexPath.section == ZBSources && indexPath.row == 1)) {
+        static NSString *cellIdentifier = @"settingsRightDetailCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        }
+    } else {
+        static NSString *cellIdentifier = @"settingsCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        }
+    }
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    cell.imageView.image = nil;
+    cell.accessoryView = nil;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.backgroundColor = [UIColor cellBackgroundColor];
+    cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    
     ZBSectionOrder section = indexPath.section;
     switch (section) {
         case ZBInterface: {
@@ -367,6 +405,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
                     [self openDocumentsDirectory];
                     break;
             }
+            break;
         }
         default:
             break;

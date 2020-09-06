@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "%@에서 Zebra로 소스 가져오기";
 "Utility source for %@" = "%@(을)를 위한 유틸리티 소스";
 "Transfer Sources" = "소스 이전";
-"Verifying Source" = "소스 검증 중";
-"Verifying Sources" = "소스 검증 중";
 "Import" = "가져오기";
 "Verifying..." = "확인 중...";
 "Confirm Import" = "가져오기 확인";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "내부에서 설치된 패키지";
 
 "Add" = "추가";
+"View" = "보기";
 "Add Sources" = "소스 추가";
 "Add Multiple" = "여러개 추가";
 "Enter Source URL" = "소스 URL 입력";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "이미 해당 소스들을 추가했습니다.";
 "Unable to locate an APT repository at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
 "Unable to locate APT repositories at:" = "다음 위치에서 APT 저장소를 찾을 수 없습니다:";
-"View" = "보기";
+"Error while downloading %@: %@" = "%@(을)를 다운로드하던 중 오류가 발생했습니다: %@";
 
 "A total of %d files will be downloaded" = "총 %d개의 파일이 다운로드됩니다.";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "섹션 선택";
 "Hide packages in these sections." = "이 섹션에서 패키지 숨기기";
 
-"Sources" = "소스";
 "Select a Source" = "소스 선택";
 "Hide packages in these sections from specific sources." = "특정 소스의 이 섹션에서 패키지 숨기기";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "패키지 사용 불가능";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "요청한 패키지는 더 이상 사용할 수 없습니다. 내 소스에서 패키지가 제거되었거나, 패키지 ID가 잘못되었을 수 있습니다.";
+
+"%d Seconds" = "%d초";
+"Download Timeout" = "다운로드 시간 초과";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Zebra가 소스가 응답하지 않으면 시간 초과 오류를 발생시키기 전까지 대기할 시간을 설정합니다.";
+"This timer will reset every time Zebra receives new information from a source." = "이 타이머는 Zebra가 소스로부터 새 정보를 받을때마다 초기화됩니다.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "소스에서 계정 정보를 가져올 수 없습니다. 소스에서 로그아웃한 뒤, 로그인하고 다시 시도하세요.";

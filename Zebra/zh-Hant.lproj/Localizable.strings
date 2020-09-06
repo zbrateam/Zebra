@@ -38,8 +38,6 @@
 "Transfer sources from %@ to Zebra" = "將 %@ 中所有的來源轉移至 Zebra";
 "Utility source for %@" = "%@ 的工具軟體來源";
 "Transfer Sources" = "匯入來源";
-"Verifying Source" = "正在驗證來源";
-"Verifying Sources" = "正在驗證來源";
 "Import" = "匯入";
 "Verifying..." = "正在驗證...";
 "Confirm Import" = "確認匯入";
@@ -69,7 +67,7 @@
 "Text" = "文字";
 "Icon" = "圖示";
 "Finish Automatically" = "自動完成";
-"Always Install Latest" = "默認安裝最新版本";
+"Always Install Latest" = "預設安裝最新版本";
 "Automatic Refresh" = "自動重新整理";
 
 // Accent Colors
@@ -157,6 +155,7 @@
 "Locally installed packages" = "本地已安裝套件";
 
 "Add" = "新增";
+"View" = "查看";
 "Add Sources" = "新增來源";
 "Add Multiple" = "新增多個";
 "Enter Source URL" = "輸入來源網址";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "您已經新增過這些來源。";
 "Unable to locate an APT repository at:" = "無法找到 APT 套件來源於：";
 "Unable to locate APT repositories at:" = "無法找到 APT 套件來源於：";
-"View" = "查看";
+"Error while downloading %@: %@" = "下載 %@ 時發生錯誤：%@";
 
 "A total of %d files will be downloaded" = "總共將下載 %d 個檔案";
 
@@ -443,7 +442,7 @@
 
 "Automatically dismiss the Console when all of its tasks have been completed." = "當所有任務完成時，自動關閉主控台。";
 
-"Always install the most recent version of a package if it is not already installed." = "如尚未安裝套件，則默認安裝最新版本。";
+"Always install the most recent version of a package if it is not already installed." = "如尚未安裝套件，則預設安裝最新版本。";
 
 // Filters
 
@@ -457,7 +456,6 @@
 "Select a Section" = "選擇類別";
 "Hide packages in these sections." = "隱藏這些類別的套件。";
 
-"Sources" = "來源";
 "Select a Source" = "選擇來源";
 "Hide packages in these sections from specific sources." = "從特定來源隱藏這些類別的套件。";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "無法取得套件";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "無法取得所請求的套件。該套件可能已被移除，或所請求的套件 ID 有誤。";
+
+"%d Seconds" = "%d 秒";
+"Download Timeout" = "下載逾時";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "調整 Zebra 等待來源回應逾時的時長。";
+"This timer will reset every time Zebra receives new information from a source." = "當 Zebra 從來源收到新資訊時，此計時器將會重置。";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "無法從來源取得帳號資訊，請重新登入後再試。";

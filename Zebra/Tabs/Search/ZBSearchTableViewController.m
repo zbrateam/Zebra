@@ -8,6 +8,7 @@
 
 #import "ZBSearchTableViewController.h"
 
+#import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Theme/ZBThemeManager.h>
 #import <ZBDevice.h>
@@ -54,6 +55,15 @@
     [super viewWillAppear:animated];
         
     [((ZBSearchResultsTableViewController *)searchController.searchResultsController) setColors];
+    [self.tableView reloadData];
+    
+    if (@available(iOS 11.0, *)) {
+    }
+    else {
+        [[ZBThemeManager sharedInstance] configureSearchBar:searchController.searchBar];
+        UIView *headerView = [self.tableView headerViewForSection:0];
+        [headerView setNeedsDisplay];
+    }
 }
 
 - (void)setupView {
@@ -210,7 +220,7 @@
     UILabel *titleLabel = [[UILabel alloc] init];
     titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
     titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-    titleLabel.textColor = [UIColor primaryTextColor]; // FIXME: color doesn't update right away on iOS 12 and below
+    titleLabel.textColor = [UIColor primaryTextColor];
     
     titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
     [headerView addSubview:titleLabel];
@@ -265,7 +275,7 @@
 
 - (void)handleURL:(NSURL *_Nullable)url {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (url == NULL) {
+        if (url == nil) {
             [self setupView];
             
             [self->searchController.searchBar becomeFirstResponder];

@@ -11,25 +11,25 @@
 "Done" = "მზად არის";
 "Loading..." = "იტვირთება...";
 "Clear" = "გასუფთავება";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"An Error Occurred" = "დაფიქსირდა შეცდომა";
+"Dismiss" = "უარყოფა";
+"Downloads" = "ჩამოტვირთულები";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
+"Home" = "მთავარი";
+"Info" = "ინფორმაცია";
+"Welcome to Zebra!" = "კეთილი იყოს თქვენი მობრძანება!";
+"Report a Bug" = "შეგვატყობინეთ შეცდომების შესახებ";
+"Changelog" = "ცვლილებები";
+"Wish List" = "სურვილების სია";
 "Newest First" = "Newest First";
 "Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
+"No items in Wish List" = "ამ სიაში არაა არც ერთი ერთეული";
+"Community" = "საზოგადოება";
+"Join our Discord" = "შემოგვიერთდით Discord_ზე";
 "Follow us on Twitter" = "გამოგვყევით ტვიტერზე";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Help translate Zebra!" = "დაგვეხმარეთ თარგმნაში!";
 
 // Community Source
 
@@ -38,11 +38,9 @@
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
 "Utility source for %@" = "კომუნალური წყარო %@-თვის";
 "Transfer Sources" = "Transfer Sources";
-"Verifying Source" = "გადამოწმება წყაროსი";
-"Verifying Sources" = "გადამოწმება წყაროების";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Import" = "შემოტანა";
+"Verifying..." = "მიმდინარეობს დადასტურება...";
+"Confirm Import" = "იმპორტის დადასტურება";
 "Import Sources" = "Import Sources";
 "No sources to import" = "No sources to import";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
@@ -157,6 +155,7 @@
 "Locally installed packages" = "Locally installed packages";
 
 "Add" = "Add";
+"View" = "View";
 "Add Sources" = "Add Sources";
 "Add Multiple" = "Add Multiple";
 "Enter Source URL" = "Enter Source URL";
@@ -181,7 +180,7 @@
 "You have already added these sources." = "You have already added these sources.";
 "Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
 "Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
-"View" = "View";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
 "A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
@@ -457,7 +456,6 @@
 "Select a Section" = "Select a Section";
 "Hide packages in these sections." = "Hide packages in these sections.";
 
-"Sources" = "Sources";
 "Select a Source" = "Select a Source";
 "Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
@@ -486,3 +484,10 @@
 
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
