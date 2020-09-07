@@ -57,22 +57,45 @@
 #pragma mark - Accessing Sources
 
 - (NSArray <ZBSource *> *)sources {
-    if (!recachingNeeded)
-        return _sources;
-    
     NSError *readError = NULL;
     NSSet *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
     if (readError) {
-        ZBLog(@"[Zebra] Error when reading baseSourcse from %@: %@", [ZBAppDelegate sourcesListURL], readError.localizedDescription);
+        ZBLog(@"[Zebra] Error when reading sources from %@: %@", [ZBAppDelegate sourcesListURL], readError.localizedDescription);
         
         return [NSArray new];
     }
     
-    NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
-    NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
-    
-    recachingNeeded = NO;
-    _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    if (!recachingNeeded && _sources && baseSources.count != _sources.count) { // A source was added to sources.list at some point by someone and we don't list it
+        NSMutableSet *cache = [NSMutableSet setWithArray:_sources];
+        
+        NSMutableSet *sourcesAdded = [baseSources mutableCopy];
+        [sourcesAdded minusSet:cache];
+        NSLog(@"Sources Added: %@", sourcesAdded);
+        
+        NSMutableSet *sourcesRemoved = [cache mutableCopy];
+        [sourcesRemoved minusSet:baseSources];
+        NSLog(@"Sources Removed: %@", sourcesAdded);
+        
+        if (sourcesAdded.count) [cache unionSet:sourcesAdded];
+        if (sourcesRemoved.count) [cache minusSet:sourcesRemoved];
+        
+        _sources = [cache sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+        
+        if (sourcesAdded.count) [self bulkAddedSources:sourcesAdded];
+        if (sourcesRemoved.count) [self bulkRemovedSources:sourcesRemoved];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            for (ZBSource *source in sourcesRemoved) {
+                [[ZBDatabaseManager sharedInstance] deleteSource:source];
+            }
+        });
+    } else if (recachingNeeded) {
+        NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
+        NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
+        
+        recachingNeeded = NO;
+        _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    }
     
     return _sources;
 }

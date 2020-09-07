@@ -423,7 +423,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 }
 
 - (BOOL)isEqual:(ZBBaseSource *)object {
-    if (!object)
+    if (object == nil)
         return NO;
     
     if (self == object)

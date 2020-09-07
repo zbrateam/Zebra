@@ -22,7 +22,7 @@
     UISearchController *searchController;
     NSMutableArray *sourcesToRemove;
     UIBarButtonItem *addButton;
-    BOOL hasProblems;
+    NSUInteger hasProblems;
 }
 @end
 
@@ -200,10 +200,11 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && hasProblems) {
-        cell.detailTextLabel.text = @"Some of your sources have warnings and errors.";
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu sources could not be fetched.", @""), (unsigned long)hasProblems];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
         cell.detailTextLabel.numberOfLines = 0;
+        cell.tintColor = [UIColor systemPinkColor];
         cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
     }
     else {
