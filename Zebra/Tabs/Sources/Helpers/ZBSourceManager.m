@@ -65,7 +65,13 @@
         return [NSArray new];
     }
     
-    if (!recachingNeeded && _sources && baseSources.count != _sources.count) { // A source was added to sources.list at some point by someone and we don't list it
+    if (recachingNeeded) {
+        NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
+        NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
+        
+        recachingNeeded = NO;
+        _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    } else if (_sources && baseSources.count != _sources.count) { // A source was added to sources.list at some point by someone and we don't list it
         NSMutableSet *cache = [NSMutableSet setWithArray:_sources];
         
         NSMutableSet *sourcesAdded = [baseSources mutableCopy];
@@ -89,12 +95,6 @@
                 [[ZBDatabaseManager sharedInstance] deleteSource:source];
             }
         });
-    } else if (recachingNeeded) {
-        NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
-        NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
-        
-        recachingNeeded = NO;
-        _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
     }
     
     return _sources;
