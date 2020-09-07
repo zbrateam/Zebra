@@ -67,6 +67,12 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceCell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    sources = [sourceManager.sources mutableCopy];
+}
+
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     
