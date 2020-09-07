@@ -10,6 +10,7 @@
 #import "ZBSourceAddViewController.h"
 #import "ZBSourceSectionsListTableViewController.h"
 
+#import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
@@ -20,7 +21,7 @@
 
 @interface ZBSourceListViewController () {
     UISearchController *searchController;
-    NSMutableArray *sourcesToRemove;
+    NSMutableArray *selectedSources;
     UIBarButtonItem *addButton;
     NSUInteger hasProblems;
 }
@@ -95,11 +96,11 @@
 }
 
 - (void)removeSources {
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to remove %lu sources?", @""), (unsigned long)sourcesToRemove.count];
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to remove %lu sources?", @""), (unsigned long)selectedSources.count];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self->sourceManager removeSources:[NSSet setWithArray:self->sourcesToRemove] error:nil];
+        [self->sourceManager removeSources:[NSSet setWithArray:self->selectedSources] error:nil];
     }];
     [alert addAction:confirm];
     
@@ -111,19 +112,40 @@
     });
 }
 
+- (void)exportSources {
+    if (selectedSources.count) {
+        NSMutableArray *debLines = [NSMutableArray new];
+        for (ZBBaseSource *source in selectedSources) {
+            [debLines addObject:source.debLine];
+        }
+        
+        UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:debLines applicationActivities:nil];
+        shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[0];
+            
+        [self presentViewController:shareSheet animated:YES completion:nil];
+    }
+    else {
+        UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[[ZBAppDelegate sourcesListURL]] applicationActivities:nil];
+        shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[0];
+            
+        [self presentViewController:shareSheet animated:YES completion:nil];
+    }
+}
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     [super setEditing:editing animated:animated];
     
     if (editing) {
-        if (!sourcesToRemove) sourcesToRemove = [NSMutableArray new];
+        if (!selectedSources) selectedSources = [NSMutableArray new];
         
         UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(removeSources)];
         deleteButton.enabled = NO;
-        self.navigationItem.rightBarButtonItems = @[addButton, deleteButton];
+        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
+        self.navigationItem.rightBarButtonItems = @[shareButton, deleteButton];
     }
     else {
         self.navigationItem.rightBarButtonItems = @[addButton];
-        [sourcesToRemove removeAllObjects];
+        [selectedSources removeAllObjects];
     }
 }
 
@@ -231,19 +253,19 @@
         }
     }
     else {
-        [sourcesToRemove addObject:source];
+        [selectedSources addObject:source];
         
-        self.navigationItem.rightBarButtonItems[1].enabled = sourcesToRemove.count;
+        self.navigationItem.rightBarButtonItems[1].enabled = selectedSources.count;
     }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.editing) {
         ZBSource *source = filteredSources[indexPath.row];
-        if ([sourcesToRemove containsObject:source]) {
-            [sourcesToRemove removeObject:source];
+        if ([selectedSources containsObject:source]) {
+            [selectedSources removeObject:source];
         }
-        self.navigationItem.rightBarButtonItems[1].enabled = sourcesToRemove.count;
+        self.navigationItem.rightBarButtonItems[1].enabled = selectedSources.count;
     }
 }
 
