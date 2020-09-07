@@ -266,7 +266,7 @@
                 }
                 default: {
                     UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-                        
+                        [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:nil];
                     }];
                     [alert addAction:switchAction];
                     
@@ -422,6 +422,17 @@
     [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
+    hasProblems = [self->sources filteredArrayUsingPredicate:search].count;
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->hasProblems && self.tableView.numberOfSections == 1) {
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (!self->hasProblems && self.tableView.numberOfSections == 2) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    });
 }
 
 @end
