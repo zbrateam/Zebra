@@ -150,6 +150,10 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    [super setEditing:YES animated:YES];
+}
+
 - (void)handleURL:(NSURL *)url {
     NSString *scheme = [url scheme];
     NSArray *choices = @[@"file", @"zbra"];
