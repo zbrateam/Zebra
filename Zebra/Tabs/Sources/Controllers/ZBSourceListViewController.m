@@ -51,6 +51,7 @@
         sources = [sourceManager.sources mutableCopy];
         filteredSources = [sources copy];
         hasProblems = NO;
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, 0)];
     }
     
     return self;
@@ -367,6 +368,27 @@
     [self filterSourcesForSearchTerm:searchTerm];
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:hasProblems] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+// This is a workaround to FB8636369. When a UITableView has style UITableViewStyleInsetGrouped, there is no padding below the search bar when a UISearchController is used.
+// To add padding, we're updating the frame of an empty UIView, which is set as the UITableView's tableHeaderView.
+// When the UISearchController is presented, we set the height to 16px. When it's dismissed, we update set height to 0px.
+- (void)hideTableViewHeaderView:(BOOL)hidden {
+    CGRect updatedFrame = self.tableView.tableHeaderView.frame;
+    updatedFrame.size.height = hidden ? CGFLOAT_MIN : 16;
+    [self.tableView beginUpdates];
+    [UIView animateWithDuration:0.25 animations:^{
+        [self.tableView.tableHeaderView setFrame:updatedFrame];
+    }];
+    [self.tableView endUpdates];
+}
+
+- (void)willPresentSearchController:(UISearchController *)searchController {
+    [self hideTableViewHeaderView:NO];
+}
+
+- (void)willDismissSearchController:(UISearchController *)searchController {
+    [self hideTableViewHeaderView:YES];
 }
 
 #pragma mark - ZBSourceDelegate
