@@ -23,7 +23,8 @@
     UISearchController *searchController;
     NSMutableArray *selectedSources;
     UIBarButtonItem *addButton;
-    NSUInteger hasProblems;
+    BOOL hasProblems;
+    NSUInteger withProblems;
 }
 @end
 
@@ -51,6 +52,7 @@
         sources = [sourceManager.sources mutableCopy];
         filteredSources = [sources copy];
         hasProblems = NO;
+        withProblems = 0;
         self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, 0)];
     }
     
@@ -229,7 +231,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && hasProblems) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu sources could not be fetched.", @""), (unsigned long)hasProblems];
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu sources could not be fetched.", @""), (unsigned long)withProblems];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
         cell.detailTextLabel.numberOfLines = 0;
@@ -435,11 +437,11 @@
 
 - (void)finishedSourceRefresh {
     [super finishedSourceRefresh];
-    
-    NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
-    hasProblems = [sources filteredArrayUsingPredicate:search].count;
 
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
+        self->hasProblems = self->withProblems = [self->sources filteredArrayUsingPredicate:search].count;
+        
         if (self->hasProblems && self.tableView.numberOfSections == 1) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else if (!self->hasProblems && self.tableView.numberOfSections == 2) {
@@ -473,10 +475,10 @@
     
     [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     
-    NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
-    hasProblems = [self->sources filteredArrayUsingPredicate:search].count;
-
     dispatch_async(dispatch_get_main_queue(), ^{
+        NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
+        self->hasProblems = self->withProblems = [self->sources filteredArrayUsingPredicate:search].count;
+        
         if (self->hasProblems && self.tableView.numberOfSections == 1) {
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else if (!self->hasProblems && self.tableView.numberOfSections == 2) {
