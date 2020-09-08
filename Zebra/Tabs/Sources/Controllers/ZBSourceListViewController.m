@@ -236,11 +236,13 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && hasProblems) {
         cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu sources could not be fetched.", @""), (unsigned long)withProblems];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
         cell.detailTextLabel.numberOfLines = 0;
         cell.tintColor = [UIColor systemPinkColor];
-        cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
+        if (@available(iOS 13.0, *)) {
+            cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
+        }
     }
     else {
         ZBBaseSource *source = filteredSources[indexPath.row];
