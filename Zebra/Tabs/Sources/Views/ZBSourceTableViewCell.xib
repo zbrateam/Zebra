@@ -39,6 +39,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="zyi-dc-KAR"/>
+                        </constraints>
                     </stackView>
                 </subviews>
                 <constraints>
