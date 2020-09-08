@@ -3917,3 +3917,16 @@ Depends: lz4, xz-utils (>= 5.2.5)
 Description: Modern compression algorithm by Facebook.
 Name: Zstandard
 
+Package: xyz.willy.zebra
+Name: Zebra
+Version: 1:0
+Architecture: iphoneos-arm
+Depends: dpkg, uikittools, firmware (>= 11.0)
+Maintainer: Wilson Styres <wilson@styres.me>
+Author: Wilson Styres <wilson@styres.me>
+Section: Packaging
+Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
+Prefer-Native: Yes
+Description: A Useful Package Manager
+Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
+Tag: compatible::11.0-13.6.1
