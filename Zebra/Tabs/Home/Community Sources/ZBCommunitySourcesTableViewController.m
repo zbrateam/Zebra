@@ -198,7 +198,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return communitySources.count;
+    return communitySources[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -237,24 +237,6 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
     
     return cell;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (communitySources.count) {
-        NSDictionary *info = communitySources[section][0];
-        NSString *type = info[@"type"];
-
-        NSArray *options = @[@"transfer", @"utility", @"repo", @"none"];
-        switch ([options indexOfObject:type]) {
-            case 0:
-                return NSLocalizedString(@"Transfer Sources", @"");
-            case 1:
-                return NSLocalizedString(@"Utilities", @"");
-            case 2:
-                return NSLocalizedString(@"Community Sources", @"");
-        }
-    }
-    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

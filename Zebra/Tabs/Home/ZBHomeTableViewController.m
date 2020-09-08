@@ -468,7 +468,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             break;
         }
         case ZBCommunity: {
-            ZBCommunitySourcesTableViewController *community = [[ZBCommunitySourcesTableViewController alloc] init];
+            ZBCommunitySourcesTableViewController *community = [[ZBCommunitySourcesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
             [self.navigationController pushViewController:community animated:YES];
             break;
         }
