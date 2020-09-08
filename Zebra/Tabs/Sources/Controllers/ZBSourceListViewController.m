@@ -296,9 +296,10 @@
         
             switch (error.code) {
                 case ZBSourceWarningInsecure: {
-                    UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    }];
-                    [alert addAction:switchAction];
+                    // TODO: Implement somehow, we need to check to see if the source actually supports https before switching it
+//                    UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    }];
+//                    [alert addAction:switchAction];
                     
                     UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
                     [alert addAction:continueAction];
