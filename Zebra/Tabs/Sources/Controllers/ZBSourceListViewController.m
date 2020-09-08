@@ -237,6 +237,7 @@
     if (indexPath.section == 0 && hasProblems) {
         cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu sources could not be fetched.", @""), (unsigned long)withProblems];
 //        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
         cell.detailTextLabel.numberOfLines = 0;
         cell.tintColor = [UIColor systemPinkColor];
@@ -248,6 +249,7 @@
         ZBBaseSource *source = filteredSources[indexPath.row];
         
         BOOL busy = [sourceManager isSourceBusy:source];
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         [(ZBSourceTableViewCell *)cell setSpinning:busy];
     }
 }
