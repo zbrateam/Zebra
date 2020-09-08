@@ -260,8 +260,12 @@
         }
     }
     else {
-        [selectedSources addObject:source];
+        if (![self tableView:tableView canEditRowAtIndexPath:indexPath]) {
+            [tableView deselectRowAtIndexPath:indexPath animated:YES];
+            return;
+        }
         
+        [selectedSources addObject:source];
         self.navigationItem.rightBarButtonItems[1].enabled = selectedSources.count;
     }
 }
