@@ -123,7 +123,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceCell" forIndexPath:indexPath];
-    ZBSource *source = sources[indexPath.row];
+    ZBSource *source = (ZBSource *)sources[indexPath.row];
     
     cell.sourceLabel.text = [source label];
     cell.sourceLabel.textColor = [UIColor primaryTextColor];
@@ -165,7 +165,7 @@
 }
 
 - (void)addSourceAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *source = sources[indexPath.row];
+    ZBSource *source = (ZBSource *)sources[indexPath.row];
     if ([preSelectedSources containsObject:source]) {
         // We will not unselect the sources that have already been added.
         return;
