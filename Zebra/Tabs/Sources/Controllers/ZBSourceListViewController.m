@@ -377,9 +377,7 @@
     CGRect updatedFrame = self.tableView.tableHeaderView.frame;
     updatedFrame.size.height = hidden ? CGFLOAT_MIN : 16;
     [self.tableView beginUpdates];
-    [UIView animateWithDuration:0.25 animations:^{
-        [self.tableView.tableHeaderView setFrame:updatedFrame];
-    }];
+    [self.tableView.tableHeaderView setFrame:updatedFrame];
     [self.tableView endUpdates];
 }
 
