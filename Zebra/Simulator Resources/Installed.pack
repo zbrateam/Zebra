@@ -3918,6 +3918,7 @@ Description: Modern compression algorithm by Facebook.
 Name: Zstandard
 
 Package: xyz.willy.zebra
+Status: install ok installed
 Name: Zebra
 Version: 1:0
 Architecture: iphoneos-arm
