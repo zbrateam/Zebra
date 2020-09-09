@@ -309,6 +309,16 @@
                     [alert addAction:continueAction];
                     break;
                 }
+                case ZBSourceWarningIncompatible: {
+                    UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:nil];
+                    }];
+                    [alert addAction:switchAction];
+                    
+                    UIAlertAction *continueAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:NSLocalizedString(@"Continue using %@", @""), source.origin] style:UIAlertActionStyleDestructive handler:nil];
+                    [alert addAction:continueAction];
+                    break;
+                }
                 default: {
                     UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                         [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:nil];
@@ -397,11 +407,15 @@
 }
 
 - (void)willPresentSearchController:(UISearchController *)searchController {
-    [self hideTableViewHeaderView:NO];
+    if (@available(iOS 13.0, *)) {
+        [self hideTableViewHeaderView:NO];
+    }
 }
 
 - (void)willDismissSearchController:(UISearchController *)searchController {
-    [self hideTableViewHeaderView:YES];
+    if (@available(iOS 13.0, *)) {
+        [self hideTableViewHeaderView:YES];
+    }
 }
 
 #pragma mark - ZBSourceDelegate

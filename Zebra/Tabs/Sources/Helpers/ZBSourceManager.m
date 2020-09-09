@@ -309,11 +309,11 @@
         [warnings addObject:insecureError];
     }
     
-    if ([self checkForInvalidRepo:source.mainDirectoryURL.host]) {
+    NSLog(@"%@", source.mainDirectoryURL.host);
+    if ([self checkForInvalidRepo:source.mainDirectoryURL]) {
         NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningIncompatible userInfo:@{
             NSLocalizedDescriptionKey: NSLocalizedString(@"Incompatible Source", @""),
-            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository has been marked as incompatible with your jailbreak (%@). Installing packages from incompatible sources could result in crashes, inability to manage packages, and loss of jailbreak.", @""),
-            NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"Remove this source to remove this warning.", @""),
+            NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedString(@"This repository has been marked as incompatible with your jailbreak (%@). Installing packages from incompatible sources could result in crashes, inability to manage packages, and loss of jailbreak.", @""), [ZBDevice jailbreakType]], 
         }];
         [warnings addObject:insecureError];
     }
@@ -325,11 +325,10 @@
     return [baseURL isEqualToString:@"apt.thebigboss.org"] || [baseURL isEqualToString:@"apt.modmyi.com"] || [baseURL isEqualToString:@"cydia.zodttd.com"] || [baseURL isEqualToString:@"apt.saurik.com"];
 }
 
-- (BOOL)checkForInvalidRepo:(NSString *)baseURL {
-    NSURL *url = [NSURL URLWithString:baseURL];
-    NSString *host = [url host];
+- (BOOL)checkForInvalidRepo:(NSURL *)baseURL {
+    NSString *host = [baseURL host];
     
-    if ([ZBDevice isOdyssey]) { // odyssey
+    if (YES || [ZBDevice isOdyssey]) { // odyssey
         return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     if ([ZBDevice isCheckrain]) { // checkra1n

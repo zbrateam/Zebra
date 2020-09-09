@@ -437,4 +437,25 @@
     return @{@"X-Cydia-ID": udid, @"X-Firmware": version, @"X-Unique-ID": udid, @"X-Machine": machineIdentifier, @"Payment-Provider": @"API", @"Theme": [ZBThemeManager stringForCurrentInterfaceStyle], @"Tint-Color": tintColor, @"Accept-Language": [[NSLocale preferredLanguages] firstObject]};
 }
 
++ (NSString *)jailbreakType {
+    NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
+    if ([ZBDevice isOdyssey]) {
+        jailbreak = @"Odyssey";
+    }
+    else if ([ZBDevice isCheckrain]) {
+        jailbreak = @"checkra1n";
+    }
+    else if ([ZBDevice isChimera]) {
+        jailbreak = @"Chimera";
+    }
+    else if ([ZBDevice isElectra]) {
+        jailbreak = @"Electra";
+    }
+    else if ([ZBDevice isUncover]) {
+        jailbreak = @"unc0ver";
+    }
+    
+    return jailbreak;
+}
+
 @end

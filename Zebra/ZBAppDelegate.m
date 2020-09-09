@@ -199,26 +199,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 #endif
     
     [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-    
-    NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
-    if ([ZBDevice isOdyssey]) {
-        jailbreak = @"Odyssey";
-    }
-    else if ([ZBDevice isCheckrain]) {
-        jailbreak = @"checkra1n";
-    }
-    else if ([ZBDevice isChimera]) {
-        jailbreak = @"Chimera";
-    }
-    else if ([ZBDevice isElectra]) {
-        jailbreak = @"Electra";
-    }
-    else if ([ZBDevice isUncover]) {
-        jailbreak = @"unc0ver";
-    }
-    
-    [FIRAnalytics setUserPropertyString:jailbreak forName:@"Jailbreak"];
-    [[FIRCrashlytics crashlytics] setCustomValue:jailbreak forKey:@"jailbreak_type"];
+    [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
+    [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
     [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
