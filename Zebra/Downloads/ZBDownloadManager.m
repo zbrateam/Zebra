@@ -18,11 +18,10 @@
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Helpers/ZBSourceManager.h>
 
-@import MobileCoreServices;
+#import <bzlib.h>
+
 @import zlib;
 @import Compression;
-
-#import <bzlib.h>
 
 @interface ZBDownloadManager () {
     BOOL ignore;
@@ -85,7 +84,7 @@
         
         [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
         
-        [downloadDelegate startedSourceDownload:source];
+        [downloadDelegate startedDownloadingSource:source];
     }
 }
 
@@ -238,7 +237,7 @@
         if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
             
             [self cancelTasksForSource:source]; // Cancel the other task for this source.
-            [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+            [downloadDelegate finishedDownloadingSource:source withError:@[error]];
         }
         else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
@@ -264,7 +263,7 @@
                 [self postStatusUpdate:description atLevel:ZBLogLevelError];
                 [self cancelTasksForSource:source];
                 
-                [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+                [downloadDelegate finishedDownloadingSource:source withError:@[error]];
             }
             else { //Tries to download another filetype
                 NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
@@ -281,7 +280,7 @@
                     [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
                     [self cancelTasksForSource:source];
                     
-                    [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+                    [downloadDelegate finishedDownloadingSource:source withError:@[error]];
                 }
             }
         }
@@ -296,7 +295,7 @@
             [self postStatusUpdate:description atLevel:ZBLogLevelError];
             [self cancelTasksForSource:source];
             
-            [downloadDelegate finishedSourceDownload:source withErrors:@[error]];
+            [downloadDelegate finishedDownloadingSource:source withError:@[error]];
         }
     }
     else {
@@ -310,7 +309,7 @@
         }
         
         if (source.releaseTaskCompleted && source.packagesTaskCompleted) {
-            [downloadDelegate finishedSourceDownload:source withErrors:nil];
+            [downloadDelegate finishedDownloadingSource:source withError:NULL];
         }
     }
     
@@ -327,10 +326,6 @@
     if (!sourceTasksMap.count) {
         [downloadDelegate finishedAllDownloads];
     }
-}
-
-- (void)handleDownloadedFile:(NSString *)path forPackage:(ZBPackage *)package withError:(NSError *)error {
-    NSLog(@"Final Path: %@ Package: %@", path, package);
 }
 
 - (void)moveFileFromLocation:(NSURL *)location to:(NSString *)finalPath completion:(void (^)(NSError *error))completion {
@@ -384,32 +379,6 @@
 }
 
 #pragma mark - Helper Methods
-
-- (BOOL)checkForInvalidRepo:(NSString *)baseURL {
-    NSURL *url = [NSURL URLWithString:baseURL];
-    NSString *host = [url host];
-    
-    if ([ZBDevice isOdyssey]) { // odyssey
-        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    if ([ZBDevice isCheckrain]) { // checkra1n
-        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
-    }
-    if ([ZBDevice isChimera]) { // chimera
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
-    }
-    if ([ZBDevice isUncover]) { // uncover
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
-    }
-    if ([ZBDevice isElectra]) { // electra
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
-        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
-    }
-    
-    return NO;
-}
 
 - (NSString *)guessMIMETypeForFile:(NSString *)path {
     NSString *filename = [path lastPathComponent];

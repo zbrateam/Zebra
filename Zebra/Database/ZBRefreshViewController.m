@@ -216,7 +216,6 @@ typedef enum {
             return;
         }
         [databaseManager cancelUpdates:self];
-        [((ZBTabBarController *)self.tabBarController) clearSources];
         [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
         
         buttonState = ZBStateDone;
@@ -335,7 +334,8 @@ typedef enum {
         [self setCompleteOrCancelButtonHidden:NO];
         [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
     }
-    [[ZBSourceManager sharedInstance] needRecaching];
+    //TODO: Maybe send source update notification? Might not be needed.
+//    [[ZBSourceManager sharedInstance] needRecaching];
 }
 
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {

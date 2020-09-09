@@ -8,7 +8,7 @@
 
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
+#import <Tabs/Sources/Helpers/ZBSource.h>
 @import SDWebImage;
 
 @interface ZBSourceTableViewCell () {
@@ -20,14 +20,32 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
     self.backgroundColor = [UIColor cellBackgroundColor];
     self.sourceLabel.textColor = [UIColor primaryTextColor];
     self.urlLabel.textColor = [UIColor secondaryTextColor];
+    self.tintColor = [UIColor accentColor];
+    
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
+    
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     spinner.color = [UIColor grayColor];
+}
+
+- (void)setSource:(ZBBaseSource *)source {
+    self.sourceLabel.text = source.label;
+    self.urlLabel.text = [source isKindOfClass:[ZBSource class]] ? ((ZBSource *)source).sourceDescription : source.repositoryURI;
+    [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    
+    if (source.errors.count) {
+        self.accessoryType = [source isKindOfClass:[ZBSource class]] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryDetailButton;
+        self.tintColor = [UIColor systemPinkColor];
+    } else if (source.warnings.count) {
+        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        self.tintColor = [UIColor systemYellowColor];
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
@@ -67,6 +85,8 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.iconImageView sd_cancelCurrentImageLoad];
+    self.tintColor = [UIColor accentColor];
+    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 @end

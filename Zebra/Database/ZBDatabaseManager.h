@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (atomic) sqlite3 * _Nullable database;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
-@property (nonatomic) BOOL needsToPresentRefresh;
+@property (nonatomic) BOOL needsToPresentRefresh DEPRECATED_MSG_ATTRIBUTE("ZBRefreshController should no longer be presented. This property will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief The database delegates
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
  @brief The current download manager
  @discussion The current download manager used during database update.
  */
-@property (nonatomic, strong) ZBDownloadManager *_Nullable downloadManager;
+@property (nonatomic, strong) ZBDownloadManager *_Nullable downloadManager DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This property will be removed in the final release of Zebra 1.2.");
 
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
@@ -83,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)bulkDatabaseStartedUpdate;
 - (void)bulkDatabaseCompletedUpdate:(int)updates;
 - (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
-- (void)bulkSetSource:(NSString *)bfn busy:(BOOL)busy;
+- (void)bulkSetSource:(ZBBaseSource *)source busy:(BOOL)busy;
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
@@ -99,10 +99,10 @@ NS_ASSUME_NONNULL_BEGIN
  @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
  @param requested If YES, the user has requested this update and it should be performed. If NO, the database should only be updated if it hasn't been updated in the last 30 minutes.
  */
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested;
+- (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
 
-- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching;
-- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching;
+- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
+- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief Parses files located in the filenames dictionary.
@@ -204,7 +204,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief All of the sources that are in the database.
- @return An array of ZBSources that represent the sources that are in the database. It could also contain ZBBaseSources that were not able to be linked in the database (could not be downloaded)
+ @return An array of ZBSources that represent the sources that are in the database.
  */
 - (NSSet <ZBSource *> * _Nullable)sources;
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;

@@ -30,7 +30,7 @@
 
 #pragma mark - Initializers
 
-- (id)initWithDelegate:(UIViewController *)delegate {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -49,6 +49,18 @@
         searchTermIsEmpty = YES;
         searchTermIsURL = NO;
         [self downloadSources];
+    }
+    
+    return self;
+}
+
+- (id)initWithURL:(NSURL *)url {
+    self = [self init];
+    
+    if (self) {
+        searchController.searchBar.text = [url absoluteString];
+        ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:url];
+        
     }
     
     return self;
@@ -123,8 +135,7 @@
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     
     NSSet *sourcesToAdd = [NSSet setWithArray:selectedSources];
-    [sourceManager addBaseSources:sourcesToAdd];
-    [[ZBDatabaseManager sharedInstance] updateSources:sourcesToAdd useCaching:YES];
+    [sourceManager addSources:sourcesToAdd error:nil];
     
     [self dismiss];
 }

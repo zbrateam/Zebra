@@ -7,200 +7,268 @@
 //
 
 #import "ZBSourceManager.h"
-@import UIKit.UIDevice;
+
 #import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <ZBLog.h>
+#import <ZBSettings.h>
+
+@import UIKit.UIDevice;
 
 @interface ZBSourceManager () {
-    NSMutableDictionary <NSNumber *, ZBSource *> *sources;
     BOOL recachingNeeded;
+    ZBDownloadManager *downloadManager;
+    NSMutableArray <id <ZBSourceDelegate>> *delegates;
+    NSMutableDictionary *busyList;
+    NSMutableArray *completedSources;
 }
 @end
 
 @implementation ZBSourceManager
 
-@synthesize verifiedSources;
+@synthesize sources = _sources;
+@synthesize refreshInProgress;
+
+#pragma mark - Initializers
 
 + (id)sharedInstance {
     static ZBSourceManager *instance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [ZBSourceManager new];
-        instance->recachingNeeded = YES;
     });
     return instance;
 }
 
-- (void)needRecaching {
-    recachingNeeded = YES;
-}
-
-- (NSMutableDictionary <NSNumber *, ZBSource *> *)sources {
-    if (recachingNeeded) {
-        recachingNeeded = NO;
-        sources = [NSMutableDictionary new];
-
-        sqlite3 *database;
-        sqlite3_open([[ZBAppDelegate databaseLocation] UTF8String], &database);
-
-        sqlite3_stmt *statement = NULL;
-        if (sqlite3_prepare_v2(database, "SELECT * FROM REPOS;", -1, &statement, nil) == SQLITE_OK) {
-            while (sqlite3_step(statement) == SQLITE_ROW) {
-                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                sources[@(source.sourceID)] = source;
-            }
-        } else {
-            [[ZBDatabaseManager sharedInstance] printDatabaseError];
-        }
-        sqlite3_finalize(statement);
-        sqlite3_close(database);
-    }
-    return sources;
-}
-
-+ (NSArray <NSString *> *)knownDistURLs {
-    static NSArray *urls = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        urls = @[
-            @"apt.thebigboss.org",
-            @"apt.modmyi.com",
-            @"apt.saurik.com",
-            @"apt.bingner.com",
-            @"cydia.zodttd.com"
-        ];
-    });
-    return urls;
-}
-
-+ (NSArray <NSString *> *)knownDebLines {
-    static NSArray *lines = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        lines = @[
-            @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
-            @"deb http://apt.modmyi.com/ stable main",
-            [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
-            @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
-        ];
-    });
-    return lines;
-}
-
-+ (NSString *_Nullable)debLineForURL:(NSURL *)URL {
-    if (!URL) return NULL;
+- (id)init {
+    self = [super init];
     
-    NSUInteger index = [[self knownDistURLs] indexOfObject:[URL host]];
-    if (index != NSNotFound) {
-        return [self knownDebLines][index];
+    if (self) {
+        recachingNeeded = YES;
+        refreshInProgress = NO;
     }
-    else {
-        return [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];
-    }
+    
+    return self;
 }
 
-//TODO: This needs error pointers
-- (void)addBaseSources:(NSSet <ZBBaseSource *> *)baseSources {
+#pragma mark - Accessing Sources
+
+- (NSArray <ZBSource *> *)sources {
     NSError *readError = NULL;
-    NSSet <ZBBaseSource *> *currentSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
+    NSSet *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
+    if (readError) {
+        ZBLog(@"[Zebra] Error when reading sources from %@: %@", [ZBAppDelegate sourcesListURL], readError.localizedDescription);
+        
+        return [NSArray new];
+    }
     
-    NSMutableSet *sourcesToAdd = [baseSources mutableCopy];
-    for (ZBBaseSource *source in baseSources) {
-        if ([currentSources containsObject:source]) {
-            ZBLog(@"[Zebra] %@ is already contained in list", source.repositoryURI);
+    if (recachingNeeded) {
+        NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
+        NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
+        
+        recachingNeeded = NO;
+        _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    } else if (_sources && baseSources.count != _sources.count) { // A source was added to sources.list at some point by someone and we don't list it
+        NSMutableSet *cache = [NSMutableSet setWithArray:_sources];
+        
+        NSMutableSet *sourcesAdded = [baseSources mutableCopy];
+        [sourcesAdded minusSet:cache];
+        NSLog(@"Sources Added: %@", sourcesAdded);
+        
+        NSMutableSet *sourcesRemoved = [cache mutableCopy];
+        [sourcesRemoved minusSet:baseSources];
+        NSLog(@"Sources Removed: %@", sourcesAdded);
+        
+        if (sourcesAdded.count) [cache unionSet:sourcesAdded];
+        if (sourcesRemoved.count) [cache minusSet:sourcesRemoved];
+        
+        _sources = [cache sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+        
+        if (sourcesAdded.count) [self bulkAddedSources:sourcesAdded];
+        if (sourcesRemoved.count) [self bulkRemovedSources:sourcesRemoved];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            for (ZBSource *source in sourcesRemoved) {
+                [[ZBDatabaseManager sharedInstance] deleteSource:source];
+            }
+        });
+    }
+    
+    return _sources;
+}
+
+- (ZBSource *)sourceMatchingSourceID:(int)sourceID {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sourceID == %d", sourceID];
+    NSArray *filteredSources = [_sources filteredArrayUsingPredicate:predicate];
+    if (!filteredSources.count) {
+        // If we can't find the source in sourceManager, lets just recache and see if it shows up
+        // TODO: Recache sources
+        filteredSources = [_sources filteredArrayUsingPredicate:predicate];
+    }
+    
+    return filteredSources.firstObject ?: NULL;
+}
+
+#pragma mark - Adding and Removing Sources
+
+- (void)addSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error {
+    NSMutableSet *sourcesToAdd = [sources mutableCopy];
+    for (ZBSource *source in sources) {
+        if ([self.sources containsObject:source]) {
+            ZBLog(@"[Zebra] %@ is already a source", source.repositoryURI); // This isn't going to trigger a failure, should it?
             [sourcesToAdd removeObject:source];
         }
     }
     
     if ([sourcesToAdd count]) {
-        [self appendBaseSources:sourcesToAdd toFile:[ZBAppDelegate sourcesListPath]];
-        [self needRecaching];
+        NSError *writeError = NULL;
+        [self appendBaseSources:sourcesToAdd toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
+        
+        if (writeError) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+            *error = writeError;
+            return;
+        }
+        
+        recachingNeeded = YES;
+        [self bulkAddedSources:sourcesToAdd];
+        [self refreshSources:sourcesToAdd useCaching:YES error:nil];
     }
 }
 
-- (void)deleteSource:(ZBSource *)source {
-    if ([source canDelete]) {
-        [self deleteBaseSource:source];
-        
-        if ([source isKindOfClass:[ZBSource class]]) {
-            ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-            [databaseManager deleteSource:source];
+- (void)removeSources:(NSSet <ZBBaseSource *> *)sources error:(NSError**_Nullable)error {
+    NSMutableSet *sourcesToRemove = [sources mutableCopy];
+    for (ZBSource *source in sources) {
+        if (![source canDelete]) {
+            ZBLog(@"[Zebra] %@ cannot be removed", source.repositoryURI); // This isn't going to trigger a failure, should it?
+            [sourcesToRemove removeObject:source];
         }
     }
-}
-
-- (void)deleteBaseSource:(ZBBaseSource *)source {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     
-    NSMutableSet *sourcesToWrite = [[databaseManager sources] mutableCopy];
-    [sourcesToWrite removeObject:source];
-    
-    [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath]];
-    
-    //Delete .list file (if it exists)
-    NSArray *lists = [self sourceLists:source];
-    for (NSString *list in lists) {
-        NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:list];
-        NSError *error = NULL;
-        if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
-            BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
-            if (!success) {
-                NSLog(@"Error removing file at path: %@", error.localizedDescription);
+    if ([sourcesToRemove count]) {
+        NSMutableSet *sourcesToWrite = [[ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil] mutableCopy];
+        [sourcesToWrite minusSet:sourcesToRemove];
+        
+        NSError *writeError = NULL;
+        [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
+        if (writeError) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+            *error = writeError;
+            return;
+        }
+        
+        for (ZBSource *source in sourcesToRemove) {
+            if ([source isKindOfClass:[ZBSource class]]) {
+                // These actions should theoretically only be performed if the source is in the database as a base sources wouldn't be downloaded
+                // Delete cached release/packages files (if they exist)
+                NSArray *lists = [source lists];
+                for (NSString *list in lists) {
+                    NSString *path = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:list];
+                    NSError *error = NULL;
+                    if ([[NSFileManager defaultManager] isDeletableFileAtPath:path]) {
+                        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:path error:&error];
+                        if (!success) {
+                            NSLog(@"Error removing file at path: %@", error.localizedDescription);
+                        }
+                    }
+                }
+                
+                // Delete files from featured.plist (if they exist)
+                NSMutableDictionary *featured = [NSMutableDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
+                if ([featured objectForKey:[source baseFilename]]) {
+                    [featured removeObjectForKey:[source baseFilename]];
+                }
+                [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
+                
+                // Delete source and respective packages from database
+                [[ZBDatabaseManager sharedInstance] deleteSource:source];
             }
         }
+        recachingNeeded = YES;
+        [self bulkRemovedSources:sourcesToRemove];
     }
-    
-    //Delete files from featured.plist (if they exist)
-    NSMutableDictionary *featured = [NSMutableDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
-    if ([featured objectForKey:[source baseFilename]]) {
-        [featured removeObjectForKey:[source baseFilename]];
-    }
-    [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
-    
-    [self needRecaching];
 }
 
-//TODO: This needs error pointers
-- (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
-    NSError *error = NULL;
-    NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
+- (void)refreshSourcesUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested error:(NSError **_Nullable)error {
+    if (refreshInProgress)
+        return;
     
-    if (error) {
-        NSLog(@"[Zebra] ERROR while loading from sources.list: %@", error);
+    BOOL needsRefresh = NO;
+    if (!requested && [ZBSettings wantsAutoRefresh]) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
+
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+
+            needsRefresh = ([components minute] >= 30);
+        } else {
+            needsRefresh = YES;
+        }
+    }
+    
+    if (requested || needsRefresh || [ZBDatabaseManager needsMigration]) {
+        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:YES error:nil];
+    }
+}
+
+- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
+    if (refreshInProgress)
+        return;
+    
+    [self bulkStartedSourceRefresh];
+    downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+    [downloadManager downloadSources:sources useCaching:TRUE];
+}
+
+- (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
+    NSError *readError = NULL;
+    NSString *contents = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&readError];
+    
+    if (readError) {
+        NSLog(@"[Zebra] ERROR while loading from sources.list: %@", readError);
+        *error = readError;
         return;
     }
     else {
-        NSMutableArray *debLines = [NSMutableArray arrayWithObject:[NSString stringWithFormat:@"\n# Added at %@\n", [NSDate date]]];
+        NSMutableArray *debLines = [NSMutableArray new];
         for (ZBBaseSource *baseSource in sources) {
             [debLines addObject:[baseSource debLine]];
         }
         contents = [contents stringByAppendingString:[debLines componentsJoinedByString:@""]];
-        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
         
-        if (error) {
-            NSLog(@"[Zebra] Error while writing sources to file: %@", error);
+        NSError *writeError = NULL;
+        [contents writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&writeError];
+        
+        if (writeError) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+            *error = writeError;
         }
     }
 }
 
-- (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath {
+- (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
     NSMutableArray *debLines = [NSMutableArray new];
     for (ZBBaseSource *baseSource in sources) {
         [debLines addObject:[baseSource debLine]];
     }
     
-    NSError *error = NULL;
-    [[debLines componentsJoinedByString:@""] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-    if (error != NULL) {
-        NSLog(@"[Zebra] Error while writing sources to file: %@", error);
+    NSError *writeError = NULL;
+    [[debLines componentsJoinedByString:@""] writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&writeError];
+    if (writeError) {
+        NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+        *error = writeError;
     }
     
     recachingNeeded = YES;
 }
+
+#pragma mark - Verifying Sources
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate {
     if ([delegate respondsToSelector:@selector(startedSourceVerification:)]) [delegate startedSourceVerification:sources.count > 1];
@@ -229,10 +297,229 @@
     }
 }
 
-- (NSArray <NSString *> *)sourceLists:(ZBBaseSource *)source {
-    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
+#pragma mark - Warnings
+
+- (NSArray <NSError *> *)warningsForSource:(ZBBaseSource *)source {
+    NSMutableArray *warnings = [NSMutableArray new];
+    if ([source.mainDirectoryURL.scheme isEqual:@"http"] && ![self checkForAncientRepo:source.mainDirectoryURL.host]) {
+        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningInsecure userInfo:@{
+            NSLocalizedDescriptionKey: NSLocalizedString(@"Insecure Source", @""),
+            NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"This repository is being accessed using an insecure scheme (HTTP). Switch to HTTPS to silence this warning.", @""),
+        }];
+        [warnings addObject:insecureError];
+    }
     
-    return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", [source baseFilename]]];
+    NSLog(@"%@", source.mainDirectoryURL.host);
+    if ([self checkForInvalidRepo:source.mainDirectoryURL]) {
+        NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningIncompatible userInfo:@{
+            NSLocalizedDescriptionKey: NSLocalizedString(@"Incompatible Source", @""),
+            NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedString(@"This repository has been marked as incompatible with your jailbreak (%@). Installing packages from incompatible sources could result in crashes, inability to manage packages, and loss of jailbreak.", @""), [ZBDevice jailbreakType]], 
+        }];
+        [warnings addObject:insecureError];
+    }
+    
+    return warnings.count ? warnings : NULL;
+}
+
+- (BOOL)checkForAncientRepo:(NSString *)baseURL {
+    return [baseURL isEqualToString:@"apt.thebigboss.org"] || [baseURL isEqualToString:@"apt.modmyi.com"] || [baseURL isEqualToString:@"cydia.zodttd.com"] || [baseURL isEqualToString:@"apt.saurik.com"];
+}
+
+- (BOOL)checkForInvalidRepo:(NSURL *)baseURL {
+    NSString *host = [baseURL host];
+    
+    if (YES || [ZBDevice isOdyssey]) { // odyssey
+        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    if ([ZBDevice isCheckrain]) { // checkra1n
+        return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"]);
+    }
+    if ([ZBDevice isChimera]) { // chimera
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"apt.bingner.com"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
+    }
+    if ([ZBDevice isUncover]) { // uncover
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"]);
+    }
+    if ([ZBDevice isElectra]) { // electra
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app"]) { // cydia
+        return ([host isEqualToString:@"checkra.in"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"apt.bingner.com"]);
+    }
+    
+    return NO;
+}
+
+#pragma mark - Download Delegate
+
+- (void)startedDownloads {
+    ZBLog(@"[Zebra](ZBSourceManager) Started downloads");
+    
+    if (!busyList) busyList = [NSMutableDictionary new];
+    if (!completedSources) completedSources = [NSMutableArray new];
+    refreshInProgress = YES;
+}
+
+- (void)startedDownloadingSource:(ZBBaseSource *)source {
+    ZBLog(@"[Zebra](ZBSourceManager) Started downloading %@", source);
+    
+    [busyList setObject:@YES forKey:source.baseFilename];
+    [self bulkStartedDownloadForSource:source];
+}
+
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
+    ZBLog(@"[Zebra](ZBSourceManager) Progress update for %@", baseSource);
+}
+
+- (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *)errors {
+    NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
+    
+    if (source) {
+        [busyList setObject:@NO forKey:source.baseFilename];
+        
+        if (errors && errors.count) {
+            source.errors = errors;
+            source.warnings = [self warningsForSource:source];
+        }
+        else {
+            [completedSources addObject:source];
+        }
+        
+        [self bulkFinishedDownloadForSource:source];
+    }
+}
+
+- (void)finishedAllDownloads {
+    ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
+    downloadManager = NULL;
+    
+    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+    [databaseManager addDatabaseDelegate:self];
+    [databaseManager parseSources:completedSources];
+}
+
+#pragma mark - Database Delegate
+
+- (void)databaseStartedUpdate {
+    ZBLog(@"[Zebra](ZBSourceManager) Started parsing sources");
+}
+
+- (void)startedImportingSource:(ZBBaseSource *)source {
+    ZBLog(@"[Zebra](ZBSourceManager) Started parsing %@", source);
+    [busyList setObject:@YES forKey:source.baseFilename];
+    [self bulkStartedImportForSource:source];
+}
+
+- (void)finishedImportingSource:(ZBSource *)source error:(NSError *)error {
+    ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
+    [busyList setObject:@NO forKey:source.baseFilename];
+    
+    NSMutableArray *mutableSources = [_sources mutableCopy];
+    [mutableSources replaceObjectAtIndex:[mutableSources indexOfObject:source] withObject:source];
+    _sources = [mutableSources sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    
+    if (error) {
+        source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
+    }
+    source.warnings = [self warningsForSource:source];
+    
+    [self bulkFinishedImportForSource:source];
+}
+
+- (void)databaseCompletedUpdate:(int)packageUpdates {
+    ZBLog(@"[Zebra](ZBSourceManager) Finished parsing sources");
+    refreshInProgress = NO;
+    busyList = NULL;
+    completedSources = NULL;
+    [self bulkFinishedSourceRefresh];
+}
+
+#pragma mark - Source Delegate Notifiers
+
+- (void)bulkStartedSourceRefresh {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(startedSourceRefresh)]) {
+            [delegate startedSourceRefresh];
+        }
+    }
+}
+
+- (void)bulkStartedDownloadForSource:(ZBBaseSource *)source {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(startedDownloadForSource:)]) {
+            [delegate startedDownloadForSource:source];
+        }
+    }
+}
+
+- (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(finishedDownloadForSource:)]) {
+            [delegate finishedDownloadForSource:source];
+        }
+    }
+}
+
+- (void)bulkStartedImportForSource:(ZBBaseSource *)source {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(startedImportForSource:)]) {
+            [delegate startedImportForSource:source];
+        }
+    }
+}
+
+- (void)bulkFinishedImportForSource:(ZBBaseSource *)source {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(finishedImportForSource:)]) {
+            [delegate finishedImportForSource:source];
+        }
+    }
+}
+
+- (void)bulkFinishedSourceRefresh {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(finishedSourceRefresh)]) {
+            [delegate finishedSourceRefresh];
+        }
+    }
+}
+
+
+- (void)bulkAddedSources:(NSSet <ZBBaseSource *> *)sources {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(addedSources:)]) {
+            [delegate addedSources:sources];
+        }
+    }
+}
+
+- (void)bulkRemovedSources:(NSSet <ZBBaseSource *> *)sources {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(removedSources:)]) {
+            [delegate removedSources:sources];
+        }
+    }
+}
+
+- (void)addDelegate:(id<ZBSourceDelegate>)delegate {
+    if (!delegates) delegates = [NSMutableArray new];
+    
+    [delegates addObject:delegate];
+}
+
+- (void)removeDelegate:(id<ZBSourceDelegate>)delegate {
+    if (!delegates) return;
+    
+    [delegates removeObject:delegate];
+}
+
+- (void)cancelSourceRefresh {
+    // TODO: More things are probably required here
+    [downloadManager stopAllDownloads];
+}
+
+- (BOOL)isSourceBusy:(ZBBaseSource *)source {
+    return [[busyList objectForKey:source.baseFilename] boolValue];
 }
 
 @end

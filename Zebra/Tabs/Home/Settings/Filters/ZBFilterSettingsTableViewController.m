@@ -259,7 +259,7 @@
         }
         case 1: {
             if (!lastRow) {
-                ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:sources[indexPath.row]];
+                ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:sources[indexPath.row] editOnly:YES];
                 
                 [[self navigationController] pushViewController:sections animated:YES];
             }

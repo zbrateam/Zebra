@@ -8,9 +8,9 @@
 
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
-#import <Database/ZBDatabaseManager.h>
+#import "Sources/Helpers/ZBSourceManager.h"
 #import "Packages/Controllers/ZBPackageListTableViewController.h"
-#import "Sources/Controllers/ZBSourceListTableViewController.h"
+#import "Sources/Controllers/ZBSourceListViewController.h"
 #import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
@@ -23,15 +23,12 @@
 @import LNPopupController;
 
 @interface ZBTabBarController () {
-    NSMutableArray *errorMessages;
-    ZBDatabaseManager *databaseManager;
-    UIActivityIndicatorView *indicator;
-    BOOL sourcesUpdating;
+    ZBSourceManager *sourceManager;
+    UIActivityIndicatorView *sourceRefreshIndicator;
 }
 
 @property (nonatomic) UINavigationController *popupController;
 @property (nonatomic, readonly) ZBQueueViewController *queueController;
-
 @end
 
 @implementation ZBTabBarController
@@ -40,75 +37,56 @@
 
 @synthesize forwardedSourceBaseURL;
 @synthesize forwardToPackageID;
-@synthesize sourceBusyList;
 
 - (id)init {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    
+    if (self) {
+        sourceManager = [ZBSourceManager sharedInstance];
+        [sourceManager addDelegate:self];
+        
+        UITabBar.appearance.tintColor = [UIColor accentColor];
+        UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
+        
+        self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
+        
+        sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+        sourceRefreshIndicator.color = [UIColor whiteColor];
+    }
     
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self applyLocalization];
-
-    UITabBar.appearance.tintColor = [UIColor accentColor];
-    UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
     
-    self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
-    self->indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-    CGRect indicatorFrame = self->indicator.frame;
-    self->indicator.frame = indicatorFrame;
-    self->indicator.color = [UIColor whiteColor];
+    NSError *refreshError = NULL;
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:NO error:&refreshError];
+    if (refreshError) {
+        [ZBAppDelegate sendErrorToTabController:refreshError.localizedDescription];
+    }
 
     NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-    [self setPackageUpdateBadgeValue:(int)badgeValue];
-    [self updatePackagesTableView];
-    
-    databaseManager = [ZBDatabaseManager sharedInstance];
-    if (![databaseManager needsToPresentRefresh]) {
-        [databaseManager addDatabaseDelegate:self];
-        [databaseManager updateDatabaseUsingCaching:YES userRequested:NO];
-    }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueueBar) name:@"ZBUpdateQueueBar" object:nil];
+    [self setPackageUpdateBadgeValue:badgeValue];
     
     NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
         [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
     }
-}
-
-- (void)applyLocalization {
-    for(UINavigationController *vc in self.viewControllers) {
-        assert([vc isKindOfClass:UINavigationController.class]);
-        // This isn't exactly "best practice", but this way the text in IB isn't useless.
-        vc.tabBarItem.title = NSLocalizedString([vc.tabBarItem.title capitalizedString], @"");
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
     
-    if ([databaseManager needsToPresentRefresh]) {
-        [databaseManager setNeedsToPresentRefresh:NO];
-        
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
-        [self presentViewController:refreshController animated:YES completion:nil];
-    }
-    
-    //poor hack to get the tab bar to re-layout
-    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 1, 0);
-    self.additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    // Temporary, remove when all views are decoupled from storyboard
+    UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
+    [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
 }
 
-- (void)setPackageUpdateBadgeValue:(int)updates {
+- (void)setPackageUpdateBadgeValue:(NSInteger)updates {
     [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
         if (updates > 0) {
-            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%d", updates]];
+            [packagesTabBarItem setBadgeValue:[NSString stringWithFormat:@"%ld", (long)updates]];
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:updates];
         } else {
             [packagesTabBarItem setBadgeValue:nil];
@@ -131,65 +109,33 @@
         UITabBarItem *sourcesItem = [sourcesController tabBarItem];
         [sourcesItem setAnimatedBadge:visible];
         if (visible) {
-            if (self->sourcesUpdating) {
-                return;
-            }
+//            if (self->sourcesUpdating) {
+//                return;
+//            }
             sourcesItem.badgeValue = @"";
             
             UIView *badge = [[sourcesItem view] valueForKey:@"_badge"];
-            self->indicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-            self->indicator.center = badge.center;
-            [self->indicator startAnimating];
-            [badge addSubview:self->indicator];
-            self->sourcesUpdating = YES;
+            self->sourceRefreshIndicator.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+            self->sourceRefreshIndicator.center = badge.center;
+            [self->sourceRefreshIndicator startAnimating];
+            [badge addSubview:self->sourceRefreshIndicator];
+//            self->sourcesUpdating = YES;
         } else {
             sourcesItem.badgeValue = nil;
-            self->sourcesUpdating = NO;
+//            self->sourcesUpdating = NO;
         }
-        [self clearSources];
     });
 }
 
-#pragma mark - Database Delegate
+#pragma mark - Source Delegate
 
-- (void)setSource:(NSString *)bfn busy:(BOOL)busy {
-    if (bfn == NULL) return;
-    if (!sourceBusyList) sourceBusyList = [NSMutableDictionary new];
-    [sourceBusyList setObject:@(busy) forKey:bfn];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        ZBSourceListTableViewController *sourcesVC = (ZBSourceListTableViewController *)((UINavigationController *)self.viewControllers[ZBTabSources]).viewControllers[0];
-        [sourcesVC setSpinnerVisible:busy forSource:bfn];
-    });
-}
-
-- (void)clearSources {
-    [sourceBusyList removeAllObjects];
-}
-
-- (void)databaseStartedUpdate {
+- (void)startedSourceRefresh {
     [self setSourceRefreshIndicatorVisible:YES];
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
-    if (packageUpdates != -1) {
-        [self setPackageUpdateBadgeValue:packageUpdates];
-    }
+- (void)finishedSourceRefresh {
+    // TODO: We need to set the packages tab bar badge value here
     [self setSourceRefreshIndicatorVisible:NO];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->errorMessages) {
-            ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithMessages:[self->errorMessages copy]];
-            [self presentViewController:refreshController animated:YES completion:nil];
-            self->errorMessages = nil;
-        }
-    });
-}
-
-- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    if (level == ZBLogLevelError) {
-        if (!errorMessages) errorMessages = [NSMutableArray new];
-        [errorMessages addObject:status];
-    }
 }
 
 - (void)forwardToPackage {

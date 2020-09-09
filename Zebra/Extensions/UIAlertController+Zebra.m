@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "UIAlertController+Show.h"
+#import "UIAlertController+Zebra.h"
 #import <objc/runtime.h>
 #import <Theme/ZBThemeManager.h>
 
@@ -34,7 +34,13 @@
 
 @end
 
-@implementation UIAlertController (Show)
+@implementation UIAlertController (Zebra)
+
++ (id)alertControllerWithError:(NSError *)error {
+    NSString *title = error.localizedFailureReason ? error.localizedDescription : [NSString stringWithFormat:NSLocalizedString(@"Error %ld", @""), (long)error.code];
+    NSString *message = error.localizedFailureReason ?: error.localizedDescription;
+    return [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+}
 
 - (void)show {
     [self show:YES];

@@ -8,6 +8,11 @@
 
 #import <Console/ZBLogLevel.h>
 
+@class ZBBaseSource;
+@class ZBSource;
+
+NS_ASSUME_NONNULL_BEGIN
+
 #ifndef ZBDatabaseDelegate_h
 #define ZBDatabaseDelegate_h
 
@@ -15,9 +20,12 @@
 - (void)databaseStartedUpdate;
 - (void)databaseCompletedUpdate:(int)packageUpdates;
 @optional
-- (void)setSource:(NSString *)bfn busy:(BOOL)busy;
+- (void)startedImportingSource:(ZBBaseSource *)source;
+- (void)finishedImportingSource:(ZBSource *)source error:(NSError *_Nullable)error;
+- (void)setSource:(ZBBaseSource *)source busy:(BOOL)busy DEPRECATED_MSG_ATTRIBUTE("Please use startedImportingSource or finishedImportingSource instead");
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 @end
 
-
 #endif /* ZBDatabaseDelegate_h */
+
+NS_ASSUME_NONNULL_END

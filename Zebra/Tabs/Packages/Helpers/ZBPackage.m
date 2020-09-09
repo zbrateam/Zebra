@@ -22,6 +22,7 @@
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
 #import <ZBSettings.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 
 @import LinkPresentation;
 @import SDWebImage;
@@ -327,7 +328,7 @@
         
         int sourceID = sqlite3_column_int(statement, ZBPackageColumnSourceID);
         if (sourceID > 0) {
-            [self setSource:[ZBSource sourceMatchingSourceID:sourceID]];
+            [self setSource:[[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID]];
         } else {
             [self setSource:[ZBSource localSource:sourceID]];
         }

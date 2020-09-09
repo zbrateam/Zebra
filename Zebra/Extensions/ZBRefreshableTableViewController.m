@@ -15,94 +15,54 @@
 #import <ZBDevice.h>
 
 @interface ZBRefreshableTableViewController () {
-    UIRefreshControl *refreshControl;
+    NSArray <UIBarButtonItem *> *savedLeftButtons;
+    NSArray <UIBarButtonItem *> *savedRightButtons;
 }
 @end
 
 @implementation ZBRefreshableTableViewController
 
-@synthesize databaseManager;
-
-- (BOOL)supportRefresh {
++ (BOOL)supportRefresh {
     return YES;
 }
 
-- (void)cancelRefresh:(id)sender {
-    [databaseManager cancelUpdates:self];
-    [[ZBAppDelegate tabBarController] clearSources];
-    if (self.refreshControl.refreshing) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl endRefreshing];
-            [self didEndRefreshing];
-//            [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-        });
+- (id)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
+    
+    if (self) {
+        sourceManager = [ZBSourceManager sharedInstance];
+        [sourceManager addDelegate:self];
+        
+        if ([[self class] supportRefresh]) {
+            self.refreshControl = [[UIRefreshControl alloc] init];
+            [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
+        }
     }
+    
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    databaseManager = [ZBDatabaseManager sharedInstance];
-    self.tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+    
     [self layoutNavigationButtons];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(layoutNavigationButtons) name:@"ZBUpdateNavigationButtons" object:nil];
-    
-//    if (self.refreshControl) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            if ([ZBDevice darkModeEnabled]) {
-//                [self.refreshControl setTintColor:[UIColor whiteColor]];
-//            }
-//            else {
-//                [self.refreshControl setTintColor:[UIColor blackColor]];
-//            }
-//        });
-//    }
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.extendedLayoutIncludesOpaqueBars = YES;
-    [refreshControl endRefreshing];
-    
-    if ([self supportRefresh] && refreshControl == nil) {
-        [databaseManager addDatabaseDelegate:self];
-        refreshControl = [[UIRefreshControl alloc] init];
-        [refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
-        self.refreshControl = refreshControl;
-    }
-//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [self updateRefreshView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    if (self.refreshControl) {
+    
+    if ([[self class] supportRefresh] && self.refreshControl.refreshing) {
         [self.refreshControl endRefreshing];
     }
 }
 
-- (BOOL)updateRefreshView {
-    if (self.refreshControl) {
-        if ([databaseManager isDatabaseBeingUpdated]) {
-            if (!self.refreshControl.refreshing) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-//                    if ([ZBDevice darkModeEnabled]) {
-//                        [self.refreshControl setTintColor:[UIColor whiteColor]];
-//                    }
-//                    else {
-//                        [self.refreshControl setTintColor:[UIColor blackColor]];
-//                    }
-                    
-                    [self.refreshControl beginRefreshing];
-                    [self didEndRefreshing];
-//                    [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.refreshControl.frame.size.height) animated:YES];
-                });
-            }
-            [self layoutNavigationButtonsRefreshing];
-            return YES;
-        }
+- (void)cancelRefresh:(id)sender {
+    [sourceManager cancelSourceRefresh];
+    if (self.refreshControl.refreshing) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
     }
-    [self layoutNavigationButtonsNormal];
-    return NO;
 }
 
 - (void)layoutNavigationButtonsRefreshing {
@@ -114,7 +74,7 @@
 
 - (void)layoutNavigationButtonsNormal {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.leftBarButtonItems = @[];
+//        self.navigationItem.leftBarButtonItems = @[];
     });
 }
 
@@ -128,49 +88,29 @@
     });
 }
 
-- (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
-    if (![self supportRefresh]) {
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [(ZBTabBarController *)self.tabBarController setSourceRefreshIndicatorVisible:visible];
-    });
-}
-
 - (void)refreshSources:(id)sender {
-    if (![self supportRefresh] || [self updateRefreshView]) {
+    if (![[self class] supportRefresh] || [sourceManager isRefreshInProgress]) {
         return;
     }
-    [self setEditing:NO animated:NO];
-    [self setSourceRefreshIndicatorVisible:YES];
-    [databaseManager updateDatabaseUsingCaching:YES userRequested:YES];
-    [self updateRefreshView];
+    [self setEditing:NO animated:YES];
+    
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
-- (void)didEndRefreshing {
-    [self layoutNavigationButtons];
-}
-
-- (void)databaseCompletedUpdate:(int)packageUpdates {
-    if (![self supportRefresh]) {
-        return;
-    }
-    [self setSourceRefreshIndicatorVisible:NO];
+- (void)startedSourceRefresh {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (packageUpdates != -1) {
-            [(ZBTabBarController *)self.tabBarController setPackageUpdateBadgeValue:packageUpdates];
+        if ([[self class] supportRefresh] && !self.refreshControl.refreshing) {
+            [self.refreshControl beginRefreshing];
         }
-        [self->refreshControl endRefreshing];
-        [self didEndRefreshing];
     });
 }
 
-- (void)databaseStartedUpdate {
-    if (![self supportRefresh]) {
-        return;
-    }
-    [self setSourceRefreshIndicatorVisible:YES];
-    [self layoutNavigationButtons];
+- (void)finishedSourceRefresh {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([[self class] supportRefresh] && self.refreshControl.refreshing) {
+            [self.refreshControl endRefreshing];
+        }
+    });
 }
 
 @end

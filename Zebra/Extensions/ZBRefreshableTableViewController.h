@@ -8,18 +8,15 @@
 
 #import "ZBTableViewController.h"
 
-#import <Database/ZBDatabaseDelegate.h>
 #import <Database/ZBDatabaseManager.h>
+#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Theme/ZBThemeManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBRefreshableTableViewController : ZBTableViewController <ZBDatabaseDelegate>
-@property (nonatomic, strong) ZBDatabaseManager *databaseManager;
-- (void)setSourceRefreshIndicatorVisible:(BOOL)visible;
-- (void)didEndRefreshing;
-- (void)layoutNavigationButtons;
-- (void)layoutNavigationButtonsNormal;
-- (void)layoutNavigationButtonsRefreshing;
+@interface ZBRefreshableTableViewController : ZBTableViewController <ZBSourceDelegate> {
+    ZBSourceManager *sourceManager;
+}
 @end
 
 NS_ASSUME_NONNULL_END

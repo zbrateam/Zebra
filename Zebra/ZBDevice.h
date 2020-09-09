@@ -43,16 +43,18 @@
 + (BOOL)isUncover;
 + (BOOL)isOdyssey;
 
-+ (BOOL)useIcon;
++ (BOOL)useIcon DEPRECATED_MSG_ATTRIBUTE("Use ZBSettings to determine the curent swipe action style. This method will be removed in the final version of Zebra 1.2.");;
 
 + (void)exitZebra;
 + (void)exitZebraAfter:(int)seconds;
 
-+ (BOOL)darkModeEnabled; //Only provided for legacy tweak support
++ (BOOL)darkModeEnabled DEPRECATED_MSG_ATTRIBUTE("Use ZBSettings to determine the curent interface style. This method will be removed in the final version of Zebra 1.2.");
 
 + (NSString *_Nonnull)downloadUserAgent;
 + (NSDictionary *_Nonnull)downloadHeaders;
 + (NSString *_Nonnull)depictionUserAgent;
 + (NSDictionary *_Nonnull)depictionHeaders;
+
++ (NSString *_Nonnull)jailbreakType;
 
 @end

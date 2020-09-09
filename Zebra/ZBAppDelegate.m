@@ -14,7 +14,7 @@
 #import <ZBSettings.h>
 #import <Notifications/ZBNotificationManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Controllers/ZBSourceListTableViewController.h>
+#import <Tabs/Sources/Controllers/ZBSourceListViewController.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
@@ -199,26 +199,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 #endif
     
     [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-    
-    NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
-    if ([ZBDevice isOdyssey]) {
-        jailbreak = @"Odyssey";
-    }
-    else if ([ZBDevice isCheckrain]) {
-        jailbreak = @"checkra1n";
-    }
-    else if ([ZBDevice isChimera]) {
-        jailbreak = @"Chimera";
-    }
-    else if ([ZBDevice isElectra]) {
-        jailbreak = @"Electra";
-    }
-    else if ([ZBDevice isUncover]) {
-        jailbreak = @"unc0ver";
-    }
-    
-    [FIRAnalytics setUserPropertyString:jailbreak forName:@"Jailbreak"];
-    [[FIRCrashlytics crashlytics] setCustomValue:jailbreak forKey:@"jailbreak_type"];
+    [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
+    [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
     [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
@@ -226,26 +208,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self registerForScreenshotNotifications];
     
     self.window.tintColor = [UIColor accentColor];
-    if ([ZBDatabaseManager needsMigration]) {
-        NSURL *url = launchOptions[UIApplicationLaunchOptionsURLKey];
-        if (url) {
-            if ([[url scheme] isEqualToString:@"file"] && [[url pathExtension] isEqualToString:@"list"]) {
-                NSString *listPath = [ZBAppDelegate sourcesListPath];
-                
-                NSError *removeError;
-                if ([[NSFileManager defaultManager] fileExistsAtPath:listPath]) {
-                    [[NSFileManager defaultManager] removeItemAtPath:listPath error:&removeError];
-                }
-                
-                if (!removeError) {
-                    [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:listPath error:nil];
-                }
-            }
-        }
-        
-        self.window.rootViewController = [[ZBRefreshViewController alloc] initWithDropTables:YES];
-    }
-    
+    self.window.rootViewController = [[ZBTabBarController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
     
     return YES;
@@ -283,8 +246,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
                     
-                ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                [sourceListController handleImportOf:url];
+                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                
+                [sourceListController handleURL:url];
             }
             break;
         }
@@ -303,7 +267,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
                     
-                    ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    
                     [sourceListController handleURL:url];
                     break;
                 }
@@ -389,8 +354,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBSourceListTableViewController *sourceListController = (ZBSourceListTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]]; 
+        ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        
+        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     }
 }
 

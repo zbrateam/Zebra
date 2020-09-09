@@ -11,12 +11,14 @@
 #import "ZBSourceSelectTableViewController.h"
 #import "ZBSourceTableViewCell.h"
 #import "ZBSource.h"
+#import "ZBSourceManager.h"
 #import "UIColor+GlobalColors.h"
 
 @interface ZBSourceSelectTableViewController () {
-    NSMutableArray <ZBSource *>    *selectedSources;
-    NSArray <ZBSource *>           *preSelectedSources;
-    NSMutableArray <NSIndexPath *> *selectedIndexes;
+    NSMutableArray <ZBBaseSource *> *sources;
+    NSMutableArray <ZBSource *>     *selectedSources;
+    NSArray <ZBSource *>            *preSelectedSources;
+    NSMutableArray <NSIndexPath *>  *selectedIndexes;
 }
 @end
 
@@ -33,6 +35,20 @@
         selectionType = type;
         selectedSources = [NSMutableArray new];
         selectedIndexes = [NSMutableArray new];
+        
+        self.title = NSLocalizedString(@"Select a Source", @"");
+        
+        sources = [[[ZBSourceManager sharedInstance] sources] mutableCopy];
+        
+        NSMutableArray *fakeSources = [NSMutableArray new];
+        for (NSObject *source in sources) {
+            if (![source isKindOfClass:[ZBSource class]]) {
+                [fakeSources addObject:source];
+            }
+        }
+        [sources removeObjectsInArray:fakeSources];
+        
+        filteredSources = [sources mutableCopy];
     }
     
     return self;
@@ -51,12 +67,6 @@
 
 - (BOOL)supportRefresh {
     return NO;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    self.title = NSLocalizedString(@"Select a Source", @"");
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -106,25 +116,14 @@
 }
 
 - (void)refreshTable {
-    self->sources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
-    
-    NSMutableArray *fakeSources = [NSMutableArray new];
-    for (NSObject *source in sources) {
-        if (![source isKindOfClass:[ZBSource class]]) {
-            [fakeSources addObject:source];
-        }
-    }
-    [sources removeObjectsInArray:fakeSources];
-    
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateCollation];
         [self.tableView reloadData];
     });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
-    ZBSource *source = [self sourceAtIndexPath:indexPath];
+    ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceCell" forIndexPath:indexPath];
+    ZBSource *source = (ZBSource *)sources[indexPath.row];
     
     cell.sourceLabel.text = [source label];
     cell.sourceLabel.textColor = [UIColor primaryTextColor];
@@ -166,7 +165,7 @@
 }
 
 - (void)addSourceAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSource *source = [self sourceAtIndexPath:indexPath];
+    ZBSource *source = (ZBSource *)sources[indexPath.row];
     if ([preSelectedSources containsObject:source]) {
         // We will not unselect the sources that have already been added.
         return;

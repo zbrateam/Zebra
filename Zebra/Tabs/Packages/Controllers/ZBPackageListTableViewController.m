@@ -25,6 +25,7 @@
 @import FirebaseAnalytics;
 
 @interface ZBPackageListTableViewController () {
+    ZBDatabaseManager *databaseManager;
     ZBSortingType selectedSortingType;
     NSArray <ZBPackage *> *packages;
     NSArray <ZBPackage *> *sortedPackages;
@@ -46,8 +47,8 @@
 @synthesize source;
 @synthesize section;
 
-- (BOOL)supportRefresh {
-    return ![self source];
++ (BOOL)supportRefresh {
+    return NO;
 }
 
 - (BOOL)useBatchLoad {
@@ -58,13 +59,12 @@
     [super viewDidLoad];
     [self applyLocalization];
 
+    databaseManager = [ZBDatabaseManager sharedInstance];
     selectedSortingType = [ZBSettings packageSortingType];
     if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
 //    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    
-    self.navigationItem.largeTitleDisplayMode = [self source] ? UINavigationItemLargeTitleDisplayModeNever : UINavigationItemLargeTitleDisplayModeAlways;
     
 //    if (@available(iOS 13.0, *)) {
 //    } else {        
@@ -106,13 +106,6 @@
     [self configureSegmentedController];
 }
 
-- (void)layoutNavigationButtonsRefreshing {
-    [super layoutNavigationButtonsRefreshing];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationItem.rightBarButtonItem = nil;
-    });
-}
-
 - (void)updateCollation {
     switch (selectedSortingType) {
         case ZBSortingTypeABC:
@@ -132,8 +125,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if ([self->source sourceID] == 0) {
             self->isRefreshingTable = YES;
-            self->packages = [self.databaseManager installedPackages:NO];
-            self->updates = [self.databaseManager packagesWithUpdates];
+            self->packages = [self->databaseManager installedPackages:NO];
+            self->updates = [self->databaseManager packagesWithUpdates];
             
             NSUInteger totalUpdates = self->updates.count;
             self->needsUpdatesSection = totalUpdates != 0;
@@ -144,9 +137,9 @@
             self->isRefreshingTable = NO;
         } else {
             self.batchLoadCount = 500;
-            self->packages = [self.databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
+            self->packages = [self->databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
             self->databaseRow = self.batchLoadCount - 1;
-            self->totalNumberOfPackages = [self.databaseManager numberOfPackagesInSource:self->source section:self->section];
+            self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:self->source section:self->section];
             self.continueBatchLoad = self.batchLoad = YES;
             [self configureLoadMoreButton];
         }
@@ -159,7 +152,6 @@
         } else {
             self->sortedPackages = nil;
         }
-        [self layoutNavigationButtons];
         self->numberOfPackages = (int)[self->packages count];
         
         [self updateCollation];
@@ -174,11 +166,11 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self->numberOfPackages < self->totalNumberOfPackages) {
             self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self.databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
+            NSArray *nextPackages = [self->databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
             if (nextPackages.count == 0) {
                 self.continueBatchLoad = self.isPerformingBatchLoad = NO;
             } else {
-                self->packages = [self.databaseManager cleanUpDuplicatePackages:[self->packages arrayByAddingObjectsFromArray:nextPackages]];
+                self->packages = [self->databaseManager cleanUpDuplicatePackages:[self->packages arrayByAddingObjectsFromArray:nextPackages]];
                 self->numberOfPackages = (int)[self->packages count];
                 self->databaseRow += self.batchLoadCount;
                 [self updateCollation];
@@ -239,7 +231,7 @@
 }
 
 - (void)sharePackages {
-    NSArray *packages = [self.databaseManager installedPackages:NO];
+    NSArray *packages = [databaseManager installedPackages:NO];
     [packages sortedArrayUsingSelector:@selector(name)];
     
     NSMutableArray *descriptions = [NSMutableArray new];
@@ -456,7 +448,7 @@
 }
 
 - (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    if (!source || [self.databaseManager numberOfPackagesInSource:source section:section] > 400) return @[];
+    if (!source || [databaseManager numberOfPackagesInSource:source section:section] > 400) return @[];
     
     NSString *title = NSLocalizedString(@"Install All", @"");
     UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {

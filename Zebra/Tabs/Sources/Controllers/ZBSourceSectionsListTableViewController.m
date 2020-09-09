@@ -48,13 +48,13 @@
 
 #pragma mark - Initializers
 
-- (id)initWithSource:(ZBSource *)source {
+- (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     self = [storyboard instantiateViewControllerWithIdentifier:@"sourceSectionsController"];
     
     if (self) {
         self.source = source;
-        editOnly = YES;
+        editOnly = edit;
     }
     
     return self;
@@ -328,6 +328,7 @@
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        //TODO: Update for new refresh
         [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     

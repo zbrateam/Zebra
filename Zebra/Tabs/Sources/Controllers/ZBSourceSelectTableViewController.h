@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceListTableViewController.h"
+#import "ZBSourceListViewController.h"
 
 @import UIKit;
 
@@ -17,7 +17,7 @@ typedef enum : NSUInteger {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceSelectTableViewController : ZBSourceListTableViewController
+@interface ZBSourceSelectTableViewController : ZBSourceListViewController
 @property void (^sourcesSelected)(NSArray <ZBSource *> *selectedSources);
 @property ZBSourceSelectionType selectionType;
 @property int limit;

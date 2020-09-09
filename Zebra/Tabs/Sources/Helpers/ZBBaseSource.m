@@ -38,6 +38,9 @@
 @synthesize verificationStatus;
 @synthesize label;
 @synthesize iconURL;
+@synthesize sourceID;
+
+NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 
 + (ZBBaseSource *)zebraSource {
     return [[ZBBaseSource alloc] initWithArchiveType:@"deb" repositoryURI:@"https://getzbra.com/repo/" distribution:@"./" components:NULL];
@@ -57,7 +60,7 @@
     return baseSources;
 }
 
-+ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error {
++ (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **_Nullable)error {
     NSError *readError = NULL;
     NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];
     if (readError) {
@@ -116,6 +119,8 @@
         self->repositoryURI = repositoryURI;
         self->label = repositoryURI;
         self->distribution = distribution;
+        self->sourceID = INT_MIN;
+        
         if (components && [components count]) {
             NSMutableArray *check = [components mutableCopy];
             [check removeObject:@""];
@@ -201,7 +206,7 @@
         return baseSource;
     }
     
-    return [super init];
+    return NULL;
 }
 
 - (id)initFromSourceGroup:(NSString *)sourceGroup {
@@ -237,8 +242,19 @@
     return [super init];
 }
 
-- (id)initFromURL:(NSURL *)url {
-    return [self initFromSourceLine:[ZBSourceManager debLineForURL:url]];
+- (id)initFromURL:(NSURL *)URL {
+    if (!URL) return NULL;
+    
+    NSDictionary *knownDistSources = @{
+        @"apt.thebigboss.org": @"deb http://apt.thebigboss.org/repofiles/cydia/ stable main",
+        @"apt.modmyi.com": @"deb http://apt.modmyi.com/ stable main",
+        @"apt.saurik.com": [NSString stringWithFormat:@"deb http://apt.saurik.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+        @"apt.bingner.com": [NSString stringWithFormat:@"deb https://apt.bingner.com/ ios/%.2f main", kCFCoreFoundationVersionNumber],
+        @"cydia.zodttd.com": @"deb http://cydia.zodttd.com/repo/cydia/ stable main"
+    };
+    
+    NSString *debLine = knownDistSources[[URL host]] ?: [NSString stringWithFormat:@"deb %@ ./", [URL absoluteString]];
+    return [self initFromSourceLine:debLine];
 }
 
 - (BOOL)hasCFVersionComponent:(NSString * _Nullable)repositoryURI_ {
@@ -407,7 +423,7 @@
 }
 
 - (BOOL)isEqual:(ZBBaseSource *)object {
-    if (!object)
+    if (object == nil)
         return NO;
     
     if (self == object)
@@ -457,6 +473,21 @@
 - (BOOL)exists {
     NSSet *sources = [[self class] baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
     return [sources containsObject:self];
+}
+
+- (NSArray <NSString *> *)lists {
+    NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
+    
+    return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", self.baseFilename]];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
+}
+
+- (NSString *)debugDescription
+{
+    return self.label;
 }
 
 @end

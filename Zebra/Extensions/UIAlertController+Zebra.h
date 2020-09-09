@@ -1,5 +1,5 @@
 //
-//  UIAlertController+Show.h
+//  UIAlertController+Zebra.h
 //  Zebra
 //
 //  Created by Wilson Styres on 4/10/20.
@@ -10,11 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIAlertController (Show)
-
+@interface UIAlertController (Zebra)
++ (id)alertControllerWithError:(NSError *)error;
 - (void)show;
 - (void)show:(BOOL)animated;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -24,12 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *suite;
 @property (nonatomic) NSString *codename;
 @property (nonatomic) NSArray <NSString *> *architectures;
-@property (nonatomic) int sourceID;
 
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 
-+ (ZBSource *)sourceMatchingSourceID:(int)sourceID;
 + (ZBSource *)localSource:(int)sourceID;
 + (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL;
 + (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;

@@ -23,17 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 
-- (void)startedSourceDownload:(ZBBaseSource *)baseSource;
-- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource;
-- (void)finishedSourceDownload:(ZBBaseSource *)baseSource withErrors:(NSArray <NSError *> *_Nullable)errors;
+- (void)startedDownloadingSource:(ZBBaseSource *)source;
+- (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)source;
+- (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *_Nullable)errors;
 
 - (void)startedPackageDownload:(ZBPackage *)package;
 - (void)progressUpdate:(CGFloat)progress forPackage:(ZBPackage *)package;
 - (void)finishedPackageDownload:(ZBPackage *)package withError:(NSError *_Nullable)error;
-
-- (void)startedDownloadForFile:(NSString *)filename __deprecated_msg("Use a specific download started method instead");
-- (void)finishedAllDownloads:(NSDictionary *)filenames __deprecated_msg("Use a specific download finished method instead");
-- (void)finishedDownloadForFile:(NSString *_Nullable)filename withError:(NSError *_Nullable)error __deprecated_msg("Use a specific download finished method instead");
 @end
 
 NS_ASSUME_NONNULL_END
