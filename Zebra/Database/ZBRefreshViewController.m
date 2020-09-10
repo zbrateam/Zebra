@@ -189,10 +189,10 @@ typedef enum {
         
         if (self.baseSources.count) {
             // Update only the sources specified
-            [databaseManager updateSources:self.baseSources useCaching:NO];
+//            [databaseManager updateSources:self.baseSources useCaching:NO];
         } else {
             // Update every source
-            [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
+//            [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
         }
     } else {
         hadAProblem = YES;

@@ -255,13 +255,14 @@
 }
 
 - (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching {
-    [self bulkDatabaseStartedUpdate];
-    if (!self.downloadManager) {
-        self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-    }
-    
-    [self bulkPostStatusUpdate:NSLocalizedString(@"Starting Download", @"") atLevel:ZBLogLevelInfo];
-    [self.downloadManager downloadSources:sources useCaching:useCaching];
+//    [self bulkDatabaseStartedUpdate];
+//    if (!self.downloadManager) {
+//        self.downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+//    }
+//
+//    [self bulkPostStatusUpdate:NSLocalizedString(@"Starting Download", @"") atLevel:ZBLogLevelInfo];
+//    [self.downloadManager downloadSources:sources useCaching:useCaching];
+    [self bulkPostStatusUpdate:@"Calling a deprecated method. ZBDatabaseManager no longer handles downloads." atLevel:ZBLogLevelError];
 }
 
 - (void)setHaltDatabaseOperations:(BOOL)halt {
@@ -2114,7 +2115,7 @@
     //TODO: Implement
 }
 
-- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource errors:(NSArray <NSError *> *_Nullable)errors {
+- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource withError:(NSArray<NSError *> * _Nullable)errors:(NSArray <NSError *> *_Nullable)errors {
     [self bulkSetSource:baseSource busy:NO];
     if (errors && [errors count]) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
