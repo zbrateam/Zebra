@@ -201,7 +201,7 @@
     }
 }
 
-+ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer {
++ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject * _Nullable)observer {
     if (!arguments || [arguments count] == 0) {
         NSString *command = @"uicache -a";
         
@@ -230,7 +230,7 @@
     }
 }
 
-+ (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer {
++ (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject *_Nullable)observer {
     NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
     NSString *shellPath = [environmentDict objectForKey:@"SHELL"];
     
