@@ -328,7 +328,7 @@
 - (BOOL)checkForInvalidRepo:(NSURL *)baseURL {
     NSString *host = [baseURL host];
     
-    if (YES || [ZBDevice isOdyssey]) { // odyssey
+    if ([ZBDevice isOdyssey]) { // odyssey
         return ([host isEqualToString:@"apt.saurik.com"] || [host isEqualToString:@"electrarepo64.coolstar.org"] || [host isEqualToString:@"repo.chimera.sh"] || [host isEqualToString:@"apt.bingner.com"]);
     }
     if ([ZBDevice isCheckrain]) { // checkra1n
