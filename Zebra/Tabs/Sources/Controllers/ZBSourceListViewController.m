@@ -42,6 +42,7 @@
     if (self) {
         self.title = NSLocalizedString(@"Sources", @"");
         self.tableView.allowsMultipleSelectionDuringEditing = YES;
+        self.navigationController.navigationBar.prefersLargeTitles = YES;
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;
