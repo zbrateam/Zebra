@@ -100,6 +100,7 @@
 		8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
+		893C36562509AD8400DF07DE /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 893C36552509AD8400DF07DE /* ZBCommand.m */; };
 		893F51CC2447D83C00B2C64E /* control.sample in Resources */ = {isa = PBXBuildFile; fileRef = 893F51CB2447D83C00B2C64E /* control.sample */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBSourceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
@@ -341,6 +342,9 @@
 		893952FE220B5D0100995109 /* ZBConsoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBConsoleViewController.m; sourceTree = "<group>"; };
 		893A397F23A6CD60006373C3 /* UIRefreshControl+Theme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIRefreshControl+Theme.h"; sourceTree = "<group>"; };
 		893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIRefreshControl+Theme.m"; sourceTree = "<group>"; };
+		893C36542509AD8400DF07DE /* ZBCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommand.h; sourceTree = "<group>"; };
+		893C36552509AD8400DF07DE /* ZBCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommand.m; sourceTree = "<group>"; };
+		893C36572509AECB00DF07DE /* ZBCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommandDelegate.h; sourceTree = "<group>"; };
 		893CB6522363A0C400204E27 /* nn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nn; path = nn.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6532363A23500204E27 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6542363A40D00204E27 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -495,7 +499,6 @@
 		9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Theme.m"; sourceTree = "<group>"; };
 		9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshableTableViewController.h; sourceTree = "<group>"; };
 		9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshableTableViewController.m; sourceTree = "<group>"; };
-		9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleCommandDelegate.h; sourceTree = "<group>"; };
 		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
 		9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagePartitioner.h; sourceTree = "<group>"; };
 		9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackagePartitioner.m; sourceTree = "<group>"; };
@@ -780,7 +783,9 @@
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
-				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
+				893C36542509AD8400DF07DE /* ZBCommand.h */,
+				893C36552509AD8400DF07DE /* ZBCommand.m */,
+				893C36572509AECB00DF07DE /* ZBCommandDelegate.h */,
 				89B76A51235F8FF6006900FE /* ZBStage.h */,
 				89FEA4132264BF68002647A2 /* ZBLogLevel.h */,
 				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
@@ -1521,6 +1526,7 @@
 				A53E54A5245B08740082BF69 /* ZBUtils.m in Sources */,
 				8916AC1B23CAAE51008BA02C /* ZBAlternateIconController.m in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
+				893C36562509AD8400DF07DE /* ZBCommand.m in Sources */,
 				7514035F2499598000B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
