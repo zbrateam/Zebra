@@ -435,7 +435,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     if (!object.archiveType || !object.repositoryURI || !object.distribution)
         return NO;
     
-    NSString *repositoryURISchemeless;
+    NSString *repositoryURISchemeless = self.repositoryURI;
     if ([self.repositoryURI hasPrefix:@"http:"]) {
         repositoryURISchemeless = [self.repositoryURI stringByReplacingOccurrencesOfString:@"http:" withString:@""];
     }
