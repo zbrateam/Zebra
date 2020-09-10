@@ -418,7 +418,10 @@
         [busyList setObject:@NO forKey:source.baseFilename];
         
         NSMutableArray *mutableSources = [_sources mutableCopy];
-        [mutableSources replaceObjectAtIndex:[mutableSources indexOfObject:source] withObject:source];
+        NSUInteger index = [mutableSources indexOfObject:source];
+        if (index < mutableSources.count) {
+            [mutableSources replaceObjectAtIndex:index withObject:source];
+        }
         _sources = [mutableSources sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
         
         if (error) {
