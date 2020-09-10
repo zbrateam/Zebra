@@ -255,6 +255,11 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (hasProblems && indexPath.section == 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        return;
+    }
+    
     ZBSource *source = filteredSources[indexPath.row];
     if (!self.editing) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
