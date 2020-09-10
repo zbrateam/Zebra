@@ -421,43 +421,58 @@
 #pragma mark - ZBSourceDelegate
 
 - (void)startedDownloadForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    });
+    NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
+    if (index != NSNotFound) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        });
+    }
 }
 
 - (void)finishedDownloadForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    });
+    NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
+    if (index != NSNotFound) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        });
+    }
 }
 
 - (void)startedImportForSource:(ZBBaseSource *)source {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    });
+    NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
+    if (index != NSNotFound) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        });
+    }
 }
 
 - (void)finishedImportForSource:(ZBBaseSource *)source {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
-        
-        self->sources = [self->sourceManager.sources mutableCopy];
-        [self filterSourcesForSearchTerm:self->searchController.searchBar.text];
-        
-        NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:(ZBSource *)source] inSection:self->hasProblems];
-        
-        if ([oldIndexPath isEqual:newIndexPath]) {
-            [self.tableView reloadRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-        else {
-            [self.tableView beginUpdates];
-            [self.tableView deleteRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            [self.tableView endUpdates];
+        NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
+        if (index != NSNotFound) {
+            NSIndexPath *oldIndexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
+            
+            self->sources = [self->sourceManager.sources mutableCopy];
+            [self filterSourcesForSearchTerm:self->searchController.searchBar.text];
+            
+            NSUInteger newIndex = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
+            if (newIndex != NSNotFound) {
+                NSIndexPath *newIndexPath = [NSIndexPath indexPathForRow:newIndex inSection:self->hasProblems];
+                
+                if ([oldIndexPath isEqual:newIndexPath]) {
+                    [self.tableView reloadRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+                else {
+                    [self.tableView beginUpdates];
+                    [self.tableView deleteRowsAtIndexPaths:@[oldIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                    [self.tableView endUpdates];
+                }
+            }
         }
     });
 }
@@ -483,24 +498,30 @@
     
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:self->hasProblems];
-        [indexPaths addObject:indexPath];
+        NSUInteger index = [[self->filteredSources copy] indexOfObject:source];
+        if (index != NSNotFound) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
+            [indexPaths addObject:indexPath];
+        }
     }
     
-    [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (indexPaths.count) [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)removedSources:(NSSet<ZBBaseSource *> *)sources {
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self->filteredSources indexOfObject:source] inSection:self->hasProblems];
-        [indexPaths addObject:indexPath];
+        NSUInteger index = [[self->filteredSources copy] indexOfObject:source];
+        if (index != NSNotFound) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
+            [indexPaths addObject:indexPath];
+        }
     }
     
     self->sources = [sourceManager.sources mutableCopy];
     [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
-    [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (indexPaths.count) [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         NSPredicate *search = [NSPredicate predicateWithFormat:@"errors != nil AND errors[SIZE] > 0"];
