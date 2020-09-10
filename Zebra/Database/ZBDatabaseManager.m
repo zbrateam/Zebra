@@ -726,7 +726,7 @@
             while (sqlite3_step(statement) == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
                 
-                [sources addObject:source];
+                if (source) [sources addObject:source];
             }
         } else {
             [self printDatabaseError];
