@@ -196,14 +196,14 @@
                 [installedPackageIdentifiers addObject:[package identifier]];
             }
             
-            for (NSArray *command in actions) {
-                if ([command count] == 1) {
-                    [self updateStage:(ZBStage)[command[0] intValue]];
+            for (NSArray *action in actions) {
+                if ([action count] == 1) {
+                    [self updateStage:(ZBStage)[action[0] intValue]];
                 }
                 else {
                     if (currentStage == ZBStageRemove) {
-                        for (int i = COMMAND_START; i < command.count; ++i) {
-                            NSString *packageID = command[i];
+                        for (int i = COMMAND_START; i < action.count; ++i) {
+                            NSString *packageID = action[i];
                             if (![self isValidPackageID:packageID]) continue;
                             
                             NSString *bundlePath = [ZBPackage applicationBundlePathForIdentifier:packageID];
@@ -222,53 +222,13 @@
                     
                     if (![ZBDevice needsSimulation]) {
                         ZBLog(@"[Zebra] Executing commands...");
-                        NSTask *task = [[NSTask alloc] init];
-                        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-                        [task setArguments:command];
-                        
-                        NSPipe *outputPipe = [[NSPipe alloc] init];
-                        NSFileHandle *output = [outputPipe fileHandleForReading];
-                        [output waitForDataInBackgroundAndNotify];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                        
-                        NSPipe *errorPipe = [[NSPipe alloc] init];
-                        NSFileHandle *error = [errorPipe fileHandleForReading];
-                        [error waitForDataInBackgroundAndNotify];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                        
-                        [task setStandardOutput:outputPipe];
-                        [task setStandardError:errorPipe];
-                        
-                        @try {
-                            [task launch];
-                            [task waitUntilExit];
-                            
-                            int terminationStatus = [task terminationStatus];
-                            switch (terminationStatus) {
-                                case EX_NOPERM:
-                                    [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                                case EDEADLK:
-                                    [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                                case 85: //ERESTART apparently
-                                    [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } @catch (NSException *e) {
-                            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
-                            
-                            [[FIRCrashlytics crashlytics] logWithFormat:@"%@", message];
-                            NSLog(@"[Zebra] %@", message);
-                            [self writeToConsole:message atLevel:ZBLogLevelError];
-                        }
+                        ZBCommand *command = [[ZBCommand alloc] initWithDelegate:self];
+                        [command runCommand:[ZBDevice packageManagementBinary] withArguments:action asRoot:YES];
                     }
                     else {
                         [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
-                        for (int i = COMMAND_START; i < [command count]; ++i) {
-                            NSString *packageID = command[i];
+                        for (int i = COMMAND_START; i < [action count]; ++i) {
+                            NSString *packageID = action[i];
                             if (![self isValidPackageID:packageID]) continue;
                             [self writeToConsole:[packageID lastPathComponent] atLevel:ZBLogLevelDescript];
                         }
@@ -700,32 +660,18 @@
 
 #pragma mark - Command Delegate
 
-- (void)receivedData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
-
-    if (data.length) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self writeToConsole:str atLevel:ZBLogLevelDescript];
-    }
+- (void)receivedData:(NSString *)data {
+    NSLog(@"[Zebra] Data: %@", data);
+    [self writeToConsole:data atLevel:ZBLogLevelDescript];
 }
 
-- (void)receivedErrorData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
-
-    if (data.length) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        if ([str containsString:@"stable CLI interface"]) return;
-        if ([str containsString:@"postinst"]) return;
-        [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", str];
-        if ([str rangeOfString:@"warning"].location != NSNotFound || [str hasPrefix:@"W:"]) {
-            [self writeToConsole:str atLevel:ZBLogLevelWarning];
-        } else {
-            [self writeToConsole:str atLevel:ZBLogLevelError];
-        }
+- (void)receivedErrorData:(NSString *)data {
+    NSLog(@"[Zebra] Err Data: %@", data);
+    [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", data];
+    if ([data rangeOfString:@"warning"].location != NSNotFound || [data hasPrefix:@"W:"]) {
+        [self writeToConsole:data atLevel:ZBLogLevelWarning];
+    } else {
+        [self writeToConsole:data atLevel:ZBLogLevelError];
     }
 }
 

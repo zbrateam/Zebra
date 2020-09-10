@@ -8,17 +8,15 @@
 
 #define COMMAND_START 1
 
-@class ZBQueue;
-
 @import UIKit;
 
 #import <Downloads/ZBDownloadDelegate.h>
 #import <Database/ZBDatabaseDelegate.h>
-#import "ZBConsoleCommandDelegate.h"
+#import "ZBCommand.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate, ZBConsoleCommandDelegate, UIGestureRecognizerDelegate>
+@interface ZBConsoleViewController : UIViewController <ZBCommandDelegate, ZBDownloadDelegate, ZBDatabaseDelegate, UIGestureRecognizerDelegate>
 @end
 
 NS_ASSUME_NONNULL_END
