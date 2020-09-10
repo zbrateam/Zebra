@@ -406,24 +406,28 @@
 
 - (void)startedImportingSource:(ZBBaseSource *)source {
     ZBLog(@"[Zebra](ZBSourceManager) Started parsing %@", source);
-    [busyList setObject:@YES forKey:source.baseFilename];
-    [self bulkStartedImportForSource:source];
+    if (source) {
+        [busyList setObject:@YES forKey:source.baseFilename];
+        [self bulkStartedImportForSource:source];
+    }
 }
 
 - (void)finishedImportingSource:(ZBSource *)source error:(NSError *)error {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
-    [busyList setObject:@NO forKey:source.baseFilename];
-    
-    NSMutableArray *mutableSources = [_sources mutableCopy];
-    [mutableSources replaceObjectAtIndex:[mutableSources indexOfObject:source] withObject:source];
-    _sources = [mutableSources sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
-    
-    if (error) {
-        source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
+    if (source) {
+        [busyList setObject:@NO forKey:source.baseFilename];
+        
+        NSMutableArray *mutableSources = [_sources mutableCopy];
+        [mutableSources replaceObjectAtIndex:[mutableSources indexOfObject:source] withObject:source];
+        _sources = [mutableSources sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+        
+        if (error) {
+            source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
+        }
+        source.warnings = [self warningsForSource:source];
+        
+        [self bulkFinishedImportForSource:source];
     }
-    source.warnings = [self warningsForSource:source];
-    
-    [self bulkFinishedImportForSource:source];
 }
 
 - (void)databaseCompletedUpdate:(int)packageUpdates {
