@@ -473,6 +473,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
 }
 
 void readMultiLineKey(FILE **file, char **buffer) {
+    *buffer[0] = '\0';
     char line[2048];
     long int position = ftell(*file);
     
@@ -549,42 +550,24 @@ enum PARSEL_RETURN_TYPE importPackagesToDatabase(const char *path, sqlite3 *data
                 continue;
             }
             
-//            if (key != NULL && (strcmp(key, "Description") == 0 || strcmp(key, "Changelog") == 0)) { // Check for a long description or changelog
-//                if (strcmp(key, "Description") == 0) {
-//
-//                    char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-//                    readMultiLineKey(&file, &longDescription);
-//
-//                    if (longDescription[0] != '\0') {
-//                        dict_add(package, "Tagline", value);
-//                        dict_add(package, "Description", longDescription);
-//                    }
-//                    else {
-//                        dict_add(package, "Description", value);
-//                    }
-//
-//                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
-//                    longDescription[0] = '\0';
-//                    free(longDescription);
-//
-//                    continue;
-//                }
-//                else if (strcmp(key, "Changelog") == 0) {
-//                    char *changelog = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-//                    readMultiLineKey(&file, &changelog);
-//
-//                    if (changelog[0] != '\0') {
-//                        dict_add(package, key, value);
-//                        dict_add(package, "ChangelogNotes", changelog);
-//                    }
-//
-//                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
-//                    changelog[0] = '\0';
-//                    free(changelog);
-//
-//                    continue;
-//                }
-//            }
+            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
+                char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
+                readMultiLineKey(&file, &longDescription);
+                
+                if (longDescription[0] != '\0') {
+                    dict_add(package, "Tagline", value);
+                    dict_add(package, "Description", longDescription);
+                }
+                else {
+                    dict_add(package, "Description", value);
+                }
+                
+                // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
+                longDescription[0] = '\0';
+                free(longDescription);
+                
+                continue;
+            }
             
             dict_add(package, key, value);
         } else if (dict_get(package, "Package") != 0) {
@@ -650,42 +633,24 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
                 continue;
             }
             
-//            if (key != NULL && (strcmp(key, "Description") == 0 || strcmp(key, "Changelog") == 0)) { // Check for a long description or changelog
-//                if (strcmp(key, "Description") == 0) {
-//
-//                    char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-//                    readMultiLineKey(&file, &longDescription);
-//
-//                    if (longDescription[0] != '\0') {
-//                        dict_add(package, "Tagline", value);
-//                        dict_add(package, "Description", longDescription);
-//                    }
-//                    else {
-//                        dict_add(package, "Description", value);
-//                    }
-//
-//                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
-//                    longDescription[0] = '\0';
-//                    free(longDescription);
-//
-//                    continue;
-//                }
-//                else if (strcmp(key, "Changelog") == 0) {
-//                    char *changelog = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
-//                    readMultiLineKey(&file, &changelog);
-//
-//                    if (changelog[0] != '\0') {
-//                        dict_add(package, key, value);
-//                        dict_add(package, "ChangelogNotes", changelog);
-//                    }
-//
-//                    // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
-//                    changelog[0] = '\0';
-//                    free(changelog);
-//
-//                    continue;
-//                }
-//            }
+            if (key != NULL && strcmp(key, "Description") == 0) { // Check for a long description
+                char *longDescription = malloc(sizeof(char) * LONG_DESCRIPTION_MAX_LENGTH);
+                readMultiLineKey(&file, &longDescription);
+                
+                if (longDescription[0] != '\0') {
+                    dict_add(package, "Tagline", value);
+                    dict_add(package, "Description", longDescription);
+                }
+                else {
+                    dict_add(package, "Description", value);
+                }
+                
+                // Not sure how necessary this extra clearing of the buffer is but it seems to prevent strange behavior
+                longDescription[0] = '\0';
+                free(longDescription);
+                
+                continue;
+            }
             dict_add(package, key, value);
         } else if (dict_get(package, "Package") != 0) {
             bindPackage(&package, sourceID, safeID, depends, database, false, currentDate);
