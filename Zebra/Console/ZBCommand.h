@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <NSString *> *arguments;
 @property BOOL asRoot;
 + (int)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root;
-- (id)initWithDelegate:(id <ZBCommandDelegate> _Nullable)delegate;
-- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate> _Nullable)delegate;
+- (id)initWithDelegate:(id <ZBCommandDelegate>)delegate;
+- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate>)delegate;
 - (int)execute;
 @end
 
