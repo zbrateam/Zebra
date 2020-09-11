@@ -616,12 +616,10 @@
 #pragma mark - Command Delegate
 
 - (void)receivedData:(NSString *)data {
-    NSLog(@"[Zebra] Data: %@", data);
     [self writeToConsole:data atLevel:ZBLogLevelDescript];
 }
 
 - (void)receivedErrorData:(NSString *)data {
-    NSLog(@"[Zebra] Err Data: %@", data);
     [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", data];
     if ([data rangeOfString:@"warning"].location != NSNotFound || [data hasPrefix:@"W:"]) {
         [self writeToConsole:data atLevel:ZBLogLevelWarning];
