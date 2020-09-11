@@ -51,23 +51,36 @@ extern char **environ;
     return self;
 }
 
+- (void)setAsRoot:(BOOL)asRoot {
+    NSMutableArray *mutableArguments = self.arguments ? [self.arguments mutableCopy] : [NSMutableArray new];
+    if (_asRoot && !asRoot && mutableArguments.count > 0) { // If we're set to run as root but we no longer want to, remove the original command from the arguments array and set it back to self.command
+        self.command = mutableArguments[0];
+        self.arguments = mutableArguments;
+        
+        _asRoot = asRoot;
+    }
+    else if (!_asRoot && asRoot) { // If we're not set to run as root but we want to, set supersling as the command and duplicate the original command into the arguments array
+        [mutableArguments insertObject:self.command atIndex:0];
+        self.arguments = mutableArguments;
+        self.command = @"/usr/libexec/zebra/supersling";
+        
+        _asRoot = asRoot;
+    }
+    
+    if (!_asRoot && !asRoot && ![[mutableArguments objectAtIndex:0] isEqual:self.command]) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run
+        [mutableArguments insertObject:self.command atIndex:0];
+        self.arguments = mutableArguments;
+    }
+}
+
 - (int)execute {
     // Allocate space for arguments array
     NSUInteger argc = [self.arguments count];
-    char **argv = (char **)malloc((argc + 1 + self.asRoot) * sizeof(char*));
+    char **argv = (char **)malloc((argc + 1) * sizeof(char*));
     
-    // Setup su/sling if needed
-    if (self.asRoot) {
-        argc++;
-        argv[0] = strdup(self.command.UTF8String);
-        self.command = @"/usr/libexec/zebra/supersling";
-    }
-    
-    if (argc) {
-        // Convert our arguments array from NSStrings to char pointers
-        for (int i = 0; i < argc - 1; i++) {
-            argv[i + self.asRoot] = strdup(self.arguments[i].UTF8String);
-        }
+    // Convert our arguments array from NSStrings to char pointers
+    for (int i = 0; i < argc; i++) {
+        argv[i] = strdup(self.arguments[i].UTF8String);
     }
     argv[argc] = NULL;
     
