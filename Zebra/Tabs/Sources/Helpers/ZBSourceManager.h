@@ -43,6 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error;
 
 /*!
+@brief Adds updates a source's URI Zebra's sources.list
+@param source the source to update
+@param oldURI the previous URI of the source to update
+@param error an error pointer that will be set if an error occurs while updating the source
+*/
+- (void)updateURIForSource:(ZBSource *)source oldURI:(NSString *)oldURI error:(NSError**_Nullable)error;
+
+/*!
  @brief Removes sources from Zebra's sources.list and database
  @param sources a set of unique sources to remove from Zebra
  @param error an error pointer that will be set if an error occurs while removing a source

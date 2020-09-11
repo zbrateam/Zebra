@@ -211,6 +211,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBSource * _Nullable)sourceFromSourceID:(int)sourceID;
 
 /*!
+ @brief Updates the URI for the source with the matching sourceID.
+ @param source The source that needs to be updated.
+ */
+- (void)updateURIForSource:(ZBSource *)source;
+
+/*!
  @brief Deletes the source and all the packages that have a matching sourceID.
  @param source The source that needs to be deleted.
  */

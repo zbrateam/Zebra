@@ -139,6 +139,29 @@
     }
 }
 
+- (void)updateURIForSource:(ZBSource *)source oldURI:(NSString *)oldURI error:(NSError**_Nullable)error {
+    if (source != nil) {
+        NSSet *sourcesToWrite = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
+
+        for (ZBBaseSource *baseSource in sourcesToWrite) {
+            if ([oldURI isEqualToString:baseSource.repositoryURI]) {
+                baseSource.repositoryURI = [source.repositoryURI copy];
+                break;
+            }
+        }
+
+        NSError *writeError = NULL;
+        [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
+        if (writeError) {
+            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+            *error = writeError;
+            return;
+        }
+
+        [[ZBDatabaseManager sharedInstance] updateURIForSource:source];
+    }
+}
+
 - (void)removeSources:(NSSet <ZBBaseSource *> *)sources error:(NSError**_Nullable)error {
     NSMutableSet *sourcesToRemove = [sources mutableCopy];
     for (ZBSource *source in sources) {

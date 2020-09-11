@@ -790,6 +790,29 @@
     return nil;
 }
 
+- (void)updateURIForSource:(ZBSource *)source {
+    if ([self openDatabase] == SQLITE_OK) {
+        sqlite3_stmt *statement = NULL;
+
+        if (sqlite3_prepare_v2(database, "UPDATE REPOS SET URI = ? WHERE REPOID = ?;", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [source.repositoryURI UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_int(statement, 2, [source sourceID]);
+
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                break;
+            }
+        } else {
+            [self printDatabaseError];
+        }
+
+        sqlite3_finalize(statement);
+
+        [self closeDatabase];
+    } else {
+        [self printDatabaseError];
+    }
+}
+
 - (void)deleteSource:(ZBSource *)source {
     if ([self openDatabase] == SQLITE_OK) {
         NSString *packageQuery = [NSString stringWithFormat:@"DELETE FROM PACKAGES WHERE REPOID = %d", [source sourceID]];
