@@ -305,8 +305,48 @@
         
             switch (error.code) {
                 case ZBSourceWarningInsecure: {
-                    // TODO: Implement somehow, we need to check to see if the source actually supports https before switching it
                     UIAlertAction *switchAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Switch to HTTPS", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        NSString *secureURIString = [@"https" stringByAppendingString:[source.repositoryURI substringFromIndex:4]];
+                        ZBBaseSource *secureBaseSource = [[ZBBaseSource alloc] initFromURL:[NSURL URLWithString:secureURIString]];
+                        
+                        [secureBaseSource verify:^(ZBSourceVerificationStatus status) {
+                            if (status == ZBSourceExists) {
+                                NSString *oldURI = source.repositoryURI;
+                                source.repositoryURI = secureURIString;
+                                
+                                [[ZBSourceManager sharedInstance] updateURIForSource:source oldURI:oldURI error:nil];
+                                
+                                NSMutableArray *mutableWarnings = [source.warnings mutableCopy];
+                                [mutableWarnings removeObject:error];
+                                source.warnings = mutableWarnings;
+                                
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                                });
+                            }
+                            else if (status == ZBSourceVerifying) {
+                                [(ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath] setSpinning:YES];
+                            }
+                            else if (status == ZBSourceImaginary) {
+                                [(ZBSourceTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath] setSpinning:NO];
+                                
+                                NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Unable to locate a secure HTTPS version of %@ or the request timed out. The insecure HTTP version will be used instead.", @""), source.origin];
+                                UIAlertController *stayInsecureAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to switch", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+                                
+                                UIAlertAction *removeAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove Source", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [self->sourceManager removeSources:[NSSet setWithObject:source] error:nil];
+                                    });
+                                }];
+                                [stayInsecureAlert addAction:removeAction];
+                                
+                                UIAlertAction *continueAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
+                                [stayInsecureAlert addAction:continueAction];
+                                dispatch_async(dispatch_get_main_queue(), ^{
+                                    [self presentViewController:stayInsecureAlert animated:YES completion:nil];
+                                });
+                            }
+                        }];
                     }];
                     [alert addAction:switchAction];
                     
