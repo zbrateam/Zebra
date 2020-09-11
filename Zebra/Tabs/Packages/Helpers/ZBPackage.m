@@ -406,8 +406,8 @@
     NSString *stringRead;
     if (![ZBDevice needsSimulation]) {
         NSTask *task = [[NSTask alloc] init];
-        [task setLaunchPath:@"/usr/bin/dpkg"];
-        [ZBDevice asRoot:task arguments:@[@"-I", path, @"control"]];
+        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
+        [task setArguments:@[@"/usr/bin/dpkg", @"-I", path, @"control"]];
         
         NSPipe *pipe = [NSPipe pipe];
         [task setStandardOutput:pipe];

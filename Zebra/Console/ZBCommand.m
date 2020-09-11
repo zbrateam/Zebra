@@ -18,7 +18,7 @@ extern char **environ;
 
 @implementation ZBCommand
 
-+ (int)executeCommand:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
++ (int)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root output:(NSString **_Nullable)output {
     ZBCommand *task = [[ZBCommand alloc] initWithCommand:command arguments:arguments root:root delegate:NULL];
     return [task execute];
 }
@@ -33,7 +33,7 @@ extern char **environ;
     return self;
 }
 
-- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate> _Nullable)delegate {
+- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate>)delegate {
     self = [self initWithDelegate:delegate];
     
     if (self) {

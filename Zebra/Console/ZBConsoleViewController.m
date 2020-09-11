@@ -21,7 +21,6 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Theme/ZBThemeManager.h>
 #import <Extensions/UIFont+Zebra.h>
-#import <Headers/NSTask.h>
 
 #include <sysexits.h>
 
@@ -222,8 +221,8 @@
                     
                     if (![ZBDevice needsSimulation]) {
                         ZBLog(@"[Zebra] Executing commands...");
-                        ZBCommand *command = [[ZBCommand alloc] initWithDelegate:self];
-                        [command runCommand:[ZBDevice packageManagementBinary] withArguments:action asRoot:YES];
+                        ZBCommand *command = [[ZBCommand alloc] initWithCommand:[ZBDevice packageManagementBinary] arguments:action root:YES delegate:self];
+                        [command execute];
                     }
                     else {
                         [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
@@ -271,56 +270,14 @@
                 
                 NSArray *baseCommand;
                 if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
-                    baseCommand = @[@"dpkg", queue.removingZebra ? @"-r" : @"-i", queue.zebraPath ? path : @"xyz.willy.zebra"];
+                    baseCommand = @[queue.removingZebra ? @"-r" : @"-i", queue.zebraPath ? path : @"xyz.willy.zebra"];
                 }
                 else {
-                    baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", queue.removingZebra ? @"remove" : @"install", queue.zebraPath ? path : @"xyz.willy.zebra"];
+                    baseCommand = @[@"-yqf", @"--allow-downgrades", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", queue.removingZebra ? @"remove" : @"install", queue.zebraPath ? path : @"xyz.willy.zebra"];
                 }
                 
                 if (![ZBDevice needsSimulation]) {
-                    NSTask *task = [[NSTask alloc] init];
-                    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-                    [task setArguments:baseCommand];
-                    
-                    NSPipe *outputPipe = [[NSPipe alloc] init];
-                    NSFileHandle *output = [outputPipe fileHandleForReading];
-                    [output waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                    
-                    NSPipe *errorPipe = [[NSPipe alloc] init];
-                    NSFileHandle *error = [errorPipe fileHandleForReading];
-                    [error waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                    
-                    [task setStandardOutput:outputPipe];
-                    [task setStandardError:errorPipe];
-                    
-                    @try {
-                        [task launch];
-                        [task waitUntilExit];
-                        
-                        int terminationStatus = [task terminationStatus];
-                        switch (terminationStatus) {
-                            case EX_NOPERM:
-                                [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
-                                break;
-                            case EDEADLK:
-                                [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
-                                break;
-                            case 85: //ERESTART apparently
-                                [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                            default:
-                                break;
-                        }
-                    } @catch (NSException *e) {
-                        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
-                        
-                        [[FIRCrashlytics crashlytics] log:message];
-                        NSLog(@"[Zebra] %@", message);
-                        [self writeToConsole:message atLevel:ZBLogLevelError];
-                        [self writeToConsole:NSLocalizedString(@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.", @"") atLevel:ZBLogLevelInfo];
-                    }
+                    [ZBCommand execute:[ZBDevice packageManagementBinary] withArguments:baseCommand asRoot:YES];
                 }
                 else {
                     [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
@@ -396,7 +353,7 @@
         if (applicationBundlePaths.count > 1) {
             [self updateIconCaches];
         } else {
-            [ZBDevice uicache:@[@"-p", @"/Applications/Zebra.app"] observer:self];
+            [ZBDevice uicache:@[@"/Applications/Zebra.app"]];
         }
     }
 }
@@ -413,11 +370,9 @@
 
 - (void)updateIconCaches {
     [self writeToConsole:NSLocalizedString(@"Updating icon cache asynchronously...", @"") atLevel:ZBLogLevelInfo];
-    NSMutableArray *arguments = [NSMutableArray arrayWithObject:@"-p"];
-    [arguments addObjectsFromArray:applicationBundlePaths];
     
     if (![ZBDevice needsSimulation]) {
-        [ZBDevice uicache:arguments observer:self];
+        [ZBDevice uicache:applicationBundlePaths];
     } else {
         [self writeToConsole:NSLocalizedString(@"uicache is not available on the simulator", @"") atLevel:ZBLogLevelWarning];
     }

@@ -6,8 +6,6 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-@class NSTask;
-
 @import Foundation;
 
 #import <UIKit/UIApplication.h>
@@ -28,11 +26,8 @@
 
 + (void)hapticButton;
 
-+ (void)task:(NSTask *_Nullable)task withArguments:(NSArray *_Nullable)arguments;
-+ (void)asRoot:(NSTask *_Nullable)task arguments:(NSArray *_Nullable)arguments;
 + (void)restartSpringBoard;
-+ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject * _Nullable)observer;
-+ (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject *_Nullable)observer;
++ (void)uicache:(NSArray *_Nullable)bundleIdentifiers;
 
 + (void)openURL:(NSURL *_Nonnull)url sender:(UIViewController *_Nonnull)sender;
 
