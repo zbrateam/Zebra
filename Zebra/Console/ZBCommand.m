@@ -18,8 +18,8 @@ extern char **environ;
 
 @implementation ZBCommand
 
-+ (int)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root output:(NSString **_Nullable)output {
-    ZBCommand *task = [[ZBCommand alloc] initWithCommand:command arguments:arguments root:root delegate:NULL];
++ (int)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
+    ZBCommand *task = [[ZBCommand alloc] initWithCommand:command arguments:arguments root:root];
     return [task execute];
 }
 
@@ -45,6 +45,18 @@ extern char **environ;
     return self;
 }
 
+- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root {
+    self = [super init];
+    
+    if (self) {
+        self.command = command;
+        self.arguments = arguments;
+        self.asRoot = root;
+    }
+    
+    return self;
+}
+
 - (int)execute {
     // Allocate space for arguments array
     NSUInteger argc = [self.arguments count];
@@ -57,9 +69,11 @@ extern char **environ;
         self.command = @"/usr/libexec/zebra/supersling";
     }
     
-    // Convert our arguments array from NSStrings to char pointers
-    for (int i = 0; i < argc; i++) {
-        argv[i + self.asRoot] = strdup(self.arguments[i].UTF8String);
+    if (argc) {
+        // Convert our arguments array from NSStrings to char pointers
+        for (int i = 0; i < argc - 1; i++) {
+            argv[i + self.asRoot] = strdup(self.arguments[i].UTF8String);
+        }
     }
     argv[argc] = NULL;
     
