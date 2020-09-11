@@ -18,13 +18,15 @@ extern char **environ;
 
 @implementation ZBCommand
 
-+ (int)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
++ (NSString *)execute:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
     ZBCommand *task = [[ZBCommand alloc] init];
     task.command = command;
     task.arguments = arguments;
     task.asRoot = root;
+    task.output = [NSMutableString new];
     
-    return [task execute];
+    [task execute];
+    return task.output;
 }
 
 - (id)initWithDelegate:(id <ZBCommandDelegate>)delegate {
@@ -119,7 +121,10 @@ extern char **environ;
         // Read from output and notify delegate
         if (bytes > 0) {
             NSString *string = [[NSString alloc] initWithBytes:buffer length:bytes encoding:NSUTF8StringEncoding];
-            if (string) [self->delegate receivedData:string];
+            if (string) {
+                if (self->delegate) [self->delegate receivedData:string];
+                if (self.output) [self.output appendString:string];
+            }
         }
         else {
             dispatch_source_cancel(outSource);
@@ -141,7 +146,10 @@ extern char **environ;
         // Read from error and notify delegate
         if (bytes > 0) {
             NSString *string = [[NSString alloc] initWithBytes:buffer length:bytes encoding:NSUTF8StringEncoding];
-            if (string) [self->delegate receivedErrorData:string];
+            if (string) {
+                if (self->delegate) [self->delegate receivedErrorData:string];
+                if (self.output) [self.output appendString:string];
+            }
         }
         else {
             dispatch_source_cancel(errSource);
