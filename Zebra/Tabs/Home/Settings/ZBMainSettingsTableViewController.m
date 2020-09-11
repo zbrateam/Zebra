@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSearch,
     ZBConsole,
     ZBMisc,
+    ZBAnalytics,
     ZBReset
 };
 
@@ -106,7 +107,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 10;
+    return 11;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
@@ -118,6 +119,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBSearch:
         case ZBConsole:
         case ZBPackages:
+        case ZBAnalytics:
         case ZBSources:
             return 1;
         case ZBInterface:
@@ -318,6 +320,16 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             }
             cell.textLabel.text = NSLocalizedString(@"Swipe Actions Display As", @"");;
             
+            [cell applyStyling];
+            return cell;
+        }
+        case ZBAnalytics: {
+            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            
+            cell.textLabel.text = NSLocalizedString(@"Analytics & Crash Reporting", @"");
+            [cell setOn:[ZBSettings allowsCrashReporting]];
+            [cell setTarget:self action:@selector(toggleCrashReporting:)];
+
             [cell applyStyling];
             return cell;
         }
@@ -550,6 +562,10 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
 
 - (void)toggleFinishAutomatically:(NSNumber *)newValue {
     [ZBSettings setWantsFinishAutomatically:[newValue boolValue]];
+}
+
+- (void)toggleCrashReporting:(NSNumber *)newValue {
+    [ZBSettings setAllowsCrashReporting:[newValue boolValue]];
 }
 
 - (void)misc {

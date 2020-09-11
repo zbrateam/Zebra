@@ -191,17 +191,18 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [ZBNotificationManager.sharedInstance ensureNotificationAccess];
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
     
-#if DEBUG
-    NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
-#else
-    NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
-    [FIRApp configure];
-#endif
-    
-    [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-    [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
-    [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
-    [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
+    if ([ZBSettings allowsCrashReporting]) {
+        NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
+        [FIRApp configure];
+        
+        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
+        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
+        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
+        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
+    }
+    else {
+        NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
+    }
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     

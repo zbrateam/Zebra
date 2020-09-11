@@ -177,6 +177,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSortingType)packageSortingType;
 + (void)setPackageSortingType:(ZBSortingType)sortingType;
 
+#pragma mark - Crash Reporting
+
++ (BOOL)allowsCrashReporting;
++ (void)setAllowsCrashReporting:(BOOL)crashReporting;
+
 @end
 
 NS_ASSUME_NONNULL_END
