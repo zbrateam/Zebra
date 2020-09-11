@@ -18,26 +18,50 @@ extern char **environ;
 
 @implementation ZBCommand
 
++ (int)executeCommand:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root {
+    ZBCommand *task = [[ZBCommand alloc] initWithCommand:command arguments:arguments root:root delegate:NULL];
+    return [task execute];
+}
+
 - (id)initWithDelegate:(id <ZBCommandDelegate>)delegate {
     self = [super init];
     
     if (self) {
-        self->delegate = delegate;
+        if (delegate) self->delegate = delegate;
     }
     
     return self;
 }
 
-- (int)runCommand:(NSString *)command withArguments:(NSArray *)arguments asRoot:(BOOL)root {
+- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate> _Nullable)delegate {
+    self = [self initWithDelegate:delegate];
+    
+    if (self) {
+        self.command = command;
+        self.arguments = arguments;
+        self.asRoot = root;
+    }
+    
+    return self;
+}
+
+- (int)execute {
+    // Allocate space for arguments array
+    NSUInteger argc = [self.arguments count];
+    char **argv = (char **)malloc((argc + 1 + self.asRoot) * sizeof(char*));
     
     // Setup su/sling if needed
-    if (root) {
-        NSMutableArray *trueArgs = [arguments mutableCopy];
-        [trueArgs insertObject:command atIndex:0];
-        
-        command = @"/usr/libexec/zebra/supersling";
-        arguments = trueArgs;
+    if (self.asRoot) {
+        argc++;
+        argv[0] = strdup(self.command.UTF8String);
+        self.command = @"/usr/libexec/zebra/supersling";
     }
+    
+    // Convert our arguments array from NSStrings to char pointers
+    for (int i = 0; i < argc; i++) {
+        argv[i + self.asRoot] = strdup(self.arguments[i].UTF8String);
+    }
+    argv[argc] = NULL;
     
     // Create output and error pipes
     int *outPipe = malloc(sizeof(int) * 2);
@@ -49,27 +73,18 @@ extern char **environ;
     }
     
     // Create our file actions to read data back from posix_spawn
-    posix_spawn_file_actions_t actions;
-    posix_spawn_file_actions_init(&actions);
-    posix_spawn_file_actions_addclose(&actions, outPipe[0]);
-    posix_spawn_file_actions_addclose(&actions, errPipe[0]);
-    posix_spawn_file_actions_adddup2(&actions, outPipe[1], STDOUT_FILENO);
-    posix_spawn_file_actions_adddup2(&actions, errPipe[1], STDERR_FILENO);
-    posix_spawn_file_actions_addclose(&actions, outPipe[1]);
-    posix_spawn_file_actions_addclose(&actions, errPipe[1]);
-    
-    // Convert our arguments array from NSStrings to char pointers
-    NSUInteger count = [arguments count];
-    char **argv = (char **)malloc((count + 1) * sizeof(char*));
-
-    for (unsigned int i = 0; i < count; i++) {
-        argv[i] = strdup([[arguments objectAtIndex:i] UTF8String]);
-    }
-    argv[count] = NULL;
+    posix_spawn_file_actions_t child_fd_actions;
+    posix_spawn_file_actions_init(&child_fd_actions);
+    posix_spawn_file_actions_addclose(&child_fd_actions, outPipe[0]);
+    posix_spawn_file_actions_addclose(&child_fd_actions, errPipe[0]);
+    posix_spawn_file_actions_adddup2(&child_fd_actions, outPipe[1], STDOUT_FILENO);
+    posix_spawn_file_actions_adddup2(&child_fd_actions, errPipe[1], STDERR_FILENO);
+    posix_spawn_file_actions_addclose(&child_fd_actions, outPipe[1]);
+    posix_spawn_file_actions_addclose(&child_fd_actions, errPipe[1]);
     
     // Spawn the child process
     pid_t pid = 0;
-    int ret = posix_spawnp(&pid, [command UTF8String], &actions, nil, argv, environ);
+    int ret = posix_spawnp(&pid, self.command.UTF8String, &child_fd_actions, nil, argv, environ);
     free(argv);
     if (ret < 0) {
         close(outPipe[0]);

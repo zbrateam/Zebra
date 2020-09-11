@@ -13,8 +13,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBCommand : NSObject
+@property NSString *command;
+@property NSArray <NSString *> *arguments;
+@property BOOL asRoot;
++ (int)executeCommand:(NSString *)command withArguments:(NSArray <NSString *> *_Nullable)arguments asRoot:(BOOL)root;
 - (id)initWithDelegate:(id <ZBCommandDelegate>)delegate;
-- (int)runCommand:(NSString *)command withArguments:(NSArray *)arguments asRoot:(BOOL)root;
+- (id)initWithCommand:(NSString *)command arguments:(NSArray <NSString *> *_Nullable)arguments root:(BOOL)root delegate:(id <ZBCommandDelegate> _Nullable)delegate;
+- (int)execute;
 @end
 
 NS_ASSUME_NONNULL_END
