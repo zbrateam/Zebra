@@ -42,7 +42,7 @@
     if (self) {
         self.title = NSLocalizedString(@"Sources", @"");
         self.tableView.allowsMultipleSelectionDuringEditing = YES;
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
+//        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;
@@ -54,7 +54,6 @@
         filteredSources = [sources copy];
         hasProblems = NO;
         withProblems = 0;
-        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, 0)];
     }
     
     return self;
@@ -405,6 +404,10 @@
 // To add padding, we're updating the frame of an empty UIView, which is set as the UITableView's tableHeaderView.
 // When the UISearchController is presented, we set the height to 16px. When it's dismissed, we update set height to 0px.
 - (void)hideTableViewHeaderView:(BOOL)hidden {
+    if (!self.tableView.tableHeaderView) {
+        self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tableView.bounds.size.width, 0.0)]; // We have to setup the header here because otherwise the navigation bar won't use large titles (for some reason)
+    }
+    
     CGRect updatedFrame = self.tableView.tableHeaderView.frame;
     updatedFrame.size.height = hidden ? CGFLOAT_MIN : 16;
     [self.tableView beginUpdates];
