@@ -102,24 +102,6 @@ extern char **environ;
     posix_spawn_file_actions_adddup2(&child_fd_actions, errPipe[1], STDERR_FILENO);
     posix_spawn_file_actions_addclose(&child_fd_actions, outPipe[1]);
     posix_spawn_file_actions_addclose(&child_fd_actions, errPipe[1]);
-    
-    // Spawn the child process
-    pid_t pid = 0;
-    int ret = posix_spawnp(&pid, self.command.UTF8String, &child_fd_actions, nil, argv, environ);
-    free(argv);
-    if (ret < 0) {
-        close(outPipe[0]);
-        close(outPipe[1]);
-        free(outPipe);
-        close(errPipe[0]);
-        close(errPipe[1]);
-        free(errPipe);
-        return ret;
-    }
-    
-    // Close the write ends of the pipes so no odd data comes through them
-    close(outPipe[1]);
-    close(errPipe[1]);
 
     // Setup the dispatch queues for reading output and errors
     dispatch_semaphore_t lock = dispatch_semaphore_create(0);
@@ -178,6 +160,24 @@ extern char **environ;
     // Activate the dispatch sources
     dispatch_activate(outSource);
     dispatch_activate(errSource);
+    
+    // Spawn the child process
+    pid_t pid = 0;
+    int ret = posix_spawnp(&pid, self.command.UTF8String, &child_fd_actions, nil, argv, environ);
+    free(argv);
+    if (ret < 0) {
+        close(outPipe[0]);
+        close(outPipe[1]);
+        free(outPipe);
+        close(errPipe[0]);
+        close(errPipe[1]);
+        free(errPipe);
+        return ret;
+    }
+    
+    // Close the write ends of the pipes so no odd data comes through them
+    close(outPipe[1]);
+    close(errPipe[1]);
     
     // We need to wait twice, once for the output handler and once for the error handler
     dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
