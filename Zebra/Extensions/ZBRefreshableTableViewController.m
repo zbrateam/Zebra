@@ -14,10 +14,8 @@
 #import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
 #import <ZBDevice.h>
 
-@interface ZBRefreshableTableViewController () {
-    NSArray <UIBarButtonItem *> *savedLeftButtons;
-    NSArray <UIBarButtonItem *> *savedRightButtons;
-}
+@interface ZBRefreshableTableViewController ()
+
 @end
 
 @implementation ZBRefreshableTableViewController
@@ -25,6 +23,8 @@
 + (BOOL)supportRefresh {
     return YES;
 }
+
+#pragma mark - Initializers
 
 - (id)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
@@ -42,8 +42,10 @@
     return self;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+#pragma mark - View Controller Lifecycle
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     [self layoutNavigationButtons];
 }
@@ -56,27 +58,7 @@
     }
 }
 
-- (void)cancelRefresh:(id)sender {
-    [sourceManager cancelSourceRefresh];
-    if (self.refreshControl.refreshing) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.refreshControl endRefreshing];
-        });
-    }
-}
-
-- (void)layoutNavigationButtonsRefreshing {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancelRefresh:)];
-        self.navigationItem.leftBarButtonItems = @[cancelButton];
-    });
-}
-
-- (void)layoutNavigationButtonsNormal {
-    dispatch_async(dispatch_get_main_queue(), ^{
-//        self.navigationItem.leftBarButtonItems = @[];
-    });
-}
+#pragma mark - Navigation Buttons
 
 - (void)layoutNavigationButtons {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -88,6 +70,21 @@
     });
 }
 
+- (void)layoutNavigationButtonsRefreshing {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancelRefresh:)];
+        self.navigationItem.leftBarButtonItems = @[cancelButton];
+    });
+}
+
+- (void)layoutNavigationButtonsNormal {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.leftBarButtonItems = @[];
+    });
+}
+
+#pragma mark - Refreshing
+
 - (void)refreshSources:(id)sender {
     if (![[self class] supportRefresh] || [sourceManager isRefreshInProgress]) {
         return;
@@ -97,8 +94,15 @@
     [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
+- (void)cancelRefresh:(id)sender {
+    [sourceManager cancelSourceRefresh];
+}
+
+#pragma mark - Source Delegate
+
 - (void)startedSourceRefresh {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self layoutNavigationButtonsRefreshing];
         if ([[self class] supportRefresh] && !self.refreshControl.refreshing) {
             [self.refreshControl beginRefreshing];
         }
@@ -107,6 +111,7 @@
 
 - (void)finishedSourceRefresh {
     dispatch_async(dispatch_get_main_queue(), ^{
+        [self layoutNavigationButtonsNormal];
         if ([[self class] supportRefresh] && self.refreshControl.refreshing) {
             [self.refreshControl endRefreshing];
         }

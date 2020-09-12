@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBRefreshableTableViewController : ZBTableViewController <ZBSourceDelegate> {
     ZBSourceManager *sourceManager;
 }
+- (void)layoutNavigationButtons;
+- (void)layoutNavigationButtonsRefreshing;
+- (void)layoutNavigationButtonsNormal;
 @end
 
 NS_ASSUME_NONNULL_END

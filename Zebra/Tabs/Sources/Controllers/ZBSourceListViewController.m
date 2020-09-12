@@ -43,7 +43,6 @@
     if (self) {
         self.title = NSLocalizedString(@"Sources", @"");
         self.tableView.allowsMultipleSelectionDuringEditing = YES;
-//        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAlways;
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.obscuresBackgroundDuringPresentation = NO;
@@ -65,10 +64,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(presentAddView)];
-    self.navigationItem.rightBarButtonItem = addButton;
-    
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceCell"];
 }
 
@@ -76,6 +71,24 @@
     [super viewWillAppear:animated];
     
     sources = [sourceManager.sources mutableCopy];
+}
+
+- (void)layoutNavigationButtonsRefreshing {
+    [super layoutNavigationButtonsRefreshing];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.rightBarButtonItem = nil;
+    });
+}
+
+- (void)layoutNavigationButtonsNormal {
+    [super layoutNavigationButtonsNormal];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.leftBarButtonItem = self.editButtonItem;
+        self->addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(presentAddView)];
+        self.navigationItem.rightBarButtonItem = self->addButton;
+    });
 }
 
 - (void)viewWillLayoutSubviews {
