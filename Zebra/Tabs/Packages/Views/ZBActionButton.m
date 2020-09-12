@@ -81,4 +81,16 @@
     });
 }
 
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
+    
+    if (highlighted) {
+        CGFloat r, g, b, a;
+        [[UIColor accentColor] ?: [UIColor systemBlueColor] getRed:&r green:&g blue:&b alpha:&a];
+        self.backgroundColor = [UIColor colorWithRed:MAX(r - 0.04, 0.0) green:MAX(g - 0.04, 0.0) blue:MAX(b - 0.04, 0.0) alpha:a];
+    } else {
+        self.backgroundColor = [UIColor accentColor];
+    }
+}
+
 @end
