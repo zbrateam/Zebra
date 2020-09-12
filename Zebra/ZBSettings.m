@@ -594,9 +594,9 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 #pragma mark - Crash Reporting
 
 + (BOOL)allowsCrashReporting {
-//#if DEBUG
-//    return NO;
-//#else
+#if DEBUG
+    return NO;
+#else
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:AllowsCrashReportingKey]) {
@@ -604,7 +604,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
         return YES;
     }
     return [defaults boolForKey:AllowsCrashReportingKey];
-//#endif
+#endif
 }
 
 + (void)setAllowsCrashReporting:(BOOL)crashReporting {
