@@ -73,10 +73,10 @@
 - (void)setDisabled:(BOOL)disabled {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (disabled) {
-//            self.selectionStyle = UITableViewCellSelectionStyleNone;
+            self.selectionStyle = UITableViewCellSelectionStyleNone;
             self.alpha = 0.5;
         } else {
-//            self.selectionStyle = UITableViewCellSelectionStyleDefault;
+            self.selectionStyle = UITableViewCellSelectionStyleDefault;
             self.alpha = 1.0;
         }
     });
@@ -87,6 +87,7 @@
     [self.iconImageView sd_cancelCurrentImageLoad];
     self.tintColor = [UIColor accentColor];
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    [self setDisabled:NO];
 }
 
 @end
