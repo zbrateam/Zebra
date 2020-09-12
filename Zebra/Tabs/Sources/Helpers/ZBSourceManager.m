@@ -332,7 +332,6 @@
         [warnings addObject:insecureError];
     }
     
-    NSLog(@"%@", source.mainDirectoryURL.host);
     if ([self checkForInvalidRepo:source.mainDirectoryURL]) {
         NSError *insecureError = [NSError errorWithDomain:ZBSourceErrorDomain code:ZBSourceWarningIncompatible userInfo:@{
             NSLocalizedDescriptionKey: NSLocalizedString(@"Incompatible Source", @""),
