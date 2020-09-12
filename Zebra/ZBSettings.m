@@ -447,7 +447,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:SourceTimeoutKey]) {
-        [self setSourceRefreshTimeout:@(5)];
+        [self setSourceRefreshTimeout:@5];
         return 5;
     }
     return [defaults integerForKey:SourceTimeoutKey];
