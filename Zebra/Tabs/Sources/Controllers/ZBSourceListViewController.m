@@ -12,6 +12,7 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIAlertController+Zebra.h>
@@ -389,7 +390,9 @@
         completionHandler(YES);
     }];
     
-    copyAction.image = [UIImage imageNamed:@"doc_fill"];
+    if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+        copyAction.image = [UIImage imageNamed:@"doc_fill"];
+    }
     copyAction.backgroundColor = [UIColor systemTealColor];
     
     return [UISwipeActionsConfiguration configurationWithActions:@[copyAction]];
@@ -406,7 +409,9 @@
             
             completionHandler(error == NULL);
         }];
-        deleteAction.image = [UIImage imageNamed:@"delete_left"];
+        if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+            deleteAction.image = [UIImage imageNamed:@"delete_left"];
+        }
         [actions addObject:deleteAction];
     }
     
@@ -414,7 +419,9 @@
         [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] useCaching:NO error:nil];
         completionHandler(YES);
     }];
-    refreshAction.image = [UIImage imageNamed:@"arrow_clockwise"];
+    if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+        refreshAction.image = [UIImage imageNamed:@"arrow_clockwise"];
+    }
     [actions addObject:refreshAction];
     
     return [UISwipeActionsConfiguration configurationWithActions:actions];
