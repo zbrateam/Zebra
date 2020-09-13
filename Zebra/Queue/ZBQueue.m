@@ -241,6 +241,8 @@
         baseCommand = @[@"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
     }
     
+    NSLog(@"[Zebra] Base Command: %@", baseCommand);
+    
     NSString *binary = [ZBDevice packageManagementBinary];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
@@ -367,8 +369,8 @@
             //Remove package first
             NSMutableArray *removeCommand = [baseCommand mutableCopy];
             
-            [removeCommand insertObject:@"-r" atIndex:1];
-            [removeCommand insertObject:@"--force-depends" atIndex:2];
+            [removeCommand insertObject:@"-r" atIndex:0];
+            [removeCommand insertObject:@"--force-depends" atIndex:1];
             for (ZBPackage *package in [self reinstallQueue]) {
                 [removeCommand addObject:package.identifier];
             }
@@ -376,7 +378,7 @@
             
             //Install new version
             NSMutableArray *installCommand = [baseCommand mutableCopy];
-            [installCommand insertObject:@"-i" atIndex:1];
+            [installCommand insertObject:@"-i" atIndex:0];
             NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
             [installCommand addObjectsFromArray:paths];
             [commands addObject:installCommand];
