@@ -67,7 +67,7 @@ extern char **environ;
         _asRoot = asRoot;
     }
     
-    if (!_asRoot && !asRoot && ![[mutableArguments objectAtIndex:0] isEqual:self.command]) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run
+    if (!_asRoot && !asRoot && (!mutableArguments.count || ![[mutableArguments objectAtIndex:0] isEqual:self.command])) { // If we're not set as root and we don't want to, we need to make sure the first arugment in the array is the binary we want to run
         [mutableArguments insertObject:self.command atIndex:0];
         self.arguments = mutableArguments;
     }
