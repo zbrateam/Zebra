@@ -366,17 +366,7 @@
             [commands addObject:reinstallCommand];
         }
         else {
-            //Remove package first
-            NSMutableArray *removeCommand = [baseCommand mutableCopy];
-            
-            [removeCommand insertObject:@"-r" atIndex:0];
-            [removeCommand insertObject:@"--force-depends" atIndex:1];
-            for (ZBPackage *package in [self reinstallQueue]) {
-                [removeCommand addObject:package.identifier];
-            }
-            [commands addObject:removeCommand];
-            
-            //Install new version
+            //Reinstall is the same as install
             NSMutableArray *installCommand = [baseCommand mutableCopy];
             [installCommand insertObject:@"-i" atIndex:0];
             NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
