@@ -3917,21 +3917,6 @@ Depends: lz4, xz-utils (>= 5.2.5)
 Description: Modern compression algorithm by Facebook.
 Name: Zstandard
 
-Package: xyz.willy.zebra
-Status: install ok installed
-Name: Zebra
-Version: 1:0
-Architecture: iphoneos-arm
-Depends: dpkg, uikittools, firmware (>= 11.0)
-Maintainer: Wilson Styres <wilson@styres.me>
-Author: Wilson Styres <wilson@styres.me>
-Section: Packaging
-Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
-Prefer-Native: Yes
-Description: A Useful Package Manager
-Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
-Tag: compatible::11.0-13.6.1
-
 Package: ws.hbang.common
 Status: install ok installed
 Name: Cephei
@@ -3953,3 +3938,18 @@ Filename: debs/ws.hbang.common_1.14_iphoneos-arm.deb
 SHA256: 0dfb13c5ede945a26821b6ad708f49a5ff43b42990cc373401767fcb2834c97c
 MD5sum: 175e38b3300f272d2a59a50f7452c3e0
 Size: 177334
+
+Package: xyz.willy.zebra
+Status: install ok installed
+Name: Zebra
+Version: 1:0
+Architecture: iphoneos-arm
+Depends: dpkg, uikittools, firmware (>= 11.0)
+Maintainer: Wilson Styres <wilson@styres.me>
+Author: Wilson Styres <wilson@styres.me>
+Section: Packaging
+Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
+Prefer-Native: Yes
+Description: A Useful Package Manager
+Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
+Tag: compatible::11.0-13.6.1

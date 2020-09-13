@@ -66,9 +66,6 @@
     if (refreshError) {
         [ZBAppDelegate sendErrorToTabController:refreshError.localizedDescription];
     }
-
-    NSInteger badgeValue = [[UIApplication sharedApplication] applicationIconBadgeNumber];
-    [self setPackageUpdateBadgeValue:badgeValue];
     
     NSError *error = NULL;
     if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
@@ -81,7 +78,6 @@
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {
-    [self updatePackagesTableView];
     dispatch_async(dispatch_get_main_queue(), ^{
         UITabBarItem *packagesTabBarItem = [self.tabBar.items objectAtIndex:ZBTabPackages];
         
@@ -134,8 +130,11 @@
 }
 
 - (void)finishedSourceRefresh {
-    // TODO: We need to set the packages tab bar badge value here
     [self setSourceRefreshIndicatorVisible:NO];
+}
+
+- (void)updatesAvailable:(int)numberOfUpdates {
+    [self setPackageUpdateBadgeValue:numberOfUpdates];
 }
 
 - (void)forwardToPackage {

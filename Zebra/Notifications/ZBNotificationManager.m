@@ -22,6 +22,14 @@
 
 @implementation ZBNotificationManager
 
++ (id)sharedInstance {
+   static ZBNotificationManager *instance = nil;
+   if (instance == nil) {
+       instance = [ZBNotificationManager new];
+   }
+   return instance;
+}
+
 - (void)ensureNotificationAccess {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     
@@ -45,6 +53,7 @@
     self.completionHandler = completionHandler;
     self.oldUpdates = [databaseManager packagesWithUpdates];
 
+    [sourceManager addDelegate:self];
     [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
@@ -136,9 +145,9 @@
     }
 }
 
-#pragma mark ZBDatabaseDelegate
+#pragma mark Source Delegate
 
-- (void)databaseCompletedUpdate:(int)numberOfUpdates {
+- (void)packageUpdatesAvailable:(int)numberOfUpdates {
     if (numberOfUpdates <= 0) {
         [self fetchCompleted:UIBackgroundFetchResultNoData];
         return;
@@ -150,8 +159,6 @@
     UIBackgroundFetchResult result = [self notifyNewUpdatesBetween:self.oldUpdates newUpdates:newUpdates];
     [self fetchCompleted:result];
 }
-
-- (void)databaseStartedUpdate {}
 
 #pragma mark UNUserNotificationCenterDelegate
 
@@ -170,18 +177,6 @@
                            completionHandler:^(BOOL _) {
         completionHandler();
     }];
-}
-
-#pragma mark Static methods
-
-+ (id)sharedInstance {
-   static ZBNotificationManager *instance = nil;
-   if (instance == nil) {
-       instance = [ZBNotificationManager new];
-       ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-       [databaseManager addDatabaseDelegate:instance];
-   }
-   return instance;
 }
 
 @end

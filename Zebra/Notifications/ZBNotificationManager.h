@@ -12,14 +12,14 @@
 @import UIKit;
 @import UserNotifications;
 
-#import <Database/ZBDatabaseDelegate.h>
+#import <Tabs/Sources/Helpers/ZBSourceDelegate.h>
 #import <Tabs/Packages/Helpers/ZBPackage.h>
 
 typedef void (^BackgroundCompletionHandler)(UIBackgroundFetchResult);
 
 typedef NSMutableArray<ZBPackage *> ZBPackageList;
 
-@interface ZBNotificationManager : NSObject <ZBDatabaseDelegate, UNUserNotificationCenterDelegate>
+@interface ZBNotificationManager : NSObject <ZBSourceDelegate, UNUserNotificationCenterDelegate>
 
 - (void)ensureNotificationAccess;
 - (void)performBackgroundFetch:(nonnull BackgroundCompletionHandler)completionHandler;

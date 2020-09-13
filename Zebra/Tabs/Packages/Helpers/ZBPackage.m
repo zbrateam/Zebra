@@ -330,7 +330,8 @@
         if (sourceID > 0) {
             [self setSource:[[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID]];
         } else {
-            [self setSource:[ZBSource localSource:sourceID]];
+            [self setSource:[ZBSource localSource]];
+            self.source.sourceID = sourceID;
         }
         
         [self setLastSeenDate:lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date]];
@@ -438,7 +439,8 @@
     
     ZBPackage *package = [self initWithDictionary:info];
     [package setDebPath:path];
-    [package setSource:[ZBSource localSource:-2]];
+    [package setSource:[ZBSource localSource]];
+    package.source.sourceID = -2;
     
     return package;
 }

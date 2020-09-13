@@ -76,15 +76,41 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
-        NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
-        
-        source.releaseTaskIdentifier = releaseTask.taskIdentifier;
-        [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
-        [releaseTask resume];
-        
-        [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
-        
-        [downloadDelegate startedDownloadingSource:source];
+        if (source.sourceID == 0) {
+            [downloadDelegate startedDownloadingSource:source];
+            
+            source.releaseTaskCompleted = YES;
+            source.packagesTaskCompleted = YES;
+            
+            NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
+            
+            if (useCaching) {
+                NSError *fileError = nil;
+                NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
+                NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
+                NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
+                if (!lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // The date we last looked at the status file is less than the last modified date
+                    source.packagesFilePath = statusPath;
+                }
+            } else {
+                source.packagesFilePath = statusPath;
+            }
+            
+            [downloadDelegate finishedDownloadingSource:source withError:NULL];
+            if (!sourceTasksMap.count && sources.count == 1) {
+                [downloadDelegate finishedAllDownloads];
+            }
+        } else {
+            NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
+            
+            source.releaseTaskIdentifier = releaseTask.taskIdentifier;
+            [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
+            [releaseTask resume];
+            
+            [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
+            
+            [downloadDelegate startedDownloadingSource:source];
+        }
     }
 }
 
@@ -232,7 +258,7 @@
 
 #pragma mark - Handling Downloaded Files
 
-- (void)task:(NSURLSessionTask *_Nonnull)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
+- (void)task:(NSURLSessionTask *)task completedDownloadedForFile:(NSString *_Nullable)path fromSource:(ZBBaseSource *_Nonnull)source withError:(NSError *_Nullable)error {
     if (error) { //An error occured, we should handle it accordingly
         if (error.code == NSURLErrorTimedOut && (task.taskIdentifier == source.releaseTaskIdentifier || task.taskIdentifier == source.packagesTaskIdentifier)) { // If one of these files times out, the source is likely down. We're going to cancel the entire task.
             

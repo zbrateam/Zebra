@@ -20,6 +20,7 @@
 
 @interface ZBSourceManager () {
     BOOL recachingNeeded;
+    ZBDatabaseManager *databaseManager;
     ZBDownloadManager *downloadManager;
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
     NSMutableDictionary *busyList;
@@ -47,6 +48,9 @@
     self = [super init];
     
     if (self) {
+        databaseManager = [ZBDatabaseManager sharedInstance];
+        [databaseManager addDatabaseDelegate:self];
+        
         recachingNeeded = YES;
         refreshInProgress = NO;
     }
@@ -235,9 +239,11 @@
         }
     }
     
-    if (requested || needsRefresh || [ZBDatabaseManager needsMigration]) {
-        [self refreshSources:[NSSet setWithArray:self.sources] useCaching:YES error:nil];
-    }
+    [databaseManager checkForPackageUpdates];
+    NSMutableSet *sourcesToRefresh = [NSMutableSet setWithObject:[ZBSource localSource]];
+    if (requested || needsRefresh || [ZBDatabaseManager needsMigration]) [sourcesToRefresh addObjectsFromArray:self.sources];
+    
+    [self refreshSources:sourcesToRefresh useCaching:YES error:nil];
 }
 
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
@@ -415,8 +421,6 @@
     ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     downloadManager = NULL;
     
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    [databaseManager addDatabaseDelegate:self];
     [databaseManager parseSources:completedSources];
 }
 
@@ -455,12 +459,17 @@
     }
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
+- (void)databaseCompletedUpdate {
     ZBLog(@"[Zebra](ZBSourceManager) Finished parsing sources");
     refreshInProgress = NO;
     busyList = NULL;
     completedSources = NULL;
+    [databaseManager checkForPackageUpdates];
     [self bulkFinishedSourceRefresh];
+}
+
+- (void)packageUpdatesAvailable:(int)numberOfUpdates {
+    [self bulkUpdatesAvailable:numberOfUpdates];
 }
 
 #pragma mark - Source Delegate Notifiers
@@ -526,6 +535,14 @@
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(removedSources:)]) {
             [delegate removedSources:sources];
+        }
+    }
+}
+
+- (void)bulkUpdatesAvailable:(int)numberOfUpdates {
+    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
+        if ([delegate respondsToSelector:@selector(updatesAvailable:)]) {
+            [delegate updatesAvailable:numberOfUpdates];
         }
     }
 }

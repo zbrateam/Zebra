@@ -79,11 +79,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isDatabaseBeingUpdated;
 - (void)setDatabaseBeingUpdated:(BOOL)updated;
 - (void)setHaltDatabaseOperations:(BOOL)halt;
-
-- (void)bulkDatabaseStartedUpdate;
-- (void)bulkDatabaseCompletedUpdate:(int)updates;
-- (void)bulkPostStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
-- (void)bulkSetSource:(ZBBaseSource *)source busy:(BOOL)busy;
 - (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
@@ -116,13 +111,13 @@ NS_ASSUME_NONNULL_BEGIN
  @param checkForUpdates Whether or not to check for package updates.
  @param sender The class that is calling this method (used for databaseDelegate callbacks).
  */
-- (void)importLocalPackagesAndCheckForUpdates:(BOOL)checkForUpdates sender:(id)sender;
+- (void)importLocalPackagesAndCheckForUpdates:(BOOL)checkForUpdates sender:(id)sender DEPRECATED_MSG_ATTRIBUTE("Local package importing is now handled via ZBSourceManager. This method will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief Imports installed packages into database.
  @discussion Imports installed packages from /var/lib/dpkg/status into the database with a sourceID of 0 or -1 depending on the type of package. If a package has a tag of role::cydia it will be imported into sourceID -1 (as these packages aren't normally displayed to the user).
  */
-- (void)importLocalPackages;
+- (void)importLocalPackages DEPRECATED_MSG_ATTRIBUTE("Local package importing is now handled via ZBSourceManager. This method will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief Checks for packages that need updates from the installed database.

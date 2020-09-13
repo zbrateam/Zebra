@@ -18,10 +18,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol ZBDatabaseDelegate <NSObject>
 - (void)databaseStartedUpdate;
-- (void)databaseCompletedUpdate:(int)packageUpdates;
+- (void)databaseCompletedUpdate;
 @optional
 - (void)startedImportingSource:(ZBBaseSource *)source;
 - (void)finishedImportingSource:(ZBSource *)source error:(NSError *_Nullable)error;
+- (void)packageUpdatesAvailable:(int)numberOfUpdates;
 - (void)setSource:(ZBBaseSource *)source busy:(BOOL)busy DEPRECATED_MSG_ATTRIBUTE("Please use startedImportingSource or finishedImportingSource instead");
 - (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level;
 @end

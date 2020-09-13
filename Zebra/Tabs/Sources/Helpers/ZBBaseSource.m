@@ -432,6 +432,9 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     if (![object isKindOfClass:[ZBBaseSource class]])
         return NO;
     
+    if (!self.archiveType || !self.repositoryURI || !self.distribution)
+        return NO;
+    
     if (!object.archiveType || !object.repositoryURI || !object.distribution)
         return NO;
     

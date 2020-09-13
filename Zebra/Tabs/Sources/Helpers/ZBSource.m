@@ -40,13 +40,13 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
 }
 
-+ (ZBSource *)localSource:(int)sourceID {
++ (ZBSource *)localSource {
     ZBSource *local = [[ZBSource alloc] init];
-    [local setOrigin:sourceID == -2 ? NSLocalizedString(@"Local File", @"") : NSLocalizedString(@"Local Repository", @"")];
+    [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setLabel:local.origin];
-    [local setSourceDescription:NSLocalizedString(@"Locally installed packages", @"")];
-    [local setSourceID:sourceID];
-    [local setBaseFilename:@"/var/lib/dpkg/status"];
+    [local setBaseFilename:@"_var_lib_dpkg_status"];
+    [local setSourceID:0];
+    
     return local;
 }
 

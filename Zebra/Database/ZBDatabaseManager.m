@@ -28,7 +28,6 @@
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;
-    int numberOfUpdates;
     NSMutableArray *completedSources;
     NSMutableArray *installedPackageIDs;
     NSMutableArray *upgradePackageIDs;
@@ -82,16 +81,6 @@
     sourceStruct.baseFilename = [source.baseFilename UTF8String];
     
     return sourceStruct;
-}
-
-- (id)init {
-    self = [super init];
-
-    if (self) {
-        numberOfUpdates = 0;
-    }
-
-    return self;
 }
 
 #pragma mark - Opening and Closing the Database
@@ -177,11 +166,11 @@
     }
 }
 
-- (void)bulkDatabaseCompletedUpdate:(int)updates {
+- (void)bulkDatabaseCompletedUpdate {
     databaseBeingUpdated = NO;
     for (int i = 0; i < self.databaseDelegates.count; ++i) {
         id <ZBDatabaseDelegate> delegate = self.databaseDelegates[i];
-        [delegate databaseCompletedUpdate:updates];
+        [delegate databaseCompletedUpdate];
     }
 }
 
@@ -215,6 +204,14 @@
     for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
         if ([delegate respondsToSelector:@selector(finishedImportingSource:error:)]) {
             [delegate finishedImportingSource:source error:error];
+        }
+    }
+}
+
+- (void)bulkPackageUpdatesAvailable:(int)numberOfUpdates {
+    for (id <ZBDatabaseDelegate> delegate in self.databaseDelegates) {
+        if ([delegate respondsToSelector:@selector(packageUpdatesAvailable:)]) {
+            [delegate packageUpdatesAvailable:numberOfUpdates];
         }
     }
 }
@@ -274,7 +271,7 @@
     if (haltDatabaseOperations) {
         [[FIRCrashlytics crashlytics] logWithFormat:@"Database operations halted."];
         NSLog(@"[Zebra] Database operations halted");
-        [self bulkDatabaseCompletedUpdate:numberOfUpdates];
+        [self bulkDatabaseCompletedUpdate];
         return;
     }
     [self bulkPostStatusUpdate:NSLocalizedString(@"Download Completed", @"") atLevel:ZBLogLevelInfo];
@@ -343,11 +340,9 @@
         sqlite3_exec(database, "DROP TABLE PACKAGES_SNAPSHOT;", NULL, 0, NULL);
         
         [self bulkPostStatusUpdate:NSLocalizedString(@"Done", @"") atLevel:ZBLogLevelInfo];
-        
-        [self importLocalPackagesAndCheckForUpdates:YES sender:self];
+                
         [self updateLastUpdated];
-        [self bulkDatabaseCompletedUpdate:numberOfUpdates];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
+        [self bulkDatabaseCompletedUpdate];
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -370,7 +365,7 @@
         [self checkForPackageUpdates];
     }
     if (needsDelegateStart) {
-        [self bulkDatabaseCompletedUpdate:numberOfUpdates];
+        [self bulkDatabaseCompletedUpdate];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
     databaseBeingUpdated = NO;
@@ -424,7 +419,7 @@
         
         createTable(database, 2);
         
-        numberOfUpdates = 0;
+        int numberOfUpdates = 0;
         upgradePackageIDs = [NSMutableArray new];
         for (ZBPackage *package in installedPackages) {
             if ([found containsObject:package.identifier]) {
@@ -515,6 +510,7 @@
             [upgradePackageIDs addObject:identifier];
         }
         
+        [self bulkPackageUpdatesAvailable:numberOfUpdates];
         [self closeDatabase];
     } else {
         [self printDatabaseError];
@@ -547,6 +543,8 @@
 #pragma mark - Source management
 
 - (int)sourceIDFromBaseFileName:(NSString *)bfn {
+    if ([bfn isEqualToString:@"_var_lib_dpkg_status"]) return 0;
+    
     if ([self openDatabase] == SQLITE_OK) {
         sqlite3_stmt *statement = NULL;
         int sourceID = -1;
@@ -743,6 +741,8 @@
 }
 
 - (ZBSource * _Nullable)sourceFromSourceID:(int)sourceID {
+    if (sourceID == 0) return [ZBSource localSource];
+    
     if ([self openDatabase] == SQLITE_OK) {
         ZBSource *source;
 
@@ -833,7 +833,7 @@
     [self setDatabaseBeingUpdated:NO];
     [self setHaltDatabaseOperations:YES];
 //    [self.downloadManager stopAllDownloads];
-    [self bulkDatabaseCompletedUpdate:-1];
+    [self bulkDatabaseCompletedUpdate];
     [self removeDatabaseDelegate:delegate];
 }
 
@@ -2138,7 +2138,7 @@
     //TODO: Implement
 }
 
-- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource withError:(NSArray<NSError *> * _Nullable)errors:(NSArray <NSError *> *_Nullable)errors {
+- (void)finishedDownloadingSource:(ZBBaseSource *)baseSource withError:(NSArray<NSError *> * _Nullable)errors {
     [self bulkSetSource:baseSource busy:NO];
     if (errors && [errors count]) {
         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Error while downloading %@: %@", @""), [baseSource repositoryURI], errors[0].localizedDescription];
