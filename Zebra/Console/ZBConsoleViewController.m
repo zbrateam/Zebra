@@ -277,7 +277,8 @@
                 }
                 
                 if (![ZBDevice needsSimulation]) {
-                    [ZBCommand execute:[ZBDevice packageManagementBinary] withArguments:baseCommand asRoot:YES];
+                    ZBCommand *command = [[ZBCommand alloc] initWithCommand:[ZBDevice packageManagementBinary] arguments:baseCommand root:YES delegate:self];
+                    [command execute];
                 }
                 else {
                     [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
@@ -620,6 +621,9 @@
 }
 
 - (void)receivedErrorData:(NSString *)data {
+    if ([data containsString:@"stable CLI interface"]) return;
+    if ([data containsString:@"postinst"]) return;
+
     [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", data];
     if ([data rangeOfString:@"warning"].location != NSNotFound || [data hasPrefix:@"W:"]) {
         [self writeToConsole:data atLevel:ZBLogLevelWarning];
