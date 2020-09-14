@@ -64,6 +64,20 @@
     return !editOnly;
 }
 
+#pragma mark - Localization
+
+- (NSString *)localizedSection:(NSString *)section {
+    NSRange range = [section rangeOfString:@"("];
+
+    if (range.length > 0) {
+        NSString *section_ = [[section substringToIndex:range.location] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(section_, @""), [section substringFromIndex:range.location]];
+    } else {
+        return NSLocalizedString(section, @"");
+    }
+}
+
+
 #pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
@@ -72,11 +86,11 @@
     databaseManager = [ZBDatabaseManager sharedInstance];
     sectionReadout = [databaseManager sectionReadoutForSource:source];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
-            NSString *section1 = NSLocalizedString(obj1, @"");
-            NSString *section2 = NSLocalizedString(obj2, @"");
+        NSString *section1 = [self localizedSection:obj1];
+        NSString *section2 = [self localizedSection:obj2];
             
-            return [section1 compare:section2];
-        }];
+        return [section1 compare:section2];
+    }];
     if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     filteredSections = [[[ZBSettings filteredSources] objectForKey:[source baseFilename]] mutableCopy];
@@ -268,7 +282,7 @@
         cell.imageView.image = nil;
     } else {
         NSString *section = sectionNames[indexPath.row - 1];
-        cell.textLabel.text = NSLocalizedString(section, @"");
+        cell.textLabel.text = [self localizedSection:section];
         
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
         cell.imageView.image = [ZBSource imageForSection:section];
