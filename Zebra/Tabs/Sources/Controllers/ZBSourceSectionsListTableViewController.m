@@ -11,8 +11,6 @@
 #import "ZBFeaturedCollectionViewCell.h"
 #import "ZBSourcesAccountBanner.h"
 
-#import <Keychain/UICKeyChainStore.h>
-
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
