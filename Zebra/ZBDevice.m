@@ -6,25 +6,19 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDevice.h>
+#import "ZBDevice.h"
+
 #import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Theme/ZBThemeManager.h>
-#import <Queue/ZBQueue.h>
-#import "ZBAppDelegate.h"
-#import "MobileGestalt.h"
-#import <UIKit/UIDevice.h>
-#import <Headers/NSTask.h>
+#import <sys/stat.h>
 #import <sys/utsname.h>
 #import <sys/sysctl.h>
-#import <sys/types.h>
-#import <sys/stat.h>
-#import <unistd.h>
+#import <Headers/MobileGestalt.h>
+#import <Extensions/UIColor+GlobalColors.h>
+#import <Theme/ZBThemeManager.h>
+#import <Console/ZBCommand.h>
 
-@import SafariServices;
-@import LNPopupController;
+@import UIKit.UISelectionFeedbackGenerator;
 @import FirebaseCrashlytics;
-@import Foundation;
 @import SafariServices;
 
 @implementation ZBDevice
@@ -70,7 +64,7 @@
         return YES;
     }
     
-    return NO; //su/sling is  ok
+    return NO; //su/sling is ok
 }
 
 + (NSString *)UDID {
@@ -131,176 +125,21 @@
     feedback = nil;
 }
 
-+ (void)asRoot:(NSTask *)task arguments:(NSArray *)arguments {
-    NSString *launchPath = task.launchPath;
-    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-    NSArray *trueArguments = @[launchPath];
-    if (arguments) {
-        trueArguments = [trueArguments arrayByAddingObjectsFromArray:arguments];
-    }
-    [task setArguments:trueArguments];
-}
-
-+ (void)task:(NSTask *)task withArguments:(NSArray *)arguments {
-    NSString *launchPath = task.launchPath;
-    NSArray *trueArguments = @[launchPath];
-    if (arguments) {
-        trueArguments = [trueArguments arrayByAddingObjectsFromArray:arguments];
-    }
-    [task setArguments:trueArguments];
-}
-
 + (void)restartSpringBoard {
     if (![self needsSimulation]) {
-        BOOL failed = NO;
-        
-        //Try sbreload
-        NSLog(@"[Zebra] Trying sbreload");
-        @try {
-            [self runCommandInPath:@"sbreload" asRoot:NO observer:nil];
-        }
-        @catch (NSException *e) {
-            [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn sbreload. %@: %@", e.name, e.reason];
-            NSLog(@"[Zebra] Could not spawn sbreload. %@: %@", e.name, e.reason);
-            failed = YES;
-        }
-        
-        //Try launchctl
-        if (failed) {
-            NSLog(@"[Zebra] Trying launchctl");
-            failed = NO;
-            
-            @try {
-                [self runCommandInPath:@"launchctl stop com.apple.backboardd" asRoot:YES observer:nil];
-            }
-            @catch (NSException *e) {
-                [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn launchctl. %@: %@", e.name, e.reason];
-                NSLog(@"[Zebra] Could not spawn launchctl. %@: %@", e.name, e.reason);
-                failed = YES;
-            }
-        }
-        
-        //Try killall
-        if (failed) {
-            NSLog(@"[Zebra] Trying killall");
-            failed = NO;
-            
-            @try {
-                [self runCommandInPath:@"killall -9 backboardd" asRoot:YES observer:nil];
-            }
-            @catch (NSException *e) {
-                [[FIRCrashlytics crashlytics] logWithFormat:@"Could not spawn killall. %@: %@", e.name, e.reason];
-                NSLog(@"[Zebra] Could not spawn killall. %@: %@", e.name, e.reason);
-                failed = YES;
-            }
-        }
-        
-        if (failed) {
-            [ZBAppDelegate sendErrorToTabController:NSLocalizedString(@"Could not respring. Please respring manually.", @"")];
-        }
+        [ZBCommand execute:@"sbreload" withArguments:NULL asRoot:NO];
     }
 }
 
-+ (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer {
-    if (!arguments || [arguments count] == 0) {
-        NSString *command = @"uicache -a";
-        
-        @try {
-            [self runCommandInPath:command asRoot:NO observer:observer];
++ (void)uicache:(NSArray *_Nullable)bundleIdentifiers {
+    if (![self needsSimulation]) {
+        if (bundleIdentifiers.count) {
+            [ZBCommand execute:@"uicache" withArguments:[@[@"-p"] arrayByAddingObjectsFromArray:bundleIdentifiers] asRoot:NO];
         }
-        @catch (NSException *e) {
-            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason];
-            NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
+        else {
+            [ZBCommand execute:@"uicache" withArguments:@[@"-a"] asRoot:NO];
         }
     }
-    else {
-        NSMutableString *command = [@"uicache" mutableCopy];
-        for (NSString *argument in arguments) {
-            [command appendString:@" "];
-            [command appendString:argument];
-        }
-        
-        @try {
-            [self runCommandInPath:command asRoot:NO observer:observer];
-        }
-        @catch (NSException *e) {
-            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn uicache. Reason: %@", e.name, e.reason];
-            NSLog(@"[Zebra] %@ Could not spawn uicache. Reason: %@", e.name, e.reason);
-        }
-    }
-}
-
-+ (void)runCommandInPath:(NSString *_Nonnull)command asRoot:(BOOL)sling observer:(NSObject <ZBConsoleCommandDelegate> *_Nullable)observer {
-    NSDictionary *environmentDict = [[NSProcessInfo processInfo] environment];
-    NSString *shellPath = [environmentDict objectForKey:@"SHELL"];
-    
-    NSString *binary = [command componentsSeparatedByString:@" "][0];
-    if (![self locateCommandInPath:binary shell:shellPath]) {
-        NSException *exception = [NSException exceptionWithName:@"Binary not found" reason:[NSString stringWithFormat:@"%@ doesn't exist in $PATH", binary] userInfo:nil];
-        @throw exception;
-    }
-    
-    NSTask *task = [[NSTask alloc] init];
-    
-    if (sling) {
-        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-        [task setArguments:@[shellPath, @"-c", command]];
-    }
-    else {
-        [task setLaunchPath:shellPath];
-        [task setArguments:@[@"-c", command]];
-    }
-    
-    if (observer) {
-        NSPipe *outputPipe = [[NSPipe alloc] init];
-        NSFileHandle *output = [outputPipe fileHandleForReading];
-        [output waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-        NSPipe *errorPipe = [[NSPipe alloc] init];
-        NSFileHandle *error = [errorPipe fileHandleForReading];
-        [error waitForDataInBackgroundAndNotify];
-        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-        
-        [task setStandardOutput:outputPipe];
-        [task setStandardError:errorPipe];
-    }
-    
-    @try {
-        [task launch];
-        [task waitUntilExit];
-    }
-    @catch (NSException *e) {
-        [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn %@. Reason: %@", e.name, command, e.reason];
-        NSLog(@"[Zebra] %@ Could not spawn %@. Reason: %@", e.name, command, e.reason);
-        @throw e;
-    }
-}
-
-+ (NSString *)locateCommandInPath:(NSString *)command shell:(NSString *)shellPath {
-    NSLog(@"[Zebra] Locating %@", command);
-    NSLog(@"[Zebra] Shell: %@", shellPath);
-    
-    NSTask *which = [[NSTask alloc] init];
-    [which setLaunchPath:shellPath];
-    [which setArguments:@[@"-c", [NSString stringWithFormat:@"which %@", command]]];
-
-    NSPipe *outPipe = [NSPipe pipe];
-    [which setStandardOutput:outPipe];
-
-    [which launch];
-    [which waitUntilExit];
-
-    NSFileHandle *read = [outPipe fileHandleForReading];
-    NSData *dataRead = [read readDataToEndOfFile];
-    NSString *stringRead = [[NSString alloc] initWithData:dataRead encoding:NSUTF8StringEncoding];
-    if ([stringRead containsString:@"not found"] || [stringRead isEqualToString:@""]) {
-        NSLog(@"[Zebra] Can't find %@", command);
-        return NULL;
-    }
-    
-    NSLog(@"[Zebra] %@ location: %@", command, stringRead);
-    
-    return stringRead;
 }
 
 + (BOOL)_isRegularFile:(NSString *)path {

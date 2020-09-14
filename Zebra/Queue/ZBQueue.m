@@ -232,20 +232,22 @@
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
     
     if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
-        baseCommand = @[@"dpkg"];
+        baseCommand = @[];
     }
     else if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/apt"]) {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
+        baseCommand = @[@"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
     }
     else {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
+        baseCommand = @[@"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
     }
     
-    NSString *binary = baseCommand[0];
+    NSLog(@"[Zebra] Base Command: %@", baseCommand);
+    
+    NSString *binary = [ZBDevice packageManagementBinary];
 
     if ([self queueHasPackages:ZBQueueTypeRemove]) {
         if ([self containsEssentialOrRequiredPackage]) { //We need to use dpkg to remove these packages, I haven't found a flag that will enable APT to do this
-            NSMutableArray *removeCommand = [@[@"dpkg", @"-r", @"--force-remove-essential"] mutableCopy];
+            NSMutableArray *removeCommand = [@[@"-r", @"--force-remove-essential"] mutableCopy];
             
             if (ignoreDependencies) {
                 [removeCommand addObject:@"--force-depends"];
@@ -276,7 +278,7 @@
         }
         else {
             NSMutableArray *removeCommand = [baseCommand mutableCopy];
-            if ([binary isEqualToString:@"apt"]) {
+            if ([binary isEqualToString:@"/usr/bin/apt"]) {
                 [removeCommand addObject:@"remove"];
             }
             else {
@@ -316,7 +318,7 @@
     BOOL downgradePackages = [self queueHasPackages:ZBQueueTypeDowngrade];
     if (installPackages || upgradePackages || downgradePackages) {
         NSMutableArray *installCommand = [baseCommand mutableCopy];
-        if ([binary isEqualToString:@"apt"]) {
+        if ([binary isEqualToString:@"/usr/bin/apt"]) {
             [installCommand addObject:@"install"];
         }
         else {
@@ -354,7 +356,7 @@
     
     if ([self queueHasPackages:ZBQueueTypeReinstall]) {
         [commands addObject:@[@(ZBStageReinstall)]];
-        if ([binary isEqualToString:@"apt"]) {
+        if ([binary isEqualToString:@"/usr/bin/apt"]) {
             NSMutableArray *reinstallCommand = [baseCommand mutableCopy];
             [reinstallCommand addObject:@"install"];
             [reinstallCommand addObject:@"--reinstall"];
@@ -363,20 +365,10 @@
             [reinstallCommand addObjectsFromArray:paths];
             [commands addObject:reinstallCommand];
         }
-        else if ([binary isEqualToString:@"dpkg"]) {
-            //Remove package first
-            NSMutableArray *removeCommand = [baseCommand mutableCopy];
-            
-            [removeCommand insertObject:@"-r" atIndex:1];
-            [removeCommand insertObject:@"--force-depends" atIndex:2];
-            for (ZBPackage *package in [self reinstallQueue]) {
-                [removeCommand addObject:package.identifier];
-            }
-            [commands addObject:removeCommand];
-            
-            //Install new version
+        else {
+            //Reinstall is the same as install
             NSMutableArray *installCommand = [baseCommand mutableCopy];
-            [installCommand insertObject:@"-i" atIndex:1];
+            [installCommand insertObject:@"-i" atIndex:0];
             NSArray *paths = [self pathsForPackagesInQueue:ZBQueueTypeReinstall];
             [installCommand addObjectsFromArray:paths];
             [commands addObject:installCommand];

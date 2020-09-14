@@ -70,7 +70,7 @@ int main(int argc, char ** argv) {
         return EX_NOPERM;
       }
 
-      int result = execvp(argv[1], &argv[1]);
+      int result = execvp(argv[0], argv);
 
       return result;
     }

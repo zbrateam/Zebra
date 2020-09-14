@@ -107,7 +107,7 @@
 
 - (void)refreshIconCache:(NSIndexPath *)indexPath {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Refresh Icon Cache", @"") message:NSLocalizedString(@"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.", @"") callback:^{
-        [ZBDevice uicache:nil observer:nil];
+        [ZBDevice uicache:nil];
     } indexPath:indexPath];
 }
 
