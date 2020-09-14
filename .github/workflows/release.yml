@@ -80,7 +80,7 @@ jobs:
 
     - name: Clone gh-pages
       run: |
-        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/wstyres/Zebra.git ~/website
+        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/${{ github.repository_owner }}/Zebra.git ~/website
     - name: Move package to repo
       if: '!steps.config.outputs.beta'
       run: |
