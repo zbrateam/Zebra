@@ -653,7 +653,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
             }
             dict_add(package, key, value);
         } else if (dict_get(package, "Package") != 0) {
-            bindPackage(&package, sourceID, safeID, depends, database, false, currentDate);
+            bindPackage(&package, sourceID, safeID, depends, database, sourceID <= 0, currentDate);
         } else {
             dict_free(package);
             package = dict_new();
@@ -661,7 +661,7 @@ enum PARSEL_RETURN_TYPE updatePackagesInDatabase(const char *path, sqlite3 *data
         }
     }
     if (dict_get(package, "Package") != 0) {
-        bindPackage(&package, sourceID, safeID, depends, database, false, currentDate);
+        bindPackage(&package, sourceID, safeID, depends, database, sourceID <= 0, currentDate);
     }
     
     dict_free(package);
