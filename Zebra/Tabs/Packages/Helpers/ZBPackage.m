@@ -30,6 +30,9 @@
 @import SafariServices;
 
 @interface ZBPackage () {
+    NSString *author;
+    NSString *maintainer;
+    
     BOOL checkedForPurchaseInfo;
     ZBPurchaseInfo *purchaseInfo;
 }
@@ -37,33 +40,10 @@
 
 @implementation ZBPackage
 
-@synthesize identifier;
-@synthesize name;
-@synthesize version;
-@synthesize tagline;
-@synthesize packageDescription;
-@synthesize section;
-@synthesize depictionURL;
-@synthesize tags;
-@synthesize dependsOn;
-@synthesize conflictsWith;
-@synthesize provides;
-@synthesize replaces;
-@synthesize authorName;
-@synthesize authorEmail;
-@synthesize source;
-@synthesize filename;
-@synthesize debPath;
-@synthesize dependencies;
-@synthesize dependencyOf;
-@synthesize issues;
-@synthesize removedBy;
-@synthesize installedSize;
-@synthesize downloadSize;
-@synthesize priority;
-@synthesize essential;
-@synthesize ignoreDependencies;
-@synthesize SHA256;
+@synthesize authorName = _authorName;
+@synthesize authorEmail = _authorEmail;
+@synthesize maintainerName = _maintainerName;
+@synthesize maintainerEmail = _maintainerEmail;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -199,8 +179,7 @@
         const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
         const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
         const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
-        const char *authorNameChars =       (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorName);
-        const char *authorEmailChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorEmail);
+        const char *authorChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthor);
         const char *dependsChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
         const char *conflictsChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
         const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -215,8 +194,7 @@
         const char *changelogNotesChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnChangelogNotes);
         const char *homepageChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepage);
         const char *previewsChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPreviews);
-        const char *maintainerNameChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
-        const char *maintainerEmailChars =  (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
+        const char *maintainerChars =       (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainer);
         const char *preferNativeChars =     (const char *)sqlite3_column_text(statement, ZBPackageColumnPreferNative);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
@@ -229,16 +207,14 @@
         [self setPackageDescription:descriptionChars != 0 ? [NSString stringWithUTF8String:descriptionChars] : nil];
         [self setSection:sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : nil];
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : nil];
-        [self setAuthorName:authorNameChars != 0 ? [NSString stringWithUTF8String:authorNameChars] : NULL];
-        [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : nil];
+        author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : nil];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : nil]; // TODO: Should change to iconURL later
         [self setHeaderURL:headerChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:headerChars]] : nil];
         [self setChangelogTitle:changelogTitleChars != 0 ? [NSString stringWithUTF8String:changelogTitleChars] : nil];
         [self setChangelogNotes:changelogNotesChars != 0 ? [NSString stringWithUTF8String:changelogNotesChars] : nil];
         [self setHomepageURL:homepageChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:homepageChars]] : nil];
-        [self setMaintainerName:maintainerNameChars != 0 ? [NSString stringWithUTF8String:maintainerNameChars] : nil];
-        [self setMaintainerEmail:maintainerEmailChars != 0 ? [NSString stringWithUTF8String:maintainerEmailChars] : nil];
+        maintainer = maintainerChars != 0 ? [NSString stringWithUTF8String:maintainerChars] : nil;
         
         [self setPriority:priorityChars != 0 ? [NSString stringWithUTF8String:priorityChars] : nil];
         
@@ -261,8 +237,8 @@
         [self setSHA256:sha256Chars != 0 ? [NSString stringWithUTF8String:sha256Chars] : nil];
         
         [self setTags:tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : nil];
-        if ([tags count] == 1 && [tags[0] containsString:@","]) {
-            tags = [tags[0] componentsSeparatedByString:@","];
+        if (self.tags.count == 1 && [self.tags[0] containsString:@","]) {
+            self.tags = [self.tags[0] componentsSeparatedByString:@","];
         }
         
         [self setPreviewImageURLs:previewsChars != 0 ? [[NSString stringWithUTF8String:previewsChars] componentsSeparatedByString:@", "] : NULL];
@@ -326,7 +302,6 @@
         [self setAuthorName:author];
         [self setIconPath:icon];
         [self setPriority:priority];
-        [self setTags:tags];
         
         if (essential && [essential isEqualToString:@"yes"]) {
             [self setEssential:YES];
@@ -335,8 +310,8 @@
             [self setEssential:NO];
         }
         
-        if ([tags count] == 1 && [tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
-            tags = [tags[0] componentsSeparatedByString:@","];
+        if ([self.tags count] == 1 && [self.tags[0] containsString:@","]) { // Fix crimes against humanity @Dnasty
+            self.tags = [self.tags[0] componentsSeparatedByString:@","];
         }
         
         [self setDependsOn:[self extract:[depends UTF8String]]];
@@ -401,7 +376,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ (%@) v%@ by %@ via %@", name, identifier, version, authorName ?: NSLocalizedString(@"Unknown", @""), [source label] ?: NSLocalizedString(@"Unknown", @"")];
+    return [NSString stringWithFormat: @"%@ (%@) v%@ by %@ via %@", self.name, self.identifier, self.version, self.authorName ?: NSLocalizedString(@"Unknown", @""), [self.source label] ?: NSLocalizedString(@"Unknown", @"")];
 }
 
 - (NSComparisonResult)compare:(id)object {
@@ -425,7 +400,7 @@
 }
 
 - (BOOL)isPaid {
-    return [tags containsObject:@"cydia::commercial"];
+    return [self.tags containsObject:@"cydia::commercial"];
 }
 
 - (BOOL)mightRequirePayment {
@@ -551,28 +526,28 @@
 }
 
 - (NSString * _Nullable)downloadSizeString {
-    if (downloadSize <= 0) return nil;
-    double size = (double)downloadSize;
+    if (self.downloadSize <= 0) return nil;
+    double size = (double)self.downloadSize;
     if (size > 1024 * 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
     }
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), downloadSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), self.downloadSize];
 }
 
 - (NSString * _Nullable)installedSizeString {
-    if (installedSize <= 0) return nil;
-    double size = (double)installedSize;
+    if (self.installedSize <= 0) return nil;
+    double size = (double)self.installedSize;
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), installedSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), self.installedSize];
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if (source && [source sourceID] <= 0) { // Package is in sourceID 0 or -1
+    if (self.source && [self.source sourceID] <= 0) { // Package is in sourceID 0 or -1
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -666,33 +641,33 @@
 }
 
 - (void)addDependency:(ZBPackage *)package {
-    if (!dependencies) dependencies = [NSMutableArray new];
+    if (!self.dependencies) self.dependencies = [NSMutableArray new];
     
-    if (![dependencies containsObject:package]) {
-        [dependencies addObject:package];
+    if (![self.dependencies containsObject:package]) {
+        [self.dependencies addObject:package];
     }
 }
 
 - (void)addDependencyOf:(ZBPackage *)package {
-    if (!dependencyOf) dependencyOf = [NSMutableArray new];
+    if (!self.dependencyOf) self.dependencyOf = [NSMutableArray new];
     
-    if (![dependencyOf containsObject:package]) {
-        [dependencyOf addObject:package];
+    if (![self.dependencyOf containsObject:package]) {
+        [self.dependencyOf addObject:package];
     }
 }
 
 - (void)addIssue:(NSString *)issue {
-    if (!issues) issues = [NSMutableArray new];
+    if (!self.issues) self.issues = [NSMutableArray new];
     
-    [issues addObject:issue];
+    [self.issues addObject:issue];
 }
 
 - (BOOL)hasIssues {
-    return [issues count];
+    return [self.issues count];
 }
 
 - (BOOL)isEssentialOrRequired {
-    return essential || [[priority lowercaseString] isEqualToString:@"required"];
+    return self.essential || [[self.priority lowercaseString] isEqualToString:@"required"];
 }
 
 - (void)setIconImageForImageView:(UIImageView *)imageView {
@@ -913,9 +888,9 @@
 
 - (NSString *)changelogTitle {
     if (_changelogTitle && ![_changelogTitle isEqualToString:@""]) {
-        return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), version, _changelogTitle];
+        return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), self.version, _changelogTitle];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"Version %@", @""), version];
+    return [NSString stringWithFormat:NSLocalizedString(@"Version %@", @""), self.version];
 }
 
 - (NSString *)changelogNotes {
@@ -1067,6 +1042,72 @@
     metaData.imageProvider = [[NSItemProvider alloc] initWithObject:[ZBSource imageForSection:self.section]];
     
     return metaData;
+}
+
+- (NSArray *)splitNameAndEmail:(NSString *)string {
+    NSArray *components = [string componentsSeparatedByString:@"<"];
+    if (components.count == 2) {
+        NSString *name = [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString *author = [components[1] stringByReplacingOccurrencesOfString:@">" withString:@""];
+        return @[name, author];
+    } else if (components.count == 1) {
+        NSString *name = [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        return @[name];
+    } else {
+        return NULL;
+    }
+}
+
+- (NSString *)authorName {
+    if (!author) return NULL;
+    if (_authorName) return _authorName;
+    
+    NSArray *split = [self splitNameAndEmail:author];
+    if (split.count >= 1) {
+        _authorName = split[0];
+        return _authorName;
+    }
+    
+    return NULL;
+}
+
+- (NSString *)authorEmail {
+    if (!author) return NULL;
+    if (_authorEmail) return _authorEmail;
+    
+    NSArray *split = [self splitNameAndEmail:author];
+    if (split.count > 1) {
+        _authorEmail = split[1];
+        return _authorEmail;
+    }
+    
+    return NULL;
+}
+
+- (NSString *)maintainerName {
+    if (!maintainer) return NULL;
+    if (_maintainerName) return _maintainerName;
+    
+    NSArray *split = [self splitNameAndEmail:maintainer];
+    if (split.count >= 1) {
+        _maintainerName = split[0];
+        return _maintainerName;
+    }
+    
+    return NULL;
+}
+
+- (NSString *)maintainerEmail {
+    if (!maintainer) return NULL;
+    if (_maintainerEmail) return _maintainerEmail;
+    
+    NSArray *split = [self splitNameAndEmail:maintainer];
+    if (split.count > 1) {
+        _maintainerEmail = split[1];
+        return _maintainerEmail;
+    }
+    
+    return NULL;
 }
 
 @end
