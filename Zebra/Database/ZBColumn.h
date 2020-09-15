@@ -18,8 +18,7 @@ typedef enum {
     ZBPackageColumnSection,
     ZBPackageColumnDepiction,
     ZBPackageColumnTag,
-    ZBPackageColumnAuthorName,
-    ZBPackageColumnAuthorEmail,
+    ZBPackageColumnAuthor,
     ZBPackageColumnDepends,
     ZBPackageColumnConflicts,
     ZBPackageColumnProvides,
@@ -38,8 +37,7 @@ typedef enum {
     ZBPackageColumnChangelogNotes,
     ZBPackageColumnHomepage,
     ZBPackageColumnPreviews,
-    ZBPackageColumnMaintainerName,
-    ZBPackageColumnMaintainerEmail,
+    ZBPackageColumnMaintainer,
     ZBPackageColumnPreferNative
 } ZBPackageColumn;
 

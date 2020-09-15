@@ -89,10 +89,10 @@ const char *sourceInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMP
 const char *sourceUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
 char *packagesSchema() {
-    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), TAGLINE STRING, DESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHORNAME STRING, AUTHOREMAIL STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICON STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING, HEADER STRING, CHANGELOGTITLE STRING, CHANGELOG STRING, HOMEPAGE STRING, PREVIEWS STRING, MAINTAINERNAME STRING, MAINTAINEREMAIL STRING, PREFERNATIVE STRING)";
+    return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), TAGLINE STRING, DESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHOR STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICON STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING, HEADER STRING, CHANGELOGTITLE STRING, CHANGELOG STRING, HOMEPAGE STRING, PREVIEWS STRING, MAINTAINERNAME STRING, MAINTAINEREMAIL STRING, PREFERNATIVE STRING)";
 }
 
-const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, TAGLINE, DESCRIPTION, SECTION, DEPICTION, TAG, AUTHORNAME, AUTHOREMAIL, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICON, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256, HEADER, CHANGELOGTITLE, CHANGELOG, HOMEPAGE, PREVIEWS, MAINTAINERNAME, MAINTAINEREMAIL, PREFERNATIVE) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, TAGLINE, DESCRIPTION, SECTION, DEPICTION, TAG, AUTHOR, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICON, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256, HEADER, CHANGELOGTITLE, CHANGELOG, HOMEPAGE, PREVIEWS, MAINTAINERNAME, MAINTAINEREMAIL, PREFERNATIVE) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
 char *updatesSchema() {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION VARCHAR(16) NOT NULL, IGNORE INTEGER DEFAULT 0)";
@@ -303,40 +303,6 @@ sqlite3_int64 getCurrentPackageTimestamp(sqlite3 *database, const char *packageI
     return timestamp;
 }
 
-pair *splitNameAndEmail(const char *author) {
-    pair *p = malloc(sizeof(pair));
-    
-    if (author == NULL) {
-        p->key = NULL;
-        p->value = NULL;
-    } else {
-        unsigned long length = strlen(author);
-        p->key = malloc(length + 1);
-        
-        char *l = strchr(author, '<');
-        char *r = strchr(author, '>');
-        
-        if (l && r) {
-            p->value = malloc(length + 1);
-            
-            int nameSize = (int)(l - author);
-            int emailSize = (int)(r - author) - nameSize - 1;
-            
-            strncpy(p->key, author, nameSize);
-            p->key[nameSize] = 0;
-            
-            strncpy(p->value, l + 1, emailSize);
-            p->value[emailSize] = 0;
-        }
-        else {
-            strcpy(p->key, author);
-            p->value = NULL;
-        }
-    }
-    
-    return p;
-}
-
 bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlite3 *database, bool import, sqlite3_int64 currentDate) {
     dict *package = *package_;
     char *packageIdentifier = (char *)dict_get(package, "Package");
@@ -374,12 +340,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepiction, dict_get(package, "Depiction"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnTag, tags, -1, SQLITE_TRANSIENT);
             
-            pair *author = splitNameAndEmail(dict_get(package, "Author"));
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorName, author->key, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthorEmail, author->value, -1, SQLITE_TRANSIENT);
-            free(author->key);
-            free(author->value);
-            free(author);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnAuthor, dict_get(package, "Author"), -1, SQLITE_TRANSIENT);
             
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnDepends, depends[0] == '\0' ? NULL : depends, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnConflicts, dict_get(package, "Conflicts"), -1, SQLITE_TRANSIENT);
@@ -437,15 +398,9 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnChangelogNotes, dict_get(package, "ChangelogNotes"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHomepage, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPreviews, dict_get(package, "Previews"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerName, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHomepage, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
             
-            pair *maintainer = splitNameAndEmail(dict_get(package, "Maintainer"));
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerName, maintainer->key, -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainerEmail, maintainer->value, -1, SQLITE_TRANSIENT);
-            free(maintainer->key);
-            free(maintainer->value);
-            free(maintainer);
+            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainer, dict_get(package, "Maintainer"), -1, SQLITE_TRANSIENT);
             
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPreferNative, dict_get(package, "Prefer-Native"), -1, SQLITE_TRANSIENT);
             
