@@ -98,6 +98,10 @@
     [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
 }
 
+- (void)dealloc {
+    [self.informationTableView removeObserver:self forKeyPath:@"contentPath"];
+}
+
 #pragma mark - View Setup
 
 - (void)setDelegates {
