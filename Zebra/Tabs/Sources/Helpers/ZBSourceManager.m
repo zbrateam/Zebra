@@ -241,7 +241,7 @@
     
     [databaseManager checkForPackageUpdates];
     NSMutableSet *sourcesToRefresh = [NSMutableSet setWithObject:[ZBSource localSource]];
-    if (requested || needsRefresh || [ZBDatabaseManager needsMigration]) [sourcesToRefresh addObjectsFromArray:self.sources];
+    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
     
     [self refreshSources:sourcesToRefresh useCaching:YES error:nil];
 }

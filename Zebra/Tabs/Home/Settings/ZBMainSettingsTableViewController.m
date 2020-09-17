@@ -24,6 +24,7 @@
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 #import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -467,15 +468,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
 }
 
 # pragma mark selected cells methods
-
-- (void)showRefreshView:(NSNumber *)dropTables {
-    if (![NSThread isMainThread]) {
-        [self performSelectorOnMainThread:@selector(showRefreshView:) withObject:dropTables waitUntilDone:NO];
-    } else {
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] initWithDropTables:[dropTables boolValue]];
-        [self presentViewController:refreshController animated:YES completion:nil];
-    }
-}
 
 - (void)filterSettings {
     ZBFilterSettingsTableViewController *filterController = [[ZBFilterSettingsTableViewController alloc] initWithStyle:UITableViewStyleGrouped];

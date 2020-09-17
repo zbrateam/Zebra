@@ -8,15 +8,13 @@
 
 #import "ZBRefreshViewController.h"
 
-#import <Tabs/ZBTabBarController.h>
-#import <ZBDevice.h>
-#import <ZBAppDelegate.h>
+#import "ZBDatabaseManager.h"
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIFont+Zebra.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Downloads/ZBDownloadManager.h>
-#import <Theme/ZBThemeManager.h>
+#import <Tabs/ZBTabBarController.h>
+#import <Tabs/Sources/Helpers/ZBBaseSource.h>
 #import <Tabs/Sources/Helpers/ZBSourceManager.h>
-#import <Parsel/parsel.h>
+#import <Theme/ZBThemeManager.h>
 
 typedef enum {
     ZBStateCancel = 0,
@@ -24,21 +22,14 @@ typedef enum {
 } ZBRefreshButtonState;
 
 @interface ZBRefreshViewController () {
-    ZBDatabaseManager *databaseManager;
+    ZBSourceManager *sourceManager;
     BOOL hadAProblem;
-    ZBRefreshButtonState buttonState;
-    NSMutableArray *imaginarySources;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeOrCancelButton;
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @end
 
 @implementation ZBRefreshViewController
-
-@synthesize delegate;
-@synthesize messages;
-@synthesize completeOrCancelButton;
-@synthesize consoleView;
 
 #pragma mark - Initializers
 
@@ -47,97 +38,10 @@ typedef enum {
     self = [storyboard instantiateViewControllerWithIdentifier:@"refreshController"];
     
     if (self) {
-        self.messages = NULL;
-        self.dropTables = NO;
-        self.baseSources = NULL;
-    }
-    
-    return self;
-}
-
-- (id)initWithMessages:(NSArray *)messages {
-    self = [self init];
-    
-    if (self) {
-        self.messages = messages;
-    }
-    
-    return self;
-}
-
-- (id)initWithDropTables:(BOOL)dropTables {
-    self = [self init];
-    
-    if (self) {
-        self.dropTables = dropTables;
-    }
-    
-    return self;
-}
-
-- (id)initWithBaseSources:(NSSet<ZBBaseSource *> *)baseSources delegate:(id <ZBSourceVerificationDelegate>)delegate {
-    self = [self init];
-    
-    if (self) {
-        NSMutableSet *validSources = [NSMutableSet new];
+        sourceManager = [ZBSourceManager sharedInstance];
+        [sourceManager addDelegate:self];
         
-        for (ZBBaseSource *source in baseSources) {
-            if (source.verificationStatus == ZBSourceExists) {
-                [validSources addObject:source];
-            }
-            else {
-                if (!imaginarySources) imaginarySources = [NSMutableArray new];
-                [imaginarySources addObject:source];
-            }
-        }
-        
-        self.baseSources = validSources;
-        self.delegate = delegate;
-    }
-    
-    return self;
-}
-
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables {
-    self = [self init];
-    
-    if (self) {
-        self.messages = messages;
-        self.dropTables = dropTables;
-    }
-    
-    return self;
-}
-
-- (id)initWithMessages:(NSArray *)messages baseSources:(NSSet <ZBBaseSource *> *)baseSources {
-    self = [self init];
-    
-    if (self) {
-        self.messages = messages;
-        self.baseSources = baseSources;
-    }
-    
-    return self;
-}
-
-- (id)initWithDropTables:(BOOL)dropTables baseSources:(NSSet <ZBBaseSource *> *)baseSources {
-    self = [self init];
-    
-    if (self) {
-        self.dropTables = dropTables;
-        self.baseSources = baseSources;
-    }
-    
-    return self;
-}
-
-- (id)initWithMessages:(NSArray *)messages dropTables:(BOOL)dropTables baseSources:(NSSet <ZBBaseSource *> *)baseSources {
-    self = [self init];
-    
-    if (self) {
-        self.messages = messages;
-        self.dropTables = dropTables;
-        self.baseSources = baseSources;
+        hadAProblem = NO;
     }
     
     return self;
@@ -147,14 +51,11 @@ typedef enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (_dropTables) {
-        [self setCompleteOrCancelButtonHidden:YES];
-    } else {
-        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Cancel", @"")];
-    }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disableCancelButton) name:@"disableCancelRefresh" object:nil];
+    
+    [self setCompleteOrCancelButtonHidden:YES];
+    
     [self.view setBackgroundColor:[UIColor blackColor]];
-    [consoleView setBackgroundColor:[UIColor blackColor]];
+    [self.consoleView setBackgroundColor:[UIColor blackColor]];
     
     ZBAccentColor color = [ZBSettings accentColor];
     ZBInterfaceStyle style = [ZBSettings interfaceStyle];
@@ -168,87 +69,25 @@ typedef enum {
     }
 }
 
-- (void)disableCancelButton {
-    buttonState = ZBStateDone;
-    [self setCompleteOrCancelButtonHidden:YES];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     self.view.backgroundColor = [UIColor blackColor];
-    consoleView.backgroundColor = [UIColor blackColor];
+    self.consoleView.backgroundColor = [UIColor blackColor];
     
-    if (!messages) {
-        databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager addDatabaseDelegate:self];
-        
-        if (_dropTables) {
-            [databaseManager dropTables];
-        }
-        
-        if (self.baseSources.count) {
-            // Update only the sources specified
-//            [databaseManager updateSources:self.baseSources useCaching:NO];
-        } else {
-            // Update every source
-//            [databaseManager updateDatabaseUsingCaching:NO userRequested:YES];
-        }
-    } else {
-        hadAProblem = YES;
-        for (NSString *message in messages) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self writeToConsole:message atLevel:ZBLogLevelError];
-            });
-        }
-        [consoleView setNeedsLayout];
-        buttonState = ZBStateDone;
-        [self clearProblems];
-    }
+    [[ZBDatabaseManager sharedInstance] dropTables];
+    [sourceManager refreshSourcesUsingCaching:NO userRequested:YES error:nil];
 }
 
 - (IBAction)completeOrCancelButton:(id)sender {
-    if (buttonState == ZBStateDone) {
-        [self goodbye];
-    }
-    else {
-        if (_dropTables) {
-            return;
-        }
-        [databaseManager cancelUpdates:self];
-        [self writeToConsole:@"Refresh cancelled\n" atLevel:ZBLogLevelInfo]; // TODO: localization
-        
-        buttonState = ZBStateDone;
-        [self setCompleteOrCancelButtonHidden:NO];
-        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
-    }
-}
-
-- (void)clearProblems {
-    messages = nil;
-    hadAProblem = NO;
-    [self clearConsoleText];
+    [self goodbye];
 }
 
 - (void)goodbye {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     } else {
-        [self clearProblems];
-        ZBTabBarController *controller = (ZBTabBarController *)[self presentingViewController];
-        if (controller) {
-            [self dismissViewControllerAnimated:YES completion:^{
-                if (self->delegate) {
-                    [self->delegate finishedSourceVerification:NULL imaginarySources:self->imaginarySources];
-                }
-                if ([controller isKindOfClass:[ZBTabBarController class]] && controller.forwardToPackageID != NULL) {
-                    [controller forwardToPackage];
-                }
-            }];
-        }
-        else {
-            [[[UIApplication sharedApplication] windows][0] setRootViewController:[[ZBTabBarController alloc] init]];
-        }
+        [[[UIApplication sharedApplication] windows][0] setRootViewController:[[ZBTabBarController alloc] init]];
     }
 }
 
@@ -256,7 +95,7 @@ typedef enum {
 
 - (void)setCompleteOrCancelButtonHidden:(BOOL)hidden {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self->completeOrCancelButton setHidden:hidden];
+        [self.completeOrCancelButton setHidden:hidden];
     });
 }
 
@@ -268,7 +107,7 @@ typedef enum {
 
 - (void)clearConsoleText {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self->consoleView setText:nil];
+        [self.consoleView setText:nil];
     });
 }
 
@@ -307,42 +146,58 @@ typedef enum {
 
         NSDictionary *attrs = @{ NSForegroundColorAttributeName: color, NSFontAttributeName: font };
         
-        [self->consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
+        [self.consoleView.textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:str attributes:attrs]];
 
-        if (self->consoleView.text.length) {
-            NSRange bottom = NSMakeRange(self->consoleView.text.length - 1, 1);
-            [self->consoleView scrollRangeToVisible:bottom];
+        if (self.consoleView.text.length) {
+            NSRange bottom = NSMakeRange(self.consoleView.text.length - 1, 1);
+            [self.consoleView scrollRangeToVisible:bottom];
         }
     });
 }
 
-#pragma mark - Database Delegate
+#pragma mark - Source Delegate
 
-- (void)databaseStartedUpdate {
-    hadAProblem = NO;
+- (void)startedSourceRefresh {
+    [self writeToConsole:NSLocalizedString(@"Migrating Database...", @"") atLevel:ZBLogLevelInfo];
 }
 
-- (void)databaseCompletedUpdate:(int)packageUpdates {
-//    ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
-//    if (packageUpdates != -1) {
-//        [tabController setPackageUpdateBadgeValue:packageUpdates];
-//    }
-    [databaseManager removeDatabaseDelegate:self];
-    if (!hadAProblem) {
-        [self goodbye];
-    } else {
-        [self setCompleteOrCancelButtonHidden:NO];
-        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
-    }
-    //TODO: Maybe send source update notification? Might not be needed.
-//    [[ZBSourceManager sharedInstance] needRecaching];
+- (void)startedDownloadForSource:(ZBBaseSource *)source {
+    [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Downloading %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
 }
 
-- (void)postStatusUpdate:(NSString *)status atLevel:(ZBLogLevel)level {
-    if (level == ZBLogLevelError || level == ZBLogLevelWarning) {
+- (void)finishedDownloadForSource:(ZBBaseSource *)source {
+    [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Finished Downloading %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
+    for (NSError *error in source.errors) {
         hadAProblem = YES;
+        [self writeToConsole:error.localizedDescription atLevel:ZBLogLevelError];
     }
-    [self writeToConsole:status atLevel:level];
+    
+    for (NSError *warning in source.warnings) {
+        [self writeToConsole:warning.localizedDescription atLevel:ZBLogLevelWarning];
+    }
+}
+
+- (void)startedImportForSource:(ZBBaseSource *)source {
+    [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Importing %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
+}
+
+- (void)finishedImportForSource:(ZBBaseSource *)source {
+    [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"Finished Importing %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
+}
+
+- (void)updatesAvailable:(int)numberOfUpdates {
+    [self writeToConsole:[NSString stringWithFormat:NSLocalizedString(@"%d updates are available", @""), numberOfUpdates] atLevel:ZBLogLevelDescript];
+}
+
+- (void)finishedSourceRefresh {
+    [self writeToConsole:NSLocalizedString(@"Migration Complete!", @"") atLevel:ZBLogLevelInfo];
+    
+    if (hadAProblem) {
+        [self updateCompleteOrCancelButtonText:NSLocalizedString(@"Done", @"")];
+        [self setCompleteOrCancelButtonHidden:NO];
+    } else {
+        [self goodbye];
+    }
 }
 
 @end
