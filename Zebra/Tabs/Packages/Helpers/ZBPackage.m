@@ -879,6 +879,12 @@
         [information addObject:homepageInfo];
     }
     
+    NSURL *depiction = [self depictionURL];
+    if (depiction) {
+        NSDictionary *depictionInfo = @{@"name": NSLocalizedString(@"View Depiction in Safari", @""), @"cellType": @"link", @"link": depiction, @"image": @"Web Link"};
+        [information addObject:depictionInfo];
+    }
+    
     return information;
 }
 
