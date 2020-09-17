@@ -54,6 +54,8 @@
 @property BOOL essential;
 @property BOOL ignoreDependencies;
 @property BOOL preferNative;
+@property (nonatomic, readonly) NSString * _Nullable lowestCompatibleVersion;
+@property (nonatomic, readonly) NSString * _Nullable highestCompatibleVersion;
 
 + (NSArray * _Nonnull)filesInstalledBy:(NSString * _Nonnull)packageID;
 + (BOOL)respringRequiredFor:(NSString * _Nonnull)packageID;

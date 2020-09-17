@@ -33,6 +33,9 @@
     NSString *author;
     NSString *maintainer;
     
+    NSString *lowestCompatibleVersion;
+    NSString *highestCompatibleVersion;
+    
     BOOL checkedForPurchaseInfo;
     ZBPurchaseInfo *purchaseInfo;
 }
@@ -44,6 +47,8 @@
 @synthesize authorEmail = _authorEmail;
 @synthesize maintainerName = _maintainerName;
 @synthesize maintainerEmail = _maintainerEmail;
+@synthesize lowestCompatibleVersion = _lowestCompatibleVersion;
+@synthesize highestCompatibleVersion = _highestCompatibleVersion;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -880,6 +885,11 @@
         [information addObject:conflictsInfo];
     }
     
+    if (self.lowestCompatibleVersion) {
+        NSDictionary *compatibiltyInfo = @{@"name": NSLocalizedString(@"Compatibility", @""), @"value": [NSString stringWithFormat:NSLocalizedString(@"iOS %@ - %@", @""), self.lowestCompatibleVersion, self.highestCompatibleVersion], @"cellType": @"info"};
+        [information addObject:compatibiltyInfo];
+    }
+    
     NSURL *homepage = [self homepageURL];
     if (homepage) {
         NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"cellType": @"link", @"link": homepage, @"image": @"Web Link"};
@@ -1113,6 +1123,51 @@
     }
     
     return NULL;
+}
+
+- (void)calculateCompatibleVersions {
+    NSString *minVersion = NULL;
+    NSString *maxVersion = NULL;
+    
+    for (NSString *tag in self.tags) {
+        if ([tag containsString:@"compatible_min"]) {
+            minVersion = tag;
+        } else if ([tag containsString:@"compatible_max"]) {
+            maxVersion = tag;
+        }
+    }
+    
+    if (minVersion) {
+        minVersion = [minVersion stringByReplacingOccurrencesOfString:@"compatible_min::" withString:@""];
+        minVersion = [minVersion stringByReplacingOccurrencesOfString:@"ios" withString:@""];
+        
+        lowestCompatibleVersion = minVersion;
+    }
+    
+    if (maxVersion) {
+        maxVersion = [maxVersion stringByReplacingOccurrencesOfString:@"compatible_max::" withString:@""];
+        maxVersion = [maxVersion stringByReplacingOccurrencesOfString:@"ios" withString:@""];
+        
+        highestCompatibleVersion = maxVersion;
+    } else if (minVersion) {
+        highestCompatibleVersion = [[UIDevice currentDevice] systemVersion];
+    }
+}
+
+- (NSString *)lowestCompatibleVersion {
+    if (!self.tags || self.tags.count == 0) return NULL;
+    if (lowestCompatibleVersion) return lowestCompatibleVersion;
+    
+    [self calculateCompatibleVersions];
+    return lowestCompatibleVersion;
+}
+
+- (NSString *)highestCompatibleVersion {
+    if (!self.tags || self.tags.count == 0) return NULL;
+    if (highestCompatibleVersion) return highestCompatibleVersion;
+    
+    [self calculateCompatibleVersions];
+    return highestCompatibleVersion;
 }
 
 @end
