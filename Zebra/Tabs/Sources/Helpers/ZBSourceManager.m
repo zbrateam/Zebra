@@ -465,6 +465,7 @@
     busyList = NULL;
     completedSources = NULL;
     [databaseManager checkForPackageUpdates];
+    [databaseManager updateLastUpdated];
     [self bulkFinishedSourceRefresh];
 }
 
