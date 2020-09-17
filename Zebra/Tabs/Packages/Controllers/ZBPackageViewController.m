@@ -87,7 +87,6 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     
-    [self updateTableViewHeightBasedOnContent];
     self.headerImageGradientLayer.frame = self.headerImageGradientView.bounds;
     self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(-self.navigationController.navigationBar.frame.size.height, 0, 0, 0); // Kinda hacky
 }
@@ -138,6 +137,8 @@
     
     // Information Table View
     [self.informationTableView setSeparatorColor:[UIColor cellSeparatorColor]];
+    [self.informationTableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.informationTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)setData {
@@ -176,10 +177,6 @@
 }
 
 #pragma mark - Helper Methods
-
-- (void)updateTableViewHeightBasedOnContent {
-    self.informationTableViewHeightConstraint.constant = self.informationTableView.contentSize.height;
-}
 
 - (void)showAuthorName {
     [UIView transitionWithView:self.tagLineLabel duration:0.25f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
@@ -414,13 +411,10 @@
             [self presentViewController:doesNotConform animated:YES completion:nil];
         }
     } else if ([packageInformation objectForKey:@"more"]) {
-        if ([expandedCells containsIndex:indexPath.row]) {
-            [expandedCells removeIndex:indexPath.row];
-        } else {
+        if (![expandedCells containsIndex:indexPath.row]) {
             [expandedCells addIndex:indexPath.row];
+            [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-        
-        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
@@ -429,6 +423,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView != self.scrollView) return;
     [self updateNavigationBarBackgroundOpacityForCurrentScrollOffset];
+}
+
+#pragma mark - UITableView contentSize Observer
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self.informationTableView && [keyPath isEqual:@"contentSize"] && self.informationTableViewHeightConstraint.constant != self.informationTableView.contentSize.height) {
+        self.informationTableViewHeightConstraint.constant = self.informationTableView.contentSize.height;
+    }
 }
 
 @end

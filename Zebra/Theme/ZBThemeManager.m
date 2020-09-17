@@ -151,13 +151,13 @@
     self.accentColor = [ZBSettings accentColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self configureTabBar];
-        [self configureNavigationBar];
-        [self configurePopupBar];
-        [self configureTableView];
-        [self configureKeyboard];
         if ([ZBThemeManager useCustomTheming]) {
             [self refreshViews];
+            [self configureTabBar];
+            [self configureNavigationBar];
+            [self configurePopupBar];
+            [self configureTableView];
+            [self configureKeyboard];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"darkMode" object:self];
         }
         else if (@available(iOS 13.0, *)) {
