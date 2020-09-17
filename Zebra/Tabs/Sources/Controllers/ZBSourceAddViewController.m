@@ -59,8 +59,6 @@
     
     if (self) {
         searchController.searchBar.text = [url absoluteString];
-        ZBBaseSource *source = [[ZBBaseSource alloc] initFromURL:url];
-        
     }
     
     return self;
