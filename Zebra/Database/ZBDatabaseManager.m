@@ -1008,7 +1008,7 @@
 
 - (NSMutableArray <ZBPackage *> * _Nullable)installedPackages:(BOOL)includeVirtualDependencies {
     if ([self openDatabase] == SQLITE_OK) {
-        installedPackageIDs = [NSMutableArray new];
+        NSMutableArray *installedPackageIdentifiers = [NSMutableArray new];
         NSMutableArray *installedPackages = [NSMutableArray new];
         
         sqlite3_stmt *statement = NULL;
@@ -1021,13 +1021,16 @@
                 ZBPackage *package = [self packageForID:packageID equalVersion:packageVersion];
                 if (package) {
                     package.version = packageVersion;
-                    [installedPackageIDs addObject:package.identifier];
+                    [installedPackageIdentifiers addObject:package.identifier];
                     [installedPackages addObject:package];
                 }
             }
         } else {
             [self printDatabaseError];
         }
+        
+        installedPackageIDs = installedPackageIdentifiers;
+        
         sqlite3_finalize(statement);
         [self closeDatabase];
         
