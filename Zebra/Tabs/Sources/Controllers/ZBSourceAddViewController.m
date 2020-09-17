@@ -74,24 +74,26 @@
     
     NSURL *url = [NSURL URLWithString:@"https://api.ios-repo-updates.com/1.0/repositories/"];
     NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSError *JSONError;
-        NSDictionary *fullJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-        NSArray *repos = [fullJSON objectForKey:@"repositories"];
-        
-        for (NSDictionary *repo in repos) {
-            NSURL *URL = [NSURL URLWithString:repo[@"url"]];
-            if (URL) {
-                ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:URL];
-                [baseSource setLabel:repo[@"name"]];
-                [baseSource setVerificationStatus:ZBSourceExists];
-                
-                [self->sources addObject:baseSource];
+        if (data && !error) {
+            NSError *JSONError;
+            NSDictionary *fullJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+            NSArray *repos = [fullJSON objectForKey:@"repositories"];
+            
+            for (NSDictionary *repo in repos) {
+                NSURL *URL = [NSURL URLWithString:repo[@"url"]];
+                if (URL) {
+                    ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:URL];
+                    [baseSource setLabel:repo[@"name"]];
+                    [baseSource setVerificationStatus:ZBSourceExists];
+                    
+                    [self->sources addObject:baseSource];
+                }
             }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
     }];
     
     [dataTask resume];
