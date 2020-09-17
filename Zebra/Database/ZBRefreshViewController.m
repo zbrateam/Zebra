@@ -87,6 +87,7 @@ typedef enum {
     if (![NSThread isMainThread]) {
         [self performSelectorOnMainThread:@selector(goodbye) withObject:nil waitUntilDone:NO];
     } else {
+        [sourceManager removeDelegate:self];
         [[[UIApplication sharedApplication] windows][0] setRootViewController:[[ZBTabBarController alloc] init]];
     }
 }
