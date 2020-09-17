@@ -10,4 +10,5 @@
 
 @interface ZBUtils : NSObject
 + (NSString * _Nonnull)decodeCString:(const char * _Nullable)cString fallback:(NSString * _Nullable)fallback;
++ (NSArray *_Nonnull)splitNameAndEmail:(NSString *_Nullable)string;
 @end

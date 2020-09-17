@@ -1044,25 +1044,11 @@
     return metaData;
 }
 
-- (NSArray *)splitNameAndEmail:(NSString *)string {
-    NSArray *components = [string componentsSeparatedByString:@"<"];
-    if (components.count == 2) {
-        NSString *name = [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        NSString *author = [components[1] stringByReplacingOccurrencesOfString:@">" withString:@""];
-        return @[name, author];
-    } else if (components.count == 1) {
-        NSString *name = [components[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-        return @[name];
-    } else {
-        return NULL;
-    }
-}
-
 - (NSString *)authorName {
     if (!author) return NULL;
     if (_authorName) return _authorName;
     
-    NSArray *split = [self splitNameAndEmail:author];
+    NSArray *split = [ZBUtils splitNameAndEmail:author];
     if (split.count >= 1) {
         _authorName = split[0];
         return _authorName;
@@ -1075,7 +1061,7 @@
     if (!author) return NULL;
     if (_authorEmail) return _authorEmail;
     
-    NSArray *split = [self splitNameAndEmail:author];
+    NSArray *split = [ZBUtils splitNameAndEmail:author];
     if (split.count > 1) {
         _authorEmail = split[1];
         return _authorEmail;
@@ -1088,7 +1074,7 @@
     if (!maintainer) return NULL;
     if (_maintainerName) return _maintainerName;
     
-    NSArray *split = [self splitNameAndEmail:maintainer];
+    NSArray *split = [ZBUtils splitNameAndEmail:maintainer];
     if (split.count >= 1) {
         _maintainerName = split[0];
         return _maintainerName;
@@ -1101,7 +1087,7 @@
     if (!maintainer) return NULL;
     if (_maintainerEmail) return _maintainerEmail;
     
-    NSArray *split = [self splitNameAndEmail:maintainer];
+    NSArray *split = [ZBUtils splitNameAndEmail:maintainer];
     if (split.count > 1) {
         _maintainerEmail = split[1];
         return _maintainerEmail;
