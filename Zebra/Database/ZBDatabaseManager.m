@@ -855,6 +855,19 @@
         }
         sqlite3_finalize(statement);
         
+        sqlite3_stmt *sectionlessStatement = NULL;
+        if (sqlite3_prepare_v2(database, "SELECT SECTION, COUNT(package) as SECTION_COUNT from packages WHERE SECTION IS NULL LIMIT 1;", -1, &sectionlessStatement, nil) == SQLITE_OK) {
+            if (sqlite3_step(sectionlessStatement) == SQLITE_ROW) {
+                int numberOfPackages = sqlite3_column_int(statement, 1);
+                if (numberOfPackages > 0) {
+                    [sections addObject:@"Uncategorized"];
+                }
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(sectionlessStatement);
+        
         [self closeDatabase];
         return sections;
     } else {
@@ -884,6 +897,22 @@
             [self printDatabaseError];
         }
         sqlite3_finalize(statement);
+        
+        NSString *sectionlessQuery = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE SECTION IS NULL AND REPOID = %d", [source sourceID]];
+        
+        sqlite3_stmt *sectionlessStatement = NULL;
+        if (sqlite3_prepare_v2(database, [sectionlessQuery UTF8String], -1, &sectionlessStatement, nil) == SQLITE_OK) {
+            if (sqlite3_step(sectionlessStatement) == SQLITE_ROW) {
+                int numberOfPackages = sqlite3_column_int(statement, 1);
+                if (numberOfPackages > 0) {
+                    NSString *section = @"Uncategorized";
+                    [sectionReadout setObject:[NSNumber numberWithInt:numberOfPackages] forKey:section];
+                }
+            }
+        } else {
+            [self printDatabaseError];
+        }
+        sqlite3_finalize(sectionlessStatement);
         
         [self closeDatabase];
         return sectionReadout;
