@@ -786,21 +786,29 @@
     NSMutableArray *information = [NSMutableArray new];
     BOOL installed = [self isInstalled:NO];
     
-    if (installed) {
+    NSArray <ZBPackage *> *allVersions = [self allVersions];
+    if (allVersions.count > 1 && installed) {
         NSString *installedVersion = [self installedVersion];
+        
+        ZBPackage *latest = allVersions[0];
+        if ([latest compare:installedVersion] == NSOrderedDescending) {
+            NSString *latestVersion = latest.version;
+            if (latestVersion) {
+                NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
+                [information addObject:latestVersionInfo];
+            }
+        }
+        
         if (installedVersion) {
             NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
             [information addObject:installedVersionInfo];
         }
     }
-    else {
-        NSArray <ZBPackage *> *allVersions = [self allVersions];
-        if (allVersions.count) { // Theres at least one package
-            NSString *latestVersion = [allVersions[0] version];
-            if (latestVersion) {
-                NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
-                [information addObject:latestVersionInfo];
-            }
+    else if (allVersions.count) {
+        NSString *latestVersion = [allVersions[0] version];
+        if (latestVersion) {
+            NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
+            [information addObject:latestVersionInfo];
         }
     }
     
