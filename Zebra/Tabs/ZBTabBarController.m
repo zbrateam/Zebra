@@ -248,4 +248,10 @@
     });
 }
 
+- (void)requestSourceRefresh {
+    if (sourceManager.refreshInProgress) return;
+    
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
+}
+
 @end

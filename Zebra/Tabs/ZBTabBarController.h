@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateQueueBarPackageCount:(int)count;
 - (void)closeQueue;
 - (BOOL)isQueueBarAnimating;
+- (void)requestSourceRefresh;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -311,6 +311,14 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeCloud</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>Refresh Sources</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>Refresh</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
 			<string>UIApplicationShortcutIconTypeSearch</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>Search</string>
