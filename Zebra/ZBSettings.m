@@ -329,6 +329,8 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 }
 
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
+    if (section == NULL) section = @"Uncategorized";
+    
     NSArray *filteredSections = [self filteredSections];
     if ([filteredSections containsObject:section]) return YES;
     
@@ -340,6 +342,8 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 }
 
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source {
+    if (section == NULL) section = @"Uncategorized";
+    
     NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
     NSMutableArray *filteredSections = [[filteredSources objectForKey:[source baseFilename]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];

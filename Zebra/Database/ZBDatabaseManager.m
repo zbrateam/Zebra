@@ -685,9 +685,9 @@
                         const char *packageSection = (const char *)sqlite3_column_text(statement, 1);
                         const char *packageAuthor = (const char *)sqlite3_column_text(statement, 2);
                         const char *packageAuthorEmail = (const char *)sqlite3_column_text(statement, 3);
-                        if (packageSection != 0 && packageAuthor != 0 && packageAuthorEmail != 0) {
+                        if (packageAuthor != 0 && packageAuthorEmail != 0) {
                             int sourceID = sqlite3_column_int(statement, 3);
-                            if (![ZBSettings isSectionFiltered:[NSString stringWithUTF8String:packageSection] forSource:[[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor] email:[NSString stringWithUTF8String:packageAuthorEmail]])
+                            if (![ZBSettings isSectionFiltered:packageSection != 0 ? [NSString stringWithUTF8String:packageSection] : NULL forSource:[[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID]] && ![ZBSettings isAuthorBlocked:[NSString stringWithUTF8String:packageAuthor] email:[NSString stringWithUTF8String:packageAuthorEmail]])
                                 ++packages;
                         }
                         else {
