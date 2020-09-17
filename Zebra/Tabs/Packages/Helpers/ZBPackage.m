@@ -845,7 +845,7 @@
     
     NSString *sourceOrigin = [[self source] origin];
     if (sourceOrigin) {
-        NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info"};
+        NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info", @"class": @"ZBSourceSectionsListTableViewController"};
         [information addObject:sourceOriginInfo];
     }
     

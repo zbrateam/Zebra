@@ -8,15 +8,17 @@
 
 #import <Extensions/ZBTableViewController.h>
 #import "UICKeyChainStore.h"
+#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 
 @class ZBSource;
-@class ZBDatabaseManager;
+@class ZBPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceSectionsListTableViewController : ZBTableViewController <UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ZBSourceSectionsListTableViewController : ZBTableViewController <ZBPackageInfoController, UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit;
+- (id)initWithPackage:(ZBPackage *)package;
 - (void)accountButtonPressed:(id)sender;
 @end
 
