@@ -1107,7 +1107,7 @@
 - (NSArray * _Nullable)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch {
     if ([self openDatabase] == SQLITE_OK) {
         NSMutableArray *searchResults = [NSMutableArray new];
-        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON";
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON, TAG";
         NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
         NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE NAME LIKE \'%%%@\%%\' AND REPOID > -1 ORDER BY (CASE WHEN NAME = \'%@\' THEN 1 WHEN NAME LIKE \'%@%%\' THEN 2 ELSE 3 END), NAME COLLATE NOCASE%@", columns, name, name, name, limit];
         
@@ -1124,13 +1124,19 @@
                     
                     const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
                     const char *iconURLChars = (const char *)sqlite3_column_text(statement, 5);
+                    const char *tagChars     = (const char *)sqlite3_column_text(statement, 6);
                     
                     NSString *section = sectionChars != 0 ? [NSString stringWithUTF8String:sectionChars] : NULL;
                     NSString *iconURLString = iconURLChars != 0 ? [NSString stringWithUTF8String:iconURLChars] : NULL;
                     NSURL *iconURL = iconURLString ? [NSURL URLWithString:iconURLString] : nil;
+                    NSArray *tags = tagChars != 0 ? [[NSString stringWithUTF8String:tagChars] componentsSeparatedByString:@", "] : nil;
+                    if (tags.count == 1 && [tags[0] containsString:@","]) {
+                        tags = [tags[0] componentsSeparatedByString:@","];
+                    }
                     
                     if (section) proxyPackage.section = section;
                     if (iconURL) proxyPackage.iconURL = iconURL;
+                    if (tags)    proxyPackage.tags = tags;
                     
                     [searchResults addObject:proxyPackage];
                 }

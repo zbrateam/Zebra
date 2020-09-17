@@ -26,10 +26,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *author;
 @property (nonatomic) NSURL *iconURL;
 @property (nonatomic) NSString *section;
+@property (nonatomic) NSArray *tags;
 
 @property (nonatomic) ZBPackage *package;
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 - (BOOL)isInstalled;
+- (BOOL)isPaid;
 - (ZBPackage *)loadPackage;
 - (void)setIconImageForImageView:(UIImageView *)imageView;
 @end

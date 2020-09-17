@@ -52,6 +52,10 @@
     return [databaseManager packageIDIsInstalled:self.identifier version:nil];
 }
 
+- (BOOL)isPaid {
+    return [self.tags containsObject:@"cydia::commercial"];
+}
+
 - (ZBPackage *)loadPackage {
     if (package) return package;
     
