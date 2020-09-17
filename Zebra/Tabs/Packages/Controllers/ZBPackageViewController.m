@@ -352,14 +352,6 @@
         ZBInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoTableViewCell" forIndexPath:indexPath];
         
         cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
-        if ([packageInformation objectForKey:@"more"]) {
-            cell.nameLabel.text = [cell.nameLabel.text stringByAppendingFormat:@"\n%@", [packageInformation objectForKey:@"more"]];
-            if ([expandedCells containsIndex:indexPath.row]) {
-                cell.nameLabel.numberOfLines = 0;
-            } else {
-                cell.nameLabel.numberOfLines = 1;
-            }
-        }
         cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
         
         if ([packageInformation objectForKey:@"class"] || [packageInformation objectForKey:@"more"]) {
@@ -369,6 +361,14 @@
         else {
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell setChevronHidden:YES];
+        }
+        
+        if ([expandedCells containsIndex:indexPath.row] && [packageInformation objectForKey:@"more"]) {
+            cell.valueLabel.text = [packageInformation objectForKey:@"more"];
+            [cell setChevronHidden:YES];
+            cell.valueLabel.numberOfLines = 0;
+        } else {
+            cell.valueLabel.numberOfLines = 1;
         }
 
         return cell;
