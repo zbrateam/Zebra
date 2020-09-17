@@ -845,8 +845,13 @@
     
     NSString *sourceOrigin = [[self source] origin];
     if (sourceOrigin) {
-        NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info", @"class": @"ZBSourceSectionsListTableViewController"};
-        [information addObject:sourceOriginInfo];
+        if (self.source.sourceID > 0) {
+            NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info", @"class": @"ZBSourceSectionsListTableViewController"};
+            [information addObject:sourceOriginInfo];
+        } else {
+            NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info"};
+            [information addObject:sourceOriginInfo];
+        }
     }
     
     NSString *section = [self section];
