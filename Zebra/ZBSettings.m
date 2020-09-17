@@ -495,8 +495,8 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:AlwaysInstallLatestKey]) {
-        [self setAlwaysInstallLatest:NO];
-        return NO;
+        [self setAlwaysInstallLatest:YES];
+        return YES;
     }
     return [defaults boolForKey:AlwaysInstallLatestKey];
 }
