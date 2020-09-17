@@ -44,6 +44,13 @@
     self.title = NSLocalizedString(@"Select a Section", @"");
     
     NSMutableArray *allSections = [[[ZBDatabaseManager sharedInstance] sectionReadout] mutableCopy];
+    [allSections sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *section1 = [self localizedSection:obj1];
+        NSString *section2 = [self localizedSection:obj2];
+            
+        return [section1 compare:section2];
+    }];
+    
     NSArray *filteredSections = [ZBSettings filteredSections];
     
     [allSections removeObjectsInArray:filteredSections];
@@ -52,6 +59,17 @@
     
     [self layoutNaviationButtons];
     [self.tableView registerCellType:ZBOptionSettingsCell];
+}
+
+- (NSString *)localizedSection:(NSString *)section {
+    NSRange range = [section rangeOfString:@"("];
+
+    if (range.length > 0) {
+        NSString *section_ = [[section substringToIndex:range.location] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+        return [NSString stringWithFormat:@"%@ %@", NSLocalizedString(section_, @""), [section substringFromIndex:range.location]];
+    } else {
+        return NSLocalizedString(section, @"");
+    }
 }
 
 #pragma mark - Bar Button Actions
