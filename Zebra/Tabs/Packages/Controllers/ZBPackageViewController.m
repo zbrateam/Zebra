@@ -26,6 +26,7 @@
 
 @interface ZBPackageViewController () {
     UIStatusBarStyle style;
+    NSMutableIndexSet *expandedCells;
 }
 @property (strong, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -59,6 +60,7 @@
     
     if (self) {
         self.package = package;
+        expandedCells = [NSMutableIndexSet new];
     }
     
     return self;
@@ -350,9 +352,17 @@
         ZBInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoTableViewCell" forIndexPath:indexPath];
         
         cell.nameLabel.text = self.packageInformation[indexPath.row][@"name"];
+        if ([packageInformation objectForKey:@"more"]) {
+            cell.nameLabel.text = [cell.nameLabel.text stringByAppendingFormat:@"\n%@", [packageInformation objectForKey:@"more"]];
+            if ([expandedCells containsIndex:indexPath.row]) {
+                cell.nameLabel.numberOfLines = 0;
+            } else {
+                cell.nameLabel.numberOfLines = 1;
+            }
+        }
         cell.valueLabel.text = self.packageInformation[indexPath.row][@"value"];
         
-        if ([packageInformation objectForKey:@"class"]) {
+        if ([packageInformation objectForKey:@"class"] || [packageInformation objectForKey:@"more"]) {
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             [cell setChevronHidden:NO];
         }
@@ -403,6 +413,14 @@
             
             [self presentViewController:doesNotConform animated:YES completion:nil];
         }
+    } else if ([packageInformation objectForKey:@"more"]) {
+        if ([expandedCells containsIndex:indexPath.row]) {
+            [expandedCells removeIndex:indexPath.row];
+        } else {
+            [expandedCells addIndex:indexPath.row];
+        }
+        
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
 
