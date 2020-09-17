@@ -236,13 +236,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0 && hasProblems) {
-        return NO;
-    }
-    else {
-        ZBSource *source = filteredSources[indexPath.row];
-        return [source canDelete];
-    }
+    return !(indexPath.section == 0 && hasProblems);
 }
 
 #pragma mark - UITableViewDelegate
