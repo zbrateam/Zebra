@@ -34,9 +34,15 @@
     
     if (self) {
         queue = [ZBQueue sharedQueue];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBQueueUpdate" object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBQueueUpdate" object:nil];
 }
 
 - (void)viewDidLoad {

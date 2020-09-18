@@ -62,6 +62,7 @@
 }
 
 - (void)updateQueueBarData {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [[ZBAppDelegate tabBarController] updateQueueBar];
 }
 
