@@ -381,7 +381,7 @@
             UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
 
             for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package]) {
-                    [selectAction addAction:action];
+                [selectAction addAction:action];
             }
 
             [selectAction show];

@@ -9,6 +9,7 @@
 #import "UIAlertController+Zebra.h"
 #import <objc/runtime.h>
 #import <Theme/ZBThemeManager.h>
+#import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBAlertViewController : UIViewController
 
@@ -53,7 +54,7 @@
 
         id <UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
         if ([delegate respondsToSelector:@selector(window)]) {
-            self.alertWindow.tintColor = delegate.window.tintColor;
+            self.alertWindow.tintColor = [UIColor accentColor];
         }
         
         UIWindow *topWindow = [UIApplication sharedApplication].windows.lastObject;

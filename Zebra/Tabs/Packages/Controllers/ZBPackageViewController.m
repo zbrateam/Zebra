@@ -99,7 +99,7 @@
 }
 
 - (void)dealloc {
-    [self.informationTableView removeObserver:self forKeyPath:@"contentPath"];
+    [self.informationTableView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 #pragma mark - View Setup
