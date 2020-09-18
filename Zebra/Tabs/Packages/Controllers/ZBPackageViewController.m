@@ -207,7 +207,13 @@
 }
 
 - (IBAction)getButtonPressed:(id)sender {
-    [ZBPackageActions buttonActionForPackage:self.package]();
+    if ([self isModal]) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            [ZBPackageActions buttonActionForPackage:self.package]();
+        }];
+    } else {
+        [ZBPackageActions buttonActionForPackage:self.package]();
+    }
 }
 
 - (IBAction)moreButtonPressed:(id)sender {
