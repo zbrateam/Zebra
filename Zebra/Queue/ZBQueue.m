@@ -62,7 +62,6 @@
 }
 
 - (void)updateQueueBarData {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [[ZBAppDelegate tabBarController] updateQueueBar];
 }
 
@@ -98,6 +97,7 @@
         }
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBPackageStatusUpdate" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [self updateQueueBarData];
 }
 
@@ -118,6 +118,7 @@
         
         [[self dependencyQueue] addObject:package];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [self updateQueueBarData];
 }
 
@@ -135,6 +136,7 @@
         [[self conflictQueue] addObject:package];
         if (remove) [self enqueueRemovalOfPackagesThatDependOn:package];
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [self updateQueueBarData];
 }
 
@@ -171,6 +173,7 @@
         }
     }
     [queuedPackagesList removeObject:[package identifier]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [self updateQueueBarData];
 }
 
@@ -194,6 +197,7 @@
     [[package issues] removeAllObjects];
     [package setRemovedBy:NULL];
     [[self queueFromType:queue] removeObject:package];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [self updateQueueBarData];
 }
 
