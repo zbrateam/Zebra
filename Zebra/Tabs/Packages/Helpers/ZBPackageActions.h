@@ -9,10 +9,28 @@
 @class ZBPackage;
 @import UIKit;
 @import Foundation;
+
 #import <Queue/ZBQueueType.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 
-#import "ZBPackageActionType.h"
+typedef enum : NSUInteger {
+    ZBPackageActionInstall,
+    ZBPackageActionUpgrade,
+    ZBPackageActionRemove,
+    ZBPackageActionReinstall,
+    ZBPackageActionDowngrade,
+    ZBPackageActionSelectVersion,
+} ZBPackageActionType;
+
+typedef enum : NSUInteger {
+    ZBPackageExtraActionShowUpdates,
+    ZBPackageExtraActionHideUpdates,
+    ZBPackageExtraActionAddWishlist,
+    ZBPackageExtraActionRemoveWishlist,
+    ZBPackageExtraActionBlockAuthor,
+    ZBPackageExtraActionUnblockAuthor,
+    ZBPackageExtraActionShare,
+} ZBPackageExtraActionType;
 
 NS_ASSUME_NONNULL_BEGIN
 
