@@ -886,7 +886,14 @@
     }
     
     if (self.lowestCompatibleVersion) {
-        NSDictionary *compatibiltyInfo = @{@"name": NSLocalizedString(@"Compatibility", @""), @"value": [NSString stringWithFormat:NSLocalizedString(@"iOS %@ - %@", @""), self.lowestCompatibleVersion, self.highestCompatibleVersion], @"cellType": @"info"};
+        NSString *compatibility;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(self.lowestCompatibleVersion) && SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(self.highestCompatibleVersion)) {
+            compatibility = @"✅";
+        } else {
+            compatibility = @"⚠️";
+        }
+        
+        NSDictionary *compatibiltyInfo = @{@"name": NSLocalizedString(@"Compatibility", @""), @"value": [NSString stringWithFormat:NSLocalizedString(@"iOS %@ - %@ %@", @""), self.lowestCompatibleVersion, self.highestCompatibleVersion, compatibility], @"cellType": @"info"};
         [information addObject:compatibiltyInfo];
     }
     
