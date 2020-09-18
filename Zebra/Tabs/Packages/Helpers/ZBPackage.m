@@ -33,6 +33,9 @@
     NSString *author;
     NSString *maintainer;
     
+    NSString *lowestCompatibleVersion;
+    NSString *highestCompatibleVersion;
+    
     BOOL checkedForPurchaseInfo;
     ZBPurchaseInfo *purchaseInfo;
 }
@@ -44,6 +47,8 @@
 @synthesize authorEmail = _authorEmail;
 @synthesize maintainerName = _maintainerName;
 @synthesize maintainerEmail = _maintainerEmail;
+@synthesize lowestCompatibleVersion = _lowestCompatibleVersion;
+@synthesize highestCompatibleVersion = _highestCompatibleVersion;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -870,14 +875,66 @@
     
     NSArray *dependencies = [self dependsOn];
     if ([dependencies count]) {
-        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)dependencies.count], @"cellType": @"info", @"more": [dependencies componentsJoinedByString:@"\n"]};
+        NSMutableArray *strippedDepends = [NSMutableArray new];
+        for (NSString *depend in dependencies) {
+            if ([depend containsString:@" | "]) {
+                NSArray *ord = [depend componentsSeparatedByString:@" | "];
+                for (__strong NSString *conflict in ord) {
+                    NSRange range = [conflict rangeOfString:@"("];
+                    if (range.location != NSNotFound) {
+                        conflict = [conflict substringToIndex:range.location];
+                    }
+                    
+                    if (![strippedDepends containsObject:conflict]) {
+                        [strippedDepends addObject:conflict];
+                    }
+                }
+            }
+            else if (![strippedDepends containsObject:depend]) {
+                [strippedDepends addObject:depend];
+            }
+        }
+        
+        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)strippedDepends.count], @"cellType": @"info", @"more": [strippedDepends componentsJoinedByString:@"\n"]};
         [information addObject:dependsInfo];
     }
     
     NSArray *conflicts = [self conflictsWith];
     if ([conflicts count]) {
-        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)conflicts.count], @"cellType": @"info", @"more": [conflicts componentsJoinedByString:@"\n"]};
+        NSMutableArray *strippedConflicts = [NSMutableArray new];
+        for (NSString *conflict in conflicts) {
+            if ([conflict containsString:@" | "]) {
+                NSArray *orc = [conflict componentsSeparatedByString:@" | "];
+                for (__strong NSString *conflict in orc) {
+                    NSRange range = [conflict rangeOfString:@"("];
+                    if (range.location != NSNotFound) {
+                        conflict = [conflict substringToIndex:range.location];
+                    }
+                    
+                    if (![strippedConflicts containsObject:conflict]) {
+                        [strippedConflicts addObject:conflict];
+                    }
+                }
+            }
+            else if (![strippedConflicts containsObject:conflict]) {
+                [strippedConflicts addObject:conflict];
+            }
+        }
+        
+        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)strippedConflicts.count], @"cellType": @"info", @"more": [strippedConflicts componentsJoinedByString:@"\n"]};
         [information addObject:conflictsInfo];
+    }
+    
+    if (self.lowestCompatibleVersion) {
+        NSString *compatibility;
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(self.lowestCompatibleVersion) && SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(self.highestCompatibleVersion)) {
+            compatibility = @"✅";
+        } else {
+            compatibility = @"⚠️";
+        }
+        
+        NSDictionary *compatibiltyInfo = @{@"name": NSLocalizedString(@"Compatibility", @""), @"value": [NSString stringWithFormat:NSLocalizedString(@"iOS %@ - %@ %@", @""), self.lowestCompatibleVersion, self.highestCompatibleVersion, compatibility], @"cellType": @"info"};
+        [information addObject:compatibiltyInfo];
     }
     
     NSURL *homepage = [self homepageURL];
@@ -1113,6 +1170,51 @@
     }
     
     return NULL;
+}
+
+- (void)calculateCompatibleVersions {
+    NSString *minVersion = NULL;
+    NSString *maxVersion = NULL;
+    
+    for (NSString *tag in self.tags) {
+        if ([tag containsString:@"compatible_min"]) {
+            minVersion = tag;
+        } else if ([tag containsString:@"compatible_max"]) {
+            maxVersion = tag;
+        }
+    }
+    
+    if (minVersion) {
+        minVersion = [minVersion stringByReplacingOccurrencesOfString:@"compatible_min::" withString:@""];
+        minVersion = [minVersion stringByReplacingOccurrencesOfString:@"ios" withString:@""];
+        
+        lowestCompatibleVersion = minVersion;
+    }
+    
+    if (maxVersion) {
+        maxVersion = [maxVersion stringByReplacingOccurrencesOfString:@"compatible_max::" withString:@""];
+        maxVersion = [maxVersion stringByReplacingOccurrencesOfString:@"ios" withString:@""];
+        
+        highestCompatibleVersion = maxVersion;
+    } else if (minVersion) {
+        highestCompatibleVersion = [[UIDevice currentDevice] systemVersion];
+    }
+}
+
+- (NSString *)lowestCompatibleVersion {
+    if (!self.tags || self.tags.count == 0) return NULL;
+    if (lowestCompatibleVersion) return lowestCompatibleVersion;
+    
+    [self calculateCompatibleVersions];
+    return lowestCompatibleVersion;
+}
+
+- (NSString *)highestCompatibleVersion {
+    if (!self.tags || self.tags.count == 0) return NULL;
+    if (highestCompatibleVersion) return highestCompatibleVersion;
+    
+    [self calculateCompatibleVersions];
+    return highestCompatibleVersion;
 }
 
 @end

@@ -3952,4 +3952,4 @@ Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
 Prefer-Native: Yes
 Description: A Useful Package Manager
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
-Tag: compatible::11.0-13.6.1
+Tag: compatible_min::ios11.0, compatible_max::ios13.7
