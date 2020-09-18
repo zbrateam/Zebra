@@ -875,13 +875,53 @@
     
     NSArray *dependencies = [self dependsOn];
     if ([dependencies count]) {
-        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)dependencies.count], @"cellType": @"info", @"more": [dependencies componentsJoinedByString:@"\n"]};
+        NSMutableArray *strippedDepends = [NSMutableArray new];
+        for (NSString *depend in dependencies) {
+            if ([depend containsString:@" | "]) {
+                NSArray *ord = [depend componentsSeparatedByString:@" | "];
+                for (__strong NSString *conflict in ord) {
+                    NSRange range = [conflict rangeOfString:@"("];
+                    if (range.location != NSNotFound) {
+                        conflict = [conflict substringToIndex:range.location];
+                    }
+                    
+                    if (![strippedDepends containsObject:conflict]) {
+                        [strippedDepends addObject:conflict];
+                    }
+                }
+            }
+            else if (![strippedDepends containsObject:depend]) {
+                [strippedDepends addObject:depend];
+            }
+        }
+        
+        NSDictionary *dependsInfo = @{@"name": NSLocalizedString(@"Dependencies", @""), @"value": [NSString stringWithFormat:@"%lu Dependencies", (unsigned long)strippedDepends.count], @"cellType": @"info", @"more": [strippedDepends componentsJoinedByString:@"\n"]};
         [information addObject:dependsInfo];
     }
     
     NSArray *conflicts = [self conflictsWith];
     if ([conflicts count]) {
-        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)conflicts.count], @"cellType": @"info", @"more": [conflicts componentsJoinedByString:@"\n"]};
+        NSMutableArray *strippedConflicts = [NSMutableArray new];
+        for (NSString *conflict in conflicts) {
+            if ([conflict containsString:@" | "]) {
+                NSArray *orc = [conflict componentsSeparatedByString:@" | "];
+                for (__strong NSString *conflict in orc) {
+                    NSRange range = [conflict rangeOfString:@"("];
+                    if (range.location != NSNotFound) {
+                        conflict = [conflict substringToIndex:range.location];
+                    }
+                    
+                    if (![strippedConflicts containsObject:conflict]) {
+                        [strippedConflicts addObject:conflict];
+                    }
+                }
+            }
+            else if (![strippedConflicts containsObject:conflict]) {
+                [strippedConflicts addObject:conflict];
+            }
+        }
+        
+        NSDictionary *conflictsInfo = @{@"name": NSLocalizedString(@"Conflicts", @""), @"value": [NSString stringWithFormat:@"%lu Conflicts", (unsigned long)strippedConflicts.count], @"cellType": @"info", @"more": [strippedConflicts componentsJoinedByString:@"\n"]};
         [information addObject:conflictsInfo];
     }
     
