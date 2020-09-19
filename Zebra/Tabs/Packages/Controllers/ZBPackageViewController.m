@@ -208,11 +208,11 @@
 
 - (IBAction)getButtonPressed:(id)sender {
     if ([self isModal]) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            [ZBPackageActions buttonActionForPackage:self.package]();
-        }];
+        [ZBPackageActions buttonActionForPackage:self.package completion:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]();
     } else {
-        [ZBPackageActions buttonActionForPackage:self.package]();
+        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
     }
 }
 
