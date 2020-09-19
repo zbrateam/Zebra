@@ -194,11 +194,7 @@
         const char *priorityChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
         const char *essentialChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnEssential);
         const char *sha256Chars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
-        const char *headerChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnHeader);
-        const char *changelogTitleChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnChangelog);
-        const char *changelogNotesChars =   (const char *)sqlite3_column_text(statement, ZBPackageColumnChangelogNotes);
         const char *homepageChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepage);
-        const char *previewsChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnPreviews);
         const char *maintainerChars =       (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainer);
         const char *preferNativeChars =     (const char *)sqlite3_column_text(statement, ZBPackageColumnPreferNative);
         sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
@@ -215,9 +211,6 @@
         author = authorChars != 0 ? [NSString stringWithUTF8String:authorChars] : NULL;
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : nil];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : nil]; // TODO: Should change to iconURL later
-        [self setHeaderURL:headerChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:headerChars]] : nil];
-        [self setChangelogTitle:changelogTitleChars != 0 ? [NSString stringWithUTF8String:changelogTitleChars] : nil];
-        [self setChangelogNotes:changelogNotesChars != 0 ? [NSString stringWithUTF8String:changelogNotesChars] : nil];
         [self setHomepageURL:homepageChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:homepageChars]] : nil];
         maintainer = maintainerChars != 0 ? [NSString stringWithUTF8String:maintainerChars] : nil;
         
@@ -246,7 +239,6 @@
             self.tags = [self.tags[0] componentsSeparatedByString:@","];
         }
         
-        [self setPreviewImageURLs:previewsChars != 0 ? [[NSString stringWithUTF8String:previewsChars] componentsSeparatedByString:@", "] : NULL];
         if ([_previewImageURLs count] == 1 && [_previewImageURLs[0] containsString:@","]) {
             _previewImageURLs = [_previewImageURLs[0] componentsSeparatedByString:@","];
         }

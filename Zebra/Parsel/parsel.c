@@ -393,11 +393,6 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *depends, sqlit
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSHA256, sha256, -1, SQLITE_TRANSIENT);
             }
             
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHeader, dict_get(package, "Header"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnChangelog, dict_get(package, "Changelog"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnChangelogNotes, dict_get(package, "ChangelogNotes"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHomepage, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
-            sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPreviews, dict_get(package, "Previews"), -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnHomepage, dict_get(package, "Homepage"), -1, SQLITE_TRANSIENT);
             
             sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnMaintainer, dict_get(package, "Maintainer"), -1, SQLITE_TRANSIENT);
