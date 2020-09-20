@@ -197,8 +197,8 @@
             [self.getButton hideActivityLoader];
             [self.getBarButton hideActivityLoader];
             
-            [self.getButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
-            [self.getBarButton setTitle:[text uppercaseString] forState:UIControlStateNormal];
+            [self.getButton setTitle:text forState:UIControlStateNormal];
+            [self.getBarButton setTitle:text forState:UIControlStateNormal];
         } else {
             [self.getButton showActivityLoader];
             [self.getBarButton showActivityLoader];
