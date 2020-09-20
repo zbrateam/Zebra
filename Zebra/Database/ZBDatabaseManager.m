@@ -329,6 +329,13 @@
                 }
             }
             
+            // If there is no packages file (aka it 304'd) we need to check to see if there are actually any packages in the database. If there aren't any, we definitley need to re-parse.
+            source.sourceID = sourceID;
+            if (!source.packagesFilePath && [self numberOfPackagesInSource:(ZBSource *)source section:NULL] < 1) {
+                NSString *filename = [source.baseFilename stringByAppendingString:@"Packages"];
+                source.packagesFilePath = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename];
+            }
+            
             //Deal with the packages
             if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, sourceID, currentDate) != PARSEL_OK) {
                 [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
