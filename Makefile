@@ -2,7 +2,7 @@ ifeq ($(PLATFORM), mac)
 export TARGET = uikitformac:latest:13.0
 else
 export TARGET = iphone:latest:11.0
-export ARCHS = armv7 arm64
+export ARCHS = arm64
 endif
 
 INSTALL_TARGET_PROCESSES = Zebra
