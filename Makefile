@@ -2,7 +2,7 @@ ifeq ($(PLATFORM), mac)
 export TARGET = uikitformac:latest:13.0
 else
 export TARGET = iphone:latest:11.0
-export ARCHS = armv7 arm64
+export ARCHS = arm64
 endif
 
 INSTALL_TARGET_PROCESSES = Zebra
@@ -17,6 +17,9 @@ Zebra_CODESIGN_FLAGS = -SZebra/Zebra.entitlements
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
 SUBPROJECTS = Supersling Firmware
+
+# firmware install path
+export DESTDIR = $(THEOS_STAGING_DIR)/usr/libexec/zebra
 
 after-stage::
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections$(ECHO_END)

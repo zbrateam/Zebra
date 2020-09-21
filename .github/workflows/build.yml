@@ -12,6 +12,8 @@ jobs:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@master
+      with:
+        submodules: recursive
     - uses: actions/cache@master
       id: carthage-cache
       with:
