@@ -94,7 +94,7 @@
 }
 
 - (void)setTitle:(NSString *)title forState:(UIControlState)state {
-    [super setTitle:[title localizedCapitalizedString] forState:state];
+    [super setTitle:title.localizedUppercaseString forState:state];
 }
 
 @end
