@@ -88,7 +88,7 @@
                 [ZBSettings setSelectedLanguage:self->selectedLanguage];
             }
             [ZBSettings setUsesSystemLanguage:self->useSystemLanguage];
-            [ZBDevice exitZebra];
+            [ZBDevice relaunchZebra];
         }];
         [confirm addAction:confirmAction];
         

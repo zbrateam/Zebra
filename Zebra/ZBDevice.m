@@ -230,6 +230,13 @@
     });
 }
 
++ (void)relaunchZebra {
+    if (![self needsSimulation]) {
+        [ZBCommand execute:@"launchctl" withArguments:@[@"start", @"xyz.willy.Zebra.Relaunch"] asRoot:YES];
+    }
+    [self exitZebraAfter:1]; // if you change this, remember to update the launch daemon
+}
+
 #pragma mark - Theming
 
 + (void)openURL:(NSURL *)url sender:(UIViewController *)sender {
