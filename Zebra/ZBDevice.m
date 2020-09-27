@@ -219,11 +219,13 @@
     return [[UIDevice currentDevice] model];
 }
 
-+ (void)exitZebra {
-    [self exitZebraAfter:1];
-}
++ (void)relaunchZebra {
+    int seconds = 1; // if you change this, remember to update the relaunch daemon
 
-+ (void)exitZebraAfter:(int)seconds {
+    if (![self needsSimulation]) {
+        [ZBCommand execute:@"launchctl" withArguments:@[@"start", @"xyz.willy.Zebra.Relaunch"] asRoot:YES];
+    }
+
     [[UIApplication sharedApplication] suspend];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         exit(0);

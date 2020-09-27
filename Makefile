@@ -16,7 +16,7 @@ Zebra_CODESIGN_FLAGS = -SZebra/Zebra.entitlements
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
-SUBPROJECTS = Supersling Firmware
+SUBPROJECTS = Supersling Firmware Relaunch
 
 # firmware install path
 export DESTDIR = $(THEOS_STAGING_DIR)/usr/libexec/zebra

@@ -152,7 +152,7 @@
     if (confirm) {
         [self confirmationControllerWithTitle:NSLocalizedString(@"Reset All Settings", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.", @"") callback:^{
             [self resetAllSettings:NO indexPath:indexPath];
-            [ZBDevice exitZebra];
+            [ZBDevice relaunchZebra];
         } indexPath:indexPath];
     }
     else {
@@ -169,7 +169,7 @@
     if (confirm) {
         [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.", @"") callback:^{
             [self eraseAllSources:NO indexPath:indexPath];
-            [ZBDevice exitZebra];
+            [ZBDevice relaunchZebra];
         } indexPath:indexPath];
     }
     else {
@@ -198,7 +198,7 @@
                 NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
             }
             
-            [ZBDevice exitZebra];
+            [ZBDevice relaunchZebra];
         } indexPath:indexPath];
     } indexPath:indexPath];
 }
