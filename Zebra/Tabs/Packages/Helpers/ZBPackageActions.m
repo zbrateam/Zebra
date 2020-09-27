@@ -321,7 +321,7 @@
     NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
     [blockedAuthors removeObjectForKey:[package authorName]];
-    [blockedAuthors removeObjectForKey:[package authorEmail]];
+    if ([package authorEmail]) [blockedAuthors removeObjectForKey:[package authorEmail]];
     
     [ZBSettings setBlockedAuthors:blockedAuthors];
 }
