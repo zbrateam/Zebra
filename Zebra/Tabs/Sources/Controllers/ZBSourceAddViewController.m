@@ -70,7 +70,7 @@
     if (!selectedSources) selectedSources = [NSMutableArray new];
     if (!addedSources) addedSources = [[[ZBSourceManager sharedInstance] sources] allObjects];
     
-    NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos"];
+    NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos/small"];
     NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
             NSError *JSONError;
@@ -81,14 +81,16 @@
                     NSURL *URL = [NSURL URLWithString:repo[@"url"]];
                     if (URL) {
                         ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:URL];
-                        [baseSource setLabel:repo[@"Label"]];
+                        [baseSource setLabel:repo[@"name"]];
                         [baseSource setVerificationStatus:ZBSourceExists];
                         
                         [self->sources addObject:baseSource];
                     }
                 }
                 
-                [self->sources sortUsingSelector:@selector(label)];
+                NSSortDescriptor *labelSorter = [[NSSortDescriptor alloc] initWithKey:@"label" ascending:YES];
+
+                [self->sources sortUsingDescriptors:@[labelSorter]];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
