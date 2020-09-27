@@ -4,10 +4,7 @@
 <dict>
 	<key>Label</key>
 	<string>xyz.willy.Zebra.Relaunch</string>
-	<key>ProgramArguments</key>
-	<array>
-		<string>/bin/sh</string>
-		<string>/usr/libexec/zebra/relaunch</string>
-	</array>
+	<key>Program</key>
+	<string>/usr/libexec/zebra/relaunch</string>
 </dict>
 </plist>

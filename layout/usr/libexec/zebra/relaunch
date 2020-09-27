@@ -1,6 +1,0 @@
-#!/bin/sh
-
-export PATH=$PATH:/usr/sbin:/usr/bin:/sbin:/bin
-
-sleep 1.15
-uiopen 'zbra:'
