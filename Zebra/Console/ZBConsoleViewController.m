@@ -348,8 +348,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)closeZebra {
-    [ZBDevice exitZebraAfter:3];
+- (void)restartZebra {
     if (![ZBDevice needsSimulation]) {
         if (applicationBundlePaths.count > 1) {
             [self updateIconCaches];
@@ -357,6 +356,7 @@
             [ZBDevice uicache:@[@"/Applications/Zebra.app"]];
         }
     }
+    [ZBDevice relaunchZebra];
 }
 
 - (void)restartSpringBoard {
@@ -574,10 +574,10 @@
             };
         }
         else if (self->zebraRestartRequired) {
-            [self updateProgressText:NSLocalizedString(@"Closing Zebra...", @"")];
+            [self updateProgressText:NSLocalizedString(@"Restarting Zebra...", @"")];
             finishBlock = ^{
                 [self updateProgressText:nil];
-                [self closeZebra];
+                [self restartZebra];
             };
         }
         else {
@@ -603,8 +603,8 @@
                 [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
             }
             else if (self->zebraRestartRequired) {
-                [self->completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
-                [self->completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
+                [self->completeButton setTitle:NSLocalizedString(@"Restart Zebra", @"") forState:UIControlStateNormal];
+                [self->completeButton addTarget:self action:@selector(restartZebra) forControlEvents:UIControlEventTouchUpInside];
             }
             else {
                 [self->completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
