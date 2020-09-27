@@ -112,16 +112,16 @@ jobs:
         chmod +x beta_update.sh
         ./beta_update.sh
 
-    - name: Attach package to release
+    - name: Upload package to release
       if: '!steps.config.outputs.beta'
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/repo/pkgfiles/${{ steps.package_build.outputs.package }} '${{ steps.config.outputs.release }}'
-    - name: Attach package to beta release
+      run: gh release upload '${{ steps.config.outputs.release }}' ~/website/repo/pkgfiles/${{ steps.package_build.outputs.package }}
+    - name: Upload package to beta release
       if: steps.config.outputs.beta
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ steps.config.outputs.release }}'
+      run: gh release upload '${{ steps.config.outputs.release }}' ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }}
 
     - name: Build IPA package
       id: ipa_build
@@ -131,8 +131,8 @@ jobs:
       run: |
         make package FINALPACKAGE=1 PACKAGE_FORMAT=ipa
         echo "::set-output name=package::$(ls -t packages | head -n1)"
-    - name: Attach IPA to release
+    - name: Upload IPA to release
       if: '!steps.config.outputs.beta'
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a 'packages/${{ steps.ipa_build.outputs.package }}' ''${{ steps.config.outputs.release }}'
+      run: gh release upload '${{ steps.config.outputs.release }}' packages/${{ steps.ipa_build.outputs.package }}
