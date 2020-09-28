@@ -1831,20 +1831,7 @@
             sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
             
             while (sqlite3_step(statement) == SQLITE_ROW) {
-                const char *authorChars = (const char *)sqlite3_column_text(statement, 6);
-                BOOL valid = NO;
-                
-                if (authorChars != 0) {
-                    NSString *author = [NSString stringWithUTF8String:authorChars];
-                    
-                    NSArray *split = [ZBUtils splitNameAndEmail:author];
-                    NSString *authorName = split.count > 0 ? split[0] : NULL;
-                    NSString *authorEmail = split.count > 1 ? split[1] : NULL;
-                    
-                    valid = [name isEqual:authorName] && [email isEqual:authorEmail];
-                }
-                
-                if (valid && fullSearch) {
+                if (fullSearch) {
                     const char *packageIDChars = (const char *)sqlite3_column_text(statement, 0);
                     if (packageIDChars != 0) {
                         NSString *packageID = [NSString stringWithUTF8String:packageIDChars];
@@ -1852,7 +1839,7 @@
                         if (package) [searchResults addObject:package];
                     }
                 }
-                else if (valid) {
+                else {
                     ZBProxyPackage *proxyPackage = [[ZBProxyPackage alloc] initWithSQLiteStatement:statement];
                     
                     const char *sectionChars = (const char *)sqlite3_column_text(statement, 4);
