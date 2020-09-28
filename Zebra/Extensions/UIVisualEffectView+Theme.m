@@ -8,7 +8,6 @@
 
 #import "UIVisualEffectView+Theme.h"
 #import <Extensions/UIColor+GlobalColors.h>
-#import <ZBDevice.h>
 #import <objc/runtime.h>
 #import <Theme/ZBThemeManager.h>
 
@@ -41,10 +40,10 @@
 
 - (void)zb_setEffect:(UIVisualEffect *)effect {
     if ([ZBThemeManager useCustomTheming]) {
-        if ([ZBDevice darkModeEnabled]) {
-            [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
-        } else {
+        if ([ZBSettings interfaceStyle] == ZBInterfaceStyleLight) {
             [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
+        } else {
+            [self zb_setEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
         }
     }
 }
