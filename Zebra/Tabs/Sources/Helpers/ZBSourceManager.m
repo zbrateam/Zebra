@@ -55,13 +55,45 @@
         recachingNeeded = YES;
         refreshInProgress = NO;
         
-        NSLog(@"PINS: %@", [self prioritiesForFile:[[NSBundle mainBundle] pathForResource:@"pin" ofType:@"pref"]]);
+        pinPreferences = [self parsePreferences];
     }
     
     return self;
 }
 
 #pragma mark - Reading Pin Priorities
+
+- (NSDictionary *)parsePreferences {
+    NSMutableDictionary *priorities = [NSMutableDictionary new];
+    NSArray *preferences = [self prioritiesForFile:[ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"pin" ofType:@"pref"] : @"/etc/apt/preferences.d/"];
+    
+    for (NSDictionary *preference in preferences) {
+        NSInteger pinPriority = [preference[@"Pin-Priority"] integerValue];
+        NSString *pin = preference[@"Pin"];
+        if (pinPriority <= 0 || pin == NULL) continue;
+        
+        NSRange rangeOfSpace = [pin rangeOfString:@" "];
+        NSString *value = rangeOfSpace.location == NSNotFound ? pin : [pin substringToIndex:rangeOfSpace.location];
+        NSString *options = rangeOfSpace.location == NSNotFound ? nil :[pin substringFromIndex:rangeOfSpace.location + 1];
+        if (!value || !options) continue;
+        
+        if ([value isEqualToString:@"origin"]) {
+            [priorities setValue:@(pinPriority) forKey:options];
+        } else if ([value isEqualToString:@"release"]) {
+            NSArray *components = [options componentsSeparatedByString:@", "];
+            if (components.count == 1 && [options containsString:@","]) components = [options componentsSeparatedByString:@","];
+            
+            for (NSString *option in components) {
+                NSArray *components = [option componentsSeparatedByString:@"="];
+                if (components.count == 2 && ([components[0] isEqualToString:@"o"] || [components[0] isEqualToString:@"l"])) {
+                    [priorities setValue:@(pinPriority) forKey:[components[1] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+                }
+            }
+        }
+    }
+    
+    return priorities;
+}
 
 - (NSArray *)prioritiesForFile:(NSString *)path {
     BOOL isDirectory = NO;
