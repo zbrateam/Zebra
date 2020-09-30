@@ -28,14 +28,6 @@
 
 @implementation ZBSource
 
-@synthesize sourceDescription;
-@synthesize origin;
-@synthesize version;
-@synthesize suite;
-@synthesize codename;
-@synthesize architectures;
-@synthesize sourceID;
-
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
 }
@@ -362,6 +354,20 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     }];
     
     [task resume];
+}
+
+- (NSComparisonResult)compare:(id)object {
+    if ([object isKindOfClass:[ZBSource class]]) {
+        ZBSource *obj = (ZBSource *)object;
+        
+        if (self.pinPriority == obj.pinPriority)
+            return NSOrderedSame;
+        else if (self.pinPriority > obj.pinPriority)
+            return NSOrderedDescending;
+        return NSOrderedAscending;
+    }
+    
+    return NSOrderedDescending;
 }
 
 @end
