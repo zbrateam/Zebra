@@ -25,6 +25,7 @@
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
     NSMutableDictionary *busyList;
     NSMutableArray *completedSources;
+    NSDictionary *pinPreferences;
 }
 @end
 
@@ -53,9 +54,53 @@
         
         recachingNeeded = YES;
         refreshInProgress = NO;
+        
+        NSLog(@"PINS: %@", [self prioritiesForFile:[[NSBundle mainBundle] pathForResource:@"pin" ofType:@"pref"]]);
     }
     
     return self;
+}
+
+#pragma mark - Reading Pin Priorities
+
+- (NSArray *)prioritiesForFile:(NSString *)path {
+    BOOL isDirectory = NO;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+    if (isDirectory) {
+        NSMutableArray *prioritiesForDirectory = [NSMutableArray new];
+        NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
+        NSString *file;
+        
+        while (file = [enumerator nextObject]) {
+            [prioritiesForDirectory addObjectsFromArray:[self prioritiesForFile:file]];
+        }
+    } else if (fileExists) {
+        NSError *readError = NULL;
+        NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
+        if (readError) return @[];
+        
+        NSMutableArray *prioritiesForFile = [NSMutableArray new];
+        __block NSMutableDictionary *currentGroup = [NSMutableDictionary new];
+        [contents enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            if ([line isEqual:@""]) {
+                [prioritiesForFile addObject:currentGroup];
+                currentGroup = [NSMutableDictionary new];
+            }
+            
+            NSArray <NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            
+            [currentGroup setValue:value forKey:key];
+        }];
+        if (currentGroup.allValues.count) [prioritiesForFile addObject:currentGroup];
+        
+        return prioritiesForFile;
+    }
+    
+    return @[];
 }
 
 #pragma mark - Accessing Sources

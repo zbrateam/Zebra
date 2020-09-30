@@ -1,0 +1,7 @@
+Package: *
+Pin: release o=my-custom-repo-name
+Pin-Priority: 1001
+
+Package: *
+Pin: release o=my-custom-repo-name
+Pin-Priority: 1002
