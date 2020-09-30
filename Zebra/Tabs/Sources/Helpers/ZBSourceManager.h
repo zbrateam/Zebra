@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief A shared instance of ZBSourceManager */
 + (id)sharedInstance;
 
+- (NSInteger)pinPriorityForSource:(ZBSource *)source;
+
 /*!
  @brief Obtain a ZBSource instance from the database that matches a certain sourceID
  @param sourceID the sourceID you want to search for

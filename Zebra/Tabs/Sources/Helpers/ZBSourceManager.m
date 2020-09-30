@@ -63,6 +63,18 @@
 
 #pragma mark - Reading Pin Priorities
 
+- (NSInteger)pinPriorityForSource:(ZBSource *)source {
+    if (source.sourceID <= 0) return 100;
+    
+    if ([pinPreferences objectForKey:source.origin]) {
+        return [[pinPreferences objectForKey:source.origin] integerValue];
+    } else if ([pinPreferences objectForKey:source.label]) {
+        return [[pinPreferences objectForKey:source.label] integerValue];
+    } else {
+        return 500;
+    }
+}
+
 - (NSDictionary *)parsePreferences {
     NSMutableDictionary *priorities = [NSMutableDictionary new];
     NSArray *preferences = [self prioritiesForFile:[ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"pin" ofType:@"pref"] : @"/etc/apt/preferences.d/"];

@@ -135,6 +135,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             }] resume];
             [self setCheckedSupportFeaturedPackages:YES];
         }
+        
+        _pinPriority = [[ZBSourceManager sharedInstance] pinPriorityForSource:self];
     }
     
     return self;
