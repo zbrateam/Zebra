@@ -358,10 +358,7 @@
     if (![object isKindOfClass:[ZBPackage class]])
         return NO;
     
-    if ([self SHA256] && [object SHA256])
-        return [[self SHA256] isEqual:[object SHA256]];
-    
-    return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]]);
+    return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]] && [[self source] sourceID] == [[object source] sourceID]);
 }
 
 - (BOOL)sameAs:(ZBPackage *)package {
@@ -382,9 +379,19 @@
         if ([self isEqual:obj])
             return NSOrderedSame;
         
-        if (compare([[self version] UTF8String], [[obj version] UTF8String]) < 0)
-            return NSOrderedAscending;
-        return NSOrderedDescending;
+        NSInteger firstPriority = self.source.pinPriority;
+        NSInteger secondPriority = obj.source.pinPriority;
+        if (firstPriority < 0) return NSOrderedAscending;
+        if (secondPriority < 0) return NSOrderedDescending;
+        
+        int result = compare([[self version] UTF8String], [[obj version] UTF8String]);
+        
+        if (result < 0) {
+            return (firstPriority >= 1000 && secondPriority == 100) || (firstPriority < 1000 && secondPriority != 100 && firstPriority > secondPriority) ? NSOrderedDescending : NSOrderedAscending;
+        } else if (result > 0) {
+            return (secondPriority >= 1000 && firstPriority == 100) || (secondPriority < 1000 && firstPriority != 100 && firstPriority < secondPriority) ? NSOrderedAscending : NSOrderedDescending;
+        }
+        return NSOrderedSame;
     } else {
         if ((NSString *)object == NULL) return NSOrderedDescending;
         int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);

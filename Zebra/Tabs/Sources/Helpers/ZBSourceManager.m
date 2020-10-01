@@ -56,6 +56,7 @@
         refreshInProgress = NO;
         
         pinPreferences = [self parsePreferences];
+        NSLog(@"PINS: %@", pinPreferences);
     }
     
     return self;
@@ -70,6 +71,8 @@
         return [[pinPreferences objectForKey:source.origin] integerValue];
     } else if ([pinPreferences objectForKey:source.label]) {
         return [[pinPreferences objectForKey:source.label] integerValue];
+    } else if ([pinPreferences objectForKey:source.codename]) {
+        return [[pinPreferences objectForKey:source.codename] integerValue];
     } else {
         return 500;
     }
@@ -82,7 +85,7 @@
     for (NSDictionary *preference in preferences) {
         NSInteger pinPriority = [preference[@"Pin-Priority"] integerValue];
         NSString *pin = preference[@"Pin"];
-        if (pinPriority <= 0 || pin == NULL) continue;
+        if (pin == NULL) continue;
         
         NSRange rangeOfSpace = [pin rangeOfString:@" "];
         NSString *value = rangeOfSpace.location == NSNotFound ? pin : [pin substringToIndex:rangeOfSpace.location];
@@ -97,7 +100,9 @@
             
             for (NSString *option in components) {
                 NSArray *components = [option componentsSeparatedByString:@"="];
-                if (components.count == 2 && ([components[0] isEqualToString:@"o"] || [components[0] isEqualToString:@"l"])) {
+                NSArray *choices = @[@"o", @"l", @"n"];
+                
+                if (components.count == 2 && [choices containsObject:components[0]]) {
                     [priorities setValue:@(pinPriority) forKey:[components[1] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
                 }
             }
@@ -195,11 +200,11 @@
 
 - (ZBSource *)sourceMatchingSourceID:(int)sourceID {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sourceID == %d", sourceID];
-    NSArray *filteredSources = [_sources filteredArrayUsingPredicate:predicate];
+    NSArray *filteredSources = [self.sources filteredArrayUsingPredicate:predicate];
     if (!filteredSources.count) {
         // If we can't find the source in sourceManager, lets just recache and see if it shows up
         // TODO: Recache sources
-        filteredSources = [_sources filteredArrayUsingPredicate:predicate];
+        filteredSources = [self.sources filteredArrayUsingPredicate:predicate];
     }
     
     return filteredSources.firstObject ?: NULL;

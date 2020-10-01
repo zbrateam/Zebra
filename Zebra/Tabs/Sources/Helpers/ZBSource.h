@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
 
-@property NSInteger pinPriority;
+@property (readonly, nonatomic) NSInteger pinPriority;
 
 + (ZBSource *)localSource;
 + (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL;

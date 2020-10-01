@@ -1,7 +1,15 @@
 Package: *
-Pin: release o=my-custom-repo-name
+Pin: release o=Procursus
 Pin-Priority: 1001
 
 Package: *
-Pin: release o=my-custom-repo-name
-Pin-Priority: 1002
+Pin: release o=Bingner/Elucubratus
+Pin-Priority: -10
+
+Package: *
+Pin: release o=Cydia/Telesphoreo
+Pin-Priority: -10
+
+Package: *
+Pin: release o="Chimera Repo"
+Pin-Priority: -10

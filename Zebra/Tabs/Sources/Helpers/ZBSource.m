@@ -28,6 +28,8 @@
 
 @implementation ZBSource
 
+@synthesize pinPriority = _pinPriority;
+
 const char *textColumn(sqlite3_stmt *statement, int column) {
     return (const char *)sqlite3_column_text(statement, column);
 }
@@ -358,18 +360,10 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [task resume];
 }
 
-- (NSComparisonResult)compare:(id)object {
-    if ([object isKindOfClass:[ZBSource class]]) {
-        ZBSource *obj = (ZBSource *)object;
-        
-        if (self.pinPriority == obj.pinPriority)
-            return NSOrderedSame;
-        else if (self.pinPriority > obj.pinPriority)
-            return NSOrderedDescending;
-        return NSOrderedAscending;
-    }
-    
-    return NSOrderedDescending;
+- (NSInteger)pinPriority {
+    if (self.sourceID <= 0) return 100;
+    else if (_pinPriority == 0) return 500;
+    else return _pinPriority;
 }
 
 @end
