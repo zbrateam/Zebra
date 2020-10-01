@@ -478,17 +478,20 @@
         //In order to make this easy, we're going to check for "Essential" packages that aren't installed and mark them as updates
         NSMutableArray *essentials = [NSMutableArray new];
         sqlite3_stmt *essentialStatement; //v important statement
-        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, VERSION FROM PACKAGES WHERE REPOID > 0 AND ESSENTIAL = \'yes\' COLLATE NOCASE", -1, &essentialStatement, nil) == SQLITE_OK) {
+        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, VERSION, REPOID FROM PACKAGES WHERE REPOID > 0 AND ESSENTIAL = \'yes\' COLLATE NOCASE", -1, &essentialStatement, nil) == SQLITE_OK) {
             while (sqlite3_step(essentialStatement) == SQLITE_ROW) {
                 const char *identifierChars = (const char *)sqlite3_column_text(essentialStatement, 0);
                 const char *versionChars = (const char *)sqlite3_column_text(essentialStatement, 1);
-                
-                NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
-                NSString *version = [NSString stringWithUTF8String:versionChars];
-                
-                if (![self packageIDIsInstalled:packageIdentifier version:NULL]) {
-                    NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
-                    [essentials addObject:essentialPackage];
+                int sourceID = sqlite3_column_int(essentialStatement, 2);
+                ZBSource *source = [[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID];
+                if (source && [[ZBSourceManager sharedInstance] pinPriorityForSource:source strict:YES] >= 500) {
+                    NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
+                    NSString *version = [NSString stringWithUTF8String:versionChars];
+                    
+                    if (![self packageIDIsInstalled:packageIdentifier version:NULL]) {
+                        NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
+                        [essentials addObject:essentialPackage];
+                    }
                 }
             }
         } else {

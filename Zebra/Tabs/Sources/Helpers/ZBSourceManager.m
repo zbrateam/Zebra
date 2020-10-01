@@ -65,6 +65,10 @@
 #pragma mark - Reading Pin Priorities
 
 - (NSInteger)pinPriorityForSource:(ZBSource *)source {
+    return [self pinPriorityForSource:source strict:NO];
+}
+
+- (NSInteger)pinPriorityForSource:(ZBSource *)source strict:(BOOL)strict {
     if (source.sourceID <= 0) return 100;
     
     if ([pinPreferences objectForKey:source.origin]) {
@@ -73,8 +77,10 @@
         return [[pinPreferences objectForKey:source.label] integerValue];
     } else if ([pinPreferences objectForKey:source.codename]) {
         return [[pinPreferences objectForKey:source.codename] integerValue];
-    } else {
+    } else if (!strict) {
         return 500;
+    } else {
+        return 499;
     }
 }
 

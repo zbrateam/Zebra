@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (id)sharedInstance;
 
 - (NSInteger)pinPriorityForSource:(ZBSource *)source;
+- (NSInteger)pinPriorityForSource:(ZBSource *)source strict:(BOOL)strict;
 
 /*!
  @brief Obtain a ZBSource instance from the database that matches a certain sourceID
