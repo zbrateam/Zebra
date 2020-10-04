@@ -67,7 +67,7 @@
         NSArray<ZBPackage *> *filteredPackages = [oldUpdates filteredArrayUsingPredicate:predicate];
         
         if (filteredPackages.count > 1) {
-            NSLog(@"WARNING: Received multiple updates for the same package. This is most probably a developer error.");
+            NSLog(@"[Zebra] WARNING: Received multiple updates for the same package. This is most probably a developer error.");
             continue;
         }
         else if (filteredPackages.count <= 0) {
@@ -130,7 +130,7 @@
     UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
        if (error != nil) {
-           NSLog(@"%@", error.localizedDescription);
+           NSLog(@"[Zebra] %@", error.localizedDescription);
        }
     }];
 }
