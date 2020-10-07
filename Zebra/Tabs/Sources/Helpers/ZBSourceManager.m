@@ -56,7 +56,7 @@
         refreshInProgress = NO;
         
         pinPreferences = [self parsePreferences];
-        NSLog(@"PINS: %@", pinPreferences);
+        NSLog(@"[Zebra] PINS: %@", pinPreferences);
     }
     
     return self;
@@ -124,11 +124,20 @@
     if (isDirectory) {
         NSMutableArray *prioritiesForDirectory = [NSMutableArray new];
         NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
+        NSString *directory;
         NSString *file;
         
+        if ([path hasSuffix:@"/"]) {
+            directory = [path copy];
+        } else {
+            directory = [path stringByAppendingString:@"/"];
+        }
+
         while (file = [enumerator nextObject]) {
+            file = [directory stringByAppendingString:file];
             [prioritiesForDirectory addObjectsFromArray:[self prioritiesForFile:file]];
         }
+        return prioritiesForDirectory;
     } else if (fileExists) {
         NSError *readError = NULL;
         NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
@@ -180,11 +189,11 @@
         
         NSMutableSet *sourcesAdded = [baseSources mutableCopy];
         [sourcesAdded minusSet:cache];
-        NSLog(@"Sources Added: %@", sourcesAdded);
+        NSLog(@"[Zebra] Sources Added: %@", sourcesAdded);
         
         NSMutableSet *sourcesRemoved = [cache mutableCopy];
         [sourcesRemoved minusSet:baseSources];
-        NSLog(@"Sources Removed: %@", sourcesAdded);
+        NSLog(@"[Zebra] Sources Removed: %@", sourcesAdded);
         
         if (sourcesAdded.count) [cache unionSet:sourcesAdded];
         if (sourcesRemoved.count) [cache minusSet:sourcesRemoved];
