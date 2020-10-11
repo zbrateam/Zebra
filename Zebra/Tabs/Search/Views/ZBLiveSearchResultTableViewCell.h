@@ -7,7 +7,9 @@
 //
 
 @import UIKit;
-#import "ZBProxyPackage.h"
+
+@class ZBBasePackage;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBLiveSearchResultTableViewCell : UITableViewCell
@@ -15,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *packageNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
-- (void)updateData:(ZBProxyPackage *)package;
+- (void)updateData:(ZBBasePackage *)package;
 - (void)setColors;
 @end
 

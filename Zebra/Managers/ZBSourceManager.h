@@ -11,14 +11,14 @@
 
 #import "ZBSourceVerificationDelegate.h"
 #import "ZBSourceDelegate.h"
-#import <Database/ZBDatabaseDelegate.h>
+//#import <Database/ZBDatabaseDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
 
 @import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceManager : NSObject <ZBDatabaseDelegate, ZBDownloadDelegate>
+@interface ZBSourceManager : NSObject <ZBDownloadDelegate>
 
 /*! @brief An array of source objects, from the database and sources.list (if the source is not loaded), that Zebra keeps track of */
 @property (readonly) NSArray <ZBSource *> *sources;

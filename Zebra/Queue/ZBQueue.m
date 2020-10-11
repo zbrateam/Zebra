@@ -7,12 +7,12 @@
 //
 
 #import "ZBQueue.h"
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <ZBDevice.h>
 #import <Console/ZBStage.h>
 #import <Tabs/ZBTabBarController.h>

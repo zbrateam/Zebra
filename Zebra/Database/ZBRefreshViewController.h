@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-#import <Tabs/Sources/Helpers/ZBSourceDelegate.h>
+#import <Managers/Delegates/ZBSourceDelegate.h>
 
 @interface ZBRefreshViewController : UIViewController <ZBSourceDelegate>
 

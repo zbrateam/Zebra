@@ -16,8 +16,8 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIAlertController+Zebra.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 
 @interface ZBSourceListViewController () {

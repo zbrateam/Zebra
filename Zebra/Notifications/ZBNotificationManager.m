@@ -7,9 +7,9 @@
 //
 
 #import "ZBNotificationManager.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Managers/ZBDatabaseManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 
 @interface ZBNotificationManager ()
 

@@ -8,8 +8,8 @@
 
 #import "ZBSourceManager.h"
 
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>

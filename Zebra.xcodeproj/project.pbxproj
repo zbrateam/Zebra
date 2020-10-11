@@ -148,7 +148,6 @@
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
 		89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */; };
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
-		89C7E49221B240D4003DB4E8 /* parsel.c in Sources */ = {isa = PBXBuildFile; fileRef = 89C7E49121B240D4003DB4E8 /* parsel.c */; };
 		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
 		89CD4E1C24E9B6CD00F76913 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89CD4E1A24E9B6CD00F76913 /* LNPopupController.framework */; };
@@ -405,7 +404,6 @@
 		898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageSupportViewController.m; sourceTree = "<group>"; };
 		8990FF0B224ABE9700190BEB /* ZBDependencyResolver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDependencyResolver.h; sourceTree = "<group>"; };
 		8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDependencyResolver.m; sourceTree = "<group>"; };
-		8991FF9C21B2109E004FCE23 /* parsel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parsel.h; sourceTree = "<group>"; };
 		8991FFA021B215C9004FCE23 /* ZBDatabaseManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDatabaseManager.h; sourceTree = "<group>"; };
 		8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDatabaseManager.m; sourceTree = "<group>"; };
 		899203B522490D4C0098AC7B /* dict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
@@ -451,7 +449,6 @@
 		89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListTableViewController.m; sourceTree = "<group>"; };
 		89C6828D239AACF4007D018C /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89C7E48F21B23DB1003DB4E8 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
-		89C7E49121B240D4003DB4E8 /* parsel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parsel.c; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* vercmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vercmp.h; sourceTree = "<group>"; };
 		89CA2138224043D1008F09DB /* vercmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vercmp.c; sourceTree = "<group>"; };
 		89CADA132263FEF3000101EE /* ZBDownloadManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDownloadManager.h; sourceTree = "<group>"; };
@@ -953,8 +950,6 @@
 		8991FF9A21B21069004FCE23 /* Parsel */ = {
 			isa = PBXGroup;
 			children = (
-				8991FF9C21B2109E004FCE23 /* parsel.h */,
-				89C7E49121B240D4003DB4E8 /* parsel.c */,
 				89CA2137224043D1008F09DB /* vercmp.h */,
 				89CA2138224043D1008F09DB /* vercmp.c */,
 				899203B522490D4C0098AC7B /* dict.h */,
@@ -1558,7 +1553,6 @@
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
 				893C36562509AD8400DF07DE /* ZBCommand.m in Sources */,
 				7514035F2499598000B3C4C9 /* ZBDetailedLinkSettingsTableViewCell.m in Sources */,
-				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,
 				BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */,
 				8944916F21B5AF5E00DDDEF2 /* ZBSourceListViewController.m in Sources */,

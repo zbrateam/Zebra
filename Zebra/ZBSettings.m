@@ -12,8 +12,8 @@
 @import UIKit.UIScreen;
 @import UIKit.UIWindow;
 
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBSource.h>
+#import <Model/ZBPackage.h>
 
 @implementation ZBSettings
 

@@ -8,10 +8,10 @@
 
 #import "ZBTabBarController.h"
 #import "ZBTab.h"
-#import "Sources/Helpers/ZBSourceManager.h"
+#import <Managers/ZBSourceManager.h>
 #import "Packages/Controllers/ZBPackageListTableViewController.h"
 #import "Sources/Controllers/ZBSourceListViewController.h"
-#import "Packages/Helpers/ZBPackage.h"
+//#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
 #import <Database/ZBRefreshViewController.h>

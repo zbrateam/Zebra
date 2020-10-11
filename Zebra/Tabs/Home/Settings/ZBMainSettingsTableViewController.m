@@ -23,7 +23,7 @@
 
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {

@@ -12,8 +12,8 @@
 #import "ZBAppDelegate.h"
 
 #import <Extensions/UINavigationBar+Extensions.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Database/ZBRefreshViewController.h>

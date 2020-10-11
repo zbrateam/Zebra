@@ -7,9 +7,9 @@
 //
 
 #import "ZBSourceAddViewController.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Managers/ZBDatabaseManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 @import SDWebImage;

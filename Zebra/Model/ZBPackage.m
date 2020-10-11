@@ -13,15 +13,15 @@
 #import <ZBDevice.h>
 #import <ZBUtils.h>
 #import <Parsel/vercmp.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <ZBAppDelegate.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
 #import <ZBSettings.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Managers/ZBSourceManager.h>
 #import <Console/ZBCommand.h>
 
 @import LinkPresentation;

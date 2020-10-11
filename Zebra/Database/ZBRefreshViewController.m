@@ -12,8 +12,8 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIFont+Zebra.h>
 #import <Tabs/ZBTabBarController.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBBaseSource.h>
+#import <Managers/ZBSourceManager.h>
 #import <Theme/ZBThemeManager.h>
 
 typedef enum {

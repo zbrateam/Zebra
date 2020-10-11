@@ -10,7 +10,7 @@
 #import "ZBLiveSearchResultTableViewCell.h"
 
 #import <ZBAppDelegate.h>
-#import <Tabs/Packages/Helpers/ZBProxyPackage.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
@@ -86,7 +86,7 @@
     
     NSObject *quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
-        ZBProxyPackage *proxyPackage = (ZBProxyPackage *)quantumPackage;
+        ZBBasePackage *proxyPackage = (ZBBasePackage *)quantumPackage;
         
         ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
         [cell updateData:proxyPackage];
@@ -108,7 +108,7 @@
 - (ZBPackageViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
     id quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
-        quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
+        quantumPackage = [(ZBBasePackage *)quantumPackage loadPackage];
     }
         
     return [[ZBPackageViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
@@ -128,7 +128,7 @@
     id quantumPackage = filteredResults[indexPath.row];
     if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
         // This is a proxy package, load it first
-        quantumPackage = [(ZBProxyPackage *)quantumPackage loadPackage];
+        quantumPackage = [(ZBBasePackage *)quantumPackage loadPackage];
     }
 
     return [ZBPackageActions swipeActionsForPackage:(ZBPackage *)quantumPackage inTableView:tableView];

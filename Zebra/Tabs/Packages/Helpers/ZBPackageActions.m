@@ -12,7 +12,7 @@
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
@@ -177,11 +177,11 @@
 }
 
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *candidate = [[ZBDatabaseManager sharedInstance] packageForID:package.identifier equalVersion:package.installedVersion];
-    if (candidate) {
-        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
-    }
-    if (completion) completion();
+//    ZBPackage *candidate = [[ZBDatabaseManager sharedInstance] packageForID:package.identifier equalVersion:package.installedVersion];
+//    if (candidate) {
+//        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
+//    }
+//    if (completion) completion();
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {

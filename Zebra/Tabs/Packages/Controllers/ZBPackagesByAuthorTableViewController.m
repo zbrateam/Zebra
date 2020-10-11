@@ -10,7 +10,7 @@
 
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>

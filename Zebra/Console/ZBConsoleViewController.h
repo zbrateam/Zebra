@@ -11,7 +11,7 @@
 @import UIKit;
 
 #import <Downloads/ZBDownloadDelegate.h>
-#import <Database/ZBDatabaseDelegate.h>
+#import <Managers/Delegates/ZBDatabaseDelegate.h>
 #import "ZBCommand.h"
 
 NS_ASSUME_NONNULL_BEGIN

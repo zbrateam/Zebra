@@ -12,12 +12,12 @@
 #import <ZBSettings.h>
 #import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
 #import "ZBPackageListTableViewController.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Managers/ZBDatabaseManager.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
 #import <Tabs/ZBTabBarController.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import "ZBDevice.h"

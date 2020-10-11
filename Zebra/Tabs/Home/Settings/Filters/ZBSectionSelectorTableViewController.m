@@ -11,10 +11,10 @@
 #import "ZBOptionSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 
 @interface ZBSectionSelectorTableViewController () {
     NSArray *sections;

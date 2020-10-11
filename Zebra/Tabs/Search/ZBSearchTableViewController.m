@@ -13,7 +13,7 @@
 #import <Theme/ZBThemeManager.h>
 #import <ZBDevice.h>
 #import <Queue/ZBQueue.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import "ZBSearchResultsTableViewController.h"
 
 #import <Extensions/UIColor+GlobalColors.h>

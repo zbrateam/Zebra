@@ -7,14 +7,14 @@
 //
 
 #import "ZBPackageViewController.h"
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 #import "ZBActionButton.h"
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import "ZBLinkTableViewCell.h"
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
@@ -117,11 +117,11 @@
     [self configureNavigationItems];
     
     // Tagline label tapping
-    if (self.package.tagline) { // Only enable the tap recognizer if there is a tagline
-        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
-        self.tagLineLabel.userInteractionEnabled = YES;
-        [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
-    }
+//    if (self.package.tagline) { // Only enable the tap recognizer if there is a tagline
+//        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
+//        self.tagLineLabel.userInteractionEnabled = YES;
+//        [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
+//    }
     
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
@@ -147,7 +147,7 @@
 
 - (void)setData {
     self.nameLabel.text = self.package.name;
-    self.tagLineLabel.text = self.package.tagline ?: self.package.authorName ?: self.package.maintainerName;
+    self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName; //self.package.tagline ?: self.package.authorName ?: self.package.maintainerName;
     [self.package setIconImageForImageView:self.iconImageView];
     self.packageInformation = [self.package information];
     

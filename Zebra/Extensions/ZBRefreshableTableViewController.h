@@ -8,8 +8,8 @@
 
 #import "ZBTableViewController.h"
 
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+//#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBSourceManager.h>
 #import <Theme/ZBThemeManager.h>
 
 NS_ASSUME_NONNULL_BEGIN

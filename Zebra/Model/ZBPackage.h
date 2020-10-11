@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSArray * _Nullable previewImageURLs;
 @property (nonatomic, strong) NSString * _Nullable maintainerName;
 @property (nonatomic, strong) NSString * _Nullable maintainerEmail;
+@property (nonatomic, strong) NSString * _Nullable authorEmail;
 @property int installedSize;
 @property int downloadSize;
 @property BOOL requiresAuthorization;

@@ -14,15 +14,15 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+//#import <Database/ZBDatabaseManager.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
 
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 
 @import SDWebImage;
 
@@ -87,8 +87,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [ZBDatabaseManager sharedInstance];
-    sectionReadout = [databaseManager sectionReadoutForSource:source];
+//    databaseManager = [ZBDatabaseManager sharedInstance];
+//    sectionReadout = [databaseManager sectionReadoutForSource:source];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         NSString *section1 = [self localizedSection:obj1];
         NSString *section2 = [self localizedSection:obj2];
@@ -281,7 +281,7 @@
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
         
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInSource:source section:NULL]];
+        NSNumber *numberOfPackages = [NSNumber numberWithInt:0];//[databaseManager numberOfPackagesInSource:source section:NULL]];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
         cell.imageView.image = nil;
     } else {
@@ -347,7 +347,7 @@
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
         //TODO: Update for new refresh
-        [self->databaseManager updateSource:self->source useCaching:YES];
+//        [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     
     if ([source canDelete]) {
@@ -387,14 +387,14 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.editing = NO;
-    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
-    
-    if (package) {
-        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
-        [[self navigationController] pushViewController:packageDepiction animated:YES];
-    }
+//    self.editing = NO;
+//    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+//    
+//    if (package) {
+//        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
+//        [[self navigationController] pushViewController:packageDepiction animated:YES];
+//    }
 }
 
 - (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
