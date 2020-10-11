@@ -150,15 +150,6 @@
     return appPath != NULL ? [appPath stringByDeletingLastPathComponent] : NULL;
 }
 
-+ (NSCharacterSet *)delimiters {
-    static NSCharacterSet *charSet = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        charSet = [NSCharacterSet characterSetWithCharactersInString:@","];
-    });
-    return charSet;
-}
-
 - (NSArray * _Nullable)extract:(const char *)packages_ {
     NSCharacterSet *delimiters = [[self class] delimiters];
     NSArray *packages = packages_ != 0 ? [[NSString stringWithUTF8String:packages_] componentsSeparatedByCharactersInSet:delimiters] : nil;
@@ -172,19 +163,12 @@
     return packages;
 }
 
-- (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
-    self = [super init];
+- (id)initFromSQLiteStatement:(sqlite3_stmt *)statement {
+    self = [super initFromSQLiteStatement:statement];
     
     if (self) {
-        const char *packageIDChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnPackage);
-        const char *packageNameChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnName);
-        const char *versionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnVersion);
-        const char *taglineChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnTagline);
-        const char *descriptionChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnDescription);
-        const char *sectionChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSection);
         const char *depictionChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnDepiction);
         const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
-        const char *authorChars =           (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthor);
         const char *dependsChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
         const char *conflictsChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
         const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -197,7 +181,6 @@
         const char *homepageChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepage);
         const char *maintainerChars =       (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainer);
         const char *preferNativeChars =     (const char *)sqlite3_column_text(statement, ZBPackageColumnPreferNative);
-        sqlite3_int64 lastSeen =            sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         
         if (packageIDChars == 0) return NULL; // There is no "working" situation where a package ID is missing
         

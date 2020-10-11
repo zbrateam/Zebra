@@ -21,8 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
 
-/*! @brief A reference to the database. */
-@property (atomic) sqlite3 * _Nullable database;
+@property (nonatomic, getter=isDatabaseBeingUpdated) BOOL databaseBeingUpdated;
 
 /*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
 @property (nonatomic) BOOL needsToPresentRefresh DEPRECATED_MSG_ATTRIBUTE("ZBRefreshController should no longer be presented. This property will be removed in the final release of Zebra 1.2.");
@@ -65,21 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return SQLITE_OK if the database has been succesfully closed and another SQLITE error message if there was a problem.
  */
 - (int)closeDatabase;
-
-/*!
- @brief Boolean check to see if the database is currently open.
- @return YES if the database is open, NO otherwise.
- */
-- (BOOL)isDatabaseOpen;
-
-/*!
- @brief Boolean checks whether the database is being updated.
- @return YES if the database is being updated, NO otherwise.
- */
-- (BOOL)isDatabaseBeingUpdated;
-- (void)setDatabaseBeingUpdated:(BOOL)updated;
-- (void)setHaltDatabaseOperations:(BOOL)halt;
-- (void)cancelUpdates:(id <ZBDatabaseDelegate>)delegate;
 
 /*!
  @brief Prints sqlite_errmsg to the log.

@@ -6,6 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+#import "ZBBasePackage.h"
+
 @import Foundation;
 @import SQLite3;
 @import UIKit;
@@ -14,27 +16,18 @@
 @class ZBSource;
 @class ZBPurchaseInfo;
 
-@interface ZBPackage : NSObject <UIActivityItemSource>
-@property (nonatomic, strong) NSString * _Nonnull identifier;
-@property (nonatomic, strong) NSString * _Nonnull name;
-@property (nonatomic, strong) NSString * _Nullable version;
-@property (nonatomic, strong) NSString * _Nullable tagline;
-@property (nonatomic, strong) NSString * _Nullable packageDescription;
-@property (nonatomic, strong) NSString * _Nullable section;
+@interface ZBPackage : ZBBasePackage <UIActivityItemSource>
 @property (nonatomic, strong) NSURL * _Nullable depictionURL;
 @property (nonatomic, strong) NSArray * _Nullable tags;
 @property (nonatomic, strong) NSArray <NSString *> *_Nullable dependsOn;
 @property (nonatomic, strong) NSArray <NSString *> * _Nullable conflictsWith;
 @property (nonatomic, strong) NSArray <NSString *> * _Nullable provides;
 @property (nonatomic, strong) NSArray <NSString *> *_Nullable replaces;
-@property (nonatomic, strong) NSString * _Nullable authorName;
-@property (nonatomic, strong) NSString * _Nullable authorEmail;
 @property (nonatomic, strong) ZBSource * _Nullable source;
 @property (nonatomic, strong) NSString * _Nullable filename;
 @property (nonatomic, strong) NSString * _Nullable debPath;
 @property (nonatomic, strong) NSString * _Nullable iconPath;
 @property (nonatomic, strong) NSString * _Nullable origBundleID;
-@property (nonatomic, strong) NSDate * _Nonnull lastSeenDate;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> * _Nonnull dependencies;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> * _Nonnull dependencyOf;
 @property (nonatomic, strong) NSMutableArray <NSString *> * _Nonnull issues;
@@ -60,7 +53,6 @@
 + (NSArray * _Nonnull)filesInstalledBy:(NSString * _Nonnull)packageID;
 + (BOOL)respringRequiredFor:(NSString * _Nonnull)packageID;
 + (NSString * _Nullable)applicationBundlePathForIdentifier:(NSString * _Nonnull)packageID;
-- (id _Nonnull)initWithSQLiteStatement:(nonnull sqlite3_stmt *)statement;
 - (id _Nonnull)initFromDeb:(NSString * _Nullable)path;
 - (NSComparisonResult)compare:(id _Nullable)object;
 - (BOOL)sameAs:(ZBPackage * _Nonnull)package;

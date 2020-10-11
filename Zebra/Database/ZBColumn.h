@@ -9,55 +9,48 @@
 #ifndef ZBColumn_h
 #define ZBColumn_h
 
-typedef enum {
-    ZBPackageColumnPackage = 0,
-    ZBPackageColumnName,
-    ZBPackageColumnVersion,
-    ZBPackageColumnTagline,
-    ZBPackageColumnDescription,
-    ZBPackageColumnSection,
-    ZBPackageColumnDepiction,
-    ZBPackageColumnTag,
-    ZBPackageColumnAuthor,
-    ZBPackageColumnDepends,
+typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
+    ZBPackageColumnAuthorEmail,
+    ZBPackageColumnAuthorName,
     ZBPackageColumnConflicts,
+    ZBPackageColumnDepends,
+    ZBPackageColumnDepictionURL,
+    ZBPackageColumnDescription,
+    ZBPackageColumnDownloadSize,
+    ZBPackageColumnEssential,
+    ZBPackageColumnFilename,
+    ZBPackageColumnHomepageURL,
+    ZBPackageColumnIconURL,
+    ZBPackageColumnIdentifier,
+    ZBPackageColumnInstalledSize,
+    ZBPackageColumnLastSeen,
+    ZBPackageColumnMaintainerEmail,
+    ZBPackageColumnMaintainerName,
+    ZBPackageColumnName,
+    ZBPackageColumnPriority,
     ZBPackageColumnProvides,
     ZBPackageColumnReplaces,
-    ZBPackageColumnFilename,
-    ZBPackageColumnIcon,
-    ZBPackageColumnSourceID,
-    ZBPackageColumnLastSeen,
-    ZBPackageColumnInstalledSize,
-    ZBPackageColumnDownloadSize,
-    ZBPackageColumnPriority,
-    ZBPackageColumnEssential,
+    ZBPackageColumnRole,
+    ZBPackageColumnSection,
     ZBPackageColumnSHA256,
-    ZBPackageColumnHomepage,
-    ZBPackageColumnMaintainer,
-    ZBPackageColumnPreferNative
-} ZBPackageColumn;
+    ZBPackageColumnTag,
+    ZBPackageColumnUUID,
+    ZBPackageColumnVersion,
+};
 
-typedef enum {
-    ZBUpdateColumnID = 0,
-    ZBUpdateColumnVersion,
-    ZBUpdateColumnIgnore
-} ZBUpdateColumn;
-
-typedef enum {
-    ZBSourceColumnArchiveType = 0,
-    ZBSourceColumnRepositoryURI,
-    ZBSourceColumnDistribution,
-    ZBSourceColumnComponents,
-    ZBSourceColumnDescription,
-    ZBSourceColumnOrigin,
-    ZBSourceColumnLabel,
-    ZBSourceColumnVersion,
-    ZBSourceColumnSuite,
-    ZBSourceColumnCodename,
+typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
     ZBSourceColumnArchitectures,
-    ZBSourceColumnPaymentVendor,
-    ZBSourceColumnBaseFilename,
-    ZBSourceColumnSourceID
-} ZBSourceColumn;
+    ZBSourceColumnArchiveType,
+    ZBSourceColumnCodename,
+    ZBSourceColumnDistribution,
+    ZBSourceColumnLabel,
+    ZBSourceColumnOrigin,
+    ZBSourceColumnRemote,
+    ZBSourceColumnDescription,
+    ZBSourceColumnSuite,
+    ZBSourceColumnURL,
+    ZBSourceColumnUUID,
+    ZBSourceColumnVersion,
+};
 
 #endif /* ZBColumn_h */
