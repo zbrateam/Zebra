@@ -45,16 +45,19 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 + (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL {
-    return [[ZBDatabaseManager sharedInstance] sourceFromBaseURL:baseURL];
+    return NULL;
+//    return [[ZBDatabaseManager sharedInstance] sourceFromBaseURL:baseURL];
 }
 
 + (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename {
-    return [[ZBDatabaseManager sharedInstance] sourceFromBaseFilename:baseFilename];
+    return NULL;
+//    return [[ZBDatabaseManager sharedInstance] sourceFromBaseFilename:baseFilename];
 }
 
 + (BOOL)exists:(NSString *)urlString {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager sourceIDFromBaseURL:urlString strict:NO] > 0;
+    return YES;
+//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+//    return [databaseManager sourceIDFromBaseURL:urlString strict:NO] > 0;
 }
 
 + (UIImage *)imageForSection:(NSString *)section {
@@ -73,7 +76,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement {
     const char *archiveTypeChars   = textColumn(statement, ZBSourceColumnArchiveType);
-    const char *repositoryURIChars = textColumn(statement, ZBSourceColumnRepositoryURI);
+    const char *repositoryURIChars = textColumn(statement, ZBSourceColumnURL);
     const char *distributionChars  = textColumn(statement, ZBSourceColumnDistribution);
     const char *componenetsChars   = textColumn(statement, ZBSourceColumnComponents);
     
@@ -94,8 +97,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         const char *suiteChars         = textColumn(statement, ZBSourceColumnSuite);
         const char *codenameChars      = textColumn(statement, ZBSourceColumnCodename);
         const char *architectureChars  = textColumn(statement, ZBSourceColumnArchitectures);
-        const char *vendorChars        = textColumn(statement, ZBSourceColumnPaymentVendor);
-        const char *baseFilenameChars  = textColumn(statement, ZBSourceColumnBaseFilename);
+//        const char *vendorChars        = textColumn(statement, ZBSourceColumnPaymentVendor);
+        const char *uuidChars  = textColumn(statement, ZBSourceColumnUUID);
         
         [self setSourceDescription:descriptionChars != 0 ? [[NSString alloc] initWithUTF8String:descriptionChars] : nil];
         [self setOrigin:originChars != 0 ? [[NSString alloc] initWithUTF8String:originChars] : NSLocalizedString(@"Unknown", @"")];
@@ -104,10 +107,10 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setSuite:suiteChars != 0 ? [[NSString alloc] initWithUTF8String:suiteChars] : NSLocalizedString(@"Unknown", @"")];
         [self setCodename:codenameChars != 0 ? [[NSString alloc] initWithUTF8String:codenameChars] : NSLocalizedString(@"Unknown", @"")];
         
-        if (vendorChars != 0) {
-            NSString *vendor = [[[NSString alloc] initWithUTF8String:vendorChars] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            self->paymentVendorURI = [[NSURL alloc] initWithString:vendor];
-        }
+//        if (vendorChars != 0) {
+//            NSString *vendor = [[[NSString alloc] initWithUTF8String:vendorChars] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//            self->paymentVendorURI = [[NSURL alloc] initWithString:vendor];
+//        }
         
         if (architectureChars != 0) {
             NSArray *architectures = [[NSString stringWithUTF8String:architectureChars] componentsSeparatedByString:@" "];
@@ -117,8 +120,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             [self setArchitectures:@[@"all"]];
         }
         
-        [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : nil];
-        [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
+        [self setBaseFilename:uuidChars != 0 ? [[NSString alloc] initWithUTF8String:uuidChars] : nil];
+//        [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
         
         // prevent constant network spam
@@ -276,8 +279,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         return self->paymentVendorURI;
     }
     
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    self->paymentVendorURI = [databaseManager paymentVendorURLForSource:self];
+//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+//    self->paymentVendorURI = [databaseManager paymentVendorURLForSource:self];
     return self->paymentVendorURI;
 }
 

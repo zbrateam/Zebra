@@ -8,6 +8,7 @@
 
 @class ZBPackage;
 @class ZBProxyPackage;
+@class ZBBasePackage;
 @class ZBSource;
 @class UIImage;
 
@@ -23,24 +24,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, getter=isDatabaseBeingUpdated) BOOL databaseBeingUpdated;
 
-/*! @brief Property indicating whether or not the databaseDelegate should present the console when performing actions. */
-@property (nonatomic) BOOL needsToPresentRefresh DEPRECATED_MSG_ATTRIBUTE("ZBRefreshController should no longer be presented. This property will be removed in the final release of Zebra 1.2.");
-
 /*!
  @brief The database delegates
  @discussion Used to communicate with the view controllers the status of many database operations.
  */
 @property (nonatomic, strong) NSMutableArray <id <ZBDatabaseDelegate>> *databaseDelegates;
 
-/*!
- @brief The current download manager
- @discussion The current download manager used during database update.
- */
-@property (nonatomic, strong) ZBDownloadManager *_Nullable downloadManager DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This property will be removed in the final release of Zebra 1.2.");
-
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
 
+/*!
+ @brief Whether or not the database needs to update to the new model
+ @return A boolean value indicating whether or not the database should be updated to the new model
+ */
 + (BOOL)needsMigration;
 
 /*!
@@ -49,87 +45,14 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSDate *)lastUpdated;
 
-#pragma mark - Opening and Closing the Database
-/*!
- @brief Opens the database.
- @discussion Opens the database only if there are no current database users.
- @remark If the database is already open, nothing happens and SQLITE_OK is returned.
- @return SQLITE_OK if the database has been succesfully opened and another SQLITE error message if there was a problem.
- */
-- (int)openDatabase;
-
-/*!
- @brief Closes the database.
- @discussion Decrements the number of current users and closes the database only if there are no other database users.
- @return SQLITE_OK if the database has been succesfully closed and another SQLITE error message if there was a problem.
- */
-- (int)closeDatabase;
-
-/*!
- @brief Prints sqlite_errmsg to the log.
- */
-- (void)printDatabaseError;
-
 #pragma mark - Populating the database
-
-/*!
- @brief Update the database.
- @discussion Updates the database from the sources contained in sources.list and from the local packages contained in /var/lib/dpkg/status
- @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
- @param requested If YES, the user has requested this update and it should be performed. If NO, the database should only be updated if it hasn't been updated in the last 30 minutes.
- */
-- (void)updateDatabaseUsingCaching:(BOOL)useCaching userRequested:(BOOL)requested DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
-
-- (void)updateSource:(ZBBaseSource *)source useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
-- (void)updateSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching DEPRECATED_MSG_ATTRIBUTE("ZBDatabaseManager no longer handles source downloads, use ZBSourceManager instead. This method will be removed in the final release of Zebra 1.2.");
 
 /*!
  @brief Parses files located in the filenames dictionary.
  @discussion Updates the database from the sources contained in sources.list and from the local packages contained in /var/lib/dpkg/status
  @param sources An NSArray containing completed ZBBaseSources
  */
-- (void)parseSources:(NSArray <ZBBaseSource *> *)sources;
-
-/*!
- @brief Imports installed packages and checks for updates.
- @param checkForUpdates Whether or not to check for package updates.
- @param sender The class that is calling this method (used for databaseDelegate callbacks).
- */
-- (void)importLocalPackagesAndCheckForUpdates:(BOOL)checkForUpdates sender:(id)sender DEPRECATED_MSG_ATTRIBUTE("Local package importing is now handled via ZBSourceManager. This method will be removed in the final release of Zebra 1.2.");
-
-/*!
- @brief Imports installed packages into database.
- @discussion Imports installed packages from /var/lib/dpkg/status into the database with a sourceID of 0 or -1 depending on the type of package. If a package has a tag of role::cydia it will be imported into sourceID -1 (as these packages aren't normally displayed to the user).
- */
-- (void)importLocalPackages DEPRECATED_MSG_ATTRIBUTE("Local package importing is now handled via ZBSourceManager. This method will be removed in the final release of Zebra 1.2.");
-
-/*!
- @brief Checks for packages that need updates from the installed database.
- @discussion Loops through each package in -installedPackages and calls -topVersionForPackage: for each of them. If the top version is greater than the one installed, that package needs an update and then is imported into the UPDATES table.
- */
-- (void)checkForPackageUpdates;
-
-/*!
- @brief Drops all of the tables in the database.
- */
-- (void)dropTables;
-
-/*!
- @brief Add database delegate.
- @param delegate A database delegate to be added.
- */
-- (void)addDatabaseDelegate:(id <ZBDatabaseDelegate>)delegate;
-
-/*!
- @brief Remove database delegate.
- @param delegate A database delegate to be removed.
- */
-- (void)removeDatabaseDelegate:(id <ZBDatabaseDelegate>)delegate;
-
-/*!
- @brief Saves the current date and time into NSUseDefaults.
- */
-- (void)updateLastUpdated;
+- (void)parseSources:(NSArray <ZBBaseSource *> *)sources DEPRECATED_MSG_ATTRIBUTE("Importing of packages is now handled by ZBSourceManager and ZBPackageManager. This method will be removed in the final release of Zebra 1.2.");
 
 #pragma mark - Source management
 
@@ -479,6 +402,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (ZBPackage * _Nullable)localVersionForPackage:(ZBPackage *)package;
 - (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package;
+
+#pragma mark - New Stuff
+
+- (NSArray <ZBBasePackage *> *)packagesMatchingFilters:(NSString *)filters;
+- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source;
+- (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers;
+- (void)insertPackage:(NSDictionary *)package;
+
 @end
 
 NS_ASSUME_NONNULL_END

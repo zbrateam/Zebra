@@ -44,8 +44,8 @@
             NSMutableDictionary <NSDate *, NSMutableArray *> *partitions = [NSMutableDictionary new];
             for (ZBPackage *package in packages) {
                 NSDate *groupedDate = nil;
-                if (selector == @selector(lastSeenDate))
-                    groupedDate = [package lastSeenDate];
+                if (selector == @selector(lastSeen))
+                    groupedDate = [package lastSeen];
                 else if (selector == @selector(installedDate))
                     groupedDate = [package installedDate];
                 if (groupedDate == nil)

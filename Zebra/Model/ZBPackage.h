@@ -18,15 +18,15 @@
 
 @interface ZBPackage : ZBBasePackage <UIActivityItemSource>
 @property (nonatomic, strong) NSURL * _Nullable depictionURL;
-@property (nonatomic, strong) NSArray * _Nullable tags;
-@property (nonatomic, strong) NSArray <NSString *> *_Nullable dependsOn;
-@property (nonatomic, strong) NSArray <NSString *> * _Nullable conflictsWith;
+@property (nonatomic, strong) NSArray <NSString *> * _Nullable tag;
+@property (nonatomic, strong) NSArray <NSString *> *_Nullable depends;
+@property (nonatomic, strong) NSArray <NSString *> * _Nullable conflicts;
 @property (nonatomic, strong) NSArray <NSString *> * _Nullable provides;
 @property (nonatomic, strong) NSArray <NSString *> *_Nullable replaces;
 @property (nonatomic, strong) ZBSource * _Nullable source;
 @property (nonatomic, strong) NSString * _Nullable filename;
 @property (nonatomic, strong) NSString * _Nullable debPath;
-@property (nonatomic, strong) NSString * _Nullable iconPath;
+@property (nonatomic, strong) NSURL * _Nullable iconURL;
 @property (nonatomic, strong) NSString * _Nullable origBundleID;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> * _Nonnull dependencies;
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> * _Nonnull dependencyOf;
@@ -50,6 +50,7 @@
 @property BOOL preferNative;
 @property (nonatomic, readonly) NSString * _Nullable lowestCompatibleVersion;
 @property (nonatomic, readonly) NSString * _Nullable highestCompatibleVersion;
+@property int16_t role;
 
 + (NSArray * _Nonnull)filesInstalledBy:(NSString * _Nonnull)packageID;
 + (BOOL)respringRequiredFor:(NSString * _Nonnull)packageID;

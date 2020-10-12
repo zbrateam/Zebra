@@ -10,38 +10,43 @@
 #define ZBColumn_h
 
 typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
-    ZBPackageColumnAuthorEmail,
+    // Base Package Columns
     ZBPackageColumnAuthorName,
+    ZBPackageColumnDescription,
+    ZBPackageColumnIdentifier,
+    ZBPackageColumnLastSeen,
+    ZBPackageColumnName,
+    ZBPackageColumnVersion,
+    ZBPackageColumnSection,
+    
+    // Package Columns
+    ZBPackageColumnAuthorEmail,
     ZBPackageColumnConflicts,
     ZBPackageColumnDepends,
     ZBPackageColumnDepictionURL,
-    ZBPackageColumnDescription,
     ZBPackageColumnDownloadSize,
     ZBPackageColumnEssential,
     ZBPackageColumnFilename,
     ZBPackageColumnHomepageURL,
     ZBPackageColumnIconURL,
-    ZBPackageColumnIdentifier,
     ZBPackageColumnInstalledSize,
-    ZBPackageColumnLastSeen,
     ZBPackageColumnMaintainerEmail,
     ZBPackageColumnMaintainerName,
-    ZBPackageColumnName,
     ZBPackageColumnPriority,
     ZBPackageColumnProvides,
     ZBPackageColumnReplaces,
     ZBPackageColumnRole,
-    ZBPackageColumnSection,
     ZBPackageColumnSHA256,
     ZBPackageColumnTag,
     ZBPackageColumnUUID,
-    ZBPackageColumnVersion,
+    ZBPackageColumnSource,
 };
 
 typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
     ZBSourceColumnArchitectures,
     ZBSourceColumnArchiveType,
     ZBSourceColumnCodename,
+    ZBSourceColumnComponents,
     ZBSourceColumnDistribution,
     ZBSourceColumnLabel,
     ZBSourceColumnOrigin,

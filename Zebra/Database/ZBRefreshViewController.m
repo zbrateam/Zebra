@@ -75,7 +75,7 @@ typedef enum {
     self.view.backgroundColor = [UIColor blackColor];
     self.consoleView.backgroundColor = [UIColor blackColor];
     
-    [[ZBDatabaseManager sharedInstance] dropTables];
+//    [[ZBDatabaseManager sharedInstance] dropTables];
     [sourceManager refreshSourcesUsingCaching:NO userRequested:YES error:nil];
 }
 

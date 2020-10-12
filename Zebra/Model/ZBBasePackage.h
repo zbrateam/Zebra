@@ -19,7 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *packageDescription;
 @property (nonatomic) NSString *section;
 @property (nonatomic) NSString *authorName;
-@property (nonatomic) NSDate   *lastSeenDate;
+@property (nonatomic) NSDate   *lastSeen;
+@property (nonatomic) NSString *uuid;
 - (instancetype)initFromSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSObject *)loadPackage;
 @end

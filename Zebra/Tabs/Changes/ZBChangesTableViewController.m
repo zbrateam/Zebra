@@ -14,8 +14,8 @@
 #import <ZBSettings.h>
 #import <ZBDevice.h>
 #import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Managers/ZBDatabaseManager.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>

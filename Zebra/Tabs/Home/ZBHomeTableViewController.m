@@ -12,7 +12,7 @@
 
 #import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import "Community Sources/ZBCommunitySourcesTableViewController.h"
 #import "Changelog/ZBChangelogTableViewController.h"
 #import <Theme/ZBThemeManager.h>
@@ -198,9 +198,9 @@ typedef enum ZBLinksOrder : NSUInteger {
     for (ZBPackage *package in packages) {
         dispatch_group_enter(group);
         NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (package.iconPath) {
-            if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
-                [dict setObject:package.iconPath forKey:@"url"];
+        if (package.iconURL) {
+            if (![package.iconURL isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
+                [dict setObject:package.iconURL forKey:@"url"];
                 [dict setObject:package.identifier forKey:@"package"];
                 [dict setObject:package.name forKey:@"title"];
                 [dict setObject:package.section forKey:@"section"];

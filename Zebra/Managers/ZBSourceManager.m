@@ -10,6 +10,7 @@
 
 #import <Model/ZBSource.h>
 #import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -20,6 +21,7 @@
 
 @interface ZBSourceManager () {
     BOOL recachingNeeded;
+    ZBPackageManager *packageManger;
     ZBDatabaseManager *databaseManager;
     ZBDownloadManager *downloadManager;
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
@@ -50,7 +52,8 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
-        [databaseManager addDatabaseDelegate:self];
+//        [databaseManager addDatabaseDelegate:self];
+        packageManger = [[ZBPackageManager alloc] init];
         
         recachingNeeded = YES;
         refreshInProgress = NO;
@@ -332,27 +335,27 @@
     if (refreshInProgress)
         return;
     
-    BOOL needsRefresh = NO;
-    if (!requested && [ZBSettings wantsAutoRefresh]) {
-        NSDate *currentDate = [NSDate date];
-        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
-
-        if (lastUpdatedDate != NULL) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSUInteger unitFlags = NSCalendarUnitMinute;
-            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
-
-            needsRefresh = ([components minute] >= 30);
-        } else {
-            needsRefresh = YES;
-        }
-    }
+//    BOOL needsRefresh = NO;
+//    if (!requested && [ZBSettings wantsAutoRefresh]) {
+//        NSDate *currentDate = [NSDate date];
+//        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
+//
+//        if (lastUpdatedDate != NULL) {
+//            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+//            NSUInteger unitFlags = NSCalendarUnitMinute;
+//            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+//
+//            needsRefresh = ([components minute] >= 30);
+//        } else {
+//            needsRefresh = YES;
+//        }
+//    }
     
-    [databaseManager checkForPackageUpdates];
+//    [databaseManager checkForPackageUpdates];
     NSMutableSet *sourcesToRefresh = [NSMutableSet setWithObject:[ZBSource localSource]];
-    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
+    /* if (requested || needsRefresh) */ [sourcesToRefresh addObjectsFromArray:self.sources];
     
-    [self refreshSources:sourcesToRefresh useCaching:YES error:nil];
+    [self refreshSources:sourcesToRefresh useCaching:NO error:nil];
 }
 
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
@@ -361,7 +364,7 @@
     
     [self bulkStartedSourceRefresh];
     downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-    [downloadManager downloadSources:sources useCaching:TRUE];
+    [downloadManager downloadSources:sources useCaching:caching];
 }
 
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
@@ -511,26 +514,28 @@
 - (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *)errors {
     NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
-    if (source) {
-        [busyList setObject:@NO forKey:source.baseFilename];
-        
-        if (errors && errors.count) {
-            source.errors = errors;
-            source.warnings = [self warningsForSource:source];
-        }
-        else {
-            [completedSources addObject:source];
-        }
-        
-        [self bulkFinishedDownloadForSource:source];
-    }
+//    if (source) {
+//        [busyList setObject:@NO forKey:source.baseFilename];
+//
+//        if (errors && errors.count) {
+//            source.errors = errors;
+//            source.warnings = [self warningsForSource:source];
+//        }
+//        else {
+//            [completedSources addObject:source];
+//        }
+//
+//        [self bulkFinishedDownloadForSource:source];
+//    }
+    
+    if (source.packagesFilePath) [packageManger importPackagesFromFile:source.packagesFilePath toSource:source];
 }
 
 - (void)finishedAllDownloads {
     ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     downloadManager = NULL;
     
-    [databaseManager parseSources:completedSources];
+//    [databaseManager parseSources:completedSources];
 }
 
 #pragma mark - Database Delegate
@@ -573,8 +578,8 @@
     refreshInProgress = NO;
     busyList = NULL;
     completedSources = NULL;
-    [databaseManager checkForPackageUpdates];
-    [databaseManager updateLastUpdated];
+//    [databaseManager checkForPackageUpdates];
+//    [databaseManager updateLastUpdated];
     [self bulkFinishedSourceRefresh];
 }
 

@@ -13,10 +13,10 @@
 #import <ZBLog.h>
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 
 #import <bzlib.h>
 

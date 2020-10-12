@@ -55,7 +55,7 @@
         }
         
         sqlite3_int64 lastSeen = sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
-        self.lastSeenDate = lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date];
+        self.lastSeen = lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date];
     }
     
     return self;

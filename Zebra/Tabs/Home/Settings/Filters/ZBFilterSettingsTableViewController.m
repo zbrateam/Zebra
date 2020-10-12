@@ -13,11 +13,11 @@
 #import "ZBAuthorSelectorTableViewController.h"
 #import "ZBButtonSettingsTableViewCell.h"
 
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 #import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 
