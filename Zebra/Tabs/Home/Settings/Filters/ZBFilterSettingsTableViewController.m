@@ -130,7 +130,7 @@
                 sourceCell.sourceLabel.text = [source label];
                 sourceCell.sourceLabel.textColor = [UIColor primaryTextColor];
                 
-                unsigned long numberOfSections = (unsigned long)[filteredSources[[source baseFilename]] count];
+                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
                 sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
                 sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
@@ -276,7 +276,7 @@
                     NSMutableDictionary *sources = [self->filteredSources mutableCopy];
                     
                     for (ZBSource *source in selectedSources) {
-                        [sources setObject:@[] forKey:[source baseFilename]];
+                        [sources setObject:@[] forKey:[source uuid]];
                     }
                     
                     [ZBSettings setFilteredSources:sources];
@@ -339,7 +339,7 @@
                 }
                 case 1: {
                     ZBSource *source = self->sources[indexPath.row];
-                    [self->filteredSources removeObjectForKey:[source baseFilename]];
+                    [self->filteredSources removeObjectForKey:[source uuid]];
                     [self->sources removeObjectAtIndex:indexPath.row];
 
                     [ZBSettings setFilteredSources:self->filteredSources];

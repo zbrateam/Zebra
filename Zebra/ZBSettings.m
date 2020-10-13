@@ -335,7 +335,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     if ([filteredSections containsObject:section]) return YES;
     
     NSDictionary *filteredSources = [self filteredSources];
-    NSArray *filteredSourceSections = [filteredSources objectForKey:[source baseFilename]];
+    NSArray *filteredSourceSections = [filteredSources objectForKey:[source uuid]];
     if (!filteredSourceSections) return NO;
     
     return [filteredSourceSections containsObject:section];
@@ -345,7 +345,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     if (section == NULL) section = @"Uncategorized";
     
     NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
-    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source baseFilename]] mutableCopy];
+    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source uuid]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     if (filtered && ![filteredSections containsObject:section]) {
@@ -355,7 +355,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
         [filteredSections removeObject:section];
     }
     
-    [filteredSources setObject:filteredSections forKey:[source baseFilename]];
+    [filteredSources setObject:filteredSections forKey:[source uuid]];
     [self setFilteredSources:filteredSources];
 }
 

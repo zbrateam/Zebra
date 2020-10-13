@@ -97,7 +97,7 @@
     }];
     if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    filteredSections = [[[ZBSettings filteredSources] objectForKey:[source baseFilename]] mutableCopy];
+    filteredSections = [[[ZBSettings filteredSources] objectForKey:[source uuid]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     if (!editOnly) self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -222,7 +222,7 @@
                     self->bannerSize = CGSizeFromString(json[@"itemSize"]);
                     self.featuredPackages = banners;
                     
-                    [featuredItems setObject:banners forKey:[self->source baseFilename]];
+                    [featuredItems setObject:banners forKey:[self->source uuid]];
                     [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{

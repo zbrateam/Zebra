@@ -26,6 +26,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
+    ZBDatabaseStatementTypeInsertSource,
     ZBDatabaseStatementTypeCount
 };
 
@@ -155,8 +156,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "version TEXT, "
                                       "section TEXT, "
                                       "authorEmail TEXT, "
-                                      "conflicts BLOB, "
-                                      "depends BLOB, "
+                                      "conflicts TEXT, "
+                                      "depends TEXT, "
                                       "depictionURL TEXT, "
                                       "downloadSize INTEGER, "
                                       "essential BOOLEAN, "
@@ -167,11 +168,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "maintainerEmail TEXT, "
                                       "maintainerName TEXT, "
                                       "priority TEXT, "
-                                      "provides BLOB, "
-                                      "replaces BLOB, "
+                                      "provides TEXT, "
+                                      "replaces TEXT, "
                                       "role INTEGER, "
                                       "sha256 TEXT, "
-                                      "tag BLOB, "
+                                      "tag TEXT, "
                                       "uuid TEXT, "
                                       "source TEXT, "
                                       "FOREIGN KEY(source) REFERENCES " SOURCES_TABLE_NAME "(uuid) "
@@ -197,7 +198,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "(architectures TEXT, "
                                       "archiveType TEXT, "
                                       "codename TEXT, "
-                                      "components BLOB, "
+                                      "components TEXT, "
                                       "distribution TEXT, "
                                       "label TEXT, "
                                       "origin TEXT, "
@@ -2200,6 +2201,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, identifier, lastSeen, name, version, section, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, iconURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, role, sha256, tag, uuid, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
+        case ZBDatabaseStatementTypeInsertSource:
+            return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, remote, sourceDescription, suite, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         default:
             return nil;
     }
@@ -2224,6 +2227,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
             ZBDatabaseStatementType statementType = (ZBDatabaseStatementType)i;
             const char *statement = [[self statementStringForStatementType:statementType] UTF8String];
+            NSLog(@"Statement: %s", statement);
             if (sqlite3_prepare(database, statement, -1, &preparedStatements[statementType], NULL) != SQLITE_OK) {
                 ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
                 free(preparedStatements);
@@ -2254,7 +2258,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSource];
-    int result = sqlite3_bind_text(statement, 1, [source.baseFilename UTF8String], -1, SQLITE_TRANSIENT);
+    int result = sqlite3_bind_text(statement, 1, [source.uuid UTF8String], -1, SQLITE_TRANSIENT);
     if (result == SQLITE_OK) {
         result = [self beginTransaction];
     }
@@ -2270,7 +2274,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query packages from %@ with error %d (%s, %d)", source.baseFilename, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query packages from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
     }
     
@@ -2291,7 +2295,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             result = sqlite3_step(statement);
             if (result == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                [sources addObject:source];
+                if (source) [sources addObject:source];
             }
         } while (result == SQLITE_ROW);
         
@@ -2307,8 +2311,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSource];
-    int result = sqlite3_bind_text(statement, 1, [source.baseFilename UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeUUIDsFromSource];
+    int result = sqlite3_bind_text(statement, 1, [source.uuid UTF8String], -1, SQLITE_TRANSIENT);
     if (result == SQLITE_OK) {
         result = [self beginTransaction];
     }
@@ -2326,7 +2330,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query package uuids from %@ with error %d (%s, %d)", source.baseFilename, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query package uuids from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
     }
     
@@ -2349,110 +2353,117 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
         }
-        
-        [self endTransaction];
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
     }
+    
+    [self endTransaction];
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
 }
 
-- (void)insertPackage:(NSDictionary *)package {
+- (void)insertPackage:(char **)package {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
     
-    sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, [package[@"Package"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnName + 1, [package[@"Name"] ?: package[@"Package"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, [package[@"Version"] UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, package[ZBPackageColumnIdentifier], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnName + 1, package[ZBPackageColumnName], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
     
-    NSString *author = package[@"Author"];
-    NSRange rangeOfEmailBegin = [author rangeOfString:@"<"];
-    NSRange rangeOfEmailEnd = [author rangeOfString:@">"];
-    if (rangeOfEmailBegin.location != NSNotFound && rangeOfEmailEnd.location != NSNotFound) {
-        NSString *authorName = [[author substringToIndex:rangeOfEmailBegin.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, [authorName UTF8String], -1, SQLITE_TRANSIENT);
-        
-        NSString *authorEmail = [[author substringWithRange:NSMakeRange(rangeOfEmailBegin.location + 1, author.length - rangeOfEmailBegin.location - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, [authorEmail UTF8String], -1, SQLITE_TRANSIENT);
-    } else {
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, [author UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
-    }
+//    NSString *author = package[@"Author"];
+//    NSRange rangeOfEmailBegin = [author rangeOfString:@"<"];
+//    NSRange rangeOfEmailEnd = [author rangeOfString:@">"];
+//    if (rangeOfEmailBegin.location != NSNotFound && rangeOfEmailEnd.location != NSNotFound) {
+//        NSString *authorName = [[author substringToIndex:rangeOfEmailBegin.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, [authorName UTF8String], -1, SQLITE_TRANSIENT);
+//
+//        NSString *authorEmail = [[author substringWithRange:NSMakeRange(rangeOfEmailBegin.location + 1, author.length - rangeOfEmailBegin.location - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, [authorEmail UTF8String], -1, SQLITE_TRANSIENT);
+//    } else {
+//        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, [author UTF8String], -1, SQLITE_TRANSIENT);
+//        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
+//    }
     
-    NSString *rawConflicts = package[@"Conflicts"];
-    if (rawConflicts) {
-        NSArray *conflicts = [rawConflicts componentsSeparatedByString:@","];
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:conflicts];
-        sqlite3_bind_blob(statement, ZBPackageColumnConflicts + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-    }
-    
-    NSString *rawDepends = package[@"Depends"];
-    if (rawDepends) {
-        NSArray *depends = [rawDepends componentsSeparatedByString:@","];
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:depends];
-        sqlite3_bind_blob(statement, ZBPackageColumnDepends + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-    }
-    
-    sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, [package[@"Depiction"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, [package[@"Size"] intValue]);
+    sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, package[ZBPackageColumnConflicts], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, package[ZBPackageColumnDepends], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, package[ZBPackageColumnDepictionURL], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, 0);
 //    package.essential = packageDictionary[@"Essential"];
-    sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, [package[@"Filename"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnHomepageURL + 1, [package[@"Homepage"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, [package[@"Installed-Size"] intValue]);
+    sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, package[ZBPackageColumnFilename], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnHomepageURL + 1, package[ZBPackageColumnHomepageURL], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, 0);
     
-    NSString *maintainer = package[@"Maintainer"];
-    rangeOfEmailBegin = [maintainer rangeOfString:@"<"];
-    rangeOfEmailEnd = [maintainer rangeOfString:@">"];
-    if (rangeOfEmailBegin.location != NSNotFound && rangeOfEmailEnd.location != NSNotFound) {
-        NSString *maintainerName = [[maintainer substringToIndex:rangeOfEmailBegin.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, [maintainerName UTF8String], -1, SQLITE_TRANSIENT);
-        
-        NSString *maintainerEmail = [[maintainer substringWithRange:NSMakeRange(rangeOfEmailBegin.location + 1, maintainer.length - rangeOfEmailBegin.location - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, [maintainerEmail UTF8String], -1, SQLITE_TRANSIENT);
-    } else {
-        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, [maintainer UTF8String], -1, SQLITE_TRANSIENT);
+//    NSString *maintainer = package[@"Maintainer"];
+//    rangeOfEmailBegin = [maintainer rangeOfString:@"<"];
+//    rangeOfEmailEnd = [maintainer rangeOfString:@">"];
+//    if (rangeOfEmailBegin.location != NSNotFound && rangeOfEmailEnd.location != NSNotFound) {
+//        NSString *maintainerName = [[maintainer substringToIndex:rangeOfEmailBegin.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, [maintainerName UTF8String], -1, SQLITE_TRANSIENT);
+//
+//        NSString *maintainerEmail = [[maintainer substringWithRange:NSMakeRange(rangeOfEmailBegin.location + 1, maintainer.length - rangeOfEmailBegin.location - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+//        sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, [maintainerEmail UTF8String], -1, SQLITE_TRANSIENT);
+//    } else {
+//        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, [maintainer UTF8String], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_null(statement, ZBPackageColumnAuthorName + 1);
+    sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
+    sqlite3_bind_null(statement, ZBPackageColumnMaintainerName + 1);
         sqlite3_bind_null(statement, ZBPackageColumnMaintainerEmail + 1);
-    }
+//    }
     
-    sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, [package[@"Description"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, [package[@"Priority"] UTF8String], -1, SQLITE_TRANSIENT);
-    
-    NSString *rawProvides = package[@"Provides"];
-    if (rawProvides) {
-        NSArray *provides = [rawProvides componentsSeparatedByString:@","];
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:provides];
-        sqlite3_bind_blob(statement, ZBPackageColumnProvides + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-    }
-    
-    NSString *rawReplaces = package[@"Replaces"];
-    if (rawReplaces) {
-        NSArray *replaces = [rawReplaces componentsSeparatedByString:@","];
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:replaces];
-        sqlite3_bind_blob(statement, ZBPackageColumnReplaces + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-    }
-    
-    sqlite3_bind_text(statement, ZBPackageColumnSection + 1, [package[@"Section"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnSHA256 + 1, [package[@"SHA256"] UTF8String], -1, SQLITE_TRANSIENT);
-
-    NSString *rawTag = package[@"Tag"];
-    if (rawTag) {
-        NSArray *tag = [rawTag componentsSeparatedByString:@","];
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:tag];
-        sqlite3_bind_blob(statement, ZBPackageColumnReplaces + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-        
-        if ([rawTag containsString:@"role::cydia"]) {
-            sqlite3_bind_int(statement, ZBPackageColumnRole, 1);
-        }
-    }
-    
-    sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, [package[@"Version"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnSource + 1, [package[@"Source"] UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnUUID + 1, [package[@"UUID"] UTF8String], -1, SQLITE_TRANSIENT);
-    
-    sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, [package[@"Date"] intValue]);
-    
+    sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, package[ZBPackageColumnDescription], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, package[ZBPackageColumnPriority], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnProvides + 1, package[ZBPackageColumnProvides], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnReplaces + 1, package[ZBPackageColumnReplaces], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnSection + 1, package[ZBPackageColumnSection], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnSHA256 + 1, package[ZBPackageColumnSHA256], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnTag + 1, package[ZBPackageColumnTag], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnSource + 1, package[ZBPackageColumnSource], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnUUID + 1, package[ZBPackageColumnUUID], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, 0);
     
     int result = sqlite3_step(statement);
     if (result != SQLITE_DONE) {
         ZBLog(@"[Zebra] Failed to insert package into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+    }
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+}
+
+- (void)insertSource:(NSDictionary *)source {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertSource];
+    
+    int result;
+    NSString *rawArchs = source[@"Architectures"];
+    if (rawArchs) {
+        NSArray *architectures = [rawArchs componentsSeparatedByString:@" "];
+        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:architectures];
+        result = sqlite3_bind_blob(statement, ZBSourceColumnArchitectures + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
+    }
+    
+    result = sqlite3_bind_text(statement, ZBSourceColumnArchiveType + 1, [source[@"ArchiveType"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnCodename + 1, [source[@"Codename"] UTF8String], -1, SQLITE_TRANSIENT);
+    
+    NSArray *components = source[@"Components"];
+    if (components) {
+        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:components];
+        sqlite3_bind_blob(statement, ZBSourceColumnComponents + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
+    }
+    
+    result = sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, [source[@"Distribution"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, [source[@"Label"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, [source[@"Origin"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, [source[@"Remote"] intValue]);
+    result = sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, [source[@"Description"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, [source[@"Suite"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnURL + 1, [source[@"URL"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, [source[@"UUID"] UTF8String], -1, SQLITE_TRANSIENT);
+    result = sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, [source[@"Version"] UTF8String], -1, SQLITE_TRANSIENT);
+    
+    result = sqlite3_step(statement);
+//    NSLog(@"[Zebra] %s", sqlite3_expanded_sql(statement));
+    if (result != SQLITE_DONE) {
+        ZBLog(@"[Zebra] Failed to insert source into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
     }
     
     sqlite3_clear_bindings(statement);

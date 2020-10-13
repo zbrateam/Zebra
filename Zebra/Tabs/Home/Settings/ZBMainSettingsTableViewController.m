@@ -499,7 +499,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
         NSMutableArray *blockedSources = [NSMutableArray new];
         for (ZBSource *source in selectedSources) {
-            [blockedSources addObject:[source baseFilename]];
+            [blockedSources addObject:[source uuid]];
         }
         [ZBSettings setSourceBlacklist:blockedSources];
     }];

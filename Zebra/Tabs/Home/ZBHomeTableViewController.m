@@ -152,7 +152,7 @@ typedef enum ZBLinksOrder : NSUInteger {
                             if ([json objectForKey:@"banners"]) {
                                 NSArray *banners = [json objectForKey:@"banners"];
                                 if (banners.count) {
-                                    [featuredItems setObject:banners forKey:[source baseFilename]];
+                                    [featuredItems setObject:banners forKey:[source uuid]];
                                 }
                             }
                         }

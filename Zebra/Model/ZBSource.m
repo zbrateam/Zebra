@@ -38,8 +38,9 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     ZBSource *local = [[ZBSource alloc] init];
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setLabel:local.origin];
-    [local setBaseFilename:@"_var_lib_dpkg_status"];
+    [local setUuid:@"_var_lib_dpkg_status"];
     [local setSourceID:0];
+    [local setRemote:NO];
     
     return local;
 }
@@ -120,7 +121,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
             [self setArchitectures:@[@"all"]];
         }
         
-        [self setBaseFilename:uuidChars != 0 ? [[NSString alloc] initWithUTF8String:uuidChars] : nil];
+        [self setUuid:uuidChars != 0 ? [[NSString alloc] initWithUTF8String:uuidChars] : nil];
 //        [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
         
@@ -148,7 +149,7 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
 }
 
 - (BOOL)canDelete {
-    return ![[self baseFilename] isEqualToString:@"getzbra.com_repo_"];
+    return ![[self uuid] isEqualToString:@"getzbra.com_repo_"];
 }
 
 - (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {

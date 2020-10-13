@@ -469,11 +469,11 @@
     if (source == NULL) return NULL;
     
     NSString *listsLocation = [ZBAppDelegate listsLocation];
-    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_Packages"];
+    NSString *filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source uuid], @"_Packages"];
     NSFileManager *filemanager = [NSFileManager defaultManager];
     
     if (![filemanager fileExistsAtPath:filename]) {
-        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source baseFilename], @"_main_binary-iphoneos-arm_Packages"];
+        filename = [NSString stringWithFormat:@"%@/%@%@", listsLocation, [source uuid], @"_main_binary-iphoneos-arm_Packages"];
         
         if (![filemanager fileExistsAtPath:filename]) {
             return NULL;

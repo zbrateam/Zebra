@@ -14,7 +14,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageManager : NSObject
-- (void)importPackagesFromFile:(NSString *)path toSource:(ZBSource *)source;
+- (void)importPackagesFromSource:(ZBSource *)source;
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source;
 @end
 

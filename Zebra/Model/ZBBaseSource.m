@@ -15,31 +15,6 @@
 
 @implementation ZBBaseSource
 
-@synthesize archiveType;
-@synthesize repositoryURI;
-@synthesize distribution;
-@synthesize components;
-
-@synthesize mainDirectoryURL;
-@synthesize packagesDirectoryURL;
-@synthesize releaseURL;
-
-@synthesize releaseTaskIdentifier;
-@synthesize packagesTaskIdentifier;
-
-@synthesize packagesTaskCompleted;
-@synthesize releaseTaskCompleted;
-
-@synthesize packagesFilePath;
-@synthesize releaseFilePath;
-
-@synthesize baseFilename;
-
-@synthesize verificationStatus;
-@synthesize label;
-@synthesize iconURL;
-@synthesize sourceID;
-
 NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 
 + (ZBBaseSource *)zebraSource {
@@ -113,45 +88,46 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     self = [super init];
     
     if (self) {
-        self->verificationStatus = ZBSourceUnverified;
+        self.verificationStatus = ZBSourceUnverified;
         
-        self->archiveType = archiveType;
-        self->repositoryURI = repositoryURI;
-        self->label = repositoryURI;
-        self->distribution = distribution;
-        self->sourceID = INT_MIN;
+        self.archiveType = archiveType;
+        self.repositoryURI = repositoryURI;
+        self.label = repositoryURI;
+        self.distribution = distribution;
+//        self->sourceID = INT_MIN;
         
         if (components && [components count]) {
             NSMutableArray *check = [components mutableCopy];
             [check removeObject:@""];
             
             if ([check count]) {
-                self->components = components;
+                self.components = components;
             }
         }
         
-        if ([self->distribution hasSuffix:@"/"]) { // If the distribution has a '/' at the end of it, it is likely a flat format
-            if ([self->components count]) return NULL; // If you have components and a / at the end of your distribution, your source is malformed
+        if ([self.distribution hasSuffix:@"/"]) { // If the distribution has a '/' at the end of it, it is likely a flat format
+            if ([self.components count]) return NULL; // If you have components and a / at the end of your distribution, your source is malformed
             
-            NSURL *baseURL = [NSURL URLWithString:self->repositoryURI];
-            mainDirectoryURL = [NSURL URLWithString:self->distribution relativeToURL:baseURL];
+            NSURL *baseURL = [NSURL URLWithString:self.repositoryURI];
+            self.mainDirectoryURL = [NSURL URLWithString:self.distribution relativeToURL:baseURL];
             
-            packagesDirectoryURL = mainDirectoryURL;
+            self.packagesDirectoryURL = self.mainDirectoryURL;
         }
-        else if (self->components && [self->components count]) { // This repository has a non-flat format with a distribution and components
-            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", self->repositoryURI, self->distribution];
-            mainDirectoryURL = [NSURL URLWithString:mainDirectory];
+        else if (self.components && [self.components count]) { // This repository has a non-flat format with a distribution and components
+            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", self.repositoryURI, self.distribution];
+            self.mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
-            packagesDirectoryURL = [mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", self->components[0], [ZBDevice debianArchitecture]]];
+            self.packagesDirectoryURL = [self.mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", self.components[0], [ZBDevice debianArchitecture]]];
         }
         
-        if (!mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
-        releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
+        if (!self.mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
+        self.releaseURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
-        NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
-        NSString *schemeless = [mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
-        self->baseFilename = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        self->iconURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"];
+        NSString *mainDirectoryString = [self.mainDirectoryURL absoluteString];
+        NSString *schemeless = [self.mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[self.mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
+        self.uuid = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        self.iconURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"];
+        self.remote = ![self.mainDirectoryURL isFileURL];
     }
     
     return self;
@@ -263,8 +239,8 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 }
 
 - (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion {
-    if (verificationStatus != ZBSourceUnverified && completion) {
-        completion(verificationStatus);
+    if (self.verificationStatus != ZBSourceUnverified && completion) {
+        completion(self.verificationStatus);
         return;
     }
     
@@ -278,7 +254,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[self.packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [xzRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -286,17 +262,17 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
         }
         else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
         }
     }];
     [xzTask resume];
     
-    NSMutableURLRequest *bz2Request = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.bz2"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSMutableURLRequest *bz2Request = [NSMutableURLRequest requestWithURL:[self.packagesDirectoryURL URLByAppendingPathComponent:@"Packages.bz2"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [bz2Request setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -304,17 +280,17 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
         }
         else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
         }
     }];
     [bz2Task resume];
     
-    NSMutableURLRequest *gzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.gz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSMutableURLRequest *gzRequest = [NSMutableURLRequest requestWithURL:[self.packagesDirectoryURL URLByAppendingPathComponent:@"Packages.gz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [gzRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -322,17 +298,17 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
         }
         else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
         }
     }];
     [gzTask resume];
     
-    NSMutableURLRequest *lzmaRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.lzma"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSMutableURLRequest *lzmaRequest = [NSMutableURLRequest requestWithURL:[self.packagesDirectoryURL URLByAppendingPathComponent:@"Packages.lzma"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [lzmaRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -340,17 +316,17 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
         }
         else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
         }
     }];
     [lzmaTask resume];
     
-    NSMutableURLRequest *uncompressedRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSMutableURLRequest *uncompressedRequest = [NSMutableURLRequest requestWithURL:[self.packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     [uncompressedRequest setHTTPMethod:@"HEAD"];
     
     NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -358,12 +334,12 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
             [session invalidateAndCancel];
             
-            self->verificationStatus = ZBSourceExists;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
         }
         else if (--tasks == 0) {
-            self->verificationStatus = ZBSourceImaginary;
-            if (completion) completion(self->verificationStatus);
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
         }
     }];
     [uncompressedTask resume];
@@ -374,13 +350,13 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 }
 
 - (void)getLabel:(void (^)(NSString *label))completion {
-    if (![label isEqualToString:repositoryURI] && completion) completion(label);
+    if (![self.label isEqualToString:self.repositoryURI] && completion) completion(self.label);
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-    NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:self.releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
     
     NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -399,19 +375,19 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         }];
         
         if (label) {
-            self->label = label;
+            self.label = label;
             if (completion) completion(label);
             return;
         }
         
-        self->label = [self->repositoryURI copy];
+        self.label = [self.repositoryURI copy];
         if (completion) completion(label);
     }];
     [releaseTask resume];
 }
 
 - (NSString *)debLine {
-    if (self.components && [components count]) {
+    if (self.components && [self.components count]) {
         return [NSString stringWithFormat:@"%@ %@ %@ %@\n", self.archiveType, self.repositoryURI, self.distribution, [self.components componentsJoinedByString:@" "]];
     }
     
@@ -481,7 +457,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 - (NSArray <NSString *> *)lists {
     NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[ZBAppDelegate listsLocation] error:nil];
     
-    return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", self.baseFilename]];
+    return [files filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[cd] %@", self.uuid]];
 }
 
 - (NSString *)description {

@@ -408,7 +408,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBBasePackage *> *)packagesMatchingFilters:(NSString *)filters;
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source;
 - (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers;
-- (void)insertPackage:(NSDictionary *)package;
+- (void)insertPackage:(char * _Nonnull * _Nonnull)package;
+- (void)insertSource:(NSDictionary *)source;
+- (int)beginTransaction;
+- (int)endTransaction;
 
 @end
 

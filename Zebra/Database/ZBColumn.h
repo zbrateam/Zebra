@@ -40,6 +40,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnTag,
     ZBPackageColumnUUID,
     ZBPackageColumnSource,
+    ZBPackageColumnCount,
 };
 
 typedef NS_ENUM(NSUInteger, ZBSourceColumn) {

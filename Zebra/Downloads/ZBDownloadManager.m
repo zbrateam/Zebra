@@ -76,7 +76,7 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
-        if (source.sourceID == 0) {
+        if (!source.remote) {
             [downloadDelegate startedDownloadingSource:source];
             
             source.releaseTaskCompleted = YES;

@@ -21,7 +21,7 @@
 
 @interface ZBSourceManager () {
     BOOL recachingNeeded;
-    ZBPackageManager *packageManger;
+    ZBPackageManager *packageManager;
     ZBDatabaseManager *databaseManager;
     ZBDownloadManager *downloadManager;
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
@@ -53,7 +53,7 @@
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
 //        [databaseManager addDatabaseDelegate:self];
-        packageManger = [[ZBPackageManager alloc] init];
+        packageManager = [[ZBPackageManager alloc] init];
         
         recachingNeeded = YES;
         refreshInProgress = NO;
@@ -317,8 +317,8 @@
                 
                 // Delete files from featured.plist (if they exist)
                 NSMutableDictionary *featured = [NSMutableDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]];
-                if ([featured objectForKey:[source baseFilename]]) {
-                    [featured removeObjectForKey:[source baseFilename]];
+                if ([featured objectForKey:[source uuid]]) {
+                    [featured removeObjectForKey:[source uuid]];
                 }
                 [featured writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:NO];
                 
@@ -503,7 +503,7 @@
 - (void)startedDownloadingSource:(ZBBaseSource *)source {
     ZBLog(@"[Zebra](ZBSourceManager) Started downloading %@", source);
     
-    [busyList setObject:@YES forKey:source.baseFilename];
+    [busyList setObject:@YES forKey:source.uuid];
     [self bulkStartedDownloadForSource:source];
 }
 
@@ -528,7 +528,11 @@
 //        [self bulkFinishedDownloadForSource:source];
 //    }
     
-    if (source.packagesFilePath) [packageManger importPackagesFromFile:source.packagesFilePath toSource:source];
+    NSDate *methodStart = [NSDate date];
+    if (source) [self importSource:source];
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"%@ import executionTime = %f", source.label, executionTime);
 }
 
 - (void)finishedAllDownloads {
@@ -538,53 +542,35 @@
 //    [databaseManager parseSources:completedSources];
 }
 
-#pragma mark - Database Delegate
-
-- (void)databaseStartedUpdate {
-    ZBLog(@"[Zebra](ZBSourceManager) Started parsing sources");
-}
-
-- (void)startedImportingSource:(ZBBaseSource *)source {
-    ZBLog(@"[Zebra](ZBSourceManager) Started parsing %@", source);
-    if (source) {
-        [busyList setObject:@YES forKey:source.baseFilename];
-        [self bulkStartedImportForSource:source];
-    }
-}
-
-- (void)finishedImportingSource:(ZBSource *)source error:(NSError *)error {
-    ZBLog(@"[Zebra](ZBSourceManager) Finished parsing %@", source);
-    if (source) {
-        [busyList setObject:@NO forKey:source.baseFilename];
-        
-        NSMutableArray *mutableSources = [_sources mutableCopy];
-        NSUInteger index = [mutableSources indexOfObject:source];
-        if (index < mutableSources.count) {
-            [mutableSources replaceObjectAtIndex:index withObject:source];
-        }
-        _sources = [mutableSources sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
-        
-        if (error) {
-            source.errors = source.errors ? [source.errors arrayByAddingObject:error] : @[error];
-        }
-        source.warnings = [self warningsForSource:source];
-        
-        [self bulkFinishedImportForSource:source];
-    }
-}
-
-- (void)databaseCompletedUpdate {
-    ZBLog(@"[Zebra](ZBSourceManager) Finished parsing sources");
-    refreshInProgress = NO;
-    busyList = NULL;
-    completedSources = NULL;
-//    [databaseManager checkForPackageUpdates];
-//    [databaseManager updateLastUpdated];
-    [self bulkFinishedSourceRefresh];
-}
-
 - (void)packageUpdatesAvailable:(int)numberOfUpdates {
     [self bulkUpdatesAvailable:numberOfUpdates];
+}
+
+- (void)importSource:(ZBBaseSource *)source {
+    if (source.remote) {
+        NSMutableDictionary *sourceDictionary = [NSMutableDictionary new];
+        NSString *sourceRelease = [NSString stringWithContentsOfFile:source.releaseFilePath encoding:NSUTF8StringEncoding error:nil];
+        [sourceRelease enumerateLinesUsingBlock:^(NSString * _Nonnull line, BOOL * _Nonnull stop) {
+            NSRange colonLocation = [line rangeOfString:@":"];
+            if (colonLocation.location != NSNotFound) {
+                NSString *key = [line substringWithRange:NSMakeRange(0, colonLocation.location)];
+                if (line.length != colonLocation.location + 1) {
+                    NSString *value = [line substringWithRange:NSMakeRange(colonLocation.location + 2, line.length - colonLocation.location - 2)];
+                    
+                    sourceDictionary[key] = value;
+                }
+            }
+        }];
+        sourceDictionary[@"Components"] = source.components;
+        sourceDictionary[@"UUID"] = source.uuid;
+        sourceDictionary[@"ArchiveType"] = source.archiveType;
+        sourceDictionary[@"Distribution"] = source.distribution;
+        sourceDictionary[@"URL"] = source.repositoryURI;
+        
+        [databaseManager insertSource:sourceDictionary];
+    }
+    
+    [packageManager importPackagesFromSource:source];
 }
 
 #pragma mark - Source Delegate Notifiers
@@ -680,7 +666,7 @@
 }
 
 - (BOOL)isSourceBusy:(ZBBaseSource *)source {
-    return [[busyList objectForKey:source.baseFilename] boolValue];
+    return [[busyList objectForKey:source.uuid] boolValue];
 }
 
 @end

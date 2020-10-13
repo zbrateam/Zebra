@@ -22,6 +22,8 @@ typedef enum : NSUInteger {
 
 @interface ZBBaseSource : NSObject
 
+@property BOOL remote;
+
 /*!
  @brief The archive type
  @discussion Indicates the type of archive. Deb indicates that the archive contains binary packages (deb), the pre-compiled packages that we normally use. Deb-src indicates source packages, which are the original program sources plus the Debian control file (.dsc) and the diff.gz containing the changes needed for packaging the program.
@@ -72,7 +74,7 @@ typedef enum : NSUInteger {
 @property (nonatomic) NSString *_Nullable releaseFilePath;
 
 /*! @brief The base filename of the repository, based on the URL */
-@property (nonatomic) NSString * _Nullable baseFilename;
+@property (nonatomic) NSString * _Nullable uuid;
 
 /*! @brief The verification status of the source */
 @property ZBSourceVerificationStatus verificationStatus;
