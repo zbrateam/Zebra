@@ -33,6 +33,23 @@
     return self;
 }
 
+char** new_package() {
+    char **package = malloc(ZBPackageColumnCount * sizeof(char *));
+    for (int i = 0; i < ZBPackageColumnCount; i++) {
+        package[i] = malloc(512 * sizeof(char *));
+        package[i][0] = '\0';
+    }
+    
+    return package;
+}
+
+void free_package(char **package) {
+    for (int i = 0; i < ZBPackageColumnCount; i++) {
+        free(package[i]);
+    }
+    free(package);
+}
+
 - (void)importPackagesFromSource:(ZBSource *)source {
     if (!source.packagesFilePath) return;
     
@@ -44,25 +61,43 @@
     
     currentUpdateDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
     
-    [databaseManager beginTransaction];
-    NSData *packagesData = [NSData dataWithContentsOfFile:source.packagesFilePath];
-    NSData *separator = [NSData dataWithBytes:"\n\n" length:2];
-    NSRange searchRange = NSMakeRange(0, packagesData.length);
-    NSRange foundRange = [packagesData rangeOfData:separator options:0 range:searchRange];
-    while (foundRange.location != NSNotFound) {
-        NSData *packageData = [packagesData subdataWithRange:NSMakeRange(searchRange.location, foundRange.location - searchRange.location)];
-        [self importPackage:packageData toSource:source];
-        
-        searchRange.location = foundRange.location + foundRange.length;
-        searchRange.length = packagesData.length  - searchRange.location;
-        foundRange = [packagesData rangeOfData:separator options:0 range:searchRange];
-    }
+    FILE *file = fopen(source.packagesFilePath.UTF8String, "r");
+    char line[2048];
+    char **package = new_package();
     
-    if (searchRange.length > 0 && foundRange.location != NSNotFound) {
-        NSData *packageData = [packagesData subdataWithRange:NSMakeRange(searchRange.location, foundRange.location - searchRange.location)];
-        [self importPackage:packageData toSource:source];
+    [databaseManager beginTransaction];
+    while (fgets(line, 2048, file)) {
+        if (line[0] == '\n' || line[0] == '\r') {
+            const char *identifier = package[ZBPackageColumnIdentifier];
+            if (identifier) {
+                if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
+                
+                NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBSourceColumnVersion], source.uuid];
+                if (![uuids containsObject:uniqueIdentifier]) {
+                    strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
+                    strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
+        //            package[ZBPackageColumnLastSeen] = &currentUpdateDate;
+                    
+                    [databaseManager insertPackage:package];
+                    free_package(package);
+                    package = new_package();
+                } else {
+                    [uuids removeObject:uniqueIdentifier];
+                }
+            }
+        } else {
+            char *key = strtok((char *)line, ":");
+            ZBPackageColumn column = [self columnFromString:key];
+            if (key && column < ZBPackageColumnCount) {
+                char *value = strtok(NULL, ":");
+                if (value && value[0] == ' ') value++;
+                if (value) strcpy(package[column], value);
+            }
+        }
     }
     [databaseManager endTransaction];
+    free_package(package);
+    fclose(file);
     
     [databaseManager deletePackagesWithUniqueIdentifiers:uuids];
     [uuids removeAllObjects];
@@ -114,48 +149,6 @@
     } else {
         return ZBPackageColumnCount;
     }
-}
-
-- (void)importPackage:(NSData *)data toSource:(ZBSource *)source {
-    char **package = malloc(ZBPackageColumnCount * sizeof(char *));
-    for (int i = 0; i < ZBPackageColumnCount; i++) {
-        package[i] = malloc(512 * sizeof(char *));
-        package[i][0] = '\0';
-    }
-    
-    NSString *control = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    if (control) {
-        [control enumerateLinesUsingBlock:^(NSString * _Nonnull line, BOOL * _Nonnull stop) {
-            const char *charLine = [line UTF8String];
-            char *key = strtok((char *)charLine, ":");
-            char *value = strtok(NULL, ":");
-            if (value && value[0] == ' ') value++;
-
-            ZBPackageColumn column = [self columnFromString:key];
-            if (key && value && column < ZBPackageColumnCount) strcpy(package[column], value);
-        }];
-        
-        const char *identifier = package[ZBPackageColumnIdentifier];
-        if (identifier) {
-            if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
-            
-            NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBSourceColumnVersion], source.uuid];
-            if (![uuids containsObject:uniqueIdentifier]) {
-                strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
-                strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
-    //            package[ZBPackageColumnLastSeen] = &currentUpdateDate;
-                
-                [databaseManager insertPackage:package];
-            } else {
-                [uuids removeObject:uniqueIdentifier];
-            }
-        }
-        
-    }
-    for (int i = 0; i < ZBPackageColumnCount; i++) {
-        free(package[i]);
-    }
-    free(package);
 }
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
