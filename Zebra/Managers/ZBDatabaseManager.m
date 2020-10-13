@@ -227,259 +227,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 #pragma mark - Populating the database
 
-- (void)parseSources:(NSArray <ZBBaseSource *> *)sources {
-//    sqlite3_int64 currentDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
-//
-//    for (ZBBaseSource *source in sources) {
-//        //Deal with the source first
-//        int sourceID = [self sourceIDFromBaseFileName:[source baseFilename]];
-//        if (!source.releaseFilePath && source.packagesFilePath) { //We need to create a dummy source (for sources with no Release file)
-//            if (sourceID == -1) {
-//                sourceID = [self nextSourceID];
-//                createDummySource([ZBDatabaseManager baseSourceStructFromSource:source], self->database, sourceID);
-//            }
-//        }
-//        else if (source.releaseFilePath) {
-//            if (sourceID == -1) { // Source does not exist in database, create it.
-//                sourceID = [self nextSourceID];
-//                if (importSourceToDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
-//                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
-//                }
-//            } else {
-//                if (updateSourceInDatabase([ZBDatabaseManager baseSourceStructFromSource:source], [source.releaseFilePath UTF8String], self->database, sourceID) != PARSEL_OK) {
-//                    [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.releaseFilePath] atLevel:ZBLogLevelError];
-//                }
-//            }
-//
-//            if ([source.repositoryURI hasPrefix:@"https"]) {
-//                NSURL *url = [NSURL URLWithString:[source.repositoryURI stringByAppendingPathComponent:@"payment_endpoint"]];
-//
-//                NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//                    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-//                    NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//                    if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
-//                        if ([endpoint hasPrefix:@"https"]) {
-//                            [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Adding Payment Vendor URL for %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
-//                            if ([self openDatabase] == SQLITE_OK) {
-//                                addPaymentEndpointForSource([endpoint UTF8String], self->database, sourceID);
-//                                [self closeDatabase];
-//                            }
-//                        }
-//                    }
-//                }];
-//
-//                [task resume];
-//            }
-//        }
-//
-//        // If there is no packages file (aka it 304'd) we need to check to see if there are actually any packages in the database. If there aren't any, we definitley need to re-parse.
-//        source.sourceID = sourceID;
-//        if (!source.packagesFilePath && [self numberOfPackagesInSource:(ZBSource *)source section:NULL] < 1) {
-//            NSString *filename = [source.baseFilename stringByAppendingString:@"Packages"];
-//            source.packagesFilePath = [[ZBAppDelegate listsLocation] stringByAppendingPathComponent:filename];
-//        }
-//
-//        //Deal with the packages
-//        if (source.packagesFilePath && updatePackagesInDatabase([source.packagesFilePath UTF8String], self->database, sourceID, currentDate) != PARSEL_OK) {
-//            [self bulkPostStatusUpdate:[NSString stringWithFormat:@"%@ %@\n", NSLocalizedString(@"Error while opening file:", @""), source.packagesFilePath] atLevel:ZBLogLevelError];
-//        }
-//
-//        ZBSource *importedSource = [self sourceFromSourceID:sourceID];
-//        [self bulkFinishedImportingSource:importedSource error:nil];
-//    }
-//    [self updateLastUpdated];
-}
-
-- (void)importLocalPackagesAndCheckForUpdates:(BOOL)checkForUpdates sender:(id)sender {
-//    if (haltDatabaseOperations) {
-//        NSLog(@"[Zebra] Database operations halted");
-//        return;
-//    }
-//
-//    BOOL needsDelegateStart = !([sender isKindOfClass:[ZBDatabaseManager class]]);
-//    if (needsDelegateStart) {
-//        [self bulkDatabaseStartedUpdate];
-//    }
-//    NSLog(@"[Zebra] Importing local packages");
-//    [self importLocalPackages];
-//    if (checkForUpdates) {
-//        [self checkForPackageUpdates];
-//    }
-//    if (needsDelegateStart) {
-//        [self bulkDatabaseCompletedUpdate];
-//    }
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-//    databaseBeingUpdated = NO;
-}
-
-- (void)importLocalPackages {
-//    if (haltDatabaseOperations) {
-//        NSLog(@"[Zebra] Database operations halted");
-//        return;
-//    }
-//
-//    NSString *installedPath;
-//    if ([ZBDevice needsSimulation]) { // If the target is a simlator, load a demo list of installed packages
-//        installedPath = [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"];
-//    } else { // Otherwise, load the actual file
-//        installedPath = @"/var/lib/dpkg/status";
-//    }
-//
-//    if ([self openDatabase] == SQLITE_OK) {
-//        // Delete packages from local sources (-1 and 0)
-//        sqlite3_exec(database, "DELETE FROM PACKAGES WHERE REPOID = 0", NULL, 0, NULL);
-//        sqlite3_exec(database, "DELETE FROM PACKAGES WHERE REPOID = -1", NULL, 0, NULL);
-//
-//        // Import packages from the installedPath
-//        importPackagesToDatabase([installedPath UTF8String], database, 0);
-//
-//        [self closeDatabase];
-//    } else {
-//        [self printDatabaseError];
-//    }
-}
-
-- (void)checkForPackageUpdates {
-//    if ([self openDatabase] == SQLITE_OK) {
-//        NSMutableArray *installedPackages = [NSMutableArray new];
-//
-//        sqlite3_stmt *statement = NULL;
-//        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE REPOID = 0;", -1, &statement, nil) == SQLITE_OK) {
-//            while (sqlite3_step(statement) == SQLITE_ROW) {
-//                ZBPackage *package = [[ZBPackage alloc] initWithSQLiteStatement:statement];
-//                [installedPackages addObject:package];
-//            }
-//        } else {
-//            [self printDatabaseError];
-//        }
-//        sqlite3_finalize(statement);
-//
-//        // Check for updates
-//        NSLog(@"[Zebra] Checking for updates...");
-//        NSMutableArray *found = [NSMutableArray new];
-//
-//        createTable(database, 2);
-//
-//        int numberOfUpdates = 0;
-//        upgradePackageIDs = [NSMutableArray new];
-//        for (ZBPackage *package in installedPackages) {
-//            if ([found containsObject:package.identifier]) {
-//                ZBLog(@"[Zebra] I already checked %@, skipping", package.identifier);
-//                continue;
-//            }
-//
-//            ZBPackage *topPackage = [self topVersionForPackage:package];
-//            NSComparisonResult compare = [package compare:topPackage];
-//            if (compare == NSOrderedAscending) {
-//                ZBLog(@"[Zebra] Installed package %@ is less than top package %@, it needs an update", package, topPackage);
-//
-//                BOOL ignoreUpdates = [topPackage ignoreUpdates];
-//                if (!ignoreUpdates) ++numberOfUpdates;
-//                NSString *query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', %d);", [topPackage identifier], [topPackage version], ignoreUpdates ? 1 : 0];
-//
-//                if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-//                    while (sqlite3_step(statement) == SQLITE_ROW) {
-//                        break;
-//                    }
-//                } else {
-//                    [self printDatabaseError];
-//                }
-//                sqlite3_finalize(statement);
-//
-//                [upgradePackageIDs addObject:[topPackage identifier]];
-//            } else if (compare == NSOrderedSame) {
-//                NSString *query;
-//                BOOL packageIgnoreUpdates = [package ignoreUpdates];
-//                if (packageIgnoreUpdates)
-//                    // This package has no update and the user actively ignores updates from it, we update the latest version here
-//                    query = [NSString stringWithFormat:@"REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(\'%@\', \'%@\', 1);", package.identifier, package.version];
-//                else
-//                    // This package has no update and the user does not ignore updates from it, having the record in the database is waste of space
-//                    query = [NSString stringWithFormat:@"DELETE FROM UPDATES WHERE PACKAGE = \'%@\';", package.identifier];
-//                if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-//                    while (sqlite3_step(statement) == SQLITE_ROW) {
-//                        break;
-//                    }
-//                } else {
-//                    [self printDatabaseError];
-//                }
-//                sqlite3_finalize(statement);
-//            }
-//            [found addObject:package.identifier];
-//        }
-//
-//        //In order to make this easy, we're going to check for "Essential" packages that aren't installed and mark them as updates
-//        NSMutableArray *essentials = [NSMutableArray new];
-//        sqlite3_stmt *essentialStatement; //v important statement
-//        if (sqlite3_prepare_v2(database, "SELECT PACKAGE, VERSION, REPOID FROM PACKAGES WHERE REPOID > 0 AND ESSENTIAL = \'yes\' COLLATE NOCASE", -1, &essentialStatement, nil) == SQLITE_OK) {
-//            while (sqlite3_step(essentialStatement) == SQLITE_ROW) {
-//                const char *identifierChars = (const char *)sqlite3_column_text(essentialStatement, 0);
-//                const char *versionChars = (const char *)sqlite3_column_text(essentialStatement, 1);
-//                int sourceID = sqlite3_column_int(essentialStatement, 2);
-//                ZBSource *source = [[ZBSourceManager sharedInstance] sourceMatchingSourceID:sourceID];
-//                if (source && [[ZBSourceManager sharedInstance] pinPriorityForSource:source strict:YES] >= 500) {
-//                    NSString *packageIdentifier = [NSString stringWithUTF8String:identifierChars];
-//                    NSString *version = [NSString stringWithUTF8String:versionChars];
-//
-//                    if (![self packageIDIsInstalled:packageIdentifier version:NULL]) {
-//                        NSDictionary *essentialPackage = @{@"id": packageIdentifier, @"version": version};
-//                        [essentials addObject:essentialPackage];
-//                    }
-//                }
-//            }
-//        } else {
-//            [self printDatabaseError];
-//        }
-//        sqlite3_finalize(essentialStatement);
-//
-//        for (NSDictionary *essentialPackage in essentials) {
-//            NSString *identifier = [essentialPackage objectForKey:@"id"];
-//            NSString *version = [essentialPackage objectForKey:@"version"];
-//
-//            BOOL ignoreUpdates = [self areUpdatesIgnoredForPackageIdentifier:[essentialPackage objectForKey:@"id"]];
-//            if (!ignoreUpdates) ++numberOfUpdates;
-//
-//            if (sqlite3_prepare_v2(database, "REPLACE INTO UPDATES(PACKAGE, VERSION, IGNORE) VALUES(?, ?, ?);", -1, &statement, nil) == SQLITE_OK) {
-//                sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
-//                sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
-//                sqlite3_bind_int(statement, 3, ignoreUpdates ? 1 : 0);
-//                while (sqlite3_step(statement) == SQLITE_ROW) {
-//                    break;
-//                }
-//            } else {
-//                [self printDatabaseError];
-//            }
-//            sqlite3_finalize(statement);
-//
-//            [upgradePackageIDs addObject:identifier];
-//        }
-//
-//        [self bulkPackageUpdatesAvailable:numberOfUpdates];
-//        [self closeDatabase];
-//    } else {
-//        [self printDatabaseError];
-//    }
-}
-
-- (void)dropTables {
-//    if ([self openDatabase] == SQLITE_OK) {
-//        sqlite3_exec(database, "DROP TABLE PACKAGES;", NULL, 0, NULL);
-//        sqlite3_exec(database, "DROP TABLE REPOS;", NULL, 0, NULL);
-//
-//        // Update UPDATES table schema while retaining user data
-//        sqlite3_exec(database, "DELETE FROM UPDATES WHERE IGNORE != 1;", NULL, 0, NULL);
-//        sqlite3_exec(database, "CREATE TABLE UPDATES_SNAPSHOT AS SELECT PACKAGE, VERSION, IGNORE FROM UPDATES;", NULL, 0, NULL);
-//        sqlite3_exec(database, "DROP TABLE UPDATES;", NULL, 0, NULL);
-//        createTable(database, 2);
-//        sqlite3_exec(database, "INSERT INTO UPDATES SELECT PACKAGE, VERSION, IGNORE FROM UPDATES_SNAPSHOT;", NULL, 0, NULL);
-//        sqlite3_exec(database, "DROP TABLE UPDATES_SNAPSHOT;", NULL, 0, NULL);
-//
-//        [self closeDatabase];
-//    } else {
-//        [self printDatabaseError];
-//    }
-}
-
 - (void)updateLastUpdated {
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedDate"];
 }
@@ -2187,7 +1934,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return NULL;
 }
 
-#pragma mark - New Stuff
+#pragma mark - Statement Preparation
 
 - (NSString *)statementStringForStatementType:(ZBDatabaseStatementType)statement {
     switch (statement) {
@@ -2240,8 +1987,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return result;
 }
 
+#pragma mark - Managing Transactions
+
 - (int)beginTransaction {
-    int result = sqlite3_exec(database, "BEGIN TRANSACTION;", NULL, NULL, NULL);
+    int result = sqlite3_exec(database, "BEGIN EXCLUSIVE TRANSACTION;", NULL, NULL, NULL);
     if (result != SQLITE_OK) {
         ZBLog(@"[Zebra] Failed to begin transaction with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
     }
@@ -2255,6 +2004,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     }
     return result;
 }
+
+#pragma mark - Package Retrieval
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSource];
@@ -2283,31 +2034,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_reset(statement);
     
     return packages;
-}
-
-- (NSSet <ZBSource *> *)sources {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSources];
-    int result = [self beginTransaction];
-    
-    NSMutableSet *sources = [NSMutableSet new];
-    if (result == SQLITE_OK) {
-        do {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                if (source) [sources addObject:source];
-            }
-        } while (result == SQLITE_ROW);
-        
-        if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query sources with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-        }
-    }
-    
-    [self endTransaction];
-    sqlite3_reset(statement);
-    
-    return sources;
 }
 
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source {
@@ -2341,26 +2067,34 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return uuids;
 }
 
-- (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemovePackageWithUUID];
+#pragma mark - Source Retrieval
+
+- (NSSet <ZBSource *> *)sources {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSources];
     int result = [self beginTransaction];
-    for (NSString *uuid in uniqueIdentifiers) {
-        result = sqlite3_bind_text(statement, 1, [uuid UTF8String], -1, SQLITE_TRANSIENT);
-        if (result == SQLITE_OK) {
+    
+    NSMutableSet *sources = [NSMutableSet new];
+    if (result == SQLITE_OK) {
+        do {
             result = sqlite3_step(statement);
-            
-            if (result != SQLITE_DONE) {
-                ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            if (result == SQLITE_ROW) {
+                ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+                if (source) [sources addObject:source];
             }
+        } while (result == SQLITE_ROW);
+        
+        if (result != SQLITE_DONE) {
+            ZBLog(@"[Zebra] Failed to query sources with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
-        sqlite3_clear_bindings(statement);
-        sqlite3_reset(statement);
     }
     
     [self endTransaction];
-    sqlite3_clear_bindings(statement);
     sqlite3_reset(statement);
+    
+    return sources;
 }
+
+#pragma mark - Package Management
 
 - (void)insertPackage:(char **)package {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
@@ -2451,38 +2185,47 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_reset(statement);
 }
 
-- (void)insertSource:(NSDictionary *)source {
+- (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemovePackageWithUUID];
+    int result = [self beginTransaction];
+    for (NSString *uuid in uniqueIdentifiers) {
+        result = sqlite3_bind_text(statement, 1, [uuid UTF8String], -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    }
+    
+    [self endTransaction];
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+}
+
+#pragma mark - Source Management
+
+- (void)insertSource:(char * _Nonnull * _Nonnull)source {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertSource];
     
-    int result;
-    NSString *rawArchs = source[@"Architectures"];
-    if (rawArchs) {
-        NSArray *architectures = [rawArchs componentsSeparatedByString:@" "];
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:architectures];
-        result = sqlite3_bind_blob(statement, ZBSourceColumnArchitectures + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-    }
+    sqlite3_bind_text(statement, ZBSourceColumnArchitectures + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnArchiveType + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnCodename + 1, source[ZBSourceColumnCodename], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnComponents + 1, source[ZBSourceColumnComponents], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, source[ZBSourceColumnDistribution], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, source[ZBSourceColumnLabel], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, source[ZBSourceColumnOrigin], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, *(int *)source[ZBSourceColumnRemote]);
+    sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, source[ZBSourceColumnDescription], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, source[ZBSourceColumnSuite], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnURL + 1, source[ZBSourceColumnURL], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, source[ZBSourceColumnUUID], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, source[ZBSourceColumnVersion], -1, SQLITE_TRANSIENT);
     
-    result = sqlite3_bind_text(statement, ZBSourceColumnArchiveType + 1, [source[@"ArchiveType"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnCodename + 1, [source[@"Codename"] UTF8String], -1, SQLITE_TRANSIENT);
-    
-    NSArray *components = source[@"Components"];
-    if (components) {
-        NSData *arrayData = [NSKeyedArchiver archivedDataWithRootObject:components];
-        sqlite3_bind_blob(statement, ZBSourceColumnComponents + 1, [arrayData bytes], (unsigned int)[arrayData length], SQLITE_TRANSIENT);
-    }
-    
-    result = sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, [source[@"Distribution"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, [source[@"Label"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, [source[@"Origin"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, [source[@"Remote"] intValue]);
-    result = sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, [source[@"Description"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, [source[@"Suite"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnURL + 1, [source[@"URL"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, [source[@"UUID"] UTF8String], -1, SQLITE_TRANSIENT);
-    result = sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, [source[@"Version"] UTF8String], -1, SQLITE_TRANSIENT);
-    
-    result = sqlite3_step(statement);
-//    NSLog(@"[Zebra] %s", sqlite3_expanded_sql(statement));
+    int result = sqlite3_step(statement);
     if (result != SQLITE_DONE) {
         ZBLog(@"[Zebra] Failed to insert source into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
     }

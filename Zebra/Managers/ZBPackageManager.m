@@ -13,6 +13,7 @@
 #import <Model/ZBSource.h>
 #import <string.h>
 #import <Database/ZBColumn.h>
+#import <Helpers/utils.h>
 
 @interface ZBPackageManager () {
     ZBDatabaseManager *databaseManager;
@@ -33,24 +34,7 @@
     return self;
 }
 
-char** new_package() {
-    char **package = malloc(ZBPackageColumnCount * sizeof(char *));
-    for (int i = 0; i < ZBPackageColumnCount; i++) {
-        package[i] = malloc(512 * sizeof(void *));
-        package[i][0] = '\0';
-    }
-    
-    return package;
-}
-
-void free_package(char **package) {
-    for (int i = 0; i < ZBPackageColumnCount; i++) {
-        free(package[i]);
-    }
-    free(package);
-}
-
-- (void)importPackagesFromSource:(ZBSource *)source {
+- (void)importPackagesFromSource:(ZBBaseSource *)source {
     if (!source.packagesFilePath) return;
     
     NSDate *methodStart = [NSDate date];
@@ -63,7 +47,7 @@ void free_package(char **package) {
     
     FILE *file = fopen(source.packagesFilePath.UTF8String, "r");
     char line[2048];
-    char **package = new_package();
+    char **package = dualArrayOfSize(ZBPackageColumnCount);
     
     [databaseManager beginTransaction];
     while (fgets(line, 2048, file)) {
@@ -79,8 +63,9 @@ void free_package(char **package) {
                     memcpy(package[ZBPackageColumnLastSeen], &currentUpdateDate, sizeof(sqlite_int64 *));
                     
                     [databaseManager insertPackage:package];
-                    free_package(package);
-                    package = new_package();
+                    
+                    freeDualArrayOfSize(package, ZBPackageColumnCount);
+                    package = dualArrayOfSize(ZBPackageColumnCount);
                 } else {
                     [uuids removeObject:uniqueIdentifier];
                 }
@@ -91,12 +76,12 @@ void free_package(char **package) {
             if (key && column < ZBPackageColumnCount) {
                 char *value = strtok(NULL, ":");
                 if (value && value[0] == ' ') value++;
-                if (value) strcpy(package[column], value);
+                if (value) strcpy(package[column], trimWhitespaceFromString(value));
             }
         }
     }
     [databaseManager endTransaction];
-    free_package(package);
+    freeDualArrayOfSize(package, ZBPackageColumnCount);
     fclose(file);
     
     [databaseManager deletePackagesWithUniqueIdentifiers:uuids];
@@ -154,7 +139,6 @@ void free_package(char **package) {
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
     return [[ZBDatabaseManager sharedInstance] packagesMatchingFilters:@"source == 1"];
 }
-
 
 
 @end

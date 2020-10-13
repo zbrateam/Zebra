@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
     ZBSourceColumnURL,
     ZBSourceColumnUUID,
     ZBSourceColumnVersion,
+    ZBSourceColumnCount,
 };
 
 #endif /* ZBColumn_h */

@@ -10,11 +10,12 @@
 
 @class ZBBasePackage;
 @class ZBSource;
+@class ZBBaseSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageManager : NSObject
-- (void)importPackagesFromSource:(ZBSource *)source;
+- (void)importPackagesFromSource:(ZBBaseSource *)source;
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source;
 @end
 

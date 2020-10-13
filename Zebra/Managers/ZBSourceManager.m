@@ -8,9 +8,11 @@
 
 #import "ZBSourceManager.h"
 
+#import <Helpers/utils.h>
 #import <Model/ZBSource.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Managers/ZBPackageManager.h>
+#import <Database/ZBColumn.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -546,33 +548,65 @@
     [self bulkUpdatesAvailable:numberOfUpdates];
 }
 
-- (void)importSource:(ZBBaseSource *)source {
-    if (source.remote) {
-        NSMutableDictionary *sourceDictionary = [NSMutableDictionary new];
-        NSString *sourceRelease = [NSString stringWithContentsOfFile:source.releaseFilePath encoding:NSUTF8StringEncoding error:nil];
-        [sourceRelease enumerateLinesUsingBlock:^(NSString * _Nonnull line, BOOL * _Nonnull stop) {
-            NSRange colonLocation = [line rangeOfString:@":"];
-            if (colonLocation.location != NSNotFound) {
-                NSString *key = [line substringWithRange:NSMakeRange(0, colonLocation.location)];
-                if (line.length != colonLocation.location + 1) {
-                    NSString *value = [line substringWithRange:NSMakeRange(colonLocation.location + 2, line.length - colonLocation.location - 2)];
-                    
-                    sourceDictionary[key] = value;
+- (void)importSource:(ZBBaseSource *)baseSource {
+    if (baseSource.remote && baseSource.releaseFilePath) {
+        FILE *file = fopen(baseSource.releaseFilePath.UTF8String, "r");
+        char line[2048];
+        char **source = dualArrayOfSize(ZBSourceColumnCount);
+        
+        while (fgets(line, 2048, file)) {
+            if (line[0] != '\n' && line[0] != '\r') {
+                char *key = strtok((char *)line, ":");
+                ZBSourceColumn column = [self columnFromString:key];
+                if (key && column < ZBSourceColumnCount) {
+                    char *value = strtok(NULL, ":");
+                    if (value && value[0] == ' ') value++;
+                    if (value) strcpy(source[column], trimWhitespaceFromString(value));
                 }
             }
-        }];
-        sourceDictionary[@"Components"] = source.components;
-        sourceDictionary[@"UUID"] = source.uuid;
-        sourceDictionary[@"ArchiveType"] = source.archiveType;
-        sourceDictionary[@"Distribution"] = source.distribution;
-        sourceDictionary[@"URL"] = source.repositoryURI;
+        }
         
-        [databaseManager insertSource:sourceDictionary];
+        strcpy(source[ZBSourceColumnArchiveType], baseSource.archiveType.UTF8String);
+        
+        const char *components = [baseSource.components componentsJoinedByString:@" "].UTF8String;
+        if (components) strcpy(source[ZBSourceColumnComponents], components);
+        
+        strcpy(source[ZBSourceColumnDistribution], baseSource.distribution.UTF8String);
+        
+        int remote = baseSource.remote;
+        memcpy(source[ZBSourceColumnRemote], &remote, 1);
+        
+        strcpy(source[ZBSourceColumnURL], baseSource.repositoryURI.UTF8String);
+        strcpy(source[ZBSourceColumnUUID], baseSource.uuid.UTF8String);
+        
+        [databaseManager insertSource:source];
+        
+        freeDualArrayOfSize(source, ZBSourceColumnCount);
+        fclose(file);
     }
     
-    [packageManager importPackagesFromSource:source];
+    [packageManager importPackagesFromSource:baseSource];
 }
 
+- (ZBSourceColumn)columnFromString:(char *)string {
+    if (strcmp(string, "Author") == 0) {
+        return ZBSourceColumnArchitectures;
+    } else if (strcmp(string, "Codename") == 0) {
+        return ZBSourceColumnCodename;
+    } else if (strcmp(string, "Label") == 0) {
+        return ZBSourceColumnLabel;
+    } else if (strcmp(string, "Origin") == 0) {
+        return ZBSourceColumnOrigin;
+    } else if (strcmp(string, "Description") == 0) {
+        return ZBSourceColumnDescription;
+    } else if (strcmp(string, "Suite") == 0) {
+        return ZBSourceColumnSuite;
+    } else if (strcmp(string, "Version") == 0) {
+        return ZBSourceColumnVersion;
+    } else {
+        return ZBSourceColumnCount;
+    }
+}
 #pragma mark - Source Delegate Notifiers
 
 - (void)bulkStartedSourceRefresh {

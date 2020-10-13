@@ -406,10 +406,10 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - New Stuff
 
 - (NSArray <ZBBasePackage *> *)packagesMatchingFilters:(NSString *)filters;
-- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source;
+- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBBaseSource *)source;
 - (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers;
 - (void)insertPackage:(char * _Nonnull * _Nonnull)package;
-- (void)insertSource:(NSDictionary *)source;
+- (void)insertSource:(char * _Nonnull * _Nonnull)source;
 - (int)beginTransaction;
 - (int)endTransaction;
 
