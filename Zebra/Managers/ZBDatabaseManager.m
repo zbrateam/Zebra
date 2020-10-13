@@ -27,6 +27,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
     ZBDatabaseStatementTypeInsertSource,
+    ZBDatabaseStatementTypeSectionReadout,
     ZBDatabaseStatementTypeCount
 };
 
@@ -505,91 +506,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 ////    [self.downloadManager stopAllDownloads];
 //    [self bulkDatabaseCompletedUpdate];
 //    [self removeDatabaseDelegate:delegate];
-}
-
-- (NSArray * _Nullable)sectionReadout {
-//    if ([self openDatabase] == SQLITE_OK) {
-//        NSMutableArray *sections = [NSMutableArray new];
-//
-//        sqlite3_stmt *statement = NULL;
-//        if (sqlite3_prepare_v2(database, "SELECT SECTION from packages GROUP BY SECTION ORDER BY SECTION", -1, &statement, nil) == SQLITE_OK) {
-//            while (sqlite3_step(statement) == SQLITE_ROW) {
-//                const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
-//                if (sectionChars != 0) {
-//                    NSString *section = [[NSString stringWithUTF8String:sectionChars] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-//                    if (section) [sections addObject:section];
-//                }
-//            }
-//        } else {
-//            [self printDatabaseError];
-//        }
-//        sqlite3_finalize(statement);
-//
-//        sqlite3_stmt *sectionlessStatement = NULL;
-//        if (sqlite3_prepare_v2(database, "SELECT SECTION, COUNT(package) as SECTION_COUNT from packages WHERE SECTION IS NULL LIMIT 1;", -1, &sectionlessStatement, nil) == SQLITE_OK) {
-//            if (sqlite3_step(sectionlessStatement) == SQLITE_ROW) {
-//                int numberOfPackages = sqlite3_column_int(statement, 1);
-//                if (numberOfPackages > 0) {
-//                    [sections addObject:@"Uncategorized"];
-//                }
-//            }
-//        } else {
-//            [self printDatabaseError];
-//        }
-//        sqlite3_finalize(sectionlessStatement);
-//
-//        [self closeDatabase];
-//        return sections;
-//    } else {
-//        [self printDatabaseError];
-//    }
-    return NULL;
-}
-
-- (NSDictionary * _Nullable)sectionReadoutForSource:(ZBSource *)source {
-//    if (![source respondsToSelector:@selector(sourceID)]) return NULL;
-//
-//    if ([self openDatabase] == SQLITE_OK) {
-//        NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
-//
-//        NSString *query = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE REPOID = %d GROUP BY SECTION ORDER BY SECTION", [source sourceID]];
-//
-//        sqlite3_stmt *statement = NULL;
-//        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-//            while (sqlite3_step(statement) == SQLITE_ROW) {
-//                const char *sectionChars = (const char *)sqlite3_column_text(statement, 0);
-//                if (sectionChars != 0) {
-//                    NSString *section = [[NSString stringWithUTF8String:sectionChars] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-//                    [sectionReadout setObject:[NSNumber numberWithInt:sqlite3_column_int(statement, 1)] forKey:section];
-//                }
-//            }
-//        } else {
-//            [self printDatabaseError];
-//        }
-//        sqlite3_finalize(statement);
-//
-//        NSString *sectionlessQuery = [NSString stringWithFormat:@"SELECT SECTION, COUNT(distinct package) as SECTION_COUNT from packages WHERE SECTION IS NULL AND REPOID = %d", [source sourceID]];
-//
-//        sqlite3_stmt *sectionlessStatement = NULL;
-//        if (sqlite3_prepare_v2(database, [sectionlessQuery UTF8String], -1, &sectionlessStatement, nil) == SQLITE_OK) {
-//            if (sqlite3_step(sectionlessStatement) == SQLITE_ROW) {
-//                int numberOfPackages = sqlite3_column_int(statement, 1);
-//                if (numberOfPackages > 0) {
-//                    NSString *section = @"Uncategorized";
-//                    [sectionReadout setObject:[NSNumber numberWithInt:numberOfPackages] forKey:section];
-//                }
-//            }
-//        } else {
-//            [self printDatabaseError];
-//        }
-//        sqlite3_finalize(sectionlessStatement);
-//
-//        [self closeDatabase];
-//        return sectionReadout;
-//    } else {
-//        [self printDatabaseError];
-//    }
-    return NULL;
 }
 
 - (NSURL * _Nullable)paymentVendorURLForSource:(ZBSource *)source {
@@ -1950,6 +1866,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
         case ZBDatabaseStatementTypeInsertSource:
             return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, remote, sourceDescription, suite, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        case ZBDatabaseStatementTypeSectionReadout:
+            return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
         default:
             return nil;
     }
@@ -2092,6 +2010,37 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_reset(statement);
     
     return sources;
+}
+
+- (NSDictionary *)sectionReadoutForSource:(ZBSource *)source {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSectionReadout];
+    int result = [self beginTransaction];
+    
+    result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+    
+    NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
+    if (result == SQLITE_OK) {
+        do {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                const char *section = (const char *)sqlite3_column_text(statement, 0);
+                if (section) {
+                    int packageCount = sqlite3_column_int(statement, 1);
+                    sectionReadout[[NSString stringWithUTF8String:section]] = @(packageCount);
+                }
+            }
+        } while (result == SQLITE_ROW);
+        
+        if (result != SQLITE_DONE) {
+            ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    }
+
+    [self endTransaction];
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    
+    return sectionReadout;
 }
 
 #pragma mark - Package Management

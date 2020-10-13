@@ -14,7 +14,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-//#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
 #import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
@@ -87,8 +87,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    databaseManager = [ZBDatabaseManager sharedInstance];
-//    sectionReadout = [databaseManager sectionReadoutForSource:source];
+    databaseManager = [ZBDatabaseManager sharedInstance];
+    sectionReadout = [databaseManager sectionReadoutForSource:source];
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         NSString *section1 = [self localizedSection:obj1];
         NSString *section2 = [self localizedSection:obj2];
