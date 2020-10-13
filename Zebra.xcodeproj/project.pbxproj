@@ -825,6 +825,42 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		89337A2F253652D50065C4C1 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				89337A31253652E90065C4C1 /* Controllers */,
+				89337A30253652E60065C4C1 /* Views */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		89337A30253652E60065C4C1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89337A32253652EF0065C4C1 /* Cells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		89337A31253652E90065C4C1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */,
+				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		89337A32253652EF0065C4C1 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
+				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
+				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
@@ -898,8 +934,6 @@
 				49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */,
 				49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.m */,
 				49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */,
-				89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */,
-				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
 				369F9EA122BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.h */,
 				369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */,
 				369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */,
@@ -1061,6 +1095,7 @@
 				896F11C921B236AC0017B581 /* Simulator Resources */,
 				89FEBC1B22C293E100B58662 /* Tabs */,
 				897FFD5223CFA4FA0082DD31 /* Theme */,
+				89337A2F253652D50065C4C1 /* UI */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
 				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
@@ -1205,9 +1240,6 @@
 		89FEBC1C22C2987A00B58662 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
-				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
-				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 				499B0E2D246B945B008825E4 /* ZBInfoTableViewCell.h */,
 				499B0E2E246B945B008825E4 /* ZBInfoTableViewCell.m */,
 				499B0E2F246B945B008825E4 /* ZBInfoTableViewCell.xib */,

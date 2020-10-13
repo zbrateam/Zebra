@@ -138,17 +138,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Package retrieval
 
 /*!
- @brief Get a certain number of packages from a corresponding source.
- @discussion Queries the database for packages from a source in a section. Use limit and start to specify which portion of the database you want the packages from. If no source is provided, all packages are retrieved. Will then clean up the packages (remove duplicate packages) and then return an array.
- @param source The corresponding source.
- @param section (Nullable) A specific section to get a list of packages from (NULL if you want all packages from that source).
- @param limit The number of packages that you want to grab from the database (does not correspond to the number of packages returned).
- @param start An offset from row zero in the database.
- @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
- */
-- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start;
-
-/*!
  @brief Overload of -packagesFromSource:inSection:numberOfPackages:startingAt:
  @param enableFiltering Show or hide the packages with sections filtered out.
  */
@@ -412,6 +401,22 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertSource:(char * _Nonnull * _Nonnull)source;
 - (int)beginTransaction;
 - (int)endTransaction;
+
+/*!
+ @brief Get all packages from a  source
+ @param source The  source you want to retrieve packages from.
+ @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
+ */
+- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source;
+
+/*!
+ @brief Get packages from a source within a section
+ @param source The source you want to retrieve packages from.
+ @param section A specific section to get a list of packages from (NULL if you want all packages from that source).
+ @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
+ */
+- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section;
+
 
 @end
 

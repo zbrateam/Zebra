@@ -22,6 +22,7 @@
 
 typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
+    ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
@@ -1857,6 +1858,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
             return @"SELECT authorName, description, identifier, lastSeen, name, version, section FROM " PACKAGES_TABLE_NAME " WHERE source = ?;";
+        case ZBDatabaseStatementTypePackagesFromSourceAndSection:
+            return @"SELECT authorName, description, identifier, lastSeen, name, version, section FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ?;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
@@ -1929,8 +1932,13 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Package Retrieval
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSource];
-    int result = sqlite3_bind_text(statement, 1, [source.uuid UTF8String], -1, SQLITE_TRANSIENT);
+    return [self packagesFromSource:source inSection:NULL];
+}
+
+- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString *)section {
+    sqlite3_stmt *statement = [self preparedStatementOfType:section ? ZBDatabaseStatementTypePackagesFromSourceAndSection : ZBDatabaseStatementTypePackagesFromSource];
+    int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+    if (section) result = sqlite3_bind_text(statement, 2, section.UTF8String, -1, SQLITE_TRANSIENT);
     if (result == SQLITE_OK) {
         result = [self beginTransaction];
     }

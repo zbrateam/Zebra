@@ -7,10 +7,13 @@
 //
 
 #import "ZBPackageTableViewCell.h"
+
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
+
 #import <Extensions/UIColor+GlobalColors.h>
 //#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-//#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
 
@@ -30,36 +33,36 @@
     self.isInstalledImageView.tintColor = [UIColor accentColor];
 }
 
-- (void)updateData:(ZBPackage *)package {
+- (void)updateData:(ZBBasePackage *)package {
     [self updateData:package calculateSize:NO showVersion:NO];
 }
 
-- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion {
-//    self.packageLabel.text = package.name;
-//    self.descriptionLabel.text = package.tagline ?: package.packageDescription;
+- (void)updateData:(ZBBasePackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion {
+    self.packageLabel.text = package.name;
+    self.descriptionLabel.text = package.packageDescription;
 //    ZBSource *source = package.source;
 //    NSString *name = source.origin;
-//    NSString *author = package.authorName;
+    NSString *author = package.authorName;
 //    NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
-//    NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
-//    if (showVersion)
-//        [info addObject:[package version]];
-//    if (author.length)
-//        [info addObject:author];
+    NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
+    if (showVersion)
+        [info addObject:[package version]];
+    if (author.length)
+        [info addObject:author];
 //    if (name.length)
 //        [info addObject:name];
 //    if (installedSize)
 //        [info addObject:installedSize];
-//    self.authorAndSourceAndSize.text = [info componentsJoinedByString:@" • "];
-//    
+    self.authorAndSourceAndSize.text = [info componentsJoinedByString:@" • "];
+    
 //    [package setIconImageForImageView:self.iconImageView];
-//    
+    
 //    BOOL installed = [package isInstalled:NO];
 //    BOOL paid = [package isPaid];
-//    
+    
 //    self.isInstalledImageView.hidden = !installed;
 //    self.isPaidImageView.hidden = !paid;
-//    
+    
 //    [self updateQueueStatus:package];
 }
 

@@ -93,24 +93,6 @@
             </objects>
             <point key="canvasLocation" x="1614" y="61"/>
         </scene>
-        <!--Packages-->
-        <scene sceneID="BLO-45-5uX">
-            <objects>
-                <tableViewController storyboardIdentifier="ZBPackageListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sCr-no-Q38" customClass="ZBPackageListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6QF-YS-9kJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <connections>
-                            <outlet property="dataSource" destination="sCr-no-Q38" id="R2Q-8C-d68"/>
-                            <outlet property="delegate" destination="sCr-no-Q38" id="Paq-5B-OHV"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Packages" id="gE6-EQ-6Uj"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ifh-VS-hNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3355" y="444"/>
-        </scene>
         <!--Installed Files Table View Controller-->
         <scene sceneID="yuu-9C-7ih">
             <objects>
@@ -409,9 +391,6 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="sCr-no-Q38" kind="relationship" relationship="rootViewController" id="hk8-hZ-Cdu"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brW-S9-NfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1042,12 +1021,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="sCr-no-Q38" kind="show" id="3rJ-40-3gH">
-                                        <segue key="commit" inheritsFrom="parent" id="TU3-4Y-Pen"/>
-                                        <segue key="preview" inheritsFrom="commit" id="KaG-dg-BtQ"/>
-                                    </segue>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1103,7 +1076,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="63g-98-fnw"/>
-        <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Changes" width="25" height="25"/>

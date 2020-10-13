@@ -18,7 +18,7 @@
 #import <Queue/ZBQueue.h>
 #import <Tabs/ZBTabBarController.h>
 #import <Model/ZBSource.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Views/Cells/ZBPackageTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import "ZBDevice.h"
 
@@ -98,7 +98,7 @@
             self.navigationItem.leftBarButtonItem = shareButton;
         });
     } else {
-        [self configureLoadMoreButton];
+//        [self configureLoadMoreButton];
         dispatch_async(dispatch_get_main_queue(), ^{
             self.navigationItem.leftBarButtonItem = nil;
         });
@@ -109,7 +109,7 @@
 - (void)updateCollation {
     switch (selectedSortingType) {
         case ZBSortingTypeABC:
-            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(identifier)];
             break;
         case ZBSortingTypeDate:
             self.tableData = [self partitionObjects:packages collationStringSelector:source.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];
@@ -122,65 +122,27 @@
 - (void)refreshTable {
     if (isRefreshingTable)
         return;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if ([self->source sourceID] == 0) {
-            self->isRefreshingTable = YES;
-            self->packages = [self->databaseManager installedPackages:NO];
-            self->updates = [self->databaseManager packagesWithUpdates];
-            
-            NSUInteger totalUpdates = self->updates.count;
-            self->needsUpdatesSection = totalUpdates != 0;
-            UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
-            [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
-            
-            self->isRefreshingTable = NO;
-        } else {
-            self.batchLoadCount = 500;
-            self->packages = [self->databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0];
-            self->databaseRow = self.batchLoadCount - 1;
-            self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:self->source section:self->section];
-            self.continueBatchLoad = self.batchLoad = YES;
-            [self configureLoadMoreButton];
-        }
-        if (self->selectedSortingType == ZBSortingTypeInstalledSize) {
-            self->sortedPackages = [self->packages sortedArrayUsingComparator:^NSComparisonResult(ZBPackage *a, ZBPackage *b) {
-                NSInteger sizeA = [a installedSize];
-                NSInteger sizeB = [b installedSize];
-                return sizeB - sizeA;
-            }];
-        } else {
-            self->sortedPackages = nil;
-        }
-        self->numberOfPackages = (int)[self->packages count];
+    
+    isRefreshingTable = YES;
+    packages = [self->databaseManager packagesFromSource:source inSection:section];
+    if (!source.remote) {
+        updates = [databaseManager packagesWithUpdates]; //TODO: Fix This
         
-        [self updateCollation];
-        [self.tableView reloadData];
-    });
-}
-
-- (void)loadNextPackages {
-    if (!self.continueBatchLoad || self.isPerformingBatchLoad) {
-        return;
+        NSUInteger totalUpdates = updates.count;
+        needsUpdatesSection = totalUpdates != 0;
+        
+        UITabBarItem *packagesTabBarItem = [self.tabBarController.tabBar.items objectAtIndex:ZBTabPackages];
+        [packagesTabBarItem setBadgeValue:totalUpdates ? [NSString stringWithFormat:@"%lu", (unsigned long)totalUpdates] : nil];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:totalUpdates];
+        
+        isRefreshingTable = NO;
     }
+    
+    numberOfPackages = (int)[self->packages count];
+        
+    [self updateCollation];
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->numberOfPackages < self->totalNumberOfPackages) {
-            self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self->databaseManager packagesFromSource:self->source inSection:self->section numberOfPackages:self.batchLoadCount startingAt:self->databaseRow];
-            if (nextPackages.count == 0) {
-                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
-            } else {
-                self->packages = [self->databaseManager cleanUpDuplicatePackages:[self->packages arrayByAddingObjectsFromArray:nextPackages]];
-                self->numberOfPackages = (int)[self->packages count];
-                self->databaseRow += self.batchLoadCount;
-                [self updateCollation];
-                [self.tableView reloadData];
-                self.isPerformingBatchLoad = NO;
-            }
-        } else {
-            self.continueBatchLoad = self.isPerformingBatchLoad = NO;
-        }
-        [self configureLoadMoreButton];
+        [self.tableView reloadData];
     });
 }
 
@@ -195,29 +157,16 @@
     });
 }
 
-- (void)configureLoadMoreButton {
-    if (![self useBatchLoad]) return;
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.continueBatchLoad) {
-            if (self->totalNumberOfPackages) {
-                UIBarButtonItem *loadButton = [[UIBarButtonItem alloc] initWithTitle:[NSString stringWithFormat:@"%.0f%% %@", MIN(100, (double)(self->numberOfPackages * 100) / self->totalNumberOfPackages), NSLocalizedString(@"Loaded", @"")] style:UIBarButtonItemStylePlain target:self action:@selector(loadNextPackages)];
-                self.navigationItem.rightBarButtonItem = loadButton;
-            }
-        }
-    });
-}
-
 - (void)configureSegmentedController {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
-        if (self->source.sourceID)
-            [items removeLastObject];
-        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
-        segmentedControl.selectedSegmentIndex = self->selectedSortingType;
-        [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-        self.navigationItem.titleView = segmentedControl;
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        NSMutableArray *items = [@[NSLocalizedString(@"ABC", @""), NSLocalizedString(@"Date", @""), NSLocalizedString(@"Size", @"")] mutableCopy];
+//        if (self->source.sourceID)
+//            [items removeLastObject];
+//        UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+//        segmentedControl.selectedSegmentIndex = self->selectedSortingType;
+//        [segmentedControl addTarget:self action:@selector(segmentedControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+//        self.navigationItem.titleView = segmentedControl;
+//    });
 }
 
 - (void)installAll {
@@ -336,13 +285,13 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
     [cell updateData:package calculateSize:selectedSortingType == ZBSortingTypeInstalledSize showVersion:needsUpdatesSection && indexPath.section == 0];
-    if ([source sourceID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
-        NSInteger sectionsAmount = [tableView numberOfSections];
-        NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
-        if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1)) {
-            [self loadNextPackages];
-        }
-    }
+//    if ([source sourceID] != 0 && self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
+//        NSInteger sectionsAmount = [tableView numberOfSections];
+//        NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
+//        if ((indexPath.section == sectionsAmount - 1) && (indexPath.row == rowsAmount - 1)) {
+//            [self loadNextPackages];
+//        }
+//    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

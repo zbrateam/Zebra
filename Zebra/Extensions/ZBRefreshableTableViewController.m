@@ -11,7 +11,7 @@
 #import <Tabs/ZBTabBarController.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBSource.h>
-#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
+#import <UI/Controllers/ZBPackageListTableViewController.h>
 #import <ZBDevice.h>
 
 @interface ZBRefreshableTableViewController ()

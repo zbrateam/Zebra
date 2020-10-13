@@ -16,8 +16,7 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
-#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Controllers/ZBPackageListTableViewController.h>
 #import <Managers/ZBSourceManager.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
@@ -295,17 +294,30 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) return;
-    
-    NSString *section = sectionNames[indexPath.row - 1];
-    [filteredSections removeObject:section];
-    [ZBSettings setSection:section filtered:NO forSource:self.source];
+    if (!self.editing) {
+        ZBPackageListTableViewController *packageList = [[ZBPackageListTableViewController alloc] init];
+        packageList.source = source;
+        packageList.section = [sectionNames[indexPath.row] isEqualToString:@"ALL_PACKAGES"] ? NULL : sectionNames[indexPath.row];
+        
+        [[self navigationController] pushViewController:packageList animated:YES];
+        
+    } else {
+        if (indexPath.row == 0) return;
+        
+        NSString *section = sectionNames[indexPath.row - 1];
+        [filteredSections removeObject:section];
+        [ZBSettings setSection:section filtered:NO forSource:self.source];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *section = sectionNames[indexPath.row - 1];
-    [filteredSections addObject:section];
-    [ZBSettings setSection:section filtered:YES forSource:self.source];
+    if (self.editing) {
+        if (indexPath.row == 0) return;
+        
+        NSString *section = sectionNames[indexPath.row - 1];
+        [filteredSections addObject:section];
+        [ZBSettings setSection:section filtered:YES forSource:self.source];
+    }
 }
 
 #pragma mark - Navigation
@@ -419,23 +431,23 @@
     }];
 }
 
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    previewingContext.sourceRect = cell.frame;
-    ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-    packageListVC.source = self->source;
-    if (indexPath.row > 0) {
-        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-        packageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        packageListVC.title = section;
-    }
-    else {
-        packageListVC.title = NSLocalizedString(@"All Packages", @"");
-    }
-//    [self setDestinationVC:indexPath destination:packageDepictionVC];
-    return packageListVC;
-}
+//- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+//    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    previewingContext.sourceRect = cell.frame;
+//    ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+//    packageListVC.source = self->source;
+//    if (indexPath.row > 0) {
+//        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+//        packageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+//        packageListVC.title = section;
+//    }
+//    else {
+//        packageListVC.title = NSLocalizedString(@"All Packages", @"");
+//    }
+////    [self setDestinationVC:indexPath destination:packageDepictionVC];
+//    return packageListVC;
+//}
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];

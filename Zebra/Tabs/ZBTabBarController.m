@@ -7,9 +7,12 @@
 //
 
 #import "ZBTabBarController.h"
+
+#import <UI/Controllers/ZBPackageListTableViewController.h>
+#import <Model/ZBSource.h>
+
 #import "ZBTab.h"
 #import <Managers/ZBSourceManager.h>
-#import "Packages/Controllers/ZBPackageListTableViewController.h"
 #import "Sources/Controllers/ZBSourceListViewController.h"
 //#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
@@ -75,6 +78,11 @@
     // Temporary, remove when all views are decoupled from storyboard
     UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
+    
+    UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
+    ZBPackageListTableViewController *packagesController = [[ZBPackageListTableViewController alloc] init];
+    packagesController.source = [ZBSource localSource];
+    [packagesNavController setViewControllers:@[packagesController] animated:NO];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {

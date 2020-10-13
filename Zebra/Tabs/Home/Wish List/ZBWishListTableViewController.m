@@ -16,7 +16,7 @@
 #import <Managers/Delegates/ZBDatabaseDelegate.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Views/Cells/ZBPackageTableViewCell.h>
 //#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 @interface ZBWishListTableViewController () {

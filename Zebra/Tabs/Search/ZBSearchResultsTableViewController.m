@@ -12,9 +12,9 @@
 #import <ZBAppDelegate.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Views/Cells/ZBPackageTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/ZBTabBarController.h>
 
