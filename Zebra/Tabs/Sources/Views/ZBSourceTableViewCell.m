@@ -8,7 +8,7 @@
 
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
-//#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 @import SDWebImage;
 
 @interface ZBSourceTableViewCell () {
@@ -35,17 +35,17 @@
 }
 
 - (void)setSource:(ZBBaseSource *)source {
-//    self.sourceLabel.text = source.label;
-//    self.urlLabel.text = source.repositoryURI;
-//    [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-//    
-//    if (source.errors.count) {
-//        self.accessoryType = [source isKindOfClass:[ZBSource class]] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryDetailButton;
-//        self.tintColor = [UIColor systemPinkColor];
-//    } else if (source.warnings.count) {
-//        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-//        self.tintColor = [UIColor systemYellowColor];
-//    }
+    self.sourceLabel.text = source.label;
+    self.urlLabel.text = source.repositoryURI;
+    [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    
+    if (source.errors.count) {
+        self.accessoryType = [source isKindOfClass:[ZBSource class]] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryDetailButton;
+        self.tintColor = [UIColor systemPinkColor];
+    } else if (source.warnings.count) {
+        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        self.tintColor = [UIColor systemYellowColor];
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
