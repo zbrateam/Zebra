@@ -2,17 +2,19 @@ Package: apt
 Status: install ok installed
 Priority: required
 Section: Packaging
-Installed-Size: 8064
+Installed-Size: 4248
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 2.1.10-1
+Version: 2.1.10-3
 Replaces: apt1.8, apt1.4, libapt, libapt-pkg5.0, apt-lib, apt-key
-Provides: apt1.8 (= 2.1.10-1), apt-lib (= 2.1.10-1), libapt (= 2.1.10-1), apt-key (= 2.1.10-1)
-Depends: gnupg, libgcrypt, dpkg (>= 1.19.0), lz4, xz-utils (>= 5.2.5), zstd
+Provides: apt1.8 (= 1:0), apt-lib (= 1:0), libapt (= 1:0), apt-key (= 1:0)
+Depends: libapt-pkg6.0, gpgv, libgcrypt20, dpkg (>= 1.19.0), liblz4-1, liblzma5 (>= 5.2.5), libzstd1
 Pre-Depends: dpkg (>= 1.14.25-8)
 Conflicts: apt7 (<< 1:0), apt1.4 (<< 1:0), apt1.8, libapt-pkg5.0 (<< 1:0), libapt (<< 1:0), apt-key (<< 1:0)
-Description: Advanced Packaging Tool (APT)
-Name: APT
+Description: commandline package manager
+ This package provides commandline tools for searching and
+ managing as well as querying information about packages
+ as a low-level access to all features of the libapt-pkg library.
 
 Package: base
 Essential: yes
@@ -41,17 +43,6 @@ Description: the best shell ever written by Brian Fox
 Homepage: http://www.gnu.org/software/bash/
 Name: Bourne-Again SHell
 
-Package: bzip2
-Status: install ok installed
-Priority: important
-Section: Archiving
-Installed-Size: 992
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 1.0.8
-Description: compression that's slightly better than gzip
-Homepage: http://www.bzip.org/
-
 Package: ca-certificates
 Status: install ok installed
 Priority: optional
@@ -72,19 +63,31 @@ Package: coreutils
 Status: install ok installed
 Priority: standard
 Section: Utilities
-Installed-Size: 29728
+Installed-Size: 29688
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 8.32-4
+Version: 8.32-6
 Replaces: netatalk (<= 2.0.3-6), coreutils-bin, shell-cmds (<< 207.40.1), text-cmds (<< 1:0), file-cmds (<< 272.250.1-1)
-Provides: md5sum, sha1sum, coreutils-bin (= 8.32-4), dirname, kill, mktemp, su
-Depends: bash, profile.d, gettext (>= 0.20.0)
+Provides: md5sum, sha1sum, coreutils-bin (= 8.32-6), dirname, kill, mktemp, su
+Depends: bash, profile.d, libintl8 (>= 0.20.0), libcrypt2
 Conflicts: coreutils-bin (<< 1:0), shell-cmds (<< 207.40.1), text-cmds (<< 1:0), file-cmds (<< 272.250.1-1)
 Description: core set of Unix shell utilities from GNU
 Homepage: http://www.gnu.org/software/coreutils/
 Name: Core Utilities
 
 Package: cy+cpu.arm64
+Essential: yes
+Status: install ok installed
+Priority: required
+Section: System
+Installed-Size: 0
+Maintainer: Hayden Seay <me@diatr.us>
+Architecture: iphoneos-arm
+Version: 0
+Description: virtual CPU dependency
+Tag: role::cydia
+
+Package: cy+cpu.arm64v8
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -176,8 +179,8 @@ Installed-Size: 1200
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 3.7
-Depends: gettext
+Version: 3.7-2
+Depends: libintl8
 Description: compare two files for differences
 Homepage: http://www.gnu.org/software/diffutils/
 Name: Diff Utilities
@@ -187,7 +190,7 @@ Essential: yes
 Status: install ok installed
 Priority: required
 Section: System
-Installed-Size: 2168
+Installed-Size: 2112
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Version: 593.230.1
@@ -199,12 +202,12 @@ Essential: yes
 Status: install ok installed
 Priority: required
 Section: Packaging
-Installed-Size: 9968
+Installed-Size: 3976
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 1.20.5-1
-Depends: bash, coreutils, diffutils, tar, xz-utils (>= 5.2.5), bzip2, gzip, gettext, zstd
-Pre-Depends: tar (>= 1.23), gettext (>= 0.20)
+Version: 1.20.5-3
+Depends: bash, coreutils, diffutils, tar, liblzma5 (>= 5.2.5), libintl8, libzstd1
+Pre-Depends: tar (>= 1.23), libintl8 (>= 0.20)
 Description: package maintainance tools from Debian
 Homepage: http://wiki.debian.org/Teams/Dpkg
 Name: Debian Packager
@@ -229,13 +232,13 @@ Package: findutils
 Status: install ok installed
 Priority: important
 Section: Utilities
-Installed-Size: 1840
+Installed-Size: 1704
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 4.7.0
+Version: 4.7.0-2
 Replaces: shell-cmds (<< 207.40.1)
-Depends: bash, sed, shell-cmds, gettext
+Depends: bash, sed, shell-cmds, libintl8
 Conflicts: shell-cmds (<< 207.40.1)
 Description: indexes and searches filesystems
 Homepage: http://www.gnu.org/software/findutils/
@@ -269,45 +272,37 @@ Pre-Depends: firmware (>= 11.0)
 Description: represents Telesphoreo / iPhoneOS conflicts
 Name: iPhone Firmware (/sbin)
 
-Package: gettext
+Package: gpgv
 Status: install ok installed
-Priority: optional
-Section: System
-Installed-Size: 17032
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 0.21
-Depends: ncurses
-Breaks: apt (<< 2.1.0)
-Description: internationalization helper for strings
-Homepage: http://www.gnu.org/software/gettext/
-
-Package: gnupg
-Status: install ok installed
-Priority: required
+Priority: standard
 Section: Security
-Installed-Size: 12728
+Installed-Size: 928
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 2.2.22
+Version: 2.2.23-1
 Replaces: gnupg2
-Provides: gnupg2 (= 2.2.22)
-Depends: libgcrypt20, libassuan, libksba, npth, libgpg-error0, pinentry, gettext
-Conflicts: gnupg2
-Description: GNU privacy guard - a free PGP replacement
-Name: GnuPG
+Depends: libgcrypt20, libgpg-error0, libintl8
+Conflicts: gnupg2, gnupg (<< 2.2.23-1)
+Description: GNU privacy guard - signature verification tool
+ GnuPG is GNU's tool for secure communication and data storage.
+ .
+ gpgv is actually a stripped-down version of gpg which is only able
+ to check signatures. It is somewhat smaller than the fully-blown gpg
+ and uses a different (and simpler) way to check that the public keys
+ used to make the signature are valid. There are no configuration
+ files and only a few options are implemented.
 
 Package: grep
 Status: install ok installed
 Priority: important
 Section: Utilities
-Installed-Size: 648
+Installed-Size: 632
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 3.4
+Version: 3.5-1
 Replaces: text-cmds (<< 1:0)
-Depends: libpcre
+Depends: libpcre1
 Conflicts: text-cmds (<< 1:0)
 Description: searches files for regular expressions
 Homepage: http://www.gnu.org/software/grep/
@@ -1561,18 +1556,6 @@ Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
 Package: gsc.encrypted-data-partition
-Essential: yes
-Status: install ok installed
-Priority: required
-Section: System
-Installed-Size: 0
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 1
-Description: virtual GraphicsServices dependency
-Tag: role::cydia
-
-Package: gsc.external-power-source-connected
 Essential: yes
 Status: install ok installed
 Priority: required
@@ -3492,20 +3475,6 @@ Version: 1
 Description: virtual GraphicsServices dependency
 Tag: role::cydia
 
-Package: gzip
-Status: install ok installed
-Priority: required
-Section: Archiving
-Installed-Size: 608
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 1.10
-Replaces: file-cmds (<= 272.250.1-1)
-Conflicts: file-cmds (<= 272.250.1-1)
-Description: the standard Unix compression algorithm
-Homepage: http://www.gzip.org/
-
 Package: launchctl
 Essential: yes
 Status: install ok installed
@@ -3518,18 +3487,38 @@ Version: 23-2
 Description: Tells launchd what to do
 Name: Launch Daemon Controller
 
-Package: libassuan
+Package: libapt-pkg6.0
 Status: install ok installed
-Priority: optional
-Section: Development
-Installed-Size: 320
+Priority: required
+Section: Libraries
+Installed-Size: 3616
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 2.5.3
-Depends: libgpg-error
-Description: GnuPG's inter-process communication
-Name: Assuan
+Version: 2.1.10-3
+Replaces: apt1.8, apt1.4, libapt, libapt-pkg5.0, apt-lib, apt-key, apt (<< 2.1.10-2)
+Provides: libapt-pkg (= 2.1.10-3)
+Depends: libgcrypt20, liblz4-1, liblzma5 (>= 5.2.5), libzstd1
+Conflicts: apt7 (<< 1:0), apt1.4 (<< 1:0), apt1.8 (<< 1:0), libapt-pkg5.0 (<< 1:0), libapt (<< 1:0), apt-key (<< 1:0), apt (<< 2.1.10-2)
+Description: commandline package manager
+ This package provides commandline tools for searching and
+ managing as well as querying information about packages
+ as a low-level access to all features of the libapt-pkg library.
+
+Package: libcrypt2
+Status: install ok installed
+Priority: optional
+Section: Libraries
+Installed-Size: 488
+Maintainer: Hayden Seay <me@diatr.us>
+Architecture: iphoneos-arm
+Version: 4.4.17
+Description: libcrypt shared library
+ libxcrypt is a modern library for one-way hashing of passwords.
+ It supports DES, MD5, NTHASH, SUNMD5, SHA-2-256, SHA-2-512, and
+ bcrypt-based password hashes
+ It provides the traditional Unix 'crypt' and 'crypt_r' interfaces,
+ as well as a set of extended interfaces like 'crypt_gensalt'.
+Tag: purpose::library, role::developer
 
 Package: libgcrypt20
 Status: install ok installed
@@ -3554,25 +3543,56 @@ Installed-Size: 368
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 1.39
+Version: 1.39-1
 Replaces: libgpg-error
-Provides: libgpg-error (= 1.39)
+Provides: libgpg-error (= 1.39-1)
 Conflicts: libgpg-error (<< 1:0)
 Description: GnuPG's error management library (Library)
 Name: GnuPG Errors
 
-Package: libksba
+Package: libintl8
 Status: install ok installed
-Priority: optional
-Section: Security
-Installed-Size: 592
+Section: System
+Installed-Size: 232
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 1.4.0
-Depends: libgpg-error
-Description: GnuPG's certification management library
-Name: KSBA
+Version: 0.21-2
+Conflicts: gettext (<< 0.21-2)
+Description: internationalization helper for strings
+Essental: yes
+Homepage: http://www.gnu.org/software/gettext/
+
+Package: liblz4-1
+Status: install ok installed
+Priority: important
+Section: Libraries
+Installed-Size: 352
+Maintainer: Hayden Seay <me@diatr.us>
+Architecture: iphoneos-arm
+Version: 1.9.2-2
+Conflicts: lz4 (<< 1.9.2-2)
+Description: Fast LZ compression algorithm library - runtime
+Homepage: http://tukaani.org/lzma/
+
+Package: liblzma5
+Status: install ok installed
+Priority: standard
+Section: Libraries
+Installed-Size: 392
+Maintainer: Hayden Seay <me@diatr.us>
+Architecture: iphoneos-arm
+Version: 5.2.5-2
+Replaces: xz, lzma
+Conflicts: xz (<< 1:0), lzma (<< 3:0)
+Description: XZ-format compression library
+ XZ is the successor to the Lempel-Ziv/Markov-chain Algorithm
+ compression format, which provides memory-hungry but powerful
+ compression (often better than bzip2) and fast, easy decompression.
+ .
+ The native format of liblzma is XZ; it also supports raw (headerless)
+ streams and the older LZMA format used by lzma. (For 7-Zip's related
+ format, use the p7zip package instead.)
+Homepage: https://tukaani.org/xz/
 
 Package: libncursesw6
 Status: install ok installed
@@ -3588,20 +3608,26 @@ Depends: ncurses-term (>= 6.2-1)
 Conflicts: ncurses (<< 6.2-1)
 Description: shared libraries for terminal handling (wide character support)
 
-Package: libpcre
+Package: libpcre1
 Status: install ok installed
-Priority: required
-Section: Development
-Installed-Size: 5672
+Priority: standard
+Section: Libraries
+Installed-Size: 1144
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 8.44
-Replaces: pcre
-Provides: pcre (= 8.44)
-Conflicts: pcre (<< 1:0)
-Description: Perl-compatible regular expressions
-Tag: purpose::library, role::developer
+Version: 8.44-1
+Replaces: pcre, libpcre
+Provides: pcre (= 1:0), libpcre (= 8.44-1)
+Conflicts: pcre (<< 1:0), libpcre (<< 1:0)
+Description: Old Perl 5 Compatible Regular Expression Library - runtime library
+ This is a library of functions to support regular expressions whose syntax 
+ and semantics are as close as possible to those of the Perl 5 language.
+ .
+ New packages should use the newer pcre2 packages, and existing
+ packages should migrate to pcre2.
+ .
+ This package contains the runtime library.
 
 Package: libreadline8
 Status: install ok installed
@@ -3617,34 +3643,17 @@ Depends: libncursesw6
 Conflicts: readline (<< 8.0.4-1)
 Description: GNU readline and history libraries, run-time libraries
 
-Package: libssl1.1
+Package: libzstd1
 Status: install ok installed
-Priority: standard
-Section: Security
-Installed-Size: 6360
+Section: Libraries
+Installed-Size: 1496
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 1.1.1g
-Replaces: libressl, libssl1.1.1
-Provides: libressl, libssl1.1.1 (= 1.1.1g)
-Depends: ca-certificates
-Conflicts: libressl, libssl1.1.1
-Description: OpenSSL Libraries for version 1.1.x
-Name: OpenSSL 1.1.x Libraries
-Tag: purpose::library, role::developer
-
-Package: lz4
-Status: install ok installed
-Priority: important
-Section: Archiving
-Installed-Size: 1024
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 1.9.2
-Description: Extremely Fast Compression algorithm
-Homepage: http://tukaani.org/lzma/
-Name: LZ4
+Version: 1.4.5-2
+Replaces: zstd (<< 1.4.5-2)
+Depends: liblz4-1, liblzma5 (>= 5.2.5)
+Conflicts: zstd (<< 1.4.5-2)
+Description: fast lossless compression algorithm
 
 Package: ncurses-term
 Status: install ok installed
@@ -3657,83 +3666,6 @@ Version: 6.2-1
 Replaces: ncurses (<< 6.2-1)
 Conflicts: ncurses (<< 6.2-1)
 Description: This package contains terminfo data files to support most types of terminals.
-
-Package: npth
-Status: install ok installed
-Priority: optional
-Section: Development
-Installed-Size: 184
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Multi-Arch: foreign
-Version: 1.6
-Conflicts: gnupth
-Description: portable threading library used by X
-Name: New GNU Portable Threads
-
-Package: openssh
-Status: install ok installed
-Priority: important
-Section: Networking
-Installed-Size: 0
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 1:0
-Depends: openssh-client, openssh-server, openssh-sftp-server
-Description: secure shell client and server (metapackage)
-
-Package: openssh-client
-Status: install ok installed
-Priority: important
-Section: Networking
-Installed-Size: 7832
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 8.3p1-2
-Replaces: openssh (<< 1:0)
-Depends: libssl1.1
-Conflicts: openssh (<< 1:0)
-Description: secure shell (SSH) client, for secure access to remote machines
-Name: OpenSSH Client
-
-Package: openssh-server
-Status: install ok installed
-Priority: important
-Section: Networking
-Installed-Size: 2608
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 8.3p1-2
-Replaces: openssh (<< 1:0)
-Depends: libssl1.1, openssh-client (= 8.3p1-2), openssh-sftp-server
-Conflicts: com.midnightchips.localhostssh, openssh (<< 1:0)
-Description: secure shell (SSH) server, for secure access from remote machines
-Name: OpenSSH Server
-
-Package: openssh-sftp-server
-Status: install ok installed
-Priority: important
-Section: Networking
-Installed-Size: 296
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 8.3p1-2
-Replaces: openssh (<< 1:0)
-Depends: libssl1.1, openssh-client (= 8.3p1-2)
-Conflicts: openssh (<< 1:0)
-Description: secure shell (SSH) sftp server module, for SFTP access from remote machines
-Name: OpenSSH SFTP Server
-
-Package: pinentry
-Status: install ok installed
-Priority: required
-Section: Security
-Installed-Size: 448
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 1.1.0
-Depends: libassuan, libgpg-error, ncurses
-Description: Passphrase entry dialog utilizing the Assuan protocol
 
 Package: procursus-keyring
 Essential: yes
@@ -3761,25 +3693,17 @@ Pre-Depends: system-cmds (>= 805.220.1)
 Description: makes packaging for /etc/profile reasonable
 Name: Profile Directory
 
-Package: readline
-Status: install ok installed
-Maintainer: Hayden Seay
-Architecture: iphoneos-arm
-Version: 1:0
-Pre-Depends: libreadline8
-Description: Dummy package to help migration from other bootstraps. Safe to remove.
-
 Package: sed
 Status: install ok installed
 Priority: important
 Section: Utilities
-Installed-Size: 520
+Installed-Size: 512
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Multi-Arch: foreign
-Version: 4.8
+Version: 4.8-2
 Replaces: text-cmds (<< 1:0)
-Depends: gettext
+Depends: libintl8
 Conflicts: text-cmds (<< 1:0)
 Description: edits streams of text using patterns
 Homepage: http://www.gnu.org/software/sed/
@@ -3788,7 +3712,7 @@ Package: shell-cmds
 Status: install ok installed
 Priority: important
 Section: Administration
-Installed-Size: 1128
+Installed-Size: 1136
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Version: 207.40.1
@@ -3814,11 +3738,11 @@ Essential: yes
 Status: install ok installed
 Priority: required
 Section: Administration
-Installed-Size: 4776
+Installed-Size: 7672
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 1.9.2
-Depends: gettext
+Version: 1.9.3p1-2
+Depends: libintl8, libcrypt2
 Description: temporarily assume root priviledges
 Name: Sudo
 Tag: purpose::console, role::hacker
@@ -3828,32 +3752,32 @@ Essential: yes
 Status: install ok installed
 Priority: required
 Section: Administration
-Installed-Size: 3176
+Installed-Size: 3224
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 854.40.2
+Version: 854.40.2-1
 Provides: login, passwd, reboot
-Depends: firmware-sbin
+Depends: firmware-sbin, libcrypt2
 Description: iostat, login, passwd, sync, sysctl
 
 Package: tar
 Status: install ok installed
 Priority: required
 Section: Archiving
-Installed-Size: 1160
+Installed-Size: 1120
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 1.32
-Depends: bzip2, gzip, xz-utils (>= 5.2.5), zstd
+Version: 1.32-1
+Depends: libintl8
+Recommends: bzip2, gzip, xz-utils, zstd
 Description: tool for making tape archives
 Homepage: http://www.gnu.org/software/tar/
-Name: Tape Archive
 
 Package: uikittools
 Status: install ok installed
 Priority: optional
 Section: Utilities
-Installed-Size: 1152
+Installed-Size: 1168
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
 Version: 2.0.2
@@ -3864,58 +3788,18 @@ Author: CoolStar <coolstarorganization@gmail.com>
 Name: UIKit Tools
 Sileodepiction: https://coolstar.moe/sileoassets/depictionoverride.php?package=uikittools
 
-Package: uuid
-Status: install ok installed
-Priority: important
-Section: System
-Installed-Size: 496
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 1.6.2
-Description: universally unique identifiers
-Name: UUID Generator
-Tag: purpose::library, purpose::console, role::developer
-
-Package: xz-utils
+Package: zsh
 Essential: yes
 Status: install ok installed
 Priority: required
-Section: Archiving
-Installed-Size: 2896
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 5.2.5
-Replaces: xz, lzma
-Provides: xz (= 5.2.5), lzma (= 2:5.2.5)
-Depends: grep, sed
-Conflicts: xz (<< 1:0), lzma (<< 3:0)
-Description: slower, but better, compression algorithm
-Homepage: https://tukaani.org/xz/
-Name: XZ Utils
-
-Package: zsh
-Status: install ok installed
-Priority: required
 Section: Terminal_Support
-Installed-Size: 25488
+Installed-Size: 23392
 Maintainer: Hayden Seay <me@diatr.us>
 Architecture: iphoneos-arm
-Version: 5.8-1
-Depends: ncurses, libpcre
+Version: 5.8-2
+Depends: libncursesw6, libpcre1
 Description: a shell with interactive features
 Name: Z Shell
-
-Package: zstd
-Status: install ok installed
-Priority: standard
-Section: Archiving
-Installed-Size: 5136
-Maintainer: Hayden Seay <me@diatr.us>
-Architecture: iphoneos-arm
-Version: 1.4.5
-Depends: lz4, xz-utils (>= 5.2.5)
-Description: Modern compression algorithm by Facebook.
-Name: Zstandard
 
 Package: ws.hbang.common
 Status: install ok installed
