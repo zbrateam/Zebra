@@ -28,6 +28,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeSources,
     ZBDatabaseStatementTypeInsertSource,
     ZBDatabaseStatementTypeSectionReadout,
+    ZBDatabaseStatementTypePackagesInSourceCount,
     ZBDatabaseStatementTypeCount
 };
 
@@ -1868,6 +1869,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, remote, sourceDescription, suite, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSectionReadout:
             return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
+        case ZBDatabaseStatementTypePackagesInSourceCount:
+            return @"SELECT COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ?;";
         default:
             return nil;
     }
@@ -2012,6 +2015,27 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return sources;
 }
 
+- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesInSourceCount];
+    NSUInteger packageCount = 0;
+    
+    int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(statement);
+        if (result == SQLITE_ROW) {
+            packageCount = sqlite3_column_int(statement, 0);
+        }
+    }
+    
+    if (result != SQLITE_OK && result != SQLITE_ROW) {
+        ZBLog(@"[Zebra] Failed to obtain package count from source with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+    }
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    return packageCount;
+}
+
 - (NSDictionary *)sectionReadoutForSource:(ZBSource *)source {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSectionReadout];
     int result = [self beginTransaction];
@@ -2034,6 +2058,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (result != SQLITE_DONE) {
             ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
+        
+        sectionReadout[@"ALL_PACKAGES"] = @([self numberOfPackagesInSource:source]);
     }
 
     [self endTransaction];

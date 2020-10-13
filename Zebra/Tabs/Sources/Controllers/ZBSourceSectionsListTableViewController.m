@@ -261,7 +261,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sectionNames.count + 1;
+    return sectionNames.count;
 }
 
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -278,20 +278,15 @@
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     cell.selectedBackgroundView.backgroundColor = [UIColor cellSelectedBackgroundColor];
     
-    if (indexPath.row == 0) {
-        cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
+    NSString *section = sectionNames[indexPath.row];
+    cell.textLabel.text = [self localizedSection:section];
         
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:0];//[databaseManager numberOfPackagesInSource:source section:NULL]];
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
-        cell.imageView.image = nil;
-    } else {
-        NSString *section = sectionNames[indexPath.row - 1];
-        cell.textLabel.text = [self localizedSection:section];
-        
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
+    cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
+    if (indexPath.row != 0) {
         cell.imageView.image = [ZBSource imageForSection:section];
         [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     }
+    
     return cell;
 }
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
