@@ -2369,45 +2369,66 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_bind_text(statement, ZBPackageColumnName + 1, package[ZBPackageColumnName], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
     
-//    NSString *author = package[@"Author"];
-//    NSRange rangeOfEmailBegin = [author rangeOfString:@"<"];
-//    NSRange rangeOfEmailEnd = [author rangeOfString:@">"];
-//    if (rangeOfEmailBegin.location != NSNotFound && rangeOfEmailEnd.location != NSNotFound) {
-//        NSString *authorName = [[author substringToIndex:rangeOfEmailBegin.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, [authorName UTF8String], -1, SQLITE_TRANSIENT);
-//
-//        NSString *authorEmail = [[author substringWithRange:NSMakeRange(rangeOfEmailBegin.location + 1, author.length - rangeOfEmailBegin.location - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, [authorEmail UTF8String], -1, SQLITE_TRANSIENT);
-//    } else {
-//        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, [author UTF8String], -1, SQLITE_TRANSIENT);
-//        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
-//    }
+    char *author = package[ZBPackageColumnAuthorName];
+    char *emailBegin = strchr(author, '<');
+    char *emailEnd = strchr(author, '>');
+    if (emailBegin && emailEnd) {
+        char *email = (char *)malloc(emailEnd - emailBegin);
+        memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
+        email[emailEnd - emailBegin - 1] = 0;
+        
+        if (*emailBegin - 1 == ' ') {
+            emailBegin--;
+        }
+        *emailBegin = 0;
+        
+        unsigned long authorLength = strlen(author);
+        if (author[authorLength - 1] == ' ') {
+            author[authorLength - 1] = 0;
+        }
+        
+        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
+        free(email);
+    } else {
+        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
+    }
     
     sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, package[ZBPackageColumnConflicts], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, package[ZBPackageColumnDepends], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, package[ZBPackageColumnDepictionURL], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, 0);
+    sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, atoi(package[ZBPackageColumnDownloadSize]));
 //    package.essential = packageDictionary[@"Essential"];
     sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, package[ZBPackageColumnFilename], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnHomepageURL + 1, package[ZBPackageColumnHomepageURL], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, 0);
+    sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, atoi(package[ZBPackageColumnInstalledSize]));
     
-//    NSString *maintainer = package[@"Maintainer"];
-//    rangeOfEmailBegin = [maintainer rangeOfString:@"<"];
-//    rangeOfEmailEnd = [maintainer rangeOfString:@">"];
-//    if (rangeOfEmailBegin.location != NSNotFound && rangeOfEmailEnd.location != NSNotFound) {
-//        NSString *maintainerName = [[maintainer substringToIndex:rangeOfEmailBegin.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, [maintainerName UTF8String], -1, SQLITE_TRANSIENT);
-//
-//        NSString *maintainerEmail = [[maintainer substringWithRange:NSMakeRange(rangeOfEmailBegin.location + 1, maintainer.length - rangeOfEmailBegin.location - 1)] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, [maintainerEmail UTF8String], -1, SQLITE_TRANSIENT);
-//    } else {
-//        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, [maintainer UTF8String], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_null(statement, ZBPackageColumnAuthorName + 1);
-    sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
-    sqlite3_bind_null(statement, ZBPackageColumnMaintainerName + 1);
-        sqlite3_bind_null(statement, ZBPackageColumnMaintainerEmail + 1);
-//    }
+    char *maintainer = package[ZBPackageColumnMaintainerName];
+    emailBegin = strchr(maintainer, '<');
+    emailEnd = strchr(author, '>');
+    if (emailBegin && emailEnd) {
+        char *email = (char *)malloc(emailEnd - emailBegin);
+        memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
+        email[emailEnd - emailBegin] = '\0';
+        
+        if (*emailBegin - 1 == ' ') {
+            emailBegin--;
+        }
+        *emailBegin = 0;
+        
+        unsigned long maintainerLength = strlen(maintainer);
+        if (author[maintainerLength - 1] == ' ') {
+            author[maintainerLength - 1] = 0;
+        }
+        
+        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, maintainer, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
+        free(email);
+    } else {
+        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, maintainer, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
+    }
     
     sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, package[ZBPackageColumnDescription], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, package[ZBPackageColumnPriority], -1, SQLITE_TRANSIENT);
@@ -2419,7 +2440,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnSource + 1, package[ZBPackageColumnSource], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnUUID + 1, package[ZBPackageColumnUUID], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, 0);
+    sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, *(int *)package[ZBPackageColumnLastSeen]);
     
     int result = sqlite3_step(statement);
     if (result != SQLITE_DONE) {

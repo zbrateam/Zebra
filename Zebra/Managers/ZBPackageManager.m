@@ -36,7 +36,7 @@
 char** new_package() {
     char **package = malloc(ZBPackageColumnCount * sizeof(char *));
     for (int i = 0; i < ZBPackageColumnCount; i++) {
-        package[i] = malloc(512 * sizeof(char *));
+        package[i] = malloc(512 * sizeof(void *));
         package[i][0] = '\0';
     }
     
@@ -76,7 +76,7 @@ void free_package(char **package) {
                 if (![uuids containsObject:uniqueIdentifier]) {
                     strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
                     strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
-        //            package[ZBPackageColumnLastSeen] = &currentUpdateDate;
+                    memcpy(package[ZBPackageColumnLastSeen], &currentUpdateDate, sizeof(sqlite_int64 *));
                     
                     [databaseManager insertPackage:package];
                     free_package(package);
