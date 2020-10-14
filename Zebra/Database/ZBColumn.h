@@ -18,6 +18,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnName,
     ZBPackageColumnVersion,
     ZBPackageColumnSection,
+    ZBPackageColumnUUID,
     
     // Package Columns
     ZBPackageColumnAuthorEmail,
@@ -38,7 +39,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnRole,
     ZBPackageColumnSHA256,
     ZBPackageColumnTag,
-    ZBPackageColumnUUID,
     ZBPackageColumnSource,
     ZBPackageColumnCount,
 };

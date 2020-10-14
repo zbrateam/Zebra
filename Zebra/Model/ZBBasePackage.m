@@ -7,8 +7,15 @@
 //
 
 #import "ZBBasePackage.h"
+#import "ZBPackage.h"
 
 #import <Database/ZBColumn.h>
+#import <Managers/ZBDatabaseManager.h>
+
+@interface ZBBasePackage () {
+    ZBPackage *forwardingPackage;
+}
+@end
 
 @implementation ZBBasePackage
 
@@ -56,9 +63,26 @@
         
         sqlite3_int64 lastSeen = sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         self.lastSeen = lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate date];
+        
+        const char *uuid = (const char *)sqlite3_column_text(statement, ZBPackageColumnUUID);
+        if (uuid != NULL) {
+            self.uuid = [NSString stringWithUTF8String:uuid];
+        }
     }
     
     return self;
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector {
+    if (forwardingPackage) return forwardingPackage;
+    
+    ZBPackage *package = [[ZBDatabaseManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
+    
+    if (package) {
+        forwardingPackage = package;
+    }
+    
+    return forwardingPackage;
 }
 
 @end

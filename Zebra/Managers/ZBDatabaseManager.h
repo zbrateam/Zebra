@@ -417,6 +417,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section;
 
+- (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid;
 
 @end
 

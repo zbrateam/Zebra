@@ -24,6 +24,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
     ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
+    ZBDatabaseStatementTypePackageWithUUID,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
@@ -158,6 +159,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "name TEXT, "
                                       "version TEXT, "
                                       "section TEXT, "
+                                      "uuid TEXT, "
                                       "authorEmail TEXT, "
                                       "conflicts TEXT, "
                                       "depends TEXT, "
@@ -176,7 +178,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "role INTEGER, "
                                       "sha256 TEXT, "
                                       "tag TEXT, "
-                                      "uuid TEXT, "
                                       "source TEXT, "
                                       "FOREIGN KEY(source) REFERENCES " SOURCES_TABLE_NAME "(uuid) "
                                       "PRIMARY KEY(uuid)) "
@@ -1857,15 +1858,17 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (NSString *)statementStringForStatementType:(ZBDatabaseStatementType)statement {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
-            return @"SELECT authorName, description, identifier, lastSeen, name, version, section FROM " PACKAGES_TABLE_NAME " WHERE source = ?;";
+            return @"SELECT authorName, description, identifier, lastSeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
-            return @"SELECT authorName, description, identifier, lastSeen, name, version, section FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ?;";
+            return @"SELECT authorName, description, identifier, lastSeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ?;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
+        case ZBDatabaseStatementTypePackageWithUUID:
+            return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
-            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, identifier, lastSeen, name, version, section, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, iconURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, role, sha256, tag, uuid, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, identifier, lastSeen, name, version, section, uuid, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, iconURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, role, sha256, tag, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
         case ZBDatabaseStatementTypeInsertSource:
@@ -1994,6 +1997,32 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_reset(statement);
     
     return uuids;
+}
+
+- (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageWithUUID];
+    int result = sqlite3_bind_text(statement, 1, [uuid UTF8String], -1, SQLITE_TRANSIENT);
+    if (result == SQLITE_OK) {
+        result = [self beginTransaction];
+    }
+    
+    ZBPackage *package;
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(statement);
+        if (result == SQLITE_ROW) {
+            package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+        }
+        
+        if (result != SQLITE_OK && result != SQLITE_ROW) {
+            ZBLog(@"[Zebra] Failed to query package with uuid with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    }
+    
+    [self endTransaction];
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    
+    return package;
 }
 
 #pragma mark - Source Retrieval
