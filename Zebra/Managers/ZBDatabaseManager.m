@@ -2110,7 +2110,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (void)insertPackage:(char **)package {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
-    
+
     sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, package[ZBPackageColumnIdentifier], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnName + 1, package[ZBPackageColumnName], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
@@ -2123,15 +2123,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
         email[emailEnd - emailBegin - 1] = 0;
         
-        if (*emailBegin - 1 == ' ') {
+        if (*(emailBegin - 1) == ' ') {
             emailBegin--;
         }
         *emailBegin = 0;
-        
-        unsigned long authorLength = strlen(author);
-        if (author[authorLength - 1] == ' ') {
-            author[authorLength - 1] = 0;
-        }
         
         sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
@@ -2156,24 +2151,19 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     if (emailBegin && emailEnd) {
         char *email = (char *)malloc(emailEnd - emailBegin);
         memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
-        email[emailEnd - emailBegin] = '\0';
+        email[emailEnd - emailBegin - 1] = 0;
         
-        if (*emailBegin - 1 == ' ') {
+        if (*(emailBegin - 1) == ' ') {
             emailBegin--;
         }
         *emailBegin = 0;
         
-        unsigned long maintainerLength = strlen(maintainer);
-        if (author[maintainerLength - 1] == ' ') {
-            author[maintainerLength - 1] = 0;
-        }
-        
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, maintainer, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, email, -1, SQLITE_TRANSIENT);
         free(email);
     } else {
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, maintainer, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
+        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
+        sqlite3_bind_null(statement, ZBPackageColumnMaintainerEmail + 1);
     }
     
     sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, package[ZBPackageColumnDescription], -1, SQLITE_TRANSIENT);
