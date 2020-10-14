@@ -43,9 +43,6 @@
 
 @implementation ZBPackage
 
-@synthesize lowestCompatibleVersion = _lowestCompatibleVersion;
-@synthesize highestCompatibleVersion = _highestCompatibleVersion;
-
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
     if ([ZBDevice needsSimulation]) {
@@ -152,93 +149,88 @@
     if (self) {
         const char *authorEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorEmail);
         if (authorEmail) {
-            self.authorEmail = [NSString stringWithUTF8String:authorEmail];
+            _authorEmail = [NSString stringWithUTF8String:authorEmail];
         }
         
         const char *conflicts = (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
         if (conflicts) {
-            const void *ptr = sqlite3_column_blob(statement, ZBPackageColumnConflicts);
-            int size = sqlite3_column_bytes(statement, ZBPackageColumnConflicts);
-            self.conflicts = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithBytes:ptr length:size]];
+            NSString *rawConflicts = [NSString stringWithUTF8String:conflicts];
+            _conflicts = [rawConflicts componentsSeparatedByString:@","];
         }
         
         const char *depends = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
         if (depends) {
-            const void *ptr = sqlite3_column_blob(statement, ZBPackageColumnDepends);
-            int size = sqlite3_column_bytes(statement, ZBPackageColumnDepends);
-            self.depends = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithBytes:ptr length:size]];
+            NSString *rawDepends = [NSString stringWithUTF8String:depends];
+            _depends = [rawDepends componentsSeparatedByString:@","];
         }
         
         const char *depictionURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepictionURL);
         if (depictionURL) {
             NSString *depictionURLString = [NSString stringWithUTF8String:depictionURL];
-            self.depictionURL = [NSURL URLWithString:depictionURLString];
+            _depictionURL = [NSURL URLWithString:depictionURLString];
         }
         
-        self.downloadSize = sqlite3_column_int(statement, ZBPackageColumnDownloadSize);
+        _downloadSize = sqlite3_column_int(statement, ZBPackageColumnDownloadSize);
         
-        self.essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
+        _essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
         
         const char *filename = (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
         if (filename) {
-            self.filename = [NSString stringWithUTF8String:filename];
+            _filename = [NSString stringWithUTF8String:filename];
         }
         
         const char *homepageURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepageURL);
         if (homepageURL) {
             NSString *homepageURLString = [NSString stringWithUTF8String:homepageURL];
-            self.homepageURL = [NSURL URLWithString:homepageURLString];
+            _homepageURL = [NSURL URLWithString:homepageURLString];
         }
         
         const char *iconURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         if (iconURL) {
             NSString *iconURLString = [NSString stringWithUTF8String:iconURL];
-            self.iconURL = [NSURL URLWithString:iconURLString];
+            _iconURL = [NSURL URLWithString:iconURLString];
         }
         
-        self.installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
+        _installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
         
         const char *maintainerEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
         if (maintainerEmail) {
-            self.maintainerEmail = [NSString stringWithUTF8String:maintainerEmail];
+            _maintainerEmail = [NSString stringWithUTF8String:maintainerEmail];
         }
         
         const char *maintainerName = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
         if (maintainerName) {
-            self.maintainerName = [NSString stringWithUTF8String:maintainerName];
+            _maintainerName = [NSString stringWithUTF8String:maintainerName];
         }
         
         const char *priorityChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
         if (priorityChars) {
-            self.priority = [NSString stringWithUTF8String:priorityChars];
+            _priority = [NSString stringWithUTF8String:priorityChars];
         }
         
         const char *provides = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
         if (provides) {
-            const void *ptr = sqlite3_column_blob(statement, ZBPackageColumnProvides);
-            int size = sqlite3_column_bytes(statement, ZBPackageColumnProvides);
-            self.provides = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithBytes:ptr length:size]];
+            NSString *rawProvides = [NSString stringWithUTF8String:provides];
+            _provides = [rawProvides componentsSeparatedByString:@","];
         }
         
         const char *replaces = (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
         if (replaces) {
-            const void *ptr = sqlite3_column_blob(statement, ZBPackageColumnReplaces);
-            int size = sqlite3_column_bytes(statement, ZBPackageColumnReplaces);
-            self.replaces = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithBytes:ptr length:size]];
+            NSString *rawReplaces = [NSString stringWithUTF8String:replaces];
+            _replaces = [rawReplaces componentsSeparatedByString:@","];
         }
         
-        self.role = sqlite3_column_int(statement, ZBPackageColumnRole);
+        _role = sqlite3_column_int(statement, ZBPackageColumnRole);
         
         const char *SHA256 = (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
         if (SHA256) {
-            self.SHA256 = [NSString stringWithUTF8String:SHA256];
+            _SHA256 = [NSString stringWithUTF8String:SHA256];
         }
         
         const char *tag = (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
         if (tag) {
-            const void *ptr = sqlite3_column_blob(statement, ZBPackageColumnTag);
-            int size = sqlite3_column_bytes(statement, ZBPackageColumnTag);
-            self.tag = [NSKeyedUnarchiver unarchiveObjectWithData:[NSData dataWithBytes:ptr length:size]];
+            NSString *rawTag = [NSString stringWithUTF8String:tag];
+            _tag = [rawTag componentsSeparatedByString:@","];
         }
     }
     
@@ -324,12 +316,13 @@
         info[key] = value;
     }];
     
-    ZBPackage *package = [self initWithDictionary:info];
-    [package setDebPath:path];
-    [package setSource:[ZBSource localSource]];
-    package.source.sourceID = -2;
+    self = [self initWithDictionary:info];
+    if (self) {
+        _debPath = path;
+        _source = [ZBSource localSource];
+    }
     
-    return package;
+    return self;
 }
 
 - (BOOL)isEqual:(ZBPackage *)object {
@@ -532,7 +525,7 @@
 }
 
 - (BOOL)isInstalled:(BOOL)strict {
-    if (self.source && [self.source sourceID] <= 0) { // Package is in sourceID 0 or -1
+    if (self.source && [self.source.uuid isEqualToString:@"_var_lib_dpkg_status"]) {
         return YES;
     }
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
@@ -937,20 +930,22 @@
 }
 
 - (BOOL)hasChangelog {
-    return _changelogTitle != NULL && _changelogNotes != NULL;
+//    return _changelogTitle != NULL && _changelogNotes != NULL;
+    return NO;
 }
 
 - (NSString *)changelogTitle {
-    if (_changelogTitle && ![_changelogTitle isEqualToString:@""]) {
-        return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), self.version, _changelogTitle];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"Version %@", @""), self.version];
+    return NULL;
+//    if (_changelogTitle && ![_changelogTitle isEqualToString:@""]) {
+//        return [NSString stringWithFormat:NSLocalizedString(@"Version %@ — %@", @""), self.version, _changelogTitle];
+//    }
+//    return [NSString stringWithFormat:NSLocalizedString(@"Version %@", @""), self.version];
 }
 
 - (NSString *)changelogNotes {
-    if (_changelogNotes  && ![_changelogNotes isEqualToString:@""]) {
-        return _changelogNotes;
-    }
+//    if (_changelogNotes  && ![_changelogNotes isEqualToString:@""]) {
+//        return _changelogNotes;
+//    }
     return NSLocalizedString(@"No Release Notes Available", @"");
 }
 
