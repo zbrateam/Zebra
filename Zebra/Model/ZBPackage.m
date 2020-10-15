@@ -12,7 +12,7 @@
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBUtils.h>
-#import <Parsel/vercmp.h>
+#import <Helpers/vercmp.h>
 #import <Model/ZBSource.h>
 #import <ZBAppDelegate.h>
 #import <Managers/ZBDatabaseManager.h>

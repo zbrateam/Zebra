@@ -12,8 +12,8 @@
 #import <Model/ZBPackage.h>
 
 #import <Managers/ZBDatabaseManager.h>
-#import <Parsel/vercmp.h>
 #import <Queue/ZBQueue.h>
+#import <Helpers/vercmp.h>
 
 @interface ZBDependencyResolver () {
     NSArray *installedPackagesList; //Packages that are installed on the device

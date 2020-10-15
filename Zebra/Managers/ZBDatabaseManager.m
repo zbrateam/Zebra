@@ -19,6 +19,7 @@
 #import <Database/ZBColumn.h>
 #import <Model/ZBSource.h>
 #import <Model/ZBPackage.h>
+#import "utils.h"
 
 typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
@@ -99,6 +100,13 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         result = [self initializeSourcesTable];
         if (result != SQLITE_OK) {
             ZBLog(@"[Zebra] Failed to initialize sources table at %s", databasePath);
+        }
+    }
+    
+    if (result == SQLITE_OK) {
+        result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
+        if (result != SQLITE_OK) {
+            ZBLog(@"[Zebra] Failed to create aggregate function at %s", databasePath);
         }
     }
     
@@ -1859,9 +1867,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (NSString *)statementStringForStatementType:(ZBDatabaseStatementType)statement {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
-            return @"SELECT authorName, description, identifier, lastSeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?;";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
-            return @"SELECT authorName, description, identifier, lastSeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ?;";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackageWithUUID:
@@ -2035,7 +2043,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             installed = YES;
         }
         
-        if (result != SQLITE_OK && result != SQLITE_ROW) {
+        if (result != SQLITE_DONE) {
             ZBLog(@"[Zebra] Failed to query if package is installed with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
     }
