@@ -389,9 +389,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 
-- (ZBPackage * _Nullable)localVersionForPackage:(ZBPackage *)package;
-- (NSString * _Nullable)installedVersionForPackage:(ZBPackage *)package;
-
 #pragma mark - New Stuff
 
 - (NSArray <ZBBasePackage *> *)packagesMatchingFilters:(NSString *)filters;
@@ -419,6 +416,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid;
 - (BOOL)isPackageInstalled:(ZBPackage *)package;
+- (BOOL)isPackageInstalled:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
+- (ZBBasePackage *)installedInstanceOfPackage:(ZBPackage *)package;
+- (NSString *)installedVersionOfPackage:(ZBPackage *)package;
 
 @end
 

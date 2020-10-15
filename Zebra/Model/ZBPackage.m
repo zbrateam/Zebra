@@ -43,6 +43,9 @@
 
 @implementation ZBPackage
 
+@synthesize isInstalled = _isInstalled;
+@synthesize isVersionInstalled = _isVersionInstalled;
+
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
     if ([ZBDevice needsSimulation]) {
@@ -524,12 +527,22 @@
     return [NSString stringWithFormat:NSLocalizedString(@"%lu KB", @""), (unsigned long)self.installedSize];
 }
 
-- (BOOL)installed {
+- (BOOL)isInstalled {
     if (self.source && [self.source.uuid isEqualToString:@"_var_lib_dpkg_status"]) {
-        return YES;
+        _isInstalled = YES;
     }
     
-    return [[ZBDatabaseManager sharedInstance] isPackageInstalled:self];
+    if (!_isInstalled) [[ZBDatabaseManager sharedInstance] isPackageInstalled:self];
+    
+    return _isInstalled;
+}
+
+- (BOOL)isVersionInstalled {
+    if (_isVersionInstalled) return _isVersionInstalled;
+    
+    _isVersionInstalled = [[ZBDatabaseManager sharedInstance] isPackageInstalled:self checkVersion:YES];
+    
+    return _isVersionInstalled;
 }
 
 - (BOOL)isReinstallable {
@@ -762,7 +775,7 @@
 
 - (NSArray *)information {
     NSMutableArray *information = [NSMutableArray new];
-    BOOL installed = self.installed;
+    BOOL installed = self.isInstalled;
     
     NSArray <ZBPackage *> *allVersions = [self allVersions];
     if (allVersions.count > 1 && installed) {

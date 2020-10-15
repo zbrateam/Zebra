@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSString * _Nullable highestCompatibleVersion;
 @property (readonly) NSURL *_Nullable homepageURL;
 @property (readonly) NSURL *_Nullable iconURL;
-@property (readonly) BOOL installed;
+@property (readonly) BOOL isInstalled;
+@property (readonly) BOOL isVersionInstalled;
 @property (readonly) NSUInteger installedSize;
 @property (readonly) NSString * _Nullable lowestCompatibleVersion;
 @property (readonly) NSString *_Nullable maintainerName;
@@ -45,8 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL requiresAuthorization;
 @property (readonly) uint16_t role;
 @property (readonly) NSString *_Nullable SHA256;
-@property (readonly) NSArray *_Nullable tag;
 @property (readonly) ZBSource *source;
+@property (readonly) NSArray *_Nullable tag;
 
 // Old Properties
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencies;
@@ -64,7 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sameAsStricted:(ZBPackage * _Nonnull)package;
 - (BOOL)isPaid;
 - (NSString * _Nullable)getField:(NSString * _Nonnull)field;
-- (BOOL)isInstalled:(BOOL)strict;
 - (BOOL)isReinstallable;
 - (NSMutableArray <ZBPackage *> * _Nullable)allVersions;
 - (NSMutableArray <ZBPackage *> * _Nullable)otherVersions;

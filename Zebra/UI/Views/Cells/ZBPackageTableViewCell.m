@@ -57,7 +57,7 @@
     
     [package setIconImageForImageView:self.iconImageView];
     
-    self.isInstalledImageView.hidden = !package.installed;
+    self.isInstalledImageView.hidden = !package.isInstalled;
     self.isPaidImageView.hidden = !package.isPaid;
     
     [self updateQueueStatus:package];
