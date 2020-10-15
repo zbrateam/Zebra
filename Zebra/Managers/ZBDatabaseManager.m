@@ -1912,7 +1912,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
             ZBDatabaseStatementType statementType = (ZBDatabaseStatementType)i;
             const char *statement = [[self statementStringForStatementType:statementType] UTF8String];
-            NSLog(@"Statement: %s", statement);
             if (sqlite3_prepare(database, statement, -1, &preparedStatements[statementType], NULL) != SQLITE_OK) {
                 ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
                 free(preparedStatements);

@@ -382,11 +382,11 @@
             </objects>
             <point key="canvasLocation" x="2398" y="1127"/>
         </scene>
-        <!--Packages-->
+        <!--Installed-->
         <scene sceneID="63q-Lg-3xR">
             <objects>
                 <navigationController id="gIv-lu-OI7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Packages" image="Packages" selectedImage="Packages" id="LuL-3D-0wp"/>
+                    <tabBarItem key="tabBarItem" title="Installed" image="Packages" selectedImage="Packages" id="LuL-3D-0wp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="4AA-LS-GXz">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>

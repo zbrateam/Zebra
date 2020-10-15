@@ -80,9 +80,7 @@
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
-    ZBPackageListTableViewController *packagesController = [[ZBPackageListTableViewController alloc] init];
-    packagesController.source = [ZBSource localSource];
-    [packagesNavController setViewControllers:@[packagesController] animated:NO];
+    [packagesNavController setViewControllers:@[[[ZBPackageListTableViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {

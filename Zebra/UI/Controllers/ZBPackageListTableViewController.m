@@ -20,7 +20,9 @@
 #import <Model/ZBSource.h>
 #import <UI/Views/Cells/ZBPackageTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/UIViewController+Extensions.h>
 #import "ZBDevice.h"
+#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 
 @import FirebaseAnalytics;
 
@@ -38,17 +40,38 @@
     int totalNumberOfPackages;
     int numberOfPackages;
     int databaseRow;
+    
+    ZBSource *source;
+    NSString *section;
 }
 @property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
 @implementation ZBPackageListTableViewController
 
-@synthesize source;
-@synthesize section;
+- (instancetype)initWithSource:(ZBSource *)source {
+    return [self initWithSource:source section:NULL];
+}
 
-+ (BOOL)supportRefresh {
-    return NO;
+- (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section {
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        self->source = source;
+        self->section = [section isEqualToString:@"ALL_PACKAGES"] ? NULL : section;
+        
+        if (self->source.remote) {
+            if (self->section) {
+                self.title = NSLocalizedString(self->section, @"");
+            } else {
+                self.title = NSLocalizedString(@"All Packages", @"");
+            }
+        } else {
+            self.title = NSLocalizedString(@"Installed", @"");
+        }
+    }
+    
+    return self;
 }
 
 - (BOOL)useBatchLoad {
@@ -63,16 +86,8 @@
     selectedSortingType = [ZBSettings packageSortingType];
     if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
-//    self.tableView.contentInset = UIEdgeInsetsMake(5, 0, 0, 0);
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
-//    if (@available(iOS 13.0, *)) {
-//    } else {        
-//        if ([self.traitCollection respondsToSelector:@selector(forceTouchCapability)] && (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)) {
-//            [self registerForPreviewingWithDelegate:self sourceView:self.view];
-//        }
-//    }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
 
 - (void)applyLocalization {
@@ -109,7 +124,7 @@
 - (void)updateCollation {
     switch (selectedSortingType) {
         case ZBSortingTypeABC:
-            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
+            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(identifier)];
             break;
         case ZBSortingTypeDate:
             self.tableData = [self partitionObjects:packages collationStringSelector:source.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];
@@ -409,6 +424,10 @@
 
 - (void)scrollToTop {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return 0;
 }
 
 @end

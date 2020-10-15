@@ -295,9 +295,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing) {
-        ZBPackageListTableViewController *packageList = [[ZBPackageListTableViewController alloc] init];
-        packageList.source = source;
-        packageList.section = [sectionNames[indexPath.row] isEqualToString:@"ALL_PACKAGES"] ? NULL : sectionNames[indexPath.row];
+        ZBPackageListTableViewController *packageList = [[ZBPackageListTableViewController alloc] initWithSource:source section:sectionNames[indexPath.row]];
         
         [[self navigationController] pushViewController:packageList animated:YES];
         
@@ -324,29 +322,6 @@
 
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     return !self.editing;
-}
-
-// FIXME: Remove segues
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
-//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-//        NSString *packageID = sender;
-//        destination.package = [databaseManager topVersionForPackageID:packageID];
-//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    } else {
-        ZBPackageListTableViewController *destination = [segue destinationViewController];
-        UITableViewCell *cell = (UITableViewCell *)sender;
-        destination.source = source;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-
-        if (indexPath.row != 0) {
-            NSString *section = sectionNames[indexPath.row - 1];
-            destination.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            destination.title = section;
-        } else {
-            destination.title = NSLocalizedString(@"All Packages", @"");
-        }
-    }
 }
 
 // 3D Touch Actions
@@ -404,25 +379,25 @@
 //    }
 }
 
-- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
-    typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        return weakSelf.previewPackageListVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-        weakSelf.previewPackageListVC.source = self->source;
-        if (indexPath.row > 0) {
-            NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
-            weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            weakSelf.title = section;
-        }
-        else {
-            weakSelf.title = NSLocalizedString(@"All Packages", @"");
-        }
-//        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
-    }];
-}
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+//    typeof(self) __weak weakSelf = self;
+//    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+//        return weakSelf.previewPackageListVC;
+//    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+//        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+//        weakSelf.previewPackageListVC.source = self->source;
+//        if (indexPath.row > 0) {
+//            NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
+//            weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+//            weakSelf.title = section;
+//        }
+//        else {
+//            weakSelf.title = NSLocalizedString(@"All Packages", @"");
+//        }
+////        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
+//        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
