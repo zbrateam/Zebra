@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSString * _Nullable highestCompatibleVersion;
 @property (readonly) NSURL *_Nullable homepageURL;
 @property (readonly) NSURL *_Nullable iconURL;
+@property (readonly) BOOL installed;
 @property (readonly) NSUInteger installedSize;
 @property (readonly) NSString * _Nullable lowestCompatibleVersion;
 @property (readonly) NSString *_Nullable maintainerName;
@@ -54,10 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) ZBPackage * _Nullable removedBy;
 @property BOOL ignoreDependencies;
 
-+ (NSArray * _Nonnull)filesInstalledBy:(NSString * _Nonnull)packageID;
-+ (BOOL)respringRequiredFor:(NSString * _Nonnull)packageID;
-+ (NSString * _Nullable)applicationBundlePathForIdentifier:(NSString * _Nonnull)packageID;
-- (id _Nonnull)initFromDeb:(NSString * _Nullable)path;
++ (NSArray *)filesInstalledBy:(NSString *)packageID;
++ (BOOL)respringRequiredFor:(NSString *)packageID;
++ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID;
+- (id)initFromDeb:(NSString *)path;
 - (NSComparisonResult)compare:(id _Nullable)object;
 - (BOOL)sameAs:(ZBPackage * _Nonnull)package;
 - (BOOL)sameAsStricted:(ZBPackage * _Nonnull)package;

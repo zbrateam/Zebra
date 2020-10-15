@@ -106,7 +106,7 @@
     return NO;
 }
 
-+ (NSString * _Nullable)applicationBundlePathForIdentifier:(NSString *)packageID {
++ (NSString *)applicationBundlePathForIdentifier:(NSString *)packageID {
     if ([ZBDevice needsSimulation]) {
         return NULL;
     }
@@ -512,7 +512,7 @@
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d bytes", @""), self.downloadSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%lu bytes", @""), (unsigned long)self.downloadSize];
 }
 
 - (NSString * _Nullable)installedSizeString {
@@ -521,15 +521,15 @@
     if (size > 1024) {
         return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
     }
-    return [NSString stringWithFormat:NSLocalizedString(@"%d KB", @""), self.installedSize];
+    return [NSString stringWithFormat:NSLocalizedString(@"%lu KB", @""), (unsigned long)self.installedSize];
 }
 
-- (BOOL)isInstalled:(BOOL)strict {
+- (BOOL)installed {
     if (self.source && [self.source.uuid isEqualToString:@"_var_lib_dpkg_status"]) {
         return YES;
     }
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageIsInstalled:self versionStrict:strict];
+    
+    return [[ZBDatabaseManager sharedInstance] isPackageInstalled:self];
 }
 
 - (BOOL)isReinstallable {
@@ -762,7 +762,7 @@
 
 - (NSArray *)information {
     NSMutableArray *information = [NSMutableArray new];
-    BOOL installed = [self isInstalled:NO];
+    BOOL installed = self.installed;
     
     NSArray <ZBPackage *> *allVersions = [self allVersions];
     if (allVersions.count > 1 && installed) {

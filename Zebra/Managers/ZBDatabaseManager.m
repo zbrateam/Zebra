@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
     ZBDatabaseStatementTypePackageWithUUID,
+    ZBDatabaseStatementTypeIsPackageInstalled,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
@@ -1865,6 +1866,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackageWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
+        case ZBDatabaseStatementTypeIsPackageInstalled:
+            return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status\' LIMIT 1;";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
@@ -2001,10 +2004,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageWithUUID];
-    int result = sqlite3_bind_text(statement, 1, [uuid UTF8String], -1, SQLITE_TRANSIENT);
-    if (result == SQLITE_OK) {
-        result = [self beginTransaction];
-    }
+    int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
     
     ZBPackage *package;
     if (result == SQLITE_OK) {
@@ -2018,11 +2018,32 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
     }
     
-    [self endTransaction];
     sqlite3_clear_bindings(statement);
     sqlite3_reset(statement);
     
     return package;
+}
+
+- (BOOL)isPackageInstalled:(ZBPackage *)package {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeIsPackageInstalled];
+    int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
+    
+    BOOL installed = NO;
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(statement);
+        if (result == SQLITE_ROW) {
+            installed = YES;
+        }
+        
+        if (result != SQLITE_OK && result != SQLITE_ROW) {
+            ZBLog(@"[Zebra] Failed to query if package is installed with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    }
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    
+    return installed;
 }
 
 #pragma mark - Source Retrieval
