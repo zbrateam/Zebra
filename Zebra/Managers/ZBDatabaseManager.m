@@ -2164,11 +2164,12 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 //    package.essential = packageDictionary[@"Essential"];
     sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, package[ZBPackageColumnFilename], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnHomepageURL + 1, package[ZBPackageColumnHomepageURL], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnIconURL + 1, package[ZBPackageColumnIconURL], -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, atoi(package[ZBPackageColumnInstalledSize]));
     
     char *maintainer = package[ZBPackageColumnMaintainerName];
     emailBegin = strchr(maintainer, '<');
-    emailEnd = strchr(author, '>');
+    emailEnd = strchr(maintainer, '>');
     if (emailBegin && emailEnd) {
         char *email = (char *)malloc(emailEnd - emailBegin);
         memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
