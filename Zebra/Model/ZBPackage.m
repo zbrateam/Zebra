@@ -148,24 +148,24 @@
     
     if (self) {
         const char *authorEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorEmail);
-        if (authorEmail) {
+        if (authorEmail && authorEmail[0] != '\0') { // This is the only column that is NULL usually, the rest of them are empty so we do an extra check
             _authorEmail = [NSString stringWithUTF8String:authorEmail];
         }
         
         const char *conflicts = (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
-        if (conflicts) {
+        if (conflicts[0] != '\0') {
             NSString *rawConflicts = [NSString stringWithUTF8String:conflicts];
             _conflicts = [rawConflicts componentsSeparatedByString:@","];
         }
         
         const char *depends = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
-        if (depends) {
+        if (depends[0] != '\0') {
             NSString *rawDepends = [NSString stringWithUTF8String:depends];
             _depends = [rawDepends componentsSeparatedByString:@","];
         }
         
         const char *depictionURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepictionURL);
-        if (depictionURL) {
+        if (depictionURL[0] != '\0') {
             NSString *depictionURLString = [NSString stringWithUTF8String:depictionURL];
             _depictionURL = [NSURL URLWithString:depictionURLString];
         }
@@ -175,18 +175,18 @@
         _essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
         
         const char *filename = (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
-        if (filename) {
+        if (filename[0] != '\0') {
             _filename = [NSString stringWithUTF8String:filename];
         }
         
         const char *homepageURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepageURL);
-        if (homepageURL) {
+        if (homepageURL[0] != '\0') {
             NSString *homepageURLString = [NSString stringWithUTF8String:homepageURL];
             _homepageURL = [NSURL URLWithString:homepageURLString];
         }
         
         const char *iconURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
-        if (iconURL) {
+        if (iconURL[0] != '\0') {
             NSString *iconURLString = [NSString stringWithUTF8String:iconURL];
             _iconURL = [NSURL URLWithString:iconURLString];
         }
@@ -194,28 +194,28 @@
         _installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
         
         const char *maintainerEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
-        if (maintainerEmail) {
+        if (maintainerEmail && maintainerEmail[0] != '\0') {
             _maintainerEmail = [NSString stringWithUTF8String:maintainerEmail];
         }
         
         const char *maintainerName = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
-        if (maintainerName) {
+        if (maintainerName[0] != '\0') {
             _maintainerName = [NSString stringWithUTF8String:maintainerName];
         }
         
         const char *priorityChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
-        if (priorityChars) {
+        if (priorityChars[0] != '\0') {
             _priority = [NSString stringWithUTF8String:priorityChars];
         }
         
         const char *provides = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
-        if (provides) {
+        if (provides[0] != '\0') {
             NSString *rawProvides = [NSString stringWithUTF8String:provides];
             _provides = [rawProvides componentsSeparatedByString:@","];
         }
         
         const char *replaces = (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
-        if (replaces) {
+        if (replaces[0] != '\0') {
             NSString *rawReplaces = [NSString stringWithUTF8String:replaces];
             _replaces = [rawReplaces componentsSeparatedByString:@","];
         }
@@ -223,12 +223,12 @@
         _role = sqlite3_column_int(statement, ZBPackageColumnRole);
         
         const char *SHA256 = (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
-        if (SHA256) {
+        if (SHA256[0] != '\0') {
             _SHA256 = [NSString stringWithUTF8String:SHA256];
         }
         
         const char *tag = (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
-        if (tag) {
+        if (tag[0] != '\0') {
             NSString *rawTag = [NSString stringWithUTF8String:tag];
             _tag = [rawTag componentsSeparatedByString:@","];
         }
@@ -649,13 +649,13 @@
 }
 
 - (void)setIconImageForImageView:(UIImageView *)imageView {
-//    UIImage *sectionImage = [ZBSource imageForSection:self.section];
-//    if (self.iconPath) {
-//        [imageView sd_setImageWithURL:[NSURL URLWithString:self.iconPath] placeholderImage:sectionImage];
-//    }
-//    else {
-//        [imageView setImage:sectionImage];
-//    }
+    UIImage *sectionImage = [ZBSource imageForSection:self.section];
+    if (self.iconURL) {
+        [imageView sd_setImageWithURL:self.iconURL placeholderImage:sectionImage];
+    }
+    else {
+        [imageView setImage:sectionImage];
+    }
 }
 
 - (NSArray * _Nullable)possibleActions {    
