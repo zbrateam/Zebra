@@ -121,13 +121,13 @@
         NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
         switch (selectedIndex) {
             case 0:
-                results = [databaseManager searchForPackageName:strippedString fullSearch:!self->liveSearch];
+                results = [databaseManager searchForPackageName:strippedString];
                 break;
             case 1:
-                results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->liveSearch];
+                results = [databaseManager packagesWithDescription:strippedString];
                 break;
             case 2:
-                results = [databaseManager packagesByAuthorName:strippedString email:nil fullSearch:!self->liveSearch];
+                results = [databaseManager packagesByAuthorName:strippedString email:nil];
                 break;
         }
     }

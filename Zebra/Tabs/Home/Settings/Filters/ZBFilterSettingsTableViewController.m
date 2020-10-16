@@ -389,7 +389,7 @@
 - (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
     ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
     NSString *email = [blockedAuthors allKeys][indexPath.row];
-    NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
+    NSArray *aliases = [database searchForAuthorByEmail:email];
 
     return aliases;
 }

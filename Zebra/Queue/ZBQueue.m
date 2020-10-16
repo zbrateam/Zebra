@@ -68,7 +68,7 @@
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     if (package == NULL) return;
     
-    if (queue == ZBQueueTypeRemove && ![package isInstalled:YES]) { //Trying to remove a package that isn't installed
+    if (queue == ZBQueueTypeRemove && !package.isVersionInstalled) { //Trying to remove a package that isn't installed
         package = [package removeableCandidate];
     }
     

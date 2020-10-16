@@ -20,7 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBDatabaseManager : NSObject <ZBDownloadDelegate>
+@interface ZBDatabaseManager : NSObject
 
 @property (nonatomic, getter=isDatabaseBeingUpdated) BOOL databaseBeingUpdated;
 
@@ -45,64 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (NSDate *)lastUpdated;
 
-#pragma mark - Populating the database
-
-/*!
- @brief Parses files located in the filenames dictionary.
- @discussion Updates the database from the sources contained in sources.list and from the local packages contained in /var/lib/dpkg/status
- @param sources An NSArray containing completed ZBBaseSources
- */
-- (void)parseSources:(NSArray <ZBBaseSource *> *)sources DEPRECATED_MSG_ATTRIBUTE("Importing of packages is now handled by ZBSourceManager and ZBPackageManager. This method will be removed in the final release of Zebra 1.2.");
-
 #pragma mark - Source management
 
-/*!
- @brief Get a sourceID from a base file name
- @param bfn The base file name.
- @return A sourceID for the matching base file name. -1 if no match was found.
- */
-- (int)sourceIDFromBaseFileName:(NSString *)bfn;
-
-/*!
-@brief Get a sourceID from a base url
-@param baseURL the base url
-@return A sourceID for the matching base url. -1 if no match was found.
-*/
-- (int)sourceIDFromBaseURL:(NSString *)baseURL strict:(BOOL)strict;
-
-/*!
-@brief Get a ZBSource instance  from a base url
-@param baseURL the base url
-@return A ZBSource instance for the matching base url.
-*/
-- (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL;
-
-/*!
-@brief Get a ZBSource instance  from a base filename
-@param baseFilename the base filename
-@return A ZBSource instance for the matching base filename
-*/
-- (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename;
-
-/*!
- @brief The next sourceID in the database.
- @return The next sourceID.
- */
-- (int)nextSourceID;
-
-/*!
- @brief The number of packages in a source.
- @param source (Nullable) The source.
- @param section (Nullable) A subsection of the source to count the number of packages in.
- @return The number of packages in that source/section.
- */
-- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section;
-
-/*!
- @brief Overload of -numberOfPackagesInSource:section:
- @param enableFiltering Show or hide the packages with sections filtered out.
- */
-- (int)numberOfPackagesInSource:(ZBSource * _Nullable)source section:(NSString * _Nullable)section enableFiltering:(BOOL)enableFiltering;
+- (ZBSource * _Nullable)sourceWithUniqueIdentifier:(NSString *)uuid;
 
 /*!
  @brief All of the sources that are in the database.
@@ -110,7 +55,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSSet <ZBSource *> * _Nullable)sources;
 - (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
-- (ZBSource * _Nullable)sourceFromSourceID:(int)sourceID;
 
 /*!
  @brief Updates the URI for the source with the matching sourceID.
@@ -138,25 +82,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Package retrieval
 
 /*!
- @brief Overload of -packagesFromSource:inSection:numberOfPackages:startingAt:
- @param enableFiltering Show or hide the packages with sections filtered out.
- */
-- (NSArray <ZBPackage *> * _Nullable)packagesFromSource:(ZBSource * _Nullable)source inSection:(NSString * _Nullable)section numberOfPackages:(int)limit startingAt:(int)start enableFiltering:(BOOL)enableFiltering;
-
-/*!
- @brief A list of packages that the user has installed on their device.
- @return An array of packages from sourceID 0 (installed).
- */
-- (NSMutableArray <ZBPackage *> * _Nullable)installedPackages:(BOOL)includeVirtualDependencies;
-
-/*!
- @brief A list of packages (including packages that Provide: another package
- @discussion Queries the database for installed packages. Then it runs another pass for each installed package found and queries the Provides: field. Installed packages are placed in the "installed" array of the top level dictionary while virtual packages will be placed in the "virtual" array of the top level dictionary.
- @return A dictionary whose top level keys are "installed" and "virtual". Each array will contain another dictionary with "package" and "version" (if applicable).
- */
-- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList;
-
-/*!
  @brief A list of packages that their updates have been ignored, installed or not.
  @return An array of packages that their updates have been ignored.
  */
@@ -172,26 +97,23 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief A list of packages that have a name similar to the search term.
  @param name The name of the package.
- @param fullSearch Whether or not we should limit the amount of packages returned (limits to 30 if true)
  @return A cleaned array of packages (no duplicate package IDs, also could be proxy packages) that match the search term.
  */
-- (NSArray * _Nullable)searchForPackageName:(NSString *)name fullSearch:(BOOL)fullSearch;
+- (NSArray * _Nullable)searchForPackageName:(NSString *)name;
 
 /*!
  @brief A list of authors that have a name similar to the search term.
  @param authorName The name of the author.
- @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
  @return A cleaned array of authors (no duplicates) that match the search term.
  */
-- (NSArray <NSArray <NSString *> *> * _Nullable)searchForAuthorName:(NSString *)authorName fullSearch:(BOOL)fullSearch;
+- (NSArray <NSArray <NSString *> *> * _Nullable)searchForAuthorByName:(NSString *)authorName;
 
 /*!
  @brief A list of authors names whose email exactly matches the search term
- @param authorEmail The email of the author.
- @param fullSearch Whether or not we should limit the amount of authors returned (limits to 30 if true)
+ @param authorEmail The email of the author
  @return A cleaned array of authors (no duplicates) that match the search term.
  */
-- (NSArray <NSString *> * _Nullable)searchForAuthorFromEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch;
+- (NSArray <NSString *> * _Nullable)searchForAuthorByEmail:(NSString *)authorEmail;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.
@@ -201,63 +123,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray <ZBPackage *> * _Nullable)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
 
-- (ZBPackage * _Nullable)packageFromProxy:(ZBProxyPackage *)proxy;
-
 #pragma mark - Package status
 
 /*!
- @brief Check whether or not a specific package has an update using its identifier.
- @param packageIdentifier The package ID that you want to check the update status for.
- @return YES if the package has an update, NO if there is no update (or if the update is hidden).
- */
-- (BOOL)packageIDHasUpdate:(NSString *)packageIdentifier;
-
-/*!
- @brief Check whether or not a specific package has an update.
- @param package A ZBPackage instance containing the package you want to check the update status for.
- @return YES if the package has an update, NO if there is no update (or if the update is hidden).
- */
-- (BOOL)packageHasUpdate:(ZBPackage *)package;
-
-/*!
- @brief Check whether or not a specific package is installed using its identifier.
- @param packageIdentifier The package ID that you want to check the installed status for.
- @param version (Nullable) The specific version you want to see if it is installed. Pass NULL if the version is irrelevant.
- @return YES if the package is installed, NO if it is not.
- */
-- (BOOL)packageIDIsInstalled:(NSString *)packageIdentifier version:(NSString *_Nullable)version;
-
-/*!
- @brief Check whether or not a specific package is installed.
- @param package A ZBPackage instance containing the package that you want to check the installed status for.
- @param strict YES if the specific version matters, NO if it does not.
- @return YES if the package is installed, NO if it is not. If strict is NO, this will indicate if the package ID is installed.
- */
-- (BOOL)packageIsInstalled:(ZBPackage *)package versionStrict:(BOOL)strict;
-
-/*!
  @brief Check whether or not a specific package is available for download from a source using its identifier.
- @param packageIdentifier The package ID that you want to check the availability status for.
+ @param package The package ID that you want to check the availability status for.
  @param version (Nullable) The specific version you want to see if it is available. Pass NULL if the version is irrelevant.
  @return YES if the package is available for download, NO if it is not.
  */
-- (BOOL)packageIDIsAvailable:(NSString *)packageIdentifier version:(NSString *_Nullable)version;
-
-/*!
- @brief Check whether or not a specific package is available for download from a source.
- @param package A ZBPackage instance containing the package that you want to check the availability status for.
- @param strict YES if the specific version matters, NO if it does not.
- @return YES if the package is available for download, NO if it is not. If strict is NO, this will indicate if the package ID is available.
- */
-- (BOOL)packageIsAvailable:(ZBPackage *)package versionStrict:(BOOL)strict;
-
-/*!
- @brief Get a package with equal version from the database.
- @param identifier The package's identifier.
- @param version the version.
- @return A ZBPackage instance that satisfies the parameters.
- */
-- (ZBPackage * _Nullable)packageForID:(NSString *)identifier equalVersion:(NSString *)version;
+- (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
 
 /*!
  @brief Check to see if the updates are ignored for a package.
@@ -365,22 +239,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Helper methods
 
 /*!
- @brief Removes duplicate versions from an array of packages.
- @discussion Loops through the array and compares each package to the highest version and removes every duplicate packageID that is lower than the highest version.
- @param packageList A list of packages that need to be cleaned.
- @return An array of every other version of a package in the database.
- */
-- (NSArray <ZBPackage *> *)cleanUpDuplicatePackages:(NSArray <ZBPackage *> *)packageList;
-
-/*!
  @brief Returns all packages made by the specific author.
  @param name The author's name that you wish to look for.
  @param email The author's email that you wish to look for.
  @return An array of every package made by the specified author.
  */
-- (NSArray * _Nullable)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch;
+- (NSArray * _Nullable)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email;
 
-- (NSArray * _Nullable)packagesWithDescription:(NSString *)description fullSearch:(BOOL)fullSearch;
+- (NSArray * _Nullable)packagesWithDescription:(NSString *)description;
 
 /*!
  @brief Returns all packages with a reachable icon.
@@ -388,6 +254,10 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of all packages with a reachable icon.
  */
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
+
+- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList;
+
+- (BOOL)packageHasUpdate:(ZBPackage *)package;
 
 #pragma mark - New Stuff
 

@@ -136,7 +136,7 @@
             return;
         }
         
-        authors = [databaseManager searchForAuthorName:strippedString fullSearch:!self->shouldPerformSearching];
+        authors = [databaseManager searchForAuthorByName:strippedString];
     }
     
     [self refreshTable];

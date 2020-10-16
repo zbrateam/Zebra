@@ -547,7 +547,7 @@
 
 - (BOOL)isReinstallable {
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager packageIsAvailable:self versionStrict:YES];
+    return [databaseManager isPackageAvailable:self checkVersion:YES];
 }
 
 - (NSMutableArray <ZBPackage *> *)allVersions {
@@ -628,7 +628,7 @@
 - (NSString * _Nullable)installedVersion {
     if ([[self source] sourceID] == 0) return self.version;
     
-    return [[ZBDatabaseManager sharedInstance] installedVersionForPackage:self];
+    return [[ZBDatabaseManager sharedInstance] installedVersionOfPackage:self];
 }
 
 - (void)addDependency:(ZBPackage *)package {
@@ -701,10 +701,10 @@
         
         [actions addObject:@(ZBPackageActionRemove)]; // Show the remove button regardless
     }
-    else if ([self isInstalled:NO]) { // This means the package is installed but this isn't the version that is currently installed
+    else if (self.isInstalled) { // This means the package is installed but this isn't the version that is currently installed
         // We need to calculate the actions based on the package that is actually installed
         ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        ZBPackage *basePackage = [databaseManager localVersionForPackage:self];
+        ZBPackage *basePackage = [databaseManager installedInstanceOfPackage:self];
         
         return [basePackage possibleActions];
     }
@@ -736,7 +736,7 @@
         }
     }
     
-    if (![self isInstalled:NO]) {
+    if (!self.isInstalled) {
         // Only allow adding/removing from wishlist if the package is not installed
         if (![[ZBSettings wishlist] containsObject:[self identifier]]) {
             [actions addObject:@(ZBPackageExtraActionAddWishlist)];

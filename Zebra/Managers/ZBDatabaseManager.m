@@ -89,7 +89,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (BOOL)connectToDatabase {
     ZBLog(@"[Zebra] Initializing database at %s", databasePath);
 
-    int result = [self openDB];
+    int result = [self openDatabase];
     if (result != SQLITE_OK) {
         ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
     }
@@ -138,15 +138,15 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         free(preparedStatements);
         preparedStatements = NULL;
     }
-    [self closeDB];
+    [self closeDatabase];
 }
 
-- (int)openDB {
+- (int)openDatabase {
     int flags = SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN;
     return sqlite3_open_v2(databasePath, &database, flags, NULL);
 }
 
-- (int)closeDB {
+- (int)closeDatabase {
     int result = SQLITE_ERROR;
     if (database) {
         result = sqlite3_close(database);
@@ -263,6 +263,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return nil;
 }
 
+- (BOOL)packageHasUpdate:(ZBPackage *)package {
+    return NO;
+}
+
 - (NSArray *)searchForPackageName:(NSString *)name {
     return NULL;
 }
@@ -271,7 +275,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return NULL;
 }
 
-- (NSArray <NSString *> *)searchForAuthorByEmail:(NSString *)authorEmail fullSearch:(BOOL)fullSearch {
+- (NSArray <NSString *> *)searchForAuthorByEmail:(NSString *)authorEmail {
     return NULL;
 }
 
@@ -279,7 +283,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return NULL;
 }
 
-- (BOOL)isPackageAvailable:(ZBPackage *)package versionStrict:(BOOL)strict {
+- (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion; {
     return NO;
 }
 
@@ -308,7 +312,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypeIsPackageInstalledWithVersion:
             return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND version = ? AND source = \'_var_lib_dpkg_status\' LIMIT 1;";
         case ZBDatabaseStatementTypeInstalledInstanceOfPackage:
-            return @"SELECT authorName, description, identifier, lastSeeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status\';";
+            return @"SELECT authorName, description, identifier, lastSeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
             return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status\';";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
@@ -552,16 +556,16 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     NSString *query;
     sqlite3_stmt *statement = NULL;
     if (source != NULL) {
-        query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ? AND REPOID = ?;";
+        query = @"SELECT * FROM PACKAGES WHERE IDENTIFIER = ? AND SOURCE = ?;";
     }
     else {
-        query = @"SELECT * FROM PACKAGES WHERE PACKAGE = ?;";
+        query = @"SELECT * FROM PACKAGES WHERE IDENTIFIER = ?;";
     }
     
     if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
         sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
         if (source != NULL) {
-            sqlite3_bind_int(statement, 2, [source sourceID]);
+            sqlite3_bind_text(statement, 2, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
         }
     }
     while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -1290,6 +1294,25 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         return result;
     }
     return NULL;
+}
+
+- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList {
+    NSMutableArray *installedPackages = [NSMutableArray new];
+    NSMutableArray *virtualPackages = [NSMutableArray new];
+    
+    for (ZBPackage *package in [self packagesFromSource:[ZBSource localSource]]) {
+        NSDictionary *installedPackage = @{@"identifier": [package identifier], @"version": [package version]};
+        [installedPackages addObject:installedPackage];
+        
+        for (NSString *virtualPackageLine in [package provides]) {
+            NSArray *comps = [ZBDependencyResolver separateVersionComparison:virtualPackageLine];
+            NSDictionary *virtualPackage = @{@"identifier": comps[0], @"version": comps[2]};
+            
+            [virtualPackages addObject:virtualPackage];
+        }
+    }
+    
+    return @{@"installed": installedPackages, @"virtual": virtualPackages};
 }
 
 @end

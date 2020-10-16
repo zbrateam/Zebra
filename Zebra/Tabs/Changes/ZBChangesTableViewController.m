@@ -211,38 +211,38 @@
 }
 
 - (void)refreshTable {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self->packages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
-        self->databaseRow = self.batchLoadCount - 1;
-        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
-        self->numberOfPackages = (int)[self->packages count];
-        self.batchLoad = YES;
-        self.continueBatchLoad = self.batchLoad;
-        [self updateSections];
-        [self.tableView reloadData];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self->packages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
+//        self->databaseRow = self.batchLoadCount - 1;
+//        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
+//        self->numberOfPackages = (int)[self->packages count];
+//        self.batchLoad = YES;
+//        self.continueBatchLoad = self.batchLoad;
+//        [self updateSections];
+//        [self.tableView reloadData];
+//    });
 }
 
 - (void)loadNextPackages {
-    if (!self.continueBatchLoad || self.isPerformingBatchLoad) {
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->databaseRow < self->totalNumberOfPackages) {
-            self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
-            if (nextPackages.count == 0) {
-                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
-                return;
-            }
-            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
-            self->numberOfPackages = (int)[self->packages count];
-            self->databaseRow += self.batchLoadCount;
-            [self updateSections];
-            [self.tableView reloadData];
-            self.isPerformingBatchLoad = NO;
-        }
-    });
+//    if (!self.continueBatchLoad || self.isPerformingBatchLoad) {
+//        return;
+//    }
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (self->databaseRow < self->totalNumberOfPackages) {
+//            self.isPerformingBatchLoad = YES;
+//            NSArray *nextPackages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
+//            if (nextPackages.count == 0) {
+//                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
+//                return;
+//            }
+//            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
+//            self->numberOfPackages = (int)[self->packages count];
+//            self->databaseRow += self.batchLoadCount;
+//            [self updateSections];
+//            [self.tableView reloadData];
+//            self.isPerformingBatchLoad = NO;
+//        }
+//    });
 }
 
 #pragma mark - Table view data source

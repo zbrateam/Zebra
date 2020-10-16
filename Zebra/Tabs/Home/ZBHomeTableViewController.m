@@ -199,7 +199,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         dispatch_group_enter(group);
         NSMutableDictionary *dict = [NSMutableDictionary new];
         if (package.iconURL) {
-            if (![package.iconURL isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
+            if (![package.iconURL isFileURL]) {
                 [dict setObject:package.iconURL forKey:@"url"];
                 [dict setObject:package.identifier forKey:@"package"];
                 [dict setObject:package.name forKey:@"title"];

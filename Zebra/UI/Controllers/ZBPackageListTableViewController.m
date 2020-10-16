@@ -187,7 +187,7 @@
 - (void)installAll {
     NSMutableArray *installablePackages = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        if ([package isInstalled:NO] || ![package isReinstallable] || [package isPaid])
+        if (package.isInstalled || ![package isReinstallable] || [package isPaid])
             continue;
         [installablePackages addObject:package];
     }
@@ -195,17 +195,17 @@
 }
 
 - (void)sharePackages {
-    NSArray *packages = [databaseManager installedPackages:NO];
-    [packages sortedArrayUsingSelector:@selector(name)];
-    
-    NSMutableArray *descriptions = [NSMutableArray new];
-    for (ZBPackage *package in packages) {
-        [descriptions addObject:[package description]];
-    }
-    
-    NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
-    [self presentActivityController:controller];
+//    NSArray *packages = [databaseManager installedPackages:NO];
+//    [packages sortedArrayUsingSelector:@selector(name)];
+//
+//    NSMutableArray *descriptions = [NSMutableArray new];
+//    for (ZBPackage *package in packages) {
+//        [descriptions addObject:[package description]];
+//    }
+//
+//    NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
+//    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:@[fullList] applicationActivities:nil];
+//    [self presentActivityController:controller];
 }
 
 // Share Sheet
@@ -411,16 +411,16 @@
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];
 }
 
-- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
-    if (!source || [databaseManager numberOfPackagesInSource:source section:section] > 400) return @[];
-    
-    NSString *title = NSLocalizedString(@"Install All", @"");
-    UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
-        [self installAll];
-    }];
-    
-    return @[action];
-}
+//- (NSArray *)contextMenuActionItemsForIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(13.0)) {
+//    if (!source || [databaseManager numberOfPackagesInSource:source section:section] > 400) return @[];
+//    
+//    NSString *title = NSLocalizedString(@"Install All", @"");
+//    UIAction *action = [UIAction actionWithTitle:title image:[UIImage systemImageNamed:@"tortoise"] identifier:nil handler:^(__kindof UIAction * _Nonnull action) {
+//        [self installAll];
+//    }];
+//    
+//    return @[action];
+//}
 
 - (void)scrollToTop {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];

@@ -338,7 +338,7 @@
         if ([package mightRequirePayment]) {
             [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                 if (info) { // Package does have purchase info
-                    BOOL installed = [package isInstalled:NO];
+                    BOOL installed = package.isInstalled;
                     if (!info.purchased && !installed) { // If the user has not purchased the package
                         NSString *title = info.price;
                         if ([title isKindOfClass:[NSNumber class]]) {
