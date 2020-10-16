@@ -44,7 +44,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSArray *_Nullable provides;
 @property (readonly) NSArray *_Nullable replaces;
 @property BOOL requiresAuthorization;
-@property (readonly) uint16_t role;
 @property (readonly) NSString *_Nullable SHA256;
 @property (readonly) ZBSource *source;
 @property (readonly) NSArray *_Nullable tag;

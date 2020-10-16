@@ -172,6 +172,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "lastSeen DATE, "
                                       "name TEXT, "
                                       "version TEXT, "
+                                      "role INTEGER, "
                                       "section TEXT, "
                                       "uuid TEXT, "
                                       "authorEmail TEXT, "
@@ -189,7 +190,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                       "priority TEXT, "
                                       "provides TEXT, "
                                       "replaces TEXT, "
-                                      "role INTEGER, "
                                       "sha256 TEXT, "
                                       "tag TEXT, "
                                       "source TEXT, "
@@ -300,9 +300,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (NSString *)statementStringForStatementType:(ZBDatabaseStatementType)statement {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackageWithUUID:
@@ -312,13 +312,13 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypeIsPackageInstalledWithVersion:
             return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND version = ? AND source = \'_var_lib_dpkg_status\' LIMIT 1;";
         case ZBDatabaseStatementTypeInstalledInstanceOfPackage:
-            return @"SELECT authorName, description, identifier, lastSeen, name, version, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status\';";
+            return @"SELECT authorName, description, identifier, lastSeen, name, version, role, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
             return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status\';";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
-            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, identifier, lastSeen, name, version, section, uuid, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, iconURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, role, sha256, tag, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, identifier, lastSeen, name, version, role, section, uuid, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, iconURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, sha256, tag, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
         case ZBDatabaseStatementTypeInsertSource:
@@ -815,6 +815,29 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, package[ZBPackageColumnPriority], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnProvides + 1, package[ZBPackageColumnProvides], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnReplaces + 1, package[ZBPackageColumnReplaces], -1, SQLITE_TRANSIENT);
+    
+    int roleValue = 0;
+    char *tag = package[ZBPackageColumnTag];
+    if (tag && tag[0] != '\0') {
+        char *roleTag = strstr(tag, "role::");
+        if (roleTag) {
+            char *begin = roleTag + 6;
+            char *end = strchr(roleTag, ',') ?: strchr(roleTag, '\0');
+            size_t size = (end - 1) - begin;
+            char *role = malloc(size * sizeof(char));
+            strncpy(role, begin, size);
+            
+            if (strcmp(role, "user") == 0 || strcmp(role, "enduser") == 0) roleValue = 0;
+            else if (strcmp(role, "hacker") == 0) roleValue = 1;
+            else if (strcmp(role, "developer") == 0) roleValue = 2;
+            else roleValue = 3;
+            
+            free(role);
+        }
+    }
+    sqlite3_bind_int(statement, ZBPackageColumnRole + 1, roleValue);
+    printf("%s\n", sqlite3_expanded_sql(statement));
+    
     sqlite3_bind_text(statement, ZBPackageColumnSection + 1, package[ZBPackageColumnSection], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnSHA256 + 1, package[ZBPackageColumnSHA256], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnTag + 1, package[ZBPackageColumnTag], -1, SQLITE_TRANSIENT);

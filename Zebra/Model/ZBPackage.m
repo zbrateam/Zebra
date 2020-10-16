@@ -223,8 +223,6 @@
             _replaces = [rawReplaces componentsSeparatedByString:@","];
         }
         
-        _role = sqlite3_column_int(statement, ZBPackageColumnRole);
-        
         const char *SHA256 = (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
         if (SHA256[0] != '\0') {
             _SHA256 = [NSString stringWithUTF8String:SHA256];

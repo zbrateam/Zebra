@@ -74,7 +74,7 @@
             char *key = strtok((char *)line, ":");
             ZBPackageColumn column = [self columnFromString:key];
             if (key && column < ZBPackageColumnCount) {
-                char *value = strtok(NULL, ":");
+                char *value = strtok(NULL, "");
                 if (value && value[0] == ' ') value++;
                 if (value) strcpy(package[column], trimWhitespaceFromString(value));
             }

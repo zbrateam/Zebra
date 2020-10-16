@@ -13,14 +13,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBBasePackage : NSObject
-@property (nonatomic) NSString *identifier;
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *version;
-@property (nonatomic) NSString *packageDescription;
-@property (nonatomic) NSString *section;
 @property (nonatomic) NSString *authorName;
+@property (nonatomic) NSString *identifier;
 @property (nonatomic) NSDate   *lastSeen;
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *packageDescription;
+@property (nonatomic) int16_t role;
+@property (nonatomic) NSString *section;
 @property (nonatomic) NSString *uuid;
+@property (nonatomic) NSString *version;
 - (instancetype)initFromSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSObject *)loadPackage;
 @end

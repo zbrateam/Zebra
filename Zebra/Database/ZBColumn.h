@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnLastSeen,
     ZBPackageColumnName,
     ZBPackageColumnVersion,
+    ZBPackageColumnRole,
     ZBPackageColumnSection,
     ZBPackageColumnUUID,
     
@@ -36,7 +37,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnPriority,
     ZBPackageColumnProvides,
     ZBPackageColumnReplaces,
-    ZBPackageColumnRole,
     ZBPackageColumnSHA256,
     ZBPackageColumnTag,
     ZBPackageColumnSource,
