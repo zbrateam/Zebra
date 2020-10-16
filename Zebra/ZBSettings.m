@@ -40,6 +40,7 @@ NSString *const SourceTimeoutKey = @"SourceTimeout";
 NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
 NSString *const AlwaysInstallLatestKey = @"AlwaysInstallLatest";
+NSString *const RoleKey = @"Role";
 
 NSString *const WantsLiveSearchKey = @"LiveSearch";
 
@@ -505,6 +506,22 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:alwaysInstallLatest forKey:AlwaysInstallLatestKey];
+}
+
++ (int16_t)role {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:RoleKey]) {
+        [self setRole:2];
+        return 2;
+    }
+    return [defaults integerForKey:RoleKey];
+}
+
++ (void)setRole:(int16_t)role {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:role forKey:RoleKey];
 }
 
 #pragma mark - Search Settings

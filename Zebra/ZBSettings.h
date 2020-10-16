@@ -152,6 +152,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)alwaysInstallLatest;
 + (void)setAlwaysInstallLatest:(BOOL)alwaysInstallLatest;
 
++ (int16_t)role;
++ (void)setRole:(int16_t)role;
+
 #pragma mark - Search Settings
 
 + (BOOL)wantsLiveSearch;
