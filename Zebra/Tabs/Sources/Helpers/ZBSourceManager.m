@@ -352,16 +352,16 @@
     NSMutableSet *sourcesToRefresh = [NSMutableSet setWithObject:[ZBSource localSource]];
     if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
     
-    [self refreshSources:sourcesToRefresh useCaching:YES error:nil];
+    [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
 }
 
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
+- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
     
     [self bulkStartedSourceRefresh];
     downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-    [downloadManager downloadSources:sources useCaching:TRUE];
+    [downloadManager downloadSources:sources useCaching:useCaching];
 }
 
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
