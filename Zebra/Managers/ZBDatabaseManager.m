@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3 *database;
     const char *databasePath;
     sqlite3_stmt **preparedStatements;
+    dispatch_queue_t databaseQueue;
 }
 @end
 
@@ -70,6 +71,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     
     if (self) {
         databasePath = [path UTF8String];
+        
+        dispatch_queue_attr_t attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, QOS_CLASS_BACKGROUND, 0);
+        databaseQueue = dispatch_queue_create("xyz.willy.Zebra.database", attributes);
+        
         if (![self connectToDatabase]) {
             return nil;
         }
@@ -87,159 +92,175 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Opening and Closing the Database
 
 - (BOOL)connectToDatabase {
-    ZBLog(@"[Zebra] Initializing database at %s", databasePath);
+    __block BOOL ret = YES;
+    dispatch_sync(databaseQueue, ^{
+        ZBLog(@"[Zebra] Initializing database at %s", databasePath);
 
-    int result = [self openDatabase];
-    if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
-    }
-
-    if (result == SQLITE_OK) {
-        result = [self initializePackagesTable];
+        int result = [self openDatabase];
         if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to initialize packages table at %s", databasePath);
+            ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
         }
-    }
 
-    if (result == SQLITE_OK) {
-        result = [self initializeSourcesTable];
-        if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to initialize sources table at %s", databasePath);
+        if (result == SQLITE_OK) {
+            result = [self initializePackagesTable];
+            if (result != SQLITE_OK) {
+                ZBLog(@"[Zebra] Failed to initialize packages table at %s", databasePath);
+            }
         }
-    }
-    
-    if (result == SQLITE_OK) {
-        result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
-        if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to create aggregate function at %s", databasePath);
-        }
-    }
-    
-    if (result == SQLITE_OK) {
-        result = [self initializePreparedStatements];
-        if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to initialize prepared statements at %s", databasePath);
-        }
-    }
 
-    if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to initialize database at %s", databasePath);
-        return NO;
-    }
+        if (result == SQLITE_OK) {
+            result = [self initializeSourcesTable];
+            if (result != SQLITE_OK) {
+                ZBLog(@"[Zebra] Failed to initialize sources table at %s", databasePath);
+            }
+        }
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
+            if (result != SQLITE_OK) {
+                ZBLog(@"[Zebra] Failed to create aggregate function at %s", databasePath);
+            }
+        }
+        
+        if (result == SQLITE_OK) {
+            result = [self initializePreparedStatements];
+            if (result != SQLITE_OK) {
+                ZBLog(@"[Zebra] Failed to initialize prepared statements at %s", databasePath);
+            }
+        }
 
-    return YES;
+        if (result != SQLITE_OK) {
+            ZBLog(@"[Zebra] Failed to initialize database at %s", databasePath);
+            ret = NO;
+        }
+    });
+
+    return ret;
 }
 
 - (void)disconnectFromDatabase {
-    if (preparedStatements) {
-        for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
-            sqlite3_finalize(preparedStatements[i]);
+    dispatch_sync(databaseQueue, ^{
+        if (preparedStatements) {
+            for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
+                sqlite3_finalize(preparedStatements[i]);
+            }
+            free(preparedStatements);
+            preparedStatements = NULL;
         }
-        free(preparedStatements);
-        preparedStatements = NULL;
-    }
-    [self closeDatabase];
+        [self closeDatabase];
+    });
 }
 
 - (int)openDatabase {
-    int flags = SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN;
-    return sqlite3_open_v2(databasePath, &database, flags, NULL);
+    __block int result = SQLITE_ERROR;
+    dispatch_sync(databaseQueue, ^{
+        int flags = SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN | SQLITE_OPEN_FULLMUTEX;
+        result = sqlite3_open_v2(databasePath, &database, flags, NULL);
+    });
+    return result;
 }
 
 - (int)closeDatabase {
-    int result = SQLITE_ERROR;
-    if (database) {
-        result = sqlite3_close(database);
-        if (result == SQLITE_OK) {
-            database = NULL;
+    __block int result = SQLITE_ERROR;
+    dispatch_sync(databaseQueue, ^{
+        if (database) {
+            result = sqlite3_close(database);
+            if (result == SQLITE_OK) {
+                database = NULL;
+            } else {
+                NSLog(@"[Zebra] Failed to close database path: %s", databasePath);
+            }
         } else {
-            NSLog(@"[Zebra] Failed to close database path: %s", databasePath);
+            NSLog(@"[Zebra] Attempt to close null database handle");
         }
-    } else {
-        NSLog(@"[Zebra] Attempt to close null notification database handle");
-    }
-
+    });
     return result;
 }
 
 #pragma mark - Creating Tables
 
 - (int)initializePackagesTable {
-    NSString *createTableStatement = @"CREATE TABLE IF NOT EXISTS " PACKAGES_TABLE_NAME
-                                      "(authorName TEXT, "
-                                      "description TEXT, "
-                                      "identifier TEXT, "
-                                      "lastSeen DATE, "
-                                      "name TEXT, "
-                                      "version TEXT, "
-                                      "role INTEGER, "
-                                      "section TEXT, "
-                                      "uuid TEXT, "
-                                      "authorEmail TEXT, "
-                                      "conflicts TEXT, "
-                                      "depends TEXT, "
-                                      "depictionURL TEXT, "
-                                      "downloadSize INTEGER, "
-                                      "essential BOOLEAN, "
-                                      "filename TEXT, "
-                                      "homepageURL TEXT, "
-                                      "iconURL TEXT, "
-                                      "installedSize INTEGER, "
-                                      "maintainerEmail TEXT, "
-                                      "maintainerName TEXT, "
-                                      "priority TEXT, "
-                                      "provides TEXT, "
-                                      "replaces TEXT, "
-                                      "sha256 TEXT, "
-                                      "tag TEXT, "
-                                      "source TEXT, "
-                                      "FOREIGN KEY(source) REFERENCES " SOURCES_TABLE_NAME "(uuid) "
-                                      "PRIMARY KEY(uuid)) "
-                                      "WITHOUT ROWID;";
-    int result = sqlite3_exec(database, [createTableStatement UTF8String], NULL, NULL, NULL);
-    if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to create packages table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
-
-    if (result == SQLITE_OK) {
-        NSString *createIndexStatement = @"CREATE INDEX IF NOT EXISTS uuid ON " PACKAGES_TABLE_NAME "(uuid);";
-        result = sqlite3_exec(database, [createIndexStatement UTF8String], NULL, NULL, NULL);
+    __block int result = SQLITE_ERROR;
+    dispatch_sync(databaseQueue, ^{
+        NSString *createTableStatement = @"CREATE TABLE IF NOT EXISTS " PACKAGES_TABLE_NAME
+                                          "(authorName TEXT, "
+                                          "description TEXT, "
+                                          "identifier TEXT, "
+                                          "lastSeen DATE, "
+                                          "name TEXT, "
+                                          "version TEXT, "
+                                          "role INTEGER, "
+                                          "section TEXT, "
+                                          "uuid TEXT, "
+                                          "authorEmail TEXT, "
+                                          "conflicts TEXT, "
+                                          "depends TEXT, "
+                                          "depictionURL TEXT, "
+                                          "downloadSize INTEGER, "
+                                          "essential BOOLEAN, "
+                                          "filename TEXT, "
+                                          "homepageURL TEXT, "
+                                          "iconURL TEXT, "
+                                          "installedSize INTEGER, "
+                                          "maintainerEmail TEXT, "
+                                          "maintainerName TEXT, "
+                                          "priority TEXT, "
+                                          "provides TEXT, "
+                                          "replaces TEXT, "
+                                          "sha256 TEXT, "
+                                          "tag TEXT, "
+                                          "source TEXT, "
+                                          "FOREIGN KEY(source) REFERENCES " SOURCES_TABLE_NAME "(uuid) "
+                                          "PRIMARY KEY(uuid)) "
+                                          "WITHOUT ROWID;";
+        result = sqlite3_exec(database, [createTableStatement UTF8String], NULL, NULL, NULL);
         if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to create uuid index on packages table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to create packages table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
-    }
+
+        if (result == SQLITE_OK) {
+            NSString *createIndexStatement = @"CREATE INDEX IF NOT EXISTS uuid ON " PACKAGES_TABLE_NAME "(uuid);";
+            result = sqlite3_exec(database, [createIndexStatement UTF8String], NULL, NULL, NULL);
+            if (result != SQLITE_OK) {
+                ZBLog(@"[Zebra] Failed to create uuid index on packages table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+    });
     return result;
 }
 
 - (int)initializeSourcesTable {
-    NSString *createTableStatement = @"CREATE TABLE IF NOT EXISTS " SOURCES_TABLE_NAME
-                                      "(architectures TEXT, "
-                                      "archiveType TEXT, "
-                                      "codename TEXT, "
-                                      "components TEXT, "
-                                      "distribution TEXT, "
-                                      "label TEXT, "
-                                      "origin TEXT, "
-                                      "remote BOOLEAN, "
-                                      "sourceDescription TEXT, "
-                                      "suite TEXT, "
-                                      "url TEXT, "
-                                      "uuid TEXT, "
-                                      "version TEXT, "
-                                      "PRIMARY KEY(uuid)) "
-                                      "WITHOUT ROWID;";
-    int result = sqlite3_exec(database, [createTableStatement UTF8String], NULL, NULL, NULL);
-    if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to create sources table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
-
-    if (result == SQLITE_OK) {
-        NSString *createIndexStatement = @"CREATE INDEX IF NOT EXISTS uuid ON " SOURCES_TABLE_NAME "(uuid);";
-        result = sqlite3_exec(database, [createIndexStatement UTF8String], NULL, NULL, NULL);
+    __block int result = SQLITE_ERROR;
+    dispatch_sync(databaseQueue, ^{
+        NSString *createTableStatement = @"CREATE TABLE IF NOT EXISTS " SOURCES_TABLE_NAME
+                                          "(architectures TEXT, "
+                                          "archiveType TEXT, "
+                                          "codename TEXT, "
+                                          "components TEXT, "
+                                          "distribution TEXT, "
+                                          "label TEXT, "
+                                          "origin TEXT, "
+                                          "remote BOOLEAN, "
+                                          "sourceDescription TEXT, "
+                                          "suite TEXT, "
+                                          "url TEXT, "
+                                          "uuid TEXT, "
+                                          "version TEXT, "
+                                          "PRIMARY KEY(uuid)) "
+                                          "WITHOUT ROWID;";
+        result = sqlite3_exec(database, [createTableStatement UTF8String], NULL, NULL, NULL);
         if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to create uuid index on sources table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to create sources table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
-    }
+
+        if (result == SQLITE_OK) {
+            NSString *createIndexStatement = @"CREATE INDEX IF NOT EXISTS uuid ON " SOURCES_TABLE_NAME "(uuid);";
+            result = sqlite3_exec(database, [createIndexStatement UTF8String], NULL, NULL, NULL);
+            if (result != SQLITE_OK) {
+                ZBLog(@"[Zebra] Failed to create uuid index on sources table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+    });
     return result;
 }
 
@@ -333,51 +354,60 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (sqlite3_stmt *)preparedStatementOfType:(ZBDatabaseStatementType)statementType {
-    sqlite3_stmt *statement = preparedStatements[statementType];
-    sqlite3_reset(statement);
+    __block sqlite3_stmt *statement;
+    dispatch_sync(databaseQueue, ^{
+        statement = preparedStatements[statementType];
+        sqlite3_reset(statement);
+    });
     return statement;
 }
 
 - (int)initializePreparedStatements {
-    int result = SQLITE_OK;
+    __block int result = SQLITE_OK;
+    dispatch_sync(databaseQueue, ^{
+        preparedStatements = (sqlite3_stmt **) malloc(sizeof(sqlite3_stmt *) * ZBDatabaseStatementTypeCount);
+        if (!preparedStatements) {
+            ZBLog(@"[Zebra] Failed to allocate buffer for prepared statements");
+            result = SQLITE_NOMEM;
+        }
 
-    preparedStatements = (sqlite3_stmt **) malloc(sizeof(sqlite3_stmt *) * ZBDatabaseStatementTypeCount);
-    if (!preparedStatements) {
-        ZBLog(@"[Zebra] Failed to allocate buffer for prepared statements");
-        result = SQLITE_NOMEM;
-    }
-
-    if (result == SQLITE_OK) {
-        for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
-            ZBDatabaseStatementType statementType = (ZBDatabaseStatementType)i;
-            const char *statement = [[self statementStringForStatementType:statementType] UTF8String];
-            if (sqlite3_prepare(database, statement, -1, &preparedStatements[statementType], NULL) != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-                free(preparedStatements);
-                preparedStatements = NULL;
-                break;
+        if (result == SQLITE_OK) {
+            for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
+                ZBDatabaseStatementType statementType = (ZBDatabaseStatementType)i;
+                const char *statement = [[self statementStringForStatementType:statementType] UTF8String];
+                if (sqlite3_prepare(database, statement, -1, &preparedStatements[statementType], NULL) != SQLITE_OK) {
+                    ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+                    free(preparedStatements);
+                    preparedStatements = NULL;
+                    break;
+                }
             }
         }
-    }
-
+    });
     return result;
 }
 
 #pragma mark - Managing Transactions
 
 - (int)beginTransaction {
-    int result = sqlite3_exec(database, "BEGIN EXCLUSIVE TRANSACTION;", NULL, NULL, NULL);
-    if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to begin transaction with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
+    __block int result;
+    dispatch_sync(databaseQueue, ^{
+        result = sqlite3_exec(database, "BEGIN EXCLUSIVE TRANSACTION;", NULL, NULL, NULL);
+        if (result != SQLITE_OK) {
+            ZBLog(@"[Zebra] Failed to begin transaction with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    });
     return result;
 }
 
 - (int)endTransaction {
-    int result = sqlite3_exec(database, "COMMIT;", NULL, NULL, NULL);
-    if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to commit transaction with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
+    __block int result;
+    dispatch_sync(databaseQueue, ^{
+        result = sqlite3_exec(database, "COMMIT;", NULL, NULL, NULL);
+        if (result != SQLITE_OK) {
+            ZBLog(@"[Zebra] Failed to commit transaction with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    });
     return result;
 }
 
@@ -388,85 +418,88 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString *)section {
-    sqlite3_stmt *statement = [self preparedStatementOfType:section ? ZBDatabaseStatementTypePackagesFromSourceAndSection : ZBDatabaseStatementTypePackagesFromSource];
-    int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
-    if (section) result = sqlite3_bind_text(statement, 2, section.UTF8String, -1, SQLITE_TRANSIENT);
-    if (result == SQLITE_OK) {
-        result = [self beginTransaction];
-    }
-    
-    NSMutableArray *packages = [NSMutableArray new];
-    if (result == SQLITE_OK) {
-        do {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
-                [packages addObject:package];
-            }
-        } while (result == SQLITE_ROW);
-        
-        if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query packages from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+    __block NSMutableArray *packages = [NSMutableArray new];
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:section ? ZBDatabaseStatementTypePackagesFromSourceAndSection : ZBDatabaseStatementTypePackagesFromSource];
+        int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        if (section) result = sqlite3_bind_text(statement, 2, section.UTF8String, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
         }
-    }
-    
-    [self endTransaction];
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
+        
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                    [packages addObject:package];
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query packages from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+        
+        [self endTransaction];
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return packages;
 }
 
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeUUIDsFromSource];
-    int result = sqlite3_bind_text(statement, 1, [source.uuid UTF8String], -1, SQLITE_TRANSIENT);
-    if (result == SQLITE_OK) {
-        result = [self beginTransaction];
-    }
-    
-    NSMutableSet *uuids = [NSMutableSet new];
-    if (result == SQLITE_OK) {
-        do {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                const char *uuid = (const char *)sqlite3_column_text(statement, 0);
-                if (uuid) {
-                    [uuids addObject:[NSString stringWithUTF8String:uuid]];
-                }
-            }
-        } while (result == SQLITE_ROW);
-        
-        if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query package uuids from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+    __block NSMutableSet *uuids = [NSMutableSet new];
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeUUIDsFromSource];
+        int result = sqlite3_bind_text(statement, 1, [source.uuid UTF8String], -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
         }
-    }
-    
-    [self endTransaction];
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
+        
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    const char *uuid = (const char *)sqlite3_column_text(statement, 0);
+                    if (uuid) {
+                        [uuids addObject:[NSString stringWithUTF8String:uuid]];
+                    }
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query package uuids from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+        
+        [self endTransaction];
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return uuids;
 }
 
 - (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageWithUUID];
-    int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    ZBPackage *package;
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+    __block ZBPackage *package;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageWithUUID];
+        int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+            }
+            
+            if (result != SQLITE_OK && result != SQLITE_ROW) {
+                ZBLog(@"[Zebra] Failed to query package with uuid with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
         }
         
-        if (result != SQLITE_OK && result != SQLITE_ROW) {
-            ZBLog(@"[Zebra] Failed to query package with uuid with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-        }
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return package;
 }
 
@@ -475,66 +508,69 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (BOOL)isPackageInstalled:(ZBPackage *)package checkVersion:(BOOL)checkVersion {
-    sqlite3_stmt *statement = [self preparedStatementOfType:checkVersion ? ZBDatabaseStatementTypeIsPackageInstalled : ZBDatabaseStatementTypeIsPackageInstalledWithVersion];
-    int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
-    if (checkVersion) result = sqlite3_bind_text(statement, 1, package.version.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    BOOL installed = NO;
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            installed = YES;
+    __block BOOL installed = NO;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:checkVersion ? ZBDatabaseStatementTypeIsPackageInstalled : ZBDatabaseStatementTypeIsPackageInstalledWithVersion];
+        int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
+        if (checkVersion) result = sqlite3_bind_text(statement, 1, package.version.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                installed = YES;
+            }
+            
+            if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
+                ZBLog(@"[Zebra] Failed to query if package is installed with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
         }
         
-        if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
-            ZBLog(@"[Zebra] Failed to query if package is installed with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-        }
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return installed;
 }
 
 - (ZBBasePackage *)installedInstanceOfPackage:(ZBPackage *)package {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstalledInstanceOfPackage];
-    int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    ZBBasePackage *installedInstance = NULL;
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            installedInstance = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
-        }
+    __block ZBBasePackage *installedInstance = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstalledInstanceOfPackage];
+        int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
         
-        if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
-            ZBLog(@"[Zebra] Failed to get installed instance of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                installedInstance = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+            }
+            
+            if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
+                ZBLog(@"[Zebra] Failed to get installed instance of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
         }
-    }
-
+    });
     return installedInstance;
 }
 
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstalledVersionOfPackage];
-    int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    NSString *installedVersion = NULL;
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            const char *version = (const char *)sqlite3_column_text(statement, 0);
-            if (version) {
-                installedVersion = [NSString stringWithUTF8String:version];
+    __block NSString *installedVersion = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstalledVersionOfPackage];
+        int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                const char *version = (const char *)sqlite3_column_text(statement, 0);
+                if (version) {
+                    installedVersion = [NSString stringWithUTF8String:version];
+                }
+            }
+            
+            if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
+                ZBLog(@"[Zebra] Failed to get installed version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
         }
-        
-        if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
-            ZBLog(@"[Zebra] Failed to get installed version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-        }
-    }
-
+    });
     return installedVersion;
 }
 
@@ -551,34 +587,36 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source {
-    NSMutableArray *allVersions = [NSMutableArray new];
-    
-    NSString *query;
-    sqlite3_stmt *statement = NULL;
-    if (source != NULL) {
-        query = @"SELECT * FROM PACKAGES WHERE IDENTIFIER = ? AND SOURCE = ?;";
-    }
-    else {
-        query = @"SELECT * FROM PACKAGES WHERE IDENTIFIER = ?;";
-    }
-    
-    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
-        if (source != NULL) {
-            sqlite3_bind_text(statement, 2, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
-        }
-    }
-    while (sqlite3_step(statement) == SQLITE_ROW) {
-        ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+    __block NSArray *result = NULL;
+    dispatch_sync(databaseQueue, ^{
+        NSMutableArray *allVersions = [NSMutableArray new];
         
-        [allVersions addObject:package];
-    }
-    sqlite3_finalize(statement);
-    
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    NSArray *sorted = [allVersions sortedArrayUsingDescriptors:@[sort]];
-    
-    return sorted;
+        NSString *query;
+        sqlite3_stmt *statement = NULL;
+        if (source != NULL) {
+            query = @"SELECT * FROM PACKAGES WHERE IDENTIFIER = ? AND SOURCE = ?;";
+        }
+        else {
+            query = @"SELECT * FROM PACKAGES WHERE IDENTIFIER = ?;";
+        }
+        
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            if (source != NULL) {
+                sqlite3_bind_text(statement, 2, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+            }
+        }
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+            
+            [allVersions addObject:package];
+        }
+        sqlite3_finalize(statement);
+        
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+        result = [allVersions sortedArrayUsingDescriptors:@[sort]];
+    });
+    return result;
 }
 
 - (NSArray * _Nullable)otherVersionsForPackage:(ZBPackage *)package {
@@ -586,45 +624,49 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray * _Nullable)otherVersionsForPackageID:(NSString *)packageIdentifier version:(NSString *)version {
-    NSMutableArray *otherVersions = [NSMutableArray new];
-    
-    sqlite3_stmt *statement = NULL;
-    if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE = ? AND VERSION != ? AND SOURCE != \'_var_lib_dpkg_status\';", -1, &statement, nil) == SQLITE_OK) {
-        sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
-    }
-    while (sqlite3_step(statement) == SQLITE_ROW) {
-        ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
-            
-        [otherVersions addObject:package];
-    }
-    sqlite3_finalize(statement);
-    
-    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
-    NSArray *sorted = [otherVersions sortedArrayUsingDescriptors:@[sort]];
-    
-    return sorted;
+    __block NSArray *result = NULL;
+    dispatch_sync(databaseQueue, ^{
+        NSMutableArray *otherVersions = [NSMutableArray new];
+        
+        sqlite3_stmt *statement = NULL;
+        if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE PACKAGE = ? AND VERSION != ? AND SOURCE != \'_var_lib_dpkg_status\';", -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [packageIdentifier UTF8String], -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, 2, [version UTF8String], -1, SQLITE_TRANSIENT);
+        }
+        while (sqlite3_step(statement) == SQLITE_ROW) {
+            ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+                
+            [otherVersions addObject:package];
+        }
+        sqlite3_finalize(statement);
+        
+        NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:NO];
+        result = [otherVersions sortedArrayUsingDescriptors:@[sort]];
+    });
+    return result;
 }
 
 - (NSArray * _Nullable)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email fullSearch:(BOOL)fullSearch {
-    NSMutableArray *searchResults = [NSMutableArray new];
-    
-    sqlite3_stmt *statement = NULL;
-    NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON, AUTHOR";
-    NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
-    NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHOR = ? OR AUTHOR LIKE \'%%%@%%\'%@", columns, name, limit];
-    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
+    __block NSArray *result = NULL;
+    dispatch_sync(databaseQueue, ^{
+        NSMutableArray *searchResults = [NSMutableArray new];
         
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+        sqlite3_stmt *statement = NULL;
+        NSString *columns = fullSearch ? @"*" : @"PACKAGE, NAME, VERSION, REPOID, SECTION, ICON, AUTHOR";
+        NSString *limit = fullSearch ? @";" : @" LIMIT 30;";
+        NSString *query = [NSString stringWithFormat:@"SELECT %@ FROM PACKAGES WHERE AUTHOR = ? OR AUTHOR LIKE \'%%%@%%\'%@", columns, name, limit];
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            sqlite3_bind_text(statement, 1, [name UTF8String], -1, SQLITE_TRANSIENT);
             
-            if (package) [searchResults addObject:package];
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                
+                if (package) [searchResults addObject:package];
+            }
         }
-    }
-    sqlite3_finalize(statement);
-    
-    return searchResults;
+        sqlite3_finalize(statement);
+    });
+    return result;
 }
 
 - (NSArray *)packagesWithDescription:(NSString *)description {
@@ -632,23 +674,28 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources {
-    NSMutableArray *packages = [NSMutableArray new];
-    NSMutableArray *sourceIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
-    
-    for (ZBSource *source in blacklistedSources) {
-        [sourceIDs addObject:[NSNumber numberWithInt:[source sourceID]]];
-    }
-    NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceIDs componentsJoinedByString:@", "]];
-    NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICON IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
-    
-    sqlite3_stmt *statement = NULL;
-    if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
-            [packages addObject:package];
+    __block NSArray *result = NULL;
+    dispatch_sync(databaseQueue, ^{
+        NSMutableArray *packages = [NSMutableArray new];
+        NSMutableArray *sourceIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
+        
+        for (ZBSource *source in blacklistedSources) {
+            [sourceIDs addObject:[NSNumber numberWithInt:[source sourceID]]];
         }
-    }
-    return packages;
+        NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceIDs componentsJoinedByString:@", "]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICON IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
+        
+        sqlite3_stmt *statement = NULL;
+        if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
+            while (sqlite3_step(statement) == SQLITE_ROW) {
+                ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+                [packages addObject:package];
+            }
+        }
+        
+        result = packages;
+    });
+    return result;
 }
 
 
@@ -697,211 +744,221 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesInSourceCount];
-    NSUInteger packageCount = 0;
-    
-    int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            packageCount = sqlite3_column_int(statement, 0);
+    __block NSUInteger packageCount = 0;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesInSourceCount];
+        
+        int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                packageCount = sqlite3_column_int(statement, 0);
+            }
         }
-    }
-    
-    if (result != SQLITE_OK && result != SQLITE_ROW) {
-        ZBLog(@"[Zebra] Failed to obtain package count from source with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
+        
+        if (result != SQLITE_OK && result != SQLITE_ROW) {
+            ZBLog(@"[Zebra] Failed to obtain package count from source with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return packageCount;
 }
 
 - (NSDictionary *)sectionReadoutForSource:(ZBSource *)source {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSectionReadout];
-    int result = [self beginTransaction];
-    
-    result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
-    if (result == SQLITE_OK) {
-        do {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                const char *section = (const char *)sqlite3_column_text(statement, 0);
-                if (section) {
-                    int packageCount = sqlite3_column_int(statement, 1);
-                    sectionReadout[[NSString stringWithUTF8String:section]] = @(packageCount);
+    __block NSDictionary *sections = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSectionReadout];
+        int result = [self beginTransaction];
+        
+        result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        NSMutableDictionary *sectionReadout = [NSMutableDictionary new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    const char *section = (const char *)sqlite3_column_text(statement, 0);
+                    if (section) {
+                        int packageCount = sqlite3_column_int(statement, 1);
+                        sectionReadout[[NSString stringWithUTF8String:section]] = @(packageCount);
+                    }
                 }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
-        } while (result == SQLITE_ROW);
-        
-        if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            
+            sectionReadout[@"ALL_PACKAGES"] = @([self numberOfPackagesInSource:source]);
+            sections = sectionReadout;
         }
-        
-        sectionReadout[@"ALL_PACKAGES"] = @([self numberOfPackagesInSource:source]);
-    }
 
-    [self endTransaction];
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
-    return sectionReadout;
+        [self endTransaction];
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
+    return sections;
 }
 
 #pragma mark - Package Management
 
 - (void)insertPackage:(char **)package {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
 
-    sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, package[ZBPackageColumnIdentifier], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnName + 1, package[ZBPackageColumnName], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
-    
-    char *author = package[ZBPackageColumnAuthorName];
-    char *emailBegin = strchr(author, '<');
-    char *emailEnd = strchr(author, '>');
-    if (emailBegin && emailEnd) {
-        char *email = (char *)malloc(emailEnd - emailBegin);
-        memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
-        email[emailEnd - emailBegin - 1] = 0;
+        sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, package[ZBPackageColumnIdentifier], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnName + 1, package[ZBPackageColumnName], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
         
-        if (*(emailBegin - 1) == ' ') {
-            emailBegin--;
-        }
-        *emailBegin = 0;
-        
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
-        free(email);
-    } else {
-        sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
-    }
-    
-    sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, package[ZBPackageColumnConflicts], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, package[ZBPackageColumnDepends], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, package[ZBPackageColumnDepictionURL], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, atoi(package[ZBPackageColumnDownloadSize]));
-//    package.essential = packageDictionary[@"Essential"];
-    sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, package[ZBPackageColumnFilename], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnHomepageURL + 1, package[ZBPackageColumnHomepageURL], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnIconURL + 1, package[ZBPackageColumnIconURL], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, atoi(package[ZBPackageColumnInstalledSize]));
-    
-    char *maintainer = package[ZBPackageColumnMaintainerName];
-    emailBegin = strchr(maintainer, '<');
-    emailEnd = strchr(maintainer, '>');
-    if (emailBegin && emailEnd) {
-        char *email = (char *)malloc(emailEnd - emailBegin);
-        memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
-        email[emailEnd - emailBegin - 1] = 0;
-        
-        if (*(emailBegin - 1) == ' ') {
-            emailBegin--;
-        }
-        *emailBegin = 0;
-        
-        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, email, -1, SQLITE_TRANSIENT);
-        free(email);
-    } else {
-        sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_null(statement, ZBPackageColumnMaintainerEmail + 1);
-    }
-    
-    sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, package[ZBPackageColumnDescription], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, package[ZBPackageColumnPriority], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnProvides + 1, package[ZBPackageColumnProvides], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnReplaces + 1, package[ZBPackageColumnReplaces], -1, SQLITE_TRANSIENT);
-    
-    int roleValue = 0;
-    char *tag = package[ZBPackageColumnTag];
-    if (tag && tag[0] != '\0') {
-        char *roleTag = strstr(tag, "role::");
-        if (roleTag) {
-            char *begin = roleTag + 6;
-            char *end = strchr(roleTag, ',') ?: strchr(roleTag, '\0');
-            size_t size = (end - 1) - begin;
-            char *role = malloc(size * sizeof(char));
-            strncpy(role, begin, size);
+        char *author = package[ZBPackageColumnAuthorName];
+        char *emailBegin = strchr(author, '<');
+        char *emailEnd = strchr(author, '>');
+        if (emailBegin && emailEnd) {
+            char *email = (char *)malloc(emailEnd - emailBegin);
+            memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
+            email[emailEnd - emailBegin - 1] = 0;
             
-            if (strcmp(role, "user") == 0 || strcmp(role, "enduser") == 0) roleValue = 0;
-            else if (strcmp(role, "hacker") == 0) roleValue = 1;
-            else if (strcmp(role, "developer") == 0) roleValue = 2;
-            else roleValue = 3;
+            if (*(emailBegin - 1) == ' ') {
+                emailBegin--;
+            }
+            *emailBegin = 0;
             
-            free(role);
+            sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
+            free(email);
+        } else {
+            sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
         }
-    }
-    sqlite3_bind_int(statement, ZBPackageColumnRole + 1, roleValue);
-    printf("%s\n", sqlite3_expanded_sql(statement));
-    
-    sqlite3_bind_text(statement, ZBPackageColumnSection + 1, package[ZBPackageColumnSection], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnSHA256 + 1, package[ZBPackageColumnSHA256], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnTag + 1, package[ZBPackageColumnTag], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnSource + 1, package[ZBPackageColumnSource], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnUUID + 1, package[ZBPackageColumnUUID], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, *(int *)package[ZBPackageColumnLastSeen]);
-    
-    int result = sqlite3_step(statement);
-    if (result != SQLITE_DONE) {
-        ZBLog(@"[Zebra] Failed to insert package into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
+        
+        sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, package[ZBPackageColumnConflicts], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, package[ZBPackageColumnDepends], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, package[ZBPackageColumnDepictionURL], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, atoi(package[ZBPackageColumnDownloadSize]));
+    //    package.essential = packageDictionary[@"Essential"];
+        sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, package[ZBPackageColumnFilename], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnHomepageURL + 1, package[ZBPackageColumnHomepageURL], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnIconURL + 1, package[ZBPackageColumnIconURL], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, ZBPackageColumnInstalledSize + 1, atoi(package[ZBPackageColumnInstalledSize]));
+        
+        char *maintainer = package[ZBPackageColumnMaintainerName];
+        emailBegin = strchr(maintainer, '<');
+        emailEnd = strchr(maintainer, '>');
+        if (emailBegin && emailEnd) {
+            char *email = (char *)malloc(emailEnd - emailBegin);
+            memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
+            email[emailEnd - emailBegin - 1] = 0;
+            
+            if (*(emailBegin - 1) == ' ') {
+                emailBegin--;
+            }
+            *emailBegin = 0;
+            
+            sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, email, -1, SQLITE_TRANSIENT);
+            free(email);
+        } else {
+            sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
+            sqlite3_bind_null(statement, ZBPackageColumnMaintainerEmail + 1);
+        }
+        
+        sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, package[ZBPackageColumnDescription], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, package[ZBPackageColumnPriority], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnProvides + 1, package[ZBPackageColumnProvides], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnReplaces + 1, package[ZBPackageColumnReplaces], -1, SQLITE_TRANSIENT);
+        
+        int roleValue = 0;
+        char *tag = package[ZBPackageColumnTag];
+        if (tag && tag[0] != '\0') {
+            char *roleTag = strstr(tag, "role::");
+            if (roleTag) {
+                char *begin = roleTag + 6;
+                char *end = strchr(roleTag, ',') ?: strchr(roleTag, '\0');
+                size_t size = (end - 1) - begin;
+                char *role = malloc(size * sizeof(char));
+                strncpy(role, begin, size);
+                
+                if (strcmp(role, "user") == 0 || strcmp(role, "enduser") == 0) roleValue = 0;
+                else if (strcmp(role, "hacker") == 0) roleValue = 1;
+                else if (strcmp(role, "developer") == 0) roleValue = 2;
+                else roleValue = 3;
+                
+                free(role);
+            }
+        }
+        sqlite3_bind_int(statement, ZBPackageColumnRole + 1, roleValue);
+        
+        sqlite3_bind_text(statement, ZBPackageColumnSection + 1, package[ZBPackageColumnSection], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnSHA256 + 1, package[ZBPackageColumnSHA256], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnTag + 1, package[ZBPackageColumnTag], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnSource + 1, package[ZBPackageColumnSource], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBPackageColumnUUID + 1, package[ZBPackageColumnUUID], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, *(int *)package[ZBPackageColumnLastSeen]);
+        
+        int result = sqlite3_step(statement);
+        if (result != SQLITE_DONE) {
+            ZBLog(@"[Zebra] Failed to insert package into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
 }
 
 - (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemovePackageWithUUID];
-    int result = [self beginTransaction];
-    for (NSString *uuid in uniqueIdentifiers) {
-        result = sqlite3_bind_text(statement, 1, [uuid UTF8String], -1, SQLITE_TRANSIENT);
-        if (result == SQLITE_OK) {
-            result = sqlite3_step(statement);
-            
-            if (result != SQLITE_DONE) {
-                ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemovePackageWithUUID];
+        int result = [self beginTransaction];
+        for (NSString *uuid in uniqueIdentifiers) {
+            result = sqlite3_bind_text(statement, 1, [uuid UTF8String], -1, SQLITE_TRANSIENT);
+            if (result == SQLITE_OK) {
+                result = sqlite3_step(statement);
+                
+                if (result != SQLITE_DONE) {
+                    ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+                }
             }
+            sqlite3_clear_bindings(statement);
+            sqlite3_reset(statement);
         }
+        
+        [self endTransaction];
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
-    }
-    
-    [self endTransaction];
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
+    });
 }
 
 #pragma mark - Source Management
 
 - (void)insertSource:(char * _Nonnull * _Nonnull)source {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertSource];
-    
-    sqlite3_bind_text(statement, ZBSourceColumnArchitectures + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnArchiveType + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnCodename + 1, source[ZBSourceColumnCodename], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnComponents + 1, source[ZBSourceColumnComponents], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, source[ZBSourceColumnDistribution], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, source[ZBSourceColumnLabel], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, source[ZBSourceColumnOrigin], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, *(int *)source[ZBSourceColumnRemote]);
-    sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, source[ZBSourceColumnDescription], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, source[ZBSourceColumnSuite], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnURL + 1, source[ZBSourceColumnURL], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, source[ZBSourceColumnUUID], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, source[ZBSourceColumnVersion], -1, SQLITE_TRANSIENT);
-    
-    int result = sqlite3_step(statement);
-    if (result != SQLITE_DONE) {
-        ZBLog(@"[Zebra] Failed to insert source into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertSource];
+        
+        sqlite3_bind_text(statement, ZBSourceColumnArchitectures + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnArchiveType + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnCodename + 1, source[ZBSourceColumnCodename], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnComponents + 1, source[ZBSourceColumnComponents], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, source[ZBSourceColumnDistribution], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, source[ZBSourceColumnLabel], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, source[ZBSourceColumnOrigin], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, *(int *)source[ZBSourceColumnRemote]);
+        sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, source[ZBSourceColumnDescription], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, source[ZBSourceColumnSuite], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnURL + 1, source[ZBSourceColumnURL], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, source[ZBSourceColumnUUID], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, source[ZBSourceColumnVersion], -1, SQLITE_TRANSIENT);
+        
+        int result = sqlite3_step(statement);
+        if (result != SQLITE_DONE) {
+            ZBLog(@"[Zebra] Failed to insert source into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
 }
 
 #pragma mark - Dependency Resolution
