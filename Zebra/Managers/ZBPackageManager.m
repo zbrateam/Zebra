@@ -8,12 +8,14 @@
 
 #import "ZBPackageManager.h"
 
+#import <string.h>
+#import <ZBDevice.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
-#import <string.h>
 #import <Database/ZBColumn.h>
 #import <Helpers/utils.h>
+#import <Database/ZBDependencyResolver.h>
 
 @interface ZBPackageManager () {
     ZBDatabaseManager *databaseManager;
@@ -23,6 +25,17 @@
 @end
 
 @implementation ZBPackageManager
+
+@synthesize installedPackagesList = _installedPackagesList;
+
++ (instancetype)sharedInstance {
+    static ZBPackageManager *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [ZBPackageManager new];
+    });
+    return instance;
+}
 
 - (id)init {
     self = [super init];
@@ -34,15 +47,65 @@
     return self;
 }
 
+- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
+    if ([source.uuid isEqualToString:@"_var_lib_dpkg_status"] && [self needsStatusUpdate]) {
+        ZBSource *localSource = [ZBSource localSource];
+            
+        [self importPackagesFromSource:localSource];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
+        
+        NSMutableDictionary *list = [NSMutableDictionary new];
+        NSArray *packages = [databaseManager packagesFromSource:source];
+        for (ZBBasePackage *package in packages) {
+            list[package.identifier] = package.version;
+        }
+        _installedPackagesList = list;
+        
+        return packages;
+    } else {
+        return [databaseManager packagesFromSource:source];
+    }
+}
+
+- (BOOL)needsStatusUpdate {
+    NSError *fileError = nil;
+    NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
+    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
+    NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
+    NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
+    
+    return !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
+}
+
+- (NSDictionary <NSString *,NSString *> *)installedPackagesList {
+    if ([self needsStatusUpdate]) {
+        [self packagesFromSource:[ZBSource localSource]]; // This also updates the installed packages list
+    } else if (!_installedPackagesList) {
+        _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
+    }
+    
+    return _installedPackagesList;
+}
+
+- (BOOL)isPackageInstalled:(ZBPackage *)package {
+    return [self isPackageInstalled:package checkVersion:NO];
+}
+
+- (BOOL)isPackageInstalled:(ZBPackage *)package checkVersion:(BOOL)checkVersion {
+    if (checkVersion) {
+        NSString *version = [self.installedPackagesList objectForKey:package.identifier];
+        if (!version) return NO;
+        
+        return [ZBDependencyResolver doesVersion:version satisfyComparison:@"=" ofVersion:package.version];
+    } else {
+        return [self.installedPackagesList objectForKey:package.identifier];
+    }
+}
+
 - (void)importPackagesFromSource:(ZBBaseSource *)source {
     if (!source.packagesFilePath) return;
     
-    NSDate *methodStart = [NSDate date];
     uuids = [[databaseManager uniqueIdentifiersForPackagesFromSource:source] mutableCopy];
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"%@ ID fetch executionTime = %f", source.label, executionTime);
-    
     currentUpdateDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
     
     FILE *file = fopen(source.packagesFilePath.UTF8String, "r");
@@ -135,10 +198,5 @@
         return ZBPackageColumnCount;
     }
 }
-
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
-    return [[ZBDatabaseManager sharedInstance] packagesMatchingFilters:@"source == 1"];
-}
-
 
 @end

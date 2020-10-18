@@ -285,10 +285,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section;
 
 - (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid;
-- (BOOL)isPackageInstalled:(ZBPackage *)package;
-- (BOOL)isPackageInstalled:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
 - (ZBBasePackage *)installedInstanceOfPackage:(ZBPackage *)package;
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package;
+- (NSDictionary *)packageListFromSource:(ZBSource *)source;
 
 @end
 

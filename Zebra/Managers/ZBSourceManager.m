@@ -54,8 +54,7 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
-//        [databaseManager addDatabaseDelegate:self];
-        packageManager = [[ZBPackageManager alloc] init];
+        packageManager = [ZBPackageManager sharedInstance];
         
         recachingNeeded = YES;
         refreshInProgress = NO;
@@ -337,27 +336,35 @@
     if (refreshInProgress)
         return;
     
-//    BOOL needsRefresh = NO;
-//    if (!requested && [ZBSettings wantsAutoRefresh]) {
-//        NSDate *currentDate = [NSDate date];
-//        NSDate *lastUpdatedDate = [ZBDatabaseManager lastUpdated];
-//
-//        if (lastUpdatedDate != NULL) {
-//            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-//            NSUInteger unitFlags = NSCalendarUnitMinute;
-//            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
-//
-//            needsRefresh = ([components minute] >= 30);
-//        } else {
-//            needsRefresh = YES;
-//        }
-//    }
-    
+    BOOL needsRefresh = NO;
+    if (!requested && [ZBSettings wantsAutoRefresh]) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [self lastUpdated];
+
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+
+            needsRefresh = ([components minute] >= 30);
+        } else {
+            needsRefresh = YES;
+        }
+    }
+
 //    [databaseManager checkForPackageUpdates];
-    NSMutableSet *sourcesToRefresh = [NSMutableSet setWithObject:[ZBSource localSource]];
-    /* if (requested || needsRefresh) */ [sourcesToRefresh addObjectsFromArray:self.sources];
+    NSMutableSet *sourcesToRefresh = [NSMutableSet setWithArray:self.sources];
+    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
     
     [self refreshSources:sourcesToRefresh useCaching:NO error:nil];
+}
+
+- (NSDate *)lastUpdated {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdated"];
+}
+
+- (void)updateLastUpdated {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdated"];
 }
 
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
@@ -367,6 +374,7 @@
     [self bulkStartedSourceRefresh];
     downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
     [downloadManager downloadSources:sources useCaching:caching];
+    [self updateLastUpdated];
 }
 
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {

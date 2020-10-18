@@ -25,11 +25,10 @@
 
 typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
+    ZBDatabaseStatementTypePackageListFromSource,
     ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
     ZBDatabaseStatementTypePackageWithUUID,
-    ZBDatabaseStatementTypeIsPackageInstalled,
-    ZBDatabaseStatementTypeIsPackageInstalledWithVersion,
     ZBDatabaseStatementTypeInstalledInstanceOfPackage,
     ZBDatabaseStatementTypeInstalledVersionOfPackage,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
@@ -322,16 +321,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+        case ZBDatabaseStatementTypePackageListFromSource:
+            return @"SELECT p.identifier, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackageWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
-        case ZBDatabaseStatementTypeIsPackageInstalled:
-            return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status\' LIMIT 1;";
-        case ZBDatabaseStatementTypeIsPackageInstalledWithVersion:
-            return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND version = ? AND source = \'_var_lib_dpkg_status\' LIMIT 1;";
         case ZBDatabaseStatementTypeInstalledInstanceOfPackage:
             return @"SELECT authorName, description, identifier, lastSeen, name, version, role, section, uuid FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
@@ -448,6 +445,37 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return packages;
 }
 
+- (NSDictionary *)packageListFromSource:(ZBSource *)source {
+    __block NSDictionary *ret = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageListFromSource];
+        int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
+        
+        NSMutableDictionary *packageList = [NSMutableDictionary new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    const char *identifier = (const char *)sqlite3_column_text(statement, 0);
+                    const char *version = (const char *)sqlite3_column_text(statement, 1);
+                    if (identifier && version) {
+                        packageList[[NSString stringWithUTF8String:identifier]] = [NSString stringWithUTF8String:version];
+                    }
+                }
+            } while (result == SQLITE_ROW);
+        }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+        
+        ret = packageList;
+    });
+    return ret;
+}
+
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source {
     __block NSMutableSet *uuids = [NSMutableSet new];
     dispatch_sync(databaseQueue, ^{
@@ -501,34 +529,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_reset(statement);
     });
     return package;
-}
-
-- (BOOL)isPackageInstalled:(ZBPackage *)package {
-    return [self isPackageInstalled:package checkVersion:NO];
-}
-
-- (BOOL)isPackageInstalled:(ZBPackage *)package checkVersion:(BOOL)checkVersion {
-    __block BOOL installed = NO;
-    dispatch_sync(databaseQueue, ^{
-        sqlite3_stmt *statement = [self preparedStatementOfType:checkVersion ? ZBDatabaseStatementTypeIsPackageInstalled : ZBDatabaseStatementTypeIsPackageInstalledWithVersion];
-        int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
-        if (checkVersion) result = sqlite3_bind_text(statement, 1, package.version.UTF8String, -1, SQLITE_TRANSIENT);
-        
-        if (result == SQLITE_OK) {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                installed = YES;
-            }
-            
-            if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
-                ZBLog(@"[Zebra] Failed to query if package is installed with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-            }
-        }
-        
-        sqlite3_clear_bindings(statement);
-        sqlite3_reset(statement);
-    });
-    return installed;
 }
 
 - (ZBBasePackage *)installedInstanceOfPackage:(ZBPackage *)package {

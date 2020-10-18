@@ -76,41 +76,15 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
-        if (!source.remote) {
-            [downloadDelegate startedDownloadingSource:source];
+        NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
             
-            source.releaseTaskCompleted = YES;
-            source.packagesTaskCompleted = YES;
+        source.releaseTaskIdentifier = releaseTask.taskIdentifier;
+        [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
+        [releaseTask resume];
             
-            NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
+        [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
             
-            if (useCaching) {
-                NSError *fileError = nil;
-                NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
-                NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
-                NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
-                if (!lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // The date we last looked at the status file is less than the last modified date
-                    source.packagesFilePath = statusPath;
-                }
-            } else {
-                source.packagesFilePath = statusPath;
-            }
-            
-            [downloadDelegate finishedDownloadingSource:source withError:NULL];
-            if (!sourceTasksMap.count && sources.count == 1) {
-                [downloadDelegate finishedAllDownloads];
-            }
-        } else {
-            NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
-            
-            source.releaseTaskIdentifier = releaseTask.taskIdentifier;
-            [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
-            [releaseTask resume];
-            
-            [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
-            
-            [downloadDelegate startedDownloadingSource:source];
-        }
+        [downloadDelegate startedDownloadingSource:source];
     }
 }
 

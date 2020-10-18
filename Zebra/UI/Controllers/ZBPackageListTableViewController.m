@@ -12,7 +12,7 @@
 #import <ZBSettings.h>
 #import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
 #import "ZBPackageListTableViewController.h"
-#import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
@@ -27,10 +27,10 @@
 @import FirebaseAnalytics;
 
 @interface ZBPackageListTableViewController () {
-    ZBDatabaseManager *databaseManager;
+    ZBPackageManager *packageManager;
     ZBSortingType selectedSortingType;
-    NSArray <ZBPackage *> *packages;
-    NSArray <ZBPackage *> *sortedPackages;
+    NSArray <ZBBasePackage *> *packages;
+    NSArray <ZBBasePackage *> *sortedPackages;
     NSMutableArray <ZBPackage *> *updates;
     NSMutableArray *sectionIndexTitles;
     UIBarButtonItem *queueButton;
@@ -82,7 +82,7 @@
     [super viewDidLoad];
     [self applyLocalization];
 
-    databaseManager = [ZBDatabaseManager sharedInstance];
+    packageManager = [ZBPackageManager sharedInstance];
     selectedSortingType = [ZBSettings packageSortingType];
     if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
         selectedSortingType = ZBSortingTypeABC;
@@ -139,9 +139,9 @@
         return;
     
     isRefreshingTable = YES;
-    packages = [self->databaseManager packagesFromSource:source inSection:section];
+    packages = [packageManager packagesFromSource:source];
     if (!source.remote) {
-        updates = [databaseManager packagesWithUpdates]; //TODO: Fix This
+//        updates = [databaseManager packagesWithUpdates]; //TODO: Fix This
         
         NSUInteger totalUpdates = updates.count;
         needsUpdatesSection = totalUpdates != 0;

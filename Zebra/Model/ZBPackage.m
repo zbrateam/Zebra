@@ -15,6 +15,7 @@
 #import <Helpers/vercmp.h>
 #import <Model/ZBSource.h>
 #import <ZBAppDelegate.h>
+#import <Managers/ZBPackageManager.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Database/ZBColumn.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
@@ -530,7 +531,7 @@
         _isInstalled = YES;
     }
     
-    if (!_isInstalled) [[ZBDatabaseManager sharedInstance] isPackageInstalled:self];
+    if (!_isInstalled) [[ZBPackageManager sharedInstance] isPackageInstalled:self];
     
     return _isInstalled;
 }
@@ -538,7 +539,7 @@
 - (BOOL)isVersionInstalled {
     if (_isVersionInstalled) return _isVersionInstalled;
     
-    _isVersionInstalled = [[ZBDatabaseManager sharedInstance] isPackageInstalled:self checkVersion:YES];
+    _isVersionInstalled = [[ZBPackageManager sharedInstance] isPackageInstalled:self checkVersion:YES];
     
     return _isVersionInstalled;
 }

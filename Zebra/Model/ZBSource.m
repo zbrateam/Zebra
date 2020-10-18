@@ -39,8 +39,8 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
     [local setOrigin:NSLocalizedString(@"Local Repository", @"")];
     [local setLabel:local.origin];
     [local setUuid:@"_var_lib_dpkg_status"];
-    [local setSourceID:0];
     [local setRemote:NO];
+    local.packagesFilePath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
     
     return local;
 }
