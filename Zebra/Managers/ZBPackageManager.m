@@ -48,7 +48,7 @@
 }
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
-    if ([source.uuid isEqualToString:@"_var_lib_dpkg_status"] && [self needsStatusUpdate]) {
+    if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
         ZBSource *localSource = [ZBSource localSource];
             
         [self importPackagesFromSource:localSource];
@@ -74,7 +74,7 @@
     NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
     NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
     
-    return !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
+    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0|| !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
 }
 
 - (NSDictionary <NSString *,NSString *> *)installedPackagesList {
@@ -143,6 +143,27 @@
             }
         }
     }
+    if (package) {
+        const char *identifier = package[ZBPackageColumnIdentifier];
+        if (identifier && strcmp(identifier, "") != 0) {
+            if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
+            
+            NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBSourceColumnVersion], source.uuid];
+            if (![uuids containsObject:uniqueIdentifier]) {
+                strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
+                strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
+                memcpy(package[ZBPackageColumnLastSeen], &currentUpdateDate, sizeof(sqlite_int64 *));
+                
+                [databaseManager insertPackage:package];
+                
+                freeDualArrayOfSize(package, ZBPackageColumnCount);
+                package = dualArrayOfSize(ZBPackageColumnCount);
+            } else {
+                [uuids removeObject:uniqueIdentifier];
+            }
+        }
+    }
+    
     [databaseManager endTransaction];
     freeDualArrayOfSize(package, ZBPackageColumnCount);
     fclose(file);

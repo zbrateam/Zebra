@@ -323,6 +323,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBBasePackage *> *)searchForPackagesByDescription:(NSString *)name;
 - (NSArray <ZBBasePackage *> *)searchForPackagesByAuthorWithName:(NSString *)name;
 
+- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
+
 @end
 
 NS_ASSUME_NONNULL_END
