@@ -136,7 +136,7 @@
         [self.tableView layoutIfNeeded];
     }
     
-    if (!editOnly && [source paymentVendorURL]) { // If the source supports payments/external accounts
+    if (!editOnly && [source supportsPaymentAPI]) { // If the source supports payments/external accounts
         ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
         [self.view addSubview:accountBanner];
         
@@ -206,32 +206,22 @@
     [self.featuredCollection removeFromSuperview];
     self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
-    if (source.supportsFeaturedPackages) {
-        NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (data != nil) {
-                NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
-                
-                NSError *jsonError;
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-                if (!jsonError) {
-                    NSArray *banners = json[@"banners"];
-                    
-                    self->bannerSize = CGSizeFromString(json[@"itemSize"]);
-                    self.featuredPackages = banners;
-                    
-                    [featuredItems setObject:banners forKey:[self->source uuid]];
-                    [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setupFeaturedPackages];
-                    });
-                }
-            }
+    
+    [source getFeaturedPackages:^(NSDictionary * _Nullable featuredPackages) {
+        NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
+        if (featuredPackages) {
+            NSArray *banners = featuredPackages[@"banners"];
+            self->bannerSize = CGSizeFromString(featuredPackages[@"itemSize"]);
+            self.featuredPackages = banners;
             
-        }] resume];
-    }
+            [featuredItems setObject:banners forKey:[self->source uuid]];
+            [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupFeaturedPackages];
+            });
+        }
+    }];
 }
 
 - (void)setupFeaturedPackages {

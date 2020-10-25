@@ -30,12 +30,12 @@
     NSMutableDictionary *busyList;
     NSMutableArray *completedSources;
     NSDictionary *pinPreferences;
+    NSDictionary *sourceMap;
 }
 @end
 
 @implementation ZBSourceManager
 
-@synthesize sources = _sources;
 @synthesize refreshInProgress;
 
 #pragma mark - Initializers
@@ -60,7 +60,6 @@
         refreshInProgress = NO;
         
         pinPreferences = [self parsePreferences];
-        NSLog(@"[Zebra] PINS: %@", pinPreferences);
     }
     
     return self;
@@ -187,9 +186,13 @@
         NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
         
         recachingNeeded = NO;
-        _sources = [unionSet sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
-    } else if (_sources && baseSources.count != _sources.count) { // A source was added to sources.list at some point by someone and we don't list it
-        NSMutableSet *cache = [NSMutableSet setWithArray:_sources];
+        NSMutableDictionary *tempSourceMap = [NSMutableDictionary new];
+        for (ZBBaseSource *source in unionSet) {
+            tempSourceMap[source.uuid] = source;
+        }
+        sourceMap = tempSourceMap;
+    } else if (sourceMap && baseSources.count != sourceMap.allValues.count) { // A source was added to sources.list at some point by someone and we don't list it
+        NSMutableSet *cache = [NSMutableSet setWithArray:[sourceMap allValues]];
         
         NSMutableSet *sourcesAdded = [baseSources mutableCopy];
         [sourcesAdded minusSet:cache];
@@ -202,7 +205,11 @@
         if (sourcesAdded.count) [cache unionSet:sourcesAdded];
         if (sourcesRemoved.count) [cache minusSet:sourcesRemoved];
         
-        _sources = [cache sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+        NSMutableDictionary *tempSourceMap = [NSMutableDictionary new];
+        for (ZBBaseSource *source in cache) {
+            tempSourceMap[source.uuid] = source;
+        }
+        sourceMap = tempSourceMap;
         
         if (sourcesAdded.count) [self bulkAddedSources:sourcesAdded];
         if (sourcesRemoved.count) [self bulkRemovedSources:sourcesRemoved];
@@ -214,19 +221,11 @@
         });
     }
     
-    return _sources;
+    return [[sourceMap allValues] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
 }
 
-- (ZBSource *)sourceMatchingSourceID:(int)sourceID {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"sourceID == %d", sourceID];
-    NSArray *filteredSources = [self.sources filteredArrayUsingPredicate:predicate];
-    if (!filteredSources.count) {
-        // If we can't find the source in sourceManager, lets just recache and see if it shows up
-        // TODO: Recache sources
-        filteredSources = [self.sources filteredArrayUsingPredicate:predicate];
-    }
-    
-    return filteredSources.firstObject ?: NULL;
+- (ZBSource *)sourceWithUUID:(NSString *)UUID {
+    return sourceMap[UUID];
 }
 
 #pragma mark - Adding and Removing Sources
@@ -234,7 +233,7 @@
 - (void)addSources:(NSSet <ZBBaseSource *> *)sources error:(NSError **_Nullable)error {
     NSMutableSet *sourcesToAdd = [sources mutableCopy];
     for (ZBSource *source in sources) {
-        if ([self.sources containsObject:source]) {
+        if (sourceMap[source.uuid]) {
             ZBLog(@"[Zebra] %@ is already a source", source.repositoryURI); // This isn't going to trigger a failure, should it?
             [sourcesToAdd removeObject:source];
         }
@@ -257,26 +256,26 @@
 }
 
 - (void)updateURIForSource:(ZBSource *)source oldURI:(NSString *)oldURI error:(NSError**_Nullable)error {
-    if (source != nil) {
-        NSSet *sourcesToWrite = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
-
-        for (ZBBaseSource *baseSource in sourcesToWrite) {
-            if ([oldURI isEqualToString:baseSource.repositoryURI]) {
-                baseSource.repositoryURI = [source.repositoryURI copy];
-                break;
-            }
-        }
-
-        NSError *writeError = NULL;
-        [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
-        if (writeError) {
-            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
-            *error = writeError;
-            return;
-        }
-
-        [[ZBDatabaseManager sharedInstance] updateURIForSource:source];
-    }
+//    if (source != nil) {
+//        NSSet *sourcesToWrite = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil];
+//
+//        for (ZBBaseSource *baseSource in sourcesToWrite) {
+//            if ([oldURI isEqualToString:baseSource.repositoryURI]) {
+//                baseSource.repositoryURI = [source.repositoryURI copy];
+//                break;
+//            }
+//        }
+//
+//        NSError *writeError = NULL;
+//        [self writeBaseSources:sourcesToWrite toFile:[ZBAppDelegate sourcesListPath] error:&writeError];
+//        if (writeError) {
+//            NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
+//            *error = writeError;
+//            return;
+//        }
+//
+//        [[ZBDatabaseManager sharedInstance] updateURIForSource:source];
+//    }
 }
 
 - (void)removeSources:(NSSet <ZBBaseSource *> *)sources error:(NSError**_Nullable)error {
@@ -353,10 +352,10 @@
     }
 
 //    [databaseManager checkForPackageUpdates];
-    NSMutableSet *sourcesToRefresh = [NSMutableSet setWithArray:self.sources];
-    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
+    if (requested || needsRefresh) {
+        [self refreshSources:self.sources useCaching:NO error:nil];
+    }
     
-    [self refreshSources:sourcesToRefresh useCaching:NO error:nil];
 }
 
 - (NSDate *)lastUpdated {
@@ -367,7 +366,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdated"];
 }
 
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
+- (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
     

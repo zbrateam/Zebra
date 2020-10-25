@@ -33,10 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Obtain a ZBSource instance from the database that matches a certain sourceID
- @param sourceID the sourceID you want to search for
+ @param UUID the sourceID you want to search for
  @return A ZBSource instance with a corresponding sourceID
  */
-- (ZBSource *)sourceMatchingSourceID:(int)sourceID;
+- (ZBSource *)sourceWithUUID:(NSString *)UUID;
 
 /*!
  @brief Adds sources to Zebra's sources.list
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
  @param error an error pointer that will be set if an error occurs while refreshing a source
 */
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
+- (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
 
 - (void)cancelSourceRefresh;
 

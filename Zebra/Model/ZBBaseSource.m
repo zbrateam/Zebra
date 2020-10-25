@@ -90,10 +90,10 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     if (self) {
         self.verificationStatus = ZBSourceUnverified;
         
-        self.archiveType = archiveType;
-        self.repositoryURI = repositoryURI;
-        self.label = repositoryURI;
-        self.distribution = distribution;
+        _archiveType = archiveType;
+        _repositoryURI = repositoryURI;
+        _label = repositoryURI;
+        _distribution = distribution;
 //        self->sourceID = INT_MIN;
         
         if (components && [components count]) {
@@ -101,33 +101,33 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
             [check removeObject:@""];
             
             if ([check count]) {
-                self.components = components;
+                _components = components;
             }
         }
         
-        if ([self.distribution hasSuffix:@"/"]) { // If the distribution has a '/' at the end of it, it is likely a flat format
-            if ([self.components count]) return NULL; // If you have components and a / at the end of your distribution, your source is malformed
+        if ([_distribution hasSuffix:@"/"]) { // If the distribution has a '/' at the end of it, it is likely a flat format
+            if ([_components count]) return NULL; // If you have components and a / at the end of your distribution, your source is malformed
             
-            NSURL *baseURL = [NSURL URLWithString:self.repositoryURI];
-            self.mainDirectoryURL = [NSURL URLWithString:self.distribution relativeToURL:baseURL];
+            NSURL *baseURL = [NSURL URLWithString:_repositoryURI];
+            _mainDirectoryURL = [NSURL URLWithString:_distribution relativeToURL:baseURL];
             
-            self.packagesDirectoryURL = self.mainDirectoryURL;
+            _packagesDirectoryURL = _mainDirectoryURL;
         }
-        else if (self.components && [self.components count]) { // This repository has a non-flat format with a distribution and components
-            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", self.repositoryURI, self.distribution];
-            self.mainDirectoryURL = [NSURL URLWithString:mainDirectory];
+        else if (_components && _components.count) { // This repository has a non-flat format with a distribution and components
+            NSString *mainDirectory = [NSString stringWithFormat:@"%@dists/%@/", _repositoryURI, _distribution];
+            _mainDirectoryURL = [NSURL URLWithString:mainDirectory];
 
-            self.packagesDirectoryURL = [self.mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", self.components[0], [ZBDevice debianArchitecture]]];
+            _packagesDirectoryURL = [_mainDirectoryURL URLByAppendingPathComponent:[NSString stringWithFormat:@"%@/binary-%@/", _components[0], [ZBDevice debianArchitecture]]];
         }
         
-        if (!self.mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
-        self.releaseURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"Release"];
+        if (!_mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
+        _releaseURL = [_mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
-        NSString *mainDirectoryString = [self.mainDirectoryURL absoluteString];
-        NSString *schemeless = [self.mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[self.mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
-        self.uuid = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
-        self.iconURL = [self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"];
-        self.remote = ![self.mainDirectoryURL isFileURL];
+        NSString *mainDirectoryString = [_mainDirectoryURL absoluteString];
+        NSString *schemeless = [_mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[_mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
+        _uuid = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        _iconURL = [_mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"];
+        _remote = ![_mainDirectoryURL isFileURL];
     }
     
     return self;

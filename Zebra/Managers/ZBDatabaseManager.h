@@ -33,28 +33,116 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
 
-/*!
- @brief Whether or not the database needs to update to the new model
- @return A boolean value indicating whether or not the database should be updated to the new model
- */
-+ (BOOL)needsMigration;
+#pragma mark - Package Retrieval
 
 /*!
- @brief The last time the database was updated.
- @return An NSDate that provides the last time that the database was fully updated.
+ @brief Get an instance of all packages that belong to a source.
+ @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
+ @param source The source you want to retrieve packages from.
+ @return An array of instances that represent the highest version available from a source for each package.
  */
-+ (NSDate *)lastUpdated;
+- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source;
 
-#pragma mark - Source management
+/*!
+ @brief Get an instance of all packages that belong to a source within a specific section.
+ @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
+ @param source The source you want to retrieve packages from.
+ @param section The section that you would like to filter packages from.
+ @return An array of instances that represent the highest version available from a source within a section for each package.
+ */
+- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section;
 
-- (ZBSource * _Nullable)sourceWithUniqueIdentifier:(NSString *)uuid;
+/*!
+ @brief Get an instance of a package with a specific unique identifier.
+ @param uuid The uuid you want to lookup.
+ @discussion This method is used when forwarding unknown selectors from a ZBBasePackage instance to a ZBPackage instance.
+ @return An instance of ZBPackage that has a UUID equal to the UUID specified.
+ */
+- (ZBPackage *_Nullable)packageWithUniqueIdentifier:(NSString *)uuid;
+
+/*!
+ @brief Get the instance of the package that is installed to the user's device
+ @param package The package that you want an installed instance of.
+ @return An instance of ZBPackage that is installed to the user's device.
+ */
+- (ZBPackage *)installedInstanceOfPackage:(ZBPackage *)package;
+
+/*!
+ @brief Get instances of packages by an author
+ @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
+ @param name The author's name.
+ @param email The author's email (optional).
+ @return An array of instances that are created by the author
+ */
+- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email;
+
+- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
+
+#pragma mark - Package Information
+
+/*!
+ @brief Get the version string of the package that is installed to the user's device.
+ @param package The package that you want an installed version string of.
+ @return A NSString representing the version of the package installed to the user's device.
+ */
+- (NSString *)installedVersionOfPackage:(ZBPackage *)package;
+
+/*!
+ @brief All version strings that are available for a package
+ @param package The package that you want versions for.
+ @return An array of all version strings in all sources available in the database for a package.
+ */
+- (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package;
+
+/*!
+ @brief All version strings that are available for a package
+ @param package The package that you want versions for.
+ @param source The source you want as a filter.
+ @return An array of all version strings in a source available in the database for a package.
+ */
+- (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
+
+#pragma mark - Source Retrieval
 
 /*!
  @brief All of the sources that are in the database.
- @return An array of ZBSources that represent the sources that are in the database.
+ @return A set of ZBSource instances that represent the sources that are in the database. This does *not* include sources that are in sources.list
  */
-- (NSSet <ZBSource *> * _Nullable)sources;
-- (NSSet <ZBSource *> * _Nullable)sourcesWithPaymentEndpoint;
+- (NSSet <ZBSource *> *)sources;
+
+/*!
+ @brief All of the sources that are in the database that have a payment endpoint and can use the modern payment API.
+ @return A set of ZBSource instances that are able to use the modern payment API.
+ */
+- (NSSet <ZBSource *> *)sourcesWithPaymentEndpoint;
+
+#pragma mark - Source Information
+
+/*!
+ @brief A simplified list of packages that are available from a source.
+ @param source The source that you would like to retrieve a package list from.
+ @return A dictionary keyed by package identifiers that contains the highest version for each package identifier in a source
+ */
+- (NSDictionary *)packageListFromSource:(ZBSource *)source;
+
+/*!
+ @brief Unique identifiers for all packages from a source
+ @param source The source that you would like to retrieve a list of unique identifiers from.
+ @return A set of unique identifiers representing all the packages available from a source.
+ */
+- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source;
+
+#pragma mark - Package Management
+
+#pragma mark - Source Management
+
+
+
+
+
+
+
+#pragma mark - Source management
 
 /*!
  @brief Updates the URI for the source with the matching sourceID.
@@ -77,8 +165,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary * _Nullable)sectionReadoutForSource:(ZBSource *)source;
 
-- (NSURL * _Nullable)paymentVendorURLForSource:(ZBSource *)source;
-
 #pragma mark - Package retrieval
 
 /*!
@@ -93,13 +179,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of packages that have updates.
  */
 - (NSMutableArray <ZBPackage *> * _Nullable)packagesWithUpdates;
-
-/*!
- @brief A list of packages that have a name similar to the search term.
- @param name The name of the package.
- @return A cleaned array of packages (no duplicate package IDs, also could be proxy packages) that match the search term.
- */
-- (NSArray * _Nullable)searchForPackageName:(NSString *)name;
 
 /*!
  @brief A list of authors that have a name similar to the search term.
@@ -128,7 +207,6 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief Check whether or not a specific package is available for download from a source using its identifier.
  @param package The package ID that you want to check the availability status for.
- @param version (Nullable) The specific version you want to see if it is available. Pass NULL if the version is irrelevant.
  @return YES if the package is available for download, NO if it is not.
  */
 - (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
@@ -174,22 +252,6 @@ NS_ASSUME_NONNULL_BEGIN
 */
 - (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version;
 - (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual;
-
-/*!
- @brief An array of every version of a package in the database.
- @param packageIdentifier The package you want versions for.
- @return A sorted array of every version of a package in the database.
- */
-- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier;
-- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source;
-
-/*!
- @brief An array of every version of a package in the database.
- @param package The package you want versions for.
- @return A sorted array of every version of a package in the database.
- */
-- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackage:(ZBPackage *)package;
-- (NSArray <ZBPackage *> * _Nullable)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
 
 /*!
  @brief An array of every other version of a package in the database.
@@ -239,16 +301,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Helper methods
 
 /*!
- @brief Returns all packages made by the specific author.
- @param name The author's name that you wish to look for.
- @param email The author's email that you wish to look for.
- @return An array of every package made by the specified author.
- */
-- (NSArray * _Nullable)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email;
-
-- (NSArray * _Nullable)packagesWithDescription:(NSString *)description;
-
-/*!
  @brief Returns all packages with a reachable icon.
  @param limit Specify how many rows are selected.
  @return An array of all packages with a reachable icon.
@@ -261,33 +313,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - New Stuff
 
-- (NSArray <ZBBasePackage *> *)packagesMatchingFilters:(NSString *)filters;
-- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBBaseSource *)source;
 - (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers;
 - (void)insertPackage:(char * _Nonnull * _Nonnull)package;
 - (void)insertSource:(char * _Nonnull * _Nonnull)source;
 - (int)beginTransaction;
 - (int)endTransaction;
 
-/*!
- @brief Get all packages from a  source
- @param source The  source you want to retrieve packages from.
- @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
- */
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source;
-
-/*!
- @brief Get packages from a source within a section
- @param source The source you want to retrieve packages from.
- @param section A specific section to get a list of packages from (NULL if you want all packages from that source).
- @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
- */
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section;
-
-- (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid;
-- (ZBBasePackage *)installedInstanceOfPackage:(ZBPackage *)package;
-- (NSString *)installedVersionOfPackage:(ZBPackage *)package;
-- (NSDictionary *)packageListFromSource:(ZBSource *)source;
+- (NSArray <ZBBasePackage *> *)searchForPackagesByName:(NSString *)name;
+- (NSArray <ZBBasePackage *> *)searchForPackagesByDescription:(NSString *)name;
+- (NSArray <ZBBasePackage *> *)searchForPackagesByAuthorWithName:(NSString *)name;
 
 @end
 

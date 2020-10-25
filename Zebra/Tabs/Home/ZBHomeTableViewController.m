@@ -132,38 +132,38 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBSource *>*featuredSources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
-    NSMutableDictionary *featuredItems = [NSMutableDictionary new];
-    dispatch_group_t group = dispatch_group_create();
-    for (ZBSource *source in featuredSources) {
-        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
-            dispatch_group_enter(group);
-            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
-            NSURL *checkingURL = requestURL;
-            NSURLSession *session = [NSURLSession sharedSession];
-            [[session dataTaskWithURL:checkingURL
-                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        if (data != nil && (long)[httpResponse statusCode] != 404) {
-                            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                            if (!source.supportsFeaturedPackages) {
-                                source.supportsFeaturedPackages = YES;
-                            }
-                            if ([json objectForKey:@"banners"]) {
-                                NSArray *banners = [json objectForKey:@"banners"];
-                                if (banners.count) {
-                                    [featuredItems setObject:banners forKey:[source uuid]];
-                                }
-                            }
-                        }
-                        dispatch_group_leave(group);
-                    }] resume];
-        }
-    }
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-        if ([featuredItems count]) [self setupHeaderFromCache];
-    });
+//    NSMutableArray <ZBSource *>*featuredSources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+//    NSMutableDictionary *featuredItems = [NSMutableDictionary new];
+//    dispatch_group_t group = dispatch_group_create();
+//    for (ZBSource *source in featuredSources) {
+//        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
+//            dispatch_group_enter(group);
+//            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
+//            NSURL *checkingURL = requestURL;
+//            NSURLSession *session = [NSURLSession sharedSession];
+//            [[session dataTaskWithURL:checkingURL
+//                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+//                        if (data != nil && (long)[httpResponse statusCode] != 404) {
+//                            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//                            if (!source.supportsFeaturedPackages) {
+//                                source.supportsFeaturedPackages = YES;
+//                            }
+//                            if ([json objectForKey:@"banners"]) {
+//                                NSArray *banners = [json objectForKey:@"banners"];
+//                                if (banners.count) {
+//                                    [featuredItems setObject:banners forKey:[source uuid]];
+//                                }
+//                            }
+//                        }
+//                        dispatch_group_leave(group);
+//                    }] resume];
+//        }
+//    }
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+//        if ([featuredItems count]) [self setupHeaderFromCache];
+//    });
 }
 
 - (void)setupHeaderFromCache {
@@ -187,7 +187,7 @@ typedef enum ZBLinksOrder : NSUInteger {
     NSArray *blockedSources = [ZBSettings sourceBlacklist];
     NSMutableArray *blacklist = [NSMutableArray new];
     for (NSString *baseFilename in blockedSources) {
-        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
         if (source) {
             [blacklist addObject:source];
         }

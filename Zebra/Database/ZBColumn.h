@@ -44,12 +44,12 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
 };
 
 typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
-    ZBSourceColumnArchitectures,
-    ZBSourceColumnArchiveType,
-    ZBSourceColumnCodename,
-    ZBSourceColumnComponents,
-    ZBSourceColumnDistribution,
-    ZBSourceColumnLabel,
+    ZBSourceColumnArchitectures, //
+    ZBSourceColumnArchiveType, //
+    ZBSourceColumnCodename, //
+    ZBSourceColumnComponents, //
+    ZBSourceColumnDistribution, //
+    ZBSourceColumnLabel, 
     ZBSourceColumnOrigin,
     ZBSourceColumnRemote,
     ZBSourceColumnDescription,

@@ -491,7 +491,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     NSMutableArray *sources = [NSMutableArray new];
     NSArray *baseFilenames = [ZBSettings sourceBlacklist];
     for (NSString *baseFilename in baseFilenames) {
-        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
         if (source) [sources addObject:source];
     }
     

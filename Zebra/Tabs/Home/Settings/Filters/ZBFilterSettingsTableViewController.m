@@ -63,7 +63,7 @@
     sources = [NSMutableArray new];
     NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
-        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
         if (!source) {
             // This source has been removed after filtering sections in it, we need to remove this baseFilename
             [outdatedFilteredSources addObject:baseFilename];
@@ -266,7 +266,7 @@
             else {
                 NSMutableArray <ZBSource *> *selectedSources = [NSMutableArray array];
                 for (NSString *baseFilename in [ZBSettings filteredSources]) {
-                    ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+                    ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
                     if (source) {
                         [selectedSources addObject:source];
                     }
