@@ -22,7 +22,8 @@
 @import UIKit.UIDevice;
 
 @interface ZBSourceManager () {
-    BOOL recachingNeeded;
+    NSDictionary *sourceMap;
+    
     ZBPackageManager *packageManager;
     ZBDatabaseManager *databaseManager;
     ZBDownloadManager *downloadManager;
@@ -30,7 +31,6 @@
     NSMutableDictionary *busyList;
     NSMutableArray *completedSources;
     NSDictionary *pinPreferences;
-    NSDictionary *sourceMap;
 }
 @end
 
@@ -56,118 +56,12 @@
         databaseManager = [ZBDatabaseManager sharedInstance];
         packageManager = [ZBPackageManager sharedInstance];
         
-        recachingNeeded = YES;
         refreshInProgress = NO;
         
         pinPreferences = [self parsePreferences];
     }
     
     return self;
-}
-
-#pragma mark - Reading Pin Priorities
-
-- (NSInteger)pinPriorityForSource:(ZBSource *)source {
-    return [self pinPriorityForSource:source strict:NO];
-}
-
-- (NSInteger)pinPriorityForSource:(ZBSource *)source strict:(BOOL)strict {
-    if (source.sourceID <= 0) return 100;
-    
-    if ([pinPreferences objectForKey:source.origin]) {
-        return [[pinPreferences objectForKey:source.origin] integerValue];
-    } else if ([pinPreferences objectForKey:source.label]) {
-        return [[pinPreferences objectForKey:source.label] integerValue];
-    } else if ([pinPreferences objectForKey:source.codename]) {
-        return [[pinPreferences objectForKey:source.codename] integerValue];
-    } else if (!strict) {
-        return 500;
-    } else {
-        return 499;
-    }
-}
-
-- (NSDictionary *)parsePreferences {
-    NSMutableDictionary *priorities = [NSMutableDictionary new];
-    NSArray *preferences = [self prioritiesForFile:[ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"pin" ofType:@"pref"] : @"/etc/apt/preferences.d/"];
-    
-    for (NSDictionary *preference in preferences) {
-        NSInteger pinPriority = [preference[@"Pin-Priority"] integerValue];
-        NSString *pin = preference[@"Pin"];
-        if (pin == NULL) continue;
-        
-        NSRange rangeOfSpace = [pin rangeOfString:@" "];
-        NSString *value = rangeOfSpace.location == NSNotFound ? pin : [pin substringToIndex:rangeOfSpace.location];
-        NSString *options = rangeOfSpace.location == NSNotFound ? nil :[pin substringFromIndex:rangeOfSpace.location + 1];
-        if (!value || !options) continue;
-        
-        if ([value isEqualToString:@"origin"]) {
-            [priorities setValue:@(pinPriority) forKey:options];
-        } else if ([value isEqualToString:@"release"]) {
-            NSArray *components = [options componentsSeparatedByString:@", "];
-            if (components.count == 1 && [options containsString:@","]) components = [options componentsSeparatedByString:@","];
-            
-            for (NSString *option in components) {
-                NSArray *components = [option componentsSeparatedByString:@"="];
-                NSArray *choices = @[@"o", @"l", @"n"];
-                
-                if (components.count == 2 && [choices containsObject:components[0]]) {
-                    [priorities setValue:@(pinPriority) forKey:[components[1] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
-                }
-            }
-        }
-    }
-    
-    return priorities;
-}
-
-- (NSArray *)prioritiesForFile:(NSString *)path {
-    BOOL isDirectory = NO;
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
-    if (isDirectory) {
-        NSMutableArray *prioritiesForDirectory = [NSMutableArray new];
-        NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
-        NSString *directory;
-        NSString *file;
-        
-        if ([path hasSuffix:@"/"]) {
-            directory = [path copy];
-        } else {
-            directory = [path stringByAppendingString:@"/"];
-        }
-
-        while (file = [enumerator nextObject]) {
-            file = [directory stringByAppendingString:file];
-            [prioritiesForDirectory addObjectsFromArray:[self prioritiesForFile:file]];
-        }
-        return prioritiesForDirectory;
-    } else if (fileExists) {
-        NSError *readError = NULL;
-        NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
-        if (readError) return @[];
-        
-        NSMutableArray *prioritiesForFile = [NSMutableArray new];
-        __block NSMutableDictionary *currentGroup = [NSMutableDictionary new];
-        [contents enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
-            if ([line isEqual:@""]) {
-                [prioritiesForFile addObject:currentGroup];
-                currentGroup = [NSMutableDictionary new];
-            }
-            
-            NSArray <NSString *> *pair = [line componentsSeparatedByString:@": "];
-            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
-            if (pair.count != 2) return;
-            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-            
-            [currentGroup setValue:value forKey:key];
-        }];
-        if (currentGroup.allValues.count) [prioritiesForFile addObject:currentGroup];
-        
-        return prioritiesForFile;
-    }
-    
-    return @[];
 }
 
 #pragma mark - Accessing Sources
@@ -181,11 +75,10 @@
         return [NSArray new];
     }
     
-    if (recachingNeeded) {
+    if (!sourceMap) {
         NSSet *sourcesFromDatabase = [[ZBDatabaseManager sharedInstance] sources];
         NSSet *unionSet = [sourcesFromDatabase setByAddingObjectsFromSet:baseSources];
         
-        recachingNeeded = NO;
         NSMutableDictionary *tempSourceMap = [NSMutableDictionary new];
         for (ZBBaseSource *source in unionSet) {
             tempSourceMap[source.uuid] = source;
@@ -249,9 +142,14 @@
             return;
         }
         
-        recachingNeeded = YES;
+        NSMutableDictionary *tempSourceMap = [sourceMap mutableCopy];
+        for (ZBBaseSource *source in sourcesToAdd) {
+            tempSourceMap[source.uuid] = source;
+        }
+        sourceMap = tempSourceMap;
+        
         [self bulkAddedSources:sourcesToAdd];
-        [self refreshSources:sourcesToAdd useCaching:YES error:nil];
+        [self refreshSources:[sourcesToAdd allObjects] useCaching:YES error:nil];
     }
 }
 
@@ -326,7 +224,13 @@
                 [[ZBDatabaseManager sharedInstance] deleteSource:source];
             }
         }
-        recachingNeeded = YES;
+        
+        NSMutableDictionary *tempSourceMap = [sourceMap mutableCopy];
+        for (ZBBaseSource *source in sourcesToRemove) {
+            [tempSourceMap removeObjectForKey:source.uuid];
+        }
+        sourceMap = tempSourceMap;
+        
         [self bulkRemovedSources:sourcesToRemove];
     }
 }
@@ -414,8 +318,6 @@
         NSLog(@"[Zebra] Error while writing sources to file: %@", writeError);
         *error = writeError;
     }
-    
-    recachingNeeded = YES;
 }
 
 #pragma mark - Verifying Sources
@@ -614,6 +516,112 @@
         return ZBSourceColumnCount;
     }
 }
+
+#pragma mark - Reading Pin Priorities
+
+- (NSInteger)pinPriorityForSource:(ZBSource *)source {
+    return [self pinPriorityForSource:source strict:NO];
+}
+
+- (NSInteger)pinPriorityForSource:(ZBSource *)source strict:(BOOL)strict {
+    if (source.sourceID <= 0) return 100;
+    
+    if ([pinPreferences objectForKey:source.origin]) {
+        return [[pinPreferences objectForKey:source.origin] integerValue];
+    } else if ([pinPreferences objectForKey:source.label]) {
+        return [[pinPreferences objectForKey:source.label] integerValue];
+    } else if ([pinPreferences objectForKey:source.codename]) {
+        return [[pinPreferences objectForKey:source.codename] integerValue];
+    } else if (!strict) {
+        return 500;
+    } else {
+        return 499;
+    }
+}
+
+- (NSDictionary *)parsePreferences {
+    NSMutableDictionary *priorities = [NSMutableDictionary new];
+    NSArray *preferences = [self prioritiesForFile:[ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"pin" ofType:@"pref"] : @"/etc/apt/preferences.d/"];
+    
+    for (NSDictionary *preference in preferences) {
+        NSInteger pinPriority = [preference[@"Pin-Priority"] integerValue];
+        NSString *pin = preference[@"Pin"];
+        if (pin == NULL) continue;
+        
+        NSRange rangeOfSpace = [pin rangeOfString:@" "];
+        NSString *value = rangeOfSpace.location == NSNotFound ? pin : [pin substringToIndex:rangeOfSpace.location];
+        NSString *options = rangeOfSpace.location == NSNotFound ? nil :[pin substringFromIndex:rangeOfSpace.location + 1];
+        if (!value || !options) continue;
+        
+        if ([value isEqualToString:@"origin"]) {
+            [priorities setValue:@(pinPriority) forKey:options];
+        } else if ([value isEqualToString:@"release"]) {
+            NSArray *components = [options componentsSeparatedByString:@", "];
+            if (components.count == 1 && [options containsString:@","]) components = [options componentsSeparatedByString:@","];
+            
+            for (NSString *option in components) {
+                NSArray *components = [option componentsSeparatedByString:@"="];
+                NSArray *choices = @[@"o", @"l", @"n"];
+                
+                if (components.count == 2 && [choices containsObject:components[0]]) {
+                    [priorities setValue:@(pinPriority) forKey:[components[1] stringByReplacingOccurrencesOfString:@"\"" withString:@""]];
+                }
+            }
+        }
+    }
+    
+    return priorities;
+}
+
+- (NSArray *)prioritiesForFile:(NSString *)path {
+    BOOL isDirectory = NO;
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDirectory];
+    if (isDirectory) {
+        NSMutableArray *prioritiesForDirectory = [NSMutableArray new];
+        NSDirectoryEnumerator *enumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
+        NSString *directory;
+        NSString *file;
+        
+        if ([path hasSuffix:@"/"]) {
+            directory = [path copy];
+        } else {
+            directory = [path stringByAppendingString:@"/"];
+        }
+
+        while (file = [enumerator nextObject]) {
+            file = [directory stringByAppendingString:file];
+            [prioritiesForDirectory addObjectsFromArray:[self prioritiesForFile:file]];
+        }
+        return prioritiesForDirectory;
+    } else if (fileExists) {
+        NSError *readError = NULL;
+        NSString *contents = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:&readError];
+        if (readError) return @[];
+        
+        NSMutableArray *prioritiesForFile = [NSMutableArray new];
+        __block NSMutableDictionary *currentGroup = [NSMutableDictionary new];
+        [contents enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            if ([line isEqual:@""]) {
+                [prioritiesForFile addObject:currentGroup];
+                currentGroup = [NSMutableDictionary new];
+            }
+            
+            NSArray <NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            
+            [currentGroup setValue:value forKey:key];
+        }];
+        if (currentGroup.allValues.count) [prioritiesForFile addObject:currentGroup];
+        
+        return prioritiesForFile;
+    }
+    
+    return @[];
+}
+
 #pragma mark - Source Delegate Notifiers
 
 - (void)bulkStartedSourceRefresh {
