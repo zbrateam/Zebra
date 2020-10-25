@@ -116,7 +116,7 @@
     while (fgets(line, 2048, file)) {
         if (line[0] == '\n' || line[0] == '\r') {
             const char *identifier = package[ZBPackageColumnIdentifier];
-            if (identifier) {
+            if (identifier && strcmp(identifier, "") != 0) {
                 if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                 
                 NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBSourceColumnVersion], source.uuid];

@@ -679,7 +679,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return ret;
 }
 
-- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source {
+- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBBaseSource *)source {
     __block NSMutableSet *uuids = [NSMutableSet new];
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeUUIDsFromSource];

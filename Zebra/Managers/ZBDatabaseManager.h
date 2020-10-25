@@ -130,7 +130,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param source The source that you would like to retrieve a list of unique identifiers from.
  @return A set of unique identifiers representing all the packages available from a source.
  */
-- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBSource *)source;
+- (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBBaseSource *)source;
 
 #pragma mark - Package Management
 
