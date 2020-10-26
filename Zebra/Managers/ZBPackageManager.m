@@ -119,7 +119,7 @@
             if (identifier && strcmp(identifier, "") != 0) {
                 if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                 
-                NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBSourceColumnVersion], source.uuid];
+                NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
                 if (![uuids containsObject:uniqueIdentifier]) {
                     strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
                     strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
@@ -148,7 +148,7 @@
         if (identifier && strcmp(identifier, "") != 0) {
             if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
             
-            NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBSourceColumnVersion], source.uuid];
+            NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
             if (![uuids containsObject:uniqueIdentifier]) {
                 strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
                 strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
