@@ -25,7 +25,12 @@ after-stage::
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections$(ECHO_END)
 	$(ECHO_NOTHING)rm -f $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack$(ECHO_END)
 
+ifdef NO_LAUNCH
+after-install::
+	install.exec 'uicache -p /Applications/Zebra.app'
+else
 after-install::
 	install.exec 'uicache -p /Applications/Zebra.app; uiopen zbra:'
+endif
 
 include $(THEOS_MAKE_PATH)/aggregate.mk
