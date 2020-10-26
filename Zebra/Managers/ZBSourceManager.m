@@ -425,25 +425,20 @@
 - (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *)errors {
     NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
-//    if (source) {
-//        [busyList setObject:@NO forKey:source.baseFilename];
-//
-//        if (errors && errors.count) {
-//            source.errors = errors;
-//            source.warnings = [self warningsForSource:source];
-//        }
-//        else {
-//            [completedSources addObject:source];
-//        }
-//
-//        [self bulkFinishedDownloadForSource:source];
-//    }
-    
-    NSDate *methodStart = [NSDate date];
-    if (source) [self importSource:source];
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"%@ import executionTime = %f", source.label, executionTime);
+    if (source) {
+        [busyList setObject:@NO forKey:source.uuid];
+
+        if (errors && errors.count) {
+            source.errors = errors;
+            source.warnings = [self warningsForSource:source];
+        }
+        else {
+            [completedSources addObject:source];
+        }
+
+        [self bulkFinishedDownloadForSource:source];
+        [self importSource:source];
+    }
 }
 
 - (void)finishedAllDownloads {
@@ -457,7 +452,11 @@
     [self bulkUpdatesAvailable:numberOfUpdates];
 }
 
+#pragma mark - Importing Sources
+
 - (void)importSource:(ZBBaseSource *)baseSource {
+    [self bulkStartedImportForSource:baseSource];
+    
     if (baseSource.remote && baseSource.releaseFilePath) {
         FILE *file = fopen(baseSource.releaseFilePath.UTF8String, "r");
         char line[2048];
@@ -495,6 +494,7 @@
     }
     
     [packageManager importPackagesFromSource:baseSource];
+    [self bulkFinishedImportForSource:baseSource];
 }
 
 - (ZBSourceColumn)columnFromString:(char *)string {
