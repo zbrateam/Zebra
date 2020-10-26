@@ -29,7 +29,6 @@
     ZBDownloadManager *downloadManager;
     NSMutableArray <id <ZBSourceDelegate>> *delegates;
     NSMutableDictionary *busyList;
-    NSMutableArray *completedSources;
     NSDictionary *pinPreferences;
 }
 @end
@@ -407,7 +406,6 @@
     ZBLog(@"[Zebra](ZBSourceManager) Started downloads");
     
     if (!busyList) busyList = [NSMutableDictionary new];
-    if (!completedSources) completedSources = [NSMutableArray new];
     refreshInProgress = YES;
 }
 
@@ -426,14 +424,9 @@
     NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
-        [busyList setObject:@NO forKey:source.uuid];
-
         if (errors && errors.count) {
             source.errors = errors;
             source.warnings = [self warningsForSource:source];
-        }
-        else {
-            [completedSources addObject:source];
         }
 
         [self bulkFinishedDownloadForSource:source];
@@ -444,8 +437,6 @@
 - (void)finishedAllDownloads {
     ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     downloadManager = NULL;
-    
-//    [databaseManager parseSources:completedSources];
 }
 
 - (void)packageUpdatesAvailable:(int)numberOfUpdates {
@@ -493,6 +484,7 @@
         fclose(file);
     }
     
+    [busyList setValue:@NO forKey:baseSource.uuid];
     [packageManager importPackagesFromSource:baseSource];
     [self bulkFinishedImportForSource:baseSource];
 }
@@ -662,6 +654,13 @@
             [delegate finishedImportForSource:source];
         }
     }
+    
+    int sum = 0;
+    for (NSNumber *n in busyList.allValues) {
+        sum += [n intValue];
+        if (sum != 0) break;
+    }
+    if (sum == 0) [self bulkFinishedSourceRefresh];
 }
 
 - (void)bulkFinishedSourceRefresh {
