@@ -57,6 +57,8 @@
 }
 
 + (UIImage *)imageForSection:(NSString *)section {
+    if (!section) return [UIImage imageNamed:@"Unknown"];
+    
     NSString *imageName = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
     if ([imageName containsString:@"("]) {
         NSArray *components = [imageName componentsSeparatedByString:@"_("];
