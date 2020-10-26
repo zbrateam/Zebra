@@ -124,7 +124,7 @@
 - (void)updateCollation {
     switch (selectedSortingType) {
         case ZBSortingTypeABC:
-            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(identifier)];
+            self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
             break;
         case ZBSortingTypeDate:
             self.tableData = [self partitionObjects:packages collationStringSelector:source.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];

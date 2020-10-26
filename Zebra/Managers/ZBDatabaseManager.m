@@ -22,13 +22,15 @@
 #import <Model/ZBSource.h>
 #import <Model/ZBPackage.h>
 #import <Queue/ZBQueue.h>
+#import <Managers/ZBPackageManager.h>
 
 typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
     ZBDatabaseStatementTypePackageListFromSource,
     ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
-    ZBDatabaseStatementTypePackageWithUUID,
+    ZBDatabaseStatementTypePackagesWithUUID,
+    ZBDatabaseStatementTypePackagesWithUpdates,
     ZBDatabaseStatementTypeInstalledInstanceOfPackage,
     ZBDatabaseStatementTypeInstalledVersionOfPackage,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
@@ -275,12 +277,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
-        case ZBDatabaseStatementTypePackageWithUUID:
+        case ZBDatabaseStatementTypePackagesWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
+        case ZBDatabaseStatementTypePackagesWithUpdates:
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' AND identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier WHERE p.version == v.max_version AND source != \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeInstalledInstanceOfPackage:
-            return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status\';";
+            return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
-            return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status\';";
+            return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
@@ -396,7 +400,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid {
     __block ZBPackage *package;
     dispatch_sync(databaseQueue, ^{
-        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageWithUUID];
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesWithUUID];
         int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
         
         if (result == SQLITE_OK) {
@@ -414,6 +418,45 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_reset(statement);
     });
     return package;
+}
+
+- (NSArray <ZBPackage *> *)packagesWithUpdates {
+    __block NSArray *updates = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesWithUpdates];
+        
+        const char *installedIDs = "xyz.willy.zebra";//[[[[[ZBPackageManager sharedInstance] installedPackagesList] allKeys] componentsJoinedByString:@"\',\'"] UTF8String];
+        int result = sqlite3_bind_text(statement, 1, installedIDs, -1, SQLITE_TRANSIENT);
+        
+//        if (result == SQLITE_OK) {
+//            result = [self beginTransaction];
+//        }
+        
+        NSMutableArray *results = [NSMutableArray new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                    
+                    if (package) [results addObject:package];
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query updates with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        } else {
+            ZBLog(@"[Zebra] Failed to initialize update query with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+//        [self endTransaction];
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+        
+        updates = results;
+    });
+    return updates;
 }
 
 - (ZBPackage *)installedInstanceOfPackage:(ZBPackage *)package {
@@ -567,10 +610,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return result;
 }
 
-- (ZBSource *)sourceFromUniqueIdentifier:(NSString *)uuid {
-    return nil;
-}
-
 - (void)updateURIForSource:(ZBSource *)source {
     
 }
@@ -580,10 +619,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray <ZBPackage *> *)packagesWithIgnoredUpdates {
-    return nil;
-}
-
-- (NSMutableArray <ZBPackage *> *)packagesWithUpdates {
     return nil;
 }
 
@@ -670,6 +705,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 }
             } while (result == SQLITE_ROW);
         }
+        [self endTransaction];
         
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
