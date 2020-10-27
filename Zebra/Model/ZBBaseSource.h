@@ -20,6 +20,25 @@ typedef enum : NSUInteger {
     ZBSourceWarningIncompatible = 1001,
 } ZBSourceError;
 
+typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
+    ZBSourceColumnArchitectures,
+    ZBSourceColumnArchiveType,
+    ZBSourceColumnCodename,
+    ZBSourceColumnComponents,
+    ZBSourceColumnDistribution,
+    ZBSourceColumnLabel,
+    ZBSourceColumnOrigin,
+    ZBSourceColumnRemote,
+    ZBSourceColumnDescription,
+    ZBSourceColumnSuite,
+    ZBSourceColumnURL,
+    ZBSourceColumnUUID,
+    ZBSourceColumnVersion,
+    ZBSourceColumnCount,
+};
+
+typedef char *_Nonnull *_Nonnull ZBControlSource;
+
 @interface ZBBaseSource : NSObject
 
 @property (readonly) BOOL remote;

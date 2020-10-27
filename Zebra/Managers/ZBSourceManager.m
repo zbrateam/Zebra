@@ -12,7 +12,6 @@
 #import <Model/ZBSource.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Managers/ZBPackageManager.h>
-#import <Database/ZBColumn.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>

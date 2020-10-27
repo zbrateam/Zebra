@@ -136,7 +136,7 @@
             return;
         }
         
-        authors = [databaseManager searchForAuthorByName:strippedString];
+//        authors = [databaseManager searchForAuthorByName:strippedString];
     }
     
     [self refreshTable];

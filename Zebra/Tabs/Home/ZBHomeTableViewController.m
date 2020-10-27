@@ -631,7 +631,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+    ZBPackage *package;// = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
     
     if (package) {
         ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];

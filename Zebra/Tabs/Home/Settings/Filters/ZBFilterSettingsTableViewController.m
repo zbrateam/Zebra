@@ -79,7 +79,7 @@
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
-    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
+//    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
     
     [self.tableView reloadData];
 }
@@ -389,9 +389,9 @@
 - (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
     ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
     NSString *email = [blockedAuthors allKeys][indexPath.row];
-    NSArray *aliases = [database searchForAuthorByEmail:email];
+//    NSArray *aliases = [database searchForAuthorByEmail:email];
 
-    return aliases;
+    return NULL;
 }
 
 @end

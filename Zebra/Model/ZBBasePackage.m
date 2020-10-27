@@ -9,7 +9,6 @@
 #import "ZBBasePackage.h"
 #import "ZBPackage.h"
 
-#import <Database/ZBColumn.h>
 #import <Managers/ZBDatabaseManager.h>
 
 @interface ZBBasePackage () {

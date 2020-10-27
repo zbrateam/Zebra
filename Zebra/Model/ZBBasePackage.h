@@ -12,6 +12,42 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
+    // Base Package Columns
+    ZBPackageColumnAuthorName,
+    ZBPackageColumnDescription,
+    ZBPackageColumnIdentifier,
+    ZBPackageColumnLastSeen,
+    ZBPackageColumnName,
+    ZBPackageColumnVersion,
+    ZBPackageColumnRole,
+    ZBPackageColumnSection,
+    ZBPackageColumnUUID,
+    
+    // Package Columns
+    ZBPackageColumnAuthorEmail,
+    ZBPackageColumnConflicts,
+    ZBPackageColumnDepends,
+    ZBPackageColumnDepictionURL,
+    ZBPackageColumnDownloadSize,
+    ZBPackageColumnEssential,
+    ZBPackageColumnFilename,
+    ZBPackageColumnHomepageURL,
+    ZBPackageColumnIconURL,
+    ZBPackageColumnInstalledSize,
+    ZBPackageColumnMaintainerEmail,
+    ZBPackageColumnMaintainerName,
+    ZBPackageColumnPriority,
+    ZBPackageColumnProvides,
+    ZBPackageColumnReplaces,
+    ZBPackageColumnSHA256,
+    ZBPackageColumnTag,
+    ZBPackageColumnSource,
+    ZBPackageColumnCount,
+};
+
+typedef char *_Nonnull *_Nonnull ZBControlSource;
+
 @interface ZBBasePackage : NSObject
 @property (nonatomic) NSString *authorName;
 @property (nonatomic) NSString *identifier;

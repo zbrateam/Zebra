@@ -6,32 +6,25 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@class ZBPackage;
-@class ZBProxyPackage;
 @class ZBBasePackage;
+@class ZBPackage;
+@class ZBBaseSource;
 @class ZBSource;
 @class UIImage;
 
 @import Foundation;
 @import SQLite3;
 
-#import <Downloads/ZBDownloadDelegate.h>
-#import "ZBDatabaseDelegate.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBDatabaseManager : NSObject
 
-@property (nonatomic, getter=isDatabaseBeingUpdated) BOOL databaseBeingUpdated;
-
-/*!
- @brief The database delegates
- @discussion Used to communicate with the view controllers the status of many database operations.
- */
-@property (nonatomic, strong) NSMutableArray <id <ZBDatabaseDelegate>> *databaseDelegates;
-
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
+
+#pragma mark - Managing Transactions
+
+- (void)performTransaction:(void (^)(void))transaction;
 
 #pragma mark - Package Retrieval
 
@@ -59,6 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of ZBPackage that has a UUID equal to the UUID specified.
  */
 - (ZBPackage *_Nullable)packageWithUniqueIdentifier:(NSString *)uuid;
+
+/*!
+ @brief A list of packages that have updates available.
+ @remark Packages that have updates ignored will not be present in this array
+ @return An array of packages that have updates.
+ */
+- (NSArray <ZBPackage *> * _Nullable)packagesWithUpdates;
 
 /*!
  @brief Get the instance of the package that is installed to the user's device
@@ -102,6 +102,12 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
 
+#pragma mark - Package Searching
+
+- (NSArray <ZBPackage *> *)searchForPackagesByName:(NSString *)name;
+- (NSArray <ZBPackage *> *)searchForPackagesByDescription:(NSString *)name;
+- (NSArray <ZBPackage *> *)searchForPackagesByAuthorName:(NSString *)name;
+
 #pragma mark - Source Retrieval
 
 /*!
@@ -132,17 +138,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBBaseSource *)source;
 
+- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
+
+- (NSDictionary *)sectionReadoutForSource:(ZBSource *)source;
+
 #pragma mark - Package Management
+
+- (void)insertPackage:(char * _Nonnull * _Nonnull)package;
+
+- (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers;
 
 #pragma mark - Source Management
 
-
-
-
-
-
-
-#pragma mark - Source management
+- (void)insertSource:(char * _Nonnull * _Nonnull)source;
 
 /*!
  @brief Updates the URI for the source with the matching sourceID.
@@ -156,43 +164,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)deleteSource:(ZBSource *)source;
 
-- (NSArray * _Nullable)sectionReadout;
-
-/*!
- @brief A list of section names and number of packages in each section.
- @param source The corresponding source.
- @return A dictionary of section names and number of packages in a corresponding source in the format <SectionName: NumberOfPackages>.
- */
-- (NSDictionary * _Nullable)sectionReadoutForSource:(ZBSource *)source;
-
 #pragma mark - Package retrieval
-
-/*!
- @brief A list of packages that their updates have been ignored, installed or not.
- @return An array of packages that their updates have been ignored.
- */
-- (NSMutableArray <ZBPackage *> * _Nullable)packagesWithIgnoredUpdates;
-
-/*!
- @brief A list of packages that have updates available.
- @remark Packages that have updates ignored will not be present in this array
- @return An array of packages that have updates.
- */
-- (NSMutableArray <ZBPackage *> * _Nullable)packagesWithUpdates;
-
-/*!
- @brief A list of authors that have a name similar to the search term.
- @param authorName The name of the author.
- @return A cleaned array of authors (no duplicates) that match the search term.
- */
-- (NSArray <NSArray <NSString *> *> * _Nullable)searchForAuthorByName:(NSString *)authorName;
-
-/*!
- @brief A list of authors names whose email exactly matches the search term
- @param authorEmail The email of the author
- @return A cleaned array of authors (no duplicates) that match the search term.
- */
-- (NSArray <NSString *> * _Nullable)searchForAuthorByEmail:(NSString *)authorEmail;
 
 /*!
  @brief Get a certain number of packages from package identifiers list.
@@ -225,7 +197,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package;
 
-#pragma mark - Package lookup
+#pragma mark - Dependency Resolution
 
 /*!
  @brief Mainly used in dependency resolution, this will return whether or not there is a package that provides the same functionality as the given one.
@@ -254,37 +226,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual;
 
 /*!
- @brief An array of every other version of a package in the database.
- @param packageIdentifier The package you want versions for.
- @param version The version to exclude.
- @return A sorted array of every other version of a package in the database.
- */
-- (NSArray <ZBPackage *> * _Nullable)otherVersionsForPackageID:(NSString *)packageIdentifier version:(NSString *)version;
-
-/*!
- @brief An array of every other version of a package in the database.
- @param package The package you want versions for.
- @return A sorted array of every other version of a package in the database.
- */
-- (NSArray <ZBPackage *> * _Nullable)otherVersionsForPackage:(ZBPackage *)package;
-
-/*!
- @brief The highest version of a package that exists in the database.
- @param package The package you want to search for.
- @return A ZBPackage instance representing the highest version in the database.
- */
-- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package;
-- (nullable ZBPackage *)topVersionForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
-
-/*!
- @brief The highest version of a package that exists in the database.
- @param packageIdentifier The package identifier you want to search for.
- @return A ZBPackage instance representing the highest version in the database.
- */
-- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier;
-- (nullable ZBPackage *)topVersionForPackageID:(NSString *)packageIdentifier inSource:(ZBSource *_Nullable)source;
-
-/*!
 @brief Packages that depend on another package
 @param package The package that you want to search for
 @return An array of ZBPackage instances that contain every package that depends on the search parameter
@@ -297,33 +238,6 @@ NS_ASSUME_NONNULL_BEGIN
 @return An array of ZBPackage instances that contain every package that conflicts with the search parameter
 */
 - (NSArray <ZBPackage *> * _Nullable)packagesThatConflictWith:(ZBPackage *)package;
-
-#pragma mark - Helper methods
-
-/*!
- @brief Returns all packages with a reachable icon.
- @param limit Specify how many rows are selected.
- @return An array of all packages with a reachable icon.
- */
-- (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
-
-- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList;
-
-- (BOOL)packageHasUpdate:(ZBPackage *)package;
-
-#pragma mark - New Stuff
-
-- (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers;
-- (void)insertPackage:(char * _Nonnull * _Nonnull)package;
-- (void)insertSource:(char * _Nonnull * _Nonnull)source;
-- (int)beginTransaction;
-- (int)endTransaction;
-
-- (NSArray <ZBBasePackage *> *)searchForPackagesByName:(NSString *)name;
-- (NSArray <ZBBasePackage *> *)searchForPackagesByDescription:(NSString *)name;
-- (NSArray <ZBBasePackage *> *)searchForPackagesByAuthorWithName:(NSString *)name;
-
-- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
 
 @end
 

@@ -43,7 +43,7 @@
     
     self.title = NSLocalizedString(@"Select a Section", @"");
     
-    NSMutableArray *allSections = [[[ZBDatabaseManager sharedInstance] sectionReadout] mutableCopy];
+    NSMutableArray *allSections = [[[ZBDatabaseManager sharedInstance] sectionReadoutForSource:NULL] mutableCopy];
     [allSections sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSString *section1 = [self localizedSection:obj1];
         NSString *section2 = [self localizedSection:obj2];

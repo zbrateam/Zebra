@@ -16,7 +16,6 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBLog.h>
-#import <Database/ZBColumn.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Helpers/utils.h>
 #import <Model/ZBSource.h>
@@ -360,6 +359,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return result;
 }
 
+- (void)performTransaction:(void (^)(void))transaction {
+    dispatch_sync(databaseQueue, ^{
+        if ([self beginTransaction] != SQLITE_OK) return;
+        transaction();
+        [self endTransaction];
+    });
+}
+
 #pragma mark - Package Retrieval
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
@@ -428,9 +435,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         const char *installedIDs = "xyz.willy.zebra";//[[[[[ZBPackageManager sharedInstance] installedPackagesList] allKeys] componentsJoinedByString:@"\',\'"] UTF8String];
         int result = sqlite3_bind_text(statement, 1, installedIDs, -1, SQLITE_TRANSIENT);
         
-//        if (result == SQLITE_OK) {
-//            result = [self beginTransaction];
-//        }
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
         
         NSMutableArray *results = [NSMutableArray new];
         if (result == SQLITE_OK) {
@@ -449,7 +456,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } else {
             ZBLog(@"[Zebra] Failed to initialize update query with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
-//        [self endTransaction];
+        [self endTransaction];
         
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
@@ -610,34 +617,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return result;
 }
 
-- (void)updateURIForSource:(ZBSource *)source {
-    
-}
-
-- (void)deleteSource:(ZBSource *)source {
-
-}
-
-- (NSArray <ZBPackage *> *)packagesWithIgnoredUpdates {
-    return nil;
-}
-
-- (BOOL)packageHasUpdate:(ZBPackage *)package {
-    return NO;
-}
-
-- (NSArray *)searchForPackageName:(NSString *)name {
-    return NULL;
-}
-
-- (NSArray <NSArray <NSString *> *> *)searchForAuthorByName:(NSString *)authorName {
-    return NULL;
-}
-
-- (NSArray <NSString *> *)searchForAuthorByEmail:(NSString *)authorEmail {
-    return NULL;
-}
-
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
     return NULL;
 }
@@ -652,6 +631,32 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
     
+}
+
+#pragma mark - Package Searching
+
+- (NSArray <ZBBasePackage *> *)searchForPackagesByName:(NSString *)name {
+    __block NSArray *packages = NULL;
+    dispatch_sync(databaseQueue, ^{
+        
+    });
+    return packages;
+}
+
+- (NSArray <ZBBasePackage *> *)searchForPackagesByDescription:(NSString *)name {
+    __block NSArray *packages = NULL;
+    dispatch_sync(databaseQueue, ^{
+        
+    });
+    return packages;
+}
+
+- (NSArray <ZBBasePackage *> *)searchForPackagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email {
+    __block NSArray *packages = NULL;
+    dispatch_sync(databaseQueue, ^{
+        
+    });
+    return packages;
 }
 
 #pragma mark - Source Retrieval
@@ -937,7 +942,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 #pragma mark - Source Management
 
-- (void)insertSource:(char * _Nonnull * _Nonnull)source {
+- (void)insertSource:(char **)source {
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertSource];
         
@@ -965,6 +970,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     });
 }
 
+- (void)updateURIForSource:(ZBSource *)source {
+    
+}
+
+- (void)deleteSource:(ZBSource *)source {
+
+}
+
 #pragma mark - Dependency Resolution
 
 - (ZBPackage * _Nullable)packageThatProvides:(NSString *)identifier thatSatisfiesComparison:(NSString *)comparison ofVersion:(NSString *)version {
@@ -985,10 +998,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
     
     if (exclude) {
-        query = "SELECT * FROM PACKAGES WHERE IDENTIFIER != ? AND SOURCE != \'_var_lib_dpkg_status\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND REPOID > 0 LIMIT 1;";
+        query = "SELECT * FROM PACKAGES WHERE IDENTIFIER != ? AND SOURCE != \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND REPOID > 0 LIMIT 1;";
     }
     else {
-        query = "SELECT * FROM PACKAGES WHERE SOURCE != \'_var_lib_dpkg_status\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
+        query = "SELECT * FROM PACKAGES WHERE SOURCE != \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
     }
     
     NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
@@ -1045,10 +1058,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
     
     if (exclude) {
-        query = "SELECT * FROM PACKAGES WHERE IDENTIFIER != ? AND SOURCE = \'_var_lib_dpkg_status\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
+        query = "SELECT * FROM PACKAGES WHERE IDENTIFIER != ? AND SOURCE = \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
     }
     else {
-        query = "SELECT * FROM PACKAGES WHERE SOURCE = \'_var_lib_dpkg_status\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
+        query = "SELECT * FROM PACKAGES WHERE SOURCE = \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
     }
     
     NSMutableArray <ZBPackage *> *packages = [NSMutableArray new];
@@ -1139,10 +1152,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
     NSString *query;
     if (exclude) {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = '\%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status\' AND PACKAGE != '\%@\' LIMIT 1;", identifier, [exclude identifier]];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = '\%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status_\' AND PACKAGE != '\%@\' LIMIT 1;", identifier, [exclude identifier]];
     }
     else {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = '\%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status\' LIMIT 1;", identifier];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = '\%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status_\' LIMIT 1;", identifier];
     }
     
     ZBPackage *package;
@@ -1186,7 +1199,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIdentifier] UTF8String];
     const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
     
-    const char *query = "SELECT * FROM PACKAGES WHERE (DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS = ?) AND SOURCE = \'_var_lib_dpkg_status\';";
+    const char *query = "SELECT * FROM PACKAGES WHERE (DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS LIKE ? OR DEPENDS = ?) AND SOURCE = \'_var_lib_dpkg_status_\';";
     sqlite3_stmt *statement = NULL;
     if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
         sqlite3_bind_text(statement, 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
@@ -1248,7 +1261,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", [package identifier]] UTF8String];
     const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", [package identifier]] UTF8String];
     
-    const char *query = "SELECT * FROM PACKAGES WHERE (CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS = ?) AND SOURCE = \'_var_lib_dpkg_status\';";
+    const char *query = "SELECT * FROM PACKAGES WHERE (CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS LIKE ? OR CONFLICTS = ?) AND SOURCE = \'_var_lib_dpkg_status_\';";
     sqlite3_stmt *statement = NULL;
     if (sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK) {
         sqlite3_bind_text(statement, 1, firstSearchTerm, -1, SQLITE_TRANSIENT);
@@ -1310,7 +1323,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         const char *seventhSearchTerm = [[NSString stringWithFormat:@"%%, %@ |%%", packageIdentifier] UTF8String];
         const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
         
-        NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE IDENTIFIER NOT IN %@ AND SOURCE = \'_var_lib_dpkg_status\' AND (IDENTIFIER = ? OR (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?)) LIMIT 1;", excludeString];
+        NSString *query = [NSString stringWithFormat:@"SELECT VERSION FROM PACKAGES WHERE IDENTIFIER NOT IN %@ AND SOURCE = \'_var_lib_dpkg_status_\' AND (IDENTIFIER = ? OR (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?)) LIMIT 1;", excludeString];
         
         BOOL found = NO;
         sqlite3_stmt *statement = NULL;
@@ -1378,25 +1391,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         return result;
     }
     return NULL;
-}
-
-- (NSDictionary <NSString *, NSArray <NSDictionary *> *> *)installedPackagesList {
-    NSMutableArray *installedPackages = [NSMutableArray new];
-    NSMutableArray *virtualPackages = [NSMutableArray new];
-    
-    for (ZBPackage *package in [self packagesFromSource:[ZBSource localSource]]) {
-        NSDictionary *installedPackage = @{@"identifier": [package identifier], @"version": [package version]};
-        [installedPackages addObject:installedPackage];
-        
-        for (NSString *virtualPackageLine in [package provides]) {
-            NSArray *comps = [ZBDependencyResolver separateVersionComparison:virtualPackageLine];
-            NSDictionary *virtualPackage = @{@"identifier": comps[0], @"version": comps[2]};
-            
-            [virtualPackages addObject:virtualPackage];
-        }
-    }
-    
-    return @{@"installed": installedPackages, @"virtual": virtualPackages};
 }
 
 @end

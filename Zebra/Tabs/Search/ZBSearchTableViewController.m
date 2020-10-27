@@ -127,7 +127,7 @@
                 results = [databaseManager searchForPackagesByDescription:strippedString];
                 break;
             case 2:
-                results = [databaseManager searchForPackagesByAuthorWithName:strippedString];
+                results = [databaseManager searchForPackagesByAuthorName:strippedString];
                 break;
         }
     }

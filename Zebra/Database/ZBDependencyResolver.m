@@ -12,6 +12,7 @@
 #import <Model/ZBPackage.h>
 
 #import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import <Queue/ZBQueue.h>
 #import <Helpers/vercmp.h>
 
@@ -292,7 +293,7 @@
 }
 
 - (void)populateLists { //Populates a list of packages that are installed and a list of virtual packages of which the installed packages provide.
-    NSDictionary *packageList = [databaseManager installedPackagesList];
+    NSDictionary *packageList = [[ZBPackageManager sharedInstance] installedPackagesList];
     
     installedPackagesList = [[packageList objectForKey:@"installed"] arrayByAddingObjectsFromArray:[queue installedPackagesListExcluding:self->package]];
     virtualPackagesList = [[packageList objectForKey:@"virtual"] arrayByAddingObjectsFromArray:[queue virtualPackagesListExcluding:self->package]];

@@ -11,13 +11,11 @@
 
 #import <ZBLog.h>
 #import <ZBDevice.h>
-#import <ZBUtils.h>
 #import <Helpers/vercmp.h>
 #import <Model/ZBSource.h>
 #import <ZBAppDelegate.h>
 #import <Managers/ZBPackageManager.h>
 #import <Managers/ZBDatabaseManager.h>
-#import <Database/ZBColumn.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
@@ -751,17 +749,18 @@
             [actions addObject:@(ZBPackageExtraActionRemoveWishlist)];
         }
         
-        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
-            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
-            if ([self ignoreUpdates]) {
-                // Updates are ignored, show them
-                [actions addObject:@(ZBPackageExtraActionShowUpdates)];
-            }
-            else {
-                // Updates are not ignored, give the option to hide them
-                [actions addObject:@(ZBPackageExtraActionHideUpdates)];
-            }
-        }
+        // Might want to rethink this a bit
+//        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
+//            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
+//            if ([self ignoreUpdates]) {
+//                // Updates are ignored, show them
+//                [actions addObject:@(ZBPackageExtraActionShowUpdates)];
+//            }
+//            else {
+//                // Updates are not ignored, give the option to hide them
+//                [actions addObject:@(ZBPackageExtraActionHideUpdates)];
+//            }
+//        }
     }
     else {
         if ([self ignoreUpdates]) {
