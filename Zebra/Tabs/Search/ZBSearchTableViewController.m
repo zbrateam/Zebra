@@ -120,9 +120,16 @@
         
         NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
         switch (selectedIndex) {
-            case 0:
-                results = [databaseManager searchForPackagesByName:strippedString];
+            case 0: {
+                [databaseManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    NSLog(@"complete! %@", packages);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [resultsController setFilteredResults:packages];
+                        [resultsController refreshTable];
+                    });
+                }];
                 break;
+            }
             case 1:
                 results = [databaseManager searchForPackagesByDescription:strippedString];
                 break;
@@ -131,9 +138,6 @@
                 break;
         }
     }
-    
-    [resultsController setFilteredResults:results];
-    [resultsController refreshTable];
 }
 
 #pragma mark - Search Controller Delegate
