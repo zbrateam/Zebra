@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeInstalledVersionOfPackage,
     ZBDatabaseStatementTypeSearchForPackageWithName,
     ZBDatabaseStatementTypeSearchForPackageWithDescription,
-    ZBDatabaseStatementTypeSearchForPackageWithAuthorName,
+    ZBDatabaseStatementTypeSearchForPackageByAuthor,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
@@ -291,7 +291,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE name LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeSearchForPackageWithDescription:
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE description LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
-        case ZBDatabaseStatementTypeSearchForPackageWithAuthorName:
+        case ZBDatabaseStatementTypeSearchForPackageByAuthor:
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
@@ -679,9 +679,36 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     });
 }
 
-- (void)searchForPackagesByDescription:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+- (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     dispatch_async(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchForPackageWithDescription];
+        
+        const char *filter = [NSString stringWithFormat:@"%%%@%%", description].UTF8String;
+        int result = sqlite3_bind_text(statement, 1, filter, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
+        
         NSMutableArray *packages = [NSMutableArray new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                    if (package) [packages addObject:package];
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query updates with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+            }
+        } else {
+            ZBLog(@"[Zebra] Failed to initialize update query with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+        }
+        [self endTransaction];
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
         
         completion(packages);
     });
@@ -689,7 +716,34 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     dispatch_async(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchForPackageByAuthor];
+        
+        const char *filter = [NSString stringWithFormat:@"%%%@%%", name].UTF8String;
+        int result = sqlite3_bind_text(statement, 1, filter, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
+        
         NSMutableArray *packages = [NSMutableArray new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                    if (package) [packages addObject:package];
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query updates with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+            }
+        } else {
+            ZBLog(@"[Zebra] Failed to initialize update query with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+        }
+        [self endTransaction];
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
         
         completion(packages);
     });

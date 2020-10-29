@@ -105,16 +105,11 @@
     ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
     [resultsController setLive:self->liveSearch];
     
-    NSArray *results = nil;
-    
     if (self->shouldPerformSearching) {
         NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
         if (strippedString.length <= 1) {
-            results = @[];
-            
-            [resultsController setFilteredResults:results];
-            [resultsController refreshTable];
+            [self updateTableResults:@[]];
             return;
         }
         
@@ -122,22 +117,33 @@
         switch (selectedIndex) {
             case 0: {
                 [databaseManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                    NSLog(@"complete! %@", packages);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [resultsController setFilteredResults:packages];
-                        [resultsController refreshTable];
-                    });
+                    [self updateTableResults:packages];
                 }];
                 break;
             }
-            case 1:
-                results = [databaseManager searchForPackagesByDescription:strippedString];
+            case 1: {
+                [databaseManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    [self updateTableResults:packages];
+                }];
                 break;
-            case 2:
-                results = [databaseManager searchForPackagesByAuthorName:strippedString];
+            }
+            case 2: {
+                [databaseManager searchForPackagesByAuthorWithName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    [self updateTableResults:packages];
+                }];
                 break;
+            }
         }
     }
+}
+
+- (void)updateTableResults:(NSArray *)results {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)self->searchController.searchResultsController;
+        
+        [resultsController setFilteredResults:results];
+        [resultsController refreshTable];
+    });
 }
 
 #pragma mark - Search Controller Delegate
