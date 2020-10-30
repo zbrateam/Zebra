@@ -8,6 +8,7 @@
 
 @import Foundation;
 
+@class ZBPackage;
 @class ZBBasePackage;
 @class ZBSource;
 @class ZBBaseSource;
@@ -20,7 +21,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package checkVersion:(BOOL)checkVersion;
 - (void)importPackagesFromSource:(ZBBaseSource *)source;
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source;
+- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *_Nullable)source;
+- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section;
+- (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
 @end
 
 NS_ASSUME_NONNULL_END

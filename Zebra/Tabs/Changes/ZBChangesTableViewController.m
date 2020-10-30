@@ -14,7 +14,7 @@
 #import <ZBSettings.h>
 #import <ZBDevice.h>
 #import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
-#import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Views/Cells/ZBPackageTableViewCell.h>
@@ -23,12 +23,14 @@
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/ZBTabBarController.h>
+#import <Model/ZBSource.h>
 
 @import SDWebImage;
 @import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
-    ZBDatabaseManager *databaseManager;
+//    ZBDatabaseManager *databaseManager;
+    ZBPackageManager *packageManager;
     NSUserDefaults *defaults;
     NSArray *packages;
     NSArray *availableOptions;
@@ -49,7 +51,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    databaseManager = [ZBDatabaseManager sharedInstance];
+//    databaseManager = [ZBDatabaseManager sharedInstance];
+    packageManager = [ZBPackageManager sharedInstance];
     [self applyLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
@@ -207,20 +210,19 @@
 }
 
 - (void)updateSections {
-    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(lastSeenDate)];
+    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(lastSeen)];
 }
 
 - (void)refreshTable {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        self->packages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
-//        self->databaseRow = self.batchLoadCount - 1;
-//        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
-//        self->numberOfPackages = (int)[self->packages count];
-//        self.batchLoad = YES;
-//        self.continueBatchLoad = self.batchLoad;
-//        [self updateSections];
-//        [self.tableView reloadData];
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->packages = [self->packageManager latestPackages:100];
+        self->databaseRow = self.batchLoadCount - 1;
+        self->numberOfPackages = (int)[self->packages count];
+        self.batchLoad = YES;
+        self.continueBatchLoad = self.batchLoad;
+        [self updateSections];
+        [self.tableView reloadData];
+    });
 }
 
 - (void)loadNextPackages {

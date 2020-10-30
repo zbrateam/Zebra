@@ -30,6 +30,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeUUIDsFromSource,
     ZBDatabaseStatementTypePackagesWithUUID,
     ZBDatabaseStatementTypePackagesWithUpdates,
+    ZBDatabaseStatementTypeLatestPackages,
+    ZBDatabaseStatementTypeLatestPackagesWithLimit,
     ZBDatabaseStatementTypeInstalledInstanceOfPackage,
     ZBDatabaseStatementTypeInstalledVersionOfPackage,
     ZBDatabaseStatementTypeSearchForPackageWithName,
@@ -283,6 +285,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypePackagesWithUpdates:
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' AND identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier WHERE p.version == v.max_version AND source != \'_var_lib_dpkg_status_\';";
+        case ZBDatabaseStatementTypeLatestPackages:
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name;";
+        case ZBDatabaseStatementTypeLatestPackagesWithLimit:
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name LIMIT ?;";
         case ZBDatabaseStatementTypeInstalledInstanceOfPackage:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
@@ -378,16 +384,18 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 #pragma mark - Package Retrieval
 
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
-    return [self packagesFromSource:source inSection:NULL];
-}
-
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source inSection:(NSString *)section {
     __block NSMutableArray *packages = [NSMutableArray new];
     dispatch_sync(databaseQueue, ^{
-        sqlite3_stmt *statement = [self preparedStatementOfType:section ? ZBDatabaseStatementTypePackagesFromSourceAndSection : ZBDatabaseStatementTypePackagesFromSource];
-        int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
-        if (section) result = sqlite3_bind_text(statement, 2, section.UTF8String, -1, SQLITE_TRANSIENT);
+        sqlite3_stmt *statement;
+        int result = SQLITE_OK;
+        if (section) {
+            statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSourceAndSection];
+            result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        } else {
+            statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSource];
+        }
+        
         if (result == SQLITE_OK) {
             result = [self beginTransaction];
         }
@@ -528,6 +536,46 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             
             if (result != SQLITE_DONE) {
                 ZBLog(@"[Zebra] Failed to query packages by author with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+        [self endTransaction];
+        
+        sqlite3_finalize(statement);
+        
+        ret = results;
+    });
+    return ret;
+}
+
+- (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
+    __block NSArray *ret = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement;
+        int result = SQLITE_OK;
+        if (limit == -1) {
+            statement = [self preparedStatementOfType:ZBDatabaseStatementTypeLatestPackages];
+        } else {
+            statement = [self preparedStatementOfType:ZBDatabaseStatementTypeLatestPackagesWithLimit];
+            result = sqlite3_bind_int(statement, 1, (int)limit);
+        }
+        
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
+        
+        NSMutableArray *results = [NSMutableArray new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                    
+                    if (package) [results addObject:package];
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query latest packages with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
         }
         [self endTransaction];
@@ -904,6 +952,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Package Management
 
 - (void)insertPackage:(char **)package {
+    NSLog(@"[Zebra] Inserting packages %s", package[ZBPackageColumnUUID]);
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
 
@@ -1008,6 +1057,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (void)deletePackagesWithUniqueIdentifiers:(NSSet *)uniqueIdentifiers {
+    NSLog(@"[Zebra] Deleting packages: %@", uniqueIdentifiers);
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemovePackageWithUUID];
         int result = [self beginTransaction];

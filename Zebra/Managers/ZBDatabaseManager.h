@@ -29,14 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Package Retrieval
 
 /*!
- @brief Get an instance of all packages that belong to a source.
- @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
- @param source The source you want to retrieve packages from.
- @return An array of instances that represent the highest version available from a source for each package.
- */
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *)source;
-
-/*!
  @brief Get an instance of all packages that belong to a source within a specific section.
  @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
  @param source The source you want to retrieve packages from.
@@ -75,6 +67,13 @@ NS_ASSUME_NONNULL_BEGIN
  @return An array of instances that are created by the author
  */
 - (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email;
+
+/*!
+ @brief The latest packages imported to the database
+ @param limit How many package to retrieve from the database. -1 or UINT_MAX will return all packages available.
+ @return The latest packages imported to the database limited by the limit parameter.
+ */
+- (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
 
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 

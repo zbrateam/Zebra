@@ -47,6 +47,10 @@
 }
 
 - (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
+    return [self packagesFromSource:source inSection:NULL];
+}
+
+- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section {
     if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
         ZBSource *localSource = [ZBSource localSource];
             
@@ -54,7 +58,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
         
         NSMutableDictionary *list = [NSMutableDictionary new];
-        NSArray *packages = [databaseManager packagesFromSource:source];
+        NSArray *packages = [databaseManager packagesFromSource:source inSection:section];
         for (ZBBasePackage *package in packages) {
             list[package.identifier] = package.version;
         }
@@ -62,8 +66,14 @@
         
         return packages;
     } else {
-        return [databaseManager packagesFromSource:source];
+        return [databaseManager packagesFromSource:source inSection:section];
     }
+}
+
+- (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
+    NSArray *latestPackages = [databaseManager latestPackages:limit];
+    
+    return latestPackages;
 }
 
 - (BOOL)needsStatusUpdate {
@@ -73,7 +83,7 @@
     NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
     NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
     
-    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0|| !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
+    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0 || !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
 }
 
 - (NSDictionary <NSString *,NSString *> *)installedPackagesList {
