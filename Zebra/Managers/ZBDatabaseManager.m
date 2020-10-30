@@ -505,7 +505,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return installedInstance;
 }
 
-- (NSArray <ZBPackage *> *)packagesByAuthorName:(NSString *)name email:(NSString *_Nullable)email {
+- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email {
     __block NSArray *ret = NULL;
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement;
@@ -585,6 +585,41 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         ret = results;
     });
     return ret;
+}
+
+- (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
+    __block NSArray *result = NULL;
+    dispatch_sync(databaseQueue, ^{
+        const char *query = "SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+        NSString *identifierString = [requestedPackages componentsJoinedByString:@"\', \'"];
+        sqlite3_stmt *statement;
+        int result = sqlite3_prepare_v2(database, query, -1, &statement, nil);
+        if (result == SQLITE_OK) {
+            result = sqlite3_bind_text(statement, 1, identifierString.UTF8String, -1, SQLITE_TRANSIENT);
+        }
+        
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
+        
+        NSMutableArray *results = [NSMutableArray new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                    
+                    if (package) [results addObject:package];
+                }
+            } while (result == SQLITE_ROW);
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to query packages from identifiers with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }
+        }
+        [self endTransaction];
+    });
+    return result;
 }
 
 - (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *)blacklistedSources {
@@ -674,20 +709,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return result;
 }
 
-- (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
-    return NULL;
-}
-
 - (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion; {
     return NO;
-}
-
-- (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package {
-    return NO;
-}
-
-- (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package {
-    
 }
 
 #pragma mark - Package Searching

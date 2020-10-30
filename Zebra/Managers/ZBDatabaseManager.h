@@ -101,6 +101,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
 
+/*!
+ @brief Check whether or not a specific package is available for download from a source using its identifier.
+ @param package The package ID that you want to check the availability status for.
+ @return YES if the package is available for download, NO if it is not.
+ */
+- (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
+
 #pragma mark - Package Searching
 
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
@@ -172,29 +179,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return A cleaned array of packages (no duplicate package IDs) from the corresponding source.
  */
 - (NSArray <ZBPackage *> * _Nullable)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
-
-#pragma mark - Package status
-
-/*!
- @brief Check whether or not a specific package is available for download from a source using its identifier.
- @param package The package ID that you want to check the availability status for.
- @return YES if the package is available for download, NO if it is not.
- */
-- (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
-
-/*!
- @brief Check to see if the updates are ignored for a package.
- @param package The package.
- @return YES if user has ignored the updates are ignored, NO if otherwise
- */
-- (BOOL)areUpdatesIgnoredForPackage:(ZBPackage *)package;
-
-/*!
- @brief Sets the ignore colum in the UPDATES table for the corresponding package
- @param ignore whether or want the package needs to be ignored
- @param package The package.
- */
-- (void)setUpdatesIgnored:(BOOL)ignore forPackage:(ZBPackage *)package;
 
 #pragma mark - Dependency Resolution
 
