@@ -19,7 +19,7 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
-#import <UI/Controllers/ZBRefreshViewController.h>
+#import <UI/Controllers/ZBMigrationViewController.h>
 #import <Tabs/Search/ZBSearchTableViewController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
@@ -211,7 +211,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     self.window.tintColor = [UIColor accentColor];
     
 //    if ([ZBDatabaseManager needsMigration]) {
-//        self.window.rootViewController = [[ZBRefreshViewController alloc] init];
+//        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
 //    }
 //    else {
         self.window.rootViewController = [[ZBTabBarController alloc] init];

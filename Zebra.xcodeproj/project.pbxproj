@@ -141,7 +141,7 @@
 		89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B312822465D9640027FE29 /* ZBPackageViewController.xib */; };
 		89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
-		89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */; };
+		89C5FDE521B1B13700A10E58 /* ZBMigrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE421B1B13700A10E58 /* ZBMigrationViewController.m */; };
 		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */; };
@@ -436,8 +436,8 @@
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
-		89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshViewController.h; sourceTree = "<group>"; };
-		89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshViewController.m; sourceTree = "<group>"; };
+		89C5FDE321B1B13700A10E58 /* ZBMigrationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBMigrationViewController.h; sourceTree = "<group>"; };
+		89C5FDE421B1B13700A10E58 /* ZBMigrationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBMigrationViewController.m; sourceTree = "<group>"; };
 		89C5FDE721B1B13700A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89C5FDE921B1B13800A10E58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C5FDEC21B1B13800A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -838,8 +838,8 @@
 		89337A31253652E90065C4C1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				89C5FDE321B1B13700A10E58 /* ZBRefreshViewController.h */,
-				89C5FDE421B1B13700A10E58 /* ZBRefreshViewController.m */,
+				89C5FDE321B1B13700A10E58 /* ZBMigrationViewController.h */,
+				89C5FDE421B1B13700A10E58 /* ZBMigrationViewController.m */,
 				89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */,
 				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
 			);
@@ -1507,7 +1507,7 @@
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */,
-				89C5FDE521B1B13700A10E58 /* ZBRefreshViewController.m in Sources */,
+				89C5FDE521B1B13700A10E58 /* ZBMigrationViewController.m in Sources */,
 				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
 				499935F72496BDD2009A5BF9 /* UIViewController+Extensions.m in Sources */,
 				49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */,

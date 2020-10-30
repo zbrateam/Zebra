@@ -1,12 +1,12 @@
 //
-//  ZBRefreshViewController.m
+//  ZBMigrationViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#import "ZBRefreshViewController.h"
+#import "ZBMigrationViewController.h"
 
 #import "ZBDatabaseManager.h"
 #import <Extensions/UIColor+GlobalColors.h>
@@ -21,7 +21,7 @@ typedef enum {
     ZBStateDone
 } ZBRefreshButtonState;
 
-@interface ZBRefreshViewController () {
+@interface ZBMigrationViewController () {
     ZBSourceManager *sourceManager;
     BOOL hadAProblem;
 }
@@ -29,7 +29,7 @@ typedef enum {
 @property (strong, nonatomic) IBOutlet UITextView *consoleView;
 @end
 
-@implementation ZBRefreshViewController
+@implementation ZBMigrationViewController
 
 #pragma mark - Initializers
 

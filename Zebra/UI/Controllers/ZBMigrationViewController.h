@@ -1,5 +1,5 @@
 //
-//  ZBRefreshViewController.m
+//  ZBMigrationViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
@@ -10,7 +10,7 @@
 
 #import <Managers/Delegates/ZBSourceDelegate.h>
 
-@interface ZBRefreshViewController : UIViewController <ZBSourceDelegate>
+@interface ZBMigrationViewController : UIViewController <ZBSourceDelegate>
 
 @end
 
