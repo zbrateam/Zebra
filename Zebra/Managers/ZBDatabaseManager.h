@@ -122,12 +122,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSSet <ZBSource *> *)sources;
 
-/*!
- @brief All of the sources that are in the database that have a payment endpoint and can use the modern payment API.
- @return A set of ZBSource instances that are able to use the modern payment API.
- */
-- (NSSet <ZBSource *> *)sourcesWithPaymentEndpoint;
-
 #pragma mark - Source Information
 
 /*!

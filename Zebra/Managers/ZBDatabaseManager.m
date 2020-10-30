@@ -391,9 +391,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         int result = SQLITE_OK;
         if (section) {
             statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSourceAndSection];
-            result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+            result &= sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+            result &= sqlite3_bind_text(statement, 2, section.UTF8String, -1, SQLITE_TRANSIENT);
         } else {
             statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesFromSource];
+            result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
         }
         
         if (result == SQLITE_OK) {

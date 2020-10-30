@@ -35,7 +35,7 @@
     keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES];
-    sources = //[[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];
+    //sources = //[[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];
     
     self.title = NSLocalizedString(@"Stores", @"");
     
