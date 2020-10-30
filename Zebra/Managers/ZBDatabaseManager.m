@@ -6,6 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#define DATABASE_VERSION 1
 #define PACKAGES_TABLE_NAME "packages"
 #define SOURCES_TABLE_NAME "sources"
 
@@ -104,6 +105,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         int result = [self openDatabase];
         if (result != SQLITE_OK) {
             ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
+        }
+        
+        if (result == SQLITE_OK) {
+            
         }
 
         if (result == SQLITE_OK) {
@@ -267,6 +272,56 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
     });
     return result;
+}
+
+#pragma mark - Database Migration
+
+- (BOOL)needsMigration {
+    return [self schemaVersion] < DATABASE_VERSION;
+}
+
+- (int)schemaVersion {
+    __block int ret = 0;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement;
+        const char *query = "PRAGMA user_version;";
+    
+        int result = sqlite3_prepare_v2(database, query, -1, &statement, nil);
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                ret = sqlite3_column_int(statement, 1);
+            }
+        }
+        sqlite3_finalize(statement);
+    });
+    return ret;
+}
+
+- (void)setSchemaVersion {
+    dispatch_sync(databaseQueue, ^{
+        NSString *query = [NSString stringWithFormat:@"PRAGMA user_version = %d", DATABASE_VERSION];
+        sqlite3_exec(database, query.UTF8String, nil, nil, nil);
+    });
+}
+
+- (void)migrateDatabase {
+    int version = [self schemaVersion];
+    if (version >= DATABASE_VERSION) return;
+    
+    NSLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
+    
+    dispatch_sync(databaseQueue, ^{
+        [self beginTransaction];
+        switch (version + 1) {
+            case 1: {
+                // First major DB revision, we need to migration ignore update preferences and likely drop everything else due to the size of the changes.
+            }
+        }
+
+        [self setSchemaVersion];
+        [self endTransaction];
+    });
 }
 
 #pragma mark - Statement Preparation

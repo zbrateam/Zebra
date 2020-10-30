@@ -13,7 +13,6 @@
 #import <ZBSettings.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBRefreshViewController.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Model/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
@@ -264,8 +263,8 @@
 }
 
 - (void)presentConsole {
-    ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
-    [self presentViewController:refreshController animated:YES completion:nil];
+//    ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
+//    [self presentViewController:refreshController animated:YES completion:nil];
 }
 
 @end

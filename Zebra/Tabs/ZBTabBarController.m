@@ -17,7 +17,6 @@
 //#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
-#import <Database/ZBRefreshViewController.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Queue/ZBQueue.h>
 #import <Queue/ZBQueueViewController.h>

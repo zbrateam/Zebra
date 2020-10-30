@@ -15,7 +15,7 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <Database/ZBRefreshViewController.h>
+#import <UI/Controllers/ZBRefreshViewController.h>
 
 @import WebKit;
 

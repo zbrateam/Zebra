@@ -19,7 +19,7 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
-#import <Database/ZBRefreshViewController.h>
+#import <UI/Controllers/ZBRefreshViewController.h>
 #import <Tabs/Search/ZBSearchTableViewController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>

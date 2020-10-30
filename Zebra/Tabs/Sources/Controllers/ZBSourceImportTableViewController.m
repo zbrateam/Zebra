@@ -16,7 +16,6 @@
 #import <Managers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBRefreshViewController.h>
 
 @interface ZBSourceImportTableViewController () {
     double individualIncrement;
