@@ -127,7 +127,7 @@
 
 + (void)restartSpringBoard {
     if (![self needsSimulation]) {
-        [ZBCommand execute:@"sbreload" withArguments:NULL asRoot:NO];
+        [ZBCommand execute:@"uicache" withArguments:@[@"-r"] asRoot:NO];
     }
 }
 
