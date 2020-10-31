@@ -49,7 +49,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 @interface ZBDatabaseManager () {
     sqlite3 *database;
-    const char *databasePath;
+    NSString *databasePath;
     sqlite3_stmt **preparedStatements;
     dispatch_queue_t databaseQueue;
 }
@@ -76,7 +76,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     self = [super init];
     
     if (self) {
-        databasePath = [path UTF8String];
+        databasePath = path;
         
         dispatch_queue_attr_t attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, QOS_CLASS_BACKGROUND, 0);
         databaseQueue = dispatch_queue_create("xyz.willy.Zebra.database", attributes);
@@ -100,48 +100,32 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (BOOL)connectToDatabase {
     __block BOOL ret = YES;
     dispatch_sync(databaseQueue, ^{
-        ZBLog(@"[Zebra] Initializing database at %s", databasePath);
+        ZBLog(@"[Zebra] Initializing database at %@", databasePath);
 
         int result = [self openDatabase];
         if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
+            ZBLog(@"[Zebra] Failed to open database at %@", databasePath);
         }
         
-        if (result == SQLITE_OK) {
+        if (![self needsMigration]) {
+            if (result == SQLITE_OK) {
+                result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
+                if (result != SQLITE_OK) {
+                    ZBLog(@"[Zebra] Failed to create aggregate function at %@", databasePath);
+                }
+            }
             
-        }
+            if (result == SQLITE_OK) {
+                result = [self initializePreparedStatements];
+                if (result != SQLITE_OK) {
+                    ZBLog(@"[Zebra] Failed to initialize prepared statements at %@", databasePath);
+                }
+            }
 
-        if (result == SQLITE_OK) {
-            result = [self initializePackagesTable];
             if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to initialize packages table at %s", databasePath);
+                ZBLog(@"[Zebra] Failed to initialize database at %@", databasePath);
+                ret = NO;
             }
-        }
-
-        if (result == SQLITE_OK) {
-            result = [self initializeSourcesTable];
-            if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to initialize sources table at %s", databasePath);
-            }
-        }
-        
-        if (result == SQLITE_OK) {
-            result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
-            if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to create aggregate function at %s", databasePath);
-            }
-        }
-        
-        if (result == SQLITE_OK) {
-            result = [self initializePreparedStatements];
-            if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to initialize prepared statements at %s", databasePath);
-            }
-        }
-
-        if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to initialize database at %s", databasePath);
-            ret = NO;
         }
     });
 
@@ -165,7 +149,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     __block int result = SQLITE_ERROR;
     dispatch_sync(databaseQueue, ^{
         int flags = SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN | SQLITE_OPEN_FULLMUTEX;
-        result = sqlite3_open_v2(databasePath, &database, flags, NULL);
+        result = sqlite3_open_v2(databasePath.UTF8String, &database, flags, NULL);
     });
     return result;
 }
@@ -185,6 +169,91 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
     });
     return result;
+}
+
+#pragma mark - Database Migration
+
+- (BOOL)needsMigration {
+    return [self schemaVersion] < DATABASE_VERSION;
+}
+
+- (int)schemaVersion {
+    __block int ret = 0;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement;
+        const char *query = "PRAGMA user_version;";
+    
+        int result = sqlite3_prepare_v2(database, query, -1, &statement, nil);
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                ret = sqlite3_column_int(statement, 0);
+            }
+        }
+        sqlite3_finalize(statement);
+    });
+    return ret;
+}
+
+- (void)setSchemaVersion {
+    dispatch_sync(databaseQueue, ^{
+        NSString *query = [NSString stringWithFormat:@"PRAGMA user_version = %d;", DATABASE_VERSION];
+        sqlite3_exec(database, query.UTF8String, nil, nil, nil);
+    });
+}
+
+- (void)migrateDatabase {
+    int version = [self schemaVersion];
+    if (version >= DATABASE_VERSION) return;
+    
+    NSLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
+    
+    dispatch_sync(databaseQueue, ^{
+        [self beginTransaction];
+        switch (version + 1) {
+            case 1: {
+                // First major DB revision, we need to migration ignore update preferences and likely drop everything else due to the size of the changes.
+                
+                // Drop old PACKAGES and REPOS tables. We can easily recover the data with a source refresh.
+                sqlite3_exec(self->database, "DROP TABLE PACKAGES;", nil, nil, nil);
+                sqlite3_exec(self->database, "DROP TABLE REPOS;", nil, nil, nil);
+                
+                // Transfer updates from old UPDATES table to NSUserDefaults
+                sqlite3_stmt *statement;
+                const char *query = "SELECT PACKAGE FROM UPDATES WHERE IGNORE = 1;";
+                int result = sqlite3_prepare_v2(self->database, query, -1, &statement, nil);
+                if (result == SQLITE_OK) {
+                    NSMutableArray *packages = [NSMutableArray new];
+                    do {
+                        result = sqlite3_step(statement);
+                        if (result == SQLITE_ROW) {
+                            const char *identifier = (const char *)sqlite3_column_text(statement, 0);
+                            if (identifier) {
+                                [packages addObject:[NSString stringWithUTF8String:identifier]];
+                            }
+                        }
+                    } while (result == SQLITE_ROW);
+                    [[NSUserDefaults standardUserDefaults] setObject:packages forKey:@"IgnoredPackages"];
+                }
+                
+                sqlite3_finalize(statement);
+                
+                // Drop old UPDATES table. Updates aren't store separately anymore.
+                sqlite3_exec(self->database, "DROP TABLE UPDATES;", nil, nil, nil);
+                
+                // Create new tables
+                result = [self initializePackagesTable];
+                result = [self initializeSourcesTable];
+                
+                break;
+            }
+        }
+
+        [self setSchemaVersion];
+        [self endTransaction];
+        [self disconnectFromDatabase];
+        [self connectToDatabase];
+    });
 }
 
 #pragma mark - Creating Tables
@@ -272,56 +341,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
     });
     return result;
-}
-
-#pragma mark - Database Migration
-
-- (BOOL)needsMigration {
-    return [self schemaVersion] < DATABASE_VERSION;
-}
-
-- (int)schemaVersion {
-    __block int ret = 0;
-    dispatch_sync(databaseQueue, ^{
-        sqlite3_stmt *statement;
-        const char *query = "PRAGMA user_version;";
-    
-        int result = sqlite3_prepare_v2(database, query, -1, &statement, nil);
-        if (result == SQLITE_OK) {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                ret = sqlite3_column_int(statement, 1);
-            }
-        }
-        sqlite3_finalize(statement);
-    });
-    return ret;
-}
-
-- (void)setSchemaVersion {
-    dispatch_sync(databaseQueue, ^{
-        NSString *query = [NSString stringWithFormat:@"PRAGMA user_version = %d", DATABASE_VERSION];
-        sqlite3_exec(database, query.UTF8String, nil, nil, nil);
-    });
-}
-
-- (void)migrateDatabase {
-    int version = [self schemaVersion];
-    if (version >= DATABASE_VERSION) return;
-    
-    NSLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
-    
-    dispatch_sync(databaseQueue, ^{
-        [self beginTransaction];
-        switch (version + 1) {
-            case 1: {
-                // First major DB revision, we need to migration ignore update preferences and likely drop everything else due to the size of the changes.
-            }
-        }
-
-        [self setSchemaVersion];
-        [self endTransaction];
-    });
 }
 
 #pragma mark - Statement Preparation

@@ -8,7 +8,7 @@
 
 #import "ZBTabBarController.h"
 
-#import <UI/Controllers/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListTableViewController.h>
 #import <Model/ZBSource.h>
 
 #import "ZBTab.h"

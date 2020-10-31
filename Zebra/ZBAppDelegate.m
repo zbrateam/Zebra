@@ -6,7 +6,10 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#define IMAGE_CACHE_MAX_TIME 60 * 60 * 24 // 1 Day
+
 #import "ZBAppDelegate.h"
+
 #import "ZBTabBarController.h"
 #import <ZBLog.h>
 #import <Tabs/ZBTab.h>
@@ -19,11 +22,13 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
-#import <UI/Controllers/ZBMigrationViewController.h>
+#import <UI/Migration/ZBMigrationViewController.h>
 #import <Tabs/Search/ZBSearchTableViewController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
+
+#import <Managers/ZBDatabaseManager.h>
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
@@ -39,8 +44,6 @@
 @property () UIBackgroundTaskIdentifier backgroundTask;
 
 @end
-
-static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 @implementation ZBAppDelegate
 
@@ -184,39 +187,19 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
-    NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
+    ZBLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     
+    [self setupCrashReporting];
+    [self registerForScreenshotNotifications];
     [self setupSDWebImageCache];
-    [ZBNotificationManager.sharedInstance ensureNotificationAccess];
-    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
-    
-    if ([ZBSettings allowsCrashReporting]) {
-        NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
-        [FIRApp configure];
-        
-        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
-        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
-        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
-    }
-    else {
-        NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
-    }
-    
+    [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
-    [self registerForScreenshotNotifications];
-    
-    self.window.tintColor = [UIColor accentColor];
-    
-//    if ([ZBDatabaseManager needsMigration]) {
-//        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
-//    }
-//    else {
+    if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
+        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
+    } else {
         self.window.rootViewController = [[ZBTabBarController alloc] init];
-//    }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
+    }
     
     return YES;
 }
@@ -417,8 +400,21 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)setupCrashReporting {
+    if ([ZBSettings allowsCrashReporting]) {
+        ZBLog(@"[Zebra] Crash Reporting and Analytics Enabled");
+        [FIRApp configure];
+        
+        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
+        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
+        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
+    } else {
+        ZBLog(@"[Zebra] Crash Reporting and Analytics Disabled");
+    }
+}
+
 - (void)setupSDWebImageCache {
-    [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
+    [SDImageCache sharedImageCache].config.maxDiskAge = IMAGE_CACHE_MAX_TIME; // Sets SDWebImage to cache for 1 day.
 }
 
 - (void)registerForScreenshotNotifications {
@@ -432,6 +428,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
         }
     } withIdentifierCallback:^(int a) {}];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
 }
 
 - (void)checkForScreenRecording:(NSNotification *)notif {

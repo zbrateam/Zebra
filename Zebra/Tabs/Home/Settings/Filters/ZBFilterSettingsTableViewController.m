@@ -14,7 +14,7 @@
 #import "ZBButtonSettingsTableViewCell.h"
 
 #import <Managers/ZBDatabaseManager.h>
-#import <UI/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Model/ZBSource.h>

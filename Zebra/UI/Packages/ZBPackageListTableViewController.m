@@ -18,7 +18,7 @@
 #import <Queue/ZBQueue.h>
 #import <Tabs/ZBTabBarController.h>
 #import <Model/ZBSource.h>
-#import <UI/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIViewController+Extensions.h>
 #import "ZBDevice.h"

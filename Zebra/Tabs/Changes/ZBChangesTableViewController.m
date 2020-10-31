@@ -17,7 +17,7 @@
 #import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <UI/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import "ZBRedditPosts.h"
 #import <ZBDevice.h>

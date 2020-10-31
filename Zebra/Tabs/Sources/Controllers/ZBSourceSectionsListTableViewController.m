@@ -16,7 +16,7 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
-#import <UI/Controllers/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListTableViewController.h>
 #import <Managers/ZBSourceManager.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>

@@ -22,6 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 /*! @brief A shared instance of ZBDatabaseManager */
 + (instancetype)sharedInstance;
 
+#pragma mark - Database Migration
+
+- (BOOL)needsMigration;
+- (void)migrateDatabase;
+
 #pragma mark - Managing Transactions
 
 - (void)performTransaction:(void (^)(void))transaction;

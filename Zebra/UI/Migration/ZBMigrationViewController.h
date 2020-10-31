@@ -8,9 +8,7 @@
 
 @import UIKit;
 
-#import <Managers/Delegates/ZBSourceDelegate.h>
-
-@interface ZBMigrationViewController : UIViewController <ZBSourceDelegate>
+@interface ZBMigrationViewController : UIViewController
 
 @end
 
