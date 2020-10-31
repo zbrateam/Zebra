@@ -268,21 +268,13 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdated"];
 }
 
-- (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)caching error:(NSError **_Nullable)error {
-    [databaseManager checkForPackageUpdates];
-    NSMutableSet *sourcesToRefresh = [NSMutableSet setWithObject:[ZBSource localSource]];
-    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
-    
-    [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
-}
-
 - (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
     
     [self bulkStartedSourceRefresh];
     downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-    [downloadManager downloadSources:sources useCaching:caching];
+    [downloadManager downloadSources:sources useCaching:useCaching];
     [self updateLastUpdated];
 }
 
