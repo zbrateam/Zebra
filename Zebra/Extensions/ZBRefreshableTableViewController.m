@@ -9,7 +9,6 @@
 #import "ZBRefreshableTableViewController.h"
 #import <ZBAppDelegate.h>
 #import <Tabs/ZBTabBarController.h>
-#import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBSource.h>
 #import <UI/Packages/ZBPackageListTableViewController.h>
 #import <ZBDevice.h>

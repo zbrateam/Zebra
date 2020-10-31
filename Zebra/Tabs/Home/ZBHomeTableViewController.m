@@ -184,36 +184,36 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *blockedSources = [ZBSettings sourceBlacklist];
-    NSMutableArray *blacklist = [NSMutableArray new];
-    for (NSString *baseFilename in blockedSources) {
-        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
-        if (source) {
-            [blacklist addObject:source];
-        }
-    }
-    
-    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
-    dispatch_group_t group = dispatch_group_create();
-    for (ZBPackage *package in packages) {
-        dispatch_group_enter(group);
-        NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (package.iconURL) {
-            if (![package.iconURL isFileURL]) {
-                [dict setObject:package.iconURL forKey:@"url"];
-                [dict setObject:package.identifier forKey:@"package"];
-                [dict setObject:package.name forKey:@"title"];
-                [dict setObject:package.section forKey:@"section"];
-                
-                [self->allFeatured addObject:dict];
-            }
-        }
-        dispatch_group_leave(group);
-    }
-    
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self createHeader];
-    });
+//    NSArray *blockedSources = [ZBSettings sourceBlacklist];
+//    NSMutableArray *blacklist = [NSMutableArray new];
+//    for (NSString *baseFilename in blockedSources) {
+//        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
+//        if (source) {
+//            [blacklist addObject:source];
+//        }
+//    }
+//    
+//    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
+//    dispatch_group_t group = dispatch_group_create();
+//    for (ZBPackage *package in packages) {
+//        dispatch_group_enter(group);
+//        NSMutableDictionary *dict = [NSMutableDictionary new];
+//        if (package.iconURL) {
+//            if (![package.iconURL isFileURL]) {
+//                [dict setObject:package.iconURL forKey:@"url"];
+//                [dict setObject:package.identifier forKey:@"package"];
+//                [dict setObject:package.name forKey:@"title"];
+//                [dict setObject:package.section forKey:@"section"];
+//                
+//                [self->allFeatured addObject:dict];
+//            }
+//        }
+//        dispatch_group_leave(group);
+//    }
+//    
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        [self createHeader];
+//    });
 }
 
 - (void)createHeader {
@@ -630,13 +630,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    ZBPackage *package;// = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
-    
-    if (package) {
-        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
-        [[self navigationController] pushViewController:packageDepiction animated:YES];
-    }
+//    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    ZBPackage *package;// = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+//    
+//    if (package) {
+//        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
+//        [[self navigationController] pushViewController:packageDepiction animated:YES];
+//    }
 }
 
 #pragma mark - Navigation

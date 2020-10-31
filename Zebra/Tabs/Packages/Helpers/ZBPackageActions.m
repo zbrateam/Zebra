@@ -22,6 +22,8 @@
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import <Tabs/ZBTabBarController.h>
 
+#import <Managers/ZBPackageManager.h>
+
 @implementation ZBPackageActions
 
 #pragma mark - Package Actions
@@ -172,16 +174,19 @@
 }
 
 + (void)remove:(ZBPackage *)package completion:(void (^)(void))completion {
-    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
-    if (completion) completion();
+    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+    if (candidate) {
+        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
+        if (completion) completion();
+    }
 }
 
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-//    ZBPackage *candidate = [[ZBDatabaseManager sharedInstance] packageForID:package.identifier equalVersion:package.installedVersion];
-//    if (candidate) {
-//        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
-//    }
-//    if (completion) completion();
+    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+    if (candidate) {
+        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
+        if (completion) completion();
+    }
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
@@ -248,7 +253,7 @@
 }
 
 + (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSMutableArray *lesserVersions = [package lesserVersions];
+    NSArray *lesserVersions = [package lesserVersions];
     if ([lesserVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
@@ -258,7 +263,7 @@
         }
         
         for (ZBPackage *otherPackage in lesserVersions) {
-            if ([[otherPackage source] sourceID] < 1) continue;
+            if (!otherPackage.source.remote) continue;
             
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

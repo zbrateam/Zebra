@@ -515,7 +515,7 @@
 }
 
 - (NSInteger)pinPriorityForSource:(ZBSource *)source strict:(BOOL)strict {
-    if (source.sourceID <= 0) return 100;
+    if (!source.remote) return 100;
     
     if ([pinPreferences objectForKey:source.origin]) {
         return [[pinPreferences objectForKey:source.origin] integerValue];
@@ -714,6 +714,10 @@
 
 - (BOOL)isSourceBusy:(ZBBaseSource *)source {
     return [[busyList objectForKey:source.uuid] boolValue];
+}
+
+- (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source {
+    return [databaseManager sectionReadoutForSource:source];
 }
 
 @end

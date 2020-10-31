@@ -13,7 +13,7 @@
 #import <Theme/ZBThemeManager.h>
 #import <ZBDevice.h>
 #import <Queue/ZBQueue.h>
-#import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import "ZBSearchResultsTableViewController.h"
 
 #import <Extensions/UIColor+GlobalColors.h>
@@ -23,7 +23,7 @@
 #define MAX_SEARCH_RECENT_COUNT 5
 
 @interface ZBSearchTableViewController () {
-    ZBDatabaseManager *databaseManager;
+    ZBPackageManager *packageManager;
     NSMutableArray *recentSearches;
     
     BOOL shouldPerformSearching;
@@ -72,8 +72,8 @@
         recentSearches = [NSMutableArray new];
     }
     
-    if (!databaseManager) {
-        databaseManager = [ZBDatabaseManager sharedInstance];
+    if (!packageManager) {
+        packageManager = [ZBPackageManager sharedInstance];
     }
     
     if (!searchController) {
@@ -116,19 +116,19 @@
         NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
         switch (selectedIndex) {
             case 0: {
-                [databaseManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
                     [self updateTableResults:packages];
                 }];
                 break;
             }
             case 1: {
-                [databaseManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
                     [self updateTableResults:packages];
                 }];
                 break;
             }
             case 2: {
-                [databaseManager searchForPackagesByAuthorWithName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                [packageManager searchForPackagesByAuthorWithName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
                     [self updateTableResults:packages];
                 }];
                 break;

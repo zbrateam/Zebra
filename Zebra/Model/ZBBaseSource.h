@@ -104,9 +104,6 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 /*! @brief the source's icon URL*/
 @property (readonly) NSURL *iconURL;
 
-/*! @brief the source's identifier */
-@property int sourceID;
-
 /*! @brief warnings (issues that could arise) that might have occured when downloading or parsing the source */
 @property (nonatomic) NSArray * _Nullable warnings;
 

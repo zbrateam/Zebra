@@ -10,7 +10,6 @@
 #import <Extensions/ZBRefreshableTableViewController.h>
 #import "ZBNewsCollectionViewCell.h"
 @import SafariServices;
-@class ZBDatabaseManager;
 
 NS_ASSUME_NONNULL_BEGIN
 

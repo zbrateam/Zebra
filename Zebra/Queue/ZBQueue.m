@@ -68,10 +68,6 @@
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     if (package == NULL) return;
     
-    if (queue == ZBQueueTypeRemove && !package.isVersionInstalled) { //Trying to remove a package that isn't installed
-        package = [package removeableCandidate];
-    }
-    
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear) { //Remove package from queue, this probably needs to be rewritten to support the same package with a different version being added to the same queue
         [self removePackage:package inQueue:type versionStrict:NO];

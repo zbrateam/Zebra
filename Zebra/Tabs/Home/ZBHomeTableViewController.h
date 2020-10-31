@@ -11,7 +11,6 @@
 #import "Stores/ZBStoresListTableViewController.h"
 #import "Settings/ZBMainSettingsTableViewController.h"
 #import "Wish List/ZBWishListTableViewController.h"
-#import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBSource.h>
 #import "Helpers/ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"

@@ -29,7 +29,6 @@
 @import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
-//    ZBDatabaseManager *databaseManager;
     ZBPackageManager *packageManager;
     NSUserDefaults *defaults;
     NSArray *packages;
@@ -51,7 +50,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    databaseManager = [ZBDatabaseManager sharedInstance];
     packageManager = [ZBPackageManager sharedInstance];
     [self applyLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];

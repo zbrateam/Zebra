@@ -83,9 +83,7 @@
     [self applyLocalization];
 
     packageManager = [ZBPackageManager sharedInstance];
-    selectedSortingType = [ZBSettings packageSortingType];
-    if (source.sourceID && selectedSortingType == ZBSortingTypeInstalledSize)
-        selectedSortingType = ZBSortingTypeABC;
+    selectedSortingType = ZBSortingTypeABC;//[ZBSettings packageSortingType];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
 }
@@ -105,7 +103,7 @@
 }
 
 - (void)layoutNavigationButtonsNormal {
-    if ([source sourceID] == 0) {
+    if (!source.remote) {
         [self configureUpgradeButton];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -122,16 +120,16 @@
 }
 
 - (void)updateCollation {
-    switch (selectedSortingType) {
-        case ZBSortingTypeABC:
+//    switch (selectedSortingType) {
+//        case ZBSortingTypeABC:
             self.tableData = [self partitionObjects:packages collationStringSelector:@selector(name)];
-            break;
-        case ZBSortingTypeDate:
-            self.tableData = [self partitionObjects:packages collationStringSelector:source.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];
-            break;
-        default:
-            break;
-    }
+//            break;
+//        case ZBSortingTypeDate:
+//            self.tableData = [self partitionObjects:packages collationStringSelector:source.sourceID ? @selector(lastSeenDate) : @selector(installedDate)];
+//            break;
+//        default:
+//            break;
+//    }
 }
 
 - (void)refreshTable {
@@ -187,7 +185,7 @@
 - (void)installAll {
     NSMutableArray *installablePackages = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        if (package.isInstalled || ![package isReinstallable] || [package isPaid])
+        if (package.isInstalled || ![package canInstall] || [package isPaid])
             continue;
         [installablePackages addObject:package];
     }
@@ -323,7 +321,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    BOOL isUpdateSection = [source sourceID] == 0 && needsUpdatesSection && section == 0;
+    BOOL isUpdateSection = !source.remote && needsUpdatesSection && section == 0;
     BOOL hasDataInSection = !isUpdateSection && [[self objectAtSection:section] count];
     if (isUpdateSection || hasDataInSection) {
         if (isUpdateSection) {

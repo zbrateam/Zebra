@@ -229,4 +229,53 @@
     }
 }
 
+- (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package {
+    return [databaseManager installedInstanceOfPackage:package];
+}
+
+- (ZBPackage *_Nullable)packageWithUniqueIdentifier:(NSString *)uuid {
+    return [databaseManager packageWithUniqueIdentifier:uuid];
+}
+
+- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email {
+    return [databaseManager packagesByAuthorWithName:name email:email];
+}
+
+- (BOOL)canReinstallPackage:(ZBPackage *)package {
+    return [databaseManager isPackageAvailable:package checkVersion:YES];
+}
+
+- (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray *packages = [self->databaseManager searchForPackagesByName:name];
+        
+        completion(packages);
+    });
+}
+
+- (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray *packages = [self->databaseManager searchForPackagesByDescription:description];
+        
+        completion(packages);
+    });
+}
+
+- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray *packages = [self->databaseManager searchForPackagesByAuthorWithName:name];
+        
+        completion(packages);
+    });
+}
+
+- (NSString *)installedVersionOfPackage:(ZBPackage *)package {
+    return [databaseManager installedVersionOfPackage:package];
+}
+
+- (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package {
+//    return [databaseManager allInstancesOfPackage:package];
+    return NULL;
+}
+
 @end

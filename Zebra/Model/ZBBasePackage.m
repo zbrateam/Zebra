@@ -7,9 +7,10 @@
 //
 
 #import "ZBBasePackage.h"
-#import "ZBPackage.h"
 
-#import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
+
+@class ZBPackage;
 
 @interface ZBBasePackage () {
     ZBPackage *forwardingPackage;
@@ -77,7 +78,7 @@
 - (id)forwardingTargetForSelector:(SEL)aSelector {
     if (forwardingPackage) return forwardingPackage;
     
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
+    ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
     if (package) forwardingPackage = package;
     
     return forwardingPackage;

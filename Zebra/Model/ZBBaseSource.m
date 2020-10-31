@@ -461,7 +461,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.sourceID];
+    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.uuid];
 }
 
 - (NSString *)debugDescription

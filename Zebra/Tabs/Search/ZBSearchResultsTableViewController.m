@@ -38,16 +38,11 @@
     return self;
 }
 
-- (BOOL)forceSetColors {
-    return YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tableView.tableFooterView = [[UIView alloc] init]; // Hide seperators after last cell
+    self.tableView.tableFooterView = [[UIView alloc] init]; // Hide separators after last cell
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 #pragma mark - Table view data source
@@ -81,42 +76,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row >= filteredResults.count) return nil; // FIXME: This should not be null
-    
-    NSObject *quantumPackage = filteredResults[indexPath.row];
-    if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
-        ZBBasePackage *proxyPackage = (ZBBasePackage *)quantumPackage;
+    ZBPackage *package = filteredResults[indexPath.row];
         
-        ZBLiveSearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"liveSearchResultCell" forIndexPath:indexPath];
-        [cell updateData:proxyPackage];
-        [cell setColors];
+    ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+    [cell updateData:package];
         
-        return cell;
-    }
-    else {
-        ZBPackage *package = (ZBPackage *)quantumPackage;
-        
-        ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-        [cell updateData:package];
-        [cell setColors];
-        
-        return cell;
-    }
-}
-
-- (ZBPackageViewController *)getPackageDepictionVC:(NSIndexPath *)indexPath {
-    id quantumPackage = filteredResults[indexPath.row];
-    if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
-        quantumPackage = [(ZBBasePackage *)quantumPackage loadPackage];
-    }
-        
-    return [[ZBPackageViewController alloc] initWithPackage:(ZBPackage *)quantumPackage];
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    [[self navController] pushViewController:[self getPackageDepictionVC:indexPath] animated:YES];
+    ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:filteredResults[indexPath.row]];
+    [[self navController] pushViewController:packageController animated:YES];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -124,13 +96,9 @@
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-    id quantumPackage = filteredResults[indexPath.row];
-    if ([quantumPackage respondsToSelector:@selector(loadPackage)]) {
-        // This is a proxy package, load it first
-        quantumPackage = [(ZBBasePackage *)quantumPackage loadPackage];
-    }
+    ZBPackage *package = filteredResults[indexPath.row];
 
-    return [ZBPackageActions swipeActionsForPackage:(ZBPackage *)quantumPackage inTableView:tableView];
+    return [ZBPackageActions swipeActionsForPackage:package inTableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -158,10 +126,6 @@
 
 - (void)scrollToTop {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
 }
 
 @end

@@ -9,7 +9,6 @@
 #import "ZBConsoleViewController.h"
 #import "ZBStage.h"
 
-#import <Managers/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Tabs/ZBTabBarController.h>
 #import <Model/ZBPackage.h>

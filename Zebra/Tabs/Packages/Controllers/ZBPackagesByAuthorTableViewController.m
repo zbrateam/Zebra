@@ -12,11 +12,12 @@
 
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Managers/ZBDatabaseManager.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Tabs/ZBTabBarController.h>
+
+#import <Managers/ZBPackageManager.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
@@ -38,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthorWithName:package.authorName email:package.authorEmail];
+    moreByAuthor = [[ZBPackageManager sharedInstance] packagesByAuthorWithName:package.authorName email:package.authorEmail];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     self.navigationItem.title = package.authorName;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

@@ -18,6 +18,8 @@
 #import <JSONParsing/ZBSourceInfo.h>
 #import <Tabs/ZBTabBarController.h>
 
+#import <Managers/ZBSourceManager.h>
+
 @interface ZBSource () {
     BOOL checkedForPaymentEndpoint;
     BOOL checkedForFeaturedPackages;
@@ -35,22 +37,6 @@
     local.packagesFilePath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
     
     return local;
-}
-
-+ (ZBSource * _Nullable)sourceFromBaseURL:(NSString *)baseURL {
-    return NULL;
-//    return [[ZBDatabaseManager sharedInstance] sourceFromBaseURL:baseURL];
-}
-
-+ (ZBSource * _Nullable)sourceFromBaseFilename:(NSString *)baseFilename {
-    return NULL;
-//    return [[ZBDatabaseManager sharedInstance] sourceFromBaseFilename:baseFilename];
-}
-
-+ (BOOL)exists:(NSString *)urlString {
-    return YES;
-//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-//    return [databaseManager sourceIDFromBaseURL:urlString strict:NO] > 0;
 }
 
 + (UIImage *)imageForSection:(NSString *)section {
@@ -331,7 +317,7 @@
 }
 
 - (NSInteger)pinPriority {
-    if (self.sourceID <= 0) return 100;
+    if (!self.remote) return 100;
     else if (_pinPriority == 0) return 500;
     else return _pinPriority;
 }
@@ -363,6 +349,10 @@
         self->checkedForFeaturedPackages = YES;
         completion(self->featuredPackages);
     }];
+}
+
+- (NSDictionary <NSString *, NSNumber *> *)sections {
+    return [[ZBSourceManager sharedInstance] sectionsForSource:self];
 }
 
 @end

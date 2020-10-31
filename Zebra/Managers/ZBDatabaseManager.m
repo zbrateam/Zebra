@@ -701,13 +701,13 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     __block NSArray *result = NULL;
     dispatch_sync(databaseQueue, ^{
         NSMutableArray *packages = [NSMutableArray new];
-        NSMutableArray *sourceIDs = [@[[NSNumber numberWithInt:-1], [NSNumber numberWithInt:0]] mutableCopy];
+        NSMutableArray *sourceUUIDs = [NSMutableArray arrayWithObject:@"_var_lib_dpkg_status_"];
         
         for (ZBSource *source in blacklistedSources) {
-            [sourceIDs addObject:[NSNumber numberWithInt:[source sourceID]]];
+            [sourceUUIDs addObject:source.uuid];
         }
-        NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceIDs componentsJoinedByString:@", "]];
-        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE REPOID NOT IN %@ AND ICON IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
+        NSString *excludeString = [NSString stringWithFormat:@"(%@)", [sourceUUIDs componentsJoinedByString:@", "]];
+        NSString *query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE SOURCE NOT IN %@ AND ICON IS NOT NULL ORDER BY RANDOM() LIMIT %d;", excludeString, limit];
         
         sqlite3_stmt *statement = NULL;
         if (sqlite3_prepare_v2(database, [query UTF8String], -1, &statement, nil) == SQLITE_OK) {
@@ -720,6 +720,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         result = packages;
     });
     return result;
+}
+
+- (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package {
+    return NULL;
 }
 
 #pragma mark - Package Information
@@ -790,8 +794,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 #pragma mark - Package Searching
 
-- (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(databaseQueue, ^{
+- (NSArray <ZBPackage *> *)searchForPackagesByName:(NSString *)name {
+    __block NSArray *ret;
+    dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchForPackageWithName];
         
         const char *filter = [NSString stringWithFormat:@"%%%@%%", name].UTF8String;
@@ -821,12 +826,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
         
-        completion(packages);
+        ret = packages;
     });
+    return ret;
 }
 
-- (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(databaseQueue, ^{
+- (NSArray <ZBPackage *> *)searchForPackagesByDescription:(NSString *)description {
+    __block NSArray *ret;
+    dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchForPackageWithDescription];
         
         const char *filter = [NSString stringWithFormat:@"%%%@%%", description].UTF8String;
@@ -856,12 +863,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
         
-        completion(packages);
+        ret = packages;
     });
+    return ret;
 }
 
-- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(databaseQueue, ^{
+- (NSArray <ZBPackage *> *)searchForPackagesByAuthorWithName:(NSString *)name {
+    __block NSArray *ret;
+    dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchForPackageByAuthor];
         
         const char *filter = [NSString stringWithFormat:@"%%%@%%", name].UTF8String;
@@ -891,8 +900,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
         
-        completion(packages);
+        ret = packages;
     });
+    return ret;
 }
 
 #pragma mark - Source Retrieval

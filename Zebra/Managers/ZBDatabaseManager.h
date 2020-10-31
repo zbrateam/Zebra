@@ -62,7 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param package The package that you want an installed instance of.
  @return An instance of ZBPackage that is installed to the user's device.
  */
-- (ZBPackage *)installedInstanceOfPackage:(ZBPackage *)package;
+- (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
+
+- (ZBPackage *_Nullable)allInstancesOfPackage:(ZBPackage *)package;
 
 /*!
  @brief Get instances of packages by an author
@@ -115,9 +117,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Package Searching
 
-- (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
-- (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
-- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
+- (NSArray <ZBPackage *> *)searchForPackagesByName:(NSString *)name;
+- (NSArray <ZBPackage *> *)searchForPackagesByDescription:(NSString *)description;
+- (NSArray <ZBPackage *> *)searchForPackagesByAuthorWithName:(NSString *)name;
 
 #pragma mark - Source Retrieval
 

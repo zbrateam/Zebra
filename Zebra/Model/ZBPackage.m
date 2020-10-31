@@ -15,7 +15,6 @@
 #import <Model/ZBSource.h>
 #import <ZBAppDelegate.h>
 #import <Managers/ZBPackageManager.h>
-#import <Managers/ZBDatabaseManager.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import "UICKeyChainStore.h"
 #import <Queue/ZBQueue.h>
@@ -339,7 +338,7 @@
     if (![object isKindOfClass:[ZBPackage class]])
         return NO;
     
-    return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]] && [[self source] sourceID] == [[object source] sourceID]);
+    return ([[object identifier] isEqual:self.identifier] && [[object version] isEqual:[self version]] && [[[self source] uuid] isEqual:[[object source] uuid]]);
 }
 
 - (BOOL)sameAs:(ZBPackage *)package {
@@ -389,7 +388,7 @@
 }
 
 - (BOOL)mightRequirePayment {
-    return [self requiresPayment] || ([[self source] sourceID] > 0 && [self isPaid] && [[self source] supportsPaymentAPI]);
+    return [self requiresPayment] || (self.source.remote && self.isPaid && self.source.supportsPaymentAPI);
 }
 
 - (BOOL)requiresPayment {
@@ -549,26 +548,22 @@
     return _isVersionInstalled;
 }
 
-- (BOOL)isReinstallable {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return [databaseManager isPackageAvailable:self checkVersion:YES];
+- (BOOL)canReinstall {
+    return [[ZBPackageManager sharedInstance] canReinstallPackage:self];
 }
 
-- (NSMutableArray <ZBPackage *> *)allVersions {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    NSMutableArray *versions = [NSMutableArray arrayWithArray:[databaseManager allVersionsForPackage:self]];
+- (NSArray <ZBPackage *> *)allVersions {
+    return [[ZBPackageManager sharedInstance] allInstancesOfPackage:self];
+}
+
+- (NSArray <ZBPackage *> *)otherVersions {
+    NSMutableArray *allVersions = [[self allVersions] mutableCopy];
+    [allVersions removeObject:self];
     
-    return versions;
+    return allVersions;
 }
 
-- (NSMutableArray <ZBPackage *> *)otherVersions {
-    NSMutableArray *versions = [self allVersions];
-    [versions removeObject:self];
-    
-    return versions;
-}
-
-- (NSMutableArray <ZBPackage *> *)lesserVersions {
+- (NSArray <ZBPackage *> *)lesserVersions {
     NSMutableArray *versions = [[self otherVersions] mutableCopy];
     NSMutableArray *lesserVersions = [versions mutableCopy];
     for (ZBPackage *package in versions) {
@@ -580,7 +575,7 @@
     return lesserVersions;
 }
 
-- (NSMutableArray <ZBPackage *> *)greaterVersions {
+- (NSArray <ZBPackage *> *)greaterVersions {
     NSMutableArray *versions = [[self otherVersions] mutableCopy];
     NSMutableArray *greaterVersions = [versions mutableCopy];
     for (ZBPackage *package in versions) {
@@ -592,29 +587,12 @@
     return greaterVersions;
 }
 
-- (BOOL)ignoreUpdates {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    return YES;//[databaseManager areUpdatesIgnoredForPackage:self];
+- (BOOL)areUpdatesIgnored {
+    return [ZBSettings areUpdatesIgnoredForPackageIdentifier:self.identifier];
 }
 
 - (void)setIgnoreUpdates:(BOOL)ignore {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-//    [databaseManager setUpdatesIgnored:ignore forPackage:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-}
-
-- (ZBPackage * _Nullable)installableCandidate {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    ZBPackage *candidate = [databaseManager packageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
-    
-    return candidate;
-}
-
-- (ZBPackage * _Nullable)removeableCandidate {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    ZBPackage *candidate = [databaseManager installedPackageForIdentifier:self.identifier thatSatisfiesComparison:@"<=" ofVersion:[self version]];
-    
-    return candidate;
+    [ZBSettings setUpdatesIgnored:ignore forPackageIdentifier:self.identifier];
 }
 
 - (NSDate *)installedDate {
@@ -630,9 +608,9 @@
 }
 
 - (NSString * _Nullable)installedVersion {
-    if ([[self source] sourceID] == 0) return self.version;
+    if (!self.source.remote) return self.version;
     
-    return [[ZBDatabaseManager sharedInstance] installedVersionOfPackage:self];
+    return [[ZBPackageManager sharedInstance] installedVersionOfPackage:self];
 }
 
 - (void)addDependency:(ZBPackage *)package {
@@ -675,20 +653,13 @@
     }
 }
 
-- (NSArray * _Nullable)possibleActions {    
-    if ([[self source] sourceID] == -1) {
-        return nil; // No actions for virtual dependencies
-    }
-    else if ([[self source] sourceID] == -2) {
-        return @[@(ZBPackageActionInstall)];
-    }
-    
+- (NSArray * _Nullable)possibleActions {
     NSMutableArray *actions = [NSMutableArray new];
     ZBQueue *queue = [ZBQueue sharedQueue];
     
-    if ([[self source] sourceID] == 0) {
+    if (self.isVersionInstalled) {
         // If the package is installed then we can show other options
-        if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self isReinstallable]) {
+        if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self canInstall]) {
             // Search for the same version of this package in the database
             [actions addObject:@(ZBPackageActionReinstall)];
         }
@@ -707,10 +678,9 @@
     }
     else if (self.isInstalled) { // This means the package is installed but this isn't the version that is currently installed
         // We need to calculate the actions based on the package that is actually installed
-        ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-        ZBPackage *basePackage = [databaseManager installedInstanceOfPackage:self];
+        ZBPackage *installedInstance = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:self];
         
-        return [basePackage possibleActions];
+        return [installedInstance possibleActions];
     }
     else { // This means the package is not installed
         if ([[self allVersions] count] > 1 && ![ZBSettings alwaysInstallLatest]) { // Show "Select version" instead of "Install" as it makes more sense
@@ -725,10 +695,6 @@
 }
 
 - (NSArray *_Nullable)possibleExtraActions {
-    if ([[self source] sourceID] == -1) {
-        return nil; // No actions for virtual dependencies
-    }
-    
     NSMutableArray *actions = [NSMutableArray new];
 
     if ([self authorName]) {
@@ -763,7 +729,7 @@
 //        }
     }
     else {
-        if ([self ignoreUpdates]) {
+        if ([self areUpdatesIgnored]) {
             // Updates are ignored, show them
             [actions addObject:@(ZBPackageExtraActionShowUpdates)];
         }
@@ -849,7 +815,7 @@
     
     NSString *sourceOrigin = [[self source] origin];
     if (sourceOrigin) {
-        if (self.source.sourceID > 0) {
+        if (self.source.remote) {
             NSDictionary *sourceOriginInfo = @{@"name": NSLocalizedString(@"Source", @""), @"value": sourceOrigin, @"cellType": @"info", @"class": @"ZBSourceSectionsListTableViewController"};
             [information addObject:sourceOriginInfo];
         } else {
@@ -1074,7 +1040,7 @@
 }
 
 - (id)activityViewController:(UIActivityViewController *)activityViewController itemForActivityType:(UIActivityType)activityType {
-    if (self.source.sourceID > 0) {
+    if (self.source.remote) {
         if (self.authorName) {
             return [NSString stringWithFormat:@"Check out %@ by %@ on Zebra! zbra://packages/%@?source=%@", self.name, self.authorName, self.identifier, self.source.repositoryURI];
         }
@@ -1083,13 +1049,13 @@
         }
     }
     else {
-        ZBPackage *installableCandidate = [self installableCandidate];
-        if (installableCandidate && installableCandidate.source.sourceID > 0) {
-            return [installableCandidate activityViewController:activityViewController itemForActivityType:activityType];
-        }
-        else {
+//        ZBPackage *installableCandidate = [self installableCandidate];
+//        if (installableCandidate && installableCandidate.source.sourceID > 0) {
+//            return [installableCandidate activityViewController:activityViewController itemForActivityType:activityType];
+//        }
+//        else {
             return [NSString stringWithFormat:@"Check out %@ on Zebra! zbra://packages/%@", self.name, self.identifier];
-        }
+//        }
     }
 }
 

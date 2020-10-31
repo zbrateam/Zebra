@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)initWithSQLiteStatement:(sqlite3_stmt *)statement;
 
+- (NSDictionary <NSString *, NSNumber *> *)sections;
+
 #pragma mark - Featured Packages API
 
 - (void)getFeaturedPackages:(void (^)(NSDictionary *_Nullable featuredPackages))completion;

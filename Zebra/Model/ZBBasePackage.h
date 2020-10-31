@@ -59,7 +59,6 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 @property (nonatomic) NSString *uuid;
 @property (nonatomic) NSString *version;
 - (instancetype)initFromSQLiteStatement:(sqlite3_stmt *)statement;
-- (NSObject *)loadPackage;
 @end
 
 NS_ASSUME_NONNULL_END
