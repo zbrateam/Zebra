@@ -196,8 +196,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
+        ZBLog(@"[Zebra] Needs migration, loading migration controller.");
         self.window.rootViewController = [[ZBMigrationViewController alloc] init];
     } else {
+        ZBLog(@"[Zebra] Does not need migration, loading tab controller.");
         self.window.rootViewController = [[ZBTabBarController alloc] init];
     }
     

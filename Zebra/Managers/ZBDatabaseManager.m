@@ -127,6 +127,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 ZBLog(@"[Zebra] Failed to initialize database at %@", databasePath);
                 ret = NO;
             }
+        } else {
+            ZBLog(@"[Zebra] Database needs migration, not continuing.");
         }
     });
 
@@ -193,10 +195,12 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
         sqlite3_finalize(statement);
     });
+    ZBLog(@"[Zebra] Current Schema Version: %d", ret);
     return ret;
 }
 
 - (void)setSchemaVersion {
+    ZBLog(@"[Zebra] Setting Schema Version to %d", DATABASE_VERSION);
     dispatch_sync(databaseQueue, ^{
         NSString *query = [NSString stringWithFormat:@"PRAGMA user_version = %d;", DATABASE_VERSION];
         sqlite3_exec(database, query.UTF8String, nil, nil, nil);
@@ -207,18 +211,21 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     int version = [self schemaVersion];
     if (version >= DATABASE_VERSION) return;
     
-    NSLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
+    ZBLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
     
     dispatch_sync(databaseQueue, ^{
+        ZBLog(@"[Zebra] Beginning migration transaction");
         [self beginTransaction];
         switch (version + 1) {
             case 1: {
                 // First major DB revision, we need to migration ignore update preferences and likely drop everything else due to the size of the changes.
                 
+                ZBLog(@"[Zebra] Dropping old tables.");
                 // Drop old PACKAGES and REPOS tables. We can easily recover the data with a source refresh.
                 sqlite3_exec(self->database, "DROP TABLE PACKAGES;", nil, nil, nil);
                 sqlite3_exec(self->database, "DROP TABLE REPOS;", nil, nil, nil);
                 
+                ZBLog(@"[Zebra] Transferring updates tables.");
                 // Transfer updates from old UPDATES table to NSUserDefaults
                 sqlite3_stmt *statement;
                 const char *query = "SELECT PACKAGE FROM UPDATES WHERE IGNORE = 1;";
@@ -237,9 +244,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 
                 sqlite3_finalize(statement);
                 
+                ZBLog(@"[Zebra] Dropping old updates table.");
                 // Drop old UPDATES table. Updates aren't store separately anymore.
                 sqlite3_exec(self->database, "DROP TABLE UPDATES;", nil, nil, nil);
                 
+                ZBLog(@"[Zebra] Creating new tables.");
                 // Create new tables
                 result = [self initializePackagesTable];
                 result = [self initializeSourcesTable];
@@ -248,9 +257,13 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             }
         }
 
+        ZBLog(@"[Zebra] Setting schema version.");
         [self setSchemaVersion];
+        ZBLog(@"[Zebra] Ending migration transaction.");
         [self endTransaction];
+        ZBLog(@"[Zebra] Disconnecting from database.");
         [self disconnectFromDatabase];
+        ZBLog(@"[Zebra] Connecting to database.");
         [self connectToDatabase];
     });
 }
