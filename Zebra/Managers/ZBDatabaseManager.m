@@ -23,6 +23,7 @@
 #import <Model/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 #import <Managers/ZBPackageManager.h>
+#import <ZBSettings.h>
 
 typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
@@ -223,17 +224,15 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 const char *query = "SELECT PACKAGE FROM UPDATES WHERE IGNORE = 1;";
                 int result = sqlite3_prepare_v2(self->database, query, -1, &statement, nil);
                 if (result == SQLITE_OK) {
-                    NSMutableArray *packages = [NSMutableArray new];
                     do {
                         result = sqlite3_step(statement);
                         if (result == SQLITE_ROW) {
                             const char *identifier = (const char *)sqlite3_column_text(statement, 0);
                             if (identifier) {
-                                [packages addObject:[NSString stringWithUTF8String:identifier]];
+                                [ZBSettings setUpdatesIgnored:YES forPackageIdentifier:[NSString stringWithUTF8String:identifier]];
                             }
                         }
                     } while (result == SQLITE_ROW);
-                    [[NSUserDefaults standardUserDefaults] setObject:packages forKey:@"IgnoredPackages"];
                 }
                 
                 sqlite3_finalize(statement);

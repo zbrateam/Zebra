@@ -41,6 +41,7 @@ NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
 NSString *const AlwaysInstallLatestKey = @"AlwaysInstallLatest";
 NSString *const RoleKey = @"Role";
+NSString *const IgnoredUpdatesKey = @"IgnoredUpdates";
 
 NSString *const WantsLiveSearchKey = @"LiveSearch";
 
@@ -522,6 +523,27 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:role forKey:RoleKey];
+}
+
++ (NSArray *)ignoredUpdates {
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:IgnoredUpdatesKey];
+}
+
++ (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier {
+    return [[self ignoredUpdates] containsObject:identifier];
+}
+
++ (void)setUpdatesIgnored:(BOOL)updatesIgnored forPackageIdentifier:(NSString *)identifier {
+    NSMutableArray *ignoredUpdates = [[self ignoredUpdates] mutableCopy];
+    BOOL areUpdatesIgnored = [ignoredUpdates containsObject:identifier];
+    
+    if (!updatesIgnored && areUpdatesIgnored) {
+        [ignoredUpdates removeObject:identifier];
+    } else if (updatesIgnored && !areUpdatesIgnored) {
+        [ignoredUpdates addObject:identifier];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:ignoredUpdates forKey:IgnoredUpdatesKey];
 }
 
 #pragma mark - Search Settings
