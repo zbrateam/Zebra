@@ -458,6 +458,7 @@
 //    }];
 //
 //    [task resume];
+    completion(NULL);
 }
 
 - (NSString * _Nullable)getField:(NSString *)field {
@@ -659,7 +660,7 @@
     
     if (self.isVersionInstalled) {
         // If the package is installed then we can show other options
-        if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self canInstall]) {
+        if (![queue contains:self inQueue:ZBQueueTypeReinstall] && [self canReinstall]) {
             // Search for the same version of this package in the database
             [actions addObject:@(ZBPackageActionReinstall)];
         }
