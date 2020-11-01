@@ -36,7 +36,7 @@ jobs:
     - name: Build Dependencies
       if: steps.carthage-cache.outputs.cache-hit != 'true'
       run: |
-        carthage bootstrap --no-use-binaries --platform iOS --cache-builds
+        ./carthage-fix.sh bootstrap --no-use-binaries --platform iOS --cache-builds
 
     - name: Build Package
       env:
