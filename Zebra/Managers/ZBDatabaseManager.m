@@ -257,6 +257,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             }
         }
 
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastUpdated"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastUpdatedStatusDate"];
         ZBLog(@"[Zebra] Setting schema version.");
         [self setSchemaVersion];
         ZBLog(@"[Zebra] Ending migration transaction.");
