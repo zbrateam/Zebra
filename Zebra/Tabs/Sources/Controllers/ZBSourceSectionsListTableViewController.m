@@ -14,22 +14,19 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBPackage.h>
+#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
 
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 
 @import SDWebImage;
 
 @interface ZBSourceSectionsListTableViewController () {
     CGSize bannerSize;
     UICKeyChainStore *keychain;
-    ZBDatabaseManager *databaseManager;
     BOOL editOnly;
 }
 @property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
@@ -87,8 +84,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    databaseManager = [ZBDatabaseManager sharedInstance];
-    sectionReadout = [databaseManager sectionReadoutForSource:source];
+    sectionReadout = source.sections;
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
         NSString *section1 = [self localizedSection:obj1];
         NSString *section2 = [self localizedSection:obj2];
@@ -97,7 +93,7 @@
     }];
     if (!editOnly) keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
-    filteredSections = [[[ZBSettings filteredSources] objectForKey:[source baseFilename]] mutableCopy];
+    filteredSections = [[[ZBSettings filteredSources] objectForKey:[source uuid]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     if (!editOnly) self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -137,7 +133,7 @@
         [self.tableView layoutIfNeeded];
     }
     
-    if (!editOnly && [source paymentVendorURL]) { // If the source supports payments/external accounts
+    if (!editOnly && [source supportsPaymentAPI]) { // If the source supports payments/external accounts
         ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
         [self.view addSubview:accountBanner];
         
@@ -207,32 +203,22 @@
     [self.featuredCollection removeFromSuperview];
     self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
-    if (source.supportsFeaturedPackages) {
-        NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (data != nil) {
-                NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
-                
-                NSError *jsonError;
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-                if (!jsonError) {
-                    NSArray *banners = json[@"banners"];
-                    
-                    self->bannerSize = CGSizeFromString(json[@"itemSize"]);
-                    self.featuredPackages = banners;
-                    
-                    [featuredItems setObject:banners forKey:[self->source baseFilename]];
-                    [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setupFeaturedPackages];
-                    });
-                }
-            }
+    
+    [source getFeaturedPackages:^(NSDictionary * _Nullable featuredPackages) {
+        NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
+        if (featuredPackages) {
+            NSArray *banners = featuredPackages[@"banners"];
+            self->bannerSize = CGSizeFromString(featuredPackages[@"itemSize"]);
+            self.featuredPackages = banners;
             
-        }] resume];
-    }
+            [featuredItems setObject:banners forKey:[self->source uuid]];
+            [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupFeaturedPackages];
+            });
+        }
+    }];
 }
 
 - (void)setupFeaturedPackages {
@@ -261,7 +247,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sectionNames.count + 1;
+    return sectionNames.count;
 }
 
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -278,20 +264,15 @@
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     cell.selectedBackgroundView.backgroundColor = [UIColor cellSelectedBackgroundColor];
     
-    if (indexPath.row == 0) {
-        cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
+    NSString *section = sectionNames[indexPath.row];
+    cell.textLabel.text = [self localizedSection:section];
         
-        NSNumber *numberOfPackages = [NSNumber numberWithInt:[databaseManager numberOfPackagesInSource:source section:NULL]];
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:numberOfPackages];
-        cell.imageView.image = nil;
-    } else {
-        NSString *section = sectionNames[indexPath.row - 1];
-        cell.textLabel.text = [self localizedSection:section];
-        
-        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
+    cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
+    if (indexPath.row != 0) {
         cell.imageView.image = [ZBSource imageForSection:section];
         [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     }
+    
     return cell;
 }
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -300,17 +281,28 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) return;
-    
-    NSString *section = sectionNames[indexPath.row - 1];
-    [filteredSections removeObject:section];
-    [ZBSettings setSection:section filtered:NO forSource:self.source];
+    if (!self.editing) {
+        ZBPackageListTableViewController *packageList = [[ZBPackageListTableViewController alloc] initWithSource:source section:sectionNames[indexPath.row]];
+        
+        [[self navigationController] pushViewController:packageList animated:YES];
+        
+    } else {
+        if (indexPath.row == 0) return;
+        
+        NSString *section = sectionNames[indexPath.row - 1];
+        [filteredSections removeObject:section];
+        [ZBSettings setSection:section filtered:NO forSource:self.source];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *section = sectionNames[indexPath.row - 1];
-    [filteredSections addObject:section];
-    [ZBSettings setSection:section filtered:YES forSource:self.source];
+    if (self.editing) {
+        if (indexPath.row == 0) return;
+        
+        NSString *section = sectionNames[indexPath.row - 1];
+        [filteredSections addObject:section];
+        [ZBSettings setSection:section filtered:YES forSource:self.source];
+    }
 }
 
 #pragma mark - Navigation
@@ -319,35 +311,12 @@
     return !self.editing;
 }
 
-// FIXME: Remove segues
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"segueFeaturedToPackageDepiction"]) {
-//        ZBPackageDepictionViewController *destination = (ZBPackageDepictionViewController *)[segue destinationViewController];
-//        NSString *packageID = sender;
-//        destination.package = [databaseManager topVersionForPackageID:packageID];
-//        destination.view.backgroundColor = [UIColor groupedTableViewBackgroundColor];
-    } else {
-        ZBPackageListTableViewController *destination = [segue destinationViewController];
-        UITableViewCell *cell = (UITableViewCell *)sender;
-        destination.source = source;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-
-        if (indexPath.row != 0) {
-            NSString *section = sectionNames[indexPath.row - 1];
-            destination.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            destination.title = section;
-        } else {
-            destination.title = NSLocalizedString(@"All Packages", @"");
-        }
-    }
-}
-
 // 3D Touch Actions
 
 - (NSArray *)previewActionItems {
     UIPreviewAction *refresh = [UIPreviewAction actionWithTitle:NSLocalizedString(@"Refresh", @"") style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
         //TODO: Update for new refresh
-        [self->databaseManager updateSource:self->source useCaching:YES];
+//        [self->databaseManager updateSource:self->source useCaching:YES];
     }];
     
     if ([source canDelete]) {
@@ -387,35 +356,35 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    self.editing = NO;
-    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
-    
-    if (package) {
-        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
-        [[self navigationController] pushViewController:packageDepiction animated:YES];
-    }
+//    self.editing = NO;
+//    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+//    
+//    if (package) {
+//        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
+//        [[self navigationController] pushViewController:packageDepiction animated:YES];
+//    }
 }
 
-- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
-    typeof(self) __weak weakSelf = self;
-    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
-        return weakSelf.previewPackageListVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-        weakSelf.previewPackageListVC.source = self->source;
-        if (indexPath.row > 0) {
-            NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
-            weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-            weakSelf.title = section;
-        }
-        else {
-            weakSelf.title = NSLocalizedString(@"All Packages", @"");
-        }
-//        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
-        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
-    }];
-}
+//- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
+//    typeof(self) __weak weakSelf = self;
+//    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
+//        return weakSelf.previewPackageListVC;
+//    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
+//        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+//        weakSelf.previewPackageListVC.source = self->source;
+//        if (indexPath.row > 0) {
+//            NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
+//            weakSelf.previewPackageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+//            weakSelf.title = section;
+//        }
+//        else {
+//            weakSelf.title = NSLocalizedString(@"All Packages", @"");
+//        }
+////        [weakSelf setDestinationVC:indexPath destination:weakSelf.previewPackageListVC];
+//        return [UIMenu menuWithTitle:@"" children:[weakSelf.previewPackageListVC contextMenuActionItemsForIndexPath:indexPath]];
+//    }];
+//}
 
 - (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
     typeof(self) __weak weakSelf = self;
@@ -424,23 +393,23 @@
     }];
 }
 
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    previewingContext.sourceRect = cell.frame;
-    ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
-    packageListVC.source = self->source;
-    if (indexPath.row > 0) {
-        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
-        packageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-        packageListVC.title = section;
-    }
-    else {
-        packageListVC.title = NSLocalizedString(@"All Packages", @"");
-    }
-//    [self setDestinationVC:indexPath destination:packageDepictionVC];
-    return packageListVC;
-}
+//- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+//    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+//    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    previewingContext.sourceRect = cell.frame;
+//    ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+//    packageListVC.source = self->source;
+//    if (indexPath.row > 0) {
+//        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];
+//        packageListVC.section = [section stringByReplacingOccurrencesOfString:@" " withString:@"_"];
+//        packageListVC.title = section;
+//    }
+//    else {
+//        packageListVC.title = NSLocalizedString(@"All Packages", @"");
+//    }
+////    [self setDestinationVC:indexPath destination:packageDepictionVC];
+//    return packageListVC;
+//}
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self.navigationController pushViewController:viewControllerToCommit animated:YES];

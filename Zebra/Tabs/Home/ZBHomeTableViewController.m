@@ -12,7 +12,7 @@
 
 #import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import "Community Sources/ZBCommunitySourcesTableViewController.h"
 #import "Changelog/ZBChangelogTableViewController.h"
 #import <Theme/ZBThemeManager.h>
@@ -132,38 +132,38 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)cacheJSON {
-    NSMutableArray <ZBSource *>*featuredSources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
-    NSMutableDictionary *featuredItems = [NSMutableDictionary new];
-    dispatch_group_t group = dispatch_group_create();
-    for (ZBSource *source in featuredSources) {
-        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
-            dispatch_group_enter(group);
-            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
-            NSURL *checkingURL = requestURL;
-            NSURLSession *session = [NSURLSession sharedSession];
-            [[session dataTaskWithURL:checkingURL
-                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        if (data != nil && (long)[httpResponse statusCode] != 404) {
-                            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                            if (!source.supportsFeaturedPackages) {
-                                source.supportsFeaturedPackages = YES;
-                            }
-                            if ([json objectForKey:@"banners"]) {
-                                NSArray *banners = [json objectForKey:@"banners"];
-                                if (banners.count) {
-                                    [featuredItems setObject:banners forKey:[source baseFilename]];
-                                }
-                            }
-                        }
-                        dispatch_group_leave(group);
-                    }] resume];
-        }
-    }
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-        if ([featuredItems count]) [self setupHeaderFromCache];
-    });
+//    NSMutableArray <ZBSource *>*featuredSources = [[[ZBDatabaseManager sharedInstance] sources] mutableCopy];
+//    NSMutableDictionary *featuredItems = [NSMutableDictionary new];
+//    dispatch_group_t group = dispatch_group_create();
+//    for (ZBSource *source in featuredSources) {
+//        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
+//            dispatch_group_enter(group);
+//            NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
+//            NSURL *checkingURL = requestURL;
+//            NSURLSession *session = [NSURLSession sharedSession];
+//            [[session dataTaskWithURL:checkingURL
+//                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+//                        if (data != nil && (long)[httpResponse statusCode] != 404) {
+//                            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//                            if (!source.supportsFeaturedPackages) {
+//                                source.supportsFeaturedPackages = YES;
+//                            }
+//                            if ([json objectForKey:@"banners"]) {
+//                                NSArray *banners = [json objectForKey:@"banners"];
+//                                if (banners.count) {
+//                                    [featuredItems setObject:banners forKey:[source uuid]];
+//                                }
+//                            }
+//                        }
+//                        dispatch_group_leave(group);
+//                    }] resume];
+//        }
+//    }
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+//        if ([featuredItems count]) [self setupHeaderFromCache];
+//    });
 }
 
 - (void)setupHeaderFromCache {
@@ -184,36 +184,36 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)packagesFromDB {
-    NSArray *blockedSources = [ZBSettings sourceBlacklist];
-    NSMutableArray *blacklist = [NSMutableArray new];
-    for (NSString *baseFilename in blockedSources) {
-        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
-        if (source) {
-            [blacklist addObject:source];
-        }
-    }
-    
-    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
-    dispatch_group_t group = dispatch_group_create();
-    for (ZBPackage *package in packages) {
-        dispatch_group_enter(group);
-        NSMutableDictionary *dict = [NSMutableDictionary new];
-        if (package.iconPath) {
-            if (![[NSURL URLWithString:package.iconPath] isFileURL] && ![[ZBDatabaseManager sharedInstance] packageIsInstalled:package versionStrict:NO]) {
-                [dict setObject:package.iconPath forKey:@"url"];
-                [dict setObject:package.identifier forKey:@"package"];
-                [dict setObject:package.name forKey:@"title"];
-                [dict setObject:package.section forKey:@"section"];
-                
-                [self->allFeatured addObject:dict];
-            }
-        }
-        dispatch_group_leave(group);
-    }
-    
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self createHeader];
-    });
+//    NSArray *blockedSources = [ZBSettings sourceBlacklist];
+//    NSMutableArray *blacklist = [NSMutableArray new];
+//    for (NSString *baseFilename in blockedSources) {
+//        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
+//        if (source) {
+//            [blacklist addObject:source];
+//        }
+//    }
+//    
+//    NSArray *packages = [[ZBDatabaseManager sharedInstance] packagesWithReachableIcon:20 excludeFrom:blacklist];
+//    dispatch_group_t group = dispatch_group_create();
+//    for (ZBPackage *package in packages) {
+//        dispatch_group_enter(group);
+//        NSMutableDictionary *dict = [NSMutableDictionary new];
+//        if (package.iconURL) {
+//            if (![package.iconURL isFileURL]) {
+//                [dict setObject:package.iconURL forKey:@"url"];
+//                [dict setObject:package.identifier forKey:@"package"];
+//                [dict setObject:package.name forKey:@"title"];
+//                [dict setObject:package.section forKey:@"section"];
+//                
+//                [self->allFeatured addObject:dict];
+//            }
+//        }
+//        dispatch_group_leave(group);
+//    }
+//    
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        [self createHeader];
+//    });
 }
 
 - (void)createHeader {
@@ -630,13 +630,13 @@ typedef enum ZBLinksOrder : NSUInteger {
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
-    
-    if (package) {
-        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
-        [[self navigationController] pushViewController:packageDepiction animated:YES];
-    }
+//    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+//    ZBPackage *package;// = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
+//    
+//    if (package) {
+//        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
+//        [[self navigationController] pushViewController:packageDepiction animated:YES];
+//    }
 }
 
 #pragma mark - Navigation

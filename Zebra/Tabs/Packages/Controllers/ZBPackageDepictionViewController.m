@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackageDepictionViewController.h"
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import <ZBDevice.h>
 #import <Tabs/Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"

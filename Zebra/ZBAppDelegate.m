@@ -6,7 +6,10 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
+#define IMAGE_CACHE_MAX_TIME 60 * 60 * 24 // 1 Day
+
 #import "ZBAppDelegate.h"
+
 #import "ZBTabBarController.h"
 #import <ZBLog.h>
 #import <Tabs/ZBTab.h>
@@ -16,14 +19,16 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Sources/Controllers/ZBSourceListViewController.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
-#import <Database/ZBRefreshViewController.h>
+#import <UI/Migration/ZBMigrationViewController.h>
 #import <Tabs/Search/ZBSearchTableViewController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
+
+#import <Managers/ZBDatabaseManager.h>
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
@@ -39,8 +44,6 @@
 @property () UIBackgroundTaskIdentifier backgroundTask;
 
 @end
-
-static const NSInteger kZebraMaxTime = 60 * 60 * 24; // 1 day
 
 @implementation ZBAppDelegate
 
@@ -184,166 +187,151 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSString *documentsDirectory = [ZBAppDelegate documentsDirectory];
-    NSLog(@"[Zebra] Documents Directory: %@", documentsDirectory);
+    ZBLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [self setupSDWebImageCache];
-    [ZBNotificationManager.sharedInstance ensureNotificationAccess];
-    UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
-    
-    if ([ZBSettings allowsCrashReporting]) {
-        NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
-        [FIRApp configure];
-        
-        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
-        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
-        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
-    }
-    else {
-        NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
-    }
-    
-    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-    
+    [self setupCrashReporting];
     [self registerForScreenshotNotifications];
+    [self setupSDWebImageCache];
+    [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
     
-    self.window.tintColor = [UIColor accentColor];
-    
-    if ([ZBDatabaseManager needsMigration]) {
-        self.window.rootViewController = [[ZBRefreshViewController alloc] init];
-    }
-    else {
+    if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
+        ZBLog(@"[Zebra] Needs migration, loading migration controller.");
+        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
+    } else {
+        ZBLog(@"[Zebra] Does not need migration, loading tab controller.");
         self.window.rootViewController = [[ZBTabBarController alloc] init];
     }
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
+    
+    [self.window makeKeyAndVisible];
+//    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    NSArray *choices = @[@"file", @"zbra"];
-    int index = (int)[choices indexOfObject:[url scheme]];
-    
-    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
-        return NO;
-    }
-    
-    switch (index) {
-        case 0: { // file
-            if ([[url pathExtension] isEqualToString:@"deb"]) {
-                
-                NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
-                
-                NSError *moveError;
-                [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:newLocation error:&moveError];
-                if (moveError) {
-                    NSLog(@"[Zebra] Couldn't move deb %@", moveError.localizedDescription);
-                }
-                else {
-                    ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
-                    ZBPackageViewController *depiction = [[ZBPackageViewController alloc] initWithPackage:package];
-                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depiction];
-                    
-                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
-                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
-                }
-            } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
-                ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-                [tabController setSelectedIndex:ZBTabSources];
-                    
-                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                
-                [sourceListController handleURL:url];
-            }
-            break;
-        }
-        case 1: { // zbra
-            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-            
-            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-            choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
-            index = (int)[choices indexOfObject:components[0]];
-            
-            switch (index) {
-                case 0: {
-                    [tabController setSelectedIndex:ZBTabHome];
-                    break;
-                }
-                case 1: {
-                    [tabController setSelectedIndex:ZBTabSources];
-                    
-                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    
-                    [sourceListController handleURL:url];
-                    break;
-                }
-                case 2: {
-                    [tabController setSelectedIndex:ZBTabChanges];
-                    break;
-                }
-                case 3: {
-                    NSString *path = [url path];
-                    if (path.length > 1) {
-                        NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
-                        if (sourceURL != NULL) {
-                            if ([ZBSource exists:sourceURL]) {
-                                NSString *packageID = [path substringFromIndex:1];
-                                ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
-                                ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
-                                
-                                if (package) {
-                                    ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:package];
-                                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                                    [tabController presentViewController:navController animated:YES completion:nil];
-                                }
-                                else {
-                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
-                                }
-                            }
-                            else {
-                                NSString *packageID = [path substringFromIndex:1];
-                                [tabController setForwardToPackageID:packageID];
-                                [tabController setForwardedSourceBaseURL:sourceURL];
-                                
-                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
-                                [self application:application openURL:newURL options:options];
-                            }
-                        }
-                        else {
-                            NSString *packageID = [path substringFromIndex:1];
-                            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-                            if (package) {
-                                ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:package];
-                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
-                                [tabController presentViewController:navController animated:YES completion:nil];
-                            }
-                            else {
-                                [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@", @""), packageID]];
-                            }
-                        }
-                    }
-                    else {
-                        [tabController setSelectedIndex:ZBTabPackages];
-                    }
-                    break;
-                }
-                case 4: {
-                    [tabController setSelectedIndex:ZBTabSearch];
-                    
-                    ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-                    [searchController handleURL:url];
-                    break;
-                }
-            }
-            break;
-        }
-        default: {
-            return NO;
-        }
-    }
-    
+//    NSArray *choices = @[@"file", @"zbra"];
+//    int index = (int)[choices indexOfObject:[url scheme]];
+//
+//    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+//        return NO;
+//    }
+//
+//    switch (index) {
+//        case 0: { // file
+//            if ([[url pathExtension] isEqualToString:@"deb"]) {
+//
+//                NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
+//
+//                NSError *moveError;
+//                [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:newLocation error:&moveError];
+//                if (moveError) {
+//                    NSLog(@"[Zebra] Couldn't move deb %@", moveError.localizedDescription);
+//                }
+//                else {
+//                    ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
+//                    ZBPackageViewController *depiction = [[ZBPackageViewController alloc] initWithPackage:package];
+//                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depiction];
+//
+//                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+//                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
+//                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
+//                }
+//            } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
+//                ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+//                [tabController setSelectedIndex:ZBTabSources];
+//
+//                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//
+//                [sourceListController handleURL:url];
+//            }
+//            break;
+//        }
+//        case 1: { // zbra
+//            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+//
+//            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+//            choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
+//            index = (int)[choices indexOfObject:components[0]];
+//
+//            switch (index) {
+//                case 0: {
+//                    [tabController setSelectedIndex:ZBTabHome];
+//                    break;
+//                }
+//                case 1: {
+//                    [tabController setSelectedIndex:ZBTabSources];
+//
+//                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//
+//                    [sourceListController handleURL:url];
+//                    break;
+//                }
+//                case 2: {
+//                    [tabController setSelectedIndex:ZBTabChanges];
+//                    break;
+//                }
+//                case 3: {
+//                    NSString *path = [url path];
+//                    if (path.length > 1) {
+//                        NSString *sourceURL = [[url query] componentsSeparatedByString:@"source="][1];
+//                        if (sourceURL != NULL) {
+//                            if ([ZBSource exists:sourceURL]) {
+//                                NSString *packageID = [path substringFromIndex:1];
+//                                ZBSource *source = [ZBSource sourceFromBaseURL:sourceURL];
+//                                ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID inSource:source];
+//
+//                                if (package) {
+//                                    ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:package];
+//                                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+//                                    [tabController presentViewController:navController animated:YES completion:nil];
+//                                }
+//                                else {
+//                                    [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@ from %@", @""), packageID, [source origin]]];
+//                                }
+//                            }
+//                            else {
+//                                NSString *packageID = [path substringFromIndex:1];
+//                                [tabController setForwardToPackageID:packageID];
+//                                [tabController setForwardedSourceBaseURL:sourceURL];
+//
+//                                NSURL *newURL = [NSURL URLWithString:[NSString stringWithFormat:@"zbra://sources/add/%@", sourceURL]];
+//                                [self application:application openURL:newURL options:options];
+//                            }
+//                        }
+//                        else {
+//                            NSString *packageID = [path substringFromIndex:1];
+//                            ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+//                            if (package) {
+//                                ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:package];
+//                                UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:packageController];
+//                                [tabController presentViewController:navController animated:YES completion:nil];
+//                            }
+//                            else {
+//                                [ZBAppDelegate sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Could not locate %@", @""), packageID]];
+//                            }
+//                        }
+//                    }
+//                    else {
+//                        [tabController setSelectedIndex:ZBTabPackages];
+//                    }
+//                    break;
+//                }
+//                case 4: {
+//                    [tabController setSelectedIndex:ZBTabSearch];
+//
+//                    ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//                    [searchController handleURL:url];
+//                    break;
+//                }
+//            }
+//            break;
+//        }
+//        default: {
+//            return NO;
+//        }
+//    }
+
     return YES;
 }
 
@@ -417,8 +405,21 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)setupCrashReporting {
+    if ([ZBSettings allowsCrashReporting]) {
+        ZBLog(@"[Zebra] Crash Reporting and Analytics Enabled");
+        [FIRApp configure];
+        
+        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
+        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
+        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
+    } else {
+        ZBLog(@"[Zebra] Crash Reporting and Analytics Disabled");
+    }
+}
+
 - (void)setupSDWebImageCache {
-    [SDImageCache sharedImageCache].config.maxDiskAge = kZebraMaxTime;
+    [SDImageCache sharedImageCache].config.maxDiskAge = IMAGE_CACHE_MAX_TIME; // Sets SDWebImage to cache for 1 day.
 }
 
 - (void)registerForScreenshotNotifications {
@@ -432,6 +433,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
         }
     } withIdentifierCallback:^(int a) {}];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
 }
 
 - (void)checkForScreenRecording:(NSNotification *)notif {

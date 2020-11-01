@@ -12,8 +12,8 @@
 @import UIKit.UIScreen;
 @import UIKit.UIWindow;
 
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBSource.h>
+#import <Model/ZBPackage.h>
 
 @implementation ZBSettings
 
@@ -40,6 +40,8 @@ NSString *const SourceTimeoutKey = @"SourceTimeout";
 NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
 NSString *const AlwaysInstallLatestKey = @"AlwaysInstallLatest";
+NSString *const RoleKey = @"Role";
+NSString *const IgnoredUpdatesKey = @"IgnoredUpdates";
 
 NSString *const WantsLiveSearchKey = @"LiveSearch";
 
@@ -335,7 +337,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     if ([filteredSections containsObject:section]) return YES;
     
     NSDictionary *filteredSources = [self filteredSources];
-    NSArray *filteredSourceSections = [filteredSources objectForKey:[source baseFilename]];
+    NSArray *filteredSourceSections = [filteredSources objectForKey:[source uuid]];
     if (!filteredSourceSections) return NO;
     
     return [filteredSourceSections containsObject:section];
@@ -345,7 +347,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     if (section == NULL) section = @"Uncategorized";
     
     NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
-    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source baseFilename]] mutableCopy];
+    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source uuid]] mutableCopy];
     if (!filteredSections) filteredSections = [NSMutableArray new];
     
     if (filtered && ![filteredSections containsObject:section]) {
@@ -355,7 +357,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
         [filteredSections removeObject:section];
     }
     
-    [filteredSources setObject:filteredSections forKey:[source baseFilename]];
+    [filteredSources setObject:filteredSections forKey:[source uuid]];
     [self setFilteredSources:filteredSources];
 }
 
@@ -505,6 +507,43 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:alwaysInstallLatest forKey:AlwaysInstallLatestKey];
+}
+
++ (int16_t)role {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    if (![defaults objectForKey:RoleKey]) {
+        [self setRole:2];
+        return 2;
+    }
+    return [defaults integerForKey:RoleKey];
+}
+
++ (void)setRole:(int16_t)role {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setInteger:role forKey:RoleKey];
+}
+
++ (NSArray *)ignoredUpdates {
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:IgnoredUpdatesKey];
+}
+
++ (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier {
+    return [[self ignoredUpdates] containsObject:identifier];
+}
+
++ (void)setUpdatesIgnored:(BOOL)updatesIgnored forPackageIdentifier:(NSString *)identifier {
+    NSMutableArray *ignoredUpdates = [[self ignoredUpdates] mutableCopy];
+    BOOL areUpdatesIgnored = [ignoredUpdates containsObject:identifier];
+    
+    if (!updatesIgnored && areUpdatesIgnored) {
+        [ignoredUpdates removeObject:identifier];
+    } else if (updatesIgnored && !areUpdatesIgnored) {
+        [ignoredUpdates addObject:identifier];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:ignoredUpdates forKey:IgnoredUpdatesKey];
 }
 
 #pragma mark - Search Settings

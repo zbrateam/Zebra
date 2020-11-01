@@ -11,14 +11,14 @@
 
 #import "ZBSourceVerificationDelegate.h"
 #import "ZBSourceDelegate.h"
-#import <Database/ZBDatabaseDelegate.h>
+//#import <Database/ZBDatabaseDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
 
 @import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceManager : NSObject <ZBDatabaseDelegate, ZBDownloadDelegate>
+@interface ZBSourceManager : NSObject <ZBDownloadDelegate>
 
 /*! @brief An array of source objects, from the database and sources.list (if the source is not loaded), that Zebra keeps track of */
 @property (readonly) NSArray <ZBSource *> *sources;
@@ -33,10 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Obtain a ZBSource instance from the database that matches a certain sourceID
- @param sourceID the sourceID you want to search for
+ @param UUID the sourceID you want to search for
  @return A ZBSource instance with a corresponding sourceID
  */
-- (ZBSource *)sourceMatchingSourceID:(int)sourceID;
+- (ZBSource *)sourceWithUUID:(NSString *)UUID;
 
 /*!
  @brief Adds sources to Zebra's sources.list
@@ -73,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
  @param useCaching Whether or not to use already downloaded package file if a 304 is returned from the server. If set to NO, all of the package files will be downloaded again,
  @param error an error pointer that will be set if an error occurs while refreshing a source
 */
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
+- (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
 
 - (void)cancelSourceRefresh;
 
@@ -85,6 +85,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 
 - (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error;
+
+- (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END

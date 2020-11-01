@@ -13,11 +13,11 @@
 #import "ZBAuthorSelectorTableViewController.h"
 #import "ZBButtonSettingsTableViewCell.h"
 
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Managers/ZBDatabaseManager.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 #import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 
@@ -63,7 +63,7 @@
     sources = [NSMutableArray new];
     NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
-        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
         if (!source) {
             // This source has been removed after filtering sections in it, we need to remove this baseFilename
             [outdatedFilteredSources addObject:baseFilename];
@@ -79,7 +79,7 @@
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
-    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
+//    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
     
     [self.tableView reloadData];
 }
@@ -130,7 +130,7 @@
                 sourceCell.sourceLabel.text = [source label];
                 sourceCell.sourceLabel.textColor = [UIColor primaryTextColor];
                 
-                unsigned long numberOfSections = (unsigned long)[filteredSources[[source baseFilename]] count];
+                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
                 sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
                 sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
                 
@@ -266,7 +266,7 @@
             else {
                 NSMutableArray <ZBSource *> *selectedSources = [NSMutableArray array];
                 for (NSString *baseFilename in [ZBSettings filteredSources]) {
-                    ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+                    ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
                     if (source) {
                         [selectedSources addObject:source];
                     }
@@ -276,7 +276,7 @@
                     NSMutableDictionary *sources = [self->filteredSources mutableCopy];
                     
                     for (ZBSource *source in selectedSources) {
-                        [sources setObject:@[] forKey:[source baseFilename]];
+                        [sources setObject:@[] forKey:[source uuid]];
                     }
                     
                     [ZBSettings setFilteredSources:sources];
@@ -339,7 +339,7 @@
                 }
                 case 1: {
                     ZBSource *source = self->sources[indexPath.row];
-                    [self->filteredSources removeObjectForKey:[source baseFilename]];
+                    [self->filteredSources removeObjectForKey:[source uuid]];
                     [self->sources removeObjectAtIndex:indexPath.row];
 
                     [ZBSettings setFilteredSources:self->filteredSources];
@@ -389,9 +389,9 @@
 - (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
     ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
     NSString *email = [blockedAuthors allKeys][indexPath.row];
-    NSArray *aliases = [database searchForAuthorFromEmail:email fullSearch:YES];
+//    NSArray *aliases = [database searchForAuthorByEmail:email];
 
-    return aliases;
+    return NULL;
 }
 
 @end

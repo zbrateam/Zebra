@@ -7,9 +7,8 @@
 //
 
 #import "ZBSourceAddViewController.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 @import SDWebImage;
@@ -68,7 +67,7 @@
     if (!sources) sources = [NSMutableArray new];
     if (!filteredSources) filteredSources = [NSMutableArray new];
     if (!selectedSources) selectedSources = [NSMutableArray new];
-    if (!addedSources) addedSources = [[[ZBSourceManager sharedInstance] sources] allObjects];
+    if (!addedSources) addedSources = [[ZBSourceManager sharedInstance] sources];
     
     NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos/small"];
     NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {

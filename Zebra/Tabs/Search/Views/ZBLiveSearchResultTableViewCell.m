@@ -23,12 +23,12 @@
     self.isInstalledImageView.tintColor = [UIColor accentColor];
 }
 
-- (void)updateData:(ZBProxyPackage *)package {
-    self.packageNameLabel.text = package.name;
-    self.isInstalledImageView.hidden = !package.isInstalled;
-    self.isPaidImageView.hidden = !package.isPaid;
-    
-    [package setIconImageForImageView:self.packageIconImageView];
+- (void)updateData:(ZBBasePackage *)package {
+//    self.packageNameLabel.text = package.name;
+//    self.isInstalledImageView.hidden = !package.isInstalled;
+//    self.isPaidImageView.hidden = !package.isPaid;
+//    
+//    [package setIconImageForImageView:self.packageIconImageView];
 }
 
 - (void)setColors {

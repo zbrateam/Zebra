@@ -13,11 +13,10 @@
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 #import <ZBDevice.h>
-#import <Database/ZBDatabaseManager.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+//#import <Tabs/Packages/Helpers/ZBPackage.h>
 
 @interface ZBWishListTableViewController () {
     UIImageView *shadowView;
@@ -98,7 +97,7 @@
     
     NSMutableArray *descriptions = [NSMutableArray new];
     for (ZBPackage *package in packages) {
-        [descriptions addObject:[package description]];
+//        [descriptions addObject:[package description]];
     }
     
     NSString *fullList = [descriptions componentsJoinedByString:@"\n"];
@@ -133,13 +132,13 @@
     
     NSArray *nullCheck = [wishedPackageIdentifiers copy];
     for (NSString *packageID in nullCheck) {
-        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
-        if (package == nil) {
-            [wishedPackageIdentifiers removeObject:package];
-        }
-        else if (![wishedPackages containsObject:package]) {
-            [wishedPackages addObject:package];
-        }
+//        ZBPackage *package = (ZBPackage *)[[ZBDatabaseManager sharedInstance] topVersionForPackageID:packageID];
+//        if (package == nil) {
+//            [wishedPackageIdentifiers removeObject:package];
+//        }
+//        else if (![wishedPackages containsObject:package]) {
+//            [wishedPackages addObject:package];
+//        }
     }
     
     if (index == 0) {
@@ -221,7 +220,7 @@
         ZBPackage *package = self->wishedPackages[indexPath.row];
 
         [self->wishedPackages removeObject:package];
-        [self->wishedPackageIdentifiers removeObject:[package identifier]];
+//        [self->wishedPackageIdentifiers removeObject:[package identifier]];
 
         [ZBSettings setWishlist:self->wishedPackageIdentifiers];
 

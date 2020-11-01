@@ -15,7 +15,7 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <Database/ZBRefreshViewController.h>
+//#import <UI/Controllers/ZBMigrationViewController.h>
 
 @import WebKit;
 
@@ -125,10 +125,10 @@
 }
 
 - (void)resetSourcesCache:(NSIndexPath *)indexPath {
-    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
-        ZBRefreshViewController *refreshController = [[ZBRefreshViewController alloc] init];
-        [self presentViewController:refreshController animated:YES completion:nil];
-    } indexPath:indexPath];
+//    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
+//        ZBMigrationViewController *refreshController = [[ZBMigrationViewController alloc] init];
+//        [self presentViewController:refreshController animated:YES completion:nil];
+//    } indexPath:indexPath];
 }
 
 - (void)resetWebCache:(NSIndexPath *)indexPath {

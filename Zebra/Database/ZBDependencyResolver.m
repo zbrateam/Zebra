@@ -9,11 +9,12 @@
 #import "ZBDependencyResolver.h"
 
 #import <ZBLog.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 
-#import <Database/ZBDatabaseManager.h>
-#import <Parsel/vercmp.h>
+#import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import <Queue/ZBQueue.h>
+#import <Helpers/vercmp.h>
 
 @interface ZBDependencyResolver () {
     NSArray *installedPackagesList; //Packages that are installed on the device
@@ -118,7 +119,7 @@
 - (BOOL)calculateDependenciesForPackage:(ZBPackage *)package {
     //On the first pass, remove any dependencies that are already satisfied
     NSMutableArray *unresolvedDependencies = [NSMutableArray new];
-    for (NSString *dependency in [package dependsOn]) {
+    for (NSString *dependency in [package depends]) {
         NSString *unresolvedDependency = [dependency stringByReplacingOccurrencesOfString:@" " withString:@""];
         if (![self isDependencyResolved:unresolvedDependency forPackage:package]) {
             ZBLog(@"Adding unresolved dependency for %@: %@", package, unresolvedDependency);
@@ -133,7 +134,7 @@
     //First lets check to see if any installed packages conflict with this package
     NSArray *packagesThatConflictWith = [databaseManager packagesThatConflictWith:package];
     for (ZBPackage *conflict in packagesThatConflictWith) {
-        if (![[package conflictsWith] containsObject:[conflict identifier]]) {
+        if (![[package conflicts] containsObject:[conflict identifier]]) {
             //We cannot install this package as there are some already installed packages that conflict here
             [package addIssue:[NSString stringWithFormat:NSLocalizedString(@"\"%@\" conflicts with %@", @""), [conflict name], [package name]]];
         }
@@ -143,7 +144,7 @@
         return NO;
     }
     
-    for (NSString *conflictLine in [package conflictsWith]) {
+    for (NSString *conflictLine in [package conflicts]) {
         NSArray *conflict = [ZBDependencyResolver separateVersionComparison:conflictLine];
         if ([[package replaces] containsObject:conflict[0]] || [[package provides] containsObject:conflict[0]]) continue;
         BOOL needsVersionComparison = ![conflict[1] isEqualToString:@"<=>"] && ![conflict[2] isEqualToString:@"0:0"];
@@ -170,7 +171,7 @@
     }
     
     //Next, check if this package conflicts with any installed packages
-    [self resolveConflicts:[package conflictsWith] forPackage:package];
+    [self resolveConflicts:[package conflicts] forPackage:package];
     return YES;
 }
 
@@ -292,7 +293,7 @@
 }
 
 - (void)populateLists { //Populates a list of packages that are installed and a list of virtual packages of which the installed packages provide.
-    NSDictionary *packageList = [databaseManager installedPackagesList];
+    NSDictionary *packageList = [[ZBPackageManager sharedInstance] installedPackagesList];
     
     installedPackagesList = [[packageList objectForKey:@"installed"] arrayByAddingObjectsFromArray:[queue installedPackagesListExcluding:self->package]];
     virtualPackagesList = [[packageList objectForKey:@"virtual"] arrayByAddingObjectsFromArray:[queue virtualPackagesListExcluding:self->package]];

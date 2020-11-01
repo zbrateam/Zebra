@@ -12,15 +12,17 @@
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <Model/ZBSource.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Packages/Controllers/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListTableViewController.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import <Tabs/ZBTabBarController.h>
+
+#import <Managers/ZBPackageManager.h>
 
 @implementation ZBPackageActions
 
@@ -172,16 +174,19 @@
 }
 
 + (void)remove:(ZBPackage *)package completion:(void (^)(void))completion {
-    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
-    if (completion) completion();
+    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+    if (candidate) {
+        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
+        if (completion) completion();
+    }
 }
 
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *candidate = [[ZBDatabaseManager sharedInstance] packageForID:package.identifier equalVersion:package.installedVersion];
+    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
     if (candidate) {
         [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
+        if (completion) completion();
     }
-    if (completion) completion();
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
@@ -248,7 +253,7 @@
 }
 
 + (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSMutableArray *lesserVersions = [package lesserVersions];
+    NSArray *lesserVersions = [package lesserVersions];
     if ([lesserVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
@@ -258,7 +263,7 @@
         }
         
         for (ZBPackage *otherPackage in lesserVersions) {
-            if ([[otherPackage source] sourceID] < 1) continue;
+            if (!otherPackage.source.remote) continue;
             
             NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -338,7 +343,7 @@
         if ([package mightRequirePayment]) {
             [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
                 if (info) { // Package does have purchase info
-                    BOOL installed = [package isInstalled:NO];
+                    BOOL installed = package.isInstalled;
                     if (!info.purchased && !installed) { // If the user has not purchased the package
                         NSString *title = info.price;
                         if ([title isKindOfClass:[NSNumber class]]) {

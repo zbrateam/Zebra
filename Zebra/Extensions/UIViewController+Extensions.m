@@ -11,11 +11,13 @@
 @implementation UIViewController (Extensions)
 
 - (BOOL)isModal {
-    if([self presentingViewController])
+    if ([self presentingViewController])
         return YES;
-    if([[[self navigationController] presentingViewController] presentedViewController] == [self navigationController])
+    if ([[self presentingViewController] presentedViewController] == self)
         return YES;
-    if([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
+    if ([[[self navigationController] presentingViewController] presentedViewController] == [self navigationController])
+        return YES;
+    if ([[[self tabBarController] presentingViewController] isKindOfClass:[UITabBarController class]])
         return YES;
 
    return NO;

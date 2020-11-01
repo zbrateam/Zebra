@@ -9,10 +9,9 @@
 #import "ZBConsoleViewController.h"
 #import "ZBStage.h"
 
-#import <Database/ZBDatabaseManager.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <Tabs/ZBTabBarController.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -425,10 +424,10 @@
 }
 
 - (void)refreshLocalPackages {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    [databaseManager addDatabaseDelegate:self];
-    [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
-    [databaseManager removeDatabaseDelegate:self];
+//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+//    [databaseManager addDatabaseDelegate:self];
+//    [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
+//    [databaseManager removeDatabaseDelegate:self];
 }
 
 - (void)removeAllDebs {

@@ -12,11 +12,10 @@
 #import "ZBAppDelegate.h"
 
 #import <Extensions/UINavigationBar+Extensions.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBRefreshViewController.h>
 
 @interface ZBSourceImportTableViewController () {
     double individualIncrement;
@@ -164,7 +163,7 @@
         [cell setSpinning:NO];
         switch (status) {
             case ZBSourceExists: {
-                BOOL selected = [selectedSources[[source baseFilename]] boolValue];
+                BOOL selected = [selectedSources[[source uuid]] boolValue];
                 cell.accessoryType = selected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
                 break;
             }
@@ -191,7 +190,7 @@
             }
         }
         
-        cell.sourceLabel.text = self.titles[[source baseFilename]];
+        cell.sourceLabel.text = self.titles[[source uuid]];
         cell.urlLabel.text = source.repositoryURI;
         
         [cell.iconImageView sd_setImageWithURL:[[source mainDirectoryURL] URLByAppendingPathComponent:@"CydiaIcon.png"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
@@ -217,7 +216,7 @@
     
     ZBBaseSource *source = baseSources[indexPath.row];
     if (source && source.verificationStatus == ZBSourceExists) {
-        BOOL selected = [selectedSources[[source baseFilename]] boolValue];
+        BOOL selected = [selectedSources[[source uuid]] boolValue];
         
         [self setSource:source selected:!selected];
         [self updateCellForSource:source];
@@ -264,7 +263,7 @@
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         for (ZBBaseSource *source in self->baseSources) {
-            self->titles[[source baseFilename]] = NSLocalizedString(@"Verifying...", @"");
+            self->titles[[source uuid]] = NSLocalizedString(@"Verifying...", @"");
         }
         
         [self->sourceManager verifySources:[NSSet setWithArray:self->baseSources] delegate:self];
@@ -276,7 +275,7 @@
 - (void)setSource:(ZBBaseSource *)source selected:(BOOL)selected {
     if (source.verificationStatus != ZBSourceExists) return;
     
-    self.selectedSources[[source baseFilename]] = @(selected);
+    self.selectedSources[[source uuid]] = @(selected);
 }
 
 - (void)importSelected {
@@ -290,7 +289,7 @@
     }
     
     for (ZBBaseSource *source in self->baseSources) {
-        if ([baseFilenames containsObject:[source baseFilename]]) {
+        if ([baseFilenames containsObject:[source uuid]]) {
             if (source) [sources addObject:source];
         }
     }
@@ -321,7 +320,7 @@
                 label = source.repositoryURI;
             }
             
-            self->titles[[source baseFilename]] = label;
+            self->titles[[source uuid]] = label;
             [self setSource:source selected:YES];
             [self updateCellForSource:source];
             
@@ -329,7 +328,7 @@
         }];
     }
     else if (status == ZBSourceImaginary) {
-        self->titles[[source baseFilename]] = NSLocalizedString(@"Unable to verify source", @"");
+        self->titles[[source uuid]] = NSLocalizedString(@"Unable to verify source", @"");
         [self updateCellForSource:source];
         
         [self increaseProgressBy:individualIncrement];

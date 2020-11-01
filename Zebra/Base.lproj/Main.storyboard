@@ -1,75 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hO2-4F-c4Y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Refresh View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController storyboardIdentifier="refreshController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="ZBRefreshViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="NXo-ha-Dcc"/>
-                        <viewControllerLayoutGuide type="bottom" id="mp2-PR-0iu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wXg-KW-VsH">
-                                <rect key="frame" x="20" y="88" width="374" height="730"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zte-bN-R1X">
-                                <rect key="frame" x="20" y="826" width="374" height="50"/>
-                                <color key="backgroundColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="DZs-QB-hds"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="complete:" destination="KgF-4e-H9k" eventType="touchUpInside" id="bgD-fr-hxL"/>
-                                    <action selector="completeOrCancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FEk-zx-MhR"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="wXg-KW-VsH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="AQT-Dc-KW3"/>
-                            <constraint firstItem="wXg-KW-VsH" firstAttribute="top" secondItem="NXo-ha-Dcc" secondAttribute="bottom" id="LHA-an-2Fb"/>
-                            <constraint firstItem="wXg-KW-VsH" firstAttribute="trailing" secondItem="zte-bN-R1X" secondAttribute="trailing" id="U5s-ki-NYm"/>
-                            <constraint firstItem="wXg-KW-VsH" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ViR-Le-v9h"/>
-                            <constraint firstItem="zte-bN-R1X" firstAttribute="top" secondItem="wXg-KW-VsH" secondAttribute="bottom" constant="8" symbolic="YES" id="Zz9-sG-4En"/>
-                            <constraint firstItem="wXg-KW-VsH" firstAttribute="leading" secondItem="zte-bN-R1X" secondAttribute="leading" id="apg-AJ-5Te"/>
-                            <constraint firstAttribute="bottom" secondItem="zte-bN-R1X" secondAttribute="bottom" constant="20" symbolic="YES" id="qza-Xt-kdn"/>
-                        </constraints>
-                    </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <connections>
-                        <outlet property="completeOrCancelButton" destination="zte-bN-R1X" id="o17-RO-Zwk"/>
-                        <outlet property="consoleView" destination="wXg-KW-VsH" id="lPI-pI-sXG"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="816.79999999999995" y="60.719640179910051"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="35g-Dk-Ggy">
             <objects>
@@ -92,24 +30,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ijz-tC-LRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1614" y="61"/>
-        </scene>
-        <!--Packages-->
-        <scene sceneID="BLO-45-5uX">
-            <objects>
-                <tableViewController storyboardIdentifier="ZBPackageListTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sCr-no-Q38" customClass="ZBPackageListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6QF-YS-9kJ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <connections>
-                            <outlet property="dataSource" destination="sCr-no-Q38" id="R2Q-8C-d68"/>
-                            <outlet property="delegate" destination="sCr-no-Q38" id="Paq-5B-OHV"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Packages" id="gE6-EQ-6Uj"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ifh-VS-hNy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3355" y="444"/>
         </scene>
         <!--Installed Files Table View Controller-->
         <scene sceneID="yuu-9C-7ih">
@@ -400,18 +320,15 @@
             </objects>
             <point key="canvasLocation" x="2398" y="1127"/>
         </scene>
-        <!--Packages-->
+        <!--Installed-->
         <scene sceneID="63q-Lg-3xR">
             <objects>
                 <navigationController id="gIv-lu-OI7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Packages" image="Packages" selectedImage="Packages" id="LuL-3D-0wp"/>
+                    <tabBarItem key="tabBarItem" title="Installed" image="Packages" selectedImage="Packages" id="LuL-3D-0wp"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="4AA-LS-GXz">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="sCr-no-Q38" kind="relationship" relationship="rootViewController" id="hk8-hZ-Cdu"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brW-S9-NfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1042,12 +959,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="sCr-no-Q38" kind="show" id="3rJ-40-3gH">
-                                        <segue key="commit" inheritsFrom="parent" id="TU3-4Y-Pen"/>
-                                        <segue key="preview" inheritsFrom="commit" id="KaG-dg-BtQ"/>
-                                    </segue>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1103,7 +1014,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="63g-98-fnw"/>
-        <segue reference="3rJ-40-3gH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Changes" width="25" height="25"/>

@@ -152,6 +152,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)alwaysInstallLatest;
 + (void)setAlwaysInstallLatest:(BOOL)alwaysInstallLatest;
 
++ (int16_t)role;
++ (void)setRole:(int16_t)role;
+
++ (NSArray *)ignoredUpdates;
++ (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier;
++ (void)setUpdatesIgnored:(BOOL)updatesIgnored forPackageIdentifier:(NSString *)identifier;
+
 #pragma mark - Search Settings
 
 + (BOOL)wantsLiveSearch;

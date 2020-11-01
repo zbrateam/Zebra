@@ -13,10 +13,10 @@
 #import <ZBLog.h>
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Sources/Helpers/ZBBaseSource.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 
 #import <bzlib.h>
 
@@ -61,7 +61,7 @@
 
 #pragma mark - Downloading Sources
 
-- (void)downloadSources:(NSSet <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
+- (void)downloadSources:(NSArray <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
     self->ignore = !useCaching;
     [downloadDelegate startedDownloads];
     
@@ -76,41 +76,15 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
-        if (source.sourceID == 0) {
-            [downloadDelegate startedDownloadingSource:source];
+        NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
             
-            source.releaseTaskCompleted = YES;
-            source.packagesTaskCompleted = YES;
+        source.releaseTaskIdentifier = releaseTask.taskIdentifier;
+        [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
+        [releaseTask resume];
             
-            NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
+        [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
             
-            if (useCaching) {
-                NSError *fileError = nil;
-                NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
-                NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
-                NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
-                if (!lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // The date we last looked at the status file is less than the last modified date
-                    source.packagesFilePath = statusPath;
-                }
-            } else {
-                source.packagesFilePath = statusPath;
-            }
-            
-            [downloadDelegate finishedDownloadingSource:source withError:NULL];
-            if (!sourceTasksMap.count && sources.count == 1) {
-                [downloadDelegate finishedAllDownloads];
-            }
-        } else {
-            NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
-            
-            source.releaseTaskIdentifier = releaseTask.taskIdentifier;
-            [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
-            [releaseTask resume];
-            
-            [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
-            
-            [downloadDelegate startedDownloadingSource:source];
-        }
+        [downloadDelegate startedDownloadingSource:source];
     }
 }
 
@@ -208,52 +182,52 @@
 }
 
 - (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion {
-    ZBSource *source = [package source];
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-    
-    NSDictionary *question = @{
-                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
-                    @"udid": [ZBDevice UDID],
-                    @"device": [ZBDevice deviceModelID],
-                    @"version": package.version,
-                    @"repo": [source repositoryURI]
-    };
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
-    
-    NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
-    [request setHTTPMethod:@"POST"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:requestData];
-    
-    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        if (data && !error) {
-            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-            if ([json valueForKey:@"url"]) {
-                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
-                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
-                    completion(downloadURL, NULL);
-                }
-                else {
-                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
-                    completion(NULL, badURL);
-                }
-            }
-            else {
-                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
-                completion(NULL, badURL);
-            }
-        }
-        else if (error) {
-            completion(NULL, error);
-        }
-    }];
-    
-    [task resume];
+//    ZBSource *source = [package source];
+//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+//    
+//    NSDictionary *question = @{
+//                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
+//                    @"udid": [ZBDevice UDID],
+//                    @"device": [ZBDevice deviceModelID],
+//                    @"version": package.version,
+//                    @"repo": [source repositoryURI]
+//    };
+//    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
+//    
+//    NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+//    [request setHTTPMethod:@"POST"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+//    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+//    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+//    [request setHTTPBody:requestData];
+//    
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+//        if (data && !error) {
+//            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+//            if ([json valueForKey:@"url"]) {
+//                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
+//                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
+//                    completion(downloadURL, NULL);
+//                }
+//                else {
+//                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
+//                    completion(NULL, badURL);
+//                }
+//            }
+//            else {
+//                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
+//                completion(NULL, badURL);
+//            }
+//        }
+//        else if (error) {
+//            completion(NULL, error);
+//        }
+//    }];
+//    
+//    [task resume];
 }
 
 #pragma mark - Handling Downloaded Files

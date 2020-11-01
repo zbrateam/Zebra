@@ -6,20 +6,23 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
+// I'm going to replace this class with a ZBPackageListController later so I'm not going to worry about it too much for now
+
 #import "ZBPackagesByAuthorTableViewController.h"
 
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBDatabaseManager.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Tabs/ZBTabBarController.h>
 
+#import <Managers/ZBPackageManager.h>
+
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;
+    ZBPackage *package;
 }
-@property (nonatomic, strong) ZBPackage *package;
 @end
 
 @implementation ZBPackagesByAuthorTableViewController
@@ -28,7 +31,7 @@
     self = [super init];
     
     if (self) {
-        self.package = package;
+        self->package = package;
     }
     
     return self;
@@ -36,9 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    moreByAuthor = [[ZBDatabaseManager sharedInstance] packagesByAuthorName:self.package.authorName email:self.package.authorEmail fullSearch:YES];
+    moreByAuthor = [[ZBPackageManager sharedInstance] packagesByAuthorWithName:package.authorName email:package.authorEmail];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    self.navigationItem.title = self.package.authorName;
+    self.navigationItem.title = package.authorName;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
@@ -66,12 +69,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:moreByAuthor[indexPath.row]];
+    ZBPackage *package = moreByAuthor[indexPath.row];
     [(ZBPackageTableViewCell *)cell updateData:package];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackage:[moreByAuthor objectAtIndex:indexPath.row]];
+    ZBPackage *package = moreByAuthor[indexPath.row];
     if (package) {
         ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
         

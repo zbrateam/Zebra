@@ -151,6 +151,7 @@
     self.accentColor = [ZBSettings accentColor];
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        UIApplication.sharedApplication.keyWindow.tintColor = [UIColor accentColor];
         if ([ZBThemeManager useCustomTheming]) {
             [self refreshViews];
             [self configureTabBar];

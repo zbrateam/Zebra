@@ -12,10 +12,10 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+//#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Sources/Helpers/ZBSourceManager.h>
+//#import <Database/ZBDatabaseManager.h>
+//#import <Tabs/Sources/Helpers/ZBSourceManager.h>
 #import <Tabs/Sources/Controllers/ZBSourceAccountTableViewController.h>
 
 @import SDWebImage;
@@ -35,7 +35,7 @@
     keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES];
-    sources = [[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];
+    //sources = //[[[ZBDatabaseManager sharedInstance] sourcesWithPaymentEndpoint] sortedArrayUsingDescriptors:@[descriptor]];
     
     self.title = NSLocalizedString(@"Stores", @"");
     
@@ -64,13 +64,13 @@
         
         ZBSource *source = [sources objectAtIndex:indexPath.row];
         
-        cell.sourceLabel.text = [source label];
+//        cell.sourceLabel.text = [source label];
         cell.sourceLabel.textColor = [UIColor primaryTextColor];
         
-        cell.urlLabel.text = [source repositoryURI];
+//        cell.urlLabel.text = [source repositoryURI];
         cell.urlLabel.textColor = [UIColor secondaryTextColor];
         
-        [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//        [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
         
         return cell;
     }
@@ -93,25 +93,25 @@
     
     ZBSource *source = [sources objectAtIndex:indexPath.row];
     
-    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
-        if (!success || error) {
-            if (notify) {
-                if (error) {
-                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
-                }
-                else {
-                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
-                }
-            }
-        }
-        else {
-            ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController pushViewController:accountController animated:YES];
-            });
-        }
-    }];
+//    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+//        if (!success || error) {
+//            if (notify) {
+//                if (error) {
+//                    [ZBAppDelegate sendAlertFrom:self message:[NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Could not authenticate", @""), error.localizedDescription]];
+//                }
+//                else {
+//                    [ZBAppDelegate sendAlertFrom:self message:NSLocalizedString(@"Could not authenticate", @"")];
+//                }
+//            }
+//        }
+//        else {
+//            ZBSourceAccountTableViewController *accountController = [[ZBSourceAccountTableViewController alloc] initWithSource:source];
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self.navigationController pushViewController:accountController animated:YES];
+//            });
+//        }
+//    }];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {

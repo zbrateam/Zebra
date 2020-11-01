@@ -7,10 +7,13 @@
 //
 
 #import "ZBPackageTableViewCell.h"
+
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
+
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+//#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
 
@@ -18,13 +21,12 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.backgroundColor = [UIColor cellBackgroundColor];
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
     self.queueStatusLabel.hidden = YES;
     self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.clipsToBounds = YES;
     self.isInstalledImageView.tintColor = [UIColor accentColor];
@@ -36,7 +38,7 @@
 
 - (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion {
     self.packageLabel.text = package.name;
-    self.descriptionLabel.text = package.tagline ?: package.packageDescription;
+    self.descriptionLabel.text = package.packageDescription;
     ZBSource *source = package.source;
     NSString *name = source.origin;
     NSString *author = package.authorName;
@@ -54,11 +56,8 @@
     
     [package setIconImageForImageView:self.iconImageView];
     
-    BOOL installed = [package isInstalled:NO];
-    BOOL paid = [package isPaid];
-    
-    self.isInstalledImageView.hidden = !installed;
-    self.isPaidImageView.hidden = !paid;
+    self.isInstalledImageView.hidden = !package.isInstalled;
+    self.isPaidImageView.hidden = !package.isPaid;
     
     [self updateQueueStatus:package];
 }
@@ -83,8 +82,8 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor primaryTextColor];
     self.descriptionLabel.textColor = [UIColor secondaryTextColor];
-    self.authorAndSourceAndSize.textColor = [UIColor secondaryTextColor];
-    self.backgroundColor = [UIColor cellBackgroundColor];
+    self.authorAndSourceAndSize.textColor = [UIColor tertiaryTextColor];
+//    self.backgroundColor = [UIColor cellBackgroundColor];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {

@@ -7,12 +7,12 @@
 //
 
 #import "ZBQueue.h"
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <ZBAppDelegate.h>
 #import <Database/ZBDependencyResolver.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <ZBDevice.h>
 #import <Console/ZBStage.h>
 #import <Tabs/ZBTabBarController.h>
@@ -67,10 +67,6 @@
 
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue {
     if (package == NULL) return;
-    
-    if (queue == ZBQueueTypeRemove && ![package isInstalled:YES]) { //Trying to remove a package that isn't installed
-        package = [package removeableCandidate];
-    }
     
     ZBQueueType type = [self locate:package];
     if (type != ZBQueueTypeClear) { //Remove package from queue, this probably needs to be rewritten to support the same package with a different version being added to the same queue

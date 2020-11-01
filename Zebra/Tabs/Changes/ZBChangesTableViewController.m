@@ -14,21 +14,22 @@
 #import <ZBSettings.h>
 #import <ZBDevice.h>
 #import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Managers/ZBPackageManager.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Tabs/Packages/Views/ZBPackageTableViewCell.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import "ZBRedditPosts.h"
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/ZBTabBarController.h>
+#import <Model/ZBSource.h>
 
 @import SDWebImage;
 @import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
-    ZBDatabaseManager *databaseManager;
+    ZBPackageManager *packageManager;
     NSUserDefaults *defaults;
     NSArray *packages;
     NSArray *availableOptions;
@@ -49,7 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    databaseManager = [ZBDatabaseManager sharedInstance];
+    packageManager = [ZBPackageManager sharedInstance];
     [self applyLocalization];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggleNews) name:@"toggleNews" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(configureTheme) name:@"darkMode" object:nil];
@@ -207,14 +208,13 @@
 }
 
 - (void)updateSections {
-    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(lastSeenDate)];
+    self.tableData = [self partitionObjects:packages collationStringSelector:@selector(lastSeen)];
 }
 
 - (void)refreshTable {
     dispatch_async(dispatch_get_main_queue(), ^{
-        self->packages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:[self useBatchLoad] ? self.batchLoadCount : -1 startingAt:0 enableFiltering:YES];
+        self->packages = [self->packageManager latestPackages:100];
         self->databaseRow = self.batchLoadCount - 1;
-        self->totalNumberOfPackages = [self->databaseManager numberOfPackagesInSource:NULL section:NULL enableFiltering:YES];
         self->numberOfPackages = (int)[self->packages count];
         self.batchLoad = YES;
         self.continueBatchLoad = self.batchLoad;
@@ -224,25 +224,25 @@
 }
 
 - (void)loadNextPackages {
-    if (!self.continueBatchLoad || self.isPerformingBatchLoad) {
-        return;
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self->databaseRow < self->totalNumberOfPackages) {
-            self.isPerformingBatchLoad = YES;
-            NSArray *nextPackages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
-            if (nextPackages.count == 0) {
-                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
-                return;
-            }
-            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
-            self->numberOfPackages = (int)[self->packages count];
-            self->databaseRow += self.batchLoadCount;
-            [self updateSections];
-            [self.tableView reloadData];
-            self.isPerformingBatchLoad = NO;
-        }
-    });
+//    if (!self.continueBatchLoad || self.isPerformingBatchLoad) {
+//        return;
+//    }
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        if (self->databaseRow < self->totalNumberOfPackages) {
+//            self.isPerformingBatchLoad = YES;
+//            NSArray *nextPackages = [self->databaseManager packagesFromSource:NULL inSection:NULL numberOfPackages:self.batchLoadCount startingAt:self->databaseRow enableFiltering:YES];
+//            if (nextPackages.count == 0) {
+//                self.continueBatchLoad = self.isPerformingBatchLoad = NO;
+//                return;
+//            }
+//            self->packages = [self->packages arrayByAddingObjectsFromArray:nextPackages];
+//            self->numberOfPackages = (int)[self->packages count];
+//            self->databaseRow += self.batchLoadCount;
+//            [self updateSections];
+//            [self.tableView reloadData];
+//            self.isPerformingBatchLoad = NO;
+//        }
+//    });
 }
 
 #pragma mark - Table view data source

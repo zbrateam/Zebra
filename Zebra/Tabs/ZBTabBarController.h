@@ -7,7 +7,7 @@
 //
 
 @import UIKit;
-#import "Sources/Helpers/ZBSourceDelegate.h"
+#import <Managers/Delegates/ZBSourceDelegate.h>
 
 #ifndef _TABBAR_H_
 #define _TABBAR_H

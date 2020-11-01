@@ -23,7 +23,7 @@
 
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
+#import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
@@ -491,7 +491,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     NSMutableArray *sources = [NSMutableArray new];
     NSArray *baseFilenames = [ZBSettings sourceBlacklist];
     for (NSString *baseFilename in baseFilenames) {
-        ZBSource *source = [ZBSource sourceFromBaseFilename:baseFilename];
+        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
         if (source) [sources addObject:source];
     }
     
@@ -499,7 +499,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
         NSMutableArray *blockedSources = [NSMutableArray new];
         for (ZBSource *source in selectedSources) {
-            [blockedSources addObject:[source baseFilename]];
+            [blockedSources addObject:[source uuid]];
         }
         [ZBSettings setSourceBlacklist:blockedSources];
     }];

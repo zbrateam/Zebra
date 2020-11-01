@@ -7,14 +7,16 @@
 //
 
 #import "ZBTabBarController.h"
+
+#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <Model/ZBSource.h>
+
 #import "ZBTab.h"
-#import "Sources/Helpers/ZBSourceManager.h"
-#import "Packages/Controllers/ZBPackageListTableViewController.h"
+#import <Managers/ZBSourceManager.h>
 #import "Sources/Controllers/ZBSourceListViewController.h"
-#import "Packages/Helpers/ZBPackage.h"
+//#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
-#import <Database/ZBRefreshViewController.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Queue/ZBQueue.h>
 #import <Queue/ZBQueueViewController.h>
@@ -75,6 +77,9 @@
     // Temporary, remove when all views are decoupled from storyboard
     UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
+    
+    UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
+    [packagesNavController setViewControllers:@[[[ZBPackageListTableViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {

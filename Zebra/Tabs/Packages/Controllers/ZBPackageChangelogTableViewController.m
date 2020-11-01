@@ -7,7 +7,7 @@
 //
 
 #import "ZBPackageChangelogTableViewController.h"
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Views/ZBChangelogTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 

@@ -13,7 +13,7 @@
 #import <Theme/ZBThemeManager.h>
 #import <ZBDevice.h>
 #import <Queue/ZBQueue.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Managers/ZBPackageManager.h>
 #import "ZBSearchResultsTableViewController.h"
 
 #import <Extensions/UIColor+GlobalColors.h>
@@ -23,7 +23,7 @@
 #define MAX_SEARCH_RECENT_COUNT 5
 
 @interface ZBSearchTableViewController () {
-    ZBDatabaseManager *databaseManager;
+    ZBPackageManager *packageManager;
     NSMutableArray *recentSearches;
     
     BOOL shouldPerformSearching;
@@ -72,8 +72,8 @@
         recentSearches = [NSMutableArray new];
     }
     
-    if (!databaseManager) {
-        databaseManager = [ZBDatabaseManager sharedInstance];
+    if (!packageManager) {
+        packageManager = [ZBPackageManager sharedInstance];
     }
     
     if (!searchController) {
@@ -105,35 +105,45 @@
     ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)searchController.searchResultsController;
     [resultsController setLive:self->liveSearch];
     
-    NSArray *results = nil;
-    
     if (self->shouldPerformSearching) {
         NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
         if (strippedString.length <= 1) {
-            results = @[];
-            
-            [resultsController setFilteredResults:results];
-            [resultsController refreshTable];
+            [self updateTableResults:@[]];
             return;
         }
         
         NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
         switch (selectedIndex) {
-            case 0:
-                results = [databaseManager searchForPackageName:strippedString fullSearch:!self->liveSearch];
+            case 0: {
+                [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    [self updateTableResults:packages];
+                }];
                 break;
-            case 1:
-                results = [databaseManager packagesWithDescription:strippedString fullSearch:!self->liveSearch];
+            }
+            case 1: {
+                [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    [self updateTableResults:packages];
+                }];
                 break;
-            case 2:
-                results = [databaseManager packagesByAuthorName:strippedString email:nil fullSearch:!self->liveSearch];
+            }
+            case 2: {
+                [packageManager searchForPackagesByAuthorWithName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    [self updateTableResults:packages];
+                }];
                 break;
+            }
         }
     }
-    
-    [resultsController setFilteredResults:results];
-    [resultsController refreshTable];
+}
+
+- (void)updateTableResults:(NSArray *)results {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ZBSearchResultsTableViewController *resultsController = (ZBSearchResultsTableViewController *)self->searchController.searchResultsController;
+        
+        [resultsController setFilteredResults:results];
+        [resultsController refreshTable];
+    });
 }
 
 #pragma mark - Search Controller Delegate

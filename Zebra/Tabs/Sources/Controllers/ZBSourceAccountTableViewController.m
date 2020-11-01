@@ -17,8 +17,8 @@
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Database/ZBDatabaseManager.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBDatabaseManager.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/ZBTabBarController.h>
 
