@@ -426,7 +426,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             for (unsigned int i = 0; i < ZBDatabaseStatementTypeCount; i++) {
                 ZBDatabaseStatementType statementType = (ZBDatabaseStatementType)i;
                 const char *statement = [[self statementStringForStatementType:statementType] UTF8String];
-                if (sqlite3_prepare(database, statement, -1, &preparedStatements[statementType], NULL) != SQLITE_OK) {
+                result = sqlite3_prepare(database, statement, -1, &preparedStatements[statementType], NULL);
+                if (result != SQLITE_OK) {
                     ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
                     free(preparedStatements);
                     preparedStatements = NULL;
@@ -1409,10 +1410,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (ZBPackage * _Nullable)installedPackageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual thatIsNot:(ZBPackage *_Nullable)exclude {
     NSString *query;
     if (exclude) {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = '\%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status_\' AND PACKAGE != '\%@\' LIMIT 1;", identifier, [exclude identifier]];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = \'%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status_\' AND PACKAGE != \'%@\' LIMIT 1;", identifier, [exclude identifier]];
     }
     else {
-        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = '\%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status_\' LIMIT 1;", identifier];
+        query = [NSString stringWithFormat:@"SELECT * FROM PACKAGES WHERE IDENTIFIER = \'%@\' COLLATE NOCASE AND SOURCE = \'_var_lib_dpkg_status_\' LIMIT 1;", identifier];
     }
     
     ZBPackage *package;
