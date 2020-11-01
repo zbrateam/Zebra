@@ -165,7 +165,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             if (result == SQLITE_OK) {
                 database = NULL;
             } else {
-                NSLog(@"[Zebra] Failed to close database path: %s", databasePath);
+                NSLog(@"[Zebra] Failed to close database path: %@", databasePath);
             }
         } else {
             NSLog(@"[Zebra] Attempt to close null database handle");
@@ -370,7 +370,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypePackagesWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypePackagesWithUpdates:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' AND identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier WHERE p.version == v.max_version AND source != \'_var_lib_dpkg_status_\';";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT v.identifier, v.version FROM (SELECT identifier FROM packages WHERE source = '_var_lib_dpkg_status_' AND role < 3) as i INNER JOIN packages as v ON i.identifier = v.identifier AND source != '_var_lib_dpkg_status_') as v INNER JOIN packages as p ON p.identifier = v.identifier AND p.version = v.version";
         case ZBDatabaseStatementTypeLatestPackages:
             return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name;";
         case ZBDatabaseStatementTypeLatestPackagesWithLimit:
@@ -536,13 +536,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     __block NSArray *updates = NULL;
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesWithUpdates];
-        
-        const char *installedIDs = "xyz.willy.zebra";//[[[[[ZBPackageManager sharedInstance] installedPackagesList] allKeys] componentsJoinedByString:@"\',\'"] UTF8String];
-        int result = sqlite3_bind_text(statement, 1, installedIDs, -1, SQLITE_TRANSIENT);
-        
-        if (result == SQLITE_OK) {
-            result = [self beginTransaction];
-        }
+        int result = [self beginTransaction];
         
         NSMutableArray *results = [NSMutableArray new];
         if (result == SQLITE_OK) {
