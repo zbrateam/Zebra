@@ -188,12 +188,12 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     ZBLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self setupCrashReporting];
     [self registerForScreenshotNotifications];
     [self setupSDWebImageCache];
     [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
-    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
         ZBLog(@"[Zebra] Needs migration, loading migration controller.");
@@ -202,6 +202,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         ZBLog(@"[Zebra] Does not need migration, loading tab controller.");
         self.window.rootViewController = [[ZBTabBarController alloc] init];
     }
+    
+    [self.window makeKeyAndVisible];
+//    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     return YES;
 }
