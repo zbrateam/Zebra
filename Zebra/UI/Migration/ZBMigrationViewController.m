@@ -10,6 +10,7 @@
 
 #import <Managers/ZBDatabaseManager.h>
 #import <Tabs/ZBTabBarController.h>
+#import <ZBLog.h>
 
 @interface ZBMigrationViewController () {
     IBOutlet UIActivityIndicatorView *activityView;
@@ -25,6 +26,7 @@
     self = [super init];
     
     if (self) {
+        ZBLog(@"[Zebra] Initializing migration controller.");
         self.view.backgroundColor = [UIColor whiteColor];
     }
     
@@ -36,12 +38,15 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    ZBLog(@"[Zebra] Migration view did appear.");
     [UIView animateWithDuration:1.0 animations:^{
         self->activityView.alpha = 1.0;
         self->migrationLabel.alpha = 1.0;
     }];
     
+    ZBLog(@"[Zebra] Beginning migration.");
     [[ZBDatabaseManager sharedInstance] migrateDatabase];
+    ZBLog(@"[Zebra] Migration finished. Loading tab controller.");
     UIApplication.sharedApplication.keyWindow.rootViewController = [[ZBTabBarController alloc] init];
 }
 
