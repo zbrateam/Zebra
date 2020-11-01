@@ -43,6 +43,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnSHA256,
     ZBPackageColumnTag,
     ZBPackageColumnSource,
+    ZBPackageColumnStatus,
     ZBPackageColumnCount,
 };
 

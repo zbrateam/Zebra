@@ -127,6 +127,13 @@
             if (line[0] == '\n' || line[0] == '\r') {
                 const char *identifier = package[ZBPackageColumnIdentifier];
                 if (identifier && strcmp(identifier, "") != 0) {
+                    if (!source.remote && package[ZBPackageColumnStatus]) {
+                        const char *status = package[ZBPackageColumnStatus];
+                        if (strcasestr(status, "config-files") != NULL || strcasestr(status, "not-installed") != NULL || strcasestr(status, "deinstall") != NULL) {
+                            continue;
+                        }
+                    }
+                    
                     if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                     
                     NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
@@ -156,6 +163,15 @@
         if (package) {
             const char *identifier = package[ZBPackageColumnIdentifier];
             if (identifier && strcmp(identifier, "") != 0) {
+                if (!source.remote && package[ZBPackageColumnStatus]) {
+                    const char *status = package[ZBPackageColumnStatus];
+                    if (strcasestr(status, "config-files") != NULL || strcasestr(status, "not-installed") != NULL || strcasestr(status, "deinstall") != NULL) {
+                        freeDualArrayOfSize(package, ZBPackageColumnCount);
+                        fclose(file);
+                        return;
+                    }
+                }
+                
                 if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                 
                 NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
@@ -223,6 +239,8 @@
         return ZBPackageColumnReplaces;
     } else if (strcmp(string, "SHA256") == 0) {
         return ZBPackageColumnSHA256;
+    } else if (strcmp(string, "Status") == 0) {
+        return ZBPackageColumnStatus;
     } else if (strcmp(string, "Tag") == 0) {
         return ZBPackageColumnTag;
     } else {
