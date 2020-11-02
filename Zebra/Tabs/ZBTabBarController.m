@@ -8,7 +8,7 @@
 
 #import "ZBTabBarController.h"
 
-#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <Model/ZBSource.h>
 
 #import "ZBTab.h"
@@ -79,7 +79,7 @@
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
-    [packagesNavController setViewControllers:@[[[ZBPackageListTableViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
+    [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {
@@ -99,7 +99,7 @@
 - (void)updatePackagesTableView {
     dispatch_async(dispatch_get_main_queue(), ^{
         UINavigationController *navController = self.viewControllers[ZBTabPackages];
-        ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
+        ZBPackageListViewController *packagesController = navController.viewControllers[0];
         [packagesController refreshTable];
     });
 }

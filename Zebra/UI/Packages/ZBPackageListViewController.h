@@ -1,5 +1,5 @@
 //
-//  ZBPackageListTableViewController.h
+//  ZBPackageListViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageListTableViewController : UITableViewController
+@interface ZBPackageListViewController : UITableViewController
 @property (nonatomic, assign) BOOL batchLoad;
 @property (nonatomic, assign) BOOL isPerformingBatchLoad;
 @property (nonatomic, assign) BOOL continueBatchLoad;

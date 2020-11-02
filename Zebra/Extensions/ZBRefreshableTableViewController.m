@@ -10,7 +10,7 @@
 #import <ZBAppDelegate.h>
 #import <Tabs/ZBTabBarController.h>
 #import <Model/ZBSource.h>
-#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <ZBDevice.h>
 
 @interface ZBRefreshableTableViewController ()

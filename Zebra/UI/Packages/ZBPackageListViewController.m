@@ -1,5 +1,5 @@
 //
-//  ZBPackageListTableViewController.m
+//  ZBPackageListViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/30/18.
@@ -11,7 +11,7 @@
 #import <Tabs/ZBTab.h>
 #import <ZBSettings.h>
 #import <Tabs/Packages/Helpers/ZBPackagePartitioner.h>
-#import "ZBPackageListTableViewController.h"
+#import "ZBPackageListViewController.h"
 #import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
@@ -26,7 +26,7 @@
 
 @import FirebaseAnalytics;
 
-@interface ZBPackageListTableViewController () {
+@interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
     ZBSortingType selectedSortingType;
     NSArray <ZBBasePackage *> *packages;
@@ -47,7 +47,7 @@
 @property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
-@implementation ZBPackageListTableViewController
+@implementation ZBPackageListViewController
 
 - (instancetype)initWithSource:(ZBSource *)source {
     return [self initWithSource:source section:NULL];

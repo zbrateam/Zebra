@@ -15,7 +15,7 @@
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBPackage.h>
-#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <Managers/ZBSourceManager.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 #import <Extensions/UIImageView+Zebra.h>
@@ -34,7 +34,7 @@
 @property (nonatomic, strong) NSArray *sectionNames;
 @property (nonatomic, strong) NSMutableArray *filteredSections;
 @property (nonatomic, strong) NSDictionary *sectionReadout;
-@property (nonatomic, weak) ZBPackageListTableViewController *previewPackageListVC;
+@property (nonatomic, weak) ZBPackageListViewController *previewPackageListVC;
 @end
 
 @implementation ZBSourceSectionsListTableViewController
@@ -282,7 +282,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing) {
-        ZBPackageListTableViewController *packageList = [[ZBPackageListTableViewController alloc] initWithSource:source section:sectionNames[indexPath.row]];
+        ZBPackageListViewController *packageList = [[ZBPackageListViewController alloc] initWithSource:source section:sectionNames[indexPath.row]];
         
         [[self navigationController] pushViewController:packageList animated:YES];
         
@@ -371,7 +371,7 @@
 //    return [UIContextMenuConfiguration configurationWithIdentifier:nil previewProvider:^UIViewController * _Nullable{
 //        return weakSelf.previewPackageListVC;
 //    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> * _Nonnull suggestedActions) {
-//        weakSelf.previewPackageListVC = (ZBPackageListTableViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+//        weakSelf.previewPackageListVC = (ZBPackageListViewController *)[weakSelf.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListViewController"];
 //        weakSelf.previewPackageListVC.source = self->source;
 //        if (indexPath.row > 0) {
 //            NSString *section = [self->sectionNames objectAtIndex:indexPath.row - 1];
@@ -397,7 +397,7 @@
 //    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
 //    ZBPackageTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 //    previewingContext.sourceRect = cell.frame;
-//    ZBPackageListTableViewController *packageListVC = (ZBPackageListTableViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListTableViewController"];
+//    ZBPackageListViewController *packageListVC = (ZBPackageListViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"ZBPackageListViewController"];
 //    packageListVC.source = self->source;
 //    if (indexPath.row > 0) {
 //        NSString *section = [sectionNames objectAtIndex:indexPath.row - 1];

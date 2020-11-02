@@ -17,7 +17,7 @@
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import <Tabs/ZBTabBarController.h>

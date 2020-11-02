@@ -147,7 +147,7 @@
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */; };
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
-		89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */; };
+		89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.m */; };
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
@@ -445,8 +445,8 @@
 		89C5FDEC21B1B13800A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C5FDEE21B1B13800A10E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89C5FDEF21B1B13800A10E58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageListTableViewController.h; sourceTree = "<group>"; };
-		89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListTableViewController.m; sourceTree = "<group>"; };
+		89C5FDF621B1B3AF00A10E58 /* ZBPackageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageListViewController.h; sourceTree = "<group>"; };
+		89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListViewController.m; sourceTree = "<group>"; };
 		89C6828D239AACF4007D018C /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89C7E48F21B23DB1003DB4E8 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* vercmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vercmp.h; sourceTree = "<group>"; };
@@ -697,8 +697,8 @@
 			isa = PBXGroup;
 			children = (
 				89337A30253652E60065C4C1 /* Views */,
-				89C5FDF621B1B3AF00A10E58 /* ZBPackageListTableViewController.h */,
-				89C5FDF721B1B3AF00A10E58 /* ZBPackageListTableViewController.m */,
+				89C5FDF621B1B3AF00A10E58 /* ZBPackageListViewController.h */,
+				89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.m */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1517,7 +1517,7 @@
 				9E54915622B7D2EA006FEA25 /* ZBRefreshableTableViewController.m in Sources */,
 				A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
-				89C5FDF821B1B3AF00A10E58 /* ZBPackageListTableViewController.m in Sources */,
+				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.m in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBMigrationViewController.m in Sources */,
 				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
