@@ -1,5 +1,5 @@
 //
-//  ZBSearchTableViewController.h
+//  ZBSearchViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 2/22/20.
@@ -10,8 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSearchTableViewController : ZBTableViewController <UISearchControllerDelegate, UISearchBarDelegate, UISearchResultsUpdating>
-@property (nonatomic, strong) UISearchController *searchController;
+@interface ZBSearchViewController : UITableViewController <UISearchControllerDelegate, UISearchResultsUpdating>
 - (void)handleURL:(NSURL *_Nullable)url;
 @end
 

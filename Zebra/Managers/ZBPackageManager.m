@@ -20,6 +20,7 @@
     ZBDatabaseManager *databaseManager;
     NSMutableSet *uuids;
     sqlite_int64 currentUpdateDate;
+    NSOperationQueue *searchQueue;
 }
 @end
 
@@ -264,28 +265,55 @@
     return [databaseManager isPackageAvailable:package checkVersion:YES];
 }
 
+- (void)loadSearchQueue {
+    if (!searchQueue) {
+        searchQueue = [[NSOperationQueue alloc] init];
+    } else {
+        [searchQueue cancelAllOperations];
+    }
+}
+
+// These search methods could be improved further by using a NSBlockOperation subclass to allow us to use sqlite3_interrupt but I'll come back to this idea later...
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *packages = [self->databaseManager searchForPackagesByName:name];
+    [self loadSearchQueue];
+    
+    NSBlockOperation *searchOperation = [[NSBlockOperation alloc] init];
+    __weak NSBlockOperation *weakSearchOperation = searchOperation;
         
-        completion(packages);
-    });
+    [searchOperation addExecutionBlock:^{
+        NSArray *packages = [self->databaseManager searchForPackagesByName:name];
+            
+        if (![weakSearchOperation isCancelled]) completion(packages); // Don't call completion if we've cancelled the operation
+    }];
+    [self->searchQueue addOperation:searchOperation];
 }
 
 - (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *packages = [self->databaseManager searchForPackagesByDescription:description];
+    [self loadSearchQueue];
+    
+    NSBlockOperation *searchOperation = [[NSBlockOperation alloc] init];
+    __weak NSBlockOperation *weakSearchOperation = searchOperation;
         
-        completion(packages);
-    });
+    [searchOperation addExecutionBlock:^{
+        NSArray *packages = [self->databaseManager searchForPackagesByDescription:description];
+            
+        if (![weakSearchOperation isCancelled]) completion(packages); // Don't call completion if we've cancelled the operation
+    }];
+    [self->searchQueue addOperation:searchOperation];
 }
 
 - (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *packages = [self->databaseManager searchForPackagesByAuthorWithName:name];
+    [self loadSearchQueue];
+    
+    NSBlockOperation *searchOperation = [[NSBlockOperation alloc] init];
+    __weak NSBlockOperation *weakSearchOperation = searchOperation;
         
-        completion(packages);
-    });
+    [searchOperation addExecutionBlock:^{
+        NSArray *packages = [self->databaseManager searchForPackagesByAuthorWithName:name];
+            
+        if (![weakSearchOperation isCancelled]) completion(packages); // Don't call completion if we've cancelled the operation
+    }];
+    [self->searchQueue addOperation:searchOperation];
 }
 
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package {
