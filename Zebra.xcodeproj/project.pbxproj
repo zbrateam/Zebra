@@ -828,6 +828,7 @@
 		89337A2F253652D50065C4C1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				893884DF2550C20200365326 /* Common */,
 				89114C68254C9660003A7362 /* Migration */,
 				89114C67254C95B5003A7362 /* Packages */,
 				8983790425507D760066DCA7 /* Search */,
@@ -851,6 +852,16 @@
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		893884DF2550C20200365326 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
+				499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */,
+				49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		893952FC220B5CE400995109 /* Console */ = {
@@ -1219,9 +1230,6 @@
 				4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */,
 				49452C26246A414900F45C2D /* ZBActionButton.h */,
 				49452C27246A414900F45C2D /* ZBActionButton.m */,
-				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
-				499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */,
-				49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */,
 				894893FF2471CF9B00E2FF97 /* ZBChangelogTableViewCell.h */,
 				894894002471CF9B00E2FF97 /* ZBChangelogTableViewCell.m */,
 				894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */,

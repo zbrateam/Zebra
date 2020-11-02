@@ -12,12 +12,11 @@
 
 #import <Managers/ZBPackageManager.h>
 
+#import <UI/Common/ZBBoldTableViewHeaderView.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
-
-#define MAX_SEARCH_RECENT_COUNT 5
 
 @interface ZBSearchViewController () {
     ZBPackageManager *packageManager;
@@ -41,6 +40,9 @@
         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         self.tableView.tableFooterView = [[UIView alloc] init];
         [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noResultsCell"];
+        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"recentSearchCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.delegate = self;
@@ -50,7 +52,9 @@
         searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         searchController.obscuresBackgroundDuringPresentation = NO;
+        
         self.navigationItem.searchController = searchController;
+        self.navigationItem.hidesSearchBarWhenScrolling = NO;
         
         recentSearches = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"recentSearches"] mutableCopy];
         if (!recentSearches) {
@@ -108,6 +112,13 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self->spinner.isAnimating) [self hideSpinner];
             self->searchResults = packages;
+            
+            if (packages.count == 0 && strippedString.length != 0) {
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            } else {
+                self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+            }
+            
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         });
     };
@@ -148,20 +159,41 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return searchResults.count;
+    if (searchController.active && searchController.searchBar.text.length > 0) {
+        return MAX(searchResults.count, 1); // Show 1 cell for the "no results" cell
+    } else {
+        return MIN(recentSearches.count, 5); // Show at most 5 "recent searches"
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell updateData:searchResults[indexPath.row]];
+    if (searchController.active && searchController.searchBar.text.length > 0) {
+        if (searchResults.count > 0) { // Show package cell
+            return [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell"];
+        } else { // Show no results cell
+            return [tableView dequeueReusableCellWithIdentifier:@"noResultsCell"];
+        }
+    } else { // Show recent search cell
+        return [tableView dequeueReusableCellWithIdentifier:@"recentSearchCell"];
+    }
 }
 
 #pragma mark - Table View Delegate
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (searchController.active && searchController.searchBar.text.length > 0) {
+        if (searchResults.count > 0) {
+            [(ZBPackageTableViewCell *)cell updateData:searchResults[indexPath.row]];
+        } else {
+            cell.textLabel.text = NSLocalizedString(@"No Results", @"");
+            cell.textLabel.textColor = [UIColor secondaryTextColor];
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+        }
+    } else { // Show recent packages cell
+        cell.textLabel.text = recentSearches[indexPath.row];
+    }
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -170,40 +202,6 @@
     [self.navigationController pushViewController:packageController animated:YES];
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-//    return recentSearches.count ? NSLocalizedString(@"Recent", @"") : nil;
-//}
-//
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, self.tableView.frame.size.height)];
-//
-//    UILabel *titleLabel = [[UILabel alloc] init];
-//    titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
-//    titleLabel.text = [self tableView:tableView titleForHeaderInSection:section];
-//    titleLabel.textColor = [UIColor primaryTextColor];
-//
-//    titleLabel.font = [UIFont systemFontOfSize:19.0 weight:UIFontWeightBold];
-//    [headerView addSubview:titleLabel];
-//
-//    UIButton *clearButton = [UIButton buttonWithType:UIButtonTypeSystem];
-//    clearButton.translatesAutoresizingMaskIntoConstraints = NO;
-//    [clearButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
-//    [clearButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
-//    [headerView addSubview:clearButton];
-//
-//    NSDictionary *views = @{@"left": @10, @"title": titleLabel, @"button": clearButton};
-//    NSDictionary *metrics = @{@"left": [NSNumber numberWithFloat:self.tableView.separatorInset.left]};
-//    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-left-[title]-[button]-left-|" options:0 metrics:metrics views:views]];
-//    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[title]-0-|" options:0 metrics:nil views:views]];
-//    [headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[button]-0-|" options:0 metrics:nil views:views]];
-//
-//    return headerView;
-//}
-//
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return YES;
-//}
-//
 //- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    NSString *title = [ZBDevice useIcon] ? @"╳" : NSLocalizedString(@"Remove", @"");
 //
@@ -230,6 +228,24 @@
 //- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 //    [tableView setEditing:NO animated:YES];
 //}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (searchController.searchBar.text.length == 0 && recentSearches.count) {
+        ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+        cell.titleLabel.text = NSLocalizedString(@"Recent", @"");
+        return cell;
+    }
+    
+    return NULL;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return searchController.searchBar.text.length == 0 && recentSearches.count ? 50 : 0;
+}
 
 #pragma mark - URL Handling
 
