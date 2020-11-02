@@ -15,6 +15,7 @@
 
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
+    UISearchController *searchController;
     UIActivityIndicatorView *spinner;
 }
 @end
@@ -23,12 +24,30 @@
 
 #pragma mark - Initializers
 
+- (instancetype)init {
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+        searchController.obscuresBackgroundDuringPresentation = NO;
+        searchController.searchResultsUpdater = self;
+        searchController.delegate = self;
+        searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        searchController.searchBar.showsBookmarkButton = YES;
+        [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+        
+        self.navigationItem.searchController = searchController;
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithSource:(ZBSource *)source {
     return [self initWithSource:source section:NULL];
 }
 
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section {
-    self = [super initWithStyle:UITableViewStylePlain];
+    self = [self init];
     
     if (self) {
         packageManager = [ZBPackageManager sharedInstance];
@@ -51,7 +70,7 @@
 }
 
 - (instancetype)initWithPackages:(NSArray <ZBPackage *> *)packages {
-    self = [super initWithStyle:UITableViewStylePlain];
+    self = [self init];
     
     if (self) {
         self.packages = packages;

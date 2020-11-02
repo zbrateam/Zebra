@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageListViewController : UITableViewController
+@interface ZBPackageListViewController : UITableViewController <UISearchControllerDelegate, UISearchResultsUpdating>
 @property ZBSource *source;
 @property NSString *_Nullable section;
 @property NSArray <ZBPackage *> *packages;
