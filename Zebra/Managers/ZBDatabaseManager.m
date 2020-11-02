@@ -362,11 +362,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (NSString *)statementStringForStatementType:(ZBDatabaseStatementType)statement {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name COLLATE NOCASE;";
         case ZBDatabaseStatementTypePackageListFromSource:
             return @"SELECT p.identifier, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name COLLATE NOCASE;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackagesWithUUID:
