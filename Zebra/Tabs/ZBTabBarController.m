@@ -97,11 +97,11 @@
 }
 
 - (void)updatePackagesTableView {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UINavigationController *navController = self.viewControllers[ZBTabPackages];
-        ZBPackageListViewController *packagesController = navController.viewControllers[0];
-        [packagesController refreshTable];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        UINavigationController *navController = self.viewControllers[ZBTabPackages];
+//        ZBPackageListViewController *packagesController = navController.viewControllers[0];
+//        [packagesController refreshTable];
+//    });
 }
 
 - (void)setSourceRefreshIndicatorVisible:(BOOL)visible {

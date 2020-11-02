@@ -8,12 +8,14 @@
 
 #import "ZBPackageListViewController.h"
 
-@import FirebaseAnalytics;
+#import <Managers/ZBPackageManager.h>
+#import <Model/ZBPackage.h>
+#import <Model/ZBSource.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
-    ZBSource *source;
-    NSString *section;
+    UIActivityIndicatorView *spinner;
 }
 @end
 
@@ -29,12 +31,14 @@
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
-        self->source = source;
-        self->section = [section isEqualToString:@"ALL_PACKAGES"] ? NULL : section;
+        packageManager = [ZBPackageManager sharedInstance];
         
-        if (self->source.remote) {
-            if (self->section) {
-                self.title = NSLocalizedString(self->section, @"");
+        self.source = source;
+        self.section = [section isEqualToString:@"ALL_PACKAGES"] ? NULL : section;
+        
+        if (self.source.remote) {
+            if (self.section) {
+                self.title = NSLocalizedString(self.section, @"");
             } else {
                 self.title = NSLocalizedString(@"All Packages", @"");
             }
@@ -45,5 +49,51 @@
     
     return self;
 }
+
+- (instancetype)initWithPackages:(NSArray <ZBPackage *> *)packages {
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        self.packages = packages;
+    }
+    
+    return self;
+}
+
+#pragma mark - View Controller Lifecycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    
+    if (!self.packages && self.source) {
+        self.packages = [packageManager packagesFromSource:self.source inSection:self.section];
+        
+        [self.tableView reloadData];
+    }
+}
+
+#pragma mark - Table View Data Source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1; // For now
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.packages.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell"];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [cell updateData:self.packages[indexPath.row]];
+}
+
+#pragma mark - Table View Delegate
 
 @end
