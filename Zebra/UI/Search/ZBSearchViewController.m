@@ -36,6 +36,7 @@
     
     if (self) {
         self.title = NSLocalizedString(@"Search", @"");
+        self.definesPresentationContext = YES;
         
         self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         self.tableView.tableFooterView = [[UIView alloc] init];
@@ -47,6 +48,7 @@
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.delegate = self;
         searchController.searchResultsUpdater = self;
+        searchController.searchBar.delegate = self;
         searchController.searchBar.tintColor = [UIColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
         searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
@@ -152,6 +154,19 @@
     }
 }
 
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if (strippedString.length > 0 && ![recentSearches containsObject:strippedString]) {
+        [recentSearches insertObject:strippedString atIndex:0];
+        if (recentSearches.count > 20) {
+            [recentSearches removeLastObject];
+        }
+        [[NSUserDefaults standardUserDefaults] setObject:recentSearches forKey:@"recentSearches"];
+    }
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -189,17 +204,23 @@
             cell.textLabel.textColor = [UIColor secondaryTextColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.font = [UIFont systemFontOfSize:15.0];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
     } else { // Show recent packages cell
         cell.textLabel.text = recentSearches[indexPath.row];
+        cell.textLabel.textColor = [UIColor accentColor];
     }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:searchResults[indexPath.row]];
-    [self.navigationController pushViewController:packageController animated:YES];
+    if (searchController.active && searchResults.count) {
+        ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:searchResults[indexPath.row]];
+        [self.navigationController pushViewController:packageController animated:YES];
+    } else if (!searchController.active && recentSearches.count) {
+        
+    }
 }
 
 //- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -250,18 +271,18 @@
 #pragma mark - URL Handling
 
 - (void)handleURL:(NSURL *_Nullable)url {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        if (url == nil) {
-//            [self->searchController.searchBar becomeFirstResponder];
-//        } else {
-//            NSArray *path = [url pathComponents];
-//            if (path.count == 2) {
-//                NSString *searchTerm = path[1];
-//                [self->searchController.searchBar becomeFirstResponder];
-//                [(UITextField *)[self.searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
-//            }
-//        }
-//    });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (url == nil) {
+            [self->searchController.searchBar becomeFirstResponder];
+        } else {
+            NSArray *path = [url pathComponents];
+            if (path.count == 2) {
+                NSString *searchTerm = path[1];
+                [self->searchController.searchBar becomeFirstResponder];
+                [(UITextField *)[self->searchController.searchBar valueForKey:@"searchField"] setText:searchTerm];
+            }
+        }
+    });
 }
 
 - (void)scrollToTop {
