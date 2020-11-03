@@ -219,7 +219,9 @@
         ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:searchResults[indexPath.row]];
         [self.navigationController pushViewController:packageController animated:YES];
     } else if (!searchController.active && recentSearches.count) {
-        
+        searchController.searchBar.text = recentSearches[indexPath.row];
+        searchController.active = YES;
+        [self searchBarSearchButtonClicked:searchController.searchBar];
     }
 }
 
