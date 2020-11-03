@@ -16,6 +16,7 @@
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 
 @interface ZBSearchViewController () {
@@ -225,32 +226,31 @@
     }
 }
 
-//- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    NSString *title = [ZBDevice useIcon] ? @"╳" : NSLocalizedString(@"Remove", @"");
-//
-//    UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:title handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-//
-//        if (self->recentSearches.count == 1) {
-//            [self->recentSearches removeAllObjects];
-//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
-//
-//            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
-//        } else {
-//            [self->recentSearches removeObjectAtIndex:indexPath.row];
-//            [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];
-//
-//            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-//        }
-//
-//        completionHandler(YES);
-//    }];
-//
-//    return [UISwipeActionsConfiguration configurationWithActions:@[action]];
-//}
-//
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [tableView setEditing:NO animated:YES];
-//}
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (searchController.active && searchResults.count) {
+        return [ZBPackageActions swipeActionsForPackage:searchResults[indexPath.row] inTableView:self.tableView];
+    } else {
+        UIContextualAction *action = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Remove", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+
+            if (self->recentSearches.count == 1) {
+                [self clearSearches];
+            } else {
+                [self->recentSearches removeObjectAtIndex:indexPath.row];
+                [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];
+
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+
+            completionHandler(YES);
+        }];
+        
+        if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+            action.image = [UIImage imageNamed:@"delete_left"]; // This probably won't do anything due to the height of the cell
+        }
+
+        return [UISwipeActionsConfiguration configurationWithActions:@[action]];
+    }
+}
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (searchController.searchBar.text.length == 0 && recentSearches.count) {
