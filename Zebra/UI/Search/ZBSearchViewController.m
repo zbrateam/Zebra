@@ -102,7 +102,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"recentSearches"];
     
     [recentSearches removeAllObjects];
-    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Search Results Updating Protocol
@@ -254,6 +254,9 @@
     if (searchController.searchBar.text.length == 0 && recentSearches.count) {
         ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
         cell.titleLabel.text = NSLocalizedString(@"Recent", @"");
+        cell.actionButton.hidden = NO;
+        [cell.actionButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
+        [cell.actionButton addTarget:self action:@selector(clearSearches) forControlEvents:UIControlEventTouchUpInside];
         return cell;
     }
     
