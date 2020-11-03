@@ -1,4 +1,4 @@
-# Zebra [![Build Status](https://travis-ci.org/wstyres/Zebra.svg?branch=master)](https://travis-ci.org/wstyres/Zebra) [![Crowdin](https://badges.crowdin.net/zebra/localized.svg)](https://translate.getzbra.com/project/zebra) [![Latest release](https://img.shields.io/github/v/release/wstyres/Zebra?color=brightgreen&label=version)](https://github.com/zbrateam/Zebra/releases/latest)
+# Zebra [![Build Status](https://github.com/zbrateam/Zebra/workflows/Build%20Zebra/badge.svg?branch=1.2&event=push)](https://github.com/zbrateam/Zebra/actions?query=branch%3Amaster+event%3Apush+workflow%3A%22Build+Zebra%22) [![Crowdin](https://badges.crowdin.net/zebra/localized.svg)](https://translate.getzbra.com/project/zebra) [![Latest release](https://img.shields.io/github/v/release/wstyres/Zebra?color=brightgreen&label=version)](https://github.com/zbrateam/Zebra/releases/latest)
 Zebra (née AUPM) is a Package Manager for jailbroken iOS devices. It is built to support iOS 11 up to iOS 13 and for iPhones and iPads alike.
 
 ## Installation
