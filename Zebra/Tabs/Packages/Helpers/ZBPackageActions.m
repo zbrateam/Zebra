@@ -190,7 +190,7 @@
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSMutableArray *allVersions = [package allVersions];
+    NSArray *allVersions = [package allVersions];
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
     
     NSCountedSet *versionStrings = [NSCountedSet new];
@@ -218,7 +218,7 @@
 }
 
 + (void)upgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSMutableArray *greaterVersions = [package greaterVersions];
+    NSArray *greaterVersions = [package greaterVersions];
     if ([greaterVersions count] > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
