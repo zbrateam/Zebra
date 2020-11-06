@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceVerificationStatus.h"
+#import <Tabs/Sources/Helpers/ZBSourceVerificationStatus.h>
 
 @import Foundation;
 
