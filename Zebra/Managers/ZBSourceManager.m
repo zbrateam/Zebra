@@ -17,6 +17,8 @@
 #import <ZBDevice.h>
 #import <ZBLog.h>
 #import <ZBSettings.h>
+#import "Delegates/ZBSourceDelegate.h"
+#import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 
 @import UIKit.UIDevice;
 
@@ -710,6 +712,7 @@
 - (void)cancelSourceRefresh {
     // TODO: More things are probably required here
     [downloadManager stopAllDownloads];
+    [self bulkFinishedSourceRefresh];
 }
 
 - (BOOL)isSourceBusy:(ZBBaseSource *)source {
