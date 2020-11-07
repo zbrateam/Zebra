@@ -9,8 +9,8 @@
 @class ZBSource;
 @class ZBBaseSource;
 
-#import "ZBSourceVerificationDelegate.h"
-#import "ZBSourceDelegate.h"
+#import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
+#import <Managers/Delegates/ZBSourceDelegate.h>
 //#import <Database/ZBDatabaseDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
 

@@ -11,7 +11,8 @@
 #import <ZBDevice.h>
 #import <Downloads/ZBDownloadManager.h>
 #import <ZBAppDelegate.h>
-#import "ZBSourceManager.h"
+#import <Managers/ZBSourceManager.h>
+#import <Tabs/Sources/Helpers/ZBSourceVerificationStatus.h>
 
 @implementation ZBBaseSource
 
@@ -461,7 +462,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat: @"%@ %@ %d", self.label, self.repositoryURI, self.uuid];
+    return [NSString stringWithFormat: @"%@ %@ %@", self.label, self.repositoryURI, self.uuid];
 }
 
 - (NSString *)debugDescription
