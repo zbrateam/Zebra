@@ -23,6 +23,8 @@
     [super awakeFromNib];
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
+    self.isOnWishlistImageView.hidden = YES;
+    
     self.queueStatusLabel.hidden = YES;
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
@@ -56,6 +58,7 @@
     [package setIconImageForImageView:self.iconImageView];
     
     self.isInstalledImageView.hidden = !package.isInstalled;
+    self.isOnWishlistImageView.hidden = !package.isOnWishlist;
     self.isPaidImageView.hidden = !package.isPaid;
     
     [self updateQueueStatus:package];

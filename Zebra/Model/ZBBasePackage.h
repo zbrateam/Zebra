@@ -59,6 +59,8 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 @property (nonatomic) NSString *section;
 @property (nonatomic) NSString *uuid;
 @property (nonatomic) NSString *version;
+
+@property BOOL isOnWishlist;
 - (instancetype)initFromSQLiteStatement:(sqlite3_stmt *)statement;
 @end
 

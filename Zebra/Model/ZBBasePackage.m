@@ -9,6 +9,7 @@
 #import "ZBBasePackage.h"
 
 #import <Managers/ZBPackageManager.h>
+#import <ZBSettings.h>
 
 @class ZBPackage;
 
@@ -73,6 +74,10 @@
     }
     
     return self;
+}
+
+- (BOOL)isOnWishlist {
+    return [[ZBSettings wishlist] containsObject:self.identifier];
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector {
