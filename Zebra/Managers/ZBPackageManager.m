@@ -66,7 +66,6 @@
         
         return packages;
     } else {
-        [databaseManager packagesWithUpdates];
         return [databaseManager packagesFromSource:source inSection:section];
     }
 }
