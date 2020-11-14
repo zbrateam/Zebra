@@ -54,7 +54,6 @@
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49452C28246A414900F45C2D /* ZBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49452C27246A414900F45C2D /* ZBActionButton.m */; };
-		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49990644247DDAA000AE75BC /* viola~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990635247DDA9F00AE75BC /* viola~ipad@3x.png */; };
 		49990645247DDAA000AE75BC /* viola~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990641247DDA9F00AE75BC /* viola~ipad@2x.png */; };
 		49990646247DDAA000AE75BC /* viola@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990642247DDAA000AE75BC /* viola@3x.png */; };
@@ -115,7 +114,7 @@
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
-		895C2ADA2402303B0065F424 /* ZBSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */; };
+		895C2ADA2402303B0065F424 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchViewController.m */; };
 		896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11BC21B231490017B581 /* ZBSourceManager.m */; };
 		896F11C321B231900017B581 /* ZBSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 896F11C221B231900017B581 /* ZBSource.m */; };
 		896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 896F72E423723139007727FD /* GoogleService-Info.plist */; };
@@ -127,7 +126,6 @@
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
 		899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 899229FC242815E90086E2F4 /* ZBSourceInfo.m */; };
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
-		8997A9F224031007001894BF /* ZBSearchResultsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8997A9F124031007001894BF /* ZBSearchResultsTableViewController.m */; };
 		899AE9FE247F03BA00FCA61E /* quda~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */; };
 		899AE9FF247F03BA00FCA61E /* quda@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FB247F03BA00FCA61E /* quda@2x.png */; };
 		899AEA00247F03BA00FCA61E /* quda~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FC247F03BA00FCA61E /* quda~ipad@3x.png */; };
@@ -253,8 +251,6 @@
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
 		49452C26246A414900F45C2D /* ZBActionButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBActionButton.h; sourceTree = "<group>"; };
 		49452C27246A414900F45C2D /* ZBActionButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBActionButton.m; sourceTree = "<group>"; };
-		4947555424313A30008DC093 /* ZBLiveSearchResultTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLiveSearchResultTableViewCell.h; sourceTree = "<group>"; };
-		4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLiveSearchResultTableViewCell.m; sourceTree = "<group>"; };
 		49990635247DDA9F00AE75BC /* viola~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola~ipad@3x.png"; sourceTree = "<group>"; };
 		49990641247DDA9F00AE75BC /* viola~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola~ipad@2x.png"; sourceTree = "<group>"; };
 		49990642247DDAA000AE75BC /* viola@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viola@3x.png"; sourceTree = "<group>"; };
@@ -384,8 +380,8 @@
 		8958F28823C3C2CC00FB64D9 /* ZBSourceVerificationStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceVerificationStatus.h; sourceTree = "<group>"; };
 		895A808623637C5100C166AC /* ZBCreditsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCreditsTableViewController.h; sourceTree = "<group>"; };
 		895A808723637C5100C166AC /* ZBCreditsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCreditsTableViewController.m; sourceTree = "<group>"; };
-		895C2AD82402303B0065F424 /* ZBSearchTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchTableViewController.h; sourceTree = "<group>"; };
-		895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchTableViewController.m; sourceTree = "<group>"; };
+		895C2AD82402303B0065F424 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
+		895C2AD92402303B0065F424 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
 		896B4A79237A0E5C007C4ABB /* sq */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sq; path = sq.lproj/Localizable.strings; sourceTree = "<group>"; };
 		896F11BB21B231490017B581 /* ZBSourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceManager.h; sourceTree = "<group>"; };
 		896F11BC21B231490017B581 /* ZBSourceManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceManager.m; sourceTree = "<group>"; };
@@ -412,8 +408,6 @@
 		899229FC242815E90086E2F4 /* ZBSourceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceInfo.m; sourceTree = "<group>"; };
 		89922A0A24281C030086E2F4 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8997843F2242D25800C1138C /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
-		8997A9F024031007001894BF /* ZBSearchResultsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchResultsTableViewController.h; sourceTree = "<group>"; };
-		8997A9F124031007001894BF /* ZBSearchResultsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchResultsTableViewController.m; sourceTree = "<group>"; };
 		899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda~ipad@2x.png"; sourceTree = "<group>"; };
 		899AE9FB247F03BA00FCA61E /* quda@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda@2x.png"; sourceTree = "<group>"; };
 		899AE9FC247F03BA00FCA61E /* quda~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda~ipad@3x.png"; sourceTree = "<group>"; };
@@ -661,15 +655,6 @@
 			path = "Alternate Icons";
 			sourceTree = "<group>";
 		};
-		4947554E24313A13008DC093 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				4947555424313A30008DC093 /* ZBLiveSearchResultTableViewCell.h */,
-				4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		75D0A77124A0134A007D84EF /* Table */ = {
 			isa = PBXGroup;
 			children = (
@@ -843,8 +828,10 @@
 		89337A2F253652D50065C4C1 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				893884DF2550C20200365326 /* Common */,
 				89114C68254C9660003A7362 /* Migration */,
 				89114C67254C95B5003A7362 /* Packages */,
+				8983790425507D760066DCA7 /* Search */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -865,6 +852,16 @@
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		893884DF2550C20200365326 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
+				499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */,
+				49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		893952FC220B5CE400995109 /* Console */ = {
@@ -997,6 +994,15 @@
 				897FFD4A23CFA4A30082DD31 /* ZBThemeManager.m */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		8983790425507D760066DCA7 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				895C2AD82402303B0065F424 /* ZBSearchViewController.h */,
+				895C2AD92402303B0065F424 /* ZBSearchViewController.m */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		8991FFA321B21D26004FCE23 /* Database */ = {
@@ -1133,18 +1139,6 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		89E8633721D5A1540081E485 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				4947554E24313A13008DC093 /* Views */,
-				895C2AD82402303B0065F424 /* ZBSearchTableViewController.h */,
-				895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */,
-				8997A9F024031007001894BF /* ZBSearchResultsTableViewController.h */,
-				8997A9F124031007001894BF /* ZBSearchResultsTableViewController.m */,
-			);
-			path = Search;
-			sourceTree = "<group>";
-		};
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1218,7 +1212,6 @@
 				896F11B421B230A40017B581 /* Sources */,
 				9E1C85AD22A3900700D93D14 /* Changes */,
 				896F11B321B2309A0017B581 /* Packages */,
-				89E8633721D5A1540081E485 /* Search */,
 				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
@@ -1237,9 +1230,6 @@
 				4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */,
 				49452C26246A414900F45C2D /* ZBActionButton.h */,
 				49452C27246A414900F45C2D /* ZBActionButton.m */,
-				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
-				499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */,
-				49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */,
 				894893FF2471CF9B00E2FF97 /* ZBChangelogTableViewCell.h */,
 				894894002471CF9B00E2FF97 /* ZBChangelogTableViewCell.m */,
 				894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */,
@@ -1310,7 +1300,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Wilson Styres";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
@@ -1510,7 +1500,6 @@
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				75823619249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
-				4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */,
 				892F4E2825339E2A00BAB3A5 /* ZBPackageManager.m in Sources */,
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
 				369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */,
@@ -1533,7 +1522,7 @@
 				892F4E2125337D7400BAB3A5 /* ZBBasePackage.m in Sources */,
 				8916AC1F23CAAE5C008BA02C /* ZBCommunitySourcesTableViewController.m in Sources */,
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
-				895C2ADA2402303B0065F424 /* ZBSearchTableViewController.m in Sources */,
+				895C2ADA2402303B0065F424 /* ZBSearchViewController.m in Sources */,
 				49FD260824707DDF00594D1A /* ZBPackageDepictionViewController.m in Sources */,
 				C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */,
 				89337A2C2536402F0065C4C1 /* utils.c in Sources */,
@@ -1558,7 +1547,6 @@
 				49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
-				8997A9F224031007001894BF /* ZBSearchResultsTableViewController.m in Sources */,
 				896F11BD21B231490017B581 /* ZBSourceManager.m in Sources */,
 				365CAE2D22D3A13C0052ED6E /* ZBNewsCollectionViewCell.m in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */,

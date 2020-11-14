@@ -27,7 +27,7 @@ jobs:
       run: brew install ldid fakeroot make dpkg
     
     - name: Add GNU make to PATH
-      run: echo "::add-path::$(brew --prefix make)/libexec/gnubin"
+      run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
 
     - name: Install Theos
       uses: actions/checkout@master

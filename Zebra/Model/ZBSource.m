@@ -93,7 +93,7 @@
         
         const char *origin = (const char *)sqlite3_column_text(statement, ZBSourceColumnOrigin);
         if (origin) {
-            _origin = [NSString stringWithUTF8String:origin];
+            self.origin = [NSString stringWithUTF8String:origin];
         }
         
         const char *suite = (const char *)sqlite3_column_text(statement, ZBSourceColumnSuite);

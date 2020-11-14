@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBBoldTableViewHeaderView : UITableViewHeaderFooterView
+@property (strong, nonatomic) IBOutlet UIButton *actionButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @end
 

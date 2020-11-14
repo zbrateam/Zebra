@@ -23,7 +23,7 @@
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
 #import <UI/Migration/ZBMigrationViewController.h>
-#import <Tabs/Search/ZBSearchTableViewController.h>
+#import <UI/Search/ZBSearchViewController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
@@ -187,7 +187,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    ZBLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self setupCrashReporting];
@@ -344,7 +344,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     if ([shortcutItem.type isEqualToString:@"Search"]) {
         [tabController setSelectedIndex:ZBTabSearch];
         
-        ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+        ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         [searchController handleURL:nil];
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];

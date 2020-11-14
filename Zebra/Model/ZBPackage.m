@@ -42,9 +42,7 @@
 
 @implementation ZBPackage
 
-@synthesize isInstalled = _isInstalled;
 @synthesize isVersionInstalled = _isVersionInstalled;
-@synthesize source = _source;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -188,12 +186,6 @@
             _homepageURL = [NSURL URLWithString:homepageURLString];
         }
         
-        const char *iconURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
-        if (iconURL[0] != '\0') {
-            NSString *iconURLString = [NSString stringWithUTF8String:iconURL];
-            _iconURL = [NSURL URLWithString:iconURLString];
-        }
-        
         _installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
         
         const char *maintainerEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
@@ -226,17 +218,6 @@
         const char *SHA256 = (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
         if (SHA256[0] != '\0') {
             _SHA256 = [NSString stringWithUTF8String:SHA256];
-        }
-        
-        const char *tag = (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
-        if (tag[0] != '\0') {
-            NSString *rawTag = [NSString stringWithUTF8String:tag];
-            _tag = [rawTag componentsSeparatedByString:@","];
-        }
-        
-        const char *source = (const char *)sqlite3_column_text(statement, ZBPackageColumnSource);
-        if (source) {
-            _source = [[ZBSourceManager sharedInstance] sourceWithUUID:[NSString stringWithUTF8String:source]];
         }
     }
     
@@ -325,7 +306,7 @@
     self = [self initWithDictionary:info];
     if (self) {
         _debPath = path;
-        _source = [ZBSource localSource];
+//        _source = [ZBSource localSource];
     }
     
     return self;
@@ -381,10 +362,6 @@
             return NSOrderedDescending;
         return NSOrderedSame;
     }
-}
-
-- (BOOL)isPaid {
-    return [self.tag containsObject:@"cydia::commercial"];
 }
 
 - (BOOL)mightRequirePayment {
@@ -531,16 +508,6 @@
     return [NSString stringWithFormat:NSLocalizedString(@"%lu KB", @""), (unsigned long)self.installedSize];
 }
 
-- (BOOL)isInstalled {
-    if (self.source && [self.source.uuid isEqualToString:@"_var_lib_dpkg_status"]) {
-        _isInstalled = YES;
-    }
-    
-    if (!_isInstalled) [[ZBPackageManager sharedInstance] isPackageInstalled:self];
-    
-    return _isInstalled;
-}
-
 - (BOOL)isVersionInstalled {
     if (_isVersionInstalled) return _isVersionInstalled;
     
@@ -642,16 +609,6 @@
 
 - (BOOL)isEssentialOrRequired {
     return self.essential || [[self.priority lowercaseString] isEqualToString:@"required"];
-}
-
-- (void)setIconImageForImageView:(UIImageView *)imageView {
-    UIImage *sectionImage = [ZBSource imageForSection:self.section];
-    if (self.iconURL) {
-        [imageView sd_setImageWithURL:self.iconURL placeholderImage:sectionImage];
-    }
-    else {
-        [imageView setImage:sectionImage];
-    }
 }
 
 - (NSArray * _Nullable)possibleActions {

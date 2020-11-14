@@ -15,6 +15,7 @@
     [super awakeFromNib];
     
     self.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.actionButton.tintColor = [UIColor accentColor];
 }
 
 @end

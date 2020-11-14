@@ -117,4 +117,8 @@
     });
 }
 
+- (void)dealloc {
+    [sourceManager removeDelegate:self];
+}
+
 @end

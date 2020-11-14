@@ -66,7 +66,6 @@
         
         return packages;
     } else {
-        [databaseManager packagesWithUpdates];
         return [databaseManager packagesFromSource:source inSection:section];
     }
 }
@@ -264,28 +263,17 @@
     return [databaseManager isPackageAvailable:package checkVersion:YES];
 }
 
+// These search methods could be improved further by using a NSBlockOperation subclass to allow us to use sqlite3_interrupt but I'll come back to this idea later...
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *packages = [self->databaseManager searchForPackagesByName:name];
-        
-        completion(packages);
-    });
+    [databaseManager searchForPackagesByName:name completion:completion];
 }
 
 - (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *packages = [self->databaseManager searchForPackagesByDescription:description];
-        
-        completion(packages);
-    });
+    [databaseManager searchForPackagesByDescription:description completion:completion];
 }
 
 - (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSArray *packages = [self->databaseManager searchForPackagesByAuthorWithName:name];
-        
-        completion(packages);
-    });
+    [databaseManager searchForPackagesByAuthorWithName:name completion:completion];
 }
 
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package {

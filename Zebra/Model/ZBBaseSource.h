@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceVerificationStatus.h"
+#import <Tabs/Sources/Helpers/ZBSourceVerificationStatus.h>
 
 @import Foundation;
 
@@ -97,6 +97,9 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 
 /*! @brief The verification status of the source */
 @property ZBSourceVerificationStatus verificationStatus;
+
+/*! @brief the source's origin if one has been retrieved */
+@property NSString *origin;
 
 /*! @brief the source's label if one has been retrieved */
 @property NSString *label;

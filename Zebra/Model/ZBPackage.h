@@ -13,7 +13,6 @@
 @import UIKit;
 
 @class UIImageView;
-@class ZBSource;
 @class ZBPurchaseInfo;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,8 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSString *_Nullable filename;
 @property (readonly) NSString * _Nullable highestCompatibleVersion;
 @property (readonly) NSURL *_Nullable homepageURL;
-@property (readonly) NSURL *_Nullable iconURL;
-@property (readonly) BOOL isInstalled;
 @property (readonly) BOOL isVersionInstalled;
 @property (readonly) NSUInteger installedSize;
 @property (readonly) NSString * _Nullable lowestCompatibleVersion;
@@ -45,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSArray *_Nullable replaces;
 @property BOOL requiresAuthorization;
 @property (readonly) NSString *_Nullable SHA256;
-@property (readonly) ZBSource *source;
-@property (readonly) NSArray *_Nullable tag;
 
 // Old Properties
 @property (nonatomic, strong) NSMutableArray <ZBPackage *> *dependencies;
@@ -62,7 +57,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSComparisonResult)compare:(id _Nullable)object;
 - (BOOL)sameAs:(ZBPackage * _Nonnull)package;
 - (BOOL)sameAsStricted:(ZBPackage * _Nonnull)package;
-- (BOOL)isPaid;
 - (NSString * _Nullable)getField:(NSString * _Nonnull)field;
 - (BOOL)canReinstall;
 - (NSArray <ZBPackage *> *)allVersions;
@@ -82,7 +76,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isEssentialOrRequired;
 - (NSArray * _Nullable)possibleActions;
 - (NSArray * _Nullable)possibleExtraActions;
-- (void)setIconImageForImageView:(UIImageView * _Nonnull)imageView;
 - (NSArray * _Nonnull)information;
 - (BOOL)hasChangelog;
 
