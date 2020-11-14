@@ -24,12 +24,11 @@
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
     self.queueStatusLabel.hidden = YES;
-    self.queueStatusLabel.textColor = [UIColor whiteColor];
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.iconImageView.layer.cornerRadius = 10;
     self.iconImageView.clipsToBounds = YES;
-    self.isInstalledImageView.tintColor = [UIColor accentColor];
+    [self setColors];
 }
 
 - (void)updateData:(ZBPackage *)package {
@@ -83,7 +82,8 @@
     self.packageLabel.textColor = [UIColor primaryTextColor];
     self.descriptionLabel.textColor = [UIColor secondaryTextColor];
     self.authorAndSourceAndSize.textColor = [UIColor tertiaryTextColor];
-//    self.backgroundColor = [UIColor cellBackgroundColor];
+    self.isInstalledImageView.tintColor = [UIColor accentColor];
+    self.queueStatusLabel.textColor = [UIColor whiteColor];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
