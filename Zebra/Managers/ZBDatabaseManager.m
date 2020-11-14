@@ -273,10 +273,12 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "identifier TEXT, "
                                           "lastSeen DATE, "
                                           "name TEXT, "
-                                          "version TEXT, "
                                           "role INTEGER, "
                                           "section TEXT, "
+                                          "source TEXT, "
+                                          "tag TEXT, "
                                           "uuid TEXT, "
+                                          "version TEXT, "
                                           "authorEmail TEXT, "
                                           "conflicts TEXT, "
                                           "depends TEXT, "
@@ -293,9 +295,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "provides TEXT, "
                                           "replaces TEXT, "
                                           "sha256 TEXT, "
-                                          "tag TEXT, "
-                                          "source TEXT, "
-                                          "FOREIGN KEY(source) REFERENCES " SOURCES_TABLE_NAME "(uuid) "
                                           "PRIMARY KEY(uuid)) "
                                           "WITHOUT ROWID;";
         result = sqlite3_exec(database, [createTableStatement UTF8String], NULL, NULL, NULL);
@@ -354,35 +353,35 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (NSString *)statementStringForStatementType:(ZBDatabaseStatementType)statement {
     switch (statement) {
         case ZBDatabaseStatementTypePackagesFromSource:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypePackageListFromSource:
             return @"SELECT p.identifier, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? AND role = 0 GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackagesWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypePackagesWithUpdates:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT v.identifier, v.version FROM (SELECT identifier FROM packages WHERE source = '_var_lib_dpkg_status_' AND role < 3) as i INNER JOIN packages as v ON i.identifier = v.identifier AND source != '_var_lib_dpkg_status_') as v INNER JOIN packages as p ON p.identifier = v.identifier AND p.version = v.version";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT v.identifier, v.version FROM (SELECT identifier FROM packages WHERE source = '_var_lib_dpkg_status_' AND role < 3) as i INNER JOIN packages as v ON i.identifier = v.identifier AND source != '_var_lib_dpkg_status_') as v INNER JOIN packages as p ON p.identifier = v.identifier AND p.version = v.version";
         case ZBDatabaseStatementTypeLatestPackages:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name;";
         case ZBDatabaseStatementTypeLatestPackagesWithLimit:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name LIMIT ?;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name LIMIT ?;";
         case ZBDatabaseStatementTypeInstalledInstanceOfPackage:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? and source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
             return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeSearchForPackageWithName:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE name LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE name LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeSearchForPackageWithDescription:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE description LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE description LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeSearchForPackageByAuthor:
-            return @"SELECT p.authorName, p.description, p.identifier, p.lastSeen, p.name, p.version, p.role, p.section, p.uuid FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+            return @"SELECT p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
-            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, identifier, lastSeen, name, version, role, section, uuid, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, iconURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, sha256, tag, source) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, iconURL, identifier, lastSeen, name, role, section, source, tag, uuid, version, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, sha256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
         case ZBDatabaseStatementTypeInsertSource:
@@ -1072,7 +1071,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Package Management
 
 - (void)insertPackage:(char **)package {
-    NSLog(@"[Zebra] Inserting packages %s", package[ZBPackageColumnUUID]);
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
 

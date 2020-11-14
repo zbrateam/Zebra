@@ -187,7 +187,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    ZBLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
+    NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     [self setupCrashReporting];

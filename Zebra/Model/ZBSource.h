@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBSource : ZBBaseSource
 @property (readonly) NSArray <NSString *> *architectures;
 @property (readonly) NSString *codename;
-@property (readonly) NSString *origin;
 @property (readonly) NSInteger pinPriority;
 @property (readonly) NSString *sourceDescription;
 @property (readonly) NSString *suite;

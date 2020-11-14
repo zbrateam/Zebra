@@ -94,6 +94,7 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
         _archiveType = archiveType;
         _repositoryURI = repositoryURI;
         _label = repositoryURI;
+        _origin = repositoryURI;
         _distribution = distribution;
 //        self->sourceID = INT_MIN;
         
