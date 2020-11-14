@@ -8,8 +8,9 @@
 
 #import "ZBTabBarController.h"
 
-#import <UI/Packages/ZBPackageListTableViewController.h>
 #import <Model/ZBSource.h>
+#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <UI/Search/ZBSearchViewController.h>
 
 #import "ZBTab.h"
 #import <Managers/ZBSourceManager.h>
@@ -80,6 +81,9 @@
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
     [packagesNavController setViewControllers:@[[[ZBPackageListTableViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
+    
+    UINavigationController *searchNavController = self.viewControllers[ZBTabSearch];
+    [searchNavController setViewControllers:@[[[ZBSearchViewController alloc] init]] animated:NO];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {
