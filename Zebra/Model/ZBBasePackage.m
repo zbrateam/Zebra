@@ -101,11 +101,13 @@
 }
 
 - (BOOL)isInstalled {
+    if (_isInstalled) return _isInstalled;
+    
     if (self.source && [self.source.uuid isEqualToString:@"_var_lib_dpkg_status"]) {
         _isInstalled = YES;
     }
     
-    if (!_isInstalled) [[ZBPackageManager sharedInstance] isPackageInstalled:self];
+    if (!_isInstalled) _isInstalled = [[ZBPackageManager sharedInstance] isPackageInstalled:self];
     
     return _isInstalled;
 }
@@ -118,15 +120,6 @@
     return [[ZBSettings wishlist] containsObject:self.identifier];
 }
 
-- (id)forwardingTargetForSelector:(SEL)aSelector {
-    if (forwardingPackage) return forwardingPackage;
-    
-    ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
-    if (package) forwardingPackage = package;
-    
-    return forwardingPackage;
-}
-
 - (void)setIconImageForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [ZBSource imageForSection:self.section];
     if (self.iconURL) {
@@ -135,6 +128,15 @@
     else {
         [imageView setImage:sectionImage];
     }
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector {
+    if (forwardingPackage) return forwardingPackage;
+    
+    ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
+    if (package) forwardingPackage = package;
+    
+    return forwardingPackage;
 }
 
 @end

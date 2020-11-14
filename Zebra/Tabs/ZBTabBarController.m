@@ -10,7 +10,6 @@
 
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <Model/ZBSource.h>
-#import <UI/Packages/ZBPackageListTableViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
 
 #import "ZBTab.h"
