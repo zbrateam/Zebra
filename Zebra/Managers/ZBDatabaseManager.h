@@ -117,9 +117,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Package Searching
 
-- (NSArray <ZBPackage *> *)searchForPackagesByName:(NSString *)name;
-- (NSArray <ZBPackage *> *)searchForPackagesByDescription:(NSString *)description;
-- (NSArray <ZBPackage *> *)searchForPackagesByAuthorWithName:(NSString *)name;
+- (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
+- (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
+- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 
 #pragma mark - Source Retrieval
 
