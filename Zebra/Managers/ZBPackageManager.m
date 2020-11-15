@@ -284,7 +284,23 @@
 - (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter {
     if (!filter) return packages;
     
-    return [packages filteredArrayUsingPredicate:filter.compoundPredicate];
+    NSArray *filteredPackages = [packages filteredArrayUsingPredicate:filter.compoundPredicate];
+    
+    NSString *key;
+    switch (filter.sortOrder) {
+        case ZBPackageSortOrderName:
+            key = @"name";
+            break;
+        case ZBPackageSortOrderDate:
+            key = @"lastSeen";
+            break;
+        default:
+            key = @"name";
+            break;
+    }
+    
+    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    return [filteredPackages sortedArrayUsingDescriptors:@[sortDescriptor]];
 }
 
 @end
