@@ -43,12 +43,8 @@
 - (void)containerViewWillLayoutSubviews {
     [super containerViewWillLayoutSubviews];
     
-    self.presentedView.layer.masksToBounds = NO;
+    self.presentedView.layer.masksToBounds = YES;
     self.presentedView.layer.cornerRadius = 10;
-    self.presentedView.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.presentedView.layer.shadowOpacity = 0.25;
-    self.presentedView.layer.shadowOffset = CGSizeZero;
-    self.presentedView.layer.shadowRadius = 20;
 }
 
 - (void)containerViewDidLayoutSubviews {

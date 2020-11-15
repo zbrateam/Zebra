@@ -14,37 +14,43 @@
 
 @implementation ZBPackageFilterViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (instancetype)init {
+    self = [super initWithStyle:UITableViewStyleInsetGrouped];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    if (self) {
+        [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"filterCell"];
+    }
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    return self;
 }
+
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 2; // Filter By and Sort By
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    if (section == 0) {
+        return 4; // At a maximum
+    } else {
+        return 3;
+    }
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    cell.textLabel.text = @"Filter!";
     
     return cell;
 }
-*/
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return section == 0 ? @"Filter By" : @"Sort By";
+}
 
 /*
 // Override to support conditional editing of the table view.
