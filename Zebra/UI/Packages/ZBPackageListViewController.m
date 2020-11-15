@@ -11,6 +11,7 @@
 
 #import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
+#import <Model/ZBPackageFilter.h>
 #import <Model/ZBSource.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Common/ZBPartialPresentationController.h>
@@ -19,7 +20,10 @@
     ZBPackageManager *packageManager;
     UISearchController *searchController;
     UIActivityIndicatorView *spinner;
+    NSArray *results;
+    NSArray *filterResults;
 }
+@property (nonnull) ZBPackageFilter *filter;
 @end
 
 @implementation ZBPackageListViewController
@@ -96,6 +100,52 @@
     }
 }
 
+- (void)showSpinner {
+    if (!spinner) {
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        spinner.hidesWhenStopped = YES;
+        
+        self.tableView.backgroundView = spinner;
+    }
+    
+    [spinner startAnimating];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+- (void)hideSpinner {
+    [spinner stopAnimating];
+    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+}
+
+#pragma mark - Filter Delegate
+
+- (void)applyFilter:(ZBPackageFilter *)filter {
+    self.filter = filter;
+    
+    self.packages = NULL;
+    [self showSpinner];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - Search Results Updating Protocol
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    
+}
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    ZBPackageFilterViewController *filter = [[ZBPackageFilterViewController alloc] initWithFilter:self.filter delegate:self];
+    [filter addObserver:self forKeyPath:@"filter.section" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+    
+    UINavigationController *filterVC = [[UINavigationController alloc] initWithRootViewController:filter];
+    filterVC.modalPresentationStyle = UIModalPresentationCustom;
+    filterVC.transitioningDelegate = self;
+    
+    [self presentViewController:filterVC animated:YES completion:nil];
+}
+
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -112,27 +162,16 @@
     return cell;
 }
 
+#pragma mark - Table View Delegate
+
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     [cell updateData:self.packages[indexPath.row]];
 }
-
-#pragma mark - Table View Delegate
 
 #pragma mark - Presentation Controller
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.60];
-}
-
-#pragma mark - Search Bar Delegate
-
-- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
-    ZBPackageFilterViewController *filter = [[ZBPackageFilterViewController alloc] init];
-    UINavigationController *filterVC = [[UINavigationController alloc] initWithRootViewController:filter];
-    filterVC.modalPresentationStyle = UIModalPresentationCustom;
-    filterVC.transitioningDelegate = self;
-    
-    [self presentViewController:filterVC animated:YES completion:nil];
 }
 
 @end

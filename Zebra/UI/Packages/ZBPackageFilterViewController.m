@@ -9,16 +9,19 @@
 #import "ZBPackageFilterViewController.h"
 
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Model/ZBPackageFilter.h>
 
-@interface ZBPackageFilterViewController ()
-
+@interface ZBPackageFilterViewController () {
+    id <ZBFilterDelegate> delegate;
+}
+@property (nonatomic) ZBPackageFilter *filter;
 @end
 
 @implementation ZBPackageFilterViewController
 
 #pragma mark - Initializers
 
-- (instancetype)init {
+- (instancetype)initWithFilter:(ZBPackageFilter *)filter delegate:(id <ZBFilterDelegate>)delegate {
     if (@available(iOS 13.0, *)) {
         self = [super initWithStyle:UITableViewStyleInsetGrouped];
     } else {
@@ -26,6 +29,9 @@
     }
     
     if (self) {
+        self->delegate = delegate;
+        self.filter = filter;
+        
         self.title = NSLocalizedString(@"Filters", @"");
         self.view.tintColor = [UIColor accentColor];
     }
@@ -61,7 +67,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"fitlerCell"];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"filterCell"];
     cell.accessoryType = UITableViewCellAccessoryNone;
     
     switch (indexPath.section) {
@@ -70,7 +76,7 @@
                 case 0: {
                     cell.textLabel.text = NSLocalizedString(@"Section", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.detailTextLabel.text = @"All";
+                    cell.detailTextLabel.text = self.filter.section;
                     break;
                 }
                 case 1: {
@@ -120,6 +126,12 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     return section == 0 ? [NSString stringWithFormat:NSLocalizedString(@"%d out of %d packages shown.", @""), 100, 125] : NULL;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [delegate applyFilter:self.filter];
 }
 
 @end
