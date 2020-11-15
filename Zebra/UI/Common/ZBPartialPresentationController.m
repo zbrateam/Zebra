@@ -1,20 +1,21 @@
 //
-//  ZBHalfPresentationController.m
+//  ZBPartialPresentationController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 11/14/20.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBHalfPresentationController.h"
+#import "ZBPartialPresentationController.h"
 
-@interface ZBHalfPresentationController () {
+@interface ZBPartialPresentationController () {
     UIView *shadeView;
     UITapGestureRecognizer *tapGestureRecognizer;
+    CGFloat proportion;
 }
 @end
 
-@implementation ZBHalfPresentationController
+@implementation ZBPartialPresentationController
 
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController {
     self = [super initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
@@ -27,6 +28,20 @@
         
         tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
         [shadeView addGestureRecognizer:tapGestureRecognizer];
+        
+        proportion = 2;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController scale:(CGFloat)scale {
+    if (scale <= 0 || scale >= 1) return NULL;
+    
+    self = [self initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
+    
+    if (self) {
+        self->proportion = 1 / scale;
     }
     
     return self;
@@ -37,14 +52,14 @@
 }
 
 - (CGRect)frameOfPresentedViewInContainerView {
-    return CGRectMake(0, self.containerView.frame.size.height / 2, self.containerView.frame.size.width, self.containerView.frame.size.height / 2);
+    return CGRectMake(0, self.containerView.frame.size.height - self.containerView.frame.size.height / proportion, self.containerView.frame.size.width, self.containerView.frame.size.height / proportion);
 }
 
 - (void)containerViewWillLayoutSubviews {
     [super containerViewWillLayoutSubviews];
     
     self.presentedView.layer.masksToBounds = YES;
-    self.presentedView.layer.cornerRadius = 10;
+    self.presentedView.layer.cornerRadius = 20;
 }
 
 - (void)containerViewDidLayoutSubviews {

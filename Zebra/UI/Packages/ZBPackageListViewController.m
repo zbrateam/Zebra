@@ -13,7 +13,7 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
-#import <UI/Common/ZBHalfPresentationController.h>
+#import <UI/Common/ZBPartialPresentationController.h>
 
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
@@ -121,7 +121,7 @@
 #pragma mark - Presentation Controller
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    return [[ZBHalfPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+    return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.60];
 }
 
 #pragma mark - Search Bar Delegate

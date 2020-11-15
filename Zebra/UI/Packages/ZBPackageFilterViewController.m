@@ -80,13 +80,11 @@
                     break;
                 }
                 case 2: {
-                    cell.textLabel.text = NSLocalizedString(@"Paid", @"");
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    cell.textLabel.text = NSLocalizedString(@"Commerical", @"");
                     break;
                 }
                 case 3: {
-                    cell.textLabel.text = NSLocalizedString(@"Favorited", @"");
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    cell.textLabel.text = NSLocalizedString(@"Favorites", @"");
                     break;
                 }
                 case 4: {
@@ -106,7 +104,7 @@
                     cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
                     break;
                 case 2:
-                    cell.textLabel.text = NSLocalizedString(@"Installed Size", @"");
+                    cell.textLabel.text = NSLocalizedString(@"Package Size", @"");
                     break;
             }
             break;
@@ -118,6 +116,10 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return section == 0 ? NSLocalizedString(@"Filter By", @"") : NSLocalizedString(@"Sort By", @"");
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return [NSString stringWithFormat:NSLocalizedString(@"%d out of %d packages shown.", @""), 100, 125];
 }
 
 @end
