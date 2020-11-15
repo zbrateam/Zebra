@@ -10,6 +10,7 @@
 
 @class ZBPackage;
 @class ZBBasePackage;
+@class ZBPackageFilter;
 @class ZBSource;
 @class ZBBaseSource;
 
@@ -21,8 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package checkVersion:(BOOL)checkVersion;
 - (void)importPackagesFromSource:(ZBBaseSource *)source;
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *_Nullable)source;
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section;
+- (void)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section filteredBy:(ZBPackageFilter *_Nullable)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
 
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;

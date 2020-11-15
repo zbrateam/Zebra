@@ -43,6 +43,8 @@
         searchController.searchBar.delegate = self;
         [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
         
+        self.filter = [[ZBPackageFilter alloc] initWithSection:NULL role:ZBPackageRoleDeity];
+        
         self.navigationItem.searchController = searchController;
     }
     
@@ -94,9 +96,9 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     if (!self.packages && self.source) {
-        self.packages = [packageManager packagesFromSource:self.source inSection:self.section];
+//        self.packages = [packageManager packagesFromSource:self.source inSection:self.section];
         
-        [self.tableView reloadData];
+//        [self.tableView reloadData];
     }
 }
 
@@ -122,9 +124,12 @@
 - (void)applyFilter:(ZBPackageFilter *)filter {
     self.filter = filter;
     
-    self.packages = NULL;
     [self showSpinner];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [packageManager packagesFromSource:_source inSection:NULL filteredBy:self.filter completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+        self.packages = packages;
+        
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Search Results Updating Protocol
@@ -137,7 +142,6 @@
 
 - (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
     ZBPackageFilterViewController *filter = [[ZBPackageFilterViewController alloc] initWithFilter:self.filter delegate:self];
-    [filter addObserver:self forKeyPath:@"filter.section" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
     
     UINavigationController *filterVC = [[UINavigationController alloc] initWithRootViewController:filter];
     filterVC.modalPresentationStyle = UIModalPresentationCustom;

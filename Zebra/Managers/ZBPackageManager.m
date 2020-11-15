@@ -12,6 +12,7 @@
 #import <ZBDevice.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
+#import <Model/ZBPackageFilter.h>
 #import <Model/ZBSource.h>
 #import <Helpers/utils.h>
 #import <Database/ZBDependencyResolver.h>
@@ -46,15 +47,9 @@
     return self;
 }
 
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
-    return [self packagesFromSource:source inSection:NULL];
-}
-
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section {
+- (void)packagesFromSource:(ZBSource *)source inSection:(NSString *)section filteredBy:(ZBPackageFilter *)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
-        ZBSource *localSource = [ZBSource localSource];
-            
-        [self importPackagesFromSource:localSource];
+        [self importPackagesFromSource:source];
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
         
         NSMutableDictionary *list = [NSMutableDictionary new];
@@ -64,9 +59,10 @@
         }
         _installedPackagesList = list;
         
-        return packages;
+        if (completion) completion([self filterPackages:packages withFilter:filter]);
     } else {
-        return [databaseManager packagesFromSource:source inSection:section];
+        NSArray *packages = [databaseManager packagesFromSource:source inSection:section];
+        if (completion) completion([self filterPackages:packages withFilter:filter]);
     }
 }
 
@@ -88,7 +84,7 @@
 
 - (NSDictionary <NSString *,NSString *> *)installedPackagesList {
     if ([self needsStatusUpdate]) {
-        [self packagesFromSource:[ZBSource localSource]]; // This also updates the installed packages list
+        [self packagesFromSource:[ZBSource localSource] inSection:NULL filteredBy:NULL completion:nil]; // This also updates the installed packages list
     } else if (!_installedPackagesList) {
         _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
     }
@@ -283,6 +279,12 @@
 - (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package {
 //    return [databaseManager allInstancesOfPackage:package];
     return NULL;
+}
+
+- (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter {
+    if (!filter) return packages;
+    
+    return [packages filteredArrayUsingPredicate:filter.compoundPredicate];
 }
 
 @end

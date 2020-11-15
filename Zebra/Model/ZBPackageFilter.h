@@ -32,6 +32,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageSortOrder) {
 @property (nonatomic) BOOL installed;
 @property (nonatomic) ZBPackageSortOrder sortOrder;
 - (instancetype)initWithSection:(NSString *)section role:(ZBPackageRole)role;
+- (NSCompoundPredicate *)compoundPredicate;
 @end
 
 NS_ASSUME_NONNULL_END
