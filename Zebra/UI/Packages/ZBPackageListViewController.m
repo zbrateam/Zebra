@@ -127,7 +127,8 @@
 #pragma mark - Search Bar Delegate
 
 - (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
-    ZBPackageFilterViewController *filterVC = [[ZBPackageFilterViewController alloc] init];
+    ZBPackageFilterViewController *filter = [[ZBPackageFilterViewController alloc] init];
+    UINavigationController *filterVC = [[UINavigationController alloc] initWithRootViewController:filter];
     filterVC.modalPresentationStyle = UIModalPresentationCustom;
     filterVC.transitioningDelegate = self;
     
