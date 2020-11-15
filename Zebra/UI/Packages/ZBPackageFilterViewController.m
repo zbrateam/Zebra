@@ -104,13 +104,15 @@
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = NSLocalizedString(@"Package Name", @"");
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    if (self.filter.role == 0) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                 case 1:
                     cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
+                    if (self.filter.role == 1) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                 case 2:
                     cell.textLabel.text = NSLocalizedString(@"Package Size", @"");
+                    if (self.filter.role == 2) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
             }
             break;
@@ -131,8 +133,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    self.filter.section = NULL;
-    self.filter.role = ZBPackageRoleDeity;
+    switch (indexPath.section) {
+        case 0: {
+            // Nothing yet
+            break;
+        }
+        case 1: {
+            self.filter.sortOrder = indexPath.row;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+        }
+    }
+    
     [delegate applyFilter:self.filter];
 }
 
