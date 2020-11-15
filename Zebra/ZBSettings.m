@@ -90,12 +90,12 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
         [defaults removeObjectForKey:darkModeKey];
     }
     
-    if ([defaults objectForKey:liveSearchKey]) {
-        BOOL wantsLiveSearch = [defaults boolForKey:liveSearchKey];
-        
-        [self setWantsLiveSearch:wantsLiveSearch];
-        [defaults removeObjectForKey:liveSearchKey];
-    }
+//    if ([defaults objectForKey:liveSearchKey]) {
+//        BOOL wantsLiveSearch = [defaults boolForKey:liveSearchKey];
+//        
+//        [self setWantsLiveSearch:wantsLiveSearch];
+//        [defaults removeObjectForKey:liveSearchKey];
+//    }
     
     if ([defaults objectForKey:wantsFeaturedKey]) {
         BOOL wantsFeatured = [defaults boolForKey:wantsFeaturedKey];
@@ -546,23 +546,23 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     [[NSUserDefaults standardUserDefaults] setObject:ignoredUpdates forKey:IgnoredUpdatesKey];
 }
 
-#pragma mark - Search Settings
-
-+ (BOOL)wantsLiveSearch {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:WantsLiveSearchKey]) {
-        [self setWantsLiveSearch:YES];
-        return YES;
-    }
-    return [defaults boolForKey:WantsLiveSearchKey];
-}
-
-+ (void)setWantsLiveSearch:(BOOL)wantsLiveSearch {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setBool:wantsLiveSearch forKey:WantsLiveSearchKey];
-}
+//#pragma mark - Search Settings
+//
+//+ (BOOL)wantsLiveSearch {
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    
+//    if (![defaults objectForKey:WantsLiveSearchKey]) {
+//        [self setWantsLiveSearch:YES];
+//        return YES;
+//    }
+//    return [defaults boolForKey:WantsLiveSearchKey];
+//}
+//
+//+ (void)setWantsLiveSearch:(BOOL)wantsLiveSearch {
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    
+//    [defaults setBool:wantsLiveSearch forKey:WantsLiveSearchKey];
+//}
 
 #pragma mark - Console Settings
 
