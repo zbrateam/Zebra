@@ -104,15 +104,15 @@
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = NSLocalizedString(@"Package Name", @"");
-                    if (self.filter.role == 0) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    if (self.filter.sortOrder == 0) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                 case 1:
                     cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
-                    if (self.filter.role == 1) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    if (self.filter.sortOrder == 1) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                 case 2:
                     cell.textLabel.text = NSLocalizedString(@"Package Size", @"");
-                    if (self.filter.role == 2) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    if (self.filter.sortOrder == 2) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
             }
             break;
