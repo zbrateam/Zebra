@@ -119,7 +119,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return [NSString stringWithFormat:NSLocalizedString(@"%d out of %d packages shown.", @""), 100, 125];
+    return section == 0 ? [NSString stringWithFormat:NSLocalizedString(@"%d out of %d packages shown.", @""), 100, 125] : NULL;
 }
 
 @end
