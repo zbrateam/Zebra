@@ -59,7 +59,7 @@
     [super containerViewWillLayoutSubviews];
     
     self.presentedView.layer.masksToBounds = YES;
-    self.presentedView.layer.cornerRadius = 20;
+    self.presentedView.layer.cornerRadius = 10;
 }
 
 - (void)containerViewDidLayoutSubviews {
