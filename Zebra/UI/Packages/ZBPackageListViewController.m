@@ -7,11 +7,13 @@
 //
 
 #import "ZBPackageListViewController.h"
+#import "ZBPackageFilterViewController.h"
 
 #import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Common/ZBHalfPresentationController.h>
 
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
@@ -34,6 +36,7 @@
         searchController.delegate = self;
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         searchController.searchBar.showsBookmarkButton = YES;
+        searchController.searchBar.delegate = self;
         [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
         
         self.navigationItem.searchController = searchController;
@@ -114,5 +117,21 @@
 }
 
 #pragma mark - Table View Delegate
+
+#pragma mark - Presentation Controller
+
+- (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
+    return [[ZBHalfPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting];
+}
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    ZBPackageFilterViewController *filterVC = [[ZBPackageFilterViewController alloc] init];
+    filterVC.modalPresentationStyle = UIModalPresentationCustom;
+    filterVC.transitioningDelegate = self;
+    
+    [self presentViewController:filterVC animated:YES completion:nil];
+}
 
 @end
