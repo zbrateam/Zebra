@@ -131,7 +131,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    self.filter.section = @"System";
+    self.filter.section = NULL;
+    self.filter.role = ZBPackageRoleDeity;
     [delegate applyFilter:self.filter];
 }
 
