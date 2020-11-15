@@ -706,6 +706,16 @@
 			path = Migration;
 			sourceTree = "<group>";
 		};
+		8915515E2560C90E005AF405 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
+				499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */,
+				49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8916AC1823CAAE51008BA02C /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
@@ -865,9 +875,7 @@
 		893884DF2550C20200365326 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				499B0E23246B8437008825E4 /* ZBBoldTableViewHeaderView.h */,
-				499B0E24246B8437008825E4 /* ZBBoldTableViewHeaderView.m */,
-				49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */,
+				8915515E2560C90E005AF405 /* Views */,
 				8915515A2560A4F0005AF405 /* ZBHalfPresentationController.h */,
 				8915515B2560A4F0005AF405 /* ZBHalfPresentationController.m */,
 			);
