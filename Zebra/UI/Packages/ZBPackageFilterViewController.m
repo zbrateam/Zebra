@@ -60,7 +60,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 5; // At a maximum
+        return 4 + self.filter.canSetSection; // At a maximum
     } else {
         return 3;
     }
@@ -72,11 +72,11 @@
     
     switch (indexPath.section) {
         case 0: {
-            switch (indexPath.row) {
+            switch (indexPath.row + !self.filter.canSetSection) {
                 case 0: {
                     cell.textLabel.text = NSLocalizedString(@"Section", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.detailTextLabel.text = self.filter.section;
+                    cell.detailTextLabel.text = self.filter.section ?: NSLocalizedString(@"All Sections", @"");
                     break;
                 }
                 case 1: {
@@ -86,7 +86,7 @@
                     break;
                 }
                 case 2: {
-                    cell.textLabel.text = NSLocalizedString(@"Commerical", @"");
+                    cell.textLabel.text = NSLocalizedString(@"Commercial", @"");
                     break;
                 }
                 case 3: {

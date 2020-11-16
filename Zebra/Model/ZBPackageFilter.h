@@ -29,6 +29,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageSortOrder) {
 @property (nonatomic) ZBSource *source;
 @property (nonatomic, nullable) NSString *searchTerm;
 @property (nonatomic, nullable) NSString *section;
+@property (nonatomic) BOOL canSetSection;
 @property (nonatomic) ZBPackageRole role;
 @property (nonatomic) BOOL commercial;
 @property (nonatomic) BOOL favorited;

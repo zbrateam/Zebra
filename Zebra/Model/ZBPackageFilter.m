@@ -11,10 +11,6 @@
 #import <Model/ZBSource.h>
 #import <ZBSettings.h>
 
-@interface ZBPackageFilter ()
-@property (nonatomic) BOOL canSetSection;
-@end
-
 @implementation ZBPackageFilter
 
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *)section {
@@ -25,6 +21,8 @@
         if (section) {
             _canSetSection = NO;
             _section = section;
+        } else {
+            _canSetSection = YES;
         }
         _role = [ZBSettings role];
     }
