@@ -47,23 +47,25 @@
     return self;
 }
 
-- (void)packagesFromSource:(ZBSource *)source inSection:(NSString *)section filteredBy:(ZBPackageFilter *)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
-        [self importPackagesFromSource:source];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
-        
-        NSMutableDictionary *list = [NSMutableDictionary new];
-        NSArray *packages = [databaseManager packagesFromSource:source inSection:section];
-        for (ZBBasePackage *package in packages) {
-            list[package.identifier] = package.version;
+- (void)packagesMatchingFilter:(ZBPackageFilter *)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        if ([filter.source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
+            [self importPackagesFromSource:filter.source];
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
+            
+            NSMutableDictionary *list = [NSMutableDictionary new];
+            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:filter.section];
+            for (ZBBasePackage *package in packages) {
+                list[package.identifier] = package.version;
+            }
+            self->_installedPackagesList = list;
+            
+            if (completion) completion([self filterPackages:packages withFilter:filter]);
+        } else {
+            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:filter.section];
+            if (completion) completion([self filterPackages:packages withFilter:filter]);
         }
-        _installedPackagesList = list;
-        
-        if (completion) completion([self filterPackages:packages withFilter:filter]);
-    } else {
-        NSArray *packages = [databaseManager packagesFromSource:source inSection:section];
-        if (completion) completion([self filterPackages:packages withFilter:filter]);
-    }
+    });
 }
 
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
@@ -84,7 +86,8 @@
 
 - (NSDictionary <NSString *,NSString *> *)installedPackagesList {
     if ([self needsStatusUpdate]) {
-        [self packagesFromSource:[ZBSource localSource] inSection:NULL filteredBy:NULL completion:nil]; // This also updates the installed packages list
+        ZBPackageFilter *filter = [[ZBPackageFilter alloc] initWithSource:[ZBSource localSource] section:NULL];
+        [self packagesMatchingFilter:filter completion:nil]; // This also updates the installed packages list
     } else if (!_installedPackagesList) {
         _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
     }
@@ -285,22 +288,7 @@
     if (!filter) return packages;
     
     NSArray *filteredPackages = [packages filteredArrayUsingPredicate:filter.compoundPredicate];
-    
-    NSString *key;
-    switch (filter.sortOrder) {
-        case ZBPackageSortOrderName:
-            key = @"name";
-            break;
-        case ZBPackageSortOrderDate:
-            key = @"lastSeen";
-            break;
-        default:
-            key = @"name";
-            break;
-    }
-    
-    NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES selector:@selector(caseInsensitiveCompare:)];
-    return [filteredPackages sortedArrayUsingDescriptors:@[sortDescriptor]];
+    return [filteredPackages sortedArrayUsingDescriptors:@[filter.sortDescriptor]];
 }
 
 @end

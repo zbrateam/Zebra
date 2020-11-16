@@ -509,7 +509,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     [defaults setBool:alwaysInstallLatest forKey:AlwaysInstallLatestKey];
 }
 
-+ (int16_t)role {
++ (uint8_t)role {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:RoleKey]) {
@@ -519,7 +519,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     return [defaults integerForKey:RoleKey];
 }
 
-+ (void)setRole:(int16_t)role {
++ (void)setRole:(uint8_t)role {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:role forKey:RoleKey];

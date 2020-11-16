@@ -8,14 +8,25 @@
 
 #import "ZBPackageFilter.h"
 
+#import <Model/ZBSource.h>
+#import <ZBSettings.h>
+
+@interface ZBPackageFilter ()
+@property (nonatomic) BOOL canSetSection;
+@end
+
 @implementation ZBPackageFilter
 
-- (instancetype)initWithSection:(NSString *)section role:(ZBPackageRole)role {
+- (instancetype)initWithSource:(ZBSource *)source section:(NSString *)section {
     self = [super init];
     
     if (self) {
-        _section = section;
-        _role = role;
+        _source = source;
+        if (section) {
+            _canSetSection = NO;
+            _section = section;
+        }
+        _role = [ZBSettings role];
     }
     
     return self;
@@ -53,6 +64,17 @@
     }
     
     return [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
+}
+
+- (NSSortDescriptor *)sortDescriptor {
+    switch (self.sortOrder) {
+        case ZBPackageSortOrderName:
+            return [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+        case ZBPackageSortOrderDate:
+            return [NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:YES selector:@selector(compare:)];
+        case ZBPackageSortOrderSize:
+            return [NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:YES selector:@selector(compare:)];
+    }
 }
 
 @end

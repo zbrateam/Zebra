@@ -43,8 +43,6 @@
         searchController.searchBar.delegate = self;
         [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
         
-        self.filter = [[ZBPackageFilter alloc] initWithSection:NULL role:ZBPackageRoleDeity];
-        
         self.navigationItem.searchController = searchController;
     }
     
@@ -73,6 +71,8 @@
         } else {
             self.title = NSLocalizedString(@"Installed", @"");
         }
+        
+        self.filter = [[ZBPackageFilter alloc] initWithSource:source section:section];
     }
     
     return self;
@@ -96,10 +96,19 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     
     if (!self.packages && self.source) {
-//        self.packages = [packageManager packagesFromSource:self.source inSection:self.section];
-        
-//        [self.tableView reloadData];
+        [self loadPackages];
     }
+}
+
+- (void)loadPackages {
+    [self showSpinner];
+    [packageManager packagesMatchingFilter:self.filter completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self hideSpinner];
+            self.packages = packages;
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        });
+    }];
 }
 
 - (void)showSpinner {
@@ -124,12 +133,7 @@
 - (void)applyFilter:(ZBPackageFilter *)filter {
     self.filter = filter;
     
-    [self showSpinner];
-    [packageManager packagesFromSource:_source inSection:NULL filteredBy:self.filter completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-        self.packages = packages;
-        
-        [self.tableView reloadData];
-    }];
+    [self loadPackages];
 }
 
 #pragma mark - Search Results Updating Protocol

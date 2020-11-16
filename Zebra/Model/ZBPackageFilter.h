@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class ZBSource;
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, ZBPackageRole) {
@@ -24,6 +26,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageSortOrder) {
 };
 
 @interface ZBPackageFilter : NSObject
+@property (nonatomic) ZBSource *source;
 @property (nonatomic, nullable) NSString *searchTerm;
 @property (nonatomic, nullable) NSString *section;
 @property (nonatomic) ZBPackageRole role;
@@ -31,8 +34,9 @@ typedef NS_ENUM(NSUInteger, ZBPackageSortOrder) {
 @property (nonatomic) BOOL favorited;
 @property (nonatomic) BOOL installed;
 @property (nonatomic) ZBPackageSortOrder sortOrder;
-- (instancetype)initWithSection:(NSString *)section role:(ZBPackageRole)role;
+- (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section;
 - (NSCompoundPredicate *)compoundPredicate;
+- (NSSortDescriptor *)sortDescriptor;
 @end
 
 NS_ASSUME_NONNULL_END

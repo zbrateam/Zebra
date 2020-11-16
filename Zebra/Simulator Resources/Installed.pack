@@ -3838,7 +3838,7 @@ Description: A Useful Package Manager
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
 Tag: compatible_min::ios11.0, compatible_max::ios13.7
 
-Package: xyz.willy.aaaa
+Package: xyz.willy.aaaab
 Status: deinstall ok config-files
 Name: AAAAAAAAA
 Version: 1.0

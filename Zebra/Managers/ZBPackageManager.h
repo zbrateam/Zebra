@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package checkVersion:(BOOL)checkVersion;
 - (void)importPackagesFromSource:(ZBBaseSource *)source;
-- (void)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section filteredBy:(ZBPackageFilter *_Nullable)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
+- (void)packagesMatchingFilter:(ZBPackageFilter *)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
 
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
