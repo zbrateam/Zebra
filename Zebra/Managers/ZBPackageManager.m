@@ -288,7 +288,7 @@
     if (!filter) return packages;
     
     NSArray *filteredPackages = [packages filteredArrayUsingPredicate:filter.compoundPredicate];
-    return [filteredPackages sortedArrayUsingDescriptors:@[filter.sortDescriptor]];
+    return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
 }
 
 @end

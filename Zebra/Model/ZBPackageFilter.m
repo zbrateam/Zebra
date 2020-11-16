@@ -66,15 +66,17 @@
     return [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 }
 
-- (NSSortDescriptor *)sortDescriptor {
-    switch (self.sortOrder) {
-        case ZBPackageSortOrderName:
-            return [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)];
-        case ZBPackageSortOrderDate:
-            return [NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:YES selector:@selector(compare:)];
-        case ZBPackageSortOrderSize:
-            return [NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:YES selector:@selector(compare:)];
+- (NSArray <NSSortDescriptor *> *)sortDescriptors {
+    NSMutableArray *descriptors = [NSMutableArray new];
+    
+    if (self.sortOrder == ZBPackageSortOrderDate) {
+        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:NO selector:@selector(compare:)]];
+    } else if (self.sortOrder == ZBPackageSortOrderSize) {
+        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:YES selector:@selector(compare:)]];
     }
+
+    [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
+    return descriptors;
 }
 
 @end
