@@ -72,7 +72,11 @@
     if (self.sortOrder == ZBPackageSortOrderDate) {
         [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:NO selector:@selector(compare:)]];
     } else if (self.sortOrder == ZBPackageSortOrderSize) {
-        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:YES selector:@selector(compare:)]];
+        if (self.source.remote) {
+            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"downloadSize" ascending:NO selector:@selector(compare:)]];
+        } else {
+            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:NO selector:@selector(compare:)]];
+        }
     }
 
     [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
