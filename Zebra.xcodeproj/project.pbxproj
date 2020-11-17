@@ -107,6 +107,7 @@
 		893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.m */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
 		893C36562509AD8400DF07DE /* ZBCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = 893C36552509AD8400DF07DE /* ZBCommand.m */; };
+		893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 893CCD21256457A900656810 /* ZBSelectionViewController.m */; };
 		893F51CC2447D83C00B2C64E /* control.sample in Resources */ = {isa = PBXBuildFile; fileRef = 893F51CB2447D83C00B2C64E /* control.sample */; };
 		8944916F21B5AF5E00DDDEF2 /* ZBSourceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
@@ -366,6 +367,9 @@
 		893CB6652364011B00204E27 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		893CB666236402EE00204E27 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		893CB6672364041500204E27 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		893CCD20256457A900656810 /* ZBSelectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSelectionViewController.h; sourceTree = "<group>"; };
+		893CCD21256457A900656810 /* ZBSelectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSelectionViewController.m; sourceTree = "<group>"; };
+		893CCD252564582100656810 /* ZBSelectionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSelectionDelegate.h; sourceTree = "<group>"; };
 		893F51CB2447D83C00B2C64E /* control.sample */ = {isa = PBXFileReference; lastKnownFileType = text; path = control.sample; sourceTree = "<group>"; };
 		893F857323C027E9005C4CF6 /* libcompression.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcompression.tbd; path = usr/lib/libcompression.tbd; sourceTree = SDKROOT; };
 		8942C8E823639D86002DE095 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -882,9 +886,12 @@
 		893884DF2550C20200365326 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				893CCD242564580F00656810 /* Delegates */,
 				8915515E2560C90E005AF405 /* Views */,
 				8915515A2560A4F0005AF405 /* ZBPartialPresentationController.h */,
 				8915515B2560A4F0005AF405 /* ZBPartialPresentationController.m */,
+				893CCD20256457A900656810 /* ZBSelectionViewController.h */,
+				893CCD21256457A900656810 /* ZBSelectionViewController.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -901,6 +908,14 @@
 				893952FE220B5D0100995109 /* ZBConsoleViewController.m */,
 			);
 			path = Console;
+			sourceTree = "<group>";
+		};
+		893CCD242564580F00656810 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				893CCD252564582100656810 /* ZBSelectionDelegate.h */,
+			);
+			path = Delegates;
 			sourceTree = "<group>";
 		};
 		8958DF9723EB9A9600A7B823 /* Accent Color */ = {
@@ -1522,6 +1537,7 @@
 				759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
+				893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				75823619249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,

@@ -10,6 +10,8 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBPackageFilter.h>
+#import <Model/ZBSource.h>
+#import <UI/Common/ZBSelectionViewController.h>
 
 @interface ZBPackageFilterViewController () {
     id <ZBFilterDelegate> delegate;
@@ -58,6 +60,12 @@
 
 - (void)dismiss {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Selection Delegate
+
+- (void)selectedChoices:(NSArray *)choices {
+    NSLog(@"choices");
 }
 
 #pragma mark - Table View Data Source
@@ -143,7 +151,13 @@
     
     switch (indexPath.section) {
         case 0: {
-            // Nothing yet
+            switch (indexPath.row + !self.filter.canSetSection) {
+                case 0: {
+                    NSArray *sections = [[self.filter.source sections] allKeys];
+                    ZBSelectionViewController *selectionVC = [[ZBSelectionViewController alloc] initWithChoices:sections selections:NULL selectionType:ZBSelectionTypeInverse delegate:self];
+                    [self.navigationController pushViewController:selectionVC animated:YES];
+                }
+            }
             break;
         }
         case 1: {

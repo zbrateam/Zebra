@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "ZBFilterDelegate.h"
+#import <UI/Common/Delegates/ZBSelectionDelegate.h>
 
 @class ZBPackageFilter;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageFilterViewController : UITableViewController
+@interface ZBPackageFilterViewController : UITableViewController <ZBSelectionDelegate>
 - (instancetype)initWithFilter:(ZBPackageFilter *)filter delegate:(id <ZBFilterDelegate>)delegate;
 @end
 
