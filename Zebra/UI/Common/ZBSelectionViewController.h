@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
 
 @interface ZBSelectionViewController : UITableViewController
 @property (nonatomic) BOOL allowsMultiSelection;
-- (instancetype)initWithChoices:(NSArray *)choices selections:(NSArray *_Nullable)selections selectionType:(ZBSelectionType)selectionType delegate:(id <ZBSelectionDelegate>)delegate;
+- (instancetype)initWithChoices:(NSArray *)choices selections:(NSArray *_Nullable)selections selectionType:(ZBSelectionType)selectionType delegate:(id <ZBSelectionDelegate>)delegate indexPath:(NSIndexPath *)indexPath;
 @end
 
 NS_ASSUME_NONNULL_END

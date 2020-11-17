@@ -8,8 +8,11 @@
 
 #import "ZBSelectionViewController.h"
 
+#import <Extensions/UIColor+GlobalColors.h>
+
 @interface ZBSelectionViewController () {
     id <ZBSelectionDelegate> delegate;
+    NSIndexPath *indexPath;
 }
 @property ZBSelectionType selectionType;
 @property NSArray *choices;
@@ -21,20 +24,26 @@
 #pragma mark - Initializers
 
 - (instancetype)init {
-    self = [super init];
+    if (@available(iOS 13.0, *)) {
+        self = [super initWithStyle:UITableViewStyleInsetGrouped];
+    } else {
+        self = [super initWithStyle:UITableViewStyleGrouped];
+    }
     
     if (self) {
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"selectionCell"];
+        self.view.tintColor = [UIColor accentColor];
     }
     
     return self;
 }
 
-- (instancetype)initWithChoices:(NSArray *)choices selections:(NSArray *)selections selectionType:(ZBSelectionType)selectionType delegate:(id<ZBSelectionDelegate>)delegate {
+- (instancetype)initWithChoices:(NSArray *)choices selections:(NSArray *)selections selectionType:(ZBSelectionType)selectionType delegate:(id<ZBSelectionDelegate>)delegate indexPath:(NSIndexPath *)indexPath {
     self = [self init];
     
     if (self) {
         self->delegate = delegate;
+        self->indexPath = indexPath;
         self.choices = choices;
         self.selections = selections ? [selections mutableCopy] : [NSMutableArray new];
         
@@ -46,7 +55,15 @@
     return self;
 }
 
-#pragma mark - Table view data source
+#pragma mark - View Controller Lifecycle
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [delegate selectedChoices:self.selections fromIndexPath:indexPath];
+    
+    [super viewWillDisappear:animated];
+}
+
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

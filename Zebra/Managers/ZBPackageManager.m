@@ -49,12 +49,13 @@
 
 - (void)packagesMatchingFilter:(ZBPackageFilter *)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSString *section = filter.canSetSection ? NULL : filter.sections.firstObject;
         if ([filter.source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
             [self importPackagesFromSource:filter.source];
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
             
             NSMutableDictionary *list = [NSMutableDictionary new];
-            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:filter.section];
+            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:section];
             for (ZBBasePackage *package in packages) {
                 list[package.identifier] = package.version;
             }
@@ -62,7 +63,7 @@
             
             if (completion) completion([self filterPackages:packages withFilter:filter]);
         } else {
-            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:filter.section];
+            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:section];
             if (completion) completion([self filterPackages:packages withFilter:filter]);
         }
     });

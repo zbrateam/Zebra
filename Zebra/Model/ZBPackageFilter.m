@@ -20,7 +20,7 @@
         _source = source;
         if (section) {
             _canSetSection = NO;
-            _section = section;
+            _sections = @[section];
         } else {
             _canSetSection = YES;
         }
@@ -37,25 +37,25 @@
         NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@", _searchTerm];
         [predicates addObject:searchPredicate];
     }
-    
-    if (_section) {
-        NSPredicate *sectionPredicate = [NSPredicate predicateWithFormat:@"section == %@", _section];
+
+    if (_canSetSection && _sections.count) {
+        NSPredicate *sectionPredicate = [NSPredicate predicateWithFormat:@"NOT (section IN %@)", _sections];
         [predicates addObject:sectionPredicate];
     }
     
     NSPredicate *rolePredicate = [NSPredicate predicateWithFormat:@"role <= %d", _role];
     [predicates addObject:rolePredicate];
-    
+
     if (_commercial) {
         NSPredicate *commercialPredicate = [NSPredicate predicateWithFormat:@"isPaid == YES"];
         [predicates addObject:commercialPredicate];
     }
-    
+
     if (_favorited) {
         NSPredicate *favoritePredicate = [NSPredicate predicateWithFormat:@"isOnWishlist == YES"];
         [predicates addObject:favoritePredicate];
     }
-    
+
     if (_installed) {
         NSPredicate *installedPredicate = [NSPredicate predicateWithFormat:@"isInstalled == YES"];
         [predicates addObject:installedPredicate];

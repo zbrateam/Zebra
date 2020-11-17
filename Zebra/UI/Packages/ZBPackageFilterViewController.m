@@ -64,8 +64,21 @@
 
 #pragma mark - Selection Delegate
 
-- (void)selectedChoices:(NSArray *)choices {
-    NSLog(@"choices");
+- (void)selectedChoices:(NSArray *)choices fromIndexPath:(NSIndexPath *)indexPath {
+    // Our indexPath section is only going to be 0 in this controller
+    switch (indexPath.row) {
+        case 0: { // Sections
+            self.filter.sections = choices;
+        }
+        case 1: {
+            
+        }
+        default:
+            break;
+    }
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    [delegate applyFilter:self.filter];
 }
 
 #pragma mark - Table View Data Source
@@ -92,7 +105,7 @@
                 case 0: {
                     cell.textLabel.text = NSLocalizedString(@"Section", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.detailTextLabel.text = self.filter.section ?: NSLocalizedString(@"All Sections", @"");
+                    cell.detailTextLabel.text = self.filter.sections.count ? NSLocalizedString(@"Sections", @"") : NSLocalizedString(@"All Sections", @"");
                     break;
                 }
                 case 1: {
@@ -154,7 +167,7 @@
             switch (indexPath.row + !self.filter.canSetSection) {
                 case 0: {
                     NSArray *sections = [[self.filter.source sections] allKeys];
-                    ZBSelectionViewController *selectionVC = [[ZBSelectionViewController alloc] initWithChoices:sections selections:NULL selectionType:ZBSelectionTypeInverse delegate:self];
+                    ZBSelectionViewController *selectionVC = [[ZBSelectionViewController alloc] initWithChoices:sections selections:self.filter.sections selectionType:ZBSelectionTypeInverse delegate:self indexPath:indexPath];
                     [self.navigationController pushViewController:selectionVC animated:YES];
                 }
             }
@@ -163,11 +176,10 @@
         case 1: {
             self.filter.sortOrder = indexPath.row;
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [delegate applyFilter:self.filter];
             break;
         }
     }
-    
-    [delegate applyFilter:self.filter];
 }
 
 @end

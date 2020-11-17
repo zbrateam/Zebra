@@ -10,7 +10,7 @@
 #define ZBSelectionDelegate_h
 
 @protocol ZBSelectionDelegate
-- (void)selectedChoices:(NSArray *)choices;
+- (void)selectedChoices:(NSArray *)choices fromIndexPath:(NSIndexPath *)indexPath;
 @end
 
 #endif /* ZBSelectionDelegate_h */
