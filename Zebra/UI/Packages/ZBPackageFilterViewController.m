@@ -48,7 +48,7 @@
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor accentColor];
     
     UILabel *titleLabel = [UILabel new];
-    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.textColor = [UIColor primaryTextColor];
     titleLabel.text = NSLocalizedString(@"Filters", @"");
     UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];

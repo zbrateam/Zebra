@@ -11,6 +11,7 @@
 @interface ZBPartialPresentationController () {
     UIView *shadeView;
     UITapGestureRecognizer *tapGestureRecognizer;
+    UISwipeGestureRecognizer *swipeGestureRecognizer;
     CGFloat proportion;
 }
 @end
@@ -28,6 +29,10 @@
         
         tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
         [shadeView addGestureRecognizer:tapGestureRecognizer];
+        
+        swipeGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+        swipeGestureRecognizer.direction = UISwipeGestureRecognizerDirectionDown;
+        [shadeView addGestureRecognizer:swipeGestureRecognizer];
         
         proportion = 2;
     }
