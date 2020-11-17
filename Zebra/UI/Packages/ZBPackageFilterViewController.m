@@ -32,7 +32,7 @@
         self->delegate = delegate;
         self.filter = filter;
         
-        self.title = NSLocalizedString(@"Filters", @"");
+//        self.title = NSLocalizedString(@"Filters", @"");
         self.view.tintColor = [UIColor accentColor];
     }
     
@@ -44,8 +44,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark.circle"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor accentColor];
+    
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.text = NSLocalizedString(@"Filters", @"");
+    UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];
+    titleLabel.font = largeTitleFont;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
 }
 
 - (void)dismiss {
