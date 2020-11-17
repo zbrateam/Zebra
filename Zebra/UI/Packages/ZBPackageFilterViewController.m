@@ -44,8 +44,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark.circle"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor accentColor];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.down.circle.fill"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor tertiaryTextColor];
     
     UILabel *titleLabel = [UILabel new];
     titleLabel.textColor = [UIColor primaryTextColor];
