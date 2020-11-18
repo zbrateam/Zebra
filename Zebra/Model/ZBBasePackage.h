@@ -19,8 +19,10 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     // Base Package Columns
     ZBPackageColumnAuthorName,
     ZBPackageColumnDescription,
+    ZBPackageColumnDownloadSize,
     ZBPackageColumnIconURL,
     ZBPackageColumnIdentifier,
+    ZBPackageColumnInstalledSize,
     ZBPackageColumnLastSeen,
     ZBPackageColumnName,
     ZBPackageColumnRole,
@@ -35,11 +37,9 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnConflicts,
     ZBPackageColumnDepends,
     ZBPackageColumnDepictionURL,
-    ZBPackageColumnDownloadSize,
     ZBPackageColumnEssential,
     ZBPackageColumnFilename,
     ZBPackageColumnHomepageURL,
-    ZBPackageColumnInstalledSize,
     ZBPackageColumnMaintainerEmail,
     ZBPackageColumnMaintainerName,
     ZBPackageColumnPriority,
@@ -54,8 +54,10 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 
 @interface ZBBasePackage : NSObject
 @property (nonatomic) NSString *authorName;
+@property (nonatomic) NSUInteger downloadSize;
 @property (nonatomic) NSURL *_Nullable iconURL;
 @property (nonatomic) NSString *identifier;
+@property (nonatomic) NSUInteger installedSize;
 @property (nonatomic) NSDate   *lastSeen;
 @property (nonatomic) NSString *name;
 @property (nonatomic) NSString *packageDescription;

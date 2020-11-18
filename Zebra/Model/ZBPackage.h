@@ -25,13 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *_Nullable debPath;
 @property (readonly) NSArray *_Nullable depends;
 @property (readonly) NSURL *_Nullable depictionURL;
-@property (readonly) NSUInteger downloadSize;
 @property (readonly) BOOL essential;
 @property (readonly) NSString *_Nullable filename;
 @property (readonly) NSString * _Nullable highestCompatibleVersion;
 @property (readonly) NSURL *_Nullable homepageURL;
 @property (readonly) BOOL isVersionInstalled;
-@property (readonly) NSUInteger installedSize;
 @property (readonly) NSString * _Nullable lowestCompatibleVersion;
 @property (readonly) NSString *_Nullable maintainerName;
 @property (readonly) NSString *_Nullable maintainerEmail;

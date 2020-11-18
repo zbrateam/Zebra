@@ -263,7 +263,6 @@
     return [databaseManager isPackageAvailable:package checkVersion:YES];
 }
 
-// These search methods could be improved further by using a NSBlockOperation subclass to allow us to use sqlite3_interrupt but I'll come back to this idea later...
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     [databaseManager searchForPackagesByName:name completion:completion];
 }

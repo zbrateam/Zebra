@@ -44,6 +44,9 @@
             return NULL;
         }
         
+        int downloadSize = sqlite3_column_int(statement, ZBPackageColumnDownloadSize);
+        self.downloadSize = downloadSize;
+        
         const char *iconURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         if (iconURL && iconURL[0] != '\0') {
             NSString *iconURLString = [NSString stringWithUTF8String:iconURL];
@@ -56,6 +59,9 @@
         } else { // Packages cannot exist without an identifier
             return NULL;
         }
+        
+        int installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
+        self.installedSize = installedSize;
         
         sqlite3_int64 lastSeen = sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         self.lastSeen = lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate distantPast];

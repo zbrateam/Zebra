@@ -171,8 +171,6 @@
             _depictionURL = [NSURL URLWithString:depictionURLString];
         }
         
-        _downloadSize = sqlite3_column_int(statement, ZBPackageColumnDownloadSize);
-        
         _essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
         
         const char *filename = (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
@@ -185,8 +183,6 @@
             NSString *homepageURLString = [NSString stringWithUTF8String:homepageURL];
             _homepageURL = [NSURL URLWithString:homepageURLString];
         }
-        
-        _installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
         
         const char *maintainerEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
         if (maintainerEmail && maintainerEmail && maintainerEmail[0] != '\0') {

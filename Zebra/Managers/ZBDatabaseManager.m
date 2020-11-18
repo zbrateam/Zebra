@@ -9,7 +9,7 @@
 #define DATABASE_VERSION 1
 #define PACKAGES_TABLE_NAME "packages"
 #define SOURCES_TABLE_NAME "sources"
-#define BASE_PACKAGE_COLUMNS "p.authorName, p.description, p.iconURL, p.identifier, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version"
+#define BASE_PACKAGE_COLUMNS "p.authorName, p.description, p.downloadSize, p.iconURL, p.identifier, p.installedSize, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version"
 
 #import "ZBDatabaseManager.h"
 
@@ -271,8 +271,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         NSString *createTableStatement = @"CREATE TABLE IF NOT EXISTS " PACKAGES_TABLE_NAME
                                           "(authorName TEXT, "
                                           "description TEXT, "
+                                          "downloadSize INTEGER, "
                                           "iconURL TEXT, "
                                           "identifier TEXT, "
+                                          "installedSize INTEGER, "
                                           "lastSeen DATE, "
                                           "name TEXT, "
                                           "role INTEGER, "
@@ -285,11 +287,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "conflicts TEXT, "
                                           "depends TEXT, "
                                           "depictionURL TEXT, "
-                                          "downloadSize INTEGER, "
                                           "essential BOOLEAN, "
                                           "filename TEXT, "
                                           "homepageURL TEXT, "
-                                          "installedSize INTEGER, "
                                           "maintainerEmail TEXT, "
                                           "maintainerName TEXT, "
                                           "priority TEXT, "
@@ -382,7 +382,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
-            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, iconURL, identifier, lastSeen, name, role, section, source, tag, uuid, version, authorEmail, conflicts, depends, depictionURL, downloadSize, essential, filename, homepageURL, installedSize, maintainerEmail, maintainerName, priority, provides, replaces, sha256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, downloadSize, iconURL, identifier, installedSize, lastSeen, name, role, section, source, tag, uuid, version, authorEmail, conflicts, depends, depictionURL, essential, filename, homepageURL, maintainerEmail, maintainerName, priority, provides, replaces, sha256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
         case ZBDatabaseStatementTypeInsertSource:
