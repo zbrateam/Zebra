@@ -484,24 +484,11 @@
 }
 
 - (NSString * _Nullable)downloadSizeString {
-    if (self.downloadSize <= 0) return nil;
-    double size = (double)self.downloadSize;
-    if (size > 1024 * 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
-    }
-    if (size > 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"%lu bytes", @""), (unsigned long)self.downloadSize];
+    return [NSByteCountFormatter stringFromByteCount:self.downloadSize countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 - (NSString * _Nullable)installedSizeString {
-    if (self.installedSize <= 0) return nil;
-    double size = (double)self.installedSize;
-    if (size > 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"%lu KB", @""), (unsigned long)self.installedSize];
+    return [NSByteCountFormatter stringFromByteCount:self.installedSize * 1024 countStyle:NSByteCountFormatterCountStyleFile]; // Installed-Size is "estimated installed size in bytes, divided by 1024" but these sizes seem a little large...
 }
 
 - (BOOL)isVersionInstalled {
