@@ -69,9 +69,15 @@
     switch (indexPath.row) {
         case 0: { // Sections
             self.filter.sections = choices;
+            break;
         }
         case 1: {
-            
+            NSArray *roles = @[@"User", @"Hacker", @"Developer", @"Deity"];
+            NSString *role = choices.firstObject;
+            if (role) {
+                self.filter.role = [roles indexOfObject:role];
+            }
+            break;
         }
         default:
             break;
@@ -167,8 +173,25 @@
             switch (indexPath.row + !self.filter.canSetSection) {
                 case 0: {
                     NSArray *sections = [[self.filter.source sections] allKeys];
-                    ZBSelectionViewController *selectionVC = [[ZBSelectionViewController alloc] initWithChoices:sections selections:self.filter.sections selectionType:ZBSelectionTypeInverse delegate:self indexPath:indexPath];
-                    [self.navigationController pushViewController:selectionVC animated:YES];
+                    ZBSelectionViewController *sectionSelectionVC = [[ZBSelectionViewController alloc] initWithDelegate:self indexPath:indexPath];
+                    sectionSelectionVC.choices = sections;
+                    sectionSelectionVC.selections = self.filter.sections.mutableCopy;
+                    sectionSelectionVC.selectionType = ZBSelectionTypeInverse;
+                    sectionSelectionVC.title = NSLocalizedString(@"Select a Section", @"");
+                    [self.navigationController pushViewController:sectionSelectionVC animated:YES];
+                    break;
+                }
+                case 1: {
+                    NSArray *roles = @[@"User", @"Hacker", @"Developer", @"Deity"]; // "Deity" will not be shown to normal users at all
+                    ZBSelectionViewController *roleSelectionVC = [[ZBSelectionViewController alloc] initWithDelegate:self indexPath:indexPath];
+                    roleSelectionVC.choices = roles;
+                    roleSelectionVC.selections = [NSMutableArray arrayWithObjects:[roles objectAtIndex:self.filter.role], nil];
+                    roleSelectionVC.selectionType = ZBSelectionTypeNormal;
+                    roleSelectionVC.allowsMultiSelection = NO;
+                    roleSelectionVC.title = NSLocalizedString(@"Select a Role", @"");
+                    roleSelectionVC.footer = NSLocalizedString(@"User: Apps, Tweaks, and Themes\nHacker: Adds Command Line Tools\nDeveloper: Everything (well, almost)", @"");
+                    [self.navigationController pushViewController:roleSelectionVC animated:YES];
+                    break;
                 }
             }
             break;
