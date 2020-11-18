@@ -20,7 +20,6 @@
     ZBPackageManager *packageManager;
     UISearchController *searchController;
     UIActivityIndicatorView *spinner;
-    NSArray *results;
     NSArray *filterResults;
 }
 @property (nonnull) ZBPackageFilter *filter;
@@ -94,23 +93,30 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    
-    if (!self.packages && self.source) {
-        [self loadPackages];
-    }
+        
+    [self loadPackages];
 }
 
 - (void)loadPackages {
     [self showSpinner];
-    [packageManager packagesMatchingFilter:self.filter completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self hideSpinner];
-            self.packages = packages;
-            [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-                [self.tableView reloadData];
-            } completion:nil];
+    if (_packages) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            NSArray *filteredPackages = [self->packageManager filterPackages:self.packages withFilter:self.filter];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self hideSpinner];
+                self->filterResults = filteredPackages;
+                [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                    [self.tableView reloadData];
+                } completion:nil];
+            });
         });
-    }];
+    } else { // Load packages for the first time
+        ZBPackageFilter *originalFilter = [[ZBPackageFilter alloc] initWithSource:self.source section:self.section];
+        [packageManager packagesMatchingFilter:originalFilter completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+            self.packages = packages;
+            [self loadPackages];
+        }];
+    }
 }
 
 - (void)showSpinner {
@@ -141,7 +147,10 @@
 #pragma mark - Search Results Updating Protocol
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *searchTerm = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
+    self.filter.searchTerm = searchTerm.length > 0 ? searchTerm : NULL;
+    [self loadPackages];
 }
 
 #pragma mark - Search Bar Delegate
@@ -163,7 +172,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.packages.count;
+    return filterResults.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -175,7 +184,7 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell updateData:self.packages[indexPath.row]];
+    [cell updateData:filterResults[indexPath.row]];
 }
 
 #pragma mark - Presentation Controller

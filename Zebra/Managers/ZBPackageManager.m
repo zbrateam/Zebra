@@ -61,10 +61,10 @@
             }
             self->_installedPackagesList = list;
             
-            if (completion) completion([self filterPackages:packages withFilter:filter]);
+            if (completion) completion(packages);
         } else {
             NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:section];
-            if (completion) completion([self filterPackages:packages withFilter:filter]);
+            if (completion) completion(packages);
         }
     });
 }
