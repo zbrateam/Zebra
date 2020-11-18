@@ -69,6 +69,7 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 @property (readonly) BOOL isPaid;
 @property (readonly) BOOL isOnWishlist;
 - (instancetype)initFromSQLiteStatement:(sqlite3_stmt *)statement;
+- (NSDate *_Nullable)installedDate;
 - (void)setIconImageForImageView:(UIImageView * _Nonnull)imageView;
 @end
 

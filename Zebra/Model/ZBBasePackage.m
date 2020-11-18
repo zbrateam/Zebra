@@ -11,6 +11,7 @@
 #import <Managers/ZBPackageManager.h>
 #import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
+#import <ZBDevice.h>
 #import <ZBSettings.h>
 
 @import UIKit.UIImageView;
@@ -120,6 +121,18 @@
     return [[ZBSettings wishlist] containsObject:self.identifier];
 }
 
+- (NSDate *)installedDate {
+    if ([ZBDevice needsSimulation]) {
+        // Just to make sections in simulators less cluttered
+        // https://stackoverflow.com/questions/1149256/round-nsdate-to-the-nearest-5-minutes/19123570
+        NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
+        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+    }
+    NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
+    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
+    return attributes[NSFileModificationDate];
+}
+
 - (void)setIconImageForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [ZBSource imageForSection:self.section];
     if (self.iconURL) {
@@ -132,11 +145,11 @@
 
 - (id)forwardingTargetForSelector:(SEL)aSelector {
     if (forwardingPackage) return forwardingPackage;
-    
+        
     ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
     if (package) forwardingPackage = package;
-    
-    return forwardingPackage;
+        
+    return forwardingPackage; 
 }
 
 @end

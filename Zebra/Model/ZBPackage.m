@@ -154,19 +154,19 @@
         }
         
         const char *conflicts = (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
-        if (conflicts[0] != '\0') {
+        if (conflicts && conflicts[0] != '\0') {
             NSString *rawConflicts = [NSString stringWithUTF8String:conflicts];
             _conflicts = [rawConflicts componentsSeparatedByString:@","];
         }
         
         const char *depends = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
-        if (depends[0] != '\0') {
+        if (depends && depends[0] != '\0') {
             NSString *rawDepends = [NSString stringWithUTF8String:depends];
             _depends = [rawDepends componentsSeparatedByString:@","];
         }
         
         const char *depictionURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepictionURL);
-        if (depictionURL[0] != '\0') {
+        if (depictionURL && depictionURL[0] != '\0') {
             NSString *depictionURLString = [NSString stringWithUTF8String:depictionURL];
             _depictionURL = [NSURL URLWithString:depictionURLString];
         }
@@ -176,12 +176,12 @@
         _essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
         
         const char *filename = (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
-        if (filename[0] != '\0') {
+        if (filename && filename[0] != '\0') {
             _filename = [NSString stringWithUTF8String:filename];
         }
         
         const char *homepageURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepageURL);
-        if (homepageURL[0] != '\0') {
+        if (homepageURL && homepageURL[0] != '\0') {
             NSString *homepageURLString = [NSString stringWithUTF8String:homepageURL];
             _homepageURL = [NSURL URLWithString:homepageURLString];
         }
@@ -189,34 +189,34 @@
         _installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
         
         const char *maintainerEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
-        if (maintainerEmail && maintainerEmail[0] != '\0') {
+        if (maintainerEmail && maintainerEmail && maintainerEmail[0] != '\0') {
             _maintainerEmail = [NSString stringWithUTF8String:maintainerEmail];
         }
         
         const char *maintainerName = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
-        if (maintainerName[0] != '\0') {
+        if (maintainerName && maintainerName[0] != '\0') {
             _maintainerName = [NSString stringWithUTF8String:maintainerName];
         }
         
         const char *priorityChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
-        if (priorityChars[0] != '\0') {
+        if (priorityChars && priorityChars[0] != '\0') {
             _priority = [NSString stringWithUTF8String:priorityChars];
         }
         
         const char *provides = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
-        if (provides[0] != '\0') {
+        if (provides && provides[0] != '\0') {
             NSString *rawProvides = [NSString stringWithUTF8String:provides];
             _provides = [rawProvides componentsSeparatedByString:@","];
         }
         
         const char *replaces = (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
-        if (replaces[0] != '\0') {
+        if (replaces && replaces[0] != '\0') {
             NSString *rawReplaces = [NSString stringWithUTF8String:replaces];
             _replaces = [rawReplaces componentsSeparatedByString:@","];
         }
         
         const char *SHA256 = (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
-        if (SHA256[0] != '\0') {
+        if (SHA256 && SHA256[0] != '\0') {
             _SHA256 = [NSString stringWithUTF8String:SHA256];
         }
     }
@@ -561,18 +561,6 @@
 
 - (void)setIgnoreUpdates:(BOOL)ignore {
     [ZBSettings setUpdatesIgnored:ignore forPackageIdentifier:self.identifier];
-}
-
-- (NSDate *)installedDate {
-    if ([ZBDevice needsSimulation]) {
-        // Just to make sections in simulators less cluttered
-        // https://stackoverflow.com/questions/1149256/round-nsdate-to-the-nearest-5-minutes/19123570
-        NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
-        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
-    }
-	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
-	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
-	return attributes[NSFileModificationDate];
 }
 
 - (NSString * _Nullable)installedVersion {

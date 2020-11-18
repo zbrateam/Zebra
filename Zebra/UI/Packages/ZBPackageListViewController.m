@@ -13,6 +13,7 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBPackageFilter.h>
 #import <Model/ZBSource.h>
+#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Common/ZBPartialPresentationController.h>
 
@@ -184,7 +185,14 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell updateData:filterResults[indexPath.row]];
+    [cell updateData:filterResults[indexPath.row] calculateSize:self.filter.sortOrder == ZBPackageSortOrderSize showVersion:NO];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:filterResults[indexPath.row]];
+    [self.navigationController pushViewController:packageVC animated:YES];
 }
 
 #pragma mark - Presentation Controller
