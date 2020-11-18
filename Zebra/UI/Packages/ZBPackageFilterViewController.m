@@ -143,17 +143,19 @@
             switch (indexPath.row) {
                 case 0:
                     cell.textLabel.text = NSLocalizedString(@"Package Name", @"");
-                    if (self.filter.sortOrder == 0) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
                 case 1:
-                    cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
-                    if (self.filter.sortOrder == 1) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                    if (self.filter.source.remote) {
+                        cell.textLabel.text = NSLocalizedString(@"Date Uploaded", @"");
+                    } else {
+                        cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
+                    }
                     break;
                 case 2:
                     cell.textLabel.text = NSLocalizedString(@"Package Size", @"");
-                    if (self.filter.sortOrder == 2) cell.accessoryType = UITableViewCellAccessoryCheckmark;
                     break;
             }
+            if (self.filter.sortOrder == indexPath.row) cell.accessoryType = UITableViewCellAccessoryCheckmark;
             break;
         }
     }
@@ -163,10 +165,6 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     return section == 0 ? NSLocalizedString(@"Filter By", @"") : NSLocalizedString(@"Sort By", @"");
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    return section == 0 ? [NSString stringWithFormat:NSLocalizedString(@"%d out of %d packages shown.", @""), 100, 125] : NULL;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

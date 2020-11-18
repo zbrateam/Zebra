@@ -106,7 +106,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideSpinner];
             self.packages = packages;
-            [UIView transitionWithView:self.tableView duration:0.35f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+            [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
                 [self.tableView reloadData];
             } completion:nil];
         });
@@ -181,7 +181,7 @@
 #pragma mark - Presentation Controller
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.60];
+    return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.52];
 }
 
 @end

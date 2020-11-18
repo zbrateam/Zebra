@@ -68,7 +68,11 @@
     NSMutableArray *descriptors = [NSMutableArray new];
     
     if (self.sortOrder == ZBPackageSortOrderDate) {
-        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:NO selector:@selector(compare:)]];
+        if (self.source.remote) {
+            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:NO selector:@selector(compare:)]];
+        } else {
+            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedDate" ascending:NO selector:@selector(compare:)]];
+        }
     } else if (self.sortOrder == ZBPackageSortOrderSize) {
         if (self.source.remote) {
             [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"downloadSize" ascending:NO selector:@selector(compare:)]];
