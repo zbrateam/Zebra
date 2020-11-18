@@ -107,6 +107,11 @@
                 [self hideSpinner];
                 self->filterResults = filteredPackages;
                 [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                    if (self.filter.isActive) {
+                        [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle.fill"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+                    } else {
+                        [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+                    }
                     [self.tableView reloadData];
                 } completion:nil];
             });

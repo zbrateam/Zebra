@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageSortOrder) {
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section;
 - (NSCompoundPredicate *)compoundPredicate;
 - (NSArray <NSSortDescriptor *> *)sortDescriptors;
+- (BOOL)isActive;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -85,4 +85,8 @@
     return descriptors;
 }
 
+- (BOOL)isActive {
+    return _searchTerm || (_canSetSection && _sections.count);
+}
+
 @end
