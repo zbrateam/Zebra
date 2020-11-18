@@ -34,7 +34,7 @@
         self->delegate = delegate;
         self.filter = filter;
         
-//        self.title = NSLocalizedString(@"Filters", @"");
+        self.title = NSLocalizedString(@"Filters", @"");
         self.view.tintColor = [UIColor accentColor];
     }
     
@@ -43,19 +43,21 @@
 
 #pragma mark - View Controller Lifecycle
 
+- (void)setTitle:(NSString *)title {
+    UILabel *titleLabel = [UILabel new];
+    titleLabel.textColor = [UIColor primaryTextColor];
+    titleLabel.text = title;
+    UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+    UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];
+    titleLabel.font = largeTitleFont;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.down.circle.fill"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor tertiaryTextColor];
-    
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.textColor = [UIColor primaryTextColor];
-    titleLabel.text = NSLocalizedString(@"Filters", @"");
-    UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
-    UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];
-    titleLabel.font = largeTitleFont;
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:titleLabel];
 }
 
 - (void)dismiss {
@@ -95,7 +97,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 4 + self.filter.canSetSection; // At a maximum
+        return 1 + self.filter.canSetSection; // At a maximum
     } else {
         return 3;
     }
@@ -117,21 +119,23 @@
                 case 1: {
                     cell.textLabel.text = NSLocalizedString(@"Role", @"");
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.detailTextLabel.text = @"User";
+                    
+                    NSArray *roles = @[@"User", @"Hacker", @"Developer", @"Deity"];
+                    cell.detailTextLabel.text = roles[self.filter.role];
                     break;
                 }
-                case 2: {
-                    cell.textLabel.text = NSLocalizedString(@"Commercial", @"");
-                    break;
-                }
-                case 3: {
-                    cell.textLabel.text = NSLocalizedString(@"Favorites", @"");
-                    break;
-                }
-                case 4: {
-                    cell.textLabel.text = NSLocalizedString(@"Installed", @"");
-                    break;
-                }
+//                case 2: {
+//                    cell.textLabel.text = NSLocalizedString(@"Commercial", @"");
+//                    break;
+//                }
+//                case 3: {
+//                    cell.textLabel.text = NSLocalizedString(@"Favorites", @"");
+//                    break;
+//                }
+//                case 4: {
+//                    cell.textLabel.text = NSLocalizedString(@"Installed", @"");
+//                    break;
+//                }
             }
             break;
         }

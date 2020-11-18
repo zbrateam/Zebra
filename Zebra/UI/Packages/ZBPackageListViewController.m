@@ -106,7 +106,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self hideSpinner];
             self.packages = packages;
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [UIView transitionWithView:self.tableView duration:0.35f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                [self.tableView reloadData];
+            } completion:nil];
         });
     }];
 }
