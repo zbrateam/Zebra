@@ -14,12 +14,12 @@
     id <ZBSelectionDelegate> delegate;
     NSIndexPath *indexPath;
 }
-@property ZBSelectionType selectionType;
-@property NSArray *choices;
-@property NSMutableArray *selections;
 @end
 
 @implementation ZBSelectionViewController
+
+@synthesize selections = _selections;
+@synthesize selectionType = _selectionType;
 
 #pragma mark - Initializers
 
@@ -38,21 +38,48 @@
     return self;
 }
 
-- (instancetype)initWithChoices:(NSArray *)choices selections:(NSArray *)selections selectionType:(ZBSelectionType)selectionType delegate:(id<ZBSelectionDelegate>)delegate indexPath:(NSIndexPath *)indexPath {
+- (instancetype)initWithDelegate:(id<ZBSelectionDelegate>)delegate indexPath:(NSIndexPath *)indexPath {
     self = [self init];
     
     if (self) {
         self->delegate = delegate;
         self->indexPath = indexPath;
-        self.choices = choices;
-        self.selections = selections ? [selections mutableCopy] : [NSMutableArray new];
-        
-        if (selectionType == ZBSelectionTypeInverse) {
-            self.allowsMultiSelection = YES;
-        }
+        self.selections = [NSMutableArray new];
+//        self.choices = choices;
+//        self.selections = selections ? [selections mutableCopy] : [NSMutableArray new];
+//
+//        if (selectionType == ZBSelectionTypeInverse) {
+//            self.allowsMultiSelection = YES;
+//        }
     }
     
     return self;
+}
+
+#pragma mark - Properties
+
+- (void)setSelections:(NSMutableArray *)selections {
+    if (selections) {
+        _selections = selections;
+    } else {
+        _selections = [NSMutableArray new];
+    }
+}
+
+- (NSMutableArray *)selections {
+    return _selections;
+}
+
+- (void)setSelectionType:(ZBSelectionType)selectionType {
+    if (selectionType == ZBSelectionTypeInverse) {
+        self.allowsMultiSelection = YES;
+    }
+    
+    _selectionType = selectionType;
+}
+
+- (ZBSelectionType)selectionType {
+    return _selectionType;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -84,9 +111,9 @@
     cell.textLabel.text = (NSString *)choice;
     
     if ([self.selections containsObject:choice]) {
-        cell.accessoryType = self.selectionType == ZBSelectionTypeInverse ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        cell.accessoryType = self.selectionType == ZBSelectionTypeNormal ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     } else {
-        cell.accessoryType = self.selectionType == ZBSelectionTypeInverse ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
+        cell.accessoryType = self.selectionType == ZBSelectionTypeNormal ? UITableViewCellAccessoryNone : UITableViewCellAccessoryCheckmark;
     }
 }
 
@@ -113,6 +140,10 @@
         }
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    return self.footer;
 }
 
 @end
