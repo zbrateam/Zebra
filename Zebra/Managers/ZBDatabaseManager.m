@@ -271,6 +271,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         NSString *createTableStatement = @"CREATE TABLE IF NOT EXISTS " PACKAGES_TABLE_NAME
                                           "(authorName TEXT, "
                                           "description TEXT, "
+                                          "iconURL TEXT, "
                                           "identifier TEXT, "
                                           "lastSeen DATE, "
                                           "name TEXT, "
@@ -288,7 +289,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "essential BOOLEAN, "
                                           "filename TEXT, "
                                           "homepageURL TEXT, "
-                                          "iconURL TEXT, "
                                           "installedSize INTEGER, "
                                           "maintainerEmail TEXT, "
                                           "maintainerName TEXT, "
