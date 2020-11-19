@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setAlwaysInstallLatest:(BOOL)alwaysInstallLatest;
 
 + (uint8_t)role;
-+ (void)setRole:(uint8_t)role;
++ (void)setRole:(NSNumber *)role;
 
 + (NSArray *)ignoredUpdates;
 + (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier;

@@ -510,19 +510,23 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 }
 
 + (uint8_t)role {
+#if ZB_DBEUG
+    return 3;
+#else
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:RoleKey]) {
-        [self setRole:2];
+        [self setRole:@2];
         return 2;
     }
     return [defaults integerForKey:RoleKey];
+#endif
 }
 
-+ (void)setRole:(uint8_t)role {
++ (void)setRole:(NSNumber *)role {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setInteger:role forKey:RoleKey];
+    [defaults setInteger:role.unsignedIntValue forKey:RoleKey];
 }
 
 + (NSArray *)ignoredUpdates {

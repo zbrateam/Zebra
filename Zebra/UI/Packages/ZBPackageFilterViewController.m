@@ -184,7 +184,12 @@
                     break;
                 }
                 case 1: {
-                    NSArray *roles = @[@"User", @"Hacker", @"Developer", @"Deity"]; // "Deity" will not be shown to normal users at all
+                    NSArray *roles;
+                    if ([ZBSettings role] == 3) {
+                        roles = @[@"User", @"Hacker", @"Developer", @"Deity"];
+                    } else {
+                        roles = @[@"User", @"Hacker", @"Developer"]; // "Deity" will not be shown to normal users at all
+                    }
                     ZBSelectionViewController *roleSelectionVC = [[ZBSelectionViewController alloc] initWithDelegate:self indexPath:indexPath];
                     roleSelectionVC.choices = roles;
                     roleSelectionVC.selections = [NSMutableArray arrayWithObjects:[roles objectAtIndex:self.filter.role], nil];

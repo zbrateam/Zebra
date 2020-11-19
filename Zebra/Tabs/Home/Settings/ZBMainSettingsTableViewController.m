@@ -119,7 +119,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBMisc:
         case ZBSearch:
         case ZBConsole:
-        case ZBPackages:
         case ZBAnalytics:
             return 1;
         case ZBInterface:
@@ -134,6 +133,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             
             return 1;
         }
+        case ZBPackages:
         case ZBSources:
         case ZBReset:
             return 2;
@@ -293,14 +293,26 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             return cell;
         }
         case ZBPackages: {
-            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
-            
-            cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
-            [cell setOn:[ZBSettings alwaysInstallLatest]];
-            [cell setTarget:self action:@selector(toggleLatest:)];
+            if (indexPath.row == 0) {
+                ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+                
+                cell.textLabel.text = NSLocalizedString(@"Always Install Latest", @"");
+                [cell setOn:[ZBSettings alwaysInstallLatest]];
+                [cell setTarget:self action:@selector(toggleLatest:)];
 
-            [cell applyStyling];
-            return cell;
+                [cell applyStyling];
+                return cell;
+            } else {
+                ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
+
+                uint8_t type = [ZBSettings role];
+                NSArray *choices = @[@"User", @"Hacker", @"Developer", @"Deity"];
+                cell.detailTextLabel.text = type < choices.count ? choices[type] : @"Deity";
+                cell.textLabel.text = NSLocalizedString(@"Role", @"");
+                
+                [cell applyStyling];
+                return cell;
+            }
         }
         case ZBSearch: {
             ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
@@ -419,7 +431,15 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             }
         }
         case ZBChanges:
-        case ZBPackages:
+        case ZBPackages: {
+            if (indexPath.row == 0) {
+                [self toggleSwitchAtIndexPath:indexPath];
+                break;
+            } else {
+                [self selectRole];
+                break;
+            }
+        }
         case ZBSearch:
         case ZBConsole: {
             [self toggleSwitchAtIndexPath:indexPath];
@@ -537,6 +557,16 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     
     [self.navigationController pushViewController:controller animated:YES];
 }
+
+- (void)selectRole {
+    ZBSettingsSelectionTableViewController * controller = [[ZBSettingsSelectionTableViewController alloc] initWithOptions:@[@"User", @"Hacker", @"Developer"] getter:@selector(role) setter:@selector(setRole:) settingChangedCallback:nil];
+    
+    [controller setTitle:@"Role"];
+    [controller setFooterText:@[@"User: Apps, Tweaks, and Themes\nHacker: Adds Command Line Tools\nDeveloper: Everything (well, almost)"]];
+    
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 
 - (void)changeIcon {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
