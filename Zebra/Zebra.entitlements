@@ -40,5 +40,11 @@
 		<array>
 			<string>com.apple.mobilesafari</string>
 		</array>
+		<key>com.apple.security.iokit-user-client-class</key>
+		<array>
+			<string>AGXDeviceUserClient</string>
+			<string>IOHDIXControllerUserClient</string>
+			<string>IOSurfaceRootUserClient</string>
+		</array>
 	</dict>
 </plist>
