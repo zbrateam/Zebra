@@ -8,6 +8,7 @@
 
 @class ZBSource;
 @class ZBPackage;
+@class ZBPackageFilter;
 
 @import Foundation;
 
@@ -121,6 +122,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isAuthorBlocked:(NSString *)name email:(NSString *)name;
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package;
+
++ (ZBPackageFilter *)filterForSource:(ZBSource *)source section:(NSString *)section;
++ (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section;
 
 #pragma mark - Homepage settings
 

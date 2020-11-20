@@ -47,15 +47,14 @@
     return self;
 }
 
-- (void)packagesMatchingFilter:(ZBPackageFilter *)filter completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+- (void)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        NSString *section = filter.canSetSection ? NULL : filter.sections.firstObject;
-        if ([filter.source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
-            [self importPackagesFromSource:filter.source];
+        if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
+            [self importPackagesFromSource:source];
             [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
             
             NSMutableDictionary *list = [NSMutableDictionary new];
-            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:section];
+            NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
             for (ZBBasePackage *package in packages) {
                 list[package.identifier] = package.version;
             }
@@ -63,7 +62,7 @@
             
             if (completion) completion(packages);
         } else {
-            NSArray *packages = [self->databaseManager packagesFromSource:filter.source inSection:section];
+            NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
             if (completion) completion(packages);
         }
     });
@@ -87,8 +86,7 @@
 
 - (NSDictionary <NSString *,NSString *> *)installedPackagesList {
     if ([self needsStatusUpdate]) {
-        ZBPackageFilter *filter = [[ZBPackageFilter alloc] initWithSource:[ZBSource localSource] section:NULL];
-        [self packagesMatchingFilter:filter completion:nil]; // This also updates the installed packages list
+        [self packagesFromSource:[ZBSource localSource] inSection:NULL completion:nil]; // This also updates the installed packages list
     } else if (!_installedPackagesList) {
         _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
     }

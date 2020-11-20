@@ -8,12 +8,19 @@
 
 #import "ZBPackageFilter.h"
 
+#import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
 #import <ZBSettings.h>
 
 @implementation ZBPackageFilter
 
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *)section {
+    ZBPackageFilter *filter = [ZBSettings filterForSource:source section:section];
+    if (filter) {
+        filter.source = source;
+        return filter;
+    }
+    
     self = [super init];
     
     if (self) {
@@ -28,6 +35,40 @@
     }
     
     return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _sections = [decoder decodeObjectForKey:@"sections"];
+        _canSetSection = [decoder decodeBoolForKey:@"canSetSection"];
+        _userSetRole = [decoder decodeBoolForKey:@"userSetRole"];
+        if (_userSetRole) {
+            _role = [[decoder decodeObjectForKey:@"role"] unsignedIntValue];
+        } else {
+            _role = [ZBSettings role];
+        }
+        _commercial = [decoder decodeBoolForKey:@"commercial"];
+        _favorited = [decoder decodeBoolForKey:@"favorited"];
+        _installed = [decoder decodeBoolForKey:@"installed"];
+        _sortOrder = [[decoder decodeObjectForKey:@"sortOrder"] unsignedIntValue];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeObject:_sections forKey:@"sections"];
+    [coder encodeBool:_canSetSection forKey:@"canSetSection"];
+    [coder encodeBool:_userSetRole forKey:@"userSetRole"];
+    if (_userSetRole) {
+        [coder encodeInt:(int)_role forKey:@"role"];
+    }
+    [coder encodeBool:_commercial forKey:@"commercial"];
+    [coder encodeBool:_favorited forKey:@"favorited"];
+    [coder encodeBool:_installed forKey:@"installed"];
+    [coder encodeInt:(int)_sortOrder forKey:@"sortOrder"];
 }
 
 - (NSCompoundPredicate *)compoundPredicate {
@@ -86,7 +127,7 @@
 }
 
 - (BOOL)isActive {
-    return _searchTerm || (_canSetSection && _sections.count);
+    return _searchTerm || (_canSetSection && _sections.count) || self.userSetRole;
 }
 
 @end

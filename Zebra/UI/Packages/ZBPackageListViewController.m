@@ -16,6 +16,7 @@
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Common/ZBPartialPresentationController.h>
+#import <ZBSettings.h>
 
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
@@ -98,6 +99,7 @@
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PackageFilters"];
     [self loadPackages];
 }
 
@@ -120,8 +122,7 @@
             });
         });
     } else { // Load packages for the first time
-        ZBPackageFilter *originalFilter = [[ZBPackageFilter alloc] initWithSource:self.source section:self.section];
-        [packageManager packagesMatchingFilter:originalFilter completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+        [packageManager packagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
             self.packages = packages;
             [self loadPackages];
         }];
@@ -151,6 +152,7 @@
     self.filter = filter;
     
     [self loadPackages];
+    [ZBSettings setFilter:self.filter forSource:self.source section:self.section];
 }
 
 #pragma mark - Search Results Updating Protocol

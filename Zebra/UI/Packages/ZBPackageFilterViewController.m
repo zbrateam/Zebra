@@ -77,7 +77,9 @@
             NSArray *roles = @[@"User", @"Hacker", @"Developer", @"Deity"];
             NSString *role = choices.firstObject;
             if (role) {
-                self.filter.role = [roles indexOfObject:role];
+                NSUInteger index = [roles indexOfObject:role];
+                self.filter.role = index;
+                self.filter.userSetRole = index != [ZBSettings role];
             }
             break;
         }
