@@ -5,38 +5,49 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZBBoldTableViewHeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJL-7j-jUB">
-                    <rect key="frame" x="16" y="16" width="324" height="24"/>
+                    <rect key="frame" x="16" y="8" width="279" height="23"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcE-Ft-0aI">
-                    <rect key="frame" x="348" y="16" width="46" height="24"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N5V-Ei-g9q">
+                    <rect key="frame" x="16" y="38.5" width="398" height="0.5"/>
+                    <color key="backgroundColor" systemColor="separatorColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="46" id="sKd-lg-TvE"/>
+                        <constraint firstAttribute="height" constant="0.5" id="yc1-YO-wRF"/>
+                    </constraints>
+                </view>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HcE-Ft-0aI">
+                    <rect key="frame" x="303" y="8" width="95" height="23"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="95" id="gWl-ap-Y87"/>
                     </constraints>
                     <state key="normal" title="Button"/>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <constraints>
-                <constraint firstItem="nJL-7j-jUB" firstAttribute="centerY" secondItem="HcE-Ft-0aI" secondAttribute="centerY" id="Cts-Jz-Fab"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="nJL-7j-jUB" secondAttribute="bottom" constant="10" id="Drr-p7-2mH"/>
-                <constraint firstItem="HcE-Ft-0aI" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="Id9-MR-woc"/>
-                <constraint firstItem="nJL-7j-jUB" firstAttribute="top" secondItem="HcE-Ft-0aI" secondAttribute="top" id="NOf-kj-xMx"/>
-                <constraint firstItem="nJL-7j-jUB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="eDT-XU-XKT"/>
-                <constraint firstItem="nJL-7j-jUB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="hQI-Ku-VOd"/>
-                <constraint firstItem="HcE-Ft-0aI" firstAttribute="leading" secondItem="nJL-7j-jUB" secondAttribute="trailing" constant="8" symbolic="YES" id="lw3-he-Ycr"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="N5V-Ei-g9q" secondAttribute="bottom" constant="1" id="0TY-LH-2FD"/>
+                <constraint firstAttribute="trailing" secondItem="HcE-Ft-0aI" secondAttribute="trailing" constant="16" id="3Eh-JQ-RQO"/>
+                <constraint firstItem="nJL-7j-jUB" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="93l-Mm-Srw"/>
+                <constraint firstItem="N5V-Ei-g9q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="9QA-7b-ZuK"/>
+                <constraint firstAttribute="trailing" secondItem="N5V-Ei-g9q" secondAttribute="trailing" id="LAd-wC-gtZ"/>
+                <constraint firstItem="nJL-7j-jUB" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="YPD-Fu-hEi"/>
+                <constraint firstItem="HcE-Ft-0aI" firstAttribute="leading" secondItem="nJL-7j-jUB" secondAttribute="trailing" constant="8" id="YUD-Rg-MgQ"/>
+                <constraint firstItem="HcE-Ft-0aI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="jgu-qB-PRE"/>
+                <constraint firstItem="N5V-Ei-g9q" firstAttribute="top" secondItem="nJL-7j-jUB" secondAttribute="bottom" constant="7.5" id="oYg-TJ-lzc"/>
+                <constraint firstItem="N5V-Ei-g9q" firstAttribute="top" secondItem="HcE-Ft-0aI" secondAttribute="bottom" constant="7.5" id="oq2-eU-ugD"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -45,7 +56,12 @@
                 <outlet property="actionButton" destination="HcE-Ft-0aI" id="8Ln-V6-Y7j"/>
                 <outlet property="titleLabel" destination="nJL-7j-jUB" id="XhY-j6-pXF"/>
             </connections>
-            <point key="canvasLocation" x="153.62318840579712" y="-243.75"/>
+            <point key="canvasLocation" x="153.62318840579712" y="-244.41964285714283"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="separatorColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

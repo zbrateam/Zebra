@@ -3838,18 +3838,3 @@ Prefer-Native: Yes
 Description: A Useful Package Manager
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
 Tag: compatible_min::ios11.0, compatible_max::ios13.7
-
-Package: xyz.willy.aaaab
-Status: deinstall ok config-files
-Name: AAAAAAAAA
-Version: 1.0
-Architecture: iphoneos-arm
-Depends: dpkg, uikittools, firmware (>= 11.0)
-Maintainer: Wilson Styres <wilson@styres.me>
-Author: Wilson Styres <wilson@styres.me>
-Section: Packaging
-Depiction: https://getzbra.com/repo/depictions/xyz.willy.Zebra/
-Prefer-Native: Yes
-Description: A Useful Package Manager
-Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
-Tag: compatible_min::ios11.0, compatible_max::ios13.7

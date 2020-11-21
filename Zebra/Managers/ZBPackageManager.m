@@ -74,6 +74,12 @@
     return latestPackages;
 }
 
+- (void)packagesWithUpdates:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        completion([databaseManager packagesWithUpdates]);
+    });
+}
+
 - (BOOL)needsStatusUpdate {
     NSError *fileError = nil;
     NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";

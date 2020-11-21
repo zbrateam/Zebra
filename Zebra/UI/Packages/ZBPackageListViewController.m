@@ -15,6 +15,7 @@
 #import <Model/ZBSource.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <ZBSettings.h>
 
@@ -23,6 +24,7 @@
     UISearchController *searchController;
     UIActivityIndicatorView *spinner;
     NSArray *filterResults;
+    NSArray *updates;
 }
 @property (nonnull) ZBPackageFilter *filter;
 @end
@@ -95,6 +97,7 @@
     [super viewDidLoad];
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
 
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
@@ -121,29 +124,40 @@
                 } completion:nil];
             });
         });
-    } else { // Load packages for the first time
+    } else { // Load packages for the first time, every other access is done by filter
         [packageManager packagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
             self.packages = packages;
-            [self loadPackages];
+            if ([self.source.uuid isEqualToString:@"_var_lib_dpkg_status_"]) {
+                [self->packageManager packagesWithUpdates:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    self->updates = packages;
+                    [self loadPackages];
+                }];
+            } else {
+                [self loadPackages];
+            }
         }];
     }
 }
 
 - (void)showSpinner {
-    if (!spinner) {
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        spinner.hidesWhenStopped = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self->spinner) {
+            self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            self->spinner.hidesWhenStopped = YES;
+            
+            self.tableView.backgroundView = self->spinner;
+        }
         
-        self.tableView.backgroundView = spinner;
-    }
-    
-    [spinner startAnimating];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [self->spinner startAnimating];
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    });
 }
 
 - (void)hideSpinner {
-    [spinner stopAnimating];
-    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->spinner stopAnimating];
+        [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    });
 }
 
 #pragma mark - Filter Delegate
@@ -179,11 +193,16 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1; // For now
+    return updates.count ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return filterResults.count;
+    NSUInteger numberOfUpdates = updates.count;
+    if (numberOfUpdates && section == 0) {
+        return numberOfUpdates;
+    } else {
+        return filterResults.count;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -195,7 +214,8 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [cell updateData:filterResults[indexPath.row] calculateSize:self.filter.sortOrder == ZBPackageSortOrderSize showVersion:NO];
+    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
+    [cell updateData:package calculateSize:self.filter.sortOrder == ZBPackageSortOrderSize showVersion:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -203,6 +223,28 @@
     
     ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:filterResults[indexPath.row]];
     [self.navigationController pushViewController:packageVC animated:YES];
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (updates.count) {
+        ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+        if (section == 0) {
+            cell.actionButton.hidden = NO;
+            [cell.actionButton setTitle:NSLocalizedString(@"Update All", @"") forState:UIControlStateNormal];
+        }
+        cell.titleLabel.text = section == 0 ? NSLocalizedString(@"Updates", @"") : NSLocalizedString(@"Installed", @"");
+        return cell;
+    }
+    
+    return NULL;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return updates.count ? 45 : 0;
 }
 
 #pragma mark - Presentation Controller

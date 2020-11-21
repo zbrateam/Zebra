@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)importPackagesFromSource:(ZBBaseSource *)source;
 - (void)packagesFromSource:(ZBSource *)source inSection:(NSString *_Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
+- (void)packagesWithUpdates:(void (^)(NSArray <ZBPackage *> *packages))completion;
 
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
 - (ZBPackage *_Nullable)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version;

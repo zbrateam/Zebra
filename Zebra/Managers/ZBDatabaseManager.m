@@ -364,7 +364,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypePackagesWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypePackagesWithUpdates:
-            return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT v.identifier, v.version FROM (SELECT identifier FROM packages WHERE source = '_var_lib_dpkg_status_' AND role < 3) as i INNER JOIN packages as v ON i.identifier = v.identifier AND source != '_var_lib_dpkg_status_') as v INNER JOIN packages as p ON p.identifier = v.identifier AND p.version = v.version";
+            return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT v.identifier, maxversion(version) AS max_version FROM (SELECT identifier FROM packages WHERE source = '_var_lib_dpkg_status_' AND role < 3) as i INNER JOIN packages as v ON i.identifier = v.identifier AND source != '_var_lib_dpkg_status_') as v INNER JOIN packages as p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypeLatestPackages:
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name;";
         case ZBDatabaseStatementTypeLatestPackagesWithLimit:
