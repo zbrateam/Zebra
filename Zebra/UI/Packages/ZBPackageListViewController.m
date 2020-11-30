@@ -102,7 +102,9 @@
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PackageFilters"];
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportPackages)];
+    self.navigationItem.rightBarButtonItem = shareButton;
+    
     [self loadPackages];
 }
 

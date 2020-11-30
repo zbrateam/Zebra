@@ -73,6 +73,17 @@
 }
 
 + (NSString *)titleForHeaderInDateSection:(NSInteger)section sectionIndexTitles:(NSArray *)sectionIndexTitles dateStyle:(NSDateFormatterStyle)dateStyle timeStyle:(NSDateFormatterStyle)timeStyle {
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+//    dateFormatter.dateStyle = NSDateFormatterShortStyle;
+//     
+//    dateFormatter.doesRelativeDateFormatting = YES;
+//     
+//    NSDate *date = sectionIndexTitles[section];
+//    NSString *dateString = [dateFormatter stringFromDate:date];
+//     
+//    return dateString;
+    
     return [NSDateFormatter localizedStringFromDate:sectionIndexTitles[section] dateStyle:dateStyle timeStyle:timeStyle];
 }
 
