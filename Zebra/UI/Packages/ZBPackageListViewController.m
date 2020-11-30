@@ -144,7 +144,16 @@
 - (void)showSpinner {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!self->spinner) {
-            self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            if (@available(iOS 13.0, *)) {
+                self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+            } else {
+                if ([ZBSettings interfaceStyle] == ZBInterfaceStyleLight) {
+                    self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+                } else {
+                    self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                }
+            }
+
             self->spinner.hidesWhenStopped = YES;
             
             self.tableView.backgroundView = self->spinner;
