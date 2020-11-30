@@ -14,6 +14,7 @@
 #import <Model/ZBPackageFilter.h>
 #import <Model/ZBSource.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Common/ZBPartialPresentationController.h>
@@ -234,6 +235,11 @@
     
     ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:filterResults[indexPath.row]];
     [self.navigationController pushViewController:packageVC animated:YES];
+}
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
+    return [ZBPackageActions swipeActionsForPackage:package inTableView:tableView];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

@@ -7,12 +7,13 @@
 //
 
 #import "ZBPackageActions.h"
-#import "ZBPackage.h"
 
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>
 #import <Model/ZBSource.h>
+#import <Model/ZBPackage.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
@@ -429,6 +430,11 @@
         }];
 
         swipeAction.backgroundColor = [self colorForAction:action];
+
+        if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+            swipeAction.image = [self systemImageForAction:action];
+        }
+
         [swipeActions addObject:swipeAction];
     }
 
@@ -571,20 +577,18 @@
 }
 
 + (NSString *)titleForAction:(ZBPackageActionType)action useIcon:(BOOL)icon {
-    BOOL useIcon = icon && [ZBDevice useIcon];
-    
     switch (action) {
         case ZBPackageActionInstall:
         case ZBPackageActionSelectVersion:
-            return useIcon ? @"⇩" : NSLocalizedString(@"Get", @"");
+            return NSLocalizedString(@"Get", @""); // ⇩
         case ZBPackageActionRemove:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
+            return NSLocalizedString(@"Remove", @""); // ╳
         case ZBPackageActionReinstall:
-            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
+            return NSLocalizedString(@"Reinstall", @""); // ↺
         case ZBPackageActionUpgrade:
-            return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
+            return NSLocalizedString(@"Upgrade", @""); // ↑
         case ZBPackageActionDowngrade:
-            return useIcon ? @"↓" : NSLocalizedString(@"Downgrade", @"");
+            return NSLocalizedString(@"Downgrade", @""); // ↓
         default:
             break;
     }
