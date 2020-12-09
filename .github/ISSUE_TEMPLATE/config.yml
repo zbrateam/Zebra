@@ -1,1 +1,5 @@
 blank_issues_enabled: false
+contact_links:
+  - name: Discussions
+    url: https://github.com/zbrateam/Zebra/discussions
+    about: Share ideas, ask questions, or show off features over at our Discussion page!
