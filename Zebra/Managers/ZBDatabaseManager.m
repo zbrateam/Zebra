@@ -32,7 +32,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
     ZBDatabaseStatementTypePackagesWithUUID,
-    ZBDatabaseStatementTypePackagesWithUpdates,
+    ZBDatabaseStatementTypeHighestVersionOfPackage,
+    ZBDatabaseStatementTypeBasePackageWithVersion,
     ZBDatabaseStatementTypeLatestPackages,
     ZBDatabaseStatementTypeLatestPackagesWithLimit,
     ZBDatabaseStatementTypeInstalledInstanceOfPackage,
@@ -363,8 +364,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT uuid FROM " PACKAGES_TABLE_NAME " WHERE source = ?";
         case ZBDatabaseStatementTypePackagesWithUUID:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?;";
-        case ZBDatabaseStatementTypePackagesWithUpdates:
-            return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT v.identifier, maxversion(version) AS max_version FROM (SELECT identifier FROM packages WHERE source = '_var_lib_dpkg_status_' AND role < 3) as i INNER JOIN packages as v ON i.identifier = v.identifier AND source != '_var_lib_dpkg_status_') as v INNER JOIN packages as p ON p.identifier = v.identifier AND p.version = v.max_version;";
+        case ZBDatabaseStatementTypeHighestVersionOfPackage:
+            return @"SELECT maxversion(version) FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? GROUP BY identifier;";
+        case ZBDatabaseStatementTypeBasePackageWithVersion:
+            return @"SELECT " BASE_PACKAGE_COLUMNS " FROM " PACKAGES_TABLE_NAME " AS p WHERE identifier = ? AND version = ?;";
         case ZBDatabaseStatementTypeLatestPackages:
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE source != \'_var_lib_dpkg_status_\' GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.lastSeen DESC, p.name;";
         case ZBDatabaseStatementTypeLatestPackagesWithLimit:
@@ -528,37 +531,68 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return package;
 }
 
-- (NSArray <ZBPackage *> *)packagesWithUpdates {
+- (NSArray <ZBPackage *> *)updatesForPackageList:(NSDictionary <NSString *,NSString *> *)packageList {
     __block NSArray *updates = NULL;
     dispatch_sync(databaseQueue, ^{
-        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesWithUpdates];
+        NSMutableArray *tempPackages = [NSMutableArray new];
         int result = [self beginTransaction];
-        
-        NSMutableArray *results = [NSMutableArray new];
         if (result == SQLITE_OK) {
-            do {
-                result = sqlite3_step(statement);
-                if (result == SQLITE_ROW) {
-                    ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
-                    
-                    if (package) [results addObject:package];
+            [packageList enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull identifier, NSString * _Nonnull version, BOOL * _Nonnull stop) {
+                NSString *highestVersion = [self highestVersionOfPackageIdentifier:identifier];
+                if (![highestVersion isEqual:version]) {
+                    ZBBasePackage *basePackage = [self basePackageWithIdentifier:identifier version:highestVersion];
+                    if (basePackage) [tempPackages addObject:basePackage];
                 }
-            } while (result == SQLITE_ROW);
-            
-            if (result != SQLITE_DONE) {
-                ZBLog(@"[Zebra] Failed to query updates with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-            }
-        } else {
-            ZBLog(@"[Zebra] Failed to initialize update query with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            }];
         }
-        [self endTransaction];
-        
-        sqlite3_clear_bindings(statement);
-        sqlite3_reset(statement);
-        
-        updates = results;
+        result = [self endTransaction];
+        updates = tempPackages;
     });
     return updates;
+}
+
+- (ZBBasePackage *)basePackageWithIdentifier:(NSString *)identifier version:(NSString *)version {
+    __block ZBBasePackage *package = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeBasePackageWithVersion];
+        int result = sqlite3_bind_text(statement, 1, identifier.UTF8String, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = sqlite3_bind_text(statement, 2, version.UTF8String, -1, SQLITE_TRANSIENT);
+        }
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                ZBBasePackage *basePackage = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
+                if (basePackage) package = basePackage;
+            }
+        }
+        
+        if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
+            ZBLog(@"[Zebra] Failed to get version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    });
+    return package;
+}
+
+- (NSString *)highestVersionOfPackageIdentifier:(NSString *)packageIdentifier {
+    __block NSString *highestVersion = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeHighestVersionOfPackage];
+        int result = sqlite3_bind_text(statement, 1, packageIdentifier.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                highestVersion = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+            }
+        }
+        
+        if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
+            ZBLog(@"[Zebra] Failed to get highest version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    });
+    return highestVersion;
 }
 
 - (ZBPackage *)installedInstanceOfPackage:(ZBPackage *)package {

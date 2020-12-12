@@ -18,13 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageManager : NSObject
 @property (readonly) NSDictionary <NSString *,NSString *> *installedPackagesList;
+@property (readonly) NSArray <ZBPackage *> *updates;
 + (instancetype)sharedInstance;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package checkVersion:(BOOL)checkVersion;
 - (void)importPackagesFromSource:(ZBBaseSource *)source;
 - (void)packagesFromSource:(ZBSource *)source inSection:(NSString *_Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
-- (void)packagesWithUpdates:(void (^)(NSArray <ZBPackage *> *packages))completion;
 
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
 - (ZBPackage *_Nullable)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version;

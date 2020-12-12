@@ -245,9 +245,8 @@
         NSDate *lastUpdatedDate = [self lastUpdated];
 
         if (lastUpdatedDate != NULL) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSUInteger unitFlags = NSCalendarUnitMinute;
-            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *components = [calendar components:NSCalendarUnitMinute fromDate:lastUpdatedDate toDate:currentDate options:0];
 
             needsRefresh = ([components minute] >= 30);
         } else {
@@ -255,11 +254,9 @@
         }
     }
 
-//    [databaseManager checkForPackageUpdates];
-    if (requested || needsRefresh) {
-        [self refreshSources:self.sources useCaching:NO error:nil];
-    }
-    
+    NSMutableArray *sourcesToRefresh = [NSMutableArray arrayWithObjects:[ZBSource localSource], nil];
+    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
+    [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
 }
 
 - (NSDate *)lastUpdated {
@@ -270,7 +267,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdated"];
 }
 
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
+- (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
     
@@ -485,7 +482,6 @@
         fclose(file);
     }
     
-    [busyList setValue:@NO forKey:baseSource.uuid];
     [packageManager importPackagesFromSource:baseSource];
     [self bulkFinishedImportForSource:baseSource];
 }
@@ -642,6 +638,7 @@
 }
 
 - (void)bulkStartedImportForSource:(ZBBaseSource *)source {
+    [busyList setValue:@YES forKey:source.uuid];
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(startedImportForSource:)]) {
             [delegate startedImportForSource:source];
@@ -650,6 +647,7 @@
 }
 
 - (void)bulkFinishedImportForSource:(ZBBaseSource *)source {
+    [busyList setValue:@NO forKey:source.uuid];
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(finishedImportForSource:)]) {
             [delegate finishedImportForSource:source];

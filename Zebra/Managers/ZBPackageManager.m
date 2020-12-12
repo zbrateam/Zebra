@@ -27,6 +27,7 @@
 @implementation ZBPackageManager
 
 @synthesize installedPackagesList = _installedPackagesList;
+@synthesize updates = _updates;
 
 + (instancetype)sharedInstance {
     static ZBPackageManager *instance = nil;
@@ -37,7 +38,7 @@
     return instance;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     if (self) {
@@ -49,22 +50,8 @@
 
 - (void)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
-            [self importPackagesFromSource:source];
-            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
-            
-            NSMutableDictionary *list = [NSMutableDictionary new];
-            NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
-            for (ZBBasePackage *package in packages) {
-                list[package.identifier] = package.version;
-            }
-            self->_installedPackagesList = list;
-            
-            if (completion) completion(packages);
-        } else {
-            NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
-            if (completion) completion(packages);
-        }
+        NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
+        if (completion) completion(packages);
     });
 }
 
@@ -74,30 +61,19 @@
     return latestPackages;
 }
 
-- (void)packagesWithUpdates:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        completion([databaseManager packagesWithUpdates]);
-    });
-}
-
 - (BOOL)needsStatusUpdate {
     NSError *fileError = nil;
     NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
     NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
     NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
+    if (!lastImportedDate) return YES;
     
-    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0 || !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
+    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0 || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
 }
 
-- (NSDictionary <NSString *,NSString *> *)installedPackagesList {
-    if ([self needsStatusUpdate]) {
-        [self packagesFromSource:[ZBSource localSource] inSection:NULL completion:nil]; // This also updates the installed packages list
-    } else if (!_installedPackagesList) {
-        _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
-    }
-    
-    return _installedPackagesList;
+- (NSArray <ZBPackage *> *)updates {
+    return [databaseManager updatesForPackageList:self.installedPackagesList];
 }
 
 - (BOOL)isPackageInstalled:(ZBPackage *)package {
@@ -120,6 +96,7 @@
     
     uuids = [[databaseManager uniqueIdentifiersForPackagesFromSource:source] mutableCopy];
     currentUpdateDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
+    NSMutableDictionary *packageList = source.remote ? NULL : [NSMutableDictionary new];
     
     [databaseManager performTransaction:^{
         FILE *file = fopen(source.packagesFilePath.UTF8String, "r");
@@ -135,6 +112,10 @@
                         if (strcasestr(status, "config-files") != NULL || strcasestr(status, "not-installed") != NULL || strcasestr(status, "deinstall") != NULL) {
                             continue;
                         }
+                        
+                        NSString *identifier = [NSString stringWithUTF8String:package[ZBPackageColumnIdentifier]];
+                        NSString *version = [NSString stringWithUTF8String:package[ZBPackageColumnVersion]];
+                        if (identifier && version) packageList[identifier] = version;
                     }
                     
                     if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
@@ -196,6 +177,8 @@
         freeDualArrayOfSize(package, ZBPackageColumnCount);
         fclose(file);
     }];
+    
+    if (packageList) _installedPackagesList = packageList;
     
     [databaseManager deletePackagesWithUniqueIdentifiers:uuids];
     [uuids removeAllObjects];

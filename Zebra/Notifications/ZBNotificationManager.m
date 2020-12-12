@@ -51,7 +51,7 @@
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     
     self.completionHandler = completionHandler;
-    self.oldUpdates = [databaseManager packagesWithUpdates];
+//    self.oldUpdates = [databaseManager packagesWithUpdates];
 
     [sourceManager addDelegate:self];
     [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
@@ -154,7 +154,7 @@
     }
 
     ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-    ZBPackageList *newUpdates = [databaseManager packagesWithUpdates];
+    ZBPackageList *newUpdates = NULL; //[databaseManager packagesWithUpdates];
 
     UIBackgroundFetchResult result = [self notifyNewUpdatesBetween:self.oldUpdates newUpdates:newUpdates];
     [self fetchCompleted:result];

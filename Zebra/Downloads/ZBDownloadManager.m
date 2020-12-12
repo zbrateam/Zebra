@@ -76,15 +76,28 @@
     
     session = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     for (ZBBaseSource *source in sources) {
-        NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
+        if (source.remote) {
+            NSURLSessionTask *releaseTask = [session downloadTaskWithURL:source.releaseURL];
+                
+            source.releaseTaskIdentifier = releaseTask.taskIdentifier;
+            [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
+            [releaseTask resume];
+                
+            [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
+                
+            [downloadDelegate startedDownloadingSource:source];
+        } else { // This is the local source
+            NSError *fileError = nil;
+            NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
+            NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
+            NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
+            NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
             
-        source.releaseTaskIdentifier = releaseTask.taskIdentifier;
-        [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
-        [releaseTask resume];
-            
-        [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
-            
-        [downloadDelegate startedDownloadingSource:source];
+            if ([lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // If the status file has been modified since we last imported it
+                source.packagesFilePath = statusPath;
+            }
+            [downloadDelegate finishedDownloadingSource:source withError:nil];
+        }
     }
 }
 

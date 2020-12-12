@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  @remark Packages that have updates ignored will not be present in this array
  @return An array of packages that have updates.
  */
-- (NSArray <ZBPackage *> * _Nullable)packagesWithUpdates;
+- (NSArray <ZBPackage *> *)updatesForPackageList:(NSDictionary <NSString *,NSString *> *)packageList;
 
 /*!
  @brief Get the instance of the package that is installed to the user's device
