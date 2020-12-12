@@ -254,6 +254,7 @@
         }
     }
 
+    [self bulkUpdatesAvailable:packageManager.updates.count];
     NSMutableArray *sourcesToRefresh = [NSMutableArray arrayWithObjects:[ZBSource localSource], nil];
     if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
     [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
@@ -435,10 +436,6 @@
 - (void)finishedAllDownloads {
     ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     downloadManager = NULL;
-}
-
-- (void)packageUpdatesAvailable:(int)numberOfUpdates {
-    [self bulkUpdatesAvailable:numberOfUpdates];
 }
 
 #pragma mark - Importing Sources
@@ -668,6 +665,7 @@
             [delegate finishedSourceRefresh];
         }
     }
+    [self bulkUpdatesAvailable:packageManager.updates.count];
 }
 
 
@@ -687,7 +685,7 @@
     }
 }
 
-- (void)bulkUpdatesAvailable:(int)numberOfUpdates {
+- (void)bulkUpdatesAvailable:(NSUInteger)numberOfUpdates {
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(updatesAvailable:)]) {
             [delegate updatesAvailable:numberOfUpdates];

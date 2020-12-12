@@ -72,8 +72,20 @@
     return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0 || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
 }
 
+- (NSDictionary<NSString *,NSString *> *)installedPackagesList {
+    if (!_installedPackagesList) {
+        _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
+    }
+    
+    return _installedPackagesList;
+}
+
 - (NSArray <ZBPackage *> *)updates {
-    return [databaseManager updatesForPackageList:self.installedPackagesList];
+    if (!_updates) {
+        _updates = [databaseManager updatesForPackageList:self.installedPackagesList];
+    }
+    
+    return _updates;
 }
 
 - (BOOL)isPackageInstalled:(ZBPackage *)package {
@@ -85,7 +97,7 @@
         NSString *version = [self.installedPackagesList objectForKey:package.identifier];
         if (!version) return NO;
         
-        return [ZBDependencyResolver doesVersion:version satisfyComparison:@"=" ofVersion:package.version];
+        return [package.version isEqualToString:version];
     } else {
         return [self.installedPackagesList objectForKey:package.identifier];
     }
