@@ -102,9 +102,6 @@
 
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
-        
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportPackages)];
-    self.navigationItem.rightBarButtonItem = shareButton;
     
     [self loadPackages];
 }
@@ -215,6 +212,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell"];
+    BOOL inUpdatesSection = updates.count && indexPath.section == 0;
+    if (inUpdatesSection) {
+        cell.showSize = NO;
+        cell.showVersion = YES;
+    } else {
+        cell.showSize = _filter.sortOrder == ZBPackageSortOrderSize;
+        cell.showVersion = NO;
+    }
     
     return cell;
 }
@@ -223,7 +228,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
-    [cell updateData:package calculateSize:self.filter.sortOrder == ZBPackageSortOrderSize showVersion:YES];
+    [cell updateData:package];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

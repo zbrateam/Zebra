@@ -34,26 +34,20 @@
 }
 
 - (void)updateData:(ZBPackage *)package {
-    [self updateData:package calculateSize:NO showVersion:NO];
-}
-
-- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion {
     self.packageLabel.text = package.name;
     self.descriptionLabel.text = package.packageDescription;
-    ZBSource *source = package.source;
-    NSString *name = source.origin;
-    NSString *author = package.authorName;
-    NSString *installedSize = calculateSize ? [package installedSizeString] : nil;
+
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
-    if (showVersion)
+    if (self.showVersion)
         [info addObject:[package version]];
-    if (author.length)
-        [info addObject:author];
-    if (name.length)
-        [info addObject:name];
-    if (installedSize)
-        [info addObject:installedSize];
-    self.authorAndSourceAndSize.text = [info componentsJoinedByString:@" • "];
+    if (package.authorName)
+        [info addObject:package.authorName];
+//    if (name.length)
+//        [info addObject:name];
+    if (self.showSize)
+        [info addObject:package.installedSizeString];
+    
+    self.infoLabel.text = [info componentsJoinedByString:@" • "];
     
     [package setIconImageForImageView:self.iconImageView];
     
@@ -84,7 +78,7 @@
 - (void)setColors {
     self.packageLabel.textColor = [UIColor primaryTextColor];
     self.descriptionLabel.textColor = [UIColor secondaryTextColor];
-    self.authorAndSourceAndSize.textColor = [UIColor tertiaryTextColor];
+    self.infoLabel.textColor = [UIColor tertiaryTextColor];
     self.isInstalledImageView.tintColor = [UIColor accentColor];
     self.queueStatusLabel.textColor = [UIColor whiteColor];
 }
