@@ -548,7 +548,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         result = [self endTransaction];
         updates = tempPackages;
     });
-    return updates;
+    return [updates sortedArrayUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
 }
 
 - (ZBBasePackage *)basePackageWithIdentifier:(NSString *)identifier version:(NSString *)version {
