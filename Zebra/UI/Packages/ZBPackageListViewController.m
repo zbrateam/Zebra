@@ -19,6 +19,7 @@
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <ZBSettings.h>
+#import <Queue/ZBQueue.h>
 
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
@@ -165,6 +166,10 @@
     });
 }
 
+- (void)updateAll {
+    [[ZBQueue sharedQueue] addPackages:self->updates toQueue:ZBQueueTypeUpgrade];
+}
+
 #pragma mark - Filter Delegate
 
 - (void)applyFilter:(ZBPackageFilter *)filter {
@@ -249,6 +254,7 @@
         if (section == 0) {
             cell.actionButton.hidden = NO;
             [cell.actionButton setTitle:NSLocalizedString(@"Update All", @"") forState:UIControlStateNormal];
+            [cell.actionButton addTarget:self action:@selector(updateAll) forControlEvents:UIControlEventTouchUpInside];
         }
         cell.titleLabel.text = section == 0 ? NSLocalizedString(@"Updates", @"") : NSLocalizedString(@"Installed", @"");
         return cell;
