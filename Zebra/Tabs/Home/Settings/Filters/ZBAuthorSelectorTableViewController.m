@@ -145,7 +145,7 @@
 #pragma mark - Search Controller Delegate
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
-    self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
+    self->shouldPerformSearching = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [searchController.searchBar becomeFirstResponder];
     });
@@ -158,7 +158,7 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self->shouldPerformSearching = [ZBSettings wantsLiveSearch];
+    self->shouldPerformSearching = NO;
     
     [self updateSearchResultsForSearchController:searchController];
 }

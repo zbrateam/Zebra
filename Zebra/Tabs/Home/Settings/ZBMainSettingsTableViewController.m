@@ -33,7 +33,6 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSources,
     ZBChanges,
     ZBPackages,
-    ZBSearch,
     ZBConsole,
     ZBMisc,
     ZBAnalytics,
@@ -92,8 +91,8 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             return NSLocalizedString(@"Sources", @"");
         case ZBChanges:
             return NSLocalizedString(@"Changes", @"");
-        case ZBSearch:
-            return NSLocalizedString(@"Search", @"");
+//        case ZBSearch:
+//            return NSLocalizedString(@"Search", @"");
         case ZBMisc:
             return NSLocalizedString(@"Miscellaneous", @"");
         case ZBConsole:
@@ -117,7 +116,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBFilters:
         case ZBChanges:
         case ZBMisc:
-        case ZBSearch:
+//        case ZBSearch:
         case ZBConsole:
         case ZBAnalytics:
             return 1;
@@ -314,16 +313,16 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
                 return cell;
             }
         }
-        case ZBSearch: {
-            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
-            
-            cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
-            [cell setOn:[ZBSettings wantsLiveSearch]];
-            [cell setTarget:self action:@selector(toggleLiveSearch:)];
-
-            [cell applyStyling];
-            return cell;
-        }
+//        case ZBSearch: {
+//            ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+//
+//            cell.textLabel.text = NSLocalizedString(@"Live Search", @"");
+//            [cell setOn:[ZBSettings wantsLiveSearch]];
+//            [cell setTarget:self action:@selector(toggleLiveSearch:)];
+//
+//            [cell applyStyling];
+//            return cell;
+//        }
         case ZBConsole: {
             ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
             
@@ -440,7 +439,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
                 break;
             }
         }
-        case ZBSearch:
         case ZBConsole: {
             [self toggleSwitchAtIndexPath:indexPath];
             break;
@@ -474,8 +472,8 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             return NSLocalizedString(@"Refresh Zebra's sources when opening the app.", @"");
         case ZBChanges:
             return NSLocalizedString(@"Display recent community posts from /r/jailbreak.", @"");
-        case ZBSearch:
-            return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
+//        case ZBSearch:
+//            return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
         case ZBMisc:
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
         case ZBConsole:
@@ -615,9 +613,9 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     [ZBSettings setAlwaysInstallLatest:[newValue boolValue]];
 }
 
-- (void)toggleLiveSearch:(NSNumber *)newValue {
-    [ZBSettings setWantsLiveSearch:[newValue boolValue]];
-}
+//- (void)toggleLiveSearch:(NSNumber *)newValue {
+//    [ZBSettings setWantsLiveSearch:[newValue boolValue]];
+//}
 
 - (void)toggleFinishAutomatically:(NSNumber *)newValue {
     [ZBSettings setWantsFinishAutomatically:[newValue boolValue]];

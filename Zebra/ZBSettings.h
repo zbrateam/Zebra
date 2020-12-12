@@ -163,10 +163,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier;
 + (void)setUpdatesIgnored:(BOOL)updatesIgnored forPackageIdentifier:(NSString *)identifier;
 
-#pragma mark - Search Settings
-
-+ (BOOL)wantsLiveSearch;
-+ (void)setWantsLiveSearch:(BOOL)liveSearch;
+//#pragma mark - Search Settings
+//
+//+ (BOOL)wantsLiveSearch;
+//+ (void)setWantsLiveSearch:(BOOL)liveSearch;
 
 #pragma mark - Console Settings
 
