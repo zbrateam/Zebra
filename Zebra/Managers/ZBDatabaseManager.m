@@ -1113,6 +1113,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
             
+            sectionReadout[@"Uncategorized"] = sectionReadout[@""];
+            [sectionReadout removeObjectForKey:@""];
+            
             sections = sectionReadout;
         }
 
