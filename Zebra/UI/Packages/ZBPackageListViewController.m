@@ -239,7 +239,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:filterResults[indexPath.row]];
+    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
+    ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:package];
+    
     [self.navigationController pushViewController:packageVC animated:YES];
 }
 
