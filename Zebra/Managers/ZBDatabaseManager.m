@@ -44,6 +44,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
+    ZBDatabaseStatementTypeSourceWithUUID,
     ZBDatabaseStatementTypeInsertSource,
     ZBDatabaseStatementTypeSectionReadout,
     ZBDatabaseStatementTypePackagesInSourceCount,
@@ -388,6 +389,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, downloadSize, iconURL, identifier, installedSize, lastSeen, name, role, section, source, tag, uuid, version, authorEmail, conflicts, depends, depictionURL, essential, filename, homepageURL, maintainerEmail, maintainerName, priority, provides, replaces, sha256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
+        case ZBDatabaseStatementTypeSourceWithUUID:
+            return @"SELECT * FROM " SOURCES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypeInsertSource:
             return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, remote, sourceDescription, suite, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSectionReadout:
@@ -978,6 +981,24 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return sources;
 }
 
+- (ZBSource *)sourceWithUUID:(NSString *)uuid {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSourceWithUUID];
+    int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
+    
+    ZBSource *source = NULL;
+    if (result == SQLITE_OK) {
+        result = sqlite3_step(statement);
+        if (result == SQLITE_ROW) {
+            source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+        }
+    }
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    
+    return source;
+}
+
 #pragma mark - Source Information
 
 - (NSDictionary *)packageListFromSource:(ZBSource *)source {
@@ -1233,11 +1254,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 #pragma mark - Source Management
 
-- (void)insertSource:(char **)source {
+- (ZBSource *)insertSource:(char **)source {
     dispatch_sync(databaseQueue, ^{
         sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertSource];
         
-        sqlite3_bind_text(statement, ZBSourceColumnArchitectures + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnArchitectures + 1, source[ZBSourceColumnArchitectures], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnArchiveType + 1, source[ZBSourceColumnArchiveType], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnCodename + 1, source[ZBSourceColumnCodename], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnComponents + 1, source[ZBSourceColumnComponents], -1, SQLITE_TRANSIENT);
@@ -1259,6 +1280,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
     });
+    
+    NSString *uuid = [NSString stringWithUTF8String:source[ZBSourceColumnUUID]];
+    return [self sourceWithUUID:uuid];
 }
 
 - (void)updateURIForSource:(ZBSource *)source {

@@ -157,7 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Source Management
 
-- (void)insertSource:(char * _Nonnull * _Nonnull)source;
+- (ZBSource *)insertSource:(char * _Nonnull * _Nonnull)source;
 
 /*!
  @brief Updates the URI for the source with the matching sourceID.

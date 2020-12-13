@@ -472,7 +472,12 @@
         strcpy(source[ZBSourceColumnURL], baseSource.repositoryURI.UTF8String);
         strcpy(source[ZBSourceColumnUUID], baseSource.uuid.UTF8String);
         
-        [databaseManager insertSource:source];
+        ZBSource *createdSource = [databaseManager insertSource:source];
+        if (createdSource) {
+            NSMutableDictionary *tempSourceMap = sourceMap.mutableCopy;
+            tempSourceMap[baseSource.uuid] = createdSource;
+            sourceMap = tempSourceMap;
+        }
         
         freeDualArrayOfSize(source, ZBSourceColumnCount);
         fclose(file);
