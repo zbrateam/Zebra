@@ -149,7 +149,7 @@
         sourceMap = tempSourceMap;
         
         [self bulkAddedSources:sourcesToAdd];
-        [self refreshSources:[sourcesToAdd allObjects] useCaching:YES error:nil];
+        [self refreshSources:[sourcesToAdd allObjects] useCaching:NO error:nil];
     }
 }
 
@@ -405,7 +405,6 @@
     ZBLog(@"[Zebra](ZBSourceManager) Started downloads");
     
     if (!busyList) busyList = [NSMutableDictionary new];
-    refreshInProgress = YES;
 }
 
 - (void)startedDownloadingSource:(ZBBaseSource *)source {
@@ -611,6 +610,7 @@
 #pragma mark - Source Delegate Notifiers
 
 - (void)bulkStartedSourceRefresh {
+    refreshInProgress = YES;
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(startedSourceRefresh)]) {
             [delegate startedSourceRefresh];
@@ -660,6 +660,7 @@
 }
 
 - (void)bulkFinishedSourceRefresh {
+    refreshInProgress = NO;
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(finishedSourceRefresh)]) {
             [delegate finishedSourceRefresh];
