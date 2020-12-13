@@ -269,7 +269,7 @@
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout.allValues valueForKeyPath:@"@sum.self"]];
         cell.imageView.image = NULL;
     } else {
-        NSString *section = sectionNames[indexPath.row];
+        NSString *section = sectionNames[indexPath.row - 1];
         
         cell.textLabel.text = [self localizedSection:section];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
@@ -286,7 +286,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.editing) {
-        ZBPackageListViewController *packageList = [[ZBPackageListViewController alloc] initWithSource:source section:sectionNames[indexPath.row]];
+        ZBPackageListViewController *packageList = [[ZBPackageListViewController alloc] initWithSource:source section:indexPath.row == 0 ? NULL : sectionNames[indexPath.row - 1]];
         
         [[self navigationController] pushViewController:packageList animated:YES];
         
