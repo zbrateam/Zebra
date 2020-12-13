@@ -247,7 +247,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return sectionNames.count;
+    return sectionNames.count + 1;
 }
 
 - (BOOL)tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -264,11 +264,15 @@
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
     cell.selectedBackgroundView.backgroundColor = [UIColor cellSelectedBackgroundColor];
     
-    NSString *section = sectionNames[indexPath.row];
-    cell.textLabel.text = [self localizedSection:section];
+    if (indexPath.row == 0) {
+        cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout.allValues valueForKeyPath:@"@sum.self"]];
+        cell.imageView.image = NULL;
+    } else {
+        NSString *section = sectionNames[indexPath.row];
         
-    cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
-    if (indexPath.row != 0) {
+        cell.textLabel.text = [self localizedSection:section];
+        cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout objectForKey:section]];
         cell.imageView.image = [ZBSource imageForSection:section];
         [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
     }
