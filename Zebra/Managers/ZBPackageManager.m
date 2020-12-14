@@ -56,20 +56,7 @@
 }
 
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
-    NSArray *latestPackages = [databaseManager latestPackages:limit];
-    
-    return latestPackages;
-}
-
-- (BOOL)needsStatusUpdate {
-    NSError *fileError = nil;
-    NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
-    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
-    NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
-    NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
-    if (!lastImportedDate) return YES;
-    
-    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0 || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
+    return [databaseManager latestPackages:limit];
 }
 
 - (NSDictionary<NSString *,NSString *> *)installedPackagesList {
@@ -291,6 +278,10 @@
     
     NSArray *filteredPackages = [packages filteredArrayUsingPredicate:filter.compoundPredicate];
     return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
+}
+
+- (ZBPackage *)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+    return [databaseManager instanceOfPackage:package withVersion:version];
 }
 
 @end

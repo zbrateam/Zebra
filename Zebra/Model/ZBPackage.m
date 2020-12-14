@@ -505,7 +505,7 @@
 }
 
 - (NSArray <NSString *> *)allVersions {
-    if (!_allVersions) {
+    if (!_allVersions || _allVersions.count == 0) {
         _allVersions = [[ZBPackageManager sharedInstance] allVersionsOfPackage:self];
     }
     

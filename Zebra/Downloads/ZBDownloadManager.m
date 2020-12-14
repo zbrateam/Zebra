@@ -93,7 +93,7 @@
             NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
             NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
             
-            if ([lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // If the status file has been modified since we last imported it
+            if (!lastImportedDate || !lastModifiedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // If the status file has been modified since we last imported it
                 source.packagesFilePath = statusPath;
             }
             [downloadDelegate finishedDownloadingSource:source withError:nil];
