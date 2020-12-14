@@ -278,9 +278,12 @@
     return [databaseManager installedVersionOfPackage:package];
 }
 
+- (NSArray <NSString *> *)allVersionsOfPackage:(ZBPackage *)package {
+    return [databaseManager allVersionsOfPackage:package];
+}
+
 - (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package {
-//    return [databaseManager allInstancesOfPackage:package];
-    return NULL;
+    return [databaseManager allInstancesOfPackage:package];
 }
 
 - (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter {

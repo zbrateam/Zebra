@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSString *> *issues;
 @property (nonatomic, strong) ZBPackage * _Nullable removedBy;
 @property BOOL ignoreDependencies;
+@property (readonly) NSArray <NSString *> *allVersions;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
@@ -57,10 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sameAsStricted:(ZBPackage * _Nonnull)package;
 - (NSString * _Nullable)getField:(NSString * _Nonnull)field;
 - (BOOL)canReinstall;
-- (NSArray <ZBPackage *> *)allVersions;
-- (NSArray <ZBPackage *> *)otherVersions;
-- (NSArray <ZBPackage *> *)lesserVersions;
-- (NSArray <ZBPackage *> *)greaterVersions;
+- (NSArray <NSString *> *)otherVersions;
+- (NSArray <NSString *> *)lesserVersions;
+- (NSArray <NSString *> *)greaterVersions;
 - (BOOL)areUpdatesIgnored;
 - (void)setIgnoreUpdates:(BOOL)ignore;
 - (NSString * _Nullable)downloadSizeString;

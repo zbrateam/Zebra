@@ -43,6 +43,7 @@
 @implementation ZBPackage
 
 @synthesize isVersionInstalled = _isVersionInstalled;
+@synthesize allVersions = _allVersions;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -331,7 +332,7 @@
 }
 
 - (NSComparisonResult)compare:(id)object {
-    if ([object isKindOfClass:[ZBPackage class]]) {
+    if ([object isKindOfClass:[ZBPackage class]] || [object isKindOfClass:[ZBBasePackage class]]) {
         ZBPackage *obj = (ZBPackage *)object;
         if ([self isEqual:obj])
             return NSOrderedSame;
@@ -503,35 +504,39 @@
     return [[ZBPackageManager sharedInstance] canReinstallPackage:self];
 }
 
-- (NSArray <ZBPackage *> *)allVersions {
-    return [[ZBPackageManager sharedInstance] allInstancesOfPackage:self];
+- (NSArray <NSString *> *)allVersions {
+    if (!_allVersions) {
+        _allVersions = [[ZBPackageManager sharedInstance] allVersionsOfPackage:self];
+    }
+    
+    return _allVersions;
 }
 
-- (NSArray <ZBPackage *> *)otherVersions {
-    NSMutableArray *allVersions = [[self allVersions] mutableCopy];
-    [allVersions removeObject:self];
+- (NSArray <NSString *> *)otherVersions {
+    NSMutableArray *allVersions = self.allVersions.mutableCopy;
+    [allVersions removeObject:self.version];
     
     return allVersions;
 }
 
-- (NSArray <ZBPackage *> *)lesserVersions {
-    NSMutableArray *versions = [[self otherVersions] mutableCopy];
-    NSMutableArray *lesserVersions = [versions mutableCopy];
-    for (ZBPackage *package in versions) {
-        if ([self compare:package] == NSOrderedAscending) {
-            [lesserVersions removeObject:package];
+- (NSArray <NSString *> *)lesserVersions {
+    NSMutableArray *versions = self.otherVersions.mutableCopy;
+    NSMutableArray *lesserVersions = versions.mutableCopy;
+    for (NSString *version in versions) {
+        if ([self compare:version] == NSOrderedAscending) {
+            [lesserVersions removeObject:version];
         }
     }
     
     return lesserVersions;
 }
 
-- (NSArray <ZBPackage *> *)greaterVersions {
-    NSMutableArray *versions = [[self otherVersions] mutableCopy];
-    NSMutableArray *greaterVersions = [versions mutableCopy];
-    for (ZBPackage *package in versions) {
-        if ([self compare:package] == NSOrderedDescending) {
-            [greaterVersions removeObject:package];
+- (NSArray <NSString *> *)greaterVersions {
+    NSMutableArray *versions = self.otherVersions.mutableCopy;
+    NSMutableArray *greaterVersions = versions.mutableCopy;
+    for (NSString *version in versions) {
+        if ([self compare:version] == NSOrderedDescending) {
+            [greaterVersions removeObject:version];
         }
     }
     
@@ -599,7 +604,7 @@
         }
             
         if (![queue contains:self inQueue:ZBQueueTypeDowngrade] && [[self lesserVersions] count]) {
-            // Only going to explicily show a "Downgrade" button if there are lower versions available
+            // Only going to explicitly show a "Downgrade" button if there are lower versions available
             [actions addObject:@(ZBPackageActionDowngrade)];
         }
         
@@ -677,13 +682,12 @@
     NSMutableArray *information = [NSMutableArray new];
     BOOL installed = self.isInstalled;
     
-    NSArray <ZBPackage *> *allVersions = [self allVersions];
+    NSArray <NSString *> *allVersions = self.allVersions;
     if (allVersions.count > 1 && installed) {
         NSString *installedVersion = [self installedVersion];
+        NSString *latestVersion = allVersions[0];
         
-        ZBPackage *latest = allVersions[0];
-        if ([latest compare:installedVersion] == NSOrderedDescending) {
-            NSString *latestVersion = latest.version;
+        if (compare(latestVersion.UTF8String, installedVersion.UTF8String) > 0) {
             if (latestVersion) {
                 NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
                 [information addObject:latestVersionInfo];
@@ -696,7 +700,7 @@
         }
     }
     else if (allVersions.count) {
-        NSString *latestVersion = [allVersions[0] version];
+        NSString *latestVersion = allVersions[0];
         if (latestVersion) {
             NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
             [information addObject:latestVersionInfo];
@@ -708,7 +712,6 @@
         NSDictionary *bundleIdentifierInfo = @{@"name": NSLocalizedString(@"Bundle Identifier", @""), @"value": bundleIdentifier, @"cellType": @"info"};
         [information addObject:bundleIdentifierInfo];
     }
-    
     
     if (installed) {
         NSString *installedSize = [self installedSizeString];

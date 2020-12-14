@@ -64,8 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
 
-- (ZBPackage *_Nullable)allInstancesOfPackage:(ZBPackage *)package;
-
 /*!
  @brief Get instances of packages by an author
  @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
@@ -83,6 +81,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
 
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
+
+- (NSArray <NSString *> *)allVersionsOfPackage:(ZBPackage *)package;
+
+- (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package;
 
 #pragma mark - Package Information
 
