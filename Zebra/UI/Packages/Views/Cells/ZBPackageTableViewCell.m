@@ -12,7 +12,6 @@
 #import <Model/ZBSource.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
-//#import <Tabs/Packages/Helpers/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
 @import SDWebImage;
@@ -28,8 +27,10 @@
     self.queueStatusLabel.hidden = YES;
     self.queueStatusLabel.layer.cornerRadius = 4.0;
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
-    self.iconImageView.layer.cornerRadius = 10;
-    self.iconImageView.clipsToBounds = YES;
+    self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
+    self.iconImageView.layer.borderWidth = 1;
+    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
+    self.iconImageView.layer.masksToBounds = YES;
     [self setColors];
 }
 
