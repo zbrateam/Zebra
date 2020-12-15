@@ -239,25 +239,27 @@
     if (refreshInProgress)
         return;
     
-    BOOL needsRefresh = NO;
-    if (!requested && [ZBSettings wantsAutoRefresh]) {
-        NSDate *currentDate = [NSDate date];
-        NSDate *lastUpdatedDate = [self lastUpdated];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        BOOL needsRefresh = NO;
+        if (!requested && [ZBSettings wantsAutoRefresh]) {
+            NSDate *currentDate = [NSDate date];
+            NSDate *lastUpdatedDate = [self lastUpdated];
 
-        if (lastUpdatedDate != NULL) {
-            NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSDateComponents *components = [calendar components:NSCalendarUnitMinute fromDate:lastUpdatedDate toDate:currentDate options:0];
+            if (lastUpdatedDate != NULL) {
+                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *components = [calendar components:NSCalendarUnitMinute fromDate:lastUpdatedDate toDate:currentDate options:0];
 
-            needsRefresh = ([components minute] >= 30);
-        } else {
-            needsRefresh = YES;
+                needsRefresh = ([components minute] >= 30);
+            } else {
+                needsRefresh = YES;
+            }
         }
-    }
 
-    [self bulkUpdatesAvailable:packageManager.updates.count];
-    NSMutableArray *sourcesToRefresh = [NSMutableArray arrayWithObjects:[ZBSource localSource], nil];
-    if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
-    [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
+        [self bulkUpdatesAvailable:self->packageManager.updates.count];
+        NSMutableArray *sourcesToRefresh = [NSMutableArray arrayWithObjects:[ZBSource localSource], nil];
+        if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
+        [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
+    });
 }
 
 - (NSDate *)lastUpdated {
@@ -272,10 +274,12 @@
     if (refreshInProgress)
         return;
     
-    [self bulkStartedSourceRefresh];
-    downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-    [downloadManager downloadSources:sources useCaching:useCaching];
-    [self updateLastUpdated];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [self bulkStartedSourceRefresh];
+        self->downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+        [self->downloadManager downloadSources:sources useCaching:useCaching];
+        [self updateLastUpdated];
+    });
 }
 
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
