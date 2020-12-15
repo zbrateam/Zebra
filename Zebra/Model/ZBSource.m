@@ -354,4 +354,8 @@
     return [[ZBSourceManager sharedInstance] sectionsForSource:self];
 }
 
+- (NSUInteger)numberOfPackages {
+    return [[ZBSourceManager sharedInstance] numberOfPackagesInSource:self];
+}
+
 @end

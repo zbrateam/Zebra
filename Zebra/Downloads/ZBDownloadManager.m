@@ -24,7 +24,7 @@
 @import Compression;
 
 @interface ZBDownloadManager () {
-    BOOL ignore;
+    BOOL useCaching;
     int failedTasks;
     NSMutableDictionary <NSNumber *, ZBPackage *> *packageTasksMap;
     NSMutableDictionary <NSNumber *, ZBBaseSource *> *sourceTasksMap;
@@ -62,7 +62,8 @@
 #pragma mark - Downloading Sources
 
 - (void)downloadSources:(NSArray <ZBBaseSource *> *_Nonnull)sources useCaching:(BOOL)useCaching {
-    self->ignore = !useCaching;
+    self->useCaching = useCaching;
+    
     [downloadDelegate startedDownloads];
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -83,7 +84,7 @@
             [sourceTasksMap setObject:source forKey:@(releaseTask.taskIdentifier)];
             [releaseTask resume];
                 
-            [self downloadPackagesFileWithExtension:@"bz2" fromSource:source ignoreCaching:ignore];
+            [self downloadPackagesFileWithExtension:@"bz2" fromSource:source];
                 
             [downloadDelegate startedDownloadingSource:source];
         } else { // This is the local source
@@ -93,7 +94,7 @@
             NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
             NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
             
-            if (!lastImportedDate || !lastModifiedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending) { // If the status file has been modified since we last imported it
+            if (!lastImportedDate || !lastModifiedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending || source.numberOfPackages == 0) { // If the status file has been modified since we last imported it
                 source.packagesFilePath = statusPath;
             }
             [downloadDelegate finishedDownloadingSource:source withError:nil];
@@ -101,16 +102,14 @@
     }
 }
 
-- (void)downloadPackagesFileWithExtension:(NSString *_Nullable)extension fromSource:(ZBBaseSource *)source ignoreCaching:(BOOL)ignore {
-    self->ignore = ignore;
-    
+- (void)downloadPackagesFileWithExtension:(NSString *_Nullable)extension fromSource:(ZBBaseSource *)source {
     if ([extension isEqualToString:@""]) extension = nil;
     
     NSString *filename = (extension) ? [NSString stringWithFormat:@"Packages.%@", extension] : @"Packages";
     NSURL *url = [source.packagesDirectoryURL URLByAppendingPathComponent:filename];
     
     NSMutableURLRequest *packagesRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-    if (!ignore) {
+    if (self->useCaching && source.numberOfPackages > 0) {
         [packagesRequest setValue:[self lastModifiedDateForFile:[self saveNameForURL:url]] forHTTPHeaderField:@"If-Modified-Since"];
     }
     
@@ -282,7 +281,7 @@
                 NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < options.count) {
-                    [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source ignoreCaching:ignore];
+                    [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source];
                 }
                 else { //Should never happen but lets catch the error just in case
                     NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];

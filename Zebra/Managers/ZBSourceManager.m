@@ -725,4 +725,8 @@
     return [databaseManager sectionReadoutForSource:source];
 }
 
+- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {
+    return [databaseManager numberOfPackagesInSource:source];
+}
+
 @end
