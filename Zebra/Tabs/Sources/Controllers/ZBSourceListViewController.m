@@ -426,7 +426,7 @@
     }
     
     UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        [self->sourceManager refreshSources:[NSSet setWithArray:@[source]] useCaching:NO error:nil];
+        [self->sourceManager refreshSources:@[source] useCaching:NO error:nil];
         completionHandler(YES);
     }];
     if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {

@@ -98,21 +98,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package;
 
 /*!
- @brief All version strings that are available for a package
- @param package The package that you want versions for.
- @return An array of all version strings in all sources available in the database for a package.
- */
-- (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package;
-
-/*!
- @brief All version strings that are available for a package
- @param package The package that you want versions for.
- @param source The source you want as a filter.
- @return An array of all version strings in a source available in the database for a package.
- */
-- (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
-
-/*!
  @brief Check whether or not a specific package is available for download from a source using its identifier.
  @param package The package ID that you want to check the availability status for.
  @return YES if the package is available for download, NO if it is not.

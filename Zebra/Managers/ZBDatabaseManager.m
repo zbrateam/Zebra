@@ -1533,7 +1533,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     }
     
     if (package != NULL) {
-        NSArray *otherVersions = [self allVersionsForPackage:package];
+        NSArray *otherVersions = [self allInstancesOfPackage:package];
         if (version != NULL && comparison != NULL) {
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {

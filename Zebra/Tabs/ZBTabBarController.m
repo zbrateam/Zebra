@@ -142,7 +142,7 @@
     [self setSourceRefreshIndicatorVisible:NO];
 }
 
-- (void)updatesAvailable:(int)numberOfUpdates {
+- (void)updatesAvailable:(NSUInteger)numberOfUpdates {
     [self setPackageUpdateBadgeValue:numberOfUpdates];
 }
 
