@@ -589,6 +589,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
             ZBLog(@"[Zebra] Failed to get version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return package;
 }
@@ -609,6 +612,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
             ZBLog(@"[Zebra] Failed to get highest version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return highestVersion;
 }
@@ -631,6 +637,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 ZBLog(@"[Zebra] Failed to get installed instance of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
         }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return installedInstance;
 }
@@ -710,7 +719,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
         [self endTransaction];
         
-        sqlite3_finalize(statement);
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
         
         ret = results;
     });
@@ -748,6 +758,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             }
         }
         [self endTransaction];
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return result;
 }
@@ -801,6 +814,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         
         result = [self endTransaction];
         versions = tempVersions;
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return versions;
 }
@@ -829,6 +845,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         
         result = [self endTransaction];
         packages = tempPackages;
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return packages;
 }
@@ -854,6 +873,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 ZBLog(@"[Zebra] Failed to get installed version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
             }
         }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return installedVersion;
 }
@@ -876,6 +898,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (result != SQLITE_DONE && result != SQLITE_OK && result != SQLITE_ROW) {
             ZBLog(@"[Zebra] Failed to get installed version of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
     });
     return packageWithVersion;
 }
