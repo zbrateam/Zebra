@@ -95,7 +95,6 @@
     
     uuids = [[databaseManager uniqueIdentifiersForPackagesFromSource:source] mutableCopy];
     currentUpdateDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
-    NSMutableDictionary *packageList = source.remote ? NULL : [NSMutableDictionary new];
     
     [databaseManager performTransaction:^{
         FILE *file = fopen(source.packagesFilePath.UTF8String, "r");
@@ -113,8 +112,7 @@
                         }
                         
                         NSString *identifier = [NSString stringWithUTF8String:package[ZBPackageColumnIdentifier]];
-                        NSString *version = [NSString stringWithUTF8String:package[ZBPackageColumnVersion]];
-                        if (identifier && version) packageList[identifier] = version;
+                        NSString *version = [NSString stringWithUTF8String:package[ZBPackageColumnVersion]];                        
                     }
                     
                     if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
@@ -176,8 +174,6 @@
         freeDualArrayOfSize(package, ZBPackageColumnCount);
         fclose(file);
     }];
-    
-    if (packageList) _installedPackagesList = packageList;
     
     [databaseManager deletePackagesWithUniqueIdentifiers:uuids];
     [uuids removeAllObjects];

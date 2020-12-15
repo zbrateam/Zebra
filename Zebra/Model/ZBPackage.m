@@ -352,12 +352,7 @@
         return NSOrderedSame;
     } else {
         if ((NSString *)object == NULL) return NSOrderedDescending;
-        int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
-        if (result < 0)
-            return NSOrderedAscending;
-        if (result > 0)
-            return NSOrderedDescending;
-        return NSOrderedSame;
+        return versionComparator(object, self.version);
     }
 }
 
@@ -519,6 +514,15 @@
     return allVersions;
 }
 
+NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonResult(NSString *version1, NSString *version2) {
+    int result = compare(version1.UTF8String, version2.UTF8String);
+    if (result > 0)
+        return NSOrderedAscending;
+    if (result < 0)
+        return NSOrderedDescending;
+    return NSOrderedSame;
+};
+
 - (NSArray <NSString *> *)lesserVersions {
     NSMutableArray *versions = self.otherVersions.mutableCopy;
     NSMutableArray *lesserVersions = versions.mutableCopy;
@@ -528,7 +532,7 @@
         }
     }
     
-    return lesserVersions;
+    return [lesserVersions sortedArrayUsingComparator:versionComparator];
 }
 
 - (NSArray <NSString *> *)greaterVersions {
@@ -540,7 +544,7 @@
         }
     }
     
-    return greaterVersions;
+    return [greaterVersions sortedArrayUsingComparator:versionComparator];
 }
 
 - (BOOL)areUpdatesIgnored {
