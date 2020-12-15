@@ -11,6 +11,7 @@
 #import <Managers/ZBPackageManager.h>
 #import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
+#import <ZBDevice.h>
 #import <ZBSettings.h>
 
 @import UIKit.UIImageView;
@@ -43,6 +44,9 @@
             return NULL;
         }
         
+        int downloadSize = sqlite3_column_int(statement, ZBPackageColumnDownloadSize);
+        self.downloadSize = downloadSize;
+        
         const char *iconURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnIconURL);
         if (iconURL && iconURL[0] != '\0') {
             NSString *iconURLString = [NSString stringWithUTF8String:iconURL];
@@ -55,6 +59,9 @@
         } else { // Packages cannot exist without an identifier
             return NULL;
         }
+        
+        int installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
+        self.installedSize = installedSize;
         
         sqlite3_int64 lastSeen = sqlite3_column_int64(statement, ZBPackageColumnLastSeen);
         self.lastSeen = lastSeen ? [NSDate dateWithTimeIntervalSince1970:lastSeen] : [NSDate distantPast];
@@ -101,11 +108,13 @@
 }
 
 - (BOOL)isInstalled {
+    if (_isInstalled) return _isInstalled;
+    
     if (self.source && [self.source.uuid isEqualToString:@"_var_lib_dpkg_status"]) {
         _isInstalled = YES;
     }
     
-    if (!_isInstalled) [[ZBPackageManager sharedInstance] isPackageInstalled:self];
+    if (!_isInstalled) _isInstalled = [[ZBPackageManager sharedInstance] isPackageInstalled:self];
     
     return _isInstalled;
 }
@@ -118,13 +127,16 @@
     return [[ZBSettings wishlist] containsObject:self.identifier];
 }
 
-- (id)forwardingTargetForSelector:(SEL)aSelector {
-    if (forwardingPackage) return forwardingPackage;
-    
-    ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
-    if (package) forwardingPackage = package;
-    
-    return forwardingPackage;
+- (NSDate *)installedDate {
+    if ([ZBDevice needsSimulation]) {
+        // Just to make sections in simulators less cluttered
+        // https://stackoverflow.com/questions/1149256/round-nsdate-to-the-nearest-5-minutes/19123570
+        NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
+        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
+    }
+    NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
+    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
+    return attributes[NSFileModificationDate];
 }
 
 - (void)setIconImageForImageView:(UIImageView *)imageView {
@@ -135,6 +147,15 @@
     else {
         [imageView setImage:sectionImage];
     }
+}
+
+- (id)forwardingTargetForSelector:(SEL)aSelector {
+    if (forwardingPackage) return forwardingPackage;
+        
+    ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
+    if (package) forwardingPackage = package;
+        
+    return forwardingPackage; 
 }
 
 @end

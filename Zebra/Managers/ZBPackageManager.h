@@ -10,6 +10,7 @@
 
 @class ZBPackage;
 @class ZBBasePackage;
+@class ZBPackageFilter;
 @class ZBSource;
 @class ZBBaseSource;
 
@@ -17,16 +18,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageManager : NSObject
 @property (readonly) NSDictionary <NSString *,NSString *> *installedPackagesList;
+@property (readonly) NSArray <ZBPackage *> *updates;
 + (instancetype)sharedInstance;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package checkVersion:(BOOL)checkVersion;
 - (void)importPackagesFromSource:(ZBBaseSource *)source;
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *_Nullable)source;
-- (NSArray <ZBPackage *> *)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section;
+- (void)packagesFromSource:(ZBSource *)source inSection:(NSString *_Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit;
 
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
 - (ZBPackage *_Nullable)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version;
+- (NSArray <NSString *> *)allVersionsOfPackage:(ZBPackage *)package;
 - (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package;
 - (ZBPackage *_Nullable)packageWithUniqueIdentifier:(NSString *)uuid;
 - (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email;
@@ -38,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package;
+
+- (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter;
 
 @end
 

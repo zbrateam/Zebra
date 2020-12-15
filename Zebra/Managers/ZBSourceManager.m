@@ -149,7 +149,7 @@
         sourceMap = tempSourceMap;
         
         [self bulkAddedSources:sourcesToAdd];
-        [self refreshSources:[sourcesToAdd allObjects] useCaching:YES error:nil];
+        [self refreshSources:[sourcesToAdd allObjects] useCaching:NO error:nil];
     }
 }
 
@@ -239,27 +239,27 @@
     if (refreshInProgress)
         return;
     
-    BOOL needsRefresh = NO;
-    if (!requested && [ZBSettings wantsAutoRefresh]) {
-        NSDate *currentDate = [NSDate date];
-        NSDate *lastUpdatedDate = [self lastUpdated];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        BOOL needsRefresh = NO;
+        if (!requested && [ZBSettings wantsAutoRefresh]) {
+            NSDate *currentDate = [NSDate date];
+            NSDate *lastUpdatedDate = [self lastUpdated];
 
-        if (lastUpdatedDate != NULL) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSUInteger unitFlags = NSCalendarUnitMinute;
-            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+            if (lastUpdatedDate != NULL) {
+                NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+                NSDateComponents *components = [calendar components:NSCalendarUnitMinute fromDate:lastUpdatedDate toDate:currentDate options:0];
 
-            needsRefresh = ([components minute] >= 30);
-        } else {
-            needsRefresh = YES;
+                needsRefresh = ([components minute] >= 30);
+            } else {
+                needsRefresh = YES;
+            }
         }
-    }
 
-//    [databaseManager checkForPackageUpdates];
-    if (requested || needsRefresh) {
-        [self refreshSources:self.sources useCaching:NO error:nil];
-    }
-    
+        [self bulkUpdatesAvailable:self->packageManager.updates.count];
+        NSMutableArray *sourcesToRefresh = [NSMutableArray arrayWithObjects:[ZBSource localSource], nil];
+        if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
+        [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
+    });
 }
 
 - (NSDate *)lastUpdated {
@@ -270,14 +270,16 @@
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdated"];
 }
 
-- (void)refreshSources:(NSSet <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
+- (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
     
-    [self bulkStartedSourceRefresh];
-    downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
-    [downloadManager downloadSources:sources useCaching:useCaching];
-    [self updateLastUpdated];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [self bulkStartedSourceRefresh];
+        self->downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
+        [self->downloadManager downloadSources:sources useCaching:useCaching];
+        [self updateLastUpdated];
+    });
 }
 
 - (void)appendBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error {
@@ -407,7 +409,6 @@
     ZBLog(@"[Zebra](ZBSourceManager) Started downloads");
     
     if (!busyList) busyList = [NSMutableDictionary new];
-    refreshInProgress = YES;
 }
 
 - (void)startedDownloadingSource:(ZBBaseSource *)source {
@@ -438,10 +439,6 @@
 - (void)finishedAllDownloads {
     ZBLog(@"[Zebra](ZBSourceManager) Finished all downloads");
     downloadManager = NULL;
-}
-
-- (void)packageUpdatesAvailable:(int)numberOfUpdates {
-    [self bulkUpdatesAvailable:numberOfUpdates];
 }
 
 #pragma mark - Importing Sources
@@ -479,13 +476,17 @@
         strcpy(source[ZBSourceColumnURL], baseSource.repositoryURI.UTF8String);
         strcpy(source[ZBSourceColumnUUID], baseSource.uuid.UTF8String);
         
-        [databaseManager insertSource:source];
+        ZBSource *createdSource = [databaseManager insertSource:source];
+        if (createdSource) {
+            NSMutableDictionary *tempSourceMap = sourceMap.mutableCopy;
+            tempSourceMap[baseSource.uuid] = createdSource;
+            sourceMap = tempSourceMap;
+        }
         
         freeDualArrayOfSize(source, ZBSourceColumnCount);
         fclose(file);
     }
     
-    [busyList setValue:@NO forKey:baseSource.uuid];
     [packageManager importPackagesFromSource:baseSource];
     [self bulkFinishedImportForSource:baseSource];
 }
@@ -618,6 +619,7 @@
 #pragma mark - Source Delegate Notifiers
 
 - (void)bulkStartedSourceRefresh {
+    refreshInProgress = YES;
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(startedSourceRefresh)]) {
             [delegate startedSourceRefresh];
@@ -642,6 +644,7 @@
 }
 
 - (void)bulkStartedImportForSource:(ZBBaseSource *)source {
+    [busyList setValue:@YES forKey:source.uuid];
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(startedImportForSource:)]) {
             [delegate startedImportForSource:source];
@@ -650,6 +653,7 @@
 }
 
 - (void)bulkFinishedImportForSource:(ZBBaseSource *)source {
+    [busyList setValue:@NO forKey:source.uuid];
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(finishedImportForSource:)]) {
             [delegate finishedImportForSource:source];
@@ -665,11 +669,13 @@
 }
 
 - (void)bulkFinishedSourceRefresh {
+    refreshInProgress = NO;
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(finishedSourceRefresh)]) {
             [delegate finishedSourceRefresh];
         }
     }
+    [self bulkUpdatesAvailable:packageManager.updates.count];
 }
 
 
@@ -689,7 +695,7 @@
     }
 }
 
-- (void)bulkUpdatesAvailable:(int)numberOfUpdates {
+- (void)bulkUpdatesAvailable:(NSUInteger)numberOfUpdates {
     for (NSObject <ZBSourceDelegate> *delegate in delegates) {
         if ([delegate respondsToSelector:@selector(updatesAvailable:)]) {
             [delegate updatesAvailable:numberOfUpdates];
@@ -721,6 +727,10 @@
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source {
     return [databaseManager sectionReadoutForSource:source];
+}
+
+- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {
+    return [databaseManager numberOfPackagesInSource:source];
 }
 
 @end

@@ -7,17 +7,18 @@
 //
 
 #import "ZBPackageActions.h"
-#import "ZBPackage.h"
 
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>
 #import <Model/ZBSource.h>
+#import <Model/ZBPackage.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Queue/ZBQueue.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <UI/Packages/ZBPackageListTableViewController.h>
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import <Tabs/ZBTabBarController.h>
@@ -190,18 +191,20 @@
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSArray *allVersions = [package allVersions];
+    NSArray <NSString *> *allVersions = package.allVersions;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
     
-    NSCountedSet *versionStrings = [NSCountedSet new];
-    for (ZBPackage *otherPackage in allVersions) {
-        [versionStrings addObject:[otherPackage version]];
-    }
-    
-    for (ZBPackage *otherPackage in allVersions) {
-        NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:otherPackage == allVersions[0]];
+    NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:allVersions];
+    for (NSString *otherVersion in allVersions) {
+        NSString *title;
+        if ([otherVersion isEqual:allVersions[0]]) {
+            title = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), otherVersion];
+        } else {
+            title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
+        }
         UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
+            ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:otherVersion];
+            otherPackage.requiresAuthorization = package.requiresAuthorization;
             [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
             
             if (completion) completion();
@@ -218,19 +221,16 @@
 }
 
 + (void)upgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSArray *greaterVersions = [package greaterVersions];
-    if ([greaterVersions count] > 1) {
+    NSArray <NSString *> *greaterVersions = package.greaterVersions;
+    if (greaterVersions.count > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
-        NSCountedSet *versionStrings = [NSCountedSet new];
-        for (ZBPackage *otherPackage in greaterVersions) {
-            [versionStrings addObject:[otherPackage version]];
-        }
-        
-        for (ZBPackage *otherPackage in greaterVersions) {
-            NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
+        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:greaterVersions];
+        for (NSString *otherVersion in greaterVersions) {
+            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
+                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:otherVersion];
+                otherPackage.requiresAuthorization = package.requiresAuthorization;
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
                 
                 if (completion) completion();
@@ -244,31 +244,31 @@
         
         [alert show];
     }
-    else {
-        ZBPackage *upgrade = [greaterVersions count] == 1 ? greaterVersions[0] : package;
+    else if (greaterVersions.count == 1) {
+        ZBPackage *upgrade = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:greaterVersions.firstObject];
         [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+        
+        if (completion) completion();
+    } else {
+        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeUpgrade];
         
         if (completion) completion();
     }
 }
 
 + (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSArray *lesserVersions = [package lesserVersions];
-    if ([lesserVersions count] > 1) {
+    NSArray <NSString *> *lesserVersions = package.lesserVersions;
+    if (lesserVersions.count > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
-        NSCountedSet *versionStrings = [NSCountedSet new];
-        for (ZBPackage *otherPackage in lesserVersions) {
-            [versionStrings addObject:[otherPackage version]];
-        }
-        
-        for (ZBPackage *otherPackage in lesserVersions) {
-            if (!otherPackage.source.remote) continue;
-            
-            NSString *title = [self determinePackageTitle:otherPackage versionStrings:versionStrings withLatest:NO];
+        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:lesserVersions];
+        for (NSString *otherVersion in lesserVersions) {
+            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [otherPackage setRequiresAuthorization:[package requiresAuthorization]];
+                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:otherVersion];
+                otherPackage.requiresAuthorization = package.requiresAuthorization;
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+                
                 if (completion) completion();
             }];
             
@@ -280,9 +280,13 @@
         
         [alert show];
     }
-    else {
-        ZBPackage *upgrade = [lesserVersions count] == 1 ? lesserVersions[0] : package;
-        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeDowngrade];
+    else if (lesserVersions.count == 1) {
+        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:lesserVersions.firstObject];
+        [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
+        
+        if (completion) completion();
+    } else {
+        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeDowngrade];
         
         if (completion) completion();
     }
@@ -429,6 +433,11 @@
         }];
 
         swipeAction.backgroundColor = [self colorForAction:action];
+
+        if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+            swipeAction.image = [self systemImageForAction:action];
+        }
+
         [swipeActions addObject:swipeAction];
     }
 
@@ -571,20 +580,18 @@
 }
 
 + (NSString *)titleForAction:(ZBPackageActionType)action useIcon:(BOOL)icon {
-    BOOL useIcon = icon && [ZBDevice useIcon];
-    
     switch (action) {
         case ZBPackageActionInstall:
         case ZBPackageActionSelectVersion:
-            return useIcon ? @"⇩" : NSLocalizedString(@"Get", @"");
+            return NSLocalizedString(@"Get", @""); // ⇩
         case ZBPackageActionRemove:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
+            return NSLocalizedString(@"Remove", @""); // ╳
         case ZBPackageActionReinstall:
-            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
+            return NSLocalizedString(@"Reinstall", @""); // ↺
         case ZBPackageActionUpgrade:
-            return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
+            return NSLocalizedString(@"Upgrade", @""); // ↑
         case ZBPackageActionDowngrade:
-            return useIcon ? @"↓" : NSLocalizedString(@"Downgrade", @"");
+            return NSLocalizedString(@"Downgrade", @""); // ↓
         default:
             break;
     }
@@ -640,11 +647,6 @@
         default:
             return ZBQueueTypeClear;
     }
-}
-
-+ (NSString *)determinePackageTitle:(ZBPackage *)package versionStrings:(NSCountedSet *)versionStrings withLatest:(BOOL)latest {
-    NSString *versionString = latest ? [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), [package version]] : [package version];
-    return [versionStrings countForObject:[package version]] > 1 ? [NSString stringWithFormat:@"%@ (%@)", versionString, [[package source] label]] : versionString;
 }
 
 @end

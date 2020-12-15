@@ -8,8 +8,8 @@
 
 #import "ZBTabBarController.h"
 
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <Model/ZBSource.h>
-#import <UI/Packages/ZBPackageListTableViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
 
 #import "ZBTab.h"
@@ -80,7 +80,7 @@
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
-    [packagesNavController setViewControllers:@[[[ZBPackageListTableViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
+    [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
     
     UINavigationController *searchNavController = self.viewControllers[ZBTabSearch];
     [searchNavController setViewControllers:@[[[ZBSearchViewController alloc] init]] animated:NO];
@@ -101,11 +101,11 @@
 }
 
 - (void)updatePackagesTableView {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UINavigationController *navController = self.viewControllers[ZBTabPackages];
-        ZBPackageListTableViewController *packagesController = navController.viewControllers[0];
-        [packagesController refreshTable];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        UINavigationController *navController = self.viewControllers[ZBTabPackages];
+//        ZBPackageListViewController *packagesController = navController.viewControllers[0];
+//        [packagesController refreshTable];
+//    });
 }
 
 - (void)setSourceRefreshIndicatorVisible:(BOOL)visible {
@@ -142,7 +142,7 @@
     [self setSourceRefreshIndicatorVisible:NO];
 }
 
-- (void)updatesAvailable:(int)numberOfUpdates {
+- (void)updatesAvailable:(NSUInteger)numberOfUpdates {
     [self setPackageUpdateBadgeValue:numberOfUpdates];
 }
 

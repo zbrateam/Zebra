@@ -132,6 +132,7 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 - (BOOL)isEqual:(ZBBaseSource *)object;
 - (BOOL)exists;
 - (NSArray <NSString *> *)lists;
+- (NSUInteger)numberOfPackages;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -21,9 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
-@property (weak, nonatomic) IBOutlet UILabel *authorAndSourceAndSize;
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@property BOOL showSize;
+@property BOOL showVersion;
 - (void)updateData:(ZBPackage *)package;
-- (void)updateData:(ZBPackage *)package calculateSize:(BOOL)calculateSize showVersion:(BOOL)showVersion;
 - (void)updateQueueStatus:(ZBPackage *)package;
 - (void)setColors;
 @end

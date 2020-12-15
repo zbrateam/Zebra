@@ -12,7 +12,7 @@
 
 #import <Managers/ZBPackageManager.h>
 
-#import <UI/Common/ZBBoldTableViewHeaderView.h>
+#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
 #import <Extensions/UIColor+GlobalColors.h>

@@ -34,7 +34,6 @@
 
 + (ZBSource *)localSource {
     ZBSource *local = [[super alloc] initFromURL:[NSURL fileURLWithPath:@"/var/lib/dpkg/status"]];
-    local.packagesFilePath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
     
     return local;
 }
@@ -353,6 +352,10 @@
 
 - (NSDictionary <NSString *, NSNumber *> *)sections {
     return [[ZBSourceManager sharedInstance] sectionsForSource:self];
+}
+
+- (NSUInteger)numberOfPackages {
+    return [[ZBSourceManager sharedInstance] numberOfPackagesInSource:self];
 }
 
 @end

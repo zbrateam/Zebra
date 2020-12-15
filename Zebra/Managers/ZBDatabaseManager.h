@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
  @remark Packages that have updates ignored will not be present in this array
  @return An array of packages that have updates.
  */
-- (NSArray <ZBPackage *> * _Nullable)packagesWithUpdates;
+- (NSArray <ZBPackage *> *)updatesForPackageList:(NSDictionary <NSString *,NSString *> *)packageList;
 
 /*!
  @brief Get the instance of the package that is installed to the user's device
@@ -63,8 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return An instance of ZBPackage that is installed to the user's device.
  */
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
-
-- (ZBPackage *_Nullable)allInstancesOfPackage:(ZBPackage *)package;
 
 /*!
  @brief Get instances of packages by an author
@@ -84,6 +82,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray * _Nullable)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *_Nullable)blacklistedSources;
 
+- (NSArray <NSString *> *)allVersionsOfPackage:(ZBPackage *)package;
+
+- (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package;
+
+- (ZBPackage *_Nullable)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version;
+
 #pragma mark - Package Information
 
 /*!
@@ -92,21 +96,6 @@ NS_ASSUME_NONNULL_BEGIN
  @return A NSString representing the version of the package installed to the user's device.
  */
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package;
-
-/*!
- @brief All version strings that are available for a package
- @param package The package that you want versions for.
- @return An array of all version strings in all sources available in the database for a package.
- */
-- (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package;
-
-/*!
- @brief All version strings that are available for a package
- @param package The package that you want versions for.
- @param source The source you want as a filter.
- @return An array of all version strings in a source available in the database for a package.
- */
-- (NSArray <NSString *> *)allVersionsForPackage:(ZBPackage *)package inSource:(ZBSource *_Nullable)source;
 
 /*!
  @brief Check whether or not a specific package is available for download from a source using its identifier.
@@ -157,7 +146,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Source Management
 
-- (void)insertSource:(char * _Nonnull * _Nonnull)source;
+- (ZBSource *)insertSource:(char * _Nonnull * _Nonnull)source;
 
 /*!
  @brief Updates the URI for the source with the matching sourceID.

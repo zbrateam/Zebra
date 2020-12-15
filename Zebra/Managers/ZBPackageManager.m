@@ -12,6 +12,7 @@
 #import <ZBDevice.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
+#import <Model/ZBPackageFilter.h>
 #import <Model/ZBSource.h>
 #import <Helpers/utils.h>
 #import <Database/ZBDependencyResolver.h>
@@ -26,6 +27,7 @@
 @implementation ZBPackageManager
 
 @synthesize installedPackagesList = _installedPackagesList;
+@synthesize updates = _updates;
 
 + (instancetype)sharedInstance {
     static ZBPackageManager *instance = nil;
@@ -36,7 +38,7 @@
     return instance;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     if (self) {
@@ -46,54 +48,32 @@
     return self;
 }
 
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *)source {
-    return [self packagesFromSource:source inSection:NULL];
-}
-
-- (NSArray <ZBBasePackage *> *)packagesFromSource:(ZBSource *_Nullable)source inSection:(NSString *_Nullable)section {
-    if ([source.uuid isEqualToString:@"_var_lib_dpkg_status_"] && [self needsStatusUpdate]) {
-        ZBSource *localSource = [ZBSource localSource];
-            
-        [self importPackagesFromSource:localSource];
-        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedStatusDate"];
-        
-        NSMutableDictionary *list = [NSMutableDictionary new];
-        NSArray *packages = [databaseManager packagesFromSource:source inSection:section];
-        for (ZBBasePackage *package in packages) {
-            list[package.identifier] = package.version;
-        }
-        _installedPackagesList = list;
-        
-        return packages;
-    } else {
-        return [databaseManager packagesFromSource:source inSection:section];
-    }
+- (void)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    if ([section isEqual:@"Uncategorized"]) section = @"";
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
+        if (completion) completion(packages);
+    });
 }
 
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
-    NSArray *latestPackages = [databaseManager latestPackages:limit];
-    
-    return latestPackages;
+    return [databaseManager latestPackages:limit];
 }
 
-- (BOOL)needsStatusUpdate {
-    NSError *fileError = nil;
-    NSString *statusPath = [ZBDevice needsSimulation] ? [[NSBundle mainBundle] pathForResource:@"Installed" ofType:@"pack"] : @"/var/lib/dpkg/status";
-    NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:statusPath error:&fileError];
-    NSDate *lastModifiedDate = fileError != nil ? [NSDate distantPast] : [attributes fileModificationDate];
-    NSDate *lastImportedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedStatusDate"];
-    
-    return [databaseManager numberOfPackagesInSource:[ZBSource localSource]] == 0 || !lastImportedDate || [lastImportedDate compare:lastModifiedDate] == NSOrderedAscending; // The date we last looked at the status file is less than the last modified date
-}
-
-- (NSDictionary <NSString *,NSString *> *)installedPackagesList {
-    if ([self needsStatusUpdate]) {
-        [self packagesFromSource:[ZBSource localSource]]; // This also updates the installed packages list
-    } else if (!_installedPackagesList) {
+- (NSDictionary<NSString *,NSString *> *)installedPackagesList {
+    if (!_installedPackagesList) {
         _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
     }
     
     return _installedPackagesList;
+}
+
+- (NSArray <ZBPackage *> *)updates {
+    if (!_updates) {
+        _updates = [databaseManager updatesForPackageList:self.installedPackagesList];
+    }
+    
+    return _updates;
 }
 
 - (BOOL)isPackageInstalled:(ZBPackage *)package {
@@ -105,7 +85,7 @@
         NSString *version = [self.installedPackagesList objectForKey:package.identifier];
         if (!version) return NO;
         
-        return [ZBDependencyResolver doesVersion:version satisfyComparison:@"=" ofVersion:package.version];
+        return [package.version isEqualToString:version];
     } else {
         return [self.installedPackagesList objectForKey:package.identifier];
     }
@@ -131,6 +111,9 @@
                         if (strcasestr(status, "config-files") != NULL || strcasestr(status, "not-installed") != NULL || strcasestr(status, "deinstall") != NULL) {
                             continue;
                         }
+                        
+                        NSString *identifier = [NSString stringWithUTF8String:package[ZBPackageColumnIdentifier]];
+                        NSString *version = [NSString stringWithUTF8String:package[ZBPackageColumnVersion]];                        
                     }
                     
                     if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
@@ -263,7 +246,6 @@
     return [databaseManager isPackageAvailable:package checkVersion:YES];
 }
 
-// These search methods could be improved further by using a NSBlockOperation subclass to allow us to use sqlite3_interrupt but I'll come back to this idea later...
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     [databaseManager searchForPackagesByName:name completion:completion];
 }
@@ -280,9 +262,23 @@
     return [databaseManager installedVersionOfPackage:package];
 }
 
+- (NSArray <NSString *> *)allVersionsOfPackage:(ZBPackage *)package {
+    return [databaseManager allVersionsOfPackage:package];
+}
+
 - (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package {
-//    return [databaseManager allInstancesOfPackage:package];
-    return NULL;
+    return [databaseManager allInstancesOfPackage:package];
+}
+
+- (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter {
+    if (!filter) return packages;
+    
+    NSArray *filteredPackages = [packages filteredArrayUsingPredicate:filter.compoundPredicate];
+    return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
+}
+
+- (ZBPackage *)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+    return [databaseManager instanceOfPackage:package withVersion:version];
 }
 
 @end

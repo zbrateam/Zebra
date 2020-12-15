@@ -471,4 +471,8 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     return self.label;
 }
 
+- (NSUInteger)numberOfPackages {
+    return 0;
+}
+
 @end

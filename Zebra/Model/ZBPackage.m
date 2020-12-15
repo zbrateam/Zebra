@@ -43,6 +43,7 @@
 @implementation ZBPackage
 
 @synthesize isVersionInstalled = _isVersionInstalled;
+@synthesize allVersions = _allVersions;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID {
     ZBLog(@"[Zebra] Getting installed files for %@", packageID);
@@ -154,69 +155,65 @@
         }
         
         const char *conflicts = (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
-        if (conflicts[0] != '\0') {
+        if (conflicts && conflicts[0] != '\0') {
             NSString *rawConflicts = [NSString stringWithUTF8String:conflicts];
             _conflicts = [rawConflicts componentsSeparatedByString:@","];
         }
         
         const char *depends = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
-        if (depends[0] != '\0') {
+        if (depends && depends[0] != '\0') {
             NSString *rawDepends = [NSString stringWithUTF8String:depends];
             _depends = [rawDepends componentsSeparatedByString:@","];
         }
         
         const char *depictionURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepictionURL);
-        if (depictionURL[0] != '\0') {
+        if (depictionURL && depictionURL[0] != '\0') {
             NSString *depictionURLString = [NSString stringWithUTF8String:depictionURL];
             _depictionURL = [NSURL URLWithString:depictionURLString];
         }
         
-        _downloadSize = sqlite3_column_int(statement, ZBPackageColumnDownloadSize);
-        
         _essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
         
         const char *filename = (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
-        if (filename[0] != '\0') {
+        if (filename && filename[0] != '\0') {
             _filename = [NSString stringWithUTF8String:filename];
         }
         
         const char *homepageURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnHomepageURL);
-        if (homepageURL[0] != '\0') {
+        if (homepageURL && homepageURL[0] != '\0') {
             NSString *homepageURLString = [NSString stringWithUTF8String:homepageURL];
             _homepageURL = [NSURL URLWithString:homepageURLString];
         }
         
-        _installedSize = sqlite3_column_int(statement, ZBPackageColumnInstalledSize);
-        
         const char *maintainerEmail = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerEmail);
-        if (maintainerEmail && maintainerEmail[0] != '\0') {
+        if (maintainerEmail && maintainerEmail && maintainerEmail[0] != '\0') {
             _maintainerEmail = [NSString stringWithUTF8String:maintainerEmail];
         }
         
         const char *maintainerName = (const char *)sqlite3_column_text(statement, ZBPackageColumnMaintainerName);
-        if (maintainerName[0] != '\0') {
+        if (maintainerName && maintainerName[0] != '\0') {
             _maintainerName = [NSString stringWithUTF8String:maintainerName];
         }
         
         const char *priorityChars = (const char *)sqlite3_column_text(statement, ZBPackageColumnPriority);
-        if (priorityChars[0] != '\0') {
+        if (priorityChars && priorityChars[0] != '\0') {
             _priority = [NSString stringWithUTF8String:priorityChars];
         }
         
         const char *provides = (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
-        if (provides[0] != '\0') {
+        if (provides && provides[0] != '\0') {
             NSString *rawProvides = [NSString stringWithUTF8String:provides];
             _provides = [rawProvides componentsSeparatedByString:@","];
         }
         
         const char *replaces = (const char *)sqlite3_column_text(statement, ZBPackageColumnReplaces);
-        if (replaces[0] != '\0') {
+        if (replaces && replaces[0] != '\0') {
             NSString *rawReplaces = [NSString stringWithUTF8String:replaces];
             _replaces = [rawReplaces componentsSeparatedByString:@","];
         }
         
         const char *SHA256 = (const char *)sqlite3_column_text(statement, ZBPackageColumnSHA256);
-        if (SHA256[0] != '\0') {
+        if (SHA256 && SHA256[0] != '\0') {
             _SHA256 = [NSString stringWithUTF8String:SHA256];
         }
     }
@@ -335,7 +332,7 @@
 }
 
 - (NSComparisonResult)compare:(id)object {
-    if ([object isKindOfClass:[ZBPackage class]]) {
+    if ([object isKindOfClass:[ZBPackage class]] || [object isKindOfClass:[ZBBasePackage class]]) {
         ZBPackage *obj = (ZBPackage *)object;
         if ([self isEqual:obj])
             return NSOrderedSame;
@@ -355,12 +352,7 @@
         return NSOrderedSame;
     } else {
         if ((NSString *)object == NULL) return NSOrderedDescending;
-        int result = compare([[self version] UTF8String], [(NSString *)object UTF8String]);
-        if (result < 0)
-            return NSOrderedAscending;
-        if (result > 0)
-            return NSOrderedDescending;
-        return NSOrderedSame;
+        return versionComparator(object, self.version);
     }
 }
 
@@ -488,24 +480,11 @@
 }
 
 - (NSString * _Nullable)downloadSizeString {
-    if (self.downloadSize <= 0) return nil;
-    double size = (double)self.downloadSize;
-    if (size > 1024 * 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024 / 1024];
-    }
-    if (size > 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f KB", @""), size / 1024];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"%lu bytes", @""), (unsigned long)self.downloadSize];
+    return [NSByteCountFormatter stringFromByteCount:self.downloadSize countStyle:NSByteCountFormatterCountStyleFile];
 }
 
 - (NSString * _Nullable)installedSizeString {
-    if (self.installedSize <= 0) return nil;
-    double size = (double)self.installedSize;
-    if (size > 1024) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.2f MB", @""), size / 1024];
-    }
-    return [NSString stringWithFormat:NSLocalizedString(@"%lu KB", @""), (unsigned long)self.installedSize];
+    return [NSByteCountFormatter stringFromByteCount:self.installedSize * 1024 countStyle:NSByteCountFormatterCountStyleFile]; // Installed-Size is "estimated installed size in bytes, divided by 1024" but these sizes seem a little large...
 }
 
 - (BOOL)isVersionInstalled {
@@ -520,39 +499,52 @@
     return [[ZBPackageManager sharedInstance] canReinstallPackage:self];
 }
 
-- (NSArray <ZBPackage *> *)allVersions {
-    return [[ZBPackageManager sharedInstance] allInstancesOfPackage:self];
+- (NSArray <NSString *> *)allVersions {
+    if (!_allVersions || _allVersions.count == 0) {
+        _allVersions = [[ZBPackageManager sharedInstance] allVersionsOfPackage:self];
+    }
+    
+    return _allVersions;
 }
 
-- (NSArray <ZBPackage *> *)otherVersions {
-    NSMutableArray *allVersions = [[self allVersions] mutableCopy];
-    [allVersions removeObject:self];
+- (NSArray <NSString *> *)otherVersions {
+    NSMutableArray *allVersions = self.allVersions.mutableCopy;
+    [allVersions removeObject:self.version];
     
     return allVersions;
 }
 
-- (NSArray <ZBPackage *> *)lesserVersions {
-    NSMutableArray *versions = [[self otherVersions] mutableCopy];
-    NSMutableArray *lesserVersions = [versions mutableCopy];
-    for (ZBPackage *package in versions) {
-        if ([self compare:package] == NSOrderedAscending) {
-            [lesserVersions removeObject:package];
+NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonResult(NSString *version1, NSString *version2) {
+    int result = compare(version1.UTF8String, version2.UTF8String);
+    if (result > 0)
+        return NSOrderedAscending;
+    if (result < 0)
+        return NSOrderedDescending;
+    return NSOrderedSame;
+};
+
+- (NSArray <NSString *> *)lesserVersions {
+    NSMutableArray *versions = self.otherVersions.mutableCopy;
+    NSMutableArray *lesserVersions = versions.mutableCopy;
+    for (NSString *version in versions) {
+        if ([self compare:version] == NSOrderedAscending) {
+            [lesserVersions removeObject:version];
         }
     }
     
-    return lesserVersions;
+    return [lesserVersions sortedArrayUsingComparator:versionComparator];
 }
 
-- (NSArray <ZBPackage *> *)greaterVersions {
-    NSMutableArray *versions = [[self otherVersions] mutableCopy];
-    NSMutableArray *greaterVersions = [versions mutableCopy];
-    for (ZBPackage *package in versions) {
-        if ([self compare:package] == NSOrderedDescending) {
-            [greaterVersions removeObject:package];
+- (NSArray <NSString *> *)greaterVersions {
+    NSMutableArray *versions = self.otherVersions.mutableCopy;
+    NSMutableArray *greaterVersions = versions.mutableCopy;
+    for (NSString *version in versions) {
+        if ([self compare:version] == NSOrderedDescending) {
+            [greaterVersions removeObject:version];
         }
     }
     
-    return greaterVersions;
+    return [greaterVersions sortedArrayUsingComparator:versionComparator];
 }
 
 - (BOOL)areUpdatesIgnored {
@@ -561,18 +553,6 @@
 
 - (void)setIgnoreUpdates:(BOOL)ignore {
     [ZBSettings setUpdatesIgnored:ignore forPackageIdentifier:self.identifier];
-}
-
-- (NSDate *)installedDate {
-    if ([ZBDevice needsSimulation]) {
-        // Just to make sections in simulators less cluttered
-        // https://stackoverflow.com/questions/1149256/round-nsdate-to-the-nearest-5-minutes/19123570
-        NSTimeInterval seconds = round([[NSDate date] timeIntervalSinceReferenceDate] / 300.0) * 300.0;
-        return [NSDate dateWithTimeIntervalSinceReferenceDate:seconds];
-    }
-	NSString *listPath = [NSString stringWithFormat:@"/var/lib/dpkg/info/%@.list", self.identifier];
-	NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfItemAtPath:listPath error:NULL];
-	return attributes[NSFileModificationDate];
 }
 
 - (NSString * _Nullable)installedVersion {
@@ -628,7 +608,7 @@
         }
             
         if (![queue contains:self inQueue:ZBQueueTypeDowngrade] && [[self lesserVersions] count]) {
-            // Only going to explicily show a "Downgrade" button if there are lower versions available
+            // Only going to explicitly show a "Downgrade" button if there are lower versions available
             [actions addObject:@(ZBPackageActionDowngrade)];
         }
         
@@ -706,13 +686,12 @@
     NSMutableArray *information = [NSMutableArray new];
     BOOL installed = self.isInstalled;
     
-    NSArray <ZBPackage *> *allVersions = [self allVersions];
+    NSArray <NSString *> *allVersions = self.allVersions;
     if (allVersions.count > 1 && installed) {
         NSString *installedVersion = [self installedVersion];
+        NSString *latestVersion = allVersions[0];
         
-        ZBPackage *latest = allVersions[0];
-        if ([latest compare:installedVersion] == NSOrderedDescending) {
-            NSString *latestVersion = latest.version;
+        if (compare(latestVersion.UTF8String, installedVersion.UTF8String) > 0) {
             if (latestVersion) {
                 NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
                 [information addObject:latestVersionInfo];
@@ -725,7 +704,7 @@
         }
     }
     else if (allVersions.count) {
-        NSString *latestVersion = [allVersions[0] version];
+        NSString *latestVersion = allVersions[0];
         if (latestVersion) {
             NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
             [information addObject:latestVersionInfo];
@@ -737,7 +716,6 @@
         NSDictionary *bundleIdentifierInfo = @{@"name": NSLocalizedString(@"Bundle Identifier", @""), @"value": bundleIdentifier, @"cellType": @"info"};
         [information addObject:bundleIdentifierInfo];
     }
-    
     
     if (installed) {
         NSString *installedSize = [self installedSizeString];

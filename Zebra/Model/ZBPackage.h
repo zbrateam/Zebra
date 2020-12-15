@@ -25,13 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *_Nullable debPath;
 @property (readonly) NSArray *_Nullable depends;
 @property (readonly) NSURL *_Nullable depictionURL;
-@property (readonly) NSUInteger downloadSize;
 @property (readonly) BOOL essential;
 @property (readonly) NSString *_Nullable filename;
 @property (readonly) NSString * _Nullable highestCompatibleVersion;
 @property (readonly) NSURL *_Nullable homepageURL;
 @property (readonly) BOOL isVersionInstalled;
-@property (readonly) NSUInteger installedSize;
 @property (readonly) NSString * _Nullable lowestCompatibleVersion;
 @property (readonly) NSString *_Nullable maintainerName;
 @property (readonly) NSString *_Nullable maintainerEmail;
@@ -49,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSString *> *issues;
 @property (nonatomic, strong) ZBPackage * _Nullable removedBy;
 @property BOOL ignoreDependencies;
+@property (readonly) NSArray <NSString *> *allVersions;
 
 + (NSArray *)filesInstalledBy:(NSString *)packageID;
 + (BOOL)respringRequiredFor:(NSString *)packageID;
@@ -59,15 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)sameAsStricted:(ZBPackage * _Nonnull)package;
 - (NSString * _Nullable)getField:(NSString * _Nonnull)field;
 - (BOOL)canReinstall;
-- (NSArray <ZBPackage *> *)allVersions;
-- (NSArray <ZBPackage *> *)otherVersions;
-- (NSArray <ZBPackage *> *)lesserVersions;
-- (NSArray <ZBPackage *> *)greaterVersions;
+- (NSArray <NSString *> *)otherVersions;
+- (NSArray <NSString *> *)lesserVersions;
+- (NSArray <NSString *> *)greaterVersions;
 - (BOOL)areUpdatesIgnored;
 - (void)setIgnoreUpdates:(BOOL)ignore;
 - (NSString * _Nullable)downloadSizeString;
 - (NSString * _Nullable)installedSizeString;
-- (nonnull NSDate *)installedDate;
 - (NSString * _Nullable)installedVersion;
 - (void)addDependency:(ZBPackage * _Nonnull)package;
 - (void)addDependencyOf:(ZBPackage * _Nonnull)package;

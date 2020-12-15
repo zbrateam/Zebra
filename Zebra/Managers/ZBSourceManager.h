@@ -87,6 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error;
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
+- (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END

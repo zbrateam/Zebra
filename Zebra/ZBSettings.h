@@ -8,6 +8,7 @@
 
 @class ZBSource;
 @class ZBPackage;
+@class ZBPackageFilter;
 
 @import Foundation;
 
@@ -122,6 +123,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package;
 
++ (ZBPackageFilter *)filterForSource:(ZBSource *)source section:(NSString *)section;
++ (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section;
+
 #pragma mark - Homepage settings
 
 + (BOOL)wantsFeaturedPackages;
@@ -152,8 +156,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)alwaysInstallLatest;
 + (void)setAlwaysInstallLatest:(BOOL)alwaysInstallLatest;
 
-+ (int16_t)role;
-+ (void)setRole:(int16_t)role;
++ (uint8_t)role;
++ (void)setRole:(NSNumber *)role;
 
 + (NSArray *)ignoredUpdates;
 + (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier;

@@ -383,6 +383,36 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     return [self isSectionFiltered:package.section forSource:package.source] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
 }
 
++ (ZBPackageFilter *)filterForSource:(ZBSource *)source section:(NSString *)section {
+    if (!source) return NULL;
+    
+    NSDictionary *filters = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"PackageFilters"];
+    NSDictionary *sectionFilters = filters[source.uuid];
+    if (sectionFilters) {
+        if (!section) section = source.uuid;
+        NSData *encodedFilter = sectionFilters[section];
+        if (encodedFilter.length) {
+            ZBPackageFilter *filter = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFilter];
+            return filter;
+        }
+    }
+    
+    return NULL;
+}
+
++ (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *filters = [[defaults dictionaryForKey:@"PackageFilters"] mutableCopy] ?: [NSMutableDictionary new];
+    NSMutableDictionary *sectionFilters = [filters[source.uuid] mutableCopy] ?: [NSMutableDictionary new];
+    
+    if (!section) section = source.uuid;
+    NSData *encodedFilter = [NSKeyedArchiver archivedDataWithRootObject:filter];
+    sectionFilters[section] = encodedFilter;
+    filters[source.uuid] = sectionFilters;
+    
+    [defaults setObject:filters forKey:@"PackageFilters"];
+}
+
 #pragma mark - Homepage Settings
 
 + (BOOL)wantsFeaturedPackages {
@@ -509,20 +539,24 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     [defaults setBool:alwaysInstallLatest forKey:AlwaysInstallLatestKey];
 }
 
-+ (int16_t)role {
++ (uint8_t)role {
+#if ZB_DBEUG
+    return 3;
+#else
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     if (![defaults objectForKey:RoleKey]) {
-        [self setRole:2];
+        [self setRole:@2];
         return 2;
     }
     return [defaults integerForKey:RoleKey];
+#endif
 }
 
-+ (void)setRole:(int16_t)role {
++ (void)setRole:(NSNumber *)role {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setInteger:role forKey:RoleKey];
+    [defaults setInteger:role.unsignedIntValue forKey:RoleKey];
 }
 
 + (NSArray *)ignoredUpdates {

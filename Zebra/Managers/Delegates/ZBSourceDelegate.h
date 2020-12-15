@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)finishedDownloadForSource:(ZBBaseSource *)source;
 - (void)startedImportForSource:(ZBBaseSource *)source;
 - (void)finishedImportForSource:(ZBBaseSource *)source;
-- (void)updatesAvailable:(int)numberOfUpdates;
+- (void)updatesAvailable:(NSUInteger)numberOfUpdates;
 - (void)finishedSourceRefresh;
 - (void)addedSources:(NSSet <ZBBaseSource *> *)sources;
 - (void)removedSources:(NSSet <ZBBaseSource *> *)sources;
