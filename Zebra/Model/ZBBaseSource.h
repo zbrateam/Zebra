@@ -28,9 +28,11 @@ typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
     ZBSourceColumnDistribution,
     ZBSourceColumnLabel,
     ZBSourceColumnOrigin,
+    ZBSourceColumnPaymentEndpoint,
     ZBSourceColumnRemote,
     ZBSourceColumnDescription,
     ZBSourceColumnSuite,
+    ZBSourceColumnSupportsFeaturedPackages,
     ZBSourceColumnURL,
     ZBSourceColumnUUID,
     ZBSourceColumnVersion,
@@ -84,13 +86,19 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 @property BOOL packagesTaskCompleted;
 
 /*! @brief Indicates whether or not the task downloading the Release file is completed and the repo should be parsed */
-@property BOOL releaseTaskCompleted;
+@property unsigned int releaseTasksCompleted;
 
 /*! @brief A file path that points to the downloaded Packages file (NULL if no file has been downloaded and the database entry should not be updated) */
 @property NSString *_Nullable packagesFilePath;
 
 /*! @brief A file path that points to the downloaded Release file (NULL if no file has been downloaded and the database entry should not be updated) */
 @property NSString *_Nullable releaseFilePath;
+
+@property (nullable) NSURL *paymentEndpointURL;
+
+@property BOOL supportsFeaturedPackages;
+
+@property NSString *_Nullable featuredPackages;
 
 /*! @brief The base filename of the repository, based on the URL */
 @property (readonly) NSString * _Nullable uuid;

@@ -332,9 +332,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "distribution TEXT, "
                                           "label TEXT, "
                                           "origin TEXT, "
+                                          "paymentEndpoint TEXT, "
                                           "remote BOOLEAN, "
                                           "sourceDescription TEXT, "
                                           "suite TEXT, "
+                                          "supportsFeaturedPackages INTEGER, "
                                           "url TEXT, "
                                           "uuid TEXT, "
                                           "version TEXT, "
@@ -407,7 +409,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypeSourceWithUUID:
             return @"SELECT * FROM " SOURCES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypeInsertSource:
-            return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, remote, sourceDescription, suite, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, paymentEndpoint, remote, sourceDescription, suite, supportsFeaturedPackages, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSectionReadout:
             return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
         case ZBDatabaseStatementTypePackagesInSourceCount:
@@ -1363,9 +1365,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, source[ZBSourceColumnDistribution], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, source[ZBSourceColumnLabel], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, source[ZBSourceColumnOrigin], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnPaymentEndpoint + 1, source[ZBSourceColumnPaymentEndpoint], -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, *(int *)source[ZBSourceColumnRemote]);
         sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, source[ZBSourceColumnDescription], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, source[ZBSourceColumnSuite], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, ZBSourceColumnSupportsFeaturedPackages + 1, *(int *)source[ZBSourceColumnSupportsFeaturedPackages]);
         sqlite3_bind_text(statement, ZBSourceColumnURL + 1, source[ZBSourceColumnURL], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, source[ZBSourceColumnUUID], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, source[ZBSourceColumnVersion], -1, SQLITE_TRANSIENT);
