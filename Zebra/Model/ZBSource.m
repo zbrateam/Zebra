@@ -94,7 +94,8 @@
         
         const char *paymentEndpoint = (const char *)sqlite3_column_text(statement, ZBSourceColumnPaymentEndpoint);
         if (paymentEndpoint) {
-            self.paymentEndpointURL = [NSURL URLWithString:[NSString stringWithUTF8String:paymentEndpoint]];
+            NSURL *endpointURL = [NSURL URLWithString:[NSString stringWithUTF8String:paymentEndpoint]];
+            if ([endpointURL.scheme isEqual:@"https"]) self.paymentEndpointURL = endpointURL;
         }
         
         const char *suite = (const char *)sqlite3_column_text(statement, ZBSourceColumnSuite);
