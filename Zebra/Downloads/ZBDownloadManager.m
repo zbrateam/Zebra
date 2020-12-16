@@ -89,6 +89,8 @@
             if ([source.mainDirectoryURL.scheme isEqual:@"https"]) {
                 [self checkForPaymentEndpointFromSource:source];
                 [self checkForFeaturedPackagesFromSource:source];
+            } else {
+                source.releaseTasksCompleted += 2;
             }
             
             [downloadDelegate startedDownloadingSource:source];
