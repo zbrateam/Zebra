@@ -232,52 +232,52 @@
 }
 
 - (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion {
-//    ZBSource *source = [package source];
-//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-//    
-//    NSDictionary *question = @{
-//                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
-//                    @"udid": [ZBDevice UDID],
-//                    @"device": [ZBDevice deviceModelID],
-//                    @"version": package.version,
-//                    @"repo": [source repositoryURI]
-//    };
-//    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
-//    
-//    NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-//    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-//    [request setHTTPBody:requestData];
-//    
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        if (data && !error) {
-//            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//            if ([json valueForKey:@"url"]) {
-//                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
-//                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
-//                    completion(downloadURL, NULL);
-//                }
-//                else {
-//                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
-//                    completion(NULL, badURL);
-//                }
-//            }
-//            else {
-//                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
-//                completion(NULL, badURL);
-//            }
-//        }
-//        else if (error) {
-//            completion(NULL, error);
-//        }
-//    }];
-//    
-//    [task resume];
+    ZBSource *source = [package source];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
+    NSDictionary *question = @{
+                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
+                    @"udid": [ZBDevice UDID],
+                    @"device": [ZBDevice deviceModelID],
+                    @"version": package.version,
+                    @"repo": [source repositoryURI]
+    };
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
+    
+    NSURL *requestURL = [source.paymentEndpointURL URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (data && !error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            if ([json valueForKey:@"url"]) {
+                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
+                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
+                    completion(downloadURL, NULL);
+                }
+                else {
+                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
+                    completion(NULL, badURL);
+                }
+            }
+            else {
+                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
+                completion(NULL, badURL);
+            }
+        }
+        else if (error) {
+            completion(NULL, error);
+        }
+    }];
+    
+    [task resume];
 }
 
 #pragma mark - Handling Downloaded Files
