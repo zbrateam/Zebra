@@ -1054,45 +1054,47 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Source Retrieval
 
 - (NSSet <ZBSource *> *)sources {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSources];
-    int result = [self beginTransaction];
-    
-    NSMutableSet *sources = [NSMutableSet new];
-    if (result == SQLITE_OK) {
+    __block NSSet *sources;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSources];
+        int result = SQLITE_OK;
+        
+        NSMutableSet *tempSources = [NSMutableSet new];
         do {
             result = sqlite3_step(statement);
             if (result == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                if (source) [sources addObject:source];
+                if (source) [tempSources addObject:source];
             }
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
             ZBLog(@"[Zebra] Failed to query sources with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
-    }
-    
-    [self endTransaction];
-    sqlite3_reset(statement);
-    
+        
+        sqlite3_reset(statement);
+        
+        sources = tempSources;
+    });
     return sources;
 }
 
 - (ZBSource *)sourceWithUUID:(NSString *)uuid {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSourceWithUUID];
-    int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    ZBSource *source = NULL;
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+    __block ZBSource *source = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSourceWithUUID];
+        int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+            }
         }
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return source;
 }
 
