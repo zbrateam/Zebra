@@ -332,9 +332,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "distribution TEXT, "
                                           "label TEXT, "
                                           "origin TEXT, "
+                                          "paymentEndpoint TEXT, "
                                           "remote BOOLEAN, "
                                           "sourceDescription TEXT, "
                                           "suite TEXT, "
+                                          "supportsFeaturedPackages INTEGER, "
                                           "url TEXT, "
                                           "uuid TEXT, "
                                           "version TEXT, "
@@ -407,7 +409,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypeSourceWithUUID:
             return @"SELECT * FROM " SOURCES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypeInsertSource:
-            return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, remote, sourceDescription, suite, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, paymentEndpoint, remote, sourceDescription, suite, supportsFeaturedPackages, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSectionReadout:
             return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
         case ZBDatabaseStatementTypePackagesInSourceCount:
@@ -1052,45 +1054,47 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Source Retrieval
 
 - (NSSet <ZBSource *> *)sources {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSources];
-    int result = [self beginTransaction];
-    
-    NSMutableSet *sources = [NSMutableSet new];
-    if (result == SQLITE_OK) {
+    __block NSSet *sources;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSources];
+        int result = SQLITE_OK;
+        
+        NSMutableSet *tempSources = [NSMutableSet new];
         do {
             result = sqlite3_step(statement);
             if (result == SQLITE_ROW) {
                 ZBSource *source = [[ZBSource alloc] initWithSQLiteStatement:statement];
-                if (source) [sources addObject:source];
+                if (source) [tempSources addObject:source];
             }
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
             ZBLog(@"[Zebra] Failed to query sources with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         }
-    }
-    
-    [self endTransaction];
-    sqlite3_reset(statement);
-    
+        
+        sqlite3_reset(statement);
+        
+        sources = tempSources;
+    });
     return sources;
 }
 
 - (ZBSource *)sourceWithUUID:(NSString *)uuid {
-    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSourceWithUUID];
-    int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
-    
-    ZBSource *source = NULL;
-    if (result == SQLITE_OK) {
-        result = sqlite3_step(statement);
-        if (result == SQLITE_ROW) {
-            source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+    __block ZBSource *source = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSourceWithUUID];
+        int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        
+        if (result == SQLITE_OK) {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                source = [[ZBSource alloc] initWithSQLiteStatement:statement];
+            }
         }
-    }
-    
-    sqlite3_clear_bindings(statement);
-    sqlite3_reset(statement);
-    
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+    });
     return source;
 }
 
@@ -1363,9 +1367,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_bind_text(statement, ZBSourceColumnDistribution + 1, source[ZBSourceColumnDistribution], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, source[ZBSourceColumnLabel], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, source[ZBSourceColumnOrigin], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_text(statement, ZBSourceColumnPaymentEndpoint + 1, source[ZBSourceColumnPaymentEndpoint], -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, *(int *)source[ZBSourceColumnRemote]);
         sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, source[ZBSourceColumnDescription], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, source[ZBSourceColumnSuite], -1, SQLITE_TRANSIENT);
+        sqlite3_bind_int(statement, ZBSourceColumnSupportsFeaturedPackages + 1, *(int *)source[ZBSourceColumnSupportsFeaturedPackages]);
         sqlite3_bind_text(statement, ZBSourceColumnURL + 1, source[ZBSourceColumnURL], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnUUID + 1, source[ZBSourceColumnUUID], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnVersion + 1, source[ZBSourceColumnVersion], -1, SQLITE_TRANSIENT);

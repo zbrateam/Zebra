@@ -21,9 +21,6 @@
 #import <Managers/ZBSourceManager.h>
 
 @interface ZBSource () {
-    BOOL checkedForPaymentEndpoint;
-    BOOL checkedForFeaturedPackages;
-    NSURL *paymentEndpointURL;
     NSDictionary *featuredPackages;
 }
 @end
@@ -87,7 +84,7 @@
         
         const char *label = (const char *)sqlite3_column_text(statement, ZBSourceColumnLabel);
         if (label) {
-            self.label = [NSString stringWithUTF8String:label]; // This is a variable
+            self.label = [NSString stringWithUTF8String:label];
         }
         
         const char *origin = (const char *)sqlite3_column_text(statement, ZBSourceColumnOrigin);
@@ -95,10 +92,18 @@
             self.origin = [NSString stringWithUTF8String:origin];
         }
         
+        const char *paymentEndpoint = (const char *)sqlite3_column_text(statement, ZBSourceColumnPaymentEndpoint);
+        if (paymentEndpoint) {
+            NSURL *endpointURL = [NSURL URLWithString:[NSString stringWithUTF8String:paymentEndpoint]];
+            if ([endpointURL.scheme isEqual:@"https"]) self.paymentEndpointURL = endpointURL;
+        }
+        
         const char *suite = (const char *)sqlite3_column_text(statement, ZBSourceColumnSuite);
         if (suite) {
             _suite = [NSString stringWithUTF8String:suite];
         }
+        
+        self.supportsFeaturedPackages = sqlite3_column_int(statement, ZBSourceColumnSupportsFeaturedPackages);
         
         const char *version = (const char *)sqlite3_column_text(statement, ZBSourceColumnVersion);
         if (version) {
@@ -127,7 +132,7 @@
         return;
     }
     
-    NSURLComponents *components = [NSURLComponents componentsWithURL:[paymentEndpointURL URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[self.paymentEndpointURL URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
     if (![components.scheme isEqualToString:@"https"]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
         completion(NO, YES, error);
@@ -187,7 +192,7 @@
         return;
     }
     
-    NSURL *URL = [paymentEndpointURL URLByAppendingPathComponent:@"sign_out"];
+    NSURL *URL = [self.paymentEndpointURL URLByAppendingPathComponent:@"sign_out"];
     if (!URL || ![URL.scheme isEqualToString:@"https"]) {
 //        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source's payment vendor URL is not secure", @"")}];
         return;
@@ -239,14 +244,14 @@
 }
 
 - (BOOL)supportsPaymentAPI {
-    return checkedForPaymentEndpoint && paymentEndpointURL;
+    return self.paymentEndpointURL != NULL;
 }
 
 - (void)getUserInfo:(void (^)(ZBUserInfo *info, NSError *error))completion {
-    if (!paymentEndpointURL || ![self isSignedIn]) return;
+    if (!self.supportsPaymentAPI || ![self isSignedIn]) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[paymentEndpointURL URLByAppendingPathComponent:@"user_info"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self.paymentEndpointURL URLByAppendingPathComponent:@"user_info"]];
     
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     
@@ -284,10 +289,10 @@
 }
 
 - (void)getSourceInfo:(void (^)(ZBSourceInfo *info, NSError *error))completion {
-    if (!paymentEndpointURL) return;
+    if (!self.paymentEndpointURL) return;
     
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[paymentEndpointURL URLByAppendingPathComponent:@"info"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[self.paymentEndpointURL URLByAppendingPathComponent:@"info"]];
     
     [request setHTTPMethod:@"GET"];
     [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
@@ -321,31 +326,31 @@
     else return _pinPriority;
 }
 
-- (void)getPaymentEndpoint:(void (^)(NSURL *))completion {
-    if (checkedForPaymentEndpoint) completion(paymentEndpointURL);
-    
-    [[NSURLSession sharedSession] dataTaskWithURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"payment_endpoint"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSInteger httpStatus = [((NSHTTPURLResponse *)response) statusCode];
-        if (httpStatus == 200 && !error) {
-            NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            if (response) {
-                self->paymentEndpointURL = [NSURL URLWithString:response];
-            }
-        }
-        self->checkedForPaymentEndpoint = YES;
-        completion(self->paymentEndpointURL);
-    }];
-}
+//- (void)getPaymentEndpoint:(void (^)(NSURL *))completion {
+//    if (checkedForPaymentEndpoint) completion(paymentEndpointURL);
+//
+//    [[NSURLSession sharedSession] dataTaskWithURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"payment_endpoint"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        NSInteger httpStatus = [((NSHTTPURLResponse *)response) statusCode];
+//        if (httpStatus == 200 && !error) {
+//            NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//            if (response) {
+//                self->paymentEndpointURL = [NSURL URLWithString:response];
+//            }
+//        }
+//        self->checkedForPaymentEndpoint = YES;
+//        completion(self->paymentEndpointURL);
+//    }];
+//}
 
 - (void)getFeaturedPackages:(void (^)(NSDictionary *))completion {
-    if (checkedForFeaturedPackages) completion(featuredPackages);
+    if (self->featuredPackages) completion(featuredPackages);
+    if (!self.supportsFeaturedPackages) completion(NULL);
     
     [[NSURLSession sharedSession] dataTaskWithURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSInteger httpStatus = [((NSHTTPURLResponse *)response) statusCode];
         if (httpStatus == 200 && !error) {
             self->featuredPackages = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         }
-        self->checkedForFeaturedPackages = YES;
         completion(self->featuredPackages);
     }];
 }

@@ -476,6 +476,16 @@
         strcpy(source[ZBSourceColumnURL], baseSource.repositoryURI.UTF8String);
         strcpy(source[ZBSourceColumnUUID], baseSource.uuid.UTF8String);
         
+        if ([baseSource.paymentEndpointURL.scheme isEqual:@"https"]) {
+            NSString *paymentEndpointString = baseSource.paymentEndpointURL.absoluteString;
+            if (paymentEndpointString) strcpy(source[ZBSourceColumnPaymentEndpoint], paymentEndpointString.UTF8String);
+        } else {
+            strcpy(source[ZBSourceColumnPaymentEndpoint], "\0");
+        }
+        
+        int supportsFeatured = baseSource.supportsFeaturedPackages;
+        memcpy(source[ZBSourceColumnSupportsFeaturedPackages], &supportsFeatured, 1);
+        
         ZBSource *createdSource = [databaseManager insertSource:source];
         if (createdSource) {
             NSMutableDictionary *tempSourceMap = sourceMap.mutableCopy;

@@ -86,6 +86,13 @@
                 
             [self downloadPackagesFileWithExtension:@"bz2" fromSource:source];
                 
+            if ([source.mainDirectoryURL.scheme isEqual:@"https"]) {
+                [self checkForPaymentEndpointFromSource:source];
+                [self checkForFeaturedPackagesFromSource:source];
+            } else {
+                source.releaseTasksCompleted += 2;
+            }
+            
             [downloadDelegate startedDownloadingSource:source];
         } else { // This is the local source
             NSError *fileError = nil;
@@ -118,6 +125,39 @@
     source.packagesTaskIdentifier = packagesTask.taskIdentifier;
     [sourceTasksMap setObject:source forKey:@(packagesTask.taskIdentifier)];
     [packagesTask resume];
+}
+
+- (void)checkForPaymentEndpointFromSource:(ZBBaseSource *)source {
+    NSURL *paymentEndpointURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"payment_endpoint"];
+    NSURLSessionDataTask *endpointTask = [[NSURLSession sharedSession] dataTaskWithURL:paymentEndpointURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        source.releaseTasksCompleted++;
+        
+        if (data && !error && ((NSHTTPURLResponse *)response).statusCode == 200) {
+            NSString *vendorURL = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            source.paymentEndpointURL = [NSURL URLWithString:vendorURL];
+        }
+        [self task:NULL completedDownloadedForFile:@"payment_endpoint" fromSource:source withError:NULL];
+    }];
+    
+    [endpointTask resume];
+}
+
+- (void)checkForFeaturedPackagesFromSource:(ZBBaseSource *)source {
+    NSURL *paymentEndpointURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"payment_endpoint"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:paymentEndpointURL];
+    request.HTTPMethod = @"HEAD";
+    
+    NSURLSessionDataTask *endpointTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        source.releaseTasksCompleted++;
+        if (((NSHTTPURLResponse *)response).statusCode == 200 && !error) {
+            source.supportsFeaturedPackages = YES;
+        } else {
+            source.supportsFeaturedPackages = NO;
+        }
+        [self task:NULL completedDownloadedForFile:@"sileo-featured.json" fromSource:source withError:NULL];
+    }];
+    
+    [endpointTask resume];
 }
 
 #pragma mark - Downloading Packages
@@ -194,52 +234,52 @@
 }
 
 - (void)authorizeDownloadForPackage:(ZBPackage *)package completion:(void (^)(NSURL *downloadURL, NSError *error))completion {
-//    ZBSource *source = [package source];
-//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
-//    
-//    NSDictionary *question = @{
-//                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
-//                    @"udid": [ZBDevice UDID],
-//                    @"device": [ZBDevice deviceModelID],
-//                    @"version": package.version,
-//                    @"repo": [source repositoryURI]
-//    };
-//    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
-//    
-//    NSURL *requestURL = [[source paymentVendorURL] URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
-//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
-//    [request setHTTPMethod:@"POST"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-//    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-//    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-//    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-//    [request setHTTPBody:requestData];
-//    
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-//        if (data && !error) {
-//            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//            if ([json valueForKey:@"url"]) {
-//                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
-//                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
-//                    completion(downloadURL, NULL);
-//                }
-//                else {
-//                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
-//                    completion(NULL, badURL);
-//                }
-//            }
-//            else {
-//                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
-//                completion(NULL, badURL);
-//            }
-//        }
-//        else if (error) {
-//            completion(NULL, error);
-//        }
-//    }];
-//    
-//    [task resume];
+    ZBSource *source = [package source];
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
+    
+    NSDictionary *question = @{
+                    @"token": [keychain stringForKey:[source repositoryURI]] ?: @"none",
+                    @"udid": [ZBDevice UDID],
+                    @"device": [ZBDevice deviceModelID],
+                    @"version": package.version,
+                    @"repo": [source repositoryURI]
+    };
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:question options:(NSJSONWritingOptions)0 error:nil];
+    
+    NSURL *requestURL = [source.paymentEndpointURL URLByAppendingPathComponent:[NSString stringWithFormat:@"package/%@/authorize_download", [package identifier]]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:requestURL];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:requestData];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if (data && !error) {
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+            if ([json valueForKey:@"url"]) {
+                NSURL *downloadURL = [NSURL URLWithString:json[@"url"]];
+                if (downloadURL && [[downloadURL scheme] isEqualToString:@"https"]) {
+                    completion(downloadURL, NULL);
+                }
+                else {
+                    NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Couldn't parse download URL for paid package"}];
+                    completion(NULL, badURL);
+                }
+            }
+            else {
+                NSError *badURL = [NSError errorWithDomain:NSURLErrorDomain code:808 userInfo:@{NSLocalizedDescriptionKey: @"Did not receive download URL for paid package"}];
+                completion(NULL, badURL);
+            }
+        }
+        else if (error) {
+            completion(NULL, error);
+        }
+    }];
+    
+    [task resume];
 }
 
 #pragma mark - Handling Downloaded Files
@@ -250,15 +290,13 @@
             
             [self cancelTasksForSource:source]; // Cancel the other task for this source.
             [downloadDelegate finishedDownloadingSource:source withError:@[error]];
-        }
-        else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
+        } else if (task.taskIdentifier == source.releaseTaskIdentifier) { //This is a Release file that failed. We don't really care that much about the Release file (since we can function without one) but we should at least *warn* the user so that they might bug the source maintainer :)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Release file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
-            source.releaseTaskCompleted = YES;
+            source.releaseTasksCompleted++;
             source.releaseFilePath = nil;
             [self postStatusUpdate:description atLevel:ZBLogLevelWarning];
-        }
-        else if (task.taskIdentifier == source.packagesTaskIdentifier) { //This is a packages file that failed, we should be able to try again with a Packages.gz or a Packages file
+        } else if (task.taskIdentifier == source.packagesTaskIdentifier) { //This is a packages file that failed, we should be able to try again with a Packages.gz or a Packages file
             NSURL *url = [[task originalRequest] URL];
             if (![url pathExtension]) { //No path extension, Packages file download failed :(
                 NSString *filename = [[task response] suggestedFilename];
@@ -276,14 +314,12 @@
                 [self cancelTasksForSource:source];
                 
                 [downloadDelegate finishedDownloadingSource:source withError:@[error]];
-            }
-            else { //Tries to download another filetype
+            } else { //Tries to download another filetype
                 NSArray *options = @[@"bz2", @"gz", @"xz", @"lzma", @""];
                 NSUInteger nextIndex = [options indexOfObject:[url pathExtension]] + 1;
                 if (nextIndex < options.count) {
                     [self downloadPackagesFileWithExtension:[options objectAtIndex:nextIndex] fromSource:source];
-                }
-                else { //Should never happen but lets catch the error just in case
+                } else { //Should never happen but lets catch the error just in case
                     NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download Packages file from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
                     
                     source.packagesTaskCompleted = YES;
@@ -295,13 +331,12 @@
                     [downloadDelegate finishedDownloadingSource:source withError:@[error]];
                 }
             }
-        }
-        else { //Since we cannot determine which task this is, we need to cancel the entire source download :( (luckily this should never happen)
+        } else  { //Since we cannot determine which task this is, we need to cancel the entire source download :( (luckily this should never happen)
             NSString *description = [NSString stringWithFormat:NSLocalizedString(@"Could not download one or more files from %@. Reason: %@", @""), source.repositoryURI, error.localizedDescription];
             
             source.packagesTaskCompleted = YES;
             source.packagesFilePath = nil;
-            source.releaseTaskCompleted = YES;
+            source.releaseTasksCompleted = 3;
             source.releaseFilePath = nil;
             
             [self postStatusUpdate:description atLevel:ZBLogLevelError];
@@ -309,18 +344,16 @@
             
             [downloadDelegate finishedDownloadingSource:source withError:@[error]];
         }
-    }
-    else {
+    } else {
         if (task.taskIdentifier == source.packagesTaskIdentifier) {
             source.packagesTaskCompleted = YES;
             source.packagesFilePath = path;
-        }
-        else if (task.taskIdentifier == source.releaseTaskIdentifier) {
-            source.releaseTaskCompleted = YES;
+        } else if (task.taskIdentifier == source.releaseTaskIdentifier) {
+            source.releaseTasksCompleted++;
             source.releaseFilePath = path;
         }
         
-        if (source.releaseTaskCompleted && source.packagesTaskCompleted) {
+        if (source.releaseTasksCompleted == 3 && source.packagesTaskCompleted) {
             [downloadDelegate finishedDownloadingSource:source withError:NULL];
         }
     }
@@ -328,8 +361,7 @@
     //Remove task identifiers
     if (task.taskIdentifier == source.packagesTaskIdentifier) {
         source.packagesTaskIdentifier = -1;
-    }
-    else if (task.taskIdentifier == source.releaseTaskIdentifier) {
+    } else if (task.taskIdentifier == source.releaseTaskIdentifier) {
         source.releaseTaskIdentifier = -1;
     }
     
