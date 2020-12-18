@@ -1765,7 +1765,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     }
     else {
         ZBQueue *queue = [ZBQueue sharedQueue];
-        NSArray *addedPackages =   [queue packagesQueuedForAddition]; //Packages that are being installed, upgraded, removed, downgraded, etc. (dependencies as well)
+        NSDictionary *addedPackages = [queue packagesQueuedForAddition]; //Packages that are being installed, upgraded, removed, downgraded, etc. (dependencies as well)
         NSArray *removedPackages = [queue packageIDsQueuedForRemoval]; //Just packageIDs that are queued for removal (conflicts as well)
         
         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:dependency];
@@ -1817,8 +1817,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             sqlite3_finalize(statement);
             
             if (!found) { //Search the array of packages that are queued for installation to see if one of them satisfies the dependency
-                for (NSDictionary *package in addedPackages) {
-                    if ([[package objectForKey:@"identifier"] isEqualToString:packageIdentifier]) {
+                for (NSString *key in addedPackages) {
+                    if ([key isEqualToString:packageIdentifier]) {
                         // TODO: Condition check here is useless
                         //                        if (needsVersionComparison && [ZBDependencyResolver doesVersion:[package objectForKey:@"version"] satisfyComparison:versionComponents[1] ofVersion:versionComponents[2]]) {
                         //                            return YES;
