@@ -27,6 +27,7 @@
 @implementation ZBPackageManager
 
 @synthesize installedPackagesList = _installedPackagesList;
+@synthesize virtualPackagesList = _virtualPackagesList;
 @synthesize updates = _updates;
 
 + (instancetype)sharedInstance {
@@ -66,6 +67,14 @@
     }
     
     return _installedPackagesList;
+}
+
+- (NSDictionary<NSString *,NSString *> *)virtualPackagesList {
+    if (!_virtualPackagesList) {
+        _virtualPackagesList = [databaseManager virtualPackageListFromSource:[ZBSource localSource]];
+    }
+    
+    return _virtualPackagesList;
 }
 
 - (NSArray <ZBPackage *> *)updates {

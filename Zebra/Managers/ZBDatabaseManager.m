@@ -25,10 +25,12 @@
 #import <Queue/ZBQueue.h>
 #import <Managers/ZBPackageManager.h>
 #import <ZBSettings.h>
+#import <Database/ZBDependencyResolver.h>
 
 typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypePackagesFromSource,
     ZBDatabaseStatementTypePackageListFromSource,
+    ZBDatabaseStatementTypeVirtualPackageListFromSource,
     ZBDatabaseStatementTypePackagesFromSourceAndSection,
     ZBDatabaseStatementTypeUUIDsFromSource,
     ZBDatabaseStatementTypePackagesWithUUID,
@@ -366,6 +368,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version, source FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version AND p.source = v.source;";
         case ZBDatabaseStatementTypePackageListFromSource:
             return @"SELECT p.identifier, p.version FROM (SELECT identifier, maxversion(version) AS max_version, source FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version AND p.source = v.source;";
+        case ZBDatabaseStatementTypeVirtualPackageListFromSource:
+            return @"SELECT p.provides FROM (SELECT identifier, maxversion(version) AS max_version, source FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND provides != \'\' AND provides NOT NULL GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version AND p.source = v.source;";
         case ZBDatabaseStatementTypePackagesFromSourceAndSection:
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version, source FROM " PACKAGES_TABLE_NAME " WHERE source = ? AND section = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version AND p.source = v.source;";
         case ZBDatabaseStatementTypeUUIDsFromSource:
@@ -1132,6 +1136,42 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return ret;
 }
 
+- (NSDictionary *)virtualPackageListFromSource:(ZBSource *)source {
+    __block NSDictionary *ret = NULL;
+    dispatch_sync(databaseQueue, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeVirtualPackageListFromSource];
+        int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK) {
+            result = [self beginTransaction];
+        }
+        
+        NSMutableDictionary *packageList = [NSMutableDictionary new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    const char *provides = (const char *)sqlite3_column_text(statement, 0);
+                    if (provides) {
+                        NSArray *allProvides = [[NSString stringWithUTF8String:provides] componentsSeparatedByString:@","];
+                        for (NSString *virtualPackage in allProvides) {
+                            NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
+                            packageList[components[0]] = components[2];
+                        }
+                    }
+                }
+            } while (result == SQLITE_ROW);
+        }
+        [self endTransaction];
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+        
+        ret = packageList;
+    });
+    return ret;
+}
+
+
 - (NSSet *)uniqueIdentifiersForPackagesFromSource:(ZBBaseSource *)source {
     __block NSMutableSet *uuids = [NSMutableSet new];
     dispatch_sync(databaseQueue, ^{
@@ -1725,7 +1765,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     }
     else {
         ZBQueue *queue = [ZBQueue sharedQueue];
-        NSArray *addedPackages =   [queue packagesQueuedForAdddition]; //Packages that are being installed, upgraded, removed, downgraded, etc. (dependencies as well)
+        NSArray *addedPackages =   [queue packagesQueuedForAddition]; //Packages that are being installed, upgraded, removed, downgraded, etc. (dependencies as well)
         NSArray *removedPackages = [queue packageIDsQueuedForRemoval]; //Just packageIDs that are queued for removal (conflicts as well)
         
         NSArray *versionComponents = [ZBDependencyResolver separateVersionComparison:dependency];

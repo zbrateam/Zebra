@@ -127,6 +127,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDictionary *)packageListFromSource:(ZBSource *)source;
 
+- (NSDictionary *)virtualPackageListFromSource:(ZBSource *)source;
+
 /*!
  @brief Unique identifiers for all packages from a source
  @param source The source that you would like to retrieve a list of unique identifiers from.

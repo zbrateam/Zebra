@@ -17,8 +17,8 @@
 #import <Helpers/vercmp.h>
 
 @interface ZBDependencyResolver () {
-    NSArray *installedPackagesList; //Packages that are installed on the device
-    NSArray *virtualPackagesList;   //Packages that are provided by installed packages 
+    NSDictionary *installedPackagesList; //Packages that are installed on the device
+    NSDictionary *virtualPackagesList;   //Packages that are provided by installed packages
 }
 @end
 
@@ -149,9 +149,9 @@
         if ([[package replaces] containsObject:conflict[0]] || [[package provides] containsObject:conflict[0]]) continue;
         BOOL needsVersionComparison = ![conflict[1] isEqualToString:@"<=>"] && ![conflict[2] isEqualToString:@"0:0"];
         
-        for (NSDictionary *virtualPackage in virtualPackagesList) {
-            NSString *version = virtualPackage[@"version"];
-            NSString *identifier = virtualPackage[@"identifier"];
+        for (NSString *key in virtualPackagesList) {
+            NSString *identifier = key;
+            NSString *version = virtualPackagesList[key];
             
             //If there is a version comparison and the virtual package has a version, check against the version and add a conflict if true
             if ([identifier isEqualToString:conflict[0]] && (needsVersionComparison && ![version isEqualToString:@"0:0"]) && ([ZBDependencyResolver doesVersion:version satisfyComparison:conflict[1] ofVersion:conflict[2]])) {
@@ -293,10 +293,14 @@
 }
 
 - (void)populateLists { //Populates a list of packages that are installed and a list of virtual packages of which the installed packages provide.
-    NSDictionary *packageList = [[ZBPackageManager sharedInstance] installedPackagesList];
+    NSMutableDictionary *installedList = ZBPackageManager.sharedInstance.installedPackagesList.mutableCopy;
+    [installedList addEntriesFromDictionary:[queue installedPackagesListExcluding:self->package]];
     
-    installedPackagesList = [[packageList objectForKey:@"installed"] arrayByAddingObjectsFromArray:[queue installedPackagesListExcluding:self->package]];
-    virtualPackagesList = [[packageList objectForKey:@"virtual"] arrayByAddingObjectsFromArray:[queue virtualPackagesListExcluding:self->package]];
+    NSMutableDictionary *virtualList = ZBPackageManager.sharedInstance.virtualPackagesList.mutableCopy;
+    [virtualList addEntriesFromDictionary:[queue virtualPackagesListExcluding:self->package]];
+    
+    installedPackagesList = installedList;
+    virtualPackagesList = virtualList;
 }
 
 - (BOOL)isPackageInstalled:(NSString *)packageIdentifier {
@@ -304,10 +308,10 @@
 }
 
 - (BOOL)isPackageInstalled:(NSString *)packageIdentifier thatSatisfiesComparison:(nullable NSString *)comparison ofVersion:(nullable NSString *)version { //Returns true if package is installed or is provided.
-    for (NSDictionary *dict in installedPackagesList) {
-        if ([[dict objectForKey:@"identifier"] isEqual:packageIdentifier]) {
+    for (NSString *key in installedPackagesList) {
+        if ([key isEqual:packageIdentifier]) {
             if (version != nil && comparison != nil) {
-                return [ZBDependencyResolver doesVersion:[dict objectForKey:@"version"] satisfyComparison:comparison ofVersion:version];
+                return [ZBDependencyResolver doesVersion:installedPackagesList[key] satisfyComparison:comparison ofVersion:version];
             }
             
             return YES;
@@ -318,9 +322,9 @@
 }
 
 - (BOOL)isPackageProvided:(NSString *)packageIdentifier thatSatisfiesComparison:(NSString *_Nullable)comparison ofVersion:(NSString *_Nullable)version {
-    for (NSDictionary *providedPackage in virtualPackagesList) {
-        NSString *virtualPackageIdentifier = providedPackage[@"identifier"];
-        NSString *virtualPackageVersion    = providedPackage[@"version"];
+    for (NSString *key in virtualPackagesList) {
+        NSString *virtualPackageIdentifier = key;
+        NSString *virtualPackageVersion    = virtualPackagesList[key];
         if ([packageIdentifier isEqualToString:virtualPackageIdentifier]) {
             if (comparison && version) { //If there is a version comparison, we can't return true for packages with no version so we MUST check if the package has a version and continue on otherwise
                 BOOL needsVersionComparison = ![virtualPackageVersion isEqualToString:@"0:0"];

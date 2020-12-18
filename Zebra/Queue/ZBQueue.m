@@ -569,55 +569,52 @@
     return ZBQueueTypeClear;
 }
 
-- (NSArray <NSDictionary *> *)packagesQueuedForAdddition {
-    return [[self installedPackagesListExcluding:NULL] arrayByAddingObjectsFromArray:[self virtualPackagesListExcluding:NULL]];
+- (NSDictionary <NSString *, NSString *> *)packagesQueuedForAddition {
+    NSMutableDictionary *packages = [self installedPackagesListExcluding:NULL].mutableCopy;
+    [packages addEntriesFromDictionary:[self virtualPackagesListExcluding:NULL]];
+    
+    return packages;
 }
 
-- (NSArray <NSDictionary *> *)installedPackagesListExcluding:(ZBPackage *_Nullable)exclude {
-    NSMutableArray *result = [NSMutableArray new];
+- (NSDictionary <NSString *, NSString *> *)installedPackagesListExcluding:(ZBPackage *_Nullable)exclude {
+    NSMutableDictionary *result = [NSMutableDictionary new];
     
     for (ZBPackage *package in [self installQueue]) {
         if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
+        result[package.identifier] = package.version;
     }
     
     for (ZBPackage *package in [self reinstallQueue]) {
         if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
+        result[package.identifier] = package.version;
     }
     
     for (ZBPackage *package in [self upgradeQueue]) {
         if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
+        result[package.identifier] = package.version;
     }
     
     for (ZBPackage *package in [self downgradeQueue]) {
         if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
+        result[package.identifier] = package.version;
     }
     
     for (ZBPackage *package in [self dependencyQueue]) {
         if ([package isEqual:exclude]) continue;
-        NSDictionary *dict = @{@"identifier": [package identifier], @"version": [package version]};
-        [result addObject:dict];
+        result[package.identifier] = package.version;
     }
     
     return result;
 }
 
-- (NSArray <NSDictionary *> *)virtualPackagesListExcluding:(ZBPackage *_Nullable)exclude {
-    NSMutableArray *result = [NSMutableArray new];
+- (NSDictionary <NSString *, NSString *> *)virtualPackagesListExcluding:(ZBPackage *_Nullable)exclude {
+    NSMutableDictionary *result = [NSMutableDictionary new];
     
     for (ZBPackage *package in [self installQueue]) {
         if ([package isEqual:exclude]) continue;
         for (NSString *virtualPackage in [package provides]) {
             NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
-            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
-            [result addObject:dict];
+            result[components[0]] = components[2];
         }
     }
     
@@ -625,8 +622,7 @@
         if ([package isEqual:exclude]) continue;
         for (NSString *virtualPackage in [package provides]) {
             NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
-            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
-            [result addObject:dict];
+            result[components[0]] = components[2];
         }
     }
     
@@ -634,8 +630,7 @@
         if ([package isEqual:exclude]) continue;
         for (NSString *virtualPackage in [package provides]) {
             NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
-            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
-            [result addObject:dict];
+            result[components[0]] = components[2];
         }
     }
     
@@ -643,8 +638,7 @@
         if ([package isEqual:exclude]) continue;
         for (NSString *virtualPackage in [package provides]) {
             NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
-            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
-            [result addObject:dict];
+            result[components[0]] = components[2];
         }
     }
     
@@ -652,8 +646,7 @@
         if ([package isEqual:exclude]) continue;
         for (NSString *virtualPackage in [package provides]) {
             NSArray *components = [ZBDependencyResolver separateVersionComparison:virtualPackage];
-            NSDictionary *dict = @{@"identifier": components[0], @"version": components[2]};
-            [result addObject:dict];
+            result[components[0]] = components[2];
         }
     }
     
