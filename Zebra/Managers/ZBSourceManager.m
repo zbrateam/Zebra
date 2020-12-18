@@ -85,33 +85,33 @@
         }
         sourceMap = tempSourceMap;
     } else if (sourceMap && baseSources.count != sourceMap.allValues.count) { // A source was added to sources.list at some point by someone and we don't list it
-        NSMutableSet *cache = [NSMutableSet setWithArray:[sourceMap allValues]];
-        
-        NSMutableSet *sourcesAdded = [baseSources mutableCopy];
-        [sourcesAdded minusSet:cache];
-        NSLog(@"[Zebra] Sources Added: %@", sourcesAdded);
-        
-        NSMutableSet *sourcesRemoved = [cache mutableCopy];
-        [sourcesRemoved minusSet:baseSources];
-        NSLog(@"[Zebra] Sources Removed: %@", sourcesAdded);
-        
-        if (sourcesAdded.count) [cache unionSet:sourcesAdded];
-        if (sourcesRemoved.count) [cache minusSet:sourcesRemoved];
-        
-        NSMutableDictionary *tempSourceMap = [NSMutableDictionary new];
-        for (ZBBaseSource *source in cache) {
-            tempSourceMap[source.uuid] = source;
-        }
-        sourceMap = tempSourceMap;
-        
-        if (sourcesAdded.count) [self bulkAddedSources:sourcesAdded];
-        if (sourcesRemoved.count) [self bulkRemovedSources:sourcesRemoved];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-            for (ZBSource *source in sourcesRemoved) {
-                [[ZBDatabaseManager sharedInstance] deleteSource:source];
-            }
-        });
+//        NSMutableSet *cache = [NSMutableSet setWithArray:[sourceMap allValues]];
+//        
+//        NSMutableSet *sourcesAdded = [baseSources mutableCopy];
+//        [sourcesAdded minusSet:cache];
+//        NSLog(@"[Zebra] Sources Added: %@", sourcesAdded);
+//        
+//        NSMutableSet *sourcesRemoved = [cache mutableCopy];
+//        [sourcesRemoved minusSet:baseSources];
+//        NSLog(@"[Zebra] Sources Removed: %@", sourcesAdded);
+//        
+//        if (sourcesAdded.count) [cache unionSet:sourcesAdded];
+//        if (sourcesRemoved.count) [cache minusSet:sourcesRemoved];
+//        
+//        NSMutableDictionary *tempSourceMap = [NSMutableDictionary new];
+//        for (ZBBaseSource *source in cache) {
+//            tempSourceMap[source.uuid] = source;
+//        }
+//        sourceMap = tempSourceMap;
+//        
+//        if (sourcesAdded.count) [self bulkAddedSources:sourcesAdded];
+//        if (sourcesRemoved.count) [self bulkRemovedSources:sourcesRemoved];
+//        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//            for (ZBSource *source in sourcesRemoved) {
+//                [[ZBDatabaseManager sharedInstance] deleteSource:source];
+//            }
+//        });
     }
     
     return [[sourceMap allValues] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
