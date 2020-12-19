@@ -20,6 +20,8 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Theme/ZBThemeManager.h>
 #import <Extensions/UIFont+Zebra.h>
+#import <Model/ZBSource.h>
+#import <Managers/ZBSourceManager.h>
 
 #include <sysexits.h>
 
@@ -424,10 +426,7 @@
 }
 
 - (void)refreshLocalPackages {
-//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
-//    [databaseManager addDatabaseDelegate:self];
-//    [databaseManager importLocalPackagesAndCheckForUpdates:YES sender:self];
-//    [databaseManager removeDatabaseDelegate:self];
+    [[ZBSourceManager sharedInstance] refreshSources:@[[ZBSource localSource]] useCaching:NO error:nil];
 }
 
 - (void)removeAllDebs {
@@ -670,18 +669,6 @@
     
     suppressCancel = YES;
     [self updateCancelOrCloseButton];
-}
-
-#pragma mark - Database Delegate
-
-- (void)databaseStartedUpdate {
-    blockDatabaseMessages = YES; // Prevents random database messages from coming in to the console
-    [self writeToConsole:NSLocalizedString(@"Importing local packages.", @"") atLevel:ZBLogLevelInfo];
-}
-
-- (void)databaseCompletedUpdate {
-    blockDatabaseMessages = NO;
-    [self writeToConsole:NSLocalizedString(@"Finished importing local packages.", @"") atLevel:ZBLogLevelInfo];
 }
 
 @end
