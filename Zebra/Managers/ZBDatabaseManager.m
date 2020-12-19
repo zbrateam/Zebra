@@ -1433,7 +1433,13 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (void)deleteSource:(ZBSource *)source {
-
+    dispatch_async(databaseQueue, ^{
+        const char *sourceDeleteQuery = [NSString stringWithFormat:@"DELETE FROM " SOURCES_TABLE_NAME " WHERE uuid = \'%@\'", source.uuid].UTF8String;
+        sqlite3_exec(self->database, sourceDeleteQuery, nil, nil, nil);
+        
+        const char *packageDeleteQuery = [NSString stringWithFormat:@"DELETE FROM " PACKAGES_TABLE_NAME " WHERE source = \'%@\'", source.uuid].UTF8String;
+        sqlite3_exec(self->database, packageDeleteQuery, nil, nil, nil);
+    });
 }
 
 #pragma mark - Dependency Resolution
