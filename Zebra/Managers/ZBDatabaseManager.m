@@ -298,6 +298,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "depictionURL TEXT, "
                                           "essential BOOLEAN, "
                                           "filename TEXT, "
+                                          "header TEXT, "
                                           "homepageURL TEXT, "
                                           "maintainerEmail TEXT, "
                                           "maintainerName TEXT, "
@@ -335,7 +336,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "label TEXT, "
                                           "origin TEXT, "
                                           "paymentEndpoint TEXT, "
-                                          "remote BOOLEAN, "
                                           "sourceDescription TEXT, "
                                           "suite TEXT, "
                                           "supportsFeaturedPackages INTEGER, "
@@ -1408,7 +1408,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_bind_text(statement, ZBSourceColumnLabel + 1, source[ZBSourceColumnLabel], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnOrigin + 1, source[ZBSourceColumnOrigin], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnPaymentEndpoint + 1, source[ZBSourceColumnPaymentEndpoint], -1, SQLITE_TRANSIENT);
-        sqlite3_bind_int(statement, ZBSourceColumnRemote + 1, *(int *)source[ZBSourceColumnRemote]);
         sqlite3_bind_text(statement, ZBSourceColumnDescription + 1, source[ZBSourceColumnDescription], -1, SQLITE_TRANSIENT);
         sqlite3_bind_text(statement, ZBSourceColumnSuite + 1, source[ZBSourceColumnSuite], -1, SQLITE_TRANSIENT);
         sqlite3_bind_int(statement, ZBSourceColumnSupportsFeaturedPackages + 1, *(int *)source[ZBSourceColumnSupportsFeaturedPackages]);

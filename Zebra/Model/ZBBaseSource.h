@@ -29,7 +29,6 @@ typedef NS_ENUM(NSUInteger, ZBSourceColumn) {
     ZBSourceColumnLabel,
     ZBSourceColumnOrigin,
     ZBSourceColumnPaymentEndpoint,
-    ZBSourceColumnRemote,
     ZBSourceColumnDescription,
     ZBSourceColumnSuite,
     ZBSourceColumnSupportsFeaturedPackages,
