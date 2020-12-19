@@ -54,7 +54,9 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
+        
         packageManager = [ZBPackageManager sharedInstance];
+        [self addDelegate:packageManager];
         
         refreshInProgress = NO;
         

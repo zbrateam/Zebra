@@ -290,4 +290,10 @@
     return [databaseManager instanceOfPackage:package withVersion:version];
 }
 
+#pragma mark - Source Delegate
+
+- (void)finishedSourceRefresh {
+    _updates = [databaseManager updatesForPackageList:self.installedPackagesList];
+}
+
 @end
