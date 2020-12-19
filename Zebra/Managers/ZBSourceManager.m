@@ -234,6 +234,7 @@
         sourceMap = tempSourceMap;
         
         [self bulkRemovedSources:sourcesToRemove];
+        [self bulkFinishedSourceRefresh];
     }
 }
 
