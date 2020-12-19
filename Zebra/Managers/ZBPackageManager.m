@@ -46,6 +46,7 @@
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
         
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedImportForSource:) name:ZBFinishedSourceImportNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:nil];
     }
     
@@ -127,9 +128,6 @@
                         if (strcasestr(status, "config-files") != NULL || strcasestr(status, "not-installed") != NULL || strcasestr(status, "deinstall") != NULL) {
                             continue;
                         }
-                        
-                        NSString *identifier = [NSString stringWithUTF8String:package[ZBPackageColumnIdentifier]];
-                        NSString *version = [NSString stringWithUTF8String:package[ZBPackageColumnVersion]];                        
                     }
                     
                     if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
@@ -298,6 +296,13 @@
 }
 
 #pragma mark - Source Delegate
+
+- (void)finishedImportForSource:(NSNotification *)notification {
+    ZBSource *source = notification.userInfo[@"source"];
+    if (!source && source.remote) return;
+    
+    _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
+}
 
 - (void)finishedSourceRefresh {
     _updates = [databaseManager updatesForPackageList:self.installedPackagesList];
