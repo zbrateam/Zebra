@@ -9,6 +9,7 @@
 #import "ZBPackageListViewController.h"
 #import "ZBPackageFilterViewController.h"
 
+#import <Managers/ZBSourceManager.h>
 #import <Managers/ZBPackageManager.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBPackageFilter.h>
@@ -49,6 +50,8 @@
         [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
         
         self.navigationItem.searchController = searchController;
+        
+        [[ZBSourceManager sharedInstance] addDelegate:self];
     }
     
     return self;
@@ -277,6 +280,15 @@
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.52];
+}
+
+#pragma mark - Source Delegate
+
+- (void)finishedSourceRefresh {
+    _packages = NULL;
+    updates = NULL;
+    
+    [self loadPackages];
 }
 
 @end

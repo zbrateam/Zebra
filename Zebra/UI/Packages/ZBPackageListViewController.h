@@ -9,13 +9,14 @@
 @import UIKit;
 
 #import "ZBFilterDelegate.h"
+#import <Managers/Delegates/ZBSourceDelegate.h>
 
 @class ZBSource;
 @class ZBPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageListViewController : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UIViewControllerTransitioningDelegate, ZBFilterDelegate>
+@interface ZBPackageListViewController : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UIViewControllerTransitioningDelegate, ZBFilterDelegate, ZBSourceDelegate>
 @property ZBSource *source;
 @property NSString *_Nullable section;
 @property NSArray <ZBPackage *> *packages;
