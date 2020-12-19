@@ -3826,7 +3826,7 @@ Size: 177334
 Package: xyz.willy.zebra
 Status: install ok installed
 Name: Zebra
-Version: 1.0
+Version: 1.2
 Architecture: iphoneos-arm
 Installed-Size: 10000000000
 Depends: dpkg, uikittools, firmware (>= 11.0)
@@ -3838,3 +3838,42 @@ Prefer-Native: Yes
 Description: A Useful Package Manager
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
 Tag: compatible_min::ios11.0, compatible_max::ios13.7
+
+Package: org.coolstar.libhooker
+Version: 1.3.2
+Architecture: iphoneos-arm
+Maintainer: CoolStar <coolstarorganization@gmail.com>
+Depends: firmware (>= 11.0), cy+cpu.arm64, org.coolstar.safemode
+Conflicts: com.ex.libsubstitute, org.coolstar.tweakinject, mobilesubstrate, libhooker-strap, com.saurik.substrate.safemode
+Replaces: com.ex.libsubstitute, org.coolstar.tweakinject, mobilesubstrate, libhooker-strap, com.saurik.substrate.safemode
+Provides: com.ex.libsubstitute (= 2.0), org.coolstar.tweakinject (= 1.5.0), mobilesubstrate (= 99.4), libhooker-strap (= 1.1), com.saurik.substrate.safemode (= 2.0)
+Filename: debs/org.coolstar.libhooker_1.3.2_iphoneos-arm.deb
+Size: 47856
+MD5sum: db33c2dfd0bb322b7e81b250f267780b
+SHA1: f960d4d64cab24a6879239e6bf4fd36f6e1d9fd5
+SHA256: 4885ffeffd74f0fb5cc807247c8d4b26ca7d6cb8af20eab9beffb3538462381e
+Section: System
+Description: General Purpose Injection and Hooking library for 64-bit devices
+Author: CoolStar <coolstarorganization@gmail.com>
+Name: libhooker
+Installed-Size: 101010101
+Status: install ok installed
+
+Package: com.rpetrich.rocketbootstrap
+Version: 1.1.0~libhooker2
+Architecture: iphoneos-arm
+Maintainer: CoolStar <coolstarorganization@gmail.com>
+Depends: org.coolstar.libhooker
+Filename: debs/rocketbootstrap_1.1.0~libhooker2-iphoneos-arm.deb
+Size: 10444
+MD5sum: baf051456b187d84a08c45129141a9ff
+SHA1: 4327f33c86f776a5005d95a5159234234d3f9ed0
+SHA256: 6c193c277b455339bea58ea5dd16675bed032f1c3abe8cdb569a80b925e1b3ac
+Section: Tweaks
+Description: Support library allowing tweaks to communicate with sandboxed processes
+Tag: purpose::extension, role::developer
+Author: Ryan Petrich <rpetrich+rocketbootstrap@gmail.com>
+Dev: rpetrich
+Name: RocketBootstrap
+Installed-Size: 101010101
+Status: install ok installed

@@ -146,8 +146,23 @@
     
     for (NSString *conflictLine in [package conflicts]) {
         NSArray *conflict = [ZBDependencyResolver separateVersionComparison:conflictLine];
-        if ([[package replaces] containsObject:conflict[0]] || [[package provides] containsObject:conflict[0]]) continue;
         BOOL needsVersionComparison = ![conflict[1] isEqualToString:@"<=>"] && ![conflict[2] isEqualToString:@"0:0"];
+        BOOL found = NO;
+        for (NSString *replace in [package replaces]) {
+            NSArray *replaceComp = [ZBDependencyResolver separateVersionComparison:replace];
+            if ([replaceComp[0] isEqual:conflict[0]]) {
+                found = YES;
+                break;
+            }
+        }
+        if (!found) for (NSString *provides in [package provides]) {
+            NSArray *provideComp = [ZBDependencyResolver separateVersionComparison:provides];
+            if ([provideComp[0] isEqual:conflict[0]]) {
+                found = YES;
+                break;
+            }
+        }
+        if (found) continue;
         
         for (NSString *key in virtualPackagesList) {
             NSString *identifier = key;
@@ -308,14 +323,12 @@
 }
 
 - (BOOL)isPackageInstalled:(NSString *)packageIdentifier thatSatisfiesComparison:(nullable NSString *)comparison ofVersion:(nullable NSString *)version { //Returns true if package is installed or is provided.
-    for (NSString *key in installedPackagesList) {
-        if ([key isEqual:packageIdentifier]) {
-            if (version != nil && comparison != nil) {
-                return [ZBDependencyResolver doesVersion:installedPackagesList[key] satisfyComparison:comparison ofVersion:version];
-            }
-            
-            return YES;
+    NSString *installedVersion = installedPackagesList[packageIdentifier];
+    if (installedVersion) {
+        if (version != nil && comparison != nil) {
+            return [ZBDependencyResolver doesVersion:installedVersion satisfyComparison:comparison ofVersion:version];
         }
+        return YES;
     }
     
     return [self isPackageProvided:packageIdentifier thatSatisfiesComparison:comparison ofVersion:version];
