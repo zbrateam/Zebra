@@ -47,7 +47,11 @@
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         searchController.searchBar.showsBookmarkButton = YES;
         searchController.searchBar.delegate = self;
-        [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+        if (@available(iOS 13.0, *)) {
+            [searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+        } else {
+            [searchController.searchBar setImage:[UIImage imageNamed:@"Unknown"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+        }
         
         self.navigationItem.searchController = searchController;
         
@@ -125,10 +129,12 @@
                 [self hideSpinner];
                 self->filterResults = filteredPackages;
                 [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-                    if (self.filter.isActive) {
-                        [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle.fill"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
-                    } else {
-                        [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+                    if (@available(iOS 13.0, *)) {
+                        if (self.filter.isActive) {
+                            [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle.fill"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+                        } else {
+                            [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+                        }
                     }
                     [self.tableView reloadData];
                 } completion:nil];

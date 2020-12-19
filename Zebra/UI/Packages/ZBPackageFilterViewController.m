@@ -56,7 +56,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.down.circle.fill"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    if (@available(iOS 13.0, *)) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.down.circle.fill"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
+    }
     self.navigationItem.rightBarButtonItem.tintColor = [UIColor tertiaryTextColor];
 }
 

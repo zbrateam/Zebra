@@ -434,8 +434,10 @@
 
         swipeAction.backgroundColor = [self colorForAction:action];
 
-        if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
-            swipeAction.image = [self systemImageForAction:action];
+        if (@available(iOS 13.0, *)) {
+            if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+                swipeAction.image = [self systemImageForAction:action];
+            }
         }
 
         [swipeActions addObject:swipeAction];
@@ -517,7 +519,10 @@
         ZBPackageActionType action = number.intValue;
         
         NSString *title = [self titleForAction:action useIcon:NO];
-        UIImage *image = [self systemImageForAction:action];
+        UIImage *image = NULL;
+        if (@available(iOS 13.0, *)) {
+            image = [self systemImageForAction:action];
+        }
         
         UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
             [self performAction:action forPackage:package completion:^{
