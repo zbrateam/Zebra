@@ -30,12 +30,13 @@
     
     if (self) {
         sourceManager = [ZBSourceManager sharedInstance];
-        [sourceManager addDelegate:self];
         
         if ([[self class] supportRefresh]) {
             self.refreshControl = [[UIRefreshControl alloc] init];
             [self.refreshControl addTarget:self action:@selector(refreshSources:) forControlEvents:UIControlEventValueChanged];
         }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBStartedSourceRefreshNotification object:NULL];
     }
     
     return self;
@@ -118,7 +119,7 @@
 }
 
 - (void)dealloc {
-    [sourceManager removeDelegate:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

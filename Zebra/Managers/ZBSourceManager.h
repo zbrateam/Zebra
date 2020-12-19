@@ -10,13 +10,22 @@
 @class ZBBaseSource;
 
 #import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
-#import <Managers/Delegates/ZBSourceDelegate.h>
-//#import <Database/ZBDatabaseDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
 
 @import Foundation;
 
 NS_ASSUME_NONNULL_BEGIN
+
+extern NSString *const ZBStartedSourceRefreshNotification;
+extern NSString *const ZBStartedSourceDownloadNotification;
+extern NSString *const ZBFinishedSourceDownloadNotification;
+extern NSString *const ZBStartedSourceImportNotification;
+extern NSString *const ZBFinishedSourceImportNotification;
+extern NSString *const ZBUpdatesAvailableNotification;
+extern NSString *const ZBFinishedSourceRefreshNotification;
+extern NSString *const ZBAddedSourcesNotification;
+extern NSString *const ZBRemovedSourcesNotification;
+extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 
 @interface ZBSourceManager : NSObject <ZBDownloadDelegate>
 
@@ -76,9 +85,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
 
 - (void)cancelSourceRefresh;
-
-- (void)addDelegate:(id <ZBSourceDelegate>)delegate;
-- (void)removeDelegate:(id <ZBSourceDelegate>)delegate;
 
 - (BOOL)isSourceBusy:(ZBBaseSource *)source;
 

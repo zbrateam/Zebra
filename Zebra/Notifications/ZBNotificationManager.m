@@ -30,6 +30,20 @@
    return instance;
 }
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(packageUpdatesAvailable:) name:ZBUpdatesAvailableNotification object:NULL];
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)ensureNotificationAccess {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     
@@ -53,7 +67,6 @@
     self.completionHandler = completionHandler;
 //    self.oldUpdates = [databaseManager packagesWithUpdates];
 
-    [sourceManager addDelegate:self];
     [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
@@ -147,7 +160,8 @@
 
 #pragma mark Source Delegate
 
-- (void)packageUpdatesAvailable:(int)numberOfUpdates {
+- (void)packageUpdatesAvailable:(NSNotification *)notification {
+    NSUInteger numberOfUpdates = [notification.userInfo[@"updates"] unsignedIntegerValue];
     if (numberOfUpdates <= 0) {
         [self fetchCompleted:UIBackgroundFetchResultNoData];
         return;

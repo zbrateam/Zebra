@@ -51,10 +51,14 @@
         
         self.navigationItem.searchController = searchController;
         
-        [[ZBSourceManager sharedInstance] addDelegate:self];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (instancetype)initWithSource:(ZBSource *)source {

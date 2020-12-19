@@ -8,8 +8,6 @@
 
 @import Foundation;
 
-#import "Delegates/ZBSourceDelegate.h"
-
 @class ZBPackage;
 @class ZBBasePackage;
 @class ZBPackageFilter;
@@ -18,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBPackageManager : NSObject <ZBSourceDelegate>
+@interface ZBPackageManager : NSObject
 @property (readonly) NSDictionary <NSString *,NSString *> *installedPackagesList;
 @property (readonly) NSDictionary <NSString *,NSString *> *virtualPackagesList;
 @property (readonly) NSArray <ZBPackage *> *updates;

@@ -17,7 +17,6 @@
 #import <ZBDevice.h>
 #import <ZBLog.h>
 #import <ZBSettings.h>
-#import "Delegates/ZBSourceDelegate.h"
 #import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 
 @import UIKit.UIDevice;
@@ -27,8 +26,7 @@
     
     ZBPackageManager *packageManager;
     ZBDatabaseManager *databaseManager;
-    ZBDownloadManager *downloadManager;
-    NSMutableArray <id <ZBSourceDelegate>> *delegates;
+    ZBDownloadManager *downloadManager; 
     NSMutableDictionary *busyList;
     NSDictionary *pinPreferences;
 }
@@ -37,6 +35,17 @@
 @implementation ZBSourceManager
 
 @synthesize refreshInProgress;
+
+NSString *const ZBStartedSourceRefreshNotification = @"StartedSourceRefresh";
+NSString *const ZBStartedSourceDownloadNotification = @"StartedSourceDownload";
+NSString *const ZBFinishedSourceDownloadNotification = @"FinishedSourceDownload";
+NSString *const ZBStartedSourceImportNotification = @"StartedSourceImport";
+NSString *const ZBFinishedSourceImportNotification = @"FinishedSourceImport";
+NSString *const ZBUpdatesAvailableNotification = @"UpdatesAvailable";
+NSString *const ZBFinishedSourceRefreshNotification = @"FinishedSourceRefresh";
+NSString *const ZBAddedSourcesNotification = @"AddedSources";
+NSString *const ZBRemovedSourcesNotification = @"RemovedSources";
+NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadProgressUpdate";
 
 #pragma mark - Initializers
 
@@ -54,9 +63,7 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
-        
         packageManager = [ZBPackageManager sharedInstance];
-        [self addDelegate:packageManager];
         
         refreshInProgress = NO;
         
@@ -150,7 +157,7 @@
         }
         sourceMap = tempSourceMap;
         
-        [self bulkAddedSources:sourcesToAdd];
+        [self addedSources:sourcesToAdd];
         [self refreshSources:[sourcesToAdd allObjects] useCaching:NO error:nil];
     }
 }
@@ -233,8 +240,8 @@
         }
         sourceMap = tempSourceMap;
         
-        [self bulkRemovedSources:sourcesToRemove];
-        [self bulkFinishedSourceRefresh];
+        [self removedSources:sourcesToRemove];
+        [self finishedSourceRefresh];
     }
 }
 
@@ -258,7 +265,7 @@
             }
         }
 
-        [self bulkUpdatesAvailable:self->packageManager.updates.count];
+        [self updatesAvailable:self->packageManager.updates.count];
         NSMutableArray *sourcesToRefresh = [NSMutableArray arrayWithObjects:[ZBSource localSource], nil];
         if (requested || needsRefresh) [sourcesToRefresh addObjectsFromArray:self.sources];
         [self refreshSources:sourcesToRefresh useCaching:useCaching error:nil];
@@ -278,7 +285,7 @@
         return;
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        [self bulkStartedSourceRefresh];
+        [self startedSourceRefresh];
         self->downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
         [self->downloadManager downloadSources:sources useCaching:useCaching];
         [self updateLastUpdated];
@@ -418,7 +425,7 @@
     ZBLog(@"[Zebra](ZBSourceManager) Started downloading %@", source);
     
     [busyList setObject:@YES forKey:source.uuid];
-    [self bulkStartedDownloadForSource:source];
+    [self startedDownloadForSource:source];
 }
 
 - (void)progressUpdate:(CGFloat)progress forSource:(ZBBaseSource *)baseSource {
@@ -434,7 +441,7 @@
             source.warnings = [self warningsForSource:source];
         }
 
-        [self bulkFinishedDownloadForSource:source];
+        [self finishedDownloadForSource:source];
         [self importSource:source];
     }
 }
@@ -447,7 +454,7 @@
 #pragma mark - Importing Sources
 
 - (void)importSource:(ZBBaseSource *)baseSource {
-    [self bulkStartedImportForSource:baseSource];
+    [self startedImportForSource:baseSource];
     
     if (baseSource.remote && baseSource.releaseFilePath) {
         FILE *file = fopen(baseSource.releaseFilePath.UTF8String, "r");
@@ -498,7 +505,7 @@
     }
     
     [packageManager importPackagesFromSource:baseSource];
-    [self bulkFinishedImportForSource:baseSource];
+    [self finishedImportForSource:baseSource];
 }
 
 - (ZBSourceColumn)columnFromString:(char *)string {
@@ -628,107 +635,60 @@
 
 #pragma mark - Source Delegate Notifiers
 
-- (void)bulkStartedSourceRefresh {
+- (void)startedSourceRefresh {
     refreshInProgress = YES;
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(startedSourceRefresh)]) {
-            [delegate startedSourceRefresh];
-        }
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceRefreshNotification object:self];
 }
 
-- (void)bulkStartedDownloadForSource:(ZBBaseSource *)source {
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(startedDownloadForSource:)]) {
-            [delegate startedDownloadForSource:source];
-        }
-    }
+- (void)startedDownloadForSource:(ZBBaseSource *)source {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceDownloadNotification object:self userInfo:@{@"source": source}];
 }
 
-- (void)bulkFinishedDownloadForSource:(ZBBaseSource *)source {
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(finishedDownloadForSource:)]) {
-            [delegate finishedDownloadForSource:source];
-        }
-    }
+- (void)finishedDownloadForSource:(ZBBaseSource *)source {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBFinishedSourceDownloadNotification object:self userInfo:@{@"source": source}];
 }
 
-- (void)bulkStartedImportForSource:(ZBBaseSource *)source {
+- (void)startedImportForSource:(ZBBaseSource *)source {
     [busyList setValue:@YES forKey:source.uuid];
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(startedImportForSource:)]) {
-            [delegate startedImportForSource:source];
-        }
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceImportNotification object:self userInfo:@{@"source": source}];
 }
 
-- (void)bulkFinishedImportForSource:(ZBBaseSource *)source {
+- (void)finishedImportForSource:(ZBBaseSource *)source {
     [busyList setValue:@NO forKey:source.uuid];
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(finishedImportForSource:)]) {
-            [delegate finishedImportForSource:source];
-        }
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBFinishedSourceImportNotification object:self userInfo:@{@"source": source}];
     
     int sum = 0;
     for (NSNumber *n in busyList.allValues) {
         sum += [n intValue];
         if (sum != 0) break;
     }
-    if (sum == 0) [self bulkFinishedSourceRefresh];
+    if (sum == 0) [self finishedSourceRefresh];
 }
 
-- (void)bulkFinishedSourceRefresh {
+- (void)finishedSourceRefresh {
     refreshInProgress = NO;
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(finishedSourceRefresh)]) {
-            [delegate finishedSourceRefresh];
-        }
-    }
-    [self bulkUpdatesAvailable:packageManager.updates.count];
-}
-
-
-- (void)bulkAddedSources:(NSSet <ZBBaseSource *> *)sources {
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(addedSources:)]) {
-            [delegate addedSources:sources];
-        }
-    }
-}
-
-- (void)bulkRemovedSources:(NSSet <ZBBaseSource *> *)sources {
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(removedSources:)]) {
-            [delegate removedSources:sources];
-        }
-    }
-}
-
-- (void)bulkUpdatesAvailable:(NSUInteger)numberOfUpdates {
-    for (NSObject <ZBSourceDelegate> *delegate in delegates) {
-        if ([delegate respondsToSelector:@selector(updatesAvailable:)]) {
-            [delegate updatesAvailable:numberOfUpdates];
-        }
-    }
-}
-
-- (void)addDelegate:(id<ZBSourceDelegate>)delegate {
-    if (!delegates) delegates = [NSMutableArray new];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBFinishedSourceRefreshNotification object:self];
     
-    [delegates addObject:delegate];
+    [self updatesAvailable:packageManager.updates.count];
 }
 
-- (void)removeDelegate:(id<ZBSourceDelegate>)delegate {
-    if (!delegates) return;
-    
-    [delegates removeObject:delegate];
+
+- (void)addedSources:(NSSet <ZBBaseSource *> *)sources {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBAddedSourcesNotification object:self userInfo:@{@"sources": sources}];
+}
+
+- (void)removedSources:(NSSet <ZBBaseSource *> *)sources {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBRemovedSourcesNotification object:self userInfo:@{@"sources": sources}];
+}
+
+- (void)updatesAvailable:(NSUInteger)numberOfUpdates {
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBUpdatesAvailableNotification object:self userInfo:@{@"updates": @(numberOfUpdates)}];
 }
 
 - (void)cancelSourceRefresh {
     // TODO: More things are probably required here
     [downloadManager stopAllDownloads];
-    [self bulkFinishedSourceRefresh];
+    [self finishedSourceRefresh];
 }
 
 - (BOOL)isSourceBusy:(ZBBaseSource *)source {

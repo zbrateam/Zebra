@@ -57,9 +57,25 @@
         filteredSources = [sources copy];
         hasProblems = NO;
         withProblems = 0;
+        
+        [self registerForNotifications];
     }
     
     return self;
+}
+
+- (void)registerForNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedDownloadForSource:) name:ZBStartedSourceDownloadNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedDownloadForSource:) name:ZBFinishedSourceDownloadNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedImportForSource:) name:ZBStartedSourceImportNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedImportForSource:) name:ZBFinishedSourceImportNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedSources:) name:ZBAddedSourcesNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedSources:) name:ZBRemovedSourcesNotification object:NULL];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - View Controller Lifecycle
@@ -484,9 +500,11 @@
     }
 }
 
-#pragma mark - ZBSourceDelegate
+#pragma mark - Source Delegate
 
-- (void)startedDownloadForSource:(ZBBaseSource *)source {
+- (void)startedDownloadForSource:(NSNotification *)notification {
+    ZBBaseSource *source = notification.userInfo[@"source"];
+    
     NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
     if (index != NSNotFound) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
@@ -496,7 +514,9 @@
     }
 }
 
-- (void)finishedDownloadForSource:(ZBBaseSource *)source {
+- (void)finishedDownloadForSource:(NSNotification *)notification {
+    ZBBaseSource *source = notification.userInfo[@"source"];
+    
     NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
     if (index != NSNotFound) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
@@ -506,7 +526,9 @@
     }
 }
 
-- (void)startedImportForSource:(ZBBaseSource *)source {
+- (void)startedImportForSource:(NSNotification *)notification {
+    ZBBaseSource *source = notification.userInfo[@"source"];
+    
     NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
     if (index != NSNotFound) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:self->hasProblems];
@@ -516,7 +538,9 @@
     }
 }
 
-- (void)finishedImportForSource:(ZBBaseSource *)source {
+- (void)finishedImportForSource:(NSNotification *)notification {
+    ZBBaseSource *source = notification.userInfo[@"source"];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         NSUInteger index = [[self->filteredSources copy] indexOfObject:(ZBSource *)source];
         if (index != NSNotFound) {
@@ -558,7 +582,9 @@
     });
 }
 
-- (void)addedSources:(NSSet<ZBBaseSource *> *)sources {
+- (void)addedSources:(NSNotification *)notification {
+    NSSet<ZBBaseSource *> *sources = notification.userInfo[@"sources"];
+    
     self->sources = [sourceManager.sources mutableCopy];
     [self filterSourcesForSearchTerm:searchController.searchBar.text];
     
@@ -574,7 +600,9 @@
     if (indexPaths.count) [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)removedSources:(NSSet<ZBBaseSource *> *)sources {
+- (void)removedSources:(NSNotification *)notification {
+    NSSet<ZBBaseSource *> *sources = notification.userInfo[@"sources"];
+    
     NSMutableArray *indexPaths = [NSMutableArray new];
     for (ZBSource *source in sources) {
         NSUInteger index = [[self->filteredSources copy] indexOfObject:source];

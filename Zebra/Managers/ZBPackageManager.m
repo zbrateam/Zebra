@@ -10,6 +10,7 @@
 
 #import <string.h>
 #import <ZBDevice.h>
+#import <Managers/ZBSourceManager.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBPackageFilter.h>
@@ -44,9 +45,15 @@
     
     if (self) {
         databaseManager = [ZBDatabaseManager sharedInstance];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion {

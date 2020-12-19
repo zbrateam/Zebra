@@ -47,7 +47,6 @@
     
     if (self) {
         sourceManager = [ZBSourceManager sharedInstance];
-        [sourceManager addDelegate:self];
         
         UITabBar.appearance.tintColor = [UIColor accentColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
@@ -56,9 +55,17 @@
         
         sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
         sourceRefreshIndicator.color = [UIColor whiteColor];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBStartedSourceRefreshNotification object:NULL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatesAvailable:) name:ZBUpdatesAvailableNotification object:NULL];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -134,7 +141,8 @@
     [self setSourceRefreshIndicatorVisible:NO];
 }
 
-- (void)updatesAvailable:(NSUInteger)numberOfUpdates {
+- (void)updatesAvailable:(NSNotification *)notification {
+    NSUInteger numberOfUpdates = [notification.userInfo[@"updates"] unsignedIntegerValue];
     [self setPackageUpdateBadgeValue:numberOfUpdates];
 }
 

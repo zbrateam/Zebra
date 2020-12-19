@@ -7,14 +7,13 @@
 //
 
 @import UIKit;
-#import <Managers/Delegates/ZBSourceDelegate.h>
 
 #ifndef _TABBAR_H_
 #define _TABBAR_H
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBTabBarController : UITabBarController <ZBSourceDelegate, UIGestureRecognizerDelegate>
+@interface ZBTabBarController : UITabBarController <UIGestureRecognizerDelegate>
 @property (nonatomic, strong) NSString * _Nullable forwardToPackageID;
 @property (nonatomic, strong) NSString * _Nullable forwardedSourceBaseURL;
 - (void)openQueue:(BOOL)openPopup;
