@@ -115,6 +115,8 @@
 }
 
 - (void)loadPackages {
+    if (!self.isViewLoaded) return;
+    
     [self showSpinner];
     if (_packages) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
