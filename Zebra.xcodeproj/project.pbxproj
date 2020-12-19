@@ -1831,7 +1831,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.2~beta6";
+				MARKETING_VERSION = "1.2~beta7";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
@@ -1867,7 +1867,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.2~beta6";
+				MARKETING_VERSION = "1.2~beta7";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
