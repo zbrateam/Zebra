@@ -562,7 +562,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         int result = [self beginTransaction];
         if (result == SQLITE_OK) {
             [packageList enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull identifier, NSString * _Nonnull version, BOOL * _Nonnull stop) {
-                if (![identifier containsString:@"gsc."] && ![identifier containsString:@"cy+"]) {
+                if (![identifier containsString:@"gsc."] && ![identifier containsString:@"cy+"] && ![ZBSettings areUpdatesIgnoredForPackageIdentifier:identifier]) {
                     NSString *highestVersion = [self highestVersionOfPackageIdentifier:identifier];
                     if (![highestVersion isEqual:version]) {
                         ZBBasePackage *basePackage = [self basePackageWithIdentifier:identifier version:highestVersion];
