@@ -613,7 +613,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (result == SQLITE_OK) {
             result = sqlite3_step(statement);
             if (result == SQLITE_ROW) {
-                highestVersion = [NSString stringWithUTF8String:(const char *)sqlite3_column_text(statement, 0)];
+                const char *version = (const char *)sqlite3_column_text(statement, 0);
+                if ((version && version[0] != '\0')) highestVersion = [NSString stringWithUTF8String:version];
             }
         }
         
@@ -1120,7 +1121,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 if (result == SQLITE_ROW) {
                     const char *identifier = (const char *)sqlite3_column_text(statement, 0);
                     const char *version = (const char *)sqlite3_column_text(statement, 1);
-                    if (identifier && version) {
+                    if ((identifier && identifier[0] != '\0') && (version && version[0] != '\0')) {
                         packageList[[NSString stringWithUTF8String:identifier]] = [NSString stringWithUTF8String:version];
                     }
                 }
