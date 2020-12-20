@@ -1342,14 +1342,16 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 char *end = strchr(roleTag, ',') ?: strchr(roleTag, '\0');
                 
                 // FIXME: This can cause a heap overflow
-                size_t size = (end - 1) - begin;
-                char *role = malloc(size * sizeof(char));
+                size_t size = end - begin;
+                char *role = malloc(size + 1 * sizeof(char));
                 strncpy(role, begin, size);
+                role[size] = '\0';
                 
                 if (strcmp(role, "user") == 0 || strcmp(role, "enduser") == 0) roleValue = 0;
                 else if (strcmp(role, "hacker") == 0) roleValue = 1;
                 else if (strcmp(role, "developer") == 0) roleValue = 2;
-                else roleValue = 3;
+                else if (strcmp(role, "cydia") == 0 || strcmp(role, "goddess") == 0) roleValue = 3;
+                else roleValue = 0;
                 
                 free(role);
             }
