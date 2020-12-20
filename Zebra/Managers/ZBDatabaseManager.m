@@ -659,7 +659,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_stmt *statement;
         const char *query;
         if (email) {
-            query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName = ? AND email = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+            query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName = ? AND authorEmail = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         } else {
             query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         }
@@ -1340,6 +1340,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             if (roleTag) {
                 char *begin = roleTag + 6;
                 char *end = strchr(roleTag, ',') ?: strchr(roleTag, '\0');
+                
+                // FIXME: This can cause a heap overflow
                 size_t size = (end - 1) - begin;
                 char *role = malloc(size * sizeof(char));
                 strncpy(role, begin, size);
