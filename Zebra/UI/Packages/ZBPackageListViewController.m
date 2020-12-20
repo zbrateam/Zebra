@@ -272,6 +272,8 @@
             cell.actionButton.hidden = NO;
             [cell.actionButton setTitle:NSLocalizedString(@"Update All", @"") forState:UIControlStateNormal];
             [cell.actionButton addTarget:self action:@selector(updateAll) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            cell.actionButton.hidden = YES;
         }
         cell.titleLabel.text = section == 0 ? NSLocalizedString(@"Updates", @"") : NSLocalizedString(@"Installed", @"");
         return cell;
