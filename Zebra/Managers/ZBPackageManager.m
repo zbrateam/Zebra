@@ -20,7 +20,6 @@
 
 @interface ZBPackageManager () {
     ZBDatabaseManager *databaseManager;
-    NSMutableSet *uuids;
     sqlite_int64 currentUpdateDate;
 }
 @end
@@ -111,7 +110,7 @@
 - (void)importPackagesFromSource:(ZBBaseSource *)source {
     if (!source.packagesFilePath) return;
     
-    uuids = [[databaseManager uniqueIdentifiersForPackagesFromSource:source] mutableCopy];
+    NSMutableSet *uuids = [[databaseManager uniqueIdentifiersForPackagesFromSource:source] mutableCopy];
     currentUpdateDate = (sqlite3_int64)[[NSDate date] timeIntervalSince1970];
     
     [databaseManager performTransaction:^{
@@ -133,7 +132,7 @@
                     if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                     
                     NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
-                    if (![self->uuids containsObject:uniqueIdentifier]) {
+                    if (![uuids containsObject:uniqueIdentifier]) {
                         strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
                         strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
                         memcpy(package[ZBPackageColumnLastSeen], &self->currentUpdateDate, sizeof(sqlite_int64 *));
@@ -143,7 +142,7 @@
                         freeDualArrayOfSize(package, ZBPackageColumnCount);
                         package = dualArrayOfSize(ZBPackageColumnCount);
                     } else {
-                        [self->uuids removeObject:uniqueIdentifier];
+                        [uuids removeObject:uniqueIdentifier];
                     }
                 }
             } else {
@@ -171,7 +170,7 @@
                 if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                 
                 NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
-                if (![self->uuids containsObject:uniqueIdentifier]) {
+                if (![uuids containsObject:uniqueIdentifier]) {
                     strcpy(package[ZBPackageColumnSource], source.uuid.UTF8String);
                     strcpy(package[ZBPackageColumnUUID], uniqueIdentifier.UTF8String);
                     memcpy(package[ZBPackageColumnLastSeen], &self->currentUpdateDate, sizeof(sqlite_int64 *));
@@ -181,7 +180,7 @@
                     freeDualArrayOfSize(package, ZBPackageColumnCount);
                     package = dualArrayOfSize(ZBPackageColumnCount);
                 } else {
-                    [self->uuids removeObject:uniqueIdentifier];
+                    [uuids removeObject:uniqueIdentifier];
                 }
             }
         }
@@ -191,7 +190,6 @@
     }];
     
     [databaseManager deletePackagesWithUniqueIdentifiers:uuids];
-    [uuids removeAllObjects];
 }
 
 - (ZBPackageColumn)columnFromString:(char *)string {
