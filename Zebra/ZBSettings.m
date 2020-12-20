@@ -560,7 +560,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 }
 
 + (NSArray *)ignoredUpdates {
-    return [[NSUserDefaults standardUserDefaults] arrayForKey:IgnoredUpdatesKey];
+    return [[NSUserDefaults standardUserDefaults] arrayForKey:IgnoredUpdatesKey] ?: [NSArray new];
 }
 
 + (BOOL)areUpdatesIgnoredForPackageIdentifier:(NSString *)identifier {

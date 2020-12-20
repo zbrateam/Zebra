@@ -737,7 +737,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
-    __block NSArray *result = NULL;
+    __block NSArray *packages = NULL;
     dispatch_sync(databaseQueue, ^{
         const char *query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         NSString *identifierString = [requestedPackages componentsJoinedByString:@"\', \'"];
@@ -770,8 +770,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         
         sqlite3_clear_bindings(statement);
         sqlite3_reset(statement);
+        
+        packages = results;
     });
-    return result;
+    return packages;
 }
 
 - (NSArray *)packagesWithReachableIcon:(int)limit excludeFrom:(NSArray <ZBSource *> *)blacklistedSources {

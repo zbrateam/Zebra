@@ -79,7 +79,7 @@
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
-//    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesWithIgnoredUpdates];
+    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesFromIdentifiers:[ZBSettings ignoredUpdates]].mutableCopy;
     
     [self.tableView reloadData];
 }
