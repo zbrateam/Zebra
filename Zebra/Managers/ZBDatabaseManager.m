@@ -1286,11 +1286,14 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
             email[emailEnd - emailBegin - 1] = 0;
             
-            if (*(emailBegin - 1) == ' ') {
+            if (author < emailBegin && *(emailBegin - 1) == ' ') {
                 emailBegin--;
             }
             *emailBegin = 0;
             
+            if (strcmp(author, "") == 0) { // If somehow the package maintainer messed up the email...
+                strcpy(author, email);
+            }
             sqlite3_bind_text(statement, ZBPackageColumnAuthorName + 1, author, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, ZBPackageColumnAuthorEmail + 1, email, -1, SQLITE_TRANSIENT);
             free(email);
@@ -1317,12 +1320,15 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             memcpy(email, emailBegin + 1, emailEnd - emailBegin - 1);
             email[emailEnd - emailBegin - 1] = 0;
             
-            if (*(emailBegin - 1) == ' ') {
+            if (maintainer < emailBegin && *(emailBegin - 1) == ' ') {
                 emailBegin--;
             }
             *emailBegin = 0;
             
-            sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, maintainer, -1, SQLITE_TRANSIENT);
+            if (strcmp(maintainer, "") == 0) { // If somehow the package maintainer messed up the email...
+                strcpy(maintainer, email);
+            }
+            sqlite3_bind_text(statement, ZBPackageColumnMaintainerName + 1, author, -1, SQLITE_TRANSIENT);
             sqlite3_bind_text(statement, ZBPackageColumnMaintainerEmail + 1, email, -1, SQLITE_TRANSIENT);
             free(email);
         } else {
@@ -1343,7 +1349,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 char *begin = roleTag + 6;
                 char *end = strchr(roleTag, ',') ?: strchr(roleTag, '\0');
                 
-                // FIXME: This can cause a heap overflow
                 size_t size = end - begin;
                 char *role = malloc(size + 1 * sizeof(char));
                 strncpy(role, begin, size);
