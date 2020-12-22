@@ -36,8 +36,9 @@ void maxVersionFinal(sqlite3_context *context) {
 char** dualArrayOfSize(unsigned int size) {
     char **package = malloc(size * sizeof(char *));
     for (int i = 0; i < size; i++) {
-        package[i] = malloc(512 * sizeof(void *));
+        package[i] = malloc(1024 * sizeof(char));
         package[i][0] = '\0';
+        printf("%s\n", package[i]);
     }
     
     return package;
