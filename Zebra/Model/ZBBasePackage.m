@@ -15,6 +15,7 @@
 #import <ZBSettings.h>
 
 @import UIKit.UIImageView;
+@import FirebaseCrashlytics;
 @import SDWebImage;
 
 @class ZBPackage;
@@ -154,6 +155,10 @@
         
     ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
     if (package) forwardingPackage = package;
+    
+    if (!forwardingPackage) {
+        [[FIRCrashlytics crashlytics] logWithFormat:@"Unable to fetch %@ for %@ (%@) v%@ from %@ (%@)", self.uuid, self.name, self.identifier, self.version, self.source.label, self.source.uuid];
+    }
         
     return forwardingPackage; 
 }
