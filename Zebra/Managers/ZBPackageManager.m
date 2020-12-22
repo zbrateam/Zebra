@@ -129,7 +129,7 @@
                         }
                     }
                     
-                    if (!package[ZBPackageColumnName]) strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
+                    if (!package[ZBPackageColumnName] || package[ZBPackageColumnName][0] == '\0') strcpy(package[ZBPackageColumnName], package[ZBPackageColumnIdentifier]);
                     
                     NSString *uniqueIdentifier = [NSString stringWithFormat:@"%s-%s-%@", package[ZBPackageColumnIdentifier], package[ZBPackageColumnVersion], source.uuid];
                     if (![uuids containsObject:uniqueIdentifier]) {
