@@ -183,7 +183,7 @@
 }
 
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+    ZBPackage *candidate = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:package.version];
     if (candidate) {
         [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
         if (completion) completion();
@@ -203,7 +203,7 @@
             title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
         }
         UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:otherVersion];
+            ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
             otherPackage.requiresAuthorization = package.requiresAuthorization;
             [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
             
@@ -229,7 +229,7 @@
         for (NSString *otherVersion in greaterVersions) {
             NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:otherVersion];
+                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
                 otherPackage.requiresAuthorization = package.requiresAuthorization;
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
                 
@@ -245,7 +245,7 @@
         [alert show];
     }
     else if (greaterVersions.count == 1) {
-        ZBPackage *upgrade = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:greaterVersions.firstObject];
+        ZBPackage *upgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:greaterVersions.firstObject];
         [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
         
         if (completion) completion();
@@ -265,7 +265,7 @@
         for (NSString *otherVersion in lesserVersions) {
             NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
             UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:otherVersion];
+                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
                 otherPackage.requiresAuthorization = package.requiresAuthorization;
                 [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
                 
@@ -281,7 +281,7 @@
         [alert show];
     }
     else if (lesserVersions.count == 1) {
-        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] instanceOfPackage:package withVersion:lesserVersions.firstObject];
+        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:lesserVersions.firstObject];
         [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
         
         if (completion) completion();

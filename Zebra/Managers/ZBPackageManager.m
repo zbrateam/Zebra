@@ -289,8 +289,8 @@
     return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
 }
 
-- (ZBPackage *)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
-    return [databaseManager instanceOfPackage:package withVersion:version];
+- (ZBPackage *)remoteInstanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+    return [databaseManager remoteInstanceOfPackage:package withVersion:version];
 }
 
 #pragma mark - Source Delegate

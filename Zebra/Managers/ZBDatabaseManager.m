@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeLatestPackagesWithLimit,
     ZBDatabaseStatementTypeInstalledInstanceOfPackage,
     ZBDatabaseStatementTypeInstalledVersionOfPackage,
-    ZBDatabaseStatementTypeInstanceOfPackageWithVersion,
+    ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion,
     ZBDatabaseStatementTypeIsPackageAvailable,
     ZBDatabaseStatementTypeIsPackageAvailableWithVersion,
     ZBDatabaseStatementTypeSearchForPackageWithName,
@@ -392,8 +392,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeInstalledVersionOfPackage:
             return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status_\';";
-        case ZBDatabaseStatementTypeInstanceOfPackageWithVersion:
-            return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND version = ?;";
+        case ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion:
+            return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND version = ? AND source != \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeIsPackageAvailable:
             return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source != \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeIsPackageAvailableWithVersion:
@@ -891,10 +891,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return installedVersion;
 }
 
-- (ZBPackage *)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+- (ZBPackage *)remoteInstanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
     __block ZBPackage *packageWithVersion = NULL;
     dispatch_sync(databaseQueue, ^{
-        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstanceOfPackageWithVersion];
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion];
         int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
         result &= sqlite3_bind_text(statement, 2, version.UTF8String, -1, SQLITE_TRANSIENT);
         

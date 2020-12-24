@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package;
 
-- (ZBPackage *_Nullable)instanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version;
+- (ZBPackage *_Nullable)remoteInstanceOfPackage:(ZBPackage *)package withVersion:(NSString *)version;
 
 #pragma mark - Package Information
 
