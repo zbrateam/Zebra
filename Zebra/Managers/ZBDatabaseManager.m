@@ -1121,10 +1121,12 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             do {
                 result = sqlite3_step(statement);
                 if (result == SQLITE_ROW) {
-                    const char *identifier = (const char *)sqlite3_column_text(statement, 0);
-                    const char *version = (const char *)sqlite3_column_text(statement, 1);
-                    if ((identifier && identifier[0] != '\0') && (version && version[0] != '\0')) {
-                        packageList[[NSString stringWithUTF8String:identifier]] = [NSString stringWithUTF8String:version];
+                    const char *identifierChars = (const char *)sqlite3_column_text(statement, 0);
+                    const char *versionChars = (const char *)sqlite3_column_text(statement, 1);
+                    if ((identifierChars && identifierChars[0] != '\0') && (versionChars && versionChars[0] != '\0')) {
+                        NSString *identifier = [NSString stringWithUTF8String:identifierChars];
+                        NSString *version = [NSString stringWithUTF8String:versionChars];
+                        if (identifier && version) packageList[identifier] = version;
                     }
                 }
             } while (result == SQLITE_ROW);
