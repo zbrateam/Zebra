@@ -162,8 +162,12 @@
         
         const char *depends = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
         if (depends && depends[0] != '\0') {
+            NSMutableArray <NSString *> *normalizedDepends = [NSMutableArray array];
             NSString *rawDepends = [NSString stringWithUTF8String:depends];
-            _depends = [rawDepends componentsSeparatedByString:@","];
+            for (NSString *depend in [rawDepends componentsSeparatedByString:@","]) {
+                [normalizedDepends addObject:[depend stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            }
+            _depends = normalizedDepends.copy;
         }
         
         const char *depictionURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnDepictionURL);
@@ -768,16 +772,7 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
         for (NSString *depend in self.depends) {
             if ([depend containsString:@" | "]) {
                 NSArray *ord = [depend componentsSeparatedByString:@" | "];
-                for (__strong NSString *conflict in ord) {
-                    NSRange range = [conflict rangeOfString:@"("];
-                    if (range.location != NSNotFound) {
-                        conflict = [conflict substringToIndex:range.location];
-                    }
-                    
-                    if (![strippedDepends containsObject:conflict]) {
-                        [strippedDepends addObject:conflict];
-                    }
-                }
+                [strippedDepends addObject:[ord componentsJoinedByString:@" or "]];
             }
             else if (![strippedDepends containsObject:depend]) {
                 [strippedDepends addObject:depend];
