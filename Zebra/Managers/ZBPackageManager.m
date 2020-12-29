@@ -56,7 +56,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)packagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+- (void)fetchPackagesFromSource:(ZBSource *)source inSection:(NSString * _Nullable)section completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     if ([section isEqual:@"Uncategorized"]) section = @"";
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         NSArray *packages = [self->databaseManager packagesFromSource:source inSection:section];
