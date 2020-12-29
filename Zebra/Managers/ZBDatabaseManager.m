@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeSources,
     ZBDatabaseStatementTypeSourceWithUUID,
     ZBDatabaseStatementTypeInsertSource,
+    ZBDatabaseStatementTypeSearchAuthorsByName,
     ZBDatabaseStatementTypeSectionReadout,
     ZBDatabaseStatementTypePackagesInSourceCount,
     ZBDatabaseStatementTypeCount
@@ -414,6 +415,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT * FROM " SOURCES_TABLE_NAME " WHERE uuid = ?;";
         case ZBDatabaseStatementTypeInsertSource:
             return @"INSERT INTO " SOURCES_TABLE_NAME "(architectures, archiveType, codename, components, distribution, label, origin, paymentEndpoint, sourceDescription, suite, supportsFeaturedPackages, url, uuid, version) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        case ZBDatabaseStatementTypeSearchAuthorsByName:
+            return @"SELECT DISTINCT authorName, authorEmail FROM " PACKAGES_TABLE_NAME " WHERE authorName LIKE ? OR authorEmail LIKE ?";
         case ZBDatabaseStatementTypeSectionReadout:
             return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
         case ZBDatabaseStatementTypePackagesInSourceCount:
@@ -1454,6 +1457,52 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         const char *packageDeleteQuery = [NSString stringWithFormat:@"DELETE FROM " PACKAGES_TABLE_NAME " WHERE source = \'%@\'", source.uuid].UTF8String;
         sqlite3_exec(self->database, packageDeleteQuery, nil, nil, nil);
     });
+}
+
+#pragma mark - Package Author
+
+- (void)searchForAuthorsByNameOrEmail:(NSString *)nameOrEmail completion:(void (^)(NSArray <NSArray <NSString *> *> *authors))completion {
+    if (currentSearchBlock) {
+        dispatch_block_cancel(currentSearchBlock);
+    }
+    
+    __block dispatch_block_t searchBlock = dispatch_block_create(0, ^{
+        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchAuthorsByName];
+        
+        const char *filter = [NSString stringWithFormat:@"%%%@%%", nameOrEmail].UTF8String;
+        int result = sqlite3_bind_text(statement, 1, filter, -1, SQLITE_TRANSIENT);
+        result = result == SQLITE_OK ? sqlite3_bind_text(statement, 2, filter, -1, SQLITE_TRANSIENT) : result;
+        
+        NSMutableArray *authors = [NSMutableArray new];
+        if (result == SQLITE_OK) {
+            do {
+                result = sqlite3_step(statement);
+                if (result == SQLITE_ROW) {
+                    const char *authorName = (const char *)sqlite3_column_text(statement, 0);
+                    const char *authorEmail = (const char *)sqlite3_column_text(statement, 1);
+                    if ((authorName && strlen(authorName)) || (authorEmail && strlen(authorEmail))) {
+                        [authors addObject:[NSArray arrayWithObjects:[NSString stringWithCString:authorName ?: "" encoding:NSUTF8StringEncoding], [NSString stringWithCString:authorEmail ?: "" encoding:NSUTF8StringEncoding], nil]];
+                    }
+                }
+            } while (result == SQLITE_ROW && !dispatch_block_testcancel(searchBlock));
+            
+            if (result != SQLITE_DONE) {
+                ZBLog(@"[Zebra] Failed to search for authors with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+            }
+        } else {
+            ZBLog(@"[Zebra] Failed to initialize search query with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+        }
+        
+        sqlite3_clear_bindings(statement);
+        sqlite3_reset(statement);
+        
+        if (!dispatch_block_testcancel(searchBlock)) {
+            completion(authors);
+        }
+    });
+    
+    currentSearchBlock = searchBlock;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), databaseQueue, searchBlock);
 }
 
 #pragma mark - Dependency Resolution

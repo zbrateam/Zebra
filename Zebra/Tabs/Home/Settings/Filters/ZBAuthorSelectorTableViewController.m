@@ -136,10 +136,13 @@
             return;
         }
         
-//        authors = [databaseManager searchForAuthorByName:strippedString];
+        [databaseManager searchForAuthorsByNameOrEmail:strippedString completion:^(NSArray <NSArray <NSString *> *> *authors) {
+            self->authors = authors;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self refreshTable];
+            });
+        }];
     }
-    
-    [self refreshTable];
 }
 
 #pragma mark - Search Controller Delegate
@@ -210,13 +213,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    if (selectedAuthors[authorDetail[1]]) {
-        [selectedAuthors removeObjectForKey:authorDetail[1]];
-        [newSelectedAuthors removeObject:authorDetail[1]];
+    NSString *email = authorDetail[1];
+    
+    // TODO: How do we handle the packages that their author do not provide an email
+    if (email.length == 0)
+        return;
+    
+    // Assume the authors have their email
+    if (selectedAuthors[email]) {
+        [selectedAuthors removeObjectForKey:email];
+        [newSelectedAuthors removeObject:email];
     }
-    else if (authorDetail[1].length) {
-        [selectedAuthors setObject:authorDetail[0] forKey:authorDetail[1]];
-        [newSelectedAuthors addObject:authorDetail[1]];
+    else if (email.length) {
+        [selectedAuthors setObject:authorDetail[0] forKey:email];
+        [newSelectedAuthors addObject:email];
     }
     
     [self chooseUnchooseOptionAtIndexPath:indexPath];
