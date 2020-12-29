@@ -45,14 +45,14 @@
         _canSetSection = [decoder decodeBoolForKey:@"canSetSection"];
         _userSetRole = [decoder decodeBoolForKey:@"userSetRole"];
         if (_userSetRole) {
-            _role = [[decoder decodeObjectForKey:@"role"] unsignedIntValue];
+            _role = [decoder decodeIntegerForKey:@"role"];
         } else {
             _role = [ZBSettings role];
         }
         _commercial = [decoder decodeBoolForKey:@"commercial"];
         _favorited = [decoder decodeBoolForKey:@"favorited"];
         _installed = [decoder decodeBoolForKey:@"installed"];
-        _sortOrder = [[decoder decodeObjectForKey:@"sortOrder"] unsignedIntValue];
+        _sortOrder = [decoder decodeIntegerForKey:@"sortOrder"];
     }
     
     return self;
@@ -63,12 +63,12 @@
     [coder encodeBool:_canSetSection forKey:@"canSetSection"];
     [coder encodeBool:_userSetRole forKey:@"userSetRole"];
     if (_userSetRole) {
-        [coder encodeInt:(int)_role forKey:@"role"];
+        [coder encodeInteger:_role forKey:@"role"];
     }
     [coder encodeBool:_commercial forKey:@"commercial"];
     [coder encodeBool:_favorited forKey:@"favorited"];
     [coder encodeBool:_installed forKey:@"installed"];
-    [coder encodeInt:(int)_sortOrder forKey:@"sortOrder"];
+    [coder encodeInteger:_sortOrder forKey:@"sortOrder"];
 }
 
 - (NSCompoundPredicate *)compoundPredicate {
