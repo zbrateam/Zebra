@@ -111,30 +111,30 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (BOOL)connectToDatabase {
     BOOL ret = YES;
-    ZBLog(@"[Zebra] Initializing database at %@", databasePath);
+    ZBLog(@"[Zebra] Initializing database at %s", databasePath);
     
     int result = [self openDatabase];
     if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to open database at %@", databasePath);
+        ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
     }
     
     if (![self needsMigration]) {
         if (result == SQLITE_OK) {
             result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
             if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to create aggregate function at %@", databasePath);
+                ZBLog(@"[Zebra] Failed to create aggregate function at %s", databasePath);
             }
         }
         
         if (result == SQLITE_OK) {
             result = [self initializePreparedStatements];
             if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to initialize prepared statements at %@", databasePath);
+                ZBLog(@"[Zebra] Failed to initialize prepared statements at %s", databasePath);
             }
         }
         
         if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to initialize database at %@", databasePath);
+            ZBLog(@"[Zebra] Failed to initialize database at %s", databasePath);
             ret = NO;
         }
     } else {
@@ -194,7 +194,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         }
     }
     sqlite3_finalize(statement);
-    ZBLog(@"[Zebra] Current Schema Version: %d", ret);
+    ZBLog(@"[Zebra] Current Schema Version: %d", schemaVersion);
     return schemaVersion;
 }
 
@@ -483,7 +483,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
             
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query packages from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query packages from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
 
@@ -641,7 +641,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query packages by author with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query packages by author with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
     sqlite3_finalize(statement);
@@ -672,7 +672,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query latest packages with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query latest packages with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
     
@@ -704,7 +704,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query packages from identifiers with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query packages from identifiers with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
     
@@ -754,7 +754,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE && result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to get all versions of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to get all versions of package with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
         
@@ -780,7 +780,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE && result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to get all instances of package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to get all instances of package with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
         
@@ -1105,7 +1105,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query package uuids from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query package uuids from %@ with error %d (%s, %d)", source.uuid, result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
 
@@ -1157,7 +1157,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         } while (result == SQLITE_ROW);
         
         if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+            ZBLog(@"[Zebra] Failed to query section readout with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
         }
     }];
             
@@ -1293,7 +1293,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             if (result == SQLITE_OK) {
                 result = sqlite3_step(statement);
                 if (result != SQLITE_DONE) {
-                    ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+                    ZBLog(@"[Zebra] Failed to delete package with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
                 }
             }
             sqlite3_clear_bindings(statement);
