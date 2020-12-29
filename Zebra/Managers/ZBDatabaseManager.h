@@ -172,6 +172,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSArray <ZBPackage *> * _Nullable)packagesFromIdentifiers:(NSArray<NSString *> *)requestedPackages;
 
+#pragma mark - Package Author
+
+/*!
+ @brief Search for package authors by name or email. The callback returns an array of pair-arrays of author name-email, where either name or email can be empty.
+ */
+- (void)searchForAuthorsByNameOrEmail:(NSString *)nameOrEmail completion:(void (^)(NSArray <NSArray <NSString *> *> *authors))completion;
+
 #pragma mark - Dependency Resolution
 
 /*!
