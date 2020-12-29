@@ -450,9 +450,11 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (void)performTransaction:(void (^)(void))transaction {
     @synchronized (self) {
+        NSLog(@"Start Transaction");
         if ([self beginTransaction] != SQLITE_OK) return;
         transaction();
         [self endTransaction];
+        NSLog(@"End Transaction");
     }
 }
 
@@ -1273,11 +1275,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_bind_text(statement, ZBPackageColumnUUID + 1, package[ZBPackageColumnUUID], -1, SQLITE_TRANSIENT);
     sqlite3_bind_int64(statement, ZBPackageColumnLastSeen + 1, *(int *)package[ZBPackageColumnLastSeen]);
     
-    @synchronized (self) {
-        int result = sqlite3_step(statement);
-        if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to insert package into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
-        }
+    int result = sqlite3_step(statement);
+    if (result != SQLITE_DONE) {
+        ZBLog(@"[Zebra] Failed to insert package into database with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
     }
     
     sqlite3_clear_bindings(statement);
