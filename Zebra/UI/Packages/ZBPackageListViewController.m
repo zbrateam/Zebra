@@ -26,7 +26,7 @@
     ZBPackageManager *packageManager;
     UISearchController *searchController;
     UIActivityIndicatorView *spinner;
-    NSArray *filterResults;
+    NSArray <ZBPackage *> *filterResults;
     NSArray *updates;
 }
 @property (nonnull) ZBPackageFilter *filter;
@@ -124,7 +124,7 @@
     [self showSpinner];
     if (_packages) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            NSArray *filteredPackages = [self->packageManager filterPackages:self.packages withFilter:self.filter];
+            NSArray <ZBPackage *> *filteredPackages = [self->packageManager filterPackages:self->_packages withFilter:self.filter];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self hideSpinner];
                 self->filterResults = filteredPackages;
