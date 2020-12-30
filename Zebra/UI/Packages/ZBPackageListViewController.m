@@ -141,7 +141,7 @@
             });
         });
     } else { // Load packages for the first time, every other access is done by filter
-        [packageManager packagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+        [packageManager fetchPackagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
             self.packages = packages;
             if ([self.source.uuid isEqualToString:@"_var_lib_dpkg_status_"]) {
                 self->updates = self->packageManager.updates;
