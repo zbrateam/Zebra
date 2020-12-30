@@ -13,7 +13,7 @@ jobs:
         submodules: recursive
 
     - name: Install Dependencies
-      run: brew install ldid fakeroot
+      run: brew install ldid fakeroot dpkg
 
     - name: Setup Theos
       uses: actions/checkout@master

@@ -17,10 +17,9 @@ after-stage::
 	mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
 	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack
-	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
+	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/SDWebImage.framework/SDWebImage
 	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/LNPopupController.framework/LNPopupController
-	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app/Zebra
 
 	$(FAKEROOT) chmod 6755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/supersling
 	$(FAKEROOT) chmod 755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/firmware
