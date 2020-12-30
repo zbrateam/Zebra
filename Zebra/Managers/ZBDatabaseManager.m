@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#define DATABASE_VERSION 1
+#define DATABASE_VERSION 2
 #define PACKAGES_TABLE_NAME "packages"
 #define SOURCES_TABLE_NAME "sources"
 #define BASE_PACKAGE_COLUMNS "p.authorName, p.description, p.downloadSize, p.iconURL, p.identifier, p.installedSize, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version"
@@ -60,7 +60,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 @interface ZBDatabaseManager () {
     sqlite3 *database;
-    const char *databasePath;
+    NSString *databasePath;
     sqlite3_stmt **preparedStatements;
     dispatch_queue_t searchQueue;
     dispatch_block_t currentSearchBlock;
@@ -88,7 +88,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     self = [super init];
     
     if (self) {
-        databasePath = path.UTF8String;
+        databasePath = path;
         
         dispatch_queue_attr_t attributes = dispatch_queue_attr_make_with_qos_class(DISPATCH_QUEUE_CONCURRENT, QOS_CLASS_BACKGROUND, 0);
         searchQueue = dispatch_queue_create("xyz.willy.Zebra.search", attributes);
@@ -111,30 +111,30 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (BOOL)connectToDatabase {
     BOOL ret = YES;
-    ZBLog(@"[Zebra] Initializing database at %s", databasePath);
+    ZBLog(@"[Zebra] Initializing database at %@", databasePath);
     
     int result = [self openDatabase];
     if (result != SQLITE_OK) {
-        ZBLog(@"[Zebra] Failed to open database at %s", databasePath);
+        ZBLog(@"[Zebra] Failed to open database at %@", databasePath);
     }
     
     if (![self needsMigration]) {
         if (result == SQLITE_OK) {
             result = sqlite3_create_function(database, "maxversion", 1, SQLITE_UTF8, NULL, NULL, maxVersionStep, maxVersionFinal);
             if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to create aggregate function at %s", databasePath);
+                ZBLog(@"[Zebra] Failed to create aggregate function at %@", databasePath);
             }
         }
         
         if (result == SQLITE_OK) {
             result = [self initializePreparedStatements];
             if (result != SQLITE_OK) {
-                ZBLog(@"[Zebra] Failed to initialize prepared statements at %s", databasePath);
+                ZBLog(@"[Zebra] Failed to initialize prepared statements at %@", databasePath);
             }
         }
         
         if (result != SQLITE_OK) {
-            ZBLog(@"[Zebra] Failed to initialize database at %s", databasePath);
+            ZBLog(@"[Zebra] Failed to initialize database at %@", databasePath);
             ret = NO;
         }
     } else {
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (int)openDatabase {
     int flags = SQLITE_OPEN_CREATE | SQLITE_OPEN_READWRITE | SQLITE_OPEN_FILEPROTECTION_COMPLETEUNLESSOPEN | SQLITE_OPEN_FULLMUTEX;
-    return sqlite3_open_v2(databasePath, &database, flags, NULL);
+    return sqlite3_open_v2(databasePath.UTF8String, &database, flags, NULL);
 }
 
 - (int)closeDatabase {
@@ -167,7 +167,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (result == SQLITE_OK) {
             database = NULL;
         } else {
-            NSLog(@"[Zebra] Failed to close database path: %s", databasePath);
+            NSLog(@"[Zebra] Failed to close database path: %@", databasePath);
         }
     } else {
         NSLog(@"[Zebra] Attempt to close null database handle");
@@ -211,48 +211,61 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     
     ZBLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
     
-    [self beginTransaction];
-    switch (version + 1) {
-        case 1: {
-            // First major DB revision, we need to migration ignore update preferences and likely drop everything else due to the size of the changes.
-            
-            // Drop old PACKAGES and REPOS tables. We can easily recover the data with a source refresh.
-            sqlite3_exec(self->database, "DROP TABLE PACKAGES;", nil, nil, nil);
-            sqlite3_exec(self->database, "DROP TABLE REPOS;", nil, nil, nil);
-            
-            // Transfer updates from old UPDATES table to NSUserDefaults
-            sqlite3_stmt *statement;
-            const char *query = "SELECT PACKAGE FROM UPDATES WHERE IGNORE = 1;";
-            int result = sqlite3_prepare_v2(self->database, query, -1, &statement, nil);
-            if (result == SQLITE_OK) {
-                do {
-                    result = sqlite3_step(statement);
-                    if (result == SQLITE_ROW) {
-                        const char *identifier = (const char *)sqlite3_column_text(statement, 0);
-                        if (identifier) {
-                            [ZBSettings setUpdatesIgnored:YES forPackageIdentifier:[NSString stringWithUTF8String:identifier]];
+    [self performTransaction:^{
+        switch (version + 1) {
+            case 1: {
+                // First major DB revision, we need to migration ignore update preferences and likely drop everything else due to the size of the changes.
+                
+                // Drop old PACKAGES and REPOS tables. We can easily recover the data with a source refresh.
+                sqlite3_exec(self->database, "DROP TABLE PACKAGES;", nil, nil, nil);
+                sqlite3_exec(self->database, "DROP TABLE REPOS;", nil, nil, nil);
+                
+                // Transfer updates from old UPDATES table to NSUserDefaults
+                sqlite3_stmt *statement;
+                const char *query = "SELECT PACKAGE FROM UPDATES WHERE IGNORE = 1;";
+                int result = sqlite3_prepare_v2(self->database, query, -1, &statement, nil);
+                if (result == SQLITE_OK) {
+                    do {
+                        result = sqlite3_step(statement);
+                        if (result == SQLITE_ROW) {
+                            const char *identifier = (const char *)sqlite3_column_text(statement, 0);
+                            if (identifier) {
+                                [ZBSettings setUpdatesIgnored:YES forPackageIdentifier:[NSString stringWithUTF8String:identifier]];
+                            }
                         }
-                    }
-                } while (result == SQLITE_ROW);
+                    } while (result == SQLITE_ROW);
+                }
+                
+                sqlite3_finalize(statement);
+                
+                // Drop old UPDATES table. Updates aren't store separately anymore.
+                sqlite3_exec(self->database, "DROP TABLE UPDATES;", nil, nil, nil);
+                
+                // Create new tables
+                [self initializePackagesTable];
+                [self initializeSourcesTable];
+                break;
             }
-            
-            sqlite3_finalize(statement);
-            
-            // Drop old UPDATES table. Updates aren't store separately anymore.
-            sqlite3_exec(self->database, "DROP TABLE UPDATES;", nil, nil, nil);
-            
-            // Create new tables
-            result = [self initializePackagesTable];
-            result = [self initializeSourcesTable];
-            
-            break;
+            case 2: {
+                if (version == 1) { // Only perform this if migration from 1 -> 2, nothing else
+                    // Had some database corruption in DBv1, so we're forcing a migration to v2 in order to get rid of all corrupted packages
+                    
+                    // Drop old packages and sources tables. We can easily recover the data with a source refresh.
+                    sqlite3_exec(self->database, "DROP TABLE packages;", nil, nil, nil);
+                    sqlite3_exec(self->database, "DROP TABLE sources;", nil, nil, nil);
+                    
+                    // Create new tables
+                    [self initializePackagesTable];
+                    [self initializeSourcesTable];
+                }
+            }
         }
-    }
+        
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastUpdated"];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastUpdatedStatusDate"];
+        [self setSchemaVersion];
+    }];
     
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastUpdated"];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastUpdatedStatusDate"];
-    [self setSchemaVersion];
-    [self endTransaction];
     [self disconnectFromDatabase];
     [self connectToDatabase];
 }
@@ -450,11 +463,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 - (void)performTransaction:(void (^)(void))transaction {
     @synchronized (self) {
-        NSLog(@"Start Transaction");
         if ([self beginTransaction] != SQLITE_OK) return;
         transaction();
         [self endTransaction];
-        NSLog(@"End Transaction");
     }
 }
 
