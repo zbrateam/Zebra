@@ -424,6 +424,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         int result = sqlite3_prepare(database, statementString, -1, &statement, NULL);
         if (result != SQLITE_OK) {
             ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        } else {
+            preparedStatements[statementType] = statement;
         }
     }
     return statement;
