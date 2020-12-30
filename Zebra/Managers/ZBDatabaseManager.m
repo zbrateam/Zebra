@@ -1409,7 +1409,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     });
     
     currentSearchBlock = searchBlock;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), databaseQueue, searchBlock);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), searchQueue, searchBlock);
 }
 
 #pragma mark - Dependency Resolution
