@@ -84,8 +84,10 @@
         [predicates addObject:sectionPredicate];
     }
     
-    NSPredicate *rolePredicate = [NSPredicate predicateWithFormat:@"role <= %d", _role];
-    [predicates addObject:rolePredicate];
+    if (_searchTerm && _searchTerm.length) {
+        NSPredicate *rolePredicate = [NSPredicate predicateWithFormat:@"role <= %d", _role];
+        [predicates addObject:rolePredicate];
+    }
 
     if (_commercial) {
         NSPredicate *commercialPredicate = [NSPredicate predicateWithFormat:@"isPaid == YES"];
