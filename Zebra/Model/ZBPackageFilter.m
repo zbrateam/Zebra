@@ -74,7 +74,7 @@
 - (NSCompoundPredicate *)compoundPredicate {
     NSMutableArray *predicates = [NSMutableArray new];
     
-    if (_searchTerm) {
+    if (_searchTerm && _searchTerm.length) {
         NSPredicate *searchPredicate = [NSPredicate predicateWithFormat:@"name contains[cd] %@", _searchTerm];
         [predicates addObject:searchPredicate];
     }

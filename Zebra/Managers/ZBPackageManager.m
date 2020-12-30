@@ -283,7 +283,7 @@
 }
 
 - (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter {
-    if (!filter || filter.searchTerm.length == 0) return packages;
+    if (!filter) return packages;
     
     NSArray *filteredPackages = [packages filteredArrayUsingPredicate:filter.compoundPredicate];
     return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
