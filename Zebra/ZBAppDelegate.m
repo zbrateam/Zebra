@@ -204,7 +204,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
     
     [self.window makeKeyAndVisible];
-//    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
+    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     return YES;
 }
