@@ -32,13 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray <NSString *> *)allVersionsOfPackage:(ZBPackage *)package;
 - (NSArray <ZBPackage *> *)allInstancesOfPackage:(ZBPackage *)package;
 - (ZBPackage *_Nullable)packageWithUniqueIdentifier:(NSString *)uuid;
-- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email;
 
 - (BOOL)canReinstallPackage:(ZBPackage *)package;
 
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
-- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
+- (void)searchForPackagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package;
 

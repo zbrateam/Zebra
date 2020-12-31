@@ -250,10 +250,6 @@
     return [databaseManager packageWithUniqueIdentifier:uuid];
 }
 
-- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email {
-    return [databaseManager packagesByAuthorWithName:name email:email];
-}
-
 - (BOOL)canReinstallPackage:(ZBPackage *)package {
     return [databaseManager isPackageAvailable:package checkVersion:YES];
 }
@@ -266,8 +262,8 @@
     [databaseManager searchForPackagesByDescription:description completion:completion];
 }
 
-- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
-    [databaseManager searchForPackagesByAuthorWithName:name completion:completion];
+- (void)searchForPackagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    [databaseManager searchForPackagesByAuthorWithName:name email:email completion:completion];
 }
 
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package {

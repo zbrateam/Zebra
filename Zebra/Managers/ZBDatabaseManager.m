@@ -47,7 +47,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeIsPackageAvailableWithVersion,
     ZBDatabaseStatementTypeSearchForPackageWithName,
     ZBDatabaseStatementTypeSearchForPackageWithDescription,
-    ZBDatabaseStatementTypeSearchForPackageByAuthor,
+    ZBDatabaseStatementTypeSearchForPackageByAuthorName,
+    ZBDatabaseStatementTypeSearchForPackageByAuthorNameAndEmail,
     ZBDatabaseStatementTypeRemovePackageWithUUID,
     ZBDatabaseStatementTypeInsertPackage,
     ZBDatabaseStatementTypeSources,
@@ -397,8 +398,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE name LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeSearchForPackageWithDescription:
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE description LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
-        case ZBDatabaseStatementTypeSearchForPackageByAuthor:
+        case ZBDatabaseStatementTypeSearchForPackageByAuthorName:
             return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName LIKE ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
+        case ZBDatabaseStatementTypeSearchForPackageByAuthorNameAndEmail:
+            return @"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName = ? AND authorEmail = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version ORDER BY p.name;";
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
@@ -627,43 +630,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_clear_bindings(statement);
     sqlite3_reset(statement);
     return installedInstance;
-}
-
-- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email {
-    sqlite3_stmt *statement;
-    const char *query;
-    if (email) {
-        query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName = ? AND authorEmail = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
-    } else {
-        query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE authorName = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
-    }
-        
-    __block int result = sqlite3_prepare_v2(database, query, -1, &statement, nil); // Since this is one of the lesser used queries, no reason to waste time pre-preparing it
-    if (result == SQLITE_OK) {
-        result = [self beginTransaction];
-        result = sqlite3_bind_text(statement, 1, name.UTF8String, -1, SQLITE_TRANSIENT);
-        if (email) result = sqlite3_bind_text(statement, 2, email.UTF8String, -1, SQLITE_TRANSIENT);
-    }
-    
-    if (result != SQLITE_OK) return NULL;
-    
-    NSMutableArray *results = [NSMutableArray new];
-    [self performTransaction:^{
-        do {
-            result = sqlite3_step(statement);
-            if (result == SQLITE_ROW) {
-                ZBBasePackage *package = [[ZBBasePackage alloc] initFromSQLiteStatement:statement];
-                
-                if (package) [results addObject:package];
-            }
-        } while (result == SQLITE_ROW);
-        
-        if (result != SQLITE_DONE) {
-            ZBLog(@"[Zebra] Failed to query packages by author with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
-        }
-    }];
-    sqlite3_finalize(statement);
-    return results;
 }
 
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
@@ -962,16 +928,20 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), searchQueue, searchBlock);
 }
 
-- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+- (void)searchForPackagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     if (currentSearchBlock) {
         dispatch_block_cancel(currentSearchBlock);
     }
     
     __block dispatch_block_t searchBlock = dispatch_block_create(0, ^{
-        sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSearchForPackageByAuthor];
+        sqlite3_stmt *statement = [self preparedStatementOfType:email
+                                ? ZBDatabaseStatementTypeSearchForPackageByAuthorNameAndEmail
+                                : ZBDatabaseStatementTypeSearchForPackageByAuthorName];
         
-        const char *filter = [NSString stringWithFormat:@"%%%@%%", name].UTF8String;
+        const char *filter = email ? name.UTF8String : [NSString stringWithFormat:@"%%%@%%", name].UTF8String;
         int result = sqlite3_bind_text(statement, 1, filter, -1, SQLITE_TRANSIENT);
+        if (result == SQLITE_OK && email)
+            result = sqlite3_bind_text(statement, 2, email.UTF8String, -1, SQLITE_TRANSIENT);
         
         NSMutableArray *packages = [NSMutableArray new];
         if (result == SQLITE_OK) {

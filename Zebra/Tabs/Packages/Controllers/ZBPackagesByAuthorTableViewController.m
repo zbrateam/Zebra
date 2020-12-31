@@ -20,7 +20,7 @@
 #import <Managers/ZBPackageManager.h>
 
 @interface ZBPackagesByAuthorTableViewController () {
-    NSArray *moreByAuthor;
+    NSArray <ZBPackage *> *moreByAuthor;
     ZBPackage *package;
 }
 @end
@@ -39,7 +39,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    moreByAuthor = [[ZBPackageManager sharedInstance] packagesByAuthorWithName:package.authorName email:package.authorEmail];
+    [[ZBPackageManager sharedInstance] searchForPackagesByAuthorWithName:package.authorName email:package.authorEmail completion:^(NSArray <ZBPackage *> *packages) {
+        self->moreByAuthor = packages;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     self.navigationItem.title = package.authorName;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
