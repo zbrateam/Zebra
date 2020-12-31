@@ -72,6 +72,11 @@
 
 #pragma mark - View Controller Lifecycle
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"ZBPackageStatusUpdate" object:nil];
+}
+
 - (void)showSpinner {
     if (!spinner) {
         spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -99,6 +104,10 @@
 }
 
 #pragma mark - Search Results Updating Protocol
+
+- (void)reloadTable {
+    [self.tableView reloadData];
+}
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *strippedString = [searchController.searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

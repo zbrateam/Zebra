@@ -56,6 +56,7 @@
         self.navigationItem.searchController = searchController;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:@"ZBPackageStatusUpdate" object:nil];
     }
     
     return self;
