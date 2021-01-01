@@ -103,8 +103,9 @@
     }
 }
 
-- (void)addDependency:(ZBPackage *)package {
-    if (![[self dependencyQueue] containsObject:package]) {
+- (BOOL)addDependency:(ZBPackage *)package {
+    BOOL ret = NO;
+    if (![queuedPackagesList containsObject:package.identifier] && ![[self dependencyQueue] containsObject:package]) {
         [queuedPackagesList addObject:[package identifier]];
         for (NSString *providedPackage in [package provides]) {
             NSArray *components = [providedPackage componentsSeparatedByString:@"("];
@@ -113,9 +114,11 @@
         }
         
         [[self dependencyQueue] addObject:package];
+        ret = YES;
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBQueueUpdate" object:nil];
     [self updateQueueBarData];
+    return ret;
 }
 
 - (void)addConflict:(ZBPackage *)package {

@@ -1402,7 +1402,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     const char *eighthSearchTerm = [[NSString stringWithFormat:@"%@ |%%", packageIdentifier] UTF8String];
     
     if (exclude) {
-        query = "SELECT * FROM PACKAGES WHERE IDENTIFIER != ? AND SOURCE != \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND REPOID > 0 LIMIT 1;";
+        query = "SELECT * FROM PACKAGES WHERE IDENTIFIER != ? AND SOURCE != \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) AND SOURCE != \'_var_lib_dpkg_status_\' LIMIT 1;";
     }
     else {
         query = "SELECT * FROM PACKAGES WHERE SOURCE != \'_var_lib_dpkg_status_\' AND (PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ? OR PROVIDES LIKE ?) LIMIT 1;";
@@ -1511,7 +1511,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (ZBPackage * _Nullable)packageForIdentifier:(NSString *)identifier thatSatisfiesComparison:(NSString * _Nullable)comparison ofVersion:(NSString * _Nullable)version includeVirtualPackages:(BOOL)checkVirtual {
     ZBPackage *package = nil;
     sqlite3_stmt *statement = NULL;
-    if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE IDENTIFIER = ? COLLATE NOCASE AND REPOID > 0 LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
+    if (sqlite3_prepare_v2(database, "SELECT * FROM PACKAGES WHERE IDENTIFIER = ? COLLATE NOCASE AND SOURCE != \'_var_lib_dpkg_status_\' LIMIT 1;", -1, &statement, nil) == SQLITE_OK) {
         sqlite3_bind_text(statement, 1, [identifier UTF8String], -1, SQLITE_TRANSIENT);
         while (sqlite3_step(statement) == SQLITE_ROW) {
             package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
@@ -1527,6 +1527,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     
     if (package != NULL) {
         NSArray *otherVersions = [self allInstancesOfPackage:package];
+        NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:NO selector:@selector(compare:)];
+        otherVersions = [otherVersions sortedArrayUsingDescriptors:@[sortDescriptor]];
+        
         if (version != NULL && comparison != NULL) {
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {
