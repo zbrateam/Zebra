@@ -148,7 +148,7 @@
             break;
         }
         case 2: {
-            [packageManager searchForPackagesByAuthorWithName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+            [packageManager searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
                 updateTable(packages);
             }];
             break;

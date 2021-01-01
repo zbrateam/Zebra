@@ -65,15 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (ZBPackage *_Nullable)installedInstanceOfPackage:(ZBPackage *)package;
 
 /*!
- @brief Get instances of packages by an author
- @discussion This array is full of ZBBasePackage instances, a ZBBasePackage instance will forward unknown selectors to a ZBPackage instance using -packageWithUniqueIdentifier: so either class behaves the same.
- @param name The author's name.
- @param email The author's email (optional).
- @return An array of instances that are created by the author
- */
-- (NSArray <ZBPackage *> *)packagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email;
-
-/*!
  @brief The latest packages imported to the database
  @param limit How many package to retrieve from the database. -1 or UINT_MAX will return all packages available.
  @return The latest packages imported to the database limited by the limit parameter.
@@ -108,7 +99,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 - (void)searchForPackagesByDescription:(NSString *)description completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
-- (void)searchForPackagesByAuthorWithName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
+- (void)searchForPackagesByAuthorWithName:(NSString *)name email:(NSString *_Nullable)email completion:(void (^)(NSArray <ZBPackage *> *packages))completion;
 
 #pragma mark - Source Retrieval
 
