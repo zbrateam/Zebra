@@ -1557,6 +1557,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     
     if (package != NULL) {
         NSArray *otherVersions = [self allInstancesOfPackage:package];
+        NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:nil ascending:NO selector:@selector(compare:)];
+        otherVersions = [otherVersions sortedArrayUsingDescriptors:@[sortDescriptor]];
+        
         if (version != NULL && comparison != NULL) {
             if ([otherVersions count] > 1) {
                 for (ZBPackage *package in otherVersions) {
