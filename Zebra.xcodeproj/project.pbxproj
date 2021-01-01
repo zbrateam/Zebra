@@ -124,7 +124,7 @@
 		896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 896F72E423723139007727FD /* GoogleService-Info.plist */; };
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
 		897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 897FFD4A23CFA4A30082DD31 /* ZBThemeManager.m */; };
-		898E010E22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m */; };
+		898E010E22480F8900BEA8E9 /* ZBSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */; };
 		898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */; };
 		8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
@@ -410,8 +410,8 @@
 		8980216A246A550A003FCD9A /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8987802D236DC49B005291EC /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89878035236DE6D7005291EC /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		898E010C22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceSectionsListTableViewController.h; sourceTree = "<group>"; };
-		898E010D22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceSectionsListTableViewController.m; sourceTree = "<group>"; };
+		898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceViewController.h; sourceTree = "<group>"; };
+		898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceViewController.m; sourceTree = "<group>"; };
 		898F4CD1246EF5E500FC577B /* ZBPackageInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageInfoController.h; sourceTree = "<group>"; };
 		898F4CD2246EFFEC00FC577B /* ZBPackageSupportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageSupportViewController.h; sourceTree = "<group>"; };
 		898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageSupportViewController.m; sourceTree = "<group>"; };
@@ -1001,8 +1001,6 @@
 				8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */,
 				363FE24D2287A1DD00B69929 /* ZBSourceAccountTableViewController.h */,
 				363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */,
-				898E010C22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.h */,
-				898E010D22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m */,
 				899BDCBA241DBB6300A2CC3A /* ZBSourceSelectTableViewController.h */,
 				899BDCBB241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m */,
 				89374958248603D700CE0520 /* ZBSourceAddViewController.h */,
@@ -1229,6 +1227,8 @@
 				89EAD0B6259F9F540061FC3C /* Views */,
 				896B2B51259FA2170082A62E /* ZBSourceListViewController.h */,
 				896B2B52259FA2170082A62E /* ZBSourceListViewController.m */,
+				898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */,
+				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1547,7 +1547,7 @@
 				363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */,
 				896F11C321B231900017B581 /* ZBSource.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
-				898E010E22480F8900BEA8E9 /* ZBSourceSectionsListTableViewController.m in Sources */,
+				898E010E22480F8900BEA8E9 /* ZBSourceViewController.m in Sources */,
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */,

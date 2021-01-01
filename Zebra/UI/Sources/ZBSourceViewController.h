@@ -1,5 +1,5 @@
 //
-//  ZBSourceSectionsListTableViewController.h
+//  ZBSourceViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 3/24/19.
@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceSectionsListTableViewController : ZBTableViewController <ZBPackageInfoController, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ZBSourceViewController : UITableViewController <ZBPackageInfoController>
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit;
 - (id)initWithPackage:(ZBPackage *)package;

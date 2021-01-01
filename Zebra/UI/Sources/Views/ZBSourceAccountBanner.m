@@ -11,7 +11,7 @@
 #import <JSONParsing/ZBSourceInfo.h>
 #import <JSONParsing/ZBUserInfo.h>
 #import <ZBAppDelegate.h>
-#import "ZBSourceSectionsListTableViewController.h"
+#import "ZBSourceViewController.h"
 
 #import <Model/ZBSource.h>
 
@@ -26,7 +26,7 @@
 @synthesize owner;
 @synthesize sourceInfo;
 
-- (id)initWithSource:(ZBSource *)source andOwner:(ZBSourceSectionsListTableViewController *)owner {
+- (id)initWithSource:(ZBSource *)source andOwner:(ZBSourceViewController *)owner {
     self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     self.owner = owner;

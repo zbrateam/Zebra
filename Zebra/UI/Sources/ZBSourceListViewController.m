@@ -13,6 +13,7 @@
 #import <Model/ZBSourceFilter.h>
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import <UI/Sources/ZBSourceViewController.h>
 
 @interface ZBSourceListViewController () {
     ZBSourceManager *sourceManager;
@@ -179,14 +180,18 @@
     }
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//
-//    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
-//    ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:package];
-//
-//    [self.navigationController pushViewController:packageVC animated:YES];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if (problems.count && indexPath.section == 0) {
+        
+    } else {
+        ZBSource *source = filterResults[indexPath.row];
+        ZBSourceViewController *sourceViewController = [[ZBSourceViewController alloc] initWithSource:source editOnly:NO];
+        
+        [self.navigationController pushViewController:sourceViewController animated:YES];
+    }
+}
 
 //- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
 //    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
