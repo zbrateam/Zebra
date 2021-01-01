@@ -10,6 +10,7 @@
 
 #import <Helpers/utils.h>
 #import <Model/ZBSource.h>
+#import <Model/ZBSourceFilter.h>
 #import <Managers/ZBDatabaseManager.h>
 #import <Managers/ZBPackageManager.h>
 #import <Downloads/ZBDownloadManager.h>
@@ -701,6 +702,13 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {
     return [databaseManager numberOfPackagesInSource:source];
+}
+
+- (NSArray<ZBSource *> *)filterSources:(NSArray<ZBSource *> *)sources withFilter:(ZBSourceFilter *)filter {
+    if (!filter) return sources;
+    
+    NSArray *filteredPackages = [sources filteredArrayUsingPredicate:filter.compoundPredicate];
+    return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
 }
 
 @end

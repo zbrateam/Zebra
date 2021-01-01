@@ -6,8 +6,9 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@class ZBSource;
 @class ZBBaseSource;
+@class ZBSource;
+@class ZBSourceFilter;
 
 #import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
@@ -94,6 +95,7 @@ extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
+- (NSArray <ZBSource *> *)filterSources:(NSArray <ZBSource *> *)sources withFilter:(ZBSourceFilter *)filter;
 @end
 
 NS_ASSUME_NONNULL_END
