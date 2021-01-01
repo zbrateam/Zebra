@@ -17,7 +17,7 @@
 #import <ZBSettings.h>
 #import <Notifications/ZBNotificationManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Controllers/ZBSourceListViewController.h>
+#import <UI/Sources/ZBSourceListViewController.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>

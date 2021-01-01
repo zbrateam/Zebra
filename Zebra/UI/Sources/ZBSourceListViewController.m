@@ -18,7 +18,7 @@
 #import <Extensions/UIAlertController+Zebra.h>
 #import <Model/ZBSource.h>
 #import <Managers/ZBSourceManager.h>
-#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 
 @interface ZBSourceListViewController () {
     UISearchController *searchController;

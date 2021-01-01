@@ -13,7 +13,7 @@
 #import <ZBSettings.h>
 #import <Database/ZBDependencyResolver.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <Model/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceImportTableViewController.h>
 

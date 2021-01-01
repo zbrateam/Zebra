@@ -1,5 +1,5 @@
 //
-//  ZBSourcesAccountBanner.h
+//  ZBSourceAccountBanner.h
 //  Zebra
 //
 //  Created by Andrew Abosh on 2020-03-21.
@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourcesAccountBanner : UIView {
+@interface ZBSourceAccountBanner : UIView {
     BOOL hideEmail;
 }
 @property (nonatomic, strong) ZBSource *source;

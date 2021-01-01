@@ -9,7 +9,7 @@
 #import "ZBSourceSectionsListTableViewController.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
-#import "ZBSourcesAccountBanner.h"
+#import "ZBSourceAccountBanner.h"
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -134,7 +134,7 @@
     }
     
     if (!editOnly && [source supportsPaymentAPI]) { // If the source supports payments/external accounts
-        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
+        ZBSourceAccountBanner *accountBanner = [[ZBSourceAccountBanner alloc] initWithSource:source andOwner:self];
         [self.view addSubview:accountBanner];
         
         accountBanner.translatesAutoresizingMaskIntoConstraints = NO;

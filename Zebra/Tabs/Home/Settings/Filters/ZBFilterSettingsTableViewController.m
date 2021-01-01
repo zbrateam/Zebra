@@ -16,7 +16,7 @@
 #import <Managers/ZBDatabaseManager.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Model/ZBPackage.h>
-#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <Model/ZBSource.h>
 #import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 #import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
