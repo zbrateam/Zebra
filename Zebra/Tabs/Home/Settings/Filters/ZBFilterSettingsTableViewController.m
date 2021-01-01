@@ -21,6 +21,7 @@
 #import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 #import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
 
+#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import "UITableView+Settings.h"

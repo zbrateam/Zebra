@@ -23,6 +23,7 @@
 
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
+#import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 

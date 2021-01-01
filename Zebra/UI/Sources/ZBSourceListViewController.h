@@ -1,23 +1,23 @@
 //
-//  ZBSourceListTableViewController.h
+//  ZBSourceListViewController.h
 //  Zebra
 //
-//  Created by Wilson Styres on 12/3/18.
-//  Copyright © 2018 Wilson Styres. All rights reserved.
+//  Created by Wilson Styres on 1/1/21.
+//  Copyright © 2021 Wilson Styres. All rights reserved.
 //
 
 @import UIKit;
 
-//#import <Database/ZBDatabaseManager.h>
-#import <Extensions/ZBRefreshableTableViewController.h>
+#import <UI/Common/Delegates/ZBFilterDelegate.h>
+
+@class ZBSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceListViewController : ZBRefreshableTableViewController <UISearchResultsUpdating, UISearchControllerDelegate> {
-    NSMutableArray <ZBSource *> *sources;
-    NSArray <ZBSource *> *filteredSources;
-}
-- (void)handleURL:(NSURL *)url;
+@interface ZBSourceListViewController : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UIViewControllerTransitioningDelegate, ZBFilterDelegate>
+@property NSArray <ZBSource *> *sources;
+#pragma mark - Initializers
+- (instancetype)initWithSources:(NSArray <ZBSource *> *)sources;
 @end
 
 NS_ASSUME_NONNULL_END
