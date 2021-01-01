@@ -356,9 +356,11 @@
 
 - (BOOL)enqueueDependency:(ZBPackage *)dependency forPackage:(ZBPackage *)package ignoreFurtherDependencies:(BOOL)ignore {
     NSLog(@"[Zebra] Adding %@ as a dependency for %@", dependency, package);
-    [package addDependency:dependency];
-    [dependency addDependencyOf:package];
-    [queue addDependency:dependency];
+    
+    if ([queue addDependency:dependency]) {
+        [package addDependency:dependency];
+        [dependency addDependencyOf:package];
+    }
     
     return ignore || [self calculateDependenciesForPackage:dependency];
 }

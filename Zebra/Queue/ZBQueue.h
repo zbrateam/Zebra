@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (UIColor * _Nullable)colorForQueueType:(ZBQueueType)queue;
 - (void)addPackage:(ZBPackage *)package toQueue:(ZBQueueType)queue;
 - (void)addPackages:(NSArray <ZBPackage *> *)packages toQueue:(ZBQueueType)queue;
-- (void)addDependency:(ZBPackage *)package;
+- (BOOL)addDependency:(ZBPackage *)package;
 - (void)addConflict:(ZBPackage *)package;
 - (void)removePackage:(ZBPackage *)package;
 - (NSArray *)tasksToPerform;
