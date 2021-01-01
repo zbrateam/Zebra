@@ -14,6 +14,7 @@
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
+#import <UI/Sources/ZBSourceFilterViewController.h>
 
 @interface ZBSourceListViewController () {
     ZBSourceManager *sourceManager;
@@ -135,13 +136,13 @@
 #pragma mark - Search Bar Delegate
 
 - (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
-//    ZBPackageFilterViewController *filter = [[ZBPackageFilterViewController alloc] initWithFilter:self.filter delegate:self];
-//
-//    UINavigationController *filterVC = [[UINavigationController alloc] initWithRootViewController:filter];
-//    filterVC.modalPresentationStyle = UIModalPresentationCustom;
-//    filterVC.transitioningDelegate = self;
-//
-//    [self presentViewController:filterVC animated:YES completion:nil];
+    ZBSourceFilterViewController *filter = [[ZBSourceFilterViewController alloc] initWithFilter:self.filter delegate:self];
+
+    UINavigationController *filterVC = [[UINavigationController alloc] initWithRootViewController:filter];
+    filterVC.modalPresentationStyle = UIModalPresentationCustom;
+    filterVC.transitioningDelegate = self;
+
+    [self presentViewController:filterVC animated:YES completion:nil];
 }
 
 #pragma mark - Table View Data Source
@@ -201,7 +202,7 @@
 #pragma mark - Presentation Controller
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
-    return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.52];
+    return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.35];
 }
 
 #pragma mark - Source Delegate

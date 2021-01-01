@@ -113,6 +113,7 @@
 		894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894893ED2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m */; };
 		894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 894894002471CF9B00E2FF97 /* ZBChangelogTableViewCell.m */; };
 		894894032471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */; };
+		894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
@@ -383,6 +384,8 @@
 		894893FF2471CF9B00E2FF97 /* ZBChangelogTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBChangelogTableViewCell.h; sourceTree = "<group>"; };
 		894894002471CF9B00E2FF97 /* ZBChangelogTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBChangelogTableViewCell.m; sourceTree = "<group>"; };
 		894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBChangelogTableViewCell.xib; sourceTree = "<group>"; };
+		894ADA22259FC17200147001 /* ZBSourceFilterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceFilterViewController.h; sourceTree = "<group>"; };
+		894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceFilterViewController.m; sourceTree = "<group>"; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
 		8958DF9D23EB9B0300A7B823 /* ZBAccentColorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAccentColorTableViewController.h; sourceTree = "<group>"; };
@@ -1229,6 +1232,8 @@
 				896B2B52259FA2170082A62E /* ZBSourceListViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */,
 				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
+				894ADA22259FC17200147001 /* ZBSourceFilterViewController.h */,
+				894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1594,6 +1599,7 @@
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.m in Sources */,
+				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
 				4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */,

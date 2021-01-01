@@ -6,8 +6,9 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "ZBFilterDelegate.h"
+@import UIKit;
+
+#import <UI/Common/Delegates/ZBFilterDelegate.h>
 #import <UI/Common/Delegates/ZBSelectionDelegate.h>
 
 @class ZBPackageFilter;
