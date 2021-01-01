@@ -80,6 +80,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"problemTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
@@ -113,6 +116,10 @@
         self.sources = [sourceManager sources];
         [self loadSources];
     }
+}
+
+- (void)refreshSources {
+    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
 #pragma mark - Filter Delegate

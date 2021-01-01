@@ -18,6 +18,11 @@
         [predicates addObject:searchPredicate];
     }
     
+    if (_stores) {
+        NSPredicate *storePredicate = [NSPredicate predicateWithFormat:@"paymentEndpointURL != NULL"];
+        [predicates addObject:storePredicate];
+    }
+    
     return [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 }
 
@@ -29,6 +34,6 @@
 }
 
 - (BOOL)isActive {
-    return (_searchTerm && _searchTerm.length);
+    return (_searchTerm && _searchTerm.length) || _stores;
 }
 @end

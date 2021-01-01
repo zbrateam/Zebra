@@ -80,7 +80,12 @@
     
     switch (indexPath.section) {
         case 0: {
+            UISwitch *storeSwitch = [[UISwitch alloc] init];
+            storeSwitch.on = self.filter.stores;
+            [storeSwitch addTarget:self action:@selector(setShowStores:) forControlEvents:UIControlEventTouchUpInside];
+            
             cell.textLabel.text = NSLocalizedString(@"Stores", @"");
+            cell.accessoryView = storeSwitch;
             break;
         }
         case 1: {
@@ -115,6 +120,11 @@
             break;
         }
     }
+}
+
+- (void)setShowStores:(UISwitch *)sender {
+    self.filter.stores = sender.on;
+    [delegate applyFilter:self.filter];
 }
 
 @end
