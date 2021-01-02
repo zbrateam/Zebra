@@ -30,6 +30,9 @@ NSString *const FilteredSectionsKey = @"FilteredSections";
 NSString *const FilteredSourcesKey = @"FilteredSources";
 NSString *const BlockedAuthorsKey = @"BlockedAuthors";
 
+NSString *const PackageFiltersKey = @"PackageFilters";
+NSString *const SourceFilterKey = @"SourceFilter";
+
 NSString *const WantsFeaturedPackagesKey = @"WantsFeaturedPackages";
 NSString *const FeaturedPackagesTypeKey = @"FeaturedPackagesType";
 NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
@@ -402,7 +405,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 
 + (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *filters = [[defaults dictionaryForKey:@"PackageFilters"] mutableCopy] ?: [NSMutableDictionary new];
+    NSMutableDictionary *filters = [[defaults dictionaryForKey:PackageFiltersKey] mutableCopy] ?: [NSMutableDictionary new];
     NSMutableDictionary *sectionFilters = [filters[source.uuid] mutableCopy] ?: [NSMutableDictionary new];
     
     if (!section) section = source.uuid;
@@ -410,7 +413,23 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     sectionFilters[section] = encodedFilter;
     filters[source.uuid] = sectionFilters;
     
-    [defaults setObject:filters forKey:@"PackageFilters"];
+    [defaults setObject:filters forKey:PackageFiltersKey];
+}
+
++ (ZBSourceFilter *)sourceFilter {
+    NSData *encodedFilter = [[NSUserDefaults standardUserDefaults] dataForKey:SourceFilterKey];
+    if (encodedFilter.length) {
+        ZBSourceFilter *filter = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFilter];
+        return filter;
+    }
+    
+    return NULL;
+}
+
++ (void)setSourceFilter:(ZBSourceFilter *)filter {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    [defaults setObject:[NSKeyedArchiver archivedDataWithRootObject:filter] forKey:SourceFilterKey];
 }
 
 #pragma mark - Homepage Settings

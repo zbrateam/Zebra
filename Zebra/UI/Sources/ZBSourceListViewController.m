@@ -17,6 +17,7 @@
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/Sources/ZBSourceFilterViewController.h>
+#import <ZBSettings.h>
 
 @interface ZBSourceListViewController () {
     ZBSourceManager *sourceManager;
@@ -231,7 +232,7 @@
     self.filter = filter;
 
     [self loadSources];
-//    [ZBSettings setFilter:self.filter forSource:self.source section:self.section];
+    [ZBSettings setSourceFilter:self.filter];
 }
 
 #pragma mark - Search Results Updating Protocol

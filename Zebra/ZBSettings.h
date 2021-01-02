@@ -9,6 +9,7 @@
 @class ZBSource;
 @class ZBPackage;
 @class ZBPackageFilter;
+@class ZBSourceFilter;
 
 @import Foundation;
 
@@ -125,6 +126,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (ZBPackageFilter *)filterForSource:(ZBSource *)source section:(NSString *)section;
 + (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section;
+
++ (ZBSourceFilter *)sourceFilter;
++ (void)setSourceFilter:(ZBSourceFilter *)filter;
 
 #pragma mark - Homepage settings
 

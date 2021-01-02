@@ -7,8 +7,42 @@
 //
 
 #import "ZBSourceFilter.h"
+#import <ZBSettings.h>
 
 @implementation ZBSourceFilter
+
+- (instancetype)init {
+    ZBSourceFilter *filter = [ZBSettings sourceFilter];
+    if (filter) return filter;
+    
+    self = [super init];
+    
+    if (self) {
+        _stores = NO;
+        _unusedSources = NO;
+        _sortOrder = ZBSourceSortOrderName;
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    
+    if (self) {
+        _stores = [decoder decodeBoolForKey:@"stores"];
+        _unusedSources = [decoder decodeBoolForKey:@"unusedSources"];
+        _sortOrder = [decoder decodeIntegerForKey:@"sortOrder"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeBool:_stores forKey:@"stores"];
+    [coder encodeBool:_unusedSources forKey:@"unusedSources"];
+    [coder encodeInteger:_sortOrder forKey:@"sortOrder"];
+}
 
 - (NSCompoundPredicate *)compoundPredicate {
     NSMutableArray *predicates = [NSMutableArray new];
