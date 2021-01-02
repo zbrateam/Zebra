@@ -518,7 +518,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (ZBPackage *)packageWithUniqueIdentifier:(NSString *)uuid {
-    
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackagesWithUUID];
     int result = sqlite3_bind_text(statement, 1, uuid.UTF8String, -1, SQLITE_TRANSIENT);
     
@@ -644,7 +643,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         statement = [self preparedStatementOfType:ZBDatabaseStatementTypeLatestPackagesWithLimit];
         result = sqlite3_bind_int(statement, 1, (int)limit);
     }
-        
+
     if (result != SQLITE_OK) return NULL;
     
     NSMutableArray *results = [NSMutableArray new];

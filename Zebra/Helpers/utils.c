@@ -19,9 +19,11 @@ void maxVersionStep(sqlite3_context *context, int argc, sqlite3_value **argv) {
     if (argc == 1) {
         char *candidateVersion = (char *)sqlite3_value_text(argv[0]);
         char *highestVersion = sqlite3_aggregate_context(context, 32);
-        
-        if ((candidateVersion != NULL && highestVersion!= NULL) && (highestVersion[0] == '\0' || compare(candidateVersion, highestVersion) > 0)) {
-            strcpy(highestVersion, candidateVersion);
+
+        if ((candidateVersion != NULL && highestVersion != NULL) &&
+            (highestVersion[0] == '\0' ||
+             compare(candidateVersion, highestVersion) > 0)) {
+          strcpy(highestVersion, candidateVersion);
         }
     }
 }
