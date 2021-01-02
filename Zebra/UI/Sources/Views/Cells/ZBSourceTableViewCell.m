@@ -39,6 +39,7 @@
 - (void)setSource:(ZBBaseSource *)source {
     self.sourceLabel.text = source.label;
     self.urlLabel.text = source.repositoryURI;
+    self.storeBadge.hidden = source.paymentEndpointURL == NULL;
     [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     if (source.errors.count) {

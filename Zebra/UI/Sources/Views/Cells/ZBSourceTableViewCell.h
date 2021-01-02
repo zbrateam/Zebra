@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *chevronView;
+@property (strong, nonatomic) IBOutlet UIImageView *storeBadge;
 
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
