@@ -207,9 +207,9 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_exec(database, query.UTF8String, nil, nil, nil);
 }
 
-- (void)migrateDatabase {
+- (void)migrateDatabase:(BOOL)force {
     int version = [self schemaVersion];
-    if (version >= DATABASE_VERSION) return;
+    if (version >= DATABASE_VERSION && !force) return;
     
     ZBLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
     
@@ -248,18 +248,16 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 [self initializeSourcesTable];
                 break;
             }
-            case 2: {
-                if (version == 1) { // Only perform this if migration from 1 -> 2, nothing else
-                    // Had some database corruption in DBv1, so we're forcing a migration to v2 in order to get rid of all corrupted packages
-                    
-                    // Drop old packages and sources tables. We can easily recover the data with a source refresh.
-                    sqlite3_exec(self->database, "DROP TABLE packages;", nil, nil, nil);
-                    sqlite3_exec(self->database, "DROP TABLE sources;", nil, nil, nil);
-                    
-                    // Create new tables
-                    [self initializePackagesTable];
-                    [self initializeSourcesTable];
-                }
+            default: {
+                // Had some database corruption in DBv1, so we're forcing a migration to version latest in order to get rid of all corrupted packages
+                
+                // Drop old packages and sources tables. We can easily recover the data with a source refresh.
+                sqlite3_exec(self->database, "DROP TABLE packages;", nil, nil, nil);
+                sqlite3_exec(self->database, "DROP TABLE sources;", nil, nil, nil);
+                
+                // Create new tables
+                [self initializePackagesTable];
+                [self initializeSourcesTable];
             }
         }
         

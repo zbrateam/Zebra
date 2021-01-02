@@ -45,7 +45,7 @@
     }];
     
     ZBLog(@"[Zebra] Beginning migration.");
-    [[ZBDatabaseManager sharedInstance] migrateDatabase];
+    [[ZBDatabaseManager sharedInstance] migrateDatabase:YES];
     ZBLog(@"[Zebra] Migration finished. Loading tab controller.");
     UIApplication.sharedApplication.keyWindow.rootViewController = [[ZBTabBarController alloc] init];
 }
