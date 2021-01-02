@@ -22,7 +22,6 @@
     NSArray <NSArray <NSString *> *> *authors;
     NSMutableDictionary <NSString *, NSString *> *selectedAuthors;
     NSMutableArray *newSelectedAuthors;
-    BOOL shouldPerformSearching;
 }
 @end
 
@@ -128,7 +127,7 @@
     if (searchTerm.length <= 1) {
         authors = @[];
     }
-    else if (self->shouldPerformSearching) {
+    else {
         NSString *strippedString = [searchTerm stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         
         if (strippedString.length <= 1) {
@@ -148,7 +147,6 @@
 #pragma mark - Search Controller Delegate
 
 - (void)didPresentSearchController:(UISearchController *)searchController {
-    self->shouldPerformSearching = NO;
     dispatch_async(dispatch_get_main_queue(), ^{
         [searchController.searchBar becomeFirstResponder];
     });
@@ -161,16 +159,12 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
-    self->shouldPerformSearching = NO;
-    
     [self updateSearchResultsForSearchController:searchController];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [searchBar resignFirstResponder];
-    
-    self->shouldPerformSearching = YES;
-    
+        
     [self updateSearchResultsForSearchController:searchController];
 }
 
