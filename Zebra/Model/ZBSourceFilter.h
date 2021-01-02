@@ -12,11 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, ZBSourceSortOrder) {
     ZBSourceSortOrderName,
+    ZBSourceSortOrderInstalledPackages,
 };
 
 @interface ZBSourceFilter : NSObject
 @property (nonatomic, nullable) NSString *searchTerm;
 @property (nonatomic) BOOL stores;
+@property (nonatomic) BOOL unusedSources;
 @property (nonatomic) ZBSourceSortOrder sortOrder;
 - (NSCompoundPredicate *)compoundPredicate;
 - (NSArray <NSSortDescriptor *> *)sortDescriptors;

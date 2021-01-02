@@ -1230,10 +1230,10 @@
 				89EAD0B6259F9F540061FC3C /* Views */,
 				896B2B51259FA2170082A62E /* ZBSourceListViewController.h */,
 				896B2B52259FA2170082A62E /* ZBSourceListViewController.m */,
-				898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */,
-				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
 				894ADA22259FC17200147001 /* ZBSourceFilterViewController.h */,
 				894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */,
+				898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */,
+				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

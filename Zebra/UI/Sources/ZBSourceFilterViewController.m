@@ -67,11 +67,11 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2; // Filter By and Sort By
+    return 1; // Filter By and Sort By
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -80,12 +80,24 @@
     
     switch (indexPath.section) {
         case 0: {
-            UISwitch *storeSwitch = [[UISwitch alloc] init];
-            storeSwitch.on = self.filter.stores;
-            [storeSwitch addTarget:self action:@selector(setShowStores:) forControlEvents:UIControlEventTouchUpInside];
-            
-            cell.textLabel.text = NSLocalizedString(@"Stores", @"");
-            cell.accessoryView = storeSwitch;
+            UISwitch *switchySwitch = [[UISwitch alloc] init]; // can't name a variable 'switch'
+            switch (indexPath.row) {
+                case 0: {
+                    switchySwitch.on = self.filter.stores;
+                    [switchySwitch addTarget:self action:@selector(setShowStores:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                    cell.textLabel.text = NSLocalizedString(@"Stores", @"");
+                    break;
+                }
+                case 1: {
+                    switchySwitch.on = self.filter.unusedSources;
+                    [switchySwitch addTarget:self action:@selector(setShowUnusedSources:) forControlEvents:UIControlEventTouchUpInside];
+                        
+                    cell.textLabel.text = NSLocalizedString(@"Unused Sources", @"");
+                    break;
+                }
+            }
+            cell.accessoryView = switchySwitch;
             break;
         }
         case 1: {
@@ -124,6 +136,11 @@
 
 - (void)setShowStores:(UISwitch *)sender {
     self.filter.stores = sender.on;
+    [delegate applyFilter:self.filter];
+}
+
+- (void)setShowUnusedSources:(UISwitch *)sender {
+    self.filter.unusedSources = sender.on;
     [delegate applyFilter:self.filter];
 }
 

@@ -34,6 +34,6 @@
 }
 
 - (BOOL)isActive {
-    return (_searchTerm && _searchTerm.length) || _stores;
+    return (_searchTerm && _searchTerm.length) || _stores || _unusedSources;
 }
 @end
