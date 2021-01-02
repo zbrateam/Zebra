@@ -49,7 +49,7 @@
 		49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49009A632471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib */; };
 		4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4902F53A246E15C6007B7E25 /* ZBLinkTableViewCell.m */; };
 		4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */; };
-		4910B3A02426BD2F00306C5C /* ZBSourcesAccountBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */; };
+		4910B3A02426BD2F00306C5C /* ZBSourceAccountBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4910B39F2426BD2F00306C5C /* ZBSourceAccountBanner.xib */; };
 		4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910B3A72426BD5C00306C5C /* ZBSourceAccountBanner.m */; };
 		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
@@ -248,7 +248,7 @@
 		4902F539246E15C6007B7E25 /* ZBLinkTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLinkTableViewCell.h; sourceTree = "<group>"; };
 		4902F53A246E15C6007B7E25 /* ZBLinkTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLinkTableViewCell.m; sourceTree = "<group>"; };
 		4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBLinkTableViewCell.xib; sourceTree = "<group>"; };
-		4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBSourcesAccountBanner.xib; sourceTree = "<group>"; };
+		4910B39F2426BD2F00306C5C /* ZBSourceAccountBanner.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBSourceAccountBanner.xib; sourceTree = "<group>"; };
 		4910B3A62426BD5C00306C5C /* ZBSourceAccountBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceAccountBanner.h; sourceTree = "<group>"; };
 		4910B3A72426BD5C00306C5C /* ZBSourceAccountBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceAccountBanner.m; sourceTree = "<group>"; };
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
@@ -1239,7 +1239,7 @@
 				89EAD0B7259F9F5A0061FC3C /* Cells */,
 				4910B3A62426BD5C00306C5C /* ZBSourceAccountBanner.h */,
 				4910B3A72426BD5C00306C5C /* ZBSourceAccountBanner.m */,
-				4910B39F2426BD2F00306C5C /* ZBSourcesAccountBanner.xib */,
+				4910B39F2426BD2F00306C5C /* ZBSourceAccountBanner.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1462,7 +1462,7 @@
 				36F77AE422A3412C00A4604C /* darkZebraSkin~ipad@2x.png in Resources */,
 				499B0E31246B945B008825E4 /* ZBInfoTableViewCell.xib in Resources */,
 				49990644247DDAA000AE75BC /* viola~ipad@3x.png in Resources */,
-				4910B3A02426BD2F00306C5C /* ZBSourcesAccountBanner.xib in Resources */,
+				4910B3A02426BD2F00306C5C /* ZBSourceAccountBanner.xib in Resources */,
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
