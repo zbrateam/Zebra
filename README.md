@@ -45,6 +45,10 @@ You must create a GitHub account to create an issue. If you do not have one, it 
 
 Pull requests to fix bugs, add new features, and fix awful code (I'm sure there is a lot) are also very welcome, and I'm happy to work with you in order to get your PR into Zebra.
 
+### Code Formatting
+
+We use `clang-format` to format our code. To ensure that your code is formatted, have it installed (One-time only) via `brew install clang-format` and then run `git clang-format`.
+
 ## Translations
 
 Zebra supports localization, but help is needed in order to translate Zebra!
