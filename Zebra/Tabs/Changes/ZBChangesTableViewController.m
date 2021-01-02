@@ -437,8 +437,11 @@
     
     if (url) {
         [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }else if (post.thumbnail != nil && ([post.thumbnail isEqualToString:@"self"] || [post.thumbnail isEqualToString:@"default"] || [post.thumbnail isEqualToString:@"nsfw"])) {
-        [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
+    } else if (post.thumbnail != nil &&
+               ([post.thumbnail isEqualToString:@"self"] ||
+                [post.thumbnail isEqualToString:@"default"] ||
+                [post.thumbnail isEqualToString:@"nsfw"])) {
+      [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
     } else {
         [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:post.thumbnail] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     }
