@@ -151,16 +151,18 @@
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector {
-    if (forwardingPackage) return forwardingPackage;
+    @synchronized (self) {
+        if (forwardingPackage) return forwardingPackage;
+            
+        ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
+        if (package) forwardingPackage = package;
         
-    ZBPackage *package = [[ZBPackageManager sharedInstance] packageWithUniqueIdentifier:self.uuid];
-    if (package) forwardingPackage = package;
-    
-    if (!forwardingPackage) {
-        [[FIRCrashlytics crashlytics] logWithFormat:@"Unable to fetch %@ for %@ (%@) v%@ from %@ (%@)", self.uuid, self.name, self.identifier, self.version, self.source.label, self.source.uuid];
+        if (!forwardingPackage) {
+            [[FIRCrashlytics crashlytics] logWithFormat:@"Unable to fetch %@ for %@ (%@) v%@ from %@ (%@)", self.uuid, self.name, self.identifier, self.version, self.source.label, self.source.uuid];
+        }
+            
+        return forwardingPackage;
     }
-        
-    return forwardingPackage; 
 }
 
 @end

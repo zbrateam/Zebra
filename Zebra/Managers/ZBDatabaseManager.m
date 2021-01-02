@@ -427,13 +427,16 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_stmt *statement = preparedStatements[statementType];
     if (!statement) {
         const char *statementString = [self statementStringForStatementType:statementType].UTF8String;
-        int result = sqlite3_prepare(database, statementString, -1, &statement, NULL);
+        int result = sqlite3_prepare_v2(database, statementString, -1, &statement, NULL);
         if (result != SQLITE_OK) {
             ZBLog(@"[Zebra] Failed to prepare sqlite statement %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
         } else {
             preparedStatements[statementType] = statement;
         }
     }
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
     return statement;
 }
 
