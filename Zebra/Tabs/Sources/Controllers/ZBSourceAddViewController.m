@@ -56,7 +56,7 @@
 - (id)initWithURL:(NSURL *)url {
     self = [self init];
     
-    if (self) {
+    if (self && url) {
         searchController.searchBar.text = [url absoluteString];
     }
     

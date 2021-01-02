@@ -8,6 +8,8 @@
 
 #import "ZBSourceListViewController.h"
 
+#import <Tabs/Sources/Controllers/ZBSourceAddViewController.h>
+
 #import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
 #import <Model/ZBSourceFilter.h>
@@ -53,12 +55,21 @@
         
         self.navigationItem.searchController = searchController;
         
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
-        
         self.filter = [[ZBSourceFilter alloc] init];
+        
+        [self registerForNotifications];
     }
     
     return self;
+}
+
+- (void)registerForNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedSource:) name:ZBAddedSourcesNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedSource:) name:ZBRemovedSourcesNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedDownloadingSource:) name:ZBStartedSourceDownloadNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedImportingSource:) name:ZBFinishedSourceImportNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
 }
 
 - (void)dealloc {
@@ -82,7 +93,11 @@
     
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+    if (sourceManager.refreshInProgress) [self.refreshControl beginRefreshing];
     
+    [self layoutNavigationButtons];
+    
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"problemTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
@@ -113,13 +128,101 @@
             });
         });
     } else { // Load sources for the first time, every other access is done by the filter and delegate methods
-        self.sources = [sourceManager sources];
-        [self loadSources];
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            self.sources = [self->sourceManager sources];
+            [self loadSources];
+        });
     }
 }
 
 - (void)refreshSources {
     [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    
+    [self layoutNavigationButtons];
+}
+
+- (void)layoutNavigationButtons {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.editing) {
+            self.navigationItem.leftBarButtonItem = self.editButtonItem;
+            
+            UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
+            UIBarButtonItem *deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(deleteSources)];
+            deleteButton.enabled = NO;
+            
+            self.navigationItem.rightBarButtonItems = @[shareButton, deleteButton];
+        } else {
+            self.navigationItem.leftBarButtonItem = self.editButtonItem;
+            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showAddSourceView)]];
+        }
+    });
+}
+
+- (void)exportSources {
+    NSMutableArray *sourcesToExport = [NSMutableArray new];
+    NSArray <NSIndexPath *> *selectedIndexes = [self.tableView indexPathsForSelectedRows];
+    @synchronized (self) {
+        if (selectedIndexes && selectedIndexes.count) {
+            for (NSIndexPath *indexPath in selectedIndexes) {
+                [sourcesToExport addObject:filterResults[indexPath.row]];
+            }
+        } else {
+            [sourcesToExport addObjectsFromArray:filterResults];
+        }
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:sourcesToExport applicationActivities:nil];
+        shareSheet.popoverPresentationController.barButtonItem = self.navigationItem.rightBarButtonItems[0];
+                    
+        [self presentViewController:shareSheet animated:YES completion:nil];
+    });
+}
+
+- (void)deleteSources {
+    NSMutableArray *sourcesToDelete = [NSMutableArray new];
+    NSArray <NSIndexPath *> *selectedIndexes = [self.tableView indexPathsForSelectedRows];
+    @synchronized (self) {
+        if (selectedIndexes && selectedIndexes.count) {
+            for (NSIndexPath *indexPath in selectedIndexes) {
+                [sourcesToDelete addObject:filterResults[indexPath.row]];
+            }
+        } else {
+            [sourcesToDelete addObjectsFromArray:filterResults];
+        }
+    }
+    
+    if (!sourcesToDelete.count) return;
+    
+    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Are you sure you want to remove %lu sources?", @""), (unsigned long)sourcesToDelete.count];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self->sourceManager removeSources:[NSSet setWithArray:sourcesToDelete] error:nil];
+    }];
+    [alert addAction:confirm];
+        
+    UIAlertAction *deny = [UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:deny];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:alert animated:YES completion:nil];
+    });
+}
+
+- (void)showAddSourceView {
+    [self showAddSourceViewWithURL:NULL];
+}
+
+- (void)showAddSourceViewWithURL:(NSURL *)url {
+    ZBSourceAddViewController *addView = [[ZBSourceAddViewController alloc] initWithURL:url];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:addView];
+    
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 #pragma mark - Filter Delegate
@@ -188,7 +291,18 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing) {
+        self.navigationItem.rightBarButtonItems[1].enabled = tableView.indexPathsForSelectedRows.count;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.editing) {
+        self.navigationItem.rightBarButtonItems[1].enabled = tableView.indexPathsForSelectedRows.count;
+        return;
+    }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
     if (problems.count && indexPath.section == 0) {
@@ -214,11 +328,52 @@
 
 #pragma mark - Source Delegate
 
-//- (void)finishedSourceRefresh {
-//    _packages = NULL;
-//    updates = NULL;
-//
-//    [self loadPackages];
-//}
+- (void)startedSourceRefresh {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isViewLoaded) {
+            [self.refreshControl beginRefreshing];
+        }
+    });
+}
+
+- (void)addedSource:(NSNotification *)notification {
+    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
+    
+    @synchronized (self) {
+        
+    }
+}
+
+- (void)removedSource:(NSNotification *)notification {
+    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
+    
+    @synchronized (self) {
+        
+    }
+}
+
+- (void)startedDownloadingSource:(NSNotification *)notification {
+    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
+    
+    @synchronized (self) {
+        
+    }
+}
+
+- (void)finishedImportingSource:(NSNotification *)notification {
+    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
+    
+    @synchronized (self) {
+        
+    }
+}
+
+- (void)finishedSourceRefresh {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isViewLoaded && self.refreshControl.isRefreshing) {
+            [self.refreshControl endRefreshing];
+        }
+    });
+}
 
 @end
