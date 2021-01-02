@@ -443,9 +443,7 @@
                 [post.thumbnail isEqualToString:@"nsfw"])) {
       [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
     } else {
-      [cell.backgroundImage
-          sd_setImageWithURL:[NSURL URLWithString:post.thumbnail]
-            placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:post.thumbnail] placeholderImage:[UIImage imageNamed:@"Unknown"]];
     }
     return cell;
 }
