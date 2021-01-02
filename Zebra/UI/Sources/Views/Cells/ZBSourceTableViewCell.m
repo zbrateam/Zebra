@@ -26,7 +26,9 @@
     self.urlLabel.textColor = [UIColor secondaryTextColor];
     self.tintColor = [UIColor accentColor];
     
-    self.iconImageView.layer.cornerRadius = 10;
+    self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
+    self.iconImageView.layer.borderWidth = 1;
+    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
     
