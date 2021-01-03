@@ -31,6 +31,7 @@
     self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
+    self.storeBadge.hidden = YES;
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     spinner.color = [UIColor grayColor];
