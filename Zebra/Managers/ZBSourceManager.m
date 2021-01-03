@@ -27,8 +27,7 @@
     
     ZBPackageManager *packageManager;
     ZBDatabaseManager *databaseManager;
-    ZBDownloadManager *downloadManager; 
-    NSMutableDictionary *busyList;
+    ZBDownloadManager *downloadManager;
     NSDictionary *pinPreferences;
 }
 @end
@@ -124,7 +123,7 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 //        });
     }
     
-    return [[sourceMap allValues] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:TRUE selector:@selector(localizedCaseInsensitiveCompare:)]]];
+    return [sourceMap allValues];
 }
 
 - (ZBSource *)sourceWithUUID:(NSString *)UUID {
@@ -418,14 +417,11 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 
 - (void)startedDownloads {
     ZBLog(@"[Zebra](ZBSourceManager) Started downloads");
-    
-    if (!busyList) busyList = [NSMutableDictionary new];
 }
 
 - (void)startedDownloadingSource:(ZBBaseSource *)source {
     ZBLog(@"[Zebra](ZBSourceManager) Started downloading %@", source);
     
-    [busyList setObject:@YES forKey:source.uuid];
     [self startedDownloadForSource:source];
 }
 
@@ -434,7 +430,7 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)finishedDownloadingSource:(ZBBaseSource *)source withError:(NSArray <NSError *> *)errors {
-    NSLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
+    ZBLog(@"[Zebra](ZBSourceManager) Finished downloading %@", source);
     
     if (source) {
         if (errors && errors.count) {
@@ -506,7 +502,7 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     }
     
     [packageManager importPackagesFromSource:baseSource];
-    [self finishedImportForSource:baseSource];
+    [self finishedImportForSource:sourceMap[baseSource.uuid] ?: baseSource];
 }
 
 - (ZBSourceColumn)columnFromString:(char *)string {
@@ -642,6 +638,7 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)startedDownloadForSource:(ZBBaseSource *)source {
+    source.busy = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceDownloadNotification object:self userInfo:@{@"source": source}];
 }
 
@@ -650,20 +647,18 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)startedImportForSource:(ZBBaseSource *)source {
-    [busyList setValue:@YES forKey:source.uuid];
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceImportNotification object:self userInfo:@{@"source": source}];
 }
 
 - (void)finishedImportForSource:(ZBBaseSource *)source {
-    [busyList setValue:@NO forKey:source.uuid];
+    source.busy = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBFinishedSourceImportNotification object:self userInfo:@{@"source": source}];
     
-    int sum = 0;
-    for (NSNumber *n in busyList.allValues) {
-        sum += [n intValue];
-        if (sum != 0) break;
+    BOOL finished = YES;
+    for (ZBBaseSource *source in self.sources) {
+        if (source.busy) finished = NO;
     }
-    if (sum == 0) [self finishedSourceRefresh];
+    if (finished) [self finishedSourceRefresh];
 }
 
 - (void)finishedSourceRefresh {
@@ -690,10 +685,6 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     // TODO: More things are probably required here
     [downloadManager stopAllDownloads];
     [self finishedSourceRefresh];
-}
-
-- (BOOL)isSourceBusy:(ZBBaseSource *)source {
-    return [[busyList objectForKey:source.uuid] boolValue];
 }
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source {

@@ -66,8 +66,8 @@
 
 - (void)registerForNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedSource:) name:ZBAddedSourcesNotification object:NULL];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedSource:) name:ZBRemovedSourcesNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedSources:) name:ZBAddedSourcesNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedSources:) name:ZBRemovedSourcesNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedDownloadingSource:) name:ZBStartedSourceDownloadNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedImportingSource:) name:ZBFinishedSourceImportNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
@@ -286,9 +286,10 @@
     if (problems.count && indexPath.section == 0) {
         cell.textLabel.text = @"I got 99 problems and they're all dependencies.";
     } else {
-        ZBSource *source = filterResults[indexPath.row];
         ZBSourceTableViewCell *sourceCell = (ZBSourceTableViewCell *)cell;
+        ZBSource *source = filterResults[indexPath.row];
         [sourceCell setSource:source];
+        [sourceCell setSpinning:source.busy];
     }
 }
 
@@ -337,35 +338,103 @@
     });
 }
 
-- (void)addedSource:(NSNotification *)notification {
-    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
-    
+- (void)addedSources:(NSNotification *)notification {
+    if (!self.isViewLoaded) return;
+
+    NSSet *sourcesToAdd = notification.userInfo[@"sources"];
+    if (!sourcesToAdd.count) return;
+
     @synchronized (self) {
+        NSMutableArray *mutableSources = self->_sources.mutableCopy;
+        [mutableSources addObjectsFromArray:sourcesToAdd.allObjects];
+        self->_sources = mutableSources;
+            
+        self->filterResults = [self->sourceManager filterSources:self->_sources withFilter:self.filter];
         
+        NSMutableArray *indexPaths = [NSMutableArray new];
+        NSUInteger section = self->problems.count ? 1 : 0;
+        for (ZBSource *source in sourcesToAdd) {
+            NSUInteger row = [self->filterResults indexOfObject:source];
+            if (row != NSNotFound) [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        });
     }
 }
 
-- (void)removedSource:(NSNotification *)notification {
-    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
-    
+- (void)removedSources:(NSNotification *)notification {
+    if (!self.isViewLoaded) return;
+
+    NSSet *sourcesToRemove = notification.userInfo[@"sources"];
+    if (!sourcesToRemove.count) return;
+
     @synchronized (self) {
+        NSMutableArray *indexPaths = [NSMutableArray new];
+        NSUInteger section = self->problems.count ? 1 : 0;
+        for (ZBSource *source in sourcesToRemove) {
+            NSUInteger row = [self->filterResults indexOfObject:source];
+            if (row != NSNotFound) [indexPaths addObject:[NSIndexPath indexPathForRow:row inSection:section]];
+        }
         
+        NSMutableArray *mutableSources = self->_sources.mutableCopy;
+        [mutableSources removeObjectsInArray:sourcesToRemove.allObjects];
+        self->_sources = mutableSources;
+        self->filterResults = [self->sourceManager filterSources:self->_sources withFilter:self.filter];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+        });
     }
 }
 
 - (void)startedDownloadingSource:(NSNotification *)notification {
-    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
+    if (!self.isViewLoaded) return;
+    
+    ZBSource *source = (ZBSource *)notification.userInfo[@"source"];
+    if (!source || !source.remote) return;
     
     @synchronized (self) {
+        NSUInteger row = [filterResults indexOfObject:source];
+        NSUInteger section = problems.count ? 1 : 0;
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
         
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        });
     }
 }
 
 - (void)finishedImportingSource:(NSNotification *)notification {
-    ZBBaseSource *source = (ZBBaseSource *)notification.userInfo[@"source"];
+    if (!self.isViewLoaded) return;
+    
+    ZBSource *source = (ZBSource *)notification.userInfo[@"source"];
+    if (!source || !source.remote) return;
     
     @synchronized (self) {
+        NSMutableArray *mutableSources = self->_sources.mutableCopy;
+        NSUInteger realIndex = [mutableSources indexOfObject:source];
+        [mutableSources replaceObjectAtIndex:realIndex withObject:source];
+        self->_sources = mutableSources;
         
+        NSUInteger section = problems.count ? 1 : 0;
+        NSUInteger beforeIndex = [self->filterResults indexOfObject:source];
+        self->filterResults = [self->sourceManager filterSources:self->_sources withFilter:self.filter];
+        NSUInteger afterIndex = [self->filterResults indexOfObject:source];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSIndexPath *beforeIndexPath = [NSIndexPath indexPathForRow:beforeIndex inSection:section];
+            if (beforeIndex != afterIndex) { // The row moved
+                NSIndexPath *afterIndexPath = [NSIndexPath indexPathForRow:afterIndex inSection:section];
+                [self.tableView beginUpdates];
+                [self.tableView deleteRowsAtIndexPaths:@[beforeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertRowsAtIndexPaths:@[afterIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView endUpdates];
+            } else { // They're in the same place :)
+                [self.tableView reloadRowsAtIndexPaths:@[beforeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        });
     }
 }
 
