@@ -10,6 +10,7 @@
 
 #import <Tabs/Sources/Controllers/ZBSourceAddViewController.h>
 
+#import <Extensions/UIColor+GlobalColors.h>
 #import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
 #import <Model/ZBSourceFilter.h>
@@ -284,7 +285,15 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (problems.count && indexPath.section == 0) {
-        cell.textLabel.text = @"I got 99 problems and they're all dependencies.";
+        cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu sources could not be fetched.", @""), (unsigned long)problems.count];
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+        cell.detailTextLabel.numberOfLines = 0;
+        cell.tintColor = [UIColor systemPinkColor];
+        if (@available(iOS 13.0, *)) { // TODO: Export SFSymbol
+            cell.imageView.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
+        }
     } else {
         ZBSourceTableViewCell *sourceCell = (ZBSourceTableViewCell *)cell;
         ZBSource *source = filterResults[indexPath.row];
