@@ -317,10 +317,34 @@
     }
 }
 
-//- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
-//    return [ZBPackageActions swipeActionsForPackage:package inTableView:tableView];
-//}
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSource *source = filterResults[indexPath.row];
+    
+    NSMutableArray *actions = [NSMutableArray new];
+    if ([source canDelete]) {
+        UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Delete", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            NSError *error = NULL;
+            [self->sourceManager removeSources:[NSSet setWithArray:@[source]] error:&error];
+            
+            completionHandler(error == NULL);
+        }];
+        if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+            deleteAction.image = [UIImage imageNamed:@"delete_left"];
+        }
+        [actions addObject:deleteAction];
+    }
+    
+    UIContextualAction *refreshAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal title:NSLocalizedString(@"Refresh", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        [self->sourceManager refreshSources:@[source] useCaching:NO error:nil];
+        completionHandler(YES);
+    }];
+    if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+        refreshAction.image = [UIImage imageNamed:@"arrow_clockwise"];
+    }
+    [actions addObject:refreshAction];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:actions];
+}
 
 #pragma mark - Presentation Controller
 
