@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - Database Migration
 
 - (BOOL)needsMigration;
-- (void)migrateDatabase;
+- (void)migrateDatabase:(BOOL)force;
 
 #pragma mark - Managing Transactions
 
