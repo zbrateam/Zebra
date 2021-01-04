@@ -149,7 +149,10 @@
 
 - (void)layoutNavigationButtons {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.editing) {
+        if (self->sourceManager.refreshInProgress) {
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self->sourceManager action:@selector(cancelSourceRefresh)]];
+        } else if (self.editing) {
             self.navigationItem.leftBarButtonItem = self.editButtonItem;
             
             UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportSources)];
@@ -366,7 +369,10 @@
 - (void)startedSourceRefresh {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.isViewLoaded) {
-            [self.refreshControl beginRefreshing];
+            [self layoutNavigationButtons];
+            if (!self.refreshControl.isRefreshing) {
+                [self.refreshControl beginRefreshing];
+            }
         }
     });
 }
@@ -476,8 +482,11 @@
 
 - (void)finishedSourceRefresh {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.isViewLoaded && self.refreshControl.isRefreshing) {
-            [self.refreshControl endRefreshing];
+        if (self.isViewLoaded) {
+            [self layoutNavigationButtons];
+            if (self.refreshControl.isRefreshing) {
+                [self.refreshControl endRefreshing];
+            }
         }
     });
 }
