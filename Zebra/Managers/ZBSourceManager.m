@@ -285,7 +285,8 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
         return;
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        [self startedSourceRefresh];
+        BOOL hidden = sources.count == 1 && sources[0].remote == NO;
+        [self startedSourceRefresh:hidden];
         self->downloadManager = [[ZBDownloadManager alloc] initWithDownloadDelegate:self];
         [self->downloadManager downloadSources:sources useCaching:useCaching];
         [self updateLastUpdated];
@@ -635,9 +636,9 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 
 #pragma mark - Source Delegate Notifiers
 
-- (void)startedSourceRefresh {
+- (void)startedSourceRefresh:(BOOL)hidden {
     refreshInProgress = YES;
-    [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceRefreshNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceRefreshNotification object:self userInfo:@{@"hidden": @(hidden)}];
 }
 
 - (void)startedDownloadForSource:(ZBBaseSource *)source {
