@@ -430,12 +430,14 @@
     
     @synchronized (self) {
         NSUInteger row = [filterResults indexOfObject:source];
-        NSUInteger section = problems.count ? 1 : 0;
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        });
+        if (row != NSNotFound) {
+            NSUInteger section = problems.count ? 1 : 0;
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
+        }
     }
 }
 
@@ -455,14 +457,15 @@
         NSUInteger beforeIndex = [self->filterResults indexOfObject:source];
         self->filterResults = [self->sourceManager filterSources:self->_sources withFilter:self.filter];
         NSUInteger afterIndex = [self->filterResults indexOfObject:source];
+        if (beforeIndex == NSNotFound && afterIndex == NSNotFound) return;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSIndexPath *beforeIndexPath = [NSIndexPath indexPathForRow:beforeIndex inSection:section];
             if (beforeIndex != afterIndex) { // The row moved
                 NSIndexPath *afterIndexPath = [NSIndexPath indexPathForRow:afterIndex inSection:section];
                 [self.tableView beginUpdates];
-                [self.tableView deleteRowsAtIndexPaths:@[beforeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-                [self.tableView insertRowsAtIndexPaths:@[afterIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                if (beforeIndex != NSNotFound) [self.tableView deleteRowsAtIndexPaths:@[beforeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                if (afterIndex != NSNotFound) [self.tableView insertRowsAtIndexPaths:@[afterIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 [self.tableView endUpdates];
             } else { // They're in the same place :)
                 [self.tableView reloadRowsAtIndexPaths:@[beforeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
