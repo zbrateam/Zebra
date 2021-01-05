@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,7 +24,7 @@
                         </constraints>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="HHL-mE-96S">
-                        <rect key="frame" x="62" y="12" width="302" height="35"/>
+                        <rect key="frame" x="62" y="12" width="188" height="35"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Source Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DG1-gF-WiI">
                                 <rect key="frame" x="0.0" y="0.0" width="107" height="19.5"/>
@@ -43,25 +43,40 @@
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="zyi-dc-KAR"/>
                         </constraints>
                     </stackView>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Store" translatesAutoresizingMaskIntoConstraints="NO" id="TiM-eV-Ro7">
-                        <rect key="frame" x="369" y="22" width="14" height="14"/>
-                    </imageView>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="LFZ-2d-gJ4" userLabel="Stack View 2">
+                        <rect key="frame" x="255" y="12" width="131" height="35"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Store" translatesAutoresizingMaskIntoConstraints="NO" id="TiM-eV-Ro7">
+                                <rect key="frame" x="0.0" y="0.0" width="14" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="sHp-dH-z6V"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Installed Packages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJj-5z-GPd" userLabel="Installed Packages Label">
+                                <rect key="frame" x="18" y="9.5" width="113" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="LW2-RG-aUM"/>
+                        </constraints>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="TiM-eV-Ro7" secondAttribute="trailing" constant="-6" id="1ko-nS-1jF"/>
-                    <constraint firstItem="TiM-eV-Ro7" firstAttribute="centerY" secondItem="HHL-mE-96S" secondAttribute="centerY" id="ES4-z6-brW"/>
+                    <constraint firstItem="LFZ-2d-gJ4" firstAttribute="leading" secondItem="HHL-mE-96S" secondAttribute="trailing" constant="5" id="16e-qu-sXL"/>
+                    <constraint firstItem="LFZ-2d-gJ4" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="top" constant="12" id="7uC-KL-JxQ"/>
+                    <constraint firstItem="LFZ-2d-gJ4" firstAttribute="centerY" secondItem="xDS-c2-OkW" secondAttribute="centerY" id="GJf-4V-gHL"/>
                     <constraint firstItem="lz1-B6-foX" firstAttribute="leading" secondItem="xDS-c2-OkW" secondAttribute="leadingMargin" id="JgW-E1-WDf"/>
                     <constraint firstAttribute="bottom" secondItem="HHL-mE-96S" secondAttribute="bottom" constant="12" id="Sua-pY-gh0"/>
-                    <constraint firstItem="TiM-eV-Ro7" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="topMargin" constant="11" id="Vpf-kl-kB9"/>
-                    <constraint firstItem="TiM-eV-Ro7" firstAttribute="leading" secondItem="HHL-mE-96S" secondAttribute="trailing" constant="5" id="XEu-ah-ttD"/>
+                    <constraint firstAttribute="trailing" secondItem="LFZ-2d-gJ4" secondAttribute="trailing" constant="3" id="Tdn-K8-hBA"/>
                     <constraint firstItem="lz1-B6-foX" firstAttribute="centerY" secondItem="xDS-c2-OkW" secondAttribute="centerY" id="XIX-Hg-hfl"/>
                     <constraint firstItem="HHL-mE-96S" firstAttribute="leading" secondItem="lz1-B6-foX" secondAttribute="trailing" constant="12" id="ge3-Xq-ymp"/>
                     <constraint firstItem="HHL-mE-96S" firstAttribute="top" secondItem="xDS-c2-OkW" secondAttribute="top" constant="12" id="mTd-AP-Cz4"/>
-                    <constraint firstAttribute="trailing" secondItem="HHL-mE-96S" secondAttribute="trailing" constant="25" id="zgC-PO-Xet"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="iconImageView" destination="lz1-B6-foX" id="7Sf-VX-ilL"/>
+                <outlet property="installedPackagesLabel" destination="FJj-5z-GPd" id="M9P-lp-s2A"/>
                 <outlet property="sourceLabel" destination="DG1-gF-WiI" id="YLP-dE-6fb"/>
                 <outlet property="storeBadge" destination="TiM-eV-Ro7" id="qIw-tI-g8H"/>
                 <outlet property="urlLabel" destination="qvT-B5-ng0" id="qZh-Hg-bWL"/>

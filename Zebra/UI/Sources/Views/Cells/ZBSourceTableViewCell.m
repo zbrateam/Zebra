@@ -24,6 +24,7 @@
     self.backgroundColor = [UIColor cellBackgroundColor];
     self.sourceLabel.textColor = [UIColor primaryTextColor];
     self.urlLabel.textColor = [UIColor secondaryTextColor];
+    self.installedPackagesLabel.textColor = [UIColor secondaryTextColor];
     self.tintColor = [UIColor accentColor];
     
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
@@ -32,6 +33,7 @@
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
     self.storeBadge.hidden = YES;
+    self.installedPackagesLabel.hidden = YES;
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     spinner.color = [UIColor grayColor];
@@ -41,6 +43,15 @@
     self.sourceLabel.text = source.label;
     self.urlLabel.text = source.repositoryURI;
     self.storeBadge.hidden = source.paymentEndpointURL == NULL;
+
+    NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
+    if (numberOfInstalledPackages > 0) {
+        self.installedPackagesLabel.text = [@(numberOfInstalledPackages) stringValue];
+        self.installedPackagesLabel.hidden = NO;
+    } else {
+        self.installedPackagesLabel.hidden = YES;
+    }
+
     [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     if (source.errors.count) {
