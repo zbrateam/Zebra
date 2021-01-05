@@ -23,12 +23,13 @@
 @import UIKit.UIDevice;
 
 @interface ZBSourceManager () {
+    NSMutableDictionary *busyList;
+    NSDictionary *pinPreferences;
     NSDictionary *sourceMap;
     
     ZBPackageManager *packageManager;
     ZBDatabaseManager *databaseManager;
     ZBDownloadManager *downloadManager;
-    NSDictionary *pinPreferences;
 }
 @end
 
@@ -283,6 +284,13 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 - (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
+    
+    if (!busyList) busyList = [NSMutableDictionary new];
+    else [busyList removeAllObjects];
+    
+    for (ZBBaseSource *source in sources) {
+        busyList[source.uuid] = @YES;
+    }
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         [self startedSourceRefresh];
@@ -638,7 +646,6 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)startedDownloadForSource:(ZBBaseSource *)source {
-    source.busy = YES;
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBStartedSourceDownloadNotification object:self userInfo:@{@"source": source}];
 }
 
@@ -651,14 +658,20 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)finishedImportForSource:(ZBBaseSource *)source {
-    source.busy = NO;
+    busyList[source.uuid] = @NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBFinishedSourceImportNotification object:self userInfo:@{@"source": source}];
     
-    BOOL finished = YES;
-    for (ZBBaseSource *source in self.sources) {
-        if (source.busy) finished = NO;
+    @synchronized (busyList) {
+        __block BOOL finished = YES;
+        [busyList enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+            BOOL busy = [obj boolValue];
+            if (busy) {
+                finished = NO;
+                *stop = YES;
+            }
+        }];
+        if (finished) [self finishedSourceRefresh];
     }
-    if (finished) [self finishedSourceRefresh];
 }
 
 - (void)finishedSourceRefresh {
@@ -700,6 +713,12 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     
     NSArray *filteredPackages = [sources filteredArrayUsingPredicate:filter.compoundPredicate];
     return [filteredPackages sortedArrayUsingDescriptors:filter.sortDescriptors];
+}
+
+- (BOOL)isSourceBusy:(ZBBaseSource *)source {
+    if (!source.uuid) return NO;
+    
+    return [busyList[source.uuid] boolValue];
 }
 
 @end

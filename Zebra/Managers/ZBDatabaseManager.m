@@ -784,7 +784,6 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         int result = SQLITE_OK;
         do {
             result = sqlite3_step(statement);
-            NSLog(@"result: %d", result);
             if (result == SQLITE_ROW) {
                 const char *identifier = (const char *)sqlite3_column_text(statement, 0);
                 const char *source = (const char *)sqlite3_column_text(statement, 1);

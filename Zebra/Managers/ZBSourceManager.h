@@ -94,6 +94,7 @@ extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
 - (NSArray <ZBSource *> *)filterSources:(NSArray <ZBSource *> *)sources withFilter:(ZBSourceFilter *)filter;
+- (BOOL)isSourceBusy:(ZBBaseSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -120,8 +120,6 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 /*! @brief errors (indicating a failure) that might have occured when downloading or parsing the source */
 @property (nonatomic) NSArray * _Nullable errors;
 
-@property (nonatomic) BOOL busy;
-
 + (NSSet <ZBBaseSource *> *)baseSourcesFromURLs:(NSArray *)URLs;
 + (NSSet <ZBBaseSource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **)error;
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components; 
@@ -143,6 +141,7 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 - (NSArray <NSString *> *)lists;
 - (NSUInteger)numberOfPackages;
 - (NSUInteger)numberOfInstalledPackages;
+- (BOOL)busy;
 @end
 
 NS_ASSUME_NONNULL_END
