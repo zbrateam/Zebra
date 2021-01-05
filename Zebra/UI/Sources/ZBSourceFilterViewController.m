@@ -68,7 +68,7 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1; // Filter By and Sort By
+    return 2; // Filter By and Sort By
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -106,6 +106,9 @@
                 case 0:
                     cell.textLabel.text = NSLocalizedString(@"Source Name", @"");
                     break;
+                case 1:
+                    cell.textLabel.text = NSLocalizedString(@"Installed Packages", @"");
+                    break;
             }
             if (self.filter.sortOrder == indexPath.row) cell.accessoryType = UITableViewCellAccessoryCheckmark;
             break;
@@ -116,8 +119,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return NULL;
-//    return section == 0 ? NSLocalizedString(@"Filter By", @"") : NSLocalizedString(@"Sort By", @"");
+    return section == 0 ? NSLocalizedString(@"Filter By", @"") : NSLocalizedString(@"Sort By", @"");
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

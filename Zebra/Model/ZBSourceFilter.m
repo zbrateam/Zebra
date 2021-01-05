@@ -68,6 +68,10 @@
 - (NSArray <NSSortDescriptor *> *)sortDescriptors {
     NSMutableArray *descriptors = [NSMutableArray new];
     
+    if (_sortOrder == ZBSourceSortOrderInstalledPackages) {
+        [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"numberOfInstalledPackages" ascending:NO selector:@selector(compare:)]];
+    }
+    
     [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
     return descriptors;
 }
