@@ -57,6 +57,11 @@
         [predicates addObject:storePredicate];
     }
     
+    if (_unusedSources) {
+        NSPredicate *unusedSourcesPredicate = [NSPredicate predicateWithFormat:@"numberOfInstalledPackages == 0"];
+        [predicates addObject:unusedSourcesPredicate];
+    }
+
     return [NSCompoundPredicate andPredicateWithSubpredicates:predicates];
 }
 

@@ -28,6 +28,7 @@
 
 @synthesize installedPackagesList = _installedPackagesList;
 @synthesize virtualPackagesList = _virtualPackagesList;
+@synthesize installedPackages = _installedPackages;
 @synthesize updates = _updates;
 
 + (instancetype)sharedInstance {
@@ -82,6 +83,14 @@
     }
     
     return _virtualPackagesList;
+}
+
+- (NSDictionary *)installedPackages {
+    if (!_installedPackages) {
+        _installedPackages = [databaseManager installedPackages];
+    }
+
+    return _installedPackages;
 }
 
 - (NSArray <ZBPackage *> *)updates {
@@ -289,6 +298,10 @@
     return [databaseManager remoteInstanceOfPackage:package withVersion:version];
 }
 
+- (NSUInteger)numberOfInstalledPackagesFromSource:(ZBSource *)source {
+    return [self.installedPackages.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF like %@", source.uuid]].count;
+}
+
 #pragma mark - Source Delegate
 
 - (void)finishedImportForSource:(NSNotification *)notification {
@@ -300,6 +313,7 @@
 
 - (void)finishedSourceRefresh {
     _updates = [databaseManager updatesForPackageList:self.installedPackagesList];
+    _installedPackages = [databaseManager installedPackages];
 }
 
 @end
