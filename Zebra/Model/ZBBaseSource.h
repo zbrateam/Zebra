@@ -140,6 +140,8 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 - (BOOL)exists;
 - (NSArray <NSString *> *)lists;
 - (NSUInteger)numberOfPackages;
+- (NSUInteger)numberOfInstalledPackages;
+- (BOOL)busy;
 @end
 
 NS_ASSUME_NONNULL_END

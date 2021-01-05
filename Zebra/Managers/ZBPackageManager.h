@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBPackageManager : NSObject
 @property (readonly) NSDictionary <NSString *,NSString *> *installedPackagesList;
 @property (readonly) NSDictionary <NSString *,NSString *> *virtualPackagesList;
+@property (readonly) NSDictionary <NSString *,NSString *> *installedPackages;
 @property (readonly) NSArray <ZBPackage *> *updates;
 + (instancetype)sharedInstance;
 - (BOOL)isPackageInstalled:(ZBBasePackage *)package;
@@ -42,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)installedVersionOfPackage:(ZBPackage *)package;
 
 - (NSArray <ZBPackage *> *)filterPackages:(NSArray <ZBPackage *> *)packages withFilter:(ZBPackageFilter *)filter;
+
+- (NSUInteger)numberOfInstalledPackagesFromSource:(ZBSource *)source;
 
 @end
 

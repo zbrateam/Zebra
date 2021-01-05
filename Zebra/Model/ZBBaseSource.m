@@ -475,4 +475,12 @@ NSString *const ZBSourceErrorDomain = @"xyz.willy.Zebra.sources";
     return 0;
 }
 
+- (NSUInteger)numberOfInstalledPackages {
+    return 0;
+}
+
+- (BOOL)busy {
+    return [[ZBSourceManager sharedInstance] isSourceBusy:self];
+}
+
 @end

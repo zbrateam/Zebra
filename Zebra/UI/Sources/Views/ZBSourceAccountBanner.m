@@ -1,32 +1,32 @@
 //
-//  ZBSourcesAccountBanner.m
+//  ZBSourceAccountBanner.m
 //  Zebra
 //
 //  Created by Andrew Abosh on 2020-03-21.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourcesAccountBanner.h"
+#import "ZBSourceAccountBanner.h"
 #import "UIColor+GlobalColors.h"
 #import <JSONParsing/ZBSourceInfo.h>
 #import <JSONParsing/ZBUserInfo.h>
 #import <ZBAppDelegate.h>
-#import "ZBSourceSectionsListTableViewController.h"
+#import "ZBSourceViewController.h"
 
 #import <Model/ZBSource.h>
 
-@interface ZBSourcesAccountBanner () {
+@interface ZBSourceAccountBanner () {
     BOOL hideUDID;
 }
 @end
 
-@implementation ZBSourcesAccountBanner
+@implementation ZBSourceAccountBanner
 
 @synthesize source;
 @synthesize owner;
 @synthesize sourceInfo;
 
-- (id)initWithSource:(ZBSource *)source andOwner:(ZBSourceSectionsListTableViewController *)owner {
+- (id)initWithSource:(ZBSource *)source andOwner:(ZBSourceViewController *)owner {
     self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     self.owner = owner;

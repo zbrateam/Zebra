@@ -1,15 +1,15 @@
 //
-//  ZBSourceSectionsListTableViewController.m
+//  ZBSourceViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 3/24/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceSectionsListTableViewController.h"
+#import "ZBSourceViewController.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBFeaturedCollectionViewCell.h"
-#import "ZBSourcesAccountBanner.h"
+#import "ZBSourceAccountBanner.h"
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -24,12 +24,11 @@
 
 @import SDWebImage;
 
-@interface ZBSourceSectionsListTableViewController () {
+@interface ZBSourceViewController () {
     CGSize bannerSize;
     UICKeyChainStore *keychain;
     BOOL editOnly;
 }
-@property (nonatomic, strong) IBOutlet UICollectionView *featuredCollection;
 @property (nonatomic, strong) NSArray *featuredPackages;
 @property (nonatomic, strong) NSArray *sectionNames;
 @property (nonatomic, strong) NSMutableArray *filteredSections;
@@ -37,7 +36,7 @@
 @property (nonatomic, weak) ZBPackageListViewController *previewPackageListVC;
 @end
 
-@implementation ZBSourceSectionsListTableViewController
+@implementation ZBSourceViewController
 
 @synthesize source;
 @synthesize sectionNames;
@@ -47,8 +46,7 @@
 #pragma mark - Initializers
 
 - (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self = [storyboard instantiateViewControllerWithIdentifier:@"sourceSectionsController"];
+    self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
         self.source = source;
@@ -83,6 +81,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     
     sectionReadout = source.sections;
     sectionNames = [[sectionReadout allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1, NSString *obj2) {
@@ -124,17 +125,15 @@
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     
     if (!editOnly) {
-        [self.featuredCollection registerNib:[UINib nibWithNibName:@"ZBFeaturedCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"imageCell"];
         [self checkFeaturedPackages];
     }
     else {
-        [self.featuredCollection removeFromSuperview];
         self.tableView.tableHeaderView = nil;
         [self.tableView layoutIfNeeded];
     }
     
     if (!editOnly && [source supportsPaymentAPI]) { // If the source supports payments/external accounts
-        ZBSourcesAccountBanner *accountBanner = [[ZBSourcesAccountBanner alloc] initWithSource:source andOwner:self];
+        ZBSourceAccountBanner *accountBanner = [[ZBSourceAccountBanner alloc] initWithSource:source andOwner:self];
         [self.view addSubview:accountBanner];
         
         accountBanner.translatesAutoresizingMaskIntoConstraints = NO;
@@ -200,45 +199,44 @@
 }
 
 - (void)checkFeaturedPackages {
-    [self.featuredCollection removeFromSuperview];
-    self.tableView.tableHeaderView = nil;
-    [self.tableView layoutIfNeeded];
-    
-    [source getFeaturedPackages:^(NSDictionary * _Nullable featuredPackages) {
-        NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
-        if (featuredPackages) {
-            NSArray *banners = featuredPackages[@"banners"];
-            self->bannerSize = CGSizeFromString(featuredPackages[@"itemSize"]);
-            self.featuredPackages = banners;
-            
-            [featuredItems setObject:banners forKey:[self->source uuid]];
-            [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self setupFeaturedPackages];
-            });
-        }
-    }];
+//    self.tableView.tableHeaderView = nil;
+//    [self.tableView layoutIfNeeded];
+//
+//    [source getFeaturedPackages:^(NSDictionary * _Nullable featuredPackages) {
+//        NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
+//        if (featuredPackages) {
+//            NSArray *banners = featuredPackages[@"banners"];
+//            self->bannerSize = CGSizeFromString(featuredPackages[@"itemSize"]);
+//            self.featuredPackages = banners;
+//
+//            [featuredItems setObject:banners forKey:[self->source uuid]];
+//            [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+//
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self setupFeaturedPackages];
+//            });
+//        }
+//    }];
 }
 
-- (void)setupFeaturedPackages {
-    [self.tableView beginUpdates];
-    self.tableView.tableHeaderView = self.featuredCollection;
-    self.tableView.tableHeaderView.frame = CGRectZero;
-    self.featuredCollection.delegate = self;
-    self.featuredCollection.dataSource = self;
-    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
-    self.featuredCollection.backgroundColor = [UIColor clearColor];
-    // self.featuredCollection.collectionViewLayout.collectionViewContentSize.height = height;
-    /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ // objective c
-    // [self.featuredCollection setNeedsLayout];
-    // [self.featuredCollection reloadData];
-    [UIView animateWithDuration:.25f animations:^{
-        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 30);
-    }];
-    [self.tableView endUpdates];
-    // [self.tableView reloadData];
-}
+//- (void)setupFeaturedPackages {
+//    [self.tableView beginUpdates];
+//    self.tableView.tableHeaderView = self.featuredCollection;
+//    self.tableView.tableHeaderView.frame = CGRectZero;
+//    self.featuredCollection.delegate = self;
+//    self.featuredCollection.dataSource = self;
+//    [self.featuredCollection setContentInset:UIEdgeInsetsMake(0.f, 15.f, 0.f, 15.f)];
+//    self.featuredCollection.backgroundColor = [UIColor clearColor];
+//    // self.featuredCollection.collectionViewLayout.collectionViewContentSize.height = height;
+//    /*self.featuredCollection.frame = CGRectMake (self.featuredCollection.frame.origin.x,self.featuredCollection.frame.origin.y,self.featuredCollection.frame.size.width,height);*/ // objective c
+//    // [self.featuredCollection setNeedsLayout];
+//    // [self.featuredCollection reloadData];
+//    [UIView animateWithDuration:.25f animations:^{
+//        self.tableView.tableHeaderView.frame = CGRectMake(self.featuredCollection.frame.origin.x, self.featuredCollection.frame.origin.y, self.featuredCollection.frame.size.width, self->bannerSize.height + 30);
+//    }];
+//    [self.tableView endUpdates];
+//    // [self.tableView reloadData];
+//}
 
 #pragma mark - Table view data source
 
@@ -255,17 +253,18 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceSectionCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceSectionCell"];
+    if (!cell) cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"sourceSectionCell"];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
     numberFormatter.locale = [NSLocale currentLocale];
     numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
     numberFormatter.usesGroupingSeparator = YES;
-    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-    cell.selectedBackgroundView.backgroundColor = [UIColor cellSelectedBackgroundColor];
     
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"All Packages", @"");
+        cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightSemibold];
         cell.detailTextLabel.text = [numberFormatter stringFromNumber:(NSNumber *)[sectionReadout.allValues valueForKeyPath:@"@sum.self"]];
         cell.imageView.image = NULL;
     } else {
@@ -334,32 +333,32 @@
     return @[refresh];
 }
 
-#pragma mark UICollectionView delegates
-- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
-    NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
-    [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    cell.packageID = currentBanner[@"package"];
-    [cell.titleLabel setText:currentBanner[@"title"]];
-    
-    // dispatch_async(dispatch_get_main_queue(), ^{
-//        if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
-//            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
-//        }
-    // });
-    
-    return cell;
-}
+//#pragma mark UICollectionView delegates
+//- (ZBFeaturedCollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+//    ZBFeaturedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"imageCell" forIndexPath:indexPath];
+//    NSDictionary *currentBanner = [self.featuredPackages objectAtIndex:indexPath.row];
+//    [cell.imageView sd_setImageWithURL:currentBanner[@"url"] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//    cell.packageID = currentBanner[@"package"];
+//    [cell.titleLabel setText:currentBanner[@"title"]];
+//
+//    // dispatch_async(dispatch_get_main_queue(), ^{
+////        if ([[self.fullJSON objectForKey:@"itemCornerRadius"] doubleValue]) {
+////            cell.layer.cornerRadius = [self->_fullJSON[@"itemCornerRadius"] doubleValue];
+////        }
+//    // });
+//
+//    return cell;
+//}
 
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return _featuredPackages.count;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return bannerSize;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+//- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+//    return _featuredPackages.count;
+//}
+//
+//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+//    return bannerSize;
+//}
+//
+//- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 //    self.editing = NO;
 //    ZBFeaturedCollectionViewCell *cell = (ZBFeaturedCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
 //    ZBPackage *package = [[ZBDatabaseManager sharedInstance] topVersionForPackageID:cell.packageID];
@@ -368,7 +367,7 @@
 //        ZBPackageViewController *packageDepiction = [[ZBPackageViewController alloc] initWithPackage:package];
 //        [[self navigationController] pushViewController:packageDepiction animated:YES];
 //    }
-}
+//}
 
 //- (UIContextMenuConfiguration *)tableView:(UITableView *)tableView contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath point:(CGPoint)point API_AVAILABLE(ios(13.0)){
 //    typeof(self) __weak weakSelf = self;
@@ -390,12 +389,12 @@
 //    }];
 //}
 
-- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
-    typeof(self) __weak weakSelf = self;
-    [animator addCompletion:^{
-        [weakSelf.navigationController pushViewController:weakSelf.previewPackageListVC animated:YES];
-    }];
-}
+//- (void)tableView:(UITableView *)tableView willPerformPreviewActionForMenuWithConfiguration:(UIContextMenuConfiguration *)configuration animator:(id<UIContextMenuInteractionCommitAnimating>)animator API_AVAILABLE(ios(13.0)){
+//    typeof(self) __weak weakSelf = self;
+//    [animator addCompletion:^{
+//        [weakSelf.navigationController pushViewController:weakSelf.previewPackageListVC animated:YES];
+//    }];
+//}
 
 //- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
 //    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
@@ -415,8 +414,8 @@
 //    return packageListVC;
 //}
 
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
-}
+//- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+//    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+//}
 
 @end

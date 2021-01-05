@@ -9,6 +9,7 @@
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBSource.h>
+#import <Model/ZBSourceFilter.h>
 @import SDWebImage;
 
 @interface ZBSourceTableViewCell () {
@@ -24,19 +25,38 @@
     self.backgroundColor = [UIColor cellBackgroundColor];
     self.sourceLabel.textColor = [UIColor primaryTextColor];
     self.urlLabel.textColor = [UIColor secondaryTextColor];
+    self.installedPackagesLabel.textColor = [UIColor secondaryTextColor];
     self.tintColor = [UIColor accentColor];
     
-    self.iconImageView.layer.cornerRadius = 10;
+    self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
+    self.iconImageView.layer.borderWidth = 1;
+    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
     self.chevronView = (UIImageView *)(self.accessoryView);
+    self.storeBadge.hidden = YES;
+    self.installedPackagesLabel.hidden = YES;
     
     spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
     spinner.color = [UIColor grayColor];
 }
 
-- (void)setSource:(ZBBaseSource *)source {
+- (void)setSource:(ZBBaseSource *)source withFilter:(ZBSourceFilter *)filter {
     self.sourceLabel.text = source.label;
     self.urlLabel.text = source.repositoryURI;
+    self.storeBadge.hidden = source.paymentEndpointURL == NULL;
+
+    if ([ZBSettings wantsInstalledPackagesCount] || filter.sortOrder == ZBSourceSortOrderInstalledPackages) {
+        NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
+        if (numberOfInstalledPackages > 0) {
+            self.installedPackagesLabel.text = [@(numberOfInstalledPackages) stringValue];
+            self.installedPackagesLabel.hidden = NO;
+        } else {
+            self.installedPackagesLabel.hidden = YES;
+        }
+    } else {
+        self.installedPackagesLabel.hidden = YES;
+    }
+
     [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     
     if (source.errors.count) {

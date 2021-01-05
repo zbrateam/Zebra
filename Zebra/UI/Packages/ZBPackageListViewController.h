@@ -8,7 +8,7 @@
 
 @import UIKit;
 
-#import "ZBFilterDelegate.h"
+#import <UI/Common/Delegates/ZBFilterDelegate.h>
 
 @class ZBSource;
 @class ZBPackage;

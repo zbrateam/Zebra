@@ -9,6 +9,7 @@
 @class ZBSource;
 @class ZBPackage;
 @class ZBPackageFilter;
+@class ZBSourceFilter;
 
 @import Foundation;
 
@@ -126,6 +127,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBPackageFilter *)filterForSource:(ZBSource *)source section:(NSString *)section;
 + (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section;
 
++ (ZBSourceFilter *)sourceFilter;
++ (void)setSourceFilter:(ZBSourceFilter *)filter;
+
 #pragma mark - Homepage settings
 
 + (BOOL)wantsFeaturedPackages;
@@ -145,6 +149,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSInteger)sourceRefreshTimeoutIndex;
 + (NSTimeInterval)sourceRefreshTimeout;
 + (void)setSourceRefreshTimeout:(NSNumber *)time;
+
++ (BOOL)wantsInstalledPackagesCount;
++ (void)setWantsInstalledPackagesCount:(BOOL)wantsInstalledPackagesCount;
 
 #pragma mark - Changes Settings
 

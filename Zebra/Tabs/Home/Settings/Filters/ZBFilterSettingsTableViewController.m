@@ -14,13 +14,15 @@
 #import "ZBButtonSettingsTableViewCell.h"
 
 #import <Managers/ZBDatabaseManager.h>
-#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Model/ZBPackage.h>
-#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
 #import <Model/ZBSource.h>
-#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
-#import <Tabs/Sources/Controllers/ZBSourceSectionsListTableViewController.h>
+#import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import <UI/Sources/ZBSourceViewController.h>
 
+#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
+
+#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import "UITableView+Settings.h"
@@ -259,7 +261,7 @@
         }
         case 1: {
             if (!lastRow) {
-                ZBSourceSectionsListTableViewController *sections = [[ZBSourceSectionsListTableViewController alloc] initWithSource:sources[indexPath.row] editOnly:YES];
+                ZBSourceViewController *sections = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row] editOnly:YES];
                 
                 [[self navigationController] pushViewController:sections animated:YES];
             }

@@ -8,13 +8,13 @@
 
 #import "ZBTabBarController.h"
 
-#import <UI/Packages/ZBPackageListViewController.h>
+#import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
+#import <UI/Packages/ZBPackageListViewController.h>
+#import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
 
 #import "ZBTab.h"
-#import <Managers/ZBSourceManager.h>
-#import "Sources/Controllers/ZBSourceListViewController.h"
 //#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>

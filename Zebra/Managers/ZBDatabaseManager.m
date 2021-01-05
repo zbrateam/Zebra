@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeSearchAuthorsByName,
     ZBDatabaseStatementTypeSectionReadout,
     ZBDatabaseStatementTypePackagesInSourceCount,
+    ZBDatabaseStatementTypeInstalledPackages,
     ZBDatabaseStatementTypeCount
 };
 
@@ -416,6 +417,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
         case ZBDatabaseStatementTypePackagesInSourceCount:
             return @"SELECT COUNT(*) FROM (SELECT DISTINCT identifier FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY IDENTIFIER);";
+        case ZBDatabaseStatementTypeInstalledPackages:
+            return @"SELECT p.identifier, p.source FROM (SELECT DISTINCT identifier, version FROM " PACKAGES_TABLE_NAME " WHERE source = \'_var_lib_dpkg_status_\') as i INNER JOIN " PACKAGES_TABLE_NAME " AS p ON i.identifier = p.identifier AND i.version = p.version WHERE p.source != \'_var_lib_dpkg_status_\'";
         default:
             return nil;
     }
@@ -771,6 +774,33 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_clear_bindings(statement);
     sqlite3_reset(statement);
     return packages;
+}
+
+- (NSDictionary <NSString *,NSString *> *)installedPackages {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstalledPackages];
+
+    NSMutableDictionary *installedPackages = [NSMutableDictionary new];
+    @synchronized (self) {
+        int result = SQLITE_OK;
+        do {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                const char *identifier = (const char *)sqlite3_column_text(statement, 0);
+                const char *source = (const char *)sqlite3_column_text(statement, 1);
+
+                if (identifier && source) {
+                    [installedPackages setObject:[NSString stringWithUTF8String:source] forKey:[NSString stringWithUTF8String:identifier]];
+                }
+            }
+        } while (result == SQLITE_ROW);
+
+        if (result != SQLITE_DONE) {
+            ZBLog(@"[Zebra] Failed to query installed packages with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+        }
+    }
+
+    sqlite3_reset(statement);
+    return installedPackages;
 }
 
 #pragma mark - Package Information

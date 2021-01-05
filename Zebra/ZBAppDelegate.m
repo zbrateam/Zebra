@@ -17,7 +17,7 @@
 #import <ZBSettings.h>
 #import <Notifications/ZBNotificationManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/Sources/Controllers/ZBSourceListViewController.h>
+#import <UI/Sources/ZBSourceListViewController.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
@@ -351,7 +351,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         
         ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         
-        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
+//        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     } else if ([shortcutItem.type isEqualToString:@"Refresh"]) {
         ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
         

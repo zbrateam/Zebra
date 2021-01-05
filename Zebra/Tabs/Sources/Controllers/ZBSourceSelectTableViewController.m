@@ -48,7 +48,7 @@
         }
         [sources removeObjectsInArray:fakeSources];
         
-        filteredSources = [sources mutableCopy];
+//        filteredSources = [sources mutableCopy];
     }
     
     return self;

@@ -14,7 +14,7 @@
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Model/ZBSource.h>
 #import <Managers/ZBSourceManager.h>
-#import <Tabs/Sources/Views/ZBSourceTableViewCell.h>
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBSourceImportTableViewController () {

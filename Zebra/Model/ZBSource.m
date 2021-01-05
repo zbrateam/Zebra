@@ -10,7 +10,8 @@
 @import SafariServices;
 
 #import "ZBSource.h"
-#import "ZBSourceManager.h"
+#import <Managers/ZBSourceManager.h>
+#import <Managers/ZBPackageManager.h>
 #import "UICKeyChainStore.h"
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
@@ -361,6 +362,10 @@
 
 - (NSUInteger)numberOfPackages {
     return [[ZBSourceManager sharedInstance] numberOfPackagesInSource:self];
+}
+
+- (NSUInteger)numberOfInstalledPackages {
+    return [[ZBPackageManager sharedInstance] numberOfInstalledPackagesFromSource:self];
 }
 
 @end

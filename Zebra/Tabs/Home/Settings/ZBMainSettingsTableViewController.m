@@ -23,6 +23,7 @@
 
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
+#import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
@@ -121,6 +122,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
         case ZBAnalytics:
             return 1;
         case ZBInterface:
+        case ZBSources:
             return 3;
         case ZBFeatured: {
             if ([ZBSettings wantsFeaturedPackages]) {
@@ -133,7 +135,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             return 1;
         }
         case ZBPackages:
-        case ZBSources:
         case ZBReset:
             return 2;
         default:
@@ -260,25 +261,40 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             }
         }
         case ZBSources: {
-            if (indexPath.row == 0) {
-                ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+            switch (indexPath.row) {
+                case 0: {
+                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
 
-                cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
-                [cell setOn:[ZBSettings wantsAutoRefresh]];
-                [cell setTarget:self action:@selector(toggleAutoRefresh:)];
+                    cell.textLabel.text = NSLocalizedString(@"Automatic Refresh", @"");
+                    [cell setOn:[ZBSettings wantsAutoRefresh]];
+                    [cell setTarget:self action:@selector(toggleAutoRefresh:)];
 
-                [cell applyStyling];
-                return cell;
-            } else {
-                ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
+                    [cell applyStyling];
+                    return cell;
+                }
+                case 1: {
+                    ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
 
-                int timeout = (int)[ZBSettings sourceRefreshTimeout];
+                    int timeout = (int)[ZBSettings sourceRefreshTimeout];
 
-                cell.textLabel.text = NSLocalizedString(@"Download Timeout", @"");
-                cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), timeout];
+                    cell.textLabel.text = NSLocalizedString(@"Download Timeout", @"");
+                    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%d Seconds", @""), timeout];
 
-                [cell applyStyling];
-                return cell;
+                    [cell applyStyling];
+                    return cell;
+                }
+                case 2: {
+                    ZBSwitchSettingsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsSwitchCell" forIndexPath:indexPath];
+
+                    cell.textLabel.text = NSLocalizedString(@"Installed Packages Count", @"");
+                    [cell setOn:[ZBSettings wantsInstalledPackagesCount]];
+                    [cell setTarget:self action:@selector(toggleInstalledPackagesCount:)];
+
+                    [cell applyStyling];
+                    return cell;
+                }
+                default:
+                    break;
             }
         }
         case ZBChanges: {
@@ -421,11 +437,11 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
             break;
         }
         case ZBSources: {
-            if (indexPath.row == 0) {
-                [self toggleSwitchAtIndexPath:indexPath];
+            if (indexPath.row == 1) {
+                [self chooseSourcesTimeout];
                 break;
             } else {
-                [self chooseSourcesTimeout];
+                [self toggleSwitchAtIndexPath:indexPath];
                 break;
             }
         }
@@ -601,6 +617,11 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
 
 - (void)toggleAutoRefresh:(NSNumber *)newValue {
     [ZBSettings setWantsAutoRefresh:[newValue boolValue]];
+}
+
+- (void)toggleInstalledPackagesCount:(NSNumber *)newValue {
+    [ZBSettings setWantsInstalledPackagesCount:[newValue boolValue]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"toggleInstalledPackagesCount" object:self];
 }
 
 - (void)toggleNews:(NSNumber *)newValue {

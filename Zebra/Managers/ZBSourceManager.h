@@ -6,8 +6,9 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@class ZBSource;
 @class ZBBaseSource;
+@class ZBSource;
+@class ZBSourceFilter;
 
 #import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
@@ -86,14 +87,14 @@ extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 
 - (void)cancelSourceRefresh;
 
-- (BOOL)isSourceBusy:(ZBBaseSource *)source;
-
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 
 - (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error;
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
+- (NSArray <ZBSource *> *)filterSources:(NSArray <ZBSource *> *)sources withFilter:(ZBSourceFilter *)filter;
+- (BOOL)isSourceBusy:(ZBBaseSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END
