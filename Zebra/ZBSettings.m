@@ -39,6 +39,7 @@ NSString *const FeaturedSourceBlacklistKey = @"FeaturedSourceBlacklist";
 
 NSString *const WantsAutoRefreshKey = @"AutoRefresh";
 NSString *const SourceTimeoutKey = @"SourceTimeout";
+NSString *const WantsInstalledPackagesCountKey = @"InstalledPackagesCount";
 
 NSString *const WantsCommunityNewsKey = @"CommunityNews";
 
@@ -520,6 +521,22 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:time.intValue forKey:SourceTimeoutKey];
+}
+
++ (BOOL)wantsInstalledPackagesCount {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if (![defaults objectForKey:WantsInstalledPackagesCountKey]) {
+        [self setWantsInstalledPackagesCount:NO];
+        return NO;
+    }
+    return [defaults boolForKey:WantsInstalledPackagesCountKey];
+}
+
++ (void)setWantsInstalledPackagesCount:(BOOL)wantsInstalledPackagesCount {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    [defaults setBool:wantsInstalledPackagesCount forKey:WantsInstalledPackagesCountKey];
 }
 
 #pragma mark - Changes Settings

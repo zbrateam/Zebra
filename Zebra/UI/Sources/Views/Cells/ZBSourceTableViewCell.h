@@ -7,6 +7,7 @@
 //
 
 @class ZBBaseSource;
+@class ZBSourceFilter;
 
 @import UIKit;
 
@@ -24,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
 - (void)setDisabled:(BOOL)disabled;
-- (void)setSource:(ZBBaseSource *)source;
+- (void)setSource:(ZBBaseSource *)source withFilter:(ZBSourceFilter *)filter;
 @end
 
 NS_ASSUME_NONNULL_END

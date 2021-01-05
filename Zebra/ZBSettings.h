@@ -150,6 +150,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSTimeInterval)sourceRefreshTimeout;
 + (void)setSourceRefreshTimeout:(NSNumber *)time;
 
++ (BOOL)wantsInstalledPackagesCount;
++ (void)setWantsInstalledPackagesCount:(BOOL)wantsInstalledPackagesCount;
+
 #pragma mark - Changes Settings
 
 + (BOOL)wantsCommunityNews;

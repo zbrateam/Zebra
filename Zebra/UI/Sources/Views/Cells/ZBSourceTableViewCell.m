@@ -9,6 +9,7 @@
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBSource.h>
+#import <Model/ZBSourceFilter.h>
 @import SDWebImage;
 
 @interface ZBSourceTableViewCell () {
@@ -39,15 +40,19 @@
     spinner.color = [UIColor grayColor];
 }
 
-- (void)setSource:(ZBBaseSource *)source {
+- (void)setSource:(ZBBaseSource *)source withFilter:(ZBSourceFilter *)filter {
     self.sourceLabel.text = source.label;
     self.urlLabel.text = source.repositoryURI;
     self.storeBadge.hidden = source.paymentEndpointURL == NULL;
 
-    NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
-    if (numberOfInstalledPackages > 0) {
-        self.installedPackagesLabel.text = [@(numberOfInstalledPackages) stringValue];
-        self.installedPackagesLabel.hidden = NO;
+    if ([ZBSettings wantsInstalledPackagesCount] || filter.sortOrder == ZBSourceSortOrderInstalledPackages) {
+        NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
+        if (numberOfInstalledPackages > 0) {
+            self.installedPackagesLabel.text = [@(numberOfInstalledPackages) stringValue];
+            self.installedPackagesLabel.hidden = NO;
+        } else {
+            self.installedPackagesLabel.hidden = YES;
+        }
     } else {
         self.installedPackagesLabel.hidden = YES;
     }

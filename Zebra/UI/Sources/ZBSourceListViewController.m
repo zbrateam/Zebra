@@ -72,6 +72,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedDownloadingSource:) name:ZBStartedSourceDownloadNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedImportingSource:) name:ZBFinishedSourceImportNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toggledInstalledPackagesCount) name:@"toggleInstalledPackagesCount" object:NULL];
 }
 
 - (void)dealloc {
@@ -300,7 +301,7 @@
     } else {
         ZBSourceTableViewCell *sourceCell = (ZBSourceTableViewCell *)cell;
         ZBSource *source = filterResults[indexPath.row];
-        [sourceCell setSource:source];
+        [sourceCell setSource:source withFilter:self.filter];
         [sourceCell setSpinning:source.busy];
     }
 }
@@ -362,6 +363,15 @@
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.52];
+}
+
+#pragma mark - Settings Delegate
+- (void)toggledInstalledPackagesCount {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.isViewLoaded) {
+            [self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    });
 }
 
 #pragma mark - Source Delegate
