@@ -15,6 +15,7 @@
 @property (nonatomic) UITableView *communityNewsView;
 @property (nonatomic) UICollectionView *featuredPackagesView;
 @property (nonatomic) UIStackView *stackView;
+@property (nonatomic) NSArray <NSDictionary <NSString *, NSString *> *> *communityNews;
 @end
 
 @implementation ZBHomeViewController
@@ -61,11 +62,11 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return _communityNews.count > 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return MIN(_communityNews.count, 3);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
