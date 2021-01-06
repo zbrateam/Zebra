@@ -183,7 +183,8 @@
 }
 
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *candidate = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:package.version];
+    NSString *installedVersion = [[ZBPackageManager sharedInstance] installedVersionOfPackage:package];
+    ZBPackage *candidate = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:installedVersion];
     if (candidate) {
         [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
         if (completion) completion();
@@ -221,7 +222,8 @@
 }
 
 + (void)upgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSArray <NSString *> *greaterVersions = package.greaterVersions;
+    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+    NSArray <NSString *> *greaterVersions = installedPackage.greaterVersions;
     if (greaterVersions.count > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
@@ -257,7 +259,8 @@
 }
 
 + (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSArray <NSString *> *lesserVersions = package.lesserVersions;
+    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+    NSArray <NSString *> *lesserVersions = installedPackage.lesserVersions;
     if (lesserVersions.count > 1) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
