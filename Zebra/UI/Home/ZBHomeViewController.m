@@ -9,6 +9,7 @@
 #import "ZBHomeViewController.h"
 
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import "ZBFeaturedPackagesCollectionView.h"
 
 @interface ZBHomeViewController ()
 @property (nonatomic) UITableView *communityNewsView;
@@ -30,9 +31,7 @@
         [_communityNewsView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"communityNewsCell"];
         [_communityNewsView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
         
-        _featuredPackagesView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewLayout alloc] init]];
-        _featuredPackagesView.dataSource = self;
-        _featuredPackagesView.delegate = self;
+        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectMake(0, 0, 500, 500) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_communityNewsView, _featuredPackagesView]];
     }
@@ -92,30 +91,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
     return 45;
-}
-
-#pragma mark - Collection View Data Source
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 0;
-}
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 0;
-}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [[UICollectionViewCell alloc] init];
-}
-
-#pragma mark - Collection View Delegate
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
 }
 
 @end
