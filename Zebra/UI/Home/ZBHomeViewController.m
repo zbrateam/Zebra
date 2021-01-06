@@ -9,7 +9,7 @@
 #import "ZBHomeViewController.h"
 
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
-#import "ZBFeaturedPackagesCollectionView.h"
+#import <UI/Packages/Views/ZBFeaturedPackagesCollectionView.h>
 
 @interface ZBHomeViewController ()
 @property (nonatomic) UITableView *communityNewsView;

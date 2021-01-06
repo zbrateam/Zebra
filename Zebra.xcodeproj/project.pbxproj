@@ -777,8 +777,6 @@
 			children = (
 				8923976225A56614007AF88D /* ZBHomeViewController.h */,
 				8923976325A56614007AF88D /* ZBHomeViewController.m */,
-				49E5538A25A57B71001560B9 /* ZBFeaturedPackagesCollectionView.h */,
-				49E5538B25A57B71001560B9 /* ZBFeaturedPackagesCollectionView.m */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -852,6 +850,8 @@
 			isa = PBXGroup;
 			children = (
 				89337A32253652EF0065C4C1 /* Cells */,
+				49E5538A25A57B71001560B9 /* ZBFeaturedPackagesCollectionView.h */,
+				49E5538B25A57B71001560B9 /* ZBFeaturedPackagesCollectionView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
