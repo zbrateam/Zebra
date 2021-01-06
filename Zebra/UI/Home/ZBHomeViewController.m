@@ -44,8 +44,14 @@
     
     self.view.backgroundColor = [UIColor systemBackgroundColor];
     
-    _stackView.frame = self.view.frame;
     [self.view addSubview:_stackView];
+    [NSLayoutConstraint activateConstraints:@[
+        [[_stackView leadingAnchor] constraintEqualToAnchor:self.view.leadingAnchor],
+        [[_stackView trailingAnchor] constraintEqualToAnchor:self.view.trailingAnchor],
+        [[_stackView topAnchor] constraintEqualToAnchor:self.view.topAnchor],
+        [[_stackView bottomAnchor] constraintEqualToAnchor:self.view.bottomAnchor],
+    ]];
+    _stackView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)viewDidLoad {
