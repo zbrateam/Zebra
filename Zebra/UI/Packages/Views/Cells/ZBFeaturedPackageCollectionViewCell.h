@@ -11,7 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBFeaturedPackageCollectionViewCell : UICollectionViewCell
-
+@property (weak, nonatomic) IBOutlet UILabel *repoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *packageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *bannerImageView;
 @end
 
 NS_ASSUME_NONNULL_END
