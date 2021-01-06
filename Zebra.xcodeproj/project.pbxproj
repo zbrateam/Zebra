@@ -68,6 +68,8 @@
 		499B9F3B248308C800358A84 /* zebrine~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F37248308C800358A84 /* zebrine~ipad@2x.png */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
+		49E5538325A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E5538125A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.m */; };
+		49E5538425A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49E5538225A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.xib */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
 		49FD260824707DDF00594D1A /* ZBPackageDepictionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.m */; };
 		49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */; };
@@ -276,6 +278,9 @@
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
+		49E5538025A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBFeaturedPackageCollectionViewCell.h; sourceTree = "<group>"; };
+		49E5538125A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBFeaturedPackageCollectionViewCell.m; sourceTree = "<group>"; };
+		49E5538225A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBFeaturedPackageCollectionViewCell.xib; sourceTree = "<group>"; };
 		49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBBoldTableViewHeaderView.xib; sourceTree = "<group>"; };
 		49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageDepictionViewController.m; sourceTree = "<group>"; };
@@ -672,6 +677,16 @@
 				499B9F35248308C700358A84 /* zebrine~ipad@3x.png */,
 			);
 			path = "Alternate Icons";
+			sourceTree = "<group>";
+		};
+		49E5537F25A56CF7001560B9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				49E5538025A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.h */,
+				49E5538125A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.m */,
+				49E5538225A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		75D0A77124A0134A007D84EF /* Table */ = {
@@ -1169,6 +1184,7 @@
 		89E8633621D5A1420081E485 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				49E5537F25A56CF7001560B9 /* Views */,
 				3671B52022CB07F9008FD737 /* ZBHomeTableViewController.h */,
 				3671B52122CB07F9008FD737 /* ZBHomeTableViewController.m */,
 				8916AC2023CAAECC008BA02C /* Changelog */,
@@ -1500,6 +1516,7 @@
 				369B7AE022C56009007521DB /* banner.png in Resources */,
 				499B9F39248308C800358A84 /* zebrine~ipad@3x.png in Resources */,
 				49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */,
+				49E5538425A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.xib in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
@@ -1637,6 +1654,7 @@
 				7529884124A7F34F00E24E3C /* UITableView+Settings.m in Sources */,
 				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
+				49E5538325A56D02001560B9 /* ZBFeaturedPackageCollectionViewCell.m in Sources */,
 				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
 				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
