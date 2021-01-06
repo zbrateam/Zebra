@@ -7,12 +7,17 @@
 //
 
 #import "ZBFeaturedPackageCollectionViewCell.h"
+#import <Extensions/UIColor+GlobalColors.h>
 
 @implementation ZBFeaturedPackageCollectionViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    
+    self.repoLabel.textColor = [UIColor accentColor];
+    self.bannerImageView.layer.cornerRadius = 6;
+    self.bannerImageView.layer.masksToBounds = true;
+    self.bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
 }
 
 @end
