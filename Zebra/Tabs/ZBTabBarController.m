@@ -10,6 +10,7 @@
 
 #import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
+#import <UI/Home/ZBHomeViewController.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
@@ -83,6 +84,9 @@
     }
     
     // Temporary, remove when all views are decoupled from storyboard
+    UINavigationController *homeNavController = self.viewControllers[ZBTabHome];
+    [homeNavController setViewControllers:@[[[ZBHomeViewController alloc] init]] animated:NO];
+    
     UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
     

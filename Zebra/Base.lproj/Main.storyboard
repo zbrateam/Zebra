@@ -432,61 +432,10 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="hAX-u8-Al6" kind="relationship" relationship="rootViewController" id="vOx-Wp-Rqx"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aDD-qG-sct" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3336.8000000000002" y="-975.56221889055485"/>
-        </scene>
-        <!--Home Table View Controller-->
-        <scene sceneID="GfS-7W-aQs">
-            <objects>
-                <tableViewController storyboardIdentifier="homeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hAX-u8-Al6" customClass="ZBHomeTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="t9X-77-ZoJ" customClass="ZBNoScrollHeaderTableView">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionView key="tableHeaderView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="xfR-dj-XUb">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="154"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Emi-LS-Zzo">
-                                <size key="itemSize" width="50" height="50"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            </collectionViewFlowLayout>
-                            <cells/>
-                        </collectionView>
-                        <connections>
-                            <outlet property="dataSource" destination="hAX-u8-Al6" id="5sb-GZ-ySM"/>
-                            <outlet property="delegate" destination="hAX-u8-Al6" id="rZV-Am-hDf"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="dMk-W6-d0A">
-                        <rightBarButtonItems>
-                            <barButtonItem image="Settings" landscapeImage="Settings" id="5Na-Lv-DT1">
-                                <connections>
-                                    <action selector="settingsButtonTapped:" destination="hAX-u8-Al6" id="u9x-LH-PZ2"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="Dark" landscapeImage="Dark" largeContentSizeImage="Dark" id="2dE-CN-evu">
-                                <connections>
-                                    <action selector="toggleTheme:" destination="hAX-u8-Al6" id="rwD-0S-3ae"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="darkModeButton" destination="2dE-CN-evu" id="5jS-go-D0V"/>
-                        <outlet property="featuredCollection" destination="xfR-dj-XUb" id="vl2-XU-77a"/>
-                        <outlet property="settingsButton" destination="5Na-Lv-DT1" id="4l3-kP-h4p"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2m6-4q-giw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4277" y="-977"/>
+            <point key="canvasLocation" x="2397" y="-977"/>
         </scene>
         <!--Sources-->
         <scene sceneID="t83-Qp-Zoh">
@@ -664,12 +613,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="h8l-OL-nQZ">
-                            <rect key="frame" x="0.0" y="296" width="228" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" id="NFk-Mn-X1c">
                                     <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="Zm7-sp-XkJ">
-                                        <rect key="frame" x="20" y="6" width="188" height="32"/>
+                                        <rect key="frame" x="20" y="6" width="374" height="32"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                         <segments>
                                             <segment title="Most Recent"/>
@@ -920,13 +869,11 @@
     <resources>
         <image name="Changes" width="25" height="25"/>
         <image name="Chevron Down" width="27.5" height="17"/>
-        <image name="Dark" width="24" height="24"/>
         <image name="Home" width="25" height="25"/>
         <image name="Installed" width="14" height="14"/>
         <image name="Packages" width="25" height="25"/>
         <image name="Paid" width="14" height="14"/>
         <image name="Search" width="25" height="25"/>
-        <image name="Settings" width="30" height="30"/>
         <image name="Sources" width="25" height="25"/>
         <image name="Unknown" width="29" height="29"/>
         <systemColor name="groupTableViewBackgroundColor">
