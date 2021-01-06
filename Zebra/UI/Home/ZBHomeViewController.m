@@ -11,6 +11,10 @@
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Packages/Views/ZBFeaturedPackagesCollectionView.h>
 
+#import <Extensions/UIColor+GlobalColors.h>
+
+@import SafariServices;
+
 @interface ZBHomeViewController ()
 @property (nonatomic) UITableView *communityNewsView;
 @property (nonatomic) UICollectionView *featuredPackagesView;
@@ -29,7 +33,6 @@
         _communityNewsView = [[UITableView alloc] init];
         _communityNewsView.dataSource = self;
         _communityNewsView.delegate = self;
-        [_communityNewsView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"communityNewsCell"];
         [_communityNewsView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
         [_communityNewsView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         [_communityNewsView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
@@ -96,7 +99,14 @@
                         
                         for (NSString *flair in allowedFlairs) {
                             if ([data[@"title"] rangeOfString:flair options:NSCaseInsensitiveSearch].location != NSNotFound) {
-                                [chosenPosts addObject:data];
+                                NSArray *comp = [data[@"title"] componentsSeparatedByString:@"]"];
+                                if (comp.count > 1) {
+                                    NSString *trimmedTitle = [comp[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                    NSURL *redditURL = [NSURL URLWithString:@"https://reddit.com/"];
+                                    NSURL *postURL = [[NSURL alloc] initWithString:data[@"permalink"] relativeToURL:redditURL];
+                                    NSDictionary *trimmedPost = @{@"title": trimmedTitle, @"flair": flair.uppercaseString, @"link": postURL};
+                                    [chosenPosts addObject:trimmedPost];
+                                }
                                 break;
                             }
                         }
@@ -124,18 +134,32 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [tableView dequeueReusableCellWithIdentifier:@"communityNewsCell" forIndexPath:indexPath];
+    return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"communityNewsCell"];
 }
 
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *post = _communityNews[indexPath.row];
+    
     cell.textLabel.text = post[@"title"];
+    cell.textLabel.textColor = [UIColor accentColor];
+    cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightMedium];
+    
+    cell.detailTextLabel.text = post[@"flair"];
+    cell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:cell.detailTextLabel.font.pointSize weight:UIFontWeightMedium];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary *post = _communityNews[indexPath.row];
+    NSURL *url = post[@"link"];
+    if (url && ([url.scheme isEqual:@"http"] || [url.scheme isEqual:@"https"])) {
+        SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
+        [self presentViewController:safariVC animated:YES completion:nil];
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
