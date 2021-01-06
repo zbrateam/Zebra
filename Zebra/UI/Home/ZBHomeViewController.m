@@ -31,6 +31,8 @@
         _communityNewsView.delegate = self;
         [_communityNewsView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"communityNewsCell"];
         [_communityNewsView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
+        [_communityNewsView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+        [_communityNewsView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         
         _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectMake(0, 0, 500, 500) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
         
@@ -57,6 +59,58 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _communityNewsView.backgroundView = activityIndicator;
+    [activityIndicator startAnimating];
+    
+    [self fetchCommunityNews:^(NSArray *posts) {
+        self->_communityNews = posts;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->_communityNewsView.backgroundView = nil;
+            if (self->_communityNews.count) {
+                [self->_communityNewsView insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else {
+                self->_communityNewsView.hidden = YES;
+            }
+        });
+    }];
+}
+
+#pragma mark - Community News
+
+- (void)fetchCommunityNews:(void (^)(NSArray *posts))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSURL *redditURL = [NSURL URLWithString:@"https://reddit.com/r/jailbreak.json"];
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:redditURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSMutableArray *chosenPosts = [NSMutableArray new];
+            if (data && !error) {
+                NSError *parseError = NULL;
+                NSDictionary *redditJSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&parseError];
+                if (!parseError) {
+                    NSArray *allowedFlairs = @[@"free release", @"paid release", @"update", @"upcoming", @"news", @"tutorial", @"giveaway"];
+                    NSArray *posts = redditJSON[@"data"][@"children"];
+                    for (NSDictionary *post in posts) {
+                        NSDictionary *data = post[@"data"];
+                        if ([data[@"stickied"] boolValue]) continue;
+                        
+                        for (NSString *flair in allowedFlairs) {
+                            if ([data[@"title"] rangeOfString:flair options:NSCaseInsensitiveSearch].location != NSNotFound) {
+                                [chosenPosts addObject:data];
+                                break;
+                            }
+                        }
+                        
+                        if (chosenPosts.count >= 3) break;
+                    }
+                }
+            }
+            
+            completion(chosenPosts);
+        }];
+        
+        [task resume];
+    });
 }
 
 #pragma mark - Table View Data Source
@@ -76,7 +130,8 @@
 #pragma mark - Table View Delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.textLabel.text = @"News";
+    NSDictionary *post = _communityNews[indexPath.row];
+    cell.textLabel.text = post[@"title"];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
