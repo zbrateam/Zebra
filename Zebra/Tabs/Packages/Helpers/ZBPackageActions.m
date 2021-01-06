@@ -422,13 +422,7 @@
         NSString *title = [self titleForAction:action useIcon:YES];
         UIContextualActionStyle style = action == ZBPackageActionRemove ? UIContextualActionStyleDestructive : UIContextualActionStyleNormal;
         UIContextualAction *swipeAction = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self performAction:action forPackage:package completion:^{
-                if (tableView) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-                    });
-                }
-            }];
+            [self performAction:action forPackage:package completion:nil];
             completionHandler(YES);
         }];
 
