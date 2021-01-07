@@ -18,6 +18,7 @@
     self.bannerImageView.layer.cornerRadius = 6;
     self.bannerImageView.layer.masksToBounds = true;
     self.bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.bannerImageView.backgroundColor = [UIColor systemPinkColor];
 }
 
 @end

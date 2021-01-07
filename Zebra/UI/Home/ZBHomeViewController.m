@@ -37,9 +37,14 @@
         [_communityNewsView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         [_communityNewsView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         
-        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectMake(0, 0, 500, 500) collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
         
-        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_communityNewsView, _featuredPackagesView]];
+        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        
+        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _communityNewsView]];
+        _stackView.axis = UILayoutConstraintAxisVertical;
     }
     
     return self;
@@ -56,8 +61,10 @@
         [[_stackView trailingAnchor] constraintEqualToAnchor:self.view.trailingAnchor],
         [[_stackView topAnchor] constraintEqualToAnchor:self.view.topAnchor],
         [[_stackView bottomAnchor] constraintEqualToAnchor:self.view.bottomAnchor],
+        [[_featuredPackagesView heightAnchor] constraintEqualToAnchor:self.view.heightAnchor multiplier:0.40]
     ]];
     _stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)viewDidLoad {
