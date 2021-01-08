@@ -40,6 +40,7 @@
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
+        layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
         
         _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         
