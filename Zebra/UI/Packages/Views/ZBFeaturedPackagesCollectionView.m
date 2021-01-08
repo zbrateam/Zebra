@@ -19,8 +19,9 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
     if (self) {
         self.delegate = self;
         self.dataSource = self;
-        [self setBackgroundColor:[UIColor systemBackgroundColor]];
         [self registerNib:[UINib nibWithNibName:@"ZBFeaturedPackageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:ZBFeaturedCollectionViewCellReuseIdentifier];
+        [self setBackgroundColor:[UIColor systemBackgroundColor]];
+        [self setShowsHorizontalScrollIndicator:NO];
     }
     
     return self;
@@ -61,10 +62,6 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(263, 148);
 }
 
 @end
