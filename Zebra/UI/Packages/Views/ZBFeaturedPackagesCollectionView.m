@@ -7,7 +7,10 @@
 //
 
 #import "ZBFeaturedPackagesCollectionView.h"
-#import "ZBFeaturedPackageCollectionViewCell.h"
+
+#import <Managers/ZBSourceManager.h>
+#import <Model/ZBSource.h>
+#import <UI/Packages/Views/Cells/ZBFeaturedPackageCollectionViewCell.h>
 
 @implementation ZBFeaturedPackagesCollectionView
 
@@ -30,6 +33,37 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
     }
     
     return self;
+}
+
+#pragma mark - Fetching Data
+
+- (void)fetch {
+    [self fetchFromSource:NULL];
+}
+
+- (void)fetchFromSource:(ZBSource *)source {
+    NSMutableArray *sourcesToFetch = [NSMutableArray new];
+    if (source) {
+        [sourcesToFetch addObject:source];
+    } else { // If sources is NULL, load from all sources
+        [sourcesToFetch addObjectsFromArray:[[ZBSourceManager sharedInstance] sources]];
+    }
+    
+    NSMutableArray *packages = [NSMutableArray new];
+    for (ZBSource *source in sourcesToFetch) {
+        if (!source.supportsFeaturedPackages) continue;
+        NSLog(@"%@", source.label);
+        
+        NSURL *featuredPackagesURL = [[NSURL alloc] initWithString:@"sileo-featured.json" relativeToURL:source.mainDirectoryURL];
+        if (!featuredPackagesURL) continue;
+        
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:featuredPackagesURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            NSDictionary *featuredPackages = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:nil];
+            NSLog(@"pack: %@", featuredPackages);
+        }];
+        
+        [task resume];
+    }
 }
 
 #pragma mark - Collection View Data Source

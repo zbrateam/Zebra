@@ -18,7 +18,7 @@
 
 @interface ZBHomeViewController ()
 @property (nonatomic) ZBCommunityNewsTableView *communityNewsView;
-@property (nonatomic) UICollectionView *featuredPackagesView;
+@property (nonatomic) ZBFeaturedPackagesCollectionView *featuredPackagesView;
 @property (nonatomic) UIStackView *stackView;
 @property (nonatomic) NSArray <NSDictionary <NSString *, NSString *> *> *communityNews;
 @property (nonatomic) NSLayoutConstraint *featuredPackagesViewHeightConstraint;
@@ -71,6 +71,7 @@
 
 - (void)viewDidLoad {
     [_communityNewsView fetch];
+    [_featuredPackagesView fetch];
 }
 
 - (void)viewDidLayoutSubviews {
