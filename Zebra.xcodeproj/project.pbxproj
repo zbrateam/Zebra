@@ -94,7 +94,7 @@
 		8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2223CAAECC008BA02C /* ZBChangelogTableViewController.m */; };
 		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m */; };
 		891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */; };
-		8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */; };
+		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */; };
 		8929D7002524D69C00FFC218 /* pin.pref in Resources */ = {isa = PBXBuildFile; fileRef = 8929D6FF2524D69C00FFC218 /* pin.pref */; };
 		892F4E2125337D7400BAB3A5 /* ZBBasePackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 892F4E2025337D7400BAB3A5 /* ZBBasePackage.m */; };
 		892F4E2825339E2A00BAB3A5 /* ZBPackageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 892F4E2725339E2A00BAB3A5 /* ZBPackageManager.m */; };
@@ -321,8 +321,8 @@
 		891A92C7242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLanguageSettingsTableViewController.h; sourceTree = "<group>"; };
 		891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLanguageSettingsTableViewController.m; sourceTree = "<group>"; };
 		892552C3237B288000120F9B /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportTableViewController.h; sourceTree = "<group>"; };
-		8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportTableViewController.m; sourceTree = "<group>"; };
+		8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportViewController.h; sourceTree = "<group>"; };
+		8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportViewController.m; sourceTree = "<group>"; };
 		8929D6FF2524D69C00FFC218 /* pin.pref */ = {isa = PBXFileReference; lastKnownFileType = text; path = pin.pref; sourceTree = "<group>"; };
 		892F4E1F25337D7400BAB3A5 /* ZBBasePackage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBBasePackage.h; sourceTree = "<group>"; };
 		892F4E2025337D7400BAB3A5 /* ZBBasePackage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBBasePackage.m; sourceTree = "<group>"; };
@@ -985,8 +985,6 @@
 		896F11C821B231CF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				8927D51F23C29CCA00A7987E /* ZBSourceImportTableViewController.h */,
-				8927D52023C29CCA00A7987E /* ZBSourceImportTableViewController.m */,
 				363FE24D2287A1DD00B69929 /* ZBSourceAccountTableViewController.h */,
 				363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */,
 				899BDCBA241DBB6300A2CC3A /* ZBSourceSelectTableViewController.h */,
@@ -1216,6 +1214,8 @@
 				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
 				89374958248603D700CE0520 /* ZBSourceAddViewController.h */,
 				89374959248603D700CE0520 /* ZBSourceAddViewController.m */,
+				8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */,
+				8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1537,7 +1537,7 @@
 				898E010E22480F8900BEA8E9 /* ZBSourceViewController.m in Sources */,
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
-				8927D52123C29CCA00A7987E /* ZBSourceImportTableViewController.m in Sources */,
+				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */,
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */,

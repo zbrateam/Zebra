@@ -1,5 +1,5 @@
 //
-//  ZBSourceImportTableViewController.h
+//  ZBSourceImportViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 1/5/20.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceImportTableViewController : ZBTableViewController <ZBSourceVerificationDelegate>
+@interface ZBSourceImportViewController : ZBTableViewController <ZBSourceVerificationDelegate>
 @property (nonatomic) NSMutableArray <NSURL *> *sourceFilesToImport;
 - (id)initWithPaths:(NSArray <NSURL *> *)filePaths;
 - (id)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension;

@@ -1,5 +1,5 @@
 //
-//  ZBSourceImportTableViewController.m
+//  ZBSourceImportViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 1/5/20.
@@ -8,7 +8,7 @@
 
 @import SDWebImage;
 
-#import "ZBSourceImportTableViewController.h"
+#import "ZBSourceImportViewController.h"
 #import "ZBAppDelegate.h"
 
 #import <Extensions/UINavigationBar+Extensions.h>
@@ -17,7 +17,7 @@
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
-@interface ZBSourceImportTableViewController () {
+@interface ZBSourceImportViewController () {
     double individualIncrement;
     NSUInteger sourcesToVerify;
 }
@@ -27,7 +27,7 @@
 @property ZBSourceManager *sourceManager;
 @end
 
-@implementation ZBSourceImportTableViewController
+@implementation ZBSourceImportViewController
 
 @synthesize baseSources;
 @synthesize sourceFilesToImport;
