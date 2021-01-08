@@ -49,17 +49,28 @@
     
     self.view.backgroundColor = [UIColor systemBackgroundColor];
     
-    [self.view addSubview:_stackView];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+    scrollView.alwaysBounceVertical = YES;
+    [self.view addSubview:scrollView];
     [NSLayoutConstraint activateConstraints:@[
-        [[_stackView leadingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [[_stackView trailingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [[_stackView topAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [[_stackView bottomAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+        [[scrollView leadingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [[scrollView trailingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [[scrollView topAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [[scrollView bottomAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+    ]];
+    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [scrollView addSubview:_stackView];
+    [NSLayoutConstraint activateConstraints:@[
+        [[_stackView leadingAnchor] constraintEqualToAnchor:scrollView.leadingAnchor],
+        [[_stackView trailingAnchor] constraintEqualToAnchor:scrollView.trailingAnchor],
+        [[_stackView topAnchor] constraintEqualToAnchor:scrollView.topAnchor],
+        [[_stackView bottomAnchor] constraintEqualToAnchor:scrollView.bottomAnchor],
+        [[_stackView widthAnchor] constraintEqualToAnchor:scrollView.widthAnchor],
     ]];
     _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _featuredPackagesViewHeightConstraint =
-    [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.collectionViewLayout.collectionViewContentSize.height];
+    _featuredPackagesViewHeightConstraint = [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.collectionViewLayout.collectionViewContentSize.height];
     _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -76,7 +87,8 @@
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.collectionViewLayout.collectionViewContentSize.height;
+
+    _featuredPackagesViewHeightConstraint.constant = 253;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
 }
 
