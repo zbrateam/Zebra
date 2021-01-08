@@ -20,6 +20,8 @@
 @property (nonatomic) UICollectionView *featuredPackagesView;
 @property (nonatomic) UIStackView *stackView;
 @property (nonatomic) NSArray <NSDictionary <NSString *, NSString *> *> *communityNews;
+@property (nonatomic) NSLayoutConstraint *featuredPackagesViewHeightConstraint;
+@property (nonatomic) NSLayoutConstraint *communityNewsViewHeightConstraint;
 @end
 
 @implementation ZBHomeViewController
@@ -57,10 +59,18 @@
         [[_stackView trailingAnchor] constraintEqualToAnchor:self.view.trailingAnchor],
         [[_stackView topAnchor] constraintEqualToAnchor:self.view.topAnchor],
         [[_stackView bottomAnchor] constraintEqualToAnchor:self.view.bottomAnchor],
-        [[_featuredPackagesView heightAnchor] constraintEqualToAnchor:self.view.heightAnchor multiplier:0.40]
     ]];
     _stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _featuredPackagesViewHeightConstraint =
+    [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.collectionViewLayout.collectionViewContentSize.height];
+    _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    _communityNewsViewHeightConstraint =
+    [_communityNewsView.heightAnchor constraintEqualToConstant:_communityNewsView.contentSize.height];
+    _communityNewsViewHeightConstraint.active = YES;
+    _communityNewsView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)viewDidLoad {
@@ -81,6 +91,12 @@
             }
         });
     }];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.collectionViewLayout.collectionViewContentSize.height;
+    _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
 }
 
 #pragma mark - Community News
