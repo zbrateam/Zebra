@@ -235,6 +235,8 @@
 #pragma mark - Theming
 
 + (void)openURL:(NSURL *)url sender:(UIViewController *)sender {
+    if (!sender) sender = UIApplication.sharedApplication.keyWindow.rootViewController;
+    
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     
     UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];

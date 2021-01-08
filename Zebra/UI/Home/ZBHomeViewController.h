@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBHomeViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ZBHomeViewController : UIViewController
 
 @end
 
