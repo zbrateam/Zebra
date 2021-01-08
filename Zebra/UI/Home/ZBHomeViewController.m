@@ -35,7 +35,7 @@
         
         _communityNewsView = [[ZBCommunityNewsTableView alloc] init];
         
-        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero];
+        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] init];
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;

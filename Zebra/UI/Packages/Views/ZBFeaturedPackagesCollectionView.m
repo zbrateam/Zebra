@@ -21,13 +21,13 @@
 
 NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackageCollectionViewCell"; // TODO: Move this to ZBFeaturedPackageCollectionViewCell?
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)init {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
     layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
     
-    self = [super initWithFrame:frame collectionViewLayout:layout];
+    self = [super initWithFrame:CGRectZero collectionViewLayout:layout];
     
     if (self) {
         self.delegate = self;
@@ -129,10 +129,10 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(ZBFeaturedPackageCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *package = _posts[indexPath.row];
     
-    cell.repoLabel.text = [[ZBSourceManager sharedInstance] sourceWithUUID:package[@"source"]].label;
+    cell.repoLabel.text = [[ZBSourceManager sharedInstance] sourceWithUUID:package[@"source"]].label.uppercaseString;
     cell.packageLabel.text = package[@"name"];
     cell.descriptionLabel.text = package[@"description"];
-    [cell.bannerImageView sd_setImageWithURL:package[@"url"]];
+    [cell.bannerImageView sd_setImageWithURL:package[@"bannerURL"]];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
