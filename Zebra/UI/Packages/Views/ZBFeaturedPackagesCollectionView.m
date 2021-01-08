@@ -8,6 +8,7 @@
 
 #import "ZBFeaturedPackagesCollectionView.h"
 
+#import <Managers/ZBPackageManager.h>
 #import <Managers/ZBSourceManager.h>
 #import <Model/ZBSource.h>
 #import <UI/Packages/Views/Cells/ZBFeaturedPackageCollectionViewCell.h>
@@ -85,7 +86,19 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
             NSDictionary *featuredPackages = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:&parseError];
             if (featuredPackages && !error && !parseError) {
                 NSArray *banners = featuredPackages[@"banners"];
-                if (banners && banners.count) [packages addObjectsFromArray:banners];
+                for (NSDictionary *banner in banners) {
+                    NSLog(@"%@", banner);
+                    NSString *identifier = banner[@"package"];
+                    NSString *sourceUUID = source.uuid;
+                    NSString *name = banner[@"title"];
+                    NSString *description = [[ZBPackageManager sharedInstance] descriptionForPackageIdentifier:identifier fromSource:source];
+                    NSURL *bannerURL = [NSURL URLWithString:banner[@"url"]];
+                    
+                    if (identifier && sourceUUID && name && description && bannerURL) {
+                        NSDictionary *dictionary = @{@"identifier": identifier, @"source": sourceUUID, @"name": name, @"description": description, @"bannerURL": bannerURL};
+                        [packages addObject:dictionary];
+                    }
+                }
             }
             
             self.posts = source != NULL ? packages : [packages shuffleWithCount:10];
@@ -108,20 +121,18 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ZBFeaturedPackageCollectionViewCell *cell = [self dequeueReusableCellWithReuseIdentifier:ZBFeaturedCollectionViewCellReuseIdentifier forIndexPath:indexPath];
     
-    NSDictionary *package = _posts[indexPath.row];
-    cell.repoLabel.text = @"AMDREW ABOSSH";
-    cell.packageLabel.text = package[@"title"];
-    cell.descriptionLabel.text = @"ARTWORKS";
-    
-    [cell.bannerImageView sd_setImageWithURL:[NSURL URLWithString:package[@"url"]]];
-    
     return cell;
 }
 
 #pragma mark - Collection View Delegate
 
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(ZBFeaturedPackageCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSDictionary *package = _posts[indexPath.row];
     
+    cell.repoLabel.text = [[ZBSourceManager sharedInstance] sourceWithUUID:package[@"source"]].label;
+    cell.packageLabel.text = package[@"name"];
+    cell.descriptionLabel.text = package[@"description"];
+    [cell.bannerImageView sd_setImageWithURL:package[@"url"]];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
