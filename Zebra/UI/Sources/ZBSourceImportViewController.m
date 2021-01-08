@@ -12,6 +12,7 @@
 #import "ZBAppDelegate.h"
 
 #import <Extensions/UINavigationBar+Extensions.h>
+#import <Extensions/UIViewController+Extensions.h>
 #import <Model/ZBSource.h>
 #import <Managers/ZBSourceManager.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
@@ -77,8 +78,10 @@
 
     self.navigationController.navigationBar.navProgressView.progress = 0;
     
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.leftBarButtonItem = cancelItem;
+    if (self.navigationController.viewControllers.firstObject == self) {
+        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+        self.navigationItem.leftBarButtonItem = cancelItem;
+    }
     
     UIBarButtonItem *importItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"") style:UIBarButtonItemStyleDone target:self action:@selector(importSelected)];
     importItem.enabled = NO;
@@ -93,12 +96,12 @@
     if (baseSources == nil || titles == nil) {
         [self processSourcesFromLists];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.title = NSLocalizedString(@"Import Sources", @"");
+        self.navigationItem.title = NSLocalizedString(@"Import Sources", @"");
             
-            [self.tableView reloadData];
-        });
+        [self.tableView reloadData];
     }
+    
+    NSLog(@"%@", self.navigationItem.backBarButtonItem);
 }
 
 - (void)increaseProgressBy:(double)progress {

@@ -7,11 +7,15 @@
 //
 
 #import "ZBSourceAddViewController.h"
+
 #import <Model/ZBSource.h>
 #import <Managers/ZBSourceManager.h>
-#import "ZBSourceTableViewCell.h"
+#import <UI/Sources/ZBSourceImportViewController.h>
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
+
 @import SDWebImage;
 
 @interface ZBSourceAddViewController () {
@@ -23,7 +27,7 @@
     BOOL searchTermIsEmpty;
     BOOL searchTermIsURL;
     ZBBaseSource *enteredSource;
-    NSMutableArray *managers;
+    NSArray *managers;
 }
 @end
 
@@ -265,7 +269,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0 && enteredSource) {
+    if (searchTermIsEmpty) {
+        NSDictionary *manager = managers[indexPath.row];
+        ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[[NSURL URLWithString:manager[@"url"]]] extension:manager[@"ext"]];
+        
+        [self.navigationController pushViewController:importController animated:YES];
+        return;
+    } else if (indexPath.section == 0 && enteredSource) {
         if (![addedSources containsObject:enteredSource] && enteredSource.verificationStatus == ZBSourceExists) {
             if ([selectedSources containsObject:enteredSource]) {
                 [selectedSources removeObject:enteredSource];
