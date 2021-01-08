@@ -11,6 +11,7 @@
 #import <Managers/ZBSourceManager.h>
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
+#import <ZBDevice.h>
 @import SDWebImage;
 
 @interface ZBSourceAddViewController () {
@@ -22,6 +23,7 @@
     BOOL searchTermIsEmpty;
     BOOL searchTermIsURL;
     ZBBaseSource *enteredSource;
+    NSMutableArray *managers;
 }
 @end
 
@@ -44,6 +46,12 @@
         searchController.searchBar.placeholder = @"Source Name or URL";
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         searchController.searchBar.showsCancelButton = NO;
+        searchController.searchBar.showsBookmarkButton = YES;
+        if (@available(iOS 13.0, *)) {
+            [searchController.searchBar setImage:[UIImage systemImageNamed:@"paperclip.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+        } else {
+            [searchController.searchBar setImage:[UIImage imageNamed:@"Unknown"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+        }
         
         searchTermIsEmpty = YES;
         searchTermIsURL = NO;
@@ -63,11 +71,14 @@
     return self;
 }
 
+#pragma mark - Fetching Sources
+
 - (void)downloadSources {
     if (!sources) sources = [NSMutableArray new];
     if (!filteredSources) filteredSources = [NSMutableArray new];
     if (!selectedSources) selectedSources = [NSMutableArray new];
     if (!addedSources) addedSources = [[ZBSourceManager sharedInstance] sources];
+    if (!managers) managers = [self loadManagers];
     
     NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos/small"];
     NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -99,6 +110,35 @@
     }];
     
     [dataTask resume];
+}
+
+- (NSArray *)loadManagers {
+    NSMutableArray *result = [NSMutableArray new];
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
+        NSDictionary *dict = @{@"name" : @"Cydia",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
+                               @"url"  : @"file:///etc/apt/sources.list.d/",
+                               @"ext"  : @"list",
+                               @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
+        [result addObject:dict];
+//    }
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
+        NSDictionary *dict2 = @{@"name" : @"Installer",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
+                               @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
+                               @"ext"  : @"list",
+                               @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
+        [result addObject:dict2];
+//    }
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
+        NSDictionary *dict3 = @{@"name" : @"Sileo",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
+                               @"url"  : [ZBDevice isCheckrain] ? @"file:///etc/apt/sileo.list.d/" : @"file:///etc/apt/sources.list.d/",
+                               @"ext"  : @"sources",
+                               @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
+        [result addObject:dict3];
+//    }
+    return result;
 }
 
 #pragma mark - View Controller Lifecycle
@@ -152,7 +192,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (searchTermIsEmpty) {
-        return 0;
+        return managers.count;
     } else if (section == 0 && searchTermIsURL) {
         return 1;
     } else {
@@ -165,7 +205,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
 
-    if (indexPath.section == 0 && searchTermIsURL) {
+    if (searchTermIsEmpty) {
+        NSDictionary *manager = managers[indexPath.row];
+        
+        cell.sourceLabel.text = manager[@"name"];
+        cell.urlLabel.text = manager[@"label"];
+        [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+    }
+    else if (indexPath.section == 0 && searchTermIsURL) {
         if (enteredSource) {
             if ([addedSources containsObject:enteredSource]) {
                 [cell setDisabled:YES];
