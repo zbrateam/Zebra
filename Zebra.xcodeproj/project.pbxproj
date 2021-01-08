@@ -129,6 +129,7 @@
 		8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
 		899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 899229FC242815E90086E2F4 /* ZBSourceInfo.m */; };
+		8992BD9825A8040600971C5D /* ZBCommunityNewsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8992BD9725A8040600971C5D /* ZBCommunityNewsTableView.m */; };
 		899784402242D25800C1138C /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8997843F2242D25800C1138C /* libbz2.tbd */; };
 		899AE9FE247F03BA00FCA61E /* quda~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */; };
 		899AE9FF247F03BA00FCA61E /* quda@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FB247F03BA00FCA61E /* quda@2x.png */; };
@@ -421,6 +422,8 @@
 		899229FB242815E90086E2F4 /* ZBSourceInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceInfo.h; sourceTree = "<group>"; };
 		899229FC242815E90086E2F4 /* ZBSourceInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceInfo.m; sourceTree = "<group>"; };
 		89922A0A24281C030086E2F4 /* bg */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bg; path = bg.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8992BD9625A8040600971C5D /* ZBCommunityNewsTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCommunityNewsTableView.h; sourceTree = "<group>"; };
+		8992BD9725A8040600971C5D /* ZBCommunityNewsTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCommunityNewsTableView.m; sourceTree = "<group>"; };
 		8997843F2242D25800C1138C /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		899AE9EF247F03BA00FCA61E /* quda~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda~ipad@2x.png"; sourceTree = "<group>"; };
 		899AE9FB247F03BA00FCA61E /* quda@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "quda@2x.png"; sourceTree = "<group>"; };
@@ -775,6 +778,7 @@
 		8923976125A56604007AF88D /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				8992BD9525A803E500971C5D /* Views */,
 				8923976225A56614007AF88D /* ZBHomeViewController.h */,
 				8923976325A56614007AF88D /* ZBHomeViewController.m */,
 			);
@@ -1035,6 +1039,15 @@
 				8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		8992BD9525A803E500971C5D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8992BD9625A8040600971C5D /* ZBCommunityNewsTableView.h */,
+				8992BD9725A8040600971C5D /* ZBCommunityNewsTableView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		89BDCB6F2289FEA800FC1345 /* Extensions */ = {
@@ -1582,6 +1595,7 @@
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
 				4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */,
+				8992BD9825A8040600971C5D /* ZBCommunityNewsTableView.m in Sources */,
 				8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */,
 				759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
