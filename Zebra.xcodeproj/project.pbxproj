@@ -1003,8 +1003,6 @@
 				363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */,
 				899BDCBA241DBB6300A2CC3A /* ZBSourceSelectTableViewController.h */,
 				899BDCBB241DBB6300A2CC3A /* ZBSourceSelectTableViewController.m */,
-				89374958248603D700CE0520 /* ZBSourceAddViewController.h */,
-				89374959248603D700CE0520 /* ZBSourceAddViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1229,6 +1227,8 @@
 				894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */,
 				898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */,
 				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
+				89374958248603D700CE0520 /* ZBSourceAddViewController.h */,
+				89374959248603D700CE0520 /* ZBSourceAddViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

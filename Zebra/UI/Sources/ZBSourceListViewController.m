@@ -8,7 +8,7 @@
 
 #import "ZBSourceListViewController.h"
 
-#import <Tabs/Sources/Controllers/ZBSourceAddViewController.h>
+#import <UI/Sources/ZBSourceAddViewController.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Managers/ZBSourceManager.h>
