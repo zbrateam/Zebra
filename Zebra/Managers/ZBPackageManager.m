@@ -302,6 +302,10 @@
     return [self.installedPackages.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF like %@", source.uuid]].count;
 }
 
+- (NSString *)descriptionForPackageIdentifier:(NSString *)identifier fromSource:(ZBSource *)source {
+    return [databaseManager descriptionForPackageIdentifier:identifier fromSource:source];
+}
+
 #pragma mark - Source Delegate
 
 - (void)finishedImportForSource:(NSNotification *)notification {

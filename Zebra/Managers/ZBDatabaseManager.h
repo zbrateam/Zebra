@@ -97,6 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion;
 
+- (NSString *)descriptionForPackageIdentifier:(NSString *)identifier fromSource:(ZBSource *)source;
+
 #pragma mark - Package Searching
 
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion;

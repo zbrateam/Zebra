@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)numberOfInstalledPackagesFromSource:(ZBSource *)source;
 
+- (NSString *)descriptionForPackageIdentifier:(NSString *)identifier fromSource:(ZBSource *)source;
+
 @end
 
 NS_ASSUME_NONNULL_END

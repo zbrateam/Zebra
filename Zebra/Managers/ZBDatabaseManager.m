@@ -45,6 +45,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion,
     ZBDatabaseStatementTypeIsPackageAvailable,
     ZBDatabaseStatementTypeIsPackageAvailableWithVersion,
+    ZBDatabaseStatementTypeDescriptionForPackageID,
     ZBDatabaseStatementTypeSearchForPackageWithName,
     ZBDatabaseStatementTypeSearchForPackageWithDescription,
     ZBDatabaseStatementTypeSearchForPackageByAuthorName,
@@ -389,6 +390,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion:
             return @"SELECT * FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND version = ? AND source != \'_var_lib_dpkg_status_\';";
+        case ZBDatabaseStatementTypeDescriptionForPackageID:
+            return @"SELECT description FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source = ? GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
         case ZBDatabaseStatementTypeIsPackageAvailable:
             return @"SELECT 1 FROM " PACKAGES_TABLE_NAME " WHERE identifier = ? AND source != \'_var_lib_dpkg_status_\';";
         case ZBDatabaseStatementTypeIsPackageAvailableWithVersion:
@@ -874,6 +877,27 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_clear_bindings(statement);
     sqlite3_reset(statement);
     return isAvailable;
+}
+
+- (NSString *)descriptionForPackageIdentifier:(NSString *)identifier fromSource:(ZBSource *)source {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeDescriptionForPackageID];
+    int result = sqlite3_bind_text(statement, 1, identifier.UTF8String, -1, SQLITE_TRANSIENT);
+    result &= sqlite3_bind_text(statement, 2, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
+    
+    if (result != SQLITE_OK) return NULL;
+    
+    NSString *description = NULL;
+    @synchronized (self) {
+        result = sqlite3_step(statement);
+        if (result == SQLITE_ROW) {
+            const char *descriptionChars = (const char *)sqlite3_column_text(statement, 0);
+            if (descriptionChars && descriptionChars[0] != '\0') description = [NSString stringWithUTF8String:descriptionChars];
+        }
+    }
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    return description;
 }
 
 #pragma mark - Package Searching
