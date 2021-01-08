@@ -26,6 +26,17 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
     return self;
 }
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
+    layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
+    
+    self = [self initWithFrame:frame collectionViewLayout:layout];
+    return self;
+}
+
 #pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {

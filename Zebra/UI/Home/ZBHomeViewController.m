@@ -37,12 +37,7 @@
         [_communityNewsView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         [_communityNewsView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
         
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-        layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
-        
-        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero];
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
