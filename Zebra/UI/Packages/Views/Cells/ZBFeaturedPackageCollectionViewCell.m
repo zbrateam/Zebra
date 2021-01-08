@@ -19,6 +19,7 @@
     self.bannerImageView.layer.masksToBounds = true;
     self.bannerImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.bannerImageView.backgroundColor = [UIColor systemPinkColor];
+    self.bannerImageView.image = [UIImage imageNamed:@"featured-banner-demo"];
 }
 
 @end

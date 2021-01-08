@@ -32,11 +32,7 @@
         
         _communityNewsView = [[ZBCommunityNewsTableView alloc] init];
         
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-        
-        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] initWithFrame:CGRectZero];
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
