@@ -196,20 +196,44 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
     
     NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:allVersions];
-    for (NSString *otherVersion in allVersions) {
+    NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:allVersions];
+    for (NSString *otherVersion in deduplicatedVersions) {
         NSString *title;
-        if ([otherVersion isEqual:allVersions[0]]) {
+        if ([otherVersion isEqual:allVersions.firstObject]) {
             title = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), otherVersion];
         } else {
-            title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
+            title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, NSLocalizedString(@"In Multiple Sources", @"")] : otherVersion;
         }
-        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-            otherPackage.requiresAuthorization = package.requiresAuthorization;
-            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-            
-            if (completion) completion();
-        }];
+        UIAlertAction *action;
+        if ([versionStrings countForObject:otherVersion] > 1) {
+            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
+
+                UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to install the package from:", @"") preferredStyle:[self alertControllerStyle]];
+
+                for (ZBPackage *otherPackage in otherPackages) {
+                    UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                        otherPackage.requiresAuthorization = package.requiresAuthorization;
+                        [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+
+                        if (completion) completion();
+                    }];
+                    [sourceAlert addAction:sourceAction];
+                }
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+                [sourceAlert addAction:cancel];
+
+                [sourceAlert show];
+            }];
+        } else {
+            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
+                otherPackage.requiresAuthorization = package.requiresAuthorization;
+                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+
+                if (completion) completion();
+            }];
+        }
         
         [alert addAction:action];
     }
@@ -228,15 +252,40 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
         NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:greaterVersions];
-        for (NSString *otherVersion in greaterVersions) {
-            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
-            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-                otherPackage.requiresAuthorization = package.requiresAuthorization;
-                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
-                
-                if (completion) completion();
-            }];
+        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:greaterVersions];
+        for (NSString *otherVersion in deduplicatedVersions) {
+            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, NSLocalizedString(@"In Multiple Sources", @"")] : otherVersion;
+
+            UIAlertAction *action;
+            if ([versionStrings countForObject:otherVersion] > 1) {
+                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
+
+                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to upgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
+
+                    for (ZBPackage *otherPackage in otherPackages) {
+                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            otherPackage.requiresAuthorization = package.requiresAuthorization;
+                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+
+                            if (completion) completion();
+                        }];
+                        [sourceAlert addAction:sourceAction];
+                    }
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+                    [sourceAlert addAction:cancel];
+
+                    [sourceAlert show];
+                }];
+            } else {
+                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
+                    otherPackage.requiresAuthorization = package.requiresAuthorization;
+                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+
+                    if (completion) completion();
+                }];
+            }
             
             [alert addAction:action];
         }
@@ -265,15 +314,39 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
         
         NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:lesserVersions];
-        for (NSString *otherVersion in lesserVersions) {
-            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, package.source.label] : otherVersion;
-            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-                otherPackage.requiresAuthorization = package.requiresAuthorization;
-                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-                
-                if (completion) completion();
-            }];
+        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:lesserVersions];
+        for (NSString *otherVersion in deduplicatedVersions) {
+            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, NSLocalizedString(@"In Multiple Sources", @"")] : otherVersion;
+            UIAlertAction *action;
+            if ([versionStrings countForObject:otherVersion] > 1) {
+                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
+
+                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to downgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
+
+                    for (ZBPackage *otherPackage in otherPackages) {
+                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            otherPackage.requiresAuthorization = package.requiresAuthorization;
+                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+
+                            if (completion) completion();
+                        }];
+                        [sourceAlert addAction:sourceAction];
+                    }
+                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+                    [sourceAlert addAction:cancel];
+
+                    [sourceAlert show];
+                }];
+            } else {
+                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
+                    otherPackage.requiresAuthorization = package.requiresAuthorization;
+                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+
+                    if (completion) completion();
+                }];
+            }
             
             [alert addAction:action];
         }

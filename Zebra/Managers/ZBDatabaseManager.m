@@ -856,6 +856,33 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return packageWithVersion;
 }
 
+- (NSArray <ZBPackage *> *)allRemoteInstancesOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion];
+    __block int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
+    result &= sqlite3_bind_text(statement, 2, version.UTF8String, -1, SQLITE_TRANSIENT);
+
+    if (result != SQLITE_OK) return NULL;
+
+    NSMutableArray *packages = [NSMutableArray new];
+    [self performTransaction:^{
+        do {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+                if (package) [packages addObject:package];
+            }
+        } while (result == SQLITE_ROW);
+
+        if (result != SQLITE_DONE && result != SQLITE_OK) {
+            ZBLog(@"[Zebra] Failed to get all remote instances of package with version got error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+        }
+    }];
+
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    return packages;
+}
+
 - (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion; {
     if (package.source.remote) return YES;
     
