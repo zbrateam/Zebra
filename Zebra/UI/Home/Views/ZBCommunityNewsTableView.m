@@ -39,6 +39,8 @@
     @synchronized (_posts) {
         _posts = posts;
         
+        [self hideSpinner];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.numberOfSections == 1 && self->_posts.count) {
                 [self reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -54,6 +56,8 @@
 #pragma mark - Fetching Data
 
 - (void)fetch {
+    [self showSpinner];
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSURL *redditURL = [NSURL URLWithString:@"https://reddit.com/r/jailbreak.json"];
         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:redditURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -96,13 +100,17 @@
 #pragma mark - Activity Indicator
 
 - (void)showSpinner {
-    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    self.backgroundView = activityIndicator;
-    [activityIndicator startAnimating];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.backgroundView = activityIndicator;
+        [activityIndicator startAnimating];
+    });
 }
 
 - (void)hideSpinner {
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backgroundView = nil;
+    });
 }
 
 #pragma mark - Table View Data Source
