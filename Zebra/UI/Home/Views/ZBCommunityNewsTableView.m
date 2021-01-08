@@ -76,7 +76,7 @@
                             if ([data[@"title"] rangeOfString:flair options:NSCaseInsensitiveSearch].location != NSNotFound) {
                                 NSArray *comp = [data[@"title"] componentsSeparatedByString:@"]"];
                                 if (comp.count > 1) {
-                                    NSString *trimmedTitle = [comp[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+                                    NSString *trimmedTitle = [comp.lastObject stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
                                     NSURL *redditURL = [NSURL URLWithString:@"https://reddit.com/"];
                                     NSURL *postURL = [[NSURL alloc] initWithString:data[@"permalink"] relativeToURL:redditURL];
                                     NSDictionary *trimmedPost = @{@"title": trimmedTitle, @"flair": flair.uppercaseString, @"link": postURL};
