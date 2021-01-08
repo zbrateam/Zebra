@@ -143,8 +143,8 @@
 }
 
 - (void)checkForFeaturedPackagesFromSource:(ZBBaseSource *)source {
-    NSURL *paymentEndpointURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"payment_endpoint"];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:paymentEndpointURL];
+    NSURL *featuredPackagesURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:featuredPackagesURL];
     request.HTTPMethod = @"HEAD";
     
     NSURLSessionDataTask *endpointTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
