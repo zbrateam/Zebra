@@ -51,10 +51,10 @@
     
     [self.view addSubview:_stackView];
     [NSLayoutConstraint activateConstraints:@[
-        [[_stackView leadingAnchor] constraintEqualToAnchor:self.view.leadingAnchor],
-        [[_stackView trailingAnchor] constraintEqualToAnchor:self.view.trailingAnchor],
-        [[_stackView topAnchor] constraintEqualToAnchor:self.view.topAnchor],
-        [[_stackView bottomAnchor] constraintEqualToAnchor:self.view.bottomAnchor],
+        [[_stackView leadingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [[_stackView trailingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [[_stackView topAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [[_stackView bottomAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
     ]];
     _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
