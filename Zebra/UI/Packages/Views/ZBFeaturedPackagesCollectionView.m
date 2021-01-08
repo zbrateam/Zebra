@@ -13,7 +13,12 @@
 
 NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackageCollectionViewCell"; // TODO: Move this to ZBFeaturedPackageCollectionViewCell?
 
-- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout {
+- (instancetype)initWithFrame:(CGRect)frame {
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
+    layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
+    
     self = [super initWithFrame:frame collectionViewLayout:layout];
     
     if (self) {
@@ -24,17 +29,6 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         [self setShowsHorizontalScrollIndicator:NO];
     }
     
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-    layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
-    
-    self = [self initWithFrame:frame collectionViewLayout:layout];
     return self;
 }
 
