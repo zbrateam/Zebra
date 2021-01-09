@@ -255,9 +255,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
         case 0:
-            return clipboardHasSource;
+            return searchTermIsEmpty ? clipboardHasSource : 0;
         case 1:
-            return importExpanded ? managers.count + 1 : 1;
+            return searchTermIsEmpty ? importExpanded ? managers.count + 1 : 1 : 0;
         case 2:
             return searchTermIsURL;
         case 3:
