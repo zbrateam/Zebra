@@ -32,7 +32,6 @@
     self.iconImageView.layer.borderWidth = 1;
     self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
-    self.chevronView = (UIImageView *)(self.accessoryView);
     self.storeBadge.hidden = YES;
     self.installedPackagesLabel.hidden = YES;
     
@@ -74,10 +73,6 @@
 //    self.backgroundColor= [UIColor selectedCellBackgroundColor:highlighted];
 }
 
-- (void)clearAccessoryView {
-    self.accessoryView = self.chevronView;
-}
-
 - (void)setSpinning:(BOOL)spinning {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (spinning) {
@@ -85,7 +80,7 @@
             [self->spinner startAnimating];
         } else {
             [self->spinner stopAnimating];
-            self.accessoryView = self.chevronView;
+            self.accessoryView = nil;
         }
     });
 }
@@ -106,7 +101,7 @@
     [super prepareForReuse];
     [self.iconImageView sd_cancelCurrentImageLoad];
     self.tintColor = [UIColor accentColor];
-    self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    self.accessoryType = UITableViewCellAccessoryNone;
     [self setDisabled:NO];
 }
 
