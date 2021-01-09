@@ -947,7 +947,7 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
     }
     
     // Should only run if we don't have a payment secret or if we aren't logged in.
-    [[self source] authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+    [[self source] authenticate:YES completion:^(BOOL success, BOOL notify, NSError * _Nullable error) {
         if (tryAgain && success && !error) {
             [self purchase:NO completion:completion]; // Try again, but only try once
         }
