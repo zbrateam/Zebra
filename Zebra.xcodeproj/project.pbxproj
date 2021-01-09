@@ -184,7 +184,6 @@
 		A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5122E6824641D3E0059E434 /* ZBTableViewController.m */; };
 		BFC6DB1E236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */; };
 		C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */; };
-		D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -523,8 +522,6 @@
 		BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsSelectionTableViewController.m; sourceTree = "<group>"; };
 		C3BF92BE2449144E00D903A7 /* UIFont+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+Zebra.h"; sourceTree = "<group>"; };
 		C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Zebra.m"; sourceTree = "<group>"; };
-		D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBStoresListTableViewController.m; sourceTree = "<group>"; };
-		D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBStoresListTableViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1146,7 +1143,6 @@
 				895A808023637C3F00C166AC /* Credits */,
 				3639D19622CC61400012E18F /* Helpers */,
 				367D80EF22C3D17F00581D60 /* Settings */,
-				D1BF9C6D22A826B300DD9266 /* Stores */,
 				369F9E9D22BC850000D6CCF3 /* Wish List */,
 			);
 			path = Home;
@@ -1303,15 +1299,6 @@
 				9E1C85AF22A3903600D93D14 /* ZBChangesTableViewController.m */,
 			);
 			path = Changes;
-			sourceTree = "<group>";
-		};
-		D1BF9C6D22A826B300DD9266 /* Stores */ = {
-			isa = PBXGroup;
-			children = (
-				D1BF9C7022A826B300DD9266 /* ZBStoresListTableViewController.h */,
-				D1BF9C6F22A826B300DD9266 /* ZBStoresListTableViewController.m */,
-			);
-			path = Stores;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1538,7 +1525,6 @@
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */,
-				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
