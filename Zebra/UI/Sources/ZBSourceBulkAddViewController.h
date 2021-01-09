@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceBulkAddViewController : UIViewController
+@interface ZBSourceBulkAddViewController : UIViewController <UITextViewDelegate>
 
 @end
 
