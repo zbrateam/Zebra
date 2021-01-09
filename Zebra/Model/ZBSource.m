@@ -223,6 +223,8 @@
 }
 
 - (NSString *)paymentSecret:(NSError **)error {
+    return NULL;
+    
     __block NSString *paymentSecret = NULL;
     __block NSError *paymentError = NULL;
     

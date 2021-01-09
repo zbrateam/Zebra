@@ -40,7 +40,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Modern Payment API
 
-- (void)getPaymentEndpoint:(void (^)(NSURL *_Nullable paymentEndpointURL))completion;
 - (NSString *)paymentSecret:(NSError **)error;
 - (void)authenticate:(BOOL)force completion:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion;
 - (void)signOut;
