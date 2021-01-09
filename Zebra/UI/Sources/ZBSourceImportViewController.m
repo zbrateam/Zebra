@@ -100,8 +100,6 @@
             
         [self.tableView reloadData];
     }
-    
-    NSLog(@"%@", self.navigationItem.backBarButtonItem);
 }
 
 - (void)increaseProgressBy:(double)progress {

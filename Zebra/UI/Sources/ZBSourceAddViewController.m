@@ -24,9 +24,12 @@
     NSMutableArray <ZBBaseSource *> *sources;
     NSMutableArray <ZBBaseSource *> *selectedSources;
     NSArray <ZBBaseSource *> *filteredSources;
+    BOOL clipboardHasSource;
     BOOL searchTermIsEmpty;
     BOOL searchTermIsURL;
+    BOOL importExpanded;
     ZBBaseSource *enteredSource;
+    ZBBaseSource *clipboardSource;
     NSArray *managers;
 }
 @end
@@ -164,12 +167,67 @@
     
     self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    [self checkPasteboard:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     searchController.active = YES;
+}
+
+- (void)checkPasteboard:(BOOL)checked {
+    if (!checked) {
+        if (@available(iOS 14.0, *)) {
+            [[UIPasteboard generalPasteboard] detectPatternsForPatterns:[NSSet setWithObject:UIPasteboardDetectionPatternProbableWebURL] completionHandler:^(NSSet<UIPasteboardDetectionPattern> * _Nullable patterns, NSError * _Nullable error) {
+                if (!error && [patterns containsObject:UIPasteboardDetectionPatternProbableWebURL]) {
+                    [self checkPasteboard:YES];
+                }
+            }];
+        } else {
+            [self checkPasteboard:YES];
+        }
+    }
+    
+    if (checked) {
+        NSURL *potentialSourceURL = [[UIPasteboard generalPasteboard] URL];
+        if (!potentialSourceURL) potentialSourceURL = [NSURL URLWithString:[[UIPasteboard generalPasteboard] string]];
+        ZBBaseSource *potentialBaseSource = [[ZBBaseSource alloc] initFromURL:potentialSourceURL];
+        if (potentialBaseSource) {
+            self->clipboardSource = potentialBaseSource;
+            self->clipboardHasSource = YES;
+            [potentialBaseSource verify:^(ZBSourceVerificationStatus status) {
+                if (status == ZBSourceExists) {
+                    self->clipboardSource = potentialBaseSource;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                    });
+                    
+                    [self->clipboardSource getLabel:^(NSString * _Nonnull label) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                        });
+                    }];
+                }
+                else if (status == ZBSourceImaginary) {
+                    self->clipboardSource = NULL;
+                    self->clipboardHasSource = NO;
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                    });
+                }
+            }];
+        } else {
+            self->clipboardHasSource = NO;
+            self->clipboardSource = NULL;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+        });
+    }
 }
 
 - (void)dismiss {
@@ -191,16 +249,21 @@
 #pragma mark - UITableViewDelegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return searchTermIsEmpty || !searchTermIsURL ? 1 : 2;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (searchTermIsEmpty) {
-        return managers.count;
-    } else if (section == 0 && searchTermIsURL) {
-        return 1;
-    } else {
-        return filteredSources.count;
+    switch (section) {
+        case 0:
+            return clipboardHasSource;
+        case 1:
+            return importExpanded ? managers.count + 1 : 1;
+        case 2:
+            return searchTermIsURL;
+        case 3:
+            return !searchTermIsEmpty ? filteredSources.count : 0;
+        default:
+            return 0;
     }
 }
 
@@ -209,14 +272,50 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
 
-    if (searchTermIsEmpty) {
-        NSDictionary *manager = managers[indexPath.row];
+    if (indexPath.section == 0 && searchTermIsEmpty && clipboardSource) {
+        if ([addedSources containsObject:clipboardSource]) {
+            [cell setDisabled:YES];
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
+        else {
+            [cell setDisabled:NO];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
         
-        cell.sourceLabel.text = manager[@"name"];
-        cell.urlLabel.text = manager[@"label"];
-        [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }
-    else if (indexPath.section == 0 && searchTermIsURL) {
+        if (clipboardSource.verificationStatus == ZBSourceVerifying || clipboardSource.verificationStatus == ZBSourceUnverified) {
+            [cell setSpinning:YES];
+            cell.urlLabel.text = clipboardSource.label;
+            cell.sourceLabel.hidden = YES;
+            cell.iconImageView.image = nil;
+        }
+        else if (clipboardSource.verificationStatus == ZBSourceExists) {
+            if ([selectedSources containsObject:enteredSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+            [cell setSpinning:NO];
+            cell.sourceLabel.hidden = NO;
+            cell.sourceLabel.text = clipboardSource.label;
+            cell.urlLabel.text = NSLocalizedString(@"From your clipboard", @"");
+            [cell.iconImageView sd_setImageWithURL:clipboardSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        }
+    } else if (indexPath.section == 1 && searchTermIsEmpty) {
+        if (indexPath.row == 0) {
+            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"importSectionHeader"];
+            
+            cell.textLabel.text = NSLocalizedString(@"Import Sources", @"");
+            cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightSemibold];
+            cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up.circle.fill" : @"chevron.down.circle.fill"]];
+            cell.accessoryView.tintColor = [UIColor tertiaryTextColor];
+            
+            return cell;
+        } else if (importExpanded) {
+            NSDictionary *manager = managers[indexPath.row - 1];
+            
+            cell.sourceLabel.hidden = NO;
+            cell.sourceLabel.text = manager[@"name"];
+            cell.urlLabel.text = manager[@"label"];
+            [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        }
+    } else if (indexPath.section == 2 && searchTermIsURL) {
         if (enteredSource) {
             if ([addedSources containsObject:enteredSource]) {
                 [cell setDisabled:YES];
@@ -243,8 +342,7 @@
                 [cell.iconImageView sd_setImageWithURL:enteredSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
             }
         }
-    }
-    else {
+    } else if (indexPath.section == 3) {
         ZBBaseSource *source = filteredSources[indexPath.row];
         if ([addedSources containsObject:(ZBSource *)source]) {
             [cell setDisabled:YES];
@@ -269,13 +367,40 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (searchTermIsEmpty) {
-        NSDictionary *manager = managers[indexPath.row];
-        ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[[NSURL URLWithString:manager[@"url"]]] extension:manager[@"ext"]];
-        
-        [self.navigationController pushViewController:importController animated:YES];
+    if (indexPath.section == 0 && searchTermIsEmpty && clipboardHasSource) {
+        if (![addedSources containsObject:clipboardSource] && clipboardSource.verificationStatus == ZBSourceExists) {
+            if ([selectedSources containsObject:clipboardSource]) {
+                [selectedSources removeObject:clipboardSource];
+            } else {
+                [selectedSources addObject:clipboardSource];
+            }
+        }
         return;
-    } else if (indexPath.section == 0 && enteredSource) {
+    } else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            importExpanded = !importExpanded;
+            
+            NSMutableArray *indexPaths = [NSMutableArray new];
+            for (int i = 0; i < managers.count; i++) {
+                [indexPaths addObject:[NSIndexPath indexPathForRow:i + 1 inSection:1]];
+            }
+            
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            if (importExpanded) {
+                [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else {
+                [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            [self.tableView endUpdates];
+        } else if (importExpanded) {
+            NSDictionary *manager = managers[indexPath.row];
+            ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[[NSURL URLWithString:manager[@"url"]]] extension:manager[@"ext"]];
+            
+            [self.navigationController pushViewController:importController animated:YES];
+        }
+        return;
+    } else if (indexPath.section == 2 && enteredSource) {
         if (![addedSources containsObject:enteredSource] && enteredSource.verificationStatus == ZBSourceExists) {
             if ([selectedSources containsObject:enteredSource]) {
                 [selectedSources removeObject:enteredSource];
@@ -283,7 +408,7 @@
                 [selectedSources addObject:enteredSource];
             }
         }
-    } else {
+    } else if (indexPath.section == 2) {
         ZBBaseSource *source = filteredSources[indexPath.row];
         if (![addedSources containsObject:source]) {
             if ([selectedSources containsObject:source]) {
@@ -372,14 +497,14 @@
                             self->enteredSource = newEnteredSource;
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self.tableView beginUpdates];
-                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
                                 [self.tableView endUpdates];
                             });
                             
                             [self->enteredSource getLabel:^(NSString * _Nonnull label) {
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [self.tableView beginUpdates];
-                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
                                     [self.tableView endUpdates];
                                 });
                             }];
@@ -390,7 +515,7 @@
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self.tableView beginUpdates];
-                                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
                                 [self.tableView endUpdates];
                             });
                         }

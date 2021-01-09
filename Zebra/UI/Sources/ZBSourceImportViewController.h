@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceImportViewController : ZBTableViewController <ZBSourceVerificationDelegate>
+@interface ZBSourceImportViewController : UITableViewController <ZBSourceVerificationDelegate>
 @property (nonatomic) NSMutableArray <NSURL *> *sourceFilesToImport;
 - (id)initWithPaths:(NSArray <NSURL *> *)filePaths;
 - (id)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension;
