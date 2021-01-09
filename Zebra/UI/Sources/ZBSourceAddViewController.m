@@ -289,7 +289,7 @@
             cell.iconImageView.image = nil;
         }
         else if (clipboardSource.verificationStatus == ZBSourceExists) {
-            if ([selectedSources containsObject:enteredSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            if ([selectedSources containsObject:clipboardSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
             
             [cell setSpinning:NO];
             cell.sourceLabel.hidden = NO;
@@ -375,8 +375,7 @@
                 [selectedSources addObject:clipboardSource];
             }
         }
-        return;
-    } else if (indexPath.section == 1) {
+    } else if (indexPath.section == 1 && searchTermIsEmpty) {
         if (indexPath.row == 0) {
             importExpanded = !importExpanded;
             
@@ -497,14 +496,14 @@
                             self->enteredSource = newEnteredSource;
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self.tableView beginUpdates];
-                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
                                 [self.tableView endUpdates];
                             });
                             
                             [self->enteredSource getLabel:^(NSString * _Nonnull label) {
                                 dispatch_async(dispatch_get_main_queue(), ^{
                                     [self.tableView beginUpdates];
-                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
                                     [self.tableView endUpdates];
                                 });
                             }];
@@ -515,7 +514,7 @@
                             
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 [self.tableView beginUpdates];
-                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
                                 [self.tableView endUpdates];
                             });
                         }
