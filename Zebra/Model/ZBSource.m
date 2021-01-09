@@ -121,7 +121,7 @@
     return ![[self uuid] isEqualToString:@"getzbra.com_repo_"];
 }
 
-- (void)authenticate:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {
+- (void)authenticate:(BOOL)force completion:(void (^)(BOOL success, BOOL notify, NSError *_Nullable error))completion {
     if (![self supportsPaymentAPI]) {
         NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
         completion(NO, YES, error);
@@ -129,8 +129,12 @@
     }
     
     if ([self isSignedIn]) {
-        completion(YES, NO, nil);
-        return;
+        if (force) {
+            [self signOut];
+        } else {
+            completion(YES, NO, nil);
+            return;
+        }
     }
     
     NSURLComponents *components = [NSURLComponents componentsWithURL:[self.paymentEndpointURL URLByAppendingPathComponent:@"authenticate"] resolvingAgainstBaseURL:YES];
@@ -183,7 +187,7 @@
     [session start];
 }
 
-- (void)signOut API_AVAILABLE(ios(11.0)) {
+- (void)signOut {
     if (![self supportsPaymentAPI]) {
 //        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:412 userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Source does not support Payment API", @"")}];
         return;
@@ -213,12 +217,14 @@
     [signOutTask resume];
 }
 
-- (BOOL)isSignedIn API_AVAILABLE(ios(11.0)) {
+- (BOOL)isSignedIn {
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:[ZBAppDelegate bundleID] accessGroup:nil];
     return [keychain stringForKey:self.repositoryURI] ? YES : NO;
 }
 
 - (NSString *)paymentSecret:(NSError **)error {
+    return NULL;
+    
     __block NSString *paymentSecret = NULL;
     __block NSError *paymentError = NULL;
     
@@ -326,22 +332,6 @@
     else if (_pinPriority == 0) return 500;
     else return _pinPriority;
 }
-
-//- (void)getPaymentEndpoint:(void (^)(NSURL *))completion {
-//    if (checkedForPaymentEndpoint) completion(paymentEndpointURL);
-//
-//    [[NSURLSession sharedSession] dataTaskWithURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"payment_endpoint"] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        NSInteger httpStatus = [((NSHTTPURLResponse *)response) statusCode];
-//        if (httpStatus == 200 && !error) {
-//            NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//            if (response) {
-//                self->paymentEndpointURL = [NSURL URLWithString:response];
-//            }
-//        }
-//        self->checkedForPaymentEndpoint = YES;
-//        completion(self->paymentEndpointURL);
-//    }];
-//}
 
 - (void)getFeaturedPackages:(void (^)(NSDictionary *))completion {
     if (self->featuredPackages) completion(featuredPackages);
