@@ -48,7 +48,7 @@
     if ([ZBSettings wantsInstalledPackagesCount] || filter.sortOrder == ZBSourceSortOrderInstalledPackages) {
         NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
         if (numberOfInstalledPackages > 0) {
-            self.installedPackagesLabel.text = [@(numberOfInstalledPackages) stringValue];
+            self.installedPackagesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu Installed", @""), numberOfInstalledPackages];
             self.installedPackagesLabel.hidden = NO;
         } else {
             self.installedPackagesLabel.hidden = YES;

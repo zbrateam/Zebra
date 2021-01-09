@@ -154,6 +154,7 @@
 "Local File" = "Local File";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
+"%lu Installed" = "%lu Installed";
 
 "Add" = "Add";
 "View" = "View";
