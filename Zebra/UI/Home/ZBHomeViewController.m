@@ -39,6 +39,8 @@
         _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] init];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _scrollView.refreshControl = [[UIRefreshControl alloc] init];
+        [_scrollView.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
@@ -57,7 +59,7 @@
     [NSLayoutConstraint activateConstraints:@[
         [[_scrollView leadingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
         [[_scrollView trailingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [[_scrollView topAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [[_scrollView topAnchor] constraintEqualToAnchor:self.view.topAnchor],
         [[_scrollView bottomAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
     ]];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -92,6 +94,14 @@
 
     _featuredPackagesViewHeightConstraint.constant = 253;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
+}
+
+- (void)refreshSources {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_scrollView.refreshControl endRefreshing];
+        });
+    });
 }
 
 
