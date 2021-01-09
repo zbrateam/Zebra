@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <ZBSource *> *sources;
 #pragma mark - Initializers
 - (instancetype)initWithSources:(NSArray <ZBSource *> *)sources;
+#pragma mark - URL Handling
+- (void)handleURL:(NSURL *)url;
+- (void)handleImportOf:(NSURL *)url;
 @end
 
 NS_ASSUME_NONNULL_END

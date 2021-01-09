@@ -13,7 +13,6 @@
 #import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Model/ZBPackage.h>
-#import "Community Sources/ZBCommunitySourcesTableViewController.h"
 #import "Changelog/ZBChangelogTableViewController.h"
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
@@ -35,8 +34,6 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 typedef enum ZBViewOrder : NSUInteger {
     ZBChangeLog,
-    ZBCommunity,
-    ZBStores,
     ZBWishList
 } ZBViewOrder;
 
@@ -255,7 +252,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBInfo:
             return 2;
         case ZBViews:
-            return 4;
+            return 2;
         case ZBLinks:
             return 2;
         case ZBCredits:
@@ -322,14 +319,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBChangeLog:
                     text = NSLocalizedString(@"Changelog", @"");
                     image = [UIImage imageNamed:@"Changelog"];
-                    break;
-                case ZBCommunity:
-                    text = NSLocalizedString(@"Transfer Sources", @"");
-                    image = [UIImage imageNamed:@"Repos"];
-                    break;
-                case ZBStores:
-                    text = NSLocalizedString(@"Stores", @"");
-                    image = [UIImage imageNamed:@"Stores"];
                     break;
                 case ZBWishList:
                     text = NSLocalizedString(@"Wish List", @"");
@@ -467,16 +456,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             [self.navigationController pushViewController:changeLog animated:YES];
             break;
         }
-        case ZBCommunity: {
-            ZBCommunitySourcesTableViewController *community = [[ZBCommunitySourcesTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-            [self.navigationController pushViewController:community animated:YES];
-            break;
-        }
-        case ZBStores: {
-            ZBStoresListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"storesController"];
-            [[self navigationController] pushViewController:webController animated:YES];
-            break;
-        }
         case ZBWishList: {
             ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
             [[self navigationController] pushViewController:webController animated:YES];
@@ -534,7 +513,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (IBAction)settingsButtonTapped:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBStoresListTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
+    ZBSettingsTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
     
     settingsController.presentationController.delegate = self;
