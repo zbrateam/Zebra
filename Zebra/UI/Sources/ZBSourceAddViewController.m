@@ -393,7 +393,7 @@
             }
             [self.tableView endUpdates];
         } else if (importExpanded) {
-            NSDictionary *manager = managers[indexPath.row];
+            NSDictionary *manager = managers[indexPath.row - 1];
             ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[[NSURL URLWithString:manager[@"url"]]] extension:manager[@"ext"]];
             
             [self.navigationController pushViewController:importController animated:YES];
