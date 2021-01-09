@@ -301,9 +301,9 @@
         if (indexPath.row == 0) {
             UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"importSectionHeader"];
             
-            cell.textLabel.text = NSLocalizedString(@"Import Sources", @"");
+            cell.textLabel.text = NSLocalizedString(@"Transfer Sources", @"");
             cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightSemibold];
-            cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up.circle.fill" : @"chevron.down.circle.fill"]];
+            cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up" : @"chevron.down"]];
             cell.accessoryView.tintColor = [UIColor tertiaryTextColor];
             
             return cell;
