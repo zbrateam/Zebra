@@ -298,6 +298,10 @@
     return [databaseManager remoteInstanceOfPackage:package withVersion:version];
 }
 
+- (NSArray <ZBPackage *> *)allRemoteInstancesOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+    return [databaseManager allRemoteInstancesOfPackage:package withVersion:version];
+}
+
 - (NSUInteger)numberOfInstalledPackagesFromSource:(ZBSource *)source {
     return [self.installedPackages.allValues filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF like %@", source.uuid]].count;
 }
