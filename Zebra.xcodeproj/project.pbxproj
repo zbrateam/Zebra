@@ -12,8 +12,6 @@
 		2627B60D2321A64400B141E5 /* originalBlack~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60C2321A64400B141E5 /* originalBlack~ipad@2x.png */; };
 		2627B60F2321A64D00B141E5 /* originalBlack@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B60E2321A64D00B141E5 /* originalBlack@3x.png */; };
 		2627B6112321A65200B141E5 /* originalBlack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2627B6102321A65200B141E5 /* originalBlack@2x.png */; };
-		3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */; };
-		3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */; };
 		363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE245228785AE00B69929 /* UICKeyChainStore.m */; };
 		363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */; };
 		363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */; };
@@ -196,9 +194,6 @@
 		2627B60C2321A64400B141E5 /* originalBlack~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack~ipad@2x.png"; sourceTree = "<group>"; };
 		2627B60E2321A64D00B141E5 /* originalBlack@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@3x.png"; sourceTree = "<group>"; };
 		2627B6102321A65200B141E5 /* originalBlack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originalBlack@2x.png"; sourceTree = "<group>"; };
-		3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBFeaturedCollectionViewCell.h; sourceTree = "<group>"; };
-		3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBFeaturedCollectionViewCell.m; sourceTree = "<group>"; };
-		3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBFeaturedCollectionViewCell.xib; sourceTree = "<group>"; };
 		363FE244228785AD00B69929 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		363FE245228785AE00B69929 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
 		363FE24722878EF000B69929 /* UIBarButtonItem+blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+blocks.h"; sourceTree = "<group>"; };
@@ -955,7 +950,6 @@
 		896F11B421B230A40017B581 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				89F213C123BED9DE00F3E5E5 /* Views */,
 				896F11C721B231CB0017B581 /* Helpers */,
 				896F11C821B231CF0017B581 /* Controllers */,
 			);
@@ -1260,16 +1254,6 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		89F213C123BED9DE00F3E5E5 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3635D6AC2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.h */,
-				3635D6AD2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m */,
-				3635D6AE2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		89FEBC1B22C293E100B58662 /* Tabs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1438,7 +1422,6 @@
 				89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */,
 				899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */,
 				499B9F3A248308C800358A84 /* zebrine@2x.png in Resources */,
-				3635D6B02299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.xib in Resources */,
 				36AC5A7422AB30E9004C2332 /* zBlack~ipad@2x.png in Resources */,
 				49009A652471D442005CA2E2 /* ZBScreenshotCollectionViewCell.xib in Resources */,
 				89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */,
@@ -1569,7 +1552,6 @@
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
 				369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */,
 				A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */,
-				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.m in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBMigrationViewController.m in Sources */,
