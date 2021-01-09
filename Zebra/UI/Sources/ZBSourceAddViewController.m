@@ -11,6 +11,7 @@
 #import <Model/ZBSource.h>
 #import <Managers/ZBSourceManager.h>
 #import <UI/Sources/ZBSourceImportViewController.h>
+#import <UI/Sources/ZBSourceBulkAddViewController.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
@@ -54,6 +55,7 @@
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
         searchController.searchBar.showsCancelButton = NO;
         searchController.searchBar.showsBookmarkButton = YES;
+        searchController.searchBar.delegate = self;
         if (@available(iOS 13.0, *)) {
             [searchController.searchBar setImage:[UIImage systemImageNamed:@"paperclip.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
         } else {
@@ -62,6 +64,7 @@
         
         searchTermIsEmpty = YES;
         searchTermIsURL = NO;
+        clipboardHasSource = NO;
         [self downloadSources];
     }
     
@@ -527,6 +530,14 @@
     }
     
     [self.tableView reloadData];
+}
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBarBookmarkButtonClicked:(UISearchBar *)searchBar {
+    ZBSourceBulkAddViewController *bulkAddView = [[ZBSourceBulkAddViewController alloc] init];
+    
+    [self.navigationController pushViewController:bulkAddView animated:YES];
 }
 
 @end
