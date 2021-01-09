@@ -107,6 +107,13 @@
 
 #pragma mark - View Controller Lifecycle
 
+- (void)loadView {
+    [super loadView];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"star"] style:UIBarButtonItemStylePlain target:self action:@selector(showFavorites)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportPackageList)];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     

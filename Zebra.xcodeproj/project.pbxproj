@@ -24,7 +24,6 @@
 		367D80F522C3D1CF00581D60 /* ZBMainSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBMainSettingsTableViewController.m */; };
 		369B7AE022C56009007521DB /* banner.png in Resources */ = {isa = PBXBuildFile; fileRef = 369B7ADF22C56009007521DB /* banner.png */; };
 		369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */; };
-		369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */; };
 		369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */; };
 		36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FA230A1616002694BE /* ZBUserInfo.m */; };
 		36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FF230A485B002694BE /* ZBRedditPosts.m */; };
@@ -216,8 +215,6 @@
 		369B7ADF22C56009007521DB /* banner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner.png; sourceTree = "<group>"; };
 		369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInstalledFilesTableViewController.h; sourceTree = "<group>"; };
 		369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInstalledFilesTableViewController.m; sourceTree = "<group>"; };
-		369F9E9E22BC850000D6CCF3 /* ZBWishListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBWishListTableViewController.h; sourceTree = "<group>"; };
-		369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBWishListTableViewController.m; sourceTree = "<group>"; };
 		369F9EA122BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagesByAuthorTableViewController.h; sourceTree = "<group>"; };
 		369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackagesByAuthorTableViewController.m; sourceTree = "<group>"; };
 		36A1D8F9230A1616002694BE /* ZBUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserInfo.h; sourceTree = "<group>"; };
@@ -602,15 +599,6 @@
 				75D0A77124A0134A007D84EF /* Table */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		369F9E9D22BC850000D6CCF3 /* Wish List */ = {
-			isa = PBXGroup;
-			children = (
-				369F9E9E22BC850000D6CCF3 /* ZBWishListTableViewController.h */,
-				369F9E9F22BC850000D6CCF3 /* ZBWishListTableViewController.m */,
-			);
-			path = "Wish List";
 			sourceTree = "<group>";
 		};
 		36A1D8F8230A15FC002694BE /* JSONParsing */ = {
@@ -1164,7 +1152,6 @@
 				3639D19622CC61400012E18F /* Helpers */,
 				367D80EF22C3D17F00581D60 /* Settings */,
 				D1BF9C6D22A826B300DD9266 /* Stores */,
-				369F9E9D22BC850000D6CCF3 /* Wish List */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1562,7 +1549,6 @@
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,
 				892F4E2825339E2A00BAB3A5 /* ZBPackageManager.m in Sources */,
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
-				369F9EA022BC850100D6CCF3 /* ZBWishListTableViewController.m in Sources */,
 				A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.m in Sources */,
