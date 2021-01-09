@@ -51,8 +51,8 @@
                             </imageView>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Installed Packages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJj-5z-GPd" userLabel="Installed Packages Label">
-                        <rect key="frame" x="287" y="31" width="113" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Installed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJj-5z-GPd" userLabel="Installed Packages Label">
+                        <rect key="frame" x="339" y="31" width="61" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     </label>
                 </subviews>
