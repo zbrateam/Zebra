@@ -24,6 +24,8 @@
         self.dataSource = self;
         self.delegate = self;
         
+        self.scrollEnabled = NO;
+        
         self.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
         self.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
         

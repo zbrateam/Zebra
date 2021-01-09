@@ -8,7 +8,6 @@
 
 #import "ZBSourceViewController.h"
 #import "ZBSourceAccountTableViewController.h"
-#import "ZBFeaturedCollectionViewCell.h"
 #import "ZBSourceAccountBanner.h"
 
 #import <ZBAppDelegate.h>

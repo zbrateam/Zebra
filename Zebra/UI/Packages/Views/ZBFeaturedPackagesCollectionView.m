@@ -49,13 +49,7 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         // hide spinner
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.numberOfSections == 1 && self->_posts.count) {
-                [self reloadSections:[NSIndexSet indexSetWithIndex:0]];
-            } else if (self.numberOfSections == 0 && self->_posts.count) {
-                [self insertSections:[NSIndexSet indexSetWithIndex:0]];
-            } else {
-                [self deleteSections:[NSIndexSet indexSetWithIndex:0]];
-            }
+            [self reloadData];
         });
     }
 }
