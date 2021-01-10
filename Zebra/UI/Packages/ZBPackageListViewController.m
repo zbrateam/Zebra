@@ -90,6 +90,8 @@
         } else {
             self.title = NSLocalizedString(@"Installed", @"");
         }
+        
+        self.filter = [[ZBPackageFilter alloc] initWithSource:self.source section:self.section];
     }
     
     return self;
