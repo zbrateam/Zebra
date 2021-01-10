@@ -410,7 +410,7 @@
                 [selectedSources addObject:enteredSource];
             }
         }
-    } else if (indexPath.section == 2) {
+    } else if (indexPath.section == 3) {
         ZBBaseSource *source = filteredSources[indexPath.row];
         if (![addedSources containsObject:source]) {
             if ([selectedSources containsObject:source]) {
