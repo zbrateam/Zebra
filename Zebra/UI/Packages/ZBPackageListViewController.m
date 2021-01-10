@@ -22,6 +22,8 @@
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
 
+#import <Extensions/UIViewController+Extensions.h>
+
 @interface ZBPackageListViewController () {
     ZBPackageManager *packageManager;
     UISearchController *searchController;
@@ -88,8 +90,6 @@
         } else {
             self.title = NSLocalizedString(@"Installed", @"");
         }
-        
-        self.filter = [[ZBPackageFilter alloc] initWithSource:source section:section];
     }
     
     return self;
@@ -105,14 +105,21 @@
     return self;
 }
 
-#pragma mark - View Controller Lifecycle
-
-- (void)loadView {
-    [super loadView];
+- (instancetype)initWithPackageIdentifiers:(NSArray<NSString *> *)identifiers {
+    self = [self init];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"star"] style:UIBarButtonItemStylePlain target:self action:@selector(showFavorites)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportPackageList)];
+    if (self) {
+        packageManager = [ZBPackageManager sharedInstance];
+        
+        self.identifiers = identifiers;
+        
+        self.filter = [[ZBPackageFilter alloc] init];
+    }
+    
+    return self;
 }
+
+#pragma mark - View Controller Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -123,6 +130,17 @@
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     
+    if (self.source && !self.source.remote) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"star"] style:UIBarButtonItemStylePlain target:self action:@selector(showFavorites)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(exportPackageList)];
+    } else if (self.isModal) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(dismiss)];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     [self loadPackages];
 }
 
@@ -130,7 +148,7 @@
     if (!self.isViewLoaded) return;
     
     [self showSpinner];
-    if (_packages) {
+    if (_packages && _packages.count) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             NSArray <ZBPackage *> *filteredPackages = [self->packageManager filterPackages:self->_packages withFilter:self.filter];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -148,6 +166,11 @@
                 } completion:nil];
             });
         });
+    } else if (self.identifiers && self.identifiers.count) { // Load packages from identifiers
+        [packageManager fetchPackagesFromIdentifiers:self.identifiers completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+            self.packages = packages;
+            [self loadPackages];
+        }];
     } else { // Load packages for the first time, every other access is done by filter
         [packageManager fetchPackagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
             self.packages = packages;
@@ -193,13 +216,25 @@
     [[ZBQueue sharedQueue] addPackages:self->updates toQueue:ZBQueueTypeUpgrade];
 }
 
+- (void)showFavorites {
+    ZBPackageListViewController *favoritesController = [[ZBPackageListViewController alloc] initWithPackageIdentifiers:@[@"xyz.willy.zebra"]];
+    favoritesController.title = NSLocalizedString(@"Favorites", @"");
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoritesController];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)dismiss {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - Filter Delegate
 
 - (void)applyFilter:(ZBPackageFilter *)filter {
     self.filter = filter;
     
     [self loadPackages];
-    [ZBSettings setFilter:self.filter forSource:self.source section:self.section];
+    if (self.filter.source) [ZBSettings setFilter:self.filter forSource:self.source section:self.section];
 }
 
 #pragma mark - Search Results Updating Protocol
