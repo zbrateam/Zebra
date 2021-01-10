@@ -217,7 +217,18 @@
 }
 
 - (void)showFavorites {
-    ZBPackageListViewController *favoritesController = [[ZBPackageListViewController alloc] initWithPackageIdentifiers:@[@"xyz.willy.zebra"]];
+    NSArray <NSString *> *favorites = [ZBSettings wishlist];
+    if (!favorites || !favorites.count) {
+        UIAlertController *noFavorites = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"No Favorites", @"") message:NSLocalizedString(@"There are no favorites to view.", @"") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *action = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+        [noFavorites addAction:action];
+        
+        [self presentViewController:noFavorites animated:YES completion:nil];
+        return;
+    }
+    
+    ZBPackageListViewController *favoritesController = [[ZBPackageListViewController alloc] initWithPackageIdentifiers:favorites];
     favoritesController.title = NSLocalizedString(@"Favorites", @"");
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:favoritesController];
