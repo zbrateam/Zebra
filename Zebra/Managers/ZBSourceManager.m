@@ -282,6 +282,12 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)clearBusyList {
+    [busyList enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        BOOL busy = [obj boolValue];
+        if (busy) {
+            [self finishedImportForSource:[self sourceWithUUID:key]];
+        }
+    }];
     [busyList removeAllObjects];
 }
 
@@ -708,7 +714,6 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 
 - (void)cancelSourceRefresh {
     [downloadManager stopAllDownloads];
-    [self finishedSourceRefresh];
     [self clearBusyList];
 }
 

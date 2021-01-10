@@ -498,7 +498,6 @@
             if (self.refreshControl.isRefreshing) {
                 [self.refreshControl endRefreshing];
             }
-            [self.tableView reloadData];
         }
     });
 }
