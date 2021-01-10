@@ -669,13 +669,12 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
-    const char *query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+    if (!requestedPackages || !requestedPackages.count) return NULL;
+    
     NSString *identifierString = [requestedPackages componentsJoinedByString:@"\', \'"];
+    NSString *query = [NSString stringWithFormat:@"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier IN (\'%@\') GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;", identifierString];
     sqlite3_stmt *statement;
-    __block int result = sqlite3_prepare_v2(database, query, -1, &statement, nil);
-    if (result == SQLITE_OK) {
-        result = sqlite3_bind_text(statement, 1, identifierString.UTF8String, -1, SQLITE_TRANSIENT);
-    }
+    __block int result = sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil);
         
     if (result != SQLITE_OK) return NULL;
     
