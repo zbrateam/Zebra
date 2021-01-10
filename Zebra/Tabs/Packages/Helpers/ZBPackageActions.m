@@ -43,12 +43,12 @@
             [self hideUpdatesFor:package];
             if (completion) completion(action);
             break;
-        case ZBPackageExtraActionAddWishlist:
-            [self addToWishlist:package];
+        case ZBPackageExtraActionAddFavorite:
+            [self addFavorite:package];
             if (completion) completion(action);
             break;
-        case ZBPackageExtraActionRemoveWishlist:
-            [self removeFromWishlist:package];
+        case ZBPackageExtraActionRemoveFavorite:
+            [self removeFavorite:package];
             if (completion) completion(action);
             break;
         case ZBPackageExtraActionBlockAuthor:
@@ -376,22 +376,22 @@
     [package setIgnoreUpdates:YES];
 }
 
-+ (void)addToWishlist:(ZBPackage *)package {
-    NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
-    BOOL inWishList = [wishList containsObject:package.identifier];
-    if (!inWishList) {
-        [wishList addObject:package.identifier];
++ (void)addFavorite:(ZBPackage *)package {
+    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
+    BOOL isFavorited = [favorites containsObject:package.identifier];
+    if (!isFavorited) {
+        [favorites addObject:package.identifier];
     }
-    [ZBSettings setWishlist:wishList];
+    [ZBSettings setFavoritePackages:favorites];
 }
 
-+ (void)removeFromWishlist:(ZBPackage *)package {
-    NSMutableArray *wishList = [[ZBSettings wishlist] mutableCopy];
-    BOOL inWishList = [wishList containsObject:package.identifier];
-    if (inWishList) {
-        [wishList removeObject:package.identifier];
++ (void)removeFavorite:(ZBPackage *)package {
+    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
+    BOOL isFavorited = [favorites containsObject:package.identifier];
+    if (isFavorited) {
+        [favorites removeObject:package.identifier];
     }
-    [ZBSettings setWishlist:wishList];
+    [ZBSettings setFavoritePackages:favorites];
 }
 
 + (void)blockAuthorOf:(ZBPackage *)package {
@@ -679,10 +679,10 @@
             return NSLocalizedString(@"Show Updates", @"");
         case ZBPackageExtraActionHideUpdates:
             return NSLocalizedString(@"Hide Updates", @"");
-        case ZBPackageExtraActionAddWishlist:
-            return NSLocalizedString(@"Add to Wishlist", @"");
-        case ZBPackageExtraActionRemoveWishlist:
-            return NSLocalizedString(@"Remove from Wishlist", @"");
+        case ZBPackageExtraActionAddFavorite:
+            return NSLocalizedString(@"Add to Favorites", @"");
+        case ZBPackageExtraActionRemoveFavorite:
+            return NSLocalizedString(@"Remove from Favorites", @"");
         case ZBPackageExtraActionBlockAuthor:
             return NSLocalizedString(@"Block Author", @"");
         case ZBPackageExtraActionUnblockAuthor:

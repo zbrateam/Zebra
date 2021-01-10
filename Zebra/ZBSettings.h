@@ -185,10 +185,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSwipeActionStyle)swipeActionStyle;
 + (void)setSwipeActionStyle:(NSNumber *)style;
 
-#pragma mark - Wishlist
+#pragma mark - Favorites
 
-+ (NSArray *)wishlist;
-+ (void)setWishlist:(NSArray *)wishlist;
++ (NSArray *)favoritePackages;
++ (void)setFavoritePackages:(NSArray *)favorites;
 
 #pragma mark - Package Sorting Type
 

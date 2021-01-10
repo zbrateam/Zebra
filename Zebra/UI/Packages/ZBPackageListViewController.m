@@ -219,7 +219,7 @@
 }
 
 - (void)showFavorites {
-    NSArray <NSString *> *favorites = [ZBSettings wishlist];
+    NSArray <NSString *> *favorites = [ZBSettings favoritePackages];
     if (!favorites || !favorites.count) {
         UIAlertController *noFavorites = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"No Favorites", @"") message:NSLocalizedString(@"There are no favorites to view.", @"") preferredStyle:UIAlertControllerStyleAlert];
         

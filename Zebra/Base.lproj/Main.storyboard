@@ -656,53 +656,6 @@
             </objects>
             <point key="canvasLocation" x="6164" y="-3679"/>
         </scene>
-        <!--Wish List-->
-        <scene sceneID="OSK-WG-rrU">
-            <objects>
-                <tableViewController storyboardIdentifier="wishListController" title="Wish List" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EZp-oK-GMJ" customClass="ZBWishListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6SK-PC-Jh7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="h8l-OL-nQZ">
-                            <rect key="frame" x="0.0" y="296" width="228" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <items>
-                                <barButtonItem style="plain" id="NFk-Mn-X1c">
-                                    <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="Zm7-sp-XkJ">
-                                        <rect key="frame" x="20" y="6" width="188" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                        <segments>
-                                            <segment title="Most Recent"/>
-                                            <segment title="Least Recent"/>
-                                        </segments>
-                                    </segmentedControl>
-                                </barButtonItem>
-                            </items>
-                        </toolbar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Smf-Da-X4p">
-                                <rect key="frame" x="20" y="99.5" width="374" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Smf-Da-X4p" id="MXl-tq-FZJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="EZp-oK-GMJ" id="f2U-sA-jqO"/>
-                            <outlet property="delegate" destination="EZp-oK-GMJ" id="bff-Wh-OMx"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="segmentedControl" destination="Zm7-sp-XkJ" id="B0X-Mc-XJd"/>
-                        <outlet property="toolbar" destination="h8l-OL-nQZ" id="eFO-Im-dfU"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yz5-O4-SaC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3356" y="-2346"/>
-        </scene>
         <!--Stores-->
         <scene sceneID="uaX-zg-faQ">
             <objects>

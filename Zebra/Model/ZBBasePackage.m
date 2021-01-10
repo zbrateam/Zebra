@@ -124,8 +124,8 @@
     return [self.tag containsObject:@"cydia::commercial"];
 }
 
-- (BOOL)isOnWishlist {
-    return [[ZBSettings wishlist] containsObject:self.identifier];
+- (BOOL)isFavorited {
+    return [[ZBSettings favoritePackages] containsObject:self.identifier];
 }
 
 - (NSDate *)installedDate {

@@ -102,7 +102,7 @@
     }
 
     if (_favorited) {
-        NSPredicate *favoritePredicate = [NSPredicate predicateWithFormat:@"isOnWishlist == YES"];
+        NSPredicate *favoritePredicate = [NSPredicate predicateWithFormat:@"isFavorited == YES"];
         [predicates addObject:favoritePredicate];
     }
 
