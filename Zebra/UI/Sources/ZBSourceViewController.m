@@ -175,7 +175,7 @@
 }
 
 - (void)accountButtonPressed:(id)sender {
-    [source authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+    [source authenticate:NO completion:^(BOOL success, BOOL notify, NSError * _Nullable error) {
         if (!success || error) {
             if (notify) {
                 if (error) {

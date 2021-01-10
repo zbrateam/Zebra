@@ -1,5 +1,5 @@
 //
-//  ZBSourceImportTableViewController.m
+//  ZBSourceImportViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 1/5/20.
@@ -8,16 +8,17 @@
 
 @import SDWebImage;
 
-#import "ZBSourceImportTableViewController.h"
+#import "ZBSourceImportViewController.h"
 #import "ZBAppDelegate.h"
 
 #import <Extensions/UINavigationBar+Extensions.h>
+#import <Extensions/UIViewController+Extensions.h>
 #import <Model/ZBSource.h>
 #import <Managers/ZBSourceManager.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
-@interface ZBSourceImportTableViewController () {
+@interface ZBSourceImportViewController () {
     double individualIncrement;
     NSUInteger sourcesToVerify;
 }
@@ -27,7 +28,7 @@
 @property ZBSourceManager *sourceManager;
 @end
 
-@implementation ZBSourceImportTableViewController
+@implementation ZBSourceImportViewController
 
 @synthesize baseSources;
 @synthesize sourceFilesToImport;
@@ -37,11 +38,7 @@
 
 #pragma mark - Initializers
 
-- (id)initWithPaths:(NSArray <NSURL *> *)filePaths {
-    return [self initWithPaths:filePaths extension:@"list"];
-}
-
-- (id)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension {
+- (instancetype)init {
     self = [super init];
     
     if (self) {
@@ -49,7 +46,19 @@
             self.modalInPresentation = YES;
         }
         
+        titles = [NSMutableDictionary new];
+        selectedSources = [NSMutableDictionary new];
+        sourceManager = [ZBSourceManager sharedInstance];
         sourceFilesToImport = [NSMutableArray new];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension {
+    self = [self init];
+    
+    if (self) {
         for (NSURL *url in filePaths) {
             BOOL isDirectory = NO;
             BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:&isDirectory];
@@ -70,15 +79,32 @@
     return self;
 }
 
+- (instancetype)initWithPaths:(NSArray <NSURL *> *)filePaths {
+    return [self initWithPaths:filePaths extension:@"list"];
+}
+
+- (instancetype)initWithSources:(NSSet <ZBBaseSource *> *)sources {
+    self = [self init];
+    
+    if (self) {
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
+        self.baseSources = [[sources allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];
+    }
+    
+    return self;
+}
+
 #pragma mark - View Controller Lifecycle
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)loadView {
+    [super loadView];
 
     self.navigationController.navigationBar.navProgressView.progress = 0;
     
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
-    self.navigationItem.leftBarButtonItem = cancelItem;
+    if (self.navigationController.viewControllers.firstObject == self) {
+        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Cancel", @"") style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+        self.navigationItem.leftBarButtonItem = cancelItem;
+    }
     
     UIBarButtonItem *importItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Import", @"") style:UIBarButtonItemStyleDone target:self action:@selector(importSelected)];
     importItem.enabled = NO;
@@ -87,16 +113,25 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    if (baseSources == nil || titles == nil) {
+    if (!baseSources || !baseSources.count) {
         [self processSourcesFromLists];
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.navigationItem.title = NSLocalizedString(@"Import Sources", @"");
+        self.navigationItem.title = NSLocalizedString(@"Import Sources", @"");
             
-            [self.tableView reloadData];
+        [self.tableView reloadData];
+    } else {
+        sourcesToVerify = baseSources.count;
+        individualIncrement = (double) 1 / sourcesToVerify;
+
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            for (ZBBaseSource *source in self->baseSources) {
+                self->titles[[source uuid]] = NSLocalizedString(@"Verifying...", @"");
+            }
+            
+            [self->sourceManager verifySources:[NSSet setWithArray:self->baseSources] delegate:self];
         });
     }
 }
@@ -238,10 +273,6 @@
 #pragma mark - Processing Sources
 
 - (void)processSourcesFromLists {
-    titles = [NSMutableDictionary new];
-    selectedSources = [NSMutableDictionary new];
-    sourceManager = [ZBSourceManager sharedInstance];
-    
     NSMutableSet *baseSourcesSet = [NSMutableSet new];
 
     for (NSURL *sourcesLocation in sourceFilesToImport) {

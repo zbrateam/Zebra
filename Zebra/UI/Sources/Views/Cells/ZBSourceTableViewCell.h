@@ -18,11 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
 @property (weak, nonatomic) IBOutlet UILabel *urlLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *chevronView;
 @property (strong, nonatomic) IBOutlet UIImageView *storeBadge;
 @property (weak, nonatomic) IBOutlet UILabel *installedPackagesLabel;
 
-- (void)clearAccessoryView;
 - (void)setSpinning:(BOOL)animated;
 - (void)setDisabled:(BOOL)disabled;
 - (void)setSource:(ZBBaseSource *)source withFilter:(ZBSourceFilter *)filter;

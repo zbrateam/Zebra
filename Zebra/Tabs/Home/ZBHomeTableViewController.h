@@ -8,7 +8,6 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
-#import "Stores/ZBStoresListTableViewController.h"
 #import "Settings/ZBMainSettingsTableViewController.h"
 #import <Model/ZBSource.h>
 #import "Helpers/ZBNoScrollHeaderTableView.h"
