@@ -25,8 +25,8 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     ZBPackageExtraActionShowUpdates,
     ZBPackageExtraActionHideUpdates,
-    ZBPackageExtraActionAddWishlist,
-    ZBPackageExtraActionRemoveWishlist,
+    ZBPackageExtraActionAddFavorite,
+    ZBPackageExtraActionRemoveFavorite,
     ZBPackageExtraActionBlockAuthor,
     ZBPackageExtraActionUnblockAuthor,
     ZBPackageExtraActionShare,

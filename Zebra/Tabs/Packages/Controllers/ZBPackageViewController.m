@@ -260,7 +260,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.getBarButton];
     self.navigationItem.rightBarButtonItem.customView.alpha = 0.0;
     
-    if ([self isModal]) {
+    if (self.isModal && !self.navigationController.navigationBar.items.firstObject) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonPressed:)];
     }
 }

@@ -65,6 +65,15 @@
     });
 }
 
+- (void)fetchPackagesFromIdentifiers:(NSArray <NSString *> *)identifiers completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
+    if (!identifiers || !identifiers.count) return;
+    
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        NSArray *packages = [self->databaseManager packagesFromIdentifiers:identifiers];
+        if (completion) completion(packages);
+    });
+}
+
 - (NSArray <ZBPackage *> *)latestPackages:(NSUInteger)limit {
     return [databaseManager latestPackages:limit];
 }

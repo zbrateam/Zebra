@@ -22,7 +22,7 @@
     [super awakeFromNib];
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
-    self.isOnWishlistImageView.hidden = YES;
+    self.isFavoritedImageView.hidden = YES;
     
     self.queueStatusBackgroundView.hidden = YES;
     self.queueStatusBackgroundView.layer.cornerRadius = 5.0;
@@ -53,7 +53,7 @@
     [package setIconImageForImageView:self.iconImageView];
     
     self.isInstalledImageView.hidden = !package.isInstalled;
-    self.isOnWishlistImageView.hidden = !package.isOnWishlist;
+    self.isFavoritedImageView.hidden = !package.isFavorited;
     self.isPaidImageView.hidden = !package.isPaid;
     
     [self updateQueueStatus:package];

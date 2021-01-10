@@ -14,6 +14,16 @@
 
 @implementation ZBPackageFilter
 
+- (instancetype)init {
+    self = [super init];
+    
+    if (self) {
+        _role = [ZBSettings role];
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *)section {
     ZBPackageFilter *filter = [ZBSettings filterForSource:source section:section];
     if (filter) {
@@ -21,7 +31,7 @@
         return filter;
     }
     
-    self = [super init];
+    self = [self init];
     
     if (self) {
         _source = source;
@@ -31,7 +41,6 @@
         } else {
             _canSetSection = YES;
         }
-        _role = [ZBSettings role];
     }
     
     return self;
@@ -93,7 +102,7 @@
     }
 
     if (_favorited) {
-        NSPredicate *favoritePredicate = [NSPredicate predicateWithFormat:@"isOnWishlist == YES"];
+        NSPredicate *favoritePredicate = [NSPredicate predicateWithFormat:@"isFavorited == YES"];
         [predicates addObject:favoritePredicate];
     }
 

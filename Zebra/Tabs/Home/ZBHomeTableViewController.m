@@ -34,7 +34,6 @@ typedef enum ZBInfoOrder : NSUInteger {
 
 typedef enum ZBViewOrder : NSUInteger {
     ZBChangeLog,
-    ZBWishList
 } ZBViewOrder;
 
 typedef enum ZBLinksOrder : NSUInteger {
@@ -252,7 +251,7 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBInfo:
             return 2;
         case ZBViews:
-            return 2;
+            return 1;
         case ZBLinks:
             return 2;
         case ZBCredits:
@@ -319,10 +318,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                 case ZBChangeLog:
                     text = NSLocalizedString(@"Changelog", @"");
                     image = [UIImage imageNamed:@"Changelog"];
-                    break;
-                case ZBWishList:
-                    text = NSLocalizedString(@"Wish List", @"");
-                    image = [UIImage imageNamed:@"Wishlist"];
                     break;
                 default:
                     break;
@@ -454,11 +449,6 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBChangeLog: {
             ZBChangelogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
             [self.navigationController pushViewController:changeLog animated:YES];
-            break;
-        }
-        case ZBWishList: {
-            ZBWishListTableViewController *webController = [storyboard instantiateViewControllerWithIdentifier:@"wishListController"];
-            [[self navigationController] pushViewController:webController animated:YES];
             break;
         }
         default:

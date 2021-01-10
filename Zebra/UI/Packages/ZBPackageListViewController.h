@@ -19,10 +19,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property ZBSource *source;
 @property NSString *_Nullable section;
 @property NSArray <ZBPackage *> *packages;
+@property NSArray <NSString *> *_Nullable identifiers;
 #pragma mark - Initializers
 - (instancetype)initWithSource:(ZBSource *)source;
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section;
 - (instancetype)initWithPackages:(NSArray <ZBPackage *> *)packages;
+- (instancetype)initWithPackageIdentifiers:(NSArray <NSString *> *)identifiers;
 @end
 
 NS_ASSUME_NONNULL_END

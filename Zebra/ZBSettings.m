@@ -53,7 +53,7 @@ NSString *const WantsFinishAutomaticallyKey = @"FinishAutomatically";
 
 NSString *const SwipeActionStyleKey = @"SwipeActionStyle";
 
-NSString *const WishlistKey = @"Wishlist";
+NSString *const FavoritesKey = @"Wishlist"; // Won't change the key value, too lazy to migrate wishlists
 
 NSString *const PackageSortingTypeKey = @"PackageSortingType";
 
@@ -137,7 +137,7 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     if ([defaults objectForKey:wishListKey]) {
         NSArray *oldWishlist = [defaults arrayForKey:wishListKey];
         
-        [self setWishlist:oldWishlist];
+        [self setFavoritePackages:oldWishlist];
         [defaults removeObjectForKey:wishListKey];
     }
     
@@ -672,18 +672,18 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     [defaults setInteger:style forKey:SwipeActionStyleKey];
 }
 
-#pragma mark - Wishlist
+#pragma mark - Favorites
 
-+ (NSArray *)wishlist {
++ (NSArray *)favoritePackages {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    return [defaults arrayForKey:WishlistKey] ?: [NSArray new];
+    return [defaults arrayForKey:FavoritesKey] ?: [NSArray new];
 }
 
-+ (void)setWishlist:(NSArray *)wishlist {
++ (void)setFavoritePackages:(NSArray *)favorites {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    [defaults setObject:wishlist forKey:WishlistKey];
+    [defaults setObject:favorites forKey:FavoritesKey];
 }
 
 #pragma mark - Package Sorting Type

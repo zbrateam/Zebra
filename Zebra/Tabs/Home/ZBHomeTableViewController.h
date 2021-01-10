@@ -9,7 +9,6 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
 #import "Settings/ZBMainSettingsTableViewController.h"
-#import "Wish List/ZBWishListTableViewController.h"
 #import <Model/ZBSource.h>
 #import "Helpers/ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"
