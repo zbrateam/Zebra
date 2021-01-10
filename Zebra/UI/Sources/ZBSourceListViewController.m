@@ -67,7 +67,7 @@
 }
 
 - (void)registerForNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBStartedSourceRefreshNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedSources:) name:ZBAddedSourcesNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedSources:) name:ZBRemovedSourcesNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedDownloadingSource:) name:ZBStartedSourceDownloadNotification object:NULL];
@@ -498,6 +498,7 @@
             if (self.refreshControl.isRefreshing) {
                 [self.refreshControl endRefreshing];
             }
+            [self.tableView reloadData];
         }
     });
 }

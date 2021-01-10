@@ -85,6 +85,8 @@ extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 */
 - (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
 
+- (void)clearBusyList;
+
 - (void)cancelSourceRefresh;
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;

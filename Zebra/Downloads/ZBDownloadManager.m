@@ -386,8 +386,7 @@
         }
     }
     
-    // FIXME: this value is never used
-    movedFileSuccess = [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
+    [fileManager moveItemAtURL:location toURL:[NSURL fileURLWithPath:finalPath] error:&fileManagerError];
     
     if (completion) {
         completion(fileManagerError);
