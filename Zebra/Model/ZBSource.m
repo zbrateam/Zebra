@@ -222,9 +222,7 @@
     return [keychain stringForKey:self.repositoryURI] ? YES : NO;
 }
 
-- (NSString *)paymentSecret:(NSError **)error {
-    return NULL;
-    
+- (NSString *)paymentSecret:(NSError **)error {    
     __block NSString *paymentSecret = NULL;
     __block NSError *paymentError = NULL;
     
