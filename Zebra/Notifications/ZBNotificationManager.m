@@ -61,7 +61,7 @@
 }
 
 - (void)performBackgroundFetch:(BackgroundCompletionHandler)completionHandler {
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     
     self.completionHandler = completionHandler;
@@ -167,7 +167,7 @@
         return;
     }
 
-    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
+//    ZBDatabaseManager *databaseManager = [ZBDatabaseManager sharedInstance];
     ZBPackageList *newUpdates = NULL; //[databaseManager packagesWithUpdates];
 
     UIBackgroundFetchResult result = [self notifyNewUpdatesBetween:self.oldUpdates newUpdates:newUpdates];

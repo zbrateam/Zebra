@@ -306,7 +306,11 @@
             
             cell.textLabel.text = NSLocalizedString(@"Transfer Sources", @"");
             cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightSemibold];
-            cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up" : @"chevron.down"]];
+            if (@available(iOS 13.0, *)) {
+                cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up" : @"chevron.down"]];
+            } else {
+                // FIXME: Fallback on earlier versions
+            }
             cell.accessoryView.tintColor = [UIColor tertiaryTextColor];
             
             return cell;
