@@ -97,7 +97,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 32;
+    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 16;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
 }
 
