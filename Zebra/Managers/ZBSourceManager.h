@@ -93,6 +93,7 @@ extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 
 - (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error;
 
+- (NSArray <NSString *> *)allSections;
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
 - (NSArray <ZBSource *> *)filterSources:(NSArray <ZBSource *> *)sources withFilter:(ZBSourceFilter *)filter;
