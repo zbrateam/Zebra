@@ -12,8 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBFeaturedPackagesCollectionView : UICollectionView <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
-@property (nonatomic) NSArray *posts;
+@interface ZBFeaturedPackagesCollectionView : UICollectionView <UICollectionViewDelegate, UICollectionViewDataSource>
+@property (nonatomic) NSArray *featuredPackages;
 @property (nonatomic) CGSize itemSize;
 - (void)fetch;
 - (void)fetchFromSource:(ZBSource *_Nullable)source;

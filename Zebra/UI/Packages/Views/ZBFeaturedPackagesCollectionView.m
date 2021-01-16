@@ -47,14 +47,18 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
 #pragma mark - Properties
 
 - (void)setItemSize:(CGSize)itemSize {
-    _itemSize = itemSize;
-    
-    [self setNeedsLayout];
+    @synchronized (self) {
+        if (_itemSize.height != itemSize.height) {
+            _itemSize = itemSize;
+            
+            [self setNeedsLayout];
+        }
+    }
 }
 
-- (void)setPosts:(NSArray *)posts {
-    @synchronized (_posts) {
-        _posts = posts;
+- (void)setFeaturedPackages:(NSArray *)posts {
+    @synchronized (_featuredPackages) {
+        _featuredPackages = posts;
         
         // hide spinner
         
@@ -78,6 +82,8 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         [sourcesToFetch addObjectsFromArray:[[ZBSourceManager sharedInstance] sources]];
     }
     
+    dispatch_group_t featuredGroup = dispatch_group_create();
+    NSMutableArray *packages = [NSMutableArray new];
     for (ZBSource *source in sourcesToFetch) {
         if (!source.supportsFeaturedPackages) continue;
         
@@ -85,7 +91,6 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         if (!featuredPackagesURL) continue;
         
         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:featuredPackagesURL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            NSMutableArray *packages = [NSMutableArray new];
             NSError *parseError = NULL;
             NSDictionary *featuredPackages = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingFragmentsAllowed error:&parseError];
             if (featuredPackages && !error && !parseError) {
@@ -103,22 +108,26 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
                     }
                 }
             }
-            
-            self.posts = source != NULL ? packages : [packages shuffleWithCount:10];
+            dispatch_group_leave(featuredGroup);
         }];
         
+        dispatch_group_enter(featuredGroup);
         [task resume];
     }
+    
+    dispatch_group_notify(featuredGroup, dispatch_get_main_queue(), ^{
+        self.featuredPackages = source != NULL ? packages : [packages shuffleWithCount:10];
+    });
 }
 
 #pragma mark - Collection View Data Source
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return _posts.count > 1;
+    return _featuredPackages.count > 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return MIN(_posts.count, 10);
+    return MIN(_featuredPackages.count, 10);
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -134,8 +143,8 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         self.itemSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     }
     
-    if (indexPath.row < _posts.count) {
-        NSDictionary *package = _posts[indexPath.row];
+    if (indexPath.row < _featuredPackages.count) {
+        NSDictionary *package = _featuredPackages[indexPath.row];
         
         cell.repoLabel.text = [[ZBSourceManager sharedInstance] sourceWithUUID:package[@"source"]].label.uppercaseString;
         cell.packageLabel.text = package[@"name"];
