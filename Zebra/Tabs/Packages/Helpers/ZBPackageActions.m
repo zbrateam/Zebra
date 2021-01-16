@@ -202,7 +202,7 @@
         if ([otherVersion isEqual:allVersions.firstObject]) {
             title = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), otherVersion];
         } else {
-            title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, NSLocalizedString(@"In Multiple Sources", @"")] : otherVersion;
+            title = otherVersion;
         }
         UIAlertAction *action;
         if ([versionStrings countForObject:otherVersion] > 1) {
@@ -254,8 +254,7 @@
         NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:greaterVersions];
         NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:greaterVersions];
         for (NSString *otherVersion in deduplicatedVersions) {
-            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, NSLocalizedString(@"In Multiple Sources", @"")] : otherVersion;
-
+            NSString *title = otherVersion;
             UIAlertAction *action;
             if ([versionStrings countForObject:otherVersion] > 1) {
                 action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -316,7 +315,7 @@
         NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:lesserVersions];
         NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:lesserVersions];
         for (NSString *otherVersion in deduplicatedVersions) {
-            NSString *title = [versionStrings countForObject:otherVersion] > 1 ? [NSString stringWithFormat:@"%@ (%@)", otherVersion, NSLocalizedString(@"In Multiple Sources", @"")] : otherVersion;
+            NSString *title = otherVersion;
             UIAlertAction *action;
             if ([versionStrings countForObject:otherVersion] > 1) {
                 action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
