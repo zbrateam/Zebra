@@ -351,7 +351,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//        ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         
         [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     } else if ([shortcutItem.type isEqualToString:@"Refresh"]) {
