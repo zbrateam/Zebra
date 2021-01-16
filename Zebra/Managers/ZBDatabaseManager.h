@@ -133,7 +133,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
 
-- (NSDictionary *)sectionReadoutForSource:(ZBSource *)source;
+- (NSArray <NSString *> *)sectionsReadout;
+
+- (NSDictionary <NSString *, NSNumber *> *)sectionReadoutForSource:(ZBSource *)source;
 
 #pragma mark - Package Management
 

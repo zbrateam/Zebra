@@ -699,7 +699,6 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     [self updatesAvailable:packageManager.updates.count];
 }
 
-
 - (void)addedSources:(NSSet <ZBBaseSource *> *)sources {
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBAddedSourcesNotification object:self userInfo:@{@"sources": sources}];
 }
@@ -719,6 +718,10 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source {
     return [databaseManager sectionReadoutForSource:source];
+}
+
+- (NSArray <NSString *> *)allSections {
+    return [databaseManager sectionsReadout];
 }
 
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {
