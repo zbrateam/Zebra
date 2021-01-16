@@ -55,10 +55,10 @@
     _scrollView.alwaysBounceVertical = YES;
     [self.view addSubview:_scrollView];
     [NSLayoutConstraint activateConstraints:@[
-        [[_scrollView leadingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
-        [[_scrollView trailingAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
-        [[_scrollView topAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
-        [[_scrollView bottomAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor],
+        [[_scrollView leadingAnchor] constraintEqualToAnchor:self.view.leadingAnchor],
+        [[_scrollView trailingAnchor] constraintEqualToAnchor:self.view.trailingAnchor],
+        [[_scrollView topAnchor] constraintEqualToAnchor:self.view.topAnchor],
+        [[_scrollView bottomAnchor] constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
     _scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     
