@@ -37,12 +37,20 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         [self registerNib:[UINib nibWithNibName:@"ZBFeaturedPackageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:ZBFeaturedCollectionViewCellReuseIdentifier];
         [self setBackgroundColor:[UIColor systemBackgroundColor]];
         [self setShowsHorizontalScrollIndicator:NO];
+        
+        self.itemSize = CGSizeMake(0, 250);
     }
     
     return self;
 }
 
 #pragma mark - Properties
+
+- (void)setItemSize:(CGSize)itemSize {
+    _itemSize = itemSize;
+    
+    [self setNeedsLayout];
+}
 
 - (void)setPosts:(NSArray *)posts {
     @synchronized (_posts) {
@@ -83,7 +91,6 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
             if (featuredPackages && !error && !parseError) {
                 NSArray *banners = featuredPackages[@"banners"];
                 for (NSDictionary *banner in banners) {
-                    NSLog(@"%@", banner);
                     NSString *identifier = banner[@"package"];
                     NSString *sourceUUID = source.uuid;
                     NSString *name = banner[@"title"];
@@ -123,12 +130,18 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
 #pragma mark - Collection View Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(ZBFeaturedPackageCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *package = _posts[indexPath.row];
+    if (self.itemSize.width == 0) {
+        self.itemSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    }
     
-    cell.repoLabel.text = [[ZBSourceManager sharedInstance] sourceWithUUID:package[@"source"]].label.uppercaseString;
-    cell.packageLabel.text = package[@"name"];
-    cell.descriptionLabel.text = package[@"description"];
-    [cell.bannerImageView sd_setImageWithURL:package[@"bannerURL"]];
+    if (indexPath.row < _posts.count) {
+        NSDictionary *package = _posts[indexPath.row];
+        
+        cell.repoLabel.text = [[ZBSourceManager sharedInstance] sourceWithUUID:package[@"source"]].label.uppercaseString;
+        cell.packageLabel.text = package[@"name"];
+        cell.descriptionLabel.text = package[@"description"];
+        [cell.bannerImageView sd_setImageWithURL:package[@"bannerURL"]];
+    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

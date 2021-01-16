@@ -72,7 +72,7 @@
     ]];
     _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _featuredPackagesViewHeightConstraint = [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.collectionViewLayout.collectionViewContentSize.height];
+    _featuredPackagesViewHeightConstraint = [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.itemSize.height];
     _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -85,7 +85,6 @@
 - (void)viewDidLoad {
     [_communityNewsView fetch];
     [_featuredPackagesView fetch];
-//    [_featuredPackagesView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -98,7 +97,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    _featuredPackagesViewHeightConstraint.constant = 253;
+    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 32;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
 }
 
