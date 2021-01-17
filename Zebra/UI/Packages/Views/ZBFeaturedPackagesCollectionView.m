@@ -17,6 +17,11 @@
 
 @import SDWebImage;
 
+@interface ZBFeaturedPackagesCollectionView () {
+    UIActivityIndicatorView *spinner;
+}
+@end
+
 @implementation ZBFeaturedPackagesCollectionView
 
 NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackageCollectionViewCell"; // TODO: Move this to ZBFeaturedPackageCollectionViewCell?
@@ -38,7 +43,8 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
         [self setBackgroundColor:[UIColor systemBackgroundColor]];
         [self setShowsHorizontalScrollIndicator:NO];
         
-        self.itemSize = CGSizeMake(0, 250);
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.itemSize = CGSizeMake(0, spinner.frame.size.height + 16);
     }
     
     return self;
@@ -60,7 +66,7 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
     @synchronized (_featuredPackages) {
         _featuredPackages = posts;
         
-        // hide spinner
+        [self hideSpinner];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self reloadData];
@@ -75,6 +81,8 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
 }
 
 - (void)fetchFromSource:(ZBSource *)source {
+    [self showSpinner];
+    
     NSMutableArray *sourcesToFetch = [NSMutableArray new];
     if (source) {
         [sourcesToFetch addObject:source];
@@ -117,6 +125,22 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
     
     dispatch_group_notify(featuredGroup, dispatch_get_main_queue(), ^{
         self.featuredPackages = source != NULL ? packages : [packages shuffleWithCount:10];
+    });
+}
+
+#pragma mark - Activity Indicator
+
+- (void)showSpinner {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backgroundView = self->spinner;
+        [self->spinner startAnimating];
+    });
+}
+
+- (void)hideSpinner {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.backgroundView = nil;
+        [self->spinner stopAnimating];
     });
 }
 

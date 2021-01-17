@@ -13,6 +13,11 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
 
+@interface ZBCommunityNewsTableView () {
+    UIActivityIndicatorView *spinner;
+}
+@end
+
 @implementation ZBCommunityNewsTableView
 
 #pragma mark - Initializers
@@ -30,12 +35,23 @@
         self.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
         
         [self registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
+        
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.contentSize = CGSizeMake(0, spinner.frame.size.height);
     }
     
     return self;
 }
 
 #pragma mark - Properties
+
+- (void)setContentSize:(CGSize)contentSize {
+    if (contentSize.height == 2) {
+        contentSize = CGSizeMake(contentSize.width, spinner.frame.size.height);
+    }
+    
+    [super setContentSize:contentSize];
+}
 
 - (void)setPosts:(NSArray *)posts {
     @synchronized (_posts) {
@@ -44,13 +60,7 @@
         [self hideSpinner];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.numberOfSections == 1 && self->_posts.count) {
-                [self reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (self.numberOfSections == 0 && self->_posts.count) {
-                [self insertSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else {
-                [self deleteSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
+            [self reloadData];
         });
     }
 }
@@ -103,26 +113,30 @@
 
 - (void)showSpinner {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        self.backgroundView = activityIndicator;
-        [activityIndicator startAnimating];
+        self.backgroundView = self->spinner;
+        [self->spinner startAnimating];
     });
 }
 
 - (void)hideSpinner {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.backgroundView = nil;
+        [self->spinner stopAnimating];
     });
 }
 
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.posts.count > 0;
+    return self.posts.count > 0 ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return MIN(self.posts.count, 3);
+    if (section == 0) {
+        return 0;
+    } else {
+        return MIN(self.posts.count, 3);
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,8 +170,14 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     
-    cell.actionButton.hidden = YES;
-    cell.titleLabel.text = NSLocalizedString(@"Community News", @"");
+    if (section == 0) {
+        cell.actionButton.hidden = NO;
+        [cell.actionButton setTitle:@"See All" forState:UIControlStateNormal];
+        cell.titleLabel.text = NSLocalizedString(@"What's New", @"");
+    } else {
+        cell.actionButton.hidden = YES;
+        cell.titleLabel.text = NSLocalizedString(@"Community News", @"");
+    }
     
     return cell;
 }

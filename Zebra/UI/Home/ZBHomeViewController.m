@@ -76,8 +76,7 @@
     _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _communityNewsViewHeightConstraint =
-    [_communityNewsView.heightAnchor constraintEqualToConstant:_communityNewsView.contentSize.height];
+    _communityNewsViewHeightConstraint = [_communityNewsView.heightAnchor constraintEqualToConstant:_communityNewsView.contentSize.height];
     _communityNewsViewHeightConstraint.active = YES;
     _communityNewsView.translatesAutoresizingMaskIntoConstraints = NO;
 }
@@ -99,6 +98,11 @@
 
     _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 16;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
+//    [_stackView setNeedsUpdateConstraints];
+//    
+//    [UIView animateWithDuration:0.25f animations:^{
+//        [self->_stackView layoutIfNeeded];
+//    }];
 }
 
 - (void)refreshSources {
