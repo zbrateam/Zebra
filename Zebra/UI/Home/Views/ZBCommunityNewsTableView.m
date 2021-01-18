@@ -128,15 +128,11 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.posts.count > 0 ? 2 : 1;
+    return self.posts.count > 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 0;
-    } else {
-        return MIN(self.posts.count, 3);
-    }
+    return MIN(self.posts.count, 3);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -170,14 +166,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     
-    if (section == 0) {
-        cell.actionButton.hidden = NO;
-        [cell.actionButton setTitle:@"See All" forState:UIControlStateNormal];
-        cell.titleLabel.text = NSLocalizedString(@"What's New", @"");
-    } else {
-        cell.actionButton.hidden = YES;
-        cell.titleLabel.text = NSLocalizedString(@"Community News", @"");
-    }
+    cell.actionButton.hidden = YES;
+    cell.titleLabel.text = NSLocalizedString(@"Community News", @"");
     
     return cell;
 }
