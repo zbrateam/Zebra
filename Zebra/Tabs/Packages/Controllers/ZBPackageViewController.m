@@ -11,7 +11,7 @@
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 #import "ZBActionButton.h"
-#import "ZBBoldTableViewHeaderView.h"
+#import "ZBBoldHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import "ZBLinkTableViewCell.h"
 #import <Model/ZBSource.h>
@@ -165,7 +165,7 @@
 - (void)registerTableViewCells {
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBInfoTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"InfoTableViewCell"];
     [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBLinkTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"LinkTableViewCell"];
-    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldTableViewHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
+    [self.informationTableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBBoldHeaderView class]) bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
 }
 
 - (void)configureDepictionVC {
@@ -325,7 +325,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+    ZBBoldHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     cell.titleLabel.text = NSLocalizedString(@"Information", @"");
     return cell;
 }

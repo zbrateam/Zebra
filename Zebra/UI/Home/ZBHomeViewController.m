@@ -10,7 +10,7 @@
 
 #import <Managers/ZBPackageManager.h>
 #import <UI/Packages/Views/ZBFeaturedPackagesCollectionView.h>
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import <UI/Common/Views/ZBBoldHeaderView.h>
 #import <UI/Packages/Views/ZBPackageCollectionView.h>
 #import <UI/Home/Views/ZBCommunityNewsTableView.h>
 

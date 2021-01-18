@@ -16,7 +16,7 @@
 #import <Model/ZBSource.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import <UI/Common/Views/ZBBoldHeaderView.h>
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <ZBSettings.h>
@@ -268,7 +268,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (updates.count) {
-        ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+        ZBBoldHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
         if (section == 0) {
             cell.actionButton.hidden = NO;
             [cell.actionButton setTitle:NSLocalizedString(@"Update All", @"") forState:UIControlStateNormal];

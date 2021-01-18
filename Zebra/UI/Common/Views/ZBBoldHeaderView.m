@@ -1,15 +1,15 @@
 //
-//  ZBBoldTableViewHeaderView.m
+//  ZBBoldHeaderView.m
 //  Zebra
 //
 //  Created by Andrew Abosh on 2020-05-12.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBBoldTableViewHeaderView.h"
+#import "ZBBoldHeaderView.h"
 #import <Extensions/UIColor+GlobalColors.h>
 
-@implementation ZBBoldTableViewHeaderView
+@implementation ZBBoldHeaderView
 
 - (void)awakeFromNib {
     [super awakeFromNib];

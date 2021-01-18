@@ -12,7 +12,7 @@
 
 #import <Managers/ZBPackageManager.h>
 
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import <UI/Common/Views/ZBBoldHeaderView.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
@@ -255,7 +255,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (searchController.searchBar.text.length == 0 && recentSearches.count) {
-        ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+        ZBBoldHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
         cell.titleLabel.text = NSLocalizedString(@"Recent", @"");
         cell.actionButton.hidden = NO;
         [cell.actionButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];

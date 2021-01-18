@@ -8,7 +8,7 @@
 
 #import "ZBCommunityNewsTableView.h"
 
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import <UI/Common/Views/ZBBoldHeaderView.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
@@ -34,7 +34,7 @@
         self.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
         self.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)];
         
-        [self registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
+        [self registerNib:[UINib nibWithNibName:@"ZBBoldHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
         
         spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         self.contentSize = CGSizeMake(0, spinner.frame.size.height);
@@ -164,7 +164,7 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+    ZBBoldHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     
     cell.actionButton.hidden = YES;
     cell.titleLabel.text = NSLocalizedString(@"Community News", @"");
