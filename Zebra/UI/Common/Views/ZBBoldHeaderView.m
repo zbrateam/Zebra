@@ -11,11 +11,18 @@
 
 @implementation ZBBoldHeaderView
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    self.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.actionButton.tintColor = [UIColor accentColor];
+- (instancetype)init {
+    UINib *nib = [UINib nibWithNibName:NSStringFromClass([self class]) bundle:nil];
+    NSArray *objects = [nib instantiateWithOwner:nil options:nil];
+    for (NSObject *object in objects) {
+        if ([object isKindOfClass:[self class]]) {
+            ZBBoldHeaderView *view = (ZBBoldHeaderView *)object;
+            view.backgroundColor = [UIColor tableViewBackgroundColor];
+            view.actionButton.tintColor = [UIColor accentColor];
+            return view;
+        }
+    }
+    return nil;
 }
 
 @end
