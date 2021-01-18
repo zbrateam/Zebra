@@ -8,20 +8,24 @@
 
 #import "ZBHomeViewController.h"
 
-#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
-#import <UI/Home/Views/ZBCommunityNewsTableView.h>
+#import <Managers/ZBPackageManager.h>
 #import <UI/Packages/Views/ZBFeaturedPackagesCollectionView.h>
+#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import <UI/Packages/Views/ZBPackageCollectionView.h>
+#import <UI/Home/Views/ZBCommunityNewsTableView.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 
 @import SafariServices;
 
 @interface ZBHomeViewController ()
-@property (nonatomic) ZBCommunityNewsTableView *communityNewsView;
 @property (nonatomic) ZBFeaturedPackagesCollectionView *featuredPackagesView;
+@property (nonatomic) ZBPackageCollectionView *changesCollectionView;
+@property (nonatomic) ZBCommunityNewsTableView *communityNewsView;
 @property (nonatomic) UIStackView *stackView;
 @property (nonatomic) NSArray <NSDictionary <NSString *, NSString *> *> *communityNews;
 @property (nonatomic) NSLayoutConstraint *featuredPackagesViewHeightConstraint;
+@property (nonatomic) NSLayoutConstraint *changesCollectionViewHeightConstraint;
 @property (nonatomic) NSLayoutConstraint *communityNewsViewHeightConstraint;
 @property (nonatomic) UIScrollView *scrollView;
 @end
@@ -34,13 +38,13 @@
     if (self) {
         self.title = @"Zebra";
         
-        _communityNewsView = [[ZBCommunityNewsTableView alloc] init];
-        
         _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] init];
+        _changesCollectionView = [[ZBPackageCollectionView alloc] init];
+        _communityNewsView = [[ZBCommunityNewsTableView alloc] init];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         
-        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _communityNewsView]];
+        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _changesCollectionView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
     }
     
@@ -76,14 +80,19 @@
     _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    _changesCollectionViewHeightConstraint = [_changesCollectionView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.25];
+    _changesCollectionViewHeightConstraint.active = YES;
+    _changesCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     _communityNewsViewHeightConstraint = [_communityNewsView.heightAnchor constraintEqualToConstant:_communityNewsView.contentSize.height];
     _communityNewsViewHeightConstraint.active = YES;
     _communityNewsView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)viewDidLoad {
-    [_communityNewsView fetch];
     [_featuredPackagesView fetch];
+    _changesCollectionView.packages = [[ZBPackageManager sharedInstance] latestPackages:20];
+    [_communityNewsView fetch];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
