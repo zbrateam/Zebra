@@ -96,8 +96,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(ZBPackageCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row < _packages.count) {
+        // TODO: Move code to cell
         ZBPackage *package = _packages[indexPath.row];
-        cell.nameLabel.text = package.name;
+        cell.packageLabel.text = package.name;
+        cell.descriptionLabel.text = package.packageDescription;
+        [package setIconImageForImageView:cell.iconImageView];
     }
 }
 

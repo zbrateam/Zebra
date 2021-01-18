@@ -11,7 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageCollectionViewCell : UICollectionViewCell
-@property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (strong, nonatomic) IBOutlet UILabel *packageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isOnWishlistImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @end
 
 NS_ASSUME_NONNULL_END
