@@ -16,8 +16,8 @@
 - (instancetype)init {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
     layout.minimumInteritemSpacing = 0;
+    layout.sectionInset = UIEdgeInsetsZero;
     
     self = [super initWithFrame:CGRectZero collectionViewLayout:layout];
     
@@ -25,6 +25,7 @@
         self.delegate = self;
         self.dataSource = self;
         
+        [self registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BoldTableViewHeaderView"];
         [self registerNib:[UINib nibWithNibName:@"ZBPackageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"packageCollectionViewCell"];
         [self setBackgroundColor:[UIColor systemBackgroundColor]];
         [self setShowsHorizontalScrollIndicator:NO];
