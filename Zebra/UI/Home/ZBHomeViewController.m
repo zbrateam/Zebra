@@ -50,6 +50,7 @@
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, header, _changesCollectionView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
+        _stackView.spacing = 8;
     }
     
     return self;
@@ -109,14 +110,9 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 24;
-    _changesCollectionViewHeightConstraint.constant = (_changesCollectionView.itemSize.height * 3) + 16;
+    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 16;
+    _changesCollectionViewHeightConstraint.constant = _changesCollectionView.itemSize.height * 3;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
-//    [_stackView setNeedsUpdateConstraints];
-//    
-//    [UIView animateWithDuration:0.25f animations:^{
-//        [self->_stackView layoutIfNeeded];
-//    }];
 }
 
 - (void)refreshSources {

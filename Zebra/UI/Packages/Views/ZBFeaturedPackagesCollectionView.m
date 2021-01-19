@@ -32,7 +32,7 @@ NSString *const ZBFeaturedCollectionViewCellReuseIdentifier = @"ZBFeaturedPackag
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.estimatedItemSize = UICollectionViewFlowLayoutAutomaticSize;
-    layout.sectionInset = UIEdgeInsetsMake(16, 16, 16, 16);
+    layout.sectionInset = UIEdgeInsetsMake(16, 16, 0, 16);
     
     self = [super initWithFrame:CGRectZero collectionViewLayout:layout];
     
