@@ -14,6 +14,7 @@
 #import <UI/Common/Views/ZBBoldHeaderView.h>
 #import <UI/Packages/Views/ZBPackageCollectionView.h>
 #import <UI/Home/Views/ZBCommunityNewsTableView.h>
+#import <UI/Settings/ZBMainSettingsTableViewController.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 
@@ -102,6 +103,8 @@
     [_featuredPackagesView fetch];
     _changesCollectionView.packages = [[ZBPackageManager sharedInstance] latestPackages:21];
     [_communityNewsView fetch];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gearshape"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -129,6 +132,12 @@
 
 - (void)showChanges {
     ZBPackageListViewController *packages = [[ZBPackageListViewController alloc] init];
+}
+
+- (void)showSettings {
+    ZBMainSettingsTableViewController *settingsVC = [[ZBMainSettingsTableViewController alloc] init];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingsVC];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 @end
