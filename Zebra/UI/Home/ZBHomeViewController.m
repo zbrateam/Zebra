@@ -50,7 +50,7 @@
         
         _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, header, _changesCollectionView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
-        _stackView.spacing = 8;
+        _stackView.spacing = 4;
     }
     
     return self;
