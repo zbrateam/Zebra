@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class ZBBasePackage;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageCollectionViewCell : UICollectionViewCell
@@ -17,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isOnWishlistImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+- (void)setPackage:(ZBBasePackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END

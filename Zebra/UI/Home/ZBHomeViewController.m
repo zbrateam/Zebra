@@ -80,7 +80,7 @@
     ]];
     _stackView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _featuredPackagesViewHeightConstraint = [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.itemSize.height];
+    _featuredPackagesViewHeightConstraint = [_featuredPackagesView.heightAnchor constraintEqualToConstant:_featuredPackagesView.itemSize.height + 16];
     _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -109,7 +109,7 @@
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
-    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 16;
+    _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 24;
     _changesCollectionViewHeightConstraint.constant = (_changesCollectionView.itemSize.height * 3) + 16;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
 //    [_stackView setNeedsUpdateConstraints];

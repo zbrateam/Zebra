@@ -18,6 +18,7 @@
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
     layout.sectionInset = UIEdgeInsetsZero;
     
     self = [super initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -101,11 +102,9 @@
     }
     
     if (indexPath.row < _packages.count) {
-        // TODO: Move code to cell
         ZBPackage *package = _packages[indexPath.row];
-        cell.packageLabel.text = package.name;
-        cell.descriptionLabel.text = package.packageDescription;
-        [package setIconImageForImageView:cell.iconImageView];
+        [cell setPackage:package];
+        cell.isInstalledImageView.hidden = NO;
     }
 }
 
@@ -114,7 +113,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.superview.bounds.size.width * 0.90, self.bounds.size.height / 3);
+    return CGSizeMake(self.superview.bounds.size.width * 0.85, self.bounds.size.height / 3);
 }
 
 @end
