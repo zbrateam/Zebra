@@ -9,6 +9,7 @@
 #import "ZBHomeViewController.h"
 
 #import <Managers/ZBPackageManager.h>
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Packages/Views/ZBFeaturedPackagesCollectionView.h>
 #import <UI/Common/Views/ZBBoldHeaderView.h>
 #import <UI/Packages/Views/ZBPackageCollectionView.h>
@@ -39,11 +40,14 @@
         self.title = @"Zebra";
         
         _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] init];
+        
         ZBBoldHeaderView *header = [[ZBBoldHeaderView alloc] init];
         header.titleLabel.text = @"What's New";
         header.actionButton.hidden = NO;
+        [header.actionButton addTarget:self action:@selector(showChanges) forControlEvents:UIControlEventTouchUpInside];
         [header.actionButton setTitle:@"See All" forState:UIControlStateNormal];
         _changesCollectionView = [[ZBPackageCollectionView alloc] init];
+        
         _communityNewsView = [[ZBCommunityNewsTableView alloc] init];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
@@ -123,5 +127,8 @@
     });
 }
 
+- (void)showChanges {
+    ZBPackageListViewController *packages = [[ZBPackageListViewController alloc] init];
+}
 
 @end

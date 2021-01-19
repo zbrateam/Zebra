@@ -32,7 +32,7 @@
     [package setIconImageForImageView:self.iconImageView];
     
     self.isInstalledImageView.hidden = !package.isInstalled;
-    self.isOnWishlistImageView.hidden = !package.isOnWishlist;
+    self.isOnWishlistImageView.hidden = !package.isFavorited;
     self.isPaidImageView.hidden = !package.isPaid;
 }
 

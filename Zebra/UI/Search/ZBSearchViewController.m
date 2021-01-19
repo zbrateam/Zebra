@@ -12,7 +12,7 @@
 
 #import <Managers/ZBPackageManager.h>
 
-#import <UI/Common/Views/ZBBoldHeaderView.h>
+#import <UI/Common/Views/ZBBoldTableHeaderView.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
@@ -44,7 +44,7 @@
         [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"noResultsCell"];
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"recentSearchCell"];
-        [self.tableView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
+        [self.tableView registerClass:[ZBBoldTableHeaderView class] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
         
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.delegate = self;
@@ -255,7 +255,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (searchController.searchBar.text.length == 0 && recentSearches.count) {
-        ZBBoldHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+        ZBBoldTableHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
         cell.titleLabel.text = NSLocalizedString(@"Recent", @"");
         cell.actionButton.hidden = NO;
         [cell.actionButton setTitle:NSLocalizedString(@"Clear", @"") forState:UIControlStateNormal];
