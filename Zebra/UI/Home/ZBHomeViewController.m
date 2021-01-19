@@ -39,12 +39,16 @@
         self.title = @"Zebra";
         
         _featuredPackagesView = [[ZBFeaturedPackagesCollectionView alloc] init];
+        ZBBoldHeaderView *header = [[ZBBoldHeaderView alloc] init];
+        header.titleLabel.text = @"What's New";
+        header.actionButton.hidden = NO;
+        [header.actionButton setTitle:@"See All" forState:UIControlStateNormal];
         _changesCollectionView = [[ZBPackageCollectionView alloc] init];
         _communityNewsView = [[ZBCommunityNewsTableView alloc] init];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         
-        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, _changesCollectionView, _communityNewsView]];
+        _stackView = [[UIStackView alloc] initWithArrangedSubviews:@[_featuredPackagesView, header, _changesCollectionView, _communityNewsView]];
         _stackView.axis = UILayoutConstraintAxisVertical;
     }
     

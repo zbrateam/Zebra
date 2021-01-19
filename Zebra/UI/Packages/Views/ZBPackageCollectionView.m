@@ -9,6 +9,7 @@
 #import "ZBPackageCollectionView.h"
 
 #import <Model/ZBPackage.h>
+#import <UI/Common/Views/ZBBoldCollectionViewHeader.h>
 #import <UI/Packages/Views/Cells/ZBPackageCollectionViewCell.h>
 
 @implementation ZBPackageCollectionView
@@ -25,7 +26,6 @@
         self.delegate = self;
         self.dataSource = self;
         
-        [self registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"BoldTableViewHeaderView"];
         [self registerNib:[UINib nibWithNibName:@"ZBPackageCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"packageCollectionViewCell"];
         [self setBackgroundColor:[UIColor systemBackgroundColor]];
         [self setShowsHorizontalScrollIndicator:NO];
@@ -110,7 +110,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(self.superview.bounds.size.width * 0.75, self.bounds.size.height / 3);
+    return CGSizeMake(self.superview.bounds.size.width * 0.90, self.bounds.size.height / 3);
 }
 
 @end
