@@ -23,7 +23,7 @@
 @import UIKit.UIDevice;
 
 @interface ZBSourceManager () {
-    NSMutableDictionary *busyList;
+    NSMutableDictionary <NSString *, NSNumber *> *busyList;
     NSDictionary *pinPreferences;
     NSDictionary *sourceMap;
     
@@ -281,12 +281,22 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdated"];
 }
 
+- (void)clearBusyList {
+    [busyList enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        BOOL busy = [obj boolValue];
+        if (busy) {
+            [self finishedImportForSource:[self sourceWithUUID:key]];
+        }
+    }];
+    [busyList removeAllObjects];
+}
+
 - (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error {
     if (refreshInProgress)
         return;
     
     if (!busyList) busyList = [NSMutableDictionary new];
-    else [busyList removeAllObjects];
+    else [self clearBusyList];
     
     for (ZBBaseSource *source in sources) {
         busyList[source.uuid] = @YES;
@@ -517,21 +527,26 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 - (ZBSourceColumn)columnFromString:(char *)string {
     if (strcmp(string, "Author") == 0) {
         return ZBSourceColumnArchitectures;
-    } else if (strcmp(string, "Codename") == 0) {
-        return ZBSourceColumnCodename;
-    } else if (strcmp(string, "Label") == 0) {
-        return ZBSourceColumnLabel;
-    } else if (strcmp(string, "Origin") == 0) {
-        return ZBSourceColumnOrigin;
-    } else if (strcmp(string, "Description") == 0) {
-        return ZBSourceColumnDescription;
-    } else if (strcmp(string, "Suite") == 0) {
-        return ZBSourceColumnSuite;
-    } else if (strcmp(string, "Version") == 0) {
-        return ZBSourceColumnVersion;
-    } else {
-        return ZBSourceColumnCount;
     }
+    if (strcmp(string, "Codename") == 0) {
+        return ZBSourceColumnCodename;
+    }
+    if (strcmp(string, "Label") == 0) {
+        return ZBSourceColumnLabel;
+    }
+    if (strcmp(string, "Origin") == 0) {
+        return ZBSourceColumnOrigin;
+    }
+    if (strcmp(string, "Description") == 0) {
+        return ZBSourceColumnDescription;
+    }
+    if (strcmp(string, "Suite") == 0) {
+        return ZBSourceColumnSuite;
+    }
+    if (strcmp(string, "Version") == 0) {
+        return ZBSourceColumnVersion;
+    }
+    return ZBSourceColumnCount;
 }
 
 #pragma mark - Reading Pin Priorities
@@ -545,15 +560,17 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     
     if ([pinPreferences objectForKey:source.origin]) {
         return [[pinPreferences objectForKey:source.origin] integerValue];
-    } else if ([pinPreferences objectForKey:source.label]) {
-        return [[pinPreferences objectForKey:source.label] integerValue];
-    } else if ([pinPreferences objectForKey:source.codename]) {
-        return [[pinPreferences objectForKey:source.codename] integerValue];
-    } else if (!strict) {
-        return 500;
-    } else {
-        return 499;
     }
+    if ([pinPreferences objectForKey:source.label]) {
+        return [[pinPreferences objectForKey:source.label] integerValue];
+    }
+    if ([pinPreferences objectForKey:source.codename]) {
+        return [[pinPreferences objectForKey:source.codename] integerValue];
+    }
+    if (!strict) {
+        return 500;
+    }
+    return 499;
 }
 
 - (NSDictionary *)parsePreferences {
@@ -682,7 +699,6 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     [self updatesAvailable:packageManager.updates.count];
 }
 
-
 - (void)addedSources:(NSSet <ZBBaseSource *> *)sources {
     [[NSNotificationCenter defaultCenter] postNotificationName:ZBAddedSourcesNotification object:self userInfo:@{@"sources": sources}];
 }
@@ -696,13 +712,16 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 }
 
 - (void)cancelSourceRefresh {
-    // TODO: More things are probably required here
     [downloadManager stopAllDownloads];
-    [self finishedSourceRefresh];
+    [self clearBusyList];
 }
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source {
     return [databaseManager sectionReadoutForSource:source];
+}
+
+- (NSArray <NSString *> *)allSections {
+    return [databaseManager sectionsReadout];
 }
 
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source {

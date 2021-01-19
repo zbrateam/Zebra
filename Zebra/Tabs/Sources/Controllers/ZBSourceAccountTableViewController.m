@@ -270,7 +270,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section == 1 && purchases.count && ![[ZBAppDelegate tabBarController] isQueueBarAnimating];
+    return indexPath.section == 1 && purchases.count;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {

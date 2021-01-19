@@ -17,9 +17,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 @property (weak, nonatomic) IBOutlet UILabel *packageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *isOnWishlistImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isFavoritedImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+@property (weak, nonatomic) IBOutlet UIView *queueStatusBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @property BOOL showSize;

@@ -182,7 +182,7 @@
         [self updateQueueBarPackageCount:[ZBQueue count]];
         
         LNPopupPresentationState state = self.popupPresentationState;
-        if (state != LNPopupPresentationStateOpen && state != LNPopupPresentationStateTransitioning) {
+        if (state != LNPopupPresentationStateOpen) {
             [self openQueue:NO];
         }
         else {
@@ -207,7 +207,7 @@
 - (void)openQueue:(BOOL)openPopup {
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
-        if (state == LNPopupPresentationStateTransitioning || (openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateClosed))) {
+        if ((openPopup && state == LNPopupPresentationStateOpen) || (!openPopup && (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented))) {
             return;
         }
 
@@ -241,14 +241,10 @@
     
 }
 
-- (BOOL)isQueueBarAnimating {
-    return self.popupPresentationState == LNPopupPresentationStateTransitioning;
-}
-
 - (void)closeQueue {
     dispatch_async(dispatch_get_main_queue(), ^{
         LNPopupPresentationState state = self.popupPresentationState;
-        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateTransitioning || state == LNPopupPresentationStateClosed) {
+        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
             [self dismissPopupBarAnimated:YES completion:^{
                 self.popupController = nil;

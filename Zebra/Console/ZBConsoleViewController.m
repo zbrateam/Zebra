@@ -304,9 +304,6 @@
     [downloadMap removeAllObjects];
     [applicationBundlePaths removeAllObjects];
     
-    NSMutableArray *wishlist = [[ZBSettings wishlist] mutableCopy];
-    [wishlist removeObjectsInArray:installedPackageIdentifiers];
-    
     [installedPackageIdentifiers removeAllObjects];
     
     [self updateStage:ZBStageFinished];

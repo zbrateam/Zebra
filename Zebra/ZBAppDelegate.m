@@ -210,15 +210,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-//    NSArray *choices = @[@"file", @"zbra"];
-//    int index = (int)[choices indexOfObject:[url scheme]];
-//
-//    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
-//        return NO;
-//    }
-//
-//    switch (index) {
-//        case 0: { // file
+    NSArray *choices = @[@"file", @"zbra"];
+    int index = (int)[choices indexOfObject:[url scheme]];
+
+    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+        return NO;
+    }
+
+    switch (index) {
+        case 0: { // file
 //            if ([[url pathExtension] isEqualToString:@"deb"]) {
 //
 //                NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
@@ -237,40 +237,42 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 //                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
 //                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
 //                }
-//            } else if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
-//                ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-//                [tabController setSelectedIndex:ZBTabSources];
-//
-//                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//
-//                [sourceListController handleURL:url];
 //            }
-//            break;
-//        }
-//        case 1: { // zbra
-//            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-//
-//            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
-//            choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
-//            index = (int)[choices indexOfObject:components[0]];
-//
-//            switch (index) {
-//                case 0: {
-//                    [tabController setSelectedIndex:ZBTabHome];
-//                    break;
-//                }
-//                case 1: {
-//                    [tabController setSelectedIndex:ZBTabSources];
-//
-//                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//
-//                    [sourceListController handleURL:url];
-//                    break;
-//                }
-//                case 2: {
-//                    [tabController setSelectedIndex:ZBTabChanges];
-//                    break;
-//                }
+            
+            if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
+                ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+                [tabController setSelectedIndex:ZBTabSources];
+
+                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+
+                [sourceListController handleImportOf:url];
+            }
+            break;
+        }
+        case 1: { // zbra
+            ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
+
+            NSArray *components = [[url host] componentsSeparatedByString:@"/"];
+            choices = @[@"home", @"sources", @"changes", @"packages", @"search"];
+            index = (int)[choices indexOfObject:components[0]];
+
+            switch (index) {
+                case 0: {
+                    [tabController setSelectedIndex:ZBTabHome];
+                    break;
+                }
+                case 1: {
+                    [tabController setSelectedIndex:ZBTabSources];
+
+                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+
+                    [sourceListController handleURL:url];
+                    break;
+                }
+                case 2: {
+                    [tabController setSelectedIndex:ZBTabChanges];
+                    break;
+                }
 //                case 3: {
 //                    NSString *path = [url path];
 //                    if (path.length > 1) {
@@ -317,20 +319,20 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 //                    }
 //                    break;
 //                }
-//                case 4: {
-//                    [tabController setSelectedIndex:ZBTabSearch];
-//
-//                    ZBSearchTableViewController *searchController = (ZBSearchTableViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-//                    [searchController handleURL:url];
-//                    break;
-//                }
-//            }
-//            break;
-//        }
-//        default: {
-//            return NO;
-//        }
-//    }
+                case 4: {
+                    [tabController setSelectedIndex:ZBTabSearch];
+
+                    ZBSearchViewController *searchController = (ZBSearchViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+                    [searchController handleURL:url];
+                    break;
+                }
+            }
+            break;
+        }
+        default: {
+            return NO;
+        }
+    }
 
     return YES;
 }
@@ -351,7 +353,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         
         ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         
-//        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
+        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     } else if ([shortcutItem.type isEqualToString:@"Refresh"]) {
         ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
         

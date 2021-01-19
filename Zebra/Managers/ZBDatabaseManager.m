@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     ZBDatabaseStatementTypeInsertSource,
     ZBDatabaseStatementTypeSearchAuthorsByName,
     ZBDatabaseStatementTypeSectionReadout,
+    ZBDatabaseStatementTypeSectionsReadout,
     ZBDatabaseStatementTypePackagesInSourceCount,
     ZBDatabaseStatementTypeInstalledPackages,
     ZBDatabaseStatementTypeCount
@@ -418,6 +419,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
             return @"SELECT DISTINCT authorName, authorEmail FROM " PACKAGES_TABLE_NAME " WHERE authorName LIKE ? OR authorEmail LIKE ?";
         case ZBDatabaseStatementTypeSectionReadout:
             return @"SELECT section, COUNT(DISTINCT identifier) from " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY section ORDER BY section";
+        case ZBDatabaseStatementTypeSectionsReadout:
+            return @"SELECT DISTINCT(section) from " PACKAGES_TABLE_NAME " ORDER BY section";
         case ZBDatabaseStatementTypePackagesInSourceCount:
             return @"SELECT COUNT(*) FROM (SELECT DISTINCT identifier FROM " PACKAGES_TABLE_NAME " WHERE source = ? GROUP BY IDENTIFIER);";
         case ZBDatabaseStatementTypeInstalledPackages:
@@ -672,13 +675,12 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 }
 
 - (NSArray <ZBPackage *> *)packagesFromIdentifiers:(NSArray <NSString *> *)requestedPackages {
-    const char *query = "SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier IN (?) GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;";
+    if (!requestedPackages || !requestedPackages.count) return NULL;
+    
     NSString *identifierString = [requestedPackages componentsJoinedByString:@"\', \'"];
+    NSString *query = [NSString stringWithFormat:@"SELECT " BASE_PACKAGE_COLUMNS " FROM (SELECT identifier, maxversion(version) AS max_version FROM " PACKAGES_TABLE_NAME " WHERE identifier IN (\'%@\') GROUP BY identifier) as v INNER JOIN " PACKAGES_TABLE_NAME " AS p ON p.identifier = v.identifier AND p.version = v.max_version;", identifierString];
     sqlite3_stmt *statement;
-    __block int result = sqlite3_prepare_v2(database, query, -1, &statement, nil);
-    if (result == SQLITE_OK) {
-        result = sqlite3_bind_text(statement, 1, identifierString.UTF8String, -1, SQLITE_TRANSIENT);
-    }
+    __block int result = sqlite3_prepare_v2(database, query.UTF8String, -1, &statement, nil);
         
     if (result != SQLITE_OK) return NULL;
     
@@ -857,6 +859,33 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_clear_bindings(statement);
     sqlite3_reset(statement);
     return packageWithVersion;
+}
+
+- (NSArray <ZBPackage *> *)allRemoteInstancesOfPackage:(ZBPackage *)package withVersion:(NSString *)version {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeRemoteInstanceOfPackageWithVersion];
+    __block int result = sqlite3_bind_text(statement, 1, package.identifier.UTF8String, -1, SQLITE_TRANSIENT);
+    result &= sqlite3_bind_text(statement, 2, version.UTF8String, -1, SQLITE_TRANSIENT);
+
+    if (result != SQLITE_OK) return NULL;
+
+    NSMutableArray *packages = [NSMutableArray new];
+    [self performTransaction:^{
+        do {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                ZBPackage *package = [[ZBPackage alloc] initFromSQLiteStatement:statement];
+                if (package) [packages addObject:package];
+            }
+        } while (result == SQLITE_ROW);
+
+        if (result != SQLITE_DONE && result != SQLITE_OK) {
+            ZBLog(@"[Zebra] Failed to get all remote instances of package with version got error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+        }
+    }];
+
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    return packages;
 }
 
 - (BOOL)isPackageAvailable:(ZBPackage *)package checkVersion:(BOOL)checkVersion; {
@@ -1179,7 +1208,33 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return packageCount;
 }
 
-- (NSDictionary *)sectionReadoutForSource:(ZBSource *)source {
+- (NSArray <NSString *> *)sectionsReadout {
+    sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSectionsReadout];
+    __block int result = SQLITE_OK;
+    
+    NSMutableArray *sections = [NSMutableArray new];
+    [self performTransaction:^{
+        do {
+            result = sqlite3_step(statement);
+            if (result == SQLITE_ROW) {
+                const char *section = (const char *)sqlite3_column_text(statement, 0);
+                if (section) {
+                    [sections addObject:[NSString stringWithUTF8String:section]];
+                }
+            }
+        } while (result == SQLITE_ROW);
+        
+        if (result != SQLITE_DONE) {
+            ZBLog(@"[Zebra] Failed to query all sections with error %d (%s, %d)", result, sqlite3_errmsg(self->database), sqlite3_extended_errcode(self->database));
+        }
+    }];
+    
+    sqlite3_clear_bindings(statement);
+    sqlite3_reset(statement);
+    return sections;
+}
+
+- (NSDictionary <NSString *, NSNumber *> *)sectionReadoutForSource:(ZBSource *)source {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeSectionReadout];
     __block int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
         

@@ -89,7 +89,11 @@
         const char *tag = (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
         if (tag && tag[0] != '\0') {
             NSString *rawTag = [NSString stringWithUTF8String:tag];
-            self.tag = [rawTag componentsSeparatedByString:@","];
+            NSMutableArray *tags = [rawTag componentsSeparatedByString:@","].mutableCopy;
+            for (int i = 0; i < tags.count; i++) {
+                tags[i] = [tags[i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            }
+            self.tag = tags;
         }
         
         const char *uuid = (const char *)sqlite3_column_text(statement, ZBPackageColumnUUID);
@@ -124,8 +128,8 @@
     return [self.tag containsObject:@"cydia::commercial"];
 }
 
-- (BOOL)isOnWishlist {
-    return [[ZBSettings wishlist] containsObject:self.identifier];
+- (BOOL)isFavorited {
+    return [[ZBSettings favoritePackages] containsObject:self.identifier];
 }
 
 - (NSDate *)installedDate {

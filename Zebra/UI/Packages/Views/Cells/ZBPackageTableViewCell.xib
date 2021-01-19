@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -42,44 +42,55 @@
                         </subviews>
                     </stackView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="yXV-FY-OId">
-                        <rect key="frame" x="74" y="31.5" width="281.5" height="32"/>
+                        <rect key="frame" x="74" y="31.5" width="271.5" height="32"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A Useful Package Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i5t-bG-gea">
-                                <rect key="frame" x="0.0" y="0.0" width="281.5" height="16"/>
+                                <rect key="frame" x="0.0" y="0.0" width="271.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author + Source + Size" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aao-tj-ivE">
-                                <rect key="frame" x="0.0" y="16" width="281.5" height="16"/>
+                                <rect key="frame" x="0.0" y="16" width="271.5" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                     </stackView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdF-SF-tEn">
-                        <rect key="frame" x="363.5" y="45.5" width="34.5" height="16"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdf-QB-KSQ">
+                        <rect key="frame" x="353.5" y="40.5" width="44.5" height="20"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="right" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NdF-SF-tEn">
+                                <rect key="frame" x="5" y="2" width="34.5" height="16"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="NdF-SF-tEn" secondAttribute="bottom" priority="2" constant="2" id="1w8-f5-fzn"/>
+                            <constraint firstItem="NdF-SF-tEn" firstAttribute="leading" secondItem="Sdf-QB-KSQ" secondAttribute="leading" constant="5" id="6us-b9-J0g"/>
+                            <constraint firstItem="NdF-SF-tEn" firstAttribute="top" secondItem="Sdf-QB-KSQ" secondAttribute="top" constant="2" id="npV-qz-kR5"/>
+                            <constraint firstAttribute="trailing" secondItem="NdF-SF-tEn" secondAttribute="trailing" constant="5" id="ujT-xL-BcD"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="Sdf-QB-KSQ" secondAttribute="trailing" id="8HJ-rD-ifN"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="yXV-FY-OId" secondAttribute="bottom" id="A1X-9C-6VJ"/>
+                    <constraint firstItem="Sdf-QB-KSQ" firstAttribute="bottom" secondItem="UQ5-oq-Z6g" secondAttribute="bottom" id="Cbo-cA-51o"/>
                     <constraint firstItem="Xau-2s-gYD" firstAttribute="leading" secondItem="UQ5-oq-Z6g" secondAttribute="trailing" constant="12" id="G4r-yU-5Cr"/>
                     <constraint firstItem="yXV-FY-OId" firstAttribute="leading" secondItem="Xau-2s-gYD" secondAttribute="leading" id="PBY-R1-C8l"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="NdF-SF-tEn" secondAttribute="trailing" id="cHh-ci-Hf1"/>
                     <constraint firstItem="yXV-FY-OId" firstAttribute="top" secondItem="Xau-2s-gYD" secondAttribute="bottom" id="cqg-nY-zmu"/>
                     <constraint firstItem="Xau-2s-gYD" firstAttribute="top" secondItem="q6f-7A-7nU" secondAttribute="topMargin" id="fZ1-sj-LqS"/>
-                    <constraint firstItem="NdF-SF-tEn" firstAttribute="leading" secondItem="yXV-FY-OId" secondAttribute="trailing" constant="8" id="jJ0-11-cYZ"/>
                     <constraint firstAttribute="trailingMargin" secondItem="SN4-it-TnK" secondAttribute="trailing" id="ltc-sl-bC0"/>
                     <constraint firstItem="SN4-it-TnK" firstAttribute="top" secondItem="q6f-7A-7nU" secondAttribute="topMargin" id="m9G-EH-kUU"/>
+                    <constraint firstItem="Sdf-QB-KSQ" firstAttribute="leading" secondItem="yXV-FY-OId" secondAttribute="trailing" constant="8" id="oWm-La-0t3"/>
                     <constraint firstItem="SN4-it-TnK" firstAttribute="leading" secondItem="Xau-2s-gYD" secondAttribute="trailing" constant="8" id="pBE-jy-Yqy"/>
                     <constraint firstItem="UQ5-oq-Z6g" firstAttribute="centerY" secondItem="q6f-7A-7nU" secondAttribute="centerY" id="qPy-zS-T3z"/>
                     <constraint firstItem="UQ5-oq-Z6g" firstAttribute="leading" secondItem="q6f-7A-7nU" secondAttribute="leadingMargin" id="rQt-lv-O1m"/>
-                    <constraint firstItem="NdF-SF-tEn" firstAttribute="bottom" secondItem="yXV-FY-OId" secondAttribute="bottom" constant="-2" id="wnL-Hf-cz6"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -87,13 +98,14 @@
                 <outlet property="descriptionLabel" destination="i5t-bG-gea" id="TgH-dS-3h1"/>
                 <outlet property="iconImageView" destination="UQ5-oq-Z6g" id="yKv-R5-qLJ"/>
                 <outlet property="infoLabel" destination="Aao-tj-ivE" id="UE8-PC-kVt"/>
+                <outlet property="isFavoritedImageView" destination="fea-JQ-TOw" id="QTI-ch-iK7"/>
                 <outlet property="isInstalledImageView" destination="AEZ-YH-tqZ" id="M4g-KA-8uR"/>
-                <outlet property="isOnWishlistImageView" destination="fea-JQ-TOw" id="QTI-ch-iK7"/>
                 <outlet property="isPaidImageView" destination="ct9-J8-bNT" id="0Zc-Se-d0H"/>
                 <outlet property="packageLabel" destination="Xau-2s-gYD" id="KDn-dI-lvi"/>
+                <outlet property="queueStatusBackgroundView" destination="Sdf-QB-KSQ" id="FcM-d7-6fr"/>
                 <outlet property="queueStatusLabel" destination="NdF-SF-tEn" id="glP-od-zbr"/>
             </connections>
-            <point key="canvasLocation" x="68.799999999999997" y="94.002998500749626"/>
+            <point key="canvasLocation" x="68.115942028985515" y="93.415178571428569"/>
         </tableViewCell>
     </objects>
     <resources>

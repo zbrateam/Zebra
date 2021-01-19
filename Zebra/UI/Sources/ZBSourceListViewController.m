@@ -8,7 +8,7 @@
 
 #import "ZBSourceListViewController.h"
 
-#import <Tabs/Sources/Controllers/ZBSourceAddViewController.h>
+#import <UI/Sources/ZBSourceAddViewController.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Managers/ZBSourceManager.h>
@@ -18,6 +18,7 @@
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/Sources/ZBSourceFilterViewController.h>
+#import <UI/Sources/ZBSourceImportViewController.h>
 #import <ZBSettings.h>
 
 @interface ZBSourceListViewController () {
@@ -66,7 +67,7 @@
 }
 
 - (void)registerForNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh) name:ZBStartedSourceRefreshNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addedSources:) name:ZBAddedSourcesNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(removedSources:) name:ZBRemovedSourcesNotification object:NULL];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedDownloadingSource:) name:ZBStartedSourceDownloadNotification object:NULL];
@@ -499,6 +500,48 @@
             }
         }
     });
+}
+
+#pragma mark - URL Handling
+
+- (void)handleURL:(NSURL *)url {
+    NSString *path = [url path];
+    
+    if (![path isEqualToString:@""]) {
+        NSArray *components = [path pathComponents];
+        if ([components count] == 2) {
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            NSURL *url = [NSURL URLWithString:pasteboard.string];
+            BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
+            if (!isValidURL) {
+                [self showAddSourceView];
+            } else {
+                [self showAddSourceViewWithURL:url];
+            }
+        } else if ([components count] >= 4) {
+            NSString *urlString = [path componentsSeparatedByString:@"/add/"][1];
+            
+            NSURL *url;
+            if ([urlString containsString:@"https://"] || [urlString containsString:@"http://"]) {
+                url = [NSURL URLWithString:urlString];
+            } else {
+                url = [NSURL URLWithString:[@"https://" stringByAppendingString:urlString]];
+            }
+            
+            if (url && url.scheme && url.host) {
+                [self showAddSourceViewWithURL:url]; //This should probably be changed
+            } else {
+                [self showAddSourceView];
+            }
+        }
+    }
+}
+
+- (void)handleImportOf:(NSURL *)url {
+    ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[url] extension:[url pathExtension]];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:importController];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 @end

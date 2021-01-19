@@ -572,90 +572,6 @@
             </objects>
             <point key="canvasLocation" x="6164" y="-3005"/>
         </scene>
-        <!--Community Sources Table View Controller-->
-        <scene sceneID="iLo-PP-Kbp">
-            <objects>
-                <tableViewController storyboardIdentifier="communitySourcesController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aCx-cw-gm3" customClass="ZBCommunitySourcesTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="0D0-Yv-w4F">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="aCx-cw-gm3" id="111-7P-68e"/>
-                            <outlet property="delegate" destination="aCx-cw-gm3" id="rai-qG-XkV"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1lX-UH-m4O" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6164" y="-3679"/>
-        </scene>
-        <!--Wish List-->
-        <scene sceneID="OSK-WG-rrU">
-            <objects>
-                <tableViewController storyboardIdentifier="wishListController" title="Wish List" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EZp-oK-GMJ" customClass="ZBWishListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="6SK-PC-Jh7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <toolbar key="tableHeaderView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="h8l-OL-nQZ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <items>
-                                <barButtonItem style="plain" id="NFk-Mn-X1c">
-                                    <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" id="Zm7-sp-XkJ">
-                                        <rect key="frame" x="20" y="6" width="374" height="32"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                        <segments>
-                                            <segment title="Most Recent"/>
-                                            <segment title="Least Recent"/>
-                                        </segments>
-                                    </segmentedControl>
-                                </barButtonItem>
-                            </items>
-                        </toolbar>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Smf-Da-X4p">
-                                <rect key="frame" x="20" y="99.5" width="374" height="43.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Smf-Da-X4p" id="MXl-tq-FZJ">
-                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="EZp-oK-GMJ" id="f2U-sA-jqO"/>
-                            <outlet property="delegate" destination="EZp-oK-GMJ" id="bff-Wh-OMx"/>
-                        </connections>
-                    </tableView>
-                    <connections>
-                        <outlet property="segmentedControl" destination="Zm7-sp-XkJ" id="B0X-Mc-XJd"/>
-                        <outlet property="toolbar" destination="h8l-OL-nQZ" id="eFO-Im-dfU"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yz5-O4-SaC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3356" y="-2346"/>
-        </scene>
-        <!--Stores-->
-        <scene sceneID="uaX-zg-faQ">
-            <objects>
-                <tableViewController storyboardIdentifier="storesController" id="VGm-ey-YYQ" customClass="ZBStoresListTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="1EL-hk-CbP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="groupTableViewBackgroundColor"/>
-                        <connections>
-                            <outlet property="dataSource" destination="VGm-ey-YYQ" id="EcM-VX-xpe"/>
-                            <outlet property="delegate" destination="VGm-ey-YYQ" id="Fdd-FX-zzG"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Stores" id="Fol-dR-guQ"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wnw-ey-GYm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3348" y="-1687"/>
-        </scene>
         <!--Queue-->
         <scene sceneID="WI4-4c-3EM">
             <objects>
@@ -861,9 +777,6 @@
         <image name="Search" width="25" height="25"/>
         <image name="Sources" width="25" height="25"/>
         <image name="Unknown" width="29" height="29"/>
-        <systemColor name="groupTableViewBackgroundColor">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

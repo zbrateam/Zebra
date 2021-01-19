@@ -11,13 +11,13 @@
 #import "ZBOptionSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
-#import <Managers/ZBDatabaseManager.h>
+#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBSource.h>
 
 @interface ZBSectionSelectorTableViewController () {
-    NSArray *sections;
+    NSMutableArray *sections;
     NSMutableArray *selectedSections;
     NSMutableArray *selectedIndexes;
 }
@@ -43,7 +43,7 @@
     
     self.title = NSLocalizedString(@"Select a Section", @"");
     
-    NSMutableArray *allSections = [[[ZBDatabaseManager sharedInstance] sectionReadoutForSource:NULL] mutableCopy];
+    NSMutableArray *allSections = [[[ZBSourceManager sharedInstance] allSections] mutableCopy];
     [allSections sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSString *section1 = [self localizedSection:obj1];
         NSString *section2 = [self localizedSection:obj2];
@@ -55,7 +55,7 @@
     
     [allSections removeObjectsInArray:filteredSections];
     
-    sections = (NSArray *)allSections;
+    sections = allSections;
     
     [self layoutNaviationButtons];
     [self.tableView registerCellType:ZBOptionSettingsCell];

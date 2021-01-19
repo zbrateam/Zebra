@@ -636,6 +636,13 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
 - (NSArray *_Nullable)possibleExtraActions {
     NSMutableArray *actions = [NSMutableArray new];
 
+    if (![[ZBSettings favoritePackages] containsObject:[self identifier]]) {
+        [actions addObject:@(ZBPackageExtraActionAddFavorite)];
+    }
+    else {
+        [actions addObject:@(ZBPackageExtraActionRemoveFavorite)];
+    }
+    
     if ([self authorName]) {
         if (![ZBSettings isAuthorBlocked:[self authorName] email:[self authorEmail]]) {
             [actions addObject:@(ZBPackageExtraActionBlockAuthor)];
@@ -646,14 +653,6 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
     }
     
     if (!self.isInstalled) {
-        // Only allow adding/removing from wishlist if the package is not installed
-        if (![[ZBSettings wishlist] containsObject:[self identifier]]) {
-            [actions addObject:@(ZBPackageExtraActionAddWishlist)];
-        }
-        else {
-            [actions addObject:@(ZBPackageExtraActionRemoveWishlist)];
-        }
-        
         // Might want to rethink this a bit
 //        if ([[ZBDatabaseManager sharedInstance] packageHasUpdate:self] && [self isEssentialOrRequired]) {
 //            // If the package has an update available and it is essential or required (a "suggested" package) then you can ignore it
@@ -947,7 +946,7 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
     }
     
     // Should only run if we don't have a payment secret or if we aren't logged in.
-    [[self source] authenticate:^(BOOL success, BOOL notify, NSError * _Nullable error) {
+    [[self source] authenticate:tryAgain completion:^(BOOL success, BOOL notify, NSError * _Nullable error) {
         if (tryAgain && success && !error) {
             [self purchase:NO completion:completion]; // Try again, but only try once
         }

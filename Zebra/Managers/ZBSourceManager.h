@@ -85,12 +85,15 @@ extern NSString *const ZBSourceDownloadProgressUpdateNotification;
 */
 - (void)refreshSources:(NSArray <ZBBaseSource *> *)sources useCaching:(BOOL)useCaching error:(NSError **_Nullable)error;
 
+- (void)clearBusyList;
+
 - (void)cancelSourceRefresh;
 
 - (void)verifySources:(NSSet <ZBBaseSource *> *)sources delegate:(id <ZBSourceVerificationDelegate>)delegate;
 
 - (void)writeBaseSources:(NSSet <ZBBaseSource *> *)sources toFile:(NSString *)filePath error:(NSError **_Nullable)error;
 
+- (NSArray <NSString *> *)allSections;
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source;
 - (NSUInteger)numberOfPackagesInSource:(ZBSource *)source;
 - (NSArray <ZBSource *> *)filterSources:(NSArray <ZBSource *> *)sources withFilter:(ZBSourceFilter *)filter;

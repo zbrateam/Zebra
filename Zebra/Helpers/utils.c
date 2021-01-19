@@ -9,6 +9,7 @@
 #include "utils.h"
 #include "vercmp.h"
 
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
@@ -47,6 +48,7 @@ char** dualArrayOfSize(unsigned int size) {
 
 void freeDualArrayOfSize(char **arr, unsigned int size) {
     for (int i = 0; i < size; i++) {
+        arr[i][0] = '\0';
         free(arr[i]);
     }
     free(arr);

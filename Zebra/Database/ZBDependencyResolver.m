@@ -9,6 +9,7 @@
 #import "ZBDependencyResolver.h"
 
 #import <ZBLog.h>
+#import <ZBDevice.h>
 #import <Model/ZBPackage.h>
 
 #import <Managers/ZBDatabaseManager.h>
@@ -323,6 +324,26 @@
 }
 
 - (BOOL)isPackageInstalled:(NSString *)packageIdentifier thatSatisfiesComparison:(nullable NSString *)comparison ofVersion:(nullable NSString *)version { //Returns true if package is installed or is provided.
+#if TARGET_OS_SIMULATOR
+    if (comparison != nil) {
+        if ([packageIdentifier isEqualToString:@"firmware"]) {
+            if ([comparison isEqualToString:@">>"])
+                return SYSTEM_VERSION_GREATER_THAN(version);
+            if ([comparison isEqualToString:@">="])
+                return SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(version);
+            if ([comparison isEqualToString:@"<<"])
+                return SYSTEM_VERSION_LESS_THAN(version);
+            if ([comparison isEqualToString:@"<="])
+                return SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(version);
+            if ([comparison isEqualToString:@"="])
+                return SYSTEM_VERSION_EQUAL_TO(version);
+        }
+    } else if ([packageIdentifier isEqualToString:@"gsc.ipad"]) {
+        return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+    } else if ([packageIdentifier isEqualToString:@"cy+cpu.arm64"] || [packageIdentifier isEqualToString:@"cy+cpu.arm64v8"]) {
+        return YES;
+    }
+#endif
     NSString *installedVersion = installedPackagesList[packageIdentifier];
     if (installedVersion) {
         if (version != nil && comparison != nil) {

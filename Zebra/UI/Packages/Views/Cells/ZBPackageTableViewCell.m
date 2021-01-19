@@ -22,10 +22,10 @@
     [super awakeFromNib];
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
-    self.isOnWishlistImageView.hidden = YES;
+    self.isFavoritedImageView.hidden = YES;
     
-    self.queueStatusLabel.hidden = YES;
-    self.queueStatusLabel.layer.cornerRadius = 4.0;
+    self.queueStatusBackgroundView.hidden = YES;
+    self.queueStatusBackgroundView.layer.cornerRadius = 5.0;
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
     self.iconImageView.layer.borderWidth = 1;
@@ -53,7 +53,7 @@
     [package setIconImageForImageView:self.iconImageView];
     
     self.isInstalledImageView.hidden = !package.isInstalled;
-    self.isOnWishlistImageView.hidden = !package.isOnWishlist;
+    self.isFavoritedImageView.hidden = !package.isFavorited;
     self.isPaidImageView.hidden = !package.isPaid;
     
     [self updateQueueStatus:package];
@@ -63,16 +63,13 @@
     ZBQueueType queue = [[ZBQueue sharedQueue] locate:package];
     if (queue != ZBQueueTypeClear) {
         NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue];
-        self.queueStatusLabel.hidden = NO;
-        self.queueStatusLabel.text = [NSString stringWithFormat:@" %@ ", status];
-        self.queueStatusLabel.backgroundColor = [ZBQueue colorForQueueType:queue];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.queueStatusLabel sizeToFit];
-        });
+        self.queueStatusBackgroundView.hidden = NO;
+        self.queueStatusLabel.text = [NSString stringWithFormat:@"%@", status];
+        self.queueStatusBackgroundView.backgroundColor = [ZBQueue colorForQueueType:queue];
     } else {
-        self.queueStatusLabel.hidden = YES;
+        self.queueStatusBackgroundView.hidden = YES;
         self.queueStatusLabel.text = nil;
-        self.queueStatusLabel.backgroundColor = nil;
+        self.queueStatusBackgroundView.backgroundColor = nil;
     }
 }
 
