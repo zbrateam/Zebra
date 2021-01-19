@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Tabs/Home/Settings/Table/ZBSettingsTableViewController.h>
+#import <UI/Settings/Table/ZBSettingsTableViewController.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
 #import "App Icon/ZBAlternateIconController.h"
