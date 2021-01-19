@@ -19,7 +19,7 @@
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
-    layout.sectionInset = UIEdgeInsetsZero;
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 16);
     
     self = [super initWithFrame:CGRectZero collectionViewLayout:layout];
     
@@ -85,7 +85,7 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return MIN(_packages.count, 10);
+    return _packages.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,7 +104,6 @@
     if (indexPath.row < _packages.count) {
         ZBPackage *package = _packages[indexPath.row];
         [cell setPackage:package];
-        cell.isInstalledImageView.hidden = NO;
     }
 }
 

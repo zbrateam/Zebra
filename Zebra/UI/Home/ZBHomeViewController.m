@@ -96,7 +96,7 @@
 
 - (void)viewDidLoad {
     [_featuredPackagesView fetch];
-    _changesCollectionView.packages = [[ZBPackageManager sharedInstance] latestPackages:20];
+    _changesCollectionView.packages = [[ZBPackageManager sharedInstance] latestPackages:21];
     [_communityNewsView fetch];
 }
 
