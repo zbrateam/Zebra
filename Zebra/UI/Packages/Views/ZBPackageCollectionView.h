@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageCollectionView : UICollectionView <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic) NSArray <ZBPackage *> *packages;
+@property (nonatomic) CGSize itemSize;
 @end
 
 NS_ASSUME_NONNULL_END

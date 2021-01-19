@@ -84,7 +84,7 @@
     _featuredPackagesViewHeightConstraint.active = YES;
     _featuredPackagesView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    _changesCollectionViewHeightConstraint = [_changesCollectionView.heightAnchor constraintEqualToAnchor:self.view.heightAnchor multiplier:0.25];
+    _changesCollectionViewHeightConstraint = [_changesCollectionView.heightAnchor constraintEqualToConstant:_changesCollectionView.itemSize.height];
     _changesCollectionViewHeightConstraint.active = YES;
     _changesCollectionView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -110,6 +110,7 @@
     [super viewDidLayoutSubviews];
 
     _featuredPackagesViewHeightConstraint.constant = _featuredPackagesView.itemSize.height + 16;
+    _changesCollectionViewHeightConstraint.constant = (_changesCollectionView.itemSize.height * 3) + 16;
     _communityNewsViewHeightConstraint.constant = _communityNewsView.contentSize.height;
 //    [_stackView setNeedsUpdateConstraints];
 //    

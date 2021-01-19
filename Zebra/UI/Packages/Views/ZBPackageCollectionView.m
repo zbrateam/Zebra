@@ -31,7 +31,7 @@
         [self setShowsHorizontalScrollIndicator:NO];
         
 //        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-//        self.itemSize = CGSizeMake(0, spinner.frame.size.height + 16);
+        self.itemSize = CGSizeMake(0, 16);
     }
     
     return self;
@@ -39,15 +39,15 @@
 
 #pragma mark - Properties
 
-//- (void)setItemSize:(CGSize)itemSize {
-//    @synchronized (self) {
-//        if (_itemSize.height != itemSize.height) {
-//            _itemSize = itemSize;
-//            
-//            [self setNeedsLayout];
-//        }
-//    }
-//}
+- (void)setItemSize:(CGSize)itemSize {
+    @synchronized (self) {
+        if (_itemSize.height != itemSize.height) {
+            _itemSize = itemSize;
+            
+            [self setNeedsLayout];
+        }
+    }
+}
 
 - (void)setPackages:(NSArray <ZBPackage *> *)packages {
     @synchronized (_packages) {
@@ -96,6 +96,10 @@
 #pragma mark - Collection View Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(ZBPackageCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.itemSize.width == 0) {
+        self.itemSize = [cell systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    }
+    
     if (indexPath.row < _packages.count) {
         // TODO: Move code to cell
         ZBPackage *package = _packages[indexPath.row];
