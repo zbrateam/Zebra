@@ -221,6 +221,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self->isUpdatingResults = NO;
     if (searchController.active && searchResults.count) {
         ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:searchResults[indexPath.row]];
         [self.navigationController pushViewController:packageController animated:YES];
