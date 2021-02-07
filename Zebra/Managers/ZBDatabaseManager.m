@@ -914,7 +914,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         if (existingPackage) {
             // package and existingPackage are the same packages, one is installed, another is generic
             // If a package added to a temporary list is installed (source = var_lib_dpkg_status_), we discard them and replace with its counterpart which contains more properties for managing packages
-            if ([existingPackage isVersionInstalled]) {
+            if ([existingPackage isInstalled]) {
                 filter[existingPackage.identifier] = package;
             }
         } else {

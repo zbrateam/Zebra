@@ -82,7 +82,7 @@
         }
         
         const char *source = (const char *)sqlite3_column_text(statement, ZBPackageColumnSource);
-        if (source && source) {
+        if (source && source[0] != '\0') {
             self.source = [[ZBSourceManager sharedInstance] sourceWithUUID:[NSString stringWithUTF8String:source]];
         }
         

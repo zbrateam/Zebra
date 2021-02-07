@@ -25,7 +25,7 @@
 @interface ZBSourceManager () {
     NSMutableDictionary <NSString *, NSNumber *> *busyList;
     NSDictionary *pinPreferences;
-    NSDictionary *sourceMap;
+    NSDictionary <NSString *, ZBSource *> *sourceMap;
     
     ZBPackageManager *packageManager;
     ZBDatabaseManager *databaseManager;
@@ -76,13 +76,13 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 
 #pragma mark - Accessing Sources
 
-- (NSArray <ZBSource *> *)sources {
+- (void)initSources {
     NSError *readError = NULL;
     NSSet *baseSources = [ZBBaseSource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:&readError];
     if (readError) {
         ZBLog(@"[Zebra] Error when reading sources from %@: %@", [ZBAppDelegate sourcesListURL], readError.localizedDescription);
         
-        return [NSArray new];
+        return;
     }
     
     if (!sourceMap) {
@@ -123,11 +123,17 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 //            }
 //        });
     }
-    
+}
+
+- (NSArray <ZBSource *> *)sources {
+    [self initSources];
     return [sourceMap allValues];
 }
 
 - (ZBSource *)sourceWithUUID:(NSString *)UUID {
+    if (sourceMap == nil) {
+        [self initSources];
+    }
     return sourceMap[UUID];
 }
 
