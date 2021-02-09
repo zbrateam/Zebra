@@ -25,6 +25,7 @@
     NSArray *searchResults;
     UISearchController *searchController;
     UIActivityIndicatorView *spinner;
+    BOOL isUpdatingResults;
 }
 @end
 
@@ -115,6 +116,8 @@
     void (^updateTable)(NSArray *) = ^void(NSArray *packages) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self->spinner.isAnimating) [self hideSpinner];
+            if (self->isUpdatingResults) return;
+            self->isUpdatingResults = YES;
             self->searchResults = packages;
             
             if (packages.count == 0 && strippedString.length != 0) {
@@ -124,6 +127,7 @@
             }
             
             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+            self->isUpdatingResults = NO;
         });
     };
     
@@ -217,6 +221,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    self->isUpdatingResults = NO;
     if (searchController.active && searchResults.count) {
         ZBPackageViewController *packageController = [[ZBPackageViewController alloc] initWithPackage:searchResults[indexPath.row]];
         [self.navigationController pushViewController:packageController animated:YES];
