@@ -907,6 +907,23 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 
 #pragma mark - Package Searching
 
+- (NSArray <ZBPackage *> *)filterDuplicatesOfInstalledPackages:(NSArray <ZBPackage *> *)packages {
+    NSMutableDictionary <NSString *, ZBPackage *> *filter = [NSMutableDictionary new];
+    for (ZBPackage *package in packages) {
+        ZBPackage *existingPackage = filter[package.identifier];
+        if (existingPackage) {
+            // package and existingPackage are the same packages, one is installed, another is generic
+            // If a package added to a temporary list is installed (source = var_lib_dpkg_status_), we discard them and replace with its counterpart which contains more properties for managing packages
+            if ([existingPackage isInstalled]) {
+                filter[existingPackage.identifier] = package;
+            }
+        } else {
+            filter[package.identifier] = package;
+        }
+    }
+    return [filter allValues];
+}
+
 - (void)searchForPackagesByName:(NSString *)name completion:(void (^)(NSArray <ZBPackage *> *packages))completion {
     if (currentSearchBlock) {
         dispatch_block_cancel(currentSearchBlock);
@@ -939,7 +956,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_reset(statement);
         
         if (!dispatch_block_testcancel(searchBlock)) {
-            completion(packages);
+            completion([self filterDuplicatesOfInstalledPackages:packages]);
         }
     });
     
@@ -979,7 +996,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_reset(statement);
         
         if (!dispatch_block_testcancel(searchBlock)) {
-            completion(packages);
+            completion([self filterDuplicatesOfInstalledPackages:packages]);
         }
     });
     
@@ -1023,7 +1040,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_reset(statement);
         
         if (!dispatch_block_testcancel(searchBlock)) {
-            completion(packages);
+            completion([self filterDuplicatesOfInstalledPackages:packages]);
         }
     });
     
