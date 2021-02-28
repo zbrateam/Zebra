@@ -1,3 +1,6 @@
 [submodule "Firmware"]
 	path = Firmware
 	url = https://github.com/zbrateam/Firmware.git
+[submodule "Vendor/plains"]
+	path = Vendor/plains
+	url = git@github.com:wstyres/Plains.git
