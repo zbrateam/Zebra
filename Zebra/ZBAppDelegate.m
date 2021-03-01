@@ -30,7 +30,7 @@
 
 #import <Managers/ZBDatabaseManager.h>
 
-#import <Plains/Plains.h>
+@import Plains;
 
 @import FirebaseCore;
 @import FirebaseAnalytics;
@@ -196,8 +196,6 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self registerForScreenshotNotifications];
     [self setupSDWebImageCache];
     [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
-    
-    NSLog(@"Plains Package Name: %@", [PLPackage name]);
     
     if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
         ZBLog(@"[Zebra] Needs migration, loading migration controller.");
