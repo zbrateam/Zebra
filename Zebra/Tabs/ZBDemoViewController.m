@@ -23,10 +23,14 @@
     
     PLDatabase *database = [[PLDatabase alloc] init];
     
-    [self appendString:@"==== SOURCE URIS ===="];
-    NSArray <NSString *> *sourceURIs = [database sources];
-    for (NSString *URI in sourceURIs) {
-        [self appendString:URI];
+    [self appendString:@"==== SOURCES ===="];
+    NSArray <PLSource *> *sources = [database sources];
+    for (PLSource *source in sources) {
+        [self appendString:[NSString stringWithFormat:@"URI: %@", source.URI.absoluteString]];
+        [self appendString:[NSString stringWithFormat:@"Origin: %@", source.origin]];
+        [self appendString:[NSString stringWithFormat:@"Label: %@", source.label]];
+        [self appendString:[NSString stringWithFormat:@"Distribution: %@", source.distribution]];
+        [self appendString:@""];
     }
 }
 
