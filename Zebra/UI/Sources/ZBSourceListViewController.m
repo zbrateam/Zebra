@@ -264,6 +264,10 @@
 
 #pragma mark - Table View Data Source
 
+- (BOOL)canAccessSource:(ZBSource *)source {
+    return [source respondsToSelector:@selector(sections)];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return problems.count ? 2 : 1;
 }
@@ -325,6 +329,9 @@
         
     } else {
         ZBSource *source = filterResults[indexPath.row];
+        if (![self canAccessSource:source]) {
+            return;
+        }
         ZBSourceViewController *sourceViewController = [[ZBSourceViewController alloc] initWithSource:source editOnly:NO];
         
         [self.navigationController pushViewController:sourceViewController animated:YES];
