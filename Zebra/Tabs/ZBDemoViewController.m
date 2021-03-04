@@ -10,7 +10,9 @@
 
 @import Plains;
 
-@interface ZBDemoViewController ()
+@interface ZBDemoViewController () {
+    PLDatabase *database;
+}
 @property (strong, nonatomic) IBOutlet UITextView *outputView;
 @end
 
@@ -21,21 +23,44 @@
     
     self.title = @"Plains";
     
-    PLDatabase *database = [[PLDatabase alloc] init];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
+    
+    database = [[PLDatabase alloc] init];
     
     [self appendString:@"==== SOURCES ===="];
     NSArray <PLSource *> *sources = [database sources];
     for (PLSource *source in sources) {
         [self appendString:[NSString stringWithFormat:@"URI: %@", source.URI.absoluteString]];
+        [self appendString:[NSString stringWithFormat:@"Distribution: %@", source.distribution]];
         [self appendString:[NSString stringWithFormat:@"Origin: %@", source.origin]];
         [self appendString:[NSString stringWithFormat:@"Label: %@", source.label]];
-        [self appendString:[NSString stringWithFormat:@"Distribution: %@", source.distribution]];
         [self appendString:@""];
     }
 }
 
 - (void)appendString:(NSString *)string {
     [self.outputView insertText:[string stringByAppendingString:@"\n"]];
+}
+
+- (void)refresh {
+    NSLog(@"[Plains] Updating Database...");
+    [database updateDatabase];
+    self.outputView.text = @"";
+    [self appendString:@"==== SOURCES ===="];
+    NSArray <PLSource *> *sources = [database sources];
+    NSLog(@"[Plains] Sources: %@", sources);
+    for (PLSource *source in sources) {
+        [self appendString:[NSString stringWithFormat:@"URI: %@", source.URI.absoluteString]];
+        [self appendString:[NSString stringWithFormat:@"Origin: %@", source.origin]];
+        [self appendString:[NSString stringWithFormat:@"Label: %@", source.label]];
+        [self appendString:[NSString stringWithFormat:@"Type: %@", source.type]];
+        [self appendString:[NSString stringWithFormat:@"Distribution: %@", source.distribution]];
+        [self appendString:[NSString stringWithFormat:@"Codename: %@", source.codename]];
+        [self appendString:[NSString stringWithFormat:@"Suite: %@", source.suite]];
+        [self appendString:[NSString stringWithFormat:@"Release Notes: %@", source.releaseNotes]];
+        [self appendString:[NSString stringWithFormat:@"Trusted: %@", source.trusted ? @"Yes" : @"No"]];
+        [self appendString:@""];
+    }
 }
 
 /*
