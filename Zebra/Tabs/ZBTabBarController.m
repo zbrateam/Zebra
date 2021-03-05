@@ -89,8 +89,8 @@
     
     UINavigationController *demoNavController = self.viewControllers[ZBTabChanges];
     [demoNavController setViewControllers:@[[[ZBDemoViewController alloc] init]] animated:NO];
-    demoNavController.tabBarItem.title = @"Plains";
-    demoNavController.tabBarItem.image = [UIImage systemImageNamed:@"hare.fill"];
+    demoNavController.title = @"Demo";
+    demoNavController.tabBarItem.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
     [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];

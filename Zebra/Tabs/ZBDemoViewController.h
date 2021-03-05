@@ -2,7 +2,7 @@
 //  ZBDemoViewController.h
 //  Zebra
 //
-//  Created by Wilson Styres on 2/28/21.
+//  Created by Wilson Styres on 3/4/21.
 //  Copyright © 2021 Wilson Styres. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBDemoViewController : UIViewController
+@interface ZBDemoViewController : UITableViewController
 
 @end
 

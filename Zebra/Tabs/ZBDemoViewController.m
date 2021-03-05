@@ -2,66 +2,119 @@
 //  ZBDemoViewController.m
 //  Zebra
 //
-//  Created by Wilson Styres on 2/28/21.
+//  Created by Wilson Styres on 3/4/21.
 //  Copyright © 2021 Wilson Styres. All rights reserved.
 //
 
 #import "ZBDemoViewController.h"
 
+#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+
 @import Plains;
+@import SDWebImage;
 
 @interface ZBDemoViewController () {
     PLDatabase *database;
+    NSArray *sources;
 }
-@property (strong, nonatomic) IBOutlet UITextView *outputView;
 @end
 
 @implementation ZBDemoViewController
 
+- (id)init {
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        self.title = @"Sources";
+        
+        database = [[PLDatabase alloc] init];
+    }
+    
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Plains";
+    [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Refresh" style:UIBarButtonItemStylePlain target:self action:@selector(refresh)];
+    [self loadSources];
+}
+
+- (void)loadSources {
+    if (!self.isViewLoaded) return;
     
-    database = [[PLDatabase alloc] init];
-    
-    [self appendString:@"==== SOURCES ===="];
-    NSArray <PLSource *> *sources = [database sources];
-    for (PLSource *source in sources) {
-        [self appendString:[NSString stringWithFormat:@"URI: %@", source.URI.absoluteString]];
-        [self appendString:[NSString stringWithFormat:@"Distribution: %@", source.distribution]];
-        [self appendString:[NSString stringWithFormat:@"Origin: %@", source.origin]];
-        [self appendString:[NSString stringWithFormat:@"Label: %@", source.label]];
-        [self appendString:@""];
+    if (sources) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+                [self.tableView reloadData];
+            } completion:nil];
+        });
+    } else { // Load sources for the first time, every other access is done by the filter and delegate methods
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            sources = [[database sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
+            [self loadSources];
+        });
     }
 }
 
-- (void)appendString:(NSString *)string {
-    [self.outputView insertText:[string stringByAppendingString:@"\n"]];
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
 }
 
-- (void)refresh {
-    NSLog(@"[Plains] Updating Database...");
-    [database updateDatabase];
-    self.outputView.text = @"";
-    [self appendString:@"==== SOURCES ===="];
-    NSArray <PLSource *> *sources = [database sources];
-    NSLog(@"[Plains] Sources: %@", sources);
-    for (PLSource *source in sources) {
-        [self appendString:[NSString stringWithFormat:@"URI: %@", source.URI.absoluteString]];
-        [self appendString:[NSString stringWithFormat:@"Origin: %@", source.origin]];
-        [self appendString:[NSString stringWithFormat:@"Label: %@", source.label]];
-        [self appendString:[NSString stringWithFormat:@"Type: %@", source.type]];
-        [self appendString:[NSString stringWithFormat:@"Distribution: %@", source.distribution]];
-        [self appendString:[NSString stringWithFormat:@"Codename: %@", source.codename]];
-        [self appendString:[NSString stringWithFormat:@"Suite: %@", source.suite]];
-        [self appendString:[NSString stringWithFormat:@"Release Notes: %@", source.releaseNotes]];
-        [self appendString:[NSString stringWithFormat:@"Trusted: %@", source.trusted ? @"Yes" : @"No"]];
-        [self appendString:@""];
-    }
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return sources.count;
 }
+
+- (ZBSourceTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
+    
+    PLSource *source = sources[indexPath.row];
+    cell.sourceLabel.text = source.origin;
+    cell.urlLabel.text = source.URI.absoluteString;
+    [cell.iconImageView sd_setImageWithURL:[source iconURL]];
+    
+    return cell;
+}
+
+/*
+// Override to support conditional editing of the table view.
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the specified item to be editable.
+    return YES;
+}
+*/
+
+/*
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }   
+}
+*/
+
+/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+}
+*/
+
+/*
+// Override to support conditional rearranging of the table view.
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return NO if you do not want the item to be re-orderable.
+    return YES;
+}
+*/
 
 /*
 #pragma mark - Navigation
