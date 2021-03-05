@@ -245,9 +245,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
                 [tabController setSelectedIndex:ZBTabSources];
 
-                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
 
-                [sourceListController handleImportOf:url];
+//                [sourceListController handleImportOf:url];
             }
             break;
         }
@@ -266,13 +266,13 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 case 1: {
                     [tabController setSelectedIndex:ZBTabSources];
 
-                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//                    ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
 
-                    [sourceListController handleURL:url];
+//                    [sourceListController handleURL:url];
                     break;
                 }
                 case 2: {
-                    [tabController setSelectedIndex:ZBTabChanges];
+//                    [tabController setSelectedIndex:ZBTabChanges];
                     break;
                 }
 //                case 3: {
@@ -353,9 +353,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else if ([shortcutItem.type isEqualToString:@"Add"]) {
         [tabController setSelectedIndex:ZBTabSources];
         
-        ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
+//        ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
         
-        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
+//        [sourceListController handleURL:[NSURL URLWithString:@"zbra://sources/add"]];
     } else if ([shortcutItem.type isEqualToString:@"Refresh"]) {
         ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
         

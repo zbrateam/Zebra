@@ -19,7 +19,7 @@
 #import "Reset/ZBSettingsResetTableViewController.h"
 #import "Filters/ZBFilterSettingsTableViewController.h"
 #import "Language/ZBLanguageSettingsTableViewController.h"
-#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
+//#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 #import <ZBSettings.h>
 #import <Queue/ZBQueue.h>
@@ -522,23 +522,23 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
 }
 
 - (void)sourceBlacklist {
-    NSMutableArray *sources = [NSMutableArray new];
-    NSArray *baseFilenames = [ZBSettings sourceBlacklist];
-    for (NSString *baseFilename in baseFilenames) {
-        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
-        if (source) [sources addObject:source];
-    }
-    
-    ZBSourceSelectTableViewController *selectSource = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeInverse limit:0 selectedSources:sources];
-    [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
-        NSMutableArray *blockedSources = [NSMutableArray new];
-        for (ZBSource *source in selectedSources) {
-            [blockedSources addObject:[source uuid]];
-        }
-        [ZBSettings setSourceBlacklist:blockedSources];
-    }];
-    
-    [[self navigationController] pushViewController:selectSource animated:YES];
+//    NSMutableArray *sources = [NSMutableArray new];
+//    NSArray *baseFilenames = [ZBSettings sourceBlacklist];
+//    for (NSString *baseFilename in baseFilenames) {
+//        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
+//        if (source) [sources addObject:source];
+//    }
+//    
+//    ZBSourceSelectTableViewController *selectSource = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeInverse limit:0 selectedSources:sources];
+//    [selectSource setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
+//        NSMutableArray *blockedSources = [NSMutableArray new];
+//        for (ZBSource *source in selectedSources) {
+//            [blockedSources addObject:[source uuid]];
+//        }
+//        [ZBSettings setSourceBlacklist:blockedSources];
+//    }];
+//    
+//    [[self navigationController] pushViewController:selectSource animated:YES];
 }
 
 - (void)resetSettings {

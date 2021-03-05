@@ -12,7 +12,6 @@
 typedef enum {
     ZBTabHome,
     ZBTabSources,
-    ZBTabChanges,
     ZBTabPackages,
     ZBTabSearch
 } ZBTab;

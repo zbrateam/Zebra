@@ -20,7 +20,7 @@
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
 
-#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
+//#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 #import <Managers/ZBSourceManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
@@ -266,28 +266,28 @@
                 [[self navigationController] pushViewController:sections animated:YES];
             }
             else {
-                NSMutableArray <ZBSource *> *selectedSources = [NSMutableArray array];
-                for (NSString *baseFilename in [ZBSettings filteredSources]) {
-                    ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
-                    if (source) {
-                        [selectedSources addObject:source];
-                    }
-                }
-                ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:0 selectedSources:selectedSources];
-                [sourcePicker setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
-                    NSMutableDictionary *sources = [self->filteredSources mutableCopy];
-                    
-                    for (ZBSource *source in selectedSources) {
-                        [sources setObject:@[] forKey:[source uuid]];
-                    }
-                    
-                    [ZBSettings setFilteredSources:sources];
-                    [self refreshTable];
-                }];
-                
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
-                
-                [self presentViewController:nav animated:YES completion:nil];
+//                NSMutableArray <ZBSource *> *selectedSources = [NSMutableArray array];
+//                for (NSString *baseFilename in [ZBSettings filteredSources]) {
+//                    ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
+//                    if (source) {
+//                        [selectedSources addObject:source];
+//                    }
+//                }
+//                ZBSourceSelectTableViewController *sourcePicker = [[ZBSourceSelectTableViewController alloc] initWithSelectionType:ZBSourceSelectionTypeNormal limit:0 selectedSources:selectedSources];
+//                [sourcePicker setSourcesSelected:^(NSArray<ZBSource *> * _Nonnull selectedSources) {
+//                    NSMutableDictionary *sources = [self->filteredSources mutableCopy];
+//                    
+//                    for (ZBSource *source in selectedSources) {
+//                        [sources setObject:@[] forKey:[source uuid]];
+//                    }
+//                    
+//                    [ZBSettings setFilteredSources:sources];
+//                    [self refreshTable];
+//                }];
+//                
+//                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:sourcePicker];
+//                
+//                [self presentViewController:nav animated:YES completion:nil];
             }
             break;
         }

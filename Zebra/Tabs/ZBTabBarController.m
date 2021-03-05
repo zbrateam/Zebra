@@ -13,7 +13,6 @@
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
-#import <Tabs/ZBDemoViewController.h>
 
 #import "ZBTab.h"
 //#import "Packages/Helpers/ZBPackage.h"
@@ -86,11 +85,6 @@
     // Temporary, remove when all views are decoupled from storyboard
     UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
-    
-    UINavigationController *demoNavController = self.viewControllers[ZBTabChanges];
-    [demoNavController setViewControllers:@[[[ZBDemoViewController alloc] init]] animated:NO];
-    demoNavController.title = @"Demo";
-    demoNavController.tabBarItem.image = [UIImage systemImageNamed:@"exclamationmark.triangle.fill"];
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
     [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
