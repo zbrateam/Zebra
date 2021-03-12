@@ -10,8 +10,8 @@
 @class ZBPackage;
 @class ZBBaseSource;
 
-@import CoreGraphics;
-@import Foundation;
+#import <CoreGraphics/CoreGraphics.h>
+#import <Foundation/Foundation.h>
 
 #import <Console/ZBLogLevel.h>
 

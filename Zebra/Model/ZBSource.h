@@ -12,8 +12,8 @@
 
 #import "ZBBaseSource.h"
 
-@import Foundation;
-@import SQLite3;
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

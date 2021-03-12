@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @class ZBPackage;
 @class ZBBasePackage;

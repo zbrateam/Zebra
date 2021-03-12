@@ -148,7 +148,7 @@
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */; };
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
-		89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.m */; };
+		89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */; };
 		89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */ = {isa = PBXBuildFile; fileRef = 89C7E48F21B23DB1003DB4E8 /* Installed.pack */; };
 		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
 		89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 89CADA142263FEF3000101EE /* ZBDownloadManager.m */; };
@@ -483,7 +483,7 @@
 		89C5FDEE21B1B13800A10E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89C5FDEF21B1B13800A10E58 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		89C5FDF621B1B3AF00A10E58 /* ZBPackageListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageListViewController.h; sourceTree = "<group>"; };
-		89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageListViewController.m; sourceTree = "<group>"; };
+		89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageListViewController.mm; sourceTree = "<group>"; };
 		89C6828D239AACF4007D018C /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89C7E48F21B23DB1003DB4E8 /* Installed.pack */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Installed.pack; sourceTree = "<group>"; };
 		89CA2137224043D1008F09DB /* vercmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vercmp.h; sourceTree = "<group>"; };
@@ -716,7 +716,7 @@
 			children = (
 				89337A30253652E60065C4C1 /* Views */,
 				89C5FDF621B1B3AF00A10E58 /* ZBPackageListViewController.h */,
-				89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.m */,
+				89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */,
 				891551562560A496005AF405 /* ZBPackageFilterViewController.h */,
 				891551572560A496005AF405 /* ZBPackageFilterViewController.m */,
 			);
@@ -1366,7 +1366,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Wilson Styres";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
@@ -1594,7 +1594,7 @@
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
 				A5122E6924641D3E0059E434 /* ZBTableViewController.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
-				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.m in Sources */,
+				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */,
 				75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */,
 				89C5FDE521B1B13700A10E58 /* ZBMigrationViewController.m in Sources */,
 				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
@@ -1865,6 +1865,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1883,7 +1884,8 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/Zebra\"",
-					"\"${SRCROOT}/Vendor/plains\"",
+					"\"${SRCROOT}/Vendor/plains/Plains\"",
+					"\"${SRCROOT}/Vendor/plains/\"",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1894,10 +1896,11 @@
 				MARKETING_VERSION = "2.0~alpha";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra.new;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
@@ -1908,6 +1911,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1922,7 +1926,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
 				HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/Zebra\"",
-					"\"${SRCROOT}/Vendor/plains\"",
+					"\"${SRCROOT}/Vendor/plains/Plains\"",
+					"\"${SRCROOT}/Vendor/plains/\"",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1937,6 +1942,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};

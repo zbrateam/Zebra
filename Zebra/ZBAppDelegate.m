@@ -30,8 +30,6 @@
 
 #import <Managers/ZBDatabaseManager.h>
 
-@import Plains;
-
 @import FirebaseCore;
 @import FirebaseAnalytics;
 @import FirebaseCrashlytics;

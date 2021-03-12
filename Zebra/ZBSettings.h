@@ -11,7 +11,7 @@
 @class ZBPackageFilter;
 @class ZBSourceFilter;
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 #pragma mark - Settings Keys
 

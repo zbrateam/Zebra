@@ -9,7 +9,7 @@
 @class UIColor;
 @class ZBPackage;
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 #import <Queue/ZBQueueType.h>
 
 NS_ASSUME_NONNULL_BEGIN

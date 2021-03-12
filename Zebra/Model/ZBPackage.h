@@ -8,9 +8,9 @@
 
 #import "ZBBasePackage.h"
 
-@import Foundation;
-@import SQLite3;
-@import UIKit;
+#import <Foundation/Foundation.h>
+#import <sqlite3.h>
+#import <UIKit/UIKit.h>
 
 @class UIImageView;
 @class ZBPurchaseInfo;

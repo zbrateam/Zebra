@@ -7,8 +7,7 @@
 //
 
 @class ZBPackage;
-@import UIKit;
-@import Foundation;
+#import <UIKit/UIKit.h>
 
 #import <Queue/ZBQueueType.h>
 #import <Extensions/UIBarButtonItem+blocks.h>

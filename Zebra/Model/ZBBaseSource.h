@@ -8,13 +8,13 @@
 
 #import <Tabs/Sources/Helpers/ZBSourceVerificationStatus.h>
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 extern NSString *const ZBSourceErrorDomain;
 
-typedef enum : NSUInteger {
+typedef enum : NSInteger {
     ZBSourceErrorUnknown = -1,
     ZBSourceWarningInsecure = 1000,
     ZBSourceWarningIncompatible = 1001,

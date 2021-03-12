@@ -10,7 +10,9 @@
 
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 
-@import Plains;
+#import <Plains/PLDatabase.h>
+#import <Plains/PLSource.h>
+
 @import SDWebImage;
 
 @interface ZBSourceListViewController () {
@@ -27,14 +29,17 @@
     if (self) {
         self.title = @"Sources";
         
-        database = [[PLDatabase alloc] init];
+        database = [PLDatabase sharedInstance];
     }
     
     return self;
-}
+} 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
     
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
@@ -54,12 +59,20 @@
         });
     } else { // Load sources for the first time, every other access is done by the filter and delegate methods
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            sources = [[database sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
+            self->sources = [[self->database sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
             [self loadSources];
         });
     }
 }
 
+- (void)refreshSources {
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [database updateDatabase];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.refreshControl endRefreshing];
+        });
+    });
+}
 
 #pragma mark - Table view data source
 

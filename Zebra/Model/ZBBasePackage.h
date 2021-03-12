@@ -6,11 +6,10 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import SQLite3;
-
 @class UIImageView;
 @class ZBSource;
 
+#import <sqlite3.h>
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN

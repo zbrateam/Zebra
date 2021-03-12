@@ -13,7 +13,7 @@
 #import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 #import <Downloads/ZBDownloadDelegate.h>
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
