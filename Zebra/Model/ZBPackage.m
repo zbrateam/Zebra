@@ -500,9 +500,18 @@
     return [[ZBPackageManager sharedInstance] canReinstallPackage:self];
 }
 
+NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonResult(NSString *version1, NSString *version2) {
+    int result = compare(version1.UTF8String, version2.UTF8String);
+    if (result > 0)
+        return NSOrderedAscending;
+    if (result < 0)
+        return NSOrderedDescending;
+    return NSOrderedSame;
+};
+
 - (NSArray <NSString *> *)allVersions {
     if (!_allVersions || _allVersions.count == 0) {
-        _allVersions = [[ZBPackageManager sharedInstance] allVersionsOfPackage:self];
+        _allVersions = [[[ZBPackageManager sharedInstance] allVersionsOfPackage:self] sortedArrayUsingComparator:versionComparator];
     }
     
     return _allVersions;
@@ -514,15 +523,6 @@
     
     return allVersions;
 }
-
-NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonResult(NSString *version1, NSString *version2) {
-    int result = compare(version1.UTF8String, version2.UTF8String);
-    if (result > 0)
-        return NSOrderedAscending;
-    if (result < 0)
-        return NSOrderedDescending;
-    return NSOrderedSame;
-};
 
 - (NSArray <NSString *> *)lesserVersions {
     NSMutableArray *versions = self.otherVersions.mutableCopy;
