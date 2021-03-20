@@ -308,7 +308,7 @@
     PLPackage *package = filterResults[indexPath.row];
     cell.packageLabel.text = package.name;
     cell.descriptionLabel.text = package.packageDescription;
-    cell.infoLabel.text = package.section;
+    cell.infoLabel.text = package.installedVersion;
     
     return cell;
 }
