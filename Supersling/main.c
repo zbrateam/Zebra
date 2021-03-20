@@ -7,6 +7,8 @@
 #include <limits.h>
 #include <string.h>
 
+#include <sys/syslog.h>
+
 int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
 
 /* Set platform binary flag */
@@ -68,6 +70,19 @@ int main(int argc, char ** argv) {
         printf("WHO KEEPS SPINNING THE WORLD AROUND?\n");
         fflush(stdout);
         return EX_NOPERM;
+      }
+
+      if (argc < 2 || argv[1][0] != '/') {
+        argv[0] = "/usr/bin/dpkg";
+      }
+      else {
+        argc--;
+        argv++;
+      }
+
+      syslog(LOG_WARNING, "[Supersling] su/sling called with args:");
+      for (int i = 0; i < argc; i++) {
+        syslog(LOG_WARNING, "[Supersling] %s", argv[i]);
       }
 
       int result = execvp(argv[0], argv);

@@ -87,7 +87,7 @@
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
     
     UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
-    [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithSource:[ZBSource localSource]]] animated:NO];
+    [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] init]] animated:NO];
     
     UINavigationController *searchNavController = self.viewControllers[ZBTabSearch];
     [searchNavController setViewControllers:@[[[ZBSearchViewController alloc] init]] animated:NO];

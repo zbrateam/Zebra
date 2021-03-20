@@ -6,24 +6,24 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 #import <UI/Common/Delegates/ZBFilterDelegate.h>
 
 @class ZBSource;
-@class ZBPackage;
+@class PLPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageListViewController : UITableViewController <UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UIViewControllerTransitioningDelegate, ZBFilterDelegate>
 @property ZBSource *source;
 @property NSString *_Nullable section;
-@property NSArray <ZBPackage *> *packages;
+@property NSArray <PLPackage *> *packages;
 @property NSArray <NSString *> *_Nullable identifiers;
 #pragma mark - Initializers
 - (instancetype)initWithSource:(ZBSource *)source;
 - (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section;
-- (instancetype)initWithPackages:(NSArray <ZBPackage *> *)packages;
+- (instancetype)initWithPackages:(NSArray <PLPackage *> *)packages;
 - (instancetype)initWithPackageIdentifiers:(NSArray <NSString *> *)identifiers;
 @end
 

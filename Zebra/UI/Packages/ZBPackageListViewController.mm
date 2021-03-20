@@ -45,6 +45,8 @@
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
+        self.title = @"Installed";
+        
         database = [PLDatabase sharedInstance];
         
 //        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
@@ -155,6 +157,7 @@
 }
 
 - (void)loadPackages {
+    NSLog(@"[Zebra] Loading Packages");
     if (!self.isViewLoaded) return;
     
     [self showSpinner];
@@ -183,6 +186,7 @@
 //        }];
     } else { // Load packages for the first time, every other access is done by filter
         self.packages = [database packages];
+        [self loadPackages];
 //        [packageManager fetchPackagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
 //            self.packages = packages;
 //            if ([self.source.uuid isEqualToString:@"_var_lib_dpkg_status_"]) {
@@ -303,6 +307,8 @@
     
     PLPackage *package = filterResults[indexPath.row];
     cell.packageLabel.text = package.name;
+    cell.descriptionLabel.text = package.packageDescription;
+    cell.infoLabel.text = package.section;
     
     return cell;
 }
@@ -365,7 +371,7 @@
     _packages = NULL;
 //    updates = NULL;
     
-    [self loadPackages];
+//    [self loadPackages];
 }
 
 @end
