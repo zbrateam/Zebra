@@ -50,7 +50,7 @@
 		4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4902F53B246E15C6007B7E25 /* ZBLinkTableViewCell.xib */; };
 		4910B3A02426BD2F00306C5C /* ZBSourceAccountBanner.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4910B39F2426BD2F00306C5C /* ZBSourceAccountBanner.xib */; };
 		4910B3A82426BD5C00306C5C /* ZBSourceAccountBanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 4910B3A72426BD5C00306C5C /* ZBSourceAccountBanner.m */; };
-		493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */; };
+		493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */ = {isa = PBXBuildFile; fileRef = 493C323E227A905800603FB9 /* ZBPackageTableViewCell.mm */; };
 		493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */; };
 		49452C28246A414900F45C2D /* ZBActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49452C27246A414900F45C2D /* ZBActionButton.m */; };
 		49990644247DDAA000AE75BC /* viola~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 49990635247DDA9F00AE75BC /* viola~ipad@3x.png */; };
@@ -123,7 +123,6 @@
 		896F72EA23723139007727FD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 896F72E423723139007727FD /* GoogleService-Info.plist */; };
 		8977B6942206424B00CBACBB /* ZBPackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8977B6932206424B00CBACBB /* ZBPackage.m */; };
 		897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 897FFD4A23CFA4A30082DD31 /* ZBThemeManager.m */; };
-		898E010E22480F8900BEA8E9 /* ZBSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */; };
 		898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */; };
 		8990FF0D224ABE9700190BEB /* ZBDependencyResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 8990FF0C224ABE9700190BEB /* ZBDependencyResolver.m */; };
 		8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8991FFA121B215C9004FCE23 /* ZBDatabaseManager.m */; };
@@ -135,6 +134,7 @@
 		899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FD247F03BA00FCA61E /* quda@3x.png */; };
 		89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1297A247B49F000C7310B /* UINavigationController+SBS.m */; };
 		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
+		89A75F602606ECF100FB6422 /* ZBSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A75F5F2606ECF100FB6422 /* ZBSourceViewController.m */; };
 		89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450323CA4F010008831F /* UIImageView+Zebra.m */; };
 		89AD450C23CA5E350008831F /* AUPM@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450A23CA5E340008831F /* AUPM@3x.png */; };
 		89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450B23CA5E350008831F /* AUPM@2x.png */; };
@@ -280,7 +280,7 @@
 		4910B3A62426BD5C00306C5C /* ZBSourceAccountBanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceAccountBanner.h; sourceTree = "<group>"; };
 		4910B3A72426BD5C00306C5C /* ZBSourceAccountBanner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceAccountBanner.m; sourceTree = "<group>"; };
 		493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageTableViewCell.h; sourceTree = "<group>"; };
-		493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageTableViewCell.m; sourceTree = "<group>"; };
+		493C323E227A905800603FB9 /* ZBPackageTableViewCell.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageTableViewCell.mm; sourceTree = "<group>"; };
 		493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageTableViewCell.xib; sourceTree = "<group>"; };
 		49452C26246A414900F45C2D /* ZBActionButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBActionButton.h; sourceTree = "<group>"; };
 		49452C27246A414900F45C2D /* ZBActionButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBActionButton.m; sourceTree = "<group>"; };
@@ -438,8 +438,6 @@
 		8980216A246A550A003FCD9A /* ms */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ms; path = ms.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8987802D236DC49B005291EC /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89878035236DE6D7005291EC /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceViewController.h; sourceTree = "<group>"; };
-		898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceViewController.m; sourceTree = "<group>"; };
 		898F4CD1246EF5E500FC577B /* ZBPackageInfoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageInfoController.h; sourceTree = "<group>"; };
 		898F4CD2246EFFEC00FC577B /* ZBPackageSupportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageSupportViewController.h; sourceTree = "<group>"; };
 		898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackageSupportViewController.m; sourceTree = "<group>"; };
@@ -460,6 +458,8 @@
 		89A1B733223C97210053D0E2 /* ZBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
 		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		89A44B06236B575500D92DC9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		89A75F5E2606ECF100FB6422 /* ZBSourceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceViewController.h; sourceTree = "<group>"; };
+		89A75F5F2606ECF100FB6422 /* ZBSourceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceViewController.m; sourceTree = "<group>"; };
 		89AD450223CA4F010008831F /* UIImageView+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Zebra.h"; sourceTree = "<group>"; };
 		89AD450323CA4F010008831F /* UIImageView+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Zebra.m"; sourceTree = "<group>"; };
 		89AD450A23CA5E340008831F /* AUPM@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM@3x.png"; sourceTree = "<group>"; };
@@ -880,7 +880,7 @@
 			isa = PBXGroup;
 			children = (
 				493C323D227A905800603FB9 /* ZBPackageTableViewCell.h */,
-				493C323E227A905800603FB9 /* ZBPackageTableViewCell.m */,
+				493C323E227A905800603FB9 /* ZBPackageTableViewCell.mm */,
 				493C323F227A905800603FB9 /* ZBPackageTableViewCell.xib */,
 			);
 			path = Cells;
@@ -1227,14 +1227,14 @@
 				896B2B52259FA2170082A62E /* ZBSourceListViewController.m */,
 				894ADA22259FC17200147001 /* ZBSourceFilterViewController.h */,
 				894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */,
-				898E010C22480F8900BEA8E9 /* ZBSourceViewController.h */,
-				898E010D22480F8900BEA8E9 /* ZBSourceViewController.m */,
 				89374958248603D700CE0520 /* ZBSourceAddViewController.h */,
 				89374959248603D700CE0520 /* ZBSourceAddViewController.m */,
 				89D97AFC25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.h */,
 				89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */,
 				8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */,
 				8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */,
+				89A75F5E2606ECF100FB6422 /* ZBSourceViewController.h */,
+				89A75F5F2606ECF100FB6422 /* ZBSourceViewController.m */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1578,7 +1578,6 @@
 				896F11C321B231900017B581 /* ZBSource.m in Sources */,
 				89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */,
 				893952FF220B5D0100995109 /* ZBConsoleViewController.m in Sources */,
-				898E010E22480F8900BEA8E9 /* ZBSourceViewController.m in Sources */,
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */,
@@ -1655,6 +1654,7 @@
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */,
+				89A75F602606ECF100FB6422 /* ZBSourceViewController.m in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */,
@@ -1662,7 +1662,7 @@
 				891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */,
 				896B2B53259FA2170082A62E /* ZBSourceListViewController.m in Sources */,
 				8977B6942206424B00CBACBB /* ZBPackage.m in Sources */,
-				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
+				493C3240227A905800603FB9 /* ZBPackageTableViewCell.mm in Sources */,
 				8916AC1B23CAAE51008BA02C /* ZBAlternateIconController.m in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */,
 				893C36562509AD8400DF07DE /* ZBCommand.m in Sources */,
@@ -1896,7 +1896,7 @@
 				MARKETING_VERSION = "2.0~alpha";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
-				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra.new;
+				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				STRIP_INSTALLED_PRODUCT = NO;

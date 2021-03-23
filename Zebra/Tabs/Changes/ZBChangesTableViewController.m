@@ -283,7 +283,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(ZBPackageTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackage *package = [self packageAtIndexPath:indexPath];
-    [cell updateData:package];
+//    [cell updateData:package];
     if (self.batchLoad && self.continueBatchLoad && numberOfPackages != totalNumberOfPackages) {
         NSInteger sectionsAmount = [tableView numberOfSections];
         NSInteger rowsAmount = [tableView numberOfRowsInSection:indexPath.section];
@@ -295,7 +295,7 @@
 
 - (ZBPackageTableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    [cell setColors];
+//    [cell setColors];
     return cell;
 }
 

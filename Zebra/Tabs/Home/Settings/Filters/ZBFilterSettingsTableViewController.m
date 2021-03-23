@@ -167,10 +167,10 @@
         case 3: {
             if (indexPath.row < ignoredUpdates.count) {
                 ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-                ZBPackage *package = ignoredUpdates[indexPath.row];
-                
-                [packageCell updateData:package];
-                [packageCell setColors];
+//                ZBPackage *package = ignoredUpdates[indexPath.row];
+//                
+//                [packageCell updateData:package];
+//                [packageCell setColors];
                 
                 return packageCell;
             }
@@ -261,9 +261,9 @@
         }
         case 1: {
             if (!lastRow) {
-                ZBSourceViewController *sections = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row] editOnly:YES];
+//                ZBSourceViewController *sections = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row] editOnly:YES];
                 
-                [[self navigationController] pushViewController:sections animated:YES];
+//                [[self navigationController] pushViewController:sections animated:YES];
             }
             else {
 //                NSMutableArray <ZBSource *> *selectedSources = [NSMutableArray array];

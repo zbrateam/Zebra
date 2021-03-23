@@ -204,7 +204,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (searchController.active && searchController.searchBar.text.length > 0) {
         if (searchResults.count > 0) {
-            [(ZBPackageTableViewCell *)cell updateData:searchResults[indexPath.row]];
+//            [(ZBPackageTableViewCell *)cell updateData:searchResults[indexPath.row]];
         } else {
             cell.textLabel.text = NSLocalizedString(@"No Results", @"");
             cell.textLabel.textColor = [UIColor secondaryTextColor];

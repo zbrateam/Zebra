@@ -226,10 +226,10 @@
         }
         else {
             ZBPackageTableViewCell *cell = (ZBPackageTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-            [cell setColors];
+//            [cell setColors];
             
             ZBPackage *package = purchases[indexPath.row];
-            [(ZBPackageTableViewCell *)cell updateData:package];
+//            [(ZBPackageTableViewCell *)cell updateData:package];
             
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             

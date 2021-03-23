@@ -9,6 +9,7 @@
 #import "ZBSourceListViewController.h"
 
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import <UI/Sources/ZBSourceViewController.h>
 
 #import <Plains/PLDatabase.h>
 #import <Plains/PLSource.h>
@@ -67,7 +68,7 @@
 
 - (void)refreshSources {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        [database updateDatabase];
+        [database refreshSources];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
         });
@@ -93,6 +94,13 @@
     [cell.iconImageView sd_setImageWithURL:[source iconURL]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    ZBSourceViewController *sourceController = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row]];
+    [[self navigationController] pushViewController:sourceController animated:YES];
 }
 
 @end

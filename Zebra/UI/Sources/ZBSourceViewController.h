@@ -2,24 +2,18 @@
 //  ZBSourceViewController.h
 //  Zebra
 //
-//  Created by Wilson Styres on 3/24/19.
-//  Copyright © 2019 Wilson Styres. All rights reserved.
+//  Created by Wilson Styres on 3/20/21.
+//  Copyright © 2021 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
-#import "UICKeyChainStore.h"
-#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
+#import <UIKit/UIKit.h>
 
-@class ZBSource;
-@class ZBPackage;
+@class PLSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceViewController : UITableViewController <ZBPackageInfoController>
-@property (nonatomic, strong) ZBSource *source;
-- (id)initWithSource:(ZBSource *)source editOnly:(BOOL)edit;
-- (id)initWithPackage:(ZBPackage *)package;
-- (void)accountButtonPressed:(id)sender;
+@interface ZBSourceViewController : UITableViewController
+- (id)initWithSource:(PLSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END

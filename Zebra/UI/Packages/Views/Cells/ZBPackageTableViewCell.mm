@@ -8,19 +8,33 @@
 
 #import "ZBPackageTableViewCell.h"
 
-#import <Model/ZBPackage.h>
-#import <Model/ZBSource.h>
+#import <Plains/Plains.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
-@import SDWebImage;
+#import <SDWebImage/SDWebImage.h>
+
+@interface ZBPackageTableViewCell ()
+@property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UILabel *packageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *isFavoritedImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isPaidImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
+@property (weak, nonatomic) IBOutlet UIView *queueStatusBackgroundView;
+@property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@end
 
 @implementation ZBPackageTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.isInstalledImageView.hidden = YES;
+    self.isInstalledImageView.tintColor = [UIColor accentColor];
+    
     self.isPaidImageView.hidden = YES;
     self.isFavoritedImageView.hidden = YES;
     
@@ -31,32 +45,33 @@
     self.iconImageView.layer.borderWidth = 1;
     self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
-    [self setColors];
 }
 
-- (void)updateData:(ZBPackage *)package {
+- (void)setPackage:(PLPackage *)package {
     self.packageLabel.text = package.name;
-    self.descriptionLabel.text = package.packageDescription;
-
+    self.descriptionLabel.text = package.shortDescription;
+    
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (self.showVersion)
         [info addObject:[package version]];
     if (package.authorName)
         [info addObject:package.authorName];
-//    if (name.length)
-//        [info addObject:name];
     if (self.showSize)
         [info addObject:package.installedSizeString];
     
     self.infoLabel.text = [info componentsJoinedByString:@" • "];
     
-    [package setIconImageForImageView:self.iconImageView];
+    self.isInstalledImageView.hidden = !package.installed;
+    self.isFavoritedImageView.hidden = YES;
+    self.isPaidImageView.hidden = !package.paid;
     
-    self.isInstalledImageView.hidden = !package.isInstalled;
-    self.isFavoritedImageView.hidden = !package.isFavorited;
-    self.isPaidImageView.hidden = !package.isPaid;
-    
-    [self updateQueueStatus:package];
+    UIImage *sectionImage = [PLSource imageForSection:package.section];
+    if (package.iconURL) {
+        [self.iconImageView sd_setImageWithURL:package.iconURL placeholderImage:sectionImage];
+    }
+    else {
+        [self.iconImageView setImage:sectionImage];
+    }
 }
 
 - (void)updateQueueStatus:(ZBPackage *)package {
@@ -71,20 +86,6 @@
         self.queueStatusLabel.text = nil;
         self.queueStatusBackgroundView.backgroundColor = nil;
     }
-}
-
-- (void)setColors {
-    self.packageLabel.textColor = [UIColor primaryTextColor];
-    self.descriptionLabel.textColor = [UIColor secondaryTextColor];
-    self.infoLabel.textColor = [UIColor tertiaryTextColor];
-    self.isInstalledImageView.tintColor = [UIColor accentColor];
-    self.queueStatusLabel.textColor = [UIColor whiteColor];
-}
-
-- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
-    [super setHighlighted:highlighted animated:animated];
-    //FIXME: Fix!
-//    self.backgroundColor = [UIColor selectedCellBackgroundColor:highlighted];
 }
 
 - (void)prepareForReuse {
