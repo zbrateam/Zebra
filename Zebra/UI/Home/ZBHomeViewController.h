@@ -1,5 +1,5 @@
 //
-//  ZBHomeTableViewController.h
+//  ZBHomeViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 7/1/19.
@@ -8,9 +8,8 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
-#import "Settings/ZBMainSettingsTableViewController.h"
+#import <Tabs/Home/Settings/ZBMainSettingsTableViewController.h>
 #import <Model/ZBSource.h>
-#import "Helpers/ZBNoScrollHeaderTableView.h"
 #import "ZBFeaturedCollectionViewCell.h"
 #import <Extensions/UIImage+UIKitImage.h>
 
@@ -18,7 +17,7 @@
 @import SafariServices;
 @import UIKit;
 
-@interface ZBHomeTableViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
+@interface ZBHomeViewController : UITableViewController <UICollectionViewDelegate, UICollectionViewDataSource, UIAdaptivePresentationControllerDelegate, SFSafariViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *darkModeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 @property (weak, nonatomic) IBOutlet UIView *footerView;

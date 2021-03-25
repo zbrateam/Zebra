@@ -1,19 +1,19 @@
 //
-//  ZBHomeTableViewController.m
+//  ZBHomeViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 7/1/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBHomeTableViewController.h"
+#import "ZBHomeViewController.h"
 #import "ZBNewsCollectionViewCell.h"
 #import "ZBPackageViewController.h"
 
 #import <ZBSettings.h>
 #import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
 #import <Model/ZBPackage.h>
-#import "Changelog/ZBChangelogTableViewController.h"
+#import <Tabs/Home/Changelog/ZBChangelogTableViewController.h>
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
 
@@ -41,14 +41,14 @@ typedef enum ZBLinksOrder : NSUInteger {
     ZBTwitter
 } ZBLinksOrder;
 
-@interface ZBHomeTableViewController () {
+@interface ZBHomeViewController () {
     NSMutableArray *redditPosts;
     BOOL hideUDID;
 }
 @property (nonatomic, weak) ZBPackageViewController *previewPackageDepictionVC;
 @end
 
-@implementation ZBHomeTableViewController
+@implementation ZBHomeViewController
 
 @synthesize allFeatured;
 @synthesize selectedFeatured;

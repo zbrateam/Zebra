@@ -11,7 +11,8 @@
 #import <Plains/Plains.h>
 
 @interface ZBSourceViewController () {
-    NSMutableDictionary <NSString *, NSNumber *> *sections;
+    NSArray <NSString *> *sections;
+    NSArray <NSNumber *> *counts;
 }
 @property PLSource *source;
 @end
@@ -38,7 +39,9 @@
 }
 
 - (void)fetchSections {
-    sections = _source.sections;
+    NSDictionary *unsortedSections = _source.sections;
+    sections = [unsortedSections.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
+    counts = [unsortedSections objectsForKeys:sections notFoundMarker:@""];
     
     [self.tableView reloadData];
 }
@@ -56,8 +59,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"sectionCell"];
     
-    cell.textLabel.text = sections.allKeys[indexPath.row];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", sections.allValues[indexPath.row].intValue];
+    cell.textLabel.text = sections[indexPath.row];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", counts[indexPath.row].intValue];
     
     return cell;
 }
