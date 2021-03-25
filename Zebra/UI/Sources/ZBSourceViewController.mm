@@ -40,17 +40,13 @@
 - (void)fetchSections {
     PLDatabase *database = [PLDatabase sharedInstance];
     NSArray *packages = [database packages];
-    NSLog(@"[Plains] Packages: %d", packages.count);
     sections = [NSMutableDictionary new];
     
-    for (PLPackage *package in packages) {
-        if (_source != nil && ![package.source.origin isEqual:_source.origin]) continue;
-        
-        NSLog(@"[Plains] %@ Source: %@", package.name, package.source.origin);
+    for (PLPackage *package in packages) {        
+        if (_source != nil && package.source != _source) continue;
         
         NSString *sectionName = package.section;
         NSString *sectionKey = sectionName ?: @"";
-        NSLog(@"[Plains] Section Key: %@", sectionKey);
         
         NSNumber *count = sections[sectionKey];
         if (count) {
@@ -61,8 +57,6 @@
     }
     
     [self.tableView reloadData];
-    
-    NSLog(@"[Plains] Sections: %@", sections);
 }
 
 #pragma mark - Table view data source
