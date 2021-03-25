@@ -134,7 +134,7 @@
 		899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FD247F03BA00FCA61E /* quda@3x.png */; };
 		89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1297A247B49F000C7310B /* UINavigationController+SBS.m */; };
 		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
-		89A75F602606ECF100FB6422 /* ZBSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A75F5F2606ECF100FB6422 /* ZBSourceViewController.m */; };
+		89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */; };
 		89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450323CA4F010008831F /* UIImageView+Zebra.m */; };
 		89AD450C23CA5E350008831F /* AUPM@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450A23CA5E340008831F /* AUPM@3x.png */; };
 		89AD450D23CA5E350008831F /* AUPM@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450B23CA5E350008831F /* AUPM@2x.png */; };
@@ -459,7 +459,7 @@
 		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
 		89A44B06236B575500D92DC9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		89A75F5E2606ECF100FB6422 /* ZBSourceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceViewController.h; sourceTree = "<group>"; };
-		89A75F5F2606ECF100FB6422 /* ZBSourceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceViewController.m; sourceTree = "<group>"; };
+		89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceViewController.mm; sourceTree = "<group>"; };
 		89AD450223CA4F010008831F /* UIImageView+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Zebra.h"; sourceTree = "<group>"; };
 		89AD450323CA4F010008831F /* UIImageView+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Zebra.m"; sourceTree = "<group>"; };
 		89AD450A23CA5E340008831F /* AUPM@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM@3x.png"; sourceTree = "<group>"; };
@@ -1234,7 +1234,7 @@
 				8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */,
 				8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */,
 				89A75F5E2606ECF100FB6422 /* ZBSourceViewController.h */,
-				89A75F5F2606ECF100FB6422 /* ZBSourceViewController.m */,
+				89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1654,7 +1654,7 @@
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */,
-				89A75F602606ECF100FB6422 /* ZBSourceViewController.m in Sources */,
+				89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
 				49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */,

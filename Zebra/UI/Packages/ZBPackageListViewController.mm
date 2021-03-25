@@ -185,7 +185,7 @@
 //            [self loadPackages];
 //        }];
     } else { // Load packages for the first time, every other access is done by filter
-        self.packages = [database packages];
+        self.packages = [[[database packages] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.installed == TRUE AND SELF.role < 4"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
         [self loadPackages];
 //        [packageManager fetchPackagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
 //            self.packages = packages;

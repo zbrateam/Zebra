@@ -58,6 +58,8 @@
         [info addObject:package.authorName];
     if (self.showSize)
         [info addObject:package.installedSizeString];
+    if (package.source.origin)
+        [info addObject:package.source.origin];
     
     self.infoLabel.text = [info componentsJoinedByString:@" • "];
     
