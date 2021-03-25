@@ -38,23 +38,7 @@
 }
 
 - (void)fetchSections {
-    PLDatabase *database = [PLDatabase sharedInstance];
-    NSArray *packages = [database packages];
-    sections = [NSMutableDictionary new];
-    
-    for (PLPackage *package in packages) {        
-        if (_source != nil && package.source != _source) continue;
-        
-        NSString *sectionName = package.section;
-        NSString *sectionKey = sectionName ?: @"";
-        
-        NSNumber *count = sections[sectionKey];
-        if (count) {
-            sections[sectionKey] = @(count.intValue + 1);
-        } else {
-            sections[sectionKey] = @(1);
-        }
-    }
+    sections = _source.sections;
     
     [self.tableView reloadData];
 }
