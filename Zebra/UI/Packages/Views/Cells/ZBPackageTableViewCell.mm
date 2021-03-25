@@ -45,6 +45,10 @@
     self.iconImageView.layer.borderWidth = 1;
     self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
+    
+    self.packageLabel.textColor = [UIColor primaryTextColor];
+    self.descriptionLabel.textColor = [UIColor secondaryTextColor];
+    self.infoLabel.textColor = [UIColor tertiaryTextColor];
 }
 
 - (void)setPackage:(PLPackage *)package {
