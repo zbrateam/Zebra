@@ -8,6 +8,8 @@
 
 #import "ZBHomeViewController.h"
 
+#import <SafariServices/SafariServices.h>
+
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Tabs/Home/Settings/ZBMainSettingsTableViewController.h>
@@ -156,40 +158,13 @@
             [self presentViewController:cannotPresent animated:YES completion:nil];
         }
     } else if (info[@"link"]) {
-        
+        NSURL *url = [NSURL URLWithString:info[@"link"]];
+        if (url && ([url.scheme isEqual:@"http"] || [url.scheme isEqual:@"https"])) {
+            SFSafariViewController *sfVC = [[SFSafariViewController alloc] initWithURL:url];
+            [self presentViewController:sfVC animated:YES completion:nil];
+        }
     }
 }
-
-//- (void)openBug {
-//    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
-//
-//    [ZBDevice openURL:url sender:self];
-//}
-
-//- (void)openLinkFromRow:(NSUInteger)row {
-//    UIApplication *application = [UIApplication sharedApplication];
-//    switch (row) {
-//        case ZBDiscord:{
-//            [self openURL:[NSURL URLWithString:@"https://discord.gg/6CPtHBU"]];
-//            break;
-//        }
-//        case ZBTwitter: {
-//            NSURL *twitterapp = [NSURL URLWithString:@"twitter:///user?screen_name=getzebra"];
-//            NSURL *tweetbot = [NSURL URLWithString:@"tweetbot:///user_profile/getzebra"];
-//            NSURL *twitterweb = [NSURL URLWithString:@"https://twitter.com/getzebra"];
-//            if ([application canOpenURL:twitterapp]) {
-//                [self openURL:twitterapp];
-//            } else if ([application canOpenURL:tweetbot]) {
-//                [self openURL:tweetbot];
-//            } else {
-//                [self openURL:twitterweb];
-//            }
-//            break;
-//        }
-//        default:
-//            break;
-//    }
-//}
 
 #pragma mark - Settings
 
