@@ -8,6 +8,8 @@
 
 #import "ZBSourceViewController.h"
 
+#import <Extensions/UIImageView+Zebra.h>
+
 #import <Plains/Plains.h>
 
 @interface ZBSourceViewController () {
@@ -35,13 +37,24 @@
     [super viewDidLoad];
     
     self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+    
+    [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+    
     [self fetchSections];
 }
 
 - (void)fetchSections {
     NSDictionary *unsortedSections = _source.sections;
-    sections = [unsortedSections.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]];
-    counts = [unsortedSections objectsForKeys:sections notFoundMarker:@""];
+    NSMutableArray *tempSections = [[unsortedSections.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]] mutableCopy];
+    NSMutableArray *tempCounts = [[unsortedSections objectsForKeys:tempSections notFoundMarker:@""] mutableCopy];
+    
+    NSNumber *sum = [tempCounts valueForKeyPath:@"@sum.self"];
+    [tempSections insertObject:@"All Packages" atIndex:0];
+    [tempCounts insertObject:sum atIndex:0];
+    
+    sections = tempSections;
+    counts = tempCounts;
     
     [self.tableView reloadData];
 }
@@ -59,8 +72,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"sectionCell"];
     
-    cell.textLabel.text = sections[indexPath.row];
+    NSString *section = sections[indexPath.row];
+    cell.textLabel.text = section;
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", counts[indexPath.row].intValue];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    if (indexPath.row == 0) {
+        cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightMedium];
+        cell.imageView.image = nil;
+    } else {
+        cell.imageView.image = [PLSource imageForSection:section];
+        [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+    }
     
     return cell;
 }
