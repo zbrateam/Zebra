@@ -21,7 +21,7 @@
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
-#import <Tabs/ZBTabBarController.h>
+#import <UI/ZBTabBarController.h>
 
 #import <Managers/ZBPackageManager.h>
 

@@ -22,7 +22,7 @@
 #import "ZBRedditPosts.h"
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/ZBTabBarController.h>
+#import <UI/ZBTabBarController.h>
 #import <Model/ZBSource.h>
 
 @import SDWebImage;

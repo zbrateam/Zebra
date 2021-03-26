@@ -71,17 +71,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSError *refreshError = NULL;
-    [sourceManager refreshSourcesUsingCaching:YES userRequested:NO error:&refreshError];
-    if (refreshError) {
-        [ZBAppDelegate sendErrorToTabController:refreshError.localizedDescription];
-    }
-    
-    NSError *error = NULL;
-    if ([ZBDevice isSlingshotBroken:&error]) { //error should never be null if the function returns YES
-        [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
-    }
-    
     UINavigationController *homeNavController = [[UINavigationController alloc] init];
     [homeNavController setViewControllers:@[[[ZBHomeViewController alloc] init]] animated:NO];
     [homeNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"Home"] tag:0]];

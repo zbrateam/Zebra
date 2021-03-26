@@ -17,7 +17,7 @@
 #import <ZBDevice.h>
 #import <JSONParsing/ZBUserInfo.h>
 #import <JSONParsing/ZBSourceInfo.h>
-#import <Tabs/ZBTabBarController.h>
+#import <UI/ZBTabBarController.h>
 
 #import <Managers/ZBSourceManager.h>
 

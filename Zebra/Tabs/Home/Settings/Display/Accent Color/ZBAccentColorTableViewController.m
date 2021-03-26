@@ -16,7 +16,7 @@
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Tabs/ZBTabBarController.h>
+#import <UI/ZBTabBarController.h>
 
 @interface ZBAccentColorTableViewController () {
     NSArray *colors;

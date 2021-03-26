@@ -10,7 +10,7 @@
 #import "ZBStage.h"
 
 #import <Downloads/ZBDownloadManager.h>
-#import <Tabs/ZBTabBarController.h>
+#import <UI/ZBTabBarController.h>
 #import <Model/ZBPackage.h>
 #import <Queue/ZBQueue.h>
 #import <ZBAppDelegate.h>

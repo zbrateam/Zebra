@@ -10,9 +10,11 @@
 
 #import "ZBAppDelegate.h"
 
-#import "ZBTabBarController.h"
+#import <UI/ZBTabBarController.h>
+#import <UI/ZBLoadingViewController.h>
+
 #import <ZBLog.h>
-#import <Tabs/ZBTab.h>
+#import <UI/ZBTab.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <Notifications/ZBNotificationManager.h>
@@ -22,7 +24,6 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
-#import <UI/Migration/ZBMigrationViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
@@ -195,13 +196,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self setupSDWebImageCache];
     [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
     
-    if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
-        ZBLog(@"[Zebra] Needs migration, loading migration controller.");
-        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
-    } else {
-        ZBLog(@"[Zebra] Does not need migration, loading tab controller.");
-        self.window.rootViewController = [[ZBTabBarController alloc] init];
-    }
+    self.window.rootViewController = [[ZBLoadingViewController alloc] init];
+    
+//    if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
+//        ZBLog(@"[Zebra] Needs migration, loading migration controller.");
+//        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
+//    } else {
+//        ZBLog(@"[Zebra] Does not need migration, loading tab controller.");
+//        self.window.rootViewController = [[ZBTabBarController alloc] init];
+//    }
     
     [self.window makeKeyAndVisible];
 //    [[ZBThemeManager sharedInstance] updateInterfaceStyle];

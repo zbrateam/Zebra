@@ -15,7 +15,7 @@
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <Tabs/Packages/Controllers/ZBPackageViewController.h>
-#import <Tabs/ZBTabBarController.h>
+#import <UI/ZBTabBarController.h>
 
 #import <Managers/ZBPackageManager.h>
 
