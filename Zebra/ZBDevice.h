@@ -6,8 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-@import Foundation;
-
+#import <Foundation/Foundation.h>
 #import <UIKit/UIApplication.h>
 
 @interface UIApplication ()

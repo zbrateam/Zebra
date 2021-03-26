@@ -13,6 +13,8 @@
 #import <UI/ZBTabBarController.h>
 #import <UI/ZBLoadingViewController.h>
 
+#import <Plains/Plains.h>
+
 #import <ZBLog.h>
 #import <UI/ZBTab.h>
 #import <ZBDevice.h>
@@ -31,11 +33,7 @@
 
 #import <Managers/ZBDatabaseManager.h>
 
-@import FirebaseCore;
-@import FirebaseAnalytics;
-@import FirebaseCrashlytics;
-@import LocalAuthentication;
-@import SDWebImage;
+#import <SDWebImage/SDWebImage.h>
 
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
@@ -197,17 +195,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
     
     self.window.rootViewController = [[ZBLoadingViewController alloc] init];
-    
-//    if ([[ZBDatabaseManager sharedInstance] needsMigration]) {
-//        ZBLog(@"[Zebra] Needs migration, loading migration controller.");
-//        self.window.rootViewController = [[ZBMigrationViewController alloc] init];
-//    } else {
-//        ZBLog(@"[Zebra] Does not need migration, loading tab controller.");
-//        self.window.rootViewController = [[ZBTabBarController alloc] init];
-//    }
-    
     [self.window makeKeyAndVisible];
-//    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
+    
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        [[PLDatabase sharedInstance] import];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.window.rootViewController = [[ZBTabBarController alloc] init];
+        });
+    });
     
     return YES;
 }
@@ -411,16 +407,16 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)setupCrashReporting {
-    if ([ZBSettings allowsCrashReporting]) {
-        ZBLog(@"[Zebra] Crash Reporting and Analytics Enabled");
-        [FIRApp configure];
-        
-        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
-        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
-    } else {
-        ZBLog(@"[Zebra] Crash Reporting and Analytics Disabled");
-    }
+//    if ([ZBSettings allowsCrashReporting]) {
+//        ZBLog(@"[Zebra] Crash Reporting and Analytics Enabled");
+//        [FIRApp configure];
+//        
+//        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
+//        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
+//        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
+//    } else {
+//        ZBLog(@"[Zebra] Crash Reporting and Analytics Disabled");
+//    }
 }
 
 - (void)setupSDWebImageCache {

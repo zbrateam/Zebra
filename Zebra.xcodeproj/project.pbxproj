@@ -141,7 +141,7 @@
 		89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ADD1212561AEFC00DF2241 /* ZBPackageFilter.m */; };
 		89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B312822465D9640027FE29 /* ZBPackageViewController.xib */; };
 		89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */; };
-		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */; };
+		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */; };
 		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */; };
@@ -472,7 +472,7 @@
 		89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Zebra.m"; sourceTree = "<group>"; };
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
-		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppDelegate.m; sourceTree = "<group>"; };
+		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBAppDelegate.mm; sourceTree = "<group>"; };
 		89C5FDE721B1B13700A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89C5FDE921B1B13800A10E58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C5FDEC21B1B13800A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -852,11 +852,11 @@
 				89EAD0B5259F9F330061FC3C /* Sources */,
 				89114C67254C95B5003A7362 /* Packages */,
 				8983790425507D760066DCA7 /* Search */,
-				89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */,
-				89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */,
 				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
 				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
+				89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */,
+				89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1094,7 +1094,7 @@
 			children = (
 				89C5FDEF21B1B13800A10E58 /* main.m */,
 				89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */,
-				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.m */,
+				89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */,
 				9EC4A24D22AABBC8005DDBC7 /* ZBDevice.h */,
 				9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */,
 				9E87F358231A20350043E7F2 /* ZBSettings.h */,
@@ -1646,7 +1646,7 @@
 				898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.m in Sources */,
 				89DD26862201571900CD31A0 /* ZBQueue.m in Sources */,
 				363FE246228785AE00B69929 /* UICKeyChainStore.m in Sources */,
-				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.m in Sources */,
+				89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */,
 				8991FFA221B215C9004FCE23 /* ZBDatabaseManager.m in Sources */,
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				897FFD4B23CFA4A30082DD31 /* ZBThemeManager.m in Sources */,
