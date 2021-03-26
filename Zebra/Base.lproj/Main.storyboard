@@ -8,28 +8,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
-        <scene sceneID="35g-Dk-Ggy">
-            <objects>
-                <tabBarController storyboardIdentifier="tabController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hO2-4F-c4Y" customClass="ZBTabBarController" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="U5u-DW-jYm"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NHP-Wb-N30">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="selectedImageTintColor" red="0.40000000000000002" green="0.50196078430000002" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="Xy5-2Y-w5Q" kind="relationship" relationship="viewControllers" id="3Jq-ha-A6p"/>
-                        <segue destination="whB-F2-t83" kind="relationship" relationship="viewControllers" id="mOi-9K-VaG"/>
-                        <segue destination="gIv-lu-OI7" kind="relationship" relationship="viewControllers" id="DyC-E3-TZZ"/>
-                        <segue destination="DcK-zy-kXJ" kind="relationship" relationship="viewControllers" id="IJ4-ej-7nS"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ijz-tC-LRq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1614" y="61"/>
-        </scene>
         <!--Installed Files Table View Controller-->
         <scene sceneID="yuu-9C-7ih">
             <objects>
@@ -231,34 +209,6 @@
             </objects>
             <point key="canvasLocation" x="4277" y="1126"/>
         </scene>
-        <!--Search-->
-        <scene sceneID="f1N-ci-t5g">
-            <objects>
-                <navigationController id="DcK-zy-kXJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="Search" selectedImage="Search" id="7Ob-xQ-Odl"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="8SY-XC-S9b">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RLV-6P-lLO" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2398" y="1127"/>
-        </scene>
-        <!--Installed-->
-        <scene sceneID="63q-Lg-3xR">
-            <objects>
-                <navigationController id="gIv-lu-OI7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Installed" image="Packages" selectedImage="Packages" id="LuL-3D-0wp"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="4AA-LS-GXz">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="brW-S9-NfL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2398" y="444"/>
-        </scene>
         <!--Alternate Icons-->
         <scene sceneID="QM1-t4-hbI">
             <objects>
@@ -388,34 +338,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrk-RQ-JlY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3975" y="-2272"/>
-        </scene>
-        <!--Home-->
-        <scene sceneID="6d4-DX-o8K">
-            <objects>
-                <navigationController id="Xy5-2Y-w5Q" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="Home" selectedImage="Home" id="2br-hO-A7c"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Gio-55-Pjd">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aDD-qG-sct" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2397" y="-970"/>
-        </scene>
-        <!--Sources-->
-        <scene sceneID="t83-Qp-Zoh">
-            <objects>
-                <navigationController id="whB-F2-t83" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Sources" image="Sources" selectedImage="Sources" id="P6k-Pc-rHZ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="2cy-lh-7gH">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uAn-gQ-4Aw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2398" y="-287"/>
         </scene>
         <!--Changelog Table View Controller-->
         <scene sceneID="DQd-Tf-FXl">
@@ -731,12 +653,8 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Chevron Down" width="27.5" height="17"/>
-        <image name="Home" width="25" height="25"/>
         <image name="Installed" width="14" height="14"/>
-        <image name="Packages" width="25" height="25"/>
         <image name="Paid" width="14" height="14"/>
-        <image name="Search" width="25" height="25"/>
-        <image name="Sources" width="25" height="25"/>
         <image name="Unknown" width="29" height="29"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

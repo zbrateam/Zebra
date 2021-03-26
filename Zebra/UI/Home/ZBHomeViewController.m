@@ -38,7 +38,6 @@
     
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     self.navigationItem.rightBarButtonItem = settingsButton;
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"homeCell"];
 }

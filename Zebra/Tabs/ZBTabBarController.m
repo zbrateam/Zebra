@@ -43,8 +43,7 @@
 @synthesize forwardToPackageID;
 
 - (id)init {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    self = [storyboard instantiateViewControllerWithIdentifier:@"tabController"];
+    self = [super init];
     
     if (self) {
         sourceManager = [ZBSourceManager sharedInstance];
@@ -83,18 +82,27 @@
         [ZBAppDelegate sendErrorToTabController:error.localizedDescription];
     }
     
-    // Temporary, remove when all views are decoupled from storyboard
-    UINavigationController *homeNavController = self.viewControllers[ZBTabHome];
+    UINavigationController *homeNavController = [[UINavigationController alloc] init];
     [homeNavController setViewControllers:@[[[ZBHomeViewController alloc] init]] animated:NO];
+    [homeNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage imageNamed:@"Home"] tag:0]];
+    [homeNavController.navigationBar setPrefersLargeTitles:YES];
     
-    UINavigationController *sourcesNavController = self.viewControllers[ZBTabSources];
+    UINavigationController *sourcesNavController = [[UINavigationController alloc] init];
     [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
+    [sourcesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Sources" image:[UIImage imageNamed:@"Sources"] tag:1]];
+    [sourcesNavController.navigationBar setPrefersLargeTitles:YES];
     
-    UINavigationController *packagesNavController = self.viewControllers[ZBTabPackages];
+    UINavigationController *packagesNavController = [[UINavigationController alloc] init];
     [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] init]] animated:NO];
+    [packagesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Installed" image:[UIImage imageNamed:@"Packages"] tag:2]];
+    [packagesNavController.navigationBar setPrefersLargeTitles:YES];
     
-    UINavigationController *searchNavController = self.viewControllers[ZBTabSearch];
+    UINavigationController *searchNavController = [[UINavigationController alloc] init];
     [searchNavController setViewControllers:@[[[ZBSearchViewController alloc] init]] animated:NO];
+    [searchNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"Search"] tag:3]];
+    [searchNavController.navigationBar setPrefersLargeTitles:YES];
+    
+    self.viewControllers = @[homeNavController, sourcesNavController, packagesNavController, searchNavController];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {
