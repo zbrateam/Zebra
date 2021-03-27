@@ -480,6 +480,10 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
     
     if (baseSource.remote && baseSource.releaseFilePath) {
         FILE *file = fopen(baseSource.releaseFilePath.UTF8String, "r");
+        if (file == NULL) {
+            NSLog(@"[Zebra](ZBSourceManager) Release file pointer is null");
+            return;
+        }
         char line[2048];
         char **source = dualArrayOfSize(ZBSourceColumnCount);
         
@@ -720,6 +724,7 @@ NSString *const ZBSourceDownloadProgressUpdateNotification = @"SourceDownloadPro
 - (void)cancelSourceRefresh {
     [downloadManager stopAllDownloads];
     [self clearBusyList];
+    [self finishedSourceRefresh];
 }
 
 - (NSDictionary <NSString *, NSNumber *> *)sectionsForSource:(ZBSource *)source {
