@@ -138,24 +138,26 @@
     
     NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
     if (searchResults.count == 0) [self showSpinner]; // Only show the spinner if this is the initial search
-    switch (selectedIndex) {
-        case 0: {
-            [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                updateTable(packages);
-            }];
-            break;
-        }
-        case 1: {
-            [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                updateTable(packages);
-            }];
-            break;
-        }
-        case 2: {
-            [packageManager searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                updateTable(packages);
-            }];
-            break;
+    @synchronized (self) {
+        switch (selectedIndex) {
+            case 0: {
+                [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    updateTable(packages);
+                }];
+                break;
+            }
+            case 1: {
+                [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    updateTable(packages);
+                }];
+                break;
+            }
+            case 2: {
+                [packageManager searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+                    updateTable(packages);
+                }];
+                break;
+            }
         }
     }
 }
