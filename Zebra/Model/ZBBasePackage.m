@@ -132,6 +132,10 @@
     return [[ZBSettings favoritePackages] containsObject:self.identifier];
 }
 
+- (void)baseResetData {
+    _isInstalled = NO;
+}
+
 - (NSDate *)installedDate {
     if ([ZBDevice needsSimulation]) {
         // Just to make sections in simulators less cluttered

@@ -592,6 +592,11 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
     return self.essential || [[self.priority lowercaseString] isEqualToString:@"required"];
 }
 
+- (void)resetData {
+    _isVersionInstalled = NO;
+    [self baseResetData];
+}
+
 - (NSArray * _Nullable)possibleActions {
     NSMutableArray *actions = [NSMutableArray new];
     ZBQueue *queue = [ZBQueue sharedQueue];

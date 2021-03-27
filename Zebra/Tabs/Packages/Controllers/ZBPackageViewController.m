@@ -76,6 +76,7 @@
     [self setData];
     [self configureDepictionVC];
     [self registerTableViewCells];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadPackage) name:@"ZBPackageStatusUpdate" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -96,6 +97,12 @@
     
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
     [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
+}
+
+- (void)reloadPackage {
+    [self.package resetData];
+    [self configureGetButtons];
+    [self.informationTableView reloadData];
 }
 
 - (void)dealloc {

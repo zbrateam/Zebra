@@ -75,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray * _Nullable)possibleExtraActions;
 - (NSArray * _Nonnull)information;
 - (BOOL)hasChangelog;
+- (void)resetData;
 
 #pragma mark - Modern Payment API
 - (BOOL)mightRequirePayment;
