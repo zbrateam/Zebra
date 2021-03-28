@@ -1264,7 +1264,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 - (void)insertPackage:(char **)package {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInsertPackage];
     
-    sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, package[ZBPackageColumnIdentifier], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnIdentifier + 1, strlwr(package[ZBPackageColumnIdentifier]), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnName + 1, package[ZBPackageColumnName], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnVersion + 1, package[ZBPackageColumnVersion], -1, SQLITE_TRANSIENT);
     
@@ -1292,8 +1292,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         sqlite3_bind_null(statement, ZBPackageColumnAuthorEmail + 1);
     }
     
-    sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, package[ZBPackageColumnConflicts], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, package[ZBPackageColumnDepends], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, strlwr(package[ZBPackageColumnConflicts]), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, strlwr(package[ZBPackageColumnDepends]), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, package[ZBPackageColumnDepictionURL], -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, atoi(package[ZBPackageColumnDownloadSize]));
     //    package.essential = packageDictionary[@"Essential"];
@@ -1328,8 +1328,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     
     sqlite3_bind_text(statement, ZBPackageColumnDescription + 1, package[ZBPackageColumnDescription], -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnPriority + 1, package[ZBPackageColumnPriority], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnProvides + 1, package[ZBPackageColumnProvides], -1, SQLITE_TRANSIENT);
-    sqlite3_bind_text(statement, ZBPackageColumnReplaces + 1, package[ZBPackageColumnReplaces], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnProvides + 1, strlwr(package[ZBPackageColumnProvides]), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnReplaces + 1, strlwr(package[ZBPackageColumnReplaces]), -1, SQLITE_TRANSIENT);
     
     int roleValue = 0;
     char *tag = package[ZBPackageColumnTag];

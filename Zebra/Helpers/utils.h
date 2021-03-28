@@ -18,4 +18,6 @@ char** dualArrayOfSize(unsigned int size);
 void freeDualArrayOfSize(char **arr, unsigned int size);
 char* trimWhitespaceFromString(char *str);
 
+char* strlwr(char *str);
+
 #endif /* utils_h */
