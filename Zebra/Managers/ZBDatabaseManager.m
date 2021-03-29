@@ -778,7 +778,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     return packages;
 }
 
-- (NSDictionary <NSString *,NSString *> *)installedPackages {
+- (NSDictionary <NSString *, NSString *> *)installedPackages {
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypeInstalledPackages];
 
     NSMutableDictionary *installedPackages = [NSMutableDictionary new];
@@ -1095,6 +1095,10 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
 #pragma mark - Source Information
 
 - (NSDictionary *)packageListFromSource:(ZBSource *)source {
+    if (source == nil) {
+        ZBLog(@"[Zebra] Cannot get package list from null source");
+        return NULL;
+    }
     sqlite3_stmt *statement = [self preparedStatementOfType:ZBDatabaseStatementTypePackageListFromSource];
     __block int result = sqlite3_bind_text(statement, 1, source.uuid.UTF8String, -1, SQLITE_TRANSIENT);
     

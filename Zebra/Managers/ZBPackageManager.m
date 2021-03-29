@@ -78,7 +78,7 @@
     return [databaseManager latestPackages:limit];
 }
 
-- (NSDictionary<NSString *,NSString *> *)installedPackagesList {
+- (NSDictionary<NSString *, NSString *> *)installedPackagesList {
     if (!_installedPackagesList) {
         _installedPackagesList = [databaseManager packageListFromSource:[ZBSource localSource]];
     }
@@ -86,7 +86,7 @@
     return _installedPackagesList;
 }
 
-- (NSDictionary<NSString *,NSString *> *)virtualPackagesList {
+- (NSDictionary<NSString *, NSString *> *)virtualPackagesList {
     if (!_virtualPackagesList) {
         _virtualPackagesList = [databaseManager virtualPackageListFromSource:[ZBSource localSource]];
     }
