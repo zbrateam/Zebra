@@ -215,6 +215,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     
     ZBLog(@"[Zebra] Migrating database from version %d to %d", version, DATABASE_VERSION);
     
+    [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:NULL];
     [self performTransaction:^{
         switch (version + 1) {
             case 1: {
