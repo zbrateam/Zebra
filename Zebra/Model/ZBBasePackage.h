@@ -74,6 +74,7 @@ typedef char *_Nonnull *_Nonnull ZBControlSource;
 - (instancetype)initFromSQLiteStatement:(sqlite3_stmt *)statement;
 - (NSDate *_Nullable)installedDate;
 - (void)setIconImageForImageView:(UIImageView * _Nonnull)imageView;
+- (void)baseResetData;
 @end
 
 NS_ASSUME_NONNULL_END
