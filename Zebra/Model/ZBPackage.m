@@ -24,7 +24,6 @@
 
 @import LinkPresentation;
 @import SDWebImage;
-@import FirebaseCrashlytics;
 @import SafariServices;
 
 @interface ZBPackage () {

@@ -25,7 +25,6 @@
 
 #include <sysexits.h>
 
-@import FirebaseCrashlytics;
 @import LNPopupController;
 
 @interface ZBConsoleViewController () {
@@ -619,7 +618,7 @@
     if ([data containsString:@"stable CLI interface"]) return;
     if ([data containsString:@"postinst"]) return;
 
-    [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", data];
+//    [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", data];
     if ([data rangeOfString:@"warning"].location != NSNotFound || [data hasPrefix:@"W:"]) {
         [self writeToConsole:data atLevel:ZBLogLevelWarning];
     } else {

@@ -14,7 +14,6 @@
 #import "ZBDatabaseManager.h"
 
 @import SQLite3;
-@import FirebaseAnalytics;
 
 #import <ZBAppDelegate.h>
 #import <ZBLog.h>

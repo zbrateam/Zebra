@@ -18,7 +18,6 @@
 #import <Console/ZBCommand.h>
 
 @import UIKit.UISelectionFeedbackGenerator;
-@import FirebaseCrashlytics;
 @import SafariServices;
 
 @implementation ZBDevice

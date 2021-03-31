@@ -26,7 +26,6 @@
 #import <Model/ZBSource.h>
 
 @import SDWebImage;
-@import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
     ZBPackageManager *packageManager;

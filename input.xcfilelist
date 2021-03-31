@@ -1,2 +1,0 @@
-$(SRCROOT)/Carthage/Build/iOS/SDWebImage.framework
-$(SRCROOT)/Carthage/Build/iOS/LNPopupController.framework
