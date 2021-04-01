@@ -27,9 +27,12 @@
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
 #import <UI/Search/ZBSearchViewController.h>
+#import <UI/Sources/ZBSourceViewController.h>
+#import <UI/ZBSidebarController.h>
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
+#import <UI/ZBToolbarDelegate.h>
 
 #import <Managers/ZBDatabaseManager.h>
 
@@ -201,11 +204,52 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [[PLDatabase sharedInstance] import];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.window.rootViewController = [[ZBTabBarController alloc] init];
+#if TARGET_OS_MACCATALYST
+            [self setupSidebar];
+#else
+            if (self.window.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+                [self setupTabBar];
+            } else {
+                [self setupSidebar];
+            }
+#endif
         });
     });
     
     return YES;
+}
+
+- (void)setupSidebar {
+    if (@available(macCatalyst 14.0, iOS 14.0, *)) {
+        ZBSourceListViewController *sourceList = [[ZBSourceListViewController alloc] init];
+        ZBSourceViewController *sourceView = [[ZBSourceViewController alloc] init];
+        ZBSidebarController *sidebar = [[ZBSidebarController alloc] init];
+        
+        UISplitViewController *splitView = [[UISplitViewController alloc] initWithStyle:UISplitViewControllerStyleTripleColumn];
+        splitView.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
+        splitView.preferredDisplayMode = UISplitViewControllerDisplayModeTwoBesideSecondary;
+        
+        [splitView setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
+        [splitView setViewController:sourceList forColumn:UISplitViewControllerColumnSupplementary];
+        [splitView setViewController:sourceView forColumn:UISplitViewControllerColumnSecondary];
+        
+        self.window.rootViewController = splitView;
+        
+        ZBToolbarDelegate *toolbarDelegate = [[ZBToolbarDelegate alloc] init];
+        NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"main"];
+        toolbar.delegate = toolbarDelegate;
+        toolbar.displayMode = NSToolbarDisplayModeIconOnly;
+        
+        UITitlebar *titlebar = self.window.windowScene.titlebar;
+        titlebar.toolbar = toolbar;
+        titlebar.toolbarStyle = UITitlebarToolbarStyleAutomatic;
+    } else {
+        [self setupTabBar];
+    }
+}
+
+- (void)setupTabBar {
+    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
