@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSidebarController : UITableViewController
+@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end
 

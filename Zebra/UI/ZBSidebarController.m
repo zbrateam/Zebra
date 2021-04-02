@@ -11,29 +11,43 @@
 @interface ZBSidebarController () {
     NSArray *titles;
     NSArray *icons;
+    UIViewController *sidebar;
 }
 @end
 
 @implementation ZBSidebarController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (instancetype)init {
+    self = [super initWithStyle:UISplitViewControllerStyleDoubleColumn];
     
-    titles = @[@"Home", @"Sources", @"Installed", @"Updates", @"Settings"];
-    icons = @[@"house", @"books.vertical", @"shippingbox", @"square.and.arrow.down", @"gearshape"];
+    if (self) {
+        self.preferredPrimaryColumnWidthFraction = 0.22;
+        self.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
+        self.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
+        
+        titles = @[@"Home", @"Sources", @"Installed", @"Updates", @"Settings"];
+        icons = @[@"house", @"books.vertical", @"shippingbox", @"square.and.arrow.down", @"gearshape"];
+        
+        sidebar = [[UIViewController alloc] init];
+        
+        UITableView *tableView = [[UITableView alloc] initWithFrame:sidebar.view.frame];
+        tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        
+        [sidebar.view addSubview:tableView];
+        
+        [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
+    }
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
 #if TARGET_OS_MACCATALYST
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [sidebar.navigationController setNavigationBarHidden:YES animated:animated];
 #endif
 }
 

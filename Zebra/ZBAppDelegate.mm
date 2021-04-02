@@ -221,19 +221,17 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
 - (void)setupSidebar {
     if (@available(macCatalyst 14.0, iOS 14.0, *)) {
-        ZBSourceListViewController *sourceList = [[ZBSourceListViewController alloc] init];
-        ZBSourceViewController *sourceView = [[ZBSourceViewController alloc] init];
         ZBSidebarController *sidebar = [[ZBSidebarController alloc] init];
         
-        UISplitViewController *splitView = [[UISplitViewController alloc] initWithStyle:UISplitViewControllerStyleTripleColumn];
-        splitView.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
-        splitView.preferredDisplayMode = UISplitViewControllerDisplayModeTwoBesideSecondary;
+//        UISplitViewController *splitView = [[UISplitViewController alloc] initWithStyle:UISplitViewControllerStyleTripleColumn];
+//        splitView.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
+//        splitView.preferredDisplayMode = UISplitViewControllerDisplayModeTwoBesideSecondary;
+//
+//        [splitView setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
+//        [splitView setViewController:sourceList forColumn:UISplitViewControllerColumnSupplementary];
+//        [splitView setViewController:sourceView forColumn:UISplitViewControllerColumnSecondary];
         
-        [splitView setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
-        [splitView setViewController:sourceList forColumn:UISplitViewControllerColumnSupplementary];
-        [splitView setViewController:sourceView forColumn:UISplitViewControllerColumnSecondary];
-        
-        self.window.rootViewController = splitView;
+        self.window.rootViewController = sidebar;
         
         ZBToolbarDelegate *toolbarDelegate = [[ZBToolbarDelegate alloc] init];
         NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"main"];
