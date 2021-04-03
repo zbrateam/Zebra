@@ -325,10 +325,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    PLPackage *package = filterResults[indexPath.row];
 //    ZBPackage *package = updates.count && indexPath.section == 0 ? updates[indexPath.row] : filterResults[indexPath.row];
-//    ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:package];
+    ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:package];
     
-//    [self.navigationController pushViewController:packageVC animated:YES];
+    [self.navigationController pushViewController:packageVC animated:YES];
 }
 
 //- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {

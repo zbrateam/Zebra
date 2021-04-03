@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZBPackage;
+@class PLPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
-- (id)initWithPackage:(ZBPackage *)package;
+- (id)initWithPackage:(PLPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END

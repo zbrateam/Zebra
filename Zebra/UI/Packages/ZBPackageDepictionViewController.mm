@@ -12,7 +12,10 @@
 #import <Tabs/Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
-@import SDWebImage;
+
+#import <Plains/PLPackage.h>
+
+#import <SDWebImage/SDWebImage.h>
 
 @interface WKWebView ()
 @property (setter=_setApplicationNameForUserAgent:,copy) NSString * _applicationNameForUserAgent;
@@ -40,7 +43,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *previewHeaderLabel;
 @property(retain) IBOutletCollection(UIView) NSArray *lineSeperatorViews;
 
-@property (strong, nonatomic) ZBPackage *package;
+@property (strong, nonatomic) PLPackage *package;
 @property (nonatomic) CGSize firstScreenshotSize;
 
 @end
@@ -49,12 +52,12 @@
 
 #pragma mark - Initializers
 
-- (id)initWithPackage:(ZBPackage *)package {
+- (id)initWithPackage:(PLPackage *)package {
     self = [super init];
     
     if (self) {
         self.package = package;
-        self->shouldBeNative = self.package.preferNative || self.package.depictionURL == nil;
+        self->shouldBeNative = self.package.depictionURL == nil;
     }
     
     return self;
@@ -76,7 +79,7 @@
     [super viewDidLayoutSubviews];
     
     [self updatePreviewCollectionViewHeightBasedOnContent];
-    if (self.package.previewImageURLs != nil) [self.previewCollectionView.collectionViewLayout invalidateLayout];
+//    if (self.package.previewImageURLs != nil) [self.previewCollectionView.collectionViewLayout invalidateLayout];
 }
 
 #pragma mark - View Setup
@@ -121,7 +124,12 @@
 //
 //        NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
 //        [self.descriptionLabel setAttributedText:descriptionAttributedString];
-        [self.descriptionLabel setText:self.package.packageDescription];
+        NSString *longDescription = self.package.longDescription;
+        if (longDescription.length > self.package.shortDescription.length) { // Long description must contain more information than the short description
+            self.descriptionLabel.text = [[longDescription stringByReplacingOccurrencesOfString:@"\n " withString:@"\n"] substringFromIndex:self.package.shortDescription.length + 1];
+        } else {
+            self.descriptionLabel.text = longDescription;
+        }
 
         for (UIView *lineSeperatorView in self.lineSeperatorViews) {
             lineSeperatorView.backgroundColor = [UIColor cellSeparatorColor];
@@ -146,8 +154,8 @@
 }
 
 - (IBAction)versionHistoryButtonTapped:(id)sender {
-    ZBPackageChangelogTableViewController *changelog = [[ZBPackageChangelogTableViewController alloc] initWithPackage:self.package];
-    [[self navigationController] pushViewController:changelog animated:YES];
+//    ZBPackageChangelogTableViewController *changelog = [[ZBPackageChangelogTableViewController alloc] initWithPackage:self.package];
+//    [[self navigationController] pushViewController:changelog animated:YES];
 }
 
 - (void)updatePreviewCollectionViewHeightBasedOnContent {
@@ -205,20 +213,21 @@
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.package.previewImageURLs.count;
+    return 0;
+//    return self.package.previewImageURLs.count;
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     ZBScreenshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ScreenshotCollectionViewCell" forIndexPath:indexPath];
     
-    cell.screenshotImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
-    [cell.screenshotImageView sd_setImageWithURL:self.package.previewImageURLs[indexPath.item] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-        if (indexPath.item == 0 && CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
-            self.firstScreenshotSize = CGSizeMake(image.size.width / UIScreen.mainScreen.scale, image.size.height / UIScreen.mainScreen.scale);
-            [self.previewCollectionView reloadSections:[[NSIndexSet alloc] initWithIndex:0]];
-            [self updatePreviewCollectionViewHeightBasedOnContent];
-        }
-    }];
+//    cell.screenshotImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
+//    [cell.screenshotImageView sd_setImageWithURL:self.package.previewImageURLs[indexPath.item] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//        if (indexPath.item == 0 && CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
+//            self.firstScreenshotSize = CGSizeMake(image.size.width / UIScreen.mainScreen.scale, image.size.height / UIScreen.mainScreen.scale);
+//            [self.previewCollectionView reloadSections:[[NSIndexSet alloc] initWithIndex:0]];
+//            [self updatePreviewCollectionViewHeightBasedOnContent];
+//        }
+//    }];
     return cell;
 }
 

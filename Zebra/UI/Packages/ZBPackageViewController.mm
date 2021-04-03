@@ -22,7 +22,9 @@
 #import "ZBPackageDepictionViewController.h"
 #import "UIViewController+Extensions.h"
 
-@import SDWebImage;
+#import <Plains/PLPackage.h>
+
+#import <SDWebImage/SDWebImage.h>
 
 @interface ZBPackageViewController () {
     UIStatusBarStyle style;
@@ -45,7 +47,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *stackViewVerticalSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerImageContainerViewAspectRatioConstraint;
 
-@property (strong, nonatomic) ZBPackage *package;
+@property (strong, nonatomic) PLPackage *package;
 @property (strong, nonatomic) NSArray *packageInformation;
 @property (strong, nonatomic) ZBActionButton *getBarButton;
 @property (strong, nonatomic) CAGradientLayer *headerImageGradientLayer;
@@ -55,7 +57,7 @@
 
 #pragma mark - Initializers
 
-- (id)initWithPackage:(ZBPackage *)package {
+- (id)initWithPackage:(PLPackage *)package {
     self = [super init];
     
     if (self) {
@@ -147,9 +149,14 @@
 
 - (void)setData {
     self.nameLabel.text = self.package.name;
-    self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName; //self.package.tagline ?: self.package.authorName ?: self.package.maintainerName;
-    [self.package setIconImageForImageView:self.iconImageView];
-    self.packageInformation = [self.package information];
+    
+    if (![self.package.longDescription isEqualToString:self.package.shortDescription]) {
+        self.tagLineLabel.text = self.package.shortDescription;
+    } else {
+        self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
+    }
+//    [self.package setIconImageForImageView:self.iconImageView];
+//    self.packageInformation = [self.package information];
     
 //    if (self.package.headerURL) {
 //        self.headerImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
@@ -192,27 +199,27 @@
     [self.getButton showActivityLoader];
     [self.getBarButton showActivityLoader];
     
-    [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
-        if (text) {
-            [self.getButton hideActivityLoader];
-            [self.getBarButton hideActivityLoader];
-            
-            [self.getButton setTitle:text forState:UIControlStateNormal];
-            [self.getBarButton setTitle:text forState:UIControlStateNormal];
-        } else {
-            [self.getButton showActivityLoader];
-            [self.getBarButton showActivityLoader];
-        }
-    }];
+//    [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
+//        if (text) {
+//            [self.getButton hideActivityLoader];
+//            [self.getBarButton hideActivityLoader];
+//
+//            [self.getButton setTitle:text forState:UIControlStateNormal];
+//            [self.getBarButton setTitle:text forState:UIControlStateNormal];
+//        } else {
+//            [self.getButton showActivityLoader];
+//            [self.getBarButton showActivityLoader];
+//        }
+//    }];
 }
 
 - (IBAction)getButtonPressed:(id)sender {
     if ([self isModal]) {
-        [ZBPackageActions buttonActionForPackage:self.package completion:^{
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }]();
+//        [ZBPackageActions buttonActionForPackage:self.package completion:^{
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        }]();
     } else {
-        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
+//        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
     }
 }
 
@@ -221,18 +228,18 @@
     [extraActions.popoverPresentationController setSourceView:self.moreButton];
     [extraActions.popoverPresentationController setSourceRect:self.moreButton.bounds];
 
-    NSArray <UIAlertAction *> *actions = [ZBPackageActions extraAlertActionsForPackage:self.package selectionCallback:^(ZBPackageExtraActionType action) {
-        if (action == ZBPackageExtraActionShare) {
-            UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[self.package] applicationActivities:nil];
-            [shareSheet.popoverPresentationController setSourceView:self.moreButton];
-            [shareSheet.popoverPresentationController setSourceRect:self.moreButton.bounds];
-            
-            [self presentViewController:shareSheet animated:YES completion:nil];
-        }
-    }];
-    for (UIAlertAction *action in actions) {
-        [extraActions addAction:action];
-    }
+//    NSArray <UIAlertAction *> *actions = [ZBPackageActions extraAlertActionsForPackage:self.package selectionCallback:^(ZBPackageExtraActionType action) {
+//        if (action == ZBPackageExtraActionShare) {
+//            UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[self.package] applicationActivities:nil];
+//            [shareSheet.popoverPresentationController setSourceView:self.moreButton];
+//            [shareSheet.popoverPresentationController setSourceRect:self.moreButton.bounds];
+//
+//            [self presentViewController:shareSheet animated:YES completion:nil];
+//        }
+//    }];
+//    for (UIAlertAction *action in actions) {
+//        [extraActions addAction:action];
+//    }
     
     [self presentViewController:extraActions animated:YES completion:nil];
 }
@@ -251,7 +258,7 @@
     imageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     imageView.layer.masksToBounds = YES;
     imageView.alpha = 0.0;
-    [self.package setIconImageForImageView:imageView];
+//    [self.package setIconImageForImageView:imageView];
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
     

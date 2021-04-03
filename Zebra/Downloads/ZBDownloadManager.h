@@ -9,7 +9,7 @@
 @class ZBQueue;
 @class ZBSource;
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 #import "ZBDownloadDelegate.h"
 #import <Model/ZBBaseSource.h>

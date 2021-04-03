@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 #import "ZBPackageInfoController.h"
 
 NS_ASSUME_NONNULL_BEGIN

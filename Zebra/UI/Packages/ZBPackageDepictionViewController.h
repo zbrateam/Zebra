@@ -6,15 +6,15 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import UIKit;
-@import WebKit;
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
-@class ZBPackage;
+@class PLPackage;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageDepictionViewController : UIViewController <WKNavigationDelegate, UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
-- (id)initWithPackage:(ZBPackage *)package;
+- (id)initWithPackage:(PLPackage *)package;
 @end
 
 NS_ASSUME_NONNULL_END

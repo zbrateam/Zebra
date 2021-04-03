@@ -121,7 +121,7 @@
 #if TARGET_OS_MACCATALYST
 
 -(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
-    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdentifier];
+    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
     [toolbarItem setTitle:@"Sidebar"];
     [toolbarItem setImage:[UIImage systemImageNamed:@"sidebar.left"]];
     
