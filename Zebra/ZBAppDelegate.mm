@@ -22,7 +22,7 @@
 #import <Notifications/ZBNotificationManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <UI/Sources/ZBSourceListViewController.h>
-#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
+#import <UI/Packages/ZBPackageViewController.h>
 #import <Model/ZBPackage.h>
 #import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>

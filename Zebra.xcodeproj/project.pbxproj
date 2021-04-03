@@ -723,6 +723,12 @@
 				89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */,
 				891551562560A496005AF405 /* ZBPackageFilterViewController.h */,
 				891551572560A496005AF405 /* ZBPackageFilterViewController.m */,
+				89159FAE21F8E5FD0012C8FE /* ZBPackageViewController.h */,
+				89159FAF21F8E5FD0012C8FE /* ZBPackageViewController.m */,
+				89B312822465D9640027FE29 /* ZBPackageViewController.xib */,
+				49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */,
+				49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.m */,
+				49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -1003,12 +1009,6 @@
 		896F11C521B231AF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				89159FAE21F8E5FD0012C8FE /* ZBPackageViewController.h */,
-				89159FAF21F8E5FD0012C8FE /* ZBPackageViewController.m */,
-				89B312822465D9640027FE29 /* ZBPackageViewController.xib */,
-				49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */,
-				49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.m */,
-				49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */,
 				369F9EA122BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.h */,
 				369F9EA222BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m */,
 				369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */,

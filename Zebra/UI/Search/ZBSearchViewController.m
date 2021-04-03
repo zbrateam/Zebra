@@ -17,7 +17,7 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
+#import <UI/Packages/ZBPackageViewController.h>
 
 @interface ZBSearchViewController () {
     ZBPackageManager *packageManager;

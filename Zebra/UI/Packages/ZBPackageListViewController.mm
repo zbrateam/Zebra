@@ -14,7 +14,7 @@
 #import <Model/ZBPackage.h>
 #import <Model/ZBPackageFilter.h>
 #import <Model/ZBSource.h>
-#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
+#import <UI/Packages/ZBPackageViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Common/ZBPartialPresentationController.h>

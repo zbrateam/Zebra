@@ -14,7 +14,7 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
-#import <Tabs/Packages/Controllers/ZBPackageViewController.h>
+#import <UI/Packages/ZBPackageViewController.h>
 #import <UI/ZBTabBarController.h>
 
 #import <Managers/ZBPackageManager.h>
