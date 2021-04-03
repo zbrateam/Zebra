@@ -32,7 +32,8 @@
 #import <dlfcn.h>
 #import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
-#import <UI/ZBToolbarDelegate.h>
+
+#import <UI/Sources/ZBSourcesSplitViewController.h>
 
 #import <Managers/ZBDatabaseManager.h>
 
@@ -223,24 +224,17 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     if (@available(macCatalyst 14.0, iOS 14.0, *)) {
         ZBSidebarController *sidebar = [[ZBSidebarController alloc] init];
         
-//        UISplitViewController *splitView = [[UISplitViewController alloc] initWithStyle:UISplitViewControllerStyleTripleColumn];
-//        splitView.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
-//        splitView.preferredDisplayMode = UISplitViewControllerDisplayModeTwoBesideSecondary;
-//
-//        [splitView setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
-//        [splitView setViewController:sourceList forColumn:UISplitViewControllerColumnSupplementary];
-//        [splitView setViewController:sourceView forColumn:UISplitViewControllerColumnSecondary];
-        
-        self.window.rootViewController = sidebar;
-        
-        ZBToolbarDelegate *toolbarDelegate = [[ZBToolbarDelegate alloc] init];
+#if TARGET_OS_MACCATALYST
         NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"main"];
-        toolbar.delegate = toolbarDelegate;
+        toolbar.delegate = sidebar;
         toolbar.displayMode = NSToolbarDisplayModeIconOnly;
         
         UITitlebar *titlebar = self.window.windowScene.titlebar;
         titlebar.toolbar = toolbar;
         titlebar.toolbarStyle = UITitlebarToolbarStyleAutomatic;
+#endif
+        
+        self.window.rootViewController = sidebar;
     } else {
         [self setupTabBar];
     }

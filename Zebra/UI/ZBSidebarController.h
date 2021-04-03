@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource>
-
+@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource, NSToolbarDelegate>
+@property (nonatomic) NSArray <UIViewController *> *controllers;
 @end
 
 NS_ASSUME_NONNULL_END

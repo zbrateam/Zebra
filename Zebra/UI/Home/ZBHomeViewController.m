@@ -42,6 +42,14 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"homeCell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+#if TARGET_OS_MACCATALYST
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+#endif
+}
+
 #pragma mark - Table view data source
 
 - (NSArray <NSString *> *)titles {

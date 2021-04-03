@@ -8,10 +8,17 @@
 
 #import "ZBSidebarController.h"
 
+#import <UI/Home/ZBHomeViewController.h>
+#import <UI/Sources/ZBSourceListViewController.h>
+#import <UI/Packages/ZBPackageListViewController.h>
+#import <UI/Search/ZBSearchViewController.h>
+
 @interface ZBSidebarController () {
     NSArray *titles;
     NSArray *icons;
     UIViewController *sidebar;
+    UITableView *tableView;
+    NSUInteger selectedIndex;
 }
 @end
 
@@ -25,93 +32,122 @@
         self.primaryBackgroundStyle = UISplitViewControllerBackgroundStyleSidebar;
         self.preferredDisplayMode = UISplitViewControllerDisplayModeOneBesideSecondary;
         
-        titles = @[@"Home", @"Sources", @"Installed", @"Updates", @"Settings"];
-        icons = @[@"house", @"books.vertical", @"shippingbox", @"square.and.arrow.down", @"gearshape"];
-        
         sidebar = [[UIViewController alloc] init];
         
-        UITableView *tableView = [[UITableView alloc] initWithFrame:sidebar.view.frame];
+        tableView = [[UITableView alloc] initWithFrame:sidebar.view.frame];
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tableView.delegate = self;
         tableView.dataSource = self;
         
         [sidebar.view addSubview:tableView];
         
+//        secondaryController = [[UINavigationController alloc] init];
+//        secondaryController.navigationBar.hidden = YES;
+        
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
+//        [self setViewController:secondaryController forColumn:UISplitViewControllerColumnSecondary];
     }
     
     return self;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    UINavigationController *homeNavController = [[UINavigationController alloc] init];
+    [homeNavController setViewControllers:@[[[ZBHomeViewController alloc] init]] animated:NO];
+    [homeNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Home" image:[UIImage systemImageNamed:@"house"] tag:0]];
+    [homeNavController.navigationBar setPrefersLargeTitles:YES];
+    
+    UINavigationController *sourcesNavController = [[UINavigationController alloc] init];
+    [sourcesNavController setViewControllers:@[[[ZBSourceListViewController alloc] init]] animated:NO];
+    [sourcesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Sources" image:[UIImage systemImageNamed:@"books.vertical"] tag:1]];
+    [sourcesNavController.navigationBar setPrefersLargeTitles:YES];
+    
+    UINavigationController *packagesNavController = [[UINavigationController alloc] init];
+    [packagesNavController setViewControllers:@[[[ZBPackageListViewController alloc] init]] animated:NO];
+    [packagesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Installed" image:[UIImage systemImageNamed:@"shippingbox"] tag:2]];
+    [packagesNavController.navigationBar setPrefersLargeTitles:YES];
+    
+    UINavigationController *updatesNavController = [[UINavigationController alloc] init];
+    [updatesNavController setViewControllers:@[[[UIViewController alloc] init]] animated:NO];
+    [updatesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Updates" image:[UIImage systemImageNamed:@"square.and.arrow.down"] tag:3]];
+    [updatesNavController.navigationBar setPrefersLargeTitles:YES];
+    
+    UINavigationController *settingsNavController = [[UINavigationController alloc] init];
+    [settingsNavController setViewControllers:@[[[UIViewController alloc] init]] animated:NO];
+    [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:4]];
+    [settingsNavController.navigationBar setPrefersLargeTitles:YES];
+    
+    self.controllers = @[homeNavController, sourcesNavController, packagesNavController, updatesNavController, settingsNavController];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self setViewController:_controllers[0] forColumn:UISplitViewControllerColumnSecondary];
     
 #if TARGET_OS_MACCATALYST
     [sidebar.navigationController setNavigationBarHidden:YES animated:animated];
 #endif
 }
 
-#pragma mark - Table view data source
+#pragma mark - Sidebar Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return titles.count;
+    return _controllers.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"yowadup"];
     
-    cell.textLabel.text = titles[indexPath.row];
-    cell.imageView.image = [UIImage systemImageNamed:icons[indexPath.row]];
+    UITabBarItem *tabItem = _controllers[indexPath.row].tabBarItem;
+    cell.textLabel.text = tabItem.title;
+    cell.imageView.image = tabItem.image;
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    [self setViewController:_controllers[indexPath.row] forColumn:UISplitViewControllerColumnSecondary];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+#if TARGET_OS_MACCATALYST
+
+-(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdentifier];
+    [toolbarItem setTitle:@"Sidebar"];
+    [toolbarItem setImage:[UIImage systemImageNamed:@"sidebar.left"]];
+    
+    return toolbarItem;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
+    return @[NSToolbarToggleSidebarItemIdentifier];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
+    return [self toolbarDefaultItemIdentifiers:toolbar];
 }
-*/
 
-/*
-#pragma mark - Navigation
+#endif
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - Properties
+
+- (void)setControllers:(NSArray <UIViewController *> *)controllers {
+    _controllers = controllers;
+    
+    [tableView reloadData];
 }
-*/
+
+- (void)setViewController:(UIViewController *)vc forColumn:(UISplitViewControllerColumn)column {
+    [super setViewController:vc forColumn:column];
+}
 
 @end
