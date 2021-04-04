@@ -78,6 +78,10 @@
     [self setData];
     [self configureDepictionVC];
     [self registerTableViewCells];
+    
+#if TARGET_OS_MACCATALYST
+    self.scrollView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated {

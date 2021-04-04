@@ -34,18 +34,16 @@
         
         sidebar = [[UIViewController alloc] init];
         
-        tableView = [[UITableView alloc] initWithFrame:sidebar.view.frame];
+        tableView = [[UITableView alloc] initWithFrame:sidebar.view.frame style:UITableViewStyleGrouped];
         tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         tableView.delegate = self;
         tableView.dataSource = self;
         
+        [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"sidebarCell"];
+        
         [sidebar.view addSubview:tableView];
         
-//        secondaryController = [[UINavigationController alloc] init];
-//        secondaryController.navigationBar.hidden = YES;
-        
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
-//        [self setViewController:secondaryController forColumn:UISplitViewControllerColumnSecondary];
     }
     
     return self;
@@ -103,18 +101,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"yowadup"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sidebarCell" forIndexPath:indexPath];
     
     UITabBarItem *tabItem = _controllers[indexPath.row].tabBarItem;
     cell.textLabel.text = tabItem.title;
     cell.imageView.image = tabItem.image;
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     [self setViewController:_controllers[indexPath.row] forColumn:UISplitViewControllerColumnSecondary];
 }
 
@@ -144,10 +141,6 @@
     _controllers = controllers;
     
     [tableView reloadData];
-}
-
-- (void)setViewController:(UIViewController *)vc forColumn:(UISplitViewControllerColumn)column {
-    [super setViewController:vc forColumn:column];
 }
 
 @end
