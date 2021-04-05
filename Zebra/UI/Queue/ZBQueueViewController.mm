@@ -70,4 +70,17 @@
 
 #pragma mark - Table View Delegate
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (packages[section].count == 0) return NULL;
+    
+    switch (section) {
+        case PLQueueInstall:
+            return @"Install";
+        case PLQueueRemove:
+            return @"Remove";
+        default:
+            return NULL;
+    }
+}
+
 @end
