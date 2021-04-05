@@ -9,10 +9,19 @@
 #import "PLPackage+Zebra.h"
 
 #import <Plains/PLSource.h>
+#import <Tabs/Packages/Helpers/ZBPackageActions.h>
 
 #import <SDWebImage/SDWebImage.h>
 
 @implementation PLPackage (Zebra)
+
+- (BOOL)mightRequirePayment {
+    return NO;
+}
+
+- (ZBPackageActionType)possibleActions {
+    return ZBPackageActionInstall;
+}
 
 - (void)setPackageIconForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [PLSource imageForSection:self.section];

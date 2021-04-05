@@ -24,6 +24,7 @@
 #import <UI/ZBTabBarController.h>
 
 #import <Managers/ZBPackageManager.h>
+#import <Model/PLPackage+Zebra.h>
 
 @implementation ZBPackageActions
 
@@ -416,39 +417,39 @@
 
 #pragma mark - Display Actions
 
-+ (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion {
++ (void)buttonTitleForPackage:(PLPackage *)package completion:(void (^)(NSString * _Nullable title))completion {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSString *title = [self buttonTitleForPackage:package];
         if ([package mightRequirePayment]) {
-            [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-                if (info) { // Package does have purchase info
-                    BOOL installed = package.isInstalled;
-                    if (!info.purchased && !installed) { // If the user has not purchased the package
-                        NSString *title = info.price;
-                        if ([title isKindOfClass:[NSNumber class]]) {
-                            // Free package even with purchase info
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                completion([(NSNumber *)title stringValue]);
-                            });
-                            return;
-                        }
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completion(info.price);
-                        });
-                        return;
-                    }
-                    else if (info.purchased && !installed) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completion(@"Install");
-                        });
-                        return;
-                    }
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(title);
-                });
-                return;
-            }];
+//            [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+//                if (info) { // Package does have purchase info
+//                    BOOL installed = package.isInstalled;
+//                    if (!info.purchased && !installed) { // If the user has not purchased the package
+//                        NSString *title = info.price;
+//                        if ([title isKindOfClass:[NSNumber class]]) {
+//                            // Free package even with purchase info
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                completion([(NSNumber *)title stringValue]);
+//                            });
+//                            return;
+//                        }
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            completion(info.price);
+//                        });
+//                        return;
+//                    }
+//                    else if (info.purchased && !installed) {
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            completion(@"Install");
+//                        });
+//                        return;
+//                    }
+//                }
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    completion(title);
+//                });
+//                return;
+//            }];
             return;
         }
         
@@ -539,18 +540,18 @@
 + (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback {
     NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
     
-    NSArray *actions = [package possibleExtraActions];
-    for (NSNumber *number in actions) {
-        ZBPackageExtraActionType action = number.intValue;
-        
-        NSString *title = [self titleForExtraAction:action];
-        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
-            [self performExtraAction:action forPackage:package completion:callback];
-        }];
-        [alertActions addObject:alertAction];
-    }
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
-    [alertActions addObject:cancel];
+//    NSArray *actions = [package possibleExtraActions];
+//    for (NSNumber *number in actions) {
+//        ZBPackageExtraActionType action = number.intValue;
+//        
+//        NSString *title = [self titleForExtraAction:action];
+//        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+//            [self performExtraAction:action forPackage:package completion:callback];
+//        }];
+//        [alertActions addObject:alertAction];
+//    }
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
+//    [alertActions addObject:cancel];
     
     return alertActions;
 }
@@ -693,14 +694,13 @@
     }
 }
 
-+ (NSString *)buttonTitleForPackage:(ZBPackage *)package {
-    NSArray <NSNumber *> *actions = [package possibleActions];
-    if (actions.count > 1) {
++ (NSString *)buttonTitleForPackage:(PLPackage *)package {
+    ZBPackageActionType actions = [package possibleActions];
+    if ((actions & (actions - 1)) != 0) {
         return NSLocalizedString(@"Modify", @"");
     }
     else {
-        ZBPackageActionType action = actions[0].intValue;
-        return [self titleForAction:action useIcon:NO];
+        return [self titleForAction:actions useIcon:NO];
     }
 }
 

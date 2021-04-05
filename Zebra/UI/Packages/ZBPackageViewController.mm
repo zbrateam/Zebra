@@ -203,28 +203,28 @@
     [self.getButton showActivityLoader];
     [self.getBarButton showActivityLoader];
     
-//    [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
-//        if (text) {
-//            [self.getButton hideActivityLoader];
-//            [self.getBarButton hideActivityLoader];
-//
-//            [self.getButton setTitle:text forState:UIControlStateNormal];
-//            [self.getBarButton setTitle:text forState:UIControlStateNormal];
-//        } else {
-//            [self.getButton showActivityLoader];
-//            [self.getBarButton showActivityLoader];
-//        }
-//    }];
+    [ZBPackageActions buttonTitleForPackage:self.package completion:^(NSString * _Nullable text) {
+        if (text) {
+            [self.getButton hideActivityLoader];
+            [self.getBarButton hideActivityLoader];
+
+            [self.getButton setTitle:text forState:UIControlStateNormal];
+            [self.getBarButton setTitle:text forState:UIControlStateNormal];
+        } else {
+            [self.getButton showActivityLoader];
+            [self.getBarButton showActivityLoader];
+        }
+    }];
 }
 
 - (IBAction)getButtonPressed:(id)sender {
-    if ([self isModal]) {
+//    if ([self isModal]) {
 //        [ZBPackageActions buttonActionForPackage:self.package completion:^{
 //            [self dismissViewControllerAnimated:YES completion:nil];
 //        }]();
-    } else {
+//    } else {
 //        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
-    }
+//    }
 }
 
 - (IBAction)moreButtonPressed:(id)sender {

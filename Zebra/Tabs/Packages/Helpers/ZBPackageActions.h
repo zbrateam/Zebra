@@ -7,19 +7,20 @@
 //
 
 @class ZBPackage;
+@class PLPackage;
 #import <UIKit/UIKit.h>
 
 #import <Queue/ZBQueueType.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 
-typedef enum : NSUInteger {
-    ZBPackageActionInstall,
-    ZBPackageActionUpgrade,
-    ZBPackageActionRemove,
-    ZBPackageActionReinstall,
-    ZBPackageActionDowngrade,
-    ZBPackageActionSelectVersion,
-} ZBPackageActionType;
+typedef NS_OPTIONS(NSUInteger, ZBPackageActionType) {
+    ZBPackageActionInstall = 1 << 0,
+    ZBPackageActionUpgrade = 1 << 1,
+    ZBPackageActionRemove = 1 << 2,
+    ZBPackageActionReinstall = 1 << 3,
+    ZBPackageActionDowngrade = 1 << 4,
+    ZBPackageActionSelectVersion = 1 << 5,
+};
 
 typedef enum : NSUInteger {
     ZBPackageExtraActionShowUpdates,
@@ -35,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPackageActions : NSObject
 + (void)performAction:(ZBPackageActionType)action forPackages:(NSArray <ZBPackage *> *)package completion:(void (^)(void))completion;
-+ (void)buttonTitleForPackage:(ZBPackage *)package completion:(void (^)(NSString * _Nullable title))completion;
++ (void)buttonTitleForPackage:(PLPackage *)package completion:(void (^)(NSString * _Nullable title))completion;
 + (void (^)(void))buttonActionForPackage:(ZBPackage *)package completion:(nullable void(^)(void))completion;
 + (UISwipeActionsConfiguration *)swipeActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package completion:(nullable void(^)(void))completion;

@@ -3,7 +3,7 @@
 //   NSError *error = NULL;
 //   ZBPurchaseInfo *purchaseInfo = [ZBPurchaseInfo fromJSON:json encoding:NSUTF8Encoding error:&error];
 
-@import Foundation;
+#import <Foundation/Foundation.h>
 
 @class ZBPurchaseInfo;
 
