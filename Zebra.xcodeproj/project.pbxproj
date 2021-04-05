@@ -81,7 +81,7 @@
 		75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B124F2669B00216395 /* AUPM~ipad@2x.png */; };
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
 		75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */; };
-		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
+		8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891551572560A496005AF405 /* ZBPackageFilterViewController.m */; };
 		8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8915515B2560A4F0005AF405 /* ZBPartialPresentationController.m */; };
@@ -350,7 +350,7 @@
 		75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewController.m; sourceTree = "<group>"; };
 		75F92C9A24941BA8009DA035 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
-		8900FA4F2201E9C200476310 /* ZBQueueViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBQueueViewController.m; sourceTree = "<group>"; };
+		8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBQueueViewController.mm; sourceTree = "<group>"; };
 		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8908D508261250D800950353 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		891551562560A496005AF405 /* ZBPackageFilterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageFilterViewController.h; sourceTree = "<group>"; };
@@ -1075,7 +1075,7 @@
 			isa = PBXGroup;
 			children = (
 				8900FA4E2201E9C200476310 /* ZBQueueViewController.h */,
-				8900FA4F2201E9C200476310 /* ZBQueueViewController.m */,
+				8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */,
 			);
 			path = Queue;
 			sourceTree = "<group>";
@@ -1599,7 +1599,7 @@
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */,
 				891ED4B22614F6EB005B926B /* ZBSidebarController.m in Sources */,
-				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
+				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
 				759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
