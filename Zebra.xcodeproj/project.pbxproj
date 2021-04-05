@@ -893,6 +893,7 @@
 				89E47661260D4DCE009152C1 /* Home */,
 				89EAD0B5259F9F330061FC3C /* Sources */,
 				89114C67254C95B5003A7362 /* Packages */,
+				8987E0E9261B96FD00859BA8 /* Queue */,
 				8983790425507D760066DCA7 /* Search */,
 				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
@@ -1070,6 +1071,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		8987E0E9261B96FD00859BA8 /* Queue */ = {
+			isa = PBXGroup;
+			children = (
+				8900FA4E2201E9C200476310 /* ZBQueueViewController.h */,
+				8900FA4F2201E9C200476310 /* ZBQueueViewController.m */,
+			);
+			path = Queue;
+			sourceTree = "<group>";
+		};
 		8991FFA321B21D26004FCE23 /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -1181,8 +1191,6 @@
 				89DD26872201576500CD31A0 /* ZBQueueType.h */,
 				89DD26842201571900CD31A0 /* ZBQueue.h */,
 				89DD26852201571900CD31A0 /* ZBQueue.m */,
-				8900FA4E2201E9C200476310 /* ZBQueueViewController.h */,
-				8900FA4F2201E9C200476310 /* ZBQueueViewController.m */,
 			);
 			path = Queue;
 			sourceTree = "<group>";

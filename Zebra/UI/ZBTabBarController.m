@@ -21,7 +21,7 @@
 #import <Headers/UITabBarItem.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Queue/ZBQueue.h>
-#import <Queue/ZBQueueViewController.h>
+#import <UI/Queue/ZBQueueViewController.h>
 #import <ZBDevice.h>
 
 @import LNPopupController;

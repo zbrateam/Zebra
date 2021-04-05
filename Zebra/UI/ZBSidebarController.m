@@ -12,7 +12,7 @@
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
-#import <Queue/ZBQueueViewController.h>
+#import <UI/Queue/ZBQueueViewController.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
