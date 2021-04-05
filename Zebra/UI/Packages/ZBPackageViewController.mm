@@ -217,13 +217,13 @@
     }];
 }
 
-- (IBAction)getButtonPressed:(id)sender {
+- (IBAction)getButtonPressed:(ZBActionButton *)sender {
     if ([self isModal]) {
-        [ZBPackageActions buttonActionForPackage:self.package completion:^{
+        [ZBPackageActions buttonActionForPackage:self.package controller:self sender:sender completion:^{
             [self dismissViewControllerAnimated:YES completion:nil];
         }]();
     } else {
-        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
+        [ZBPackageActions buttonActionForPackage:self.package controller:self sender:sender completion:nil]();
     }
 }
 

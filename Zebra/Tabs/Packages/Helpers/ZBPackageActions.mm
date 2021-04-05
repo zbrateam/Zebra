@@ -459,17 +459,18 @@
     });
 }
 
-+ (void (^)(void))buttonActionForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion {
++ (void (^)(void))buttonActionForPackage:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(nullable void(^)(void))completion {
     ZBPackageActionType actions = package.possibleActions;
     if ((actions & (actions - 1)) != 0) {
         return ^{
-            UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
+            UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
             for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package completion:completion]) {
                 [selectAction addAction:action];
             }
 
-            [selectAction show];
+            selectAction.popoverPresentationController.sourceView = sender;
+            [controller presentViewController:selectAction animated:YES completion:nil];
         };
     }
     else {
