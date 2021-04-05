@@ -13,8 +13,7 @@
 
 #import <Plains/PLDatabase.h>
 #import <Plains/PLSource.h>
-
-@import SDWebImage;
+#import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceListViewController () {
     PLDatabase *database;

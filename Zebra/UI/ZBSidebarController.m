@@ -12,6 +12,7 @@
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
+#import <Queue/ZBQueueViewController.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
@@ -72,12 +73,17 @@
     [updatesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Updates" image:[UIImage systemImageNamed:@"square.and.arrow.down"] tag:3]];
     [updatesNavController.navigationBar setPrefersLargeTitles:YES];
     
+    UINavigationController *queueNavController = [[UINavigationController alloc] init];
+    [queueNavController setViewControllers:@[[[ZBQueueViewController alloc] init]] animated:NO];
+    [queueNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Queue" image:[UIImage systemImageNamed:@"text.append"] tag:4]];
+    [queueNavController.navigationBar setPrefersLargeTitles:YES];
+    
     UINavigationController *settingsNavController = [[UINavigationController alloc] init];
     [settingsNavController setViewControllers:@[[[UIViewController alloc] init]] animated:NO];
-    [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:4]];
+    [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:5]];
     [settingsNavController.navigationBar setPrefersLargeTitles:YES];
     
-    self.controllers = @[homeNavController, sourcesNavController, packagesNavController, updatesNavController, settingsNavController];
+    self.controllers = @[homeNavController, sourcesNavController, packagesNavController, updatesNavController, queueNavController, settingsNavController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

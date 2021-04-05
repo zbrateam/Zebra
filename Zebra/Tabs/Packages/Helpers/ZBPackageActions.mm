@@ -25,6 +25,7 @@
 
 #import <Managers/ZBPackageManager.h>
 #import <Model/PLPackage+Zebra.h>
+#import <Plains/PLQueue.h>
 
 @implementation ZBPackageActions
 
@@ -67,129 +68,129 @@
 }
 
 + (void)performAction:(ZBPackageActionType)action forPackages:(NSArray <ZBPackage *> *)packages completion:(void (^)(void))completion {
-    dispatch_group_t group = dispatch_group_create();
-    
-    for (ZBPackage *package in packages) {
-        dispatch_group_enter(group);
-        [self performAction:action forPackage:package completion:^{
-            dispatch_group_leave(group);
-        }];
-    }
-    
-    dispatch_group_notify(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
-        if (completion) completion();
-    });
+//    dispatch_group_t group = dispatch_group_create();
+//
+//    for (ZBPackage *package in packages) {
+//        dispatch_group_enter(group);
+//        [self performAction:action forPackage:package completion:^{
+//            dispatch_group_leave(group);
+//        }];
+//    }
+//
+//    dispatch_group_notify(group,dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^ {
+//        if (completion) completion();
+//    });
 }
 
-+ (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package completion:(void (^)(void))completion {
++ (void)performAction:(ZBPackageActionType)action forPackage:(PLPackage *)package completion:(void (^)(void))completion {
     [self performAction:action forPackage:package checkPayment:YES completion:completion];
 }
 
-+ (void)performAction:(ZBPackageActionType)action forPackage:(ZBPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
++ (void)performAction:(ZBPackageActionType)action forPackage:(PLPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
     if (action < ZBPackageActionInstall || action > ZBPackageActionSelectVersion) return;
     
-    if (checkPayment && action != ZBPackageActionRemove && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
-        [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
-            if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
-                [self performAction:action forPackage:package checkPayment:NO completion:completion];
-            }
-            else if (!info.available) { // Package isn't available.
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package not available", @"") message:NSLocalizedString(@"This package is no longer for sale and cannot be downloaded.", @"") preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                [alert addAction:ok];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [alert show];
-                });
-            }
-            else if (!info.purchased) { // Package isn't purchased, purchase it.
-                [package purchase:^(BOOL success, NSError * _Nullable error) {
-                    if (success && !error) {
-                        [self performAction:action forPackage:package completion:completion];
-                    }
-                    else if (error) {
-                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                        [alert addAction:ok];
-                        
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [alert show];
-                        });
-                    }
-                    else if (!info.purchased) { // Package isn't purchased, purchase it.
-                        [package purchase:^(BOOL success, NSError * _Nullable error) {
-                            if (success && !error) {
-                                [self performAction:action forPackage:package checkPayment:NO completion:completion];
-                            }
-                            else if (error) {
-                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-                                
-                                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                                [alert addAction:ok];
-                                
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [alert show];
-                                });
-                            }
-                        }];
-                    }
-                    else { // Fall-through, this will not check for payment info again.
-                        [self performAction:action forPackage:package checkPayment:NO completion:completion];
-                    }
-                }];
-            }
-            else { // Fall-through, this will not check for payment info again.
-                [self performAction:action forPackage:package checkPayment:NO completion:completion];
-            }
-        }];
-        return;
-    }
+//    if (checkPayment && action != ZBPackageActionRemove && [package mightRequirePayment]) { // No need to check for authentication on show/hide updates
+//        [package purchaseInfo:^(ZBPurchaseInfo * _Nonnull info) {
+//            if (info && info.purchased && info.available) { // Either the package does not require authorization OR the package is purchased and available.
+//                [self performAction:action forPackage:package checkPayment:NO completion:completion];
+//            }
+//            else if (!info.available) { // Package isn't available.
+//                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Package not available", @"") message:NSLocalizedString(@"This package is no longer for sale and cannot be downloaded.", @"") preferredStyle:UIAlertControllerStyleAlert];
+//
+//                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+//                [alert addAction:ok];
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [alert show];
+//                });
+//            }
+//            else if (!info.purchased) { // Package isn't purchased, purchase it.
+//                [package purchase:^(BOOL success, NSError * _Nullable error) {
+//                    if (success && !error) {
+//                        [self performAction:action forPackage:package completion:completion];
+//                    }
+//                    else if (error) {
+//                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+//
+//                        UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+//                        [alert addAction:ok];
+//
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            [alert show];
+//                        });
+//                    }
+//                    else if (!info.purchased) { // Package isn't purchased, purchase it.
+//                        [package purchase:^(BOOL success, NSError * _Nullable error) {
+//                            if (success && !error) {
+//                                [self performAction:action forPackage:package checkPayment:NO completion:completion];
+//                            }
+//                            else if (error) {
+//                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Unable to complete purchase", @"") message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+//
+//                                UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
+//                                [alert addAction:ok];
+//
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    [alert show];
+//                                });
+//                            }
+//                        }];
+//                    }
+//                    else { // Fall-through, this will not check for payment info again.
+//                        [self performAction:action forPackage:package checkPayment:NO completion:completion];
+//                    }
+//                }];
+//            }
+//            else { // Fall-through, this will not check for payment info again.
+//                [self performAction:action forPackage:package checkPayment:NO completion:completion];
+//            }
+//        }];
+//        return;
+//    }
     
     switch (action) {
-        case ZBPackageActionInstall:
-            [self install:package completion:completion];
-            break;
+//        case ZBPackageActionInstall:
+//            [self install:package completion:completion];
+//            break;
         case ZBPackageActionRemove:
             [self remove:package completion:completion];
             break;
-        case ZBPackageActionReinstall:
-            [self reinstall:package completion:completion];
-            break;
-        case ZBPackageActionUpgrade:
-            [self upgrade:package completion:completion];
-            break;
-        case ZBPackageActionDowngrade:
-            [self downgrade:package completion:completion];
-            break;
-        case ZBPackageActionSelectVersion:
-            [self choose:package completion:completion];
-            break;
+//        case ZBPackageActionReinstall:
+//            [self reinstall:package completion:completion];
+//            break;
+//        case ZBPackageActionUpgrade:
+//            [self upgrade:package completion:completion];
+//            break;
+//        case ZBPackageActionDowngrade:
+//            [self downgrade:package completion:completion];
+//            break;
+//        case ZBPackageActionSelectVersion:
+//            [self choose:package completion:completion];
+//            break;
     }
 }
 
 + (void)install:(ZBPackage *)package completion:(void (^)(void))completion {
-    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeInstall];
-    if (completion) completion();
+//    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeInstall];
+//    if (completion) completion();
 }
 
-+ (void)remove:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
-    if (candidate) {
-        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeRemove];
++ (void)remove:(PLPackage *)package completion:(void (^)(void))completion {
+//    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+//    if (candidate) {
+        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueRemove];
         if (completion) completion();
-    }
+//    }
 }
 
 + (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSString *installedVersion = [[ZBPackageManager sharedInstance] installedVersionOfPackage:package];
-    ZBPackage *candidate = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:installedVersion];
-    if (candidate) {
-        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
-        if (completion) completion();
-    }
+//    NSString *installedVersion = [[ZBPackageManager sharedInstance] installedVersionOfPackage:package];
+//    ZBPackage *candidate = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:installedVersion];
+//    if (candidate) {
+//        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
+//        if (completion) completion();
+//    }
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
@@ -215,7 +216,7 @@
                 for (ZBPackage *otherPackage in otherPackages) {
                     UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                         otherPackage.requiresAuthorization = package.requiresAuthorization;
-                        [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+//                        [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
 
                         if (completion) completion();
                     }];
@@ -230,7 +231,7 @@
             action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
                 otherPackage.requiresAuthorization = package.requiresAuthorization;
-                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+//                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
 
                 if (completion) completion();
             }];
@@ -266,7 +267,7 @@
                     for (ZBPackage *otherPackage in otherPackages) {
                         UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             otherPackage.requiresAuthorization = package.requiresAuthorization;
-                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+//                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
 
                             if (completion) completion();
                         }];
@@ -281,7 +282,7 @@
                 action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
                     otherPackage.requiresAuthorization = package.requiresAuthorization;
-                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+//                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
 
                     if (completion) completion();
                 }];
@@ -297,11 +298,11 @@
     }
     else if (greaterVersions.count == 1) {
         ZBPackage *upgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:greaterVersions.firstObject];
-        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+//        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
         
         if (completion) completion();
     } else {
-        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeUpgrade];
+//        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeUpgrade];
         
         if (completion) completion();
     }
@@ -327,7 +328,7 @@
                     for (ZBPackage *otherPackage in otherPackages) {
                         UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             otherPackage.requiresAuthorization = package.requiresAuthorization;
-                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+//                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
 
                             if (completion) completion();
                         }];
@@ -342,7 +343,7 @@
                 action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
                     otherPackage.requiresAuthorization = package.requiresAuthorization;
-                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+//                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
 
                     if (completion) completion();
                 }];
@@ -358,11 +359,11 @@
     }
     else if (lesserVersions.count == 1) {
         ZBPackage *downgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:lesserVersions.firstObject];
-        [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
+//        [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
         
         if (completion) completion();
     } else {
-        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeDowngrade];
+//        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeDowngrade];
         
         if (completion) completion();
     }
@@ -480,9 +481,9 @@
 //                [[ZBAppDelegate tabBarController] openQueue:YES];
 //            }
 //            else {
-//                [self performAction:actions forPackage:package completion:^{
-//                    if (completion) completion();
-//                }];
+                [self performAction:actions forPackage:package completion:^{
+                    if (completion) completion();
+                }];
 //            }
         };
     }
@@ -498,7 +499,7 @@
         NSString *title = [self titleForAction:action useIcon:YES];
         UIContextualActionStyle style = action == ZBPackageActionRemove ? UIContextualActionStyleDestructive : UIContextualActionStyleNormal;
         UIContextualAction *swipeAction = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-            [self performAction:action forPackage:package completion:nil];
+//            [self performAction:action forPackage:package completion:nil];
             completionHandler(YES);
         }];
 
@@ -525,7 +526,7 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
-//            [self performAction:action forPackage:package completion:nil];
+            [self performAction:action forPackage:package completion:nil];
             if (completion) completion();
         }];
         [alertActions addObject:alertAction];
@@ -565,13 +566,13 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
         UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
-            [self performAction:action forPackage:package completion:^{
-                if (tableView) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-                    });
-                }
-            }];
+//            [self performAction:action forPackage:package completion:^{
+//                if (tableView) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+//                    });
+//                }
+//            }];
         }];
         
         [previewActions addObject:previewAction];
@@ -594,13 +595,13 @@
         }
         
         UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
-            [self performAction:action forPackage:package completion:^{
-                if (tableView) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-                    });
-                }
-            }];
+//            [self performAction:action forPackage:package completion:^{
+//                if (tableView) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+//                    });
+//                }
+//            }];
         }];
         [uiActions addObject:uiAction];
     }
