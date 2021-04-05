@@ -6,7 +6,7 @@
 //  Copyright © 2018 Wilson Styres. All rights reserved.
 //
 
-#define DATABASE_VERSION 2
+#define DATABASE_VERSION 3
 #define PACKAGES_TABLE_NAME "packages"
 #define SOURCES_TABLE_NAME "sources"
 #define BASE_PACKAGE_COLUMNS "p.authorName, p.description, p.downloadSize, p.iconURL, p.identifier, p.installedSize, p.lastSeen, p.name, p.role, p.section, p.source, p.tag, p.uuid, p.version"
@@ -251,8 +251,8 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 [self initializeSourcesTable];
                 break;
             }
-            default: {
-                // Had some database corruption in DBv1, so we're forcing a migration to version latest in order to get rid of all corrupted packages
+            case 2: {
+                // Had some database corruption in DBv1, so we're forcing a migration to version 2 in order to get rid of all corrupted packages
                 
                 // Drop old packages and sources tables. We can easily recover the data with a source refresh.
                 sqlite3_exec(self->database, "DROP TABLE packages;", nil, nil, nil);
@@ -261,6 +261,17 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 // Create new tables
                 [self initializePackagesTable];
                 [self initializeSourcesTable];
+                break
+            }
+            default: {
+                // add column for sileo depiction url to packages table
+
+                int result = SQLITE_ERROR;
+                result = sqlite3_exec(self->database, "ALTER TABLE " PACKAGES_TABLE_NAME " ADD COLUMN sileoDepictionURL TEXT;", nil, nil, nil);
+
+                if (result != SQLITE_OK) {
+                    ZBLog(@"[Zebra] Failed to add sileoDepictionURL column to packages table with error %d (%s, %d)", result, sqlite3_errmsg(database), sqlite3_extended_errcode(database));
+                }
             }
         }
         
