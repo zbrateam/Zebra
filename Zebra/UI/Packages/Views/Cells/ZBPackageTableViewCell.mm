@@ -8,12 +8,12 @@
 
 #import "ZBPackageTableViewCell.h"
 
-#import <Plains/Plains.h>
+#import <Model/PLPackage+Zebra.h>
+#import <Plains/PLSource.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Queue/ZBQueue.h>
-#import <SDWebImage/SDWebImage.h>
 
 @interface ZBPackageTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
@@ -71,13 +71,7 @@
     self.isFavoritedImageView.hidden = YES;
     self.isPaidImageView.hidden = !package.paid;
     
-    UIImage *sectionImage = [PLSource imageForSection:package.section];
-    if (package.iconURL) {
-        [self.iconImageView sd_setImageWithURL:package.iconURL placeholderImage:sectionImage];
-    }
-    else {
-        [self.iconImageView setImage:sectionImage];
-    }
+    [package setPackageIconForImageView:self.iconImageView];
 }
 
 - (void)updateQueueStatus:(ZBPackage *)package {

@@ -22,7 +22,7 @@
 #import "ZBPackageDepictionViewController.h"
 #import "UIViewController+Extensions.h"
 
-#import <Plains/PLPackage.h>
+#import <Model/PLPackage+Zebra.h>
 
 #import <SDWebImage/SDWebImage.h>
 
@@ -159,7 +159,7 @@
     } else {
         self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
     }
-//    [self.package setIconImageForImageView:self.iconImageView];
+    [self.package setPackageIconForImageView:self.iconImageView];
 //    self.packageInformation = [self.package information];
     
 //    if (self.package.headerURL) {
@@ -262,7 +262,7 @@
     imageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     imageView.layer.masksToBounds = YES;
     imageView.alpha = 0.0;
-//    [self.package setIconImageForImageView:imageView];
+    [self.package setPackageIconForImageView:imageView];
     [container addSubview:imageView];
     self.navigationItem.titleView = container;
     
