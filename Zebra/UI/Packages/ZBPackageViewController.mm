@@ -123,7 +123,7 @@
     [self configureNavigationItems];
     
     // Tagline label tapping
-    if (self.package.hasTagline) { // Only enable the tap recognizer if there is a tagline
+    if (self.package.hasTagline && (self.package.authorName || self.package.maintainerName)) { // Only enable the tap recognizer if there is a tagline
         UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
         self.tagLineLabel.userInteractionEnabled = YES;
         [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
@@ -195,7 +195,7 @@
 
 - (void)showAuthorName {
     [UIView transitionWithView:self.tagLineLabel duration:0.25f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-        self.tagLineLabel.text = self.package.authorName;
+        self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
     } completion:nil];
 }
 
