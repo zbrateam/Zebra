@@ -296,6 +296,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                                           "conflicts TEXT, "
                                           "depends TEXT, "
                                           "depictionURL TEXT, "
+                                          "sileoDepictionURL TEXT, "
                                           "essential BOOLEAN, "
                                           "filename TEXT, "
                                           "header TEXT, "
@@ -406,7 +407,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
         case ZBDatabaseStatementTypeRemovePackageWithUUID:
             return @"DELETE FROM " PACKAGES_TABLE_NAME " WHERE uuid = ?";
         case ZBDatabaseStatementTypeInsertPackage:
-            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, downloadSize, iconURL, identifier, installedSize, lastSeen, name, role, section, source, tag, uuid, version, authorEmail, conflicts, depends, depictionURL, essential, filename, header, homepageURL, maintainerEmail, maintainerName, priority, provides, replaces, sha256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            return @"INSERT INTO " PACKAGES_TABLE_NAME "(authorName, description, downloadSize, iconURL, identifier, installedSize, lastSeen, name, role, section, source, tag, uuid, version, authorEmail, conflicts, depends, depictionURL, sileoDepictionURL, essential, filename, header, homepageURL, maintainerEmail, maintainerName, priority, provides, replaces, sha256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         case ZBDatabaseStatementTypeSources:
             return @"SELECT * FROM " SOURCES_TABLE_NAME ";";
         case ZBDatabaseStatementTypeSourceWithUUID:
@@ -1300,6 +1301,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
     sqlite3_bind_text(statement, ZBPackageColumnConflicts + 1, strlwr(package[ZBPackageColumnConflicts]), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnDepends + 1, strlwr(package[ZBPackageColumnDepends]), -1, SQLITE_TRANSIENT);
     sqlite3_bind_text(statement, ZBPackageColumnDepictionURL + 1, package[ZBPackageColumnDepictionURL], -1, SQLITE_TRANSIENT);
+    sqlite3_bind_text(statement, ZBPackageColumnSileoDepictionURL + 1, package[ZBPackageColumnSileoDepictionURL], -1, SQLITE_TRANSIENT);
     sqlite3_bind_int(statement, ZBPackageColumnDownloadSize + 1, atoi(package[ZBPackageColumnDownloadSize]));
     //    package.essential = packageDictionary[@"Essential"];
     sqlite3_bind_text(statement, ZBPackageColumnFilename + 1, package[ZBPackageColumnFilename], -1, SQLITE_TRANSIENT);

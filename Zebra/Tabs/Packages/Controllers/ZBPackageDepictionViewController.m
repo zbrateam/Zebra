@@ -54,7 +54,7 @@
     
     if (self) {
         self.package = package;
-        self->shouldBeNative = self.package.preferNative || self.package.depictionURL == nil;
+        self->shouldBeNative = self.package.preferNative || (self.package.depictionURL == nil && self.package.sileoDepictionURL == nil);
     }
     
     return self;
@@ -136,9 +136,17 @@
 #pragma mark - Helper Methods
 
 - (void)loadWebDepiction {
-    if (self.package.depictionURL == nil) return;
+    NSURL *depictionURL;
+    if (self.package.depictionURL != nil) {
+        depictionURL = self.package.depictionURL;
+    } else if (self.package.sileoDepictionURL != nil) {
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", @"https://api.parcility.co/render/headerless/?url=", self.package.sileoDepictionURL.absoluteString];
+        depictionURL = [NSURL URLWithString:urlString];
+    } else {
+        return;
+    }
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:depictionURL];
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
     self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
@@ -156,9 +164,32 @@
 
 #pragma mark - WKNavigationDelegate
 
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
+    if ([navigationResponse.response isKindOfClass:[NSHTTPURLResponse class]]) {
+        NSHTTPURLResponse * response = (NSHTTPURLResponse *)navigationResponse.response;
+        if (response.statusCode >= 400) {
+            decisionHandler(WKNavigationResponsePolicyCancel);
+
+            self->shouldBeNative = YES;
+            self.webViewContainerStackView.hidden = YES;
+            [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
+            [self setData];
+            return;
+        }
+    }
+    decisionHandler(WKNavigationResponsePolicyAllow);
+}
+
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    self.webView.hidden = NO;
-    self.loadingContainerStackView.hidden = YES;
+    if ([webView.URL.absoluteString hasPrefix:@"https://api.parcility.co/render/headerless"] && [webView.title isEqualToString:@"Error 500"]) {
+        self->shouldBeNative = YES;
+        self.webViewContainerStackView.hidden = YES;
+        [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
+        [self setData];
+    } else {
+        self.webView.hidden = NO;
+        self.loadingContainerStackView.hidden = YES;
+    }
 }
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {

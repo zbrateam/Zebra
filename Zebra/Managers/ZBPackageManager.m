@@ -229,6 +229,8 @@
         return ZBPackageColumnDepends;
     } else if (strcmp(string, "Depiction") == 0) {
         return ZBPackageColumnDepictionURL;
+    } else if (strcmp(string, "SileoDepiction") == 0 || strcmp(string, "Sileodepiction") == 0) {
+        return ZBPackageColumnSileoDepictionURL;
     } else if (strcmp(string, "Size") == 0) {
         return ZBPackageColumnDownloadSize;
     } else if (strcmp(string, "Essential") == 0) {

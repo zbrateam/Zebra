@@ -37,6 +37,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageColumn) {
     ZBPackageColumnConflicts,
     ZBPackageColumnDepends,
     ZBPackageColumnDepictionURL,
+    ZBPackageColumnSileoDepictionURL,
     ZBPackageColumnEssential,
     ZBPackageColumnFilename,
     ZBPackageColumnHeader,

@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *_Nullable debPath;
 @property (readonly) NSArray *_Nullable depends;
 @property (readonly) NSURL *_Nullable depictionURL;
+@property (readonly) NSURL *_Nullable sileoDepictionURL;
 @property (readonly) BOOL essential;
 @property (readonly) NSString *_Nullable filename;
 @property (readonly) NSString * _Nullable highestCompatibleVersion;

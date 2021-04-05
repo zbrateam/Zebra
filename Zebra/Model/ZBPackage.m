@@ -176,6 +176,12 @@
             _depictionURL = [NSURL URLWithString:depictionURLString];
         }
         
+        const char *sileoDepictionURL = (const char *)sqlite3_column_text(statement, ZBPackageColumnSileoDepictionURL);
+        if (sileoDepictionURL && sileoDepictionURL[0] != '\0') {
+            NSString *sileoDepictionURLString = [NSString stringWithUTF8String:sileoDepictionURL];
+            _sileoDepictionURL = [NSURL URLWithString:sileoDepictionURLString];
+        }
+
         _essential = sqlite3_column_int(statement, ZBPackageColumnEssential);
         
         const char *filename = (const char *)sqlite3_column_text(statement, ZBPackageColumnFilename);
@@ -837,8 +843,13 @@ NSComparisonResult (^versionComparator)(NSString *, NSString *) = ^NSComparisonR
     }
     
     NSURL *depiction = [self depictionURL];
+    NSURL *sileoDepiction = [self sileoDepictionURL];
     if (depiction) {
         NSDictionary *depictionInfo = @{@"name": NSLocalizedString(@"View Depiction in Safari", @""), @"cellType": @"link", @"link": depiction, @"image": @"Web Link"};
+        [information addObject:depictionInfo];
+    } else if (sileoDepiction) {
+        NSString *urlString = [NSString stringWithFormat:@"%@%@", @"https://api.parcility.co/render/headerless/?url=", sileoDepiction];
+        NSDictionary *depictionInfo = @{@"name": NSLocalizedString(@"View Depiction in Safari", @""), @"cellType": @"link", @"link": [NSURL URLWithString:urlString], @"image": @"Web Link"};
         [information addObject:depictionInfo];
     }
     
