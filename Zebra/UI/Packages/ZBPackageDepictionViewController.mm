@@ -124,12 +124,7 @@
 //
 //        NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
 //        [self.descriptionLabel setAttributedText:descriptionAttributedString];
-        NSString *longDescription = self.package.longDescription;
-        if (longDescription.length > self.package.shortDescription.length) { // Long description must contain more information than the short description
-            self.descriptionLabel.text = [[longDescription stringByReplacingOccurrencesOfString:@"\n " withString:@"\n"] substringFromIndex:self.package.shortDescription.length + 1];
-        } else {
-            self.descriptionLabel.text = longDescription;
-        }
+        self.descriptionLabel.text = self.package.longDescription;
 
         for (UIView *lineSeperatorView in self.lineSeperatorViews) {
             lineSeperatorView.backgroundColor = [UIColor cellSeparatorColor];

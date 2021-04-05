@@ -123,11 +123,11 @@
     [self configureNavigationItems];
     
     // Tagline label tapping
-//    if (self.package.tagline) { // Only enable the tap recognizer if there is a tagline
-//        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
-//        self.tagLineLabel.userInteractionEnabled = YES;
-//        [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
-//    }
+    if (self.package.hasTagline) { // Only enable the tap recognizer if there is a tagline
+        UITapGestureRecognizer *gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showAuthorName)];
+        self.tagLineLabel.userInteractionEnabled = YES;
+        [self.tagLineLabel addGestureRecognizer:gestureRecognizer];
+    }
     
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
@@ -154,7 +154,7 @@
 - (void)setData {
     self.nameLabel.text = self.package.name;
     
-    if (![self.package.longDescription isEqualToString:self.package.shortDescription]) {
+    if (self.package.hasTagline) {
         self.tagLineLabel.text = self.package.shortDescription;
     } else {
         self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
