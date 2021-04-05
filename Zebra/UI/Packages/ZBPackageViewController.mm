@@ -218,13 +218,13 @@
 }
 
 - (IBAction)getButtonPressed:(id)sender {
-//    if ([self isModal]) {
-//        [ZBPackageActions buttonActionForPackage:self.package completion:^{
-//            [self dismissViewControllerAnimated:YES completion:nil];
-//        }]();
-//    } else {
-//        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
-//    }
+    if ([self isModal]) {
+        [ZBPackageActions buttonActionForPackage:self.package completion:^{
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }]();
+    } else {
+        [ZBPackageActions buttonActionForPackage:self.package completion:nil]();
+    }
 }
 
 - (IBAction)moreButtonPressed:(id)sender {

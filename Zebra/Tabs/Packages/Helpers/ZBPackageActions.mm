@@ -459,9 +459,9 @@
     });
 }
 
-+ (void (^)(void))buttonActionForPackage:(ZBPackage *)package completion:(nullable void(^)(void))completion {
-    NSArray <NSNumber *> *actions = [package possibleActions];
-    if ([actions count] > 1) {
++ (void (^)(void))buttonActionForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion {
+    ZBPackageActionType actions = package.possibleActions;
+    if ((actions & (actions - 1)) != 0) {
         return ^{
             UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:[self alertControllerStyle]];
 
@@ -475,15 +475,14 @@
     else {
         return ^{
             // If the user has pressed the bar button twice (i.e. the same package is already in the Queue, present it
-            ZBPackageActionType action = actions[0].intValue;
-            if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:action]]) {
-                [[ZBAppDelegate tabBarController] openQueue:YES];
-            }
-            else {
-                [self performAction:action forPackage:package completion:^{
-                    if (completion) completion();
-                }];
-            }
+//            if ([[ZBQueue sharedQueue] contains:package inQueue:[self actionToQueue:actions]]) {
+//                [[ZBAppDelegate tabBarController] openQueue:YES];
+//            }
+//            else {
+//                [self performAction:actions forPackage:package completion:^{
+//                    if (completion) completion();
+//                }];
+//            }
         };
     }
 }
@@ -516,17 +515,16 @@
     return [UISwipeActionsConfiguration configurationWithActions:swipeActions];
 }
 
-+ (NSArray <UIAlertAction *> *)alertActionsForPackage:(ZBPackage *)package completion:(nullable void(^)(void))completion {
++ (NSArray <UIAlertAction *> *)alertActionsForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion {
     NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
     
-    NSArray *actions = [package possibleActions];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
+    ZBPackageActionType actions = package.possibleActions;
+    for (ZBPackageActionType action = 1; action <= ZBPackageActionSelectVersion; action = action << 1) {
+        if ((actions & action) == 0) continue;
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
-            [self performAction:action forPackage:package completion:nil];
+//            [self performAction:action forPackage:package completion:nil];
             if (completion) completion();
         }];
         [alertActions addObject:alertAction];
