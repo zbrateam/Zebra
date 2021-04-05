@@ -6,11 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBQueueViewController : ZBTableViewController
+@interface ZBQueueViewController : UITableViewController
 - (id)init;
 @end
 

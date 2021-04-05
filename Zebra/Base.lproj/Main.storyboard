@@ -475,71 +475,6 @@
             </objects>
             <point key="canvasLocation" x="6164" y="-3005"/>
         </scene>
-        <!--Queue-->
-        <scene sceneID="WI4-4c-3EM">
-            <objects>
-                <tableViewController storyboardIdentifier="queueController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Utk-Km-MBH" customClass="ZBQueueViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bJy-9H-FBb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="QueuePackageTableViewCell" textLabel="Veu-eR-jvK" detailTextLabel="Qre-6t-1Jn" style="IBUITableViewCellStyleSubtitle" id="Zip-d4-w6n">
-                                <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Zip-d4-w6n" id="tA3-be-ms8">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Veu-eR-jvK">
-                                            <rect key="frame" x="20" y="10" width="33" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qre-6t-1Jn">
-                                            <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Utk-Km-MBH" id="2FN-T4-M0P"/>
-                            <outlet property="delegate" destination="Utk-Km-MBH" id="Ltl-xT-4cm"/>
-                        </connections>
-                    </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <navigationItem key="navigationItem" title="Queue" id="uSZ-TC-nHR">
-                        <leftBarButtonItems>
-                            <barButtonItem image="Chevron Down" id="al0-qb-ba3">
-                                <connections>
-                                    <action selector="dismissQueue:" destination="Utk-Km-MBH" id="5ty-3Y-xq6"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Clear" id="1ny-vH-ulE">
-                                <connections>
-                                    <action selector="clearQueue:" destination="Utk-Km-MBH" id="pgn-3p-LDZ"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="Confirm" style="done" id="vfP-8Y-pVN">
-                            <connections>
-                                <action selector="confirm:" destination="Utk-Km-MBH" id="D4f-Yh-0xC"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8z6-pw-5WD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="8009" y="-287"/>
-        </scene>
         <!--Console View Controller-->
         <scene sceneID="A6v-hn-Vlw">
             <objects>
@@ -652,7 +587,6 @@
         <segue reference="63g-98-fnw"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Chevron Down" width="27.5" height="17"/>
         <image name="Installed" width="14" height="14"/>
         <image name="Paid" width="14" height="14"/>
         <image name="Unknown" width="29" height="29"/>
