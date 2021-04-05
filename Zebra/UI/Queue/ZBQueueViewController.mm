@@ -9,6 +9,7 @@
 #import "ZBQueueViewController.h"
 
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
+#import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 
 #import <Plains/PLPackage.h>
 #import <Plains/PLQueue.h>
@@ -29,6 +30,10 @@
         self.title = @"Queue";
         
         [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
+        [self.tableView registerNib:[UINib nibWithNibName:@"ZBBoldTableViewHeaderView" bundle:nil] forHeaderFooterViewReuseIdentifier:@"BoldTableViewHeaderView"];
+
+        [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
+        [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     }
     
     return self;
@@ -70,17 +75,46 @@
 
 #pragma mark - Table View Delegate
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+//    if (packages[section].count == 0) return NULL;
+//
+//    switch (section) {
+//        case PLQueueInstall:
+//            return @"Install";
+//        case PLQueueRemove:
+//            return @"Remove";
+//        default:
+//            return NULL;
+//    }
+//}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     if (packages[section].count == 0) return NULL;
     
+    ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+    NSString *title;
     switch (section) {
         case PLQueueInstall:
-            return @"Install";
+            title = @"Install";
+            break;
         case PLQueueRemove:
-            return @"Remove";
+            title = @"Remove";
+            break;
         default:
-            return NULL;
+            title = @"Unknown";
+            break;
     }
+    cell.titleLabel.text = title;
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    if (packages[section].count == 0) return 0;
+    return 45;
 }
 
 @end
