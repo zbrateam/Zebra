@@ -261,7 +261,7 @@ typedef NS_ENUM(NSUInteger, ZBDatabaseStatementType) {
                 // Create new tables
                 [self initializePackagesTable];
                 [self initializeSourcesTable];
-                break
+                break;
             }
             default: {
                 // add column for sileo depiction url to packages table
