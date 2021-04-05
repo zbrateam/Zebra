@@ -14,12 +14,12 @@
 #import <Extensions/UIBarButtonItem+blocks.h>
 
 typedef NS_OPTIONS(NSUInteger, ZBPackageActionType) {
-    ZBPackageActionInstall = 1 << 0,
-    ZBPackageActionUpgrade = 1 << 1,
-    ZBPackageActionRemove = 1 << 2,
-    ZBPackageActionReinstall = 1 << 3,
-    ZBPackageActionDowngrade = 1 << 4,
-    ZBPackageActionSelectVersion = 1 << 5,
+    ZBPackageActionInstall = 1 << 1,
+    ZBPackageActionUpgrade = 1 << 2,
+    ZBPackageActionRemove = 1 << 3,
+    ZBPackageActionReinstall = 1 << 4,
+    ZBPackageActionDowngrade = 1 << 5,
+    ZBPackageActionSelectVersion = 1 << 6,
 };
 
 typedef enum : NSUInteger {

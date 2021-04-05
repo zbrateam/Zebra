@@ -20,7 +20,25 @@
 }
 
 - (ZBPackageActionType)possibleActions {
-    return ZBPackageActionInstall;
+    ZBPackageActionType action = 0;
+    
+    BOOL installed = self.installed;
+    if (self.source) {
+        if (self.hasUpdate) {
+            action |= ZBPackageActionUpgrade;
+        }
+        if (installed) {
+            action |= ZBPackageActionReinstall;
+        } else {
+            action |= ZBPackageActionInstall;
+        }
+    }
+    
+    if (installed) {
+        action |= ZBPackageActionRemove;
+    }
+    
+    return action;
 }
 
 - (void)setPackageIconForImageView:(UIImageView *)imageView {
