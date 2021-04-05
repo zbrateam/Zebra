@@ -116,7 +116,42 @@
 
 - (NSArray *)utilitySources {
     NSMutableArray *result = [NSMutableArray new];
-    if ([ZBDevice isOdyssey]) {
+    if ([ZBDevice isCheckrain]) {
+        if ([ZBDevice hasProcursus]) {
+            NSDictionary *dict = @{@"type": @"utility",
+                                   @"name": @"Procursus",
+                                   @"url" : @"https://apt.procurs.us/",
+                                   @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
+            [result addObject:dict];
+        } else {
+            NSDictionary *dict = @{@"type": @"utility",
+                                   @"name": @"Bingner/Elucubratus",
+                                   @"url" : @"https://apt.bingner.com/",
+                                   @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
+            [result addObject:dict];
+        }
+    }
+    else if ([ZBDevice isTaurine]) {
+        NSDictionary *dict = @{@"type": @"utility",
+                               @"name": @"Procursus",
+                               @"url" : @"https://apt.procurs.us/",
+                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
+        [result addObject:dict];
+        
+        NSDictionary *dict2 = @{@"type": @"utility",
+                               @"name": @"Odyssey Repo",
+                               @"url" : @"https://repo.theodyssey.dev/",
+                               @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"};
+        [result addObject:dict2];
+    }
+    else if ([ZBDevice isUncover]) { // unc0ver or checkra1n
+        NSDictionary *dict = @{@"type": @"utility",
+                               @"name": @"Bingner/Elucubratus",
+                               @"url" : @"https://apt.bingner.com/",
+                               @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
+        [result addObject:dict];
+    }
+    else if ([ZBDevice isOdyssey]) {
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Procursus",
                                @"url" : @"https://apt.procurs.us/",
@@ -136,18 +171,18 @@
                                @"icon": @"https://repo.chimera.sh/CydiaIcon.png"};
         [result addObject:dict];
     }
-    else if ([ZBDevice isUncover] || [ZBDevice isCheckrain]) { // unc0ver or checkra1n
-        NSDictionary *dict = @{@"type": @"utility",
-                               @"name": @"Bingner/Elucubratus",
-                               @"url" : @"https://apt.bingner.com/",
-                               @"icon": @"https://apt.bingner.com/CydiaIcon.png"};
-        [result addObject:dict];
-    }
     else if ([ZBDevice isElectra]) { // electra
         NSDictionary *dict = @{@"type": @"utility",
                                @"name": @"Electra's iOS Utilities",
                                @"url" : @"https://electrarepo64.coolstar.org/",
                                @"icon": @"https://electrarepo64.coolstar.org/CydiaIcon.png"};
+        [result addObject:dict];
+    }
+    else if ([ZBDevice hasProcursus]) { // Unknown JB but it has procursus
+        NSDictionary *dict = @{@"type": @"utility",
+                               @"name": @"Procursus",
+                               @"url" : @"https://apt.procurs.us/",
+                               @"icon": @"https://apt.procurs.us/CydiaIcon.png"};
         [result addObject:dict];
     }
     else { // cydia

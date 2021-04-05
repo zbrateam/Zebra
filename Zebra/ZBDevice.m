@@ -323,7 +323,7 @@
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? YES : [self _isRegularFile:@"/.bootstrapped"];
+        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.bootstrapped"];
     });
     return value;
 }
@@ -359,9 +359,25 @@
     static BOOL value = NO;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if ([self _isRegularFile:@"/.procursus_strapped"]) {
-            value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_odyssey"];
-        }
+        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_odyssey"];
+    });
+    return value;
+}
+
++ (BOOL)isTaurine {
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? YES : [self _isRegularFile:@"/.installed_taurine"];
+    });
+    return value;
+}
+
++ (BOOL)hasProcursus {
+    static BOOL value = NO;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.procursus_strapped"];
     });
     return value;
 }

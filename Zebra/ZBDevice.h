@@ -41,6 +41,8 @@
 + (BOOL)isElectra;
 + (BOOL)isUncover;
 + (BOOL)isOdyssey;
++ (BOOL)isTaurine;
++ (BOOL)hasProcursus;
 
 + (BOOL)useIcon;
 
