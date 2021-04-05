@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PLPackage (Zebra)
 - (void)setPackageIconForImageView:(UIImageView *)imageView;
+- (NSArray *)information;
 @end
 
 NS_ASSUME_NONNULL_END

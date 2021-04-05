@@ -160,7 +160,7 @@
         self.tagLineLabel.text = self.package.authorName ?: self.package.maintainerName;
     }
     [self.package setPackageIconForImageView:self.iconImageView];
-//    self.packageInformation = [self.package information];
+    self.packageInformation = [self.package information];
     
 //    if (self.package.headerURL) {
 //        self.headerImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
