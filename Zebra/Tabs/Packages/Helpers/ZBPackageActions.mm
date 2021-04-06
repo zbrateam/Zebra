@@ -150,9 +150,9 @@
 //    }
     
     switch (action) {
-//        case ZBPackageActionInstall:
-//            [self install:package completion:completion];
-//            break;
+        case ZBPackageActionInstall:
+            [self install:package completion:completion];
+            break;
         case ZBPackageActionRemove:
             [self remove:package completion:completion];
             break;
@@ -171,9 +171,9 @@
     }
 }
 
-+ (void)install:(ZBPackage *)package completion:(void (^)(void))completion {
-//    [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeInstall];
-//    if (completion) completion();
++ (void)install:(PLPackage *)package completion:(void (^)(void))completion {
+    [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueInstall];
+    if (completion) completion();
 }
 
 + (void)remove:(PLPackage *)package completion:(void (^)(void))completion {
