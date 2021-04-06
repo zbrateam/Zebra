@@ -241,7 +241,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)setupTabBar {
+    ZBTabBarController *tabBar = [[ZBTabBarController alloc] init];
     
+    self.window.rootViewController = tabBar;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {

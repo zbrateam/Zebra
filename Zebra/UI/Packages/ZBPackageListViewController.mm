@@ -75,14 +75,14 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
 //}
 //
-//- (instancetype)initWithSource:(ZBSource *)source {
-//    return [self initWithSource:source section:NULL];
-//}
-//
-//- (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section {
-//    self = [self init];
-//
-//    if (self) {
+- (instancetype)initWithSource:(ZBSource *)source {
+    return [self initWithSource:source section:NULL];
+}
+
+- (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section {
+    self = [self init];
+
+    if (self) {
 //        packageManager = [ZBPackageManager sharedInstance];
 //
 //        self.source = source;
@@ -99,10 +99,10 @@
 //        }
 //
 //        self.filter = [[ZBPackageFilter alloc] initWithSource:self.source section:self.section];
-//    }
-//
-//    return self;
-//}
+    }
+
+    return self;
+}
 //
 //- (instancetype)initWithPackages:(NSArray <ZBPackage *> *)packages {
 //    self = [self init];

@@ -12,7 +12,7 @@ include $(THEOS)/makefiles/common.mk
 XCODEPROJ_NAME = Zebra
 
 Zebra_XCODEFLAGS = PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"'
-Zebra_CODESIGN_FLAGS = -SZebra/Zebra.entitlements
+Zebra_CODESIGN_FLAGS = -SZebra/iOS.entitlements
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 

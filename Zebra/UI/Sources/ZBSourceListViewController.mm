@@ -51,7 +51,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+#if TARGET_OS_MACCATALYST
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+#endif
 }
 
 - (void)loadSources {
