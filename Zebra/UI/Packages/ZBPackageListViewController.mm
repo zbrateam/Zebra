@@ -181,13 +181,22 @@
 //            [self loadPackages];
 //        }];
     } else { // Load packages for the first time, every other access is done by filter
-        if (self.source && self.section) {
-            [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
-                return package.source == self.source && package.section == self.section;
-            } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
-                self.packages = packages;
-                [self loadPackages];
-            }];
+        if (self.source) {
+            if (self.section) {
+                [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                    return package.source == self.source && package.section == self.section;
+                } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                    self.packages = packages;
+                    [self loadPackages];
+                }];
+            } else {
+                [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                    return package.source == self.source;
+                } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                    self.packages = packages;
+                    [self loadPackages];
+                }];
+            }
         } else {
             [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
                 return package.installed;

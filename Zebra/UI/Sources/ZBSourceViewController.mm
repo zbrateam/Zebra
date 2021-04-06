@@ -92,7 +92,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSString *section = sections[indexPath.row];
+    NSString *section = indexPath.row == 0 ? NULL : sections[indexPath.row];
     ZBPackageListViewController *packageList = [[ZBPackageListViewController alloc] initWithSource:self.source section:section];
     [self.navigationController pushViewController:packageList animated:YES];
 }
