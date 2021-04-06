@@ -14,6 +14,8 @@
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Queue/ZBQueueViewController.h>
 
+#import <Plains/PLQueue.h>
+
 @interface ZBSidebarController () {
     NSArray *titles;
     NSArray *icons;
@@ -25,7 +27,7 @@
 
 @implementation ZBSidebarController
 
-- (instancetype)init {
+- (instancetype)init API_AVAILABLE(ios(14.0), macCatalyst(14.0)) {
     self = [super initWithStyle:UISplitViewControllerStyleDoubleColumn];
     
     if (self) {
@@ -40,14 +42,20 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         
-        [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"sidebarCell"];
+//        [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"sidebarCell"];
         
         [sidebar.view addSubview:tableView];
         
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:PLQueueUpdateNotification object:nil];
 }
 
 - (void)viewDidLoad {
@@ -107,7 +115,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sidebarCell" forIndexPath:indexPath];
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sidebarCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"sidebarCell"];
     
     UITabBarItem *tabItem = _controllers[indexPath.row].tabBarItem;
     cell.textLabel.text = tabItem.title;
@@ -147,6 +156,17 @@
     _controllers = controllers;
     
     [tableView reloadData];
+}
+
+#pragma mark - Queue
+
+- (void)updateQueue:(NSNotification *)notification {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    NSUInteger queueCount = [notification.userInfo[@"count"] unsignedIntValue];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queueCount];
+//    cell.detailTextLabel.backgroundColor = [UIColor systemPinkColor];
+//    cell.detailTextLabel.textColor = [UIColor whiteColor];
+//    cell.detailTextLabel.inset
 }
 
 @end
