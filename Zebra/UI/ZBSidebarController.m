@@ -22,6 +22,7 @@
     UIViewController *sidebar;
     UITableView *tableView;
     NSUInteger selectedIndex;
+    NSToolbar *toolbar;
 }
 @end
 
@@ -100,6 +101,7 @@
     [self setViewController:_controllers[0] forColumn:UISplitViewControllerColumnSecondary];
     
 #if TARGET_OS_MACCATALYST
+    [self setTitle:_controllers[0].tabBarItem.title];
     [sidebar.navigationController setNavigationBarHidden:YES animated:animated];
 #endif
 }
@@ -128,24 +130,57 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self setViewController:_controllers[indexPath.row] forColumn:UISplitViewControllerColumnSecondary];
+    
+#if TARGET_OS_MACCATALYST
+    [self setTitle:_controllers[indexPath.row].tabBarItem.title];
+#endif
 }
 
 #if TARGET_OS_MACCATALYST
 
 -(NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    self->toolbar = toolbar;
+    
     NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-    [toolbarItem setTitle:@"Sidebar"];
-    [toolbarItem setImage:[UIImage systemImageNamed:@"sidebar.left"]];
+    [toolbarItem setImage:[UIImage systemImageNamed:@"chevron.left"]];
+    [toolbarItem setNavigational:YES];
+    [toolbarItem setTarget:self];
+    [toolbarItem setAction:@selector(backButton:)];
     
     return toolbarItem;
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar {
-    return @[NSToolbarToggleSidebarItemIdentifier];
+    self->toolbar = toolbar;
+    
+    return @[];
 }
 
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
-    return [self toolbarDefaultItemIdentifiers:toolbar];
+    self->toolbar = toolbar;
+    
+    return @[@"backButton"];
+}
+
+- (void)backButton:(id)sender {
+    UINavigationController *controller = self.viewControllers[1];
+    [controller popViewControllerAnimated:YES];
+}
+
+- (void)setShowBackButton:(BOOL)showBackButton {
+    if (!_showBackButton && showBackButton) {
+        [toolbar insertItemWithItemIdentifier:@"backButton" atIndex:0];
+    } else if (_showBackButton && !showBackButton) {
+        [toolbar removeItemAtIndex:0];
+    }
+    
+    _showBackButton = showBackButton;
+}
+
+- (void)setTitle:(NSString *)title {
+    [super setTitle:title];
+    
+    [[[[[UIApplication sharedApplication] delegate] window] windowScene] setTitle:title];
 }
 
 #endif

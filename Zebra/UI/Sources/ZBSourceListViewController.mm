@@ -10,6 +10,7 @@
 
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
+#import <UI/ZBSidebarController.h>
 
 #import <Plains/PLDatabase.h>
 #import <Plains/PLSource.h>
@@ -53,6 +54,10 @@
     
 #if TARGET_OS_MACCATALYST
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
+    [sidebar setShowBackButton:NO];
+    [sidebar setTitle:self.title];
 #endif
 }
 
@@ -108,6 +113,11 @@
     
     ZBSourceViewController *sourceController = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row]];
     [[self navigationController] pushViewController:sourceController animated:YES];
+    
+#if TARGET_OS_MACCATALYST
+    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
+    [sidebar setShowBackButton:YES];
+#endif
 }
 
 @end

@@ -21,6 +21,7 @@
 #import <Downloads/ZBDownloadManager.h>
 #import "ZBPackageDepictionViewController.h"
 #import "UIViewController+Extensions.h"
+#import <UI/ZBSidebarController.h>
 
 #import <Model/PLPackage+Zebra.h>
 
@@ -88,6 +89,11 @@
     [super viewWillAppear:animated];
     
     [self updateNavigationBarBackgroundOpacityForCurrentScrollOffset];
+    
+#if TARGET_OS_MACCATALYST
+    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
+    [sidebar setTitle:self.package.name];
+#endif
 }
 
 - (void)viewDidLayoutSubviews {

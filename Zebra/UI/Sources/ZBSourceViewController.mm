@@ -8,6 +8,7 @@
 
 #import "ZBSourceViewController.h"
 
+#import <UI/ZBSidebarController.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIImageView+Zebra.h>
 
@@ -43,6 +44,15 @@
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     
     [self fetchSections];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+#if TARGET_OS_MACCATALYST
+    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
+    [sidebar setTitle:self.title];
+#endif
 }
 
 - (void)fetchSections {
