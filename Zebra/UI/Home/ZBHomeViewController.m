@@ -13,6 +13,7 @@
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Tabs/Home/Settings/ZBMainSettingsTableViewController.h>
+#import <UI/Queue/ZBQueueViewController.h>
 
 @interface ZBHomeViewController ()
 @end
@@ -38,6 +39,9 @@
     
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     self.navigationItem.rightBarButtonItem = settingsButton;
+    
+    UIBarButtonItem *qButton = [[UIBarButtonItem alloc] initWithTitle:@"Q" style:UIBarButtonItemStylePlain target:self action:@selector(showQueue)];
+    self.navigationItem.leftBarButtonItem = qButton;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"homeCell"];
 }
@@ -174,6 +178,11 @@
 }
 
 #pragma mark - Settings
+
+- (void)showQueue {
+    ZBQueueViewController *queue = [[ZBQueueViewController alloc] init];
+    [self presentViewController:queue animated:YES completion:nil];
+}
 
 - (void)showSettings {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

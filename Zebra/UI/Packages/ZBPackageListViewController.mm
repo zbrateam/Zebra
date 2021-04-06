@@ -182,7 +182,7 @@
 //        }];
     } else { // Load packages for the first time, every other access is done by filter
         if (self.source) {
-            if (self.section) {
+            if (self.section && ![self.section isEqualToString:@""]) {
                 [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
                     return package.source == self.source && package.section == self.section;
                 } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
