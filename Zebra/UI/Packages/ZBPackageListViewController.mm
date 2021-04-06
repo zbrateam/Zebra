@@ -75,30 +75,22 @@
 //    [[NSNotificationCenter defaultCenter] removeObserver:self];
 //}
 //
-- (instancetype)initWithSource:(ZBSource *)source {
+- (instancetype)initWithSource:(PLSource *)source {
     return [self initWithSource:source section:NULL];
 }
 
-- (instancetype)initWithSource:(ZBSource *)source section:(NSString *_Nullable)section {
+- (instancetype)initWithSource:(PLSource *)source section:(NSString *_Nullable)section {
     self = [self init];
 
     if (self) {
-//        packageManager = [ZBPackageManager sharedInstance];
-//
-//        self.source = source;
-//        self.section = [section isEqualToString:@"ALL_PACKAGES"] ? NULL : section;
-//
-//        if (self.source.remote) {
-//            if (self.section) {
-//                self.title = NSLocalizedString(self.section, @"");
-//            } else {
-//                self.title = NSLocalizedString(@"All Packages", @"");
-//            }
-//        } else {
-//            self.title = NSLocalizedString(@"Installed", @"");
-//        }
-//
-//        self.filter = [[ZBPackageFilter alloc] initWithSource:self.source section:self.section];
+        self.source = source;
+        self.section = section;
+
+        if (self.section) {
+            self.title = NSLocalizedString(self.section, @"");
+        } else {
+            self.title = NSLocalizedString(@"All Packages", @"");
+        }
     }
 
     return self;
@@ -189,15 +181,21 @@
 //            [self loadPackages];
 //        }];
     } else { // Load packages for the first time, every other access is done by filter
-        self.packages = [[[database packages] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.installed == TRUE AND SELF.role < 4"]] sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]]];
-        [self loadPackages];
-//        [packageManager fetchPackagesFromSource:self.source inSection:self.section completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-//            self.packages = packages;
-//            if ([self.source.uuid isEqualToString:@"_var_lib_dpkg_status_"]) {
-//                self->updates = self->packageManager.updates;
-//            }
-//            [self loadPackages];
-//        }];
+        if (self.source && self.section) {
+            [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                return package.source == self.source && package.section == self.section;
+            } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                self.packages = packages;
+                [self loadPackages];
+            }];
+        } else {
+            [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                return package.installed;
+            } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                self.packages = packages;
+                [self loadPackages];
+            }];
+        }
     }
 }
 

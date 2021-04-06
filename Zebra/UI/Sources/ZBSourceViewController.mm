@@ -8,6 +8,7 @@
 
 #import "ZBSourceViewController.h"
 
+#import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIImageView+Zebra.h>
 
 #import <Plains/Plains.h>
@@ -86,6 +87,14 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *section = sections[indexPath.row];
+    ZBPackageListViewController *packageList = [[ZBPackageListViewController alloc] initWithSource:self.source section:section];
+    [self.navigationController pushViewController:packageList animated:YES];
 }
 
 @end
