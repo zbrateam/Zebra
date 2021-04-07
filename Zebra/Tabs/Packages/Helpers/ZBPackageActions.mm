@@ -156,9 +156,9 @@
         case ZBPackageActionRemove:
             [self remove:package completion:completion];
             break;
-//        case ZBPackageActionReinstall:
-//            [self reinstall:package completion:completion];
-//            break;
+        case ZBPackageActionReinstall:
+            [self reinstall:package completion:completion];
+            break;
 //        case ZBPackageActionUpgrade:
 //            [self upgrade:package completion:completion];
 //            break;
@@ -177,20 +177,13 @@
 }
 
 + (void)remove:(PLPackage *)package completion:(void (^)(void))completion {
-//    ZBPackage *candidate = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
-//    if (candidate) {
-        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueRemove];
-        if (completion) completion();
-//    }
+    [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueRemove];
+    if (completion) completion();
 }
 
-+ (void)reinstall:(ZBPackage *)package completion:(void (^)(void))completion {
-//    NSString *installedVersion = [[ZBPackageManager sharedInstance] installedVersionOfPackage:package];
-//    ZBPackage *candidate = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:installedVersion];
-//    if (candidate) {
-//        [[ZBQueue sharedQueue] addPackage:candidate toQueue:ZBQueueTypeReinstall];
-//        if (completion) completion();
-//    }
++ (void)reinstall:(PLPackage *)package completion:(void (^)(void))completion {
+    [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueReinstall];
+    if (completion) completion();
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {

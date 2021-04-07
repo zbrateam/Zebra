@@ -100,6 +100,9 @@
         case PLQueueRemove:
             title = @"Remove";
             break;
+        case PLQueueReinstall:
+            title = @"Reinstall";
+            break;
         default:
             title = @"Unknown";
             break;
