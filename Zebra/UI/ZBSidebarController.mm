@@ -81,7 +81,7 @@
     [packagesNavController.navigationBar setPrefersLargeTitles:YES];
     
     UINavigationController *updatesNavController = [[UINavigationController alloc] init];
-    [updatesNavController setViewControllers:@[[[UIViewController alloc] init]] animated:NO];
+    [updatesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithPackages:[[PLDatabase sharedInstance] updates]]] animated:NO];
     [updatesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Updates" image:[UIImage systemImageNamed:@"square.and.arrow.down"] tag:3]];
     [updatesNavController.navigationBar setPrefersLargeTitles:YES];
     

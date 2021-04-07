@@ -92,7 +92,6 @@
 		8916AC2323CAAECC008BA02C /* ZBChangelogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2223CAAECC008BA02C /* ZBChangelogTableViewController.m */; };
 		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsTableViewController.m */; };
 		891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */; };
-		891ED4B22614F6EB005B926B /* ZBSidebarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891ED4B12614F6EB005B926B /* ZBSidebarController.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */; };
 		8929D7002524D69C00FFC218 /* pin.pref in Resources */ = {isa = PBXBuildFile; fileRef = 8929D6FF2524D69C00FFC218 /* pin.pref */; };
 		892F4E2125337D7400BAB3A5 /* ZBBasePackage.m in Sources */ = {isa = PBXBuildFile; fileRef = 892F4E2025337D7400BAB3A5 /* ZBBasePackage.m */; };
@@ -119,6 +118,7 @@
 		894894032471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 894894012471CF9B00E2FF97 /* ZBChangelogTableViewCell.xib */; };
 		894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */; };
 		894C6B4C261407E000506D61 /* ZBSourcesSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 894C6B4B261407E000506D61 /* ZBSourcesSplitViewController.m */; };
+		894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 894EAB54261D5C4C00552235 /* ZBSidebarController.mm */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
@@ -372,7 +372,6 @@
 		891A92C7242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLanguageSettingsTableViewController.h; sourceTree = "<group>"; };
 		891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLanguageSettingsTableViewController.m; sourceTree = "<group>"; };
 		891ED4B02614F6EB005B926B /* ZBSidebarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSidebarController.h; sourceTree = "<group>"; };
-		891ED4B12614F6EB005B926B /* ZBSidebarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSidebarController.m; sourceTree = "<group>"; };
 		892552C3237B288000120F9B /* fa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fa; path = fa.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportViewController.h; sourceTree = "<group>"; };
 		8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportViewController.m; sourceTree = "<group>"; };
@@ -441,6 +440,7 @@
 		894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceFilterViewController.m; sourceTree = "<group>"; };
 		894C6B4A261407E000506D61 /* ZBSourcesSplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourcesSplitViewController.h; sourceTree = "<group>"; };
 		894C6B4B261407E000506D61 /* ZBSourcesSplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourcesSplitViewController.m; sourceTree = "<group>"; };
+		894EAB54261D5C4C00552235 /* ZBSidebarController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSidebarController.mm; sourceTree = "<group>"; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
 		8958DF9D23EB9B0300A7B823 /* ZBAccentColorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAccentColorTableViewController.h; sourceTree = "<group>"; };
@@ -901,7 +901,7 @@
 				89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */,
 				89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */,
 				891ED4B02614F6EB005B926B /* ZBSidebarController.h */,
-				891ED4B12614F6EB005B926B /* ZBSidebarController.m */,
+				894EAB54261D5C4C00552235 /* ZBSidebarController.mm */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1598,7 +1598,6 @@
 				894893EE2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m in Sources */,
 				8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */,
 				8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */,
-				891ED4B22614F6EB005B926B /* ZBSidebarController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
 				759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
@@ -1618,6 +1617,7 @@
 				49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */,
 				3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */,
 				89AD450F23CA6D260008831F /* ZBSettings.m in Sources */,
+				894EAB55261D5C4C00552235 /* ZBSidebarController.mm in Sources */,
 				89C5FDF021B1B13800A10E58 /* main.m in Sources */,
 				9E9D3130236D52BF00880215 /* ZBPackagePartitioner.m in Sources */,
 				9E1C85B022A3903600D93D14 /* ZBChangesTableViewController.m in Sources */,
