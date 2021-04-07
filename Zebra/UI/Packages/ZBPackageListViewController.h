@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <PLPackage *> *packages;
 @property NSArray <NSString *> *_Nullable identifiers;
 #pragma mark - Initializers
-//- (instancetype)initWithSource:(PLSource *)source;
 - (instancetype)initWithSource:(PLSource *)source section:(NSString *_Nullable)section;
 - (instancetype)initWithPackages:(NSArray <PLPackage *> *)packages;
 - (instancetype)initWithPackageIdentifiers:(NSArray <NSString *> *)identifiers;

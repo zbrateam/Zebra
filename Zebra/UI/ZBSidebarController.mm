@@ -15,6 +15,7 @@
 #import <UI/Queue/ZBQueueViewController.h>
 
 #import <Plains/PLQueue.h>
+#import <Plains/PLDatabase.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
@@ -23,6 +24,7 @@
     UITableView *tableView;
     NSUInteger selectedIndex;
     NSToolbar *toolbar;
+    NSUInteger updates;
 }
 @end
 
@@ -50,6 +52,7 @@
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseUpdateNotification object:nil];
     }
     
     return self;
@@ -92,6 +95,8 @@
     [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:5]];
     [settingsNavController.navigationBar setPrefersLargeTitles:YES];
     
+    self->updates = [[PLDatabase sharedInstance] updates].count;
+    
     self.controllers = @[homeNavController, sourcesNavController, packagesNavController, updatesNavController, queueNavController, settingsNavController];
 }
 
@@ -124,6 +129,14 @@
     cell.textLabel.text = tabItem.title;
     cell.imageView.image = tabItem.image;
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    
+    if (indexPath.row == 3) {
+        if (self->updates) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self->updates];
+        } else {
+            cell.detailTextLabel.text = nil;
+        }
+    }
     
     return cell;
 }
@@ -203,6 +216,13 @@
     } else {
         cell.detailTextLabel.text = nil;
     }
+}
+
+- (void)updateUpdates:(NSNotification *)notification {
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    NSUInteger updateCount = [notification.userInfo[@"count"] unsignedIntValue];
+    self->updates = updateCount;
+    [tableView reloadData];
 }
 
 @end

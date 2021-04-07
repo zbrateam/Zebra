@@ -98,17 +98,17 @@
 
     return self;
 }
-//
-//- (instancetype)initWithPackages:(NSArray <ZBPackage *> *)packages {
-//    self = [self init];
-//
-//    if (self) {
-//        self.packages = packages;
-//    }
-//
-//    return self;
-//}
-//
+
+- (instancetype)initWithPackages:(NSArray <PLPackage *> *)packages {
+    self = [self init];
+
+    if (self) {
+        self.packages = packages;
+    }
+
+    return self;
+}
+
 //- (instancetype)initWithPackageIdentifiers:(NSArray<NSString *> *)identifiers {
 //    self = [self init];
 //
