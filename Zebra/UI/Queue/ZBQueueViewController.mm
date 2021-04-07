@@ -117,4 +117,14 @@
     return 45;
 }
 
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIContextualAction *clearAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Remove" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+        PLPackage *package = self->packages[indexPath.section][indexPath.row];
+        [self->queue removePackage:package];
+        self->packages = self->queue.packages;
+        [self.tableView reloadData];
+    }];
+    return [UISwipeActionsConfiguration configurationWithActions:@[clearAction]];
+}
+
 @end

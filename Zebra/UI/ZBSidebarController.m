@@ -198,10 +198,11 @@
 - (void)updateQueue:(NSNotification *)notification {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
     NSUInteger queueCount = [notification.userInfo[@"count"] unsignedIntValue];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queueCount];
-//    cell.detailTextLabel.backgroundColor = [UIColor systemPinkColor];
-//    cell.detailTextLabel.textColor = [UIColor whiteColor];
-//    cell.detailTextLabel.inset
+    if (queueCount) {
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queueCount];
+    } else {
+        cell.detailTextLabel.text = nil;
+    }
 }
 
 @end
