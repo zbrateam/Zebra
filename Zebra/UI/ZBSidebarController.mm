@@ -23,10 +23,12 @@
     UIViewController *sidebar;
     UITableView *tableView;
     NSUInteger selectedIndex;
-    NSToolbar *toolbar;
-    
     NSUInteger queueCount;
     NSUInteger updates;
+    
+#if TARGET_OS_MACCATALYST
+    NSToolbar *toolbar;
+#endif
 }
 @end
 
@@ -82,11 +84,6 @@
     [packagesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Installed" image:[UIImage systemImageNamed:@"shippingbox"] tag:2]];
     [packagesNavController.navigationBar setPrefersLargeTitles:YES];
     
-    UINavigationController *updatesNavController = [[UINavigationController alloc] init];
-    [updatesNavController setViewControllers:@[[[ZBPackageListViewController alloc] initWithPackages:[[PLDatabase sharedInstance] updates]]] animated:NO];
-    [updatesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Updates" image:[UIImage systemImageNamed:@"square.and.arrow.down"] tag:3]];
-    [updatesNavController.navigationBar setPrefersLargeTitles:YES];
-    
     UINavigationController *queueNavController = [[UINavigationController alloc] init];
     [queueNavController setViewControllers:@[[[ZBQueueViewController alloc] init]] animated:NO];
     [queueNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Queue" image:[UIImage systemImageNamed:@"text.append"] tag:4]];
@@ -99,7 +96,7 @@
     
     self->updates = [[PLDatabase sharedInstance] updates].count;
     
-    self.controllers = @[homeNavController, sourcesNavController, packagesNavController, updatesNavController, queueNavController, settingsNavController];
+    self.controllers = @[homeNavController, sourcesNavController, packagesNavController, queueNavController, settingsNavController];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -132,13 +129,13 @@
     cell.imageView.image = tabItem.image;
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
         if (self->updates) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self->updates];
         } else {
             cell.detailTextLabel.text = nil;
         }
-    } else if (indexPath.row == 4) {
+    } else if (indexPath.row == 3) {
         if (self->queueCount) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self->queueCount];
         } else {

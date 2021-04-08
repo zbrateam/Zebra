@@ -55,30 +55,30 @@
     NSMutableArray *information = [NSMutableArray new];
     BOOL installed = self.installed;
     
-//    NSArray <NSString *> *allVersions = self.allVersions;
-//    if (allVersions.count > 1 && installed) {
-//        NSString *installedVersion = [self installedVersion];
-//        NSString *latestVersion = allVersions[0];
-//
+    NSArray <PLPackage *> *allVersions = self.allVersions;
+    if (allVersions.count > 1 && installed) {
+        NSString *installedVersion = [self installedVersion];
+        NSString *latestVersion = allVersions[0].version;
+
 //        if (compare(latestVersion.UTF8String, installedVersion.UTF8String) > 0) {
-//            if (latestVersion) {
-//                NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
-//                [information addObject:latestVersionInfo];
-//            }
+            if (latestVersion) {
+                NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
+                [information addObject:latestVersionInfo];
+            }
 //        }
-//
-//        if (installedVersion) {
-//            NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
-//            [information addObject:installedVersionInfo];
-//        }
-//    }
-//    else if (allVersions.count) {
-//        NSString *latestVersion = allVersions[0];
-//        if (latestVersion) {
-//            NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
-//            [information addObject:latestVersionInfo];
-//        }
-//    }
+
+        if (installedVersion) {
+            NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
+            [information addObject:installedVersionInfo];
+        }
+    }
+    else if (allVersions.count) {
+        NSString *latestVersion = allVersions[0].version;
+        if (latestVersion) {
+            NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
+            [information addObject:latestVersionInfo];
+        }
+    }
     
     NSString *bundleIdentifier = self.identifier;
     if (bundleIdentifier) {

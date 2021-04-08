@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property PLSource *source;
 @property NSString *_Nullable section;
 @property NSArray <PLPackage *> *packages;
+@property NSArray <PLPackage *> *updates;
 @property NSArray <NSString *> *_Nullable identifiers;
 #pragma mark - Initializers
 - (instancetype)initWithSource:(PLSource *)source section:(NSString *_Nullable)section;

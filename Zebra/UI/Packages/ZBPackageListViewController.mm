@@ -35,7 +35,6 @@
     UIActivityIndicatorView *spinner;
     NSArray <PLPackage *> *filterResults;
     PLDatabase *database;
-//    NSArray *updates;
 }
 //@property (nonnull) ZBPackageFilter *filter;
 @end
@@ -212,6 +211,7 @@
                 return package.installed;
             } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
                 self.packages = packages;
+                self.updates = database.updates;
                 [self loadPackages];
             }];
         }
@@ -308,25 +308,25 @@
 #pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return _updates.count ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return filterResults.count;
+    return _updates.count && section == 0 ? _updates.count : filterResults.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell"];
-//    BOOL inUpdatesSection = updates.count && indexPath.section == 0;
-//    if (inUpdatesSection) {
-//        cell.showSize = NO;
-//        cell.showVersion = YES;
-//    } else {
+    BOOL inUpdatesSection = _updates.count && indexPath.section == 0;
+    if (inUpdatesSection) {
+        cell.showSize = NO;
+        cell.showVersion = YES;
+    } else {
 //        cell.showSize = _filter.sortOrder == ZBPackageSortOrderSize;
-//        cell.showVersion = NO;
-//    }
+        cell.showVersion = NO;
+    }
     
-    PLPackage *package = filterResults[indexPath.row];
+    PLPackage *package = _updates.count && indexPath.section == 0 ? _updates[indexPath.row] : filterResults[indexPath.row];
     [cell setPackage:package];
     
     return cell;
@@ -359,30 +359,30 @@
 //    return [ZBPackageActions swipeActionsForPackage:package inTableView:tableView];
 //}
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    if (updates.count) {
-//        ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
-//        if (section == 0) {
-//            cell.actionButton.hidden = NO;
-//            [cell.actionButton setTitle:NSLocalizedString(@"Update All", @"") forState:UIControlStateNormal];
-//            [cell.actionButton addTarget:self action:@selector(updateAll) forControlEvents:UIControlEventTouchUpInside];
-//        } else {
-//            cell.actionButton.hidden = YES;
-//        }
-//        cell.titleLabel.text = section == 0 ? NSLocalizedString(@"Updates", @"") : NSLocalizedString(@"Installed", @"");
-//        return cell;
-//    }
-//
-//    return NULL;
-//}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (_updates.count) {
+        ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
+        if (section == 0) {
+            cell.actionButton.hidden = NO;
+            [cell.actionButton setTitle:NSLocalizedString(@"Update All", @"") forState:UIControlStateNormal];
+            [cell.actionButton addTarget:self action:@selector(updateAll) forControlEvents:UIControlEventTouchUpInside];
+        } else {
+            cell.actionButton.hidden = YES;
+        }
+        cell.titleLabel.text = section == 0 ? NSLocalizedString(@"Updates", @"") : NSLocalizedString(@"Installed", @"");
+        return cell;
+    }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-//    return UITableViewAutomaticDimension;
-//}
+    return NULL;
+}
 
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-//    return updates.count ? 45 : 0;
-//}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return UITableViewAutomaticDimension;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return _updates.count ? 45 : 0;
+}
 
 #pragma mark - Presentation Controller
 
