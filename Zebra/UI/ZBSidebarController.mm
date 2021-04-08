@@ -24,6 +24,8 @@
     UITableView *tableView;
     NSUInteger selectedIndex;
     NSToolbar *toolbar;
+    
+    NSUInteger queueCount;
     NSUInteger updates;
 }
 @end
@@ -136,6 +138,12 @@
         } else {
             cell.detailTextLabel.text = nil;
         }
+    } else if (indexPath.row == 4) {
+        if (self->queueCount) {
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self->queueCount];
+        } else {
+            cell.detailTextLabel.text = nil;
+        }
     }
     
     return cell;
@@ -209,20 +217,17 @@
 #pragma mark - Queue
 
 - (void)updateQueue:(NSNotification *)notification {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
-    NSUInteger queueCount = [notification.userInfo[@"count"] unsignedIntValue];
-    if (queueCount) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)queueCount];
-    } else {
-        cell.detailTextLabel.text = nil;
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->queueCount = [notification.userInfo[@"count"] unsignedIntValue];
+        [self->tableView reloadData];
+    });
 }
 
 - (void)updateUpdates:(NSNotification *)notification {
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
-    NSUInteger updateCount = [notification.userInfo[@"count"] unsignedIntValue];
-    self->updates = updateCount;
-    [tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->updates = [notification.userInfo[@"count"] unsignedIntValue];
+        [self->tableView reloadData];
+    });
 }
 
 @end
