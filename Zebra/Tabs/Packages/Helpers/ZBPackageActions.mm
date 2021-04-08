@@ -159,9 +159,9 @@
         case ZBPackageActionReinstall:
             [self reinstall:package completion:completion];
             break;
-//        case ZBPackageActionUpgrade:
-//            [self upgrade:package completion:completion];
-//            break;
+        case ZBPackageActionUpgrade:
+            [self upgrade:package completion:completion];
+            break;
 //        case ZBPackageActionDowngrade:
 //            [self downgrade:package completion:completion];
 //            break;
@@ -240,65 +240,65 @@
     [alert show];
 }
 
-+ (void)upgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
-    NSArray <NSString *> *greaterVersions = installedPackage.greaterVersions;
-    if (greaterVersions.count > 1) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
-        
-        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:greaterVersions];
-        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:greaterVersions];
-        for (NSString *otherVersion in deduplicatedVersions) {
-            NSString *title = otherVersion;
-            UIAlertAction *action;
-            if ([versionStrings countForObject:otherVersion] > 1) {
-                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
-
-                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to upgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
-
-                    for (ZBPackage *otherPackage in otherPackages) {
-                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            otherPackage.requiresAuthorization = package.requiresAuthorization;
-//                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
-
-                            if (completion) completion();
-                        }];
-                        [sourceAlert addAction:sourceAction];
-                    }
-                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-                    [sourceAlert addAction:cancel];
-
-                    [sourceAlert show];
-                }];
-            } else {
-                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-                    otherPackage.requiresAuthorization = package.requiresAuthorization;
-//                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
-
-                    if (completion) completion();
-                }];
-            }
-            
-            [alert addAction:action];
-        }
-        
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:cancel];
-        
-        [alert show];
-    }
-    else if (greaterVersions.count == 1) {
-        ZBPackage *upgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:greaterVersions.firstObject];
-//        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
++ (void)upgrade:(PLPackage *)package completion:(void (^)(void))completion {
+//    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+//    NSArray <NSString *> *greaterVersions = installedPackage.greaterVersions;
+//    if (greaterVersions.count > 1) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to upgrade to:", @"") preferredStyle:[self alertControllerStyle]];
+//
+//        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:greaterVersions];
+//        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:greaterVersions];
+//        for (NSString *otherVersion in deduplicatedVersions) {
+//            NSString *title = otherVersion;
+//            UIAlertAction *action;
+//            if ([versionStrings countForObject:otherVersion] > 1) {
+//                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
+//
+//                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to upgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
+//
+//                    for (ZBPackage *otherPackage in otherPackages) {
+//                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                            otherPackage.requiresAuthorization = package.requiresAuthorization;
+////                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+//
+//                            if (completion) completion();
+//                        }];
+//                        [sourceAlert addAction:sourceAction];
+//                    }
+//                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//                    [sourceAlert addAction:cancel];
+//
+//                    [sourceAlert show];
+//                }];
+//            } else {
+//                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
+//                    otherPackage.requiresAuthorization = package.requiresAuthorization;
+////                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeUpgrade];
+//
+//                    if (completion) completion();
+//                }];
+//            }
+//
+//            [alert addAction:action];
+//        }
+//
+//        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//        [alert addAction:cancel];
+//
+//        [alert show];
+//    }
+//    else if (greaterVersions.count == 1) {
+//        ZBPackage *upgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:greaterVersions.firstObject];
+////        [[ZBQueue sharedQueue] addPackage:upgrade toQueue:ZBQueueTypeUpgrade];
+//
+//        if (completion) completion();
+//    } else {
+        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueUpgrade];
         
         if (completion) completion();
-    } else {
-//        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeUpgrade];
-        
-        if (completion) completion();
-    }
+//    }
 }
 
 + (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
