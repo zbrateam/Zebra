@@ -67,8 +67,8 @@
 "Text" = "Texto";
 "Icon" = "Ícone";
 "Finish Automatically" = "Terminar automaticamente";
-"Always Install Latest" = "Sempre instalar o mais recente";
-"Automatic Refresh" = "Atualização automática";
+"Always Install Latest" = "Instalar sempre a mais recente";
+"Automatic Refresh" = "Recarregar automaticamente";
 
 // Accent Colors
 
