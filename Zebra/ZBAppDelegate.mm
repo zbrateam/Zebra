@@ -30,7 +30,7 @@
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/ZBSidebarController.h>
 #import <dlfcn.h>
-#import <objc/runtime.h>
+//#import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
 
 #import <UI/Sources/ZBSourcesSplitViewController.h>
@@ -462,18 +462,18 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)registerForScreenshotNotifications {
-    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
-    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
-    [server registerSpringBoardActionHandler:^(int eventType) {
-        if (eventType == 6) { // Before taking screenshot
-            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserWillTakeScreenshotNotification object:nil];
-        }
-        else if (eventType == 7) { // After taking screenshot
-            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
-        }
-    } withIdentifierCallback:^(int a) {}];
+//    dlopen("/System/Library/PrivateFrameworks/AccessibilityUtilities.framework/AccessibilityUtilities", RTLD_NOW);
+//    AXSpringBoardServer *server = [objc_getClass("AXSpringBoardServer") server];
+//    [server registerSpringBoardActionHandler:^(int eventType) {
+//        if (eventType == 6) { // Before taking screenshot
+//            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserWillTakeScreenshotNotification object:nil];
+//        }
+//        else if (eventType == 7) { // After taking screenshot
+//            [[NSNotificationCenter defaultCenter] postNotificationName:ZBUserDidTakeScreenshotNotification object:nil];
+//        }
+//    } withIdentifierCallback:^(int a) {}];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkForScreenRecording:) name:UIScreenCapturedDidChangeNotification object:nil];
 }
 
 - (void)checkForScreenRecording:(NSNotification *)notif {
