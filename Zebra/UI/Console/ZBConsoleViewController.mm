@@ -113,4 +113,12 @@
     [self writeToConsole:@"Finished Downloads." atLevel:PLLogLevelStatus];
 }
 
+- (void)startedInstalls {
+    [self writeToConsole:@"Started Installs." atLevel:PLLogLevelStatus];
+}
+
+- (void)finishedInstalls {
+    [self writeToConsole:@"Finished Installs." atLevel:PLLogLevelStatus];
+}
+
 @end
