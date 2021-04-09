@@ -10,6 +10,7 @@
 
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
+#import <UI/Console/ZBConsoleViewController.h>
 
 #import <Plains/PLPackage.h>
 #import <Plains/PLQueue.h>
@@ -118,6 +119,13 @@
         [self.tableView reloadData];
     }];
     return [UISwipeActionsConfiguration configurationWithActions:@[clearAction]];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
+    [self presentViewController:console animated:YES completion:nil];
 }
 
 @end

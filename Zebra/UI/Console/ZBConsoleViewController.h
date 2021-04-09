@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import <Plains/PLAcquireDelegate.h>
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController
+@interface ZBConsoleViewController : UIViewController <PLAcquireDelegate>
 @end
 
 NS_ASSUME_NONNULL_END
