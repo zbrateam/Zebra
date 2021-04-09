@@ -890,6 +890,7 @@
 			isa = PBXGroup;
 			children = (
 				893884DF2550C20200365326 /* Common */,
+				89829D462620CE2E00BB780D /* Console */,
 				89E47661260D4DCE009152C1 /* Home */,
 				89EAD0B5259F9F330061FC3C /* Sources */,
 				89114C67254C95B5003A7362 /* Packages */,
@@ -945,8 +946,6 @@
 				893C36572509AECB00DF07DE /* ZBCommandDelegate.h */,
 				89B76A51235F8FF6006900FE /* ZBStage.h */,
 				89FEA4132264BF68002647A2 /* ZBLogLevel.h */,
-				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
-				893952FE220B5D0100995109 /* ZBConsoleViewController.m */,
 			);
 			path = Console;
 			sourceTree = "<group>";
@@ -1060,6 +1059,15 @@
 				897FFD4A23CFA4A30082DD31 /* ZBThemeManager.m */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		89829D462620CE2E00BB780D /* Console */ = {
+			isa = PBXGroup;
+			children = (
+				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
+				893952FE220B5D0100995109 /* ZBConsoleViewController.m */,
+			);
+			path = Console;
 			sourceTree = "<group>";
 		};
 		8983790425507D760066DCA7 /* Search */ = {
