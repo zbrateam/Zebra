@@ -9,7 +9,7 @@
 #ifndef UITabBarItem_h
 #define UITabBarItem_h
 
-@import UIKit;
+#import <UIKit/UIKit.h>
 
 @interface UITabBarItem (Private)
 - (void)setAnimatedBadge:(BOOL)animated;

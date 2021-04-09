@@ -40,9 +40,6 @@
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
     self.navigationItem.rightBarButtonItem = settingsButton;
     
-    UIBarButtonItem *qButton = [[UIBarButtonItem alloc] initWithTitle:@"Q" style:UIBarButtonItemStylePlain target:self action:@selector(showQueue)];
-    self.navigationItem.leftBarButtonItem = qButton;
-    
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"homeCell"];
 }
 

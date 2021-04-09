@@ -24,11 +24,15 @@
 #import <UI/Queue/ZBQueueViewController.h>
 #import <ZBDevice.h>
 
-@import LNPopupController;
+#import <Plains/Plains.h>
+
+#import <LNPopupController/LNPopupController.h>
 
 @interface ZBTabBarController () {
     ZBSourceManager *sourceManager;
     UIActivityIndicatorView *sourceRefreshIndicator;
+    NSUInteger queueCount;
+    NSUInteger updates;
 }
 
 @property (nonatomic) UINavigationController *popupController;
@@ -53,12 +57,11 @@
         
         self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-        sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-        sourceRefreshIndicator.color = [UIColor whiteColor];
+//        sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
+//        sourceRefreshIndicator.color = [UIColor whiteColor];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startedSourceRefresh:) name:ZBStartedSourceRefreshNotification object:NULL];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishedSourceRefresh) name:ZBFinishedSourceRefreshNotification object:NULL];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatesAvailable:) name:ZBUpdatesAvailableNotification object:NULL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseUpdateNotification object:nil];
     }
     
     return self;
@@ -92,6 +95,9 @@
     [searchNavController.navigationBar setPrefersLargeTitles:YES];
     
     self.viewControllers = @[homeNavController, sourcesNavController, packagesNavController, searchNavController];
+    
+    self->updates = [[PLDatabase sharedInstance] updates].count;
+    [self setPackageUpdateBadgeValue:self->updates];
 }
 
 - (void)setPackageUpdateBadgeValue:(NSInteger)updates {
@@ -129,31 +135,18 @@
 
 #pragma mark - Source Delegate
 
-- (void)startedSourceRefresh:(NSNotification *)notification {
-    if (![notification.userInfo[@"hidden"] boolValue]) {
-        [self setSourceRefreshIndicatorVisible:YES];
-    }
+- (void)updateQueue:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->queueCount = [notification.userInfo[@"count"] unsignedIntValue];
+        [self updateQueueBar];
+    });
 }
 
-- (void)finishedSourceRefresh {
-    [self setSourceRefreshIndicatorVisible:NO];
-}
-
-- (void)updatesAvailable:(NSNotification *)notification {
-    NSUInteger numberOfUpdates = [notification.userInfo[@"updates"] unsignedIntegerValue];
-    [self setPackageUpdateBadgeValue:numberOfUpdates];
-}
-
-- (void)forwardToPackage {
-    if (forwardToPackageID != NULL) { //this is pretty hacky
-        NSString *urlString = [NSString stringWithFormat:@"zbra://packages/%@", forwardToPackageID];
-        if (forwardedSourceBaseURL != nil) {
-            urlString = [urlString stringByAppendingFormat:@"?source=%@", forwardedSourceBaseURL];
-            forwardedSourceBaseURL = nil;
-        }
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] options:@{} completionHandler:nil];
-        forwardToPackageID = nil;
-    }
+- (void)updateUpdates:(NSNotification *)notification {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->updates = [notification.userInfo[@"count"] unsignedIntValue];
+        [self setPackageUpdateBadgeValue:self->updates];
+    });
 }
 
 #pragma mark - Queue Popup Bar
@@ -176,7 +169,7 @@
 
 - (void)updateQueueBar {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateQueueBarPackageCount:[ZBQueue count]];
+        [self updateQueueBarPackageCount];
         
         LNPopupPresentationState state = self.popupPresentationState;
         if (state != LNPopupPresentationStateOpen) {
@@ -188,10 +181,10 @@
     });
 }
 
-- (void)updateQueueBarPackageCount:(int)count {
+- (void)updateQueueBarPackageCount {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if (count > 0) {
-            self.popupController.popupItem.title = count > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%d Packages Queued", @""), count] : [NSString stringWithFormat:NSLocalizedString(@"%d Package Queued", @""), count];
+        if (self->queueCount > 0) {
+            self.popupController.popupItem.title = self->queueCount > 1 ? [NSString stringWithFormat:NSLocalizedString(@"%lu Packages Queued", @""), (unsigned long)self->queueCount] : [NSString stringWithFormat:NSLocalizedString(@"%lu Package Queued", @""), (unsigned long)self->queueCount];
             self.popupController.popupItem.subtitle = NSLocalizedString(@"Tap to manage", @"");
         }
         else {

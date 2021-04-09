@@ -139,7 +139,7 @@
 		899AEA00247F03BA00FCA61E /* quda~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FC247F03BA00FCA61E /* quda~ipad@3x.png */; };
 		899AEA01247F03BA00FCA61E /* quda@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 899AE9FD247F03BA00FCA61E /* quda@3x.png */; };
 		89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1297A247B49F000C7310B /* UINavigationController+SBS.m */; };
-		89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.m */; };
+		89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89A1B734223C97210053D0E2 /* ZBTabBarController.mm */; };
 		89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */; };
 		89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89AD450323CA4F010008831F /* UIImageView+Zebra.m */; };
 		89AD450C23CA5E350008831F /* AUPM@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 89AD450A23CA5E340008831F /* AUPM@3x.png */; };
@@ -485,7 +485,7 @@
 		89A12979247B49F000C7310B /* UINavigationController+SBS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SBS.h"; sourceTree = "<group>"; };
 		89A1297A247B49F000C7310B /* UINavigationController+SBS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SBS.m"; sourceTree = "<group>"; };
 		89A1B733223C97210053D0E2 /* ZBTabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBTabBarController.h; sourceTree = "<group>"; };
-		89A1B734223C97210053D0E2 /* ZBTabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBTabBarController.m; sourceTree = "<group>"; };
+		89A1B734223C97210053D0E2 /* ZBTabBarController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBTabBarController.mm; sourceTree = "<group>"; };
 		89A44B06236B575500D92DC9 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		89A75F5E2606ECF100FB6422 /* ZBSourceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceViewController.h; sourceTree = "<group>"; };
 		89A75F5F2606ECF100FB6422 /* ZBSourceViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceViewController.mm; sourceTree = "<group>"; };
@@ -897,7 +897,7 @@
 				8983790425507D760066DCA7 /* Search */,
 				9E1C85A522A38DCB00D93D14 /* ZBTab.h */,
 				89A1B733223C97210053D0E2 /* ZBTabBarController.h */,
-				89A1B734223C97210053D0E2 /* ZBTabBarController.m */,
+				89A1B734223C97210053D0E2 /* ZBTabBarController.mm */,
 				89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */,
 				89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */,
 				891ED4B02614F6EB005B926B /* ZBSidebarController.h */,
@@ -1635,7 +1635,7 @@
 				89CADA152263FEF3000101EE /* ZBDownloadManager.m in Sources */,
 				89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
-				89A1B735223C97210053D0E2 /* ZBTabBarController.m in Sources */,
+				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
