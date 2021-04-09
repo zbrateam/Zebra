@@ -10,6 +10,8 @@
 
 #import <Extensions/UIFont+Zebra.h>
 
+#import <Plains/PLDatabase.h>
+
 @interface ZBConsoleViewController () {
     UITextView *consoleView;
 }
@@ -43,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [[PLDatabase sharedInstance] startDownloads:self];
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(PLLogLevel)level {
@@ -55,11 +57,11 @@
         UIFont *font;
         switch (level) {
             case PLLogLevelInfo:
-                color = [UIColor whiteColor];
+                color = [UIColor blackColor];
                 font = UIFont.monospaceFont;
                 break;
             case PLLogLevelStatus:
-                color = [UIColor whiteColor];
+                color = [UIColor blackColor];
                 font = UIFont.boldMonospaceFont;
                 break;
             case PLLogLevelError:
