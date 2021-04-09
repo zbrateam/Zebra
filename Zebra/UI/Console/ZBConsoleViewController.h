@@ -6,16 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#define COMMAND_START 1
-
-@import UIKit;
-
-#import <Downloads/ZBDownloadDelegate.h>
-#import "ZBCommand.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController <ZBCommandDelegate, ZBDownloadDelegate, UIGestureRecognizerDelegate>
+@interface ZBConsoleViewController : UIViewController
 @end
 
 NS_ASSUME_NONNULL_END
