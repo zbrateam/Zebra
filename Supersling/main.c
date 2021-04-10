@@ -11,6 +11,8 @@
 
 int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
 
+#if TARGET_OS_IOS
+
 /* Set platform binary flag */
 #define FLAG_PLATFORMIZE (1 << 1)
 
@@ -39,30 +41,34 @@ void patch_setuidandplatformize() {
   entitleptr(getpid(), FLAG_PLATFORMIZE);
 }
 
+#endif
+
 int main(int argc, char ** argv) {
+  #if TARGET_OS_IOS
   patch_setuidandplatformize();
+  #endif
 
-  struct stat template;
-  if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
-    printf("THE TRUE AND NEO CHAOS!\n");
-    fflush(stdout);
-    return EX_NOPERM;
-  }
-  else {
-    pid_t pid = getppid();
+  // struct stat template;
+  // if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
+  //   printf("THE TRUE AND NEO CHAOS!\n");
+  //   fflush(stdout);
+  //   return EX_NOPERM;
+  // }
+  // else {
+  //   pid_t pid = getppid();
 
-    char buffer[PATH_MAX];
-    int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
+  //   char buffer[PATH_MAX];
+  //   int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
 
-    struct stat response;
-    stat(buffer, &response);
+  //   struct stat response;
+  //   stat(buffer, &response);
 
-    if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
-      printf("CHAOS, CHAOS!\n");
-      fflush(stdout);
-      return EX_NOPERM;
-    }
-    else {
+  //   if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
+  //     printf("CHAOS, CHAOS!\n");
+  //     fflush(stdout);
+  //     return EX_NOPERM;
+  //   }
+  //   else {
       setuid(0);
       setgid(0);
 
@@ -73,7 +79,7 @@ int main(int argc, char ** argv) {
       }
 
       if (argc < 2 || argv[1][0] != '/') {
-        argv[0] = "/usr/bin/dpkg";
+        argv[0] = "/opt/procursus/bin/dpkg";
       }
       else {
         argc--;
@@ -88,6 +94,6 @@ int main(int argc, char ** argv) {
       int result = execvp(argv[0], argv);
 
       return result;
-    }
-  }
+    // }
+  // }
 }

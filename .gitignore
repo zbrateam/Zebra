@@ -7,6 +7,4 @@ Index/
 xcuserdata/
 update.sh
 ipas/
-Carthage/Build
-Carthage/Checkouts
-Cartfile.resolved
+Supersling/packages
