@@ -124,8 +124,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    UIWindow *window = [UIApplication sharedApplication].windows[0];
     ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
-    [self presentViewController:console animated:YES completion:nil];
+    if (window.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
+        [[self navigationController] pushViewController:console animated:YES];
+    } else {
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:console];
+        [self presentViewController:navController animated:YES completion:nil];
+    }
 }
 
 @end

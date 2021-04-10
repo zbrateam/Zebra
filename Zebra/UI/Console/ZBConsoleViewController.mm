@@ -14,6 +14,7 @@
 
 @interface ZBConsoleViewController () {
     UITextView *consoleView;
+    UIButton *completeButton;
 }
 @end
 
@@ -25,6 +26,7 @@
     self = [super init];
     
     if (self) {
+        self.title = @"Console";
     }
     
     return self;
@@ -38,8 +40,30 @@
     consoleView = [[UITextView alloc] initWithFrame:self.view.frame];
     consoleView.autoresizingMask  = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     consoleView.font = [UIFont monospaceFont];
+    consoleView.contentInset = UIEdgeInsetsMake(8, 8, 8, 8);
+    consoleView.editable = NO;
     
     [self.view addSubview:consoleView];
+    
+    completeButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    completeButton.backgroundColor = [UIColor systemPinkColor];
+    completeButton.layer.cornerRadius = 10;
+    completeButton.layer.masksToBounds = YES;
+    completeButton.hidden = YES;
+    [completeButton addTarget:self action:@selector(complete) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:completeButton];
+    [NSLayoutConstraint activateConstraints:@[
+        [completeButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16],
+        [completeButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16],
+        [completeButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
+        [completeButton.heightAnchor constraintEqualToConstant:44]
+    ]];
+    completeButton.translatesAutoresizingMaskIntoConstraints = NO;
+}
+
+- (void)complete {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -57,11 +81,11 @@
         UIFont *font;
         switch (level) {
             case PLLogLevelInfo:
-                color = [UIColor blackColor];
+                color = [UIColor labelColor];
                 font = UIFont.monospaceFont;
                 break;
             case PLLogLevelStatus:
-                color = [UIColor blackColor];
+                color = [UIColor labelColor];
                 font = UIFont.boldMonospaceFont;
                 break;
             case PLLogLevelError:
@@ -98,11 +122,11 @@
 #pragma mark - Plains Acquire Delegate
 
 - (void)startedDownloads {
-    [self writeToConsole:@"Started Downloads." atLevel:PLLogLevelStatus];
+//    [self writeToConsole:@"Started Downloads." atLevel:PLLogLevelStatus];
 }
 
 - (void)progressUpdate:(CGFloat)progress {
-    [self writeToConsole:[NSString stringWithFormat:@"%f%%", progress] atLevel:PLLogLevelInfo];
+//    [self writeToConsole:[NSString stringWithFormat:@"%f%%", progress] atLevel:PLLogLevelInfo];
 }
 
 - (void)statusUpdate:(NSString *)update atLevel:(PLLogLevel)level {
@@ -110,15 +134,18 @@
 }
 
 - (void)finishedDownloads {
-    [self writeToConsole:@"Finished Downloads." atLevel:PLLogLevelStatus];
+//    [self writeToConsole:@"Finished Downloads." atLevel:PLLogLevelStatus];
 }
 
 - (void)startedInstalls {
-    [self writeToConsole:@"Started Installs." atLevel:PLLogLevelStatus];
+//    [self writeToConsole:message atLevel:PLLogLevelStatus];
 }
 
 - (void)finishedInstalls {
-    [self writeToConsole:@"Finished Installs." atLevel:PLLogLevelStatus];
+//    [self writeToConsole:@"Finished Installs." atLevel:PLLogLevelStatus];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self->completeButton.hidden = NO;
+    });
 }
 
 @end
