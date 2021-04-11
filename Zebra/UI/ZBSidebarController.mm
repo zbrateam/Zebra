@@ -49,8 +49,6 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         
-//        [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"sidebarCell"];
-        
         [sidebar.view addSubview:tableView];
         
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
@@ -160,10 +158,18 @@
     self->toolbar = toolbar;
     
     NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-    [toolbarItem setImage:[UIImage systemImageNamed:@"chevron.left"]];
-    [toolbarItem setNavigational:YES];
-    [toolbarItem setTarget:self];
-    [toolbarItem setAction:@selector(backButton:)];
+    if ([itemIdentifier isEqualToString:@"backButton"]) {
+        [toolbarItem setImage:[UIImage systemImageNamed:@"chevron.left"]];
+        [toolbarItem setNavigational:YES];
+        [toolbarItem setTarget:self];
+        [toolbarItem setAction:@selector(backButton:)];
+    } else if ([itemIdentifier isEqualToString:@"addButton"]) {
+        [toolbarItem setImage:[UIImage systemImageNamed:@"plus"]];
+        
+        UINavigationController *navController = self.viewControllers[1];
+        [toolbarItem setTarget:navController.topViewController];
+        [toolbarItem setAction:@selector(addButton:)];
+    }
     
     return toolbarItem;
 }
@@ -177,12 +183,16 @@
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     self->toolbar = toolbar;
     
-    return @[@"backButton"];
+    return @[@"backButton", @"addButton"];
 }
 
 - (void)backButton:(id)sender {
     UINavigationController *controller = self.viewControllers[1];
     [controller popViewControllerAnimated:YES];
+}
+
+- (void)addButton:(id)sender {
+    // filler so that i can dynamically assign selectors
 }
 
 - (void)setShowBackButton:(BOOL)showBackButton {
@@ -199,6 +209,14 @@
     [super setTitle:title];
     
     [[[[[UIApplication sharedApplication] delegate] window] windowScene] setTitle:title];
+}
+
+- (void)insertButton:(NSString *)buttonIdentifier {
+    [toolbar insertItemWithItemIdentifier:buttonIdentifier atIndex:0];
+}
+
+- (void)popButton {
+    [toolbar removeItemAtIndex:0];
 }
 
 #endif
