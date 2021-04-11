@@ -101,9 +101,7 @@
     ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
     
     PLSource *source = sources[indexPath.row];
-    cell.sourceLabel.text = source.origin;
-    cell.urlLabel.text = source.URI.absoluteString;
-    [cell.iconImageView sd_setImageWithURL:[source iconURL]];
+    [cell setSource:source];
     
     return cell;
 }

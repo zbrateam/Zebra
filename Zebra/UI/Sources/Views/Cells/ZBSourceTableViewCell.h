@@ -6,8 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-@class ZBBaseSource;
-@class ZBSourceFilter;
+@class PLSource;
 
 #import <UIKit/UIKit.h>
 
@@ -23,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setSpinning:(BOOL)animated;
 - (void)setDisabled:(BOOL)disabled;
-- (void)setSource:(ZBBaseSource *)source withFilter:(ZBSourceFilter *)filter;
+- (void)setSource:(PLSource *)source;
 @end
 
 NS_ASSUME_NONNULL_END

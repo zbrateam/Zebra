@@ -31,8 +31,6 @@
 //#import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
 
-#import <UI/Sources/ZBSourcesSplitViewController.h>
-
 #import <SDWebImage/SDWebImage.h>
 
 @interface ZBAppDelegate () {
