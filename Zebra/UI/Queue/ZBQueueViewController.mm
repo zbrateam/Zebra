@@ -47,7 +47,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self->packages = queue.packages;
+    self->packages = queue.queuedPackages;
     [self.tableView reloadData];
     
 #if TARGET_OS_MACCATALYST
@@ -112,13 +112,16 @@
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UIContextualAction *clearAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Remove" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-        PLPackage *package = self->packages[indexPath.section][indexPath.row];
-        [self->queue removePackage:package];
-        self->packages = self->queue.packages;
-        [self.tableView reloadData];
-    }];
-    return [UISwipeActionsConfiguration configurationWithActions:@[clearAction]];
+    PLPackage *package = self->packages[indexPath.section][indexPath.row];
+    if ([queue canRemovePackage:package]) {
+        UIContextualAction *clearAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Remove" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self->queue removePackage:package];
+            self->packages = self->queue.queuedPackages;
+            [self.tableView reloadData];
+        }];
+        return [UISwipeActionsConfiguration configurationWithActions:@[clearAction]];
+    }
+    return NULL;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
