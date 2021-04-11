@@ -10,7 +10,7 @@
 
 #import "ZBSearchViewController.h"
 
-#import <Managers/ZBPackageManager.h>
+//#import <Managers/ZBPackageManager.h>
 
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
@@ -20,7 +20,6 @@
 #import <UI/Packages/ZBPackageViewController.h>
 
 @interface ZBSearchViewController () {
-    ZBPackageManager *packageManager;
     NSMutableArray *recentSearches;
     NSArray *searchResults;
     UISearchController *searchController;
@@ -64,8 +63,6 @@
         if (!recentSearches) {
             recentSearches = [NSMutableArray new];
         }
-        
-        packageManager = [ZBPackageManager sharedInstance];
     }
     
     return self;
@@ -138,26 +135,26 @@
     
     NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
     if (searchResults.count == 0) [self showSpinner]; // Only show the spinner if this is the initial search
-    switch (selectedIndex) {
-        case 0: {
-            [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                updateTable(packages);
-            }];
-            break;
-        }
-        case 1: {
-            [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                updateTable(packages);
-            }];
-            break;
-        }
-        case 2: {
-            [packageManager searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-                updateTable(packages);
-            }];
-            break;
-        }
-    }
+//    switch (selectedIndex) {
+//        case 0: {
+//            [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+//                updateTable(packages);
+//            }];
+//            break;
+//        }
+//        case 1: {
+//            [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+//                updateTable(packages);
+//            }];
+//            break;
+//        }
+//        case 2: {
+//            [packageManager searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+//                updateTable(packages);
+//            }];
+//            break;
+//        }
+//    }
 }
 
 #pragma mark - Search Bar Delegate

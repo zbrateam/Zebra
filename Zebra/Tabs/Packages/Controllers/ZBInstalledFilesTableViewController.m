@@ -38,28 +38,29 @@
 }
 
 - (void)getInstalledFiles {
-    NSArray *installedFiles = [ZBPackage filesInstalledBy:self.package.identifier];
-    installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-    
-    for (int i = 0; i < installedFiles.count; ++i) {
-        NSString *file = installedFiles[i];
-        if ([file isEqualToString:@"/."] || file.length == 0) {
-            continue;
-        }
-        
-        NSArray *components = [file componentsSeparatedByString:@"/"];
-        NSMutableString *displayStr = [NSMutableString new];
-        for (int b = 0; b < components.count - 2; ++b) {
-            [displayStr appendString:@"\t"]; // add tab character
-        }
-        if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
-            [displayStr appendString:components[components.count - 1]];
-        } else {
-            [displayStr insertString:components[components.count - 1] atIndex:0];
-        }
-        
-        [files addObject:displayStr];
-    }
+//    NSArray *installedFiles = [ZBPackage filesInstalledBy:self.package.identifier];
+//    installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
+//
+//    for (int i = 0; i < installedFiles.count; ++i) {
+//        NSString *file = installedFiles[i];
+//        if ([file isEqualToString:@"/."] || file.length == 0) {
+//            continue;
+//        }
+//
+//        NSArray *components = [file componentsSeparatedByString:@"/"];
+//        NSMutableString *displayStr = [NSMutableString new];
+//        for (int b = 0; b < components.count - 2; ++b) {
+//            [displayStr appendString:@"\t"]; // add tab character
+//        }
+//        if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
+//            [displayStr appendString:components[components.count - 1]];
+//        } else {
+//            [displayStr insertString:components[components.count - 1] atIndex:0];
+//        }
+//
+//        [files addObject:displayStr];
+//    }
+//    return @[];
 }
 
 - (void)reloadTableView {

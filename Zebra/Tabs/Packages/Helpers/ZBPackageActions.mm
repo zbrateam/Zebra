@@ -12,18 +12,14 @@
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
 #import <Headers/UIAlertController+Private.h>
-#import <Model/ZBSource.h>
-#import <Model/ZBPackage.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Packages/ZBPackageViewController.h>
-#import <Queue/ZBQueue.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <JSONParsing/ZBPurchaseInfo.h>
 #import <UI/ZBTabBarController.h>
 
-#import <Managers/ZBPackageManager.h>
 #import <Model/PLPackage+Zebra.h>
 #import <Plains/PLQueue.h>
 
@@ -36,35 +32,35 @@
 }
 
 + (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(ZBPackage *)package completion:(void (^)(ZBPackageExtraActionType action))completion {
-    switch (action) {
-        case ZBPackageExtraActionShowUpdates:
-            [self showUpdatesFor:package];
-            if (completion) completion(action);
-            break;
-        case ZBPackageExtraActionHideUpdates:
-            [self hideUpdatesFor:package];
-            if (completion) completion(action);
-            break;
-        case ZBPackageExtraActionAddFavorite:
-            [self addFavorite:package];
-            if (completion) completion(action);
-            break;
-        case ZBPackageExtraActionRemoveFavorite:
-            [self removeFavorite:package];
-            if (completion) completion(action);
-            break;
-        case ZBPackageExtraActionBlockAuthor:
-            [self blockAuthorOf:package];
-            if (completion) completion(action);
-            break;
-        case ZBPackageExtraActionUnblockAuthor:
-            [self unblockAuthorOf:package];
-            if (completion) completion(action);
-            break;
-        case ZBPackageExtraActionShare:
-            if (completion) completion(action);
-            break;
-    }
+//    switch (action) {
+//        case ZBPackageExtraActionShowUpdates:
+//            [self showUpdatesFor:package];
+//            if (completion) completion(action);
+//            break;
+//        case ZBPackageExtraActionHideUpdates:
+//            [self hideUpdatesFor:package];
+//            if (completion) completion(action);
+//            break;
+//        case ZBPackageExtraActionAddFavorite:
+//            [self addFavorite:package];
+//            if (completion) completion(action);
+//            break;
+//        case ZBPackageExtraActionRemoveFavorite:
+//            [self removeFavorite:package];
+//            if (completion) completion(action);
+//            break;
+//        case ZBPackageExtraActionBlockAuthor:
+//            [self blockAuthorOf:package];
+//            if (completion) completion(action);
+//            break;
+//        case ZBPackageExtraActionUnblockAuthor:
+//            [self unblockAuthorOf:package];
+//            if (completion) completion(action);
+//            break;
+//        case ZBPackageExtraActionShare:
+//            if (completion) completion(action);
+//            break;
+//    }
 }
 
 + (void)performAction:(ZBPackageActionType)action forPackages:(NSArray <ZBPackage *> *)packages completion:(void (^)(void))completion {
@@ -187,57 +183,57 @@
 }
 
 + (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
-    NSArray <NSString *> *allVersions = package.allVersions;
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
-    
-    NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:allVersions];
-    NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:allVersions];
-    for (NSString *otherVersion in deduplicatedVersions) {
-        NSString *title;
-        if ([otherVersion isEqual:allVersions.firstObject]) {
-            title = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), otherVersion];
-        } else {
-            title = otherVersion;
-        }
-        UIAlertAction *action;
-        if ([versionStrings countForObject:otherVersion] > 1) {
-            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
-
-                UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to install the package from:", @"") preferredStyle:[self alertControllerStyle]];
-
-                for (ZBPackage *otherPackage in otherPackages) {
-                    UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                        otherPackage.requiresAuthorization = package.requiresAuthorization;
-//                        [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-
-                        if (completion) completion();
-                    }];
-                    [sourceAlert addAction:sourceAction];
-                }
-                UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-                [sourceAlert addAction:cancel];
-
-                [sourceAlert show];
-            }];
-        } else {
-            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-                otherPackage.requiresAuthorization = package.requiresAuthorization;
-//                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-
-                if (completion) completion();
-            }];
-        }
-        
-        [alert addAction:action];
-    }
-    
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-    [alert addAction:cancel];
-    [alert _setIndexesOfActionSectionSeparators:[NSIndexSet indexSetWithIndex:1]];
-    
-    [alert show];
+//    NSArray <NSString *> *allVersions = package.allVersions;
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
+//
+//    NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:allVersions];
+//    NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:allVersions];
+//    for (NSString *otherVersion in deduplicatedVersions) {
+//        NSString *title;
+//        if ([otherVersion isEqual:allVersions.firstObject]) {
+//            title = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), otherVersion];
+//        } else {
+//            title = otherVersion;
+//        }
+//        UIAlertAction *action;
+//        if ([versionStrings countForObject:otherVersion] > 1) {
+//            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
+//
+//                UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to install the package from:", @"") preferredStyle:[self alertControllerStyle]];
+//
+//                for (ZBPackage *otherPackage in otherPackages) {
+//                    UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                        otherPackage.requiresAuthorization = package.requiresAuthorization;
+////                        [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+//
+//                        if (completion) completion();
+//                    }];
+//                    [sourceAlert addAction:sourceAction];
+//                }
+//                UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//                [sourceAlert addAction:cancel];
+//
+//                [sourceAlert show];
+//            }];
+//        } else {
+//            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
+//                otherPackage.requiresAuthorization = package.requiresAuthorization;
+////                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
+//
+//                if (completion) completion();
+//            }];
+//        }
+//
+//        [alert addAction:action];
+//    }
+//
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//    [alert addAction:cancel];
+//    [alert _setIndexesOfActionSectionSeparators:[NSIndexSet indexSetWithIndex:1]];
+//
+//    [alert show];
 }
 
 + (void)upgrade:(PLPackage *)package completion:(void (^)(void))completion {
@@ -302,108 +298,108 @@
 }
 
 + (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
-    NSArray <NSString *> *lesserVersions = installedPackage.lesserVersions;
-    if (lesserVersions.count > 1) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
-        
-        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:lesserVersions];
-        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:lesserVersions];
-        for (NSString *otherVersion in deduplicatedVersions) {
-            NSString *title = otherVersion;
-            UIAlertAction *action;
-            if ([versionStrings countForObject:otherVersion] > 1) {
-                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
-
-                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to downgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
-
-                    for (ZBPackage *otherPackage in otherPackages) {
-                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                            otherPackage.requiresAuthorization = package.requiresAuthorization;
-//                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-
-                            if (completion) completion();
-                        }];
-                        [sourceAlert addAction:sourceAction];
-                    }
-                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-                    [sourceAlert addAction:cancel];
-
-                    [sourceAlert show];
-                }];
-            } else {
-                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-                    otherPackage.requiresAuthorization = package.requiresAuthorization;
-//                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-
-                    if (completion) completion();
-                }];
-            }
-            
-            [alert addAction:action];
-        }
-        
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:cancel];
-        
-        [alert show];
-    }
-    else if (lesserVersions.count == 1) {
-        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:lesserVersions.firstObject];
-//        [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
-        
-        if (completion) completion();
-    } else {
-//        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeDowngrade];
-        
-        if (completion) completion();
-    }
+//    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
+//    NSArray <NSString *> *lesserVersions = installedPackage.lesserVersions;
+//    if (lesserVersions.count > 1) {
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
+//
+//        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:lesserVersions];
+//        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:lesserVersions];
+//        for (NSString *otherVersion in deduplicatedVersions) {
+//            NSString *title = otherVersion;
+//            UIAlertAction *action;
+//            if ([versionStrings countForObject:otherVersion] > 1) {
+//                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
+//
+//                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to downgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
+//
+//                    for (ZBPackage *otherPackage in otherPackages) {
+//                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                            otherPackage.requiresAuthorization = package.requiresAuthorization;
+////                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+//
+//                            if (completion) completion();
+//                        }];
+//                        [sourceAlert addAction:sourceAction];
+//                    }
+//                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//                    [sourceAlert addAction:cancel];
+//
+//                    [sourceAlert show];
+//                }];
+//            } else {
+//                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
+//                    otherPackage.requiresAuthorization = package.requiresAuthorization;
+////                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
+//
+//                    if (completion) completion();
+//                }];
+//            }
+//
+//            [alert addAction:action];
+//        }
+//
+//        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+//        [alert addAction:cancel];
+//
+//        [alert show];
+//    }
+//    else if (lesserVersions.count == 1) {
+//        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:lesserVersions.firstObject];
+////        [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
+//
+//        if (completion) completion();
+//    } else {
+////        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeDowngrade];
+//
+//        if (completion) completion();
+//    }
 }
 
-+ (void)showUpdatesFor:(ZBPackage *)package {
-    [package setIgnoreUpdates:NO];
-}
-
-+ (void)hideUpdatesFor:(ZBPackage *)package {
-    [package setIgnoreUpdates:YES];
-}
-
-+ (void)addFavorite:(ZBPackage *)package {
-    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
-    BOOL isFavorited = [favorites containsObject:package.identifier];
-    if (!isFavorited) {
-        [favorites addObject:package.identifier];
-    }
-    [ZBSettings setFavoritePackages:favorites];
-}
-
-+ (void)removeFavorite:(ZBPackage *)package {
-    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
-    BOOL isFavorited = [favorites containsObject:package.identifier];
-    if (isFavorited) {
-        [favorites removeObject:package.identifier];
-    }
-    [ZBSettings setFavoritePackages:favorites];
-}
-
-+ (void)blockAuthorOf:(ZBPackage *)package {
-    NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
-    
-    [blockedAuthors setObject:[package authorName] forKey:[package authorEmail] ?: [package authorName]];
-    
-    [ZBSettings setBlockedAuthors:blockedAuthors];
-}
-
-+ (void)unblockAuthorOf:(ZBPackage *)package {
-    NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
-    
-    [blockedAuthors removeObjectForKey:[package authorName]];
-    if ([package authorEmail]) [blockedAuthors removeObjectForKey:[package authorEmail]];
-    
-    [ZBSettings setBlockedAuthors:blockedAuthors];
-}
+//+ (void)showUpdatesFor:(ZBPackage *)package {
+////    [package setIgnoreUpdates:NO];
+//}
+//
+//+ (void)hideUpdatesFor:(ZBPackage *)package {
+////    [package setIgnoreUpdates:YES];
+//}
+//
+//+ (void)addFavorite:(ZBPackage *)package {
+//    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
+//    BOOL isFavorited = [favorites containsObject:package.identifier];
+//    if (!isFavorited) {
+//        [favorites addObject:package.identifier];
+//    }
+//    [ZBSettings setFavoritePackages:favorites];
+//}
+//
+//+ (void)removeFavorite:(ZBPackage *)package {
+//    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
+//    BOOL isFavorited = [favorites containsObject:package.identifier];
+//    if (isFavorited) {
+//        [favorites removeObject:package.identifier];
+//    }
+//    [ZBSettings setFavoritePackages:favorites];
+//}
+//
+//+ (void)blockAuthorOf:(ZBPackage *)package {
+//    NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
+//
+//    [blockedAuthors setObject:[package authorName] forKey:[package authorEmail] ?: [package authorName]];
+//
+//    [ZBSettings setBlockedAuthors:blockedAuthors];
+//}
+//
+//+ (void)unblockAuthorOf:(ZBPackage *)package {
+//    NSMutableDictionary *blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
+//
+//    [blockedAuthors removeObjectForKey:[package authorName]];
+//    if ([package authorEmail]) [blockedAuthors removeObjectForKey:[package authorEmail]];
+//
+//    [ZBSettings setBlockedAuthors:blockedAuthors];
+//}
 
 + (void)share:(ZBPackage *)package {
     // Likely implement later, gets a bit complicated due to presentation
@@ -483,31 +479,32 @@
 }
 
 + (UISwipeActionsConfiguration *)swipeActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView {
-    NSMutableArray *swipeActions = [NSMutableArray new];
+//    NSMutableArray *swipeActions = [NSMutableArray new];
+//
+//    NSArray *actions = [package possibleActions];
+//    for (NSNumber *number in actions) {
+//        ZBPackageActionType action = number.intValue;
+//
+//        NSString *title = [self titleForAction:action useIcon:YES];
+//        UIContextualActionStyle style = action == ZBPackageActionRemove ? UIContextualActionStyleDestructive : UIContextualActionStyleNormal;
+//        UIContextualAction *swipeAction = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+////            [self performAction:action forPackage:package completion:nil];
+//            completionHandler(YES);
+//        }];
+//
+//        swipeAction.backgroundColor = [self colorForAction:action];
+//
+//        if (@available(iOS 13.0, *)) {
+//            if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
+//                swipeAction.image = [self systemImageForAction:action];
+//            }
+//        }
+//
+//        [swipeActions addObject:swipeAction];
+//    }
 
-    NSArray *actions = [package possibleActions];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-
-        NSString *title = [self titleForAction:action useIcon:YES];
-        UIContextualActionStyle style = action == ZBPackageActionRemove ? UIContextualActionStyleDestructive : UIContextualActionStyleNormal;
-        UIContextualAction *swipeAction = [UIContextualAction contextualActionWithStyle:style title:title handler:^(UIContextualAction * _Nonnull contextualAction, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
-//            [self performAction:action forPackage:package completion:nil];
-            completionHandler(YES);
-        }];
-
-        swipeAction.backgroundColor = [self colorForAction:action];
-
-        if (@available(iOS 13.0, *)) {
-            if ([ZBSettings swipeActionStyle] == ZBSwipeActionStyleIcon) {
-                swipeAction.image = [self systemImageForAction:action];
-            }
-        }
-
-        [swipeActions addObject:swipeAction];
-    }
-
-    return [UISwipeActionsConfiguration configurationWithActions:swipeActions];
+//    return [UISwipeActionsConfiguration configurationWithActions:swipeActions];
+    return NULL;
 }
 
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion {
@@ -550,56 +547,58 @@
 }
 
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView {
-    NSMutableArray <UIPreviewAction *> *previewActions = [NSMutableArray new];
-    
-    NSArray *actions = [package possibleActions];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
-        NSString *title = [self titleForAction:action useIcon:NO];
-        UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
-        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
-//            [self performAction:action forPackage:package completion:^{
-//                if (tableView) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-//                    });
-//                }
-//            }];
-        }];
-        
-        [previewActions addObject:previewAction];
-    }
-    
-    return previewActions;
+//    NSMutableArray <UIPreviewAction *> *previewActions = [NSMutableArray new];
+//
+//    NSArray *actions = [package possibleActions];
+//    for (NSNumber *number in actions) {
+//        ZBPackageActionType action = number.intValue;
+//
+//        NSString *title = [self titleForAction:action useIcon:NO];
+//        UIPreviewActionStyle style = action == ZBPackageActionRemove ? UIPreviewActionStyleDestructive : UIPreviewActionStyleDefault;
+//        UIPreviewAction *previewAction = [UIPreviewAction actionWithTitle:title style:style handler:^(UIPreviewAction *previewAction, UIViewController *previewViewController) {
+////            [self performAction:action forPackage:package completion:^{
+////                if (tableView) {
+////                    dispatch_async(dispatch_get_main_queue(), ^{
+////                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+////                    });
+////                }
+////            }];
+//        }];
+//
+//        [previewActions addObject:previewAction];
+//    }
+//
+//    return previewActions;
+    return NULL;
 }
 
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0)) {
-    NSMutableArray <UIAction *> *uiActions = [NSMutableArray new];
-    
-    NSArray *actions = [package possibleActions];
-    for (NSNumber *number in actions) {
-        ZBPackageActionType action = number.intValue;
-        
-        NSString *title = [self titleForAction:action useIcon:NO];
-        UIImage *image = NULL;
-        if (@available(iOS 13.0, *)) {
-            image = [self systemImageForAction:action];
-        }
-        
-        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
-//            [self performAction:action forPackage:package completion:^{
-//                if (tableView) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
-//                    });
-//                }
-//            }];
-        }];
-        [uiActions addObject:uiAction];
-    }
-    
-    return uiActions;
+//    NSMutableArray <UIAction *> *uiActions = [NSMutableArray new];
+//
+//    NSArray *actions = [package possibleActions];
+//    for (NSNumber *number in actions) {
+//        ZBPackageActionType action = number.intValue;
+//
+//        NSString *title = [self titleForAction:action useIcon:NO];
+//        UIImage *image = NULL;
+//        if (@available(iOS 13.0, *)) {
+//            image = [self systemImageForAction:action];
+//        }
+//
+//        UIAction *uiAction = [UIAction actionWithTitle:title image:image identifier:nil handler:^(__kindof UIAction *uiAction) {
+////            [self performAction:action forPackage:package completion:^{
+////                if (tableView) {
+////                    dispatch_async(dispatch_get_main_queue(), ^{
+////                        [tableView reloadRowsAtIndexPaths:[tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationNone];
+////                    });
+////                }
+////            }];
+//        }];
+//        [uiActions addObject:uiAction];
+//    }
+//
+//    return uiActions;
+    return NULL;
 }
 
 #pragma mark - Displaying Actions to User
@@ -694,25 +693,6 @@
     }
     else {
         return [self titleForAction:actions useIcon:NO];
-    }
-}
-
-+ (ZBQueueType)actionToQueue:(ZBPackageActionType)action {
-    switch (action) {
-        case ZBPackageActionInstall:
-            return ZBQueueTypeInstall;
-        case ZBPackageActionRemove:
-            return ZBQueueTypeRemove;
-        case ZBPackageActionReinstall:
-            return ZBQueueTypeReinstall;
-        case ZBPackageActionDowngrade:
-            return ZBQueueTypeDowngrade;
-        case ZBPackageActionUpgrade:
-            return ZBQueueTypeUpgrade;
-        case ZBPackageActionSelectVersion:
-            return ZBQueueTypeInstall;
-        default:
-            return ZBQueueTypeClear;
     }
 }
 

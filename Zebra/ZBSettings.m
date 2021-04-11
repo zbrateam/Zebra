@@ -12,9 +12,6 @@
 @import UIKit.UIScreen;
 @import UIKit.UIWindow;
 
-#import <Model/ZBSource.h>
-#import <Model/ZBPackage.h>
-
 @implementation ZBSettings
 
 NSString *const AccentColorKey = @"AccentColor";
@@ -335,34 +332,35 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 }
 
 + (BOOL)isSectionFiltered:(NSString *)section forSource:(ZBSource *)source {
-    if (section == NULL) section = @"Uncategorized";
-    
-    NSArray *filteredSections = [self filteredSections];
-    if ([filteredSections containsObject:section]) return YES;
-    
-    NSDictionary *filteredSources = [self filteredSources];
-    NSArray *filteredSourceSections = [filteredSources objectForKey:[source uuid]];
-    if (!filteredSourceSections) return NO;
-    
-    return [filteredSourceSections containsObject:section];
+    return NO;
+//    if (section == NULL) section = @"Uncategorized";
+//
+//    NSArray *filteredSections = [self filteredSections];
+//    if ([filteredSections containsObject:section]) return YES;
+//
+//    NSDictionary *filteredSources = [self filteredSources];
+//    NSArray *filteredSourceSections = [filteredSources objectForKey:[source uuid]];
+//    if (!filteredSourceSections) return NO;
+//
+//    return [filteredSourceSections containsObject:section];
 }
 
 + (void)setSection:(NSString *)section filtered:(BOOL)filtered forSource:(ZBSource *)source {
-    if (section == NULL) section = @"Uncategorized";
-    
-    NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
-    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source uuid]] mutableCopy];
-    if (!filteredSections) filteredSections = [NSMutableArray new];
-    
-    if (filtered && ![filteredSections containsObject:section]) {
-        [filteredSections addObject:section];
-    }
-    else if (!filtered) {
-        [filteredSections removeObject:section];
-    }
-    
-    [filteredSources setObject:filteredSections forKey:[source uuid]];
-    [self setFilteredSources:filteredSources];
+//    if (section == NULL) section = @"Uncategorized";
+//    
+//    NSMutableDictionary *filteredSources = [[self filteredSources] mutableCopy];
+//    NSMutableArray *filteredSections = [[filteredSources objectForKey:[source uuid]] mutableCopy];
+//    if (!filteredSections) filteredSections = [NSMutableArray new];
+//    
+//    if (filtered && ![filteredSections containsObject:section]) {
+//        [filteredSections addObject:section];
+//    }
+//    else if (!filtered) {
+//        [filteredSections removeObject:section];
+//    }
+//    
+//    [filteredSources setObject:filteredSections forKey:[source uuid]];
+//    [self setFilteredSources:filteredSources];
 }
 
 + (NSDictionary *)blockedAuthors {
@@ -384,37 +382,39 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 }
 
 + (BOOL)isPackageFiltered:(ZBPackage *)package {
-    return [self isSectionFiltered:package.section forSource:package.source] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
+    //TODO: Package filters dont work
+    return NO;
+//    return [self isSectionFiltered:package.section forSource:package.source] || [self isAuthorBlocked:package.authorName email:package.authorEmail];
 }
 
 + (ZBPackageFilter *)filterForSource:(ZBSource *)source section:(NSString *)section {
-    if (!source) return NULL;
-    
-    NSDictionary *filters = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"PackageFilters"];
-    NSDictionary *sectionFilters = filters[source.uuid];
-    if (sectionFilters) {
-        if (!section) section = source.uuid;
-        NSData *encodedFilter = sectionFilters[section];
-        if (encodedFilter.length) {
-            ZBPackageFilter *filter = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFilter];
-            return filter;
-        }
-    }
+//    if (!source) return NULL;
+//
+//    NSDictionary *filters = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"PackageFilters"];
+//    NSDictionary *sectionFilters = filters[source.uuid];
+//    if (sectionFilters) {
+//        if (!section) section = source.uuid;
+//        NSData *encodedFilter = sectionFilters[section];
+//        if (encodedFilter.length) {
+//            ZBPackageFilter *filter = [NSKeyedUnarchiver unarchiveObjectWithData:encodedFilter];
+//            return filter;
+//        }
+//    }
     
     return NULL;
 }
 
 + (void)setFilter:(ZBPackageFilter *)filter forSource:(ZBSource *)source section:(NSString *)section {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableDictionary *filters = [[defaults dictionaryForKey:PackageFiltersKey] mutableCopy] ?: [NSMutableDictionary new];
-    NSMutableDictionary *sectionFilters = [filters[source.uuid] mutableCopy] ?: [NSMutableDictionary new];
-    
-    if (!section) section = source.uuid;
-    NSData *encodedFilter = [NSKeyedArchiver archivedDataWithRootObject:filter];
-    sectionFilters[section] = encodedFilter;
-    filters[source.uuid] = sectionFilters;
-    
-    [defaults setObject:filters forKey:PackageFiltersKey];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSMutableDictionary *filters = [[defaults dictionaryForKey:PackageFiltersKey] mutableCopy] ?: [NSMutableDictionary new];
+//    NSMutableDictionary *sectionFilters = [filters[source.uuid] mutableCopy] ?: [NSMutableDictionary new];
+//    
+//    if (!section) section = source.uuid;
+//    NSData *encodedFilter = [NSKeyedArchiver archivedDataWithRootObject:filter];
+//    sectionFilters[section] = encodedFilter;
+//    filters[source.uuid] = sectionFilters;
+//    
+//    [defaults setObject:filters forKey:PackageFiltersKey];
 }
 
 + (ZBSourceFilter *)sourceFilter {

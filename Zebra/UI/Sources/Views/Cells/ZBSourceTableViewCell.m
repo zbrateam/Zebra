@@ -8,7 +8,6 @@
 
 #import "ZBSourceTableViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Model/ZBSource.h>
 #import <Model/ZBSourceFilter.h>
 @import SDWebImage;
 
@@ -38,33 +37,33 @@
     spinner.color = [UIColor grayColor];
 }
 
-- (void)setSource:(ZBBaseSource *)source withFilter:(ZBSourceFilter *)filter {
-    self.sourceLabel.text = source.label;
-    self.urlLabel.text = source.repositoryURI;
-    self.storeBadge.hidden = source.paymentEndpointURL == NULL;
-
-    if ([ZBSettings wantsInstalledPackagesCount] || filter.sortOrder == ZBSourceSortOrderInstalledPackages) {
-        NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
-        if (numberOfInstalledPackages > 0) {
-            self.installedPackagesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu Installed", @""), numberOfInstalledPackages];
-            self.installedPackagesLabel.hidden = NO;
-        } else {
-            self.installedPackagesLabel.hidden = YES;
-        }
-    } else {
-        self.installedPackagesLabel.hidden = YES;
-    }
-
-    [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    
-    if (source.errors.count) {
-        self.accessoryType = [source isKindOfClass:[ZBSource class]] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryDetailButton;
-        self.tintColor = [UIColor systemPinkColor];
-    } else if (source.warnings.count) {
-        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
-        self.tintColor = [UIColor systemYellowColor];
-    }
-}
+//- (void)setSource:(PLSource *)source withFilter:(ZBSourceFilter *)filter {
+////    self.sourceLabel.text = source.label;
+////    self.urlLabel.text = source.repositoryURI;
+////    self.storeBadge.hidden = source.paymentEndpointURL == NULL;
+////
+////    if ([ZBSettings wantsInstalledPackagesCount] || filter.sortOrder == ZBSourceSortOrderInstalledPackages) {
+////        NSUInteger numberOfInstalledPackages = [source numberOfInstalledPackages];
+////        if (numberOfInstalledPackages > 0) {
+////            self.installedPackagesLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%lu Installed", @""), numberOfInstalledPackages];
+////            self.installedPackagesLabel.hidden = NO;
+////        } else {
+////            self.installedPackagesLabel.hidden = YES;
+////        }
+////    } else {
+////        self.installedPackagesLabel.hidden = YES;
+////    }
+////
+////    [self.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+////    
+////    if (source.errors.count) {
+////        self.accessoryType = [source isKindOfClass:[ZBSource class]] ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryDetailButton;
+////        self.tintColor = [UIColor systemPinkColor];
+////    } else if (source.warnings.count) {
+////        self.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+////        self.tintColor = [UIColor systemYellowColor];
+////    }
+//}
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];

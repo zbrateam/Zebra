@@ -9,11 +9,7 @@
 #import "ZBPackageListViewController.h"
 #import "ZBPackageFilterViewController.h"
 
-#import <Managers/ZBSourceManager.h>
-#import <Managers/ZBPackageManager.h>
-#import <Model/ZBPackage.h>
 #import <Model/ZBPackageFilter.h>
-#import <Model/ZBSource.h>
 #import <UI/Packages/ZBPackageViewController.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #if TARGET_OS_MACCATALYST
@@ -23,7 +19,6 @@
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <ZBSettings.h>
-#import <Queue/ZBQueue.h>
 
 #import <Extensions/UIViewController+Extensions.h>
 

@@ -13,8 +13,6 @@
 #import <ZBAppDelegate.h>
 #import "ZBSourceViewController.h"
 
-#import <Model/ZBSource.h>
-
 @interface ZBSourceAccountBanner () {
     BOOL hideUDID;
 }
@@ -30,13 +28,13 @@
     self = [[[NSBundle mainBundle] loadNibNamed:NSStringFromClass([self class]) owner:self options:nil] objectAtIndex:0];
     self.source = source;
     self.owner = owner;
-    [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
-        if (info && !error) {
-            self.sourceInfo = info;
-        }
-        
-        [self updateText];
-    }];
+//    [self.source getSourceInfo:^(ZBSourceInfo * _Nonnull info, NSError * _Nonnull error) {
+//        if (info && !error) {
+//            self.sourceInfo = info;
+//        }
+//        
+//        [self updateText];
+//    }];
     
     [self.button addTarget:owner action:@selector(accountButtonPressed:) forControlEvents:UIControlEventTouchDown];
     
@@ -72,36 +70,36 @@
 }
 
 - (void)updateText {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.activityIndicatorView startAnimating];
-        if ([self->source isSignedIn]) {
-            [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
-            [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (info && !error) {
-                        if (self->hideEmail) {
-                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@", @""), info.user.name];
-                        }
-                        else {
-                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@ (%@)", @""), info.user.name, info.user.email];
-                        }
-                    }
-                    else {
-                        self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
-                    }
-                    [self.activityIndicatorView stopAnimating];
-                });
-            }];
-        } else {
-            [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
-            if (self->sourceInfo) {
-                self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
-            } else {
-                self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
-            }
-            [self.activityIndicatorView stopAnimating];
-        }
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.activityIndicatorView startAnimating];
+//        if ([self->source isSignedIn]) {
+//            [self.button setTitle:NSLocalizedString(@"My Account", @"") forState:UIControlStateNormal];
+//            [self->source getUserInfo:^(ZBUserInfo * _Nonnull info, NSError * _Nonnull error) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    if (info && !error) {
+//                        if (self->hideEmail) {
+//                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@", @""), info.user.name];
+//                        }
+//                        else {
+//                            self.descriptionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Signed in as %@ (%@)", @""), info.user.name, info.user.email];
+//                        }
+//                    }
+//                    else {
+//                        self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
+//                    }
+//                    [self.activityIndicatorView stopAnimating];
+//                });
+//            }];
+//        } else {
+//            [self.button setTitle:NSLocalizedString(@"Sign In", @"") forState:UIControlStateNormal];
+//            if (self->sourceInfo) {
+//                self.descriptionLabel.text = self->sourceInfo.authenticationBanner.message;
+//            } else {
+//                self.descriptionLabel.text = NSLocalizedString(@"An Error Occurred", @"");
+//            }
+//            [self.activityIndicatorView stopAnimating];
+//        }
+//    });
 }
 
 - (void)applyStyle {

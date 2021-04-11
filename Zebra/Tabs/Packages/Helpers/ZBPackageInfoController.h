@@ -9,10 +9,10 @@
 #ifndef ZBPackageInfoController_h
 #define ZBPackageInfoController_h
 
-@class ZBPackage;
+@class PLPackage;
 
 @protocol ZBPackageInfoController
-- (id)initWithPackage:(ZBPackage *)package;
+- (id)initWithPackage:(PLPackage *)package;
 @end
 
 #endif /* ZBPackageInfoController_h */

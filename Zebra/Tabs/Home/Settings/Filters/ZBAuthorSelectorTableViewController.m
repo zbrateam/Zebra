@@ -13,12 +13,10 @@
 
 #import <ZBSettings.h>
 #import <Theme/ZBThemeManager.h>
-#import <Managers/ZBDatabaseManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 @interface ZBAuthorSelectorTableViewController () {
-    ZBDatabaseManager *databaseManager;
     NSArray <NSArray <NSString *> *> *authors;
     NSMutableDictionary <NSString *, NSString *> *selectedAuthors;
     NSMutableArray *newSelectedAuthors;
@@ -65,11 +63,7 @@
     [searchController setActive:YES];
 }
 
-- (void)setupView {
-    if (!databaseManager) {
-        databaseManager = [ZBDatabaseManager sharedInstance];
-    }
-    
+- (void)setupView {    
     if (!searchController) {
         searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         searchController.delegate = self;
@@ -135,12 +129,12 @@
             return;
         }
         
-        [databaseManager searchForAuthorsByNameOrEmail:strippedString completion:^(NSArray <NSArray <NSString *> *> *authors) {
-            self->authors = authors;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self refreshTable];
-            });
-        }];
+//        [databaseManager searchForAuthorsByNameOrEmail:strippedString completion:^(NSArray <NSArray <NSString *> *> *authors) {
+//            self->authors = authors;
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self refreshTable];
+//            });
+//        }];
     }
 }
 

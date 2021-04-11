@@ -23,8 +23,6 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Packages/ZBPackageViewController.h>
-#import <Model/ZBPackage.h>
-#import <Model/ZBSource.h>
 #import <Theme/ZBThemeManager.h>
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Sources/ZBSourceViewController.h>
@@ -34,8 +32,6 @@
 #import <Headers/AccessibilityUtilities.h>
 
 #import <UI/Sources/ZBSourcesSplitViewController.h>
-
-#import <Managers/ZBDatabaseManager.h>
 
 #import <SDWebImage/SDWebImage.h>
 
@@ -196,7 +192,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self setupCrashReporting];
     [self registerForScreenshotNotifications];
     [self setupSDWebImageCache];
-    [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
+//    [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
     
     self.window.rootViewController = [[ZBLoadingViewController alloc] init];
     [self.window makeKeyAndVisible];
@@ -409,15 +405,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         completionHandler(UIBackgroundFetchResultFailed);
     }];
 
-    [[ZBNotificationManager sharedInstance] performBackgroundFetch:^(UIBackgroundFetchResult result) {
-        NSTimeInterval fetchDuration = [[NSDate date] timeIntervalSinceDate:fetchStart];
-        NSLog(@"[Zebra] Background refresh finished in %f seconds", fetchDuration);
-        [application endBackgroundTask:self.backgroundTask];
-        self.backgroundTask = UIBackgroundTaskInvalid;
-        
-        // Hard-coded "NewData" for (hopefully) better fetch intervals
-        completionHandler(UIBackgroundFetchResultNewData);
-    }];
+//    [[ZBNotificationManager sharedInstance] performBackgroundFetch:^(UIBackgroundFetchResult result) {
+//        NSTimeInterval fetchDuration = [[NSDate date] timeIntervalSinceDate:fetchStart];
+//        NSLog(@"[Zebra] Background refresh finished in %f seconds", fetchDuration);
+//        [application endBackgroundTask:self.backgroundTask];
+//        self.backgroundTask = UIBackgroundTaskInvalid;
+//        
+//        // Hard-coded "NewData" for (hopefully) better fetch intervals
+//        completionHandler(UIBackgroundFetchResultNewData);
+//    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

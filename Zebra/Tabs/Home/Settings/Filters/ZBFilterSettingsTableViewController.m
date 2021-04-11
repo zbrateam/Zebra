@@ -13,16 +13,12 @@
 #import "ZBAuthorSelectorTableViewController.h"
 #import "ZBButtonSettingsTableViewCell.h"
 
-#import <Managers/ZBDatabaseManager.h>
-#import <Model/ZBPackage.h>
-#import <Model/ZBSource.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
 
 //#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
-#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import "UITableView+Settings.h"
@@ -65,13 +61,13 @@
     sources = [NSMutableArray new];
     NSMutableArray *outdatedFilteredSources = [NSMutableArray new];
     for (NSString *baseFilename in baseFilenames) {
-        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
-        if (!source) {
-            // This source has been removed after filtering sections in it, we need to remove this baseFilename
-            [outdatedFilteredSources addObject:baseFilename];
-            continue;
-        };
-        [sources addObject:source];
+//        ZBSource *source = [[ZBSourceManager sharedInstance] sourceWithUUID:baseFilename];
+//        if (!source) {
+//            // This source has been removed after filtering sections in it, we need to remove this baseFilename
+//            [outdatedFilteredSources addObject:baseFilename];
+//            continue;
+//        };
+//        [sources addObject:source];
     }
     [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
     if ([outdatedFilteredSources count]) {
@@ -81,7 +77,8 @@
     
     blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
-    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesFromIdentifiers:[ZBSettings ignoredUpdates]].mutableCopy;
+    // TODO: ignored updates don't work currently
+//    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesFromIdentifiers:[ZBSettings ignoredUpdates]].mutableCopy;
     
     [self.tableView reloadData];
 }
@@ -112,13 +109,13 @@
         case 0: {
             if (indexPath.row < filteredSections.count) {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
-                cell.textLabel.text = filteredSections[indexPath.row];
-                cell.textLabel.textColor = [UIColor primaryTextColor];
-
-                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
-                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
-
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//                cell.textLabel.text = filteredSections[indexPath.row];
+//                cell.textLabel.textColor = [UIColor primaryTextColor];
+//
+//                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
+//                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+//
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
                 return cell;
             }
@@ -127,16 +124,16 @@
         case 1: {
             if (indexPath.row < filteredSources.count) {
                 ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
-                ZBSource *source = sources[indexPath.row];
-                
-                sourceCell.sourceLabel.text = [source label];
-                sourceCell.sourceLabel.textColor = [UIColor primaryTextColor];
-                
-                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
-                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
-                sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
-                
-                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//                ZBSource *source = sources[indexPath.row];
+//
+//                sourceCell.sourceLabel.text = [source label];
+//                sourceCell.sourceLabel.textColor = [UIColor primaryTextColor];
+//
+//                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
+//                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
+//                sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
+//
+//                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
                 
                 return sourceCell;
             }
@@ -340,12 +337,12 @@
                     break;
                 }
                 case 1: {
-                    ZBSource *source = self->sources[indexPath.row];
-                    [self->filteredSources removeObjectForKey:[source uuid]];
-                    [self->sources removeObjectAtIndex:indexPath.row];
-
-                    [ZBSettings setFilteredSources:self->filteredSources];
-                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+//                    ZBSource *source = self->sources[indexPath.row];
+//                    [self->filteredSources removeObjectForKey:[source uuid]];
+//                    [self->sources removeObjectAtIndex:indexPath.row];
+//
+//                    [ZBSettings setFilteredSources:self->filteredSources];
+//                    [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
                     break;
                 }
                 case 2: {
@@ -366,18 +363,18 @@
     case 3: {
         UIContextualAction *deleteFilterAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:NSLocalizedString(@"Show Updates", @"") handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
 
-            ZBPackage *package = self->ignoredUpdates[indexPath.row];
-            [self->ignoredUpdates removeObject:package];
-
-            [package setIgnoreUpdates:NO];
-
-            if (self->ignoredUpdates.count) {
-                [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-            else {
-                [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-            completionHandler(YES);
+//            ZBPackage *package = self->ignoredUpdates[indexPath.row];
+//            [self->ignoredUpdates removeObject:package];
+//
+//            [package setIgnoreUpdates:NO];
+//
+//            if (self->ignoredUpdates.count) {
+//                [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            }
+//            else {
+//                [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            }
+//            completionHandler(YES);
         }];
         deleteFilterAction.backgroundColor = [UIColor systemGreenColor];
 
@@ -389,8 +386,10 @@
 }
 
 - (NSArray *)listAllAuthorsFromMail:(NSIndexPath *)indexPath {
-    ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
-    NSString *email = [blockedAuthors allKeys][indexPath.row];
+    
+    // TODO: Can't list all authors atm
+//    ZBDatabaseManager *database = [ZBDatabaseManager sharedInstance];
+//    NSString *email = [blockedAuthors allKeys][indexPath.row];
 //    NSArray *aliases = [database searchForAuthorByEmail:email];
 
     return NULL;

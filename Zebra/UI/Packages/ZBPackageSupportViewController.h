@@ -8,8 +8,8 @@
 
 #import "ZBPackageInfoController.h"
 
-@import UIKit;
-@import MessageUI;
+#import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

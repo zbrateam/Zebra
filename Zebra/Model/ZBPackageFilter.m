@@ -8,8 +8,6 @@
 
 #import "ZBPackageFilter.h"
 
-#import <Managers/ZBSourceManager.h>
-#import <Model/ZBSource.h>
 #import <ZBSettings.h>
 
 @implementation ZBPackageFilter
@@ -117,19 +115,19 @@
 - (NSArray <NSSortDescriptor *> *)sortDescriptors {
     NSMutableArray *descriptors = [NSMutableArray new];
     
-    if (self.sortOrder == ZBPackageSortOrderDate) {
-        if (self.source.remote) {
-            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:NO selector:@selector(compare:)]];
-        } else {
-            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedDate" ascending:NO selector:@selector(compare:)]];
-        }
-    } else if (self.sortOrder == ZBPackageSortOrderSize) {
-        if (self.source.remote) {
-            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"downloadSize" ascending:NO selector:@selector(compare:)]];
-        } else {
-            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:NO selector:@selector(compare:)]];
-        }
-    }
+//    if (self.sortOrder == ZBPackageSortOrderDate) {
+//        if (self.source.remote) {
+//            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"lastSeen" ascending:NO selector:@selector(compare:)]];
+//        } else {
+//            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedDate" ascending:NO selector:@selector(compare:)]];
+//        }
+//    } else if (self.sortOrder == ZBPackageSortOrderSize) {
+//        if (self.source.remote) {
+//            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"downloadSize" ascending:NO selector:@selector(compare:)]];
+//        } else {
+//            [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"installedSize" ascending:NO selector:@selector(compare:)]];
+//        }
+//    }
 
     [descriptors addObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(caseInsensitiveCompare:)]];
     return descriptors;

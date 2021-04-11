@@ -26,24 +26,6 @@
             </objects>
             <point key="canvasLocation" x="5286" y="1126"/>
         </scene>
-        <!--Packages By Author Table View Controller-->
-        <scene sceneID="mhY-GL-3gz">
-            <objects>
-                <tableViewController storyboardIdentifier="Author Packages" id="bfp-la-uN6" customClass="ZBPackagesByAuthorTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="O16-fK-JCy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="bfp-la-uN6" id="IKX-MJ-qal"/>
-                            <outlet property="delegate" destination="bfp-la-uN6" id="t51-Kv-Mnc"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DHK-j0-Pcu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6308" y="444"/>
-        </scene>
         <!--Account-->
         <scene sceneID="MU8-ZF-cnb">
             <objects>

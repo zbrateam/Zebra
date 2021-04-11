@@ -10,7 +10,6 @@
 @class PLPackage;
 #import <UIKit/UIKit.h>
 
-#import <Queue/ZBQueueType.h>
 #import <Extensions/UIBarButtonItem+blocks.h>
 
 typedef NS_OPTIONS(NSUInteger, ZBPackageActionType) {

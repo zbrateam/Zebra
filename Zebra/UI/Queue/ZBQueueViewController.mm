@@ -11,6 +11,7 @@
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Console/ZBConsoleViewController.h>
+#import <UI/ZBSidebarController.h>
 
 #import <Plains/PLPackage.h>
 #import <Plains/PLQueue.h>
@@ -52,6 +53,9 @@
     
 #if TARGET_OS_MACCATALYST
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
+    [sidebar setShowBackButton:NO];
 #endif
 }
 

@@ -11,10 +11,8 @@
 #import "ZBOptionSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
-#import <Managers/ZBSourceManager.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Model/ZBSource.h>
 
 @interface ZBSectionSelectorTableViewController () {
     NSMutableArray *sections;
@@ -43,19 +41,19 @@
     
     self.title = NSLocalizedString(@"Select a Section", @"");
     
-    NSMutableArray *allSections = [[[ZBSourceManager sharedInstance] allSections] mutableCopy];
-    [allSections sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        NSString *section1 = [self localizedSection:obj1];
-        NSString *section2 = [self localizedSection:obj2];
-            
-        return [section1 compare:section2];
-    }];
+//    NSMutableArray *allSections = [[[ZBSourceManager sharedInstance] allSections] mutableCopy];
+//    [allSections sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        NSString *section1 = [self localizedSection:obj1];
+//        NSString *section2 = [self localizedSection:obj2];
+//
+//        return [section1 compare:section2];
+//    }];
     
-    NSArray *filteredSections = [ZBSettings filteredSections];
+//    NSArray *filteredSections = [ZBSettings filteredSections];
     
-    [allSections removeObjectsInArray:filteredSections];
+//    [allSections removeObjectsInArray:filteredSections];
     
-    sections = allSections;
+//    sections = allSections;
     
     [self layoutNaviationButtons];
     [self.tableView registerCellType:ZBOptionSettingsCell];
@@ -105,14 +103,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
-    
-    cell.textLabel.text = sections[indexPath.row];
-    
-    cell.imageView.image = [ZBSource imageForSection:sections[indexPath.row]];
-    [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
-    
-    [cell setChosen:[selectedIndexes containsObject:indexPath]];
-    [cell applyStyling];
+//    
+//    cell.textLabel.text = sections[indexPath.row];
+//    
+//    cell.imageView.image = [ZBSource imageForSection:sections[indexPath.row]];
+//    [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+//    
+//    [cell setChosen:[selectedIndexes containsObject:indexPath]];
+//    [cell applyStyling];
     
     return cell;
 }

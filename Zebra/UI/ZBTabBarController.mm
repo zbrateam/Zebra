@@ -8,8 +8,6 @@
 
 #import "ZBTabBarController.h"
 
-#import <Managers/ZBSourceManager.h>
-#import <Model/ZBSource.h>
 #import <UI/Home/ZBHomeViewController.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Sources/ZBSourceListViewController.h>
@@ -20,7 +18,6 @@
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Queue/ZBQueue.h>
 #import <UI/Queue/ZBQueueViewController.h>
 #import <ZBDevice.h>
 
@@ -29,7 +26,6 @@
 #import <LNPopupController/LNPopupController.h>
 
 @interface ZBTabBarController () {
-    ZBSourceManager *sourceManager;
     UIActivityIndicatorView *sourceRefreshIndicator;
     NSUInteger queueCount;
     NSUInteger updates;
@@ -50,8 +46,6 @@
     self = [super init];
     
     if (self) {
-        sourceManager = [ZBSourceManager sharedInstance];
-        
         UITabBar.appearance.tintColor = [UIColor accentColor];
         UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
         
@@ -219,7 +213,8 @@
         
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
-            [[ZBQueue sharedQueue] clear];
+            //TODO: Make this work with new queue
+//            [[ZBQueue sharedQueue] clear];
         }];
         [clearQueue addAction:yesAction];
         
@@ -245,9 +240,9 @@
 }
 
 - (void)requestSourceRefresh {
-    if (sourceManager.refreshInProgress) return;
+//    if (sourceManager.refreshInProgress) return;
     
-    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
+//    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
 }
 
 @end

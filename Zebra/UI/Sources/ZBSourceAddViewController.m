@@ -8,8 +8,6 @@
 
 #import "ZBSourceAddViewController.h"
 
-#import <Model/ZBSource.h>
-#import <Managers/ZBSourceManager.h>
 #import <UI/Sources/ZBSourceImportViewController.h>
 #import <UI/Sources/ZBSourceBulkAddViewController.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
@@ -84,42 +82,42 @@
 #pragma mark - Fetching Sources
 
 - (void)downloadSources {
-    if (!sources) sources = [NSMutableArray new];
-    if (!filteredSources) filteredSources = [NSMutableArray new];
-    if (!selectedSources) selectedSources = [NSMutableArray new];
-    if (!addedSources) addedSources = [[ZBSourceManager sharedInstance] sources];
-    if (!managers) managers = [self loadManagers];
-    
-    NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos/small"];
-    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data && !error) {
-            NSError *JSONError;
-            NSDictionary *fullJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-            if ([fullJSON[@"status"] boolValue] == YES && [fullJSON[@"code"] integerValue] == 200) {
-                NSArray *repos = fullJSON[@"data"];
-                for (NSDictionary *repo in repos) {
-                    NSURL *URL = [NSURL URLWithString:repo[@"url"]];
-                    if (URL) {
-                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:URL];
-                        [baseSource setLabel:repo[@"name"]];
-                        [baseSource setVerificationStatus:ZBSourceExists];
-                        
-                        [self->sources addObject:baseSource];
-                    }
-                }
-                
-                NSSortDescriptor *labelSorter = [[NSSortDescriptor alloc] initWithKey:@"label" ascending:YES];
-
-                [self->sources sortUsingDescriptors:@[labelSorter]];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
-                });
-            }
-        }
-    }];
-    
-    [dataTask resume];
+//    if (!sources) sources = [NSMutableArray new];
+//    if (!filteredSources) filteredSources = [NSMutableArray new];
+//    if (!selectedSources) selectedSources = [NSMutableArray new];
+////    if (!addedSources) addedSources = [[ZBSourceManager sharedInstance] sources];
+//    if (!managers) managers = [self loadManagers];
+//
+//    NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos/small"];
+//    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        if (data && !error) {
+//            NSError *JSONError;
+//            NSDictionary *fullJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
+//            if ([fullJSON[@"status"] boolValue] == YES && [fullJSON[@"code"] integerValue] == 200) {
+//                NSArray *repos = fullJSON[@"data"];
+//                for (NSDictionary *repo in repos) {
+//                    NSURL *URL = [NSURL URLWithString:repo[@"url"]];
+//                    if (URL) {
+//                        ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:URL];
+//                        [baseSource setLabel:repo[@"name"]];
+//                        [baseSource setVerificationStatus:ZBSourceExists];
+//
+//                        [self->sources addObject:baseSource];
+//                    }
+//                }
+//
+//                NSSortDescriptor *labelSorter = [[NSSortDescriptor alloc] initWithKey:@"label" ascending:YES];
+//
+//                [self->sources sortUsingDescriptors:@[labelSorter]];
+//
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [self.tableView reloadData];
+//                });
+//            }
+//        }
+//    }];
+//
+//    [dataTask resume];
 }
 
 - (NSArray *)loadManagers {
@@ -181,56 +179,56 @@
 }
 
 - (void)checkPasteboard:(BOOL)checked {
-    if (!checked) {
-        if (@available(iOS 14.0, *)) {
-            [[UIPasteboard generalPasteboard] detectPatternsForPatterns:[NSSet setWithObject:UIPasteboardDetectionPatternProbableWebURL] completionHandler:^(NSSet<UIPasteboardDetectionPattern> * _Nullable patterns, NSError * _Nullable error) {
-                if (!error && [patterns containsObject:UIPasteboardDetectionPatternProbableWebURL]) {
-                    [self checkPasteboard:YES];
-                }
-            }];
-        } else {
-            [self checkPasteboard:YES];
-        }
-    }
-    
-    if (checked) {
-        NSURL *potentialSourceURL = [[UIPasteboard generalPasteboard] URL];
-        if (!potentialSourceURL) potentialSourceURL = [NSURL URLWithString:[[UIPasteboard generalPasteboard] string]];
-        ZBBaseSource *potentialBaseSource = [[ZBBaseSource alloc] initFromURL:potentialSourceURL];
-        if (potentialBaseSource) {
-            self->clipboardSource = potentialBaseSource;
-            self->clipboardHasSource = YES;
-            [potentialBaseSource verify:^(ZBSourceVerificationStatus status) {
-                if (status == ZBSourceExists) {
-                    self->clipboardSource = potentialBaseSource;
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-                    });
-                    
-                    [self->clipboardSource getLabel:^(NSString * _Nonnull label) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-                        });
-                    }];
-                }
-                else if (status == ZBSourceImaginary) {
-                    self->clipboardSource = NULL;
-                    self->clipboardHasSource = NO;
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-                    });
-                }
-            }];
-        } else {
-            self->clipboardHasSource = NO;
-            self->clipboardSource = NULL;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
-        });
-    }
+//    if (!checked) {
+//        if (@available(iOS 14.0, *)) {
+//            [[UIPasteboard generalPasteboard] detectPatternsForPatterns:[NSSet setWithObject:UIPasteboardDetectionPatternProbableWebURL] completionHandler:^(NSSet<UIPasteboardDetectionPattern> * _Nullable patterns, NSError * _Nullable error) {
+//                if (!error && [patterns containsObject:UIPasteboardDetectionPatternProbableWebURL]) {
+//                    [self checkPasteboard:YES];
+//                }
+//            }];
+//        } else {
+//            [self checkPasteboard:YES];
+//        }
+//    }
+//    
+//    if (checked) {
+//        NSURL *potentialSourceURL = [[UIPasteboard generalPasteboard] URL];
+//        if (!potentialSourceURL) potentialSourceURL = [NSURL URLWithString:[[UIPasteboard generalPasteboard] string]];
+//        ZBBaseSource *potentialBaseSource = [[ZBBaseSource alloc] initFromURL:potentialSourceURL];
+//        if (potentialBaseSource) {
+//            self->clipboardSource = potentialBaseSource;
+//            self->clipboardHasSource = YES;
+//            [potentialBaseSource verify:^(ZBSourceVerificationStatus status) {
+//                if (status == ZBSourceExists) {
+//                    self->clipboardSource = potentialBaseSource;
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+//                    });
+//                    
+//                    [self->clipboardSource getLabel:^(NSString * _Nonnull label) {
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+//                        });
+//                    }];
+//                }
+//                else if (status == ZBSourceImaginary) {
+//                    self->clipboardSource = NULL;
+//                    self->clipboardHasSource = NO;
+//                    
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+//                    });
+//                }
+//            }];
+//        } else {
+//            self->clipboardHasSource = NO;
+//            self->clipboardSource = NULL;
+//        }
+//        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+//        });
+//    }
 }
 
 - (void)dismiss {
@@ -241,10 +239,10 @@
 #pragma mark - Adding Sources
 
 - (void)addSelectedSources {
-    ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
+//    ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
     
-    NSSet *sourcesToAdd = [NSSet setWithArray:selectedSources];
-    [sourceManager addSources:sourcesToAdd error:nil];
+//    NSSet *sourcesToAdd = [NSSet setWithArray:selectedSources];
+//    [sourceManager addSources:sourcesToAdd error:nil];
     
     [self dismiss];
 }
@@ -275,165 +273,165 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"SourceTableViewCell" forIndexPath:indexPath];
 
-    if (indexPath.section == 0 && searchTermIsEmpty && clipboardSource) {
-        if ([addedSources containsObject:clipboardSource]) {
-            [cell setDisabled:YES];
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        }
-        else {
-            [cell setDisabled:NO];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        
-        if (clipboardSource.verificationStatus == ZBSourceVerifying || clipboardSource.verificationStatus == ZBSourceUnverified) {
-            [cell setSpinning:YES];
-            cell.urlLabel.text = clipboardSource.label;
-            cell.sourceLabel.hidden = YES;
-            cell.iconImageView.image = nil;
-        }
-        else if (clipboardSource.verificationStatus == ZBSourceExists) {
-            if ([selectedSources containsObject:clipboardSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
-            [cell setSpinning:NO];
-            cell.sourceLabel.hidden = NO;
-            cell.sourceLabel.text = clipboardSource.label;
-            cell.urlLabel.text = NSLocalizedString(@"From your clipboard", @"");
-            [cell.iconImageView sd_setImageWithURL:clipboardSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-        }
-    } else if (indexPath.section == 1 && searchTermIsEmpty) {
-        if (indexPath.row == 0) {
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"importSectionHeader"];
-            
-            cell.textLabel.text = NSLocalizedString(@"Transfer Sources", @"");
-            cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightSemibold];
-            if (@available(iOS 13.0, *)) {
-                cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up" : @"chevron.down"]];
-            } else {
-                // FIXME: Fallback on earlier versions
-            }
-            cell.accessoryView.tintColor = [UIColor tertiaryTextColor];
-            
-            return cell;
-        } else if (importExpanded) {
-            NSDictionary *manager = managers[indexPath.row - 1];
-            
-            cell.sourceLabel.hidden = NO;
-            cell.sourceLabel.text = manager[@"name"];
-            cell.urlLabel.text = manager[@"label"];
-            [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-        }
-    } else if (indexPath.section == 2 && searchTermIsURL) {
-        if (enteredSource) {
-            if ([addedSources containsObject:enteredSource]) {
-                [cell setDisabled:YES];
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            else {
-                [cell setDisabled:NO];
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-            
-            if (enteredSource.verificationStatus == ZBSourceVerifying || enteredSource.verificationStatus == ZBSourceUnverified) {
-                [cell setSpinning:YES];
-                cell.urlLabel.text = [self searchAsURL].absoluteString;
-                cell.sourceLabel.hidden = YES;
-                cell.iconImageView.image = nil;
-            }
-            else if (enteredSource.verificationStatus == ZBSourceExists) {
-                if ([selectedSources containsObject:enteredSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                
-                [cell setSpinning:NO];
-                cell.sourceLabel.hidden = NO;
-                cell.sourceLabel.text = enteredSource.label;
-                cell.urlLabel.text = enteredSource.repositoryURI;
-                [cell.iconImageView sd_setImageWithURL:enteredSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-            }
-        }
-    } else if (indexPath.section == 3) {
-        ZBBaseSource *source = filteredSources[indexPath.row];
-        if ([addedSources containsObject:(ZBSource *)source]) {
-            [cell setDisabled:YES];
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else if ([selectedSources containsObject:source]) {
-            [cell setDisabled:NO];
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        } else {
-            [cell setDisabled:NO];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-        
-        cell.sourceLabel.hidden = NO;
-        cell.sourceLabel.text = source.label;
-        cell.urlLabel.text = source.repositoryURI;
-        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }
+//    if (indexPath.section == 0 && searchTermIsEmpty && clipboardSource) {
+//        if ([addedSources containsObject:clipboardSource]) {
+//            [cell setDisabled:YES];
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        }
+//        else {
+//            [cell setDisabled:NO];
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//        }
+//        
+//        if (clipboardSource.verificationStatus == ZBSourceVerifying || clipboardSource.verificationStatus == ZBSourceUnverified) {
+//            [cell setSpinning:YES];
+//            cell.urlLabel.text = clipboardSource.label;
+//            cell.sourceLabel.hidden = YES;
+//            cell.iconImageView.image = nil;
+//        }
+//        else if (clipboardSource.verificationStatus == ZBSourceExists) {
+//            if ([selectedSources containsObject:clipboardSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//            
+//            [cell setSpinning:NO];
+//            cell.sourceLabel.hidden = NO;
+//            cell.sourceLabel.text = clipboardSource.label;
+//            cell.urlLabel.text = NSLocalizedString(@"From your clipboard", @"");
+//            [cell.iconImageView sd_setImageWithURL:clipboardSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//        }
+//    } else if (indexPath.section == 1 && searchTermIsEmpty) {
+//        if (indexPath.row == 0) {
+//            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"importSectionHeader"];
+//            
+//            cell.textLabel.text = NSLocalizedString(@"Transfer Sources", @"");
+//            cell.textLabel.font = [UIFont systemFontOfSize:cell.textLabel.font.pointSize weight:UIFontWeightSemibold];
+//            if (@available(iOS 13.0, *)) {
+//                cell.accessoryView =  [[UIImageView alloc] initWithImage:[UIImage systemImageNamed:importExpanded ? @"chevron.up" : @"chevron.down"]];
+//            } else {
+//                // FIXME: Fallback on earlier versions
+//            }
+//            cell.accessoryView.tintColor = [UIColor tertiaryTextColor];
+//            
+//            return cell;
+//        } else if (importExpanded) {
+//            NSDictionary *manager = managers[indexPath.row - 1];
+//            
+//            cell.sourceLabel.hidden = NO;
+//            cell.sourceLabel.text = manager[@"name"];
+//            cell.urlLabel.text = manager[@"label"];
+//            [cell.iconImageView sd_setImageWithURL:[NSURL URLWithString:manager[@"icon"]] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//        }
+//    } else if (indexPath.section == 2 && searchTermIsURL) {
+//        if (enteredSource) {
+//            if ([addedSources containsObject:enteredSource]) {
+//                [cell setDisabled:YES];
+//                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//            }
+//            else {
+//                [cell setDisabled:NO];
+//                cell.accessoryType = UITableViewCellAccessoryNone;
+//            }
+//            
+//            if (enteredSource.verificationStatus == ZBSourceVerifying || enteredSource.verificationStatus == ZBSourceUnverified) {
+//                [cell setSpinning:YES];
+//                cell.urlLabel.text = [self searchAsURL].absoluteString;
+//                cell.sourceLabel.hidden = YES;
+//                cell.iconImageView.image = nil;
+//            }
+//            else if (enteredSource.verificationStatus == ZBSourceExists) {
+//                if ([selectedSources containsObject:enteredSource]) cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//                
+//                [cell setSpinning:NO];
+//                cell.sourceLabel.hidden = NO;
+//                cell.sourceLabel.text = enteredSource.label;
+//                cell.urlLabel.text = enteredSource.repositoryURI;
+//                [cell.iconImageView sd_setImageWithURL:enteredSource.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//            }
+//        }
+//    } else if (indexPath.section == 3) {
+//        ZBBaseSource *source = filteredSources[indexPath.row];
+//        if ([addedSources containsObject:(ZBSource *)source]) {
+//            [cell setDisabled:YES];
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        } else if ([selectedSources containsObject:source]) {
+//            [cell setDisabled:NO];
+//            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//        } else {
+//            [cell setDisabled:NO];
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//        }
+//        
+//        cell.sourceLabel.hidden = NO;
+//        cell.sourceLabel.text = source.label;
+//        cell.urlLabel.text = source.repositoryURI;
+//        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == 0 && searchTermIsEmpty && clipboardHasSource) {
-        if (![addedSources containsObject:clipboardSource] && clipboardSource.verificationStatus == ZBSourceExists) {
-            if ([selectedSources containsObject:clipboardSource]) {
-                [selectedSources removeObject:clipboardSource];
-            } else {
-                [selectedSources addObject:clipboardSource];
-            }
-        }
-    } else if (indexPath.section == 1 && searchTermIsEmpty) {
-        if (indexPath.row == 0) {
-            importExpanded = !importExpanded;
-            
-            NSMutableArray *indexPaths = [NSMutableArray new];
-            for (int i = 0; i < managers.count; i++) {
-                [indexPaths addObject:[NSIndexPath indexPathForRow:i + 1 inSection:1]];
-            }
-            
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
-            if (importExpanded) {
-                [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else {
-                [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-            [self.tableView endUpdates];
-        } else if (importExpanded) {
-            NSDictionary *manager = managers[indexPath.row - 1];
-            ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[[NSURL URLWithString:manager[@"url"]]] extension:manager[@"ext"]];
-            
-            [self.navigationController pushViewController:importController animated:YES];
-        }
-        return;
-    } else if (indexPath.section == 2 && enteredSource) {
-        if (![addedSources containsObject:enteredSource] && enteredSource.verificationStatus == ZBSourceExists) {
-            if ([selectedSources containsObject:enteredSource]) {
-                [selectedSources removeObject:enteredSource];
-            } else {
-                [selectedSources addObject:enteredSource];
-            }
-        }
-    } else if (indexPath.section == 3) {
-        ZBBaseSource *source = filteredSources[indexPath.row];
-        if (![addedSources containsObject:source]) {
-            if ([selectedSources containsObject:source]) {
-                [selectedSources removeObject:source];
-            } else {
-                [selectedSources addObject:source];
-            }
-        }
-    }
-    
-    self.navigationItem.rightBarButtonItem.enabled = selectedSources.count;
-    if (selectedSources.count) {
-        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"Add (%lu)", (unsigned long)selectedSources.count];
-    }
-    else {
-        self.navigationItem.rightBarButtonItem.title = @"Add";
-    }
-    
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//
+//    if (indexPath.section == 0 && searchTermIsEmpty && clipboardHasSource) {
+//        if (![addedSources containsObject:clipboardSource] && clipboardSource.verificationStatus == ZBSourceExists) {
+//            if ([selectedSources containsObject:clipboardSource]) {
+//                [selectedSources removeObject:clipboardSource];
+//            } else {
+//                [selectedSources addObject:clipboardSource];
+//            }
+//        }
+//    } else if (indexPath.section == 1 && searchTermIsEmpty) {
+//        if (indexPath.row == 0) {
+//            importExpanded = !importExpanded;
+//
+//            NSMutableArray *indexPaths = [NSMutableArray new];
+//            for (int i = 0; i < managers.count; i++) {
+//                [indexPaths addObject:[NSIndexPath indexPathForRow:i + 1 inSection:1]];
+//            }
+//
+//            [self.tableView beginUpdates];
+//            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationAutomatic];
+//            if (importExpanded) {
+//                [self.tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+//            } else {
+//                [self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+//            }
+//            [self.tableView endUpdates];
+//        } else if (importExpanded) {
+//            NSDictionary *manager = managers[indexPath.row - 1];
+//            ZBSourceImportViewController *importController = [[ZBSourceImportViewController alloc] initWithPaths:@[[NSURL URLWithString:manager[@"url"]]] extension:manager[@"ext"]];
+//
+//            [self.navigationController pushViewController:importController animated:YES];
+//        }
+//        return;
+//    } else if (indexPath.section == 2 && enteredSource) {
+//        if (![addedSources containsObject:enteredSource] && enteredSource.verificationStatus == ZBSourceExists) {
+//            if ([selectedSources containsObject:enteredSource]) {
+//                [selectedSources removeObject:enteredSource];
+//            } else {
+//                [selectedSources addObject:enteredSource];
+//            }
+//        }
+//    } else if (indexPath.section == 3) {
+//        ZBBaseSource *source = filteredSources[indexPath.row];
+//        if (![addedSources containsObject:source]) {
+//            if ([selectedSources containsObject:source]) {
+//                [selectedSources removeObject:source];
+//            } else {
+//                [selectedSources addObject:source];
+//            }
+//        }
+//    }
+//
+//    self.navigationItem.rightBarButtonItem.enabled = selectedSources.count;
+//    if (selectedSources.count) {
+//        self.navigationItem.rightBarButtonItem.title = [NSString stringWithFormat:@"Add (%lu)", (unsigned long)selectedSources.count];
+//    }
+//    else {
+//        self.navigationItem.rightBarButtonItem.title = @"Add";
+//    }
+//
+//    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (NSURL *)searchAsURL {
@@ -475,65 +473,65 @@
 #pragma mark - UISearchResultsUpdating
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    NSString *term = searchController.searchBar.text;
-    term = [term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    if (term.length == 0) {
-        filteredSources = [sources copy];
-        searchTermIsEmpty = YES;
-        searchTermIsURL = NO;
-    }
-    else {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"repositoryURI contains[c] %@ OR label contains[c] %@", term, term];
-        filteredSources = [sources filteredArrayUsingPredicate:predicate];
-        searchTermIsEmpty = NO;
-        enteredSource = NULL;
-        
-        NSURL *enteredURL = [self searchAsURL];
-        NSPredicate *doubleCheck = [NSPredicate predicateWithFormat:@"repositoryURI = %@", enteredURL.absoluteString];
-        if (enteredURL && [sources filteredArrayUsingPredicate:doubleCheck].count == 0) {
-            searchTermIsURL = YES;
-            
-            ZBBaseSource *newEnteredSource = [[ZBBaseSource alloc] initFromURL:enteredURL];
-            if (newEnteredSource) {
-                enteredSource = newEnteredSource;
-                [newEnteredSource verify:^(ZBSourceVerificationStatus status) {
-                    if ([newEnteredSource isEqual:self->enteredSource]) {
-                        if (status == ZBSourceExists) {
-                            self->enteredSource = newEnteredSource;
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self.tableView beginUpdates];
-                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
-                                [self.tableView endUpdates];
-                            });
-                            
-                            [self->enteredSource getLabel:^(NSString * _Nonnull label) {
-                                dispatch_async(dispatch_get_main_queue(), ^{
-                                    [self.tableView beginUpdates];
-                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
-                                    [self.tableView endUpdates];
-                                });
-                            }];
-                        }
-                        else if (status == ZBSourceImaginary) {
-                            self->enteredSource = NULL;
-                            self->searchTermIsURL = NO;
-                            
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self.tableView beginUpdates];
-                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
-                                [self.tableView endUpdates];
-                            });
-                        }
-                    }
-                }];
-            }
-        } else {
-            searchTermIsURL = NO;
-        }
-    }
-    
-    [self.tableView reloadData];
+//    NSString *term = searchController.searchBar.text;
+//    term = [term stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    
+//    if (term.length == 0) {
+//        filteredSources = [sources copy];
+//        searchTermIsEmpty = YES;
+//        searchTermIsURL = NO;
+//    }
+//    else {
+//        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"repositoryURI contains[c] %@ OR label contains[c] %@", term, term];
+//        filteredSources = [sources filteredArrayUsingPredicate:predicate];
+//        searchTermIsEmpty = NO;
+//        enteredSource = NULL;
+//        
+//        NSURL *enteredURL = [self searchAsURL];
+//        NSPredicate *doubleCheck = [NSPredicate predicateWithFormat:@"repositoryURI = %@", enteredURL.absoluteString];
+//        if (enteredURL && [sources filteredArrayUsingPredicate:doubleCheck].count == 0) {
+//            searchTermIsURL = YES;
+//            
+//            ZBBaseSource *newEnteredSource = [[ZBBaseSource alloc] initFromURL:enteredURL];
+//            if (newEnteredSource) {
+//                enteredSource = newEnteredSource;
+//                [newEnteredSource verify:^(ZBSourceVerificationStatus status) {
+//                    if ([newEnteredSource isEqual:self->enteredSource]) {
+//                        if (status == ZBSourceExists) {
+//                            self->enteredSource = newEnteredSource;
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                [self.tableView beginUpdates];
+//                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
+//                                [self.tableView endUpdates];
+//                            });
+//                            
+//                            [self->enteredSource getLabel:^(NSString * _Nonnull label) {
+//                                dispatch_async(dispatch_get_main_queue(), ^{
+//                                    [self.tableView beginUpdates];
+//                                    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
+//                                    [self.tableView endUpdates];
+//                                });
+//                            }];
+//                        }
+//                        else if (status == ZBSourceImaginary) {
+//                            self->enteredSource = NULL;
+//                            self->searchTermIsURL = NO;
+//                            
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                [self.tableView beginUpdates];
+//                                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationFade];
+//                                [self.tableView endUpdates];
+//                            });
+//                        }
+//                    }
+//                }];
+//            }
+//        } else {
+//            searchTermIsURL = NO;
+//        }
+//    }
+//    
+//    [self.tableView reloadData];
 }
 
 #pragma mark - Search Bar Delegate

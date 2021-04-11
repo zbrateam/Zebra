@@ -10,7 +10,6 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBPackageFilter.h>
-#import <Model/ZBSource.h>
 #import <UI/Common/ZBSelectionViewController.h>
 
 @interface ZBPackageFilterViewController () {
@@ -149,11 +148,11 @@
                     cell.textLabel.text = NSLocalizedString(@"Package Name", @"");
                     break;
                 case 1:
-                    if (self.filter.source.remote) {
-                        cell.textLabel.text = NSLocalizedString(@"Date Uploaded", @"");
-                    } else {
-                        cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
-                    }
+//                    if (self.filter.source.remote) {
+//                        cell.textLabel.text = NSLocalizedString(@"Date Uploaded", @"");
+//                    } else {
+//                        cell.textLabel.text = NSLocalizedString(@"Date Installed", @"");
+//                    }
                     break;
                 case 2:
                     cell.textLabel.text = NSLocalizedString(@"Package Size", @"");
@@ -178,13 +177,13 @@
         case 0: {
             switch (indexPath.row + !self.filter.canSetSection) {
                 case 0: {
-                    NSArray *sections = [[self.filter.source sections] allKeys];
-                    ZBSelectionViewController *sectionSelectionVC = [[ZBSelectionViewController alloc] initWithDelegate:self indexPath:indexPath];
-                    sectionSelectionVC.choices = sections;
-                    sectionSelectionVC.selections = self.filter.sections.mutableCopy;
-                    sectionSelectionVC.selectionType = ZBSelectionTypeInverse;
-                    sectionSelectionVC.title = NSLocalizedString(@"Select a Section", @"");
-                    [self.navigationController pushViewController:sectionSelectionVC animated:YES];
+//                    NSArray *sections = [[self.filter.source sections] allKeys];
+//                    ZBSelectionViewController *sectionSelectionVC = [[ZBSelectionViewController alloc] initWithDelegate:self indexPath:indexPath];
+//                    sectionSelectionVC.choices = sections;
+//                    sectionSelectionVC.selections = self.filter.sections.mutableCopy;
+//                    sectionSelectionVC.selectionType = ZBSelectionTypeInverse;
+//                    sectionSelectionVC.title = NSLocalizedString(@"Select a Section", @"");
+//                    [self.navigationController pushViewController:sectionSelectionVC animated:YES];
                     break;
                 }
                 case 1: {

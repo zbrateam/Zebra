@@ -7,18 +7,15 @@
 //
 
 #import "ZBPackageViewController.h"
-#import <Model/ZBPackage.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 #import "ZBActionButton.h"
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import "ZBLinkTableViewCell.h"
-#import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
-#import <Downloads/ZBDownloadManager.h>
 #import "ZBPackageDepictionViewController.h"
 #import "UIViewController+Extensions.h"
 #import <UI/ZBSidebarController.h>

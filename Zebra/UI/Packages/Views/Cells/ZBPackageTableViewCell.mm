@@ -13,7 +13,6 @@
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
-#import <Queue/ZBQueue.h>
 
 @interface ZBPackageTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIView *backgroundContainerView;
@@ -75,17 +74,18 @@
 }
 
 - (void)updateQueueStatus:(ZBPackage *)package {
-    ZBQueueType queue = [[ZBQueue sharedQueue] locate:package];
-    if (queue != ZBQueueTypeClear) {
-        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue];
-        self.queueStatusBackgroundView.hidden = NO;
-        self.queueStatusLabel.text = [NSString stringWithFormat:@"%@", status];
-        self.queueStatusBackgroundView.backgroundColor = [ZBQueue colorForQueueType:queue];
-    } else {
-        self.queueStatusBackgroundView.hidden = YES;
-        self.queueStatusLabel.text = nil;
-        self.queueStatusBackgroundView.backgroundColor = nil;
-    }
+    //TODO: Update for new queue
+//    ZBQueueType queue = [[ZBQueue sharedQueue] locate:package];
+//    if (queue != ZBQueueTypeClear) {
+//        NSString *status = [[ZBQueue sharedQueue] displayableNameForQueueType:queue];
+//        self.queueStatusBackgroundView.hidden = NO;
+//        self.queueStatusLabel.text = [NSString stringWithFormat:@"%@", status];
+//        self.queueStatusBackgroundView.backgroundColor = [ZBQueue colorForQueueType:queue];
+//    } else {
+//        self.queueStatusBackgroundView.hidden = YES;
+//        self.queueStatusLabel.text = nil;
+//        self.queueStatusBackgroundView.backgroundColor = nil;
+//    }
 }
 
 - (void)prepareForReuse {

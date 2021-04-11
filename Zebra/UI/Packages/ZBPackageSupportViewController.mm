@@ -7,17 +7,17 @@
 //
 
 #import "ZBPackageSupportViewController.h"
-#import <Model/ZBPackage.h>
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
+#import <Plains/PLPackage.h>
 
 @interface ZBPackageSupportViewController ()
-@property (nonatomic, strong) ZBPackage *package;
+@property (nonatomic, strong) PLPackage *package;
 @end
 
 @implementation ZBPackageSupportViewController
 
-- (id)initWithPackage:(ZBPackage *)package {
+- (id)initWithPackage:(PLPackage *)package {
     self = [super init];
     
     if (self) {

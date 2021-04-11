@@ -22,9 +22,6 @@
 //#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 #import <ZBSettings.h>
-#import <Queue/ZBQueue.h>
-#import <Managers/ZBSourceManager.h>
-#import <Model/ZBSource.h>
 #import <Extensions/UIColor+GlobalColors.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
