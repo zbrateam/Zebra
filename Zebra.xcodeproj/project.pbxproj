@@ -90,6 +90,7 @@
 		891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */; };
 		892F2FFA2623A7D30051F28A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F2FF92623A7D30051F28A /* MessageUI.framework */; };
+		892F2FFD2623B3E20051F28A /* PLSource+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 892F2FFC2623B3E20051F28A /* PLSource+Zebra.mm */; };
 		893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893051DC260E72210017CC29 /* LNPopupController.framework */; };
 		893051F4260E723C0017CC29 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 893051DC260E72210017CC29 /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893051EB260E72330017CC29 /* SDWebImage.framework */; };
@@ -98,7 +99,7 @@
 		89305211260E74850017CC29 /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8930520B260E747C0017CC29 /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		89308E2723FF4BBB00D4641D /* ZBSettingsResetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89308E2623FF4BBB00D4641D /* ZBSettingsResetTableViewController.m */; };
 		8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8931E4D2226D6E9300F35DFD /* utiicon.png */; };
-		8937495B248603D700CE0520 /* ZBSourceAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89374959248603D700CE0520 /* ZBSourceAddViewController.m */; };
+		8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89374959248603D700CE0520 /* ZBSourceAddViewController.mm */; };
 		8937CA3123C3DFD400A4644C /* UINavigationBar+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */; };
 		893952FF220B5D0100995109 /* ZBConsoleViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 893952FE220B5D0100995109 /* ZBConsoleViewController.mm */; };
 		893A398123A6CD60006373C3 /* UIRefreshControl+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 893A398023A6CD60006373C3 /* UIRefreshControl+Theme.m */; };
@@ -350,6 +351,8 @@
 		8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportViewController.h; sourceTree = "<group>"; };
 		8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportViewController.m; sourceTree = "<group>"; };
 		892F2FF92623A7D30051F28A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
+		892F2FFB2623B3E20051F28A /* PLSource+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PLSource+Zebra.h"; sourceTree = "<group>"; };
+		892F2FFC2623B3E20051F28A /* PLSource+Zebra.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "PLSource+Zebra.mm"; sourceTree = "<group>"; };
 		893051D7260E72210017CC29 /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
 		893051E1260E72330017CC29 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Vendor/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		89305205260E747C0017CC29 /* Plains.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Plains.xcodeproj; path = Vendor/Plains/Plains.xcodeproj; sourceTree = "<group>"; };
@@ -369,7 +372,7 @@
 		8932F0CF2364F78400F16E5E /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8932F0D02364F8A500F16E5E /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89374958248603D700CE0520 /* ZBSourceAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceAddViewController.h; sourceTree = "<group>"; };
-		89374959248603D700CE0520 /* ZBSourceAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceAddViewController.m; sourceTree = "<group>"; };
+		89374959248603D700CE0520 /* ZBSourceAddViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceAddViewController.mm; sourceTree = "<group>"; };
 		8937CA2F23C3DFD400A4644C /* UINavigationBar+Extensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Extensions.h"; sourceTree = "<group>"; };
 		8937CA3023C3DFD400A4644C /* UINavigationBar+Extensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Extensions.m"; sourceTree = "<group>"; };
 		893952FD220B5D0100995109 /* ZBConsoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleViewController.h; sourceTree = "<group>"; };
@@ -745,6 +748,8 @@
 				896B2B5D259FA7180082A62E /* ZBSourceFilter.m */,
 				89BAE2EC261A8F1D0063BA22 /* PLPackage+Zebra.h */,
 				89BAE2ED261A8F1D0063BA22 /* PLPackage+Zebra.mm */,
+				892F2FFB2623B3E20051F28A /* PLSource+Zebra.h */,
+				892F2FFC2623B3E20051F28A /* PLSource+Zebra.mm */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1129,7 +1134,7 @@
 				894ADA22259FC17200147001 /* ZBSourceFilterViewController.h */,
 				894ADA23259FC17200147001 /* ZBSourceFilterViewController.m */,
 				89374958248603D700CE0520 /* ZBSourceAddViewController.h */,
-				89374959248603D700CE0520 /* ZBSourceAddViewController.m */,
+				89374959248603D700CE0520 /* ZBSourceAddViewController.mm */,
 				89D97AFC25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.h */,
 				89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */,
 				8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */,
@@ -1475,6 +1480,7 @@
 				89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
+				892F2FFD2623B3E20051F28A /* PLSource+Zebra.mm in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
@@ -1483,7 +1489,7 @@
 				759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBMainSettingsTableViewController.m in Sources */,
-				8937495B248603D700CE0520 /* ZBSourceAddViewController.m in Sources */,
+				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
 				9E2B414022C87074009BC12B /* UIAlertController+Theme.m in Sources */,
 				8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */,
 				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,

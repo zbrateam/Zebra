@@ -11,6 +11,7 @@
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/ZBSidebarController.h>
+#import <UI/Sources/ZBSourceAddViewController.h>
 
 #import <Plains/PLDatabase.h>
 #import <Plains/PLSource.h>
@@ -58,7 +59,16 @@
     ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
     [sidebar setShowBackButton:NO];
     [sidebar setTitle:self.title];
+    
+    [sidebar insertButton:@"addButton"];
 #endif
+}
+
+- (void)addButton:(id)sender {
+    ZBSourceAddViewController *addVC = [[ZBSourceAddViewController alloc] init];
+    UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:addVC];
+    
+    [self presentViewController:addNav animated:YES completion:nil];
 }
 
 - (void)loadSources {

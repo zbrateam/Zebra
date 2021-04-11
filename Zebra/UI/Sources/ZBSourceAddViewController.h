@@ -6,7 +6,8 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import UIKit;
+#import <UIKit/UIKit.h>
+
 #import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
