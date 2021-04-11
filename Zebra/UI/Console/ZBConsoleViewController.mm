@@ -15,6 +15,7 @@
 @interface ZBConsoleViewController () {
     UITextView *consoleView;
     UIButton *completeButton;
+    UIProgressView *progressView;
 }
 @end
 
@@ -37,8 +38,9 @@
 - (void)loadView {
     [super loadView];
     
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
+    
     consoleView = [[UITextView alloc] initWithFrame:self.view.frame];
-    consoleView.autoresizingMask  = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     consoleView.font = [UIFont monospaceFont];
     consoleView.contentInset = UIEdgeInsetsMake(8, 8, 8, 8);
     consoleView.editable = NO;
@@ -53,13 +55,28 @@
     [completeButton addTarget:self action:@selector(complete) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:completeButton];
+    
+    progressView = [[UIProgressView alloc] init];
+    progressView.tintColor = [UIColor systemPinkColor];
+    
+    [self.view addSubview:progressView];
+    
     [NSLayoutConstraint activateConstraints:@[
         [completeButton.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16],
         [completeButton.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16],
         [completeButton.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-16],
-        [completeButton.heightAnchor constraintEqualToConstant:44]
+        [completeButton.heightAnchor constraintEqualToConstant:44],
+        [progressView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:16],
+        [progressView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor constant:-16],
+        [progressView.bottomAnchor constraintEqualToAnchor:completeButton.topAnchor constant:-16],
+        [consoleView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+        [consoleView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+        [consoleView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+        [consoleView.bottomAnchor constraintEqualToAnchor:progressView.topAnchor constant:-8]
     ]];
     completeButton.translatesAutoresizingMaskIntoConstraints = NO;
+    progressView.translatesAutoresizingMaskIntoConstraints = NO;
+    consoleView.translatesAutoresizingMaskIntoConstraints = NO;
 }
 
 - (void)complete {
@@ -126,7 +143,9 @@
 }
 
 - (void)progressUpdate:(CGFloat)progress {
-//    [self writeToConsole:[NSString stringWithFormat:@"%f%%", progress] atLevel:PLLogLevelInfo];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self->progressView setProgress:progress];
+    });
 }
 
 - (void)statusUpdate:(NSString *)update atLevel:(PLLogLevel)level {
