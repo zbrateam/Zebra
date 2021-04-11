@@ -48,7 +48,7 @@
     [super viewWillAppear:animated];
     
     self->packages = queue.queuedPackages;
-    [self.tableView reloadData];
+    [self reloadData];
     
 #if TARGET_OS_MACCATALYST
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -56,6 +56,30 @@
 }
 
 #pragma mark - Table View Data Source
+
+- (void)reloadData {
+    [self.tableView reloadData];
+    
+    int count = 0;
+    for (NSArray *arr in packages) {
+        count += arr.count;
+    }
+    
+    if (count == 0) {
+        UILabel *emptyLabel = [[UILabel alloc] init];
+        emptyLabel.text = @"No Packages In Queue";
+        emptyLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
+        emptyLabel.textColor = [UIColor secondaryLabelColor];
+        
+        self.tableView.backgroundView = emptyLabel;
+        
+        [emptyLabel.centerXAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerXAnchor].active = true;
+        [emptyLabel.centerYAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.centerYAnchor].active = true;
+        emptyLabel.translatesAutoresizingMaskIntoConstraints = false;
+    } else {
+        self.tableView.backgroundView = nil;
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return packages.count;
@@ -117,7 +141,7 @@
         UIContextualAction *clearAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Remove" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self->queue removePackage:package];
             self->packages = self->queue.queuedPackages;
-            [self.tableView reloadData];
+            [self reloadData];
         }];
         return [UISwipeActionsConfiguration configurationWithActions:@[clearAction]];
     }
