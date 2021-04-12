@@ -27,7 +27,7 @@ bool get_zebra_pid(pid_t *pid) {
   sysctl(mib1, 2, &maxproc, &len, NULL, 0);
 
 
-  struct kinfo_proc *kp = 0;
+  struct kinfo_proc *kp = NULL;
 
   // get buffer size
   size_t alloc_size = maxproc * sizeof(struct kinfo_proc);
@@ -47,7 +47,7 @@ bool get_zebra_pid(pid_t *pid) {
 	int ret = sysctl(mib2, 4, kp, &bufSize, NULL, 0);
 	if (ret) {
     free(kp);
-    kp = 0;
+    kp = NULL;
     return false;
   }
 
@@ -67,6 +67,9 @@ bool get_zebra_pid(pid_t *pid) {
     }
   }
 
+  free(kp);
+  kp = NULL;
+
   return found;
 }
 
@@ -80,22 +83,13 @@ int main() {
     const struct timespec delay = {.tv_sec = 0, .tv_nsec = milli_nanoseconds * delay_ms};
     nanosleep(&delay, NULL);
 
-    // needs assistance
-    kill(zebra_pid, SIGTERM);
-
     int interval_ms = 150;
     const struct timespec interval = {.tv_sec = 0, .tv_nsec = (milli_nanoseconds * interval_ms)};
 
     errno = 0;
-    int counter = 0;
     while (kill(zebra_pid, 0) != -1 && errno != ESRCH) {
-      if (counter == 4) {
-        // slow .. more help, less friendly now
-        kill(zebra_pid, SIGKILL);
-      }
       errno = 0;
       nanosleep(&interval, NULL);
-      counter++;
     }
   }
 
