@@ -8,15 +8,7 @@
 		<true/>
 		<key>com.apple.private.security.no-container</key>
 		<true/>
-		<key>get-task-allow</key>
-		<true/>
 		<key>proc_info-allow</key>
-		<true/>
-		<key>task_for_pid-allow</key>
-		<true/>
-		<key>com.apple.private.network.statistics</key>
-		<true/>
-		<key>com.apple.private.security.sandbox.debug-mode</key>
 		<true/>
 		<key>com.apple.security.temporary-exception.sbpl</key>
 		<array>
@@ -24,9 +16,5 @@
 			<string>(allow process-info-listpids)</string>
 			<string>(allow process-info*)</string>
 		</array>
-		<key>com.apple.security.exception.process-info</key>
-		<array/>
-		<key>com.apple.system-task-ports</key>
-		<true/>
 	</dict>
 </plist>
