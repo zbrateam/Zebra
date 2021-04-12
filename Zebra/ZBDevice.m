@@ -220,14 +220,14 @@
 }
 
 + (void)relaunchZebra {
-    int seconds = 1; // if you change this, remember to update the relaunch daemon
+    int milliseconds = 750;
 
     if (![self needsSimulation]) {
         [ZBCommand execute:@"launchctl" withArguments:@[@"start", @"xyz.willy.Zebra.Relaunch"] asRoot:YES];
     }
 
     [[UIApplication sharedApplication] suspend];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(milliseconds * NSEC_PER_MSEC)), dispatch_get_main_queue(), ^{
         exit(0);
     });
 }

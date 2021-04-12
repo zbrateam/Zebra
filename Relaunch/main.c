@@ -73,14 +73,29 @@ bool get_zebra_pid(pid_t *pid) {
 int main() {
   pid_t zebra_pid;
   if (get_zebra_pid(&zebra_pid)) {
-    int ms = 150;
-    int nanosec = (long)1000000L * ms;
-    const struct timespec times = {.tv_sec = 0, .tv_nsec = nanosec};
+
+    int milli_nanoseconds = 1000000;
+
+    int delay_ms = 750;
+    const struct timespec delay = {.tv_sec = 0, .tv_nsec = milli_nanoseconds * delay_ms};
+    nanosleep(&delay, NULL);
+
+    // needs assistance
+    kill(zebra_pid, SIGTERM);
+
+    int interval_ms = 150;
+    const struct timespec interval = {.tv_sec = 0, .tv_nsec = (milli_nanoseconds * interval_ms)};
 
     errno = 0;
+    int counter = 0;
     while (kill(zebra_pid, 0) != -1 && errno != ESRCH) {
+      if (counter == 4) {
+        // slow .. more help, less friendly now
+        kill(zebra_pid, SIGKILL);
+      }
       errno = 0;
-      nanosleep(&times, NULL);
+      nanosleep(&interval, NULL);
+      counter++;
     }
   }
 
