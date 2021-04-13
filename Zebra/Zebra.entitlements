@@ -44,6 +44,7 @@
 		<array>
 			<string>AGXDeviceUserClient</string>
 			<string>IOHDIXControllerUserClient</string>
+			<string>IOMobileFramebufferUserClient</string>
 			<string>IOSurfaceRootUserClient</string>
 		</array>
 	</dict>
