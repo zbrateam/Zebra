@@ -232,12 +232,8 @@
     
     if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
         baseCommand = @[@"dpkg"];
-    }
-    else if ([[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/apt"]) {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
-    }
-    else {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAPT::Sandbox::User=root", @"-oDir::State::lists="];
+    } else {
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAcquire::AllowUnsizedPackages=true", @"-oDir::State::lists="];
     }
     
     NSString *binary = baseCommand[0];
