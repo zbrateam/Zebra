@@ -142,17 +142,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-#if TARGET_OS_MACCATALYST
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setTitle:self.title];
-    
-    if (self.navigationController.viewControllers[0] == self) {
-        [sidebar setShowBackButton:NO];
-    }
-#endif
-    
     [self loadPackages];
 }
 
@@ -341,11 +330,6 @@
     ZBPackageViewController *packageVC = [[ZBPackageViewController alloc] initWithPackage:package];
     
     [self.navigationController pushViewController:packageVC animated:YES];
-    
-#if TARGET_OS_MACCATALYST
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setShowBackButton:YES];
-#endif
 }
 
 //- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {

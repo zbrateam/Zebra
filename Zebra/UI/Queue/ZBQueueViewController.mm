@@ -50,13 +50,6 @@
     
     self->packages = queue.queuedPackages;
     [self reloadData];
-    
-#if TARGET_OS_MACCATALYST
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setShowBackButton:NO];
-#endif
 }
 
 #pragma mark - Table View Data Source

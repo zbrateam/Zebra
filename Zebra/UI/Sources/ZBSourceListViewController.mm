@@ -53,14 +53,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-#if TARGET_OS_MACCATALYST
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-    
+#if TARGET_OS_MACCATALYST    
     ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setShowBackButton:NO];
-    [sidebar setTitle:self.title];
     
-    [sidebar insertButton:@"addButton"];
+    [sidebar addToolbarItem:@"addButton"];
 #endif
 }
 
@@ -121,11 +117,6 @@
     
     ZBSourceViewController *sourceController = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row]];
     [[self navigationController] pushViewController:sourceController animated:YES];
-    
-#if TARGET_OS_MACCATALYST
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setShowBackButton:YES];
-#endif
 }
 
 @end

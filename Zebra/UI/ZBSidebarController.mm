@@ -28,6 +28,7 @@
     
 #if TARGET_OS_MACCATALYST
     NSToolbar *toolbar;
+    NSMutableArray *toolbarButtons;
 #endif
 }
 @end
@@ -94,7 +95,14 @@
     
     self->updates = [[PLDatabase sharedInstance] updates].count;
     
-    self.controllers = @[homeNavController, sourcesNavController, packagesNavController, queueNavController, settingsNavController];
+    NSArray *controllers = @[homeNavController, sourcesNavController, packagesNavController, queueNavController, settingsNavController];
+#if TARGET_OS_MACCATALYST
+    for (UINavigationController *controller in controllers) {
+        [controller setDelegate:self];
+        [controller setNavigationBarHidden:YES animated:NO];
+    }
+#endif
+    self.controllers = controllers;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,7 +111,7 @@
     [self setViewController:_controllers[0] forColumn:UISplitViewControllerColumnSecondary];
     
 #if TARGET_OS_MACCATALYST
-    [self setTitle:_controllers[0].tabBarItem.title];
+//    [self setTitle:_controllers[0].tabBarItem.title];
     [sidebar.navigationController setNavigationBarHidden:YES animated:animated];
 #endif
 }
@@ -195,11 +203,26 @@
     // filler so that i can dynamically assign selectors
 }
 
+- (void)addToolbarItem:(NSString *)identifier {
+    if (!toolbarButtons) toolbarButtons = [NSMutableArray new];
+    NSUInteger index = toolbarButtons.count;
+    [toolbarButtons insertObject:identifier atIndex:index];
+    [toolbar insertItemWithItemIdentifier:identifier atIndex:index];
+}
+
+- (void)removeToolbarItem:(NSString *)identifier {
+    NSUInteger index = [toolbarButtons indexOfObject:identifier];
+    if (index != NSNotFound) {
+        [toolbarButtons removeObjectAtIndex:index];
+        [toolbar removeItemAtIndex:index];
+    }
+}
+
 - (void)setShowBackButton:(BOOL)showBackButton {
     if (!_showBackButton && showBackButton) {
-        [toolbar insertItemWithItemIdentifier:@"backButton" atIndex:0];
+        [self addToolbarItem:@"backButton"];
     } else if (_showBackButton && !showBackButton) {
-        [toolbar removeItemAtIndex:0];
+        [self removeToolbarItem:@"backButton"];
     }
     
     _showBackButton = showBackButton;
@@ -211,12 +234,9 @@
     [[[[[UIApplication sharedApplication] delegate] window] windowScene] setTitle:title];
 }
 
-- (void)insertButton:(NSString *)buttonIdentifier {
-    [toolbar insertItemWithItemIdentifier:buttonIdentifier atIndex:0];
-}
-
-- (void)popButton {
-    [toolbar removeItemAtIndex:0];
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [self setShowBackButton:viewController != navigationController.viewControllers[0]]; // Show the back button if the view controller is the first one in the stack
+    [self setTitle:viewController.title];
 }
 
 #endif

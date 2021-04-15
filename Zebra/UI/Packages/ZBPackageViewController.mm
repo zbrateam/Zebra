@@ -60,6 +60,9 @@
     
     if (self) {
         self.package = package;
+#if TARGET_MACOS_CATALYST
+        self.title = package.name;
+#endif
         expandedCells = [NSMutableIndexSet new];
     }
     
@@ -86,11 +89,6 @@
     [super viewWillAppear:animated];
     
     [self updateNavigationBarBackgroundOpacityForCurrentScrollOffset];
-    
-#if TARGET_OS_MACCATALYST
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setTitle:self.package.name];
-#endif
 }
 
 - (void)viewDidLayoutSubviews {

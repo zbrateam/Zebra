@@ -46,15 +46,6 @@
     [self fetchSections];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-#if TARGET_OS_MACCATALYST
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    [sidebar setTitle:self.title];
-#endif
-}
-
 - (void)fetchSections {
     NSDictionary *unsortedSections = _source.sections;
     NSMutableArray *tempSections = [[unsortedSections.allKeys sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES]]] mutableCopy];
