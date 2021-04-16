@@ -23,8 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSArray <NSString *> *components;
 @property NSURL *iconURL;
 @property NSString *origin;
+@property NSString *UUID;
 @property ZBSourceVerificationStatus verificationStatus;
 - (instancetype)initWithURL:(NSURL *)URL;
+- (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion;
+- (void)getOrigin:(void (^)(NSString *label))completion;
 @end
 
 NS_ASSUME_NONNULL_END

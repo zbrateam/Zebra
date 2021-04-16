@@ -57,6 +57,10 @@
         if (!mainDirectoryURL) return NULL; // If somehow the mainDirectoryURL is malformed (either it didn't get created or the NSURL initializer returned NULL), the source cannot be used
         releaseURL = [mainDirectoryURL URLByAppendingPathComponent:@"Release"];
         
+        NSString *mainDirectoryString = [mainDirectoryURL absoluteString];
+        NSString *schemeless = [mainDirectoryURL scheme] ? [[mainDirectoryString stringByReplacingOccurrencesOfString:[mainDirectoryURL scheme] withString:@""] substringFromIndex:3] : mainDirectoryString; //Removes scheme and ://
+        _UUID = [schemeless stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+        
 #if TARGET_OS_MACCATALYST
         _iconURL = [mainDirectoryURL URLByAppendingPathComponent:@"RepoIcon.png"];
 #else
@@ -139,5 +143,152 @@
     return [repositoryURI containsString:@"apt.procurs.us"] || [repositoryURI containsString:@"apt.bingner.com"] || [repositoryURI containsString:@"apt.saurik.com"];
 }
 
+- (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion {
+    if (self.verificationStatus != ZBSourceUnverified && completion) {
+        completion(self.verificationStatus);
+        return;
+    }
+    
+    if (completion) {
+        completion(ZBSourceVerifying);
+    }
+    
+    __block int tasks = 5;
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableURLRequest *xzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.xz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [xzRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *xzTask = [session dataTaskWithRequest:xzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+            [session invalidateAndCancel];
+            
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
+        }
+        else if (--tasks == 0) {
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
+        }
+    }];
+    [xzTask resume];
+    
+    NSMutableURLRequest *bz2Request = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.bz2"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [bz2Request setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *bz2Task = [session dataTaskWithRequest:bz2Request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+            [session invalidateAndCancel];
+            
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
+        }
+        else if (--tasks == 0) {
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
+        }
+    }];
+    [bz2Task resume];
+    
+    NSMutableURLRequest *gzRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.gz"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [gzRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *gzTask = [session dataTaskWithRequest:gzRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+            [session invalidateAndCancel];
+            
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
+        }
+        else if (--tasks == 0) {
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
+        }
+    }];
+    [gzTask resume];
+    
+    NSMutableURLRequest *lzmaRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages.lzma"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [lzmaRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *lzmaTask = [session dataTaskWithRequest:lzmaRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+            [session invalidateAndCancel];
+            
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
+        }
+        else if (--tasks == 0) {
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
+        }
+    }];
+    [lzmaTask resume];
+    
+    NSMutableURLRequest *uncompressedRequest = [NSMutableURLRequest requestWithURL:[packagesDirectoryURL URLByAppendingPathComponent:@"Packages"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    [uncompressedRequest setHTTPMethod:@"HEAD"];
+    
+    NSURLSessionDataTask *uncompressedTask = [session dataTaskWithRequest:uncompressedRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        if (httpResponse.statusCode == 200 && [self isNonBlacklistedMIMEType:httpResponse.MIMEType]) {
+            [session invalidateAndCancel];
+            
+            self.verificationStatus = ZBSourceExists;
+            if (completion) completion(self.verificationStatus);
+        }
+        else if (--tasks == 0) {
+            self.verificationStatus = ZBSourceImaginary;
+            if (completion) completion(self.verificationStatus);
+        }
+    }];
+    [uncompressedTask resume];
+}
+
+- (BOOL)isNonBlacklistedMIMEType:(NSString *)mimeType {
+    return mimeType == nil || [mimeType length] == 0 || (![mimeType hasPrefix:@"audio/"] && ![mimeType hasPrefix:@"font/"] && ![mimeType hasPrefix:@"image/"] && ![mimeType hasPrefix:@"video/"] && ![mimeType isEqualToString:@"text/html"] && ![mimeType isEqualToString:@"text/css"]);
+}
+
+- (void)getOrigin:(void (^)(NSString *label))completion {
+    if (![self.origin isEqualToString:self.repositoryURI] && completion) completion(self.origin);
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    configuration.HTTPAdditionalHeaders = [ZBDevice downloadHeaders];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSMutableURLRequest *releaseRequest = [NSMutableURLRequest requestWithURL:releaseURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
+    
+    NSURLSessionDataTask *releaseTask = [session dataTaskWithRequest:releaseRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        NSString *releaseFile = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        __block NSString *origin = NULL;
+        [releaseFile enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            if ([key isEqualToString:@"Origin"]) {
+                NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+                origin = value;
+                return;
+            }
+        }];
+        
+        if (origin) {
+            self.origin = origin;
+            if (completion) completion(origin);
+            return;
+        }
+        
+        self.origin = [self.repositoryURI copy];
+        if (completion) completion(origin);
+    }];
+    [releaseTask resume];
+}
 
 @end
