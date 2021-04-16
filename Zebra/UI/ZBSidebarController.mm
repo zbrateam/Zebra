@@ -237,6 +237,20 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     [self setShowBackButton:viewController != navigationController.viewControllers[0]]; // Show the back button if the view controller is the first one in the stack
     [self setTitle:viewController.title];
+    
+    for (NSString *button in [toolbarButtons copy]) {
+        if ([button isEqual:@"backButton"]) continue;
+        
+        [self removeToolbarItem:button];
+    }
+    
+    if ([viewController respondsToSelector:@selector(toolbarItems)]) {
+        NSArray *toolbarItems = [viewController performSelector:@selector(toolbarItems)];
+        
+        for (NSString *button in toolbarItems) {
+            [self addToolbarItem:button];
+        }
+    }
 }
 
 #endif

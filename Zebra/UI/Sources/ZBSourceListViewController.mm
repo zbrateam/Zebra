@@ -50,15 +50,11 @@
     [self loadSources];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-#if TARGET_OS_MACCATALYST    
-    ZBSidebarController *sidebar = (ZBSidebarController *)self.splitViewController;
-    
-    [sidebar addToolbarItem:@"addButton"];
-#endif
+#if TARGET_OS_MACCATALYST
+- (NSArray *)toolbarItems {
+    return @[@"addButton"];
 }
+#endif
 
 - (void)addButton:(id)sender {
     ZBSourceAddViewController *addVC = [[ZBSourceAddViewController alloc] init];
