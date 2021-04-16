@@ -199,10 +199,6 @@
     [controller popViewControllerAnimated:YES];
 }
 
-- (void)addButton:(id)sender {
-    // filler so that i can dynamically assign selectors
-}
-
 - (void)addToolbarItem:(NSString *)identifier {
     if (!toolbarButtons) toolbarButtons = [NSMutableArray new];
     NSUInteger index = toolbarButtons.count;

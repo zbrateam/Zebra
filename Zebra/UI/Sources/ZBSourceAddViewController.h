@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <Tabs/Sources/Helpers/ZBSourceVerificationDelegate.h>
+#import <Delegates/ZBSourceVerificationDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -20,7 +20,7 @@
     double individualIncrement;
     NSUInteger sourcesToVerify;
 }
-@property NSArray <ZBBaseSource *> *baseSources;
+@property NSArray <ZBDummySource *> *baseSources;
 @property NSMutableDictionary <NSString *, NSString *> *titles;
 @property NSMutableDictionary <NSString *, NSNumber *> *selectedSources;
 @end
@@ -79,7 +79,7 @@
     return [self initWithPaths:filePaths extension:@"list"];
 }
 
-- (instancetype)initWithSources:(NSSet <ZBBaseSource *> *)sources {
+- (instancetype)initWithSources:(NSSet <ZBDummySource *> *)sources {
     self = [self init];
     
     if (self) {
@@ -245,7 +245,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!baseSources.count) return;
     
-    ZBBaseSource *source = baseSources[indexPath.row];
+    ZBDummySource *source = baseSources[indexPath.row];
 //    if (source && source.verificationStatus == ZBSourceExists) {
 //        BOOL selected = [selectedSources[[source uuid]] boolValue];
 //
@@ -255,7 +255,7 @@
 //    }
 }
 
-- (void)updateCellForSource:(ZBBaseSource *)source {
+- (void)updateCellForSource:(ZBDummySource *)source {
     dispatch_async(dispatch_get_main_queue(), ^{
         NSUInteger index = [self->baseSources indexOfObject:source];
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
@@ -299,7 +299,7 @@
 
 #pragma mark - Importing Sources
 
-- (void)setSource:(ZBBaseSource *)source selected:(BOOL)selected {
+- (void)setSource:(ZBDummySource *)source selected:(BOOL)selected {
 //    if (source.verificationStatus != ZBSourceExists) return;
 //
 //    self.selectedSources[[source uuid]] = @(selected);
@@ -340,7 +340,7 @@
 
 #pragma mark - Verification Delegate
 
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerificationStatus)status {
+- (void)source:(ZBDummySource *)source status:(ZBSourceVerificationStatus)status {
 //    if (status == ZBSourceExists) {
 //        [source getLabel:^(NSString * _Nonnull label) {
 //            if (!label) {

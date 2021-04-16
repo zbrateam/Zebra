@@ -114,7 +114,11 @@
 }
 
 + (NSString * _Nonnull)debianArchitecture {
+#if TARGET_OS_MACCATALYST
+    return @"darwin";
+#else
     return @"iphoneos-arm";
+#endif
 }
 
 + (void)hapticButton {

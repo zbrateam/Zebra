@@ -12,6 +12,8 @@
 #import <UI/Sources/ZBSourceBulkAddViewController.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
 
+#import <Model/ZBDummySource.h>
+
 #import <Extensions/UIColor+GlobalColors.h>
 #import <ZBDevice.h>
 
@@ -21,15 +23,15 @@
 @interface ZBSourceAddViewController () {
     UISearchController *searchController;
     NSArray <PLSource *> *addedSources;
-    NSMutableArray <NSDictionary *> *sources;
-    NSMutableArray <NSDictionary *> *selectedSources;
-    NSArray <NSDictionary *> *filteredSources;
+    NSMutableArray <ZBDummySource *> *sources;
+    NSMutableArray <ZBDummySource *> *selectedSources;
+    NSArray <ZBDummySource *> *filteredSources;
     BOOL clipboardHasSource;
     BOOL searchTermIsEmpty;
     BOOL searchTermIsURL;
     BOOL importExpanded;
-    ZBBaseSource *enteredSource;
-    ZBBaseSource *clipboardSource;
+    ZBDummySource *enteredSource;
+    ZBDummySource *clipboardSource;
     NSArray *managers;
 }
 @end
@@ -103,11 +105,15 @@
                 for (NSDictionary *repo in repos) {
                     NSURL *URL = [NSURL URLWithString:repo[@"url"]];
                     if (URL) {
-                        [self->sources addObject:@{@"name": repo[@"name"], @"url": repo[@"url"]}];
+                        ZBDummySource *source = [[ZBDummySource alloc] initWithURL:URL];
+                        [source setOrigin:repo[@"name"]];
+                        [source setVerificationStatus:ZBSourceExists];
+                        
+                        [self->sources addObject:source];
                     }
                 }
 
-                NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+                NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"origin" ascending:YES];
                 [self->sources sortUsingDescriptors:@[nameSort]];
 
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -353,7 +359,7 @@
 //            }
         }
     } else if (indexPath.section == 3) {
-        NSDictionary *source = filteredSources[indexPath.row];
+        ZBDummySource *source = filteredSources[indexPath.row];
 //        if ([addedSources containsObject:(ZBSource *)source]) {
 //            [cell setDisabled:YES];
 //            cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -366,17 +372,10 @@
 //        }
         
         cell.sourceLabel.hidden = NO;
-        cell.sourceLabel.text = source[@"name"];
-        cell.urlLabel.text = source[@"url"];
+        cell.sourceLabel.text = source.origin;
+        cell.urlLabel.text = source.repositoryURI;
         
-        NSURL *URL = [NSURL URLWithString:source[@"url"]];
-#if TARGET_OS_MACCATALYST
-        URL = [URL URLByAppendingPathComponent:@"RepoIcon.png"];
-#else
-        URL = [URL URLByAppendingPathComponent:@"CydiaIcon.png"];
-#endif
-        
-        [cell.iconImageView sd_setImageWithURL:URL placeholderImage:[UIImage imageNamed:@"Unknown"]];
+        [cell.iconImageView sd_setImageWithURL:source.iconURL placeholderImage:[UIImage imageNamed:@"Unknown"]];
     }
     
     return cell;
@@ -495,7 +494,7 @@
         searchTermIsURL = NO;
     }
     else {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"url contains[c] %@ OR name contains[c] %@", term, term];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"repositoryURI contains[c] %@ OR origin contains[c] %@", term, term];
         filteredSources = [sources filteredArrayUsingPredicate:predicate];
         searchTermIsEmpty = NO;
         enteredSource = NULL;

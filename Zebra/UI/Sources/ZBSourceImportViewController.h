@@ -10,13 +10,15 @@
 
 #import "ZBSourceVerificationDelegate.h"
 
+@class ZBDummySource;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSourceImportViewController : UITableViewController <ZBSourceVerificationDelegate>
 @property (nonatomic) NSMutableArray <NSURL *> *sourceFilesToImport;
 - (instancetype)initWithPaths:(NSArray <NSURL *> *)filePaths;
 - (instancetype)initWithPaths:(NSArray <NSURL *> *)filePaths extension:(NSString *)extension;
-- (instancetype)initWithSources:(NSSet <ZBBaseSource *> *)sources;
+- (instancetype)initWithSources:(NSSet <ZBDummySource *> *)sources;
 @end
 
 NS_ASSUME_NONNULL_END

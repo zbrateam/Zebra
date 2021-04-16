@@ -6,7 +6,7 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@class ZBBaseSource;
+@class ZBDummySource;
 
 #import "ZBSourceVerificationStatus.h"
 
@@ -18,7 +18,7 @@
 
 - (void)startedSourceVerification:(BOOL)multiple;
 - (void)finishedSourceVerification:(NSArray *)existingSources imaginarySources:(NSArray *)imaginarySources;
-- (void)source:(ZBBaseSource *)source status:(ZBSourceVerificationStatus)status;
+- (void)source:(ZBDummySource *)source status:(ZBSourceVerificationStatus)status;
 - (void)verifyAndAdd:(NSSet *)baseSources;
 
 @end
