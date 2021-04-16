@@ -252,10 +252,10 @@
 #pragma mark - Adding Sources
 
 - (void)addSelectedSources {
-//    ZBSourceManager *sourceManager = [ZBSourceManager sharedInstance];
-    
-//    NSSet *sourcesToAdd = [NSSet setWithArray:selectedSources];
-//    [sourceManager addSources:sourcesToAdd error:nil];
+    PLDatabase *database = [PLDatabase sharedInstance];
+    for (ZBDummySource *source in selectedSources) {
+        [database addSourceWithArchiveType:source.archiveType repositoryURI:source.repositoryURI distribution:source.distribution components:source.components];
+    }
     
     [self dismiss];
 }
