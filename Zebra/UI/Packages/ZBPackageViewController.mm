@@ -60,7 +60,7 @@
     
     if (self) {
         self.package = package;
-#if TARGET_MACOS_CATALYST
+#if TARGET_OS_MACCATALYST
         self.title = package.name;
 #endif
         expandedCells = [NSMutableIndexSet new];

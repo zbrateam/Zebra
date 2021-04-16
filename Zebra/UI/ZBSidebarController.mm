@@ -111,7 +111,7 @@
     [self setViewController:_controllers[0] forColumn:UISplitViewControllerColumnSecondary];
     
 #if TARGET_OS_MACCATALYST
-//    [self setTitle:_controllers[0].tabBarItem.title];
+    [self setTitle:_controllers[0].tabBarItem.title];
     [sidebar.navigationController setNavigationBarHidden:YES animated:animated];
 #endif
 }
