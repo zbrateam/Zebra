@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import <Plains/PLConsoleDelegate.h>
+#import <Plains/Delegates/PLConsoleDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

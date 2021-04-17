@@ -89,7 +89,7 @@
     if (!filteredSources) filteredSources = [NSMutableArray new];
     if (!selectedSources) selectedSources = [NSMutableArray new];
     if (!addedSourcesUUIDs) addedSourcesUUIDs = [NSMutableSet new];
-    for (PLSource *source in [[PLDatabase sharedInstance] sources]) {
+    for (PLSource *source in [[PLSourceManager sharedInstance] sources]) {
         [addedSourcesUUIDs addObject:source.UUID];
     }
     if (!managers) managers = [self loadManagers];
@@ -252,9 +252,9 @@
 #pragma mark - Adding Sources
 
 - (void)addSelectedSources {
-    PLDatabase *database = [PLDatabase sharedInstance];
+    PLSourceManager *sourceManager = [PLSourceManager sharedInstance];
     for (ZBDummySource *source in selectedSources) {
-        [database addSourceWithArchiveType:source.archiveType repositoryURI:source.repositoryURI distribution:source.distribution components:source.components];
+        [sourceManager addSourceWithArchiveType:source.archiveType repositoryURI:source.repositoryURI distribution:source.distribution components:source.components];
     }
     
     [self dismiss];

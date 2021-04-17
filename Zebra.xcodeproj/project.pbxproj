@@ -91,7 +91,6 @@
 		891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 891D1BAC26290FB1006839F7 /* ZBDummySource.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */; };
 		892F2FFA2623A7D30051F28A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 892F2FF92623A7D30051F28A /* MessageUI.framework */; };
-		892F2FFD2623B3E20051F28A /* PLSource+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 892F2FFC2623B3E20051F28A /* PLSource+Zebra.mm */; };
 		893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893051DC260E72210017CC29 /* LNPopupController.framework */; };
 		893051F4260E723C0017CC29 /* LNPopupController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 893051DC260E72210017CC29 /* LNPopupController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 893051EB260E72330017CC29 /* SDWebImage.framework */; };
@@ -355,8 +354,6 @@
 		8927D51F23C29CCA00A7987E /* ZBSourceImportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceImportViewController.h; sourceTree = "<group>"; };
 		8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceImportViewController.m; sourceTree = "<group>"; };
 		892F2FF92623A7D30051F28A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
-		892F2FFB2623B3E20051F28A /* PLSource+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PLSource+Zebra.h"; sourceTree = "<group>"; };
-		892F2FFC2623B3E20051F28A /* PLSource+Zebra.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "PLSource+Zebra.mm"; sourceTree = "<group>"; };
 		893051D7260E72210017CC29 /* LNPopupController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LNPopupController.xcodeproj; path = Vendor/LNPopupController/LNPopupController/LNPopupController.xcodeproj; sourceTree = "<group>"; };
 		893051E1260E72330017CC29 /* SDWebImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDWebImage.xcodeproj; path = Vendor/SDWebImage/SDWebImage.xcodeproj; sourceTree = "<group>"; };
 		89305205260E747C0017CC29 /* Plains.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Plains.xcodeproj; path = Vendor/Plains/Plains.xcodeproj; sourceTree = "<group>"; };
@@ -760,8 +757,6 @@
 				896B2B5D259FA7180082A62E /* ZBSourceFilter.m */,
 				89BAE2EC261A8F1D0063BA22 /* PLPackage+Zebra.h */,
 				89BAE2ED261A8F1D0063BA22 /* PLPackage+Zebra.mm */,
-				892F2FFB2623B3E20051F28A /* PLSource+Zebra.h */,
-				892F2FFC2623B3E20051F28A /* PLSource+Zebra.mm */,
 				891D1BAB26290FB1006839F7 /* ZBDummySource.h */,
 				891D1BAC26290FB1006839F7 /* ZBDummySource.m */,
 			);
@@ -1485,7 +1480,6 @@
 				89F8730323653D280070160A /* UIVisualEffectView+Theme.m in Sources */,
 				89CA2139224043D1008F09DB /* vercmp.c in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
-				892F2FFD2623B3E20051F28A /* PLSource+Zebra.mm in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,

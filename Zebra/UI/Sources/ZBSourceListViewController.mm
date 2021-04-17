@@ -13,12 +13,12 @@
 #import <UI/ZBSidebarController.h>
 #import <UI/Sources/ZBSourceAddViewController.h>
 
-#import <Plains/PLDatabase.h>
+#import <Plains/PLSourceManager.h>
 #import <Plains/PLSource.h>
 #import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceListViewController () {
-    PLDatabase *database;
+    PLSourceManager *sourceManager;
     NSArray *sources;
 }
 @end
@@ -31,7 +31,7 @@
     if (self) {
         self.title = @"Sources";
         
-        database = [PLDatabase sharedInstance];
+        sourceManager = [PLSourceManager sharedInstance];
     }
     
     return self;
@@ -74,7 +74,7 @@
         });
     } else { // Load sources for the first time, every other access is done by the filter and delegate methods
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            self->sources = [[self->database sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
+            self->sources = [[self->sourceManager sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
             [self loadSources];
         });
     }
@@ -82,7 +82,7 @@
 
 - (void)refreshSources {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        [self->database refreshSources];
+//        [self->database refreshSources];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
         });
