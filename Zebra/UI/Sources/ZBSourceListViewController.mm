@@ -89,7 +89,7 @@
     });
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table View Data Source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -113,6 +113,22 @@
     
     ZBSourceViewController *sourceController = [[ZBSourceViewController alloc] initWithSource:sources[indexPath.row]];
     [[self navigationController] pushViewController:sourceController animated:YES];
+}
+
+#pragma mark - Table View Delegate
+
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    PLSource *source = sources[indexPath.row];
+    if ([source canRemove]) {
+        UIContextualAction *removeAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Delete" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            [self->sourceManager removeSource:source];
+            self->sources = NULL;
+            [self loadSources];
+            [self.tableView reloadData];
+        }];
+        return [UISwipeActionsConfiguration configurationWithActions:@[removeAction]];
+    }
+    return NULL;
 }
 
 @end
