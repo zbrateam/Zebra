@@ -134,8 +134,10 @@
     cell.textLabel.text = tabItem.title;
     cell.imageView.image = tabItem.image;
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-    
-    if (indexPath.row == 2) {
+        
+    if (indexPath.row == 1) {
+        
+    } else if (indexPath.row == 2) {
         if (self->updates) {
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)self->updates];
         } else {
@@ -177,6 +179,12 @@
         UINavigationController *navController = self.viewControllers[1];
         [toolbarItem setTarget:navController.topViewController];
         [toolbarItem setAction:@selector(addButton:)];
+    } else if ([itemIdentifier isEqualToString:@"refreshButton"]) {
+        [toolbarItem setImage:[UIImage systemImageNamed:@"arrow.clockwise"]];
+        
+        UINavigationController *navController = self.viewControllers[1];
+        [toolbarItem setTarget:navController.topViewController];
+        [toolbarItem setAction:@selector(refreshButton:)];
     }
     
     return toolbarItem;
@@ -191,7 +199,7 @@
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     self->toolbar = toolbar;
     
-    return @[@"backButton", @"addButton"];
+    return @[@"backButton", @"addButton", @"refreshButton"];
 }
 
 - (void)backButton:(id)sender {
@@ -272,6 +280,23 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         self->updates = [notification.userInfo[@"count"] unsignedIntValue];
         [self->tableView reloadData];
+    });
+}
+
+- (void)showRefreshIndicator {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UITableViewCell *cell = [self->tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        UIActivityIndicatorView *sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)12];
+//        sourceRefreshIndicator.color = [UIColor whiteColor];
+        [sourceRefreshIndicator startAnimating];
+        cell.accessoryView = sourceRefreshIndicator;
+    });
+}
+
+- (void)hideRefreshIndicator {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UITableViewCell *cell = [self->tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        cell.accessoryView = NULL;
     });
 }
 

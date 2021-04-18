@@ -39,9 +39,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.refreshControl = [[UIRefreshControl alloc] init];
-    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+
+//#if TARGET_OS_IOS
+//    self.refreshControl = [[UIRefreshControl alloc] init];
+//    [self.refreshControl addTarget:self action:@selector(refreshSources) forControlEvents:UIControlEventValueChanged];
+//#endif
     
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
@@ -52,7 +54,7 @@
 
 #if TARGET_OS_MACCATALYST
 - (NSArray *)toolbarItems {
-    return @[@"addButton"];
+    return @[@"refreshButton", @"addButton"];
 }
 #endif
 
@@ -61,6 +63,10 @@
     UINavigationController *addNav = [[UINavigationController alloc] initWithRootViewController:addVC];
 
     [self presentViewController:addNav animated:YES completion:nil];
+}
+
+- (void)refreshButton:(id)sender {
+    [self refreshSources];
 }
 
 - (void)loadSources {
@@ -82,10 +88,12 @@
 
 - (void)refreshSources {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-//        [self->database refreshSources];
+        [self->sourceManager refreshSources];
+#if TARGET_OS_IOS
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.refreshControl endRefreshing];
         });
+#endif
     });
 }
 

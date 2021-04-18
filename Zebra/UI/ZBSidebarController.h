@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource>
 #endif
 @property (nonatomic) NSArray <UIViewController *> *controllers;
+- (void)showRefreshIndicator;
+- (void)hideRefreshIndicator;
 @end
 
 NS_ASSUME_NONNULL_END
