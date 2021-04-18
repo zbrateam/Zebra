@@ -90,7 +90,7 @@
     
     self.viewControllers = @[homeNavController, sourcesNavController, packagesNavController, searchNavController];
     
-    self->updates = [[PLDatabase sharedInstance] updates].count;
+    self->updates = [[PLPackageManager sharedInstance] updates].count;
     [self setPackageUpdateBadgeValue:self->updates];
 }
 

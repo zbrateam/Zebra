@@ -10,7 +10,7 @@
 
 #import <Extensions/UIFont+Zebra.h>
 
-#import <Plains/PLDatabase.h>
+#import <Plains/Managers/PLPackageManager.h>
 
 @interface ZBConsoleViewController () {
     UITextView *consoleView;
@@ -86,7 +86,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[PLDatabase sharedInstance] startDownloads:self];
+    [[PLPackageManager sharedInstance] startDownloads:self];
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(PLLogLevel)level {

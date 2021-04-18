@@ -12,7 +12,7 @@
 #import "ZBScreenshotCollectionViewCell.h"
 #import <Extensions/UIColor+GlobalColors.h>
 
-#import <Plains/PLPackage.h>
+#import <Plains/Model/PLPackage.h>
 
 #import <SDWebImage/SDWebImage.h>
 

@@ -14,8 +14,8 @@
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Queue/ZBQueueViewController.h>
 
-#import <Plains/PLQueue.h>
-#import <Plains/PLDatabase.h>
+#import <Plains/Queue/PLQueue.h>
+#import <Plains/Managers/PLPackageManager.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
@@ -93,7 +93,7 @@
     [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:5]];
     [settingsNavController.navigationBar setPrefersLargeTitles:YES];
     
-    self->updates = [[PLDatabase sharedInstance] updates].count;
+    self->updates = [[PLPackageManager sharedInstance] updates].count;
     
     NSArray *controllers = @[homeNavController, sourcesNavController, packagesNavController, queueNavController, settingsNavController];
 #if TARGET_OS_MACCATALYST

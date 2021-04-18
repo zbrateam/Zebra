@@ -9,7 +9,7 @@
 #import "ZBPackageTableViewCell.h"
 
 #import <Model/PLPackage+Zebra.h>
-#import <Plains/PLSource.h>
+#import <Plains/Model/PLSource.h>
 
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>

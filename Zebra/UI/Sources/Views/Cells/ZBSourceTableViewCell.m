@@ -10,7 +10,7 @@
 #import <Extensions/UIColor+GlobalColors.h>
 #import <Model/ZBSourceFilter.h>
 
-#import <Plains/PLSource.h>
+#import <Plains/Model/PLSource.h>
 
 #import <SDWebImage/SDWebImage.h>
 

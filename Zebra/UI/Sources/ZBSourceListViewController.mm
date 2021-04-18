@@ -13,8 +13,8 @@
 #import <UI/ZBSidebarController.h>
 #import <UI/Sources/ZBSourceAddViewController.h>
 
-#import <Plains/PLSourceManager.h>
-#import <Plains/PLSource.h>
+#import <Plains/Managers/PLSourceManager.h>
+#import <Plains/Model/PLSource.h>
 #import <SDWebImage/SDWebImage.h>
 
 @interface ZBSourceListViewController () {

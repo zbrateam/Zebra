@@ -13,8 +13,8 @@
 #import <UI/Console/ZBConsoleViewController.h>
 #import <UI/ZBSidebarController.h>
 
-#import <Plains/PLPackage.h>
-#import <Plains/PLQueue.h>
+#import <Plains/Model/PLPackage.h>
+#import <Plains/Queue/PLQueue.h>
 
 @interface ZBQueueViewController () {
     PLQueue *queue;

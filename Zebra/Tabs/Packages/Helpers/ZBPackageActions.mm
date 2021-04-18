@@ -21,7 +21,7 @@
 #import <UI/ZBTabBarController.h>
 
 #import <Model/PLPackage+Zebra.h>
-#import <Plains/PLQueue.h>
+#import <Plains/Queue/PLQueue.h>
 
 @implementation ZBPackageActions
 

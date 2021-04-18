@@ -196,7 +196,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [self.window makeKeyAndVisible];
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        [[PLDatabase sharedInstance] import];
+        [[PLPackageManager sharedInstance] import];
         
         dispatch_async(dispatch_get_main_queue(), ^{
 #if TARGET_OS_MACCATALYST

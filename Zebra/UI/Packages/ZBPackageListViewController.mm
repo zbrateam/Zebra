@@ -29,7 +29,7 @@
 //    UISearchController *searchController;
     UIActivityIndicatorView *spinner;
     NSArray <PLPackage *> *filterResults;
-    PLDatabase *database;
+    PLPackageManager *database;
 }
 //@property (nonnull) ZBPackageFilter *filter;
 @end
@@ -44,7 +44,7 @@
     if (self) {
         self.title = @"Installed";
         
-        database = [PLDatabase sharedInstance];
+        database = [PLPackageManager sharedInstance];
         
 //        searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
 //        searchController.obscuresBackgroundDuringPresentation = NO;

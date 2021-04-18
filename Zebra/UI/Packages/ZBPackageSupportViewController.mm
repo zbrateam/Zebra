@@ -9,7 +9,7 @@
 #import "ZBPackageSupportViewController.h"
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Plains/PLPackage.h>
+#import <Plains/Model/PLPackage.h>
 
 @interface ZBPackageSupportViewController ()
 @property (nonatomic, strong) PLPackage *package;
