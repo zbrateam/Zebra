@@ -16,6 +16,7 @@
 
 #import <Plains/Queue/PLQueue.h>
 #import <Plains/Managers/PLPackageManager.h>
+#import <Plains/Managers/PLSourceManager.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
@@ -56,6 +57,8 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseUpdateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRefreshIndicator) name:PLStartedSourceRefreshNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRefreshIndicator) name:PLFinishedSourceRefreshNotification object:nil];
     }
     
     return self;

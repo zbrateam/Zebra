@@ -32,6 +32,7 @@
         self.title = @"Sources";
         
         sourceManager = [PLSourceManager sharedInstance];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSources) name:PLSourceListUpdatedNotification object:NULL];
     }
     
     return self;
@@ -67,6 +68,11 @@
 
 - (void)refreshButton:(id)sender {
     [self refreshSources];
+}
+
+- (void)reloadSources {
+    self->sources = NULL;
+    [self loadSources];
 }
 
 - (void)loadSources {

@@ -181,7 +181,6 @@
                 [self presentViewController:alert animated:YES completion:nil];
             }
             
-            NSLog(@"%@", [[NSBundle mainBundle] pathForResource:@"AUPM~ipad@2x" ofType:@"png"]);
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }
