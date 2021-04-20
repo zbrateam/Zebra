@@ -290,7 +290,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         UITableViewCell *cell = [self->tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         UIActivityIndicatorView *sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)12];
-//        sourceRefreshIndicator.color = [UIColor whiteColor];
+        sourceRefreshIndicator.color = [UIColor secondaryLabelColor];
         [sourceRefreshIndicator startAnimating];
         cell.accessoryView = sourceRefreshIndicator;
     });
