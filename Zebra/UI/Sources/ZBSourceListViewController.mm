@@ -168,7 +168,7 @@
             [self->sourceManager removeSource:source];
             self->sources = NULL;
             [self loadSources];
-            [self.tableView reloadData];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }];
         return [UISwipeActionsConfiguration configurationWithActions:@[removeAction]];
     }

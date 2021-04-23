@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBQueueViewController : UITableViewController
 - (id)init;
+- (void)confirmButton:(id)sender;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -164,6 +164,7 @@
 //    [self writeToConsole:@"Finished Installs." atLevel:PLLogLevelStatus];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->completeButton.hidden = NO;
+        [self->completeButton setTitle:@"Done" forState:UIControlStateNormal];
     });
 }
 

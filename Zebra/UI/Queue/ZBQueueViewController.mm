@@ -145,9 +145,7 @@
     return NULL;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+- (void)confirmButton:(id)sender {
     UIWindow *window = [UIApplication sharedApplication].windows[0];
     ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
     if (window.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
@@ -157,5 +155,19 @@
         [self presentViewController:navController animated:YES completion:nil];
     }
 }
+
+#if TARGET_OS_MACCATALYST
+- (NSArray *)toolbarItems {
+    return @[@"confirmButton"];
+}
+
+- (BOOL)validateToolbarItem:(NSToolbarItem *)item {
+    int count = 0;
+    for (NSArray *arr in packages) {
+        count += arr.count;
+    }
+    return count;
+}
+#endif
 
 @end
