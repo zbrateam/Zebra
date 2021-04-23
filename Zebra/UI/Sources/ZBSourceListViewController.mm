@@ -32,7 +32,9 @@
         self.title = @"Sources";
         
         sourceManager = [PLSourceManager sharedInstance];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSources) name:PLSourceListUpdatedNotification object:NULL];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSources) name:PLSourceListUpdatedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSourceDownloading:) name:PLStartedSourceDownloadNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setSourceFinished:) name:PLFinishedSourceDownloadNotification object:nil];
     }
     
     return self;
@@ -100,6 +102,34 @@
             [self.refreshControl endRefreshing];
         });
 #endif
+    });
+}
+
+
+
+- (void)setSourceDownloading:(NSNotification *)notification {
+    NSString *UUID = notification.userInfo[@"uuid"];
+    
+    NSUInteger row = [sources indexOfObjectPassingTest:^BOOL(PLSource *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [obj.UUID isEqualToString:UUID];
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ZBSourceTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+        [cell setSpinning:YES];
+    });
+}
+
+- (void)setSourceFinished:(NSNotification *)notification {
+    NSString *UUID = notification.userInfo[@"uuid"];
+    
+    NSUInteger row = [sources indexOfObjectPassingTest:^BOOL(PLSource *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        return [obj.UUID isEqualToString:UUID];
+    }];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ZBSourceTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:0]];
+        [cell setSpinning:NO];
     });
 }
 
