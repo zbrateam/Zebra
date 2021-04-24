@@ -11,6 +11,7 @@
 #import <Extensions/UIFont+Zebra.h>
 
 #import <Plains/Managers/PLPackageManager.h>
+#import <Plains/Queue/PLQueue.h>
 
 @interface ZBConsoleViewController () {
     UITextView *consoleView;
@@ -80,6 +81,7 @@
 }
 
 - (void)complete {
+    [[PLQueue sharedInstance] clear];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

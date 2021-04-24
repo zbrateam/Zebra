@@ -43,6 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue) name:PLQueueUpdateNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -50,6 +52,13 @@
     
     self->packages = queue.queuedPackages;
     [self reloadData];
+}
+
+- (void)updateQueue {
+    if ([self isViewLoaded]) {
+        self->packages = queue.queuedPackages;
+        [self reloadData];
+    }
 }
 
 #pragma mark - Table View Data Source

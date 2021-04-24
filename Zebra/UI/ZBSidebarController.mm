@@ -115,7 +115,7 @@
     
 #if TARGET_OS_MACCATALYST
     [self setTitle:_controllers[0].tabBarItem.title];
-    [sidebar.navigationController setNavigationBarHidden:YES animated:animated];
+    [sidebar.navigationController setNavigationBarHidden:YES animated:animated]; 
 #endif
 }
 
@@ -189,7 +189,7 @@
         [toolbarItem setTarget:navController.topViewController];
         [toolbarItem setAction:@selector(refreshButton:)];
     } else if ([itemIdentifier isEqualToString:@"confirmButton"]) {
-        [toolbarItem setImage:[UIImage systemImageNamed:@"checkmark.seal"]];
+        [toolbarItem setImage:[UIImage systemImageNamed:@"esim"]];
         
         UINavigationController *navController = self.viewControllers[1];
         [toolbarItem setTarget:navController.topViewController];
