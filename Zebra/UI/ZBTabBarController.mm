@@ -51,11 +51,13 @@
         
         self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
         
-//        sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:12];
-//        sourceRefreshIndicator.color = [UIColor whiteColor];
+        sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)12];
+        sourceRefreshIndicator.color = [UIColor whiteColor];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseUpdateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRefreshIndicator) name:PLStartedSourceRefreshNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRefreshIndicator) name:PLFinishedSourceRefreshNotification object:nil];
     }
     
     return self;
@@ -106,6 +108,14 @@
             [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         }
     });
+}
+
+- (void)showRefreshIndicator {
+    [self setSourceRefreshIndicatorVisible:YES];
+}
+
+- (void)hideRefreshIndicator {
+    [self setSourceRefreshIndicatorVisible:NO];
 }
 
 - (void)setSourceRefreshIndicatorVisible:(BOOL)visible {

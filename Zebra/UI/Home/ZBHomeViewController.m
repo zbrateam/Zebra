@@ -37,8 +37,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
-    self.navigationItem.rightBarButtonItem = settingsButton;
+    // The world (and I) isn't ready for settings yet.
+//    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Settings"] style:UIBarButtonItemStylePlain target:self action:@selector(showSettings)];
+//    self.navigationItem.rightBarButtonItem = settingsButton;
     
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"homeCell"];
 }
