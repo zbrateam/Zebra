@@ -233,7 +233,9 @@
 }
 
 - (void)updateAll {
-//    [[ZBQueue sharedQueue] addPackages:self->updates toQueue:ZBQueueTypeUpgrade];
+    for (PLPackage *package in _updates) {
+        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueUpgrade];
+    }
 }
 
 - (void)showFavorites {
