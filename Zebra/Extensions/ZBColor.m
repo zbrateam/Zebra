@@ -108,7 +108,7 @@
     }
 }
 
-+ (UIColor *)primaryTextColor {
++ (UIColor *)labelColor {
     if (@available(iOS 13.0, macCatalyst 13.0, *)) {
         return [super labelColor];
     } else {
@@ -116,7 +116,7 @@
     }
 }
 
-+ (UIColor *)secondaryTextColor {
++ (UIColor *)secondaryLabelColor {
     if (@available(iOS 13.0, macCatalyst 13.0, *)) {
         return [super secondaryLabelColor];
     } else {
@@ -124,7 +124,7 @@
     }
 }
 
-+ (UIColor *)tertiaryTextColor {
++ (UIColor *)tertiaryLabelColor {
     if (@available(iOS 13.0, macCatalyst 13.0, *)) {
         return [super secondaryLabelColor];
     } else {

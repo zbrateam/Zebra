@@ -195,7 +195,7 @@
                 return package.installed;
             } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
                 self.packages = packages;
-                self.updates = database.updates;
+                self.updates = self->database.updates;
                 [self loadPackages];
             }];
         }
@@ -205,14 +205,10 @@
 - (void)showSpinner {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!self->spinner) {
-            if (@available(iOS 13.0, *)) {
+            if (@available(iOS 13.0, macCatalyst 13.0, *)) {
                 self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
             } else {
-                if ([ZBSettings interfaceStyle] == ZBInterfaceStyleLight) {
-                    self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-                } else {
-                    self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-                }
+                self->spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
             }
 
             self->spinner.hidesWhenStopped = YES;

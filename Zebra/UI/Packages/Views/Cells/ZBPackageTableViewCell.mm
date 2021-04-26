@@ -45,9 +45,9 @@
     self.iconImageView.layer.borderColor = [[ZBColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
     
-    self.packageLabel.textColor = [ZBColor primaryTextColor];
-    self.descriptionLabel.textColor = [ZBColor secondaryTextColor];
-    self.infoLabel.textColor = [ZBColor tertiaryTextColor];
+    self.packageLabel.textColor = [ZBColor labelColor];
+    self.descriptionLabel.textColor = [ZBColor secondaryLabelColor];
+    self.infoLabel.textColor = [ZBColor tertiaryLabelColor];
 }
 
 - (void)setPackage:(PLPackage *)package {

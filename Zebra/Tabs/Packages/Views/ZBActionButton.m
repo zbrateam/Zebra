@@ -41,7 +41,7 @@
 
 - (void)applyCustomizations {
     UIColor *backgroundColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
-    UIColor *legibleColor = [(ZBColor *)backgroundColor legibleColor];
+    UIColor *legibleColor = [UIColor whiteColor]; // FIXME: not fully legible on some colors.
     [self setBackgroundColor:backgroundColor];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.titleLabel setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightBold]];

@@ -24,9 +24,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.sourceLabel.textColor = [ZBColor primaryTextColor];
-    self.urlLabel.textColor = [ZBColor secondaryTextColor];
-    self.installedPackagesLabel.textColor = [ZBColor secondaryTextColor];
+    self.sourceLabel.textColor = [ZBColor labelColor];
+    self.urlLabel.textColor = [ZBColor secondaryLabelColor];
+    self.installedPackagesLabel.textColor = [ZBColor secondaryLabelColor];
     self.tintColor = [ZBColor accentColor];
     
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;

@@ -9,6 +9,7 @@
 #import "ZBConsoleViewController.h"
 
 #import <Extensions/UIFont+Zebra.h>
+#import <Extensions/ZBColor.h>
 
 #import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Queue/PLQueue.h>
@@ -39,7 +40,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [UIColor systemBackgroundColor];
+    self.view.backgroundColor = [ZBColor systemBackgroundColor];
     
     consoleView = [[UITextView alloc] initWithFrame:self.view.frame];
     consoleView.font = [UIFont monospaceFont];
@@ -100,19 +101,19 @@
         UIFont *font;
         switch (level) {
             case PLLogLevelInfo:
-                color = [UIColor labelColor];
+                color = [ZBColor labelColor];
                 font = UIFont.monospaceFont;
                 break;
             case PLLogLevelStatus:
-                color = [UIColor labelColor];
+                color = [ZBColor labelColor];
                 font = UIFont.boldMonospaceFont;
                 break;
             case PLLogLevelError:
-                color = [UIColor redColor];
+                color = [ZBColor redColor];
                 font = UIFont.boldMonospaceFont;
                 break;
             case PLLogLevelWarning:
-                color = [UIColor yellowColor];
+                color = [ZBColor yellowColor];
                 font = UIFont.monospaceFont;
                 break;
         }

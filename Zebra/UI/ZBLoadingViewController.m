@@ -21,7 +21,12 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+    UIActivityIndicatorView *spinner;
+    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+    } else {
+        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    }
     spinner.translatesAutoresizingMaskIntoConstraints = NO;
     [spinner startAnimating];
     
@@ -33,7 +38,7 @@
     UILabel *loadingLabel = [[UILabel alloc] init];
     loadingLabel.text = @"LOADING";
     loadingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    loadingLabel.textColor = [ZBColor secondaryTextColor];
+    loadingLabel.textColor = [ZBColor secondaryLabelColor];
     loadingLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightThin];
     
     [self.view addSubview:loadingLabel];

@@ -90,7 +90,7 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [ZBColor primaryTextColor];
+    cell.textLabel.textColor = [ZBColor labelColor];
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

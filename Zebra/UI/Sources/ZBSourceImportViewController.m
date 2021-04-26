@@ -190,7 +190,7 @@
 //
 //        cell.sourceLabel.alpha = 1.0;
 //        cell.urlLabel.alpha = 1.0;
-//        cell.sourceLabel.textColor = [ZBColor primaryTextColor];
+//        cell.sourceLabel.textColor = [ZBColor labelColor];
 //        [cell setSpinning:NO];
 //        switch (status) {
 //            case ZBSourceExists: {
@@ -234,7 +234,7 @@
         cell.textLabel.text = NSLocalizedString(@"No sources to import", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [ZBColor secondaryTextColor];
+        cell.textLabel.textColor = [ZBColor secondaryLabelColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

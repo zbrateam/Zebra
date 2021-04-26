@@ -111,7 +111,7 @@
             if (indexPath.row < filteredSections.count) {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
 //                cell.textLabel.text = filteredSections[indexPath.row];
-//                cell.textLabel.textColor = [ZBColor primaryTextColor];
+//                cell.textLabel.textColor = [ZBColor labelColor];
 //
 //                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
 //                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
@@ -128,11 +128,11 @@
 //                ZBSource *source = sources[indexPath.row];
 //
 //                sourceCell.sourceLabel.text = [source label];
-//                sourceCell.sourceLabel.textColor = [ZBColor primaryTextColor];
+//                sourceCell.sourceLabel.textColor = [ZBColor labelColor];
 //
 //                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
 //                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
-//                sourceCell.urlLabel.textColor = [ZBColor secondaryTextColor];
+//                sourceCell.urlLabel.textColor = [ZBColor secondaryLabelColor];
 //
 //                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
                 
@@ -146,7 +146,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
-                cell.textLabel.textColor = [ZBColor primaryTextColor];
+                cell.textLabel.textColor = [ZBColor labelColor];
                 
                 NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
                 if (aliases.count > 1) cell.accessoryType = UITableViewCellAccessoryDetailButton;
@@ -154,7 +154,7 @@
                 NSString *email = [blockedAuthors allKeys][indexPath.row];
                 if (![email isEqualToString:cell.textLabel.text]) {
                     cell.detailTextLabel.text = email;
-                    cell.detailTextLabel.textColor = [ZBColor secondaryTextColor];
+                    cell.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
                 }
                 
                 cell.tintColor = [ZBColor accentColor];

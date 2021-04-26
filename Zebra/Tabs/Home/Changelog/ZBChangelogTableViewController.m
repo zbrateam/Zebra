@@ -104,7 +104,7 @@
         cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [ZBColor primaryTextColor];
+    cell.textLabel.textColor = [ZBColor labelColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -117,7 +117,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
     view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    view.textLabel.textColor = [ZBColor primaryTextColor];
+    view.textLabel.textColor = [ZBColor labelColor];
     view.contentView.backgroundColor = [ZBColor systemGroupedBackgroundColor];
         
     return view;

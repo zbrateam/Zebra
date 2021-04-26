@@ -12,7 +12,7 @@
 @implementation ZBSettingsTableViewCell
 
 - (void)applyStyling {
-    self.textLabel.textColor = [ZBColor primaryTextColor];
+    self.textLabel.textColor = [ZBColor labelColor];
 }
 
 - (void)prepareForReuse {

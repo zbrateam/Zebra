@@ -109,7 +109,7 @@
     blurEffectView.frame = self.bounds;
     blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self insertSubview:blurEffectView atIndex:0];
-    self.descriptionLabel.textColor = [ZBColor primaryTextColor];
+    self.descriptionLabel.textColor = [ZBColor labelColor];
     self.button.tintColor = [ZBColor accentColor];
     self.button.layer.cornerRadius = 14;
 }

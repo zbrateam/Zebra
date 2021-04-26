@@ -174,7 +174,7 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    cell.detailTextLabel.textColor = [ZBColor secondaryTextColor];
+    cell.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {

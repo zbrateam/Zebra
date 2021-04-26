@@ -78,7 +78,7 @@
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setTextColor:[ZBColor primaryTextColor]];
+        [cell.textLabel setTextColor:[ZBColor labelColor]];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
@@ -86,10 +86,10 @@
             [cell.textLabel setTextColor:[ZBColor accentColor] ?: [UIColor systemBlueColor]];
         }
         else {
-            [cell.textLabel setTextColor:[ZBColor primaryTextColor]];
+            [cell.textLabel setTextColor:[ZBColor labelColor]];
         }
     }
-    cell.detailTextLabel.textColor = [ZBColor secondaryTextColor];
+    cell.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
     
     cell.textLabel.text = item[@"name"];
     cell.detailTextLabel.text = item[@"subtitle"];

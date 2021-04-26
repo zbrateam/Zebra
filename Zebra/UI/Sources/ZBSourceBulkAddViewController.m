@@ -8,6 +8,7 @@
 
 #import "ZBSourceBulkAddViewController.h"
 
+#import <Extensions/ZBColor.h>
 #import <UI/Sources/ZBSourceImportViewController.h>
 
 @interface ZBSourceBulkAddViewController ()
@@ -37,7 +38,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [UIColor groupTableViewBackgroundColor];
+    self.view.backgroundColor = [ZBColor systemGroupedBackgroundColor];
     self.textViewBottomConstraint = [[_textView bottomAnchor] constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor constant:-10];
     
     [self.view addSubview:_textView];

@@ -323,7 +323,7 @@
             } else {
                 // FIXME: Fallback on earlier versions
             }
-            cell.accessoryView.tintColor = [ZBColor tertiaryTextColor];
+            cell.accessoryView.tintColor = [ZBColor tertiaryLabelColor];
             
             return cell;
         } else if (importExpanded) {

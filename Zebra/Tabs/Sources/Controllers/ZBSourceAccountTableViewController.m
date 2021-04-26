@@ -169,11 +169,11 @@
 //            case 0: {
 //                ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
 //
-//                cell.sourceLabel.textColor = [ZBColor primaryTextColor];
+//                cell.sourceLabel.textColor = [ZBColor labelColor];
 //                cell.sourceLabel.text = [source label];
 //
 //                cell.urlLabel.text = [source sourceDescription];
-//                cell.urlLabel.textColor = [ZBColor secondaryTextColor];
+//                cell.urlLabel.textColor = [ZBColor secondaryLabelColor];
 //
 //                [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
 //

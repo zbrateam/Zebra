@@ -45,7 +45,7 @@
 
 - (void)setTitle:(NSString *)title {
     UILabel *titleLabel = [UILabel new];
-    titleLabel.textColor = [ZBColor primaryTextColor];
+    titleLabel.textColor = [ZBColor labelColor];
     titleLabel.text = title;
     UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];
@@ -59,7 +59,7 @@
     if (@available(iOS 13.0, *)) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.down.circle.fill"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
     }
-    self.navigationItem.rightBarButtonItem.tintColor = [ZBColor tertiaryTextColor];
+    self.navigationItem.rightBarButtonItem.tintColor = [ZBColor tertiaryLabelColor];
 }
 
 - (void)dismiss {

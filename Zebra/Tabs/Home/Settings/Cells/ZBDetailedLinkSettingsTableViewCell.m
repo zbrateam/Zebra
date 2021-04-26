@@ -18,7 +18,7 @@
 
 - (void)applyStyling {
     [super applyStyling];
-    self.detailTextLabel.textColor = [ZBColor secondaryTextColor];
+    self.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
 }
 
 - (void)prepareForReuse {

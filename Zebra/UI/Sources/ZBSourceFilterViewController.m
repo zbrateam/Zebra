@@ -43,7 +43,7 @@
 
 - (void)setTitle:(NSString *)title {
     UILabel *titleLabel = [UILabel new];
-    titleLabel.textColor = [ZBColor primaryTextColor];
+    titleLabel.textColor = [ZBColor labelColor];
     titleLabel.text = title;
     UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];

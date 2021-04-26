@@ -205,7 +205,7 @@
 //            [(ZBPackageTableViewCell *)cell updateData:searchResults[indexPath.row]];
         } else {
             cell.textLabel.text = NSLocalizedString(@"No Results", @"");
-            cell.textLabel.textColor = [ZBColor secondaryTextColor];
+            cell.textLabel.textColor = [ZBColor secondaryLabelColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

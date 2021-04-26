@@ -25,9 +25,9 @@
 + (UIColor *)badgeColor;
 + (UIColor *)systemBackgroundColor;
 + (UIColor *)systemGroupedBackgroundColor;
-+ (UIColor *)primaryTextColor;
-+ (UIColor *)secondaryTextColor;
-+ (UIColor *)tertiaryTextColor;
++ (UIColor *)labelColor;
++ (UIColor *)secondaryLabelColor;
++ (UIColor *)tertiaryLabelColor;
 + (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
 - (UIColor *)blendWithColor:(UIColor *)color2 progress:(CGFloat)progress;
