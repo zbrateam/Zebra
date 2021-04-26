@@ -14,7 +14,7 @@
 
 #import <Model/ZBDummySource.h>
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <ZBDevice.h>
 
 #import <Plains/Plains.h>
@@ -179,7 +179,7 @@
     
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBSourceTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"SourceTableViewCell"];
     
-    self.tableView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.tableView.backgroundColor = [ZBColor systemBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self checkPasteboard:NO];
@@ -323,7 +323,7 @@
             } else {
                 // FIXME: Fallback on earlier versions
             }
-            cell.accessoryView.tintColor = [UIColor tertiaryTextColor];
+            cell.accessoryView.tintColor = [ZBColor tertiaryTextColor];
             
             return cell;
         } else if (importExpanded) {

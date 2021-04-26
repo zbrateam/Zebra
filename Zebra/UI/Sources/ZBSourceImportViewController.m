@@ -14,7 +14,7 @@
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIViewController+Extensions.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBSourceImportViewController () {
     double individualIncrement;
@@ -190,7 +190,7 @@
 //
 //        cell.sourceLabel.alpha = 1.0;
 //        cell.urlLabel.alpha = 1.0;
-//        cell.sourceLabel.textColor = [UIColor primaryTextColor];
+//        cell.sourceLabel.textColor = [ZBColor primaryTextColor];
 //        [cell setSpinning:NO];
 //        switch (status) {
 //            case ZBSourceExists: {
@@ -234,7 +234,7 @@
         cell.textLabel.text = NSLocalizedString(@"No sources to import", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [UIColor secondaryTextColor];
+        cell.textLabel.textColor = [ZBColor secondaryTextColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

@@ -12,7 +12,7 @@
 #import "../Cells/ZBOptionSubtitleSettingsTableViewCell.h"
 
 #import <ZBDevice.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBAlternateIconController () {

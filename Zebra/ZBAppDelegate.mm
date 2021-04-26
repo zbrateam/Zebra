@@ -20,10 +20,9 @@
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <Notifications/ZBNotificationManager.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <UI/Sources/ZBSourceListViewController.h>
 #import <UI/Packages/ZBPackageViewController.h>
-#import <Theme/ZBThemeManager.h>
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/ZBSidebarController.h>

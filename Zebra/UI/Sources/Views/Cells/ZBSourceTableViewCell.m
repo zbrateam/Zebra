@@ -7,7 +7,7 @@
 //
 
 #import "ZBSourceTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <Model/ZBSourceFilter.h>
 
 #import <Plains/Model/PLSource.h>
@@ -24,14 +24,14 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.sourceLabel.textColor = [UIColor primaryTextColor];
-    self.urlLabel.textColor = [UIColor secondaryTextColor];
-    self.installedPackagesLabel.textColor = [UIColor secondaryTextColor];
-    self.tintColor = [UIColor accentColor];
+    self.sourceLabel.textColor = [ZBColor primaryTextColor];
+    self.urlLabel.textColor = [ZBColor secondaryTextColor];
+    self.installedPackagesLabel.textColor = [ZBColor secondaryTextColor];
+    self.tintColor = [ZBColor accentColor];
     
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
     self.iconImageView.layer.borderWidth = 1;
-    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
+    self.iconImageView.layer.borderColor = [[ZBColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
     self.storeBadge.hidden = YES;
     self.installedPackagesLabel.hidden = YES;
@@ -101,7 +101,7 @@
 - (void)prepareForReuse {
     [super prepareForReuse];
     [self.iconImageView sd_cancelCurrentImageLoad];
-    self.tintColor = [UIColor accentColor];
+    self.tintColor = [ZBColor accentColor];
     self.accessoryType = UITableViewCellAccessoryNone;
     [self setDisabled:NO];
 }

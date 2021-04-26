@@ -7,7 +7,7 @@
 //
 
 #import "ZBSwitchSettingsTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <ZBDevice.h>
 
 @interface ZBSwitchSettingsTableViewCell () {
@@ -53,7 +53,7 @@
 
 - (void)applyStyling {
     [super applyStyling];
-    [theSwitch setOnTintColor:[UIColor accentColor]];
+    [theSwitch setOnTintColor:[ZBColor accentColor]];
 }
 
 - (void)toggleHandler:(UISwitch *)sender {

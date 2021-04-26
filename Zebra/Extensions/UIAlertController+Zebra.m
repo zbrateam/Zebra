@@ -8,12 +8,7 @@
 
 #import "UIAlertController+Zebra.h"
 #import <objc/runtime.h>
-#import <Theme/ZBThemeManager.h>
-#import <Extensions/UIColor+GlobalColors.h>
-
-@interface ZBAlertViewController : UIViewController
-
-@end
+#import <Extensions/ZBColor.h>
 
 @interface UIAlertController (Private)
 
@@ -50,11 +45,11 @@
 - (void)show:(BOOL)animated {
     dispatch_async(dispatch_get_main_queue(), ^{
         self.alertWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        self.alertWindow.rootViewController = [[ZBAlertViewController alloc] init];
+        self.alertWindow.rootViewController = [[UIAlertController alloc] init];
 
         id <UIApplicationDelegate> delegate = [UIApplication sharedApplication].delegate;
         if ([delegate respondsToSelector:@selector(window)]) {
-            self.alertWindow.tintColor = [UIColor accentColor];
+            self.alertWindow.tintColor = [ZBColor accentColor];
         }
         
         UIWindow *topWindow = [UIApplication sharedApplication].windows.lastObject;
@@ -72,15 +67,6 @@
         self.alertWindow.hidden = YES;
         self.alertWindow = nil;
     });
-}
-
-@end
-
-// Small class just to set status bar color on the alert popup
-@implementation ZBAlertViewController
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return [ZBThemeManager preferredStatusBarStyle];
 }
 
 @end

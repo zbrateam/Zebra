@@ -11,7 +11,7 @@
 #import <Model/PLPackage+Zebra.h>
 #import <Plains/Model/PLSource.h>
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 
 @interface ZBPackageTableViewCell ()
@@ -32,7 +32,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.isInstalledImageView.hidden = YES;
-    self.isInstalledImageView.tintColor = [UIColor accentColor];
+    self.isInstalledImageView.tintColor = [ZBColor accentColor];
     
     self.isPaidImageView.hidden = YES;
     self.isFavoritedImageView.hidden = YES;
@@ -42,12 +42,12 @@
     self.selectionStyle = UITableViewCellSelectionStyleDefault;
     self.iconImageView.layer.cornerRadius = self.iconImageView.frame.size.height * 0.2237;
     self.iconImageView.layer.borderWidth = 1;
-    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
+    self.iconImageView.layer.borderColor = [[ZBColor imageBorderColor] CGColor];
     self.iconImageView.layer.masksToBounds = YES;
     
-    self.packageLabel.textColor = [UIColor primaryTextColor];
-    self.descriptionLabel.textColor = [UIColor secondaryTextColor];
-    self.infoLabel.textColor = [UIColor tertiaryTextColor];
+    self.packageLabel.textColor = [ZBColor primaryTextColor];
+    self.descriptionLabel.textColor = [ZBColor secondaryTextColor];
+    self.infoLabel.textColor = [ZBColor tertiaryTextColor];
 }
 
 - (void)setPackage:(PLPackage *)package {

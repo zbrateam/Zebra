@@ -8,7 +8,7 @@
 
 #import "ZBLoadingViewController.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBLoadingViewController ()
 
@@ -33,7 +33,7 @@
     UILabel *loadingLabel = [[UILabel alloc] init];
     loadingLabel.text = @"LOADING";
     loadingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    loadingLabel.textColor = [UIColor secondaryTextColor];
+    loadingLabel.textColor = [ZBColor secondaryTextColor];
     loadingLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightThin];
     
     [self.view addSubview:loadingLabel];

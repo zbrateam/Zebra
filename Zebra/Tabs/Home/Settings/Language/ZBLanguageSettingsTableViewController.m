@@ -14,7 +14,7 @@
 
 #import <ZBDevice.h>
 #import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBLanguageSettingsTableViewController () {
     BOOL useSystemLanguage;

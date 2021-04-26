@@ -7,7 +7,7 @@
 //
 
 #import "ZBActionButton.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBActionButton () {
     UIActivityIndicatorView *activityIndicatorView;
@@ -40,11 +40,13 @@
 }
 
 - (void)applyCustomizations {
-    [self setBackgroundColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
+    UIColor *backgroundColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+    UIColor *legibleColor = [(ZBColor *)backgroundColor legibleColor];
+    [self setBackgroundColor:backgroundColor];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
     [self.titleLabel setFont:[UIFont systemFontOfSize:13 weight:UIFontWeightBold]];
-    [self setTitleColor:[UIColor legibleColor] forState:UIControlStateNormal];
-    [self.imageView setTintColor:[UIColor legibleColor]];
+    [self setTitleColor:legibleColor forState:UIControlStateNormal];
+    [self.imageView setTintColor:legibleColor];
 }
 
 - (void)createActivityLoader {
@@ -86,10 +88,10 @@
     
     if (highlighted) {
         CGFloat r, g, b, a;
-        [[UIColor accentColor] ?: [UIColor systemBlueColor] getRed:&r green:&g blue:&b alpha:&a];
+        [[ZBColor accentColor] ?: [UIColor systemBlueColor] getRed:&r green:&g blue:&b alpha:&a];
         self.backgroundColor = [UIColor colorWithRed:MAX(r - 0.04, 0.0) green:MAX(g - 0.04, 0.0) blue:MAX(b - 0.04, 0.0) alpha:a];
     } else {
-        self.backgroundColor = [UIColor accentColor];
+        self.backgroundColor = [ZBColor accentColor];
     }
 }
 

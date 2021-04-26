@@ -11,7 +11,7 @@
 #import "Cells/ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
 #import <ZBDevice.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBSettingsSelectionTableViewController () {
     NSString *selectedOption;

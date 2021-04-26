@@ -6,8 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import <UIKit/UIKit.h>
 
-@interface ZBChangelogTableViewController : ZBTableViewController
+@interface ZBChangelogTableViewController : UITableViewController
 @property NSMutableArray *releases;
 @end

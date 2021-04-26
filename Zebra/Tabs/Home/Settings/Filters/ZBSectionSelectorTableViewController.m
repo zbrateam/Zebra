@@ -12,7 +12,7 @@
 
 #import <ZBSettings.h>
 #import <Extensions/UIImageView+Zebra.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBSectionSelectorTableViewController () {
     NSMutableArray *sections;

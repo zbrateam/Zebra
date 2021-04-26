@@ -7,7 +7,7 @@
 //
 
 #import "ZBInfoTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBInfoTableViewCell
 
@@ -18,7 +18,7 @@
 }
 
 - (void)applyCustomizations {
-    [self.contentView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+    [self.contentView setBackgroundColor:[ZBColor systemBackgroundColor]];
 }
 
 - (void)setChevronHidden:(BOOL)hidden {

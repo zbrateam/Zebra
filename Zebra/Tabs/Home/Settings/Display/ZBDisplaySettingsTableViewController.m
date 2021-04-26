@@ -13,8 +13,7 @@
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
 #import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Theme/ZBThemeManager.h>
+#import <Extensions/ZBColor.h>
 #import "Accent Color/ZBAccentColorTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
@@ -94,7 +93,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
         case ZBSectionAccentColor: {
             ZBDetailedLinkSettingsTableViewCell *cell = [tableView dequeueDetailedLinkSettingsCellForIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(@"Accent Color", @"");
-            cell.detailTextLabel.text = [ZBThemeManager localizedNameForAccentColor:[ZBSettings accentColor]];
+            cell.detailTextLabel.text = [ZBColor localizedNameForAccentColor:[ZBSettings accentColor]];
 
             [cell applyStyling];
             return cell;
@@ -198,7 +197,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
                     
                     [self chooseOptionAtIndexPath:indexPath previousIndexPath:[NSIndexPath indexPathForRow:previousRow inSection:indexPath.section] animated:YES];
                     
-                    self.navigationController.navigationBar.tintColor = [UIColor accentColor];
+                    self.navigationController.navigationBar.tintColor = [ZBColor accentColor];
                     [self updateInterfaceStyle];
                 }
                 break;
@@ -256,10 +255,10 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     usesSystemAppearance = [ZBSettings usesSystemAppearance];
     interfaceStyle = [ZBSettings interfaceStyle];
     
-    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
+//    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     
     [UIView animateWithDuration:0.5 animations:^{
-        self.tableView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+        self.tableView.backgroundColor = [ZBColor systemGroupedBackgroundColor];
         
         for (ZBSettingsTableViewCell *cell in self.tableView.visibleCells) {
             [cell applyStyling];

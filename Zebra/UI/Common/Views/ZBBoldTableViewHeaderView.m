@@ -7,15 +7,15 @@
 //
 
 #import "ZBBoldTableViewHeaderView.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBBoldTableViewHeaderView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.contentView.backgroundColor = [UIColor tableViewBackgroundColor];
-    self.actionButton.tintColor = [UIColor accentColor];
+    self.contentView.backgroundColor = [ZBColor systemBackgroundColor];
+    self.actionButton.tintColor = [ZBColor accentColor];
 }
 
 @end

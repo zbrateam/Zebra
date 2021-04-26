@@ -6,8 +6,6 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
-
 #import "ZBSourceVerificationDelegate.h"
 
 @class ZBDummySource;

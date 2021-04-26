@@ -8,7 +8,7 @@
 
 #import "ZBPackageChangelogTableViewController.h"
 #import <Tabs/Packages/Views/ZBChangelogTableViewCell.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBPackageChangelogTableViewController ()
 //@property (nonatomic, strong) NSArray <ZBPackage *> *allVersions;
@@ -42,7 +42,7 @@
 //
 //- (void)applyCustomizations {
 //    [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 16, 0, 16)];
-//    [self.tableView setBackgroundColor:[UIColor tableViewBackgroundColor]];
+//    [self.tableView setBackgroundColor:[ZBColor systemBackgroundColor]];
 //    [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectZero]];
 //}
 //

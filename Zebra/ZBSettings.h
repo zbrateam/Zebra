@@ -34,6 +34,7 @@
 typedef enum : NSUInteger {
     ZBAccentColorAquaVelvet,
     ZBAccentColorCornflowerBlue,
+    ZBAccentColorEmeraldCity,
     ZBAccentColorGoldenTainoi,
     ZBAccentColorIrisBlue,
     ZBAccentColorLotusPink,

@@ -12,7 +12,7 @@
 #import "UITableView+Settings.h"
 #import "ZBButtonSettingsTableViewCell.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 

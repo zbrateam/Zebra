@@ -7,7 +7,7 @@
 //
 
 #import "ZBSourceAccountBanner.h"
-#import "UIColor+GlobalColors.h"
+#import <Extensions/ZBColor.h>
 #import <JSONParsing/ZBSourceInfo.h>
 #import <JSONParsing/ZBUserInfo.h>
 #import <ZBAppDelegate.h>
@@ -103,16 +103,15 @@
 }
 
 - (void)applyStyle {
-    self.backgroundColor = [[UIColor groupedTableViewBackgroundColor] colorWithAlphaComponent:0.6];
+    self.backgroundColor = [[ZBColor systemGroupedBackgroundColor] colorWithAlphaComponent:0.6];
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     blurEffectView.frame = self.bounds;
     blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self insertSubview:blurEffectView atIndex:0];
-    self.descriptionLabel.textColor = [UIColor primaryTextColor];
-    self.button.tintColor = [UIColor accentColor];
+    self.descriptionLabel.textColor = [ZBColor primaryTextColor];
+    self.button.tintColor = [ZBColor accentColor];
     self.button.layer.cornerRadius = 14;
-    self.seperatorView.backgroundColor = [UIColor cellSeparatorColor];
 }
 
 @end

@@ -7,13 +7,12 @@
 //
 
 #import "ZBSettingsTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBSettingsTableViewCell
 
 - (void)applyStyling {
-    self.backgroundColor = [UIColor cellBackgroundColor];
-    self.textLabel.textColor = [UIColor primaryTextColor];
+    self.textLabel.textColor = [ZBColor primaryTextColor];
 }
 
 - (void)prepareForReuse {

@@ -7,7 +7,7 @@
 //
 
 #import "ZBScreenshotCollectionViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBScreenshotCollectionViewCell
 
@@ -21,7 +21,7 @@
     self.screenshotImageView.layer.cornerRadius = 10;
     self.screenshotImageView.layer.masksToBounds = YES;
     self.screenshotImageView.layer.borderWidth = 1;
-    self.screenshotImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
+    self.screenshotImageView.layer.borderColor = [[ZBColor imageBorderColor] CGColor];
 }
 
 @end

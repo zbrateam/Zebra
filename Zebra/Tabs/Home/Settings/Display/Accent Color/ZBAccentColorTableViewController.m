@@ -12,10 +12,9 @@
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
 
-#import <Theme/ZBThemeManager.h>
 #import <ZBSettings.h>
 #import <ZBAppDelegate.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <UI/ZBTabBarController.h>
 
 @interface ZBAccentColorTableViewController () {
@@ -32,7 +31,12 @@
     self = [storyboard instantiateViewControllerWithIdentifier:@"accentColorPicker"];
     
     if (self) {
-        colors = [ZBThemeManager colors];
+        NSMutableArray *tempColors = [NSMutableArray new];
+        for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorStorm; color++) {
+            [tempColors addObject:@(color)];
+        }
+        colors = tempColors;
+        
         selectedColor = [ZBSettings accentColor];
         usesSystemAccentColor = [ZBSettings usesSystemAccentColor];
     }
@@ -76,12 +80,12 @@
         ZBAccentColor color = (ZBAccentColor)[colors[indexPath.row] integerValue];
         [cell setChosen:color == selectedColor];
         
-        UIColor *leftColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleLight];
-        UIColor *rightColor = [ZBThemeManager getAccentColor:color forInterfaceStyle:ZBInterfaceStyleDark];
+        UIColor *leftColor = [ZBColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleLight];
+        UIColor *rightColor = [ZBColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleDark];
         [[cell imageView] setLeftColor:leftColor rightColor:rightColor];
         [[cell imageView] applyBorder];
         
-        cell.textLabel.text = [ZBThemeManager localizedNameForAccentColor:color];
+        cell.textLabel.text = [ZBColor localizedNameForAccentColor:color];
         
         [cell applyStyling];
         
@@ -105,11 +109,10 @@
             selectedColor = newColor;
             
             [ZBSettings setAccentColor:newColor];
-            [[ZBThemeManager sharedInstance] configureNavigationBar];
             
-            self.navigationController.navigationBar.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-            [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-            ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
+            self.navigationController.navigationBar.tintColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+            [[ZBAppDelegate tabBarController] tabBar].tintColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+            ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [ZBColor accentColor];
             
             ZBOptionSettingsTableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
             [newCell applyStyling];
@@ -132,11 +135,9 @@
     
     [(ZBSwitchSettingsTableViewCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]] applyStyling];
     
-    [[ZBThemeManager sharedInstance] configureNavigationBar];
-    
-    self.navigationController.navigationBar.tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    [[ZBAppDelegate tabBarController] tabBar].tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
-    ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [UIColor accentColor];
+    self.navigationController.navigationBar.tintColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+    [[ZBAppDelegate tabBarController] tabBar].tintColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+    ((ZBAppDelegate *)[[UIApplication sharedApplication] delegate]).window.tintColor = [ZBColor accentColor];
 }
 
 @end

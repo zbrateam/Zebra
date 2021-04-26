@@ -13,8 +13,7 @@
 #import <sys/utsname.h>
 #import <sys/sysctl.h>
 #import <Headers/MobileGestalt.h>
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Theme/ZBThemeManager.h>
+#import <Extensions/ZBColor.h>
 #import <Console/ZBCommand.h>
 
 @import UIKit.UISelectionFeedbackGenerator;
@@ -240,7 +239,7 @@
 + (void)openURL:(NSURL *)url sender:(UIViewController *)sender {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     
-    UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    UIColor *tintColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
     safariVC.preferredControlTintColor = tintColor;
     
     [sender presentViewController:safariVC animated:YES completion:nil];
@@ -269,16 +268,16 @@
 }
 
 + (NSString *)depictionUserAgent {
-    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@) %@", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion], [ZBThemeManager stringForCurrentInterfaceStyle]];
+    return [NSString stringWithFormat:@"Cydia/1.1.32 Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]];
 }
 
 + (NSDictionary *)depictionHeaders {
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
-    NSString *tintColor = [UIColor hexStringFromColor:[UIColor accentColor]];
+    NSString *tintColor = [ZBColor hexStringFromColor:[ZBColor accentColor]];
     
-    return @{@"X-Cydia-ID": udid, @"X-Firmware": version, @"X-Unique-ID": udid, @"X-Machine": machineIdentifier, @"Payment-Provider": @"API", @"Theme": [ZBThemeManager stringForCurrentInterfaceStyle], @"Tint-Color": tintColor, @"Accept-Language": [[NSLocale preferredLanguages] firstObject]};
+    return @{@"X-Cydia-ID": udid, @"X-Firmware": version, @"X-Unique-ID": udid, @"X-Machine": machineIdentifier, @"Payment-Provider": @"API", @"Tint-Color": tintColor, @"Accept-Language": [[NSLocale preferredLanguages] firstObject]};
 }
 
 + (NSString *)jailbreakType {

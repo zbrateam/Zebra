@@ -7,7 +7,7 @@
 //
 
 #import "ZBDetailedLinkSettingsTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBDetailedLinkSettingsTableViewCell
 
@@ -18,7 +18,7 @@
 
 - (void)applyStyling {
     [super applyStyling];
-    self.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    self.detailTextLabel.textColor = [ZBColor secondaryTextColor];
 }
 
 - (void)prepareForReuse {

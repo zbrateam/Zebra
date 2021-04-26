@@ -7,7 +7,7 @@
 //
 
 #import "ZBCreditsTableViewController.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 
@@ -78,18 +78,18 @@
     if (indexPath.section == 3) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"libraryCreditTableViewCell" forIndexPath:indexPath];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setTextColor:[UIColor primaryTextColor]];
+        [cell.textLabel setTextColor:[ZBColor primaryTextColor]];
     }
     else {
         cell = [tableView dequeueReusableCellWithIdentifier:@"personCreditTableViewCell" forIndexPath:indexPath];
         if (item[@"link"]) {
-            [cell.textLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
+            [cell.textLabel setTextColor:[ZBColor accentColor] ?: [UIColor systemBlueColor]];
         }
         else {
-            [cell.textLabel setTextColor:[UIColor primaryTextColor]];
+            [cell.textLabel setTextColor:[ZBColor primaryTextColor]];
         }
     }
-    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    cell.detailTextLabel.textColor = [ZBColor secondaryTextColor];
     
     cell.textLabel.text = item[@"name"];
     cell.detailTextLabel.text = item[@"subtitle"];

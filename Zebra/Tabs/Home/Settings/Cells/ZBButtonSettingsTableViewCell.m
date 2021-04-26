@@ -7,7 +7,7 @@
 //
 
 #import "ZBButtonSettingsTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBButtonSettingsTableViewCell
 
@@ -18,6 +18,6 @@
 
 - (void)applyStyling {
     [super applyStyling];
-    self.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
+    self.textLabel.textColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
 }
 @end

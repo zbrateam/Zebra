@@ -15,7 +15,8 @@
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <ZBSettings.h>
+#import <Extensions/ZBColor.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Packages/ZBPackageViewController.h>
 
@@ -50,7 +51,7 @@
         searchController.delegate = self;
         searchController.searchResultsUpdater = self;
         searchController.searchBar.delegate = self;
-        searchController.searchBar.tintColor = [UIColor accentColor];
+        searchController.searchBar.tintColor = [ZBColor accentColor];
         searchController.searchBar.placeholder = NSLocalizedString(@"Tweaks, Themes, and More", @"");
         searchController.searchBar.scopeButtonTitles = @[NSLocalizedString(@"Name", @""), NSLocalizedString(@"Description", @""), NSLocalizedString(@"Author", @"")];
         searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -204,14 +205,14 @@
 //            [(ZBPackageTableViewCell *)cell updateData:searchResults[indexPath.row]];
         } else {
             cell.textLabel.text = NSLocalizedString(@"No Results", @"");
-            cell.textLabel.textColor = [UIColor secondaryTextColor];
+            cell.textLabel.textColor = [ZBColor secondaryTextColor];
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.textLabel.font = [UIFont systemFontOfSize:15.0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
     } else { // Show recent packages cell
         cell.textLabel.text = recentSearches[indexPath.row];
-        cell.textLabel.textColor = [UIColor accentColor];
+        cell.textLabel.textColor = [ZBColor accentColor];
     }
 }
 

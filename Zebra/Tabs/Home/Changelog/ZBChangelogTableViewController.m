@@ -11,7 +11,7 @@
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @interface ZBChangelogTableViewController ()
 
@@ -104,7 +104,7 @@
         cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor primaryTextColor];
+    cell.textLabel.textColor = [ZBColor primaryTextColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -117,8 +117,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
     view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    view.textLabel.textColor = [UIColor primaryTextColor];
-    view.contentView.backgroundColor = [UIColor groupedTableViewBackgroundColor];
+    view.textLabel.textColor = [ZBColor primaryTextColor];
+    view.contentView.backgroundColor = [ZBColor systemGroupedBackgroundColor];
         
     return view;
 }

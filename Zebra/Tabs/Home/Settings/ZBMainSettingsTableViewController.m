@@ -22,7 +22,7 @@
 //#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 #import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,
@@ -144,7 +144,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     if (indexPath.section == ZBInterface && indexPath.row == ZBAppIcon) {
         if (@available(iOS 10.3, *)) {
             ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell"];
-            cell.backgroundColor = [UIColor cellBackgroundColor];
             
             cell.label.text = NSLocalizedString(@"App Icon", @"");
             
@@ -173,10 +172,9 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
     cell.accessoryView = nil;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.backgroundColor = [UIColor cellBackgroundColor];
     cell.textLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     cell.detailTextLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+    cell.detailTextLabel.textColor = [ZBColor secondaryTextColor];
     
     ZBSectionOrder section = indexPath.section;
     switch (section) {
@@ -197,7 +195,6 @@ typedef NS_ENUM(NSUInteger, ZBFeatureOrder) {
                 case ZBAppIcon: {
                     ZBRightIconTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"settingsAppIconCell" forIndexPath:indexPath];
                     
-                    cell.backgroundColor = [UIColor cellBackgroundColor];
                     cell.label.text = NSLocalizedString(@"App Icon", @"");
                     
                     NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];

@@ -6,11 +6,11 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import <UIKit/UIKit.h>
 
 @class ZBSource;
 
-@interface ZBSourceAccountTableViewController : ZBTableViewController
+@interface ZBSourceAccountTableViewController : UITableViewController
 @property (nonatomic, strong) ZBSource *source;
 - (id)initWithSource:(ZBSource *)source;
 @end

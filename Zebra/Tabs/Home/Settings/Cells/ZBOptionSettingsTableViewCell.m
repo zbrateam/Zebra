@@ -7,7 +7,7 @@
 //
 
 #import "ZBOptionSettingsTableViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 @implementation ZBOptionSettingsTableViewCell
 
@@ -29,7 +29,7 @@
 
 - (void)applyStyling {
     [super applyStyling];
-    self.tintColor = [UIColor accentColor];
+    self.tintColor = [ZBColor accentColor];
 }
 
 - (void)prepareForReuse {

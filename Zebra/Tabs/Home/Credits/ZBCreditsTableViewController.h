@@ -6,13 +6,12 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
-
-@import SafariServices;
+#import <UIKit/UIKit.h>
+#import <SafariServices/SafariServices.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBCreditsTableViewController : ZBTableViewController <SFSafariViewControllerDelegate>
+@interface ZBCreditsTableViewController : UITableViewController <SFSafariViewControllerDelegate>
 @property (nonatomic, strong) NSArray <NSDictionary <NSString *, id> *> *credits;
 @end
 

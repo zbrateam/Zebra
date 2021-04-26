@@ -8,25 +8,26 @@
 
 #import "ZBInstalledFilesTableViewController.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
+//#import <Plains/PLPackage.h>
 
 @interface ZBInstalledFilesTableViewController () {
     NSMutableArray *files;
 }
-@property (nonatomic, strong) ZBPackage *package;
+//@property (nonatomic, strong) PLPackage *package;
 @end
 
 @implementation ZBInstalledFilesTableViewController
 
-- (id)initWithPackage:(ZBPackage *)package {
-    self = [super init];
-    
-    if (self) {
-        self.package = package;
-    }
-    
-    return self;
-}
+//- (id)initWithPackage:(PLPackage *)package {
+//    self = [super init];
+//
+//    if (self) {
+//        self.package = package;
+//    }
+//
+//    return self;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -89,7 +90,7 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor primaryTextColor];
+    cell.textLabel.textColor = [ZBColor primaryTextColor];
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

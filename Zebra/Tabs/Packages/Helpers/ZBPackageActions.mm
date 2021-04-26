@@ -14,7 +14,7 @@
 #import <Headers/UIAlertController+Private.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Packages/ZBPackageViewController.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIAlertController+Zebra.h>
 #import <JSONParsing/ZBPurchaseInfo.h>

@@ -19,16 +19,17 @@
 
 //#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import <ZBSettings.h>
+#import <Extensions/ZBColor.h>
 #import <Extensions/UIImageView+Zebra.h>
 #import "UITableView+Settings.h"
 
 @interface ZBFilterSettingsTableViewController () {
-    NSMutableArray <ZBSource *> *sources;
+    NSMutableArray *sources;
     NSMutableDictionary <NSString *, NSArray *> *filteredSources;
     NSMutableArray <NSString *> *filteredSections;
     NSMutableDictionary <NSString *, NSString *> *blockedAuthors;
-    NSMutableArray <ZBPackage *> *ignoredUpdates;
+    NSMutableArray *ignoredUpdates;
 }
 @end
 
@@ -53,9 +54,9 @@
 }
 
 - (void)refreshTable {
-    filteredSections = [[ZBSettings filteredSections] mutableCopy];
+//    filteredSections = [[ZBSettings filteredSections] mutableCopy];
     
-    filteredSources = [[ZBSettings filteredSources] mutableCopy];
+//    filteredSources = [[ZBSettings filteredSources] mutableCopy];
     NSArray *baseFilenames = [filteredSources allKeys];
     
     sources = [NSMutableArray new];
@@ -72,10 +73,10 @@
     [sources sortUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"label" ascending:YES]]];
     if ([outdatedFilteredSources count]) {
         [filteredSources removeObjectsForKeys:outdatedFilteredSources];
-        [ZBSettings setFilteredSources:filteredSources];
+//        [ZBSettings setFilteredSources:filteredSources];
     }
     
-    blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
+//    blockedAuthors = [[ZBSettings blockedAuthors] mutableCopy];
     
     // TODO: ignored updates don't work currently
 //    ignoredUpdates = [[ZBDatabaseManager sharedInstance] packagesFromIdentifiers:[ZBSettings ignoredUpdates]].mutableCopy;
@@ -110,7 +111,7 @@
             if (indexPath.row < filteredSections.count) {
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
 //                cell.textLabel.text = filteredSections[indexPath.row];
-//                cell.textLabel.textColor = [UIColor primaryTextColor];
+//                cell.textLabel.textColor = [ZBColor primaryTextColor];
 //
 //                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
 //                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
@@ -127,11 +128,11 @@
 //                ZBSource *source = sources[indexPath.row];
 //
 //                sourceCell.sourceLabel.text = [source label];
-//                sourceCell.sourceLabel.textColor = [UIColor primaryTextColor];
+//                sourceCell.sourceLabel.textColor = [ZBColor primaryTextColor];
 //
 //                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
 //                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
-//                sourceCell.urlLabel.textColor = [UIColor secondaryTextColor];
+//                sourceCell.urlLabel.textColor = [ZBColor secondaryTextColor];
 //
 //                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
                 
@@ -145,7 +146,7 @@
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 
                 cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
-                cell.textLabel.textColor = [UIColor primaryTextColor];
+                cell.textLabel.textColor = [ZBColor primaryTextColor];
                 
                 NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
                 if (aliases.count > 1) cell.accessoryType = UITableViewCellAccessoryDetailButton;
@@ -153,10 +154,10 @@
                 NSString *email = [blockedAuthors allKeys][indexPath.row];
                 if (![email isEqualToString:cell.textLabel.text]) {
                     cell.detailTextLabel.text = email;
-                    cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
+                    cell.detailTextLabel.textColor = [ZBColor secondaryTextColor];
                 }
                 
-                cell.tintColor = [UIColor accentColor];
+                cell.tintColor = [ZBColor accentColor];
                 return cell;
             }
             break;

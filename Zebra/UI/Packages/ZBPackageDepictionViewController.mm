@@ -10,7 +10,7 @@
 #import <ZBDevice.h>
 #import <Tabs/Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import <Extensions/ZBColor.h>
 
 #import <Plains/Model/PLPackage.h>
 
@@ -98,7 +98,7 @@
     self.webViewContainerStackView.hidden = YES;
     self.webView.hidden = YES;
     self.webView.scrollView.scrollEnabled = NO;
-    self.webView.backgroundColor = [UIColor tableViewBackgroundColor];
+    self.webView.backgroundColor = [ZBColor systemBackgroundColor];
 }
 
 - (void)setData {
@@ -125,9 +125,9 @@
 //        [self.descriptionLabel setAttributedText:descriptionAttributedString];
         self.descriptionLabel.text = self.package.longDescription;
 
-        for (UIView *lineSeperatorView in self.lineSeperatorViews) {
-            lineSeperatorView.backgroundColor = [UIColor cellSeparatorColor];
-        }
+//        for (UIView *lineSeperatorView in self.lineSeperatorViews) {
+//            lineSeperatorView.backgroundColor = [UIColor cellSeparatorColor];
+//        }
         
     } else {
         self.webViewContainerStackView.hidden = NO;
