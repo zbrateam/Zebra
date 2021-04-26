@@ -440,7 +440,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (void)setupPlains {
-    config = [PLConfig new];
+    config = [PLConfig sharedInstance];
     
     // Shared Options
     [config setBoolean:YES forKey:@"Acquire::AllowInsecureRepositories"];
@@ -451,7 +451,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/lists" forKey:@"Dir::State::Lists"];
     [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::Cache"];
     [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it everytime the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
-    [config setString:@"/opt/procursus/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"];
+    [config setString:@"/opt/procursus/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"]; // Might find some weird way to combine this options and the below one.
+    [config setString:@"/opt/procursus/libexec/zebra/supersling" forKey:@"Plains::Slingshot"];
+    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/zebra.sources" forKey:@"Plains::SourcesList"];
 #else
     // iOS Options
     [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/logs" forKey:@"Dir::Log"];
@@ -459,6 +461,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::Cache"];
     [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it everytime the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
     [config setString:@"/usr/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"];
+    [config setString:@"/usr/libexec/zebra/supersling" forKey:@"Plains::Slingshot"];
+    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/zebra.sources" forKey:@"Plains::SourcesList"];
 #endif
     
 #if DEBUG
