@@ -27,3 +27,14 @@ if [ -d "/var/mobile/Library/Application Support/xyz.willy.Zebra" ];then
     chown -R mobile:mobile "/var/mobile/Library/Application Support/xyz.willy.Zebra"
     chmod -R +r "/var/mobile/Library/Application Support/xyz.willy.Zebra"
 fi
+
+mkdir /var/mobile/Library/Caches/xyz.willy.Zebra
+chown mobile:mobile /var/mobile/Library/Caches/xyz.willy.Zebra
+
+mkdir /var/mobile/Library/Caches/xyz.willy.Zebra/lists
+mkdir /var/mobile/Library/Caches/xyz.willy.Zebra/lists/partial
+chown mobile:mobile /var/mobile/Library/Caches/xyz.willy.Zebra/lists
+chown mobile:mobile /var/mobile/Library/Caches/xyz.willy.Zebra/lists/partial
+
+mkdir /var/mobile/Library/Caches/xyz.willy.Zebra/logs
+chown mobile:mobile /var/mobile/Library/Caches/xyz.willy.Zebra/logs

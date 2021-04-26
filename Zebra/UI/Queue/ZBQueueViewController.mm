@@ -44,6 +44,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+#if TARGET_OS_IOS
+    UIBarButtonItem *confirmButton = [[UIBarButtonItem alloc] initWithTitle:@"Confirm" style:UIBarButtonItemStyleDone target:self action:@selector(confirmButton:)];
+    self.navigationItem.rightBarButtonItem = confirmButton;
+    
+    UIBarButtonItem *dismissButton = [[UIBarButtonItem alloc] initWithTitle:@"Dismiss" style:UIBarButtonItemStylePlain target:self action:@selector(goodbye)];
+    self.navigationItem.leftBarButtonItem = dismissButton;
+#endif
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue) name:PLQueueUpdateNotification object:nil];
 }
 
@@ -59,6 +67,10 @@
         self->packages = queue.queuedPackages;
         [self reloadData];
     }
+}
+
+- (void)goodbye {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Table View Data Source
