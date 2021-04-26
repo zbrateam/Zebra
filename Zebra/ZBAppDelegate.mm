@@ -36,6 +36,7 @@
 @interface ZBAppDelegate () {
     NSString *forwardToPackageID;
     BOOL screenRecording;
+    PLConfig *config;
 }
 
 @property () UIBackgroundTaskIdentifier backgroundTask;
@@ -187,7 +188,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [self setupCrashReporting];
+    [self setupPlains];
     [self registerForScreenshotNotifications];
     [self setupSDWebImageCache];
 //    [[ZBNotificationManager sharedInstance] ensureNotificationAccess];
@@ -438,17 +439,33 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)setupCrashReporting {
-//    if ([ZBSettings allowsCrashReporting]) {
-//        ZBLog(@"[Zebra] Crash Reporting and Analytics Enabled");
-//        [FIRApp configure];
-//        
-//        [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-//        [FIRAnalytics setUserPropertyString:[ZBDevice jailbreakType] forName:@"Jailbreak"];
-//        [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice jailbreakType] forKey:@"jailbreak_type"];
-//    } else {
-//        ZBLog(@"[Zebra] Crash Reporting and Analytics Disabled");
-//    }
+- (void)setupPlains {
+    config = [PLConfig new];
+    
+    // Shared Options
+    [config setBoolean:YES forKey:@"Acquire::AllowInsecureRepositories"];
+    
+#if TARGET_OS_MACCATALYST
+    // Mac-specific Options
+    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/logs" forKey:@"Dir::Log"];
+    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/lists" forKey:@"Dir::State::Lists"];
+    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::Cache"];
+    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it everytime the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
+    [config setString:@"/opt/procursus/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"];
+#else
+    // iOS Options
+    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/logs" forKey:@"Dir::Log"];
+    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/lists" forKey:@"Dir::State::Lists"];
+    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::Cache"];
+    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it everytime the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
+    [config setString:@"/usr/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"];
+#endif
+    
+#if DEBUG
+//    _config->Set("Debug::pkgProblemResolver", true);
+//    _config->Set("Debug::pkgAcquire", true);
+//    _config->Set("Debug::pkgAcquire::Worker", true);
+#endif
 }
 
 - (void)setupSDWebImageCache {
