@@ -401,7 +401,7 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>APT Sources List</string>
+			<string>Debian Sources List</string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>utiicon.png</string>
@@ -422,13 +422,13 @@
 				<string>public.plain-text</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>Sileo Sources List</string>
+			<string>Debian Sources File</string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>utiicon.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
-			<string>org.coolstar.sileo-sources</string>
+			<string>org.debian.sources-file</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
