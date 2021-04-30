@@ -78,6 +78,7 @@
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
 		75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */; };
+		890104F126378EEB000EF403 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 890104F026378EEB000EF403 /* MessageUI.framework */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891551572560A496005AF405 /* ZBPackageFilterViewController.m */; };
 		8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8915515B2560A4F0005AF405 /* ZBPartialPresentationController.m */; };
@@ -130,7 +131,6 @@
 		89ADD1222561AEFC00DF2241 /* ZBPackageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 89ADD1212561AEFC00DF2241 /* ZBPackageFilter.m */; };
 		89B312882465D9640027FE29 /* ZBPackageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89B312822465D9640027FE29 /* ZBPackageViewController.xib */; };
 		89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89BAE2ED261A8F1D0063BA22 /* PLPackage+Zebra.mm */; };
-		89C0F1E3262BD2CB003111B6 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89C0F1E2262BD2CB003111B6 /* MessageUI.framework */; };
 		89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */; };
 		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
@@ -319,6 +319,7 @@
 		75F92C9A24941BA8009DA035 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBQueueViewController.mm; sourceTree = "<group>"; };
+		890104F026378EEB000EF403 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/System/iOSSupport/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8908D508261250D800950353 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		891551562560A496005AF405 /* ZBPackageFilterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageFilterViewController.h; sourceTree = "<group>"; };
@@ -445,7 +446,6 @@
 		89B312822465D9640027FE29 /* ZBPackageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZBPackageViewController.xib; sourceTree = "<group>"; };
 		89BAE2EC261A8F1D0063BA22 /* PLPackage+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PLPackage+Zebra.h"; sourceTree = "<group>"; };
 		89BAE2ED261A8F1D0063BA22 /* PLPackage+Zebra.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = "PLPackage+Zebra.mm"; sourceTree = "<group>"; };
-		89C0F1E2262BD2CB003111B6 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/MessageUI.framework; sourceTree = DEVELOPER_DIR; };
 		89C112A12400E7A200854713 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89C4244B24411C1100FE5ED8 /* UIAlertController+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Zebra.h"; sourceTree = "<group>"; };
 		89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Zebra.m"; sourceTree = "<group>"; };
@@ -503,8 +503,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				89305210260E74850017CC29 /* Plains.framework in Frameworks */,
-				89C0F1E3262BD2CB003111B6 /* MessageUI.framework in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
+				890104F126378EEB000EF403 /* MessageUI.framework in Frameworks */,
 				893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 				893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */,
@@ -1052,10 +1052,10 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				890104F026378EEB000EF403 /* MessageUI.framework */,
 				89305205260E747C0017CC29 /* Plains.xcodeproj */,
 				893051E1260E72330017CC29 /* SDWebImage.xcodeproj */,
 				893051D7260E72210017CC29 /* LNPopupController.xcodeproj */,
-				89C0F1E2262BD2CB003111B6 /* MessageUI.framework */,
 				893F857323C027E9005C4CF6 /* libcompression.tbd */,
 				8905172123723995000F0A32 /* libc++.tbd */,
 				89463CDF2277B5C300A92FC5 /* libz.tbd */,
