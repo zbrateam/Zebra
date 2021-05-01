@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 
 @class PLSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceViewController : UITableViewController
+@interface ZBSourceViewController : UITableViewController <ZBPackageInfoController>
 - (id)initWithSource:(PLSource *)source;
 @end
 

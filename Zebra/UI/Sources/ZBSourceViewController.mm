@@ -35,6 +35,10 @@
     return self;
 }
 
+- (instancetype)initWithPackage:(PLPackage *)package {
+    return [self initWithSource:package.source];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
