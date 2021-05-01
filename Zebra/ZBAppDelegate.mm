@@ -446,9 +446,11 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSString *cacheDir = [NSString stringWithFormat:@"%@/Library/Caches/%@", NSHomeDirectory(), [[NSBundle mainBundle] bundleIdentifier]];
     NSString *logDir = [NSString stringWithFormat:@"%@/logs", cacheDir];
     NSString *listDir = [NSString stringWithFormat:@"%@/lists", cacheDir];
+    NSString *archiveDir = [NSString stringWithFormat:@"%@/archives/partial", cacheDir];
     [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir withIntermediateDirectories:NO attributes:nil error:nil];
     [[NSFileManager defaultManager] createDirectoryAtPath:logDir withIntermediateDirectories:NO attributes:nil error:nil];
     [[NSFileManager defaultManager] createDirectoryAtPath:listDir withIntermediateDirectories:NO attributes:nil error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:archiveDir withIntermediateDirectories:YES attributes:nil error:nil];
     
 #if TARGET_OS_MACCATALYST
     NSString *slingshotPath = @"/opt/procursus/libexec/zebra/supersling";
