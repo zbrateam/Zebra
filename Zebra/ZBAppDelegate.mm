@@ -467,8 +467,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     
     NSString *extendedStatesPath = [@"/" stringByAppendingString:[[config stringForKey:@"Dir::State"] stringByAppendingPathComponent:@"extended_states"]];
     symlink(extendedStatesPath.UTF8String, [cacheDir stringByAppendingPathComponent:@"extended_states"].UTF8String);
-    
-    [config setString:cacheDir forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it every time the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
+    [config setString:cacheDir forKey:@"Dir::State"];
     
 #if DEBUG
 //    _config->Set("Debug::pkgProblemResolver", true);
