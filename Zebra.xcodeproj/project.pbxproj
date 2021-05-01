@@ -139,7 +139,6 @@
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
 		89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */; };
 		89CA2139224043D1008F09DB /* vercmp.c in Sources */ = {isa = PBXBuildFile; fileRef = 89CA2138224043D1008F09DB /* vercmp.c */; };
-		89D230182242B27500837C3B /* default.sources in Resources */ = {isa = PBXBuildFile; fileRef = 89D230172242B27500837C3B /* default.sources */; };
 		89D97AFE25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */; };
 		89DCC2C7260D725F00768096 /* ZBLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89DCC2C6260D725F00768096 /* ZBLoadingViewController.m */; };
 		89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BD962428565100BF81A4 /* ZBSectionSelectorTableViewController.m */; };
@@ -463,7 +462,6 @@
 		89CA2137224043D1008F09DB /* vercmp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vercmp.h; sourceTree = "<group>"; };
 		89CA2138224043D1008F09DB /* vercmp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vercmp.c; sourceTree = "<group>"; };
 		89CCC6CC239D696600B7D85C /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
-		89D230172242B27500837C3B /* default.sources */ = {isa = PBXFileReference; lastKnownFileType = text; path = default.sources; sourceTree = "<group>"; };
 		89D97AFC25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceBulkAddViewController.h; sourceTree = "<group>"; };
 		89D97AFD25AA0FB500BCF4BB /* ZBSourceBulkAddViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceBulkAddViewController.m; sourceTree = "<group>"; };
 		89DCC2C5260D725F00768096 /* ZBLoadingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLoadingViewController.h; sourceTree = "<group>"; };
@@ -1069,7 +1067,6 @@
 			isa = PBXGroup;
 			children = (
 				36F77ADE22A33B6100A4604C /* Alternate Icons */,
-				89D230172242B27500837C3B /* default.sources */,
 				8931E4D2226D6E9300F35DFD /* utiicon.png */,
 			);
 			path = Resources;
@@ -1371,7 +1368,6 @@
 				4910B3A02426BD2F00306C5C /* ZBSourceAccountBanner.xib in Resources */,
 				8931E4D3226D6E9300F35DFD /* utiicon.png in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
-				89D230182242B27500837C3B /* default.sources in Resources */,
 				2627B6112321A65200B141E5 /* originalBlack@2x.png in Resources */,
 				89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */,
 				36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */,
