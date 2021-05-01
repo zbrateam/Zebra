@@ -1,6 +1,3 @@
-[submodule "Firmware"]
-	path = Firmware
-	url = https://github.com/zbrateam/Firmware.git
 [submodule "Vendor/SDWebImage"]
 	path = Vendor/SDWebImage
 	url = https://github.com/SDWebImage/SDWebImage.git
