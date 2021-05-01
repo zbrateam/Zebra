@@ -27,6 +27,7 @@
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/ZBSidebarController.h>
 #import <dlfcn.h>
+#include <sys/stat.h>
 //#import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
 
@@ -441,28 +442,33 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 - (void)setupPlains {
     config = [PLConfig sharedInstance];
     
-    // Shared Options
-    [config setBoolean:YES forKey:@"Acquire::AllowInsecureRepositories"];
+    // Create directories
+    NSString *cacheDir = [NSString stringWithFormat:@"%@/Library/Caches/%@", NSHomeDirectory(), [[NSBundle mainBundle] bundleIdentifier]];
+    NSString *logDir = [NSString stringWithFormat:@"%@/logs", cacheDir];
+    NSString *listDir = [NSString stringWithFormat:@"%@/lists", cacheDir];
+    [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir withIntermediateDirectories:NO attributes:nil error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:logDir withIntermediateDirectories:NO attributes:nil error:nil];
+    [[NSFileManager defaultManager] createDirectoryAtPath:listDir withIntermediateDirectories:NO attributes:nil error:nil];
     
 #if TARGET_OS_MACCATALYST
-    // Mac-specific Options
-    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/logs" forKey:@"Dir::Log"];
-    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/lists" forKey:@"Dir::State::Lists"];
-    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::Cache"];
-    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it everytime the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
-    [config setString:@"/opt/procursus/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"]; // Might find some weird way to combine this options and the below one.
-    [config setString:@"/opt/procursus/libexec/zebra/supersling" forKey:@"Plains::Slingshot"];
-    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/zebra.sources" forKey:@"Plains::SourcesList"];
+    NSString *slingshotPath = @"/opt/procursus/libexec/zebra/supersling";
 #else
-    // iOS Options
-    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/logs" forKey:@"Dir::Log"];
-    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/lists" forKey:@"Dir::State::Lists"];
-    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::Cache"];
-    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/" forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it everytime the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
-    [config setString:@"/usr/libexec/zebra/supersling" forKey:@"Dir::Bin::dpkg"];
-    [config setString:@"/usr/libexec/zebra/supersling" forKey:@"Plains::Slingshot"];
-    [config setString:@"/var/mobile/Library/Caches/xyz.willy.Zebra/zebra.sources" forKey:@"Plains::SourcesList"];
+    NSString *slingshotPath = @"/usr/libexec/zebra/supersling";
 #endif
+    
+    // Shared Options
+    [config setBoolean:YES forKey:@"Acquire::AllowInsecureRepositories"];
+    [config setString:logDir forKey:@"Dir::Log"];
+    [config setString:listDir forKey:@"Dir::State::Lists"];
+    [config setString:cacheDir forKey:@"Dir::Cache"];
+    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/zebra.sources" forKey:@"Plains::SourcesList"];
+    [config setString:slingshotPath forKey:@"Dir::Bin::dpkg"];
+    [config setString:slingshotPath forKey:@"Plains::Slingshot"];
+    
+    NSString *extendedStatesPath = [@"/" stringByAppendingString:[[config stringForKey:@"Dir::State"] stringByAppendingPathComponent:@"extended_states"]];
+    symlink(extendedStatesPath.UTF8String, [cacheDir stringByAppendingPathComponent:@"extended_states"].UTF8String);
+    
+    [config setString:cacheDir forKey:@"Dir::State"]; // This doesn't work, we need to symlink the extended_states to /var/lib/apt/extended_state and then copy to it every time the symlink is overwritten so that `apt-get` and other package managers still have access to our states. This will be handled in Plains.
     
 #if DEBUG
 //    _config->Set("Debug::pkgProblemResolver", true);
