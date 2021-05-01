@@ -4,14 +4,6 @@
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
 
-# Verify startup permissions (Auto-install etc)
-chown root:wheel /usr/libexec/zebra/startup
-chmod 755 /usr/libexec/zebra/startup
-
-# Setup startup Launch Daemon
-chown root:wheel /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist
-chmod 644 /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist
-
 # Setup relaunch Launch Daemon
 launchctl load /Library/LaunchDaemons/xyz.willy.Zebra.Relaunch.plist
 
