@@ -8,5 +8,3 @@ Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
 Description: A Useful Package Manager
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
 Tag: compatible_min::ios11.0, compatible_max::ios14.3
-Package: xyz.willy.zebeta
-Name: Zebra (BETA)
