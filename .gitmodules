@@ -6,4 +6,4 @@
 	url = https://github.com/LeoNatan/LNPopupController.git
 [submodule "Vendor/Plains"]
 	path = Vendor/Plains
-	url = git@github.com:wstyres/Plains.git
+	url = git@github.com:zbrateam/Plains.git
