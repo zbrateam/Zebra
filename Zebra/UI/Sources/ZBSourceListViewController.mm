@@ -61,11 +61,6 @@
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
-        _allowRefresh = NO;
-        _allowEditing = NO;
-        _showNavigationButtons = NO;
-        _showFailureSection = NO;
-        
         self->sources = sources;
     }
     
@@ -244,6 +239,12 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    ZBErrorViewController *errorVC = [[ZBErrorViewController alloc] initWithSource:sources[indexPath.row]];
+    
+    [[self navigationController] pushViewController:errorVC animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -258,7 +259,7 @@
         sourceController.allowRefresh = NO;
         sourceController.showNavigationButtons = NO;
         sourceController.showFailureSection = NO;
-        sourceController.selectActionClass = [ZBSourceViewController class];
+        sourceController.selectActionClass = [ZBErrorViewController class];
         sourceController.failures = self.failures;
         sourceController.title = @"Failures";
         
