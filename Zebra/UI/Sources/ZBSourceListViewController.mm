@@ -12,7 +12,8 @@
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/ZBSidebarController.h>
 #import <UI/Sources/ZBSourceAddViewController.h>
-#import <UI/Sources/ZBSourceErrorViewController.h>
+#import <UI/Common/ZBErrorViewController.h>
+#import <Extensions/ZBColor.h>
 
 #import <Plains/Managers/PLSourceManager.h>
 #import <Plains/Model/PLSource.h>
@@ -257,17 +258,30 @@
         sourceController.allowRefresh = NO;
         sourceController.showNavigationButtons = NO;
         sourceController.showFailureSection = NO;
-        sourceController.selectActionClass = [ZBSourceErrorViewController class];
+        sourceController.selectActionClass = [ZBSourceViewController class];
         sourceController.failures = self.failures;
         sourceController.title = @"Failures";
         
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:sourceController];
         [self presentViewController:navController animated:YES completion:nil];
+        
+        sourceController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark"] style:UIBarButtonItemStyleDone target:sourceController action:@selector(goodbye)];
+        sourceController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"list.triangle"] style:UIBarButtonItemStylePlain target:sourceController action:@selector(showLog)];
     } else {
         UIViewController *controller = [[self.selectActionClass alloc] initWithSource:sources[indexPath.row]];
         
         [[self navigationController] pushViewController:controller animated:YES];
     }
+}
+
+- (void)goodbye {
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (void)showLog {
+    ZBErrorViewController *errorVC = [[ZBErrorViewController alloc] init];
+    
+    [[self navigationController] pushViewController:errorVC animated:YES];
 }
 
 #pragma mark - Table View Delegate

@@ -1,50 +1,68 @@
 //
-//  ZBSourceErrorViewController.m
+//  ZBErrorViewController.m
 //  Zebra
 //
-//  Created by Wilson Styres on 5/3/21.
+//  Created by Wilson Styres on 5/4/21.
 //  Copyright © 2021 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSourceErrorViewController.h"
+#import "ZBErrorViewController.h"
 
-@interface ZBSourceErrorViewController ()
+#import <Plains/Plains.h>
 
+@interface ZBErrorViewController () {
+    NSArray *messages;
+}
 @end
 
-@implementation ZBSourceErrorViewController
+@implementation ZBErrorViewController
+
+- (instancetype)init {
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        self.title = @"Errors";
+        self->messages = [PLConfig errorMessages];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithSource:(PLSource *)source {
+    self = [super initWithStyle:UITableViewStylePlain];
+    
+    if (self) {
+        self.title = @"Errors";
+        self->messages = source.messages.mutableCopy;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"errorCell"];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return messages.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"errorCell" forIndexPath:indexPath];
     
-    // Configure the cell...
+    cell.textLabel.text = self->messages[indexPath.row];
+    cell.textLabel.numberOfLines = 0;
     
     return cell;
 }
-*/
 
 /*
 // Override to support conditional editing of the table view.
