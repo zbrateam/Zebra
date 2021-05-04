@@ -27,6 +27,7 @@
 @property BOOL showNavigationButtons;
 @property BOOL allowRefresh;
 @property BOOL showFailureSection;
+@property BOOL allowSelection;
 @property Class selectActionClass;
 @property NSMutableDictionary <NSString *, NSMutableArray *> *failures;
 @end
@@ -44,6 +45,7 @@
         _failures = [NSMutableDictionary new];
         _allowRefresh = YES;
         _allowEditing = YES;
+        _allowSelection = YES;
         _showNavigationButtons = YES;
         _showFailureSection = YES;
         _selectActionClass = [ZBSourceViewController class];
@@ -240,7 +242,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    ZBErrorViewController *errorVC = [[ZBErrorViewController alloc] initWithSource:sources[indexPath.row]];
+    PLSource *source = sources[indexPath.row];
+    source.messages = self.failures[source.UUID];
+    
+    ZBErrorViewController *errorVC = [[ZBErrorViewController alloc] initWithSource:source];
     
     [[self navigationController] pushViewController:errorVC animated:YES];
 }
@@ -269,7 +274,10 @@
         sourceController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark"] style:UIBarButtonItemStyleDone target:sourceController action:@selector(goodbye)];
         sourceController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"list.triangle"] style:UIBarButtonItemStylePlain target:sourceController action:@selector(showLog)];
     } else {
-        UIViewController *controller = [[self.selectActionClass alloc] initWithSource:sources[indexPath.row]];
+        PLSource *source = sources[indexPath.row];
+        if (self.selectActionClass == [ZBErrorViewController class]) source.messages = self.failures[source.UUID];
+        
+        UIViewController *controller = [[self.selectActionClass alloc] initWithSource:source];
         
         [[self navigationController] pushViewController:controller animated:YES];
     }
