@@ -215,7 +215,7 @@
         ZBSourceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
         
         int hasIssues = [self hasIssues];
-        cell.sourceLabel.text = hasIssues ? [NSString stringWithFormat:@"%d sources could not be refreshed.", hasIssues] : @"1 source could not be refreshed.";
+        cell.sourceLabel.text = hasIssues > 1 ? [NSString stringWithFormat:@"%d sources could not be refreshed.", hasIssues] : @"1 source could not be refreshed.";
         cell.urlLabel.text = @"Tap to learn more.";
         cell.iconImageView.image = [UIImage systemImageNamed:@"xmark.octagon.fill"];
         cell.iconImageView.layer.borderColor = [UIColor clearColor].CGColor;
