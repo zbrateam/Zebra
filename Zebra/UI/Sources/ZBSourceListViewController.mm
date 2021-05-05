@@ -253,7 +253,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (self.showFailureSection && indexPath.row == 0) {
+    if (self.showFailureSection && [self hasIssues] && indexPath.row == 0) {
         NSMutableArray *failedSources = [NSMutableArray new];
         [self.failures enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableArray * _Nonnull obj, BOOL * _Nonnull stop) {
             if (obj.count) [failedSources addObject:[sourceManager sourceForUUID:key]];
