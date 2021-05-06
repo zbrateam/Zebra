@@ -4,14 +4,6 @@
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
 
-# Verify startup permissions (Auto-install etc)
-chown root:wheel /usr/libexec/zebra/startup
-chmod 755 /usr/libexec/zebra/startup
-
-# Setup Launch Daemon
-chown root:wheel /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist
-chmod 644 /Library/LaunchDaemons/xyz.willy.Zebra.Startup.plist
-
 # Prevent Zebra from choosing a sandbox path for its directory
 if [ -f /var/mobile/Containers/Data/Application/*/Documents/zebra.db ];then
     DBPATH=$(ls /var/mobile/Containers/Data/Application/*/Documents/zebra.db)
