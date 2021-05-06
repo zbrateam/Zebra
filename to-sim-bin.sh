@@ -14,6 +14,7 @@ fi
 
 SIM_USR_LIB=$1
 LIBAPT_PKG_PATH=/opt/procursus/lib/libapt-pkg.6.0.0.dylib
+LIBAPT_PKG_SIM_PATH=/opt/procursus/lib-sim/libapt-pkg.6.0.0.dylib
 
 rm -rf /opt/procursus/lib-sim/
 cp -R /opt/procursus/lib/ /opt/procursus/lib-sim/
@@ -29,5 +30,5 @@ do
     ln -s $f $SIM_USR_LIB/$(basename $f)
 done
 
-xdelta3 -f -d -s $LIBAPT_PKG_PATH $(basename $LIBAPT_PKG_PATH).patch $LIBAPT_PKG_PATH
-ldid -S ${LIBAPT_PKG_PATH/\/lib\//\/lib-sim\/}
+xdelta3 -f -d -s $LIBAPT_PKG_SIM_PATH $(basename $LIBAPT_PKG_PATH).patch $LIBAPT_PKG_SIM_PATH
+ldid -S $LIBAPT_PKG_SIM_PATH
