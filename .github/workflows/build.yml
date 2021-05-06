@@ -14,11 +14,7 @@ jobs:
     - uses: actions/checkout@master
       with:
         submodules: recursive
-    - uses: actions/cache@master
-      id: carthage-cache
-      with:
-        path: Carthage
-        key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile') }}
+        token: ${{ secrets.ACCESS_TOKEN }}
 
     - name: Install Theos Dependencies
       run: brew install ldid fakeroot make
@@ -32,11 +28,6 @@ jobs:
         repository: theos/theos
         path: theos
         submodules: recursive
-
-    - name: Build Dependencies
-      if: steps.carthage-cache.outputs.cache-hit != 'true'
-      run: |
-        ./carthage-fix.sh bootstrap --no-use-binaries --platform iOS --cache-builds
 
     - name: Build Package
       env:
