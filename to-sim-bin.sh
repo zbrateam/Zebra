@@ -30,5 +30,5 @@ do
     ln -s $f $SIM_USR_LIB/$(basename $f)
 done
 
-xdelta3 -f -d -s $LIBAPT_PKG_SIM_PATH $(basename $LIBAPT_PKG_PATH).patch $LIBAPT_PKG_SIM_PATH
+xdelta3 -f -d -s $LIBAPT_PKG_PATH $(basename $LIBAPT_PKG_PATH).patch $LIBAPT_PKG_SIM_PATH
 ldid -S $LIBAPT_PKG_SIM_PATH
