@@ -8,7 +8,7 @@
 
 #import "PLPackage+Zebra.h"
 
-#import <Plains/Model/PLSource.h>
+#import <Model/PLSource+Zebra.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 
 #import <SDWebImage/SDWebImage.h>

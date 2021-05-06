@@ -12,7 +12,8 @@
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <Extensions/UIImageView+Zebra.h>
 
-#import <Plains/Plains.h>
+#import <Model/PLPackage+Zebra.h>
+#import <Model/PLSource+Zebra.h>
 
 @interface ZBSourceViewController () {
     NSArray <NSString *> *sections;
