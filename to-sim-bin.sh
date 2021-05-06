@@ -29,5 +29,5 @@ do
     ln -s $f $SIM_USR_LIB/$(basename $f)
 done
 
-xdelta3 -f -d -s $LIBAPT_PKG_PATH $LIBAPT_PKG_PATH.patch $LIBAPT_PKG_PATH
+xdelta3 -f -d -s $LIBAPT_PKG_PATH $(basename LIBAPT_PKG_PATH).patch $LIBAPT_PKG_PATH
 ldid -S ${LIBAPT_PKG_PATH/\/lib\//\/lib-sim\/}
