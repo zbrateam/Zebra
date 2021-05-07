@@ -23,6 +23,7 @@
     NSArray *icons;
     UIViewController *sidebar;
     UITableView *tableView;
+    UISearchBar *searchBar;
     NSUInteger selectedIndex;
     NSUInteger queueCount;
     NSUInteger updates;
@@ -46,12 +47,31 @@
         
         sidebar = [[UIViewController alloc] init];
         
-        tableView = [[UITableView alloc] initWithFrame:sidebar.view.frame style:UITableViewStyleGrouped];
-        tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+        searchBar.placeholder = @"Search";
+        searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        searchBar.searchTextField.backgroundColor = [[UIColor systemGrayColor] colorWithAlphaComponent:0.2];
+        
+        tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         tableView.delegate = self;
         tableView.dataSource = self;
+        tableView.scrollEnabled = NO;
         
+        [sidebar.view addSubview:searchBar];
         [sidebar.view addSubview:tableView];
+        
+        [NSLayoutConstraint activateConstraints:@[
+            [searchBar.topAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.topAnchor],
+            [searchBar.leadingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.leadingAnchor constant:tableView.layoutMargins.left],
+            [searchBar.trailingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.trailingAnchor constant:-tableView.layoutMargins.right],
+            [searchBar.heightAnchor constraintEqualToConstant:44.0],
+            [tableView.topAnchor constraintEqualToAnchor:searchBar.bottomAnchor constant:8.0],
+            [tableView.leadingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.leadingAnchor],
+            [tableView.trailingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.trailingAnchor],
+            [tableView.bottomAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.bottomAnchor]
+        ]];
+        searchBar.translatesAutoresizingMaskIntoConstraints = NO;
+        tableView.translatesAutoresizingMaskIntoConstraints = NO;
         
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
         
@@ -130,7 +150,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sidebarCell" forIndexPath:indexPath];
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"sidebarCell"];
     
     UITabBarItem *tabItem = _controllers[indexPath.row].tabBarItem;
