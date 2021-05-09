@@ -217,12 +217,26 @@
 - (UITableViewCell *)resultsCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"resultsCell"];
     
+    NSString *searchTerm = searchBar.text;
     PLPackage *package = searchResults[indexPath.row];
-    cell.textLabel.text = package.name;
+    
+    cell.textLabel.textColor = [UIColor secondaryLabelColor];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:package.name];
+    [text addAttribute:NSForegroundColorAttributeName value:[UIColor labelColor] range:NSMakeRange(0, searchTerm.length)];
+    cell.textLabel.attributedText = text;
+    
     cell.imageView.image = [UIImage systemImageNamed:@"magnifyingglass"];
     cell.imageView.tintColor = [UIColor secondaryLabelColor];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == searchResultsTableView) {
+        return 33;
+    } else {
+        return 44;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -391,9 +405,9 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self->searchResults = packages;
             
-            CGFloat height = 44;
+            CGFloat height = 33;
             height *= packages.count;
-            height = MIN(height, 44 * 10);
+            height = MIN(height, 33 * 10);
             self->resultsTableViewHeightConstraint.constant = height;
             
             [self->searchResultsTableView reloadData];
