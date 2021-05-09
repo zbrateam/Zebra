@@ -11,12 +11,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #if TARGET_OS_MACCATALYST
-@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource, NSToolbarDelegate, UINavigationControllerDelegate>
+@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource, NSToolbarDelegate, UINavigationControllerDelegate, UISearchBarDelegate>
 @property (nonatomic) BOOL showBackButton;
 - (void)addToolbarItem:(NSString *)identifier;
 - (void)removeToolbarItem:(NSString *)identifier;
 #else
-@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource>
+@interface ZBSidebarController : UISplitViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 #endif
 @property (nonatomic) NSArray <UIViewController *> *controllers;
 - (void)showRefreshIndicator;

@@ -22,8 +22,11 @@
     NSArray *titles;
     NSArray *icons;
     UIViewController *sidebar;
-    UITableView *tableView;
+    UITableView *sidebarTableView;
     UISearchBar *searchBar;
+    NSArray *searchResults;
+    UITableView *searchResultsTableView;
+    UIViewController *searchResultsController;
     NSUInteger selectedIndex;
     NSUInteger queueCount;
     NSUInteger updates;
@@ -48,30 +51,48 @@
         sidebar = [[UIViewController alloc] init];
         
         searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+        searchBar.delegate = self;
         searchBar.placeholder = @"Search";
         searchBar.searchBarStyle = UISearchBarStyleMinimal;
         searchBar.searchTextField.backgroundColor = [[UIColor systemGrayColor] colorWithAlphaComponent:0.2];
         
-        tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        tableView.delegate = self;
-        tableView.dataSource = self;
-        tableView.scrollEnabled = NO;
+        UIView *backgroundView = [[UIView alloc] init];
+        backgroundView.backgroundColor = [UIColor secondarySystemBackgroundColor];
+        backgroundView.layer.cornerRadius = 10.0;
+        
+        searchResultsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        searchResultsTableView.delegate = self;
+        searchResultsTableView.dataSource = self;
+        searchResultsTableView.backgroundView = backgroundView;
+        
+        sidebarTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        sidebarTableView.delegate = self;
+        sidebarTableView.dataSource = self;
+        sidebarTableView.scrollEnabled = NO;
+        
+        searchResults = @[@"NoBlur", @"Zebra", @"BlueBoard"];
         
         [sidebar.view addSubview:searchBar];
-        [sidebar.view addSubview:tableView];
+        [sidebar.view addSubview:sidebarTableView];
+        [sidebar.view addSubview:searchResultsTableView];
         
         [NSLayoutConstraint activateConstraints:@[
             [searchBar.topAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.topAnchor],
-            [searchBar.leadingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.leadingAnchor constant:tableView.layoutMargins.left],
-            [searchBar.trailingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.trailingAnchor constant:-tableView.layoutMargins.right],
+            [searchBar.leadingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.leadingAnchor constant:sidebarTableView.layoutMargins.left],
+            [searchBar.trailingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.trailingAnchor constant:-sidebarTableView.layoutMargins.right],
             [searchBar.heightAnchor constraintEqualToConstant:44.0],
-            [tableView.topAnchor constraintEqualToAnchor:searchBar.bottomAnchor constant:8.0],
-            [tableView.leadingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.leadingAnchor],
-            [tableView.trailingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.trailingAnchor],
-            [tableView.bottomAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.bottomAnchor]
+            [sidebarTableView.topAnchor constraintEqualToAnchor:searchBar.bottomAnchor constant:8.0],
+            [sidebarTableView.leadingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.leadingAnchor],
+            [sidebarTableView.trailingAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.trailingAnchor],
+            [sidebarTableView.bottomAnchor constraintEqualToAnchor:sidebar.view.safeAreaLayoutGuide.bottomAnchor],
+            [searchResultsTableView.leadingAnchor constraintEqualToAnchor:searchBar.leadingAnchor],
+            [searchResultsTableView.trailingAnchor constraintEqualToAnchor:searchBar.trailingAnchor],
+            [searchResultsTableView.topAnchor constraintEqualToAnchor:searchBar.bottomAnchor],
+            [searchResultsTableView.heightAnchor constraintEqualToConstant:120]
         ]];
         searchBar.translatesAutoresizingMaskIntoConstraints = NO;
-        tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        sidebarTableView.translatesAutoresizingMaskIntoConstraints = NO;
+        searchResultsTableView.translatesAutoresizingMaskIntoConstraints = NO;
         
         [self setViewController:sidebar forColumn:UISplitViewControllerColumnPrimary];
         
@@ -146,10 +167,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _controllers.count;
+    if (tableView == sidebarTableView) {
+        return _controllers.count;
+    } else if (tableView == searchResultsTableView) {
+        return searchResults.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == sidebarTableView) {
+        return [self sidebarCellForRowAtIndexPath:indexPath];
+    } else if (tableView == searchResultsTableView) {
+        return [self resultsCellForRowAtIndexPath:indexPath];
+    }
+    return NULL;
+}
+
+- (UITableViewCell *)sidebarCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"sidebarCell"];
     
     UITabBarItem *tabItem = _controllers[indexPath.row].tabBarItem;
@@ -172,6 +207,16 @@
             cell.detailTextLabel.text = nil;
         }
     }
+    
+    return cell;
+}
+
+- (UITableViewCell *)resultsCellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"resultsCell"];
+    
+    cell.textLabel.text = searchResults[indexPath.row];
+    cell.imageView.image = [UIImage systemImageNamed:@"magnifyingglass"];
+    cell.imageView.tintColor = [UIColor secondaryLabelColor];
     
     return cell;
 }
@@ -292,7 +337,7 @@
 - (void)setControllers:(NSArray <UIViewController *> *)controllers {
     _controllers = controllers;
     
-    [tableView reloadData];
+    [sidebarTableView reloadData];
 }
 
 #pragma mark - Queue
@@ -300,20 +345,20 @@
 - (void)updateQueue:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->queueCount = [notification.userInfo[@"count"] unsignedIntValue];
-        [self->tableView reloadData];
+        [self->sidebarTableView reloadData];
     });
 }
 
 - (void)updateUpdates:(NSNotification *)notification {
     dispatch_async(dispatch_get_main_queue(), ^{
         self->updates = [notification.userInfo[@"count"] unsignedIntValue];
-        [self->tableView reloadData];
+        [self->sidebarTableView reloadData];
     });
 }
 
 - (void)showRefreshIndicator {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITableViewCell *cell = [self->tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        UITableViewCell *cell = [self->sidebarTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         UIActivityIndicatorView *sourceRefreshIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyle)12];
         sourceRefreshIndicator.color = [UIColor secondaryLabelColor];
         [sourceRefreshIndicator startAnimating];
@@ -323,7 +368,7 @@
 
 - (void)hideRefreshIndicator {
     dispatch_async(dispatch_get_main_queue(), ^{
-        UITableViewCell *cell = [self->tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        UITableViewCell *cell = [self->sidebarTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         cell.accessoryView = NULL;
     });
 }
