@@ -17,6 +17,7 @@
 #import <Plains/Queue/PLQueue.h>
 #import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Managers/PLSourceManager.h>
+#import <Plains/Model/PLPackage.h>
 
 @interface ZBSidebarController () {
     NSArray *titles;
@@ -30,6 +31,7 @@
     NSUInteger selectedIndex;
     NSUInteger queueCount;
     NSUInteger updates;
+    NSLayoutConstraint *resultsTableViewHeightConstraint;
     
 #if TARGET_OS_MACCATALYST
     NSToolbar *toolbar;
@@ -63,14 +65,13 @@
         searchResultsTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
         searchResultsTableView.delegate = self;
         searchResultsTableView.dataSource = self;
+        searchResultsTableView.hidden = YES;
         searchResultsTableView.backgroundView = backgroundView;
         
         sidebarTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         sidebarTableView.delegate = self;
         sidebarTableView.dataSource = self;
         sidebarTableView.scrollEnabled = NO;
-        
-        searchResults = @[@"NoBlur", @"Zebra", @"BlueBoard"];
         
         [sidebar.view addSubview:searchBar];
         [sidebar.view addSubview:sidebarTableView];
@@ -88,8 +89,10 @@
             [searchResultsTableView.leadingAnchor constraintEqualToAnchor:searchBar.leadingAnchor],
             [searchResultsTableView.trailingAnchor constraintEqualToAnchor:searchBar.trailingAnchor],
             [searchResultsTableView.topAnchor constraintEqualToAnchor:searchBar.bottomAnchor],
-            [searchResultsTableView.heightAnchor constraintEqualToConstant:120]
         ]];
+        resultsTableViewHeightConstraint = [searchResultsTableView.heightAnchor constraintEqualToConstant:44];
+        resultsTableViewHeightConstraint.active = YES;
+        
         searchBar.translatesAutoresizingMaskIntoConstraints = NO;
         sidebarTableView.translatesAutoresizingMaskIntoConstraints = NO;
         searchResultsTableView.translatesAutoresizingMaskIntoConstraints = NO;
@@ -214,7 +217,8 @@
 - (UITableViewCell *)resultsCellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"resultsCell"];
     
-    cell.textLabel.text = searchResults[indexPath.row];
+    PLPackage *package = searchResults[indexPath.row];
+    cell.textLabel.text = package.name;
     cell.imageView.image = [UIImage systemImageNamed:@"magnifyingglass"];
     cell.imageView.tintColor = [UIColor secondaryLabelColor];
     
@@ -371,6 +375,39 @@
         UITableViewCell *cell = [self->sidebarTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         cell.accessoryView = NULL;
     });
+}
+
+#pragma mark - Search Bar Delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length == 0) {
+        searchResultsTableView.hidden = YES;
+        searchResults = nil;
+        return;
+    }
+    
+    searchResultsTableView.hidden = NO;
+    [[PLPackageManager sharedInstance] searchForPackagesWithNamePrefix:searchText completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self->searchResults = packages;
+            
+            CGFloat height = 44;
+            height *= packages.count;
+            height = MIN(height, 44 * 10);
+            self->resultsTableViewHeightConstraint.constant = height;
+            
+            [self->searchResultsTableView reloadData];
+            [self->searchResultsTableView setNeedsDisplay];
+        });
+    }];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    
 }
 
 @end
