@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)forwardToPackage;
 - (void)updateQueueBarPackageCount;
 - (void)closeQueue;
-- (void)requestSourceRefresh;
+- (void)refreshSources:(BOOL)userRequested;
 @end
 
 NS_ASSUME_NONNULL_END

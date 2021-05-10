@@ -20,6 +20,7 @@
 #import <Extensions/ZBColor.h>
 #import <UI/Queue/ZBQueueViewController.h>
 #import <ZBDevice.h>
+#import <ZBSettings.h>
 
 #import <Plains/Plains.h>
 
@@ -250,9 +251,29 @@
 }
 
 - (void)requestSourceRefresh {
-//    if (sourceManager.refreshInProgress) return;
+    [self refreshSources:NO];
+}
+
+- (void)refreshSources:(BOOL)userRequested {
+    BOOL needsUpdate = NO;
+    if (!userRequested && [ZBSettings wantsAutoRefresh]) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [ZBSettings lastSourceUpdate];
+
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+
+            needsUpdate = ([components minute] >= 30);
+        } else {
+            needsUpdate = YES;
+        }
+    }
     
-//    [sourceManager refreshSourcesUsingCaching:YES userRequested:YES error:nil];
+    if (userRequested || needsUpdate) {
+        [[PLSourceManager sharedInstance] refreshSources];
+    }
 }
 
 @end

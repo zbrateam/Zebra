@@ -726,4 +726,15 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     [defaults setBool:crashReporting forKey:AllowsCrashReportingKey];
 }
 
+#pragma mark - Source Update
+
++ (NSDate *)lastSourceUpdate {
+    NSDate *lastUpdatedDate = (NSDate *)[[NSUserDefaults standardUserDefaults] objectForKey:@"lastUpdatedDate"];
+    return lastUpdatedDate ?: [NSDate distantPast];
+}
+
++ (void)updateLastSourceUpdate {
+    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"lastUpdatedDate"];
+}
+
 @end

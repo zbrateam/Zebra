@@ -209,6 +209,8 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
                 [self setupSidebar];
             }
 #endif
+            UIViewController *rvc = self.window.rootViewController;
+            [rvc performSelector:@selector(requestSourceRefresh)];
         });
     });
     
@@ -389,7 +391,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else if ([shortcutItem.type isEqualToString:@"Refresh"]) {
         ZBTabBarController *tabController = [ZBAppDelegate tabBarController];
         
-        [tabController requestSourceRefresh];
+        [tabController refreshSources:YES];
     }
 }
 

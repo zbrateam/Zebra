@@ -14,6 +14,8 @@
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Queue/ZBQueueViewController.h>
 
+#import <ZBSettings.h>
+
 #import <Plains/Queue/PLQueue.h>
 #import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Managers/PLSourceManager.h>
@@ -456,6 +458,34 @@
         [self setViewController:navController forColumn:UISplitViewControllerColumnSecondary];
         
         [searchBar resignFirstResponder];
+    }
+}
+
+
+// dry!!!!
+- (void)requestSourceRefresh {
+    [self refreshSources:NO];
+}
+
+- (void)refreshSources:(BOOL)userRequested {
+    BOOL needsUpdate = NO;
+    if (!userRequested && [ZBSettings wantsAutoRefresh]) {
+        NSDate *currentDate = [NSDate date];
+        NSDate *lastUpdatedDate = [ZBSettings lastSourceUpdate];
+
+        if (lastUpdatedDate != NULL) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSUInteger unitFlags = NSCalendarUnitMinute;
+            NSDateComponents *components = [gregorian components:unitFlags fromDate:lastUpdatedDate toDate:currentDate options:0];
+
+            needsUpdate = ([components minute] >= 30);
+        } else {
+            needsUpdate = YES;
+        }
+    }
+    
+    if (userRequested || needsUpdate) {
+        [[PLSourceManager sharedInstance] refreshSources];
     }
 }
 

@@ -201,6 +201,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)allowsCrashReporting;
 + (void)setAllowsCrashReporting:(BOOL)crashReporting;
 
+#pragma mark - Source Update
+
++ (NSDate *)lastSourceUpdate;
++ (void)updateLastSourceUpdate;
+
 @end
 
 NS_ASSUME_NONNULL_END
