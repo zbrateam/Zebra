@@ -240,11 +240,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self setViewController:_controllers[indexPath.row] forColumn:UISplitViewControllerColumnSecondary];
-    
-#if TARGET_OS_MACCATALYST
-    [self setTitle:_controllers[indexPath.row].tabBarItem.title];
-#endif
+    if (tableView == searchResultsTableView) {
+        
+    } else if (tableView == sidebarTableView) {
+        searchBar.text = @"";
+        [self setViewController:_controllers[indexPath.row] forColumn:UISplitViewControllerColumnSecondary];
+        
+    #if TARGET_OS_MACCATALYST
+        [self setTitle:_controllers[indexPath.row].tabBarItem.title];
+    #endif
+    }
 }
 
 #if TARGET_OS_MACCATALYST
@@ -412,16 +417,44 @@
             
             [self->searchResultsTableView reloadData];
             [self->searchResultsTableView setNeedsDisplay];
+            
+            if (self->searchResults.count == 0) {
+                self->searchResultsTableView.hidden = YES;
+                self->searchResults = nil;
+                return;
+            }
         });
     }];
 }
 
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    searchResultsTableView.hidden = searchBar.text.length < 1;
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    searchResultsTableView.hidden = YES;
+}
+
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    
+    searchBar.text = @"";
+    [searchBar resignFirstResponder];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
+    if (searchResults.count == 1) {
+        
+    } else {
+        ZBPackageListViewController *results = [[ZBPackageListViewController alloc] initWithPackages:searchResults];
+        results.title = [NSString stringWithFormat:@"Results for \"%@\"", searchBar.text];
+        
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:results];
+        [navController setDelegate:self];
+        [navController setNavigationBarHidden:YES animated:NO];
+        
+        [self setViewController:navController forColumn:UISplitViewControllerColumnSecondary];
+        
+        [searchBar resignFirstResponder];
+    }
 }
 
 @end

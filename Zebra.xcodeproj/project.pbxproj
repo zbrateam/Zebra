@@ -112,7 +112,7 @@
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
-		895C2ADA2402303B0065F424 /* ZBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchViewController.m */; };
+		895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchViewController.mm */; };
 		896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 896B2B52259FA2170082A62E /* ZBSourceListViewController.mm */; };
 		896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 896B2B5D259FA7180082A62E /* ZBSourceFilter.m */; };
 		898F4CD4246EFFEC00FC577B /* ZBPackageSupportViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.mm */; };
@@ -410,7 +410,7 @@
 		895A808623637C5100C166AC /* ZBCreditsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCreditsTableViewController.h; sourceTree = "<group>"; };
 		895A808723637C5100C166AC /* ZBCreditsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCreditsTableViewController.m; sourceTree = "<group>"; };
 		895C2AD82402303B0065F424 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
-		895C2AD92402303B0065F424 /* ZBSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSearchViewController.m; sourceTree = "<group>"; };
+		895C2AD92402303B0065F424 /* ZBSearchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSearchViewController.mm; sourceTree = "<group>"; };
 		896B2B51259FA2170082A62E /* ZBSourceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceListViewController.h; sourceTree = "<group>"; };
 		896B2B52259FA2170082A62E /* ZBSourceListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceListViewController.mm; sourceTree = "<group>"; };
 		896B2B5C259FA7180082A62E /* ZBSourceFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceFilter.h; sourceTree = "<group>"; };
@@ -950,7 +950,7 @@
 			isa = PBXGroup;
 			children = (
 				895C2AD82402303B0065F424 /* ZBSearchViewController.h */,
-				895C2AD92402303B0065F424 /* ZBSearchViewController.m */,
+				895C2AD92402303B0065F424 /* ZBSearchViewController.mm */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -1441,7 +1441,7 @@
 				89A1297B247B49F000C7310B /* UINavigationController+SBS.m in Sources */,
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
-				895C2ADA2402303B0065F424 /* ZBSearchViewController.m in Sources */,
+				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
 				49FD260824707DDF00594D1A /* ZBPackageDepictionViewController.mm in Sources */,
 				C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */,
 				9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */,

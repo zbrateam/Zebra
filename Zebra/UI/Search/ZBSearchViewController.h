@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBSearchViewController : UITableViewController <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>
+- (instancetype)initWithSearchTerm:(NSString *)term;
 - (void)handleURL:(NSURL *_Nullable)url;
 @end
 

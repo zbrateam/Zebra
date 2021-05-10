@@ -6,8 +6,6 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-@import LNPopupController;
-
 #import "ZBSearchViewController.h"
 
 //#import <Managers/ZBPackageManager.h>
@@ -19,6 +17,9 @@
 #import <Extensions/ZBColor.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/Packages/ZBPackageViewController.h>
+
+#import <Plains/Model/PLPackage.h>
+#import <Plains/Managers/PLPackageManager.h>
 
 @interface ZBSearchViewController () {
     NSMutableArray *recentSearches;
@@ -136,26 +137,26 @@
     
     NSUInteger selectedIndex = searchController.searchBar.selectedScopeButtonIndex;
     if (searchResults.count == 0) [self showSpinner]; // Only show the spinner if this is the initial search
-//    switch (selectedIndex) {
-//        case 0: {
-//            [packageManager searchForPackagesByName:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+    switch (selectedIndex) {
+        case 0: {
+            [[PLPackageManager sharedInstance] searchForPackagesWithName:strippedString completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                updateTable(packages);
+            }];
+            break;
+        }
+        case 1: {
+//            [[PLPackageManager sharedInstance] searchForPackagesByDescription:strippedString completion:^(NSArray<PLPackage *> * _Nonnull packages) {
 //                updateTable(packages);
 //            }];
-//            break;
-//        }
-//        case 1: {
-//            [packageManager searchForPackagesByDescription:strippedString completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+            break;
+        }
+        case 2: {
+//            [[PLPackageManager sharedInstance] searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<PLPackage *> * _Nonnull packages) {
 //                updateTable(packages);
 //            }];
-//            break;
-//        }
-//        case 2: {
-//            [packageManager searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-//                updateTable(packages);
-//            }];
-//            break;
-//        }
-//    }
+            break;
+        }
+    }
 }
 
 #pragma mark - Search Bar Delegate
@@ -202,7 +203,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (searchController.active && searchController.searchBar.text.length > 0) {
         if (searchResults.count > 0) {
-//            [(ZBPackageTableViewCell *)cell updateData:searchResults[indexPath.row]];
+            [(ZBPackageTableViewCell *)cell setPackage:searchResults[indexPath.row]];
         } else {
             cell.textLabel.text = NSLocalizedString(@"No Results", @"");
             cell.textLabel.textColor = [ZBColor secondaryLabelColor];
