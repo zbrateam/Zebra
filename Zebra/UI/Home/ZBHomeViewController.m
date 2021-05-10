@@ -8,12 +8,14 @@
 
 #import "ZBHomeViewController.h"
 
-#import <SafariServices/SafariServices.h>
+#import <UI/Queue/ZBQueueViewController.h>
+#import <UI/Home/ZBCreditsViewController.h>
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 #import <Tabs/Home/Settings/ZBMainSettingsTableViewController.h>
-#import <UI/Queue/ZBQueueViewController.h>
+
+#import <SafariServices/SafariServices.h>
 
 @interface ZBHomeViewController ()
 @end
@@ -83,7 +85,7 @@
             @{
                 @"text": NSLocalizedString(@"Credits", @""),
                 @"icon": @"Credits",
-                @"class": @"ZBCreditsTableViewController"
+                @"class": @"ZBCreditsViewController"
             }
         ]
     ];

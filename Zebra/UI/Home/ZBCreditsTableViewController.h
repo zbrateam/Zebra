@@ -1,5 +1,5 @@
 //
-//  ZBCreditsTableViewController.h
+//  ZBCreditsViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 10/25/19.
@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBCreditsTableViewController : UITableViewController <SFSafariViewControllerDelegate>
+@interface ZBCreditsViewController : UITableViewController <SFSafariViewControllerDelegate>
 @property (nonatomic, strong) NSArray <NSDictionary <NSString *, id> *> *credits;
 @end
 
