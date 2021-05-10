@@ -444,8 +444,16 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 - (void)setupPlains {
     config = [PLConfig sharedInstance];
     
+#if TARGET_OS_MACCATALYST
+    NSString *slingshotPath = @"/opt/procursus/libexec/zebra/supersling";
+    NSString *homeDirectory = NSHomeDirectory();
+#else
+    NSString *slingshotPath = @"/usr/libexec/zebra/supersling";
+    NSString *homeDirectory = @"/var/mobile";
+#endif
+    
     // Create directories
-    NSString *cacheDir = [NSString stringWithFormat:@"%@/Library/Caches/%@", NSHomeDirectory(), [[NSBundle mainBundle] bundleIdentifier]];
+    NSString *cacheDir = [NSString stringWithFormat:@"%@/Library/Caches/%@", homeDirectory, [[NSBundle mainBundle] bundleIdentifier]];
     NSString *logDir = [NSString stringWithFormat:@"%@/logs", cacheDir];
     NSString *listDir = [NSString stringWithFormat:@"%@/lists", cacheDir];
     NSString *archiveDir = [NSString stringWithFormat:@"%@/archives/partial", cacheDir];
@@ -454,18 +462,12 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [[NSFileManager defaultManager] createDirectoryAtPath:listDir withIntermediateDirectories:NO attributes:nil error:nil];
     [[NSFileManager defaultManager] createDirectoryAtPath:archiveDir withIntermediateDirectories:YES attributes:nil error:nil];
     
-#if TARGET_OS_MACCATALYST
-    NSString *slingshotPath = @"/opt/procursus/libexec/zebra/supersling";
-#else
-    NSString *slingshotPath = @"/usr/libexec/zebra/supersling";
-#endif
-    
     // Shared Options
     [config setBoolean:YES forKey:@"Acquire::AllowInsecureRepositories"];
     [config setString:logDir forKey:@"Dir::Log"];
     [config setString:listDir forKey:@"Dir::State::Lists"];
     [config setString:cacheDir forKey:@"Dir::Cache"];
-    [config setString:@"/Users/wstyres/Library/Caches/xyz.willy.Zebra/zebra.sources" forKey:@"Plains::SourcesList"];
+    [config setString:[cacheDir stringByAppendingPathComponent:@"zebra.sources"] forKey:@"Plains::SourcesList"];
     [config setString:slingshotPath forKey:@"Dir::Bin::dpkg"];
     [config setString:slingshotPath forKey:@"Plains::Slingshot"];
     
