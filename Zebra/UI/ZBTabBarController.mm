@@ -85,12 +85,12 @@
     [packagesNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Installed" image:[UIImage imageNamed:@"Packages"] tag:2]];
     [packagesNavController.navigationBar setPrefersLargeTitles:YES];
     
-//    UINavigationController *searchNavController = [[UINavigationController alloc] init];
-//    [searchNavController setViewControllers:@[[[ZBSearchViewController alloc] init]] animated:NO];
-//    [searchNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"Search"] tag:3]];
-//    [searchNavController.navigationBar setPrefersLargeTitles:YES];
+    UINavigationController *searchNavController = [[UINavigationController alloc] init];
+    [searchNavController setViewControllers:@[[[ZBSearchViewController alloc] init]] animated:NO];
+    [searchNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Search" image:[UIImage imageNamed:@"Search"] tag:3]];
+    [searchNavController.navigationBar setPrefersLargeTitles:YES];
     
-    self.viewControllers = @[homeNavController, sourcesNavController, packagesNavController];//, searchNavController];
+    self.viewControllers = @[homeNavController, sourcesNavController, packagesNavController, searchNavController];
     
     self->updates = [[PLPackageManager sharedInstance] updates].count;
     [self setPackageUpdateBadgeValue:self->updates];

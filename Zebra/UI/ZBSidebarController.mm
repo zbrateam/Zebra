@@ -448,8 +448,10 @@
         results.title = [NSString stringWithFormat:@"Results for \"%@\"", searchBar.text];
         
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:results];
+#if TARGET_OS_MACCATALYST
         [navController setDelegate:self];
         [navController setNavigationBarHidden:YES animated:NO];
+#endif
         
         [self setViewController:navController forColumn:UISplitViewControllerColumnSecondary];
         
