@@ -1,28 +1,28 @@
 //
-//  ZBChangelogTableViewController.m
+//  ZBChangelogViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 6/30/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBChangelogTableViewController.h"
+#import "ZBChangelogViewController.h"
 
 #import <ZBLog.h>
 #import <ZBDevice.h>
 #import <ZBSettings.h>
 #import <Extensions/ZBColor.h>
 
-@interface ZBChangelogTableViewController ()
+@implementation ZBChangelogViewController
 
-@end
-
-@implementation ZBChangelogTableViewController
-
-@synthesize releases;
-
-- (BOOL)hasSpinner {
-    return YES;
+- (instancetype)init {
+    self = [super initWithStyle:UITableViewStyleInsetGrouped];
+    
+    if (self) {
+        self.title = @"Changelog";
+    }
+    
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -34,8 +34,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (releases == NULL) {
-        releases = [NSMutableArray new];
+    if (self.releases == NULL) {
+        self.releases = [NSMutableArray new];
         [self fetchGithubReleases];
     }
 }
@@ -51,18 +51,24 @@
             NSRange r1 = [PACKAGE_VERSION rangeOfString:@"~"];
             if (r1.location != NSNotFound) {
                 NSRange r2 = [PACKAGE_VERSION rangeOfCharacterFromSet:[NSCharacterSet decimalDigitCharacterSet] options:0 range:NSMakeRange(r1.location, PACKAGE_VERSION.length - r1.location)];
-                NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
-                NSString *releaseType = [PACKAGE_VERSION substringWithRange:rSub];
+                NSString *releaseType;
+                if (r2.location != NSNotFound) {
+                    NSRange rSub = NSMakeRange(r1.location + r1.length, r2.location - r1.location - r1.length);
+                    releaseType = [PACKAGE_VERSION substringWithRange:rSub];
+                } else {
+                    releaseType = [PACKAGE_VERSION substringFromIndex:r1.location + 1];
+                }
+                
                 for (NSDictionary *release in allReleases) {
                     if ([[release objectForKey:@"tag_name"] containsString:releaseType]) {
-                        [self->releases addObject:release];
+                        [self.releases addObject:release];
                     }
                 }
             }
             else {
                 for (NSDictionary *release in allReleases) {
                     if (![[release objectForKey:@"prerelease"] boolValue]) {
-                        [self->releases addObject:release];
+                        [self.releases addObject:release];
                     }
                 }
             }
@@ -75,7 +81,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
             self.navigationItem.titleView = NULL;
-            self.navigationItem.title = NSLocalizedString(@"Changelog", @"");
+            self.title = NSLocalizedString(@"Changelog", @"");
         });
     }];
     
@@ -85,7 +91,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return releases.count;
+    return self.releases.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -94,7 +100,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"changeLogCell";
-    NSDictionary *dataDict = releases[indexPath.section];
+    NSDictionary *dataDict = self.releases[indexPath.section];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     if (cell == nil) {
@@ -110,7 +116,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSDictionary *jsonDict = releases[section];
+    NSDictionary *jsonDict = self.releases[section];
     return jsonDict[@"name"] ?: @"Error";
 }
 

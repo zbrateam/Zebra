@@ -24,10 +24,6 @@
     return self;
 }
 
-- (BOOL)hasSpinner {
-    return YES;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

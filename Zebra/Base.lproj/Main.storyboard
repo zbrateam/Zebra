@@ -260,24 +260,6 @@
             </objects>
             <point key="canvasLocation" x="6163.7681159420299" y="-1633.2589285714284"/>
         </scene>
-        <!--Changelog Table View Controller-->
-        <scene sceneID="DQd-Tf-FXl">
-            <objects>
-                <tableViewController storyboardIdentifier="changeLogController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="88x-Fj-jmg" customClass="ZBChangelogTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="fnp-w0-926">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <connections>
-                            <outlet property="dataSource" destination="88x-Fj-jmg" id="tEL-lk-VIa"/>
-                            <outlet property="delegate" destination="88x-Fj-jmg" id="WjX-cd-bkl"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gLE-Yw-Vhq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4295.1999999999998" y="-3670.6146926536735"/>
-        </scene>
         <!--Source Blacklist Table View Controller-->
         <scene sceneID="vLS-NV-Xn7">
             <objects>
@@ -361,13 +343,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="88x-Fj-jmg" kind="show" identifier="settingsToChangelog" id="gwz-A4-PJj"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IMr-yk-xH5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5228" y="-3004"/>
+            <point key="canvasLocation" x="5130" y="-2928"/>
         </scene>
         <!--Accent Color-->
         <scene sceneID="E3q-dw-Pk9">

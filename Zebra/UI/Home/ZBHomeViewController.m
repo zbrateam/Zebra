@@ -66,7 +66,7 @@
             @{
                 @"text": NSLocalizedString(@"Changelog", @""),
                 @"icon": @"Changelog",
-                @"class": @"ZBChangelogTableViewController"
+                @"class": @"ZBChangelogViewController"
             }
         ],
         @[
