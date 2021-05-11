@@ -27,10 +27,6 @@
 
 #pragma mark - Package Actions
 
-+ (UIAlertControllerStyle)alertControllerStyle {
-    return [[ZBDevice deviceType] isEqualToString:@"iPad"] ? UIAlertControllerStyleAlert : UIAlertControllerStyleActionSheet;
-}
-
 + (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(ZBPackage *)package completion:(void (^)(ZBPackageExtraActionType action))completion {
 //    switch (action) {
 //        case ZBPackageExtraActionShowUpdates:
@@ -78,11 +74,11 @@
 //    });
 }
 
-+ (void)performAction:(ZBPackageActionType)action forPackage:(PLPackage *)package completion:(void (^)(void))completion {
-    [self performAction:action forPackage:package checkPayment:YES completion:completion];
++ (void)performAction:(ZBPackageActionType)action forPackage:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(void (^)(void))completion {
+    [self performAction:action forPackage:package controller:controller sender:sender checkPayment:YES completion:completion];
 }
 
-+ (void)performAction:(ZBPackageActionType)action forPackage:(PLPackage *)package checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
++ (void)performAction:(ZBPackageActionType)action forPackage:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender checkPayment:(BOOL)checkPayment completion:(void (^)(void))completion {
     if (!package) return;
     if (action < ZBPackageActionInstall || action > ZBPackageActionSelectVersion) return;
     
@@ -156,11 +152,11 @@
             [self reinstall:package completion:completion];
             break;
         case ZBPackageActionUpgrade:
-            [self upgrade:package completion:completion];
+            [self upgrade:package controller:controller sender:sender completion:completion];
             break;
-//        case ZBPackageActionDowngrade:
-//            [self downgrade:package completion:completion];
-//            break;
+        case ZBPackageActionDowngrade:
+            [self downgrade:package controller:controller sender:sender completion:completion];
+            break;
 //        case ZBPackageActionSelectVersion:
 //            [self choose:package completion:completion];
 //            break;
@@ -236,7 +232,7 @@
 //    [alert show];
 }
 
-+ (void)upgrade:(PLPackage *)package completion:(void (^)(void))completion {
++ (void)upgrade:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(void (^)(void))completion {
 //    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
 //    NSArray <NSString *> *greaterVersions = installedPackage.greaterVersions;
 //    if (greaterVersions.count > 1) {
@@ -297,63 +293,35 @@
 //    }
 }
 
-+ (void)downgrade:(ZBPackage *)package completion:(void (^)(void))completion {
-//    ZBPackage *installedPackage = [[ZBPackageManager sharedInstance] installedInstanceOfPackage:package];
-//    NSArray <NSString *> *lesserVersions = installedPackage.lesserVersions;
-//    if (lesserVersions.count > 1) {
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:[self alertControllerStyle]];
-//
-//        NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:lesserVersions];
-//        NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:lesserVersions];
-//        for (NSString *otherVersion in deduplicatedVersions) {
-//            NSString *title = otherVersion;
-//            UIAlertAction *action;
-//            if ([versionStrings countForObject:otherVersion] > 1) {
-//                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                    NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
-//
-//                    UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to downgrade the package from:", @"") preferredStyle:[self alertControllerStyle]];
-//
-//                    for (ZBPackage *otherPackage in otherPackages) {
-//                        UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                            otherPackage.requiresAuthorization = package.requiresAuthorization;
-////                            [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-//
-//                            if (completion) completion();
-//                        }];
-//                        [sourceAlert addAction:sourceAction];
-//                    }
-//                    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-//                    [sourceAlert addAction:cancel];
-//
-//                    [sourceAlert show];
-//                }];
-//            } else {
-//                action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                    ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-//                    otherPackage.requiresAuthorization = package.requiresAuthorization;
-////                    [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeDowngrade];
-//
-//                    if (completion) completion();
-//                }];
-//            }
-//
-//            [alert addAction:action];
-//        }
-//
-//        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-//        [alert addAction:cancel];
-//
-//        [alert show];
-//    }
++ (void)downgrade:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(void (^)(void))completion {
+    NSArray <PLPackage *> *lesserVersions = [package lesserVersions];
+    if (lesserVersions.count > 1) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to downgrade to:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+
+        for (PLPackage *otherVersion in lesserVersions) {
+            NSString *title = otherVersion.version;
+            UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [[PLQueue sharedInstance] addPackage:otherVersion toQueue:PLQueueDowngrade];
+
+                if (completion) completion();
+            }];
+
+            [alert addAction:action];
+        }
+
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:cancel];
+
+        alert.popoverPresentationController.sourceView = sender;
+        [controller presentViewController:alert animated:YES completion:nil];
+    }
 //    else if (lesserVersions.count == 1) {
 //        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:lesserVersions.firstObject];
-////        [[ZBQueue sharedQueue] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
+//        [[PLQueue sharedInstance] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
 //
 //        if (completion) completion();
 //    } else {
-////        [[ZBQueue sharedQueue] addPackage:package toQueue:ZBQueueTypeDowngrade];
-//
+//        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueDowngrade];
 //        if (completion) completion();
 //    }
 }
@@ -455,7 +423,7 @@
         return ^{
             UIAlertController *selectAction = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"%@ (%@)", package.name, package.version] message:nil preferredStyle:UIAlertControllerStyleActionSheet];
 
-            for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package completion:completion]) {
+            for (UIAlertAction *action in [ZBPackageActions alertActionsForPackage:package controller:controller sender:sender completion:completion]) {
                 [selectAction addAction:action];
             }
 
@@ -470,7 +438,7 @@
 //                [[ZBAppDelegate tabBarController] openQueue:YES];
 //            }
 //            else {
-                [self performAction:actions forPackage:package completion:^{
+                [self performAction:actions forPackage:package controller:controller sender:sender completion:^{
                     if (completion) completion();
                 }];
 //            }
@@ -507,7 +475,7 @@
     return NULL;
 }
 
-+ (NSArray <UIAlertAction *> *)alertActionsForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion {
++ (NSArray <UIAlertAction *> *)alertActionsForPackage:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(nullable void(^)(void))completion {
     NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
     
     ZBPackageActionType actions = package.possibleActions;
@@ -516,7 +484,7 @@
         NSString *title = [self titleForAction:action useIcon:NO];
         UIAlertActionStyle style = action == ZBPackageActionRemove ? UIAlertActionStyleDestructive : UIAlertActionStyleDefault;
         UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:style handler:^(UIAlertAction *alertAction) {
-            [self performAction:action forPackage:package completion:nil];
+            [self performAction:action forPackage:package controller:controller sender:sender completion:nil];
             if (completion) completion();
         }];
         [alertActions addObject:alertAction];

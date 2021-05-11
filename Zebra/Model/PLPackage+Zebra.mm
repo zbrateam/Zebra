@@ -27,6 +27,9 @@
         if (self.hasUpdate) {
             action |= ZBPackageActionUpgrade;
         }
+        if (self.numberOfVersions > 1) {
+            action |= ZBPackageActionDowngrade;
+        }
         if (installed) {
             action |= ZBPackageActionReinstall;
         } else {
