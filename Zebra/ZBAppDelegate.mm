@@ -188,6 +188,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+#if TARGET_OS_MACCATALYST
+    NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"main"];
+    toolbar.displayMode = NSToolbarDisplayModeIconOnly;
+    
+    UITitlebar *titlebar = self.window.windowScene.titlebar;
+    titlebar.toolbar = toolbar;
+    titlebar.toolbarStyle = UITitlebarToolbarStyleAutomatic;
+#endif
+    
     [self setupPlains];
     [self registerForScreenshotNotifications];
     [self setupSDWebImageCache];

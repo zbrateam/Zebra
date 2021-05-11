@@ -19,7 +19,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [ZBColor systemBackgroundColor];
     
     UIActivityIndicatorView *spinner;
     if (@available(iOS 13.0, macCatalyst 13.0, *)) {

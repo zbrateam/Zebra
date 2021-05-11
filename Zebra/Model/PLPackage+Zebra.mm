@@ -71,8 +71,7 @@
             NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
             [information addObject:installedVersionInfo];
         }
-    }
-    else if (allVersions.count) {
+    } else if (allVersions.count) {
         NSString *latestVersion = allVersions[0].version;
         if (latestVersion) {
             NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Version", @""), @"value": latestVersion, @"cellType": @"info"};
@@ -188,12 +187,12 @@
 //        [information addObject:compatibiltyInfo];
 //    }
     
-//    NSURL *homepage = [self homepageURL];
-//    if (homepage) {
-//        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"cellType": @"link", @"link": homepage, @"image": @"Web Link"};
-//        [information addObject:homepageInfo];
-//    }
-//
+    NSURL *homepage = self.homepageURL;
+    if (homepage) {
+        NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Developer Website", @""), @"cellType": @"link", @"link": homepage, @"image": @"Web Link"};
+        [information addObject:homepageInfo];
+    }
+    
     BOOL showSupport = self.authorEmail || self.maintainerEmail;
     if (showSupport) {
         NSDictionary *homepageInfo = @{@"name": NSLocalizedString(@"Support", @""), @"cellType": @"link", @"class": @"ZBPackageSupportViewController", @"image": @"Email"};
