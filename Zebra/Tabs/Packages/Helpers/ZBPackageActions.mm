@@ -314,16 +314,13 @@
 
         alert.popoverPresentationController.sourceView = sender;
         [controller presentViewController:alert animated:YES completion:nil];
+    } else if (lesserVersions.count == 1) {
+        [[PLQueue sharedInstance] addPackage:lesserVersions[0] toQueue:PLQueueDowngrade];
+        if (completion) completion();
+    } else {
+        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueDowngrade];
+        if (completion) completion();
     }
-//    else if (lesserVersions.count == 1) {
-//        ZBPackage *downgrade = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:lesserVersions.firstObject];
-//        [[PLQueue sharedInstance] addPackage:downgrade toQueue:ZBQueueTypeDowngrade];
-//
-//        if (completion) completion();
-//    } else {
-//        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueDowngrade];
-//        if (completion) completion();
-//    }
 }
 
 //+ (void)showUpdatesFor:(ZBPackage *)package {

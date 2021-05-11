@@ -136,6 +136,9 @@
         case PLQueueUpgrade:
             title = @"Upgrade";
             break;
+        case PLQueueDowngrade:
+            title = @"Downgrade";
+            break;
         default:
             title = @"Unknown";
             break;
