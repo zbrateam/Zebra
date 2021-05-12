@@ -20,6 +20,7 @@
     PLQueue *queue;
     NSDictionary <NSString *, NSArray <NSDictionary *> *> *issues;
     NSArray <NSArray <PLPackage *> *> *packages;
+    NSMutableIndexSet *expandedCells;
 }
 @end
 
@@ -30,6 +31,7 @@
     
     if (self) {
         queue = [PLQueue sharedInstance];
+        expandedCells = [NSMutableIndexSet new];
         self.title = @"Queue";
         
         [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
@@ -103,75 +105,81 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return packages.count + 1; // +1 for issues section
+    return packages.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) { // Issues
-        return issues.count;
-    }
-    
-    section--;
     return packages[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger section = indexPath.section;
-    if (section == 0) {
-        return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"idk"];
-    } else {
-        section--;
+    ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+    
+    PLPackage *package = packages[indexPath.section][indexPath.row];
+    cell.showVersion = YES;
+    cell.showBadges = NO;
+    
+    [cell setPackage:package];
+    [cell setErrored:issues[package.identifier] != NULL];
+    
+    if ([expandedCells containsIndex:indexPath.hash]) {
+        [cell addInfoText:@""];
+        [cell addInfoText:@"The requested operation cannot be completed due to the following packages that would be broken after installation:"];
         
-        ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-        
-        PLPackage *package = packages[section][indexPath.row];
-        cell.showVersion = YES;
-        cell.showBadges = NO;
-        
-        [cell setPackage:package];
-        
-        if (issues[package.identifier]) {
-            cell.accessoryType = UITableViewCellAccessoryDetailButton;
-            cell.tintColor = [UIColor systemPinkColor];
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.tintColor = nil;
+        for (NSDictionary *issue in issues[package.identifier]) {
+            NSString *relationship = issue[@"relationship"];
+            NSString *reason = [NSString stringWithFormat:@"%@: %@ %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
+            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:reason];
+            
+            NSRange boldRange = NSMakeRange(0, relationship.length + 1);
+            UIFont *boldFont = [UIFont boldSystemFontOfSize:12];
+            [string addAttributes:@{NSFontAttributeName: boldFont} range:boldRange];
+            [string addAttributes:@{NSForegroundColorAttributeName: [UIColor labelColor]} range:NSMakeRange(0, string.length)];
+            
+            [cell addInfoAttributedText:string];
         }
-        
-        return cell;
     }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [expandedCells addIndex:indexPath.hash];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [expandedCells addIndex:indexPath.hash];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (packages[section].count == 0) return NULL;
+    
     ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     NSString *title;
-    if (section == 0) {
-        title = @"Issues";
-    } else {
-        section--;
-        if (packages[section].count == 0) return NULL;
-        switch (section) {
-            case PLQueueInstall:
-                title = @"Install";
-                break;
-            case PLQueueRemove:
-                title = @"Remove";
-                break;
-            case PLQueueReinstall:
-                title = @"Reinstall";
-                break;
-            case PLQueueUpgrade:
-                title = @"Upgrade";
-                break;
-            case PLQueueDowngrade:
-                title = @"Downgrade";
-                break;
-            default:
-                title = @"Unknown";
-                break;
-        }
+    switch (section) {
+        case PLQueueInstall:
+            title = @"Install";
+            break;
+        case PLQueueRemove:
+            title = @"Remove";
+            break;
+        case PLQueueReinstall:
+            title = @"Reinstall";
+            break;
+        case PLQueueUpgrade:
+            title = @"Upgrade";
+            break;
+        case PLQueueDowngrade:
+            title = @"Downgrade";
+            break;
+        default:
+            title = @"Unknown";
+            break;
     }
     cell.titleLabel.text = title;
     return cell;
@@ -182,18 +190,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    if (section == 0) return 45;
-    section--;
     if (packages[section].count == 0) return 0;
     return 45;
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSUInteger section = indexPath.section;
-    if (section == 0) return NULL;
-    section--;
-    
-    PLPackage *package = self->packages[section][indexPath.row];
+    PLPackage *package = self->packages[indexPath.section][indexPath.row];
     if ([queue canRemovePackage:package]) {
         UIContextualAction *clearAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Remove" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self->queue removePackage:package];
