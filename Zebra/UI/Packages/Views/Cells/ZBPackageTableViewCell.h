@@ -16,7 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL showSize;
 @property BOOL showVersion;
 @property (nonatomic) BOOL showBadges;
+@property (nonatomic) BOOL errored;
 - (void)setPackage:(PLPackage *)package;
+- (void)addInfoText:(NSString *)text;
+- (void)addInfoAttributedText:(NSAttributedString *)attributedText;
 @end
 
 NS_ASSUME_NONNULL_END

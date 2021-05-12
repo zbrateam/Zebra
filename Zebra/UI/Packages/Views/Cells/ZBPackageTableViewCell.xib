@@ -101,6 +101,7 @@
                 <outlet property="descriptionLabel" destination="i5t-bG-gea" id="TgH-dS-3h1"/>
                 <outlet property="iconImageView" destination="UQ5-oq-Z6g" id="yKv-R5-qLJ"/>
                 <outlet property="infoLabel" destination="Aao-tj-ivE" id="UE8-PC-kVt"/>
+                <outlet property="infoStackView" destination="yXV-FY-OId" id="xn8-fu-mq2"/>
                 <outlet property="isFavoritedImageView" destination="fea-JQ-TOw" id="QTI-ch-iK7"/>
                 <outlet property="isInstalledImageView" destination="AEZ-YH-tqZ" id="M4g-KA-8uR"/>
                 <outlet property="isPaidImageView" destination="ct9-J8-bNT" id="0Zc-Se-d0H"/>

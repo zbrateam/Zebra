@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @property (weak, nonatomic) IBOutlet UIView *queueStatusBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
+@property (weak, nonatomic) IBOutlet UIStackView *infoStackView;
 @property (weak, nonatomic) IBOutlet UIStackView *badgeStackView;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @end
@@ -98,6 +99,36 @@
 - (void)setShowBadges:(BOOL)showBadges {
     _showBadges = showBadges;
     self.badgeStackView.hidden = !_showBadges;
+}
+
+- (void)setErrored:(BOOL)errored {
+    _errored = errored;
+    
+    if (_errored) {
+        self.accessoryType = UITableViewCellAccessoryDetailButton;
+        self.tintColor = [UIColor systemPinkColor];
+    } else {
+        self.accessoryType = UITableViewCellAccessoryNone;
+        self.tintColor = nil;
+    }
+}
+
+- (void)addInfoText:(NSString *)text {
+    UILabel *label = [[UILabel alloc] init];
+    label.font = self.infoLabel.font;
+    label.textColor = self.infoLabel.textColor;
+    label.text = text;
+    
+    [self.infoStackView addArrangedSubview:label];
+}
+
+- (void)addInfoAttributedText:(NSAttributedString *)attributedText {
+    UILabel *label = [[UILabel alloc] init];
+    label.font = self.infoLabel.font;
+    label.textColor = self.infoLabel.textColor;
+    label.attributedText = attributedText;
+    
+    [self.infoStackView addArrangedSubview:label];
 }
 
 @end
