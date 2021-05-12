@@ -122,13 +122,13 @@
     [cell setPackage:package];
     [cell setErrored:issues[package.identifier] != NULL];
     
-    if ([expandedCells containsIndex:indexPath.hash]) {
+    if ([expandedCells containsIndex:indexPath.hash] && issues[package.identifier]) {
         [cell addInfoText:@""];
-        [cell addInfoText:@"The requested operation cannot be completed due to the following packages that would be broken after installation:"];
+        [cell addInfoText:@"The requested operation cannot be completed due to the following unmet requirements:"];
         
         for (NSDictionary *issue in issues[package.identifier]) {
             NSString *relationship = issue[@"relationship"];
-            NSString *reason = [NSString stringWithFormat:@"%@: %@ %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
+            NSString *reason = [NSString stringWithFormat:@"%@: %@ version %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:reason];
             
             NSRange boldRange = NSMakeRange(0, relationship.length + 1);
@@ -145,12 +145,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [expandedCells addIndex:indexPath.hash];
+    if (![expandedCells containsIndex:indexPath.hash]) {
+        [expandedCells addIndex:indexPath.hash];
+    }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    [expandedCells addIndex:indexPath.hash];
+    if (![expandedCells containsIndex:indexPath.hash]) {
+        [expandedCells addIndex:indexPath.hash];
+    }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
