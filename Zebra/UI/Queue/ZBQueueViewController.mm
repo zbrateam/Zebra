@@ -18,6 +18,7 @@
 
 @interface ZBQueueViewController () {
     PLQueue *queue;
+    NSDictionary <NSString *, NSArray <NSDictionary *> *> *issues;
     NSArray <NSArray <PLPackage *> *> *packages;
 }
 @end
@@ -59,12 +60,14 @@
     [super viewWillAppear:animated];
     
     self->packages = queue.queuedPackages;
+    self->issues = queue.issues;
     [self reloadData];
 }
 
 - (void)updateQueue {
     if ([self isViewLoaded]) {
         self->packages = queue.queuedPackages;
+        self->issues = queue.issues;
         [self reloadData];
     }
 }
@@ -100,48 +103,76 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return packages.count;
+    return packages.count + 1; // +1 for issues section
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0) { // Issues
+        return issues.count;
+    }
+    
+    section--;
     return packages[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-    
-    PLPackage *package = packages[indexPath.section][indexPath.row];
-    [cell setPackage:package];
-    
-    return cell;
+    NSUInteger section = indexPath.section;
+    if (section == 0) {
+        return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"idk"];
+    } else {
+        section--;
+        
+        ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+        
+        PLPackage *package = packages[section][indexPath.row];
+        cell.showVersion = YES;
+        cell.showBadges = NO;
+        
+        [cell setPackage:package];
+        
+        if (issues[package.identifier]) {
+            cell.accessoryType = UITableViewCellAccessoryDetailButton;
+            cell.tintColor = [UIColor systemPinkColor];
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.tintColor = nil;
+        }
+        
+        return cell;
+    }
 }
 
 #pragma mark - Table View Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (packages[section].count == 0) return NULL;
     
     ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     NSString *title;
-    switch (section) {
-        case PLQueueInstall:
-            title = @"Install";
-            break;
-        case PLQueueRemove:
-            title = @"Remove";
-            break;
-        case PLQueueReinstall:
-            title = @"Reinstall";
-            break;
-        case PLQueueUpgrade:
-            title = @"Upgrade";
-            break;
-        case PLQueueDowngrade:
-            title = @"Downgrade";
-            break;
-        default:
-            title = @"Unknown";
-            break;
+    if (section == 0) {
+        title = @"Issues";
+    } else {
+        section--;
+        if (packages[section].count == 0) return NULL;
+        switch (section) {
+            case PLQueueInstall:
+                title = @"Install";
+                break;
+            case PLQueueRemove:
+                title = @"Remove";
+                break;
+            case PLQueueReinstall:
+                title = @"Reinstall";
+                break;
+            case PLQueueUpgrade:
+                title = @"Upgrade";
+                break;
+            case PLQueueDowngrade:
+                title = @"Downgrade";
+                break;
+            default:
+                title = @"Unknown";
+                break;
+        }
     }
     cell.titleLabel.text = title;
     return cell;
@@ -152,6 +183,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    if (section == 0) return 45;
+    section--;
     if (packages[section].count == 0) return 0;
     return 45;
 }
