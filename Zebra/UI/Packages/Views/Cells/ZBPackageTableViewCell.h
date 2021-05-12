@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZBPackageTableViewCell : UITableViewCell
 @property BOOL showSize;
 @property BOOL showVersion;
+@property (nonatomic) BOOL showBadges;
 - (void)setPackage:(PLPackage *)package;
 @end
 

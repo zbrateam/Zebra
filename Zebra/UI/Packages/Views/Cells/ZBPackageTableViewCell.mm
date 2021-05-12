@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *isInstalledImageView;
 @property (weak, nonatomic) IBOutlet UIView *queueStatusBackgroundView;
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
+@property (weak, nonatomic) IBOutlet UIStackView *badgeStackView;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @end
 
@@ -92,6 +93,11 @@
     [super prepareForReuse];
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
+}
+
+- (void)setShowBadges:(BOOL)showBadges {
+    _showBadges = showBadges;
+    self.badgeStackView.hidden = !_showBadges;
 }
 
 @end
