@@ -145,7 +145,6 @@
 #pragma mark - Table View Delegate
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
     ZBBoldTableViewHeaderView *cell = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"BoldTableViewHeaderView"];
     NSString *title;
     if (section == 0) {
@@ -190,12 +189,15 @@
 }
 
 - (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
-    PLPackage *package = self->packages[indexPath.section][indexPath.row];
+    NSUInteger section = indexPath.section;
+    if (section == 0) return NULL;
+    section--;
+    
+    PLPackage *package = self->packages[section][indexPath.row];
     if ([queue canRemovePackage:package]) {
         UIContextualAction *clearAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Remove" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
             [self->queue removePackage:package];
-            self->packages = self->queue.queuedPackages;
-            [self reloadData];
+            [self updateQueue];
         }];
         return [UISwipeActionsConfiguration configurationWithActions:@[clearAction]];
     }
@@ -223,7 +225,7 @@
     for (NSArray *arr in packages) {
         count += arr.count;
     }
-    return count;
+    return count && !issues.count;
 }
 #endif
 
