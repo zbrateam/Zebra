@@ -124,7 +124,7 @@
     
     if ([expandedCells containsIndex:indexPath.hash] && issues[package.identifier]) {
         [cell addInfoText:@""];
-        [cell addInfoText:@"The requested operation cannot be completed due to the following unmet requirements:"];
+        [cell addInfoText:@"The requested operation can not be completed due to the following unmet requirements:"];
         
         for (NSDictionary *issue in issues[package.identifier]) {
             NSString *relationship = issue[@"relationship"];
@@ -147,6 +147,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (![expandedCells containsIndex:indexPath.hash]) {
         [expandedCells addIndex:indexPath.hash];
+    } else {
+        [expandedCells removeIndex:indexPath.hash];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -154,6 +156,8 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     if (![expandedCells containsIndex:indexPath.hash]) {
         [expandedCells addIndex:indexPath.hash];
+    } else {
+        [expandedCells removeIndex:indexPath.hash];
     }
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }

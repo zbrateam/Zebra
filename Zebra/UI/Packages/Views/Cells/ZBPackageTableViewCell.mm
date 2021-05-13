@@ -58,7 +58,7 @@
     
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (self.showVersion)
-        [info addObject:[package version]];
+        [info addObject:package.version];
     if (package.authorName)
         [info addObject:package.authorName];
     if (self.showSize)
@@ -92,8 +92,20 @@
 
 - (void)prepareForReuse {
     [super prepareForReuse];
+    
     self.isInstalledImageView.hidden = YES;
     self.isPaidImageView.hidden = YES;
+    self.isFavoritedImageView.hidden = YES;
+    
+    [self popExtraInfo];
+}
+
+- (void)popExtraInfo {
+    for (UIView *view in self.infoStackView.arrangedSubviews) {
+        if (view == self.infoLabel || view == self.descriptionLabel) continue;
+        [self.infoStackView removeArrangedSubview:view];
+        [view removeFromSuperview];
+    }
 }
 
 - (void)setShowBadges:(BOOL)showBadges {
