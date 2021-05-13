@@ -26,7 +26,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *queueStatusLabel;
 @property (weak, nonatomic) IBOutlet UIStackView *infoStackView;
 @property (weak, nonatomic) IBOutlet UIStackView *badgeStackView;
-@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 @end
 
 @implementation ZBPackageTableViewCell
@@ -59,11 +58,11 @@
     NSMutableArray *info = [NSMutableArray arrayWithCapacity:3];
     if (self.showVersion)
         [info addObject:package.version];
-    if (package.authorName)
+    if (self.showAuthor && package.authorName)
         [info addObject:package.authorName];
     if (self.showSize)
         [info addObject:package.installedSizeString];
-    if (package.source.origin)
+    if (self.showSource && package.source.origin)
         [info addObject:package.source.origin];
     
     self.infoLabel.text = [info componentsJoinedByString:@" • "];

@@ -14,6 +14,7 @@
 #import <UI/ZBSidebarController.h>
 
 #import <Plains/Model/PLPackage.h>
+#import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Queue/PLQueue.h>
 
 @interface ZBQueueViewController () {
@@ -116,11 +117,15 @@
     ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
     
     PLPackage *package = packages[indexPath.section][indexPath.row];
-    cell.showVersion = YES;
+    cell.showVersion = NO;
+    cell.showAuthor = NO;
+    cell.showSource = NO;
+    cell.showSize = NO;
     cell.showBadges = NO;
     
     [cell setPackage:package];
     [cell setErrored:issues[package.identifier] != NULL];
+    [cell.infoLabel setText:[[PLPackageManager sharedInstance] candidateVersionForPackage:package]];
     
     if ([expandedCells containsIndex:indexPath.hash] && issues[package.identifier]) {
         [cell addInfoText:@""];
