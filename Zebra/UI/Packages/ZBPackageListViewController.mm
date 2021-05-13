@@ -300,13 +300,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ZBPackageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell"];
     BOOL inUpdatesSection = _updates.count && indexPath.section == 0;
-    if (inUpdatesSection) {
-        cell.showSize = NO;
-        cell.showVersion = YES;
-    } else {
-//        cell.showSize = _filter.sortOrder == ZBPackageSortOrderSize;
-        cell.showVersion = NO;
-    }
+    cell.showAuthor = YES;
+    cell.showSource = YES;
+//    cell.showSize = _filter.sortOrder == ZBPackageSortOrderSize;
+    cell.showVersion = inUpdatesSection;
     
     PLPackage *package = _updates.count && indexPath.section == 0 ? _updates[indexPath.row] : filterResults[indexPath.row];
     [cell setPackage:package];
