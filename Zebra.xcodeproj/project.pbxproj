@@ -19,7 +19,7 @@
 		363FE24922878EF100B69929 /* UIBarButtonItem+blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24822878EF000B69929 /* UIBarButtonItem+blocks.m */; };
 		363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */; };
 		3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3671B52122CB07F9008FD737 /* ZBHomeViewController.m */; };
-		367D80F522C3D1CF00581D60 /* ZBMainSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBMainSettingsTableViewController.m */; };
+		367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */; };
 		369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */; };
 		36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FA230A1616002694BE /* ZBUserInfo.m */; };
 		36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FF230A485B002694BE /* ZBRedditPosts.m */; };
@@ -76,7 +76,7 @@
 		759B59E32494F7B400457158 /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 759B59E22494F7B400457158 /* ZBSettingsTableViewCell.m */; };
 		75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B124F2669B00216395 /* AUPM~ipad@2x.png */; };
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
-		75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */; };
+		75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBPreferencesViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891551572560A496005AF405 /* ZBPackageFilterViewController.m */; };
@@ -235,8 +235,8 @@
 		363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSourceAccountTableViewController.m; sourceTree = "<group>"; };
 		3671B52022CB07F9008FD737 /* ZBHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBHomeViewController.h; sourceTree = "<group>"; };
 		3671B52122CB07F9008FD737 /* ZBHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomeViewController.m; sourceTree = "<group>"; };
-		367D80F322C3D1CF00581D60 /* ZBMainSettingsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBMainSettingsTableViewController.m; sourceTree = "<group>"; };
-		367D80F422C3D1CF00581D60 /* ZBMainSettingsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBMainSettingsTableViewController.h; sourceTree = "<group>"; };
+		367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsViewController.m; sourceTree = "<group>"; };
+		367D80F422C3D1CF00581D60 /* ZBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSettingsViewController.h; sourceTree = "<group>"; };
 		369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInstalledFilesTableViewController.h; sourceTree = "<group>"; };
 		369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInstalledFilesTableViewController.m; sourceTree = "<group>"; };
 		36A1D8F9230A1616002694BE /* ZBUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserInfo.h; sourceTree = "<group>"; };
@@ -315,8 +315,8 @@
 		759B59E22494F7B400457158 /* ZBSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewCell.m; sourceTree = "<group>"; };
 		75A918B124F2669B00216395 /* AUPM~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@2x.png"; sourceTree = "<group>"; };
 		75A918B224F2669B00216395 /* AUPM~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@3x.png"; sourceTree = "<group>"; };
-		75D0A77D24A013A7007D84EF /* ZBSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewController.h; sourceTree = "<group>"; };
-		75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewController.m; sourceTree = "<group>"; };
+		75D0A77D24A013A7007D84EF /* ZBPreferencesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPreferencesViewController.h; sourceTree = "<group>"; };
+		75D0A77E24A014D2007D84EF /* ZBPreferencesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPreferencesViewController.m; sourceTree = "<group>"; };
 		75F92C9A24941BA8009DA035 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBQueueViewController.mm; sourceTree = "<group>"; };
@@ -613,8 +613,6 @@
 		75D0A77124A0134A007D84EF /* Table */ = {
 			isa = PBXGroup;
 			children = (
-				75D0A77D24A013A7007D84EF /* ZBSettingsTableViewController.h */,
-				75D0A77E24A014D2007D84EF /* ZBSettingsTableViewController.m */,
 				7529884224A7F39C00E24E3C /* UITableView+Settings.h */,
 				7529884024A7F34F00E24E3C /* UITableView+Settings.m */,
 			);
@@ -776,8 +774,6 @@
 		89308E1F23FF4BA200D4641D /* Reset */ = {
 			isa = PBXGroup;
 			children = (
-				89308E2523FF4BBA00D4641D /* ZBSettingsResetTableViewController.h */,
-				89308E2623FF4BBB00D4641D /* ZBSettingsResetTableViewController.m */,
 			);
 			path = Reset;
 			sourceTree = "<group>";
@@ -889,8 +885,12 @@
 		8962A374264DD64500B36B08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				367D80F422C3D1CF00581D60 /* ZBMainSettingsTableViewController.h */,
-				367D80F322C3D1CF00581D60 /* ZBMainSettingsTableViewController.m */,
+				367D80F422C3D1CF00581D60 /* ZBSettingsViewController.h */,
+				367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */,
+				89308E2523FF4BBA00D4641D /* ZBSettingsResetTableViewController.h */,
+				89308E2623FF4BBB00D4641D /* ZBSettingsResetTableViewController.m */,
+				75D0A77D24A013A7007D84EF /* ZBPreferencesViewController.h */,
+				75D0A77E24A014D2007D84EF /* ZBPreferencesViewController.m */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1429,7 +1429,7 @@
 				891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */,
 				3635D6AF2299C4E7008D4CD5 /* ZBFeaturedCollectionViewCell.m in Sources */,
 				89C5FDF821B1B3AF00A10E58 /* ZBPackageListViewController.mm in Sources */,
-				75D0A77F24A014D2007D84EF /* ZBSettingsTableViewController.m in Sources */,
+				75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */,
 				4902F53C246E15C6007B7E25 /* ZBLinkTableViewCell.m in Sources */,
 				499935F72496BDD2009A5BF9 /* UIViewController+Extensions.m in Sources */,
 				49009A642471D442005CA2E2 /* ZBScreenshotCollectionViewCell.m in Sources */,
@@ -1455,7 +1455,7 @@
 				759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */,
 				89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */,
 				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
-				367D80F522C3D1CF00581D60 /* ZBMainSettingsTableViewController.m in Sources */,
+				367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
 				8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */,
 				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,

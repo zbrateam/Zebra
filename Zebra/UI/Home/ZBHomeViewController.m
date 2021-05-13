@@ -13,7 +13,7 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <UI/Settings/ZBMainSettingsTableViewController.h>
+#import <UI/Settings/ZBSettingsViewController.h>
 
 #import <SafariServices/SafariServices.h>
 
@@ -177,8 +177,7 @@
 }
 
 - (void)showSettings {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBSettingsTableViewController *settingsController = [storyboard instantiateViewControllerWithIdentifier:@"settingsNavController"];
+    ZBSettingsViewController *settingsController = [[ZBSettingsViewController alloc] init];
     [[self navigationController] presentViewController:settingsController animated:YES completion:nil];
 }
 

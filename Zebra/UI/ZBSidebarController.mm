@@ -13,7 +13,7 @@
 #import <UI/Packages/ZBPackageListViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Queue/ZBQueueViewController.h>
-#import <UI/Settings/ZBMainSettingsTableViewController.h>
+#import <UI/Settings/ZBSettingsViewController.h>
 
 #import <ZBSettings.h>
 
@@ -139,7 +139,7 @@
     [queueNavController.navigationBar setPrefersLargeTitles:YES];
     
     UINavigationController *settingsNavController = [[UINavigationController alloc] init];
-    [settingsNavController setViewControllers:@[[[ZBMainSettingsTableViewController alloc] init]] animated:NO];
+    [settingsNavController setViewControllers:@[[[ZBSettingsViewController alloc] init]] animated:NO];
     [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:5]];
     [settingsNavController.navigationBar setPrefersLargeTitles:YES];
     

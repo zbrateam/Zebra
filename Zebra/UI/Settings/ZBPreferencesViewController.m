@@ -1,17 +1,17 @@
 //
-//  ZBSettingsTableViewController.m
+//  ZBPreferencesViewController.m
 //  Zebra
 //
 //  Created by absidue on 20-06-22.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBSettingsTableViewController.h"
+#import "ZBPreferencesViewController.h"
 #import "ZBSwitchSettingsTableViewCell.h"
 #import "ZBOptionSettingsTableViewCell.h"
 #import "ZBDevice.h"
 
-@implementation ZBSettingsTableViewController
+@implementation ZBPreferencesViewController;
 
 #pragma mark - Table view methods
 
@@ -24,13 +24,44 @@
     return self;
 }
 
-- (instancetype)initWithStyle:(UITableViewStyle)style {
-    if (@available(iOS 13.0, *)) {
-        self = [super initWithStyle:UITableViewStyleInsetGrouped];
+- (NSArray <NSArray <NSDictionary *> *> *)specifiers {
+    return @[];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.specifiers.count;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.specifiers[section].count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    
+    NSDictionary *specifier = self.specifiers[indexPath.section][indexPath.row];
+    cell.textLabel.text = specifier[@"text"];
+    cell.imageView.image = specifier[@"icon"];
+    
+    if (specifier[@"class"]) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     } else {
-        self = [super initWithStyle:UITableViewStyleGrouped];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    return self;
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary *specifier = self.specifiers[indexPath.section][indexPath.row];
+    if (specifier[@"class"]) {
+        Class pushClass = NSClassFromString(specifier[@"class"]);
+        UIViewController *viewController = [[pushClass alloc] init];
+        
+        [[self navigationController] pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark - Settings cell action helpers
