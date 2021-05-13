@@ -1,5 +1,5 @@
 //
-//  ZBSettingsResetTableViewController.h
+//  ZBResetViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 2/20/20.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSettingsResetTableViewController : ZBPreferencesViewController
+@interface ZBResetViewController : ZBPreferencesViewController
 
 @end
 

@@ -49,6 +49,12 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    if (specifier[@"action"]) {
+        cell.textLabel.textColor = [UIColor systemBlueColor];
+    } else {
+        cell.textLabel.textColor = [UIColor labelColor];
+    }
+    
     return cell;
 }
 
@@ -61,6 +67,14 @@
         UIViewController *viewController = [[pushClass alloc] init];
         
         [[self navigationController] pushViewController:viewController animated:YES];
+    } else if (specifier[@"action"]) {
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
+        SEL selector = NSSelectorFromString(specifier[@"action"]);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [self performSelector:selector withObject:cell];
+#pragma clang diagnostic pop
     }
 }
 
