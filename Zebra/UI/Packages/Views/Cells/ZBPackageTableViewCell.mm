@@ -103,7 +103,6 @@
 - (void)popExtraInfo {
     for (UIView *view in self.infoStackView.arrangedSubviews) {
         if (view == self.infoLabel || view == self.descriptionLabel) continue;
-        [self.infoStackView removeArrangedSubview:view];
         [view removeFromSuperview];
     }
 }
@@ -118,7 +117,7 @@
     
     if (_errored) {
         self.accessoryType = UITableViewCellAccessoryDetailButton;
-        self.tintColor = [UIColor systemPinkColor];
+        self.tintColor = [UIColor systemRedColor];
     } else {
         self.accessoryType = UITableViewCellAccessoryNone;
         self.tintColor = nil;

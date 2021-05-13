@@ -128,13 +128,13 @@
         
         for (NSDictionary *issue in issues[package.identifier]) {
             NSString *relationship = issue[@"relationship"];
-            NSString *reason = [NSString stringWithFormat:@"%@: %@ version %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
+            NSString *reason = [NSString stringWithFormat:@"- %@: %@ %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:reason];
             
-            NSRange boldRange = NSMakeRange(0, relationship.length + 1);
+            NSRange boldRange = NSMakeRange(0, relationship.length + 3);
             UIFont *boldFont = [UIFont boldSystemFontOfSize:12];
             [string addAttributes:@{NSFontAttributeName: boldFont} range:boldRange];
-            [string addAttributes:@{NSForegroundColorAttributeName: [UIColor labelColor]} range:NSMakeRange(0, string.length)];
+            [string addAttributes:@{NSForegroundColorAttributeName: [UIColor systemRedColor]} range:NSMakeRange(0, string.length)];
             
             [cell addInfoAttributedText:string];
         }
