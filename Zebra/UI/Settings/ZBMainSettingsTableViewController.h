@@ -9,10 +9,10 @@
 #import <Tabs/Home/Settings/Table/ZBSettingsTableViewController.h>
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
-#import "App Icon/ZBAlternateIconController.h"
+#import <Tabs/Home/Settings/App Icon/ZBAlternateIconController.h>
 
-@import SDWebImage;
-@import UIKit;
+#import <SDWebImage/SDWebImage.h>
+#import <UIKit/UIKit.h>
 
 @interface ZBMainSettingsTableViewController : ZBSettingsTableViewController <UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *headerView;

@@ -8,17 +8,17 @@
 
 #import "ZBMainSettingsTableViewController.h"
 #import "ZBSettingsSelectionTableViewController.h"
-#import "Table/UITableView+Settings.h"
+#import <Tabs/Home/Settings/Table/UITableView+Settings.h>
 #import <Extensions/UIImageView+Zebra.h>
-#import "Cells/ZBLinkSettingsTableViewCell.h"
-#import "Cells/ZBRightIconTableViewCell.h"
-#import "Cells/ZBDetailedLinkSettingsTableViewCell.h"
-#import "Cells/ZBSwitchSettingsTableViewCell.h"
-#import "Cells/ZBButtonSettingsTableViewCell.h"
-#import "Display/ZBDisplaySettingsTableViewController.h"
-#import "Reset/ZBSettingsResetTableViewController.h"
-#import "Filters/ZBFilterSettingsTableViewController.h"
-#import "Language/ZBLanguageSettingsTableViewController.h"
+#import <Tabs/Home/Settings/Cells/ZBLinkSettingsTableViewCell.h>
+#import <Tabs/Home/Settings/Cells/ZBRightIconTableViewCell.h>
+#import <Tabs/Home/Settings/Cells/ZBDetailedLinkSettingsTableViewCell.h>
+#import <Tabs/Home/Settings/Cells/ZBSwitchSettingsTableViewCell.h>
+#import <Tabs/Home/Settings/Cells/ZBButtonSettingsTableViewCell.h>
+#import <Tabs/Home/Settings/Display/ZBDisplaySettingsTableViewController.h>
+#import <Tabs/Home/Settings/Reset/ZBSettingsResetTableViewController.h>
+#import <Tabs/Home/Settings/Filters/ZBFilterSettingsTableViewController.h>
+#import <Tabs/Home/Settings/Language/ZBLanguageSettingsTableViewController.h>
 //#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>
 
 #import <ZBSettings.h>

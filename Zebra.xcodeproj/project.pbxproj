@@ -539,8 +539,6 @@
 		367D80EF22C3D17F00581D60 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				367D80F422C3D1CF00581D60 /* ZBMainSettingsTableViewController.h */,
-				367D80F322C3D1CF00581D60 /* ZBMainSettingsTableViewController.m */,
 				BFC6DB1C236D9B9000DA5534 /* ZBSettingsSelectionTableViewController.h */,
 				BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */,
 				8916AC1823CAAE51008BA02C /* App Icon */,
@@ -799,6 +797,7 @@
 				893884DF2550C20200365326 /* Common */,
 				89829D462620CE2E00BB780D /* Console */,
 				89E47661260D4DCE009152C1 /* Home */,
+				8962A374264DD64500B36B08 /* Settings */,
 				89EAD0B5259F9F330061FC3C /* Sources */,
 				89114C67254C95B5003A7362 /* Packages */,
 				8987E0E9261B96FD00859BA8 /* Queue */,
@@ -885,6 +884,15 @@
 				A5A7F1252462A66900461335 /* UIImage+Private.h */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		8962A374264DD64500B36B08 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				367D80F422C3D1CF00581D60 /* ZBMainSettingsTableViewController.h */,
+				367D80F322C3D1CF00581D60 /* ZBMainSettingsTableViewController.m */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		896F11B321B2309A0017B581 /* Packages */ = {

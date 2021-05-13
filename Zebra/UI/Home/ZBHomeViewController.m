@@ -13,7 +13,7 @@
 
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
-#import <Tabs/Home/Settings/ZBMainSettingsTableViewController.h>
+#import <UI/Settings/ZBMainSettingsTableViewController.h>
 
 #import <SafariServices/SafariServices.h>
 
