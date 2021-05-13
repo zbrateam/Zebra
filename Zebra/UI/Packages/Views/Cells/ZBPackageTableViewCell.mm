@@ -111,18 +111,6 @@
     self.badgeStackView.hidden = !_showBadges;
 }
 
-- (void)setErrored:(BOOL)errored {
-    _errored = errored;
-    
-    if (_errored) {
-        self.accessoryType = UITableViewCellAccessoryDetailButton;
-        self.tintColor = [UIColor systemRedColor];
-    } else {
-        self.accessoryType = UITableViewCellAccessoryNone;
-        self.tintColor = nil;
-    }
-}
-
 - (void)addInfoText:(NSString *)text {
     UILabel *label = [[UILabel alloc] init];
     label.font = self.infoLabel.font;

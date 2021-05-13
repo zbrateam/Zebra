@@ -83,13 +83,8 @@
 
 - (void)reloadData {
     [self.tableView reloadData];
-    
-    int count = 0;
-    for (NSArray *arr in packages) {
-        count += arr.count;
-    }
-    
-    if (count == 0) {
+
+    if (queue.count == 0) {
         UILabel *emptyLabel = [[UILabel alloc] init];
         emptyLabel.text = @"No Packages In Queue";
         emptyLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
@@ -124,22 +119,43 @@
     cell.showBadges = NO;
     
     [cell setPackage:package];
-    [cell setErrored:issues[package.identifier] != NULL];
+    if (issues[package.identifier]) {
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        cell.tintColor = [UIColor systemRedColor];
+    } else if (package.essential && indexPath.section == PLQueueRemove) {
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+        cell.tintColor = [UIColor systemOrangeColor];
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.tintColor = nil;
+    }
     [cell.infoLabel setText:[[PLPackageManager sharedInstance] candidateVersionForPackage:package]];
     
-    if ([expandedCells containsIndex:indexPath.hash] && issues[package.identifier]) {
+    if ([expandedCells containsIndex:indexPath.hash]) {
         [cell addInfoText:@""];
-        [cell addInfoText:@"The requested operation can not be completed due to the following unmet requirements:"];
-        
-        for (NSDictionary *issue in issues[package.identifier]) {
-            NSString *relationship = issue[@"relationship"];
-            NSString *reason = [NSString stringWithFormat:@"- %@: %@ %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
+        if (issues[package.identifier]) {
+            [cell addInfoText:@"The requested operation can not be completed due to the following unmet requirements:"];
+            
+            for (NSDictionary *issue in issues[package.identifier]) {
+                NSString *relationship = issue[@"relationship"];
+                NSString *reason = [NSString stringWithFormat:@"- %@: %@ %@ %@", issue[@"relationship"], issue[@"target"], issue[@"comparison"], issue[@"requiredVersion"]];
+                NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:reason];
+                
+                NSRange boldRange = NSMakeRange(0, relationship.length + 3);
+                UIFont *boldFont = [UIFont boldSystemFontOfSize:12];
+                [string addAttributes:@{NSFontAttributeName: boldFont} range:boldRange];
+                [string addAttributes:@{NSForegroundColorAttributeName: [UIColor systemRedColor]} range:NSMakeRange(0, string.length)];
+                
+                [cell addInfoAttributedText:string];
+            }
+        } else if (indexPath.section == PLQueueRemove && package.essential) {
+            NSString *reason = @"This package is marked as essential and should NOT be removed unless you know what you are doing!";
             NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:reason];
             
-            NSRange boldRange = NSMakeRange(0, relationship.length + 3);
+            NSRange boldRange = [reason rangeOfString:@"NOT"];
             UIFont *boldFont = [UIFont boldSystemFontOfSize:12];
             [string addAttributes:@{NSFontAttributeName: boldFont} range:boldRange];
-            [string addAttributes:@{NSForegroundColorAttributeName: [UIColor systemRedColor]} range:NSMakeRange(0, string.length)];
+            [string addAttributes:@{NSForegroundColorAttributeName: [UIColor systemOrangeColor]} range:NSMakeRange(0, string.length)];
             
             [cell addInfoAttributedText:string];
         }
@@ -150,21 +166,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (![expandedCells containsIndex:indexPath.hash]) {
-        [expandedCells addIndex:indexPath.hash];
-    } else {
-        [expandedCells removeIndex:indexPath.hash];
+    
+    PLPackage *package = packages[indexPath.section][indexPath.row];
+    if (issues[package.identifier] || package.essential) {
+        if (![expandedCells containsIndex:indexPath.hash]) {
+            [expandedCells addIndex:indexPath.hash];
+        } else {
+            [expandedCells removeIndex:indexPath.hash];
+        }
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    if (![expandedCells containsIndex:indexPath.hash]) {
-        [expandedCells addIndex:indexPath.hash];
-    } else {
-        [expandedCells removeIndex:indexPath.hash];
+    PLPackage *package = packages[indexPath.section][indexPath.row];
+    if (issues[package.identifier] || package.essential) {
+        if (![expandedCells containsIndex:indexPath.hash]) {
+            [expandedCells addIndex:indexPath.hash];
+        } else {
+            [expandedCells removeIndex:indexPath.hash];
+        }
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
-    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark - Table View Delegate
@@ -220,6 +243,31 @@
 }
 
 - (void)confirmButton:(id)sender {
+    if (queue.hasEssentialPackages) {
+        NSMutableArray *removedEssentials = [NSMutableArray new];
+        for (PLPackage *package in packages[PLQueueRemove]) {
+            if (package.essential) [removedEssentials addObject:package.identifier];
+        }
+        
+        NSString *message = [NSString stringWithFormat:@"WARNING: You are about to do something potentially harmful.\nThe following essential packages will be removed:\n%@\nThis should NOT be done unless you know exactly what you are doing!\n", [removedEssentials componentsJoinedByString:@"\n"]];
+        
+        UIAlertController *essentialAlert = [UIAlertController alertControllerWithTitle:@"Removing Essential Packages" message:message preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *doItCoward = [UIAlertAction actionWithTitle:@"Do as I say!" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self showConsole];
+        }];
+        [essentialAlert addAction:doItCoward];
+        
+        UIAlertAction *waitNoDont = [UIAlertAction actionWithTitle:@"Nevermind" style:UIAlertActionStyleCancel handler:nil];
+        [essentialAlert addAction:waitNoDont];
+        
+        [self presentViewController:essentialAlert animated:YES completion:nil];
+    } else {
+        [self showConsole];
+    }
+}
+
+- (void)showConsole {
     UIWindow *window = [UIApplication sharedApplication].windows[0];
     ZBConsoleViewController *console = [[ZBConsoleViewController alloc] init];
     if (window.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) {
@@ -236,11 +284,7 @@
 }
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item {
-    int count = 0;
-    for (NSArray *arr in packages) {
-        count += arr.count;
-    }
-    return count && !issues.count;
+    return queue.count && !issues.count;
 }
 #endif
 

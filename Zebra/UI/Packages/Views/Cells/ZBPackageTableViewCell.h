@@ -18,7 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL showAuthor;
 @property BOOL showSource;
 @property (nonatomic) BOOL showBadges;
-@property (nonatomic) BOOL errored;
 @property (weak, nonatomic) IBOutlet UILabel *infoLabel;
 - (void)setPackage:(PLPackage *)package;
 - (void)addInfoText:(NSString *)text;
