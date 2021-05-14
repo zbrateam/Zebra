@@ -86,7 +86,7 @@
 		8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC1523CA947C008BA02C /* ZBRightIconTableViewCell.m */; };
 		8916AC1B23CAAE51008BA02C /* ZBAlternateIconController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC1923CAAE51008BA02C /* ZBAlternateIconController.m */; };
 		8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2223CAAECC008BA02C /* ZBChangelogViewController.m */; };
-		8916AC2723CAAF1A008BA02C /* ZBAppearanceSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBAppearanceSettingsViewController.m */; };
+		8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */; };
 		891A92C9242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */; };
 		891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */ = {isa = PBXBuildFile; fileRef = 891D1BAC26290FB1006839F7 /* ZBDummySource.m */; };
 		8927D52123C29CCA00A7987E /* ZBSourceImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8927D52023C29CCA00A7987E /* ZBSourceImportViewController.m */; };
@@ -336,8 +336,8 @@
 		8916AC1A23CAAE51008BA02C /* ZBAlternateIconController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconController.h; sourceTree = "<group>"; };
 		8916AC2123CAAECC008BA02C /* ZBChangelogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBChangelogViewController.h; sourceTree = "<group>"; };
 		8916AC2223CAAECC008BA02C /* ZBChangelogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBChangelogViewController.m; sourceTree = "<group>"; };
-		8916AC2523CAAF1A008BA02C /* ZBAppearanceSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppearanceSettingsViewController.h; sourceTree = "<group>"; };
-		8916AC2623CAAF1A008BA02C /* ZBAppearanceSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppearanceSettingsViewController.m; sourceTree = "<group>"; };
+		8916AC2523CAAF1A008BA02C /* ZBDisplaySettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDisplaySettingsViewController.h; sourceTree = "<group>"; };
+		8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBDisplaySettingsViewController.m; sourceTree = "<group>"; };
 		891A92C7242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLanguageSettingsTableViewController.h; sourceTree = "<group>"; };
 		891A92C8242D1D53002A3CD3 /* ZBLanguageSettingsTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLanguageSettingsTableViewController.m; sourceTree = "<group>"; };
 		891D1BAB26290FB1006839F7 /* ZBDummySource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBDummySource.h; sourceTree = "<group>"; };
@@ -883,8 +883,8 @@
 		8962A374264DD64500B36B08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				8916AC2523CAAF1A008BA02C /* ZBAppearanceSettingsViewController.h */,
-				8916AC2623CAAF1A008BA02C /* ZBAppearanceSettingsViewController.m */,
+				8916AC2523CAAF1A008BA02C /* ZBDisplaySettingsViewController.h */,
+				8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */,
 				367D80F422C3D1CF00581D60 /* ZBSettingsViewController.h */,
 				367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */,
 				89308E2523FF4BBA00D4641D /* ZBResetViewController.h */,
@@ -1462,7 +1462,7 @@
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
 				49E1304622715DB8006F450A /* ZBColor.m in Sources */,
-				8916AC2723CAAF1A008BA02C /* ZBAppearanceSettingsViewController.m in Sources */,
+				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				89DCC2C7260D725F00768096 /* ZBLoadingViewController.m in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */,

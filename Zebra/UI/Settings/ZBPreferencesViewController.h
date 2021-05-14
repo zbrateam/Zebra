@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPreferencesViewController : UITableViewController
 @property (nonatomic, readonly) NSArray <NSArray <NSDictionary *> *> *specifiers;
+@property (nonatomic, readonly) NSArray <NSString *> *headers;
+@property (nonatomic, readonly) NSArray <NSString *> *footers;
 - (void)toggleSwitchAtIndexPath:(NSIndexPath *)indexPath;
 - (void)chooseOptionAtIndexPath:(NSIndexPath *)indexPath previousIndexPath:(NSIndexPath *)previousIndexPath animated:(BOOL)animated;
 - (void)chooseUnchooseOptionAtIndexPath:(NSIndexPath *)indexPath;

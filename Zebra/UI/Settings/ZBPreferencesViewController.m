@@ -31,7 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 35)]];
+    if (!self.headers.firstObject) {
+        [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 35)]];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -70,6 +72,7 @@
             cell.textLabel.textColor = [UIColor labelColor];
             
             UISwitch *nx = [[UISwitch alloc] initWithFrame:CGRectZero];
+            [nx setOn:[specifier[@"enabled"] boolValue]];
             
             SEL selector = NSSelectorFromString(specifier[@"action"]);
             [nx addTarget:self action:selector forControlEvents:UIControlEventValueChanged];
@@ -101,7 +104,9 @@
         if (cellType == ZBPreferencesCellTypeButton) {
             object = [tableView cellForRowAtIndexPath:indexPath];
         } else if (cellType == ZBPreferencesCellTypeSwitch) {
-            object = [tableView cellForRowAtIndexPath:indexPath].accessoryView;
+            UISwitch *toggleSwitch = (UISwitch *)[tableView cellForRowAtIndexPath:indexPath].accessoryView;
+            [toggleSwitch setOn:!toggleSwitch.isOn animated:YES];
+            object = toggleSwitch;
         } else if (cellType == ZBPreferencesCellTypeSelection) {
             object = indexPath;
         }
@@ -112,6 +117,20 @@
         [self performSelector:selector withObject:object];
 #pragma clang diagnostic pop
     }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (section< self.headers.count) {
+        return self.headers[section];
+    }
+    return NULL;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section < self.footers.count) {
+        return self.footers[section];
+    }
+    return NULL;
 }
 
 #pragma mark - Settings cell action helpers

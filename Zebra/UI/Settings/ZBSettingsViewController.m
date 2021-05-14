@@ -32,14 +32,14 @@
     return @[
         @[
             @{
-                @"text": NSLocalizedString(@"Appearance", @""),
-                @"type": @(ZBPreferencesCellTypeDisclosure),
-                @"class": @"ZBAppearanceSettingsViewController"
-            },
-            @{
                 @"text": NSLocalizedString(@"App Icon", @""),
                 @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBAppIconSettingsViewController"
+            },
+            @{
+                @"text": NSLocalizedString(@"Display", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
+                @"class": @"ZBDisplaySettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"Filters", @""),

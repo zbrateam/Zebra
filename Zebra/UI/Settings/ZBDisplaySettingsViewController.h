@@ -1,5 +1,5 @@
 //
-//  ZBAppearanceSettingsViewController.h
+//  ZBDisplaySettingsViewController.h
 //  Zebra
 //
 //  Created by Wilson Styres on 1/11/20.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBAppearanceSettingsViewController : ZBPreferencesViewController
+@interface ZBDisplaySettingsViewController : ZBPreferencesViewController
 
 @end
 

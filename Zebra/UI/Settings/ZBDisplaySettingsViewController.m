@@ -1,17 +1,17 @@
 //
-//  ZBAppearanceSettingsViewController.m
+//  ZBDisplaySettingsViewController.m
 //  Zebra
 //
 //  Created by Wilson Styres on 1/11/20.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBAppearanceSettingsViewController.h"
+#import "ZBDisplaySettingsViewController.h"
 
 #import <ZBSettings.h>
 #import <Extensions/ZBColor.h>
 
-@interface ZBAppearanceSettingsViewController () {
+@interface ZBDisplaySettingsViewController () {
     BOOL usesSystemAppearance;
 //    BOOL pureBlackMode;
     ZBAccentColor accentColor;
@@ -19,7 +19,7 @@
 }
 @end
 
-@implementation ZBAppearanceSettingsViewController
+@implementation ZBDisplaySettingsViewController
 
 - (instancetype)init {
     self = [super init];
@@ -39,28 +39,27 @@
     NSMutableArray *specifiers = [NSMutableArray new];
     
     if (@available(iOS 13.0, *)) {
-        [specifiers addObject:@[
-            @{
-                @"text": @"Use System Appearance",
-                @"type": @(ZBPreferencesCellTypeSwitch),
-                @"action": @"toggleSystemStyle:"
-            }
-        ]];
+        NSMutableArray *appearanceSpecifiers = [NSMutableArray new];
+        [appearanceSpecifiers addObject:@{
+            @"text": @"Use System Appearance",
+            @"type": @(ZBPreferencesCellTypeSwitch),
+            @"enabled": @(usesSystemAppearance),
+            @"action": @"toggleSystemStyle:"
+        }];
         
         if (!usesSystemAppearance) {
-            [specifiers addObject:@[
-                @{
-                    @"text": @"Light",
-                    @"type": @(ZBPreferencesCellTypeSelection),
-                    @"action": @"selectStyle:"
-                },
-                @{
-                    @"text": @"Dark",
-                    @"type": @(ZBPreferencesCellTypeSelection),
-                    @"action": @"selectStyle:"
-                }
-            ]];
+            [appearanceSpecifiers addObject:@{
+                @"text": @"Light",
+                @"type": @(ZBPreferencesCellTypeSelection),
+                @"action": @"selectStyle:"
+            }];
+            [appearanceSpecifiers addObject:@{
+                @"text": @"Dark",
+                @"type": @(ZBPreferencesCellTypeSelection),
+                @"action": @"selectStyle:"
+            }];
         }
+        [specifiers addObject:appearanceSpecifiers];
     }
     
     NSMutableArray *colors = [NSMutableArray new];
@@ -76,23 +75,28 @@
     return specifiers;
 }
 
+- (NSArray <NSString *> *)headers {
+    return @[
+        @"Appearance",
+        @"Accent Color"
+    ];
+}
+
 #pragma mark - Settings
 
-//- (void)toggleSystemStyle:(NSNumber *)newUsesSystemAppearance {
-//    usesSystemAppearance = [newUsesSystemAppearance boolValue];
-//    [ZBSettings setUsesSystemAppearance:usesSystemAppearance];
-//    
-//    interfaceStyle = interfaceStyle = [ZBSettings interfaceStyle];
-//    
-//    if (usesSystemAppearance) { // Delete style picker section
-//        [self.tableView deleteSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
-//    }
-//    else { // Insert style picker section
-//        [self.tableView insertSections:[[NSIndexSet alloc] initWithIndex:ZBSectionStyleChooser] withRowAnimation:UITableViewRowAnimationFade];
-//    }
-//    
-//    [self updateInterfaceStyle];
-//}
+- (void)toggleSystemStyle:(UISwitch *)toggleSwitch {
+    usesSystemAppearance = toggleSwitch.isOn;
+    [ZBSettings setUsesSystemAppearance:usesSystemAppearance];
+    
+    interfaceStyle = [ZBSettings interfaceStyle];
+    
+    if (usesSystemAppearance) { // Delete style picker section
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+    else { // Insert style picker section
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 
 //- (void)togglePureBlack:(NSNumber *)newPureBlackMode {
 //    pureBlackMode = [newPureBlackMode boolValue];
