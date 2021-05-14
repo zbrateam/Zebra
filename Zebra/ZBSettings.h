@@ -52,7 +52,7 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     ZBInterfaceStyleLight,
     ZBInterfaceStyleDark,
-    ZBInterfaceStylePureBlack,
+//    ZBInterfaceStylePureBlack,
 } ZBInterfaceStyle;
 
 #pragma mark - Featured Type

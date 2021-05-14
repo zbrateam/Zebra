@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSUInteger, ZBPreferencesCellType) {
+    ZBPreferencesCellTypeText,
+    ZBPreferencesCellTypeDisclosure,
+    ZBPreferencesCellTypeButton,
+    ZBPreferencesCellTypeSwitch,
+    ZBPreferencesCellTypeSelection
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBPreferencesViewController : UITableViewController

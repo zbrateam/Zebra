@@ -28,6 +28,12 @@
     return @[];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 35)]];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.specifiers.count;
 }

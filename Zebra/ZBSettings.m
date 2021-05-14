@@ -204,7 +204,8 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
             case UIUserInterfaceStyleLight:
                 return ZBInterfaceStyleLight;
             case UIUserInterfaceStyleDark:
-                return [self pureBlackMode] ? ZBInterfaceStylePureBlack : ZBInterfaceStyleDark;
+//                return [self pureBlackMode] ? ZBInterfaceStylePureBlack : ZBInterfaceStyleDark;
+                return ZBInterfaceStyleDark;
         }
         
         #pragma clang diagnostic pop
@@ -217,7 +218,8 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
             return ZBInterfaceStyleLight;
         }
         ZBInterfaceStyle style = [defaults integerForKey:InterfaceStyleKey];
-        return (style == ZBInterfaceStyleDark && [self pureBlackMode]) ? ZBInterfaceStylePureBlack : style;
+//        return (style == ZBInterfaceStyleDark && [self pureBlackMode]) ? ZBInterfaceStylePureBlack : style;
+        return style;
     }
 }
 
