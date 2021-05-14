@@ -33,7 +33,11 @@
     
     if (!self.headers.firstObject) {
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 35)]];
+    } else {
+        [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 15)]];
     }
+    
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"preferencesCell"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -45,7 +49,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"preferencesCell" forIndexPath:indexPath];
     
     NSDictionary *specifier = self.specifiers[indexPath.section][indexPath.row];
     cell.textLabel.text = specifier[@"text"];
@@ -55,16 +59,19 @@
     switch (cellType) {
         case ZBPreferencesCellTypeText: {
             cell.textLabel.textColor = [UIColor labelColor];
+            cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
         case ZBPreferencesCellTypeDisclosure: {
             cell.textLabel.textColor = [UIColor labelColor];
+            cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }
         case ZBPreferencesCellTypeButton: {
             cell.textLabel.textColor = [UIColor systemBlueColor];
+            cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
@@ -81,7 +88,8 @@
         }
         case ZBPreferencesCellTypeSelection: {
             cell.textLabel.textColor = [UIColor labelColor];
-            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.accessoryView = NULL;
+            cell.accessoryType = [[self.selectedRows objectForKey:@(indexPath.section)] integerValue] == indexPath.row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
             break;
         }
     }
@@ -108,6 +116,19 @@
             [toggleSwitch setOn:!toggleSwitch.isOn animated:YES];
             object = toggleSwitch;
         } else if (cellType == ZBPreferencesCellTypeSelection) {
+            NSIndexPath *oldIndexPath;
+            NSNumber *oldRow = [self.selectedRows objectForKey:@(indexPath.section)];
+            if (oldRow) {
+                oldIndexPath = [NSIndexPath indexPathForRow:oldRow.integerValue inSection:indexPath.section];
+            }
+            
+            if (!self.selectedRows) self.selectedRows = [NSMutableDictionary new];
+            [self.selectedRows setObject:@(indexPath.row) forKey:@(indexPath.section)];
+            
+            NSMutableArray *rows = [NSMutableArray arrayWithObject:indexPath];
+            if (oldIndexPath) [rows addObject:oldIndexPath];
+            [self.tableView reloadRowsAtIndexPaths:rows withRowAnimation:UITableViewRowAnimationAutomatic];
+            
             object = indexPath;
         }
         
@@ -120,14 +141,14 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (section< self.headers.count) {
+    if (section < self.headers.count && ![self.headers[section] isEqualToString:@""]) {
         return self.headers[section];
     }
     return NULL;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section < self.footers.count) {
+    if (section < self.footers.count && ![self.footers[section] isEqualToString:@""]) {
         return self.footers[section];
     }
     return NULL;

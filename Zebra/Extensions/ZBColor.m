@@ -63,6 +63,8 @@
             return NSLocalizedString(@"Aqua Velvet", @"");
         case ZBAccentColorCornflowerBlue:
             return NSLocalizedString(@"Cornflower Blue", @"");
+        case ZBAccentColorEmeraldCity:
+            return NSLocalizedString(@"Emerald City", @"");
         case ZBAccentColorGoldenTainoi:
             return NSLocalizedString(@"Golden Tainoi", @"");
         case ZBAccentColorIrisBlue:

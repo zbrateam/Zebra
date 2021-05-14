@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSArray <NSArray <NSDictionary *> *> *specifiers;
 @property (nonatomic, readonly) NSArray <NSString *> *headers;
 @property (nonatomic, readonly) NSArray <NSString *> *footers;
+@property NSMutableDictionary <NSNumber *, NSNumber *> *selectedRows;
 - (void)toggleSwitchAtIndexPath:(NSIndexPath *)indexPath;
 - (void)chooseOptionAtIndexPath:(NSIndexPath *)indexPath previousIndexPath:(NSIndexPath *)previousIndexPath animated:(BOOL)animated;
 - (void)chooseUnchooseOptionAtIndexPath:(NSIndexPath *)indexPath;
