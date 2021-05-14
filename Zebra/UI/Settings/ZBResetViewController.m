@@ -29,38 +29,46 @@
         @[
             @{
                 @"text": @"Restart SpringBoard",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"restartSpringBoard:"
             },
             @{
                 @"text": @"Refresh Icon Cache",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"refreshIconCache:"
             }
         ],
         @[
             @{
                 @"text": @"Clear Image Cache",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"resetImageCache"
             },
             @{
                 @"text": @"Clear Web Cache",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"resetWebCache"
             },
             @{
                 @"text": @"Clear Sources Cache",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"resetSourcesCache:"
             }
         ],
         @[
             @{
                 @"text": @"Reset All Settings",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"resetAllSettings:"
             },
             @{
                 @"text": @"Erase All Sources",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"eraseAllSources:"
             },
             @{
                 @"text": @"Erase All Sources and Settings",
+                @"type": @(ZBPreferencesCellTypeButton),
                 @"action": @"eraseSourcesAndSettings:"
             }
         ]

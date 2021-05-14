@@ -49,16 +49,38 @@
     cell.textLabel.text = specifier[@"text"];
     cell.imageView.image = specifier[@"icon"];
     
-    if (specifier[@"class"]) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    
-    if (specifier[@"action"]) {
-        cell.textLabel.textColor = [UIColor systemBlueColor];
-    } else {
-        cell.textLabel.textColor = [UIColor labelColor];
+    ZBPreferencesCellType cellType = [specifier[@"type"] unsignedIntValue];
+    switch (cellType) {
+        case ZBPreferencesCellTypeText: {
+            cell.textLabel.textColor = [UIColor labelColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        }
+        case ZBPreferencesCellTypeDisclosure: {
+            cell.textLabel.textColor = [UIColor labelColor];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            break;
+        }
+        case ZBPreferencesCellTypeButton: {
+            cell.textLabel.textColor = [UIColor systemBlueColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        }
+        case ZBPreferencesCellTypeSwitch: {
+            cell.textLabel.textColor = [UIColor labelColor];
+            
+            UISwitch *nx = [[UISwitch alloc] initWithFrame:CGRectZero];
+            
+            SEL selector = NSSelectorFromString(specifier[@"action"]);
+            [nx addTarget:self action:selector forControlEvents:UIControlEventValueChanged];
+            cell.accessoryView = nx;
+            break;
+        }
+        case ZBPreferencesCellTypeSelection: {
+            cell.textLabel.textColor = [UIColor labelColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        }
     }
     
     return cell;
@@ -74,12 +96,20 @@
         
         [[self navigationController] pushViewController:viewController animated:YES];
     } else if (specifier[@"action"]) {
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        NSObject *object;
+        ZBPreferencesCellType cellType = [specifier[@"type"] unsignedIntValue];
+        if (cellType == ZBPreferencesCellTypeButton) {
+            object = [tableView cellForRowAtIndexPath:indexPath];
+        } else if (cellType == ZBPreferencesCellTypeSwitch) {
+            object = [tableView cellForRowAtIndexPath:indexPath].accessoryView;
+        } else if (cellType == ZBPreferencesCellTypeSelection) {
+            object = indexPath;
+        }
         
         SEL selector = NSSelectorFromString(specifier[@"action"]);
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [self performSelector:selector withObject:cell];
+        [self performSelector:selector withObject:object];
 #pragma clang diagnostic pop
     }
 }

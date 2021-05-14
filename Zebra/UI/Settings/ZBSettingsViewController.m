@@ -33,46 +33,56 @@
         @[
             @{
                 @"text": NSLocalizedString(@"Appearance", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBAppearanceSettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"App Icon", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBAppIconSettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"Filters", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBFilterSettingsViewController"
             },
             @{  // Might not need this one anymore...
                 @"text": NSLocalizedString(@"Gestures", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBGestureSettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"Language", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBLanguageSettingsViewController"
             },
         ],
         @[
             @{
                 @"text": NSLocalizedString(@"Home", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBHomeSettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"Sources", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBSourceSettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"Packages", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBPackageSettingsViewController"
             },
             @{
                 @"text": NSLocalizedString(@"Console", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBConsoleSettingsViewController"
             },
         ],
         @[
             @{
                 @"text": NSLocalizedString(@"Reset", @""),
+                @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBResetViewController"
             },
         ]
