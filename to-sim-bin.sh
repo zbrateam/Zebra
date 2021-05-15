@@ -30,5 +30,7 @@ do
     ln -s $f $SIM_USR_LIB/$(basename $f)
 done
 
+# create patch file by
+# xdelta3 -e -f -s $LIBAPT_PKG_PATH /path/to/patched/libapt-pkg.6.0.0.dylib $(basename $LIBAPT_PKG_PATH).patch
 xdelta3 -f -d -s $LIBAPT_PKG_PATH $(basename $LIBAPT_PKG_PATH).patch $LIBAPT_PKG_SIM_PATH
 ldid -S $LIBAPT_PKG_SIM_PATH
