@@ -10,12 +10,14 @@
 
 #import <ZBSettings.h>
 #import <Extensions/ZBColor.h>
+#import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBDisplaySettingsViewController () {
     BOOL usesSystemAppearance;
 //    BOOL pureBlackMode;
     ZBAccentColor accentColor;
     ZBInterfaceStyle interfaceStyle;
+    NSArray *images;
 }
 @end
 
@@ -36,6 +38,14 @@
         } else {
             self.selectedRows = [[NSMutableDictionary alloc] initWithDictionary:@{@1: @(interfaceStyle), @2: @(accentColor)}];
         }
+        
+        NSMutableArray *tempImages = [NSMutableArray new];
+        for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorStorm; color++) {
+            UIColor *leftColor = [ZBColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleLight];
+            UIColor *rightColor = [ZBColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleDark];
+            [tempImages addObject:[self imageWithLeftColor:leftColor rightColor:rightColor]];
+        }
+        images = tempImages;
     }
     
     return self;
@@ -73,7 +83,8 @@
         [colors addObject:@{
             @"text": [ZBColor localizedNameForAccentColor:color],
             @"type": @(ZBPreferencesCellTypeSelection),
-            @"action": @"selectAccentColor:"
+            @"action": @"selectAccentColor:",
+            @"icon": images[color]
         }];
     }
     [specifiers addObject:colors];
@@ -94,6 +105,20 @@
             @"Accent Color"
         ];
     }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell.imageView.image) {
+        CGSize size = CGSizeMake(30, 30);
+        [cell.imageView resize:size applyRadius:NO];
+        
+        cell.imageView.layer.cornerRadius = size.width / 2;
+        cell.imageView.clipsToBounds = YES;
+    }
+    
+    return cell;
 }
 
 #pragma mark - Settings
@@ -125,6 +150,35 @@
     accentColor = newIndexPath.row;
     
     [ZBSettings setAccentColor:newIndexPath.row];
+}
+
+- (UIImage *)imageWithLeftColor:(UIColor *)leftColor rightColor:(UIColor *)rightColor {
+    CGSize size = CGSizeMake(30, 30);
+    
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(size.width, size.height), NO, 0.0);
+    
+    UIBezierPath *leftTriangle = [[UIBezierPath alloc] init];
+    [leftTriangle moveToPoint:CGPointMake(0, 0)];
+    [leftTriangle addLineToPoint:CGPointMake(0, size.height)];
+    [leftTriangle addLineToPoint:CGPointMake(size.width, 0)];
+    [leftTriangle closePath];
+    
+    [leftColor setFill];
+    [leftTriangle fill];
+    
+    UIBezierPath *rightTriangle = [[UIBezierPath alloc] init];
+    [rightTriangle moveToPoint:CGPointMake(size.width, size.height)];
+    [rightTriangle addLineToPoint:CGPointMake(0, size.height)];
+    [rightTriangle addLineToPoint:CGPointMake(size.width, 0)];
+    [rightTriangle closePath];
+    
+    [rightColor setFill];
+    [rightTriangle fill];
+
+    UIImage *colorImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return colorImage;
 }
 
 @end

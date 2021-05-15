@@ -14,8 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)applyBorder;
 - (void)removeBorder;
-- (void)setColor:(UIColor *)color;
-- (void)setLeftColor:(UIColor *)leftColor rightColor:(UIColor *)rightColor;
 - (void)resize:(CGSize)size applyRadius:(BOOL)radius;
 
 @end
