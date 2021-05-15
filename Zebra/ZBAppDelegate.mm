@@ -188,6 +188,15 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    if (![ZBSettings usesSystemAppearance]) {
+        ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+        if (style == ZBInterfaceStyleLight) {
+            self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        } else {
+            self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        }
+    }
+    
 #if TARGET_OS_MACCATALYST
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"main"];
     toolbar.displayMode = NSToolbarDisplayModeIconOnly;

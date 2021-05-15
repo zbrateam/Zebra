@@ -129,7 +129,7 @@
         [selectedSections addObject:section];
     }
     
-    [self chooseUnchooseOptionAtIndexPath:indexPath];
+//    [self chooseUnchooseOptionAtIndexPath:indexPath];
     [self layoutNaviationButtons];
 }
 

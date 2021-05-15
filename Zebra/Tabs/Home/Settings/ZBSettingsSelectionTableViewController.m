@@ -98,12 +98,12 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (![selectedIndex isEqual:indexPath]) {
-        NSIndexPath *previousChoice = selectedIndex;
+//        NSIndexPath *previousChoice = selectedIndex;
         
         self->selectedIndex = indexPath;
         self->selectedOption = options[indexPath.row];
         
-        [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
+//        [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
         
         [ZBSettings performSelector:settingsSetter withObject:@(selectedIndex.row)];
     }

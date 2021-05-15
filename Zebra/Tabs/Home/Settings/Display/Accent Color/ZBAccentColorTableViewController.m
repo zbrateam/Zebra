@@ -97,7 +97,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        [self toggleSwitchAtIndexPath:indexPath];
+//        [self toggleSwitchAtIndexPath:indexPath];
     }
     else {
         NSInteger newRow = [colors indexOfObject:@(selectedColor)];
@@ -117,7 +117,7 @@
             ZBOptionSettingsTableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
             [newCell applyStyling];
             
-            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
+//            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
         }
     }
 }

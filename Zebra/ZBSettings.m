@@ -227,6 +227,12 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:style forKey:InterfaceStyleKey];
+    
+    if (style == ZBInterfaceStyleLight) {
+        [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+    } else {
+        [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    }
 }
 
 + (BOOL)usesSystemAppearance {
@@ -246,6 +252,17 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setBool:usesSystemAppearance forKey:UseSystemAppearanceKey];
+    
+    if (usesSystemAppearance) {
+        [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
+    } else {
+        ZBInterfaceStyle style = [self interfaceStyle];
+        if (style == ZBInterfaceStyleLight) {
+            [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+        } else {
+            [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        }
+    }
 }
 
 + (BOOL)pureBlackMode {

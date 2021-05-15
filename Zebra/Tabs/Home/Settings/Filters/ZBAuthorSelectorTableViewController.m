@@ -216,7 +216,7 @@
         [newSelectedAuthors addObject:email];
     }
     
-    [self chooseUnchooseOptionAtIndexPath:indexPath];
+//    [self chooseUnchooseOptionAtIndexPath:indexPath];
     [self layoutNaviationButtons];
 }
 

@@ -7,9 +7,8 @@
 //
 
 #import "ZBPreferencesViewController.h"
-#import "ZBSwitchSettingsTableViewCell.h"
-#import "ZBOptionSettingsTableViewCell.h"
-#import "ZBDevice.h"
+
+#import <Extensions/ZBColor.h>
 
 @implementation ZBPreferencesViewController;
 
@@ -51,6 +50,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"preferencesCell" forIndexPath:indexPath];
     
+    UIColor *accentColor = [ZBColor accentColor];
+    cell.tintColor = accentColor;
+    
     NSDictionary *specifier = self.specifiers[indexPath.section][indexPath.row];
     cell.textLabel.text = specifier[@"text"];
     cell.imageView.image = specifier[@"icon"];
@@ -79,7 +81,8 @@
             cell.textLabel.textColor = [UIColor labelColor];
             
             UISwitch *nx = [[UISwitch alloc] initWithFrame:CGRectZero];
-            [nx setOn:[specifier[@"enabled"] boolValue]];
+            nx.on = [specifier[@"enabled"] boolValue];
+            nx.onTintColor = accentColor;
             
             SEL selector = NSSelectorFromString(specifier[@"action"]);
             [nx addTarget:self action:selector forControlEvents:UIControlEventValueChanged];
@@ -152,31 +155,6 @@
         return self.footers[section];
     }
     return NULL;
-}
-
-#pragma mark - Settings cell action helpers
-
-- (void)toggleSwitchAtIndexPath:(NSIndexPath *)indexPath {
-    ZBSwitchSettingsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    [cell toggle];
-}
-
-- (void)chooseOptionAtIndexPath:(NSIndexPath *)indexPath previousIndexPath:(NSIndexPath *)previousIndexPath animated:(BOOL)animated {
-    if (animated) {
-        [self.tableView reloadRowsAtIndexPaths:@[previousIndexPath, indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else {
-        ZBOptionSettingsTableViewCell *cell = [self.tableView cellForRowAtIndexPath:previousIndexPath];
-        [cell setChosen:NO];
-        
-        cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        [cell setChosen:NO];
-    }
-    [ZBDevice hapticButton];
-}
-
-- (void)chooseUnchooseOptionAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [ZBDevice hapticButton];
 }
 
 @end

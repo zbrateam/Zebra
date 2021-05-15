@@ -127,25 +127,4 @@
     [ZBSettings setAccentColor:newIndexPath.row];
 }
 
-//- (void)togglePureBlack:(NSNumber *)newPureBlackMode {
-//    pureBlackMode = [newPureBlackMode boolValue];
-//    [ZBSettings setPureBlackMode:pureBlackMode];
-//    [self updateInterfaceStyle];
-//}
-
-//- (void)updateInterfaceStyle {
-//    usesSystemAppearance = [ZBSettings usesSystemAppearance];
-//    interfaceStyle = [ZBSettings interfaceStyle];
-//    
-////    [[ZBThemeManager sharedInstance] updateInterfaceStyle];
-//    
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.tableView.backgroundColor = [ZBColor systemGroupedBackgroundColor];
-//        
-//        for (ZBSettingsTableViewCell *cell in self.tableView.visibleCells) {
-//            [cell applyStyling];
-//        }
-//    }];
-//}
-
 @end

@@ -183,7 +183,7 @@
             selectedRow = indexPath;
             
             [self layoutNavigationButtons];
-            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
+//            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
         }
     }
     else if (([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 2) || ([self numberOfSectionsInTableView:tableView] == 2 && indexPath.section == 1)) {

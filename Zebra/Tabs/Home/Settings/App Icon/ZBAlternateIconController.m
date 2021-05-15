@@ -161,7 +161,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (currentChoice != indexPath) {
-        [self chooseOptionAtIndexPath:indexPath previousIndexPath:currentChoice animated:NO];
+//        [self chooseOptionAtIndexPath:indexPath previousIndexPath:currentChoice animated:NO];
     
         NSString *iconName = [[[ZBAlternateIconController icons] objectAtIndex:indexPath.row] objectForKey:@"iconName"];
         [self setIconWithName:iconName fromIndex:indexPath];
