@@ -134,29 +134,13 @@
     return NULL;
 #else
     NSMutableArray *result = [NSMutableArray new];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Cydia.app/Cydia"]) {
-        NSDictionary *dict = @{@"name" : @"Cydia",
-                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Cydia"],
-                               @"url"  : @"file:///etc/apt/sources.list.d/",
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/mobile/Library/Application Support/xyz.willy.Zebra/sources.list"]) {
+        NSDictionary *dict4 = @{@"name" : @"Zebra 1.x",
+                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra 2.x", @""), @"Zebra 1.x"],
+                               @"url"  : @"file:///var/mobile/Library/Application Support/xyz.willy.Zebra/sources.list",
                                @"ext"  : @"list",
-                               @"icon" : @"file:///Applications/Cydia.app/Icon-60@2x.png"};
-        [result addObject:dict];
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Installer.app/Installer"]) {
-        NSDictionary *dict2 = @{@"name" : @"Installer",
-                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Installer"],
-                               @"url"  : @"file:///var/mobile/Library/Application%20Support/Installer/APT/sources.list",
-                               @"ext"  : @"list",
-                               @"icon" : @"file:///Applications/Installer.app/AppIcon60x60@2x.png"};
-        [result addObject:dict2];
-    }
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Applications/Sileo.app/Sileo"]) {
-        NSDictionary *dict3 = @{@"name" : @"Sileo",
-                               @"label": [NSString stringWithFormat:NSLocalizedString(@"Transfer sources from %@ to Zebra", @""), @"Sileo"],
-                               @"url"  : [ZBDevice isCheckrain] ? @"file:///etc/apt/sileo.list.d/" : @"file:///etc/apt/sources.list.d/",
-                               @"ext"  : @"sources",
-                               @"icon" : @"file:///Applications/Sileo.app/AppIcon60x60@2x.png"};
-        [result addObject:dict3];
+                               @"icon" : @"file:///Applications/Zebra.app/AppIcon60x60@2x.png"};
+        [result addObject:dict4];
     }
     return result;
 #endif
