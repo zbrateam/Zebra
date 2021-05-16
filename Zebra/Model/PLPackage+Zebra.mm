@@ -24,14 +24,14 @@
     
     BOOL installed = self.installed;
     if (self.source) {
-        if (self.hasUpdate) {
-            action |= ZBPackageActionUpgrade;
-        }
-        if (self.numberOfVersions > 1) {
-            action |= ZBPackageActionDowngrade;
-        }
         if (installed) {
             action |= ZBPackageActionReinstall;
+            if (self.hasUpdate) {
+                action |= ZBPackageActionUpgrade;
+            }
+            if (self.lesserVersions.count > 1) {
+                action |= ZBPackageActionDowngrade;
+            }
         } else {
             action |= ZBPackageActionInstall;
         }
