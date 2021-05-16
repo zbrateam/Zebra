@@ -312,13 +312,21 @@
 # pragma mark - Keyboard Shortcuts
 
 - (NSArray<UIKeyCommand *> *)keyCommands {
-    UIKeyCommand *refresh = [UIKeyCommand keyCommandWithInput:@"r" modifierFlags:UIKeyModifierCommand action:@selector(refreshSources)];
-    refresh.discoverabilityTitle = NSLocalizedString(@"Refresh", @"");
+    if (self.selectActionClass == [ZBErrorViewController class]) {
+        // escape key
+        UIKeyCommand *goodbyeShortcut = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(goodbye)];
+        goodbyeShortcut.discoverabilityTitle = NSLocalizedString(@"Dismiss", @"");
 
-    UIKeyCommand *add = [UIKeyCommand keyCommandWithInput:@"n" modifierFlags:UIKeyModifierCommand action:@selector(addButton:)];
-    add.discoverabilityTitle = NSLocalizedString(@"Add", @"");
+        return @[goodbyeShortcut];
+    } else {
+        UIKeyCommand *refresh = [UIKeyCommand keyCommandWithInput:@"r" modifierFlags:UIKeyModifierCommand action:@selector(refreshSources)];
+        refresh.discoverabilityTitle = NSLocalizedString(@"Refresh", @"");
 
-    return @[refresh, add];
+        UIKeyCommand *add = [UIKeyCommand keyCommandWithInput:@"n" modifierFlags:UIKeyModifierCommand action:@selector(addButton:)];
+        add.discoverabilityTitle = NSLocalizedString(@"Add", @"");
+
+        return @[refresh, add];
+    }
 }
 
 @end
