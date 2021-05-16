@@ -77,31 +77,29 @@
 }
 
 - (void)verifySources {
-    if (self.navigationItem.rightBarButtonItem.enabled) {
-        [_textView resignFirstResponder];
+    [_textView resignFirstResponder];
 
-        NSError *detectorError = nil;
-        NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
-        if (detectorError) {
-            UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+    NSError *detectorError = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
+    if (detectorError) {
+        UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
 
-            [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
+        [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
 
-            [self presentViewController:errorPopup animated:YES completion:nil];
-        } else {
-            NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
-            
-            NSString *fullText = _textView.textStorage.string;
-            [detector enumerateMatchesInString:fullText options:0 range:NSMakeRange(0, fullText.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-                if (result.resultType == NSTextCheckingTypeLink) {
-                    [detectedURLs addObject:result.URL];
-                }
-            }];
+        [self presentViewController:errorPopup animated:YES completion:nil];
+    } else {
+        NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
 
-            NSSet *baseSources = [ZBDummySource baseSourcesFromURLs:detectedURLs];
-            ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithSources:baseSources];
-            [self.navigationController pushViewController:importVC animated:YES];
-        }
+        NSString *fullText = _textView.textStorage.string;
+        [detector enumerateMatchesInString:fullText options:0 range:NSMakeRange(0, fullText.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            if (result.resultType == NSTextCheckingTypeLink) {
+                [detectedURLs addObject:result.URL];
+            }
+        }];
+
+        NSSet *baseSources = [ZBDummySource baseSourcesFromURLs:detectedURLs];
+        ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithSources:baseSources];
+        [self.navigationController pushViewController:importVC animated:YES];
     }
 }
 
@@ -131,7 +129,7 @@
     UIKeyCommand *back = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(back)];
     back.discoverabilityTitle = NSLocalizedString(@"Back", @"");
 
-    UIKeyCommand *verify = [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:UIKeyModifierCommand action:@selector(verifySources)];
+    UIKeyCommand *verify = [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:UIKeyModifierCommand action:@selector(verifyShortcut)];
     verify.discoverabilityTitle = NSLocalizedString(@"Verify", @"");
 
     return @[back, verify];
@@ -139,6 +137,12 @@
 
 - (void)back {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)verifyShortcut {
+    if (self.navigationItem.rightBarButtonItem.enabled) {
+        [self verifySources];
+    }
 }
 
 @end

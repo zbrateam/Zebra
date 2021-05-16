@@ -384,4 +384,23 @@
     }
 }
 
+#pragma mark - Keyboard Shortcuts
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    // escape key
+    UIKeyCommand *cancel = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(cancel)];
+    cancel.discoverabilityTitle = NSLocalizedString(@"Cancel", @"");
+
+    UIKeyCommand *import = [UIKeyCommand keyCommandWithInput:@"\r" modifierFlags:UIKeyModifierCommand action:@selector(importShortcut)];
+    import.discoverabilityTitle = NSLocalizedString(@"Import", @"");
+
+    return @[cancel, import];
+}
+
+- (void)importShortcut {
+    if (self.navigationItem.rightBarButtonItem.enabled) {
+        [self importSelected];
+    }
+}
+
 @end
