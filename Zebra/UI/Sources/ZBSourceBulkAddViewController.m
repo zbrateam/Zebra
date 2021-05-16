@@ -118,4 +118,18 @@
     self.navigationItem.rightBarButtonItem.enabled = ![[textView.textStorage.string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] isEqualToString:@""];
 }
 
+#pragma mark - Keyboard Shortcuts
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    // escape key
+    UIKeyCommand *back = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(back)];
+    back.discoverabilityTitle = NSLocalizedString(@"Back", @"");
+
+    return @[back];
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 @end
