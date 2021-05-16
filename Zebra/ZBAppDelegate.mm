@@ -25,6 +25,7 @@
 #import <UI/Packages/ZBPackageViewController.h>
 #import <UI/Search/ZBSearchViewController.h>
 #import <UI/Sources/ZBSourceViewController.h>
+#import <UI/Sources/ZBSourceImportViewController.h>
 #import <UI/ZBSidebarController.h>
 #import <dlfcn.h>
 #include <sys/stat.h>
@@ -105,18 +106,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 + (NSString *)sourcesListPath {
-    NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"sources.list"];
-    if (![[NSFileManager defaultManager] fileExistsAtPath:lists]) {
-        ZBLog(@"[Zebra] Creating sources.list.");
-        NSError *error = NULL;
-        [[NSFileManager defaultManager] copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"default" ofType:@"list"] toPath:lists error:&error];
-        
-        if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating sources.list: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating sources.list: %@.", error.localizedDescription);
-        }
-    }
-    return lists;
+    return [[PLConfig sharedInstance] stringForKey:@"Plains::SourcesList"];
 }
 
 + (NSString *)databaseLocation {
@@ -265,9 +255,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     NSArray *choices = @[@"file", @"zbra"];
     int index = (int)[choices indexOfObject:[url scheme]];
 
-    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
-        return NO;
-    }
+//    if (![self.window.rootViewController isKindOfClass:[ZBTabBarController class]]) {
+//        return NO;
+//    }
 
     switch (index) {
         case 0: { // file
@@ -292,12 +282,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 //            }
             
             if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
-                ZBTabBarController *tabController = (ZBTabBarController *)self.window.rootViewController;
-                [tabController setSelectedIndex:ZBTabSources];
-
-//                ZBSourceListViewController *sourceListController = (ZBSourceListViewController *)((UINavigationController *)[tabController selectedViewController]).viewControllers[0];
-
-//                [sourceListController handleImportOf:url];
+                ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithPaths:@[url]];
+                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:importVC];
+                
+                [self.window.rootViewController presentViewController:nav animated:YES completion:nil];
             }
             break;
         }
