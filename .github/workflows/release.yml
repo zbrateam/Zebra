@@ -25,9 +25,6 @@ jobs:
 
     - name: Install Theos Dependencies
       run: brew install ldid fakeroot make dpkg
-    
-    - name: Add GNU make to PATH
-      run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
 
     - name: Install Theos
       uses: actions/checkout@master
@@ -46,7 +43,7 @@ jobs:
       env:
         THEOS: theos
       run: |
-        make package FINALPACKAGE=1
+        gmake package FINALPACKAGE=1
         echo "::set-output name=package::$(ls -t packages | head -n1)"
 
     - name: Configure Variables
@@ -129,7 +126,7 @@ jobs:
       env:
         THEOS: theos
       run: |
-        make package FINALPACKAGE=1 PACKAGE_FORMAT=ipa
+        gmake package FINALPACKAGE=1 PACKAGE_FORMAT=ipa
         echo "::set-output name=package::$(ls -t packages | head -n1)"
     - name: Upload IPA to release
       if: '!steps.config.outputs.beta'

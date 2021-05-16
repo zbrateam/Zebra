@@ -48,18 +48,18 @@ ifeq ($(ALPHA), 0)
 endif
 
 clean::
-	rm control
+	$(ECHO_NOTHING)rm -f control$(ECHO_END)
 
 after-stage::
-	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Applications/$(DISPLAY_NAME).app/Sections$(ECHO_END)
-	$(ECHO_NOTHING)rm -f $(THEOS_STAGING_DIR)/Applications/$(DISPLAY_NAME).app/Installed.pack$(ECHO_END)
+	$(ECHO_NOTHING)mkdir -p '$(THEOS_STAGING_DIR)/Applications/$(subst ",,$(APP_NAME)).app/Sections'$(ECHO_END)
+	$(ECHO_NOTHING)rm -f '$(THEOS_STAGING_DIR)/Applications/$(subst ",,$(APP_NAME)).app/Installed.pack'$(ECHO_END)
 
 ifdef NO_LAUNCH
 after-install::
-	install.exec 'uicache -p /Applications/$(DISPLAY_NAME).app'
+	install.exec 'uicache -p /Applications/$(subst ",,$(APP_NAME)).app'
 else
 after-install::
-	install.exec 'uicache -p /Applications/$(DISPLAY_NAME).app; uiopen zbra:'
+	install.exec 'uicache -p /Applications/$(subst ",,$(APP_NAME)).app; uiopen zbra:'
 endif
 
 include $(THEOS_MAKE_PATH)/aggregate.mk

@@ -17,9 +17,6 @@ jobs:
 
     - name: Install Theos Dependencies
       run: brew install ldid fakeroot make
-    
-    - name: Add GNU make to PATH
-      run: echo "$(brew --prefix make)/libexec/gnubin" >> $GITHUB_PATH
 
     - name: Install Theos
       uses: actions/checkout@master
@@ -31,4 +28,4 @@ jobs:
     - name: Build Package
       env:
         THEOS: theos
-      run: make package
+      run: gmake package
