@@ -326,7 +326,18 @@
     UIAlertController *areYouSure = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Confirm Import", @"") message:message preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        [self->sourceManager addSources:sources error:nil];
+        // I hate this I don't like it :(
+        NSMutableArray *sourceDicts = [NSMutableArray new];
+        for (ZBDummySource *dummySource in sources) {
+            NSMutableDictionary *sourceDict = [NSMutableDictionary dictionaryWithDictionary:@{
+                @"Types": dummySource.archiveType,
+                @"URI": dummySource.repositoryURI,
+                @"Suites": dummySource.distribution,
+            }];
+            if (dummySource.components) [sourceDict setObject:dummySource.components forKey:@"Components"];
+            [sourceDicts addObject:sourceDict];
+        }
+        [self->sourceManager addSources:sourceDicts];
         
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
