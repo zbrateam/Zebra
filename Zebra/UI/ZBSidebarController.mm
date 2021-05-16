@@ -160,7 +160,8 @@
     [super viewWillAppear:animated];
     
     [self setViewController:_controllers[0] forColumn:UISplitViewControllerColumnSecondary];
-    
+    [sidebarTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+
 #if TARGET_OS_MACCATALYST
     [self setTitle:_controllers[0].tabBarItem.title];
     [sidebar.navigationController setNavigationBarHidden:YES animated:animated]; 
@@ -463,6 +464,63 @@
     }
 }
 
+#pragma mark - Keyboard Shortcuts
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    UIKeyCommand *search = [UIKeyCommand keyCommandWithInput:@"f" modifierFlags:UIKeyModifierCommand action:@selector(focusSearch)];
+    search.discoverabilityTitle = NSLocalizedString(@"Search", @"");
+
+    UIKeyCommand *home = [UIKeyCommand keyCommandWithInput:@"1" modifierFlags:UIKeyModifierCommand action:@selector(homeTab)];
+    home.discoverabilityTitle = NSLocalizedString(@"Switch to Home", @"");
+
+    UIKeyCommand *sources = [UIKeyCommand keyCommandWithInput:@"2" modifierFlags:UIKeyModifierCommand action:@selector(sourcesTab)];
+    sources.discoverabilityTitle = NSLocalizedString(@"Switch to Sources", @"");
+
+    UIKeyCommand *installed = [UIKeyCommand keyCommandWithInput:@"3" modifierFlags:UIKeyModifierCommand action:@selector(installedTab)];
+    installed.discoverabilityTitle = NSLocalizedString(@"Switch to Installed", @"");
+
+    UIKeyCommand *queue = [UIKeyCommand keyCommandWithInput:@"4" modifierFlags:UIKeyModifierCommand action:@selector(queueTab)];
+    queue.discoverabilityTitle = NSLocalizedString(@"Switch to Queue", @"");
+
+    UIKeyCommand *settings = [UIKeyCommand keyCommandWithInput:@"5" modifierFlags:UIKeyModifierCommand action:@selector(settingsTab)];
+    settings.discoverabilityTitle = NSLocalizedString(@"Switch to Settings", @"");
+
+    return @[search, home, sources, installed, queue, settings];
+}
+
+- (void)focusSearch {
+    [searchBar becomeFirstResponder];
+}
+
+- (void)homeTab {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [sidebarTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:sidebarTableView didSelectRowAtIndexPath:indexPath];
+}
+
+- (void)sourcesTab {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    [sidebarTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:sidebarTableView didSelectRowAtIndexPath:indexPath];
+}
+
+- (void)installedTab {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    [sidebarTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:sidebarTableView didSelectRowAtIndexPath:indexPath];
+}
+
+- (void)queueTab {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:0];
+    [sidebarTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:sidebarTableView didSelectRowAtIndexPath:indexPath];
+}
+
+- (void)settingsTab {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    [sidebarTableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [self tableView:sidebarTableView didSelectRowAtIndexPath:indexPath];
+}
 
 // dry!!!!
 - (void)requestSourceRefresh {

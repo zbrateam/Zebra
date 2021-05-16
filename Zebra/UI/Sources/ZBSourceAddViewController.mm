@@ -541,4 +541,14 @@
     [self.navigationController pushViewController:bulkAddView animated:YES];
 }
 
+#pragma mark - Keyboard Shortcuts
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    // escape key
+    UIKeyCommand *cancel = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(dismiss)];
+    cancel.discoverabilityTitle = NSLocalizedString(@"Cancel", @"");
+
+    return @[cancel];
+}
+
 @end

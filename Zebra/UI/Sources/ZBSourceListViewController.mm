@@ -309,4 +309,16 @@
     return NULL;
 }
 
+# pragma mark - Keyboard Shortcuts
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    UIKeyCommand *refresh = [UIKeyCommand keyCommandWithInput:@"r" modifierFlags:UIKeyModifierCommand action:@selector(refreshSources)];
+    refresh.discoverabilityTitle = NSLocalizedString(@"Refresh", @"");
+
+    UIKeyCommand *add = [UIKeyCommand keyCommandWithInput:@"n" modifierFlags:UIKeyModifierCommand action:@selector(addButton:)];
+    add.discoverabilityTitle = NSLocalizedString(@"Add", @"");
+
+    return @[refresh, add];
+}
+
 @end

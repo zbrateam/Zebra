@@ -277,4 +277,38 @@
     }
 }
 
+#pragma mark - Keyboard Shortcuts
+
+- (NSArray<UIKeyCommand *> *)keyCommands {
+    UIKeyCommand *home = [UIKeyCommand keyCommandWithInput:@"1" modifierFlags:UIKeyModifierCommand action:@selector(homeTab)];
+    home.discoverabilityTitle = @"Switch to Home";
+
+    UIKeyCommand *sources = [UIKeyCommand keyCommandWithInput:@"2" modifierFlags:UIKeyModifierCommand action:@selector(sourcesTab)];
+    sources.discoverabilityTitle = @"Switch to Sources";
+
+    UIKeyCommand *installed = [UIKeyCommand keyCommandWithInput:@"3" modifierFlags:UIKeyModifierCommand action:@selector(installedTab)];
+    installed.discoverabilityTitle = @"Switch to Installed";
+
+    UIKeyCommand *search = [UIKeyCommand keyCommandWithInput:@"4" modifierFlags:UIKeyModifierCommand action:@selector(searchTab)];
+    search.discoverabilityTitle = @"Switch to Search";
+
+    return @[home, sources, installed, search];
+}
+
+- (void)homeTab {
+    self.selectedIndex = 0;
+}
+
+- (void)sourcesTab {
+    self.selectedIndex = 1;
+}
+
+- (void)installedTab {
+    self.selectedIndex = 2;
+}
+
+- (void)searchTab {
+    self.selectedIndex = 3;
+}
+
 @end
