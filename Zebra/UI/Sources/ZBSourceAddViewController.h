@@ -8,11 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-#import <Delegates/ZBSourceVerificationDelegate.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBSourceAddViewController : UITableViewController <ZBSourceVerificationDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>
+@interface ZBSourceAddViewController : UITableViewController <UISearchControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate>
 - (instancetype)init;
 - (instancetype)initWithURL:(NSURL *)url;
 @end

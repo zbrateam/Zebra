@@ -12,6 +12,48 @@
 
 @implementation ZBDummySource
 
++ (NSSet <ZBDummySource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **_Nullable)error {
+    NSError *readError = NULL;
+    NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];
+    if (readError) {
+        NSLog(@"[Zebra] Could not read sources list contents located at %@ reason: %@", [listLocation absoluteString], readError.localizedDescription);
+        *error = readError;
+        return NULL;
+    }
+    
+    NSMutableSet *baseSources = [NSMutableSet new];
+    if ([[listLocation pathExtension] isEqualToString:@"list"]) { //Debian source format
+        NSArray *debLines = [sourceListContents componentsSeparatedByString:@"\n"];
+        
+        for (NSString *sourceLine in debLines) {
+            if (![sourceLine isEqualToString:@""]) {
+                if ([sourceLine characterAtIndex:0] == '#') continue;
+                
+                ZBDummySource *source = [[ZBDummySource alloc] initFromSourceLine:sourceLine];
+                if (source) {
+                    [baseSources addObject:source];
+                }
+            }
+        }
+    }
+    else if ([[listLocation pathExtension] isEqualToString:@"sources"]) { //Sileo source format
+        NSArray *sourceGroups = [sourceListContents componentsSeparatedByString:@"\n\n"];
+        
+        for (NSString *sourceGroup in sourceGroups) {
+            if (![sourceGroup isEqualToString:@""]) {
+                if ([sourceGroup characterAtIndex:0] == '#') continue;
+                
+                ZBDummySource *source = [[ZBDummySource alloc] initFromSourceGroup:sourceGroup];
+                if (source) {
+                    [baseSources addObject:source];
+                }
+            }
+        }
+    }
+
+    return baseSources;
+}
+
 - (id)initWithArchiveType:(NSString *)archiveType repositoryURI:(NSString *)repositoryURI distribution:(NSString *)distribution components:(NSArray <NSString *> *_Nullable)components {
     
     // Making sure our parameters are correct
@@ -121,6 +163,39 @@
     }
     
     return NULL;
+}
+
+- (id)initFromSourceGroup:(NSString *)sourceGroup {
+    if (!sourceGroup) return NULL;
+    
+    NSMutableDictionary *source = [NSMutableDictionary new];
+    [sourceGroup enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+        if (![line hasPrefix:@"#"]) {
+            NSArray<NSString *> *pair = [line componentsSeparatedByString:@": "];
+            if (pair.count != 2) pair = [line componentsSeparatedByString:@":"];
+            if (pair.count != 2) return;
+            NSString *key = [pair[0] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            NSString *value = [pair[1] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+            source[key] = value;
+        }
+    }];
+    
+    if ([source count] >= 3) {
+        if (![source objectForKey:@"Types"] || ![source objectForKey:@"URIs"] || ![source objectForKey:@"Suites"]) return NULL;
+        
+        NSString *archiveType = source[@"Types"];
+        NSString *repositoryURI = source[@"URIs"];
+        NSString *distribution = source[@"Suites"];
+        
+        NSString *components = source[@"Components"] ?: @"";
+        NSArray *sourceComponents = [components componentsSeparatedByString:@" "];
+        
+        ZBDummySource *baseSource = [self initWithArchiveType:archiveType repositoryURI:repositoryURI distribution:distribution components:sourceComponents];
+        
+        return baseSource;
+    }
+    
+    return [super init];
 }
 
 - (id)initWithURL:(NSURL *)URL {
@@ -289,6 +364,18 @@
         if (completion) completion(origin);
     }];
     [releaseTask resume];
+}
+
+- (NSUInteger)hash {
+    NSUInteger repositoryURIHash = 0;
+    if ([self.repositoryURI hasPrefix:@"http:"]) {
+        repositoryURIHash = [[self.repositoryURI stringByReplacingOccurrencesOfString:@"http:" withString:@""] hash];
+    }
+    else if ([self.repositoryURI hasPrefix:@"https:"]) {
+        repositoryURIHash = [[self.repositoryURI stringByReplacingOccurrencesOfString:@"https:" withString:@""] hash];
+    }
+    
+    return [self.archiveType hash] + repositoryURIHash + [self.distribution hash] + [self.components hash];
 }
 
 @end

@@ -42,12 +42,14 @@
 				<string>utiicon.png</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>Sileo Sources List</string>
+			<string>Debian Sources File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.coolstar.sileo-sources</string>
+				<string>org.debian.sources-file</string>
 			</array>
 		</dict>
 	</array>

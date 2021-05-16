@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-#import <Delegates/ZBSourceVerificationStatus.h>
+typedef NS_ENUM(NSUInteger, ZBSourceVerificationStatus) {
+    ZBSourceVerifying,  //Currently verifying
+    ZBSourceExists,     //Exists
+    ZBSourceImaginary,  //Doesn't exist
+    ZBSourceUnverified  //Not yet verified
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *origin;
 @property NSString *UUID;
 @property ZBSourceVerificationStatus verificationStatus;
++ (NSSet <ZBDummySource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **_Nullable)error;
 - (instancetype)initWithURL:(NSURL *)URL;
 - (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion;
 - (void)getOrigin:(void (^)(NSString *label))completion;
