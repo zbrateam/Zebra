@@ -10,6 +10,8 @@
 
 #import <Extensions/UIImageView+Zebra.h>
 
+#if !TARGET_OS_MACCATALYST
+
 @implementation ZBAppIconSettingsViewController
 
 - (instancetype)init {
@@ -147,3 +149,5 @@
 }
 
 @end
+
+#endif

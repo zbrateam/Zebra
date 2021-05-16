@@ -31,11 +31,13 @@
 - (NSArray <NSArray <NSDictionary *> *> *)specifiers {
     return @[
         @[
+#if !TARGET_OS_MACCATALYST
             @{
                 @"text": NSLocalizedString(@"App Icon", @""),
                 @"type": @(ZBPreferencesCellTypeDisclosure),
                 @"class": @"ZBAppIconSettingsViewController"
             },
+#endif
             @{
                 @"text": NSLocalizedString(@"Display", @""),
                 @"type": @(ZBPreferencesCellTypeDisclosure),

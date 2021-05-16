@@ -10,10 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#if !TARGET_OS_MACCATALYST
+
 @interface ZBAppIconSettingsViewController : ZBPreferencesViewController {
     NSArray <NSDictionary *> *icons;
     NSArray <UIImage *> *iconImages;
 }
 @end
+
+#endif
 
 NS_ASSUME_NONNULL_END
