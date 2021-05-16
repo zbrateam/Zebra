@@ -142,9 +142,14 @@
 //    }
     
     switch (action) {
-        case ZBPackageActionInstall:
-            [self install:package completion:completion];
+        case ZBPackageActionInstall: {
+            if (package.allVersions.count > 1 && ![ZBSettings alwaysInstallLatest]) {
+                [self choose:package controller:controller sender:sender completion:completion];
+            } else {
+                [self install:package completion:completion];
+            }
             break;
+        }
         case ZBPackageActionRemove:
             [self remove:package completion:completion];
             break;
@@ -178,58 +183,26 @@
     if (completion) completion();
 }
 
-+ (void)choose:(ZBPackage *)package completion:(void (^)(void))completion {
-//    NSArray <NSString *> *allVersions = package.allVersions;
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:[self alertControllerStyle]];
-//
-//    NSCountedSet *versionStrings = [[NSCountedSet alloc] initWithArray:allVersions];
-//    NSOrderedSet *deduplicatedVersions = [[NSOrderedSet alloc] initWithArray:allVersions];
-//    for (NSString *otherVersion in deduplicatedVersions) {
-//        NSString *title;
-//        if ([otherVersion isEqual:allVersions.firstObject]) {
-//            title = [NSString stringWithFormat:@"%@ (%@)", NSLocalizedString(@"Latest", @""), otherVersion];
-//        } else {
-//            title = otherVersion;
-//        }
-//        UIAlertAction *action;
-//        if ([versionStrings countForObject:otherVersion] > 1) {
-//            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                NSArray <ZBPackage *> *otherPackages = [[ZBPackageManager sharedInstance] allRemoteInstancesOfPackage:package withVersion:otherVersion];
-//
-//                UIAlertController *sourceAlert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Source", @"") message:NSLocalizedString(@"Select a source to install the package from:", @"") preferredStyle:[self alertControllerStyle]];
-//
-//                for (ZBPackage *otherPackage in otherPackages) {
-//                    UIAlertAction *sourceAction = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"%@", otherPackage.source.label] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                        otherPackage.requiresAuthorization = package.requiresAuthorization;
-////                        [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-//
-//                        if (completion) completion();
-//                    }];
-//                    [sourceAlert addAction:sourceAction];
-//                }
-//                UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-//                [sourceAlert addAction:cancel];
-//
-//                [sourceAlert show];
-//            }];
-//        } else {
-//            action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                ZBPackage *otherPackage = [[ZBPackageManager sharedInstance] remoteInstanceOfPackage:package withVersion:otherVersion];
-//                otherPackage.requiresAuthorization = package.requiresAuthorization;
-////                [[ZBQueue sharedQueue] addPackage:otherPackage toQueue:ZBQueueTypeInstall];
-//
-//                if (completion) completion();
-//            }];
-//        }
-//
-//        [alert addAction:action];
-//    }
-//
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
-//    [alert addAction:cancel];
-//    [alert _setIndexesOfActionSectionSeparators:[NSIndexSet indexSetWithIndex:1]];
-//
-//    [alert show];
++ (void)choose:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(void (^)(void))completion {
+    NSArray <PLPackage *> *allVersions = [package allVersions];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Select Version", @"") message:NSLocalizedString(@"Select a version to install:", @"") preferredStyle:UIAlertControllerStyleActionSheet];
+
+    for (PLPackage *otherVersion in allVersions) {
+        NSString *title = otherVersion.version;
+        UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[PLQueue sharedInstance] addPackage:otherVersion toQueue:PLQueueDowngrade];
+
+            if (completion) completion();
+        }];
+
+        [alert addAction:action];
+    }
+
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil];
+    [alert addAction:cancel];
+
+    alert.popoverPresentationController.sourceView = sender;
+    [controller presentViewController:alert animated:YES completion:nil];
 }
 
 + (void)upgrade:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(void (^)(void))completion {
@@ -316,9 +289,6 @@
         [controller presentViewController:alert animated:YES completion:nil];
     } else if (lesserVersions.count == 1) {
         [[PLQueue sharedInstance] addPackage:lesserVersions[0] toQueue:PLQueueDowngrade];
-        if (completion) completion();
-    } else {
-        [[PLQueue sharedInstance] addPackage:package toQueue:PLQueueDowngrade];
         if (completion) completion();
     }
 }
