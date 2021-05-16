@@ -54,6 +54,7 @@
     completeButton.layer.cornerRadius = 10;
     completeButton.layer.masksToBounds = YES;
     completeButton.hidden = YES;
+    completeButton.titleLabel.font = [UIFont boldSystemFontOfSize:completeButton.titleLabel.font.pointSize];
     [completeButton addTarget:self action:@selector(complete) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:completeButton];
@@ -89,6 +90,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    self.navigationItem.hidesBackButton = YES;
     [[PLPackageManager sharedInstance] startDownloads:self];
 }
 
