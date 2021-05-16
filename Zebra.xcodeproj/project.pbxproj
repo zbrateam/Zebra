@@ -78,6 +78,7 @@
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
 		75D0A77F24A014D2007D84EF /* ZBPreferencesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 75D0A77E24A014D2007D84EF /* ZBPreferencesViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */; };
+		8903B866264F7351005B1098 /* ZBAppIconSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8903B865264F7351005B1098 /* ZBAppIconSettingsViewController.m */; };
 		89051722237239A9000F0A32 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905172123723995000F0A32 /* libc++.tbd */; };
 		891551582560A496005AF405 /* ZBPackageFilterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891551572560A496005AF405 /* ZBPackageFilterViewController.m */; };
 		8915515C2560A4F0005AF405 /* ZBPartialPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8915515B2560A4F0005AF405 /* ZBPartialPresentationController.m */; };
@@ -319,6 +320,8 @@
 		75F92C9A24941BA8009DA035 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
 		8900FA4F2201E9C200476310 /* ZBQueueViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBQueueViewController.mm; sourceTree = "<group>"; };
+		8903B864264F7351005B1098 /* ZBAppIconSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppIconSettingsViewController.h; sourceTree = "<group>"; };
+		8903B865264F7351005B1098 /* ZBAppIconSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAppIconSettingsViewController.m; sourceTree = "<group>"; };
 		8905172123723995000F0A32 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		8908D508261250D800950353 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		891551562560A496005AF405 /* ZBPackageFilterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageFilterViewController.h; sourceTree = "<group>"; };
@@ -491,7 +494,6 @@
 		9ED47D942365886300CF2021 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Private.h"; sourceTree = "<group>"; };
 		A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
-		A5A7F1252462A66900461335 /* UIImage+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Private.h"; sourceTree = "<group>"; };
 		BFC6DB1C236D9B9000DA5534 /* ZBSettingsSelectionTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsSelectionTableViewController.h; sourceTree = "<group>"; };
 		BFC6DB1D236D9BD500DA5534 /* ZBSettingsSelectionTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsSelectionTableViewController.m; sourceTree = "<group>"; };
 		C3BF92BE2449144E00D903A7 /* UIFont+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+Zebra.h"; sourceTree = "<group>"; };
@@ -854,7 +856,6 @@
 				895071972239E2FD004AE338 /* MobileGestalt.h */,
 				A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */,
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
-				A5A7F1252462A66900461335 /* UIImage+Private.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
@@ -862,6 +863,8 @@
 		8962A374264DD64500B36B08 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				8903B864264F7351005B1098 /* ZBAppIconSettingsViewController.h */,
+				8903B865264F7351005B1098 /* ZBAppIconSettingsViewController.m */,
 				8916AC2523CAAF1A008BA02C /* ZBDisplaySettingsViewController.h */,
 				8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */,
 				367D80F422C3D1CF00581D60 /* ZBSettingsViewController.h */,
@@ -1400,6 +1403,7 @@
 				8900FA502201E9C200476310 /* ZBQueueViewController.mm in Sources */,
 				759A7BCD2496F39900F0C54F /* ZBButtonSettingsTableViewCell.m in Sources */,
 				499B0E30246B945B008825E4 /* ZBInfoTableViewCell.m in Sources */,
+				8903B866264F7351005B1098 /* ZBAppIconSettingsViewController.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
 				893CCD22256457A900656810 /* ZBSelectionViewController.m in Sources */,
 				75823619249E7DCA003713DD /* ZBOptionSubtitleSettingsTableViewCell.m in Sources */,
