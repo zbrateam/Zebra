@@ -29,6 +29,9 @@
         
         self.textView = [[UITextView alloc] init];
         self.textView.delegate = self;
+
+        self.textView.autocorrectionType = UITextAutocorrectionTypeNo;
+        self.textView.autocapitalizationType = UITextAutocapitalizationTypeNone;
     }
     
     return self;
