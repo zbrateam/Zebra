@@ -493,6 +493,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [config setString:[cacheDir stringByAppendingPathComponent:@"zebra.sources"] forKey:@"Plains::SourcesList"];
     [config setString:slingshotPath forKey:@"Dir::Bin::dpkg"];
     [config setString:slingshotPath forKey:@"Plains::Slingshot"];
+    [config setString:[NSString stringWithFormat:@"Zebra %@", PACKAGE_VERSION] forKey:@"Acquire::http::User-Agent"];
     
     NSString *extendedStatesPath = [@"/" stringByAppendingString:[[config stringForKey:@"Dir::State"] stringByAppendingPathComponent:@"extended_states"]];
     symlink(extendedStatesPath.UTF8String, [cacheDir stringByAppendingPathComponent:@"extended_states"].UTF8String);
