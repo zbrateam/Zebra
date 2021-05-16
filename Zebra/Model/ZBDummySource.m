@@ -12,6 +12,20 @@
 
 @implementation ZBDummySource
 
++ (NSSet <ZBDummySource *> *)baseSourcesFromURLs:(NSArray *)URLs {
+    NSMutableSet *baseSources = [NSMutableSet new];
+    
+    for (NSURL *URL in URLs) {
+        ZBDummySource *source = [[ZBDummySource alloc] initWithURL:URL];
+        
+        if (source) {
+            [baseSources addObject:source];
+        }
+    }
+    
+    return baseSources;
+}
+
 + (NSSet <ZBDummySource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **_Nullable)error {
     NSError *readError = NULL;
     NSString *sourceListContents = [NSString stringWithContentsOfURL:listLocation encoding:NSUTF8StringEncoding error:&readError];

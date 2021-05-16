@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *origin;
 @property NSString *UUID;
 @property ZBSourceVerificationStatus verificationStatus;
++ (NSSet <ZBDummySource *> *)baseSourcesFromURLs:(NSArray *)URLs;
 + (NSSet <ZBDummySource *> *)baseSourcesFromList:(NSURL *)listLocation error:(NSError **_Nullable)error;
 - (instancetype)initWithURL:(NSURL *)URL;
 - (void)verify:(nullable void (^)(ZBSourceVerificationStatus status))completion;

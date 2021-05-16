@@ -10,6 +10,7 @@
 
 #import <Extensions/ZBColor.h>
 #import <UI/Sources/ZBSourceImportViewController.h>
+#import <Model/ZBDummySource.h>
 
 @interface ZBSourceBulkAddViewController ()
 @property UITextView *textView;
@@ -73,30 +74,30 @@
 }
 
 - (void)verifySources {
-//    [_textView resignFirstResponder];
-//    
-//    NSError *detectorError = nil;
-//    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
-//    if (detectorError) {
-//        UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-//        
-//        [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
-//        
-//        [self presentViewController:errorPopup animated:YES completion:nil];
-//    } else {
-//        NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
-//        
-//        NSString *fullText = _textView.textStorage.string;
-//        [detector enumerateMatchesInString:fullText options:0 range:NSMakeRange(0, fullText.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
-//            if (result.resultType == NSTextCheckingTypeLink) {
-//                [detectedURLs addObject:result.URL];
-//            }
-//        }];
-//        
-//        NSSet *baseSources = [ZBBaseSource baseSourcesFromURLs:detectedURLs];
-//        ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithSources:baseSources];
-//        [self.navigationController pushViewController:importVC animated:YES];
-//    }
+    [_textView resignFirstResponder];
+    
+    NSError *detectorError = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:NSTextCheckingTypeLink error:&detectorError];
+    if (detectorError) {
+        UIAlertController *errorPopup = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"An Error Occurred", @"") message:detectorError.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
+        
+        [errorPopup addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil]];
+        
+        [self presentViewController:errorPopup animated:YES completion:nil];
+    } else {
+        NSMutableArray <NSURL *> *detectedURLs = [NSMutableArray new];
+        
+        NSString *fullText = _textView.textStorage.string;
+        [detector enumerateMatchesInString:fullText options:0 range:NSMakeRange(0, fullText.length) usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop) {
+            if (result.resultType == NSTextCheckingTypeLink) {
+                [detectedURLs addObject:result.URL];
+            }
+        }];
+        
+        NSSet *baseSources = [ZBDummySource baseSourcesFromURLs:detectedURLs];
+        ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithSources:baseSources];
+        [self.navigationController pushViewController:importVC animated:YES];
+    }
 }
 
 #pragma mark - Keyboard Notifications
