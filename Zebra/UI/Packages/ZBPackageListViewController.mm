@@ -128,6 +128,8 @@
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(databaseRefresh) name:PLDatabaseRefreshNotification object:nil];
+    
 //    if (self.source && !self.source.remote) {
 //        if (@available(iOS 13.0, *)) {
 //            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"star"] style:UIBarButtonItemStylePlain target:self action:@selector(showFavorites)];
@@ -145,8 +147,15 @@
     [self loadPackages];
 }
 
+- (void)databaseRefresh {
+    NSLog(@"Received Update Request");
+    _packages = NULL;
+    
+    NSLog(@"Refreshing Packages");
+    [self loadPackages];
+}
+
 - (void)loadPackages {
-    NSLog(@"[Zebra] Loading Packages");
     if (!self.isViewLoaded) return;
     
     [self showSpinner];

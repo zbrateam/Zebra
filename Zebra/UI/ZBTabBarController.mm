@@ -56,7 +56,8 @@
         sourceRefreshIndicator.color = [UIColor whiteColor];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateQueue:) name:PLQueueUpdateNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseUpdateNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseRefreshNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUpdates:) name:PLDatabaseImportNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRefreshIndicator) name:PLStartedSourceRefreshNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRefreshIndicator) name:PLFinishedSourceRefreshNotification object:nil];
     }
