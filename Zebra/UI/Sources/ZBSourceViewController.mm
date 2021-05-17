@@ -14,6 +14,8 @@
 
 #import <Model/PLPackage+Zebra.h>
 #import <Model/PLSource+Zebra.h>
+#import <Plains/Managers/PLPackageManager.h>
+#import <Plains/Managers/PLSourceManager.h>
 
 @interface ZBSourceViewController () {
     NSArray <NSString *> *sections;
@@ -48,6 +50,7 @@
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fetchSections) name:PLDatabaseRefreshNotification object:nil];
     [self fetchSections];
 }
 
@@ -63,7 +66,9 @@
     sections = tempSections;
     counts = tempCounts;
     
-    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
 }
 
 #pragma mark - Table view data source
