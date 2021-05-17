@@ -48,27 +48,27 @@ int main(int argc, char ** argv) {
   patch_setuidandplatformize();
   #endif
 
-  // struct stat template;
-  // if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
-  //   printf("THE TRUE AND NEO CHAOS!\n");
-  //   fflush(stdout);
-  //   return EX_NOPERM;
-  // }
-  // else {
-  //   pid_t pid = getppid();
+  struct stat template;
+  if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
+    printf("THE TRUE AND NEO CHAOS!\n");
+    fflush(stdout);
+    return EX_NOPERM;
+  }
+  else {
+    pid_t pid = getppid();
 
-  //   char buffer[PATH_MAX];
-  //   int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
+    char buffer[PATH_MAX];
+    int ret = proc_pidpath(pid, buffer, sizeof(buffer)); 
 
-  //   struct stat response;
-  //   stat(buffer, &response);
+    struct stat response;
+    stat(buffer, &response);
 
-  //   if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
-  //     printf("CHAOS, CHAOS!\n");
-  //     fflush(stdout);
-  //     return EX_NOPERM;
-  //   }
-  //   else {
+    if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
+      printf("CHAOS, CHAOS!\n");
+      fflush(stdout);
+      return EX_NOPERM;
+    }
+    else {
       setuid(0);
       setgid(0);
 
@@ -94,6 +94,6 @@ int main(int argc, char ** argv) {
       int result = execvp(argv[0], argv);
 
       return result;
-    // }
-  // }
+    }
+  }
 }
