@@ -1,5 +1,5 @@
 //
-//  ZBInstalledFilesTableViewController.h
+//  ZBPackageFilesViewController.h
 //  Zebra
 //
 //  Created by midnightchips on 7/13/19.
@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 #import <Tabs/Packages/Helpers/ZBPackageInfoController.h>
 
-@interface ZBInstalledFilesTableViewController : UITableViewController <ZBPackageInfoController>
+@interface ZBPackageFilesViewController : UITableViewController <ZBPackageInfoController>
 @end

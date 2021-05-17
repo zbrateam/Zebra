@@ -1,37 +1,37 @@
 //
-//  ZBInstalledFilesTableViewController.m
+//  ZBPackageFilesViewController.m
 //  Zebra
 //
 //  Created by midnightchips on 7/13/19.
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import "ZBInstalledFilesTableViewController.h"
+#import "ZBPackageFilesViewController.h"
 
 #import <Extensions/ZBColor.h>
-//#import <Plains/PLPackage.h>
+#import <Plains/Model/PLPackage.h>
 
-@interface ZBInstalledFilesTableViewController () {
+@interface ZBPackageFilesViewController () {
     NSMutableArray *files;
 }
-//@property (nonatomic, strong) PLPackage *package;
+@property (nonatomic, strong) PLPackage *package;
 @end
 
-@implementation ZBInstalledFilesTableViewController
+@implementation ZBPackageFilesViewController
 
-//- (id)initWithPackage:(PLPackage *)package {
-//    self = [super init];
-//
-//    if (self) {
-//        self.package = package;
-//    }
-//
-//    return self;
-//}
+- (id)initWithPackage:(PLPackage *)package {
+    self = [super init];
+
+    if (self) {
+        self.package = package;
+    }
+
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTableView) name:@"darkMode" object:nil];
+    
     files = [NSMutableArray new];
     [self getInstalledFiles];
     [self setTitle:NSLocalizedString(@"Installed Files", @"")];
@@ -39,29 +39,28 @@
 }
 
 - (void)getInstalledFiles {
-//    NSArray *installedFiles = [ZBPackage filesInstalledBy:self.package.identifier];
-//    installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
-//
-//    for (int i = 0; i < installedFiles.count; ++i) {
-//        NSString *file = installedFiles[i];
-//        if ([file isEqualToString:@"/."] || file.length == 0) {
-//            continue;
-//        }
-//
-//        NSArray *components = [file componentsSeparatedByString:@"/"];
-//        NSMutableString *displayStr = [NSMutableString new];
-//        for (int b = 0; b < components.count - 2; ++b) {
-//            [displayStr appendString:@"\t"]; // add tab character
-//        }
-//        if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
-//            [displayStr appendString:components[components.count - 1]];
-//        } else {
-//            [displayStr insertString:components[components.count - 1] atIndex:0];
-//        }
-//
-//        [files addObject:displayStr];
-//    }
-//    return @[];
+    NSArray *installedFiles = [self.package installedFiles];
+    installedFiles = [installedFiles sortedArrayUsingSelector:@selector(compare:)];
+
+    for (int i = 0; i < installedFiles.count; ++i) {
+        NSString *file = installedFiles[i];
+        if ([file isEqualToString:@"/."] || file.length == 0) {
+            continue;
+        }
+
+        NSArray *components = [file componentsSeparatedByString:@"/"];
+        NSMutableString *displayStr = [NSMutableString new];
+        for (int b = 0; b < components.count - 2; ++b) {
+            [displayStr appendString:@"\t"]; // add tab character
+        }
+        if ([UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight) {
+            [displayStr appendString:components[components.count - 1]];
+        } else {
+            [displayStr insertString:components[components.count - 1] atIndex:0];
+        }
+
+        [files addObject:displayStr];
+    }
 }
 
 - (void)reloadTableView {

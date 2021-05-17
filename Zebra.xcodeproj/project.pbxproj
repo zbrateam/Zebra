@@ -20,7 +20,7 @@
 		363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 363FE24E2287A1DD00B69929 /* ZBSourceAccountTableViewController.m */; };
 		3671B52222CB07F9008FD737 /* ZBHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3671B52122CB07F9008FD737 /* ZBHomeViewController.m */; };
 		367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */; };
-		369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */; };
+		369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */; };
 		36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FA230A1616002694BE /* ZBUserInfo.m */; };
 		36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D8FF230A485B002694BE /* ZBRedditPosts.m */; };
 		36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */; };
@@ -237,8 +237,8 @@
 		3671B52122CB07F9008FD737 /* ZBHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBHomeViewController.m; sourceTree = "<group>"; };
 		367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsViewController.m; sourceTree = "<group>"; };
 		367D80F422C3D1CF00581D60 /* ZBSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBSettingsViewController.h; sourceTree = "<group>"; };
-		369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBInstalledFilesTableViewController.h; sourceTree = "<group>"; };
-		369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBInstalledFilesTableViewController.m; sourceTree = "<group>"; };
+		369CF11122DA2361007EA0F7 /* ZBPackageFilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageFilesViewController.h; sourceTree = "<group>"; };
+		369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageFilesViewController.mm; sourceTree = "<group>"; };
 		36A1D8F9230A1616002694BE /* ZBUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBUserInfo.h; sourceTree = "<group>"; };
 		36A1D8FA230A1616002694BE /* ZBUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBUserInfo.m; sourceTree = "<group>"; };
 		36A1D8FF230A485B002694BE /* ZBRedditPosts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBRedditPosts.m; sourceTree = "<group>"; };
@@ -641,6 +641,8 @@
 				49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */,
 				898F4CD2246EFFEC00FC577B /* ZBPackageSupportViewController.h */,
 				898F4CD3246EFFEC00FC577B /* ZBPackageSupportViewController.mm */,
+				369CF11122DA2361007EA0F7 /* ZBPackageFilesViewController.h */,
+				369CF11222DA2361007EA0F7 /* ZBPackageFilesViewController.mm */,
 			);
 			path = Packages;
 			sourceTree = "<group>";
@@ -888,8 +890,6 @@
 		896F11C521B231AF0017B581 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				369CF11122DA2361007EA0F7 /* ZBInstalledFilesTableViewController.h */,
-				369CF11222DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m */,
 				894893EC2471C83100E2FF97 /* ZBPackageChangelogTableViewController.h */,
 				894893ED2471C83100E2FF97 /* ZBPackageChangelogTableViewController.m */,
 			);
@@ -1424,7 +1424,7 @@
 				8916AC2323CAAECC008BA02C /* ZBChangelogViewController.m in Sources */,
 				759A7BAF2496E00E00F0C54F /* ZBSwitchSettingsTableViewCell.m in Sources */,
 				89FBA8532643721500F97910 /* PLSource+Zebra.mm in Sources */,
-				369CF11322DA2361007EA0F7 /* ZBInstalledFilesTableViewController.m in Sources */,
+				369CF11322DA2361007EA0F7 /* ZBPackageFilesViewController.mm in Sources */,
 				367D80F522C3D1CF00581D60 /* ZBSettingsViewController.m in Sources */,
 				8937495B248603D700CE0520 /* ZBSourceAddViewController.mm in Sources */,
 				8916AC1623CA947C008BA02C /* ZBRightIconTableViewCell.m in Sources */,

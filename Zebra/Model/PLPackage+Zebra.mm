@@ -91,11 +91,11 @@
     if (installed) {
         NSString *installedSize = self.installedSizeString;
         if (installedSize) { // Show the installed size
-            NSMutableDictionary *installedSizeInfo = [@{@"name": NSLocalizedString(@"Size", @""), @"value": installedSize, @"cellType": @"info", @"class": @"ZBInstalledFilesTableViewController"} mutableCopy];
+            NSMutableDictionary *installedSizeInfo = [@{@"name": NSLocalizedString(@"Size", @""), @"value": installedSize, @"cellType": @"info", @"class": @"ZBPackageFilesViewController"} mutableCopy];
             [information addObject:installedSizeInfo];
         }
         else { // Package is installed but has no installed size, just display installed files
-            NSMutableDictionary *installedFilesInfo = [@{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @"ZBInstalledFilesTableViewController"} mutableCopy];
+            NSMutableDictionary *installedFilesInfo = [@{@"name": NSLocalizedString(@"Installed Files", @""), @"cellType": @"info", @"class": @"ZBPackageFilesViewController"} mutableCopy];
             [information addObject:installedFilesInfo];
         }
     }
