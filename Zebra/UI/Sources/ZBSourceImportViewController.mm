@@ -24,6 +24,7 @@
     double individualIncrement;
     NSUInteger sourcesToVerify;
     PLSourceManager *sourceManager;
+    NSMutableArray *addedSourceUUIDs;
 }
 @property NSArray <ZBDummySource *> *baseSources;
 @property NSMutableDictionary <NSString *, NSString *> *titles;
@@ -271,6 +272,10 @@
 
 - (void)processSourcesFromLists {
     NSMutableSet *baseSourcesSet = [NSMutableSet new];
+    NSMutableArray *addedSourceUUIDs = [NSMutableArray new];
+    for (PLSource *source in [[PLSourceManager sharedInstance] sources]) {
+        [addedSourceUUIDs addObject:source.UUID];
+    }
 
     for (NSURL *sourcesLocation in self.sourceFilesToImport) {
         NSError *error = nil;
@@ -280,8 +285,11 @@
             break;
         }
     }
-
-    [baseSourcesSet minusSet:[ZBDummySource baseSourcesFromList:[ZBAppDelegate sourcesListURL] error:nil]];
+    for (ZBDummySource *source in baseSourcesSet.copy) {
+        if ([addedSourceUUIDs containsObject:source.UUID]) {
+            [baseSourcesSet removeObject:source];
+        }
+    }
 
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"repositoryURI" ascending:YES];
     self.baseSources = [[baseSourcesSet allObjects] sortedArrayUsingDescriptors:@[sortDescriptor]];

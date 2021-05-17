@@ -99,7 +99,7 @@
             if ([_components count]) return NULL; // If you have components and a / at the end of your distribution, your source is malformed
             
             NSURL *baseURL = [NSURL URLWithString:_repositoryURI];
-            mainDirectoryURL = [NSURL URLWithString:_distribution relativeToURL:baseURL];
+            mainDirectoryURL = [baseURL URLByAppendingPathComponent:_distribution];
             
             packagesDirectoryURL = mainDirectoryURL;
         }
@@ -389,7 +389,7 @@
         repositoryURIHash = [[self.repositoryURI stringByReplacingOccurrencesOfString:@"https:" withString:@""] hash];
     }
     
-    return [self.archiveType hash] + repositoryURIHash + [self.distribution hash] + [self.components hash];
+    return [self.archiveType hash] ^ repositoryURIHash ^ [self.distribution hash] ^ [self.components hash];
 }
 
 @end
