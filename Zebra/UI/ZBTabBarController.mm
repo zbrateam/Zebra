@@ -292,7 +292,11 @@
     UIKeyCommand *search = [UIKeyCommand keyCommandWithInput:@"4" modifierFlags:UIKeyModifierCommand action:@selector(searchTab)];
     search.discoverabilityTitle = @"Switch to Search";
 
-    return @[home, sources, installed, search];
+    // escape key
+    UIKeyCommand *back = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(backShortcut)];
+    back.discoverabilityTitle = NSLocalizedString(@"Back", @"");
+
+    return @[home, sources, installed, search, back];
 }
 
 - (void)homeTab {
@@ -309,6 +313,10 @@
 
 - (void)searchTab {
     self.selectedIndex = 3;
+}
+
+- (void)backShortcut {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

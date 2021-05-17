@@ -485,7 +485,11 @@
     UIKeyCommand *settings = [UIKeyCommand keyCommandWithInput:@"5" modifierFlags:UIKeyModifierCommand action:@selector(settingsTab)];
     settings.discoverabilityTitle = NSLocalizedString(@"Switch to Settings", @"");
 
-    return @[search, home, sources, installed, queue, settings];
+    // escape key
+    UIKeyCommand *back = [UIKeyCommand keyCommandWithInput:@"\e" modifierFlags:0 action:@selector(backButton:)];
+    back.discoverabilityTitle = NSLocalizedString(@"Back", @"");
+
+    return @[search, home, sources, installed, queue, settings, back];
 }
 
 - (void)focusSearch {
