@@ -177,12 +177,15 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [self updateQueueBarPackageCount];
         
-        LNPopupPresentationState state = self.popupPresentationState;
-        if (state != LNPopupPresentationStateOpen) {
-            [self openQueue:NO];
-        }
-        else {
-            [[self popupBar] setNeedsLayout];
+        if (self->queueCount == 0) {
+            [self closeQueue];
+        } else {
+            LNPopupPresentationState state = self.popupPresentationState;
+            if (state != LNPopupPresentationStateOpen) {
+                [self openQueue:NO];
+            } else {
+                [[self popupBar] setNeedsLayout];
+            }
         }
     });
 }
@@ -219,14 +222,24 @@
     });
 }
 
+- (void)closeQueue {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        LNPopupPresentationState state = self.popupPresentationState;
+        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented) {
+            [self dismissPopupBarAnimated:YES completion:^{
+                self.popupController = nil;
+            }];
+        }
+    });
+}
+
 - (void)handleHoldGesture:(UILongPressGestureRecognizer *)gesture {
     if (UIGestureRecognizerStateBegan == gesture.state) {
         UIAlertController *clearQueue = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Clear Queue", @"") message:NSLocalizedString(@"Are you sure you want to clear the Queue?", @"") preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *yesAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
-            //TODO: Make this work with new queue
-//            [[ZBQueue sharedQueue] clear];
+            [[PLQueue sharedInstance] clear];
         }];
         [clearQueue addAction:yesAction];
         
@@ -236,19 +249,6 @@
         [self presentViewController:clearQueue animated:YES completion:nil];
     }
     
-}
-
-- (void)closeQueue {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        LNPopupPresentationState state = self.popupPresentationState;
-        if (state == LNPopupPresentationStateOpen || state == LNPopupPresentationStateBarPresented) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBDatabaseCompletedUpdate" object:nil];
-            [self dismissPopupBarAnimated:YES completion:^{
-                self.popupController = nil;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ZBUpdateNavigationButtons" object:nil];
-            }];
-        }
-    });
 }
 
 - (void)requestSourceRefresh {
