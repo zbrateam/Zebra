@@ -30,6 +30,9 @@
     
     if (self) {
         self.title = @"Console";
+        
+        self.navigationController.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     }
     
     return self;
@@ -50,7 +53,7 @@
     [self.view addSubview:consoleView];
     
     completeButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    completeButton.backgroundColor = [UIColor systemPinkColor];
+    completeButton.backgroundColor = [ZBColor accentColor];
     completeButton.layer.cornerRadius = 10;
     completeButton.layer.masksToBounds = YES;
     completeButton.hidden = YES;
@@ -60,7 +63,7 @@
     [self.view addSubview:completeButton];
     
     progressView = [[UIProgressView alloc] init];
-    progressView.tintColor = [UIColor systemPinkColor];
+    progressView.tintColor = [ZBColor accentColor];
     
     [self.view addSubview:progressView];
     
@@ -149,6 +152,14 @@
 - (void)progressUpdate:(CGFloat)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->progressView setProgress:progress];
+        
+        if (progress >= 1.0) {
+            [UIView animateWithDuration:0.4 animations:^{
+                self->progressView.alpha = 0.0;
+            } completion:^(BOOL finished) {
+                self->progressView.hidden = YES;
+            }];
+        }
     });
 }
 
