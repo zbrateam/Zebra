@@ -152,14 +152,6 @@
 - (void)progressUpdate:(CGFloat)progress {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self->progressView setProgress:progress];
-        
-        if (progress >= 1.0) {
-            [UIView animateWithDuration:0.4 animations:^{
-                self->progressView.alpha = 0.0;
-            } completion:^(BOOL finished) {
-                self->progressView.hidden = YES;
-            }];
-        }
     });
 }
 
@@ -181,6 +173,12 @@
     [[PLPackageManager sharedInstance] import];
     [self writeToConsole:@"Finished." atLevel:PLLogLevelStatus];
     dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.4 animations:^{
+            self->progressView.alpha = 0.0;
+        } completion:^(BOOL finished) {
+            self->progressView.hidden = YES;
+        }];
+        
         self->completeButton.hidden = NO;
         [self->completeButton setTitle:@"Done" forState:UIControlStateNormal];
     });
