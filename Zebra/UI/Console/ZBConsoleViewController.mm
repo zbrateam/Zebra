@@ -91,7 +91,7 @@
     [super viewDidAppear:animated];
     
     self.navigationItem.hidesBackButton = YES;
-    [[PLPackageManager sharedInstance] startDownloads:self];
+    [[PLPackageManager sharedInstance] downloadAndPerform:self];
 }
 
 - (void)writeToConsole:(NSString *)str atLevel:(PLLogLevel)level {
@@ -144,7 +144,7 @@
 #pragma mark - Plains Acquire Delegate
 
 - (void)startedDownloads {
-//    [self writeToConsole:@"Started Downloads." atLevel:PLLogLevelStatus];
+    [self writeToConsole:@"Downloading Packages." atLevel:PLLogLevelStatus];
 }
 
 - (void)progressUpdate:(CGFloat)progress {
@@ -158,15 +158,15 @@
 }
 
 - (void)finishedDownloads {
-//    [self writeToConsole:@"Finished Downloads." atLevel:PLLogLevelStatus];
+    [self writeToConsole:@"Downloads Complete." atLevel:PLLogLevelStatus];
 }
 
 - (void)startedInstalls {
-//    [self writeToConsole:message atLevel:PLLogLevelStatus];
+    [self writeToConsole:@"Performing Actions." atLevel:PLLogLevelStatus];
 }
 
 - (void)finishedInstalls {
-//    [self writeToConsole:@"Finished Installs." atLevel:PLLogLevelStatus];
+    [self writeToConsole:@"Finished." atLevel:PLLogLevelStatus];
     dispatch_async(dispatch_get_main_queue(), ^{
         self->completeButton.hidden = NO;
         [self->completeButton setTitle:@"Done" forState:UIControlStateNormal];
