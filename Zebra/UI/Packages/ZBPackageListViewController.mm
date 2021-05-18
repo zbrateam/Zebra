@@ -148,10 +148,9 @@
 }
 
 - (void)databaseRefresh {
-    NSLog(@"Received Update Request");
     _packages = NULL;
+    _updates = NULL;
     
-    NSLog(@"Refreshing Packages");
     [self loadPackages];
 }
 
@@ -201,7 +200,7 @@
             }
         } else {
             [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
-                return package.installed;
+                return package.installed && package.role < 5;
             } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
                 self.packages = packages;
                 self.updates = self->database.updates;
@@ -370,15 +369,6 @@
 
 - (UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source {
     return [[ZBPartialPresentationController alloc] initWithPresentedViewController:presented presentingViewController:presenting scale:0.52];
-}
-
-#pragma mark - Source Delegate
-
-- (void)finishedSourceRefresh {
-    _packages = NULL;
-//    updates = NULL;
-    
-//    [self loadPackages];
 }
 
 @end
