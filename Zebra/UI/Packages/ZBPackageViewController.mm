@@ -21,6 +21,7 @@
 #import <UI/ZBSidebarController.h>
 
 #import <Model/PLPackage+Zebra.h>
+#import <Plains/Managers/PLPackageManager.h>
 
 #import <SDWebImage/SDWebImage.h>
 
@@ -79,6 +80,8 @@
     [self setData];
     [self configureDepictionVC];
     [self registerTableViewCells];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updatePackage) name:PLDatabaseRefreshNotification object:nil];
     
 #if TARGET_OS_MACCATALYST
     self.scrollView.contentInset = UIEdgeInsetsMake(24, 0, 0, 0);
@@ -149,6 +152,16 @@
     // Information Table View
     [self.informationTableView setBackgroundColor:[ZBColor systemBackgroundColor]];
     [self.informationTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)updatePackage {
+    self.package = [[PLPackageManager sharedInstance] findPackage:self.package];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setData];
+        [self configureDepictionVC];
+        [self configureGetButtons];
+    });
 }
 
 - (void)setData {
