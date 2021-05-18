@@ -71,7 +71,9 @@
     if ([self isViewLoaded]) {
         self->packages = queue.queuedPackages;
         self->issues = queue.issues;
-        [self reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self reloadData];
+        });
     }
 }
 
