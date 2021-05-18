@@ -140,6 +140,7 @@
 
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
+    [self.moreButton setAlpha:0.0]; // This is temporary, I'll replace it once more parts of the "extra action" system have been reimpl
     [self configureGetButtons];
     
     // Image Header
