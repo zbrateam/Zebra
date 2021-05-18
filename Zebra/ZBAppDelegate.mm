@@ -243,12 +243,51 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     } else {
         [self setupTabBar];
     }
+    
+    UIDropInteraction *dropInteraction = [[UIDropInteraction alloc] initWithDelegate:self];
+    [self.window addInteraction:dropInteraction];
 }
 
 - (void)setupTabBar {
     ZBTabBarController *tabBar = [[ZBTabBarController alloc] init];
     
     self.window.rootViewController = tabBar;
+}
+
+- (BOOL)dropInteraction:(UIDropInteraction *)interaction canHandleSession:(id<UIDropSession>)session {
+    NSArray *identifiers = @[@"org.debian.deb-archive", @"org.debian.sources-list", @"org.debian.sources-file"];
+    return [session hasItemsConformingToTypeIdentifiers:identifiers] && session.items.count == 1;
+}
+
+- (UIDropProposal *)dropInteraction:(UIDropInteraction *)interaction sessionDidUpdate:(id<UIDropSession>)session {
+    return [[UIDropProposal alloc] initWithDropOperation:UIDropOperationCopy];
+}
+
+- (void)dropInteraction:(UIDropInteraction *)interaction performDrop:(id<UIDropSession>)session {
+    UIDragItem *item = session.items.firstObject; // This can be modified to support more than one item but for now I'm leaving it with just one
+    if ([item.itemProvider hasItemConformingToTypeIdentifier:@"org.debian.sources-list"]) {
+        [item.itemProvider loadItemForTypeIdentifier:@"org.debian.sources-list" options:nil completionHandler:^(__kindof id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+            [self handleSourceImport:(NSURL *)item];
+        }];
+    } else if ([item.itemProvider hasItemConformingToTypeIdentifier:@"org.debian.sources-file"]) {
+        [item.itemProvider loadItemForTypeIdentifier:@"org.debian.sources-group" options:nil completionHandler:^(__kindof id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+            [self handleSourceImport:(NSURL *)item];
+        }];
+    } else if ([item.itemProvider hasItemConformingToTypeIdentifier:@"org.debian.deb-archive"]) {
+        [item.itemProvider loadItemForTypeIdentifier:@"org.debian.deb-archive" options:nil completionHandler:^(__kindof id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
+            NSURL *url = (NSURL *)item;
+            NSLog(@"url: %@", url);
+        }];
+    }
+}
+
+- (void)handleSourceImport:(NSURL *)url {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithPaths:@[url]];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:importVC];
+        
+        [self.window.rootViewController presentViewController:nav animated:YES completion:nil];
+    });
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
@@ -282,10 +321,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 //            }
             
             if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
-                ZBSourceImportViewController *importVC = [[ZBSourceImportViewController alloc] initWithPaths:@[url]];
-                UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:importVC];
-                
-                [self.window.rootViewController presentViewController:nav animated:YES completion:nil];
+                [self handleSourceImport:url];
             }
             break;
         }
