@@ -132,7 +132,6 @@
 		89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89BAE2ED261A8F1D0063BA22 /* PLPackage+Zebra.mm */; };
 		89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C4244C24411C1100FE5ED8 /* UIAlertController+Zebra.m */; };
 		89C5FDE221B1B13700A10E58 /* ZBAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */; };
-		89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE621B1B13700A10E58 /* Main.storyboard */; };
 		89C5FDEA21B1B13800A10E58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDE921B1B13800A10E58 /* Assets.xcassets */; };
 		89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */; };
 		89C5FDF021B1B13800A10E58 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C5FDEF21B1B13800A10E58 /* main.m */; };
@@ -447,7 +446,6 @@
 		89C5FDDD21B1B13700A10E58 /* Zebra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zebra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89C5FDE021B1B13700A10E58 /* ZBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAppDelegate.h; sourceTree = "<group>"; };
 		89C5FDE121B1B13700A10E58 /* ZBAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBAppDelegate.mm; sourceTree = "<group>"; };
-		89C5FDE721B1B13700A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		89C5FDE921B1B13800A10E58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89C5FDEC21B1B13800A10E58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C5FDEE21B1B13800A10E58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -956,7 +954,6 @@
 				89FEBC1B22C293E100B58662 /* Tabs */,
 				89337A2F253652D50065C4C1 /* UI */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
-				89C5FDE621B1B13700A10E58 /* Main.storyboard */,
 				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
 				00ED302C235C23C5005E8302 /* Localizable.strings */,
@@ -1326,7 +1323,6 @@
 				49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */,
-				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1471,14 +1467,6 @@
 				8980216A246A550A003FCD9A /* ms */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		89C5FDE621B1B13700A10E58 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				89C5FDE721B1B13700A10E58 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */ = {
