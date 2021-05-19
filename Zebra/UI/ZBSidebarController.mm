@@ -16,6 +16,7 @@
 #import <UI/Settings/ZBSettingsViewController.h>
 
 #import <ZBSettings.h>
+#import <Extensions/ZBColor.h>
 
 #import <Plains/Queue/PLQueue.h>
 #import <Plains/Managers/PLPackageManager.h>
@@ -199,6 +200,7 @@
     cell.textLabel.text = tabItem.title;
     cell.imageView.image = tabItem.image;
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.tintColor = [ZBColor accentColor];
         
     if (indexPath.row == 1) {
         
