@@ -196,13 +196,13 @@
     return 0.0f;
 }
 
-- (UIColor *)blendWithColor:(UIColor *)color2 progress:(CGFloat)progress {
++ (UIColor *)blendColor:(UIColor *)color1 WithColor:(UIColor *)color2 progress:(CGFloat)progress {
     // Partially from https://stackoverflow.com/a/34077839
     
     progress = MIN(1.0, MAX(0.0, progress));
     
     CGFloat r1, g1, b1, r2, g2, b2;
-    [self   getRed:&r1 green:&g1 blue:&b1 alpha:nil];
+    [color1 getRed:&r1 green:&g1 blue:&b1 alpha:nil];
     [color2 getRed:&r2 green:&g2 blue:&b2 alpha:nil];
     
     CGFloat newRed   = (1.0 - progress) * r1 + progress * r2;

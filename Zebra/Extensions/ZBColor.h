@@ -30,5 +30,5 @@
 + (UIColor *)tertiaryLabelColor;
 + (UIColor *)imageBorderColor;
 + (NSString *)hexStringFromColor:(UIColor *)color;
-- (UIColor *)blendWithColor:(UIColor *)color2 progress:(CGFloat)progress;
++ (UIColor *)blendColor:(UIColor *)color1 WithColor:(UIColor *)color2 progress:(CGFloat)progress;
 @end
