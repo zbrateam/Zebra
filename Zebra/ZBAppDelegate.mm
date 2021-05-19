@@ -486,10 +486,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     config = [PLConfig sharedInstance];
     
 #if TARGET_OS_MACCATALYST || TARGET_OS_SIMULATOR
-    NSString *slingshotPath = @"/opt/procursus/libexec/zebra/supersling";
+    NSString *slingshotPath = [NSString stringWithFormat:@"/opt/procursus/libexec/%@/supersling", LIBEXEC_FOLDER];
     NSString *homeDirectory = NSHomeDirectory();
 #else
-    NSString *slingshotPath = @"/usr/libexec/zebra/supersling";
+    NSString *slingshotPath = [NSString stringWithFormat:@"/usr/libexec/%@/supersling", LIBEXEC_FOLDER];
     NSString *homeDirectory = @"/var/mobile";
 #endif
     

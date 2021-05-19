@@ -1,4 +1,3 @@
-ALPHA ?= 0
 BETA ?= 0
 
 ifeq ($(PLATFORM), mac)
@@ -8,21 +7,18 @@ export TARGET = iphone:latest:11.0
 export ARCHS = arm64
 endif
 
-ifneq ($(ALPHA),0)
-PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebralpha
-BUNDLE_IDENTIFIER = xyz.willy.zebralpha
-APP_NAME = "Zebra-Alpha"
-NAME = Zebra (ALPHA)
-else ifneq ($(BETA),0)
-export PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebeta
-export BUNDLE_IDENTIFIER = xyz.willy.zebeta
+ifneq ($(BETA),0)
+PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebeta
+BUNDLE_IDENTIFIER = xyz.willy.zebeta
 APP_NAME = "Zebra-Beta"
 NAME = Zebra (BETA)
+export LIBEXEC_FOLDER = zebeta
 else
-export PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra
-export BUNDLE_IDENTIFIER = xyz.willy.zebra
+PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra
+BUNDLE_IDENTIFIER = xyz.willy.zebra
 APP_NAME = "Zebra"
 NAME = Zebra
+export LIBEXEC_FOLDER = zebra
 endif
 
 INSTALL_TARGET_PROCESSES = Zebra
@@ -31,7 +27,7 @@ include $(THEOS)/makefiles/common.mk
 
 XCODEPROJ_NAME = Zebra
 
-Zebra_XCODEFLAGS = PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER) APP_NAME=$(APP_NAME)
+Zebra_XCODEFLAGS = PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' PRODUCT_BUNDLE_IDENTIFIER=$(PRODUCT_BUNDLE_IDENTIFIER) APP_NAME=$(APP_NAME) LIBEXEC_FOLDER='@\"$(LIBEXEC_FOLDER)\"'
 Zebra_CODESIGN_FLAGS = -SZebra/iOS.entitlements
 
 before-stage::
@@ -40,12 +36,7 @@ before-stage::
 
 include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
-# Need to do something here to make supersling and relaunch installable from the alpha/beta
-ifeq ($(ALPHA), 0)
-	ifeq ($(BETA), 0)
-		SUBPROJECTS = Supersling Relaunch
-	endif
-endif
+SUBPROJECTS = Supersling #Relaunch
 
 clean::
 	$(ECHO_NOTHING)rm -f control$(ECHO_END)

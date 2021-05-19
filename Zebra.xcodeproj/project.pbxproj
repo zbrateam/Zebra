@@ -1608,6 +1608,7 @@
 					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
 					"DEBUG=1",
 					"$(inherited)",
+					"LIBEXEC_FOLDER=$(LIBEXEC_FOLDER)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/Zebra\"",
@@ -1621,6 +1622,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBEXEC_FOLDER = "'@\"zebra\"'";
 				MARKETING_VERSION = "2.0~alpha";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
@@ -1656,7 +1658,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Vendor",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = "PACKAGE_VERSION=$(PACKAGE_VERSION)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"PACKAGE_VERSION=$(PACKAGE_VERSION)",
+					"LIBEXEC_FOLDER=$(LIBEXEC_FOLDER)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"\"${SRCROOT}/Zebra\"",
 					"\"${SRCROOT}/Vendor/plains/Plains\"",
@@ -1669,6 +1674,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBEXEC_FOLDER = "'@\"zebra\"'";
 				MARKETING_VERSION = "2.0~alpha";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";

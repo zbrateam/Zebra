@@ -323,7 +323,8 @@
         CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;
         CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
 
-        UIColor *blendedColor = [[UIColor whiteColor] blendWithColor:[ZBColor accentColor] progress:opacity];
+        ZBColor *whiteColor = [ZBColor whiteColor];
+        UIColor *blendedColor = [whiteColor blendWithColor:[ZBColor accentColor] progress:opacity];
 
         self.navigationController.navigationBar.tintColor = blendedColor;
 
