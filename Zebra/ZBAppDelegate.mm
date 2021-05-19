@@ -275,8 +275,7 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         }];
     } else if ([item.itemProvider hasItemConformingToTypeIdentifier:@"org.debian.deb-archive"]) {
         [item.itemProvider loadItemForTypeIdentifier:@"org.debian.deb-archive" options:nil completionHandler:^(__kindof id<NSSecureCoding>  _Nullable item, NSError * _Null_unspecified error) {
-            NSURL *url = (NSURL *)item;
-            NSLog(@"url: %@", url);
+            [[PLQueue sharedInstance] queueLocalPackage:(NSURL *)item];
         }];
     }
 }
