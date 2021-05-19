@@ -3,6 +3,6 @@
 # Verify supersling permissions
 chown root:wheel /usr/libexec/zebra/supersling
 chmod 6755 /usr/libexec/zebra/supersling
-
-# Setup relaunch Launch Daemon
-launchctl load /Library/LaunchDaemons/xyz.willy.Zebra.Relaunch.plist
+# I don't like this but apparently my theos fakeroot doesn't work and hasn't for awhile
+chown root:wheel /usr/libexec/zebeta/supersling
+chmod 6755 /usr/libexec/zebeta/supersling

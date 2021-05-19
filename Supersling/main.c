@@ -48,9 +48,13 @@ int main(int argc, char ** argv) {
   patch_setuidandplatformize();
   #endif
 
+  char appPath[PATH_MAX];
+  sprintf(appPath, "/Applications/%s.app/%s", APP_NAME, APP_NAME);
+  syslog(LOG_WARNING, "[Supersling] App Path: %s.", appPath);
+
   struct stat template;
-  if (lstat("/Applications/Zebra.app/Zebra", &template) == -1) {
-    printf("THE TRUE AND NEO CHAOS!\n");
+  if (lstat(appPath, &template) == -1) {
+    syslog(LOG_ERR, "[Supersling] THE TRUE AND NEO CHAOS!\n");
     fflush(stdout);
     return EX_NOPERM;
   }
@@ -64,7 +68,7 @@ int main(int argc, char ** argv) {
     stat(buffer, &response);
 
     if (ret < 1 || (template.st_dev != response.st_dev || template.st_ino != response.st_ino)) {
-      printf("CHAOS, CHAOS!\n");
+      syslog(LOG_ERR, "[Supersling] CHAOS, CHAOS!\n");
       fflush(stdout);
       return EX_NOPERM;
     }
@@ -73,7 +77,7 @@ int main(int argc, char ** argv) {
       setgid(0);
 
       if (getuid() != 0 || getgid() != 0) {
-        printf("WHO KEEPS SPINNING THE WORLD AROUND?\n");
+        syslog(LOG_ERR, "[Supersling] WHO KEEPS SPINNING THE WORLD AROUND?\n");
         fflush(stdout);
         return EX_NOPERM;
       }

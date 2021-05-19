@@ -10,13 +10,13 @@ endif
 ifneq ($(BETA),0)
 PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebeta
 BUNDLE_IDENTIFIER = xyz.willy.zebeta
-APP_NAME = "Zebra-Beta"
+export APP_NAME = "Zebra-Beta"
 NAME = Zebra (BETA)
 export LIBEXEC_FOLDER = zebeta
 else
 PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra
 BUNDLE_IDENTIFIER = xyz.willy.zebra
-APP_NAME = "Zebra"
+export APP_NAME = "Zebra"
 NAME = Zebra
 export LIBEXEC_FOLDER = zebra
 endif
