@@ -91,6 +91,19 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if (!self.package) {
+        UIAlertController *cannotFind = [UIAlertController alertControllerWithTitle:@"Package Not Found" message:@"This package can no longer be found in your current sources. It could have been removed." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"Ok" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [cannotFind addAction:action];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:cannotFind animated:YES completion:nil];
+        });
+        return;
+    }
+    
     [self updateNavigationBarBackgroundOpacityForCurrentScrollOffset];
 }
 
@@ -157,6 +170,9 @@
 
 - (void)updatePackage {
     self.package = [[PLPackageManager sharedInstance] findPackage:self.package];
+    
+    if (!self.package)
+        return;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setData];
