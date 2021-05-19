@@ -1,12 +1,12 @@
 Architecture: iphoneos-arm
 Version: 2.0~alpha1
-Depends: dpkg, uikittools, firmware (>= 11.0)
+Depends: uikittools, firmware (>= 12.0), libapt-pkg6.0 (>= 2.2.0)
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
 Section: Packaging
 Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
 Description: A Useful Package Manager
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
-Tag: compatible_min::ios11.0, compatible_max::ios14.3
+Tag: compatible_min::ios12.0, compatible_max::ios14.5
 Package: xyz.willy.zebra
 Name: Zebra

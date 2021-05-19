@@ -117,6 +117,7 @@
 }
 
 - (void)hideRefreshIndicator {
+    [ZBSettings updateLastSourceUpdate];
     [self setSourceRefreshIndicatorVisible:NO];
 }
 

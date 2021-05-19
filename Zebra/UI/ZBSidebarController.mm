@@ -397,6 +397,8 @@
 }
 
 - (void)hideRefreshIndicator {
+    [ZBSettings updateLastSourceUpdate];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         UITableViewCell *cell = [self->sidebarTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
         cell.accessoryView = NULL;
@@ -448,22 +450,18 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    if (searchResults.count == 1) {
-        
-    } else {
-        ZBPackageListViewController *results = [[ZBPackageListViewController alloc] initWithPackages:searchResults];
-        results.title = [NSString stringWithFormat:@"Results for \"%@\"", searchBar.text];
-        
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:results];
+    ZBPackageListViewController *results = [[ZBPackageListViewController alloc] initWithPackages:searchResults];
+    results.title = [NSString stringWithFormat:@"Results for \"%@\"", searchBar.text];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:results];
 #if TARGET_OS_MACCATALYST
-        [navController setDelegate:self];
-        [navController setNavigationBarHidden:YES animated:NO];
+    [navController setDelegate:self];
+    [navController setNavigationBarHidden:YES animated:NO];
 #endif
-        
-        [self setViewController:navController forColumn:UISplitViewControllerColumnSecondary];
-        
-        [searchBar resignFirstResponder];
-    }
+    
+    [self setViewController:navController forColumn:UISplitViewControllerColumnSecondary];
+    
+    [searchBar resignFirstResponder];
 }
 
 #pragma mark - Keyboard Shortcuts
@@ -551,7 +549,7 @@
     }
     
     if (userRequested || needsUpdate) {
-//        [[PLSourceManager sharedInstance] refreshSources];
+        [[PLSourceManager sharedInstance] refreshSources];
     }
 }
 
