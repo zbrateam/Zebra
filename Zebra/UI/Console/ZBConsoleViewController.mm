@@ -86,6 +86,7 @@
 }
 
 - (void)complete {
+    [[PLQueue sharedInstance] clear];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -169,7 +170,6 @@
 
 - (void)finishedInstalls {
     [self writeToConsole:@"Reloading package lists." atLevel:PLLogLevelStatus];
-    [[PLQueue sharedInstance] clear];
     [[PLPackageManager sharedInstance] import];
     [self writeToConsole:@"Finished." atLevel:PLLogLevelStatus];
     dispatch_async(dispatch_get_main_queue(), ^{
