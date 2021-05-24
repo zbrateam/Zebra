@@ -18,7 +18,9 @@
 typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     ZBConsoleFinishOptionClose,
     ZBConsoleFinishOptionRefreshIconCache,
+    ZBConsoleFinishOptionReopen,
     ZBConsoleFinishOptionRestartSpringBoard,
+    ZBConsoleFinishOptionReload,
     ZBConsoleFinishOptionRebootDevice
 };
 
@@ -92,11 +94,6 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     completeButton.translatesAutoresizingMaskIntoConstraints = NO;
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     consoleView.translatesAutoresizingMaskIntoConstraints = NO;
-}
-
-- (void)complete {
-    [[PLQueue sharedInstance] clear];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -178,6 +175,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
             NSString *option = [components[1] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
             NSArray *options = @[@"return", @"uicache", @"reopen", @"restart", @"reload", @"reboot"];
             NSUInteger index = [options indexOfObject:option];
+            
             if (index != NSNotFound && index > finishOption) {
                 finishOption = (ZBConsoleFinishOption)index;
             }
@@ -215,7 +213,12 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
         NSString *title;
         SEL action;
         switch (self->finishOption) {
+            case ZBConsoleFinishOptionReopen:
+                title = @"Restart Zebra";
+                action = @selector(restartZebra);
+                break;
             case ZBConsoleFinishOptionRestartSpringBoard:
+            case ZBConsoleFinishOptionReload:
                 title = @"Restart SpringBoard";
                 action = @selector(restartSpringBoard);
                 break;
@@ -237,15 +240,31 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 
 #pragma mark - Finish Actions
 
+- (void)complete {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)refreshIconCache {
     NSMutableArray *installedAppsNow = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Applications" error:nil] mutableCopy];
     for (NSString *path in installedApps) {
         [installedAppsNow removeObject:path];
     }
+
+    NSLog(@"[Zebra] Installed Apps Before: %@", installedApps);
+    NSLog(@"[Zebra] Installed Apps After: %@", installedAppsNow);
     
     if (installedAppsNow.count) {
-        [ZBDevice uicache:installedAppsNow];
+        NSMutableArray *fullPaths = [NSMutableArray new];
+        for (NSString *app in installedAppsNow) {
+            [fullPaths addObject:[@"/Applications/" stringByAppendingPathComponent:app]];
+        }
+        
+        [ZBDevice uicache:fullPaths];
     }
+}
+
+- (void)restartZebra {
+    [ZBDevice relaunchZebra];
 }
 
 - (void)restartSpringBoard {
@@ -253,7 +272,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 }
 
 - (void)rebootDevice {
-    
+    [ZBDevice rebootUserSpace];
 }
 
 @end

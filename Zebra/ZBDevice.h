@@ -33,6 +33,7 @@
 
 + (void)restartSpringBoard;
 + (void)uicache:(NSArray *_Nullable)bundleIdentifiers;
++ (void)rebootUserSpace;
 
 + (void)openURL:(NSURL *_Nonnull)url sender:(UIViewController *_Nonnull)sender;
 

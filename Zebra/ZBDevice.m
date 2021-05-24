@@ -144,6 +144,10 @@
     }
 }
 
++ (void)rebootUserSpace {
+    [ZBCommand execute:@"ldrestart" withArguments:nil asRoot:YES];
+}
+
 + (BOOL)_isRegularFile:(NSString *)path {
     BOOL isDir = NO;
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&isDir];
