@@ -79,7 +79,11 @@
 
 - (void)showSpinner {
     if (!spinner) {
-        spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        if (@available(iOS 13.0, *)) {
+            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleMedium];
+        } else {
+            spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        }
         spinner.hidesWhenStopped = YES;
         
         self.tableView.backgroundView = spinner;

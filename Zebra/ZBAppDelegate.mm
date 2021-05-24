@@ -218,7 +218,10 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
             }
 #endif
             UIViewController *rvc = self.window.rootViewController;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
             [rvc performSelector:@selector(requestSourceRefresh)];
+#pragma cland diagnostic pop
         });
     });
     
