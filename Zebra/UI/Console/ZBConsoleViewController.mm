@@ -66,7 +66,6 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     completeButton.layer.masksToBounds = YES;
     completeButton.hidden = YES;
     completeButton.titleLabel.font = [UIFont boldSystemFontOfSize:completeButton.titleLabel.font.pointSize];
-    [completeButton addTarget:self action:@selector(complete) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:completeButton];
     
@@ -191,10 +190,15 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 }
 
 - (void)finishedInstalls {
+    if (finishOption == ZBConsoleFinishOptionRefreshIconCache) {
+        [self writeToConsole:@"Refreshing Icon Cache." atLevel:PLLogLevelStatus];
+        [self refreshIconCache];
+    }
+    
     [self writeToConsole:@"Reloading package lists." atLevel:PLLogLevelStatus];
     [[PLPackageManager sharedInstance] import];
     [self writeToConsole:@"Finished." atLevel:PLLogLevelStatus];
-    [self writeToConsole:[NSString stringWithFormat:@"Finish Option: %lu", (unsigned long)finishOption] atLevel:PLLogLevelWarning];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.4 animations:^{
             self->progressView.alpha = 0.0;
@@ -203,8 +207,42 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
         }];
         
         self->completeButton.hidden = NO;
-        [self->completeButton setTitle:@"Done" forState:UIControlStateNormal];
+        
+        NSString *title;
+        SEL action;
+        switch (self->finishOption) {
+            case ZBConsoleFinishOptionRestartSpringBoard:
+                title = @"Restart SpringBoard";
+                action = @selector(restartSpringBoard);
+                break;
+            case ZBConsoleFinishOptionRebootDevice:
+                title = @"Reboot Device";
+                action = @selector(rebootDevice);
+                break;
+            default:
+                title = @"Done";
+                action = @selector(complete);
+                break;
+        }
+        
+        [self->completeButton setTitle:title forState:UIControlStateNormal];
+        [self->completeButton addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+        [self->completeButton addTarget:self action:action forControlEvents:UIControlEventTouchUpOutside];
     });
+}
+
+#pragma mark - Finish Actions
+
+- (void)refreshIconCache {
+    
+}
+
+- (void)restartSpringBoard {
+    
+}
+
+- (void)rebootDevice {
+    
 }
 
 @end
