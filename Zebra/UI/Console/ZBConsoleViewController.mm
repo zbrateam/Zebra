@@ -8,6 +8,7 @@
 
 #import "ZBConsoleViewController.h"
 
+#import <ZBDevice.h>
 #import <Extensions/UIFont+Zebra.h>
 #import <Extensions/ZBColor.h>
 
@@ -26,6 +27,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     UIButton *completeButton;
     UIProgressView *progressView;
     ZBConsoleFinishOption finishOption;
+    NSArray *installedApps;
 }
 @end
 
@@ -101,6 +103,8 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     [super viewDidAppear:animated];
     
     self.navigationItem.hidesBackButton = YES;
+    
+    installedApps = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Applications" error:nil];
     [[PLPackageManager sharedInstance] downloadAndPerform:self];
 }
 
@@ -234,11 +238,18 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 #pragma mark - Finish Actions
 
 - (void)refreshIconCache {
+    NSMutableArray *installedAppsNow = [[[NSFileManager defaultManager] contentsOfDirectoryAtPath:@"/Applications" error:nil] mutableCopy];
+    for (NSString *path in installedApps) {
+        [installedAppsNow removeObject:path];
+    }
     
+    if (installedAppsNow.count) {
+        [ZBDevice uicache:installedAppsNow];
+    }
 }
 
 - (void)restartSpringBoard {
-    
+    [ZBDevice restartSpringBoard];
 }
 
 - (void)rebootDevice {
