@@ -9,13 +9,8 @@ finish() {
 			${CYDIA}
 			EOF
 
-	echo ${fd} > /tmp/pipe.txt
-	echo ${ver} >> /tmp/pipe.txt
-
 	[ "${ver}" -ge 1 ] || return
 
-	lsof -a -p $$ >> /tmp/pipe.txt
-	echo "finish:${f}" >> /tmp/pipe.txt
 	echo "finish:${f}" >&"${fd}"
 }
 
