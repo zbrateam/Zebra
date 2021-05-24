@@ -241,7 +241,9 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 #pragma mark - Finish Actions
 
 - (void)complete {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
 }
 
 - (void)refreshIconCache {
@@ -249,9 +251,6 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     for (NSString *path in installedApps) {
         [installedAppsNow removeObject:path];
     }
-
-    NSLog(@"[Zebra] Installed Apps Before: %@", installedApps);
-    NSLog(@"[Zebra] Installed Apps After: %@", installedAppsNow);
     
     if (installedAppsNow.count) {
         NSMutableArray *fullPaths = [NSMutableArray new];

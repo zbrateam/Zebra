@@ -207,6 +207,9 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (searchController.active && searchController.searchBar.text.length > 0) {
         if (searchResults.count > 0) {
+            ((ZBPackageTableViewCell *)cell).showAuthor = YES;
+            ((ZBPackageTableViewCell *)cell).showSource = YES;
+            
             [(ZBPackageTableViewCell *)cell setPackage:searchResults[indexPath.row]];
         } else {
             cell.textLabel.text = NSLocalizedString(@"No Results", @"");

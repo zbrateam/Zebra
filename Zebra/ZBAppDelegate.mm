@@ -56,79 +56,79 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
-+ (NSString *)documentsDirectory {
-    NSString *path_ = nil;
-    if (![ZBDevice needsSimulation]) {
-        path_ = @"/var/mobile/Library/Application Support";
-    } else {
-        path_ = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    }
-    NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
-    BOOL dirExists = NO;
-    [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
-    if (!dirExists) {
-        ZBLog(@"[Zebra] Creating documents directory.");
-        NSError *error = NULL;
-        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
-        
-        if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating documents directory: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
-        }
-    }
-    
-    return path;
-}
-
-+ (NSURL *)documentsDirectoryURL {
-    return [NSURL URLWithString:[[NSString stringWithFormat:@"filza://view%@", [self documentsDirectory]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
-}
-
-+ (NSString *)listsLocation {
-    NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
-    BOOL dirExists = NO;
-    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
-    if (!dirExists) {
-        ZBLog(@"[Zebra] Creating lists directory.");
-        NSError *error = NULL;
-        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
-        
-        if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating lists directory: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
-        }
-    }
-    return lists;
-}
-
-+ (NSURL *)sourcesListURL {
-    return [NSURL fileURLWithPath:[self sourcesListPath]];
-}
-
-+ (NSString *)sourcesListPath {
-    return [[PLConfig sharedInstance] stringForKey:@"Plains::SourcesList"];
-}
-
-+ (NSString *)databaseLocation {
-    return [[self documentsDirectory] stringByAppendingPathComponent:@"zebra.db"];
-}
-
-+ (NSString *)debsLocation {
-    NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
-    BOOL dirExists = NO;
-    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
-    if (!dirExists) {
-        ZBLog(@"[Zebra] Creating debs directory.");
-        NSError *error = NULL;
-        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
-        
-        if (error != NULL) {
-            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating debs directory: %@.", @""), error.localizedDescription]];
-            NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
-        }
-    }
-    return debs;
-}
+//+ (NSString *)documentsDirectory {
+//    NSString *path_ = nil;
+//    if (![ZBDevice needsSimulation]) {
+//        path_ = @"/var/mobile/Library/Application Support";
+//    } else {
+//        path_ = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+//    }
+//    NSString *path = [path_ stringByAppendingPathComponent:[self bundleID]];
+//    BOOL dirExists = NO;
+//    [[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&dirExists];
+//    if (!dirExists) {
+//        ZBLog(@"[Zebra] Creating documents directory.");
+//        NSError *error = NULL;
+//        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+//        
+//        if (error != NULL) {
+//            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating documents directory: %@.", @""), error.localizedDescription]];
+//            NSLog(@"[Zebra] Error while creating documents directory: %@.", error.localizedDescription);
+//        }
+//    }
+//    
+//    return path;
+//}
+//
+//+ (NSURL *)documentsDirectoryURL {
+//    return [NSURL URLWithString:[[NSString stringWithFormat:@"filza://view%@", [self documentsDirectory]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
+//}
+//
+//+ (NSString *)listsLocation {
+//    NSString *lists = [[self documentsDirectory] stringByAppendingPathComponent:@"/lists/"];
+//    BOOL dirExists = NO;
+//    [[NSFileManager defaultManager] fileExistsAtPath:lists isDirectory:&dirExists];
+//    if (!dirExists) {
+//        ZBLog(@"[Zebra] Creating lists directory.");
+//        NSError *error = NULL;
+//        [[NSFileManager defaultManager] createDirectoryAtPath:lists withIntermediateDirectories:YES attributes:nil error:&error];
+//        
+//        if (error != NULL) {
+//            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating lists directory: %@.", @""), error.localizedDescription]];
+//            NSLog(@"[Zebra] Error while creating lists directory: %@.", error.localizedDescription);
+//        }
+//    }
+//    return lists;
+//}
+//
+//+ (NSURL *)sourcesListURL {
+//    return [NSURL fileURLWithPath:[self sourcesListPath]];
+//}
+//
+//+ (NSString *)sourcesListPath {
+//    return [[PLConfig sharedInstance] stringForKey:@"Plains::SourcesList"];
+//}
+//
+//+ (NSString *)databaseLocation {
+//    return [[self documentsDirectory] stringByAppendingPathComponent:@"zebra.db"];
+//}
+//
+//+ (NSString *)debsLocation {
+//    NSString *debs = [[self documentsDirectory] stringByAppendingPathComponent:@"/debs/"];
+//    BOOL dirExists = NO;
+//    [[NSFileManager defaultManager] fileExistsAtPath:debs isDirectory:&dirExists];
+//    if (!dirExists) {
+//        ZBLog(@"[Zebra] Creating debs directory.");
+//        NSError *error = NULL;
+//        [[NSFileManager defaultManager] createDirectoryAtPath:debs withIntermediateDirectories:YES attributes:nil error:&error];
+//        
+//        if (error != NULL) {
+//            [self sendErrorToTabController:[NSString stringWithFormat:NSLocalizedString(@"Error while creating debs directory: %@.", @""), error.localizedDescription]];
+//            NSLog(@"[Zebra] Error while creating debs directory: %@.", error.localizedDescription);
+//        }
+//    }
+//    return debs;
+//}
 
 + (ZBTabBarController *)tabBarController {
     if ([NSThread isMainThread]) {
@@ -175,7 +175,6 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"[Zebra] Documents Directory: %@", [ZBAppDelegate documentsDirectory]);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     if (![ZBSettings usesSystemAppearance]) {

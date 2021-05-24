@@ -147,10 +147,10 @@
 - (void)eraseAllSources:(id)sender {
     [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.", @"") callback:^{
         NSError *error = NULL;
-        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
-        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
+//        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
+//        [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
+//        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
+//        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
         if (error) {
             NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
         }
@@ -163,10 +163,10 @@
         [self confirmationControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
             
             NSError *error = NULL;
-            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
-            [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
-            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
-            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
+//            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
+//            [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
+//            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
+//            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
             if (error) {
                 NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
             }
