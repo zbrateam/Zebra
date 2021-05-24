@@ -14,10 +14,18 @@
 #import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Queue/PLQueue.h>
 
+typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
+    ZBConsoleFinishOptionClose,
+    ZBConsoleFinishOptionRefreshIconCache,
+    ZBConsoleFinishOptionRestartSpringBoard,
+    ZBConsoleFinishOptionRebootDevice
+};
+
 @interface ZBConsoleViewController () {
     UITextView *consoleView;
     UIButton *completeButton;
     UIProgressView *progressView;
+    ZBConsoleFinishOption finishOption;
 }
 @end
 
@@ -144,7 +152,7 @@
     });
 }
 
-#pragma mark - Plains Acquire Delegate
+#pragma mark - Plains Console Delegate
 
 - (void)startedDownloads {
     [self writeToConsole:@"Downloading Packages." atLevel:PLLogLevelStatus];
@@ -160,6 +168,20 @@
     [self writeToConsole:update atLevel:level];
 }
 
+- (void)finishUpdate:(NSString *)update {
+    if ([update hasPrefix:@"finish:"]) {
+        NSArray *components = [update componentsSeparatedByString:@":"];
+        if (components.count == 2) {
+            NSString *option = [components[1] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            NSArray *options = @[@"return", @"uicache", @"reopen", @"restart", @"reload", @"reboot"];
+            NSUInteger index = [options indexOfObject:option];
+            if (index != NSNotFound && index > finishOption) {
+                finishOption = (ZBConsoleFinishOption)index;
+            }
+        }
+    }
+}
+
 - (void)finishedDownloads {
     [self writeToConsole:@"Downloads Complete." atLevel:PLLogLevelStatus];
 }
@@ -172,6 +194,7 @@
     [self writeToConsole:@"Reloading package lists." atLevel:PLLogLevelStatus];
     [[PLPackageManager sharedInstance] import];
     [self writeToConsole:@"Finished." atLevel:PLLogLevelStatus];
+    [self writeToConsole:[NSString stringWithFormat:@"Finish Option: %lu", (unsigned long)finishOption] atLevel:PLLogLevelWarning];
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:0.4 animations:^{
             self->progressView.alpha = 0.0;
