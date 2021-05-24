@@ -1,8 +1,24 @@
 #!/bin/sh
 
-# Verify supersling permissions
-chown root:wheel /usr/libexec/zebra/supersling
-chmod 6755 /usr/libexec/zebra/supersling
-# I don't like this but apparently my theos fakeroot doesn't work and hasn't for awhile
-chown root:wheel /usr/libexec/zebeta/supersling
-chmod 6755 /usr/libexec/zebeta/supersling
+finish() {
+	f="${1}"
+
+	[ -z "${f}" ] || [ -z "${CYDIA}" ] && return
+
+	read -r fd ver <<-EOF
+			${CYDIA}
+			EOF
+
+	echo ${fd} > /tmp/pipe.txt
+	echo ${ver} >> /tmp/pipe.txt
+
+	[ "${ver}" -ge 1 ] || return
+
+	lsof -a -p $$ >> /tmp/pipe.txt
+	echo "finish:${f}" >> /tmp/pipe.txt
+	echo "finish:${f}" >&"${fd}"
+}
+
+finish uicache
+
+exit 0

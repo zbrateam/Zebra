@@ -1,3 +1,0 @@
-#/bin/sh
-
-launchctl unload /Library/LaunchDaemons/xyz.willy.Zebra.Relaunch.plist

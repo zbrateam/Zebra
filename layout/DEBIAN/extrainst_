@@ -1,6 +1,0 @@
-#!/bin/bash
-
-if [[ $1 == install || $1 == remove ]];then
-    echo "Running uicache..."
-    uicache -p /Applications/Zebra.app
-fi

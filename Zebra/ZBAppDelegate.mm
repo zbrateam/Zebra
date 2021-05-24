@@ -485,6 +485,14 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 - (void)setupPlains {
     config = [PLConfig sharedInstance];
     
+    int filedes[2];
+    if (pipe(filedes) == -1) {
+        NSLog(@"[Zebra] Unable to create file descriptors.");
+    } else {
+        [config setInteger:filedes[0] forKey:@"Plains::FinishFD::"];
+        [config setInteger:filedes[1] forKey:@"Plains::FinishFD::"]; 
+    }
+    
 #if TARGET_OS_MACCATALYST || TARGET_OS_SIMULATOR
     NSString *slingshotPath = [NSString stringWithFormat:@"/opt/procursus/libexec/%@/supersling", LIBEXEC_FOLDER];
     NSString *homeDirectory = NSHomeDirectory();
