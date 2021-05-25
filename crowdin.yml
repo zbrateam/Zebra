@@ -2,4 +2,4 @@ commit_message: '[Localization] Update %language% translations'
 append_commit_message: false
 files:
   - source: /Zebra/Resources/Base.lproj/Localizable.strings
-    translation: /Zebra/%osx_code%/Localizable.strings
+    translation: /Zebra/Resources/%osx_code%/Localizable.strings
