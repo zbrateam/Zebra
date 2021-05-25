@@ -1,46 +1,46 @@
 // Common
 
-"Cancel" = "შეწყვეტა";
-"Yes" = "ხო";
-"No" = "არა";
-"Ok" = "დიახ";
-"Error" = "ერორი";
-"Retry" = "კიდევ სცადეთ";
-"Edit" = "შეცვლა";
-"Close" = "დახურვა";
-"Done" = "მზად არის";
-"Loading..." = "იტვირთება...";
-"Clear" = "გასუფთავება";
-"An Error Occurred" = "დაფიქსირდა შეცდომა";
-"Dismiss" = "უარყოფა";
-"Downloads" = "ჩამოტვირთულები";
+"Cancel" = "Cancel";
+"Yes" = "Yes";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Close" = "Close";
+"Done" = "Done";
+"Loading..." = "Loading...";
+"Clear" = "Clear";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Downloads";
 
 // Home
 
-"Home" = "მთავარი";
-"Info" = "ინფორმაცია";
-"Welcome to Zebra!" = "კეთილი იყოს თქვენი მობრძანება!";
-"Report a Bug" = "შეგვატყობინეთ შეცდომების შესახებ";
-"Changelog" = "ცვლილებები";
-"Wish List" = "სურვილების სია";
+"Home" = "Home";
+"Info" = "Info";
+"Welcome to Zebra!" = "Welcome to Zebra!";
+"Report a Bug" = "Report a Bug";
+"Changelog" = "Changelog";
+"Wish List" = "Wish List";
 "Newest First" = "Newest First";
 "Oldest First" = "Oldest First";
-"No items in Wish List" = "ამ სიაში არაა არც ერთი ერთეული";
-"Community" = "საზოგადოება";
-"Join our Discord" = "შემოგვიერთდით Discord_ზე";
-"Follow us on Twitter" = "გამოგვყევით ტვიტერზე";
-"Help translate Zebra!" = "დაგვეხმარეთ თარგმნაში!";
+"No items in Wish List" = "No items in Wish List";
+"Community" = "Community";
+"Join our Discord" = "Join our Discord";
+"Follow us on Twitter" = "Follow us on Twitter";
+"Help translate Zebra!" = "Help translate Zebra!";
 
 // Community Source
 
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "კომუნალური წყარო %@-თვის";
+"Utility source for %@" = "Utility source for %@";
 "Transfer Sources" = "Transfer Sources";
-"Import" = "შემოტანა";
-"Verifying..." = "მიმდინარეობს დადასტურება...";
-"Confirm Import" = "იმპორტის დადასტურება";
+"Import" = "Import";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
 "Import Sources" = "Import Sources";
 "No sources to import" = "No sources to import";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
@@ -58,7 +58,7 @@
 // Settings
 
 "Settings" = "Settings";
-"Display" = "ეკრანი";
+"Display" = "Display";
 "App Icon" = "App Icon";
 "Changes" = "Changes";
 "Community News" = "Community News";
@@ -66,31 +66,31 @@
 "Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Text";
 "Icon" = "Icon";
-"Finish Automatically" = "ავტომატურად დასრულება";
+"Finish Automatically" = "Finish Automatically";
 "Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
 "Accent Color" = "Accent Color";
-"Aqua Velvet" = "აკვა ხავერდი";
-"Cornflower Blue" = "სიმინდის ყვავილი ლურძად";
-"Golden Tainoi" = "ოქროს ტოინოი";
-"Iris Blue" = "ლურჯი ირისი";
-"Lotus Pink" = "ვარდისფერი ლოტუსი";
-"Monochrome" = "შავ-თეთრი";
-"Mountain Meadow" = "მთის მდელოს";
-"Pastel Red" = "წითელი პასტელი";
-"Purple Heart" = "მეწამული გული";
-"Royal Blue" = "სამეფო ლურჟი";
-"Shark" = "ზვიგენი";
-"Storm" = "ქარიშხალი";
-"Use System Accent Color" = "გამოიყენე სისტემის (აქცენტი) ფერი";
-"Appearance" = "გარეგნობა";
-"Use System Appearance" = "გამოიყენე სისტემის გარეგნობა";
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
 "Light" = "Light";
-"Dark" = "მუქი";
-"Pure Black Mode" = "სუფთა შავი რეჟიმი";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
 // Featured
 
@@ -148,11 +148,13 @@
 "Unknown" = "Unknown";
 "Delete" = "Delete";
 "Refresh" = "Refresh";
+"Copy" = "Copy";
 "All Packages" = "All Packages";
 "Remove Source" = "Remove Source";
 "Local File" = "Local File";
 "Local Repository" = "Local Repository";
 "Locally installed packages" = "Locally installed packages";
+"%lu Installed" = "%lu Installed";
 
 "Add" = "Add";
 "View" = "View";
@@ -162,8 +164,8 @@
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 
 "Please Wait..." = "Please Wait...";
-"Verifying Source" = "გადამოწმება წყაროსი";
-"Verifying Sources" = "გადამოწმება წყაროების";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
 "Updating Sources" = "Updating Sources";
 
 "Unknown error" = "Unknown error";
@@ -240,6 +242,7 @@
 "More by this Developer" = "More by this Developer";
 "Installed Version" = "Installed Version";
 "Installed Size" = "Installed Size";
+"Preview" = "Preview";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
@@ -485,6 +488,12 @@
 "Package Not Available" = "Package Not Available";
 "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
 
+// Notifications
+
+"Update available for %@" = "Update available for %@";
+"Version %@ is available on %@." = "Version %@ is available on %@.";
+"%d updates available" = "%d updates available";
+"%@ and %d more can be updated." = "%@ and %d more can be updated.";
 "%d Seconds" = "%d Seconds";
 "Download Timeout" = "Download Timeout";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
