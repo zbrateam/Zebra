@@ -1,12 +1,18 @@
 Package: xyz.willy.zebra
 Name: Zebra
 Architecture: iphoneos-arm
-Version: 2.0~alpha1
-Depends: uikittools, firmware (>= 12.0), libapt-pkg6.0 (>= 2.3.0), xyz.willy.zebra (= 1.1.18)
+Version: 2.0~alpha1a
+Depends: uikittools, firmware (>= 12.0), libapt-pkg6.0 (>= 2.3.0), xyz.willy.zebra (<< 1.2)
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
 Section: Packaging
-Depiction: https://getzbra.com/beta/depictions/xyz.willy.Zebra/
 Description: A Useful Package Manager
+ THIS IS AN ALPHA VERSION OF ZEBRA NOT MEANT TO BE USED AS YOUR ONLY PACKAGE MANAGER. DO NOT INSTALL IT IF YOU ARE NOT COMFORTABLE WITH ANY ISSUES THAT MAY ARISE WHILE USING IT.
+ .
+ Zebra is a package manager for jailbroken iOS devices.
+ .
+ It supports most modern iOS versions and provides most features that Cydia does, while being notably quicker.
+ .
+ If there are any issues you encounter, features you want to request, or anything else, please send me an email or file an issue on our GitHub and I'll quickly get back to you.
 Icon: https://getzbra.com/repo/depictions/xyz.willy.Zebra/images/icon.png
-Tag: compatible_min::ios11.0, compatible_max::ios14.3
+Tag: compatible_min::ios12.0, compatible_max::ios14.3
