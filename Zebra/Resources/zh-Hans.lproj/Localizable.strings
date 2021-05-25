@@ -148,13 +148,13 @@
 "Unknown" = "未知";
 "Delete" = "删除";
 "Refresh" = "刷新";
-"Copy" = "Copy";
+"Copy" = "复制";
 "All Packages" = "所有软件包";
 "Remove Source" = "删除软件源";
 "Local File" = "本地文件";
 "Local Repository" = "本地软件源";
 "Locally installed packages" = "本地已安装软件包";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "已安装 %lu 个软件包";
 
 "Add" = "添加";
 "View" = "查看";
@@ -242,7 +242,7 @@
 "More by this Developer" = "此开发者的更多软件包";
 "Installed Version" = "已安装版本";
 "Installed Size" = "占用空间";
-"Preview" = "Preview";
+"Preview" = "预览";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安装版本：%@）";
@@ -490,10 +490,10 @@
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
-"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"Update available for %@" = "%@ 有可用更新";
+"Version %@ is available on %@." = "版本 %@ 可在 %@ 上找到";
+"%d updates available" = "有 %d 个更新";
+"%@ and %d more can be updated." = "%@ 和 %d 可以更新。";
 "%d Seconds" = "%d 秒";
 "Download Timeout" = "下载超时";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "配置 Zebra 等待软件源响应超时的时长";
