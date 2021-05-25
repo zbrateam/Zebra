@@ -1,257 +1,257 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"Cancel" = "Anuleaza";
+"Yes" = "Da";
+"No" = "Nu";
+"Ok" = "Bine";
+"Error" = "Eroare";
+"Retry" = "Reincearca";
+"Edit" = "Editeaza";
+"Close" = "Inchide";
+"Done" = "Gata";
+"Loading..." = "Se încarca...";
+"Clear" = "Șterge";
+"An Error Occurred" = "A apărut o eroare";
+"Dismiss" = "Renunță";
+"Downloads" = "Descarcari";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Home" = "Acasa";
+"Info" = "Informatii";
+"Welcome to Zebra!" = "Bine ai venit la Zebra!";
+"Report a Bug" = "Raportati o problema";
+"Changelog" = "Istoricul schimbarilor";
+"Wish List" = "Lista De Dorinte";
+"Newest First" = "Cele mai noi";
+"Oldest First" = "Cele mai vechi";
+"No items in Wish List" = "Nu exista obiecte in Lista de Dorinte";
+"Community" = "Comunitate";
+"Join our Discord" = "Intrati pe serverul nostru de Discord";
+"Follow us on Twitter" = "Urmareste-ne pe Twitter";
+"Help translate Zebra!" = "Ajuta la traducerea Zebra!";
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
-"Transfer Sources" = "Transfer Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Community Sources" = "Sursele comunitatii";
+"You’ve added all of the community sources" = "Ai adaugat toate sursele comunitatii";
+"Transfer sources from %@ to Zebra" = "Transfera sursele din %@ la Zebra";
+"Utility source for %@" = "Sursă de utilitate pentru %@";
+"Transfer Sources" = "Transfera sursele";
+"Import" = "Importa";
+"Verifying..." = "Verificare...";
+"Confirm Import" = "Confirmă Importul";
+"Import Sources" = "Importă Surse";
+"No sources to import" = "Nu există surse de importat";
+"Would you like to import the following sources?" = "Ai vrea sa importezi urmatoarele surse?";
+"Are you sure that you want to import 1 source into Zebra?" = "Esti sigur ca vrei sa importezi 1 sursa in Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Esti sigur ca vrei sa importezi %d surse in Zebra?";
 
 // Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "Contributii";
+"Creators" = "Creatori";
+"Contributors" = "Contribuitori";
+"Translators" = "Traducatori";
+"Libraries" = "Biblioteci";
 
 // Settings
 
-"Settings" = "Settings";
-"Display" = "Display";
-"App Icon" = "App Icon";
-"Changes" = "Changes";
-"Community News" = "Community News";
-"Miscellaneous" = "Miscellaneous";
-"Swipe Actions Display As" = "Swipe Actions Display As";
+"Settings" = "Configurari";
+"Display" = "Afișează";
+"App Icon" = "Iconita aplicatie";
+"Changes" = "Modificări";
+"Community News" = "Știri Comunitare";
+"Miscellaneous" = "Diverse";
+"Swipe Actions Display As" = "Glisati actiunile afisate ca";
 "Text" = "Text";
-"Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
-"Always Install Latest" = "Always Install Latest";
-"Automatic Refresh" = "Automatic Refresh";
+"Icon" = "Iconita";
+"Finish Automatically" = "Termină Automat";
+"Always Install Latest" = "Instalează întotdeauna Ultimele";
+"Automatic Refresh" = "Reîmprospătare automată";
 
 // Accent Colors
 
-"Accent Color" = "Accent Color";
+"Accent Color" = "Culoare accent";
 "Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
+"Cornflower Blue" = "Albastru Porumbiu";
 "Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Iris Blue" = "Albastru Iris";
+"Lotus Pink" = "Roz Lotus";
+"Monochrome" = "Monocrom";
+"Mountain Meadow" = "Lunca de munte";
+"Pastel Red" = "Rosu Pastel";
+"Purple Heart" = "Inima Violet";
+"Royal Blue" = "Albastru Regal";
+"Shark" = "Rechin";
+"Storm" = "Furtuna";
+"Use System Accent Color" = "Folosește accentele de culoare ale sistemului";
+"Appearance" = "Aspect";
+"Use System Appearance" = "Folosește schema de afișaj a Sistemului";
+"Light" = "Luminos";
+"Dark" = "Întunecat";
+"Pure Black Mode" = "Mod Negru Pur";
 
 // Featured
 
-"Featured Packages" = "Featured Packages";
-"Feature Type" = "Feature Type";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
+"Featured Packages" = "Pachete promovate";
+"Feature Type" = "Tipul de caracteristica";
+"Repo Featured" = "Surse promovate";
+"Random" = "Aleatoriu";
+"Select Repos to be Featured" = "Selectati sursele care sa fie promovate";
+"Featured Repos" = "Surse promovate";
 
 // Reset
 
 "Reset" = "Reset";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources" = "Erase All Sources";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Refresh Icon Cache" = "Reactualizează cache-ul iconițelor";
+"Clear Image Cache" = "Șterge cache-ul imaginilor";
+"Clear Sources Cache" = "Șterge cache-ul surselor";
+"Clear Web Cache" = "Șterge cache-ul web";
+"Reset All Settings" = "Resetează toate setările";
+"Erase All Sources" = "Șterge toate sursele";
+"Erase All Sources and Settings" = "Resetează toate sursele si setările";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Ești sigur că dorești să restartezi SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Confirmi reîmprospătarea cache-ului iconițelor? Dispozitivul dvs. ar putea să ignore comenzile până la terminarea procesului.";
+"Image Cache Cleared" = "Cache imagini șters";
+"Web Cache Cleared" = "Cache web șters";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Confirmi că dorești să ștergi cache-ul surselor din Zebra? Această acțiune va șterge toate informațiile din cache-ul Zebra și le va redescărca. Sursele vor fi păstrate.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Confirmi că dorești resetarea setărilor Zebra? Această acțiune va readuce Zebra la setările inițiale iar aplicația va reporni.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Ești sigur că vrei să ștergi toate sursele? Toate sursele tale vor fi eliminate din Zebra și Zebra va reporni.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Confirmi că dorești să ștergi toate sursele și setările? Toate sursele din Zebra vor fi șterse iar setările vor revenii la valorile inițiale.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Toate sursele vor fi șterse permanent iar Zebra va reporni.";
 
 // Documents Directory
 
-"Open Documents Directory" = "Open Documents Directory";
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Open Documents Directory" = "Deschideţi Dosarul Documente";
+"Filza Not Installed" = "Filza nu este instalat";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra nu poate deschide dosarul Documente deoarece Filza nu este instalat. Directorul Documente este: %@";
 
 // Stores
 
-"Stores" = "Stores";
-"My Account" = "My Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not authenticate" = "Could not authenticate";
-"Could not complete purchase" = "Could not complete purchase";
-"No packages purchased" = "No packages purchased";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Stores" = "Magazine";
+"My Account" = "Contul Meu";
+"Sign In" = "Autentificare";
+"Sign Out" = "Delogare";
+"Your Purchases" = "Achizițiile mele";
+"No Storefronts Available" = "Nu sunt disponibile surse cu plată";
+"Could not authenticate" = "Nu s-a putut autentifica";
+"Could not complete purchase" = "Achiziția nu a putut fi completată";
+"No packages purchased" = "Nu există achiziții";
+"Signed in as %@" = "Conectat ca %@";
+"Signed in as %@ (%@)" = "Conectat ca %@(%@)";
 
 // Sources
 
-"Sources" = "Sources";
-"Unknown" = "Unknown";
-"Delete" = "Delete";
-"Refresh" = "Refresh";
+"Sources" = "Surse";
+"Unknown" = "Necunoscut";
+"Delete" = "Șterge";
+"Refresh" = "Reîmprospătează";
 "Copy" = "Copy";
-"All Packages" = "All Packages";
-"Remove Source" = "Remove Source";
-"Local File" = "Local File";
-"Local Repository" = "Local Repository";
-"Locally installed packages" = "Locally installed packages";
+"All Packages" = "Toate Pachetele";
+"Remove Source" = "Elimină Sursă";
+"Local File" = "Fișier local";
+"Local Repository" = "Depozit local";
+"Locally installed packages" = "Pachete instalate local";
 "%lu Installed" = "%lu Installed";
 
-"Add" = "Add";
-"View" = "View";
-"Add Sources" = "Add Sources";
-"Add Multiple" = "Add Multiple";
-"Enter Source URL" = "Enter Source URL";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
+"Add" = "Adaugă";
+"View" = "Vizualizați";
+"Add Sources" = "Adaugă surse";
+"Add Multiple" = "Adaugă mai multe";
+"Enter Source URL" = "Introdu URL-ul sursei";
+"Would you like to add the URL from your clipboard?" = "Doriți să adăugați URL-ul din clipboard?";
 
-"Please Wait..." = "Please Wait...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Updating Sources" = "Updating Sources";
+"Please Wait..." = "Așteptați...";
+"Verifying Source" = "Verificare Sursă";
+"Verifying Sources" = "Verificare Surse";
+"Updating Sources" = "Actualizare surse";
 
-"Unknown error" = "Unknown error";
-"Invalid URL" = "Invalid URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "No source URLs detected.";
-"Unable to verify source" = "Unable to verify source";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Unknown error" = "Eroare Necunoscută";
+"Invalid URL" = "URL invalid";
+"Invalid Source" = "Sursă Invalidă";
+"Tap to learn more" = "Atinge pentru a afla mai multe";
+"No source URLs detected." = "Nu au fost detectate adrese URL pentru o sursă.";
+"Unable to verify source" = "Imposibil de verificat sursa";
+"Error verifying source" = "Nu am putut verifica sursa";
+"Error verifying sources" = "Nu am putut verifica sursele";
+"Failed to add source" = "Nu am putut adauga sursa";
+"Failed to add sources" = "Nu am putut adauga sursele";
+"You have already added this source." = "Ai adaugat deja această sursă.";
+"You have already added these sources." = "Ai adăugat deja aceste surse.";
+"Unable to locate an APT repository at:" = "Nu am putut localiza un depozit APT la:";
+"Unable to locate APT repositories at:" = "Nu am putut localiza depozite APT la:";
+"Error while downloading %@: %@" = "Eroare la descărcarea %@: %@";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "Un total de %d fișiere va fi descărcat";
 
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
-"Could not find a download URL for" = "Could not find a download URL for";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not parse %@ from %@" = "Nu s-a putut analiza %@ de la %@";
+"Could not find a download URL for" = "Nu s-a putut găsi un URL de descărcare pentru";
+"Authorizing Download for %@" = "Autorizarea descărcării pentru %@";
+"Couldn't authorize download for %@." = "Nu s-a putut autoriza descărcarea pentru %@.";
+"Reason: %@." = "Motiv: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "API-ul de plată nu este acceptat pe mai puțin de iOS 11.0";
+"Could not download Release file from %@. Reason: %@" = "Nu s-a putut descărca fișierul de lansare de la %@. Motiv: %@";
+"Could not download Packages file from %@. Reason: %@" = "Nu s-a putut descărca fișierul Packages de la %@. Motiv: %@";
+"Could not download one or more files from %@. Reason: %@" = "Nu s-au putut descărca unul sau mai multe fișiere de la %@. Motiv: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Eroare la mutarea fișierului de la %@ la %@";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "URL introdus nu este valid. Te rugăm să îl verifici și să încerci din nou.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra nu a putut descărca sursa specificată la %@. Ar putea fi inaccesibilă momentan sau ar fi putut fi adăugată incorect.";
 
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Te rog scoate aceasta sursa din fisierul sources.list .";
 
-"Error while opening sources.list" = "Error while opening sources.list";
+"Error while opening sources.list" = "S-a produs o eroare in timpul deschiderii sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"The source %@ is incompatible with your jailbreak." = "Sursa %@ nu este compatibila cu acest jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Aceasta actiunea poate cauza probleme rezultand intr-o posibila restaurare a sistemului.";
 
-"%@ hasn't been modified" = "%@ hasn't been modified";
+"%@ hasn't been modified" = "%@ nu a fost modificat";
 
-"Install All" = "Install All";
+"Install All" = "Instalaţi tot";
 
 // Packages
 
-"Latest" = "Latest";
-"Version" = "Version";
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Hide Updates" = "Hide Updates";
-"Select Version" = "Select Version";
-"Select a version to install:" = "Select a version to install:";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
+"Latest" = "Cele mai recente";
+"Version" = "Versiune";
+"Packages" = "Pachete";
+"Show Updates" = "Afișare Actualizări";
+"Hide Updates" = "Ascunde Actualizări";
+"Select Version" = "Selectați Versiunea";
+"Select a version to install:" = "Selectați o versiune pe care să o instalați:";
+"Select a version to upgrade to:" = "Selectați o versiune la care să se facă upgrade:";
+"Select a version to downgrade to:" = "Selectați o versiune la care să se facă downgrade:";
+"Package" = "Pachet";
+"Information" = "Informații";
+"Upgrade All" = "Actualizează Tot";
+"Loaded" = "Încărcat";
 "ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
-"Source" = "Source";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
+"Date" = "Dată";
+"Size" = "Dimensiune";
+"Available Upgrades" = "Actualizări Disponibile";
+"Ignored Upgrades" = "Actualizări Ignorate";
+"Recent" = "Recente";
+"Source" = "Sursa";
+"Installed Files" = "Fișiere Instalate";
+"Modify" = "Modifică";
+"Authenticate to initiate purchase." = "Autentifică-te pentru a începe achiziția.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Te rugăm să te reconectezi la contul care este folosit la cumpărarea acestui pachet (Probabil %@)";
+"More by this Developer" = "Mai multe de la acest Dezvoltator";
+"Installed Version" = "Versiunea Instalată";
+"Installed Size" = "Dimensiunea Fișierelor Instalate";
 "Preview" = "Preview";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Versiunea Instalată: %@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Dimensiunea Fișierelor Instalate %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d octeți";
 //Package size in Kilobytes (no decimal)
 "%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
@@ -259,234 +259,235 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Add to Wish List";
-"Remove from Wish List" = "Remove from Wish List";
+"Add to Wish List" = "Adaugă la Lista de Dorințe";
+"Remove from Wish List" = "Eliminare din Lista de Dorinte";
 
 // Package Section Names
 
-"Administration" = "Administration";
-"Addons" = "Addons";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Administrator";
+"Addons" = "Extensii";
+"App Addons" = "Extensii Aplicatii";
+"Archiving" = "Se arhiveaza";
+"Carrier Support" = "Suport retea";
+"Communication" = "Comunicare";
+"Data Storage" = "Spatiu de stocare";
+"Development" = "Dezvoltare";
+"Dictionaries" = "Dictionare";
+"Education" = "Educatie";
+"Entertainment" = "Divertisment";
+"Games" = "Jocuri";
+"Health and Fitness" = "Sanatate și Fitness";
+"Imaging" = "Imagistica";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
+"Keyboards" = "Tastaturi";
+"Localization" = "Localizare";
+"Messaging" = "Mesagerie";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
+"Navigation" = "Navigare";
+"Networking" = "Retelistică";
+"Packaging" = "Ambalare";
+"Productivity" = "Productivitate";
+"Repositories" = "Repo-uri";
+"Ringtones" = "Tonuri de apel";
+"Scripting" = "Scripturi";
+"Security" = "Securitate";
 "Social" = "Social";
-"System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
-"Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"System" = "Sistem";
+"Terminal Support" = "Suport de terminal";
+"Text Editors" = "Editor de text";
+"Themes" = "Teme";
+"Toys" = "Jucarii";
+"Tweaks" = "Ajustari";
+"Utilities" = "Utilitare";
+"Wallpaper" = "Imagine de fundal";
+"Widgets" = "Widget-uri";
 
 // Search
 
-"Search" = "Search";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
-"No Results Found" = "No Results Found";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Search" = "Cautare";
+"This search query is too short for the full search, please use a longer query." = "Aceasta cautare este prea scurta pentru o cautare completa, va rugam sa folositi mai multi termeni.";
+"No Results Found" = "Niciun rezultat";
+"Name" = "Nume";
+"Description" = "Descriere";
+"Author" = "Autor";
 
 // Console
 
-"Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
-"Close Zebra" = "Close Zebra";
-"Closing Zebra..." = "Closing Zebra...";
-"Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
-"Downloading" = "Downloading";
-"Downloading %@" = "Downloading %@";
-"Downloading Packages..." = "Downloading Packages...";
-"Download Completed" = "Download Completed";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
-"One or more packages failed to download." = "One or more packages failed to download.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-"Error while opening file:" = "Error while opening file:";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"Console" = "Consolă";
+"Performing Actions..." = "Efectuare acțiuni...";
+"Updating icon cache asynchronously..." = "Actualizare cache iconițe sincron...";
+"uicache is not available on the simulator" = "uicache nu este disponibil in simulator";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Acest lucru poate dura mai mult, iar Zebra se poate prăbuşi. Este în regulă dacă se întâmplă.";
+"Close Zebra" = "Închide Zebra";
+"Closing Zebra..." = "Zebra se inchide...";
+"Restart SpringBoard" = "Repornește Springboard";
+"Restarting SpringBoard..." = "Springboard-ul se reporneste...";
+"Parsing %@" = "Analizare %@";
+"Starting Download" = "Descarcarea se porneste";
+"Downloading" = "Se descarcă";
+"Downloading %@" = "Se descarcă %@";
+"Downloading Packages..." = "Se descarcă pachete...";
+"Download Completed" = "Descărcare terminată";
+"Installing" = "Se instalează";
+"Installing Packages..." = "Instalare pachete...";
+"Removing" = "Eliminare";
+"Removing Packages..." = "Se șterg pachetele...";
+"Reinstalling" = "Reinstalare";
+"Reinstalling Packages..." = "Se reinstalează pachetele...";
+"Upgrading" = "Actualizare";
+"Upgrading Packages..." = "Se actualizează pachete...";
+"Complete" = "Complet";
+"Finished!" = "Terminat!";
+"Return to Queue" = "Întoarcere la lista de aşteptare";
+"Returning to Queue..." = "Se revine la coada...";
+"Importing local packages." = "Importul pachetelor locale.";
+"Finished importing local packages." = "Se termină importul pachetelor locale.";
+"One or more packages failed to download." = "Unul sau mai multe pachete nu s-au descarcat.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Faceți clic pe \"Revenire la coadă\" pentru a reveni la coadă și reîncercați descărcarea.";
+"Could not complete %@ process. Reason: %@." = "Imposibil de terminat procesul %@. Motivul: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Reporniți Zebra și vedeți dacă problema persistă. Dacă da, vă rugăm să depuneți o problemă pe GitHub.";
+"Done..." = "Gata...";
+"Done %@" = "Terminat %@";
+"Removing Zebra..." = "Se îndepărteaza Zebra...";
+"Installing Zebra..." = "Se instaleaza Zebra...";
+"Error while opening file:" = "Eroare la deschiderea fişierului:";
+"Adding Payment Vendor URL for %@" = "Adăugarea URL-ului furnizorului de plată pentru %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Acest dispozitiv este simulat, aici sunt pachetele care ar fi modificate în această etapă:";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Pachete în coadă";
+"%d Package Queued" = "%d Pachet în coadă";
+"Tap to manage" = "Atingeţi pentru a gestiona";
+"No Packages Queued" = "Nici un pachet în coadă";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
-"Issues" = "Issues";
-"Required Package" = "Required Package";
-"Are you sure?" = "Are you sure?";
-"Remove from Queue" = "Remove from Queue";
-"Clear Queue" = "Clear Queue";
-"%@ is required by:" = "%@ is required by:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Queue" = "Coadă";
+"Install" = "Instalează";
+"Reinstall" = "Reinstalează";
+"Remove" = "Ștergeți";
+"Upgrade" = "Actualizează";
+"Downgrade" = "Retrogradare";
+"Abort" = "Anuleaza";
+"Continue" = "Continuă";
+"Download Size" = "Dimensiune Descărcare";
+"Confirm" = "Confirmă";
+"Issues" = "Probleme";
+"Required Package" = "Pachete necesare";
+"Are you sure?" = "Sunteți sigur?";
+"Remove from Queue" = "Elimină din coada";
+"Clear Queue" = "Șterge coada";
+"%@ is required by:" = "%@ este solicitat de:";
+"\"%@\" conflicts with %@" = "\"%@\" intră în conflict cu %@";
+"%@ must be removed because it depends on %@" = "%@ trebuie eliminat, deoarece depinde de %@";
+"%@ has issues that cannot be resolved:" = "%@ are probleme care nu pot fi rezolvate:";
+"Are you sure you want to clear the Queue?" = "Sunteți sigur că doriți să ştergeţi coada?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ este un pachet necesar. Nu ar trebuii sa fie eliminat decat in cazul in care stii exact ce faci!";
 
 // Search
 
-"Live Search" = "Live Search";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Live Search" = "Cautare Live";
+"Tweaks, Themes, and More" = "Ajustari, Teme, si multe altele";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ este un pachet necesat si trebuie sters deoarece depinde de %@. %@ NU ar trebui sa fie sters decat daca stii exact ce faci!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Unul sau mai multe pachete din Asteptare pentru stergere este esential sau necesar. Nu este recomandat sa continui decat daca stii exact ce faci. Stergerea acestor pachete poate cauza damage ireversibil asupra dispozitivului tau si poate rezulta intr-o restaurare completa.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra nu a putut completa aceasta comanda deoarece nu aveti permisiunile necesare.
+Te rog sa verific permisiunile localizate la /usb/libexec/zebra/supersling si raporteaza eroare pe GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Nu am putut accesa su/sling. Verifica te rog daca /usr/libexec/zebra/supersling exista.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nu este detinut de root:wheel. Te rog verifica permisiunile pentru fisierul localizat la /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling nu are permisiuni sa seteze uid sau gid. Te rog verifica permisiunile pentru fisierul localizat la /usr/libexec/zebra/supersling.";
 
 "Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Eroare la crearea directorului de liste: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Eroare la crearea sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Eroare la crearea directorului debs: %@.";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Nu am putut sa facem respring. Te rog sa faci respring manual.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "EROARE: Nu am putut accesa statusul blocarii fisierului. Incearca din nou.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "EROARE: Procesul trebuie restartat. Incearca din nou.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Permisiuni incorecte pentru documente.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Imposibil de determinat informațiile despre dispozitiv.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Afișați pachetele recomandate pe pagina de pornire.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Reîmprospătați sursele Zebra atunci când deschideți aplicația.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Afișează postări recente ale comunității /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Căutați pachete în timp ce tastați. Dezactivarea acestei caracteristici poate reduce decalajul pe dispozitivele mai vechi.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Configurați aspectul acțiunilor de glisare a vizualizării tabelului.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Modificați culoarea de accent care se afișează pe Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Modificați stilul modului întunecat Zebra atunci când este activat.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Schimbați sursa pachetelor recomandate pe pagina de pornire.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo-ul recomandat\" va afișa pachete aleatorii de la repo-uri care acceptă API-ul pachetului recomandat.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Aleatoar\" va afișa pachete aleatorii din toate repo-urile pe care le-ați adăugat la Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Inregistrarea in surse permite cumpararea pachetelor platite.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Inchide automat consola atunci cand toate sarcinile au fost completate.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Instalați întotdeauna cea mai recentă versiune a unui pachet dacă nu este deja instalat.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtre";
+"Add Filter" = "Adăugați filtrul";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "1 secțiune ascunsă";
+"%lu Sections Hidden" = "%lu secţiuni ascunse";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Secțiuni";
+"Select a Section" = "Selectaţi o secţiune";
+"Hide packages in these sections." = "Ascunde pachetele in aceste secțiuni.";
 
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Selectați o sursă";
+"Hide packages in these sections from specific sources." = "Ascunde pachetele in aceste secțiuni din surse specifice.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Actualizări";
+"Hide future updates from these packages." = "Ascunde actualizările viitoare din aceste pachete.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Autori";
+"Hide packages from these authors." = "Ascunde pachetele de la acești autori.";
+"Search for an Author" = "Caută un autor";
+"This author also goes by the following names:" = "Acest autor are și următoarele nume:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Limbă";
+"Apply" = "Aplică";
+"Restart Required" = "Repornire necesară";
+"Zebra must be closed in order to change preferred language" = "Zebra trebuie să fie închis pentru a schimba limba preferată";
+"Restart" = "Repornire";
+"Use System Language" = "Utilizați limba sistemului";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Adăugați un repo care nu este sigur";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Este posibil ca datele descărcate din acest repo să nu fie criptate. Sigur îl adăugați?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Imposibil de terminat achiziția";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pachetul nu este disponibil";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pachetul solicitat nu mai este disponibil. Este posibil să fi fost eliminat din surse sau ID-ul pachetului solicitat să fie incorect.";
 
 // Notifications
 
@@ -494,9 +495,9 @@
 "Version %@ is available on %@." = "Version %@ is available on %@.";
 "%d updates available" = "%d updates available";
 "%@ and %d more can be updated." = "%@ and %d more can be updated.";
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d secunde";
+"Download Timeout" = "Expirare descărcare";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configurați timpul în care Zebra va aștepta ca o sursă să răspundă înainte de expirare.";
+"This timer will reset every time Zebra receives new information from a source." = "Acest cronometru se va reseta de fiecare dată când Zebra primește informații noi de la o sursă.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Imposibil de regăsit informațiile contului din sursă. Deconectați-vă de la sursă, conectați-vă și încercați din nou.";
