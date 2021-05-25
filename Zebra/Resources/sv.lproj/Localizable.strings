@@ -148,13 +148,13 @@
 "Unknown" = "Okänd";
 "Delete" = "Ta bort";
 "Refresh" = "Uppdatera";
-"Copy" = "Copy";
+"Copy" = "Kopiera";
 "All Packages" = "Alla paket";
 "Remove Source" = "Ta bort källa";
 "Local File" = "Lokal fil";
 "Local Repository" = "Lokalt förråd";
 "Locally installed packages" = "Lokalt installerade paket";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "%lu installerade";
 
 "Add" = "Lägg till";
 "View" = "Visa";
@@ -242,7 +242,7 @@
 "More by this Developer" = "Mer av den här utvecklaren";
 "Installed Version" = "Installerad version";
 "Installed Size" = "Installerad storlek";
-"Preview" = "Preview";
+"Preview" = "Förhandsgranskning";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installerad version: %@)";
@@ -490,10 +490,10 @@
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
-"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"Update available for %@" = "Uppdatering tillgänglig för %@";
+"Version %@ is available on %@." = "Version %@ finns tillgänglig på %@.";
+"%d updates available" = "%d uppdateringar tillgängliga";
+"%@ and %d more can be updated." = "%@ och %d fler kan uppdateras.";
 "%d Seconds" = "%d sekunder";
 "Download Timeout" = "Tidsgräns för nedladdningar";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurerar hur länge Zebra kommer att vänta på att en källa ska svara innan tidsgränsen är uppnådd.";
