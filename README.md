@@ -17,11 +17,8 @@ If you want to compile Zebra yourself, you can use the following steps. A comput
 
 1. Clone this repository using `git clone --recursive https://github.com/zbrateam/Zebra.git`
 2. `cd` into the `Zebra` folder
-3. (One time only) 
-    - Install `carthage` and `fakeroot` if you haven't already via `brew install carthage fakeroot`
-4. Carthage is used to manage our project dependencies. `carthage bootstrap` will need to be run on first build and whenever our dependencies push updated versions.
-5. Run `make do` (If you don't have `theos` already installed on your computer, follow the steps located [here](https://github.com/theos/theos/wiki/Installation))
-6. Done!
+3. Run `make do` (If you don't have `theos` already installed on your computer, follow the steps located [here](https://github.com/theos/theos/wiki/Installation))
+4. Done!
 
 ## Bug Reports
 
