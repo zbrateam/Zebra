@@ -1,251 +1,254 @@
 // Common
 
-"Cancel" = "Ακύρωση";
-"Yes" = "Ναί";
-"No" = "Όχι";
-"Ok" = "Εντάξει";
-"Error" = "Σφάλμα";
-"Retry" = "Ξαναπροσπάθησε";
-"Edit" = "Επεξεργασία";
-"Close" = "Κλείσε";
-"Done" = "Ολοκλήρωση";
-"Loading..." = "Γίνεται φόρτωση...";
-"Clear" = "Εκκαθάριση";
-"An Error Occurred" = "Παρουσιάστηκε Ένα Σφάλμα";
-"Dismiss" = "Αγνόηση";
-"Downloads" = "Λήψεις";
+"Cancel" = "Cancel";
+"Yes" = "Yes";
+"No" = "No";
+"Ok" = "Ok";
+"Error" = "Error";
+"Retry" = "Retry";
+"Edit" = "Edit";
+"Close" = "Close";
+"Done" = "Done";
+"Loading..." = "Loading...";
+"Clear" = "Clear";
+"An Error Occurred" = "An Error Occurred";
+"Dismiss" = "Dismiss";
+"Downloads" = "Downloads";
 
 // Home
 
-"Home" = "Αρχική";
-"Info" = "Πληροφορίες";
-"Welcome to Zebra!" = "Καλώς ήλθατε στο Zebra!";
-"Report a Bug" = "Αναφορά σφάλματος";
-"Changelog" = "Καταγραφή Αλλαγών";
-"Wish List" = "Λίστα Επιθυμιών";
-"Newest First" = "Νεότερο Πρώτα";
-"Oldest First" = "Παλαιότερο Πρώτα";
-"No items in Wish List" = "Δεν υπάρχουν αντικείμενα στην Λίστα Επιθυμιών";
-"Community" = "Κοινότητα";
-"Join our Discord" = "Γίνε μέλος στο Discord μας";
-"Follow us on Twitter" = "Ακολούθησέ μας στο Twitter";
-"Help translate Zebra!" = "Βοηθήστε να μεταφραστεί το Zebra!";
+"Home" = "Home";
+"Info" = "Info";
+"Welcome to Zebra!" = "Welcome to Zebra!";
+"Report a Bug" = "Report a Bug";
+"Changelog" = "Changelog";
+"Wish List" = "Wish List";
+"Newest First" = "Newest First";
+"Oldest First" = "Oldest First";
+"No items in Wish List" = "No items in Wish List";
+"Community" = "Community";
+"Join our Discord" = "Join our Discord";
+"Follow us on Twitter" = "Follow us on Twitter";
+"Help translate Zebra!" = "Help translate Zebra!";
 
 // Community Source
 
-"Community Sources" = "Πηγές της Κοινότητας";
-"You’ve added all of the community sources" = "Έχεις προσθέσει όλες τις πηγές της κοινότητας";
-"Transfer sources from %@ to Zebra" = "Μετακίνησε όλες τις πηγές από %@ στο Zebra";
-"Utility source for %@" = "Πρακτική πηγή για %@";
-"Transfer Sources" = "Μετατόπισε Πηγές";
-"Import" = "Εισαγωγή";
-"Verifying..." = "Γίνεται επιβεβαίωση...";
-"Confirm Import" = "Επιβεβαίωση Εισαγωγής";
-"Import Sources" = "Εισαγωγή Πηγών";
-"No sources to import" = "Δεν υπάρχουν πήγες για εισαγωγή";
-"Would you like to import the following sources?" = "Θα ήθελες να προσθέσεις τις ακόλουθες πηγές;";
-"Are you sure that you want to import 1 source into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις 1 πηγή στο Zebra;";
-"Are you sure that you want to import %d sources into Zebra?" = "Είσαι σίγουρος ότι θες να προσθέσεις %d πηγές στο Zebra;";
+"Community Sources" = "Community Sources";
+"You’ve added all of the community sources" = "You’ve added all of the community sources";
+"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
+"Utility source for %@" = "Utility source for %@";
+"Transfer Sources" = "Transfer Sources";
+"Import" = "Import";
+"Verifying..." = "Verifying...";
+"Confirm Import" = "Confirm Import";
+"Import Sources" = "Import Sources";
+"No sources to import" = "No sources to import";
+"Would you like to import the following sources?" = "Would you like to import the following sources?";
+"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
 
 // Credits
 
-"Credits" = "Εύσημα";
-"Creators" = "Δημιουργοί";
-"Contributors" = "Συνεισφέροντες";
-"Translators" = "Μεταφραστές";
-"Libraries" = "Βιβλιοθήκες";
+"Credits" = "Credits";
+"Creators" = "Creators";
+"Contributors" = "Contributors";
+"Translators" = "Translators";
+"Libraries" = "Libraries";
 
 // Settings
 
-"Settings" = "Ρυθμίσεις";
-"Display" = "Προβολή";
-"App Icon" = "Εικονίδιο εφαρμογής";
-"Changes" = "Αλλαγές";
-"Community News" = "Νέα Κοινότητας";
-"Miscellaneous" = "Διάφορα";
-"Swipe Actions Display As" = "Swipe Actions Εμφανίζονται Ως";
-"Text" = "Κείμενο";
-"Icon" = "Εικονίδιο";
-"Finish Automatically" = "Αυτόματη Ολοκλήρωση";
-"Always Install Latest" = "Να γίνεται πάντα εγκατάσταση του πιο πρόσφατου";
-"Automatic Refresh" = "Αυτόματη Ανανέωση";
+"Settings" = "Settings";
+"Display" = "Display";
+"App Icon" = "App Icon";
+"Changes" = "Changes";
+"Community News" = "Community News";
+"Miscellaneous" = "Miscellaneous";
+"Swipe Actions Display As" = "Swipe Actions Display As";
+"Text" = "Text";
+"Icon" = "Icon";
+"Finish Automatically" = "Finish Automatically";
+"Always Install Latest" = "Always Install Latest";
+"Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
-"Accent Color" = "Απόχρωση";
-"Aqua Velvet" = "Υγρό Βελούδο";
-"Cornflower Blue" = "Κενταύριο Μπλε";
-"Golden Tainoi" = "Χρυσό Tainoi";
-"Iris Blue" = "Μπλε της Ίριδας";
-"Lotus Pink" = "Ροζ Νούφαρο";
-"Monochrome" = "Μονόχρωμο";
-"Mountain Meadow" = "Ορεινό Λιβάδι";
-"Pastel Red" = "Παστέλ Κόκκινο";
-"Purple Heart" = "Μωβ Καρδιά";
-"Royal Blue" = "Βασιλικό Μπλε";
-"Shark" = "Καρχαρίας";
-"Storm" = "Καταιγίδα";
-"Use System Accent Color" = "Χρήση απόχρωσης του συστήματος";
-"Appearance" = "Εμφάνιση";
-"Use System Appearance" = "Χρήση εμφάνισης του συστήματος";
-"Light" = "Φωτεινό";
-"Dark" = "Σκούρο";
-"Pure Black Mode" = "Λειτουργία Καθαρού Μαύρου";
+"Accent Color" = "Accent Color";
+"Aqua Velvet" = "Aqua Velvet";
+"Cornflower Blue" = "Cornflower Blue";
+"Golden Tainoi" = "Golden Tainoi";
+"Iris Blue" = "Iris Blue";
+"Lotus Pink" = "Lotus Pink";
+"Monochrome" = "Monochrome";
+"Mountain Meadow" = "Mountain Meadow";
+"Pastel Red" = "Pastel Red";
+"Purple Heart" = "Purple Heart";
+"Royal Blue" = "Royal Blue";
+"Shark" = "Shark";
+"Storm" = "Storm";
+"Use System Accent Color" = "Use System Accent Color";
+"Appearance" = "Appearance";
+"Use System Appearance" = "Use System Appearance";
+"Light" = "Light";
+"Dark" = "Dark";
+"Pure Black Mode" = "Pure Black Mode";
 
 // Featured
 
-"Featured Packages" = "Προτεινόμενα Πακέτα";
-"Feature Type" = "Τύπος Προτεινόμενου";
-"Repo Featured" = "Προτεινόμενα Repo";
-"Random" = "Τυχαίο";
-"Select Repos to be Featured" = "Διάλεξε Repos για να γίνουν Προτεινόμενα";
-"Featured Repos" = "Προτεινόμενα Repos";
+"Featured Packages" = "Featured Packages";
+"Feature Type" = "Feature Type";
+"Repo Featured" = "Repo Featured";
+"Random" = "Random";
+"Select Repos to be Featured" = "Select Repos to be Featured";
+"Featured Repos" = "Featured Repos";
 
 // Reset
 
-"Reset" = "Επαναφορά";
-"Refresh Icon Cache" = "Ανανέωσε το Cache Εικονιδίων";
-"Clear Image Cache" = "Καθάρισε Cache Εικόνων";
-"Clear Sources Cache" = "Καθάρισε Cache Πηγών";
-"Clear Web Cache" = "Καθάρισε Web Cache";
-"Reset All Settings" = "Επαναφορά Όλων των Ρυθμίσεων";
-"Erase All Sources" = "Επαναφορά Όλων των Πηγών";
-"Erase All Sources and Settings" = "Επαναφορά όλων των Πηγών και Ρυθμίσεων";
+"Reset" = "Reset";
+"Refresh Icon Cache" = "Refresh Icon Cache";
+"Clear Image Cache" = "Clear Image Cache";
+"Clear Sources Cache" = "Clear Sources Cache";
+"Clear Web Cache" = "Clear Web Cache";
+"Reset All Settings" = "Reset All Settings";
+"Erase All Sources" = "Erase All Sources";
+"Erase All Sources and Settings" = "Erase All Sources and Settings";
 
-"Are you sure you want to restart the SpringBoard?" = "Είσαι βέβαιος ότι θέλεις να κάνεις επανεκκίνηση του SpringBoard;";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Είσαι βέβαιος ότι θέλεις να ανανεώσεις το cache εικονιδιων; Η συσκευή σου μπορεί να μην ανταποκρίνεται μέχρι η διαδικασία ολοκληρωθεί.";
-"Image Cache Cleared" = "Το Cache Εικόνων Καθαρίστηκε";
-"Web Cache Cleared" = "Το Web Cache Καθαρίστηκε";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Είσαι βέβαιος ότι θέλεις να επαναφέρεις το cache των πηγών του Zebra; Αυτό θα αφαιρέσει όλες τις αποθηκευμένες πληροφορίες από το database του Zebra και θα τις ξανακατεβάσει. Οι πηγές σου δεν θα διαγραφτούν.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Είσαι βέβαιος ότι θέλεις να επαναφέρεις τις ρυθμίσεις του Zebra; Αυτό θα επαναφέρει όλες τις ρυθμίσεις του Zebra στις εργοστασιακές τιμές και το Ζebra θα κάνει επανεκκίνηση.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Είσαι βέβαιος ότι θέλεις να διαγράψεις όλες τις πηγές; Όλες οι πηγές σου θα διαγραφτούν απο το Zebra και το Zebra θα κάνει επανεκκίνηση.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Είσαι βέβαιος ότι θέλεις να διαγράψεις όλες τις πηγές και ρυθμίσεις; Όλες οι πηγές σου θα διαγραφτούν απο το Zebra και οι ρυθμίσεις σου θα δεχτούν επαναφορά.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "Όλες οι πηγές σου θα διαγραφτούν για πάντα και το Ζebra θα κάνει επανεκκίνηση.";
+"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
+"Image Cache Cleared" = "Image Cache Cleared";
+"Web Cache Cleared" = "Web Cache Cleared";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
 
 // Documents Directory
 
-"Open Documents Directory" = "Άνοιγμα του Φακέλου Documents";
-"Filza Not Installed" = "Το Filza Δεν είναι εγκαταστημένο";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Το Zebra αδυνατεί να ανοίξει τον φάκελο των αρχείων του διότι το Filza δεν είναι εγκαταστημένο. Ο φάκελος των αρχείων σου βρίσκεται στο: %@";
+"Open Documents Directory" = "Open Documents Directory";
+"Filza Not Installed" = "Filza Not Installed";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
 
 // Stores
 
-"Stores" = "Καταστήματα";
-"My Account" = "Ο Λογαριασμός μου";
-"Sign In" = "Σύνδεση";
-"Sign Out" = "Αποσύνδεση";
-"Your Purchases" = "Οι αγορές σου";
-"No Storefronts Available" = "Καμία διαθέσιμη βιτρίνα";
-"Could not authenticate" = "Αδυναμία ταυτοποίησης";
-"Could not complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
-"No packages purchased" = "Κανένα αγορασμένο πακέτο";
-"Signed in as %@" = "Συνδεδεμένος ως %@";
-"Signed in as %@ (%@)" = "Συνδεδεμένος ως %@ (%@)";
+"Stores" = "Stores";
+"My Account" = "My Account";
+"Sign In" = "Sign In";
+"Sign Out" = "Sign Out";
+"Your Purchases" = "Your Purchases";
+"No Storefronts Available" = "No Storefronts Available";
+"Could not authenticate" = "Could not authenticate";
+"Could not complete purchase" = "Could not complete purchase";
+"No packages purchased" = "No packages purchased";
+"Signed in as %@" = "Signed in as %@";
+"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
 
 // Sources
 
-"Sources" = "Πηγές";
-"Unknown" = "Άγνωστο";
-"Delete" = "Διαγραφή";
-"Refresh" = "Ανανέωση";
-"All Packages" = "Όλα τα Πακέτα";
-"Remove Source" = "Αφαίρεσε την Πηγή";
-"Local File" = "Τοπικό Αρχείο";
-"Local Repository" = "Τοπικό Repository";
-"Locally installed packages" = "Τοπικά εγκατεστημένα πακέτα";
+"Sources" = "Sources";
+"Unknown" = "Unknown";
+"Delete" = "Delete";
+"Refresh" = "Refresh";
+"Copy" = "Copy";
+"All Packages" = "All Packages";
+"Remove Source" = "Remove Source";
+"Local File" = "Local File";
+"Local Repository" = "Local Repository";
+"Locally installed packages" = "Locally installed packages";
+"%lu Installed" = "%lu Installed";
 
-"Add" = "Πρόσθεσε";
-"View" = "Προβολή";
-"Add Sources" = "Πρόσθεσε Πηγές";
-"Add Multiple" = "Πρόσθεσε Πολλαπλά";
-"Enter Source URL" = "Καταχώρησε URL Πηγής";
-"Would you like to add the URL from your clipboard?" = "Θα ήθελες να προσθέσεις το URL από το πληκτρολόγιο;";
+"Add" = "Add";
+"View" = "View";
+"Add Sources" = "Add Sources";
+"Add Multiple" = "Add Multiple";
+"Enter Source URL" = "Enter Source URL";
+"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 
-"Please Wait..." = "Παρακαλώ Περιμένετε...";
-"Verifying Source" = "Γίνεται επαλήθευση της Πηγής";
-"Verifying Sources" = "Γίνεται επαλήθευση των Πηγών";
-"Updating Sources" = "Γίνεται ενημέρωση Πηγών";
+"Please Wait..." = "Please Wait...";
+"Verifying Source" = "Verifying Source";
+"Verifying Sources" = "Verifying Sources";
+"Updating Sources" = "Updating Sources";
 
-"Unknown error" = "Άγνωστο σφάλμα";
-"Invalid URL" = "Λανθασμένο URL";
-"Invalid Source" = "Άκυρη Πηγή";
-"Tap to learn more" = "Πάτα για να μάθεις περισσότερα";
-"No source URLs detected." = "Δεν εντοπίστηκαν URLs πηγών.";
-"Unable to verify source" = "Αδυναμία επαλήθευσης πηγής";
-"Error verifying source" = "Σφάλμα επαλήθευσης πηγής";
-"Error verifying sources" = "Σφάλμα επαλήθευσης πηγών";
-"Failed to add source" = "Αποτυχία προσθήκης πηγής";
-"Failed to add sources" = "Αποτυχία προσθήκης πηγών";
-"You have already added this source." = "Έχεις ήδη προσθέσει αυτή τήν πηγή.";
-"You have already added these sources." = "Έχεις ήδη προσθέσει αυτές τις πηγές.";
-"Unable to locate an APT repository at:" = "Αδυναμία εντοπισμού ενός APT repository στο:";
-"Unable to locate APT repositories at:" = "Αδυναμία εντοπισμού APT repositories στο:";
-"Error while downloading %@: %@" = "Σφάλμα κατά την λήψη του %@: %@";
+"Unknown error" = "Unknown error";
+"Invalid URL" = "Invalid URL";
+"Invalid Source" = "Invalid Source";
+"Tap to learn more" = "Tap to learn more";
+"No source URLs detected." = "No source URLs detected.";
+"Unable to verify source" = "Unable to verify source";
+"Error verifying source" = "Error verifying source";
+"Error verifying sources" = "Error verifying sources";
+"Failed to add source" = "Failed to add source";
+"Failed to add sources" = "Failed to add sources";
+"You have already added this source." = "You have already added this source.";
+"You have already added these sources." = "You have already added these sources.";
+"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
+"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
+"Error while downloading %@: %@" = "Error while downloading %@: %@";
 
-"A total of %d files will be downloaded" = "Ένα σύνολο από %d αρχεία θα ληφθεί";
+"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
 
-"Could not parse %@ from %@" = "Αδυναμία ανάλυσης %@ από %@";
-"Could not find a download URL for" = "Αδυναμία εύρεσης ενός URL λήψης για";
-"Authorizing Download for %@" = "Γίνετε έγκριση Λήψης για %@";
-"Couldn't authorize download for %@." = "Αδυναμία έγκρισης λήψης για %@.";
-"Reason: %@." = "Λόγος: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "Το API Πληρωμών δεν υποστηρίζεται σε iOS μικρότερο από 11.0";
-"Could not download Release file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Release από %@. Λόγος: %@";
-"Could not download Packages file from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη του αρχείου Packages από %@. Λόγος: %@";
-"Could not download one or more files from %@. Reason: %@" = "Δεν είναι δυνατή η λήψη ενός ή περισσοτέρων αρχείων από %@. Λόγος: %@";
+"Could not parse %@ from %@" = "Could not parse %@ from %@";
+"Could not find a download URL for" = "Could not find a download URL for";
+"Authorizing Download for %@" = "Authorizing Download for %@";
+"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
+"Reason: %@." = "Reason: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
+"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
+"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
+"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
 
-"Error while moving file at %@ to %@" = "Σφάλμα κατά την μετακίνηση αρχείου από %@ σε %@";
+"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
 
-"The URL you entered is not valid. Please check it and try again." = "Το URL που έβαλες δεν είναι έγκυρο. Παρακαλώ επαλήθευσε και προσπάθησε ξανά.";
+"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Το Zebra δεν μπόρεσε να κάνει λήψη την συγκεκριμένη πηγή στο %@. Μπορεί να είναι προσωρινά απρόσιτη ή να έχει προστεθεί λανθασμένα.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
 
-"Please remove this source from your sources.list file." = "Παρακαλώ αφαίρεσε αυτή την πηγή από το sources.list αρχείο σου.";
+"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
 
-"Error while opening sources.list" = "Σφάλμα κατά το άνοιγμα του sources.list";
+"Error while opening sources.list" = "Error while opening sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "Η πηγή %@ είναι ασύμβατη με το jailbreak σου.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Μπορεί να προκαλέσει προβλήματα αν το προσθέσεις στο Zebra καταλήγοντας πιθανόν σε επαναφορά.";
+"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
 
-"%@ hasn't been modified" = "%@ δεν έχει τροποποιηθεί";
+"%@ hasn't been modified" = "%@ hasn't been modified";
 
-"Install All" = "Εγκατάσταση Όλων";
+"Install All" = "Install All";
 
 // Packages
 
-"Latest" = "Τελευταία";
-"Version" = "Έκδοση";
-"Packages" = "Πακέτα";
-"Show Updates" = "Εμφάνισε Ενημερώσεις";
-"Hide Updates" = "Κρύψε Ενημερώσεις";
-"Select Version" = "Διάλεξε Έκδοση";
-"Select a version to install:" = "Διάλεξε μία έκδοση για εγκατάσταση:";
-"Select a version to upgrade to:" = "Διάλεξε μία έκδοση για να αναβαθμιστείς σε:";
-"Select a version to downgrade to:" = "Διάλεξε μία έκδοση για να υποβαθμιστείς σε:";
-"Package" = "Πακέτο";
-"Information" = "Πληροφορίες";
-"Upgrade All" = "Αναβάθμιση Όλων";
-"Loaded" = "Φόρτωσε";
-"ABC" = "ΑΒΓ";
-"Date" = "Ημερομηνία";
-"Size" = "Μέγεθος";
-"Available Upgrades" = "Διαθέσιμες Αναβαθμίσεις";
-"Ignored Upgrades" = "Αγνοημένες Αναβαθμίσεις";
-"Recent" = "Πρόσφατα";
-"Source" = "Πηγή";
-"Installed Files" = "Εγκατεστημένα Αρχεία";
-"Modify" = "Τροποποίησε";
-"Authenticate to initiate purchase." = "Επαληθεύσου για να πραγματοποιήσεις την αγορά.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Παρακαλώ ξανασυνδέσου στον λογαριασμό σου που χρησιμοποιείται για την αγορά αυτού του πακέτου (Πιθανόν %@)";
-"More by this Developer" = "Περισσότερα από αυτόν τον Προγραμματιστή";
-"Installed Version" = "Εγκατεστημένη Έκδοση";
-"Installed Size" = "Εγκατεστημένος Χώρος";
+"Latest" = "Latest";
+"Version" = "Version";
+"Packages" = "Packages";
+"Show Updates" = "Show Updates";
+"Hide Updates" = "Hide Updates";
+"Select Version" = "Select Version";
+"Select a version to install:" = "Select a version to install:";
+"Select a version to upgrade to:" = "Select a version to upgrade to:";
+"Select a version to downgrade to:" = "Select a version to downgrade to:";
+"Package" = "Package";
+"Information" = "Information";
+"Upgrade All" = "Upgrade All";
+"Loaded" = "Loaded";
+"ABC" = "ABC";
+"Date" = "Date";
+"Size" = "Size";
+"Available Upgrades" = "Available Upgrades";
+"Ignored Upgrades" = "Ignored Upgrades";
+"Recent" = "Recent";
+"Source" = "Source";
+"Installed Files" = "Installed Files";
+"Modify" = "Modify";
+"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
+"More by this Developer" = "More by this Developer";
+"Installed Version" = "Installed Version";
+"Installed Size" = "Installed Size";
+"Preview" = "Preview";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Εγκατεστημένη Έκδοση: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Εγκατεστημένος Χώρος: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
 
 //Package size in bytes (no deceimal)
 "%d bytes" = "%d bytes";
@@ -256,238 +259,244 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Πρόσθεσε στην Λίστα Επιθυμιών";
-"Remove from Wish List" = "Αφαίρεσε από την Λίστα Επιθυμιών";
+"Add to Wish List" = "Add to Wish List";
+"Remove from Wish List" = "Remove from Wish List";
 
 // Package Section Names
 
-"Administration" = "Διαχείριση";
-"Addons" = "Πρόσθετα";
-"App Addons" = "Πρόσθετα Εφαρμογών";
-"Archiving" = "Αρχειοθέτηση";
-"Carrier Support" = "Υποστήριξη Παρόχου";
-"Communication" = "Επικοινωνία";
-"Data Storage" = "Αποθήκη Δεδομένων";
-"Development" = "Προγραμματισμός";
-"Dictionaries" = "Λεξικά";
-"Education" = "Εκπαίδευση";
-"Entertainment" = "Ψυχαγωγία";
-"Games" = "Ηλεκτρονικά Παιχνίδια";
-"Health and Fitness" = "Υγεία & Ευεξία";
+"Administration" = "Administration";
+"Addons" = "Addons";
+"App Addons" = "App Addons";
+"Archiving" = "Archiving";
+"Carrier Support" = "Carrier Support";
+"Communication" = "Communication";
+"Data Storage" = "Data Storage";
+"Development" = "Development";
+"Dictionaries" = "Dictionaries";
+"Education" = "Education";
+"Entertainment" = "Entertainment";
+"Games" = "Games";
+"Health and Fitness" = "Health and Fitness";
 "Imaging" = "Imaging";
 "Java" = "Java";
-"Keyboards" = "Πληκτρολόγια";
-"Localization" = "Τοπικοποίηση";
-"Messaging" = "Μηνύματα";
-"Multimedia" = "Πολυμέσα";
-"Navigation" = "Πλοήγηση";
-"Networking" = "Δικτύωση";
-"Packaging" = "Πακετάρισμα";
-"Productivity" = "Παραγωγικότητα";
+"Keyboards" = "Keyboards";
+"Localization" = "Localization";
+"Messaging" = "Messaging";
+"Multimedia" = "Multimedia";
+"Navigation" = "Navigation";
+"Networking" = "Networking";
+"Packaging" = "Packaging";
+"Productivity" = "Productivity";
 "Repositories" = "Repositories";
-"Ringtones" = "Ήχοι κλήσης";
+"Ringtones" = "Ringtones";
 "Scripting" = "Scripting";
-"Security" = "Ασφάλεια";
-"Social" = "Κοινωνικά";
-"System" = "Σύστημα";
-"Terminal Support" = "Υποστήριξη Τερματικού";
-"Text Editors" = "Επεξεργαστές Κειμένου";
-"Themes" = "Θέματα";
-"Toys" = "Παιχνίδια";
+"Security" = "Security";
+"Social" = "Social";
+"System" = "System";
+"Terminal Support" = "Terminal Support";
+"Text Editors" = "Text Editors";
+"Themes" = "Themes";
+"Toys" = "Toys";
 "Tweaks" = "Tweaks";
-"Utilities" = "Χρήσιμα";
-"Wallpaper" = "Ταπετσαρία";
+"Utilities" = "Utilities";
+"Wallpaper" = "Wallpaper";
 "Widgets" = "Widgets";
 
 // Search
 
-"Search" = "Αναζήτηση";
-"This search query is too short for the full search, please use a longer query." = "Αυτό το ερώτημα αναζήτησης είναι πολύ μικρό για την πλήρη αναζήτηση, παρακαλώ χρησιμοποίησε ένα μεγαλύτερο ερώτημα.";
-"No Results Found" = "Δεν βρέθηκαν αποτελέσματα";
-"Name" = "Όνομα";
-"Description" = "Περιγραφή";
-"Author" = "Δημιουργός";
+"Search" = "Search";
+"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
+"No Results Found" = "No Results Found";
+"Name" = "Name";
+"Description" = "Description";
+"Author" = "Author";
 
 // Console
 
-"Console" = "Κονσόλα";
-"Performing Actions..." = "Γίνεται εκτέλεση Πράξεων...";
-"Updating icon cache asynchronously..." = "Ενημέρωση κρυφής μνήμης εικονιδίων ασύγχρονα...";
-"uicache is not available on the simulator" = "uicache δεν είναι διαθέσιμο στο simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Αυτό μπορεί να διαρκέσει αρκετά και το Zebra να σταματήσει. Είναι εντάξει αν γίνει.";
-"Close Zebra" = "Κλείσε το Zebra";
-"Closing Zebra..." = "Κλείσιμο του Zebra...";
-"Restart SpringBoard" = "Επανεκκίνηση SpringBoard";
-"Restarting SpringBoard..." = "Γίνεται επανεκκίνηση του SpringBoard...";
-"Parsing %@" = "Γίνεται ανάλυση %@";
-"Starting Download" = "Γίνεται έναρξη Λήψης";
-"Downloading" = "Γίνεται λήψη";
-"Downloading %@" = "Γίνεται λήψη %@";
-"Downloading Packages..." = "Γίνεται λήψη Πακέτων...";
-"Download Completed" = "Η Λήψη Ολοκληρώθηκε";
-"Installing" = "Γίνεται εγκατάσταση";
-"Installing Packages..." = "Γίνεται εγκατάσταση Πακέτων...";
-"Removing" = "Γίνεται αφαίρεση";
-"Removing Packages..." = "Γίνεται αφαίρεση Πακέτων...";
-"Reinstalling" = "Γίνεται επανεγκατάσταση";
-"Reinstalling Packages..." = "Γίνεται επανεγκατάσταση Πακέτων...";
-"Upgrading" = "Γίνεται αναβάθμιση";
-"Upgrading Packages..." = "Γίνεται αναβάθμιση Πακέτων...";
-"Complete" = "Ολοκλήρωση";
-"Finished!" = "Ολοκληρώθηκε!";
-"Return to Queue" = "Επιστροφή στην Ουρά";
-"Returning to Queue..." = "Γίνεται επιστροφή στην Ουρά...";
-"Importing local packages." = "Γίνεται εισαγωγή τοπικών πακέτων.";
-"Finished importing local packages." = "Ολοκληρώθηκε η εισαγωγή τοπικών πακέτων.";
-"One or more packages failed to download." = "Ένα ή περισσότερα πακέτα απέτυχε να ληφθεί.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Πάτα \"Επιστροφή στην Ουρά\" για να επιστρέψεις στην Ουρά και ξαναπροσπάθησε να κάνεις λήψη.";
-"Could not complete %@ process. Reason: %@." = "Αδυναμία ολοκλήρωσης της διαδικασίας %@. Λόγος: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Παρακαλώ κάνε επανεκκίνηση του Ζebra και δες αν το πρόβλημα παραμένει. Αν ναί, παρακαλώ άνοιξε ενα issue στο GitHub.";
-"Done..." = "Τέλος...";
-"Done %@" = "Τέλος %@";
-"Removing Zebra..." = "Αφαίρεση του Zebra...";
-"Installing Zebra..." = "Εγκατάσταση του Zebra...";
-"Error while opening file:" = "Σφάλμα κατά το άνοιγμα του αρχείου:";
-"Adding Payment Vendor URL for %@" = "Γίνεται πρόσθεση URL Προμηθευτή Πληρωμής για %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "Αυτή η συσκευή είναι simulated, αυτά είναι τα πακέτα που θα είχαν τροποποιηθεί σε αυτό το στάδιο:";
+"Console" = "Console";
+"Performing Actions..." = "Performing Actions...";
+"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
+"uicache is not available on the simulator" = "uicache is not available on the simulator";
+"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
+"Close Zebra" = "Close Zebra";
+"Closing Zebra..." = "Closing Zebra...";
+"Restart SpringBoard" = "Restart SpringBoard";
+"Restarting SpringBoard..." = "Restarting SpringBoard...";
+"Parsing %@" = "Parsing %@";
+"Starting Download" = "Starting Download";
+"Downloading" = "Downloading";
+"Downloading %@" = "Downloading %@";
+"Downloading Packages..." = "Downloading Packages...";
+"Download Completed" = "Download Completed";
+"Installing" = "Installing";
+"Installing Packages..." = "Installing Packages...";
+"Removing" = "Removing";
+"Removing Packages..." = "Removing Packages...";
+"Reinstalling" = "Reinstalling";
+"Reinstalling Packages..." = "Reinstalling Packages...";
+"Upgrading" = "Upgrading";
+"Upgrading Packages..." = "Upgrading Packages...";
+"Complete" = "Complete";
+"Finished!" = "Finished!";
+"Return to Queue" = "Return to Queue";
+"Returning to Queue..." = "Returning to Queue...";
+"Importing local packages." = "Importing local packages.";
+"Finished importing local packages." = "Finished importing local packages.";
+"One or more packages failed to download." = "One or more packages failed to download.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
+"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
+"Done..." = "Done...";
+"Done %@" = "Done %@";
+"Removing Zebra..." = "Removing Zebra...";
+"Installing Zebra..." = "Installing Zebra...";
+"Error while opening file:" = "Error while opening file:";
+"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Πακέτα στην Ουρά";
-"%d Package Queued" = "%d Πακέτο στην Ουρά";
-"Tap to manage" = "Πάτα για διαχείριση";
-"No Packages Queued" = "Κανένα Πακέτο δεν μπήκε στην Ουρά";
+"%d Packages Queued" = "%d Packages Queued";
+"%d Package Queued" = "%d Package Queued";
+"Tap to manage" = "Tap to manage";
+"No Packages Queued" = "No Packages Queued";
 
 // Queue
 
-"Queue" = "Ουρά";
-"Install" = "Εγκατάσταση";
-"Reinstall" = "Επανεγκατάσταση";
-"Remove" = "Αφαίρεση";
-"Upgrade" = "Αναβάθμιση";
-"Downgrade" = "Υποβάθμιση";
-"Abort" = "Ματαίωση";
-"Continue" = "Συνέχεια";
-"Download Size" = "Μέγεθος Λήψης";
-"Confirm" = "Επιβεβαίωση";
-"Issues" = "Προβλήματα";
-"Required Package" = "Απαιτούμενο Πακέτο";
-"Are you sure?" = "Είσαι σίγουρος;";
-"Remove from Queue" = "Αφαίρεση από την Ουρά";
-"Clear Queue" = "Εκκαθάριση Ουράς";
-"%@ is required by:" = "%@ απαιτείται από:";
-"\"%@\" conflicts with %@" = "\"%@\" συγκρούεται με %@";
-"%@ must be removed because it depends on %@" = "%@ πρέπει να αφαιρεθεί διότι εξαρτάται από %@";
-"%@ has issues that cannot be resolved:" = "%@ έχει προβλήματα που δεν μπορούν να επιλυθούν:";
-"Are you sure you want to clear the Queue?" = "Είσαι σίγουρος ότι θέλεις να καθαρίσεις την Ουρά;";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο. ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
+"Queue" = "Queue";
+"Install" = "Install";
+"Reinstall" = "Reinstall";
+"Remove" = "Remove";
+"Upgrade" = "Upgrade";
+"Downgrade" = "Downgrade";
+"Abort" = "Abort";
+"Continue" = "Continue";
+"Download Size" = "Download Size";
+"Confirm" = "Confirm";
+"Issues" = "Issues";
+"Required Package" = "Required Package";
+"Are you sure?" = "Are you sure?";
+"Remove from Queue" = "Remove from Queue";
+"Clear Queue" = "Clear Queue";
+"%@ is required by:" = "%@ is required by:";
+"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
+"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
+"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
+"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
 
 // Search
 
-"Live Search" = "Ζωντανή Αναζήτηση";
-"Tweaks, Themes, and More" = "Tweaks, Θέματα, και Άλλα";
+"Live Search" = "Live Search";
+"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ είναι ένα απαιτούμενο πακέτο και πρέπει να αφαιρεθεί γιατί εξαρτάται από το %@. %@ ΔΕΝ πρέπει να αφαιρεθεί εκτός αν ξέρεις ακριβώς τι κάνεις!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ένα ή περισσότερα πακέτα στην Ουρά για αφαίρεση είναι αναγκαίο ή απαιτείται. Δεν προτείνεται να συνεχίσεις εκτός αν ξέρεις ακριβώς τι κάνεις. Η αφαίρεση αυτών των πακέτων μπορεί να προκαλέσει μόνιμη βλάβη στην συσκευή σου και ίσως καταλήξει σε μία πλήρη επαναφορά.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Το Zebra δεν μπόρεσε να ολοκληρώσει την εντολή διότι δεν έχει τα σωστά δικαιώματα. Παρακαλώ επιβεβαίωσε τα δικαιώματα που βρίσκονται στο /usr/libexec/zebra/supersling και ανάφερε αυτό το πρόβλημα στο GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Αδυναμία πρόσβασης σε su/sling. Παρακαλώ επιβεβαίωσε ότι το /usr/libexec/zebra/supersling υπάρχει.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "Το su/sling δεν ανήκει στο root:wheel. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "Το su/sling δεν έχει δικαίωμα να θέσει τα uid ή gid. Παρακαλώ επιβεβαίωσε τα δικαιώματα του αρχείου που βρίσκεται στο /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Σφάλμα κατά την δημιουργία καταλόγου αρχείων: %@.";
+"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
 
-"Error while creating lists directory: %@." = "Σφάλμα κατά την δημιουργία καταλόγου lists: %@.";
+"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
 
-"Error while creating sources.list: %@." = "Σφάλμα κατά την δημιουργία του sources.list: %@.";
+"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Σφάλμα κατά την δημιουργία καταλόγου debs: %@.";
+"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
 
-"Could not respring. Please respring manually." = "Αδυναμία respring. Παρακαλώ κάνε respring χειροκίνητα.";
+"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
 
-"ERROR: Unable to lock status file. Please try again." = "ΣΦΑΛΜΑ: Αδυναμία κλειδώματος του αρχείου κατάστασης. Παρακαλώ ξαναπροσπάθησε.";
+"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
 
-"ERROR: Process must be restarted. Please try again." = "ΣΦΑΛΜΑ: Η διαδικασία πρέπει να επανεκκινηθεί. Παρακαλώ ξαναπροσπάθησε.";
+"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
 
-"Incorrect documents permissions." = "Λανθασμένες άδειες αρχείων.";
+"Incorrect documents permissions." = "Incorrect documents permissions.";
 
-"Could not determine device information." = "Αδυναμία προσδιορισμού πληροφοριών συσκευής.";
+"Could not determine device information." = "Could not determine device information.";
 
-"Display featured packages on the homepage." = "Εμφάνισε προτεινόμενα πακέτα στην αρχική οθόνη.";
+"Display featured packages on the homepage." = "Display featured packages on the homepage.";
 
-"Refresh Zebra's sources when opening the app." = "Ανανέωσε τις πηγές του Zebra όταν ανοίγεις της εφαρμογή.";
+"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
 
-"Display recent community posts from /r/jailbreak." = "Εμφάνισε πρόσφατες αναρτήσεις της κοινότητας του /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Αναζήτησε πακέτα καθώς πληκτρολογείς. Απενεργοποιώντας αυτή την λειτουργία ενδεχόμενος να μειώσει την καθυστέρηση σε παλαιότερες συσκευές.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
 
-"Configure the appearance of table view swipe actions." = "Ρύθμισε την εμφάνιση των swipe actions της προβολής πινάκων.";
+"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
 
-"Change the accent color that displays across Zebra." = "Άλλαξε την απόχρωση που προβάλλεται σε όλο το Zebra.";
+"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Άλλαξε το στιλ της σκουρόχρωμης λειτουργίας του Zebra όταν είναι ενεργοποιημένη.";
+"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
 
-"Change the source of the featured packages on the homepage." = "Άλλαξε την πηγή των προτεινόμενων πακέτων της αρχικής οθόνης.";
+"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Προτεινόμενα Repo\" θα εμφανίζει τυχαία πακέτα από repos που υποστηρίζουν το Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Τυχαία\" θα εμφανίζει τυχαία πακέτα από όλα τα repositories που έχεις προσθέσει στο Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Με την σύνδεση στις πηγές επιτρέπεται η αγορά πακέτων επί πληρωμή.";
+"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Αυτόματη αγνόηση της Κονσόλας όταν όλες οι εργασίες έχουν ολοκληρωθεί.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
 
-"Always install the most recent version of a package if it is not already installed." = "Να γίνεται πάντα εγκατάσταση της πιο πρόσφατης έκδοσης του πακέτου αν δεν είναι ήδη εγκαταστημένη.";
+"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
 
 // Filters
 
-"Filters" = "Φίλτρα";
-"Add Filter" = "Προσθήκη Φίλτρου";
+"Filters" = "Filters";
+"Add Filter" = "Add Filter";
 
-"1 Section Hidden" = "1 Ενότητα Κρύφτηκε";
-"%lu Sections Hidden" = "%lu Ενότητες Κρύφτηκαν";
+"1 Section Hidden" = "1 Section Hidden";
+"%lu Sections Hidden" = "%lu Sections Hidden";
 
-"Sections" = "Ενότητες";
-"Select a Section" = "Επίλεξε μία Ενότητα";
-"Hide packages in these sections." = "Κρύψε πακέτα σε αυτές τις ενότητες.";
+"Sections" = "Sections";
+"Select a Section" = "Select a Section";
+"Hide packages in these sections." = "Hide packages in these sections.";
 
-"Select a Source" = "Επίλεξε μία πηγή";
-"Hide packages in these sections from specific sources." = "Κρύψε πακέτα σε αυτές τις ενότητες από συγκεκριμένες πηγές.";
+"Select a Source" = "Select a Source";
+"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
 
-"Updates" = "Ενημερώσεις";
-"Hide future updates from these packages." = "Κρύψε μελλοντικές ενημερώσεις από αυτά τα πακέτα.";
+"Updates" = "Updates";
+"Hide future updates from these packages." = "Hide future updates from these packages.";
 
-"Authors" = "Δημιουργοί";
-"Hide packages from these authors." = "Κρύψε πακέτα από αυτούς τους δημιουργούς.";
-"Search for an Author" = "Αναζήτησε κάποιο Δημιουργό";
-"This author also goes by the following names:" = "Αυτός ο δημιουργός είναι γνωστός και ως:";
+"Authors" = "Authors";
+"Hide packages from these authors." = "Hide packages from these authors.";
+"Search for an Author" = "Search for an Author";
+"This author also goes by the following names:" = "This author also goes by the following names:";
 
 // Language Settings
 
-"Language" = "Γλώσσα";
-"Apply" = "Εφαρμογή";
-"Restart Required" = "Απαιτείται Επανεκκίνηση";
-"Zebra must be closed in order to change preferred language" = "Το Zebra πρέπει να είναι κλειστό για να αλλάξει η προτεινόμενη γλωσσα";
-"Restart" = "Επανεκκίνηση";
-"Use System Language" = "Χρήση της Γλώσσας Συστήματος";
+"Language" = "Language";
+"Apply" = "Apply";
+"Restart Required" = "Restart Required";
+"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
+"Restart" = "Restart";
+"Use System Language" = "Use System Language";
 
-"You are adding a repository that is not secure" = "Προσθέτετε ένα αποθετήριο που δεν είναι ασφαλές";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Τα δεδομένα που λαμβάνονται από αυτό το αποθετήριο ενδέχεται να μην είναι κρυπτογραφημένα. Είστε βέβαιοι ότι θέλετε να το προσθέσετε;";
+"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
 
-"Unable to complete purchase" = "Αδυναμία ολοκλήρωσης αγοράς";
+"Unable to complete purchase" = "Unable to complete purchase";
 
 
-"Package Not Available" = "Το πακέτο δεν είναι διαθέσιμο";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Το πακέτο που ζητάς δεν είναι πια διαθέσιμο. Μπορεί να έχει αφαιρεθεί από τις πηγές σου ή το ID του πακέτου που ζητήθηκε να είναι λανθασμένο.";
+"Package Not Available" = "Package Not Available";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
 
-"%d Seconds" = "%d Δευτερόλεπτα";
-"Download Timeout" = "Λήξη χρονικού ορίου λήψης";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Ρύθμισε τον χρόνο για τον οποίο το Zebra θα περιμένει για μία πηγή να αποκριθεί πριν γίνει λήξη του χρονικού ορίου.";
-"This timer will reset every time Zebra receives new information from a source." = "Αυτό το χρονόμετρο θα μηδενίζεται κάθε φορά που το Zebra λαμβάνει νέες πληροφορίες από κάποια πηγή.";
+// Notifications
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Πληροφορίες λογαριασμού δεν μπόρεσαν να ανακτηθούν από την πηγή. Παρακαλώ αποσυνδέσου απο την πηγή, συνδέσου και ξαναπροσπάθησε.";
+"Update available for %@" = "Update available for %@";
+"Version %@ is available on %@." = "Version %@ is available on %@.";
+"%d updates available" = "%d updates available";
+"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"%d Seconds" = "%d Seconds";
+"Download Timeout" = "Download Timeout";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
+"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
