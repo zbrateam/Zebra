@@ -1,257 +1,257 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
-"No" = "No";
+"Cancel" = "Kanseller";
+"Yes" = "Ja";
+"No" = "Nei";
 "Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"Error" = "Feil";
+"Retry" = "Prøv på nytt";
+"Edit" = "Endre";
+"Close" = "Lukk";
+"Done" = "Ferdig";
+"Loading..." = "Laster...";
+"Clear" = "Taum";
+"An Error Occurred" = "Ein feil oppstod";
+"Dismiss" = "Avvis";
+"Downloads" = "Nedlastingar";
 
 // Home
 
-"Home" = "Home";
+"Home" = "Heim";
 "Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"Welcome to Zebra!" = "Velkommen til Zebra!";
+"Report a Bug" = "Rapporter ein feil";
+"Changelog" = "Endringslogg";
+"Wish List" = "Ønskeliste";
+"Newest First" = "Nyaste først";
+"Oldest First" = "Eldste først";
+"No items in Wish List" = "Ingen element i ønskelisten";
+"Community" = "Sosialt";
+"Join our Discord" = "Bli med i vår Discord";
+"Follow us on Twitter" = "Følg oss på Twitter";
+"Help translate Zebra!" = "Hjelp til med å omsetja Zebra!";
 
 // Community Source
 
-"Community Sources" = "Community Sources";
-"You’ve added all of the community sources" = "You’ve added all of the community sources";
-"Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
-"Transfer Sources" = "Transfer Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
-"Import Sources" = "Import Sources";
-"No sources to import" = "No sources to import";
-"Would you like to import the following sources?" = "Would you like to import the following sources?";
-"Are you sure that you want to import 1 source into Zebra?" = "Are you sure that you want to import 1 source into Zebra?";
-"Are you sure that you want to import %d sources into Zebra?" = "Are you sure that you want to import %d sources into Zebra?";
+"Community Sources" = "Felleskjelder";
+"You’ve added all of the community sources" = "Du har lagt til alle felleskjeldene";
+"Transfer sources from %@ to Zebra" = "Overfør kjelder frå %@ til Zebra";
+"Utility source for %@" = "Verktøykjelde for %@";
+"Transfer Sources" = "Overfør kjelder";
+"Import" = "Importer";
+"Verifying..." = "Verifiserer...";
+"Confirm Import" = "Stadfest importering";
+"Import Sources" = "Importer kjelder";
+"No sources to import" = "Ingen kjelder å importera";
+"Would you like to import the following sources?" = "Vil du importera følgjande kjelder?";
+"Are you sure that you want to import 1 source into Zebra?" = "Er du sikker på at du vil importera 1 kjelde til Zebra?";
+"Are you sure that you want to import %d sources into Zebra?" = "Er du sikker på at du vil importera %d kjelder til Zebra?";
 
 // Credits
 
-"Credits" = "Credits";
-"Creators" = "Creators";
-"Contributors" = "Contributors";
-"Translators" = "Translators";
-"Libraries" = "Libraries";
+"Credits" = "Bidragsytarar";
+"Creators" = "Utviklarar";
+"Contributors" = "Bidragsytarar";
+"Translators" = "Omsetjarar";
+"Libraries" = "Bibliotek";
 
 // Settings
 
-"Settings" = "Settings";
-"Display" = "Display";
-"App Icon" = "App Icon";
-"Changes" = "Changes";
-"Community News" = "Community News";
-"Miscellaneous" = "Miscellaneous";
-"Swipe Actions Display As" = "Swipe Actions Display As";
-"Text" = "Text";
-"Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
-"Always Install Latest" = "Always Install Latest";
-"Automatic Refresh" = "Automatic Refresh";
+"Settings" = "Innstillingar";
+"Display" = "Utsjåande";
+"App Icon" = "App ikon";
+"Changes" = "Endringar";
+"Community News" = "Nyheitene frå fellesskapet";
+"Miscellaneous" = "Diverse";
+"Swipe Actions Display As" = "Sveiphandlingar blir vist som";
+"Text" = "Tekst";
+"Icon" = "Ikon";
+"Finish Automatically" = "Fullfør automatisk";
+"Always Install Latest" = "Alltid installer nyaste";
+"Automatic Refresh" = "Automatisk oppdatering";
 
 // Accent Colors
 
-"Accent Color" = "Accent Color";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
-"Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Accent Color" = "Aksentfarge";
+"Aqua Velvet" = "Isblå";
+"Cornflower Blue" = "Kornblå";
+"Golden Tainoi" = "Honninggull";
+"Iris Blue" = "Irisblå";
+"Lotus Pink" = "Lotusrosa";
+"Monochrome" = "Monokrom";
+"Mountain Meadow" = "Fjellenggrøn";
+"Pastel Red" = "Pastellraud";
+"Purple Heart" = "Mørk orkidélilla";
+"Royal Blue" = "Kongeblå";
+"Shark" = "Haigrå";
+"Storm" = "Stormgrå";
+"Use System Accent Color" = "Bruk system aksentfarge";
+"Appearance" = "Utsjåande";
+"Use System Appearance" = "Bruk systemutsjånad";
+"Light" = "Lys";
+"Dark" = "Mørk";
+"Pure Black Mode" = "Fullstendig svart modus";
 
 // Featured
 
-"Featured Packages" = "Featured Packages";
-"Feature Type" = "Feature Type";
-"Repo Featured" = "Repo Featured";
-"Random" = "Random";
-"Select Repos to be Featured" = "Select Repos to be Featured";
-"Featured Repos" = "Featured Repos";
+"Featured Packages" = "Utvalde pakkar";
+"Feature Type" = "Utvald type";
+"Repo Featured" = "Kjelder utvalt";
+"Random" = "Tilfeldig";
+"Select Repos to be Featured" = "Vel utvalde kjelder";
+"Featured Repos" = "Utvalde kjelder";
 
 // Reset
 
-"Reset" = "Reset";
-"Refresh Icon Cache" = "Refresh Icon Cache";
-"Clear Image Cache" = "Clear Image Cache";
-"Clear Sources Cache" = "Clear Sources Cache";
-"Clear Web Cache" = "Clear Web Cache";
-"Reset All Settings" = "Reset All Settings";
-"Erase All Sources" = "Erase All Sources";
-"Erase All Sources and Settings" = "Erase All Sources and Settings";
+"Reset" = "Nullstill";
+"Refresh Icon Cache" = "Oppdater ikonbuffer";
+"Clear Image Cache" = "Tøm bildebufferen";
+"Clear Sources Cache" = "Tøm kjeldebufferen";
+"Clear Web Cache" = "Tøm nettbufferen";
+"Reset All Settings" = "Nullstill alle innstillingar";
+"Erase All Sources" = "Nullstill alle kjelder";
+"Erase All Sources and Settings" = "Nullstill alle kjelder og innstillingar";
 
-"Are you sure you want to restart the SpringBoard?" = "Are you sure you want to restart the SpringBoard?";
-"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
-"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.";
-"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
-"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.";
-"All of your sources will be deleted and be gone forever and Zebra will restart." = "All of your sources will be deleted and be gone forever and Zebra will restart.";
+"Are you sure you want to restart the SpringBoard?" = "Er du sikker på at du vil starta SpringBoard på nytt?";
+"Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Er du sikker på at du vil oppdatera ikonbufferen? Eininga di kan slutta å svara til prosessen er fullført.";
+"Image Cache Cleared" = "Bildebufferen vart nullstilt";
+"Web Cache Cleared" = "Nettbufferen vart nullstilt";
+"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Er du sikker på at du vil nullstille kjeldebufferen til Zebra? Dette vil fjerne all hurtigbufret informasjon frå Zebra sin database og lasta det ned på nytt. Kjeldene dine blir ikkje fjerna.";
+"Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Er du sikker på at du vil nullstille innstillingane til Zebra? Dette vil tilbakestille alle Zebra innstillingane til standardverdiane, og Zebra vil starta på nytt.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Er du sikker på at du vil fjerna alle kjeldene dine? Alle kjeldene vil bli fjerna frå Zebra, og deretter vil Zebra omstartes.";
+"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Er du sikker på at du vil fjerne alle kjelder og innstillingar? Alle kjeldene dine vil bli fjerna frå Zebra, og innstillingane dine nullstilt.";
+"All of your sources will be deleted and be gone forever and Zebra will restart." = "Alle kjeldene dine vil bli permanent fjerna, og Zebra vil starta på nytt.";
 
 // Documents Directory
 
-"Open Documents Directory" = "Open Documents Directory";
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Open Documents Directory" = "Opne dokument filplassering";
+"Filza Not Installed" = "Filza ikkje installert";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra kunne ikkje opna dokument filplasseringen sin fordi Filza ikkje er installert. Dokument filplasseringen din er: %@";
 
 // Stores
 
-"Stores" = "Stores";
-"My Account" = "My Account";
-"Sign In" = "Sign In";
-"Sign Out" = "Sign Out";
-"Your Purchases" = "Your Purchases";
-"No Storefronts Available" = "No Storefronts Available";
-"Could not authenticate" = "Could not authenticate";
-"Could not complete purchase" = "Could not complete purchase";
-"No packages purchased" = "No packages purchased";
-"Signed in as %@" = "Signed in as %@";
-"Signed in as %@ (%@)" = "Signed in as %@ (%@)";
+"Stores" = "Butikkar";
+"My Account" = "Kontoen min";
+"Sign In" = "Logg inn";
+"Sign Out" = "Logg ut";
+"Your Purchases" = "Kjøpa dine";
+"No Storefronts Available" = "Ingen tilgjengelege butikkar";
+"Could not authenticate" = "Kunne ikkje autentisera";
+"Could not complete purchase" = "Kunne ikkje fullføra kjøpet";
+"No packages purchased" = "Ingen kjøpte pakkar";
+"Signed in as %@" = "Innlogga som %@";
+"Signed in as %@ (%@)" = "Innlogga som %@ (%@)";
 
 // Sources
 
-"Sources" = "Sources";
-"Unknown" = "Unknown";
-"Delete" = "Delete";
-"Refresh" = "Refresh";
+"Sources" = "Kjelder";
+"Unknown" = "Ukjent";
+"Delete" = "Slett";
+"Refresh" = "Oppdater";
 "Copy" = "Copy";
-"All Packages" = "All Packages";
-"Remove Source" = "Remove Source";
-"Local File" = "Local File";
-"Local Repository" = "Local Repository";
-"Locally installed packages" = "Locally installed packages";
+"All Packages" = "Alle pakkar";
+"Remove Source" = "Fjern kjelde";
+"Local File" = "Lokal fil";
+"Local Repository" = "Lokal kjelde";
+"Locally installed packages" = "Lokalt installerte pakkar";
 "%lu Installed" = "%lu Installed";
 
-"Add" = "Add";
-"View" = "View";
-"Add Sources" = "Add Sources";
-"Add Multiple" = "Add Multiple";
-"Enter Source URL" = "Enter Source URL";
-"Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
+"Add" = "Legg til";
+"View" = "Vis";
+"Add Sources" = "Legg til kjelder";
+"Add Multiple" = "Legg til fleire";
+"Enter Source URL" = "Skriv inn kjeldenettadresse";
+"Would you like to add the URL from your clipboard?" = "Vil du legga til nettadressa frå utklippstavla?";
 
-"Please Wait..." = "Please Wait...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
-"Updating Sources" = "Updating Sources";
+"Please Wait..." = "Ver vennleg og vent...";
+"Verifying Source" = "Verifiserer kjelde";
+"Verifying Sources" = "Verifiserer kjelder";
+"Updating Sources" = "Oppdaterer kjelder";
 
-"Unknown error" = "Unknown error";
-"Invalid URL" = "Invalid URL";
-"Invalid Source" = "Invalid Source";
-"Tap to learn more" = "Tap to learn more";
-"No source URLs detected." = "No source URLs detected.";
-"Unable to verify source" = "Unable to verify source";
-"Error verifying source" = "Error verifying source";
-"Error verifying sources" = "Error verifying sources";
-"Failed to add source" = "Failed to add source";
-"Failed to add sources" = "Failed to add sources";
-"You have already added this source." = "You have already added this source.";
-"You have already added these sources." = "You have already added these sources.";
-"Unable to locate an APT repository at:" = "Unable to locate an APT repository at:";
-"Unable to locate APT repositories at:" = "Unable to locate APT repositories at:";
-"Error while downloading %@: %@" = "Error while downloading %@: %@";
+"Unknown error" = "Ukjend Feil";
+"Invalid URL" = "Ugyldig nettadresse";
+"Invalid Source" = "Ugyldig kjelde";
+"Tap to learn more" = "Trykk for meir informasjon";
+"No source URLs detected." = "Ingen kjeldenettadresser oppdaga.";
+"Unable to verify source" = "Kan ikkje verifisere kjelde";
+"Error verifying source" = "Feil under verifisering av kjelde";
+"Error verifying sources" = "Feil under verifisering av kjelder";
+"Failed to add source" = "Kunne ikkje legga til kjelde";
+"Failed to add sources" = "Kunne ikkje legga til kjelder";
+"You have already added this source." = "Du har allereie lagt til denne kjelda.";
+"You have already added these sources." = "Du har allereie lagt til dei kjeldene.";
+"Unable to locate an APT repository at:" = "Kunne ikkje finna eit APT-kjelde på:";
+"Unable to locate APT repositories at:" = "Kunne ikkje finna APT-kjelder på:";
+"Error while downloading %@: %@" = "Feil under nedlasting av %@: %@";
 
-"A total of %d files will be downloaded" = "A total of %d files will be downloaded";
+"A total of %d files will be downloaded" = "%d filer vil lastast ned";
 
-"Could not parse %@ from %@" = "Could not parse %@ from %@";
-"Could not find a download URL for" = "Could not find a download URL for";
-"Authorizing Download for %@" = "Authorizing Download for %@";
-"Couldn't authorize download for %@." = "Couldn't authorize download for %@.";
-"Reason: %@." = "Reason: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "The Payment API is not supported on less than iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Could not download Packages file from %@. Reason: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"Could not parse %@ from %@" = "Kunne ikkje parse %@ frå %@";
+"Could not find a download URL for" = "Kunne ikkje finna ein nedlastingsnettadresse for";
+"Authorizing Download for %@" = "Autoriserer nedlasting for %@";
+"Couldn't authorize download for %@." = "Kunne ikkje autorisera nedlasting for %@.";
+"Reason: %@." = "Årsak: %@.";
+"The Payment API is not supported on less than iOS 11.0" = "BetalingsAPI-et er ikkje støtta på iOS-versjoner under 11.0";
+"Could not download Release file from %@. Reason: %@" = "Kunne ikkje lasta ned utgivelsesfil frå %@. Årsak: %@";
+"Could not download Packages file from %@. Reason: %@" = "Kunne ikkje lasta ned pakkefil frå %@. Årsak: %@";
+"Could not download one or more files from %@. Reason: %@" = "Kunne ikkje lasta ned ein eller fleire filer frå %@. Årsak: %@";
 
-"Error while moving file at %@ to %@" = "Error while moving file at %@ to %@";
+"Error while moving file at %@ to %@" = "Feil ved flytting av fil frå %@ til %@";
 
-"The URL you entered is not valid. Please check it and try again." = "The URL you entered is not valid. Please check it and try again.";
+"The URL you entered is not valid. Please check it and try again." = "Nettadressa du gav opp er ikkje gyldig. Kontroller ho og prøv igjen.";
 
-"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly.";
+"Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra kunne ikkje lasta ned kjelda som er angitt i %@. Ho kan vera mellombels utilgjengeleg eller kunne vorte lagt til feil.";
 
-"Please remove this source from your sources.list file." = "Please remove this source from your sources.list file.";
+"Please remove this source from your sources.list file." = "Ver vennleg og fjern denne kjelda frå din sources.list fil.";
 
-"Error while opening sources.list" = "Error while opening sources.list";
+"Error while opening sources.list" = "Feil under opning av sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "The source %@ is incompatible with your jailbreak.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "It may cause issues if you add it to Zebra resulting in possible restore.";
+"The source %@ is incompatible with your jailbreak." = "Kjelda %@ er ikkje kompatibel med din jailbreak.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Han kan forårsaka problem viss du legg han til i Zebra. Det kan eventuelt føra til at du må retta opp igjen eininga di.";
 
-"%@ hasn't been modified" = "%@ hasn't been modified";
+"%@ hasn't been modified" = "%@ har ikkje vorte modifisert";
 
-"Install All" = "Install All";
+"Install All" = "Installer alle";
 
 // Packages
 
-"Latest" = "Latest";
-"Version" = "Version";
-"Packages" = "Packages";
-"Show Updates" = "Show Updates";
-"Hide Updates" = "Hide Updates";
-"Select Version" = "Select Version";
-"Select a version to install:" = "Select a version to install:";
-"Select a version to upgrade to:" = "Select a version to upgrade to:";
-"Select a version to downgrade to:" = "Select a version to downgrade to:";
-"Package" = "Package";
-"Information" = "Information";
-"Upgrade All" = "Upgrade All";
-"Loaded" = "Loaded";
+"Latest" = "Nyaste";
+"Version" = "Versjon";
+"Packages" = "Pakkar";
+"Show Updates" = "Vis oppdateringar";
+"Hide Updates" = "Skjul oppdateringar";
+"Select Version" = "Vel versjon";
+"Select a version to install:" = "Vel versjonen du vil installera:";
+"Select a version to upgrade to:" = "Vel versjonen du vil oppdatera til:";
+"Select a version to downgrade to:" = "Vel versjonen du vil nedgradera til:";
+"Package" = "Pakke";
+"Information" = "Informasjon";
+"Upgrade All" = "Oppdater alle";
+"Loaded" = "Lasta";
 "ABC" = "ABC";
-"Date" = "Date";
-"Size" = "Size";
-"Available Upgrades" = "Available Upgrades";
-"Ignored Upgrades" = "Ignored Upgrades";
-"Recent" = "Recent";
-"Source" = "Source";
-"Installed Files" = "Installed Files";
-"Modify" = "Modify";
-"Authenticate to initiate purchase." = "Authenticate to initiate purchase.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Please relogin your account that is used to purchase this package (Possibly %@)";
-"More by this Developer" = "More by this Developer";
-"Installed Version" = "Installed Version";
-"Installed Size" = "Installed Size";
+"Date" = "Dato";
+"Size" = "Storleik";
+"Available Upgrades" = "Tilgjengelege oppdateringar";
+"Ignored Upgrades" = "Ignorerte oppdateringar";
+"Recent" = "Nyleg";
+"Source" = "Kjelde";
+"Installed Files" = "Installerte filer";
+"Modify" = "Endre";
+"Authenticate to initiate purchase." = "Autentiser for å kjøpa.";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Ver vennleg og logg inn på nytt med kontoen som blir brukt for å kjøpa denne pakken (Kanskje %@)";
+"More by this Developer" = "Meir frå denne utviklaren";
+"Installed Version" = "Installert versjon";
+"Installed Size" = "Installert storleik";
 "Preview" = "Preview";
 
 //<Version available from source> (Installed Version: <Installed Version>)
-"%@ (Installed Version: %@)" = "%@ (Installed Version: %@)";
+"%@ (Installed Version: %@)" = "%@ (Installert versjon: %@)";
 
 //<Download size> (Installed Size: <installed size>)
-"%@ (Installed Size: %@)" = "%@ (Installed Size: %@)";
+"%@ (Installed Size: %@)" = "%@ (Installert storleik: %@)";
 
 //Package size in bytes (no deceimal)
-"%d bytes" = "%d bytes";
+"%d bytes" = "%d byte";
 //Package size in Kilobytes (no decimal)
 "%d KB" = "%d KB";
 //Package size in Kilobytes (with decimal)
@@ -259,234 +259,234 @@
 //Package size in Megabytes (with decimal)
 "%.2f MB" = "%.2f MB";
 
-"Add to Wish List" = "Add to Wish List";
-"Remove from Wish List" = "Remove from Wish List";
+"Add to Wish List" = "Legg til i ønskelista";
+"Remove from Wish List" = "Fjern frå ønskelista";
 
 // Package Section Names
 
-"Administration" = "Administration";
-"Addons" = "Addons";
-"App Addons" = "App Addons";
-"Archiving" = "Archiving";
-"Carrier Support" = "Carrier Support";
-"Communication" = "Communication";
-"Data Storage" = "Data Storage";
-"Development" = "Development";
-"Dictionaries" = "Dictionaries";
-"Education" = "Education";
-"Entertainment" = "Entertainment";
-"Games" = "Games";
-"Health and Fitness" = "Health and Fitness";
-"Imaging" = "Imaging";
+"Administration" = "Administrasjon";
+"Addons" = "Utvidingar";
+"App Addons" = "App utvidingar";
+"Archiving" = "Arkivering";
+"Carrier Support" = "Operatør støtte";
+"Communication" = "Kommunikasjon";
+"Data Storage" = "Data lagring";
+"Development" = "Utvikling";
+"Dictionaries" = "Bibliotek";
+"Education" = "Utdanning";
+"Entertainment" = "Underhaldning";
+"Games" = "Spel";
+"Health and Fitness" = "Helse og trening";
+"Imaging" = "Bildebehandling";
 "Java" = "Java";
-"Keyboards" = "Keyboards";
-"Localization" = "Localization";
-"Messaging" = "Messaging";
+"Keyboards" = "Tastatur";
+"Localization" = "Omsetjingar";
+"Messaging" = "Meldingar";
 "Multimedia" = "Multimedia";
-"Navigation" = "Navigation";
-"Networking" = "Networking";
-"Packaging" = "Packaging";
-"Productivity" = "Productivity";
-"Repositories" = "Repositories";
-"Ringtones" = "Ringtones";
-"Scripting" = "Scripting";
-"Security" = "Security";
-"Social" = "Social";
+"Navigation" = "Navigasjon";
+"Networking" = "Nettverk";
+"Packaging" = "Pakketering";
+"Productivity" = "Produktivitet";
+"Repositories" = "Kjelder";
+"Ringtones" = "Ringetoner";
+"Scripting" = "Skripting";
+"Security" = "Sikkerheit";
+"Social" = "Sosialt";
 "System" = "System";
-"Terminal Support" = "Terminal Support";
-"Text Editors" = "Text Editors";
-"Themes" = "Themes";
-"Toys" = "Toys";
+"Terminal Support" = "Terminalstøtte";
+"Text Editors" = "Tekstredigeringsverktøy";
+"Themes" = "Tema";
+"Toys" = "Leikar";
 "Tweaks" = "Tweaks";
-"Utilities" = "Utilities";
-"Wallpaper" = "Wallpaper";
-"Widgets" = "Widgets";
+"Utilities" = "Verktøy";
+"Wallpaper" = "Bakgrunnar";
+"Widgets" = "Widgeter";
 
 // Search
 
-"Search" = "Search";
-"This search query is too short for the full search, please use a longer query." = "This search query is too short for the full search, please use a longer query.";
-"No Results Found" = "No Results Found";
-"Name" = "Name";
-"Description" = "Description";
-"Author" = "Author";
+"Search" = "Søk";
+"This search query is too short for the full search, please use a longer query." = "Dette søkeordet er for kort for eit komplett søk. Vennlegast bruk eit lengre søkeord.";
+"No Results Found" = "Ingen resultat funne";
+"Name" = "Namn";
+"Description" = "Skildring";
+"Author" = "Forfattar";
 
 // Console
 
-"Console" = "Console";
-"Performing Actions..." = "Performing Actions...";
-"Updating icon cache asynchronously..." = "Updating icon cache asynchronously...";
-"uicache is not available on the simulator" = "uicache is not available on the simulator";
-"This may take awhile and Zebra may crash. It is okay if it does." = "This may take awhile and Zebra may crash. It is okay if it does.";
-"Close Zebra" = "Close Zebra";
-"Closing Zebra..." = "Closing Zebra...";
-"Restart SpringBoard" = "Restart SpringBoard";
-"Restarting SpringBoard..." = "Restarting SpringBoard...";
-"Parsing %@" = "Parsing %@";
-"Starting Download" = "Starting Download";
-"Downloading" = "Downloading";
-"Downloading %@" = "Downloading %@";
-"Downloading Packages..." = "Downloading Packages...";
-"Download Completed" = "Download Completed";
-"Installing" = "Installing";
-"Installing Packages..." = "Installing Packages...";
-"Removing" = "Removing";
-"Removing Packages..." = "Removing Packages...";
-"Reinstalling" = "Reinstalling";
-"Reinstalling Packages..." = "Reinstalling Packages...";
-"Upgrading" = "Upgrading";
-"Upgrading Packages..." = "Upgrading Packages...";
-"Complete" = "Complete";
-"Finished!" = "Finished!";
-"Return to Queue" = "Return to Queue";
-"Returning to Queue..." = "Returning to Queue...";
-"Importing local packages." = "Importing local packages.";
-"Finished importing local packages." = "Finished importing local packages.";
-"One or more packages failed to download." = "One or more packages failed to download.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Click \"Return to Queue\" to return to the Queue and retry the download.";
-"Could not complete %@ process. Reason: %@." = "Could not complete %@ process. Reason: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.";
-"Done..." = "Done...";
-"Done %@" = "Done %@";
-"Removing Zebra..." = "Removing Zebra...";
-"Installing Zebra..." = "Installing Zebra...";
-"Error while opening file:" = "Error while opening file:";
-"Adding Payment Vendor URL for %@" = "Adding Payment Vendor URL for %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "This device is simulated, here are the packages that would be modified in this stage:";
+"Console" = "Konsoll";
+"Performing Actions..." = "Utfører handlingar...";
+"Updating icon cache asynchronously..." = "Oppdaterer ikonbuffer asynkront...";
+"uicache is not available on the simulator" = "uicache er ikkje tilgjengeleg i simulasjonen";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Dette kan ta ei stund og det kan hende at Zebra krasjar. Dette vil ikkje føra til skade.";
+"Close Zebra" = "Lukk Zebra";
+"Closing Zebra..." = "Lukkar Zebra...";
+"Restart SpringBoard" = "Start SpringBoard på nytt";
+"Restarting SpringBoard..." = "Startar SpringBoard på nytt...";
+"Parsing %@" = "Parsar %@";
+"Starting Download" = "Startar nedlasting";
+"Downloading" = "Lastar ned";
+"Downloading %@" = "Lastar ned %@";
+"Downloading Packages..." = "Lastar ned pakkar...";
+"Download Completed" = "Nedlasting fullført";
+"Installing" = "Installerer";
+"Installing Packages..." = "Installerer pakkar...";
+"Removing" = "Fjernar";
+"Removing Packages..." = "Fjernar pakkar...";
+"Reinstalling" = "Installerer på nytt";
+"Reinstalling Packages..." = "Installerer pakkar på nytt...";
+"Upgrading" = "Oppgraderer";
+"Upgrading Packages..." = "Oppgraderer pakkar...";
+"Complete" = "Ferdig";
+"Finished!" = "Ferdig!";
+"Return to Queue" = "Tilbake til kø";
+"Returning to Queue..." = "Går tilbake til køen...";
+"Importing local packages." = "Importerer lokale pakkar.";
+"Finished importing local packages." = "Ferdig med å importere lokale pakkar.";
+"One or more packages failed to download." = "Nedlasting av ein eller fleire pakkar feila.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Trykk på \"Tilbake til kø\" for å returnera til køen og prøva nedlastinga på nytt.";
+"Could not complete %@ process. Reason: %@." = "Kunne ikkje fullføra %@ prosess. Årsak: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Start Zebra på nytt og sjå om problemet held fram. Viss dette er tilfelle, vennlegast rapportar problemet på GitHub.";
+"Done..." = "Ferdig...";
+"Done %@" = "Ferdig %@";
+"Removing Zebra..." = "Fjerner Zebra...";
+"Installing Zebra..." = "Installerer Zebra...";
+"Error while opening file:" = "Feil under opning av fil:";
+"Adding Payment Vendor URL for %@" = "Legg til nettadressa til betalingsleverandøra for %@";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Denne eininga er simulert, her er pakkane som ville bli endra i dette trinnet:";
 
 // Queue Bar
 
-"%d Packages Queued" = "%d Packages Queued";
-"%d Package Queued" = "%d Package Queued";
-"Tap to manage" = "Tap to manage";
-"No Packages Queued" = "No Packages Queued";
+"%d Packages Queued" = "%d Pakkar lagt til i kø";
+"%d Package Queued" = "%d Pakke lagt til i kø";
+"Tap to manage" = "Trykk for å administrera";
+"No Packages Queued" = "Ingen pakkar lagt til i kø";
 
 // Queue
 
-"Queue" = "Queue";
-"Install" = "Install";
-"Reinstall" = "Reinstall";
-"Remove" = "Remove";
-"Upgrade" = "Upgrade";
-"Downgrade" = "Downgrade";
-"Abort" = "Abort";
-"Continue" = "Continue";
-"Download Size" = "Download Size";
-"Confirm" = "Confirm";
-"Issues" = "Issues";
-"Required Package" = "Required Package";
-"Are you sure?" = "Are you sure?";
-"Remove from Queue" = "Remove from Queue";
-"Clear Queue" = "Clear Queue";
-"%@ is required by:" = "%@ is required by:";
-"\"%@\" conflicts with %@" = "\"%@\" conflicts with %@";
-"%@ must be removed because it depends on %@" = "%@ must be removed because it depends on %@";
-"%@ has issues that cannot be resolved:" = "%@ has issues that cannot be resolved:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
-"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!";
+"Queue" = "Kø";
+"Install" = "Installer";
+"Reinstall" = "Installer på nytt";
+"Remove" = "Fjern";
+"Upgrade" = "Oppgrader";
+"Downgrade" = "Nedgrader";
+"Abort" = "Avbryt";
+"Continue" = "Fortset";
+"Download Size" = "Nedlasting storleik";
+"Confirm" = "Stadfest";
+"Issues" = "Problem";
+"Required Package" = "Påkrevd pakke";
+"Are you sure?" = "Er du sikker?";
+"Remove from Queue" = "Fjern frå køen";
+"Clear Queue" = "Tøm kø";
+"%@ is required by:" = "%@ blir kravd av:";
+"\"%@\" conflicts with %@" = "\"%@\" er i konflikt med %@";
+"%@ must be removed because it depends on %@" = "%@ må fjernast fordi det avheng av %@";
+"%@ has issues that cannot be resolved:" = "%@ har problem som ikkje kan løysast:";
+"Are you sure you want to clear the Queue?" = "Er du sikker på at du vil tømma køen?";
+"%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke. Han burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
 
 // Search
 
-"Live Search" = "Live Search";
-"Tweaks, Themes, and More" = "Tweaks, Themes, and More";
+"Live Search" = "Live søk";
+"Tweaks, Themes, and More" = "Tweaks, tema og meir";
 
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
-"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!";
+"%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ er ein påkravd pakke og må fjernast fordi han avheng av %@. %@ burde IKKJE fjernast med mindre du veit nøyaktig kva du gjer!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Ein eller fleire av pakka i køen som skal fjernast er essensielle eller påkravd. Det blir ikkje tilrådt å fortsetja med mindre du veit nøyaktig kva du gjer. Viss du fjernar desse pakka, kan det føra til irreversibel skade på eininga di som kan føra til at du må retta opp igjen eininga di.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra klarte ikkje å fullføra denne kommandoen fordi han ikkje har dei nødvendige løyva. Ver vennleg og stadfest løyva som ligg på /usr/libexec/zebra/supersling, og rapportar dette problemet på GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Kan ikkje nå su/sling. Kontroller at /usr/libexec/zebra/supersling eksisterer.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling er ikkje ått av root:wheel. Ver vennleg og stadfest løyva til fila som ligg på /usr/libexec/zebra/supersling.";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su/sling har ikkje løyve til å angi uid eller gid. Ver vennleg og stadfest løyva til fila som ligg på /usr/libexec/zebra/supersling.";
 
-"Error while creating documents directory: %@." = "Error while creating documents directory: %@.";
+"Error while creating documents directory: %@." = "Feil ved skiping av dokumentmappe: %@.";
 
-"Error while creating lists directory: %@." = "Error while creating lists directory: %@.";
+"Error while creating lists directory: %@." = "Feil ved skiping av listemappe: %@.";
 
-"Error while creating sources.list: %@." = "Error while creating sources.list: %@.";
+"Error while creating sources.list: %@." = "Feil ved skiping av sources.list: %@.";
 
-"Error while creating debs directory: %@." = "Error while creating debs directory: %@.";
+"Error while creating debs directory: %@." = "Feil ved skiping av debfilmappe: %@.";
 
-"Could not respring. Please respring manually." = "Could not respring. Please respring manually.";
+"Could not respring. Please respring manually." = "Kunne ikkje starta SpringBoard på nytt. Vennlegast start SpringBoard på nytt sjølv.";
 
-"ERROR: Unable to lock status file. Please try again." = "ERROR: Unable to lock status file. Please try again.";
+"ERROR: Unable to lock status file. Please try again." = "FEIL: Kunne ikkje låsa statusfil. Ver vennleg og prøv på nytt.";
 
-"ERROR: Process must be restarted. Please try again." = "ERROR: Process must be restarted. Please try again.";
+"ERROR: Process must be restarted. Please try again." = "FEIL: Prosessen må startast på nytt. Ver vennleg og prøv på nytt.";
 
-"Incorrect documents permissions." = "Incorrect documents permissions.";
+"Incorrect documents permissions." = "Feil dokumentløyve.";
 
-"Could not determine device information." = "Could not determine device information.";
+"Could not determine device information." = "Kunne ikkje finna einingsinformasjon.";
 
-"Display featured packages on the homepage." = "Display featured packages on the homepage.";
+"Display featured packages on the homepage." = "Vis utvalde pakkar på heimesida.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Oppdater kjelder automatisk når du opnar appen.";
 
-"Display recent community posts from /r/jailbreak." = "Display recent community posts from /r/jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Vis nye innlegg frå /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Search packages while typing. Disabling this feature may reduce lag on older devices.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Søk etter pakkar medan du tastar. Deaktivering av denne funksjonen kan redusera etterslepet på eldre einingar.";
 
-"Configure the appearance of table view swipe actions." = "Configure the appearance of table view swipe actions.";
+"Configure the appearance of table view swipe actions." = "Konfigurer utsjånaden til sveiphandlingar på tabellvisningar.";
 
-"Change the accent color that displays across Zebra." = "Change the accent color that displays across Zebra.";
+"Change the accent color that displays across Zebra." = "Endre aksentfargen som blir vist i Zebra.";
 
-"Change the style of Zebra's dark mode when it is enabled." = "Change the style of Zebra's dark mode when it is enabled.";
+"Change the style of Zebra's dark mode when it is enabled." = "Endre stilen på Zebra sin mørk modus. Dette påverkar berre Zebra når mørk modus er aktivert.";
 
-"Change the source of the featured packages on the homepage." = "Change the source of the featured packages on the homepage.";
+"Change the source of the featured packages on the homepage." = "Endre kjelda til dei utvalde pakkane som blir viste på heimesida.";
 
-"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo Featured\" will display random packages from repos that support the Featured Package API.";
+"\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Kjelder utvalt\" vil visa tilfeldige pakkar frå kjelder som støttar Featured Package API.";
 
-"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Random\" will display random packages from all repositories that you have added to Zebra.";
+"\"Random\" will display random packages from all repositories that you have added to Zebra." = "\"Tilfeldig\" vil visa tilfeldige pakkar frå alle kjeldene du har lagt til i Zebra.";
 
-"Signing in to sources allows for the purchase of paid packages." = "Signing in to sources allows for the purchase of paid packages.";
+"Signing in to sources allows for the purchase of paid packages." = "Pålogging i kjelder gjer muleg kjøp av betalte pakkar.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Automatically dismiss the Console when all of its tasks have been completed.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Avslutt konsollen automatisk når alle oppgåvene er fullførte.";
 
-"Always install the most recent version of a package if it is not already installed." = "Always install the most recent version of a package if it is not already installed.";
+"Always install the most recent version of a package if it is not already installed." = "Installer automatisk den siste utgivinga av ein pakke utan å spørja kva versjon som skal installerast.";
 
 // Filters
 
-"Filters" = "Filters";
-"Add Filter" = "Add Filter";
+"Filters" = "Filtre";
+"Add Filter" = "Legg til filter";
 
-"1 Section Hidden" = "1 Section Hidden";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"1 Section Hidden" = "1 seksjon skjult";
+"%lu Sections Hidden" = "%lu seksjonar skjult";
 
-"Sections" = "Sections";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Hide packages in these sections.";
+"Sections" = "Seksjonar";
+"Select a Section" = "Vel ein seksjon";
+"Hide packages in these sections." = "Skjul pakkane i desse seksjonane.";
 
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Hide packages in these sections from specific sources.";
+"Select a Source" = "Vel ei kjelde";
+"Hide packages in these sections from specific sources." = "Skjul pakkane i desse seksjonane frå spesifikke kjelder.";
 
-"Updates" = "Updates";
-"Hide future updates from these packages." = "Hide future updates from these packages.";
+"Updates" = "Oppdateringar";
+"Hide future updates from these packages." = "Skjul framtidige oppdateringar for desse pakka.";
 
-"Authors" = "Authors";
-"Hide packages from these authors." = "Hide packages from these authors.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Authors" = "Forfattarar";
+"Hide packages from these authors." = "Skjul pakkane frå desse forfattarane.";
+"Search for an Author" = "Søk etter forfattar";
+"This author also goes by the following names:" = "Denne forfattaren går òg under følgjande namn:";
 
 // Language Settings
 
-"Language" = "Language";
-"Apply" = "Apply";
-"Restart Required" = "Restart Required";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Language" = "Språk";
+"Apply" = "Bruk";
+"Restart Required" = "Omstart nødvendig";
+"Zebra must be closed in order to change preferred language" = "For å endra ønskt språk må Zebra vera lukka";
+"Restart" = "Omstart";
+"Use System Language" = "Bruk systemspråk";
 
-"You are adding a repository that is not secure" = "You are adding a repository that is not secure";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data downloaded from this repository might not be encrypted. Are you sure you want to add it?";
+"You are adding a repository that is not secure" = "Denne kjelda er usikker";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Data som blir lasta ned frå denne kjelda er ikkje nødvendigvis kryptert. Er du sikker på at du vil legga han til?";
 
-"Unable to complete purchase" = "Unable to complete purchase";
+"Unable to complete purchase" = "Kunne ikkje fullføra kjøpet";
 
 
-"Package Not Available" = "Package Not Available";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect.";
+"Package Not Available" = "Pakken er utilgjengeleg";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Pakken du ber om er utilgjengeleg. Han kan ha vorte fjerna frå vertskjelda eller så vart feil pakke-ID spurt.";
 
 // Notifications
 
@@ -494,9 +494,9 @@
 "Version %@ is available on %@." = "Version %@ is available on %@.";
 "%d updates available" = "%d updates available";
 "%@ and %d more can be updated." = "%@ and %d more can be updated.";
-"%d Seconds" = "%d Seconds";
-"Download Timeout" = "Download Timeout";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Configure the amount of time Zebra will wait for a source to respond before timing out.";
-"This timer will reset every time Zebra receives new information from a source." = "This timer will reset every time Zebra receives new information from a source.";
+"%d Seconds" = "%d sekunder";
+"Download Timeout" = "Tidsavbrot for nedlasting";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Konfigurer kor lenge Zebra skal venta på at ei kjelde skal svara før tidsavbrot.";
+"This timer will reset every time Zebra receives new information from a source." = "Denne tidtakaren tilbakestilles kvar gong Zebra får ny informasjon frå ei kjelde.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Kontoinformasjon kunne ikkje hentast frå kjelda. Logg deg av kjelda, logg deg inn på nytt og prøv igjen.";
