@@ -928,7 +928,6 @@
 				89FEBC1B22C293E100B58662 /* Tabs */,
 				89337A2F253652D50065C4C1 /* UI */,
 				89C5FDE921B1B13800A10E58 /* Assets.xcassets */,
-				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				89C5FDEE21B1B13800A10E58 /* Info.plist */,
 			);
 			path = Zebra;
@@ -975,6 +974,7 @@
 			isa = PBXGroup;
 			children = (
 				36F77ADE22A33B6100A4604C /* Alternate Icons */,
+				89C5FDEB21B1B13800A10E58 /* LaunchScreen.storyboard */,
 				00ED302C235C23C5005E8302 /* Localizable.strings */,
 				8931E4D2226D6E9300F35DFD /* utiicon.png */,
 			);
