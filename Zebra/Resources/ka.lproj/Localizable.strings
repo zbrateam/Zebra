@@ -1,46 +1,46 @@
 // Common
 
-"Cancel" = "Cancel";
-"Yes" = "Yes";
-"No" = "No";
-"Ok" = "Ok";
-"Error" = "Error";
-"Retry" = "Retry";
-"Edit" = "Edit";
-"Close" = "Close";
-"Done" = "Done";
-"Loading..." = "Loading...";
-"Clear" = "Clear";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
-"Downloads" = "Downloads";
+"Cancel" = "შეწყვეტა";
+"Yes" = "ხო";
+"No" = "არა";
+"Ok" = "დიახ";
+"Error" = "ერორი";
+"Retry" = "კიდევ სცადეთ";
+"Edit" = "შეცვლა";
+"Close" = "დახურვა";
+"Done" = "მზად არის";
+"Loading..." = "იტვირთება...";
+"Clear" = "გასუფთავება";
+"An Error Occurred" = "დაფიქსირდა შეცდომა";
+"Dismiss" = "უარყოფა";
+"Downloads" = "ჩამოტვირთულები";
 
 // Home
 
-"Home" = "Home";
-"Info" = "Info";
-"Welcome to Zebra!" = "Welcome to Zebra!";
-"Report a Bug" = "Report a Bug";
-"Changelog" = "Changelog";
-"Wish List" = "Wish List";
+"Home" = "მთავარი";
+"Info" = "ინფორმაცია";
+"Welcome to Zebra!" = "კეთილი იყოს თქვენი მობრძანება!";
+"Report a Bug" = "შეგვატყობინეთ შეცდომების შესახებ";
+"Changelog" = "ცვლილებები";
+"Wish List" = "სურვილების სია";
 "Newest First" = "Newest First";
 "Oldest First" = "Oldest First";
-"No items in Wish List" = "No items in Wish List";
-"Community" = "Community";
-"Join our Discord" = "Join our Discord";
-"Follow us on Twitter" = "Follow us on Twitter";
-"Help translate Zebra!" = "Help translate Zebra!";
+"No items in Wish List" = "ამ სიაში არაა არც ერთი ერთეული";
+"Community" = "საზოგადოება";
+"Join our Discord" = "შემოგვიერთდით Discord_ზე";
+"Follow us on Twitter" = "გამოგვყევით ტვიტერზე";
+"Help translate Zebra!" = "დაგვეხმარეთ თარგმნაში!";
 
 // Community Source
 
 "Community Sources" = "Community Sources";
 "You’ve added all of the community sources" = "You’ve added all of the community sources";
 "Transfer sources from %@ to Zebra" = "Transfer sources from %@ to Zebra";
-"Utility source for %@" = "Utility source for %@";
+"Utility source for %@" = "კომუნალური წყარო %@-თვის";
 "Transfer Sources" = "Transfer Sources";
-"Import" = "Import";
-"Verifying..." = "Verifying...";
-"Confirm Import" = "Confirm Import";
+"Import" = "შემოტანა";
+"Verifying..." = "მიმდინარეობს დადასტურება...";
+"Confirm Import" = "იმპორტის დადასტურება";
 "Import Sources" = "Import Sources";
 "No sources to import" = "No sources to import";
 "Would you like to import the following sources?" = "Would you like to import the following sources?";
@@ -58,7 +58,7 @@
 // Settings
 
 "Settings" = "Settings";
-"Display" = "Display";
+"Display" = "ეკრანი";
 "App Icon" = "App Icon";
 "Changes" = "Changes";
 "Community News" = "Community News";
@@ -66,31 +66,31 @@
 "Swipe Actions Display As" = "Swipe Actions Display As";
 "Text" = "Text";
 "Icon" = "Icon";
-"Finish Automatically" = "Finish Automatically";
+"Finish Automatically" = "ავტომატურად დასრულება";
 "Always Install Latest" = "Always Install Latest";
 "Automatic Refresh" = "Automatic Refresh";
 
 // Accent Colors
 
 "Accent Color" = "Accent Color";
-"Aqua Velvet" = "Aqua Velvet";
-"Cornflower Blue" = "Cornflower Blue";
-"Golden Tainoi" = "Golden Tainoi";
-"Iris Blue" = "Iris Blue";
-"Lotus Pink" = "Lotus Pink";
-"Monochrome" = "Monochrome";
-"Mountain Meadow" = "Mountain Meadow";
-"Pastel Red" = "Pastel Red";
-"Purple Heart" = "Purple Heart";
-"Royal Blue" = "Royal Blue";
-"Shark" = "Shark";
-"Storm" = "Storm";
-"Use System Accent Color" = "Use System Accent Color";
-"Appearance" = "Appearance";
-"Use System Appearance" = "Use System Appearance";
+"Aqua Velvet" = "აკვა ხავერდი";
+"Cornflower Blue" = "სიმინდის ყვავილი ლურძად";
+"Golden Tainoi" = "ოქროს ტოინოი";
+"Iris Blue" = "ლურჯი ირისი";
+"Lotus Pink" = "ვარდისფერი ლოტუსი";
+"Monochrome" = "შავ-თეთრი";
+"Mountain Meadow" = "მთის მდელოს";
+"Pastel Red" = "წითელი პასტელი";
+"Purple Heart" = "მეწამული გული";
+"Royal Blue" = "სამეფო ლურჟი";
+"Shark" = "ზვიგენი";
+"Storm" = "ქარიშხალი";
+"Use System Accent Color" = "გამოიყენე სისტემის (აქცენტი) ფერი";
+"Appearance" = "გარეგნობა";
+"Use System Appearance" = "გამოიყენე სისტემის გარეგნობა";
 "Light" = "Light";
-"Dark" = "Dark";
-"Pure Black Mode" = "Pure Black Mode";
+"Dark" = "მუქი";
+"Pure Black Mode" = "სუფთა შავი რეჟიმი";
 
 // Featured
 
@@ -164,8 +164,8 @@
 "Would you like to add the URL from your clipboard?" = "Would you like to add the URL from your clipboard?";
 
 "Please Wait..." = "Please Wait...";
-"Verifying Source" = "Verifying Source";
-"Verifying Sources" = "Verifying Sources";
+"Verifying Source" = "გადამოწმება წყაროსი";
+"Verifying Sources" = "გადამოწმება წყაროების";
 "Updating Sources" = "Updating Sources";
 
 "Unknown error" = "Unknown error";
