@@ -42,9 +42,6 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     
     if (self) {
         self.title = @"Console";
-        
-        self.navigationController.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
     }
     
     return self;
@@ -94,6 +91,13 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     completeButton.translatesAutoresizingMaskIntoConstraints = NO;
     progressView.translatesAutoresizingMaskIntoConstraints = NO;
     consoleView.translatesAutoresizingMaskIntoConstraints = NO;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationController.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
