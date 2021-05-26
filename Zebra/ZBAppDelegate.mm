@@ -177,12 +177,14 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    if (![ZBSettings usesSystemAppearance]) {
-        ZBInterfaceStyle style = [ZBSettings interfaceStyle];
-        if (style == ZBInterfaceStyleLight) {
-            self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        } else {
-            self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+        if (![ZBSettings usesSystemAppearance]) {
+            ZBInterfaceStyle style = [ZBSettings interfaceStyle];
+            if (style == ZBInterfaceStyleLight) {
+                self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
+            } else {
+                self.window.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+            }
         }
     }
     

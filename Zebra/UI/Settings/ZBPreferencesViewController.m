@@ -60,25 +60,25 @@
     ZBPreferencesCellType cellType = [specifier[@"type"] unsignedIntValue];
     switch (cellType) {
         case ZBPreferencesCellTypeText: {
-            cell.textLabel.textColor = [UIColor labelColor];
+            cell.textLabel.textColor = [ZBColor labelColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
         case ZBPreferencesCellTypeDisclosure: {
-            cell.textLabel.textColor = [UIColor labelColor];
+            cell.textLabel.textColor = [ZBColor labelColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }
         case ZBPreferencesCellTypeButton: {
-            cell.textLabel.textColor = [UIColor systemBlueColor];
+            cell.textLabel.textColor = [ZBColor systemBlueColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
         case ZBPreferencesCellTypeSwitch: {
-            cell.textLabel.textColor = [UIColor labelColor];
+            cell.textLabel.textColor = [ZBColor labelColor];
             
             UISwitch *nx = [[UISwitch alloc] initWithFrame:CGRectZero];
             nx.on = [specifier[@"enabled"] boolValue];
@@ -90,7 +90,7 @@
             break;
         }
         case ZBPreferencesCellTypeSelection: {
-            cell.textLabel.textColor = [UIColor labelColor];
+            cell.textLabel.textColor = [ZBColor labelColor];
             cell.accessoryView = NULL;
             cell.accessoryType = [[self.selectedRows objectForKey:@(indexPath.section)] integerValue] == indexPath.row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
             break;

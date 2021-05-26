@@ -13,6 +13,8 @@
 #import <UI/Console/ZBConsoleViewController.h>
 #import <UI/ZBSidebarController.h>
 
+#import <Extensions/ZBColor.h>
+
 #import <Plains/Model/PLPackage.h>
 #import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Queue/PLQueue.h>
@@ -90,7 +92,7 @@
         UILabel *emptyLabel = [[UILabel alloc] init];
         emptyLabel.text = @"No Packages In Queue";
         emptyLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
-        emptyLabel.textColor = [UIColor secondaryLabelColor];
+        emptyLabel.textColor = [ZBColor secondaryLabelColor];
         
         self.tableView.backgroundView = emptyLabel;
         

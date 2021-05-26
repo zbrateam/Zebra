@@ -15,7 +15,11 @@
 @implementation ZBCreditsViewController
 
 - (instancetype)init {
-    self = [super initWithStyle:UITableViewStyleInsetGrouped];
+    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+        self = [super initWithStyle:UITableViewStyleInsetGrouped];
+    } else {
+        self = [super initWithStyle:UITableViewStyleGrouped];
+    }
     
     if (self) {
         self.title = @"Credits";

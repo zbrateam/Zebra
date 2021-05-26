@@ -20,8 +20,12 @@
 }
 
 + (UIColor *)getAccentColor:(NSUInteger)accentColor forInterfaceStyle:(UIUserInterfaceStyle)style {
-    UITraitCollection *traits = [UITraitCollection traitCollectionWithUserInterfaceStyle:style];
-    return [[self getAccentColor:accentColor] resolvedColorWithTraitCollection:traits];
+    UIColor *color = [self getAccentColor:accentColor];
+    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+        UITraitCollection *traits = [UITraitCollection traitCollectionWithUserInterfaceStyle:style];
+        return [color resolvedColorWithTraitCollection:traits];
+    }
+    return color;
 }
 
 + (UIColor *)getAccentColor:(NSUInteger)accentColor {

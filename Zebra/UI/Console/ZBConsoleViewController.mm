@@ -96,8 +96,10 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-    self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+        self.navigationController.navigationBar.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+        self.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

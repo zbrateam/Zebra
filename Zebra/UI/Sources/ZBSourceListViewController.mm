@@ -271,8 +271,15 @@
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:sourceController];
         [self presentViewController:navController animated:YES completion:nil];
         
-        sourceController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark"] style:UIBarButtonItemStyleDone target:sourceController action:@selector(goodbye)];
-        sourceController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"list.triangle"] style:UIBarButtonItemStylePlain target:sourceController action:@selector(showLog)];
+        
+        // TODO: Make images for these on iOS 12
+        if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+            sourceController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"xmark"] style:UIBarButtonItemStyleDone target:sourceController action:@selector(goodbye)];
+            sourceController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"list.triangle"] style:UIBarButtonItemStylePlain target:sourceController action:@selector(showLog)];
+        } else {
+            sourceController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleDone target:sourceController action:@selector(goodbye)];
+            sourceController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Log" style:UIBarButtonItemStylePlain target:sourceController action:@selector(showLog)];
+        }
     } else {
         PLSource *source = sources[indexPath.row];
         if (self.selectActionClass == [ZBErrorViewController class]) source.messages = self.failures[source.UUID];
