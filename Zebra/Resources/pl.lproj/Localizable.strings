@@ -149,13 +149,13 @@ Twoje urządzenie może stać się nieresponsywne aż proces zostanie ukończony
 "Unknown" = "Nieznane";
 "Delete" = "Usuń";
 "Refresh" = "Odśwież";
-"Copy" = "Copy";
+"Copy" = "Kopiuj";
 "All Packages" = "Wszystkie pakiety";
 "Remove Source" = "Usuń źródło";
 "Local File" = "Plik lokalny";
 "Local Repository" = "Lokalne źródło";
 "Locally installed packages" = "Lokalnie zainstalowane pakiety";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "%lu Zainstalowano";
 
 "Add" = "Dodaj";
 "View" = "Widok";
@@ -243,7 +243,7 @@ Twoje urządzenie może stać się nieresponsywne aż proces zostanie ukończony
 "More by this Developer" = "Więcej od tego programisty";
 "Installed Version" = "Zainstalowana wersja";
 "Installed Size" = "Zainstalowane miejsce";
-"Preview" = "Preview";
+"Preview" = "Podgląd";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Zainstalowana wersja: %@)";
@@ -491,10 +491,10 @@ Twoje urządzenie może stać się nieresponsywne aż proces zostanie ukończony
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
-"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"Update available for %@" = "Aktualizacja dostępna dla %@";
+"Version %@ is available on %@." = "Wersja %@ jest dostępna na %@.";
+"%d updates available" = "%d dostępnych aktualizacji";
+"%@ and %d more can be updated." = "%@ i %d więcej może zostać zaktualizowane.";
 "%d Seconds" = "%d sekund";
 "Download Timeout" = "Przekroczono limit czasu pobierania";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Skonfiguruj limit czasu oczekiwania Zebry na odpowiedź źródła.";
