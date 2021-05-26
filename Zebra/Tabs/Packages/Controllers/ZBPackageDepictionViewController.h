@@ -13,7 +13,8 @@
 #import <Console/ZBConsoleCommandDelegate.h>
 
 @import SafariServices;
-@import MessageUI;
+
+#import <MessageUI/MessageUI.h>
 
 @class ZBPackage;
 

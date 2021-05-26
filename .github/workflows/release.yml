@@ -33,35 +33,27 @@ jobs:
 
     - name: Clone gh-pages
       run: |
-        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/wstyres/Zebra.git ~/website
+        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/zbrateam/Safari.git ~/website
     - name: Move package to repo
       if: "!github.event.release.prerelease"
       run: |
-        mkdir ~/website/repo/newpackages
         cd packages
         fn=$(ls -t | head -n1)
         echo $fn
-        mv -f -- "$fn" ~/website/repo/newpackages
+        mv -f -- "$fn" ~/website/repo/pool
     - name: Move package to beta repo
       if: "github.event.release.prerelease"
       run: |
-        mkdir ~/website/beta/newpackages
         cd packages
         fn=$(ls -t | head -n1)
         echo $fn
-        mv -f -- "$fn" ~/website/beta/newpackages
+        mv -f -- "$fn" ~/website/beta/pool
     - name: Push repo
       if: "!github.event.release.prerelease"
-      run: |
-        cd ~/website
-        chmod +x repo_update.sh
-        ./repo_update.sh
+      run: git push
     - name: Push beta repo
       if: "github.event.release.prerelease"
-      run: |
-        cd ~/website
-        chmod +x beta_update.sh
-        ./beta_update.sh
+      run: git push
 
     - name: Attach package to release
       if: "!github.event.release.prerelease"

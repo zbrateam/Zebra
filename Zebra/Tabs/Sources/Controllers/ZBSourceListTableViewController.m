@@ -63,7 +63,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(delewhoop:) name:@"deleteSourceTouchAction" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkClipboard) name:UIApplicationWillEnterForegroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
      
     [self refreshTable];
@@ -74,11 +74,11 @@
     [self.tableView reloadData];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    [self checkClipboard];
-}
+//- (void)viewDidAppear:(BOOL)animated {
+//    [super viewDidAppear:animated];
+//
+//    [self checkClipboard];
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"ZBDatabaseCompletedUpdate" object:nil];
@@ -306,73 +306,73 @@
 
 #pragma mark - Clipboard
 
-- (void)checkClipboard {
-    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    NSURL *url = [NSURL URLWithString:pasteboard.string];
-    BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
-    if (!isValidURL) {
-        return;
-    }
-    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
-                              @"www.youtu.be", @"youtu.be",
-                              @"www.google.com", @"google.com",
-                              @"www.goo.gl", @"goo.gl",
-                              @"www.reddit.com", @"reddit.com",
-                              @"www.twitter.com", @"twitter.com",
-                              @"www.facebook.com", @"facebook.com",
-                              @"www.imgur.com", @"imgur.com",
-                              @"www.discord.com", @"discord.com",
-                              @"www.discord.gg", @"discord.gg",
-                              @"www.apple.com", @"apple.com",
-                              @"share.icloud.com", @"icloud.com",
-                              @"www.gmail.com", @"gmail.com",
-                              @"www.pastebin.com", @"pastebin.com",
-                              @"www.tinyurl.com", @"tinyurl.com",
-                              @"www.bit.ly", @"bit.ly"];
-
-    if (![urlBlacklist containsObject:url.host]) {
-        NSMutableArray *sources = [NSMutableArray new];
-        for (ZBSource *source in [self.databaseManager sources]) {
-            NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
-            if (host) {
-                [sources addObject:host];
-            }
-        }
-        if (![sources containsObject:url]) {
-            NSString *finalURLString = url.absoluteString;
-            if (![finalURLString hasSuffix:@"/"]) {
-                finalURLString = [finalURLString stringByAppendingString:@"/"];
-            }
-            NSURL *finalURL = [NSURL URLWithString:finalURLString];
-            ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:finalURL];
-            if (baseSource) {
-                [baseSource verify:^(ZBSourceVerificationStatus status) {
-                    if (status == ZBSourceExists) {
-                        if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
-                            dispatch_async(dispatch_get_main_queue(), ^{
-                                [self showAddSourceFromClipboardAlert:baseSource];
-                            });
-                        }
-                        self->askedToAddFromClipboard = YES;
-                        self->lastPaste = pasteboard.string;
-                    }
-                }];
-            }
-        }
-    }
-}
-
-- (void)showAddSourceFromClipboardAlert:(ZBBaseSource *)baseSource {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:baseSource.repositoryURI preferredStyle:UIAlertControllerStyleAlert];
-    alertController.view.tintColor = [UIColor accentColor];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
-    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self verifyAndAdd:[NSSet setWithObject:baseSource]];
-    }]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}
+//- (void)checkClipboard {
+//    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+//    NSURL *url = [NSURL URLWithString:pasteboard.string];
+//    BOOL isValidURL = url && [NSURLConnection canHandleRequest:[NSURLRequest requestWithURL:url]];
+//    if (!isValidURL) {
+//        return;
+//    }
+//    NSArray *urlBlacklist = @[@"www.youtube.com", @"youtube.com",
+//                              @"www.youtu.be", @"youtu.be",
+//                              @"www.google.com", @"google.com",
+//                              @"www.goo.gl", @"goo.gl",
+//                              @"www.reddit.com", @"reddit.com",
+//                              @"www.twitter.com", @"twitter.com",
+//                              @"www.facebook.com", @"facebook.com",
+//                              @"www.imgur.com", @"imgur.com",
+//                              @"www.discord.com", @"discord.com",
+//                              @"www.discord.gg", @"discord.gg",
+//                              @"www.apple.com", @"apple.com",
+//                              @"share.icloud.com", @"icloud.com",
+//                              @"www.gmail.com", @"gmail.com",
+//                              @"www.pastebin.com", @"pastebin.com",
+//                              @"www.tinyurl.com", @"tinyurl.com",
+//                              @"www.bit.ly", @"bit.ly"];
+//
+//    if (![urlBlacklist containsObject:url.host]) {
+//        NSMutableArray *sources = [NSMutableArray new];
+//        for (ZBSource *source in [self.databaseManager sources]) {
+//            NSString *host = [[NSURL URLWithString:source.repositoryURI] host];
+//            if (host) {
+//                [sources addObject:host];
+//            }
+//        }
+//        if (![sources containsObject:url]) {
+//            NSString *finalURLString = url.absoluteString;
+//            if (![finalURLString hasSuffix:@"/"]) {
+//                finalURLString = [finalURLString stringByAppendingString:@"/"];
+//            }
+//            NSURL *finalURL = [NSURL URLWithString:finalURLString];
+//            ZBBaseSource *baseSource = [[ZBBaseSource alloc] initFromURL:finalURL];
+//            if (baseSource) {
+//                [baseSource verify:^(ZBSourceVerificationStatus status) {
+//                    if (status == ZBSourceExists) {
+//                        if (!self->askedToAddFromClipboard || ![self->lastPaste isEqualToString:pasteboard.string]) {
+//                            dispatch_async(dispatch_get_main_queue(), ^{
+//                                [self showAddSourceFromClipboardAlert:baseSource];
+//                            });
+//                        }
+//                        self->askedToAddFromClipboard = YES;
+//                        self->lastPaste = pasteboard.string;
+//                    }
+//                }];
+//            }
+//        }
+//    }
+//}
+//
+//- (void)showAddSourceFromClipboardAlert:(ZBBaseSource *)baseSource {
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Would you like to add the URL from your clipboard?", @"") message:baseSource.repositoryURI preferredStyle:UIAlertControllerStyleAlert];
+//    alertController.view.tintColor = [UIColor accentColor];
+//
+//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"No", @"") style:UIAlertActionStyleCancel handler:nil]];
+//    [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Yes", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        [self verifyAndAdd:[NSSet setWithObject:baseSource]];
+//    }]];
+//
+//    [self presentViewController:alertController animated:YES completion:nil];
+//}
 
 #pragma mark - Adding a Source
 
