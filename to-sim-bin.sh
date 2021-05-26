@@ -34,3 +34,15 @@ done
 # xdelta3 -e -f -s $LIBAPT_PKG_PATH /path/to/patched/libapt-pkg.6.0.0.dylib $(basename $LIBAPT_PKG_PATH).patch
 xdelta3 -f -d -s $LIBAPT_PKG_PATH $(basename $LIBAPT_PKG_PATH).patch $LIBAPT_PKG_SIM_PATH
 ldid -S $LIBAPT_PKG_SIM_PATH
+
+rm -rf /opt/procursus/bin-sim/
+cp -R /opt/procursus/bin/ /opt/procursus/bin-sim/
+
+for f in $(find /opt/procursus/bin-sim -type f)
+do
+    vtool -remove-build-version 1 $f -o $f &> /dev/null
+    vtool -set-version-min 2 8.0 14.5 $f -o $f &> /dev/null
+    install_name_tool -change /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation /System/Library/Frameworks/Foundation.framework/Foundation $f &> /dev/null
+    install_name_tool -change /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation /System/Library/Frameworks/CoreFoundation.framework/CoreFoundation $f &> /dev/null
+    ldid -S $f
+done
