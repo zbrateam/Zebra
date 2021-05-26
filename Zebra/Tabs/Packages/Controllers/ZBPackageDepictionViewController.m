@@ -511,9 +511,11 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)sendEmailToDeveloper {
-    NSString *subject = [NSString stringWithFormat:@"Zebra/APT(Z): %@ (%@)", package.name, package.version]; //don't really know what the (Z) is for but Sileo uses (M) and Cydia uses (A) so i figured (Z) was cool
-    NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
+    NSString *subject = [[NSString stringWithFormat:@"Zebra: %@ (%@)", package.name, package.version] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    NSString *body = [[NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    NSLog(@"[Zebra] Sending Email.");
     if ([MFMailComposeViewController canSendMail]) {
+        NSLog(@"[Zebra] Can Send Mail.");
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
@@ -523,8 +525,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
-        NSString *email = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
-        NSString *url = [email stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        NSString *url = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
         } else {
@@ -572,7 +573,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             break;
         case ZBPackageInfoAuthor:
             cell.textLabel.text = value;
-            cell.accessoryType = self.package.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellSelectionStyleNone;
+            cell.accessoryType = self.package.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
             break;
         case ZBPackageInfoVersion:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
