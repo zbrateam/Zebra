@@ -1582,7 +1582,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1609,7 +1609,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBEXEC_FOLDER = "'@\"zebra\"'";
-				MARKETING_VERSION = "2.0~alpha";
+				MARKETING_VERSION = "2.0~alpha1";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
@@ -1636,7 +1636,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = YES;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1661,7 +1661,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBEXEC_FOLDER = "'@\"zebra\"'";
-				MARKETING_VERSION = "2.0~alpha";
+				MARKETING_VERSION = "2.0~alpha1";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
