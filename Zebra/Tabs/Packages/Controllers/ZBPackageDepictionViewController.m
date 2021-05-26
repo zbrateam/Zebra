@@ -511,11 +511,9 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 }
 
 - (void)sendEmailToDeveloper {
-    NSString *subject = [[NSString stringWithFormat:@"Zebra: %@ (%@)", package.name, package.version] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-    NSString *body = [[NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-    NSLog(@"[Zebra] Sending Email.");
+    NSString *subject = [NSString stringWithFormat:@"Zebra: %@ (%@)", package.name, package.version];
+    NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
     if ([MFMailComposeViewController canSendMail]) {
-        NSLog(@"[Zebra] Can Send Mail.");
         MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
         mail.mailComposeDelegate = self;
         [mail.navigationController.navigationBar setBarTintColor:[UIColor whiteColor]];
@@ -525,6 +523,8 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
+        subject = [subject stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        body = [body stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         NSString *url = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
         if (@available(iOS 10.0, *)) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];

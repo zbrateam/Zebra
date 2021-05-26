@@ -80,6 +80,7 @@
 		8944916F21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8944916E21B5AF5E00DDDEF2 /* ZBSourceListTableViewController.m */; };
 		89463CE02277B5C300A92FC5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 89463CDF2277B5C300A92FC5 /* libz.tbd */; };
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
+		8954CC74265EF0CA0086E675 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8954CC6D265EEFF10086E675 /* MessageUI.framework */; };
 		8958DF9F23EB9B0300A7B823 /* ZBAccentColorTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */; };
 		895A808823637C5100C166AC /* ZBCreditsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsTableViewController.m */; };
 		895C2ADA2402303B0065F424 /* ZBSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchTableViewController.m */; };
@@ -341,6 +342,7 @@
 		89463CDF2277B5C300A92FC5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		895071972239E2FD004AE338 /* MobileGestalt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MobileGestalt.h; sourceTree = "<group>"; };
 		895071982239E414004AE338 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
+		8954CC6D265EEFF10086E675 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8958DF9D23EB9B0300A7B823 /* ZBAccentColorTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAccentColorTableViewController.h; sourceTree = "<group>"; };
 		8958DF9E23EB9B0300A7B823 /* ZBAccentColorTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAccentColorTableViewController.m; sourceTree = "<group>"; };
 		8958F28123C2ED5100FB64D9 /* ZBSourceVerificationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceVerificationDelegate.h; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				89F205432463A75000896021 /* FirebaseCoreDiagnostics.xcframework in Frameworks */,
 				89F2053E2463A75000896021 /* FirebaseCrashlytics.xcframework in Frameworks */,
 				89F205402463A75000896021 /* FirebaseAnalytics.framework in Frameworks */,
+				8954CC74265EF0CA0086E675 /* MessageUI.framework in Frameworks */,
 				89F205412463A75000896021 /* GoogleDataTransportCCTSupport.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1004,6 +1007,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8954CC6D265EEFF10086E675 /* MessageUI.framework */,
 				89F205372463A74F00896021 /* FIRAnalyticsConnector.framework */,
 				89F2053C2463A74F00896021 /* Firebase.h */,
 				89F205332463A74E00896021 /* FirebaseAnalytics.framework */,
