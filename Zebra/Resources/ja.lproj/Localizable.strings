@@ -148,13 +148,13 @@
 "Unknown" = "不明";
 "Delete" = "削除";
 "Refresh" = "再読み込み";
-"Copy" = "Copy";
+"Copy" = "コピー";
 "All Packages" = "すべてのパッケージ";
 "Remove Source" = "リポジトリを消去";
 "Local File" = "ローカルファイル";
 "Local Repository" = "ローカルリポジトリ";
 "Locally installed packages" = "ローカルでインストールされたパッケージ";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "%lu インストール済み";
 
 "Add" = "追加";
 "View" = "表示";
@@ -242,7 +242,7 @@
 "More by this Developer" = "この開発者のパッケージ一覧";
 "Installed Version" = "インストール済みバージョン";
 "Installed Size" = "インストール済みのサイズ";
-"Preview" = "Preview";
+"Preview" = "プレビュー";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@(インストール済み:%@)";
@@ -490,10 +490,10 @@
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
-"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"Update available for %@" = "%@ のアップデートがあります";
+"Version %@ is available on %@." = "バージョン %@ が %@ で利用可能です。";
+"%d updates available" = "%d のアップデートがあります";
+"%@ and %d more can be updated." = "%@ と %d を更新できます。";
 "%d Seconds" = "%d 秒";
 "Download Timeout" = "ダウンロードタイムアウト";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Zebra がタイムアウトする前にリポジトリが応答するのを待ちます。";
