@@ -11,45 +11,45 @@
 "Done" = "Xong";
 "Loading..." = "Đang tải...";
 "Clear" = "Xoá bỏ";
-"An Error Occurred" = "An Error Occurred";
-"Dismiss" = "Dismiss";
+"An Error Occurred" = "Có lỗi xảy ra";
+"Dismiss" = "Bỏ qua";
 "Downloads" = "Tải xuống";
 
 // Home
 
 "Home" = "Trang Chủ";
 "Info" = "Thông tin";
-"Welcome to Zebra!" = "Chào mừng đến Zebra!";
+"Welcome to Zebra!" = "Chào mừng đến với Zebra!";
 "Report a Bug" = "Báo cáo lỗi";
 "Changelog" = "Thay đổi";
 "Wish List" = "Danh sách mong muốn";
-"Newest First" = "Newest First";
-"Oldest First" = "Oldest First";
+"Newest First" = "Mới nhất trước";
+"Oldest First" = "Cũ nhất trước";
 "No items in Wish List" = "Không có mục nào trong Danh sách mong muốn";
 "Community" = "Cộng đồng";
 "Join our Discord" = "Tham gia Discord của chúng tôi";
 "Follow us on Twitter" = "Theo dõi chúng tôi trên Twitter";
-"Help translate Zebra!" = "Giúp dịch Zebra!";
+"Help translate Zebra!" = "Giúp đỡ dịch Zebra!";
 
 // Community Source
 
 "Community Sources" = "Nguồn cộng đồng";
 "You’ve added all of the community sources" = "Bạn đã thêm tất cả các nguồn cộng đồng";
-"Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới zebra";
+"Transfer sources from %@ to Zebra" = "Di chuyển tất cả nguồn từ %@ tới Zebra";
 "Utility source for %@" = "Nguồn tiện ích cho %@";
 "Transfer Sources" = "Chuyển nguồn";
 "Import" = "Nhập";
 "Verifying..." = "Đang xác minh...";
 "Confirm Import" = "Xác nhận nhập";
 "Import Sources" = "Nhập nguồn";
-"No sources to import" = "Chưa có nguồn để nhập";
+"No sources to import" = "Không có nguồn để nhập";
 "Would you like to import the following sources?" = "Bạn có muốn nhập các nguồn sau đây?";
 "Are you sure that you want to import 1 source into Zebra?" = "Bạn có chắc muốn thêm 1 nguồn vào Zebra?";
 "Are you sure that you want to import %d sources into Zebra?" = "Bạn có chắc rằng bạn muốn thêm nguồn %d vào Zebra?";
 
 // Credits
 
-"Credits" = "Thẻ Tín Dụng";
+"Credits" = "Những người tham gia";
 "Creators" = "Tác giả";
 "Contributors" = "Người đóng góp";
 "Translators" = "Biên dịch viên";
@@ -62,13 +62,13 @@
 "App Icon" = "Biểu tượng ứng dụng";
 "Changes" = "Thay đổi";
 "Community News" = "Tin tức cộng đồng";
-"Miscellaneous" = "Điều khoản khác";
+"Miscellaneous" = "Khác";
 "Swipe Actions Display As" = "Thao tác vuốt hiển thị dưới dạng";
 "Text" = "Văn bản";
 "Icon" = "Biểu tượng";
 "Finish Automatically" = "Tự động kết thúc";
 "Always Install Latest" = "Luôn cài đặt phiên bản mới nhất";
-"Automatic Refresh" = "Automatic Refresh";
+"Automatic Refresh" = "Tự động làm mới";
 
 // Accent Colors
 
@@ -99,7 +99,7 @@
 "Repo Featured" = "Nguồn nổi bật";
 "Random" = "Ngẫu nhiên";
 "Select Repos to be Featured" = "Chọn Repo nổi bật";
-"Featured Repos" = "Repos Nổi Bật";
+"Featured Repos" = "Repo Nổi Bật";
 
 // Reset
 
@@ -109,24 +109,26 @@
 "Clear Sources Cache" = "Dọn sạch cache Nguồn";
 "Clear Web Cache" = "Xoá bộ nhớ đệm trang web";
 "Reset All Settings" = "Đặt lại tất cả các cài đặt";
-"Erase All Sources" = "Erase All Sources";
+"Erase All Sources" = "Xóa tất cả các nguồn";
 "Erase All Sources and Settings" = "Xoá tất cả các nguồn và cài đặt";
 
 "Are you sure you want to restart the SpringBoard?" = "Bạn có muốn khởi động lại SpringBoard?";
 "Are you sure you want to refresh the icon cache? Your device may become unresponsive until the process is complete." = "Bạn có muốn làm mới icon cache? Thiết bị của bạn có thể không phản hồi đến khi quá trình hoàn tất.";
-"Image Cache Cleared" = "Image Cache Cleared";
-"Web Cache Cleared" = "Web Cache Cleared";
+"Image Cache Cleared" = "Đã xóa bộ nhớ đệm hình ảnh";
+"Web Cache Cleared" = "Đã xóa bộ nhớ đệm web";
 "Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted." = "Bạn có muốn đặt lại bộ nhớ mã nguồn của Zebra? Hành động này sẽ xoá tất cả thông tin trong dữ liệu của Zebra và tải lại nó. Nguồn của bạn sẽ không bị xoá.";
 "Are you sure you want to reset Zebra's settings? This will reset all of Zebra's settings back to their default values and Zebra will restart." = "Bạn có muốn đặt lại tất cả cài đặt của Zebra? Điều này sẽ đưa tất cả các cài đặt của Zebra về mặc định và Zebra sẽ khởi động lại.";
-"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.";
+"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart." = "Bạn có muốn xóa tất cả các nguồn? Tất cả các nguồn của bạn sẽ bị xóa và Zebra sẽ khời động lại.";
+
 "Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset." = "Bạn có muốn xoá tất cả nguồn và cài đặt? Tất cả nguồn của bạn sẽ bị xoá khỏi Zebra và cài đặt của bạn sẽ bị xoá.";
 "All of your sources will be deleted and be gone forever and Zebra will restart." = "Tất cả nguồn của bạn sẽ bị xoá vĩnh viễn và Zebra sẽ khởi động lại.";
 
 // Documents Directory
 
-"Open Documents Directory" = "Open Documents Directory";
-"Filza Not Installed" = "Filza Not Installed";
-"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@";
+"Open Documents Directory" = "Mở thư mục chứa dữ liệu";
+"Filza Not Installed" = "Chưa cài đặt Filza";
+"Zebra cannot open its documents directory because Filza is not installed. Your documents directory is: %@" = "Zebra không thể mở thư mục chữa dữ liệu vì Filza chưa được cài đặt. Đường dẫn thư mục: %@";
+
 
 // Stores
 
@@ -135,18 +137,18 @@
 "Sign In" = "Đăng nhập";
 "Sign Out" = "Đăng xuất";
 "Your Purchases" = "Đã mua";
-"No Storefronts Available" = "Không cửa hàng nào có sẵn";
+"No Storefronts Available" = "Cửa hàng không có sẵn";
 "Could not authenticate" = "Không thể xác thực";
 "Could not complete purchase" = "Không thể hoàn tất mua";
 "No packages purchased" = "Không có gói đã mua";
-"Signed in as %@" = "Đăng ký với tư cách %@";
-"Signed in as %@ (%@)" = "Đăng ký với tư cách %@ (%@)";
+"Signed in as %@" = "Đã đăng nhập với tư cách %@";
+"Signed in as %@ (%@)" = "Đã đăng nhập với tư cách %@ (%@)";
 
 // Sources
 
 "Sources" = "Nguồn";
 "Unknown" = "Không xác định";
-"Delete" = "Xóa bỏ";
+"Delete" = "Xóa";
 "Refresh" = "Làm mới";
 "All Packages" = "Tất cả các gói";
 "Remove Source" = "Gỡ bỏ nguồn";
@@ -163,24 +165,24 @@
 
 "Please Wait..." = "Vui lòng chờ...";
 "Verifying Source" = "Đang xác minh nguồn";
-"Verifying Sources" = "Đang xác minh nguồn";
-"Updating Sources" = "Đang cập nhật nguồn";
+"Verifying Sources" = "Đang xác minh các nguồn";
+"Updating Sources" = "Đang cập nhật các nguồn";
 
 "Unknown error" = "Lỗi không xác định";
 "Invalid URL" = "URL không hợp lệ";
 "Invalid Source" = "Nguồn không chính xác";
 "Tap to learn more" = "Chạm để biết thêm";
-"No source URLs detected." = "Không phát hiện URL nguồn.";
+"No source URLs detected." = "Không tìm thấy URL nguồn.";
 "Unable to verify source" = "Không thể xác minh nguồn";
-"Error verifying source" = "Lỗi xác minh nguồn";
-"Error verifying sources" = "Lỗi khi xác minh nguồn";
+"Error verifying source" = "Lỗi khi xác minh nguồn";
+"Error verifying sources" = "Lỗi khi xác minh các nguồn";
 "Failed to add source" = "Thêm nguồn thất bại";
-"Failed to add sources" = "Thêm nguồn thất bại";
+"Failed to add sources" = "Thêm các nguồn thất bại";
 "You have already added this source." = "Bạn đã thêm nguồn này rồi.";
 "You have already added these sources." = "Bạn đã thêm các nguồn này.";
-"Unable to locate an APT repository at:" = "Không thể định vị kho lưu trữ APT tại:";
-"Unable to locate APT repositories at:" = "Không thể định vị kho lưu trữ APT tại:";
-"Error while downloading %@: %@" = "Lỗi trong khi tải về %@: %@";
+"Unable to locate an APT repository at:" = "Không thể tìm thấy kho lưu trữ APT tại:";
+"Unable to locate APT repositories at:" = "Không thể tìm thấy kho lưu trữ APT tại:";
+"Error while downloading %@: %@" = "Lỗi khi tải về %@: %@";
 
 "A total of %d files will be downloaded" = "Tất cả %d tập tin sẽ được tải về";
 
@@ -189,23 +191,23 @@
 "Authorizing Download for %@" = "Ủy quyền tải xuống cho %@";
 "Couldn't authorize download for %@." = "Không thể ủy quyền tải xuống cho %@.";
 "Reason: %@." = "Lí do: %@.";
-"The Payment API is not supported on less than iOS 11.0" = "Thanh toán không hỗ trợ thấp hơn phiên bản iOS 11.0";
-"Could not download Release file from %@. Reason: %@" = "Could not download Release file from %@. Reason: %@";
-"Could not download Packages file from %@. Reason: %@" = "Không thể tải Gói từ %@. Lý do: %@";
-"Could not download one or more files from %@. Reason: %@" = "Could not download one or more files from %@. Reason: %@";
+"The Payment API is not supported on less than iOS 11.0" = "Không hỗ trợ thanh toán với các phiên bản iOS thấp hơn 11.0";
+"Could not download Release file from %@. Reason: %@" = "Không thể tải danh sách gói từ %@. Lí do: %@";
+"Could not download Packages file from %@. Reason: %@" = "Không thể tải gói từ %@. Lý do: %@";
+"Could not download one or more files from %@. Reason: %@" = "Không thể tải một hoặc nhiều file từ %@. Lí do: %@";
 
 "Error while moving file at %@ to %@" = "Lỗi khi di chuyển tệp %@ đến %@";
 
-"The URL you entered is not valid. Please check it and try again." = "Đường dẫn bạn nhập không chính xác. Vui lòng kiểm tra và thử lại.";
+"The URL you entered is not valid. Please check it and try again." = "Đường dẫn không chính xác. Vui lòng kiểm tra và thử lại.";
 
 "Zebra was unable to download the source specified at %@. It may be temporarily inaccessible or could have been added incorrectly." = "Zebra không thể tải nguồn %@. Nguồn này có thể tạm thời không truy cập được hoặc có thể đã được thêm không chính xác.";
 
-"Please remove this source from your sources.list file." = "Vui lòng xóa nguồn này khỏi tệp sources.list của bạn.";
+"Please remove this source from your sources.list file." = "Vui lòng xóa nguồn này khỏi sources.list.";
 
-"Error while opening sources.list" = "Lỗi trong khi mở danh sách nguồn";
+"Error while opening sources.list" = "Lỗi khi mở sources.list";
 
-"The source %@ is incompatible with your jailbreak." = "Nguồn %@ không tương thích với bản jailbreak của bạn.";
-"It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu bạn thêm nó vào Zebra dẫn đến khả năng khôi phục.";
+"The source %@ is incompatible with your jailbreak." = "Nguồn %@ không tương thích với phiên bản jailbreak của bạn.";
+"It may cause issues if you add it to Zebra resulting in possible restore." = "Nó có thể gây ra sự cố nếu thêm vào Zebra, có thể dẫn đến việc phải restore lại máy.";
 
 "%@ hasn't been modified" = "%@ chưa được sửa đổi";
 
@@ -219,13 +221,13 @@
 "Show Updates" = "Hiển thị cập nhật";
 "Hide Updates" = "Ẩn cập nhật";
 "Select Version" = "Chọn phiên bản";
-"Select a version to install:" = "Chọn một phiên bản để nâng cấp:";
+"Select a version to install:" = "Chọn một phiên bản để cài đặt:";
 "Select a version to upgrade to:" = "Chọn một phiên bản để nâng cấp:";
 "Select a version to downgrade to:" = "Chọn một phiên bản để hạ cấp:";
 "Package" = "Gói";
 "Information" = "Thông tin";
 "Upgrade All" = "Nâng cấp tất cả";
-"Loaded" = "Tải";
+"Loaded" = "Đã tải";
 "ABC" = "ABC";
 "Date" = "Ngày";
 "Size" = "Kích thước";
@@ -236,7 +238,7 @@
 "Installed Files" = "Tập tin đã cài đặt";
 "Modify" = "Sửa đổi";
 "Authenticate to initiate purchase." = "Xác thực để bắt đầu mua hàng.";
-"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vui lòng đăng nhập lại tài khoản của bạn được sử dụng để mua gói này (Possibly %@)";
+"Please relogin your account that is used to purchase this package (Possibly %@)" = "Vui lòng đăng nhập lại tài khoản của bạn được sử dụng để mua gói này (Có thể do %@)";
 "More by this Developer" = "Thêm bởi Nhà phát triển này";
 "Installed Version" = "Phiên bản đã cài đặt";
 "Installed Size" = "Kích thước cài đặt";
@@ -261,23 +263,23 @@
 
 // Package Section Names
 
-"Administration" = "Quyền quản trị";
-"Addons" = "Tiện ích";
-"App Addons" = "Ứng dụng bổ trợ";
+"Administration" = "Quản trị";
+"Addons" = "Tiện ích bổ sung";
+"App Addons" = "Bổ trợ ứng dụng";
 "Archiving" = "Lưu trữ";
 "Carrier Support" = "Hỗ trợ Carrier";
 "Communication" = "Giao tiếp";
 "Data Storage" = "Lưu trữ dữ liệu";
-"Development" = "Người phát triển";
+"Development" = "Phát triển";
 "Dictionaries" = "Từ điển";
 "Education" = "Giáo dục";
 "Entertainment" = "Giải trí";
 "Games" = "Trò chơi";
-"Health and Fitness" = "Sức khỏe và năng lực";
+"Health and Fitness" = "Sức khỏe và thể chất";
 "Imaging" = "Hình ảnh";
 "Java" = "Java";
 "Keyboards" = "Bàn phím";
-"Localization" = "Bản đồ hoá";
+"Localization" = "Bản địa hóa";
 "Messaging" = "Tin nhắn";
 "Multimedia" = "Đa phương tiện";
 "Navigation" = "Điều hướng";
@@ -286,12 +288,12 @@
 "Productivity" = "Năng suất";
 "Repositories" = "Kho lưu trữ";
 "Ringtones" = "Nhạc chuông";
-"Scripting" = "Kịch bản";
+"Scripting" = "Đoạn mã";
 "Security" = "Bảo mật";
 "Social" = "Xã hội";
 "System" = "Hệ thống";
 "Terminal Support" = "Hỗ trợ terminal";
-"Text Editors" = "Sửa văn bản";
+"Text Editors" = "Phần mềm chỉnh sửa văn bản";
 "Themes" = "Giao diện";
 "Toys" = "Đồ chơi";
 "Tweaks" = "Tinh chỉnh";
@@ -302,8 +304,8 @@
 // Search
 
 "Search" = "Tìm kiếm";
-"This search query is too short for the full search, please use a longer query." = "Truy vấn tìm kiếm này quá ngắn cho tìm kiếm đầy đủ, vui lòng sử dụng truy vấn dài hơn.";
-"No Results Found" = "Không có kết quả nào được tìm thấy";
+"This search query is too short for the full search, please use a longer query." = "Cụm tìm kiếm này quá ngắn để tìm kiếm đầy đủ, vui lòng sử dụng cụm dài hơn.";
+"No Results Found" = "Không tìm thấy";
 "Name" = "Tên";
 "Description" = "Mô tả";
 "Author" = "Tác giả";
@@ -314,7 +316,7 @@
 "Performing Actions..." = "Thực hiện các hành động...";
 "Updating icon cache asynchronously..." = "Cập nhật bộ đệm biểu tượng không đồng bộ...";
 "uicache is not available on the simulator" = "uicache không có sẵn trên trình giả lập";
-"This may take awhile and Zebra may crash. It is okay if it does." = "Điều này có thể mất một lúc và Zebra có thể sụp đổ. Không sao nếu nó làm.";
+"This may take awhile and Zebra may crash. It is okay if it does." = "Việc này có thể mất một lúc và Zebra có thể crash. Đây là điều bình thường";
 "Close Zebra" = "Đóng Zebra";
 "Closing Zebra..." = "Đang đóng Zebra...";
 "Restart SpringBoard" = "Khởi động lại SpringBoard";
@@ -322,7 +324,7 @@
 "Parsing %@" = "Đang phân tích %@";
 "Starting Download" = "Bắt đầu tải xuống";
 "Downloading" = "Đang tải xuống";
-"Downloading %@" = "Đang tải %@";
+"Downloading %@" = "Đang tải xuống %@";
 "Downloading Packages..." = "Đang tải xuống gói...";
 "Download Completed" = "Tải về hoàn tất";
 "Installing" = "Đang cài đặt";
@@ -335,32 +337,32 @@
 "Upgrading Packages..." = "Nâng cấp gói...";
 "Complete" = "Hoàn thành";
 "Finished!" = "Kết thúc!";
-"Return to Queue" = "Trở lại hàng đợi";
-"Returning to Queue..." = "Quay trở lại hàng đợi...";
-"Importing local packages." = "Nhập gói nội địa.";
-"Finished importing local packages." = "Hoàn tất nhập các gói nội địa.";
+"Return to Queue" = "Trở lại hàng chờ";
+"Returning to Queue..." = "Đang trở lại hàng chờ...";
+"Importing local packages." = "Đang thêm gói cục bộ.";
+"Finished importing local packages." = "Hoàn tất thêm các gói cục bộ.";
 "One or more packages failed to download." = "Một hoặc nhiều gói không thể tải xuống.";
-"Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng đợi\" để trở về Hàng đợi và thử tải xuống lại.";
-"Could not complete %@ process. Reason: %@." = "Không thể hoàn tất %@ quá trình. Lí do: %@.";
-"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Vui lòng khởi chạy lại Zebra và xem vấn đề còn tồn tại không. Nếu có, hãy tạo một vấn đề trên Github.";
+"Click \"Return to Queue\" to return to the Queue and retry the download." = "Nhấp \"Trở lại hàng chờ\" để trở về hàng chờ và thử tải lại.";
+"Could not complete %@ process. Reason: %@." = "Không thể hoàn tất quá trình %@. Lí do: %@.";
+"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub." = "Vui lòng khởi chạy lại Zebra và xem vấn đề còn tồn tại không. Nếu có, hãy báo lỗi trên Github.";
 "Done..." = "Xong...";
 "Done %@" = "Xong %@";
 "Removing Zebra..." = "Đang xoá Zebra...";
 "Installing Zebra..." = "Đang cài đặt Zebra...";
 "Error while opening file:" = "Lỗi khi mở tệp:";
 "Adding Payment Vendor URL for %@" = "Đang thêm nhà cung cấp thanh toán cho %@";
-"This device is simulated, here are the packages that would be modified in this stage:" = "Thiết bị này đã được mô phỏng, đây là sẽ gói được sửa đổi trong giai đoạn này:";
+"This device is simulated, here are the packages that would be modified in this stage:" = "Thiết bị này được mô phỏng, các gói sẽ được sửa đổi trong giai đoạn này:";
 
 // Queue Bar
 
 "%d Packages Queued" = "%d Gói đang chờ";
 "%d Package Queued" = "%d Gói đang chờ";
 "Tap to manage" = "Nhấn để quản lý";
-"No Packages Queued" = "Không có gói xếp hàng";
+"No Packages Queued" = "Không có gói trong hàng chờ";
 
 // Queue
 
-"Queue" = "Xếp hàng";
+"Queue" = "Hàng chờ";
 "Install" = "Cài đặt";
 "Reinstall" = "Cài đặt lại";
 "Remove" = "Xóa bỏ";
@@ -373,13 +375,13 @@
 "Issues" = "Các vấn đề";
 "Required Package" = "Gói cần thiết";
 "Are you sure?" = "Bạn có chắc không?";
-"Remove from Queue" = "Xóa khỏi hàng đợi";
-"Clear Queue" = "Xoá hàng đợi";
+"Remove from Queue" = "Xóa khỏi hàng chờ";
+"Clear Queue" = "Xoá hàng chờ";
 "%@ is required by:" = "%@ được yêu cầu bởi:";
 "\"%@\" conflicts with %@" = "\"%@\" xung đột với %@";
 "%@ must be removed because it depends on %@" = "%@ phải được gỡ bỏ bởi vì nó phụ thuộc vào %@";
 "%@ has issues that cannot be resolved:" = "%@ có những vấn đề không thể giải quyết:";
-"Are you sure you want to clear the Queue?" = "Are you sure you want to clear the Queue?";
+"Are you sure you want to clear the Queue?" = "Bạn có chắc muốn xóa hàng chờ?";
 "%@ is a required package. It should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc. Nó KHÔNG nên được loại bỏ trừ khi bạn biết chính xác những gì bạn đang làm!";
 
 // Search
@@ -390,15 +392,15 @@
 //<first package> is being removed because it depends on <second package>. <second package> should not be removed unless you know what you are doing.
 "%@ is a required package and must be removed because it depends on %@. %@ should NOT be removed unless you know exactly what you are doing!" = "%@ là gói bắt buộc và phải được xóa vì phụ thuộc vào %@. %@ KHÔNG nên bị xóa trừ khi bạn biết chính xác những gì bạn đang làm!";
 
-"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Một hoặc nhiều gói trong Hàng đợi để xóa là cần thiết hoặc bắt buộc. Không nên tiến hành trừ khi bạn biết chính xác những gì bạn đang làm. Việc xóa các gói này có thể gây ra thiệt hại không thể khắc phục cho thiết bị của bạn và có thể dẫn đến khôi phục hoàn toàn.";
+"One or more of the packages in the Queue for removal is essential or required. It is not recommended to proceed unless you know exactly what you are doing. Removing these packages could cause irreversible damage to your device and might result in a full restore." = "Một hoặc nhiều gói trong \"hàng chờ để xóa\" là cần thiết hoặc bắt buộc. Không nên tiến hành trừ khi bạn biết chính xác những gì bạn đang làm. Việc xóa các gói này có thể gây ra thiệt hại không thể khắc phục cho thiết bị của bạn và có thể dẫn đến khôi phục hoàn toàn.";
 
-"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra không thể hoàn thành lệnh này vì nó không có quyền thích hợp. Vui lòng xác minh các quyền có tại / usr / libexec / ngựa vằn / thay thế và báo cáo vấn đề này trên GitHub.";
+"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub." = "Zebra không thể hoàn thành lệnh này vì nó không có quyền thích hợp. Vui lòng xác minh các quyền tại \"/usr/libexec/zebra/supersling\" và báo cáo vấn đề này trên GitHub.";
 
-"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Không thể truy cập su / sling. Vui lòng xác minh rằng / usr / libexec / ngựa vằn / supersling tồn tại.";
+"Unable to access su/sling. Please verify that /usr/libexec/zebra/supersling exists." = "Không thể truy cập \"su/sling\". Vui lòng xác minh rằng \"/usr/libexec/zebra/supersling\" tồn tại.";
 
-"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không thuộc sở hữu của root: bánh xe. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
+"su/sling is not owned by root:wheel. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" không thuộc sở hữu của root:wheel. Vui lòng xác minh các quyền của tệp nằm ở \"/usr/libexec/zebra/supersling\".";
 
-"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "su / sling không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở / usr / libexec / zebra / supersling.";
+"su/sling does not have permission to set the uid or gid. Please verify the permissions of the file located at /usr/libexec/zebra/supersling." = "\"su/sling\" không được phép đặt uid hoặc gid. Vui lòng xác minh các quyền của tệp nằm ở \"/usr/libexec/zebra/supersling\".";
 
 "Error while creating documents directory: %@." = "Lỗi khi tạo thư mục tài liệu: %@.";
 
@@ -408,31 +410,31 @@
 
 "Error while creating debs directory: %@." = "Lỗi khi tạo thư mục debs: %@.";
 
-"Could not respring. Please respring manually." = "Không thể sống lại. Vui lòng nối lại thủ công.";
+"Could not respring. Please respring manually." = "Không thể khởi động lại SpringBoard. Vui lòng khởi động lại thủ công.";
 
 "ERROR: Unable to lock status file. Please try again." = "LỖI: Không thể khóa tệp trạng thái. Vui lòng thử lại.";
 
-"ERROR: Process must be restarted. Please try again." = "LỖI: Quá trình phải được khởi động lại. Vui lòng thử lại.";
+"ERROR: Process must be restarted. Please try again." = "LỖI: Tiến trình phải được khởi động lại. Vui lòng thử lại.";
 
 "Incorrect documents permissions." = "Quyền tài liệu không chính xác.";
 
 "Could not determine device information." = "Không thể xác định thông tin thiết bị.";
 
-"Display featured packages on the homepage." = "Hiển thị các gói tính năng trên trang chủ.";
+"Display featured packages on the homepage." = "Hiển thị các gói nổi bật trên trang chủ.";
 
-"Refresh Zebra's sources when opening the app." = "Refresh Zebra's sources when opening the app.";
+"Refresh Zebra's sources when opening the app." = "Làm mới nguồn của Zebra khi mở.";
 
-"Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ / r / jailbreak.";
+"Display recent community posts from /r/jailbreak." = "Hiển thị các bài đăng cộng đồng gần đây từ /r/jailbreak.";
 
-"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Tìm kiếm các gói trong khi gõ. Vô hiệu hóa tính năng này có thể làm giảm độ trễ trên các thiết bị cũ.";
+"Search packages while typing. Disabling this feature may reduce lag on older devices." = "Tìm kiếm các gói trong khi gõ. Vô hiệu hóa tính năng này có thể làm giảm sự giật lag trên các thiết bị đời cũ.";
 
-"Configure the appearance of table view swipe actions." = "Cấu hình sự xuất hiện của các hành động vuốt xem bảng.";
+"Configure the appearance of table view swipe actions." = "Điều chỉnh cách hiển thị các mục sau khi vuốt (Vuốt nguồn, gói,... sang trái).";
 
-"Change the accent color that displays across Zebra." = "Thay đổi màu nhấn hiển thị trên Zebra.";
+"Change the accent color that displays across Zebra." = "Thay đổi màu hiển thị trong Zebra.";
 
 "Change the style of Zebra's dark mode when it is enabled." = "Thay đổi kiểu chế độ tối của Zebra khi được bật.";
 
-"Change the source of the featured packages on the homepage." = "Thay đổi nguồn của các gói tính năng trên trang chủ.";
+"Change the source of the featured packages on the homepage." = "Thay đổi nguồn của các gói nổi bật trên trang chủ.";
 
 "\"Repo Featured\" will display random packages from repos that support the Featured Package API." = "\"Repo nổi bật\" sẽ hiển thị các gói ngẫu nhiên từ các repos hỗ trợ API gói nổi bật.";
 
@@ -440,7 +442,7 @@
 
 "Signing in to sources allows for the purchase of paid packages." = "Đăng nhập vào nguồn để cho phép mua các gói trả phí.";
 
-"Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển khi tất cả các tác vụ của nó đã được hoàn thành.";
+"Automatically dismiss the Console when all of its tasks have been completed." = "Tự động tắt Bảng điều khiển sau khi hoàn thành tất cả tác vụ.";
 
 "Always install the most recent version of a package if it is not already installed." = "Luôn cài đặt phiên bản mới nhất của gói nếu nó chưa được cài đặt.";
 
@@ -450,44 +452,44 @@
 "Add Filter" = "Thêm bộ lọc";
 
 "1 Section Hidden" = "1 mục đã ẩn";
-"%lu Sections Hidden" = "%lu Sections Hidden";
+"%lu Sections Hidden" = "%lu mục đã ẩn";
 
-"Sections" = "Phần";
-"Select a Section" = "Select a Section";
-"Hide packages in these sections." = "Ẩn gói trong các phần.";
+"Sections" = "Mục";
+"Select a Section" = "Chọn một mục";
+"Hide packages in these sections." = "Ẩn gói trong các mục.";
 
-"Select a Source" = "Select a Source";
-"Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ những nguồn cụ thể.";
+"Select a Source" = "Chọn một nguồn";
+"Hide packages in these sections from specific sources." = "Ẩn các gói trong các phân từ nguồn cụ thể.";
 
 "Updates" = "Cập nhật";
 "Hide future updates from these packages." = "Ẩn các bản cập nhật sau này từ những gói này.";
 
 "Authors" = "Tác giả";
 "Hide packages from these authors." = "Ẩn gói từ các tác giả này.";
-"Search for an Author" = "Search for an Author";
-"This author also goes by the following names:" = "This author also goes by the following names:";
+"Search for an Author" = "Tìm một tác giả";
+"This author also goes by the following names:" = "Tác giả này còn được biết đến với các tên:";
 
 // Language Settings
 
-"Language" = "Language";
+"Language" = "Ngôn ngữ";
 "Apply" = "Áp dụng";
 "Restart Required" = "Yêu cầu khởi động lại";
-"Zebra must be closed in order to change preferred language" = "Zebra must be closed in order to change preferred language";
-"Restart" = "Restart";
-"Use System Language" = "Use System Language";
+"Zebra must be closed in order to change preferred language" = "Zebra phải được đóng để thay đổi ngôn ngữ";
+"Restart" = "Khởi động lại";
+"Use System Language" = "Sử dụng ngôn ngữ hệ thống";
 
 "You are adding a repository that is not secure" = "Bạn đang thêm kho lưu trữ không an toàn!";
-"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dữ liệu được tải xuống từ kho này không được mã hóa. Bạn chắc chắn có muốn thêm nó ?";
+"Data downloaded from this repository might not be encrypted. Are you sure you want to add it?" = "Dữ liệu được tải xuống từ kho này không được mã hóa. Bạn chắc chắn có muốn thêm nó?";
 
 "Unable to complete purchase" = "Không thể hoàn tất mua";
 
 
 "Package Not Available" = "Gói không khả dụng";
-"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Gói bạn yêu cầu không còn nữa.  Nó có thể đã bị xóa khỏi nguồn của bạn hoặc ID gói được yêu cầu không chính xác.";
+"The package you request is no longer available. It might have been removed from your sources or the package ID requested was incorrect." = "Gói bạn yêu cầu không còn nữa.  Nó có thể đã bị xóa khỏi nguồn hoặc ID gói yêu cầu không chính xác.";
 
 "%d Seconds" = "%d giây";
-"Download Timeout" = "tải xuống hết thời gian chờ";
-"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Định cấu hình lượng thời gian Zebra sẽ đợi nguồn phản hồi trước khi hết thời gian.";
+"Download Timeout" = "Tải xuống hết thời gian chờ";
+"Configure the amount of time Zebra will wait for a source to respond before timing out." = "Điều chỉnh thời gian Zebra đợi nguồn phản hồi.";
 "This timer will reset every time Zebra receives new information from a source." = "Đồng hồ bấm giờ này sẽ đặt lại mỗi khi Zebra nhận được thông tin mới từ một nguồn.";
 
-"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again.";
+"Account information could not be retrieved from the source. Please sign out of the source, sign in, and try again." = "Không thể lấy thông tin tài khoản từ nguồn. Vui lòn đăng xuất, đăng nhập rồi thử lại.";
