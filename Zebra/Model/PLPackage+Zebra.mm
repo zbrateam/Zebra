@@ -12,6 +12,7 @@
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 
 #import <SDWebImage/SDWebImage.h>
+#import <Plains/Utilities/NSString+Plains.h>
 
 @implementation PLPackage (Zebra)
 
@@ -77,12 +78,10 @@
         NSString *installedVersion = [self installedVersion];
         NSString *latestVersion = allVersions[0].version;
 
-//        if (compare(latestVersion.UTF8String, installedVersion.UTF8String) > 0) {
-            if (latestVersion) {
-                NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
-                [information addObject:latestVersionInfo];
-            }
-//        }
+        if ([installedVersion compareVersion:latestVersion] == NSOrderedAscending) {
+            NSDictionary *latestVersionInfo = @{@"name": NSLocalizedString(@"Latest Version", @""), @"value": latestVersion, @"cellType": @"info"};
+            [information addObject:latestVersionInfo];
+        }
 
         if (installedVersion) {
             NSDictionary *installedVersionInfo = @{@"name": NSLocalizedString(@"Installed Version", @""), @"value": installedVersion, @"cellType": @"info"};
