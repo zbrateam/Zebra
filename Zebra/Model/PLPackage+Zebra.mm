@@ -44,6 +44,20 @@
     return action;
 }
 
+- (NSUInteger)possibleExtraActions {
+    ZBPackageExtraActionType action = 0;
+    
+    if (self.installed) {
+        if (self.held) {
+            action |= ZBPackageExtraActionShowUpdates;
+        } else {
+            action |= ZBPackageExtraActionHideUpdates;
+        }
+    }
+    
+    return action;
+}
+
 - (void)setPackageIconForImageView:(UIImageView *)imageView {
     UIImage *sectionImage = [PLSource imageForSection:self.section];
     if (self.iconURL) {

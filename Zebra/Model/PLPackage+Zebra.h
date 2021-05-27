@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PLPackage (Zebra)
 - (BOOL)mightRequirePayment;
 - (NSUInteger)possibleActions;
+- (NSUInteger)possibleExtraActions;
 - (void)setPackageIconForImageView:(UIImageView *)imageView;
 - (NSArray *)information;
 @end

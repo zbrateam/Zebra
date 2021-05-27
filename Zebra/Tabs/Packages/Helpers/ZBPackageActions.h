@@ -21,15 +21,15 @@ typedef NS_OPTIONS(NSUInteger, ZBPackageActionType) {
     ZBPackageActionSelectVersion = 1 << 6,
 };
 
-typedef enum : NSUInteger {
-    ZBPackageExtraActionShowUpdates,
-    ZBPackageExtraActionHideUpdates,
-    ZBPackageExtraActionAddFavorite,
-    ZBPackageExtraActionRemoveFavorite,
-    ZBPackageExtraActionBlockAuthor,
-    ZBPackageExtraActionUnblockAuthor,
-    ZBPackageExtraActionShare,
-} ZBPackageExtraActionType;
+typedef NS_OPTIONS(NSUInteger, ZBPackageExtraActionType) {
+    ZBPackageExtraActionShowUpdates = 1 << 1,
+    ZBPackageExtraActionHideUpdates = 1 << 2,
+    ZBPackageExtraActionAddFavorite = 1 << 3,
+    ZBPackageExtraActionRemoveFavorite = 1 << 4,
+    ZBPackageExtraActionBlockAuthor = 1 << 5,
+    ZBPackageExtraActionUnblockAuthor = 1 << 6,
+    ZBPackageExtraActionShare = 1 << 7,
+};
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void (^)(void))buttonActionForPackage:(PLPackage *)package controller:(UIViewController *)controller sender:(UIView *)sender completion:(nullable void(^)(void))completion;
 + (UISwipeActionsConfiguration *)swipeActionsForPackage:(ZBPackage *)package inTableView:(UITableView *)tableView;
 + (NSArray <UIAlertAction *> *)alertActionsForPackage:(PLPackage *)package completion:(nullable void(^)(void))completion;
-+ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback;
++ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(PLPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback;
 + (NSArray <UIPreviewAction *> *)previewActionsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView;
 + (NSArray <UIAction *> *)menuElementsForPackage:(ZBPackage *)package inTableView:(UITableView *_Nullable)tableView API_AVAILABLE(ios(13.0));
 @end

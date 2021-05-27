@@ -27,16 +27,16 @@
 
 #pragma mark - Package Actions
 
-+ (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(ZBPackage *)package completion:(void (^)(ZBPackageExtraActionType action))completion {
-//    switch (action) {
-//        case ZBPackageExtraActionShowUpdates:
-//            [self showUpdatesFor:package];
-//            if (completion) completion(action);
-//            break;
-//        case ZBPackageExtraActionHideUpdates:
-//            [self hideUpdatesFor:package];
-//            if (completion) completion(action);
-//            break;
++ (void)performExtraAction:(ZBPackageExtraActionType)action forPackage:(PLPackage *)package completion:(void (^)(ZBPackageExtraActionType action))completion {
+    switch (action) {
+        case ZBPackageExtraActionShowUpdates:
+            package.held = NO;
+            if (completion) completion(action);
+            break;
+        case ZBPackageExtraActionHideUpdates:
+            package.held = YES;
+            if (completion) completion(action);
+            break;
 //        case ZBPackageExtraActionAddFavorite:
 //            [self addFavorite:package];
 //            if (completion) completion(action);
@@ -56,7 +56,7 @@
 //        case ZBPackageExtraActionShare:
 //            if (completion) completion(action);
 //            break;
-//    }
+    }
 }
 
 + (void)performAction:(ZBPackageActionType)action forPackages:(NSArray <ZBPackage *> *)packages completion:(void (^)(void))completion {
@@ -293,14 +293,6 @@
     }
 }
 
-//+ (void)showUpdatesFor:(ZBPackage *)package {
-////    [package setIgnoreUpdates:NO];
-//}
-//
-//+ (void)hideUpdatesFor:(ZBPackage *)package {
-////    [package setIgnoreUpdates:YES];
-//}
-//
 //+ (void)addFavorite:(ZBPackage *)package {
 //    NSMutableArray *favorites = [[ZBSettings favoritePackages] mutableCopy];
 //    BOOL isFavorited = [favorites containsObject:package.identifier];
@@ -462,21 +454,21 @@
     return alertActions;
 }
 
-+ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(ZBPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback {
++ (NSArray <UIAlertAction *> *)extraAlertActionsForPackage:(PLPackage *)package selectionCallback:(void (^)(ZBPackageExtraActionType action))callback {
     NSMutableArray <UIAlertAction *> *alertActions = [NSMutableArray new];
     
-//    NSArray *actions = [package possibleExtraActions];
-//    for (NSNumber *number in actions) {
-//        ZBPackageExtraActionType action = number.intValue;
-//        
-//        NSString *title = [self titleForExtraAction:action];
-//        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
-//            [self performExtraAction:action forPackage:package completion:callback];
-//        }];
-//        [alertActions addObject:alertAction];
-//    }
-//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
-//    [alertActions addObject:cancel];
+    ZBPackageActionType actions = package.possibleExtraActions;
+    for (ZBPackageExtraActionType action = 1; action <= ZBPackageExtraActionShare; action = action << 1) {
+        if ((actions & action) == 0) continue;
+        NSString *title = [self titleForExtraAction:action];
+        UIAlertAction *alertAction = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+            [self performExtraAction:action forPackage:package completion:callback];
+            if (callback) callback(action);
+        }];
+        [alertActions addObject:alertAction];
+    }
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:NULL];
+    [alertActions addObject:cancel];
     
     return alertActions;
 }

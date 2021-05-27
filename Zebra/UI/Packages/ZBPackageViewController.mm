@@ -153,7 +153,6 @@
 
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
-    [self.moreButton setAlpha:0.0]; // This is temporary, I'll replace it once more parts of the "extra action" system have been reimpl
     [self configureGetButtons];
     
     // Image Header
@@ -262,18 +261,18 @@
     [extraActions.popoverPresentationController setSourceView:self.moreButton];
     [extraActions.popoverPresentationController setSourceRect:self.moreButton.bounds];
 
-//    NSArray <UIAlertAction *> *actions = [ZBPackageActions extraAlertActionsForPackage:self.package selectionCallback:^(ZBPackageExtraActionType action) {
-//        if (action == ZBPackageExtraActionShare) {
-//            UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[self.package] applicationActivities:nil];
-//            [shareSheet.popoverPresentationController setSourceView:self.moreButton];
-//            [shareSheet.popoverPresentationController setSourceRect:self.moreButton.bounds];
-//
-//            [self presentViewController:shareSheet animated:YES completion:nil];
-//        }
-//    }];
-//    for (UIAlertAction *action in actions) {
-//        [extraActions addAction:action];
-//    }
+    NSArray <UIAlertAction *> *actions = [ZBPackageActions extraAlertActionsForPackage:self.package selectionCallback:^(ZBPackageExtraActionType action) {
+        if (action == ZBPackageExtraActionShare) {
+            UIActivityViewController *shareSheet = [[UIActivityViewController alloc] initWithActivityItems:@[self.package] applicationActivities:nil];
+            [shareSheet.popoverPresentationController setSourceView:self.moreButton];
+            [shareSheet.popoverPresentationController setSourceRect:self.moreButton.bounds];
+
+            [self presentViewController:shareSheet animated:YES completion:nil];
+        }
+    }];
+    for (UIAlertAction *action in actions) {
+        [extraActions addAction:action];
+    }
     
     [self presentViewController:extraActions animated:YES completion:nil];
 }
