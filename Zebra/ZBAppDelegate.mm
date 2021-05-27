@@ -303,25 +303,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
 
     switch (index) {
         case 0: { // file
-//            if ([[url pathExtension] isEqualToString:@"deb"]) {
-//
-//                NSString *newLocation = [[[self class] debsLocation] stringByAppendingPathComponent:[url lastPathComponent]];
-//
-//                NSError *moveError;
-//                [[NSFileManager defaultManager] moveItemAtPath:[url path] toPath:newLocation error:&moveError];
-//                if (moveError) {
-//                    NSLog(@"[Zebra] Couldn't move deb %@", moveError.localizedDescription);
-//                }
-//                else {
-//                    ZBPackage *package = [[ZBPackage alloc] initFromDeb:newLocation];
-//                    ZBPackageViewController *depiction = [[ZBPackageViewController alloc] initWithPackage:package];
-//                    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:depiction];
-//
-//                    [self.window.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-//                    [self.window.rootViewController presentViewController:navController animated:YES completion:nil];
-//                    [[ZBDatabaseManager sharedInstance] setHaltDatabaseOperations:YES];
-//                }
-//            }
+            if ([[url pathExtension] isEqualToString:@"deb"]) {
+                [[PLQueue sharedInstance] queueLocalPackage:url];
+            }
             
             if ([[url pathExtension] isEqualToString:@"list"] || [[url pathExtension] isEqualToString:@"sources"]) {
                 [self handleSourceImport:url];
