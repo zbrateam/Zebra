@@ -126,7 +126,7 @@
 }
 
 - (void)resetSourcesCache:(id)sender {
-    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information and redownload it. Your sources will not be deleted.", @"") callback:^{
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information and Zebra will restart. Your sources will not be deleted.", @"") callback:^{
         NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"logs"] error:nil];
@@ -134,8 +134,6 @@
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"extended_states"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"pkgcache.bin"] error:nil];
         [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"srcpkgcache.bin"] error:nil];
-        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
-        
         [ZBDevice relaunchZebra];
     } cell:sender];
 }
@@ -153,34 +151,27 @@
 }
 
 - (void)eraseAllSources:(id)sender {
-    [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed from Zebra and Zebra will restart.", @"") callback:^{
-        NSError *error = NULL;
-//        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
-//        [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
-//        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
-//        [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
-        if (error) {
-            NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
-        }
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources? All of your sources will be removed and Zebra will restart.", @"") callback:^{
+        NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
         [ZBDevice relaunchZebra];
     } cell:sender];
 }
 
 - (void)eraseSourcesAndSettings:(id)sender {
-    [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed from Zebra and your settings will be reset.", @"") callback:^{
-        [self confirmationControllerWithTitle:NSLocalizedString(@"Are you sure?", @"") message:NSLocalizedString(@"All of your sources will be deleted and be gone forever and Zebra will restart.", @"") callback:^{
-            
-            NSError *error = NULL;
-//            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate listsLocation] error:&error];
-//            [[NSFileManager defaultManager] removeItemAtPath:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] error:&error];
-//            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate sourcesListPath] error:&error];
-//            [[NSFileManager defaultManager] removeItemAtPath:[ZBAppDelegate databaseLocation] error:&error];
-            if (error) {
-                NSLog(@"[Zebra] Error while removing path: %@", error.localizedDescription);
-            }
-            
-            [ZBDevice relaunchZebra];
-        } cell:sender];
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Erase All Sources and Settings", @"") message:NSLocalizedString(@"Are you sure you want to erase all sources and settings? All of your sources will be removed, your settings will be reset, and Zebra will restart.", @"") callback:^{
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *dict = [defaults dictionaryRepresentation];
+        for (id key in dict) {
+            [defaults removeObjectForKey:key];
+        }
+        [defaults synchronize];
+        
+        NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
+        [ZBDevice relaunchZebra];
     } cell:sender];
 }
 
