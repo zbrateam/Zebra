@@ -109,6 +109,7 @@
 		895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 895071982239E414004AE338 /* libMobileGestalt.tbd */; };
 		895A808823637C5100C166AC /* ZBCreditsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895A808723637C5100C166AC /* ZBCreditsViewController.m */; };
 		895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 895C2AD92402303B0065F424 /* ZBSearchViewController.mm */; };
+		895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 895CB40226617D7A0013A21A /* ZBLanguageSettingsViewController.m */; };
 		896B2B53259FA2170082A62E /* ZBSourceListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 896B2B52259FA2170082A62E /* ZBSourceListViewController.mm */; };
 		896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 896B2B5D259FA7180082A62E /* ZBSourceFilter.m */; };
 		898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 898C50422649F9E0002CDC09 /* MessageUI.framework */; };
@@ -397,6 +398,8 @@
 		895A808723637C5100C166AC /* ZBCreditsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBCreditsViewController.m; sourceTree = "<group>"; };
 		895C2AD82402303B0065F424 /* ZBSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSearchViewController.h; sourceTree = "<group>"; };
 		895C2AD92402303B0065F424 /* ZBSearchViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSearchViewController.mm; sourceTree = "<group>"; };
+		895CB40126617D7A0013A21A /* ZBLanguageSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBLanguageSettingsViewController.h; sourceTree = "<group>"; };
+		895CB40226617D7A0013A21A /* ZBLanguageSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBLanguageSettingsViewController.m; sourceTree = "<group>"; };
 		896B2B51259FA2170082A62E /* ZBSourceListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceListViewController.h; sourceTree = "<group>"; };
 		896B2B52259FA2170082A62E /* ZBSourceListViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBSourceListViewController.mm; sourceTree = "<group>"; };
 		896B2B5C259FA7180082A62E /* ZBSourceFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSourceFilter.h; sourceTree = "<group>"; };
@@ -792,6 +795,8 @@
 				8903B865264F7351005B1098 /* ZBAppIconSettingsViewController.m */,
 				8916AC2523CAAF1A008BA02C /* ZBDisplaySettingsViewController.h */,
 				8916AC2623CAAF1A008BA02C /* ZBDisplaySettingsViewController.m */,
+				895CB40126617D7A0013A21A /* ZBLanguageSettingsViewController.h */,
+				895CB40226617D7A0013A21A /* ZBLanguageSettingsViewController.m */,
 				367D80F422C3D1CF00581D60 /* ZBSettingsViewController.h */,
 				367D80F322C3D1CF00581D60 /* ZBSettingsViewController.m */,
 				89308E2523FF4BBA00D4641D /* ZBResetViewController.h */,
@@ -1357,6 +1362,7 @@
 				49452C28246A414900F45C2D /* ZBActionButton.m in Sources */,
 				891D1BAD26290FB1006839F7 /* ZBDummySource.m in Sources */,
 				89E3BD972428565100BF81A4 /* ZBSectionSelectorTableViewController.m in Sources */,
+				895CB40326617D7A0013A21A /* ZBLanguageSettingsViewController.m in Sources */,
 				49E1304622715DB8006F450A /* ZBColor.m in Sources */,
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
