@@ -72,7 +72,7 @@
             break;
         }
         case ZBPreferencesCellTypeButton: {
-            cell.textLabel.textColor = [ZBColor systemBlueColor];
+            cell.textLabel.textColor = [ZBColor accentColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
