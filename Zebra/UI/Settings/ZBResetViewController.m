@@ -126,10 +126,18 @@
 }
 
 - (void)resetSourcesCache:(id)sender {
-//    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information from Zebra's database and redownload it. Your sources will not be deleted.", @"") callback:^{
-//        ZBMigrationViewController *refreshController = [[ZBMigrationViewController alloc] init];
-//        [self presentViewController:refreshController animated:YES completion:nil];
-//    } indexPath:indexPath];
+    [self confirmationControllerWithTitle:NSLocalizedString(@"Clear Sources Cache", @"") message:NSLocalizedString(@"Are you sure you want to reset Zebra's source cache? This will remove all cached information and redownload it. Your sources will not be deleted.", @"") callback:^{
+        NSString *cacheDirectory = [ZBAppDelegate cacheDirectory];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"lists"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"logs"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"archives"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"extended_states"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"pkgcache.bin"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"srcpkgcache.bin"] error:nil];
+        [[NSFileManager defaultManager] removeItemAtPath:[cacheDirectory stringByAppendingPathComponent:@"zebra.sources"] error:nil];
+        
+        [ZBDevice relaunchZebra];
+    } cell:sender];
 }
 
 - (void)resetAllSettings:(id)sender {
