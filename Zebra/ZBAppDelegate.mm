@@ -56,6 +56,26 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
++ (NSString *)homeDirectory {
+#if TARGET_OS_MACCATALYST || TARGET_OS_SIMULATOR
+    return NSHomeDirectory();
+#else
+    return @"/var/mobile";
+#endif
+}
+
++ (NSString *)slingshotPath {
+#if TARGET_OS_MACCATALYST || TARGET_OS_SIMULATOR
+    return [NSString stringWithFormat:@"/opt/procursus/libexec/%@/supersling", LIBEXEC_FOLDER];
+#else
+    return [NSString stringWithFormat:@"/usr/libexec/%@/supersling", LIBEXEC_FOLDER];
+#endif
+}
+
++ (NSString *)cacheDirectory {
+    return [NSString stringWithFormat:@"%@/Library/Caches/%@", [self homeDirectory], [[NSBundle mainBundle] bundleIdentifier]];
+}
+
 //+ (NSString *)documentsDirectory {
 //    NSString *path_ = nil;
 //    if (![ZBDevice needsSimulation]) {
@@ -481,16 +501,9 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
         [config setInteger:filedes[1] forKey:@"Plains::FinishFD::"]; 
     }
     
-#if TARGET_OS_MACCATALYST || TARGET_OS_SIMULATOR
-    NSString *slingshotPath = [NSString stringWithFormat:@"/opt/procursus/libexec/%@/supersling", LIBEXEC_FOLDER];
-    NSString *homeDirectory = NSHomeDirectory();
-#else
-    NSString *slingshotPath = [NSString stringWithFormat:@"/usr/libexec/%@/supersling", LIBEXEC_FOLDER];
-    NSString *homeDirectory = @"/var/mobile";
-#endif
-    
     // Create directories
-    NSString *cacheDir = [NSString stringWithFormat:@"%@/Library/Caches/%@", homeDirectory, [[NSBundle mainBundle] bundleIdentifier]];
+    NSString *slingshotPath = [ZBAppDelegate slingshotPath];
+    NSString *cacheDir = [ZBAppDelegate cacheDirectory];
 #if TARGET_OS_SIMULATOR
     NSUInteger libraryIndex1 = [cacheDir rangeOfString:@"/Library/Developer"].location;
     NSUInteger libraryIndex2 = [cacheDir rangeOfString:@"/Library/Caches"].location;

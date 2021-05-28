@@ -19,13 +19,7 @@ extern NSString * const ZBUserEndedScreenCaptureNotification;
 @interface ZBAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, UIDropInteractionDelegate>
 @property (strong, nonatomic) UIWindow *window;
 + (NSString *)bundleID;
-//+ (NSString *)documentsDirectory;
-//+ (NSURL *)documentsDirectoryURL;
-//+ (NSString *)listsLocation;
-//+ (NSURL *)sourcesListURL;
-//+ (NSString *)sourcesListPath;
-//+ (NSString *)databaseLocation;
-//+ (NSString *)debsLocation;
++ (NSString *)cacheDirectory;
 + (void)sendAlertFrom:(UIViewController *)vc message:(NSString *)message;
 + (void)sendErrorToTabController:(NSString *)error;
 + (ZBTabBarController *)tabBarController;
