@@ -70,13 +70,13 @@
 }
 
 - (void)updateQueue {
-    if ([self isViewLoaded]) {
-        self->packages = queue.queuedPackages;
-        self->issues = queue.issues;
-        dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ([self isViewLoaded]) {
+            self->packages = self->queue.queuedPackages;
+            self->issues = self->queue.issues;
             [self reloadData];
-        });
-    }
+        }
+    });
 }
 
 - (void)goodbye {

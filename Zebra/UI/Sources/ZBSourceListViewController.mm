@@ -122,20 +122,18 @@
 }
 
 - (void)loadSources {
-    if (!self.isViewLoaded) return;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.isViewLoaded) return;
     
-    if (sources) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        if (self->sources) {
             [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
                 [self.tableView reloadData];
             } completion:nil];
-        });
-    } else { // Load sources for the first time, every other access is done by the filter and delegate methods
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        } else { // Load sources for the first time, every other access is done by the filter and delegate methods
             self->sources = [[self->sourceManager sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
             [self loadSources];
-        });
-    }
+        }
+    });
 }
 
 - (void)refreshSources {

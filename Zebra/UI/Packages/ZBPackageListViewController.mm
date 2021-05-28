@@ -155,59 +155,61 @@
 }
 
 - (void)loadPackages {
-    if (!self.isViewLoaded) return;
-    
-    [self showSpinner];
-    if (_packages && _packages.count) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-//            NSArray <ZBPackage *> *filteredPackages = [self->packageManager filterPackages:self->_packages withFilter:self.filter];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self hideSpinner];
-                self->filterResults = self->_packages;
-                [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-//                    if (@available(iOS 13.0, *)) {
-//                        if (self.filter.isActive) {
-//                            [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle.fill"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
-//                        } else {
-//                            [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
-//                        }
-//                    }
-                    [self.tableView reloadData];
-                } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (!self.isViewLoaded) return;
+        
+        [self showSpinner];
+        if (self->_packages && self->_packages.count) {
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+    //            NSArray <ZBPackage *> *filteredPackages = [self->packageManager filterPackages:self->_packages withFilter:self.filter];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self hideSpinner];
+                    self->filterResults = self->_packages;
+                    [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+    //                    if (@available(iOS 13.0, *)) {
+    //                        if (self.filter.isActive) {
+    //                            [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle.fill"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+    //                        } else {
+    //                            [self->searchController.searchBar setImage:[UIImage systemImageNamed:@"line.horizontal.3.decrease.circle"] forSearchBarIcon:UISearchBarIconBookmark state:UIControlStateNormal];
+    //                        }
+    //                    }
+                        [self.tableView reloadData];
+                    } completion:nil];
+                });
             });
-        });
-    } else if (self.identifiers && self.identifiers.count) { // Load packages from identifiers
-//        [packageManager fetchPackagesFromIdentifiers:self.identifiers completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
-//            self.packages = packages;
-//            [self loadPackages];
-//        }];
-    } else { // Load packages for the first time, every other access is done by filter
-        if (self.source) {
-            if (self.section && ![self.section isEqualToString:@""]) {
-                [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
-                    return package.source == self.source && package.section == self.section;
-                } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
-                    self.packages = packages;
-                    [self loadPackages];
-                }];
+        } else if (self.identifiers && self.identifiers.count) { // Load packages from identifiers
+    //        [packageManager fetchPackagesFromIdentifiers:self.identifiers completion:^(NSArray<ZBPackage *> * _Nonnull packages) {
+    //            self.packages = packages;
+    //            [self loadPackages];
+    //        }];
+        } else { // Load packages for the first time, every other access is done by filter
+            if (self.source) {
+                if (self.section && ![self.section isEqualToString:@""]) {
+                    [self->database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                        return package.source == self.source && package.section == self.section;
+                    } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                        self.packages = packages;
+                        [self loadPackages];
+                    }];
+                } else {
+                    [self->database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                        return package.source == self.source;
+                    } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                        self.packages = packages;
+                        [self loadPackages];
+                    }];
+                }
             } else {
-                [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
-                    return package.source == self.source;
+                [self->database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
+                    return package.installed && package.role < 5;
                 } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
                     self.packages = packages;
+                    self.updates = self->database.updates;
                     [self loadPackages];
                 }];
             }
-        } else {
-            [database fetchPackagesMatchingFilter:^BOOL(PLPackage * _Nonnull package) {
-                return package.installed && package.role < 5;
-            } completion:^(NSArray<PLPackage *> * _Nonnull packages) {
-                self.packages = packages;
-                self.updates = self->database.updates;
-                [self loadPackages];
-            }];
         }
-    }
+    });
 }
 
 - (void)showSpinner {
