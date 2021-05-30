@@ -288,6 +288,12 @@
         UINavigationController *navController = self.viewControllers[1];
         [toolbarItem setTarget:navController.topViewController];
         [toolbarItem setAction:@selector(confirmButton:)];
+    } else if ([itemIdentifier isEqualToString:@"applyButton"]) {
+        [toolbarItem setImage:[UIImage systemImageNamed:@"checkmark"]];
+        
+        UINavigationController *navController = self.viewControllers[1];
+        [toolbarItem setTarget:navController.topViewController];
+        [toolbarItem setAction:@selector(applyButton:)];
     }
     
     return toolbarItem;
@@ -302,7 +308,7 @@
 - (NSArray<NSToolbarItemIdentifier> *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar {
     self->toolbar = toolbar;
     
-    return @[@"backButton", @"addButton", @"refreshButton", @"confirmButton"];
+    return @[@"backButton", @"addButton", @"refreshButton", @"confirmButton", @"applyButton"];
 }
 
 - (void)backButton:(id)sender {

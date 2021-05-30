@@ -8,6 +8,7 @@
 
 #import "ZBLanguageSettingsViewController.h"
 
+#import <ZBDevice.h>
 #import <ZBSettings.h>
 
 #import <SafariServices/SafariServices.h>
@@ -36,7 +37,7 @@
         originalLanguage = selectedLanguage;
         
         if (selectedLanguage) {
-            selectedRow = [NSIndexPath indexPathForRow:[languages indexOfObject:selectedLanguage] inSection:1];
+            self.selectedRows = [NSMutableDictionary dictionaryWithDictionary:@{@1: @([languages indexOfObject:selectedLanguage])}];
         }
     }
     
@@ -84,25 +85,84 @@
     return specifiers;
 }
 
+- (void)layoutNavigationButtons {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Apply", @"") style:UIBarButtonItemStyleDone target:self action:@selector(applyButton:)];
+        self.navigationItem.rightBarButtonItem.enabled = [self differentSettings];
+    });
+}
+
+- (BOOL)differentSettings {
+    return (useSystemLanguage != originalUseSystemLanguage || (selectedLanguage != originalLanguage && ![selectedLanguage isEqual:originalLanguage]));
+}
+
 - (void)toggleUseSystemLanguage:(UISwitch *)toggleSwitch {
     useSystemLanguage = toggleSwitch.isOn;
     
-    if (useSystemLanguage) {
-        [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-    }
-    else {
-        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (useSystemLanguage) {
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else {
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        }
+    });
+    
+#if TARGET_OS_IOS
+    [self layoutNavigationButtons];
+#endif
 }
 
 - (void)selectLanguage:(NSIndexPath *)indexPath {
+    selectedLanguage = languages[indexPath.row];
     
+#if TARGET_OS_IOS
+    [self layoutNavigationButtons];
+#endif
 }
+
+#if TARGET_OS_MACCATALYST
+- (NSArray *)toolbarItems {
+    return @[@"applyButton"];
+}
+
+-(BOOL)validateToolbarItem:(NSToolbarItem *)toolbarItem {
+    return [self differentSettings];
+}
+#endif
 
 - (void)showCrowdIn {
     SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://translate.getzbra.com/"]];
     
     [self presentViewController:sfvc animated:YES completion:nil];
+}
+
+- (void)applyButton:(id)sender {
+    if (![[[NSBundle mainBundle] preferredLocalizations][0] isEqual:selectedLanguage] || self->useSystemLanguage != self->originalUseSystemLanguage) {
+        UIAlertController *confirm = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Restart Required", @"") message:NSLocalizedString(@"Zebra must be closed in order to change preferred language", @"") preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *confirmAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Restart", @"") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            if (self->useSystemLanguage) {
+                [ZBSettings setSelectedLanguage:NULL];
+            }
+            else {
+                [ZBSettings setSelectedLanguage:self->selectedLanguage];
+            }
+            [ZBSettings setUsesSystemLanguage:self->useSystemLanguage];
+            [ZBDevice relaunchZebra];
+        }];
+        [confirm addAction:confirmAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"Close", @"") style:UIAlertActionStyleCancel handler:nil];
+        [confirm addAction:cancelAction];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:confirm animated:YES completion:nil];
+        });
+    }
+    else {
+        [[self navigationController] popViewControllerAnimated:YES];
+    }
 }
 
 @end

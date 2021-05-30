@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableArray *languages;
     
     NSString *selectedLanguage;
-    NSIndexPath *selectedRow;
     
     BOOL originalUseSystemLanguage;
     NSString *originalLanguage;
