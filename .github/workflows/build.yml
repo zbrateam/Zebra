@@ -10,16 +10,16 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
       with:
-        submodules: recursive
+        submodules: true
         token: ${{ secrets.GIT_TOKEN }}
 
     - name: Install Theos Dependencies
       run: brew install ldid fakeroot make
 
     - name: Install Theos
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
       with:
         repository: theos/theos
         path: theos
