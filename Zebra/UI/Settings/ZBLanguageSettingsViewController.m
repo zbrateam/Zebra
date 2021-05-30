@@ -10,6 +10,8 @@
 
 #import <ZBSettings.h>
 
+#import <SafariServices/SafariServices.h>
+
 @implementation ZBLanguageSettingsViewController
 
 - (instancetype)init {
@@ -51,7 +53,7 @@
         @"action": @"toggleUseSystemLanguage:"
     }]];
     
-    if (useSystemLanguage) {
+    if (!useSystemLanguage) {
         NSMutableArray *languageSpecifiers = [NSMutableArray new];
         
         for (NSString *languageCode in languages) {
@@ -72,6 +74,13 @@
         [specifiers addObject:languageSpecifiers];
     }
     
+    [specifiers addObject:@[@{
+        @"text": @"Help translate Zebra!",
+        @"type": @(ZBPreferencesCellTypeDisclosure),
+        @"action": @"showCrowdIn",
+        @"icon": [UIImage imageNamed:@"Translations"]
+    }]];
+    
     return specifiers;
 }
 
@@ -88,6 +97,12 @@
 
 - (void)selectLanguage:(NSIndexPath *)indexPath {
     
+}
+
+- (void)showCrowdIn {
+    SFSafariViewController *sfvc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:@"https://translate.getzbra.com/"]];
+    
+    [self presentViewController:sfvc animated:YES completion:nil];
 }
 
 @end

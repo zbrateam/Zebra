@@ -140,14 +140,14 @@
     [queueNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Queue" image:[UIImage systemImageNamed:@"text.append"] tag:4]];
     [queueNavController.navigationBar setPrefersLargeTitles:YES];
     
-//    UINavigationController *settingsNavController = [[UINavigationController alloc] init];
-//    [settingsNavController setViewControllers:@[[[ZBSettingsViewController alloc] init]] animated:NO];
-//    [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:5]];
-//    [settingsNavController.navigationBar setPrefersLargeTitles:YES];
+    UINavigationController *settingsNavController = [[UINavigationController alloc] init];
+    [settingsNavController setViewControllers:@[[[ZBSettingsViewController alloc] init]] animated:NO];
+    [settingsNavController setTabBarItem:[[UITabBarItem alloc] initWithTitle:@"Settings" image:[UIImage systemImageNamed:@"gearshape"] tag:5]];
+    [settingsNavController.navigationBar setPrefersLargeTitles:YES];
     
     self->updates = [[PLPackageManager sharedInstance] updates].count;
     
-    NSArray *controllers = @[homeNavController, sourcesNavController, packagesNavController, queueNavController];//, settingsNavController];
+    NSArray *controllers = @[homeNavController, sourcesNavController, packagesNavController, queueNavController, settingsNavController];
 #if TARGET_OS_MACCATALYST
     for (UINavigationController *controller in controllers) {
         [controller setDelegate:self];

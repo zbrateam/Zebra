@@ -7,8 +7,6 @@
 //
 
 #import "ZBSectionSelectorTableViewController.h"
-#import "UITableView+Settings.h"
-#import "ZBOptionSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
 #import <Extensions/UIImageView+Zebra.h>
@@ -56,7 +54,7 @@
 //    sections = allSections;
     
     [self layoutNaviationButtons];
-    [self.tableView registerCellType:ZBOptionSettingsCell];
+//    [self.tableView registerCellType:ZBOptionSettingsCell];
 }
 
 - (NSString *)localizedSection:(NSString *)section {
@@ -102,7 +100,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
+//    ZBOptionSettingsTableViewCell *cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
 //    
 //    cell.textLabel.text = sections[indexPath.row];
 //    
@@ -112,7 +110,7 @@
 //    [cell setChosen:[selectedIndexes containsObject:indexPath]];
 //    [cell applyStyling];
     
-    return cell;
+    return NULL;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

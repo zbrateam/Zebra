@@ -7,9 +7,9 @@
 //
 
 #import "ZBAuthorSelectorTableViewController.h"
-#import "UITableView+Settings.h"
-#import "ZBOptionSettingsTableViewCell.h"
-#import "ZBOptionSubtitleSettingsTableViewCell.h"
+//#import "UITableView+Settings.h"
+//#import "ZBOptionSettingsTableViewCell.h"
+#import "ZBSettingsTableViewCell.h"
 
 #import <ZBSettings.h>
 #import <Extensions/UIImageView+Zebra.h>
@@ -54,7 +54,7 @@
     self.definesPresentationContext = YES;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
-    [self.tableView registerCellTypes:@[@(ZBOptionSettingsCell), @(ZBOptionSubtitleSettingsCell)]];
+//    [self.tableView registerCellTypes:@[@(ZBOptionSettingsCell), @(ZBOptionSubtitleSettingsCell)]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -176,24 +176,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray <NSString *> *authorDetail = authors[indexPath.row];
-    ZBOptionSettingsTableViewCell *cell;
-    
-    if ([authorDetail[0] isEqualToString:authorDetail[1]]) {
-        cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
-        
-        cell.textLabel.text = authorDetail[0] ?: authorDetail[1];
-    } else {
-        cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
-        
-        cell.textLabel.text = authorDetail[0];
-        cell.detailTextLabel.text = authorDetail[1];
-    }
-    
-    [cell setChosen:authorDetail[1].length && [[selectedAuthors allKeys] containsObject:authorDetail[1]]];
-    [cell applyStyling];
-    
-    return cell;
+//    NSArray <NSString *> *authorDetail = authors[indexPath.row];
+//    ZBOptionSettingsTableViewCell *cell;
+//
+//    if ([authorDetail[0] isEqualToString:authorDetail[1]]) {
+//        cell = [tableView dequeueOptionSettingsCellForIndexPath:indexPath];
+//
+//        cell.textLabel.text = authorDetail[0] ?: authorDetail[1];
+//    } else {
+//        cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
+//
+//        cell.textLabel.text = authorDetail[0];
+//        cell.detailTextLabel.text = authorDetail[1];
+//    }
+//
+//    [cell setChosen:authorDetail[1].length && [[selectedAuthors allKeys] containsObject:authorDetail[1]]];
+//    [cell applyStyling];
+//
+    return NULL;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

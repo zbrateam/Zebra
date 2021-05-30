@@ -11,7 +11,7 @@
 #import "ZBFilterSettingsTableViewController.h"
 #import "ZBSectionSelectorTableViewController.h"
 #import "ZBAuthorSelectorTableViewController.h"
-#import "ZBButtonSettingsTableViewCell.h"
+//#import "ZBButtonSettingsTableViewCell.h"
 
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
 #import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
@@ -22,7 +22,7 @@
 #import <ZBSettings.h>
 #import <Extensions/ZBColor.h>
 #import <Extensions/UIImageView+Zebra.h>
-#import "UITableView+Settings.h"
+//#import "UITableView+Settings.h"
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray *sources;
@@ -45,7 +45,7 @@
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"filterCell"];
-    [self.tableView registerCellType:ZBButtonSettingsCell];
+//    [self.tableView registerCellType:ZBButtonSettingsCell];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -106,82 +106,82 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    switch (indexPath.section) {
-        case 0: {
-            if (indexPath.row < filteredSections.count) {
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
-//                cell.textLabel.text = filteredSections[indexPath.row];
+//    switch (indexPath.section) {
+//        case 0: {
+//            if (indexPath.row < filteredSections.count) {
+//                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"filterCell" forIndexPath:indexPath];
+////                cell.textLabel.text = filteredSections[indexPath.row];
+////                cell.textLabel.textColor = [ZBColor labelColor];
+////
+////                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
+////                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+////
+////                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//                return cell;
+//            }
+//            break;
+//        }
+//        case 1: {
+//            if (indexPath.row < filteredSources.count) {
+//                ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
+////                ZBSource *source = sources[indexPath.row];
+////
+////                sourceCell.sourceLabel.text = [source label];
+////                sourceCell.sourceLabel.textColor = [ZBColor labelColor];
+////
+////                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
+////                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
+////                sourceCell.urlLabel.textColor = [ZBColor secondaryLabelColor];
+////
+////                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
+//
+//                return sourceCell;
+//            }
+//            break;
+//        }
+//        case 2: {
+//            if (indexPath.row < blockedAuthors.count) {
+//                UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//
+//                cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
 //                cell.textLabel.textColor = [ZBColor labelColor];
 //
-//                cell.imageView.image = [ZBSource imageForSection:filteredSections[indexPath.row]];
-//                [cell.imageView resize:CGSizeMake(32, 32) applyRadius:YES];
+//                NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
+//                if (aliases.count > 1) cell.accessoryType = UITableViewCellAccessoryDetailButton;
 //
-//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-                return cell;
-            }
-            break;
-        }
-        case 1: {
-            if (indexPath.row < filteredSources.count) {
-                ZBSourceTableViewCell *sourceCell = [tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
-//                ZBSource *source = sources[indexPath.row];
+//                NSString *email = [blockedAuthors allKeys][indexPath.row];
+//                if (![email isEqualToString:cell.textLabel.text]) {
+//                    cell.detailTextLabel.text = email;
+//                    cell.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
+//                }
 //
-//                sourceCell.sourceLabel.text = [source label];
-//                sourceCell.sourceLabel.textColor = [ZBColor labelColor];
+//                cell.tintColor = [ZBColor accentColor];
+//                return cell;
+//            }
+//            break;
+//        }
+//        case 3: {
+//            if (indexPath.row < ignoredUpdates.count) {
+//                ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
+////                ZBPackage *package = ignoredUpdates[indexPath.row];
+////
+////                [packageCell updateData:package];
+////                [packageCell setColors];
 //
-//                unsigned long numberOfSections = (unsigned long)[filteredSources[[source uuid]] count];
-//                sourceCell.urlLabel.text = numberOfSections == 1 ? NSLocalizedString(@"1 Section Hidden", @"") : [NSString stringWithFormat:NSLocalizedString(@"%lu Sections Hidden", @""), numberOfSections];
-//                sourceCell.urlLabel.textColor = [ZBColor secondaryLabelColor];
+//                return packageCell;
+//            }
+//            break;
+//        }
+//    }
 //
-//                [sourceCell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
-                
-                return sourceCell;
-            }
-            break;
-        }
-        case 2: {
-            if (indexPath.row < blockedAuthors.count) {
-                UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"authorCell"];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                
-                cell.textLabel.text = [blockedAuthors objectForKey:[blockedAuthors allKeys][indexPath.row]];
-                cell.textLabel.textColor = [ZBColor labelColor];
-                
-                NSArray *aliases = [self listAllAuthorsFromMail:indexPath];
-                if (aliases.count > 1) cell.accessoryType = UITableViewCellAccessoryDetailButton;
-                
-                NSString *email = [blockedAuthors allKeys][indexPath.row];
-                if (![email isEqualToString:cell.textLabel.text]) {
-                    cell.detailTextLabel.text = email;
-                    cell.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
-                }
-                
-                cell.tintColor = [ZBColor accentColor];
-                return cell;
-            }
-            break;
-        }
-        case 3: {
-            if (indexPath.row < ignoredUpdates.count) {
-                ZBPackageTableViewCell *packageCell = [tableView dequeueReusableCellWithIdentifier:@"packageTableViewCell" forIndexPath:indexPath];
-//                ZBPackage *package = ignoredUpdates[indexPath.row];
-//                
-//                [packageCell updateData:package];
-//                [packageCell setColors];
-                
-                return packageCell;
-            }
-            break;
-        }
-    }
-    
-    ZBButtonSettingsTableViewCell *cell = [tableView dequeueButtonSettingsCellForIndexPath:indexPath];
-    
-    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
-    
-    [cell applyStyling];
-    return cell;
+//    ZBButtonSettingsTableViewCell *cell = [tableView dequeueButtonSettingsCellForIndexPath:indexPath];
+//
+//    cell.textLabel.text = NSLocalizedString(@"Add Filter", @"");
+//
+//    [cell applyStyling];
+    return NULL;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

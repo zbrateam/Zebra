@@ -1,16 +1,16 @@
 //
-//  ZBOptionSubtitleSettingsTableViewCell.h
+//  ZBSettingsTableViewCell.h
 //  Zebra
 //
 //  Created by absidue on 20-06-20.
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import "ZBOptionSettingsTableViewCell.h"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBOptionSubtitleSettingsTableViewCell : ZBOptionSettingsTableViewCell
+@interface ZBSettingsTableViewCell : UITableViewCell
 
 @end
 

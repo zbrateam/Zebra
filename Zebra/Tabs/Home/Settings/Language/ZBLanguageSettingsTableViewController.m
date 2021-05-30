@@ -7,10 +7,6 @@
 //
 
 #import "ZBLanguageSettingsTableViewController.h"
-#import "UITableView+Settings.h"
-#import "ZBSwitchSettingsTableViewCell.h"
-#import "ZBOptionSubtitleSettingsTableViewCell.h"
-#import "ZBLinkSettingsTableViewCell.h"
 
 #import <ZBDevice.h>
 #import <ZBSettings.h>
@@ -62,7 +58,7 @@
     
     self.title = NSLocalizedString(@"Language", @"");
     
-    [self.tableView registerCellTypes:@[@(ZBSwitchSettingsCell), @(ZBOptionSubtitleSettingsCell), @(ZBLinkSettingsCell)]];
+//    [self.tableView registerCellTypes:@[@(ZBSwitchSettingsCell), @(ZBOptionSubtitleSettingsCell), @(ZBLinkSettingsCell)]];
     
     [self layoutNavigationButtons];
 }
@@ -133,62 +129,63 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
-
-        cell.textLabel.text = NSLocalizedString(@"Use System Language", @"");
-        
-        [cell setOn:useSystemLanguage];
-        [cell setTarget:self action:@selector(toggleSystemLanguage:)];
-        [cell applyStyling];
-
-        return cell;
-    } else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1) {
-        NSString *languageCode = languages[indexPath.row];
-        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
-        NSLocale *currentLocale = [NSLocale currentLocale];
-        
-        NSString *displayName = [[locale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:locale];
-        NSString *localizedDisplayName = [[currentLocale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:currentLocale];
-        
-        ZBOptionSubtitleSettingsTableViewCell *cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
-
-        [cell setChosen:[indexPath isEqual:selectedRow]];
-        [cell applyStyling];
-        cell.textLabel.text = displayName;
-        cell.detailTextLabel.text = localizedDisplayName;
-        
-        return cell;
-    } else {
-        ZBLinkSettingsTableViewCell *cell = [tableView dequeueLinkSettingsCellForIndexPath:indexPath];
-        
-        cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
-        cell.imageView.image = [UIImage imageNamed:@"Translations"];
-        
-        [cell applyStyling];
-        return cell;
-    }
+//    if (indexPath.section == 0) {
+//        ZBSwitchSettingsTableViewCell *cell = [tableView dequeueSwitchSettingsCellForIndexPath:indexPath];
+//
+//        cell.textLabel.text = NSLocalizedString(@"Use System Language", @"");
+//
+//        [cell setOn:useSystemLanguage];
+//        [cell setTarget:self action:@selector(toggleSystemLanguage:)];
+//        [cell applyStyling];
+//
+//        return cell;
+//    } else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1) {
+//        NSString *languageCode = languages[indexPath.row];
+//        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:languageCode];
+//        NSLocale *currentLocale = [NSLocale currentLocale];
+//
+//        NSString *displayName = [[locale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:locale];
+//        NSString *localizedDisplayName = [[currentLocale displayNameForKey:NSLocaleIdentifier value:languageCode] capitalizedStringWithLocale:currentLocale];
+//
+//        ZBSettingsTableViewCell *cell = [tableView dequeueOptionSubtitleSettingsCellForIndexPath:indexPath];
+//
+////        [cell setChosen:[indexPath isEqual:selectedRow]];
+////        [cell applyStyling];
+//        cell.textLabel.text = displayName;
+//        cell.detailTextLabel.text = localizedDisplayName;
+//
+//        return cell;
+//    } else {
+//        ZBLinkSettingsTableViewCell *cell = [tableView dequeueLinkSettingsCellForIndexPath:indexPath];
+//
+//        cell.textLabel.text = NSLocalizedString(@"Help translate Zebra!", @"");
+//        cell.imageView.image = [UIImage imageNamed:@"Translations"];
+//
+//        [cell applyStyling];
+//        return cell;
+//    }
+    return NULL;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        [cell toggle];
-    }
-    else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
-        NSIndexPath *previousChoice = selectedRow;
-        if (previousChoice.row != indexPath.row) {
-            selectedLanguage = languages[indexPath.row];
-            selectedRow = indexPath;
-            
-            [self layoutNavigationButtons];
-//            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
-        }
-    }
-    else if (([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 2) || ([self numberOfSectionsInTableView:tableView] == 2 && indexPath.section == 1)) {
-        [ZBDevice openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"] sender:self];
-    }
+//    if (indexPath.section == 0) {
+//        ZBSwitchSettingsTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//        [cell toggle];
+//    }
+//    else if ([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 1 && ![indexPath isEqual:selectedRow]) {
+//        NSIndexPath *previousChoice = selectedRow;
+//        if (previousChoice.row != indexPath.row) {
+//            selectedLanguage = languages[indexPath.row];
+//            selectedRow = indexPath;
+//
+//            [self layoutNavigationButtons];
+////            [self chooseOptionAtIndexPath:indexPath previousIndexPath:previousChoice animated:YES];
+//        }
+//    }
+//    else if (([self numberOfSectionsInTableView:tableView] == 3 && indexPath.section == 2) || ([self numberOfSectionsInTableView:tableView] == 2 && indexPath.section == 1)) {
+//        [ZBDevice openURL:[NSURL URLWithString:@"https://translate.getzbra.com/"] sender:self];
+//    }
 }
 
 @end

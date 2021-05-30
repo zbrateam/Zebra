@@ -8,6 +8,8 @@
 
 #import "ZBPreferencesViewController.h"
 
+#import <UI/Settings/Cells/ZBSettingsTableViewCell.h>
+
 #import <Extensions/ZBColor.h>
 
 @implementation ZBPreferencesViewController;
@@ -36,7 +38,7 @@
         [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 15)]];
     }
     
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"preferencesCell"];
+    [self.tableView registerClass:[ZBSettingsTableViewCell class] forCellReuseIdentifier:@"preferencesCell"];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -55,6 +57,7 @@
     
     NSDictionary *specifier = self.specifiers[indexPath.section][indexPath.row];
     cell.textLabel.text = specifier[@"text"];
+    cell.detailTextLabel.text = specifier[@"subtext"];
     cell.imageView.image = specifier[@"icon"];
     
     ZBPreferencesCellType cellType = [specifier[@"type"] unsignedIntValue];

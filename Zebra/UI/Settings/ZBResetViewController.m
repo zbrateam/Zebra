@@ -9,8 +9,6 @@
 @import SDWebImage;
 
 #import "ZBResetViewController.h"
-#import "UITableView+Settings.h"
-#import "ZBButtonSettingsTableViewCell.h"
 
 #import <Extensions/ZBColor.h>
 #import <ZBAppDelegate.h>
