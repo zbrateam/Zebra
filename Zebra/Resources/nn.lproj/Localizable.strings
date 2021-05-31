@@ -148,13 +148,13 @@
 "Unknown" = "Ukjent";
 "Delete" = "Slett";
 "Refresh" = "Oppdater";
-"Copy" = "Copy";
+"Copy" = "Kopier";
 "All Packages" = "Alle pakkar";
 "Remove Source" = "Fjern kjelde";
 "Local File" = "Lokal fil";
 "Local Repository" = "Lokal kjelde";
 "Locally installed packages" = "Lokalt installerte pakkar";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "%lu installert";
 
 "Add" = "Legg til";
 "View" = "Vis";
@@ -242,7 +242,7 @@
 "More by this Developer" = "Meir frå denne utviklaren";
 "Installed Version" = "Installert versjon";
 "Installed Size" = "Installert storleik";
-"Preview" = "Preview";
+"Preview" = "Førehandsvisning";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Installert versjon: %@)";
@@ -490,9 +490,9 @@
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
+"Update available for %@" = "Oppdatering tilgjengeleg for %@";
+"Version %@ is available on %@." = "Versjon %@ er tilgjengeleg på %@.";
+"%d updates available" = "%d tilgjengelege oppdateringar";
 "%@ and %d more can be updated." = "%@ and %d more can be updated.";
 "%d Seconds" = "%d sekunder";
 "Download Timeout" = "Tidsavbrot for nedlasting";
