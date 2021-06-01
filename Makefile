@@ -40,10 +40,10 @@ SUBPROJECTS = Supersling #Relaunch
 
 ifeq ($(ALPHA), 1)
 before-package::
-	sed -i '' 's/^Name:.*/Name: Zebra (ALPHA)/g;s/^Package:.*/Package: xyz.willy.zebralpha/g' $(THEOS_STAGING_DIR)/DEBIAN/control
+	sed -i 's/^Name:.*/Name: Zebra (ALPHA)/g;s/^Package:.*/Package: xyz.willy.zebralpha/g' $(THEOS_STAGING_DIR)/DEBIAN/control
 else ifeq ($(BETA), 1)
 before-package::
-	sed -i '' 's/^Name:.*/Name: Zebra (BETA)/g;s/^Package:.*/Package: xyz.willy.zebeta/g' $(THEOS_STAGING_DIR)/DEBIAN/control
+	sed -i 's/^Name:.*/Name: Zebra (BETA)/g;s/^Package:.*/Package: xyz.willy.zebeta/g' $(THEOS_STAGING_DIR)/DEBIAN/control
 endif
 
 after-stage::
