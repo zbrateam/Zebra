@@ -41,7 +41,7 @@
 }
 
 - (void)setSource:(PLSource *)source {
-    self.sourceLabel.text = source.label;
+    self.sourceLabel.text = source.origin;
     self.urlLabel.text = source.URI.absoluteString;
 //    self.storeBadge.hidden = source.paymentEndpointURL == NULL;
 
