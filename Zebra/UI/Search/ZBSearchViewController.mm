@@ -149,15 +149,15 @@
             break;
         }
         case 1: {
-//            [[PLPackageManager sharedInstance] searchForPackagesByDescription:strippedString completion:^(NSArray<PLPackage *> * _Nonnull packages) {
-//                updateTable(packages);
-//            }];
+            [[PLPackageManager sharedInstance] searchForPackagesWithDescription:strippedString completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                updateTable(packages);
+            }];
             break;
         }
         case 2: {
-//            [[PLPackageManager sharedInstance] searchForPackagesByAuthorWithName:strippedString email:nil completion:^(NSArray<PLPackage *> * _Nonnull packages) {
-//                updateTable(packages);
-//            }];
+            [[PLPackageManager sharedInstance] searchForPackagesWithAuthorName:strippedString completion:^(NSArray<PLPackage *> * _Nonnull packages) {
+                updateTable(packages);
+            }];
             break;
         }
     }
