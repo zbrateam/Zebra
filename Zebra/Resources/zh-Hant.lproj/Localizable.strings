@@ -148,13 +148,13 @@
 "Unknown" = "未知";
 "Delete" = "刪除";
 "Refresh" = "重新整理";
-"Copy" = "Copy";
+"Copy" = "複製";
 "All Packages" = "所有套件";
 "Remove Source" = "移除來源";
 "Local File" = "本地檔案";
 "Local Repository" = "本地來源";
 "Locally installed packages" = "本地已安裝套件";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "已安裝 %lu";
 
 "Add" = "新增";
 "View" = "查看";
@@ -242,7 +242,7 @@
 "More by this Developer" = "此開發者的更多作品";
 "Installed Version" = "已安裝的版本";
 "Installed Size" = "已安裝大小";
-"Preview" = "Preview";
+"Preview" = "預覽";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@（已安裝版本: %@）";
@@ -490,10 +490,10 @@
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
-"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"Update available for %@" = "%@ 有可用的更新";
+"Version %@ is available on %@." = "%@ 版本可在 %@ 取得。";
+"%d updates available" = "有 %d 個可用的更新";
+"%@ and %d more can be updated." = "%@ 與另外 %d 個套件有可用的更新";
 "%d Seconds" = "%d 秒";
 "Download Timeout" = "下載逾時";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "調整 Zebra 等待來源回應逾時的時長。";
