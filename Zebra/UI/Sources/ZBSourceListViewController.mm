@@ -202,7 +202,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0 && self.showFailureSection) {
-        return [self hasIssues];
+        return [self hasIssues] > 0;
     } else {
         return sources.count;
     }
