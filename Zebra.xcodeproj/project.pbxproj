@@ -1535,7 +1535,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBEXEC_FOLDER = "'@\"zebra\"'";
-				MARKETING_VERSION = "2.0~alpha2";
+				MARKETING_VERSION = "2.0~alpha3";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
@@ -1587,7 +1587,7 @@
 					"@executable_path/Frameworks",
 				);
 				LIBEXEC_FOLDER = "'@\"zebra\"'";
-				MARKETING_VERSION = "2.0~alpha2";
+				MARKETING_VERSION = "2.0~alpha3";
 				OTHER_LDFLAGS = "-ObjC";
 				PACKAGE_VERSION = "'@\"$(MARKETING_VERSION)\"'";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.willy.Zebra;
