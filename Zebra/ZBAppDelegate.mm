@@ -531,6 +531,13 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     symlink(extendedStatesPath.UTF8String, [cacheDir stringByAppendingPathComponent:@"extended_states"].UTF8String);
     [config setString:cacheDir forKey:@"Dir::State"];
     
+    // Reset the default compression type ordering
+    [config setString:@"zstd" forKey:@"Acquire::CompressionTypes::zst"];
+    [config setString:@"xz" forKey:@"Acquire::CompressionTypes::xz"];
+    [config setString:@"lzma" forKey:@"Acquire::CompressionTypes::lzma"];
+    [config setString:@"lz4" forKey:@"Acquire::CompressionTypes::lz4"];
+    [config setString:@"gzip" forKey:@"Acquire::CompressionTypes::gz"];
+    [config setString:@"bzip2" forKey:@"Acquire::CompressionTypes::bz2"];
 #if DEBUG
 //    _config->Set("Debug::pkgProblemResolver", true);
 //    _config->Set("Debug::pkgAcquire", true);
