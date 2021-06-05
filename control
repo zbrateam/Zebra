@@ -1,7 +1,7 @@
 Package: xyz.willy.zebra
 Name: Zebra
 Architecture: iphoneos-arm
-Version: 2.0~alpha3a
+Version: 2.0~alpha3b
 Depends: uikittools, firmware (>= 12.0), libapt-pkg6.0 (>= 2.3.0), xyz.willy.zebra (<= 1.1.99)
 Maintainer: Wilson Styres <wilson@styres.me>
 Author: Wilson Styres <wilson@styres.me>
