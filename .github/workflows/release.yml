@@ -1,8 +1,8 @@
 name: Upload Release
 
 on:
-  # release:
-  #   types: [published]
+  release:
+    types: [published]
 
 jobs:
   build:
