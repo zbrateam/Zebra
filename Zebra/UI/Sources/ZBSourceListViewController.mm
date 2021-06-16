@@ -221,6 +221,7 @@
         cell.iconImageView.layer.borderColor = [UIColor clearColor].CGColor;
         cell.tintColor = [UIColor systemRedColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         
         return cell;
     } else {
@@ -230,9 +231,11 @@
         [cell setSource:source];
         
         if (self.failures[source.UUID].count) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryDetailButton;
             cell.tintColor = [UIColor systemRedColor];
         } else {
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.tintColor = nil;
         }
@@ -253,7 +256,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (self.showFailureSection && [self hasIssues] && indexPath.row == 0) {
+    if (self.showFailureSection && [self hasIssues] && indexPath.section == 0) {
         NSMutableArray *failedSources = [NSMutableArray new];
         [self.failures enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSMutableArray * _Nonnull obj, BOOL * _Nonnull stop) {
             if (obj.count) [failedSources addObject:[sourceManager sourceForUUID:key]];
@@ -282,7 +285,12 @@
         }
     } else {
         PLSource *source = sources[indexPath.row];
-        if (self.selectActionClass == [ZBErrorViewController class]) source.messages = self.failures[source.UUID];
+        NSArray *sourceFailures = self.failures[source.UUID];
+        if (self.selectActionClass == [ZBErrorViewController class]) {
+            source.messages = sourceFailures;
+        } else if (sourceFailures.count) {
+            return;
+        }
         
         UIViewController *controller = [[self.selectActionClass alloc] initWithSource:source];
         
