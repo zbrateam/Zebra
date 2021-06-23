@@ -24,7 +24,6 @@
 
 #include <sysexits.h>
 
-@import FirebaseCrashlytics;
 @import LNPopupController;
 
 @interface ZBConsoleViewController () {
@@ -267,7 +266,6 @@
                         } @catch (NSException *e) {
                             NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
                             
-                            [[FIRCrashlytics crashlytics] logWithFormat:@"%@", message];
                             NSLog(@"[Zebra] %@", message);
                             [self writeToConsole:message atLevel:ZBLogLevelError];
                         }
@@ -363,7 +361,6 @@
                     } @catch (NSException *e) {
                         NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
                         
-                        [[FIRCrashlytics crashlytics] log:message];
                         NSLog(@"[Zebra] %@", message);
                         [self writeToConsole:message atLevel:ZBLogLevelError];
                         [self writeToConsole:NSLocalizedString(@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.", @"") atLevel:ZBLogLevelInfo];
@@ -727,7 +724,6 @@
         NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         if ([str containsString:@"stable CLI interface"]) return;
         if ([str containsString:@"postinst"]) return;
-        [[FIRCrashlytics crashlytics] logWithFormat:@"DPKG/APT Error: %@", str];
         if ([str rangeOfString:@"warning"].location != NSNotFound || [str hasPrefix:@"W:"]) {
             [self writeToConsole:str atLevel:ZBLogLevelWarning];
         } else {

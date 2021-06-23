@@ -28,7 +28,6 @@
 #import <objc/runtime.h>
 
 @import SDWebImage;
-@import FirebaseCrashlytics;
 
 typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     ZBPackageInfoID = 0,
@@ -156,8 +155,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     }
     [webView addObserver:self forKeyPath:NSStringFromSelector(@selector(estimatedProgress)) options:NSKeyValueObservingOptionNew context:NULL];
     [webView.scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentSize)) options:NSKeyValueObservingOptionNew context:NULL];
-    
-    [[FIRCrashlytics crashlytics] logWithFormat:@"%@ (%@) from %@", [package name], [package identifier], [[package source] repositoryURI]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -305,10 +302,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)layoutDepictionWebView:(WKWebView *)webView {
     if (webView) {
         [webView evaluateJavaScript:@"document.readyState" completionHandler:^(id _Nullable completed, NSError * _Nullable error) {
-            if (error) {
-                [[FIRCrashlytics crashlytics] logWithFormat:@"Error when getting depiction height: %@", error.localizedDescription];
-            }
-            else {
+            if (!error) {
                 if ([completed isEqualToString:@"complete"]) {
                     //body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight
                     NSString *question = @"var body = document.body, html = document.documentElement; var height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight); height";

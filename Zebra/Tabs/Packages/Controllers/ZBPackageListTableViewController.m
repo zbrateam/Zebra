@@ -22,8 +22,6 @@
 #import <UIColor+GlobalColors.h>
 #import "ZBDevice.h"
 
-@import FirebaseAnalytics;
-
 @interface ZBPackageListTableViewController () {
     ZBSortingType selectedSortingType;
     NSArray <ZBPackage *> *packages;
