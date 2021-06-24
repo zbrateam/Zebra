@@ -26,9 +26,6 @@
 #import <objc/runtime.h>
 #import <Headers/AccessibilityUtilities.h>
 
-@import FirebaseCore;
-@import FirebaseAnalytics;
-@import FirebaseCrashlytics;
 @import LocalAuthentication;
 
 @interface ZBAppDelegate () {
@@ -204,39 +201,6 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     }
     
     UIApplication.sharedApplication.delegate.window.tintColor = [UIColor accentColor];
-    
-#if DEBUG
-    NSLog(@"[Zebra] Crash Reporting and Analytics Disabled");
-#else
-    NSLog(@"[Zebra] Crash Reporting and Analytics Enabled");
-    [FIRApp configure];
-#endif
-    
-    [[FIRCrashlytics crashlytics] setCustomValue:PACKAGE_VERSION forKey:@"zebra_version"];
-    
-    NSString *jailbreak = @"Unknown (Older Jailbreak for < 11.0)";
-    if ([ZBDevice isTaurine]) {
-        jailbreak = @"Taurine";
-    }
-    else if ([ZBDevice isOdyssey]) {
-        jailbreak = @"Odyssey";
-    }
-    else if ([ZBDevice isCheckrain]) {
-        jailbreak = @"checkra1n";
-    }
-    else if ([ZBDevice isChimera]) {
-        jailbreak = @"Chimera";
-    }
-    else if ([ZBDevice isElectra]) {
-        jailbreak = @"Electra";
-    }
-    else if ([ZBDevice isUncover]) {
-        jailbreak = @"unc0ver";
-    }
-    
-    [FIRAnalytics setUserPropertyString:jailbreak forName:@"Jailbreak"];
-    [[FIRCrashlytics crashlytics] setCustomValue:jailbreak forKey:@"jailbreak_type"];
-    [[FIRCrashlytics crashlytics] setCustomValue:[ZBDevice packageManagementBinary] forKey:@"package_binary"];
     
     [[ZBThemeManager sharedInstance] updateInterfaceStyle];
     

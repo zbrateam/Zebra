@@ -22,7 +22,6 @@
 #import <Extensions/UIColor+GlobalColors.h>
 
 @import SDWebImage;
-@import FirebaseAnalytics;
 
 @interface ZBChangesTableViewController () {
     NSUserDefaults *defaults;

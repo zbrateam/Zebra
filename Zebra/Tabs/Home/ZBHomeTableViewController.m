@@ -18,8 +18,6 @@
 #import <Theme/ZBThemeManager.h>
 #import <ZBAppDelegate.h>
 
-@import FirebaseAnalytics;
-
 typedef enum ZBHomeOrder : NSUInteger {
     ZBInfo,
     ZBViews,

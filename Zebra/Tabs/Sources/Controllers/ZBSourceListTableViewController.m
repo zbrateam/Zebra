@@ -24,7 +24,6 @@
 #import <Queue/ZBQueue.h>
 #import <Theme/ZBThemeManager.h>
 
-@import FirebaseAnalytics;
 @import SDWebImage;
 
 @interface ZBSourceListTableViewController () {

@@ -24,7 +24,6 @@
 #import <ZBSettings.h>
 
 @import SDWebImage;
-@import FirebaseCrashlytics;
 
 @interface ZBPackage () {
     BOOL checkedForPurchaseInfo;
@@ -124,7 +123,6 @@
             return contains;
         }
         @catch (NSException *e) {
-            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason];
             NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             
             return NO;
@@ -194,7 +192,6 @@
             return path;
         }
         @catch (NSException *e) {
-            [[FIRCrashlytics crashlytics] logWithFormat:@"%@ Could not spawn dpkg. Reason: %@", e.name, e.reason];
             NSLog(@"[Zebra] %@ Could not spawn dpkg. Reason: %@", e.name, e.reason);
             
             return NULL;
