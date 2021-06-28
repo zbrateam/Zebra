@@ -148,13 +148,13 @@
 "Unknown" = "Неизвестно";
 "Delete" = "Удалить";
 "Refresh" = "Обновить";
-"Copy" = "Copy";
+"Copy" = "Копировать";
 "All Packages" = "Все пакеты";
 "Remove Source" = "Удалить источник";
 "Local File" = "Локальный файл";
 "Local Repository" = "Локальный репозиторий";
 "Locally installed packages" = "Локально установленные пакеты";
-"%lu Installed" = "%lu Installed";
+"%lu Installed" = "%lu установлено";
 
 "Add" = "Добавить";
 "View" = "Просмотр";
@@ -242,7 +242,7 @@
 "More by this Developer" = "Больше от этого разработчика";
 "Installed Version" = "Установленная версия";
 "Installed Size" = "Размер после установки";
-"Preview" = "Preview";
+"Preview" = "Предпросмотр";
 
 //<Version available from source> (Installed Version: <Installed Version>)
 "%@ (Installed Version: %@)" = "%@ (Установленная версия: %@)";
@@ -490,10 +490,10 @@
 
 // Notifications
 
-"Update available for %@" = "Update available for %@";
-"Version %@ is available on %@." = "Version %@ is available on %@.";
-"%d updates available" = "%d updates available";
-"%@ and %d more can be updated." = "%@ and %d more can be updated.";
+"Update available for %@" = "Доступно обновление для %@";
+"Version %@ is available on %@." = "Версия %@ доступна на %@.";
+"%d updates available" = "%d доступных обновлений";
+"%@ and %d more can be updated." = "%@ и %d больше могут быть обновлены.";
 "%d Seconds" = "%d секунд";
 "Download Timeout" = "Таймаут загрузки";
 "Configure the amount of time Zebra will wait for a source to respond before timing out." = "Укажите время ожидания источника до ошибки соединения.";
