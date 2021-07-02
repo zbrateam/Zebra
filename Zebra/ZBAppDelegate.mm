@@ -525,7 +525,11 @@ NSString *const ZBUserEndedScreenCaptureNotification = @"EndedScreenCaptureNotif
     [config setString:[cacheDir stringByAppendingPathComponent:@"zebra.sources"] forKey:@"Plains::SourcesList"];
     [config setString:slingshotPath forKey:@"Dir::Bin::dpkg"];
     [config setString:slingshotPath forKey:@"Plains::Slingshot"];
-    [config setString:[NSString stringWithFormat:@"Zebra %@", PACKAGE_VERSION] forKey:@"Acquire::http::User-Agent"];
+#if TARGET_OS_MACCATALYST
+    [config setString:[NSString stringWithFormat:@"Zebra %@; macOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forKey:@"Acquire::http::User-Agent"];
+#else
+    [config setString:[NSString stringWithFormat:@"Zebra %@; iOS %@", PACKAGE_VERSION, [[UIDevice currentDevice] systemVersion]] forKey:@"Acquire::http::User-Agent"];
+#endif
     
     NSString *extendedStatesPath = [@"/" stringByAppendingString:[[config stringForKey:@"Dir::State"] stringByAppendingPathComponent:@"extended_states"]];
     symlink(extendedStatesPath.UTF8String, [cacheDir stringByAppendingPathComponent:@"extended_states"].UTF8String);
