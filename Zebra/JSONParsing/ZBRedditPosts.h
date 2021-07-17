@@ -141,6 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable, copy)   NSArray<ZBChild *> *children;
 @property (nonatomic, nullable, copy)   NSString *after;
 @property (nonatomic, nullable, copy)   id before;
+@property (nonatomic, nullable, copy)   id geo_filter;
 @end
 
 @interface ZBChild : NSObject
