@@ -102,7 +102,7 @@
             [self getRedditToken];
         } else {
             double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
-            if (seconds > 3500) {
+            if (seconds > 3500 || [self->defaults valueForKey:@"redditToken"] == nil) {
                 [self getRedditToken];
             } else {
                 [self retrieveNewsJson];
@@ -113,13 +113,13 @@
 
 - (void)getRedditToken {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *checkingURL = [NSURL URLWithString:@"https://ssl.reddit.com/api/v1/access_token"];
+        NSURL *checkingURL = [NSURL URLWithString:@"https://www.reddit.com/api/v1/access_token"];
         NSMutableURLRequest *request = [NSMutableURLRequest new];
         [request setURL:checkingURL];
         [request setHTTPMethod:@"POST"];
         [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"Basic ZGZmVWtsVG9WY19ZV1E6IA==" forHTTPHeaderField:@"Authorization"];
+        [request setValue:@"Basic ZjJkWHR4M0JBUXFDWWdPU3ZSanlLQTo=" forHTTPHeaderField:@"Authorization"];
         NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
         [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
         NSURLSession *session = [NSURLSession sharedSession];

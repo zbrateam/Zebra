@@ -550,6 +550,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
         @"children": @"children",
         @"after": @"after",
         @"before": @"before",
+        @"geo_filter": @"geo_filter",
     };
 }
 
