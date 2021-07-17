@@ -97,56 +97,10 @@
 
 - (void)kickStartReddit {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSDate *creationDate = [self->defaults objectForKey:@"redditCheck"];
-        if (!creationDate) {
-            [self getRedditToken];
-        } else {
-            double seconds = [[NSDate date] timeIntervalSinceDate:creationDate];
-            if (seconds > 3500 || [self->defaults valueForKey:@"redditToken"] == nil) {
-                [self getRedditToken];
-            } else {
-                [self retrieveNewsJson];
-            }
-        }
-    });
-}
-
-- (void)getRedditToken {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *checkingURL = [NSURL URLWithString:@"https://www.reddit.com/api/v1/access_token"];
-        NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL:checkingURL];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-        [request setValue:@"Basic ZjJkWHR4M0JBUXFDWWdPU3ZSanlLQTo=" forHTTPHeaderField:@"Authorization"];
-        NSString *string = @"grant_type=https://oauth.reddit.com/grants/installed_client&device_id=DO_NOT_TRACK_THIS_DEVICE";
-        [request setHTTPBody:[string dataUsingEncoding:NSUTF8StringEncoding]];
-        NSURLSession *session = [NSURLSession sharedSession];
-        [[session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            if (data) {
-                NSError *error2 = nil;
-                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error2];
-                [self->defaults setObject:[dictionary objectForKey:@"access_token"] forKey:@"redditToken"];
-                [self->defaults setObject:[NSDate date] forKey:@"redditCheck"];
-                [self->defaults synchronize];
-                [self retrieveNewsJson];
-            }
-            if (error) {
-                NSLog(@"[Zebra] Error getting reddit token: %@", error);
-            }
-        }] resume];
-    });
-}
-
-- (void)retrieveNewsJson {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.redditPosts removeAllObjects];
         NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL:[NSURL URLWithString:@"https://oauth.reddit.com/r/jailbreak"]];
+        [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak/.json"]];
         [request setHTTPMethod:@"GET"];
-        [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-        [request setValue:[NSString stringWithFormat:@"Bearer %@", [self->defaults valueForKey:@"redditToken"]] forHTTPHeaderField:@"Authorization"];
         [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
                 NSError *err = nil;
