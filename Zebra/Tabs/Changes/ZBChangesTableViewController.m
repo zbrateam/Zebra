@@ -106,13 +106,9 @@
                 NSError *err = nil;
                 ZBRedditPosts *redditPosts = [ZBRedditPosts fromData:data error:&err];
                 for (ZBChild *child in redditPosts.data.children) {
-                    if (child.data.title != nil) {
-                        NSArray *post = [self getTags:child.data.title];
-                        for (NSString *string in self->availableOptions) {
-                            if ([post containsObject:string] && ![self.redditPosts containsObject:child.data]) {
-                                [self.redditPosts addObject:child.data];
-                            }
-                        }
+                    NSString *tag = child.data.linkFlairCSSClass;
+                    if (tag != nil && [self->availableOptions containsObject:tag] && ![self.redditPosts containsObject:child.data]) {
+                        [self.redditPosts addObject:child.data];
                     }
                 }
             }
@@ -368,20 +364,11 @@
         text = [text stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
         text = [text stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
         text = [text stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-        
-        NSMutableArray *tags = [NSMutableArray new];
-        NSMutableArray *formattedTags = [NSMutableArray new];
-        for (NSString *string in [self getTags:post.title]) {
-            if ([availableOptions containsObject:string]) {
-                [tags addObject:string];
-                [formattedTags addObject:[NSString stringWithFormat:@"[%@]", string]];
-            }
-        }
 
-        cell.postTitle.text = [self stripTags:formattedTags fromTitle:text];
+        NSString *tag = post.linkFlairCSSClass;
 
-        cell.postTag.text = [tags componentsJoinedByString:@", "];
-        cell.postTag.text = [cell.postTag.text capitalizedString];
+        cell.postTitle.text = [self stripTagsAndWhitespacesFromTitle:text];
+        cell.postTag.text = [tag capitalizedString];
     } else {
         cell.postTitle.text = @"Error";
     }
@@ -411,37 +398,33 @@
     return cell;
 }
 
-- (NSString *)stripTags:(NSArray *)tags fromTitle:(NSString *)title {
-    NSArray *separatedTitle = [title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for (NSString *cut in separatedTitle) {
-        if ([cut hasPrefix:@"["] && [tags containsObject:[cut lowercaseString]]) {
-            continue;
-        }
-        [cleanedStrings addObject:cut];
+- (NSString *)stripTagsAndWhitespacesFromTitle:(NSString *)title {
+    NSUInteger lastCloseTagIndex = [title rangeOfString:@"]" options:NSBackwardsSearch].location;
+    if (lastCloseTagIndex != NSNotFound) {
+        title = [title substringFromIndex:lastCloseTagIndex + 1];
     }
-    
-    return [cleanedStrings componentsJoinedByString:@" "];
+    title = [title stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return title;
 }
 
-- (NSArray *)getTags:(NSString *)body {
-    body = [body lowercaseString];
-    NSArray *authorName = [body componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    NSMutableArray *cleanedStrings = [NSMutableArray new];
-    for(NSString *cut in authorName) {
-        if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
-            NSString *cutCopy = [cut copy];
-            cutCopy = [cut substringFromIndex:1];
-            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
-            if ([cutCopy containsString:@"]["]) {
-                [cleanedStrings addObjectsFromArray:[cutCopy componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-            } else {
-                [cleanedStrings addObject:cutCopy];
-            }
-        }
-    }
-    return cleanedStrings;
-}
+//- (NSArray *)getTags:(NSString *)body {
+//    body = [body lowercaseString];
+//    NSArray *tokens = [body componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+//    NSMutableArray *cleanedStrings = [NSMutableArray new];
+//    for (NSString *cut in tokens) {
+//        if ([cut hasPrefix:@"["] && [cut hasSuffix:@"]"]) {
+//            NSString *cutCopy = [cut copy];
+//            cutCopy = [cut substringFromIndex:1];
+//            cutCopy = [cutCopy substringWithRange:NSMakeRange(0, cutCopy.length - 1)];
+//            if ([cutCopy containsString:@"]["]) {
+//                [cleanedStrings addObjectsFromArray:[cutCopy componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+//            } else {
+//                [cleanedStrings addObject:cutCopy];
+//            }
+//        }
+//    }
+//    return cleanedStrings;
+//}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
