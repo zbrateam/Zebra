@@ -72,7 +72,15 @@ NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringE
     self = [super init];
     
     if (self) {
-        [self setValuesForKeysWithDictionary:dict];
+        for (NSString* key in dict) {
+            @try {
+                [self setValue:dict[key] forKey:key];
+            } @catch (NSException *exception) {
+                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
+                    @throw exception;
+                }
+            }
+        }
     }
     
     return self;

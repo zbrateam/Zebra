@@ -88,7 +88,15 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        for (NSString* key in dict) {
+            @try {
+                [self setValue:dict[key] forKey:key];
+            } @catch (NSException *exception) {
+                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
+                    @throw exception;
+                }
+            }
+        }
         _user = [ZBUser fromJSONDictionary:(id)_user];
     }
     return self;
@@ -135,7 +143,15 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        for (NSString* key in dict) {
+            @try {
+                [self setValue:dict[key] forKey:key];
+            } @catch (NSException *exception) {
+                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
+                    @throw exception;
+                }
+            }
+        }
     }
     return self;
 }
