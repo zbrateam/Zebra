@@ -85,7 +85,15 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        for (NSString* key in dict) {
+            @try {
+                [self setValue:dict[key] forKey:key];
+            } @catch (NSException *exception) {
+                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
+                    @throw exception;
+                }
+            }
+        }
         _authenticationBanner = [ZBAuthenticationBanner fromJSONDictionary:(id)_authenticationBanner];
     }
     return self;
@@ -147,7 +155,15 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        for (NSString* key in dict) {
+            @try {
+                [self setValue:dict[key] forKey:key];
+            } @catch (NSException *exception) {
+                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
+                    @throw exception;
+                }
+            }
+        }
     }
     return self;
 }
