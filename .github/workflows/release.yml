@@ -8,18 +8,17 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
       with:
         submodules: recursive
 
     - name: Install Dependencies
-      run: brew install ldid fakeroot dpkg
+      run: brew install ldid xz fakeroot dpkg
 
     - name: Setup Theos
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
       with:
         repository: theos/theos
-        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
         path: theos
         submodules: recursive
 
@@ -31,51 +30,30 @@ jobs:
         make package FINALPACKAGE=1
         echo "::set-output name=package::$(ls -t packages | head -n1)"
 
-    - name: Clone gh-pages
-      run: |
-        git clone -b gh-pages https://${{ github.repository_owner }}:${{ github.token }}@github.com/zbrateam/Safari.git ~/website
-    - name: Move package to repo
+    - name: Clone Safari
+      run: git clone https://zbrabot:${{ secrets.BOT_TOKEN }}@github.com/zbrateam/Safari.git ~/website
+
+    - name: Copy package to repo
       if: "!github.event.release.prerelease"
-      run: |
-        cd packages
-        fn=$(ls -t | head -n1)
-        echo $fn
-        mv -f -- "$fn" ~/website/repo/pool
-    - name: Move package to beta repo
+      working-directory: packages
+      run: cp -f -- '${{ steps.package_build.outputs.package }}' ~/website/repo/pool
+
+    - name: Copy package to beta repo
       if: "github.event.release.prerelease"
+      working-directory: packages
+      run: cp -f -- '${{ steps.package_build.outputs.package }}' ~/website/beta/pool
+
+    - name: Push Safari
+      working-directory: ~/website
       run: |
-        cd packages
-        fn=$(ls -t | head -n1)
-        echo $fn
-        mv -f -- "$fn" ~/website/beta/pool
-    - name: Push repo
-      if: "!github.event.release.prerelease"
-      run: git push
-    - name: Push beta repo
-      if: "github.event.release.prerelease"
-      run: git push
+        git config --global user.name 'zbrabot'
+        git config --global user.email 'zbrabot@users.noreply.github.com'
+        git add .
+        git commit -m '${{ github.event.release.tag_name }}'
+        git push
 
     - name: Attach package to release
-      if: "!github.event.release.prerelease"
       env:
         GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/repo/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
-    - name: Attach package to beta release
-      if: github.event.release.prerelease
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ~/website/beta/pkgfiles/${{ steps.package_build.outputs.package }} '${{ github.event.release.tag_name }}'
-
-    - name: Build IPA package
-      id: ipa_build
-      if: "!github.event.release.prerelease"
-      env:
-        THEOS: theos
-      run: |
-        make ipa
-        echo "::set-output name=package::$(ls -t ipas | head -n1)"
-    - name: Attach IPA to release
-      if: "!github.event.release.prerelease"
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
-      run: hub release edit -m '' -a ipas/${{ steps.ipa_build.outputs.package }} '${{ github.event.release.tag_name }}'
+      working-directory: packages
+      run: gh release upload '${{ github.event.release.tag_name }}' '${{ steps.package_build.outputs.package }}'
