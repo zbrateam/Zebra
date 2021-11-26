@@ -389,11 +389,22 @@
             link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
             url = [NSURL URLWithString:link];
         }
+    } else if (post.mediaMetadata.count) {
+        for (ZBMediaMetadatum *item in post.mediaMetadata.allValues) {
+            if ([item.type isEqualToString:@"Image"] && item.source != nil) {
+                NSString *link = item.source.url;
+                link = [link stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+                url = [NSURL URLWithString:link];
+                break;
+            }
+        }
     }
-    
-    if (url) {
+
+    if ([post.thumbnail isEqualToString:@"nsfw"]) {
+        [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
+    } else if (url) {
         [cell.backgroundImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"Unknown"]];
-    }else if (post.thumbnail != nil && ([post.thumbnail isEqualToString:@"self"] || [post.thumbnail isEqualToString:@"default"] || [post.thumbnail isEqualToString:@"nsfw"])) {
+    }else if (post.thumbnail != nil && ([post.thumbnail isEqualToString:@"self"] || [post.thumbnail isEqualToString:@"default"])) {
         [cell.backgroundImage setImage:[UIImage imageNamed:@"banner"]];
     } else {
         [cell.backgroundImage sd_setImageWithURL:[NSURL URLWithString:post.thumbnail] placeholderImage:[UIImage imageNamed:@"Unknown"]];

@@ -12,6 +12,8 @@
 @class ZBResizedIcon;
 @class ZBPreview;
 @class ZBImage;
+@class ZBMediaMetadatum;
+@class ZBMediaSource;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -42,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable, copy)   NSString *url;
 @property (nonatomic, nullable, copy)   NSString *thumbnail;
 @property (nonatomic, nullable, strong) ZBPreview *preview;
+@property (nonatomic, nullable, copy)   NSDictionary <NSString *, ZBMediaMetadatum *> *mediaMetadata;
 @end
 
 @interface ZBResizedIcon : NSObject
@@ -56,9 +59,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBImage : NSObject
 @property (nonatomic, nullable, strong) ZBResizedIcon *source;
-@property (nonatomic, nullable, copy)   NSArray<ZBResizedIcon *> *resolutions;
-//@property (nonatomic, nullable, strong) ZBVariants *variants;
-@property (nonatomic, nullable, copy)   NSString *identifier;
+@end
+
+@interface ZBMediaMetadatum : NSObject
+@property (nonatomic, nullable, copy)   NSString *type;
+@property (nonatomic, nullable, strong) ZBMediaSource *source;
+@end
+
+@interface ZBMediaSource : NSObject
+@property (nonatomic, nullable, copy)   NSString *url;
+@property (nonatomic, nullable, strong) NSNumber *width;
+@property (nonatomic, nullable, strong) NSNumber *height;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -48,6 +48,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSDictionary *)JSONDictionary;
 @end
 
+@interface ZBMediaMetadatum (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+- (NSDictionary *)JSONDictionary;
+@end
+
+@interface ZBMediaSource (JSONConversion)
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict;
+- (NSDictionary *)JSONDictionary;
+@end
+
 static id map(id collection, id (^f)(id value)) {
     id result = nil;
     if ([collection isKindOfClass:NSArray.class]) {
@@ -236,6 +246,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
         @"url": @"url",
         @"thumbnail": @"thumbnail",
         @"preview": @"preview",
+        @"media_metadata": @"mediaMetadata"
     };
 }
 
@@ -249,6 +260,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
     if (self = [super init]) {
         [self zbra_setValues:dict forProperties:self.class.properties];
         _preview = [ZBPreview fromJSONDictionary:(id)_preview];
+        _mediaMetadata = map(_mediaMetadata, λ(id x, [ZBMediaMetadatum fromJSONDictionary:x]));
     }
     return self;
 }
@@ -269,6 +281,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
     // Map values that need translation
     [dict addEntriesFromDictionary:@{
         @"preview": NSNullify([_preview JSONDictionary]),
+        @"media_metadata": NSNullify(map(_mediaMetadata, λ(id x, [x JSONDictionary]))),
     }];
 
     return dict;
@@ -347,8 +360,6 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
         @"source": @"source",
-        @"resolutions": @"resolutions",
-        @"id": @"identifier",
     };
 }
 
@@ -362,7 +373,6 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
     if (self = [super init]) {
         [self zbra_setValues:dict forProperties:self.class.properties];
         _source = [ZBResizedIcon fromJSONDictionary:(id)_source];
-        _resolutions = map(_resolutions, λ(id x, [ZBResizedIcon fromJSONDictionary:x]));
     }
     return self;
 }
@@ -383,10 +393,85 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
     // Map values that need translation
     [dict addEntriesFromDictionary:@{
         @"source": NSNullify([_source JSONDictionary]),
-        @"resolutions": NSNullify(map(_resolutions, λ(id x, [x JSONDictionary]))),
     }];
 
     return dict;
+}
+@end
+
+@implementation ZBMediaMetadatum
++ (NSDictionary<NSString *, NSString *> *)properties
+{
+    static NSDictionary<NSString *, NSString *> *properties;
+    return properties = properties ? properties : @{
+        @"e": @"type",
+        @"s": @"source",
+    };
+}
+
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict
+{
+    return dict ? [[ZBMediaMetadatum alloc] initWithJSONDictionary:dict] : nil;
+}
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self zbra_setValues:dict forProperties:self.class.properties];
+        _source = [ZBMediaSource fromJSONDictionary:(id)_source];
+    }
+    return self;
+}
+
+- (NSDictionary *)JSONDictionary
+{
+    id dict = [[self dictionaryWithValuesForKeys:ZBImage.properties.allValues] mutableCopy];
+
+    // Rewrite property names that differ in JSON
+    for (id jsonName in ZBImage.properties) {
+        id propertyName = ZBImage.properties[jsonName];
+        if (![jsonName isEqualToString:propertyName]) {
+            dict[jsonName] = dict[propertyName];
+            [dict removeObjectForKey:propertyName];
+        }
+    }
+
+    // Map values that need translation
+    [dict addEntriesFromDictionary:@{
+        @"source": NSNullify([_source JSONDictionary]),
+    }];
+
+    return dict;
+}
+@end
+
+@implementation ZBMediaSource
++ (NSDictionary<NSString *, NSString *> *)properties
+{
+    static NSDictionary<NSString *, NSString *> *properties;
+    return properties = properties ? properties : @{
+        @"u": @"url",
+        @"x": @"width",
+        @"y": @"height",
+    };
+}
+
++ (instancetype)fromJSONDictionary:(NSDictionary *)dict
+{
+    return dict ? [[ZBMediaSource alloc] initWithJSONDictionary:dict] : nil;
+}
+
+- (instancetype)initWithJSONDictionary:(NSDictionary *)dict
+{
+    if (self = [super init]) {
+        [self zbra_setValues:dict forProperties:self.class.properties];
+    }
+    return self;
+}
+
+- (NSDictionary *)JSONDictionary
+{
+    return [self dictionaryWithValuesForKeys:ZBMediaSource.properties.allValues];
 }
 @end
 
