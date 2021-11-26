@@ -19,29 +19,33 @@
 #import <ZBAppDelegate.h>
 
 typedef enum ZBHomeOrder : NSUInteger {
-    ZBInfo,
+    ZBWelcome,
     ZBViews,
     ZBLinks,
-    ZBCredits,
+    ZBInfo,
     ZBHomeOrderCount
 } ZBHomeOrder;
 
-typedef enum ZBInfoOrder : NSUInteger {
-    ZBWelcome,
-    ZBBug
+typedef enum ZBWelcomeOrder : NSUInteger {
+    ZBWelcomeLink
 } ZBInfoOrder;
 
 typedef enum ZBViewOrder : NSUInteger {
-    ZBChangeLog,
     ZBCommunity,
     ZBStores,
     ZBWishList
 } ZBViewOrder;
 
 typedef enum ZBLinksOrder : NSUInteger {
+    ZBTwitter,
     ZBDiscord,
-    ZBTwitter
+    ZBBug
 } ZBLinksOrder;
+
+typedef enum ZBInfoOrder : NSUInteger {
+    ZBChangeLog,
+    ZBCreditsLink
+} ZBCreditsOrder;
 
 @interface ZBHomeTableViewController () {
     NSMutableArray *redditPosts;
@@ -252,19 +256,19 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     switch (section) {
-        case ZBInfo:
-            return 2;
+        case ZBWelcome:
+            return 1;
         case ZBViews:
             if (@available(iOS 11.0, *)) {
-                return 4;
-            }
-            else {
                 return 3;
             }
+            else {
+                return 2;
+            }
         case ZBLinks:
+            return 3;
+        case ZBInfo:
             return 2;
-        case ZBCredits:
-            return 1;
         default:
             return 0;
     }
@@ -272,9 +276,9 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case ZBInfo: {
+        case ZBWelcome: {
             switch (indexPath.row) {
-                case ZBWelcome: {
+                case ZBWelcomeLink: {
                     static NSString *cellIdentifier = @"flavorTextCell";
                     
                     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -285,28 +289,6 @@ typedef enum ZBLinksOrder : NSUInteger {
                     cell.textLabel.text = NSLocalizedString(@"Welcome to Zebra!", @"");
                     cell.textLabel.textColor = [UIColor primaryTextColor];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.backgroundColor = [UIColor cellBackgroundColor];
-                    
-                    return cell;
-                }
-                case ZBBug: {
-                    static NSString *cellIdentifier = @"viewCell";
-                    
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-                    
-                    if (cell == nil) {
-                        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-                    }
-                    NSString *text;
-                    UIImage *image;
-                    text = NSLocalizedString(@"Report a Bug", @"");
-                    image = [UIImage imageNamed:@"Bugs"];
-                    [cell.textLabel setText:text];
-                    [cell.imageView setImage:image];
-                    [self setImageSize:cell.imageView];
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    cell.textLabel.textColor = [UIColor primaryTextColor];
-                    [cell.textLabel sizeToFit];
                     cell.backgroundColor = [UIColor cellBackgroundColor];
                     
                     return cell;
@@ -324,10 +306,6 @@ typedef enum ZBLinksOrder : NSUInteger {
             NSString *text;
             UIImage *image;
             switch (indexPath.row) {
-                case ZBChangeLog:
-                    text = NSLocalizedString(@"Changelog", @"");
-                    image = [UIImage imageNamed:@"Changelog"];
-                    break;
                 case ZBCommunity:
                     text = NSLocalizedString(@"Community Sources", @"");
                     image = [UIImage imageNamed:@"Repos"];
@@ -374,6 +352,10 @@ typedef enum ZBLinksOrder : NSUInteger {
                     text = NSLocalizedString(@"Follow us on Twitter", @"");
                     image = [UIImage imageNamed:@"Twitter"];
                     break;
+                case ZBBug:
+                    text = NSLocalizedString(@"Report a Bug", @"");
+                    image = [UIImage imageNamed:@"Bugs"];
+                    break;
             }
             [cell.textLabel setText:text];
             [cell.imageView setImage:image];
@@ -385,7 +367,7 @@ typedef enum ZBLinksOrder : NSUInteger {
             
             return cell;
         }
-        case ZBCredits: {
+        case ZBInfo: {
             static NSString *cellIdentifier = @"creditCell";
             
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -393,8 +375,20 @@ typedef enum ZBLinksOrder : NSUInteger {
             if (cell == nil) {
                 cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             }
-            [cell.textLabel setText:NSLocalizedString(@"Credits", @"")];
-            [cell.imageView setImage:[UIImage imageNamed:@"Credits"]];
+            NSString *text;
+            UIImage *image;
+            switch (indexPath.row) {
+            case ZBChangeLog:
+                text = NSLocalizedString(@"Changelog", @"");
+                image = [UIImage imageNamed:@"Changelog"];
+                break;
+            case ZBCreditsLink:
+                text = NSLocalizedString(@"Credits", @"");
+                image = [UIImage imageNamed:@"Credits"];
+                break;
+            }
+            [cell.textLabel setText:text];
+            [cell.imageView setImage:image];
             [self setImageSize:cell.imageView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.textColor = [UIColor primaryTextColor];
@@ -410,17 +404,19 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     switch (section) {
-        case ZBWelcome:
-            return NSLocalizedString(@"Info", @"");
+        case ZBViews:
+            return NSLocalizedString(@"Sources", @"");
         case ZBLinks:
             return NSLocalizedString(@"Community", @"");
+        case ZBInfo:
+            return NSLocalizedString(@"Info", @"");
         default:
             return nil;
     }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == ZBCredits) {
+    if (section == ZBInfo) {
         return [NSString stringWithFormat:@"\n%@ - iOS %@ - Zebra %@%@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], PACKAGE_VERSION, hideUDID ? @"" : [@"\n" stringByAppendingString:[ZBDevice UDID]]];
     }
     return NULL;
@@ -444,12 +440,7 @@ typedef enum ZBLinksOrder : NSUInteger {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     switch (indexPath.section) {
-        case ZBInfo:
-            switch (indexPath.row) {
-                case ZBBug:
-                    [self openBug];
-                    break;
-            }
+        case ZBWelcome:
             break;
         case ZBViews:
             [self pushToView:indexPath.row];
@@ -457,8 +448,8 @@ typedef enum ZBLinksOrder : NSUInteger {
         case ZBLinks:
             [self openLinkFromRow:indexPath.row];
             break;
-        case ZBCredits:
-            [self openCredits];
+        case ZBInfo:
+            [self openCreditsFromRow:indexPath.row];
             break;
         default:
             break;
@@ -469,11 +460,6 @@ typedef enum ZBLinksOrder : NSUInteger {
 - (void)pushToView:(NSUInteger)row {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     switch (row) {
-        case ZBChangeLog: {
-            ZBChangelogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
-            [self.navigationController pushViewController:changeLog animated:YES];
-            break;
-        }
         case ZBCommunity: {
             ZBCommunitySourcesTableViewController *community = [[ZBCommunitySourcesTableViewController alloc] init];
             [self.navigationController pushViewController:community animated:YES];
@@ -496,17 +482,19 @@ typedef enum ZBLinksOrder : NSUInteger {
     }
 }
 
-- (void)openCredits {
+- (void)openCreditsFromRow:(NSUInteger)row {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    ZBCreditsTableViewController *creditsController = [storyboard instantiateViewControllerWithIdentifier:@"creditsController"];
-    
-    [[self navigationController] pushViewController:creditsController animated:YES];
-}
-
-- (void)openBug {
-    NSURL *url = [NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"];
-
-    [ZBDevice openURL:url delegate:self];
+    switch (row) {
+        case ZBChangeLog: {
+            ZBChangelogTableViewController *changeLog = [storyboard instantiateViewControllerWithIdentifier:@"changeLogController"];
+            [self.navigationController pushViewController:changeLog animated:YES];
+            break;
+        }
+        case ZBCreditsLink: {
+            ZBCreditsTableViewController *creditsController = [storyboard instantiateViewControllerWithIdentifier:@"creditsController"];
+            [self.navigationController pushViewController:creditsController animated:YES];
+        }
+    }
 }
 
 - (void)openLinkFromRow:(NSUInteger)row {
@@ -529,6 +517,9 @@ typedef enum ZBLinksOrder : NSUInteger {
             }
             break;
         }
+        case ZBBug:
+            [ZBDevice openURL:[NSURL URLWithString:@"https://getzbra.com/repo/depictions/xyz.willy.Zebra/bug_report.html"] delegate:self];
+            break;
         default:
             break;
     }
