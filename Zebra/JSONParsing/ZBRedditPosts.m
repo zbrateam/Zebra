@@ -230,6 +230,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
     static NSDictionary<NSString *, NSString *> *properties;
     return properties = properties ? properties : @{
         @"id": @"identifier",
+        @"created_utc": @"created",
         @"title": @"title",
         @"link_flair_css_class": @"linkFlairCSSClass",
         @"url": @"url",

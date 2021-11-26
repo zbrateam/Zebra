@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBChildData : NSObject
 @property (nonatomic, nullable, copy)   NSString *identifier;
+@property (nonatomic, nullable, strong) NSNumber *created;
 @property (nonatomic, nullable, copy)   NSString *title;
 @property (nonatomic, nullable, copy)   NSString *linkFlairCSSClass;
 @property (nonatomic, nullable, copy)   NSString *url;
