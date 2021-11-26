@@ -19,6 +19,7 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: theos/theos
+        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
         path: theos
         submodules: recursive
 
