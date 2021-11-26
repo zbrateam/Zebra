@@ -15,7 +15,7 @@ jobs:
         submodules: recursive
 
     - name: Install Dependencies
-      run: brew install ldid make fakeroot
+      run: brew install ldid fakeroot
 
     - name: Setup Theos
       uses: actions/checkout@v2
@@ -27,4 +27,4 @@ jobs:
     - name: Build Package
       env:
         THEOS: theos
-      run: gmake package
+      run: make package
