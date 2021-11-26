@@ -1,4 +1,5 @@
 #import "ZBUserInfo.h"
+#import "NSObject+Zebra.h"
 
 // Shorthand for simple blocks
 #define λ(decl, expr) (^(decl) { return (expr); })
@@ -143,15 +144,7 @@ NSString *_Nullable ZBUserInfoToJSON(ZBUserInfo *userInfo, NSStringEncoding enco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        for (NSString* key in dict) {
-            @try {
-                [self setValue:dict[key] forKey:key];
-            } @catch (NSException *exception) {
-                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
-                    @throw exception;
-                }
-            }
-        }
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
 }

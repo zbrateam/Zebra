@@ -1,6 +1,7 @@
 // ZBSourceInfo.m
 
 #import "ZBSourceInfo.h"
+#import "NSObject+Zebra.h"
 
 // Shorthand for simple blocks
 #define λ(decl, expr) (^(decl) { return (expr); })
@@ -85,24 +86,10 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        for (NSString* key in dict) {
-            @try {
-                [self setValue:dict[key] forKey:key];
-            } @catch (NSException *exception) {
-                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
-                    @throw exception;
-                }
-            }
-        }
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _authenticationBanner = [ZBAuthenticationBanner fromJSONDictionary:(id)_authenticationBanner];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBSourceInfo.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -155,15 +142,7 @@ NSString *_Nullable ZBSourceInfoToJSON(ZBSourceInfo *sourceInfo, NSStringEncodin
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        for (NSString* key in dict) {
-            @try {
-                [self setValue:dict[key] forKey:key];
-            } @catch (NSException *exception) {
-                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
-                    @throw exception;
-                }
-            }
-        }
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
 }

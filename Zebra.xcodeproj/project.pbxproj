@@ -58,6 +58,7 @@
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
+		4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */; };
 		7821AF6F2275F3A4006C0315 /* ZBAddSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */; };
 		8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8900FA4F2201E9C200476310 /* ZBQueueViewController.m */; };
 		890517202372398F000F0A32 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8905171F2372398F000F0A32 /* SystemConfiguration.framework */; };
@@ -263,6 +264,8 @@
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
+		4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Zebra.h"; sourceTree = "<group>"; };
+		4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Zebra.m"; sourceTree = "<group>"; };
 		7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddSourceViewController.m; sourceTree = "<group>"; };
 		7821AF6E2275F3A4006C0315 /* ZBAddSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBAddSourceViewController.h; sourceTree = "<group>"; };
 		8900FA4E2201E9C200476310 /* ZBQueueViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBQueueViewController.h; sourceTree = "<group>"; };
@@ -859,6 +862,8 @@
 				C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */,
 				A5122E6724641D3E0059E434 /* ZBTableViewController.h */,
 				A5122E6824641D3E0059E434 /* ZBTableViewController.m */,
+				4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */,
+				4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -870,7 +875,10 @@
 				89C5FDDE21B1B13700A10E58 /* Products */,
 				89E8633B21D5A8C00081E485 /* Frameworks */,
 			);
+			indentWidth = 4;
 			sourceTree = "<group>";
+			tabWidth = 4;
+			usesTabs = 0;
 		};
 		89C5FDDE21B1B13700A10E58 /* Products */ = {
 			isa = PBXGroup;
@@ -1372,6 +1380,7 @@
 				493C3240227A905800603FB9 /* ZBPackageTableViewCell.m in Sources */,
 				A53E54A5245B08740082BF69 /* ZBUtils.m in Sources */,
 				8916AC1B23CAAE51008BA02C /* ZBAlternateIconController.m in Sources */,
+				4E5F8274274FAFE40074A0BC /* NSObject+Zebra.m in Sources */,
 				8937CA3123C3DFD400A4644C /* UINavigationBar+Progress.m in Sources */,
 				89C7E49221B240D4003DB4E8 /* parsel.c in Sources */,
 				89E3BD9A24285F3C00BF81A4 /* ZBAuthorSelectorTableViewController.m in Sources */,

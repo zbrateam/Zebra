@@ -1,4 +1,5 @@
 #import "ZBRedditPosts.h"
+#import "NSObject+Zebra.h"
 
 // Shorthand for simple blocks
 #define λ(decl, expr) (^(decl) { return (expr); })
@@ -511,7 +512,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _data = [ZBRedditPostsData fromJSONDictionary:(id)_data];
     }
     return self;
@@ -562,7 +563,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _children = map(_children, λ(id x, [ZBChild fromJSONDictionary:x]));
     }
     return self;
@@ -599,7 +600,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _kind = [ZBKind withValue:(id)_kind];
         _data = [ZBChildData fromJSONDictionary:(id)_data];
     }
@@ -738,7 +739,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _subreddit = [ZBSubreddit withValue:(id)_subreddit];
         _linkFlairRichtext = map(_linkFlairRichtext, λ(id x, [ZBFlairRichtext fromJSONDictionary:x]));
         _subredditNamePrefixed = [ZBSubredditNamePrefixed withValue:(id)_subredditNamePrefixed];
@@ -763,12 +764,6 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
         _mediaMetadata = map(_mediaMetadata, λ(id x, [ZBMediaMetadatum fromJSONDictionary:x]));
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBChildData.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -846,16 +841,10 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _resizedIcons = map(_resizedIcons, λ(id x, [ZBResizedIcon fromJSONDictionary:x]));
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBAllAwarding.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -899,7 +888,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
 }
@@ -928,7 +917,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _e = [ZBAuthorFlairType withValue:(id)_e];
     }
     return self;
@@ -966,15 +955,9 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBGildings.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1013,17 +996,11 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _redditVideo = [ZBRedditVideo fromJSONDictionary:(id)_redditVideo];
         _oembed = [ZBOembed fromJSONDictionary:(id)_oembed];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBMedia.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1076,15 +1053,9 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBOembed.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1129,15 +1100,9 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBRedditVideo.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1178,15 +1143,9 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBMediaEmbed.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1227,19 +1186,13 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _status = [ZBStatus withValue:(id)_status];
         _e = [ZBE withValue:(id)_e];
         _s = [ZBS fromJSONDictionary:(id)_s];
         _m = [ZBM withValue:(id)_m];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBMediaMetadatum.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1286,7 +1239,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
 }
@@ -1315,7 +1268,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _images = map(_images, λ(id x, [ZBImage fromJSONDictionary:x]));
     }
     return self;
@@ -1354,18 +1307,12 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
         _source = [ZBResizedIcon fromJSONDictionary:(id)_source];
         _resolutions = map(_resolutions, λ(id x, [ZBResizedIcon fromJSONDictionary:x]));
         _variants = [ZBVariants fromJSONDictionary:(id)_variants];
     }
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key
-{
-    id resolved = ZBImage.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary
@@ -1408,7 +1355,7 @@ NSString *_Nullable ZBRedditPostsToJSON(ZBRedditPosts *redditPosts, NSStringEnco
 - (instancetype)initWithJSONDictionary:(NSDictionary *)dict
 {
     if (self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     return self;
 }

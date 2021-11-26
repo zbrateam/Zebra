@@ -1,4 +1,5 @@
 #import "ZBPurchaseInfo.h"
+#import "NSObject+Zebra.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -72,23 +73,10 @@ NSString *_Nullable ZBPurchaseInfoToJSON(ZBPurchaseInfo *purchaseInfo, NSStringE
     self = [super init];
     
     if (self) {
-        for (NSString* key in dict) {
-            @try {
-                [self setValue:dict[key] forKey:key];
-            } @catch (NSException *exception) {
-                if (![exception.name isEqualToString: @"NSUnknownKeyException"]) {
-                    @throw exception;
-                }
-            }
-        }
+        [self zbra_setValues:dict forProperties:self.class.properties];
     }
     
     return self;
-}
-
-- (void)setValue:(nullable id)value forKey:(NSString *)key {
-    id resolved = ZBPurchaseInfo.properties[key];
-    if (resolved) [super setValue:value forKey:resolved];
 }
 
 - (NSDictionary *)JSONDictionary {
