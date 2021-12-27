@@ -65,7 +65,7 @@
     self = [super initWithStyle:UITableViewStylePlain];
     
     if (self) {
-        self->sources = sources;
+        self->sources = [sources mutableCopy];
     }
     
     return self;
