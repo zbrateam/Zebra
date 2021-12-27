@@ -48,9 +48,11 @@ extension ZBDummySource {
         self.init(url: uri)
         origin = name
         verificationStatus = .exists
-        // Canister does not support repos with multiple components
         if let dist = dict["dist"] as? String {
             distribution = dist
+        }
+        if let suite = dict["suite"] as? String {
+            components = [suite]
         }
     }
     

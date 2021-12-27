@@ -8,7 +8,7 @@
 
 #import "ZBSourceListViewController.h"
 
-#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import "Zebra-Swift.h"
 #import <UI/Sources/ZBSourceViewController.h>
 #import <UI/ZBSidebarController.h>
 #import <UI/Sources/ZBSourceAddViewController.h>
@@ -96,7 +96,7 @@
     
     [self.tableView setTableHeaderView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
     [self.tableView setTableFooterView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 1)]];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+    [self.tableView registerClass:[ZBSourceTableViewCell class] forCellReuseIdentifier:@"sourceTableViewCell"];
     
     [self loadSources];
 }
@@ -224,9 +224,7 @@
         int hasIssues = [self hasIssues];
         cell.sourceLabel.text = hasIssues > 1 ? [NSString stringWithFormat:@"%d sources could not be refreshed.", hasIssues] : @"1 source could not be refreshed.";
         cell.urlLabel.text = @"Tap to learn more.";
-        if (@available(iOS 13.0, macCatalyst 13.0, *)) {
-            cell.iconImageView.image = [UIImage systemImageNamed:@"xmark.octagon.fill"];
-        }
+        cell.iconImageView.image = [UIImage systemImageNamed:@"xmark.octagon.fill"];
         cell.iconImageView.layer.borderColor = [UIColor clearColor].CGColor;
         cell.tintColor = [UIColor systemRedColor];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

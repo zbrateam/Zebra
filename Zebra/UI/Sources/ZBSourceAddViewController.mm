@@ -10,7 +10,7 @@
 
 #import <UI/Sources/ZBSourceImportViewController.h>
 #import <UI/Sources/ZBSourceBulkAddViewController.h>
-#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import "Zebra-Swift.h"
 
 #import <Model/ZBDummySource.h>
 
@@ -144,7 +144,7 @@
     addButton.enabled = NO;
     self.navigationItem.rightBarButtonItem = addButton;
     
-    [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBSourceTableViewCell class]) bundle:nil] forCellReuseIdentifier:@"SourceTableViewCell"];
+    [self.tableView registerClass:[ZBSourceTableViewCell class] forCellReuseIdentifier:@"SourceTableViewCell"];
     
     self.tableView.backgroundColor = [ZBColor systemBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];

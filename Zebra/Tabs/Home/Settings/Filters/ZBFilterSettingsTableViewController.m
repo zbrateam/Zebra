@@ -14,7 +14,7 @@
 //#import "ZBButtonSettingsTableViewCell.h"
 
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
-#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import "Zebra-Swift.h"
 #import <UI/Sources/ZBSourceViewController.h>
 
 //#import <Tabs/Sources/Controllers/ZBSourceSelectTableViewController.h>

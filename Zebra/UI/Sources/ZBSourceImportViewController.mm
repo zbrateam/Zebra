@@ -13,7 +13,7 @@
 
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIViewController+Extensions.h>
-#import <UI/Sources/Views/Cells/ZBSourceTableViewCell.h>
+#import "Zebra-Swift.h"
 #import <Extensions/ZBColor.h>
 
 #import <Plains/Model/PLSource.h>
@@ -108,7 +108,7 @@
     importItem.enabled = NO;
     self.navigationItem.rightBarButtonItem = importItem;
     
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+    [self.tableView registerClass:[ZBSourceTableViewCell class] forCellReuseIdentifier:@"sourceTableViewCell"];
 }
 
 - (void)viewDidLoad {

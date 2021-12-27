@@ -8,7 +8,7 @@
 
 #import "UIBarButtonItem+blocks.h"
 #import "ZBPackageTableViewCell.h"
-#import "ZBSourceTableViewCell.h"
+#import "Zebra-Swift.h"
 #import "ZBSourceAccountTableViewController.h"
 #import "ZBPackageViewController.h"
 #import "ZBUserInfo.h"
@@ -64,7 +64,7 @@
     }
     
     [self.tableView registerNib:[UINib nibWithNibName:@"ZBPackageTableViewCell" bundle:nil] forCellReuseIdentifier:@"packageTableViewCell"];
-    [self.tableView registerNib:[UINib nibWithNibName:@"ZBSourceTableViewCell" bundle:nil] forCellReuseIdentifier:@"sourceTableViewCell"];
+    [self.tableView registerClass:[ZBSourceTableViewCell class] forCellReuseIdentifier:@"sourceTableViewCell"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshTable) name:@"ZBDatabaseCompletedUpdate" object:nil];
     
 //    if (@available(iOS 13.0, *)) {
