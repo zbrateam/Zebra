@@ -19,11 +19,12 @@
 
 #import <Plains/Plains.h>
 #import <SDWebImage/SDWebImage.h>
+#import "Zebra-Swift.h"
 
 @interface ZBSourceAddViewController () {
     UISearchController *searchController;
     NSMutableSet <NSString *> *addedSourcesUUIDs;
-    NSMutableArray <ZBDummySource *> *sources;
+    NSArray <ZBDummySource *> *sources;
     NSMutableArray <ZBDummySource *> *selectedSources;
     NSArray <ZBDummySource *> *filteredSources;
     BOOL clipboardHasSource;
@@ -94,39 +95,21 @@
     }
     if (!managers) managers = [self loadManagers];
 
-#if TARGET_OS_MACCATALYST
-    NSURL *url = [NSURL URLWithString:@"https://styres.me/zeebs/mac_repo.json"];
-#else
-    NSURL *url = [NSURL URLWithString:@"https://api.parcility.co/db/repos/small"];
-#endif
-    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if (data && !error) {
-            NSError *JSONError;
-            NSDictionary *fullJSON = [NSJSONSerialization JSONObjectWithData:data options:0 error:&JSONError];
-            if ([fullJSON[@"status"] boolValue] == YES && [fullJSON[@"code"] integerValue] == 200) {
-                NSArray *repos = fullJSON[@"data"];
-                for (NSDictionary *repo in repos) {
-                    NSURL *URL = [NSURL URLWithString:repo[@"url"]];
-                    if (URL) {
-                        ZBDummySource *source = [[ZBDummySource alloc] initWithURL:URL];
-                        [source setOrigin:repo[@"name"]];
-                        [source setVerificationStatus:ZBSourceExists];
-                        
-                        [self->sources addObject:source];
-                    }
-                }
+    #if TARGET_OS_MACCATALYST
+    return;
+    #endif
 
-                NSSortDescriptor *nameSort = [[NSSortDescriptor alloc] initWithKey:@"origin" ascending:YES];
-                [self->sources sortUsingDescriptors:@[nameSort]];
-
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
-                });
-            }
-        }
+    __weak ZBSourceAddViewController *weakSelf = self;
+    [[ZBCanister shared] fetchRepos:^{
+        if (!weakSelf)
+            return;
+        ZBSourceAddViewController *strong = weakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            strong->sources = [[ZBCanister shared] repos];
+            [self.tableView reloadData];
+        });
+        
     }];
-
-    [dataTask resume];
 }
 
 - (NSArray *)loadManagers {

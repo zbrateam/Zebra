@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Evander",
+        "repositoryURL": "https://github.com/elihwyma/Evander",
+        "state": {
+          "branch": "main",
+          "revision": "f938212f1f99f07197ff75a6e8182d732cade9ca",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

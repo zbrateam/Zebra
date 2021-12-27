@@ -137,6 +137,8 @@
 		9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE364A2289224E004CBBA3 /* ZBPackageActions.mm */; };
 		9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */; };
 		C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */ = {isa = PBXBuildFile; fileRef = C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */; };
+		E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E6E27791624005B0885 /* ZBCanister.swift */; };
+		E1428E7927794FC4005B0885 /* Evander in Frameworks */ = {isa = PBXBuildFile; productRef = E1428E7827794FC4005B0885 /* Evander */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -453,6 +455,8 @@
 		A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AccessibilityUtilities.h; sourceTree = "<group>"; };
 		C3BF92BE2449144E00D903A7 /* UIFont+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+Zebra.h"; sourceTree = "<group>"; };
 		C3BF92BF2449144E00D903A7 /* UIFont+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Zebra.m"; sourceTree = "<group>"; };
+		E1428E6D27791624005B0885 /* Zebra-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zebra-Bridging-Header.h"; sourceTree = "<group>"; };
+		E1428E6E27791624005B0885 /* ZBCanister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBCanister.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -460,6 +464,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				89305210260E74850017CC29 /* Plains.framework in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
@@ -491,6 +496,7 @@
 				36A1D902230A56A4002694BE /* ZBPurchaseInfo.m */,
 				899229FB242815E90086E2F4 /* ZBSourceInfo.h */,
 				899229FC242815E90086E2F4 /* ZBSourceInfo.m */,
+				E1428E6E27791624005B0885 /* ZBCanister.swift */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -854,6 +860,7 @@
 				9EC4A24E22AABBC8005DDBC7 /* ZBDevice.m */,
 				9E87F358231A20350043E7F2 /* ZBSettings.h */,
 				89AD450E23CA6D260008831F /* ZBSettings.m */,
+				E1428E6D27791624005B0885 /* Zebra-Bridging-Header.h */,
 				893952FC220B5CE400995109 /* Console */,
 				89BDCB6F2289FEA800FC1345 /* Extensions */,
 				8958F28E23C3C56800FB64D9 /* Headers */,
@@ -1039,6 +1046,7 @@
 			);
 			name = Zebra;
 			packageProductDependencies = (
+				E1428E7827794FC4005B0885 /* Evander */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1057,6 +1065,7 @@
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1310;
 					};
 				};
 			};
@@ -1109,6 +1118,9 @@
 				ms,
 			);
 			mainGroup = 89C5FDD421B1B13700A10E58;
+			packageReferences = (
+				E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */,
+			);
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -1292,6 +1304,7 @@
 				8916AC2723CAAF1A008BA02C /* ZBDisplaySettingsViewController.m in Sources */,
 				89EA4ED2241B166D008DFE15 /* ZBFilterSettingsTableViewController.m in Sources */,
 				89DCC2C7260D725F00768096 /* ZBLoadingViewController.m in Sources */,
+				E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */,
 				89C4244D24411C1100FE5ED8 /* UIAlertController+Zebra.m in Sources */,
 				89159FB021F8E5FD0012C8FE /* ZBPackageViewController.mm in Sources */,
 				36A1D8FB230A1616002694BE /* ZBUserInfo.m in Sources */,
@@ -1505,6 +1518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = Zebra/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1530,7 +1544,7 @@
 					"\"${SRCROOT}/Vendor/plains/\"",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1546,6 +1560,9 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Zebra/Zebra-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -1559,6 +1576,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_ENTITLEMENTS[sdk=macosx*]" = Zebra/macOS.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1582,7 +1600,7 @@
 					"\"${SRCROOT}/Vendor/plains/\"",
 				);
 				INFOPLIST_FILE = Zebra/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1598,6 +1616,8 @@
 				STRIP_INSTALLED_PRODUCT = NO;
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Zebra/Zebra-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				SYSTEM_HEADER_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
@@ -1626,6 +1646,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elihwyma/Evander";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E1428E7827794FC4005B0885 /* Evander */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */;
+			productName = Evander;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 89C5FDD521B1B13700A10E58 /* Project object */;
 }
