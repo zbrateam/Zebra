@@ -138,6 +138,7 @@
 		E1428E6F27791624005B0885 /* ZBCanister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E6E27791624005B0885 /* ZBCanister.swift */; };
 		E1428E7927794FC4005B0885 /* Evander in Frameworks */ = {isa = PBXBuildFile; productRef = E1428E7827794FC4005B0885 /* Evander */; };
 		E193C66A277A47E700B2469E /* ZBSourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */; };
+		E193C678277A535B00B2469E /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = E193C677277A535B00B2469E /* DepictionKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -454,6 +455,8 @@
 		E1428E6D27791624005B0885 /* Zebra-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Zebra-Bridging-Header.h"; sourceTree = "<group>"; };
 		E1428E6E27791624005B0885 /* ZBCanister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBCanister.swift; sourceTree = "<group>"; };
 		E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBSourceTableViewCell.swift; sourceTree = "<group>"; };
+		E193C673277A504B00B2469E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E193C676277A532700B2469E /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -464,6 +467,7 @@
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
 				89305210260E74850017CC29 /* Plains.framework in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
+				E193C678277A535B00B2469E /* DepictionKit in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
 				893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
@@ -832,6 +836,7 @@
 			isa = PBXGroup;
 			children = (
 				89C5FDDF21B1B13700A10E58 /* Zebra */,
+				E193C675277A532700B2469E /* Packages */,
 				89C5FDDE21B1B13700A10E58 /* Products */,
 				89E8633B21D5A8C00081E485 /* Frameworks */,
 			);
@@ -848,6 +853,7 @@
 		89C5FDDF21B1B13700A10E58 /* Zebra */ = {
 			isa = PBXGroup;
 			children = (
+				E193C672277A504B00B2469E /* LaunchScreen.storyboard */,
 				8908D508261250D800950353 /* macOS.entitlements */,
 				8939BDC1260E67F600EA5C98 /* iOS.entitlements */,
 				89C5FDEF21B1B13800A10E58 /* main.m */,
@@ -1023,6 +1029,14 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		E193C675277A532700B2469E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				E193C676277A532700B2469E /* DepictionKit */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1042,6 +1056,7 @@
 			name = Zebra;
 			packageProductDependencies = (
 				E1428E7827794FC4005B0885 /* Evander */,
+				E193C677277A535B00B2469E /* DepictionKit */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1382,6 +1397,14 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		E193C672277A504B00B2469E /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E193C673277A504B00B2469E /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1661,6 +1684,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */;
 			productName = Evander;
+		};
+		E193C677277A535B00B2469E /* DepictionKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DepictionKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

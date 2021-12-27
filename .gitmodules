@@ -7,3 +7,6 @@
 [submodule "Vendor/Plains"]
 	path = Vendor/Plains
 	url = https://github.com/zbrateam/Plains.git
+[submodule "Vendor/DepictionKit"]
+	path = Vendor/DepictionKit
+	url = https://github.com/RepositoryStandards/DepictionKit.git
