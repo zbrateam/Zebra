@@ -21,13 +21,14 @@
 
 @interface ZBSourceListViewController () {
     PLSourceManager *sourceManager;
-    NSArray *sources;
+    NSMutableArray *sources;
 }
 @property BOOL allowEditing;
 @property BOOL showNavigationButtons;
 @property BOOL allowRefresh;
 @property BOOL showFailureSection;
 @property BOOL allowSelection;
+@property BOOL ignoreNotifications;
 @property Class selectActionClass;
 @property NSMutableDictionary <NSString *, NSMutableArray *> *failures;
 @end
@@ -48,6 +49,7 @@
         _allowSelection = YES;
         _showNavigationButtons = YES;
         _showFailureSection = YES;
+        _ignoreNotifications = NO;
         _selectActionClass = [ZBSourceViewController class];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadSources) name:PLSourceListUpdatedNotification object:nil];
@@ -117,23 +119,30 @@
 }
 
 - (void)reloadSources {
+    if (_ignoreNotifications)
+        return;
     self->sources = NULL;
     [self loadSources];
 }
 
 - (void)loadSources {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (!self.isViewLoaded) return;
-    
-        if (self->sources) {
-            [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
-                [self.tableView reloadData];
-            } completion:nil];
-        } else { // Load sources for the first time, every other access is done by the filter and delegate methods
-            self->sources = [[self->sourceManager sources] sortedArrayUsingSelector:@selector(compareByOrigin:)];
+    if (![NSThread isMainThread]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
             [self loadSources];
-        }
-    });
+        });
+        return;
+    }
+        
+    if (!self.isViewLoaded) return;
+
+    if (self->sources) {
+        [UIView transitionWithView:self.tableView duration:0.20f options:UIViewAnimationOptionTransitionCrossDissolve animations:^(void) {
+            [self.tableView reloadData];
+        } completion:nil];
+    } else { // Load sources for the first time, every other access is done by the filter and delegate methods
+        self->sources = [[[self->sourceManager sources] sortedArrayUsingSelector:@selector(compareByOrigin:)] mutableCopy];
+        [self loadSources];
+    }
 }
 
 - (void)refreshSources {
@@ -314,10 +323,11 @@
     PLSource *source = sources[indexPath.row];
     if (self.allowEditing && [source canRemove]) {
         UIContextualAction *removeAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive title:@"Delete" handler:^(UIContextualAction * _Nonnull action, __kindof UIView * _Nonnull sourceView, void (^ _Nonnull completionHandler)(BOOL)) {
+            self.ignoreNotifications = YES;
             [self->sourceManager removeSource:source];
-            self->sources = NULL;
-            [self loadSources];
+            [self->sources removeObjectAtIndex:indexPath.row];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            self.ignoreNotifications = NO;
         }];
         return [UISwipeActionsConfiguration configurationWithActions:@[removeAction]];
     }
