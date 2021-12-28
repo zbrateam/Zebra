@@ -22,6 +22,7 @@
 
 #import <Model/PLPackage+Zebra.h>
 #import <Plains/Managers/PLPackageManager.h>
+#import "Zebra-Swift.h"
 
 #import <SDWebImage/SDWebImage.h>
 

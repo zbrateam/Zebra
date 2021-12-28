@@ -32,13 +32,7 @@
 
 // Native Outlets
 @property (weak, nonatomic) IBOutlet UIView *nativeView;
-@property (weak, nonatomic) IBOutlet UIStackView *changelogContainerStackView;
-@property (weak, nonatomic) IBOutlet UILabel *changelogNotesLabel;
-@property (weak, nonatomic) IBOutlet UILabel *changelogVersionTitleLabel;
-@property (weak, nonatomic) IBOutlet UIStackView *previewContainerStackView;
-@property (weak, nonatomic) IBOutlet UICollectionView *previewCollectionView;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *previewCollectionViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *previewHeaderLabel;
 @property(retain) IBOutletCollection(UIView) NSArray *lineSeperatorViews;
 
@@ -56,7 +50,7 @@
     
     if (self) {
         self.package = package;
-        self->shouldBeNative = self.package.depictionURL == nil;
+        self->shouldBeNative = YES; // self.package.depictionURL == nil;
     }
     
     return self;
@@ -70,15 +64,6 @@
     [self setDelegates];
     [self applyCustomizations];
     [self setData];
-    
-    [self.previewCollectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ZBScreenshotCollectionViewCell class]) bundle:nil] forCellWithReuseIdentifier:@"ScreenshotCollectionViewCell"];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    [self updatePreviewCollectionViewHeightBasedOnContent];
-//    if (self.package.previewImageURLs != nil) [self.previewCollectionView.collectionViewLayout invalidateLayout];
 }
 
 #pragma mark - View Setup
@@ -108,8 +93,8 @@
 //        if (self.package.previewImageURLs != nil) {
 //            self.previewHeaderLabel.text = NSLocalizedString(@"Preview", @"");
 //        } else {
-            self.previewContainerStackView.hidden = YES;
-            self.previewHeaderLabel.text = NSLocalizedString(@"Description", @"");
+            //self.previewContainerStackView.hidden = YES;
+            //self.previewHeaderLabel.text = NSLocalizedString(@"Description", @"");
 //        };
 //
 //        if ([self.package hasChangelog]) {
@@ -118,7 +103,7 @@
 //
 //            [self.changelogVersionTitleLabel setText:self.package.changelogTitle];
 //        } else {
-            self.changelogContainerStackView.hidden = YES;
+            //self.changelogContainerStackView.hidden = YES;
 //        }
 //
 //        NSAttributedString *descriptionAttributedString = [[NSAttributedString alloc] initWithMarkdownString:self.package.packageDescription fontSize:self.descriptionLabel.font.pointSize];
@@ -138,9 +123,9 @@
 #pragma mark - Helper Methods
 
 - (void)loadWebDepiction {
-    if (self.package.depictionURL == nil) return;
+    //if (self.package.depictionURL == nil) return;
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.package.depictionURL];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://repo.chariz.com/package/ws.hbang.alderis/"]];
     [request setAllHTTPHeaderFields:[ZBDevice depictionHeaders]];
     self.webView._applicationNameForUserAgent = [ZBDevice depictionUserAgent];
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
@@ -152,9 +137,6 @@
 //    [[self navigationController] pushViewController:changelog animated:YES];
 }
 
-- (void)updatePreviewCollectionViewHeightBasedOnContent {
-    self.previewCollectionViewHeightConstraint.constant = [self collectionView:nil layout:nil sizeForItemAtIndexPath:nil].height;
-}
 
 #pragma mark - WKNavigationDelegate
 
@@ -202,38 +184,4 @@
     if (!shouldBeNative) [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize" context:nil];
 }
 
-#pragma mark - UICollectionViewDelegate
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)collectionView:(nonnull UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return 0;
-//    return self.package.previewImageURLs.count;
-}
-
-- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    ZBScreenshotCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ScreenshotCollectionViewCell" forIndexPath:indexPath];
-    
-//    cell.screenshotImageView.sd_imageIndicator = [SDWebImageActivityIndicator grayIndicator];
-//    [cell.screenshotImageView sd_setImageWithURL:self.package.previewImageURLs[indexPath.item] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-//        if (indexPath.item == 0 && CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
-//            self.firstScreenshotSize = CGSizeMake(image.size.width / UIScreen.mainScreen.scale, image.size.height / UIScreen.mainScreen.scale);
-//            [self.previewCollectionView reloadSections:[[NSIndexSet alloc] initWithIndex:0]];
-//            [self updatePreviewCollectionViewHeightBasedOnContent];
-//        }
-//    }];
-    return cell;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat placeholderHeight = UIScreen.mainScreen.bounds.size.height * 0.60;
-    if (!CGSizeEqualToSize(self.firstScreenshotSize, CGSizeZero)) {
-        CGFloat height = MIN(placeholderHeight, self.firstScreenshotSize.height);
-        CGFloat ratio = self.firstScreenshotSize.height / height;
-        CGFloat width = self.firstScreenshotSize.width / ratio;
-        return CGSizeMake(width, height);
-    }
-    CGFloat placeholderWidth = UIScreen.mainScreen.bounds.size.width * 0.60;
-    return CGSizeMake(placeholderWidth, placeholderHeight);
-}
 @end

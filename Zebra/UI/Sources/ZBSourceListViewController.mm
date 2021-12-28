@@ -7,6 +7,7 @@
 //
 
 #import "ZBSourceListViewController.h"
+#import <WebKit/WebKit.h>
 
 #import "Zebra-Swift.h"
 #import <UI/Sources/ZBSourceViewController.h>

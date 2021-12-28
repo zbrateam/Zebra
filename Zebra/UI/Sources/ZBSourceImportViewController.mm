@@ -13,6 +13,7 @@
 
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <Extensions/UIViewController+Extensions.h>
+#import <WebKit/WebKit.h>
 #import "Zebra-Swift.h"
 #import <Extensions/ZBColor.h>
 

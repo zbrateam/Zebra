@@ -61,8 +61,6 @@
 		499B9F3B248308C800358A84 /* zebrine~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F37248308C800358A84 /* zebrine~ipad@2x.png */; };
 		49E1304622715DB8006F450A /* ZBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* ZBColor.m */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
-		49FD260824707DDF00594D1A /* ZBPackageDepictionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.mm */; };
-		49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */; };
 		75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */; };
 		75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B124F2669B00216395 /* AUPM~ipad@2x.png */; };
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
@@ -139,6 +137,8 @@
 		E1428E7927794FC4005B0885 /* Evander in Frameworks */ = {isa = PBXBuildFile; productRef = E1428E7827794FC4005B0885 /* Evander */; };
 		E193C66A277A47E700B2469E /* ZBSourceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */; };
 		E193C678277A535B00B2469E /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = E193C677277A535B00B2469E /* DepictionKit */; };
+		E193C67C277A8E0100B2469E /* ZBPackageDepictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C67B277A8E0100B2469E /* ZBPackageDepictionViewController.swift */; };
+		E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E193C67D277A91C900B2469E /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -457,6 +457,8 @@
 		E1428E7D277A2731005B0885 /* ZBSourceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZBSourceTableViewCell.swift; sourceTree = "<group>"; };
 		E193C673277A504B00B2469E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Resources/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E193C676277A532700B2469E /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
+		E193C67B277A8E0100B2469E /* ZBPackageDepictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ZBPackageDepictionViewController.swift; path = Zebra/UI/Packages/ZBPackageDepictionViewController.swift; sourceTree = SOURCE_ROOT; };
+		E193C67D277A91C900B2469E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/iOSSupport/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +471,7 @@
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				E193C678277A535B00B2469E /* DepictionKit in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
+				E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */,
 				893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 				893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */,
@@ -559,6 +562,7 @@
 			isa = PBXGroup;
 			children = (
 				89337A30253652E60065C4C1 /* Views */,
+				E193C67B277A8E0100B2469E /* ZBPackageDepictionViewController.swift */,
 				89C5FDF621B1B3AF00A10E58 /* ZBPackageListViewController.h */,
 				89C5FDF721B1B3AF00A10E58 /* ZBPackageListViewController.mm */,
 				891551562560A496005AF405 /* ZBPackageFilterViewController.h */,
@@ -903,6 +907,7 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E193C67D277A91C900B2469E /* WebKit.framework */,
 				89305205260E747C0017CC29 /* Plains.xcodeproj */,
 				893051E1260E72330017CC29 /* SDWebImage.xcodeproj */,
 				893051D7260E72210017CC29 /* LNPopupController.xcodeproj */,
@@ -1250,7 +1255,6 @@
 				36F77AE222A33EDF00A4604C /* darkZebraSkin@2x.png in Resources */,
 				899AEA00247F03BA00FCA61E /* quda~ipad@3x.png in Resources */,
 				499B9F39248308C800358A84 /* zebrine~ipad@3x.png in Resources */,
-				49FD260924707DDF00594D1A /* ZBPackageDepictionViewController.xib in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				4902F53D246E15C6007B7E25 /* ZBLinkTableViewCell.xib in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
@@ -1293,10 +1297,10 @@
 				36A1D901230A485B002694BE /* ZBRedditPosts.m in Sources */,
 				896B2B5E259FA7180082A62E /* ZBSourceFilter.m in Sources */,
 				895C2ADA2402303B0065F424 /* ZBSearchViewController.mm in Sources */,
-				49FD260824707DDF00594D1A /* ZBPackageDepictionViewController.mm in Sources */,
 				C3BF92C02449144E00D903A7 /* UIFont+Zebra.m in Sources */,
 				9EC4A24F22AABBC8005DDBC7 /* ZBDevice.m in Sources */,
 				89A1B735223C97210053D0E2 /* ZBTabBarController.mm in Sources */,
+				E193C67C277A8E0100B2469E /* ZBPackageDepictionViewController.swift in Sources */,
 				9EAE364B2289224E004CBBA3 /* ZBPackageActions.mm in Sources */,
 				894ADA24259FC17200147001 /* ZBSourceFilterViewController.m in Sources */,
 				8EA226B0248BC4E100596838 /* ZBNotificationManager.m in Sources */,
@@ -1542,6 +1546,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
@@ -1602,6 +1607,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;

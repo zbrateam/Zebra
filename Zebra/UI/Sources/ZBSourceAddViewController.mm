@@ -7,10 +7,10 @@
 //
 
 #import "ZBSourceAddViewController.h"
+#import <WebKit/WebKit.h>
 
 #import <UI/Sources/ZBSourceImportViewController.h>
 #import <UI/Sources/ZBSourceBulkAddViewController.h>
-#import "Zebra-Swift.h"
 
 #import <Model/ZBDummySource.h>
 
