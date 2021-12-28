@@ -16,12 +16,12 @@
 #import <Extensions/ZBColor.h>
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
-#import "ZBPackageDepictionViewController.h"
 #import "UIViewController+Extensions.h"
 #import <UI/ZBSidebarController.h>
 
 #import <Model/PLPackage+Zebra.h>
 #import <Plains/Managers/PLPackageManager.h>
+#import <WebKit/WebKit.h>
 #import "Zebra-Swift.h"
 
 #import <SDWebImage/SDWebImage.h>

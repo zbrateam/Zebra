@@ -112,9 +112,7 @@ import Evander
         dummyView.translatesAutoresizingMaskIntoConstraints = false
         dummyView.heightAnchor.constraint(equalToConstant: 16).isActive = true
         view.addArrangedSubview(dummyView)
-        dummyView.backgroundColor = .clear
          
-        NSLog("[Zebra] Backgrounds = \(loadingDepictionStackView.backgroundColor) \(webView.backgroundColor) \(nativeDepictionView.backgroundColor)")
         view.isHidden = true
         return view
     }()
@@ -197,13 +195,6 @@ import Evander
         ])
         
         setDepiction()
-        func recurse(_ view: UIView) {
-            view.backgroundColor = .clear
-            for view in view.subviews {
-                recurse(view)
-            }
-        }
-        recurse(self.view)
     }
     
     private func setDepiction() {
