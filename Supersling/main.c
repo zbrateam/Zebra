@@ -1,5 +1,4 @@
 #include <unistd.h>
-#include <dlfcn.h>
 #include <stdio.h>
 #include <sysexits.h>
 #include <sys/types.h>
@@ -11,43 +10,7 @@
 
 int proc_pidpath(int pid, void *buffer, uint32_t buffersize);
 
-#if TARGET_OS_IOS
-
-/* Set platform binary flag */
-#define FLAG_PLATFORMIZE (1 << 1)
-
-void patch_setuidandplatformize() {
-  void *handle = dlopen("/usr/lib/libjailbreak.dylib", RTLD_LAZY);
-  if (!handle) return;
-
-  // Reset errors
-  dlerror();
-
-  typedef void (*fix_setuid_prt_t)(pid_t pid);
-  fix_setuid_prt_t setuidptr = (fix_setuid_prt_t)dlsym(handle, "jb_oneshot_fix_setuid_now");
-
-  typedef void (*fix_entitle_prt_t)(pid_t pid, uint32_t what);
-  fix_entitle_prt_t entitleptr = (fix_entitle_prt_t)dlsym(handle, "jb_oneshot_entitle_now");
-
-  setuidptr(getpid());
-
-  setuid(0);
-
-  const char *dlsym_error = dlerror();
-  if (dlsym_error) {
-    return;
-  }
-
-  entitleptr(getpid(), FLAG_PLATFORMIZE);
-}
-
-#endif
-
 int main(int argc, char ** argv) {
-  #if TARGET_OS_IOS
-  patch_setuidandplatformize();
-  #endif
-
   char appPath[PATH_MAX];
   sprintf(appPath, "/Applications/%s.app/%s", APP_NAME, APP_NAME);
   syslog(LOG_WARNING, "[Supersling] App Path: %s.", appPath);
