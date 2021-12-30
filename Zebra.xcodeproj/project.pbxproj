@@ -139,6 +139,7 @@
 		E193C678277A535B00B2469E /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = E193C677277A535B00B2469E /* DepictionKit */; };
 		E193C67C277A8E0100B2469E /* ZBPackageDepictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C67B277A8E0100B2469E /* ZBPackageDepictionViewController.swift */; };
 		E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E193C67D277A91C900B2469E /* WebKit.framework */; };
+		E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C6A1277B93AA00B2469E /* HelionTheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -459,6 +460,7 @@
 		E193C676277A532700B2469E /* DepictionKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DepictionKit; path = Vendor/DepictionKit; sourceTree = "<group>"; };
 		E193C67B277A8E0100B2469E /* ZBPackageDepictionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ZBPackageDepictionViewController.swift; path = Zebra/UI/Packages/ZBPackageDepictionViewController.swift; sourceTree = SOURCE_ROOT; };
 		E193C67D277A91C900B2469E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.0.sdk/System/iOSSupport/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		E193C6A1277B93AA00B2469E /* HelionTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelionTheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -832,6 +834,7 @@
 				89A1297A247B49F000C7310B /* UINavigationController+SBS.m */,
 				499935F52496BDD2009A5BF9 /* UIViewController+Extensions.h */,
 				499935F62496BDD2009A5BF9 /* UIViewController+Extensions.m */,
+				E193C6A1277B93AA00B2469E /* HelionTheme.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1330,6 +1333,7 @@
 				89AD450423CA4F010008831F /* UIImageView+Zebra.m in Sources */,
 				89A75F602606ECF100FB6422 /* ZBSourceViewController.mm in Sources */,
 				89BAE2EE261A8F1D0063BA22 /* PLPackage+Zebra.mm in Sources */,
+				E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */,
 				363FE24F2287A1DD00B69929 /* ZBSourceAccountTableViewController.m in Sources */,
 				894894022471CF9B00E2FF97 /* ZBChangelogTableViewCell.m in Sources */,
 				499B0E25246B8437008825E4 /* ZBBoldTableViewHeaderView.m in Sources */,
