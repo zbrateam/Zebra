@@ -18,6 +18,15 @@
           "revision": "f938212f1f99f07197ff75a6e8182d732cade9ca",
           "version": null
         }
+      },
+      {
+        "package": "Plains",
+        "repositoryURL": "https://github.com/zbrateam/Plains",
+        "state": {
+          "branch": "rewrite",
+          "revision": "fef78b5525e4629ef0a4ef2d3540a02fc01dacb8",
+          "version": null
+        }
       }
     ]
   },
