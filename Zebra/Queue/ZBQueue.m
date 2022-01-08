@@ -231,9 +231,9 @@
     BOOL ignoreDependencies = [self containsPackageWithIgnoredDependencies]; //fallback to dpkg
     
     if (ignoreDependencies || [[ZBDevice packageManagementBinary] isEqualToString:@"/usr/bin/dpkg"]) {
-        baseCommand = @[@"dpkg"];
+        baseCommand = @[@"dpkg", @"--force-confdef", @"--force-confnew"];
     } else {
-        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAcquire::AllowUnsizedPackages=true", @"-oDir::State::lists="];
+        baseCommand = @[@"apt", @"-yqf", @"--allow-downgrades", @"--allow-change-held-packages", @"-oApt::Get::HideAutoRemove=true", @"-oquiet::NoProgress=true", @"-oquiet::NoStatistic=true", @"-oAcquire::AllowUnsizedPackages=true", @"-oDir::State::lists=", @"-oDpkg::Options::=--force-confdef", @"-oDpkg::Options::=--force-confnew"];
     }
     
     NSString *binary = baseCommand[0];
