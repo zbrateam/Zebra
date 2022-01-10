@@ -144,7 +144,7 @@
     error:nil];
     NSTextCheckingResult *match = [regex firstMatchInString:textView.text options:0 range:NSMakeRange(0, textView.text.length)];
     
-    [self.addButton setEnabled:match];
+    [self.addButton setEnabled:match != nil];
 }
 
 @end

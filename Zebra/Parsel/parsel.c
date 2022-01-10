@@ -53,7 +53,7 @@ char *multi_tok(char *input, multi_tok_t *string, char *delimiter) {
     return temp;
 }
 
-multi_tok_t init() { return NULL; }
+multi_tok_t init(void) { return NULL; }
 
 char *replace_char(char *str, char find, char replace) {
     char *current_pos = strchr(str, find);
@@ -80,7 +80,7 @@ int isSourceSecure(const char *sourcePath, char *sourceURL) {
     return 0;
 }
 
-char *sourcesSchema() {
+char *sourcesSchema(void) {
     return "REPOS(TYPE STRING, URI STRING, DISTRIBUTION STRING, COMPONENTS STRING, DESCRIPTION STRING, ORIGIN STRING, LABEL STRING, VERSION VARCHAR(16), SUITE STRING, CODENAME STRING, ARCHITECTURES STRING, VENDOR STRING, BASEFILENAME STRING, REPOID INTEGER PRIMARY KEY)";
 }
 
@@ -88,13 +88,13 @@ const char *sourceInsertQuery = "INSERT INTO REPOS(TYPE, URI, DISTRIBUTION, COMP
 
 const char *sourceUpdateQuery = "UPDATE REPOS SET (TYPE, URI, DISTRIBUTION, COMPONENTS, DESCRIPTION, ORIGIN, LABEL, VERSION, SUITE, CODENAME, ARCHITECTURES, VENDOR, BASEFILENAME) = (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE REPOID = ?;";
 
-char *packagesSchema() {
+char *packagesSchema(void) {
     return "PACKAGES(PACKAGE STRING, NAME STRING, VERSION VARCHAR(16), SHORTDESCRIPTION STRING, LONGDESCRIPTION STRING, SECTION STRING, DEPICTION STRING, TAG STRING, AUTHORNAME STRING, AUTHOREMAIL STRING, DEPENDS STRING, CONFLICTS STRING, PROVIDES STRING, REPLACES STRING, FILENAME STRING, ICONURL STRING, REPOID INTEGER, LASTSEEN TIMESTAMP, INSTALLEDSIZE INTEGER, DOWNLOADSIZE INTEGER, PRIORITY STRING, ESSENTIAL STRING, SHA256 STRING)";
 }
 
 const char *packageInsertQuery = "INSERT INTO PACKAGES(PACKAGE, NAME, VERSION, SHORTDESCRIPTION, LONGDESCRIPTION, SECTION, DEPICTION, TAG, AUTHORNAME, AUTHOREMAIL, DEPENDS, CONFLICTS, PROVIDES, REPLACES, FILENAME, ICONURL, REPOID, LASTSEEN, INSTALLEDSIZE, DOWNLOADSIZE, PRIORITY, ESSENTIAL, SHA256) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
-char *updatesSchema() {
+char *updatesSchema(void) {
     return "UPDATES(PACKAGE STRING PRIMARY KEY, VERSION VARCHAR(16) NOT NULL, IGNORE INTEGER DEFAULT 0)";
 }
 
@@ -401,7 +401,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             sqlite3_bind_int64(insertStatement, 1 + ZBPackageColumnLastSeen, newTimestamp);
             
             const char *installedSizeString = dict_get(package, "Installed-Size");
-            if (installedSizeString != '\0') {
+            if (installedSizeString != NULL) {
                 int installedSize = atoi(installedSizeString);
                 sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnInstalledSize, installedSize);
             }
@@ -410,7 +410,7 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             }
             
             const char *downloadSizeString = dict_get(package, "Size");
-            if (downloadSizeString != '\0') {
+            if (downloadSizeString != NULL) {
                 int downloadSize = atoi(downloadSizeString);
                 sqlite3_bind_int(insertStatement, 1 + ZBPackageColumnDownloadSize, downloadSize);
             }
@@ -419,17 +419,17 @@ bool bindPackage(dict **package_, int sourceID, int safeID, char *longDescriptio
             }
             
             const char *priority = dict_get(package, "Priority");
-            if (priority != '\0') {
+            if (priority != NULL) {
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnPriority, priority, -1, SQLITE_TRANSIENT);
             }
             
             const char *essential = dict_get(package, "Essential");
-            if (essential != '\0') {
+            if (essential != NULL) {
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnEssential, essential, -1, SQLITE_TRANSIENT);
             }
             
             const char *sha256 = dict_get(package, "SHA256");
-            if (sha256 != '\0') {
+            if (sha256 != NULL) {
                 sqlite3_bind_text(insertStatement, 1 + ZBPackageColumnSHA256, sha256, -1, SQLITE_TRANSIENT);
             }
             
