@@ -133,23 +133,6 @@ const char *textColumn(sqlite3_stmt *statement, int column) {
         [self setBaseFilename:baseFilenameChars != 0 ? [[NSString alloc] initWithUTF8String:baseFilenameChars] : NULL];
         [self setSourceID:sqlite3_column_int(statement, ZBSourceColumnSourceID)];
         [self setIconURL:[self.mainDirectoryURL URLByAppendingPathComponent:@"CydiaIcon.png"]];
-        
-        // prevent constant network spam
-        if (!self.checkedSupportFeaturedPackages) {
-            // Check for featured string
-            NSURL *checkingURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:self.repositoryURI]];
-            NSURLSession *session = [NSURLSession sharedSession];
-            [[session dataTaskWithURL:checkingURL
-                    completionHandler:^(NSData *data,
-                                        NSURLResponse *response,
-                                        NSError *error) {
-                NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                if (data != nil && (long)[httpResponse statusCode] != 404) {
-                    [self setSupportsFeaturedPackages:YES];
-                }
-            }] resume];
-            [self setCheckedSupportFeaturedPackages:YES];
-        }
     }
     
     return self;

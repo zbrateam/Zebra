@@ -195,30 +195,37 @@
     [self.featuredCollection removeFromSuperview];
     self.tableView.tableHeaderView = nil;
     [self.tableView layoutIfNeeded];
-    if (source.supportsFeaturedPackages) {
+    if (!source.checkedSupportFeaturedPackages || source.supportsFeaturedPackages) {
         NSURL *requestURL = [source.mainDirectoryURL URLByAppendingPathComponent:@"sileo-featured.json"];
         NSURLSession *session = [NSURLSession sharedSession];
         [[session dataTaskWithURL:requestURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (data != nil) {
-                NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
-                
-                NSError *jsonError;
-                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
-                if (!jsonError) {
-                    NSArray *banners = json[@"banners"];
-                    
-                    self->bannerSize = CGSizeFromString(json[@"itemSize"]);
-                    self.featuredPackages = banners;
-                    
-                    [featuredItems setObject:banners forKey:[self->source baseFilename]];
-                    [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self setupFeaturedPackages];
-                    });
-                }
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            self->source.checkedSupportFeaturedPackages = YES;
+            if (data == nil || httpResponse.statusCode >= 300) {
+                self->source.supportsFeaturedPackages = NO;
+                return;
             }
-            
+
+            NSMutableDictionary *featuredItems = [[NSDictionary dictionaryWithContentsOfFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"]] mutableCopy];
+
+            NSError *jsonError;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+            if (jsonError) {
+                self->source.supportsFeaturedPackages = NO;
+                return;
+            }
+            self->source.supportsFeaturedPackages = YES;
+            NSArray *banners = json[@"banners"];
+
+            self->bannerSize = CGSizeFromString(json[@"itemSize"]);
+            self.featuredPackages = banners;
+
+            [featuredItems setObject:banners forKey:[self->source baseFilename]];
+            [featuredItems writeToFile:[[ZBAppDelegate documentsDirectory] stringByAppendingPathComponent:@"featured.plist"] atomically:YES];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setupFeaturedPackages];
+            });
         }] resume];
     }
 }

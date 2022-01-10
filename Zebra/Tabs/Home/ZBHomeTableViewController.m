@@ -140,7 +140,7 @@ typedef enum ZBInfoOrder : NSUInteger {
     NSMutableDictionary *featuredItems = [NSMutableDictionary new];
     dispatch_group_t group = dispatch_group_create();
     for (ZBSource *source in featuredSources) {
-        if ([source respondsToSelector:@selector(supportsFeaturedPackages)]) { //Quick check to make sure 
+        if ([source respondsToSelector:@selector(supportsFeaturedPackages)] && (!source.checkedSupportFeaturedPackages || source.supportsFeaturedPackages)) { //Quick check to make sure 
             dispatch_group_enter(group);
             NSURL *requestURL = [NSURL URLWithString:@"sileo-featured.json" relativeToURL:[NSURL URLWithString:source.repositoryURI]];
             NSURL *checkingURL = requestURL;
@@ -148,16 +148,26 @@ typedef enum ZBInfoOrder : NSUInteger {
             [[session dataTaskWithURL:checkingURL
                     completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                        if (data != nil && (long)[httpResponse statusCode] != 404) {
-                            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-                            if (!source.supportsFeaturedPackages) {
-                                source.supportsFeaturedPackages = YES;
-                            }
-                            if ([json objectForKey:@"banners"]) {
-                                NSArray *banners = [json objectForKey:@"banners"];
-                                if (banners.count) {
-                                    [featuredItems setObject:banners forKey:[source baseFilename]];
-                                }
+                        source.checkedSupportFeaturedPackages = YES;
+                        if (data == nil || httpResponse.statusCode >= 300) {
+                            source.supportsFeaturedPackages = NO;
+                            dispatch_group_leave(group);
+                            return;
+                        }
+
+                        NSError *jsonError;
+                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&jsonError];
+                        if (jsonError) {
+                            source.supportsFeaturedPackages = NO;
+                            dispatch_group_leave(group);
+                            return;
+                        }
+                        source.supportsFeaturedPackages = YES;
+
+                        if ([json objectForKey:@"banners"]) {
+                            NSArray *banners = [json objectForKey:@"banners"];
+                            if (banners.count) {
+                                [featuredItems setObject:banners forKey:[source baseFilename]];
                             }
                         }
                         dispatch_group_leave(group);
