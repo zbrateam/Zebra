@@ -312,6 +312,7 @@
                         NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                             NSString *endpoint = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                            endpoint = [endpoint stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
                             if ([endpoint length] != 0 && (long)[httpResponse statusCode] == 200) {
                                 if ([endpoint hasPrefix:@"https"]) {
                                     [self bulkPostStatusUpdate:[NSString stringWithFormat:NSLocalizedString(@"Adding Payment Vendor URL for %@", @""), source.repositoryURI] atLevel:ZBLogLevelDescript];
