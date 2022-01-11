@@ -8,6 +8,7 @@
 
 #import "UIColor+GlobalColors.h"
 #import "UIImageView+Zebra.h"
+#import "UIView+Private.h"
 
 @implementation UIImageView (Zebra)
 
@@ -88,6 +89,11 @@
     
     if (radius) {
         self.layer.cornerRadius = 0.2237 * size.width;
+        if (@available(iOS 13, *)) {
+            self.layer.cornerCurve = kCACornerCurveContinuous;
+        } else {
+            self._continuousCornerRadius = self.layer.cornerRadius;
+        }
         self.clipsToBounds = YES;
     }
 }

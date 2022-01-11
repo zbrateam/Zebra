@@ -296,6 +296,7 @@
 		4E413947278DC8F90006AB8B /* debicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = debicon.png; sourceTree = "<group>"; };
 		4E413948278DC8F90006AB8B /* debicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "debicon@3x.png"; sourceTree = "<group>"; };
 		4E413949278DC8F90006AB8B /* sourcesicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sourcesicon@3x.png"; sourceTree = "<group>"; };
+		4E41396F278DD5770006AB8B /* UIView+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Private.h"; sourceTree = "<group>"; };
 		4E5F8272274FAFE40074A0BC /* NSObject+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Zebra.h"; sourceTree = "<group>"; };
 		4E5F8273274FAFE40074A0BC /* NSObject+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Zebra.m"; sourceTree = "<group>"; };
 		7821AF6D2275F3A4006C0315 /* ZBAddSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBAddSourceViewController.m; sourceTree = "<group>"; };
@@ -766,6 +767,7 @@
 				A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */,
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
 				A5A7F1252462A66900461335 /* UIImage+Private.h */,
+				4E41396F278DD5770006AB8B /* UIView+Private.h */,
 			);
 			path = Headers;
 			sourceTree = "<group>";
