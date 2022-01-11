@@ -48,6 +48,22 @@
             ]
         },
         @{
+            @"name": @"Z with Stripes",
+            @"author": @"Alpha_Stream",
+            @"icons": @[
+                    @{
+                        @"name": @"Light",
+                        @"iconName": @"alphastream-light",
+                        @"border": @NO
+                    },
+                    @{
+                        @"name": @"Dark",
+                        @"iconName": @"alphastream-dark",
+                        @"border": @NO
+                    }
+            ]
+        },
+        @{
             @"name": @"Zebra Pattern",
             @"author": @"xerus (@xerusdesign)",
             @"icons": @[

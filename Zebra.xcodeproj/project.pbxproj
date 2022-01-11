@@ -56,6 +56,14 @@
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
+		4E413918278D946F0006AB8B /* alphastream-dark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E41390B278D946F0006AB8B /* alphastream-dark@2x.png */; };
+		4E413919278D946F0006AB8B /* alphastream-dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413911278D946F0006AB8B /* alphastream-dark@3x.png */; };
+		4E41391A278D946F0006AB8B /* alphastream-light@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413912278D946F0006AB8B /* alphastream-light@2x.png */; };
+		4E41391B278D946F0006AB8B /* alphastream-dark~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413913278D946F0006AB8B /* alphastream-dark~ipad@3x.png */; };
+		4E41391C278D946F0006AB8B /* alphastream-light@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413914278D946F0006AB8B /* alphastream-light@3x.png */; };
+		4E41391D278D946F0006AB8B /* alphastream-light~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413915278D946F0006AB8B /* alphastream-light~ipad@3x.png */; };
+		4E41391E278D946F0006AB8B /* alphastream-light~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413916278D946F0006AB8B /* alphastream-light~ipad@2x.png */; };
+		4E41391F278D946F0006AB8B /* alphastream-dark~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413917278D946F0006AB8B /* alphastream-dark~ipad@2x.png */; };
 		4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */; };
 		4E41394A278DC8F90006AB8B /* listicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413941278DC8F90006AB8B /* listicon.png */; };
 		4E41394B278DC8F90006AB8B /* listicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413942278DC8F90006AB8B /* listicon@3x.png */; };
@@ -269,6 +277,14 @@
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
+		4E41390B278D946F0006AB8B /* alphastream-dark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-dark@2x.png"; sourceTree = "<group>"; };
+		4E413911278D946F0006AB8B /* alphastream-dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-dark@3x.png"; sourceTree = "<group>"; };
+		4E413912278D946F0006AB8B /* alphastream-light@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-light@2x.png"; sourceTree = "<group>"; };
+		4E413913278D946F0006AB8B /* alphastream-dark~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-dark~ipad@3x.png"; sourceTree = "<group>"; };
+		4E413914278D946F0006AB8B /* alphastream-light@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-light@3x.png"; sourceTree = "<group>"; };
+		4E413915278D946F0006AB8B /* alphastream-light~ipad@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-light~ipad@3x.png"; sourceTree = "<group>"; };
+		4E413916278D946F0006AB8B /* alphastream-light~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-light~ipad@2x.png"; sourceTree = "<group>"; };
+		4E413917278D946F0006AB8B /* alphastream-dark~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alphastream-dark~ipad@2x.png"; sourceTree = "<group>"; };
 		4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconCell.h; sourceTree = "<group>"; };
 		4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconCell.m; sourceTree = "<group>"; };
 		4E413941278DC8F90006AB8B /* listicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listicon.png; sourceTree = "<group>"; };
@@ -600,6 +616,14 @@
 				2627B6102321A65200B141E5 /* originalBlack@2x.png */,
 				36F77ADF22A33EDE00A4604C /* darkZebraSkin@3x.png */,
 				2627B60E2321A64D00B141E5 /* originalBlack@3x.png */,
+				4E41390B278D946F0006AB8B /* alphastream-dark@2x.png */,
+				4E413911278D946F0006AB8B /* alphastream-dark@3x.png */,
+				4E413917278D946F0006AB8B /* alphastream-dark~ipad@2x.png */,
+				4E413913278D946F0006AB8B /* alphastream-dark~ipad@3x.png */,
+				4E413912278D946F0006AB8B /* alphastream-light@2x.png */,
+				4E413914278D946F0006AB8B /* alphastream-light@3x.png */,
+				4E413916278D946F0006AB8B /* alphastream-light~ipad@2x.png */,
+				4E413915278D946F0006AB8B /* alphastream-light~ipad@3x.png */,
 			);
 			path = "Alternate Icons";
 			sourceTree = "<group>";
@@ -1291,12 +1315,16 @@
 				9E06A9EF22D0842400DBBC38 /* ZBSourceTableViewCell.xib in Resources */,
 				36AC5A6922AB30E4004C2332 /* zWhite~ipad@2x.png in Resources */,
 				36F77AE622A3414B00A4604C /* darkZebraSkin~ipad@3x.png in Resources */,
+				4E413919278D946F0006AB8B /* alphastream-dark@3x.png in Resources */,
 				36AC5A7A22AB6F66004C2332 /* ios7.min.css in Resources */,
+				4E41391A278D946F0006AB8B /* alphastream-light@2x.png in Resources */,
 				893F51CC2447D83C00B2C64E /* control.sample in Resources */,
 				36AC5A7222AB30E9004C2332 /* zBlack~ipad@3x.png in Resources */,
 				89C5FDED21B1B13800A10E58 /* LaunchScreen.storyboard in Resources */,
+				4E41391D278D946F0006AB8B /* alphastream-light~ipad@3x.png in Resources */,
 				36F77AE122A33EDF00A4604C /* darkZebraSkin@3x.png in Resources */,
 				36F77AE922A34EE800A4604C /* lightZebraSkin@2x.png in Resources */,
+				4E41391C278D946F0006AB8B /* alphastream-light@3x.png in Resources */,
 				89C7E49021B23DB1003DB4E8 /* Installed.pack in Resources */,
 				89E8637F21D5AFAA0081E485 /* ios7.min.js in Resources */,
 				36AC5A7322AB30E9004C2332 /* zBlack@2x.png in Resources */,
@@ -1306,6 +1334,7 @@
 				4910B3A02426BD2F00306C5C /* ZBSourcesAccountBanner.xib in Resources */,
 				36F77AEC22A34F1400A4604C /* lightZebraSkin~ipad@2x.png in Resources */,
 				89D230182242B27500837C3B /* default.list in Resources */,
+				4E41391B278D946F0006AB8B /* alphastream-dark~ipad@3x.png in Resources */,
 				367D810122C437D300581D60 /* ios7oled.css in Resources */,
 				2627B6112321A65200B141E5 /* originalBlack@2x.png in Resources */,
 				4E413952278DC8F90006AB8B /* sourcesicon@3x.png in Resources */,
@@ -1313,6 +1342,7 @@
 				365CAE2E22D3A13C0052ED6E /* ZBNewsCollectionViewCell.xib in Resources */,
 				4E41394B278DC8F90006AB8B /* listicon@3x.png in Resources */,
 				4E41394C278DC8F90006AB8B /* sourcesicon.png in Resources */,
+				4E41391F278D946F0006AB8B /* alphastream-dark~ipad@2x.png in Resources */,
 				36F77AEE22A34F2700A4604C /* lightZebraSkin~ipad@3x.png in Resources */,
 				36F77AEA22A34EE800A4604C /* lightZebraSkin@3x.png in Resources */,
 				896CC20524DC8E3700CDF2CC /* AUPM~ipad@2x.png in Resources */,
@@ -1322,6 +1352,7 @@
 				89AD450C23CA5E350008831F /* AUPM@3x.png in Resources */,
 				36AC5A6A22AB30E4004C2332 /* zWhite@2x.png in Resources */,
 				4E41394D278DC8F90006AB8B /* listicon@2x.png in Resources */,
+				4E41391E278D946F0006AB8B /* alphastream-light~ipad@2x.png in Resources */,
 				2627B60D2321A64400B141E5 /* originalBlack~ipad@2x.png in Resources */,
 				4E41394F278DC8F90006AB8B /* debicon@2x.png in Resources */,
 				36AC5A6C22AB30E4004C2332 /* zWhite@3x.png in Resources */,
@@ -1332,6 +1363,7 @@
 				89E8637E21D5AFAA0081E485 /* package_depiction.html in Resources */,
 				36AC5A7122AB30E9004C2332 /* zBlack@3x.png in Resources */,
 				89C5FDE821B1B13700A10E58 /* Main.storyboard in Resources */,
+				4E413918278D946F0006AB8B /* alphastream-dark@2x.png in Resources */,
 				89E8638521D5AFAA0081E485 /* ios7dark.css in Resources */,
 				493C3241227A905800603FB9 /* ZBPackageTableViewCell.xib in Resources */,
 				36AC5A7822AB3545004C2332 /* icon@2x.png in Resources */,
@@ -1622,9 +1654,11 @@
 		89C5FDF421B1B13800A10E58 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AD_HOC_CODE_SIGNING_ALLOWED = "";
+				"AD_HOC_CODE_SIGNING_ALLOWED[sdk=iphoneos*]" = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = NO;
@@ -1660,9 +1694,11 @@
 		89C5FDF521B1B13800A10E58 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				AD_HOC_CODE_SIGNING_ALLOWED = "";
+				"AD_HOC_CODE_SIGNING_ALLOWED[sdk=iphoneos*]" = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FNYH7RRK6K;
 				ENABLE_BITCODE = NO;
