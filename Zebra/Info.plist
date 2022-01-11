@@ -9,7 +9,7 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>utiicon</string>
+				<string>debicon</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>Debian Package</string>
@@ -21,10 +21,10 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array>
-				<string>utiicon.png</string>
-			</array>
+            <key>CFBundleTypeIconFiles</key>
+            <array>
+                <string>listicon</string>
+            </array>
 			<key>CFBundleTypeName</key>
 			<string>APT Sources List</string>
 			<key>CFBundleTypeRole</key>
@@ -35,10 +35,10 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeIconFiles</key>
-			<array>
-				<string>utiicon.png</string>
-			</array>
+            <key>CFBundleTypeIconFiles</key>
+            <array>
+                <string>sourcesicon</string>
+            </array>
 			<key>CFBundleTypeName</key>
 			<string>Sileo Sources List</string>
 			<key>CFBundleTypeRole</key>
@@ -227,7 +227,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLIconFile</key>
-			<string>utiicon</string>
+			<string>debicon</string>
 			<key>CFBundleURLName</key>
 			<string>Zebra</string>
 			<key>CFBundleURLSchemes</key>
@@ -309,7 +309,7 @@
 			<string>Debian Package</string>
 			<key>UTTypeIconFiles</key>
 			<array>
-				<string>utiicon.png</string>
+				<string>debicon.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>org.debian.deb-archive</string>
@@ -336,7 +336,7 @@
 			<string>APT Sources List</string>
 			<key>UTTypeIconFiles</key>
 			<array>
-				<string>utiicon.png</string>
+				<string>listicon.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>org.debian.sources-list</string>
@@ -357,7 +357,7 @@
 			<string>Sileo Sources List</string>
 			<key>UTTypeIconFiles</key>
 			<array>
-				<string>utiicon.png</string>
+				<string>sourcesicon.png</string>
 			</array>
 			<key>UTTypeIdentifier</key>
 			<string>org.coolstar.sileo-sources</string>
