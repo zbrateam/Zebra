@@ -7,172 +7,172 @@
 //
 
 #import "ZBAlternateIconController.h"
+#import "ZBAlternateIconCell.h"
 
 #import <ZBDevice.h>
 #import <Extensions/UIColor+GlobalColors.h>
-#import <Extensions/UIImageView+Zebra.h>
 
-@interface ZBAlternateIconController ()
+@interface ZBAlternateIconController () <ZBAlternateIconCellDelegate>
 
 @end
 
 @implementation ZBAlternateIconController
 
-+ (NSArray <NSDictionary *> *)icons {
++ (NSArray <NSDictionary <NSString *, id> *> *)icons {
     return @[
         @{
-            @"iconName": @"AppIcon60x60",
-            @"readableName": @"White with Black Stripes",
-            @"shortName": @"Black Stripes",
-            @"border": @YES
+            @"name": @"Default Icon",
+            @"author": @"Zebra Team",
+            @"icons": @[
+                    @{
+                        @"name": @"Light",
+                        @"iconName": @"AppIcon60x60",
+                        @"border": @YES
+                    },
+                    @{
+                        @"name": @"Dark",
+                        @"iconName": @"originalBlack",
+                        @"border": @NO
+                    }
+            ]
         },
         @{
-            @"iconName": @"originalBlack",
-            @"readableName": @"Black with White Stripes",
-            @"border": @NO
+            @"name": @"Retro",
+            @"author": @"Zebra Team",
+            @"icons": @[
+                    @{
+                        @"name": @"Light",
+                        @"iconName": @"AUPM",
+                        @"border": @YES
+                    }
+            ]
         },
         @{
-            @"iconName": @"AUPM",
-            @"readableName": @"Retro",
-            @"border": @YES
-        },
-        @{
-            @"iconName": @"lightZebraSkin",
+            @"name": @"Zebra Pattern",
             @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Zebra Pattern (Light)",
-            @"border": @NO
+            @"icons": @[
+                    @{
+                        @"name": @"Light",
+                        @"iconName": @"lightZebraSkin",
+                        @"border": @NO
+                    },
+                    @{
+                        @"name": @"Dark",
+                        @"iconName": @"darkZebraSkin",
+                        @"border": @NO
+                    }
+            ]
         },
         @{
-            @"iconName": @"darkZebraSkin",
+            @"name": @"Embossed Zebra Pattern",
             @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Zebra Pattern (Dark)",
-            @"border": @NO
-        },
-        @{
-            @"iconName": @"zWhite",
-            @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Embossed Zebra Pattern (Light)",
-            @"border": @NO
-        },
-        @{
-            @"iconName": @"zBlack",
-            @"author": @"xerus (@xerusdesign)",
-            @"readableName": @"Embossed Zebra Pattern (Dark)",
-            @"border": @NO
+            @"icons": @[
+                    @{
+                        @"name": @"Light",
+                        @"iconName": @"zWhite",
+                        @"border": @NO
+                    },
+                    @{
+                        @"name": @"Dark",
+                        @"iconName": @"zBlack",
+                        @"border": @NO
+                    }
+            ]
         }
     ];
 }
 
 + (NSDictionary *)iconForName:(NSString *)name {
-    if (!name) return [self icons][0];
-    
-    for (NSDictionary *icon in [self icons]) {
-        if ([icon[@"iconName"] isEqualToString:name]) {
-            return icon;
+    if (!name) return [self icons][0][@"icons"][0];
+
+    for (NSDictionary *iconSet in [self icons]) {
+        for (NSDictionary *icon in iconSet[@"icons"]) {
+            if ([icon[@"iconName"] isEqualToString:name]) {
+                return icon;
+            }
         }
     }
-    
+
     return NULL;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     self.title = NSLocalizedString(@"App Icon", @"");
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+
+    [self.tableView registerClass:[ZBAlternateIconCell class] forCellReuseIdentifier:@"alternateIconCell"];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self.class icons].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [ZBAlternateIconController icons].count;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSDictionary *icon = [ZBAlternateIconController icons][indexPath.row];
-    
-    BOOL border = [icon[@"border"] boolValue];
-    BOOL author = icon[@"author"] != nil;
-    NSString *cellIdentifier = author ? @"alternateIconCellSubtitle" : @"alternateIconCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    }
-    
-    cell.textLabel.text = icon[@"readableName"];
-    cell.textLabel.textColor = [UIColor primaryTextColor];
-    
-    if (author) {
-        cell.detailTextLabel.text = icon[@"author"];
-        cell.detailTextLabel.textColor = [UIColor secondaryTextColor];
-    }
-    
-    cell.imageView.image = [UIImage imageNamed:icon[@"iconName"]];
-    [cell.imageView resize:CGSizeMake(60.0, 60.0) applyRadius:YES];
-    if (border) [cell.imageView applyBorder];
+    NSDictionary *iconSet = [self.class icons][indexPath.section];
 
-    NSString *iconSelected = nil;
-    if (@available(iOS 10.3, *)) {
-        iconSelected = [[UIApplication sharedApplication] alternateIconName];
-    }
-    else {
-        iconSelected = @"You shouldn't be here";
-    }
-    
-    NSString *iconName = nil;
-    if (indexPath.row > 0) {
-        iconName = icon[@"iconName"];
-    }
-    
-    if ([iconSelected isEqualToString:iconName] || iconSelected == iconName) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    
+    ZBAlternateIconCell *cell = (ZBAlternateIconCell *)[tableView dequeueReusableCellWithIdentifier:@"alternateIconCell" forIndexPath:indexPath];
+    cell.delegate = self;
+    cell.iconSet = iconSet;
     cell.tintColor = [UIColor accentColor];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [ZBDevice hapticButton];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSString *iconName = [[[ZBAlternateIconController icons] objectAtIndex:indexPath.row] objectForKey:@"iconName"];
-    [self setIconWithName:iconName fromIndex:indexPath];
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSDictionary *iconSet = [self.class icons][section];
+    return iconSet[@"name"];
 }
 
-- (void)setIconWithName:(NSString *)name fromIndex:(NSIndexPath *)indexPath {
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    NSDictionary *iconSet = [self.class icons][section];
+    return [NSString stringWithFormat:@"%@: %@", NSLocalizedString(@"Author", @""), iconSet[@"author"]];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 90;
+}
+
+#pragma mark - Alternate icon button callback
+
+- (void)setAlternateIconFromSet:(NSDictionary <NSString *, id> *)iconSet atIndex:(NSInteger)index {
+    NSDictionary <NSString *, id> *icon = iconSet[@"icons"][index];
+    [ZBDevice hapticButton];
+    [self setIconWithName:icon[@"iconName"]];
+}
+
+- (void)setIconWithName:(NSString *)name {
     if (@available(iOS 10.3, *)) {
         if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
+            NSString *currentIcon = [UIApplication sharedApplication].alternateIconName ?: @"AppIcon60x60";
+            if ([currentIcon isEqualToString:name]) {
+                return;
+            }
+
             if ([name isEqualToString:@"AppIcon60x60"]) name = nil;
-            
+
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Unable to set application icon" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
                     UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", @"") style:UIAlertActionStyleDefault handler:nil];
-                    
+
                     [alert addAction:ok];
-                    [self presentViewController:alert animated:YES completion:nil];
+                    [self.navigationController presentViewController:alert animated:YES completion:nil];
                 }
-                
-                NSLog(@"%@", [[NSBundle mainBundle] pathForResource:@"AUPM~ipad@2x" ofType:@"png"]);
-                [self.navigationController popViewControllerAnimated:YES];
             }];
+
+            [self.tableView reloadData];
         }
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 75.0;
-}
-
 @end
+

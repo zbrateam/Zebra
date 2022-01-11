@@ -9,8 +9,12 @@
 #ifndef UIImage_Private_h
 #define UIImage_Private_h
 
+#define MIIconVariant NSUInteger
+#define MIIconVariantHomeScreen 8
+
 @interface UIImage (Private)
-- (UIImage *)_flatImageWithColor:(UIColor *)color;
+- (instancetype)_flatImageWithColor:(UIColor *)color;
+- (instancetype)_applicationIconImageForFormat:(MIIconVariant)variant precomposed:(BOOL)precomposed scale:(CGFloat)scale;
 @end
 
 

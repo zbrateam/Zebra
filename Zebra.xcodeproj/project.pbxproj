@@ -56,6 +56,7 @@
 		4947555624313A30008DC093 /* ZBLiveSearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4947555524313A30008DC093 /* ZBLiveSearchResultTableViewCell.m */; };
 		49C526EE227BCF1700840484 /* ZBSourceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */; };
 		49E1304622715DB8006F450A /* UIColor+GlobalColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* UIColor+GlobalColors.m */; };
+		4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */; };
 		4E41394A278DC8F90006AB8B /* listicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413941278DC8F90006AB8B /* listicon.png */; };
 		4E41394B278DC8F90006AB8B /* listicon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413942278DC8F90006AB8B /* listicon@3x.png */; };
 		4E41394C278DC8F90006AB8B /* sourcesicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E413943278DC8F90006AB8B /* sourcesicon.png */; };
@@ -268,6 +269,8 @@
 		49C526ED227BCF1700840484 /* ZBSourceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZBSourceTableViewCell.m; sourceTree = "<group>"; };
 		49E1304522715DB8006F450A /* UIColor+GlobalColors.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+GlobalColors.m"; sourceTree = "<group>"; };
 		49E1304722715EE5006F450A /* UIColor+GlobalColors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+GlobalColors.h"; sourceTree = "<group>"; };
+		4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBAlternateIconCell.h; sourceTree = "<group>"; };
+		4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBAlternateIconCell.m; sourceTree = "<group>"; };
 		4E413941278DC8F90006AB8B /* listicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = listicon.png; sourceTree = "<group>"; };
 		4E413942278DC8F90006AB8B /* listicon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "listicon@3x.png"; sourceTree = "<group>"; };
 		4E413943278DC8F90006AB8B /* sourcesicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sourcesicon.png; sourceTree = "<group>"; };
@@ -647,6 +650,8 @@
 			children = (
 				8916AC1A23CAAE51008BA02C /* ZBAlternateIconController.h */,
 				8916AC1923CAAE51008BA02C /* ZBAlternateIconController.m */,
+				4E413920278D98DC0006AB8B /* ZBAlternateIconCell.h */,
+				4E413921278D98DC0006AB8B /* ZBAlternateIconCell.m */,
 			);
 			path = "App Icon";
 			sourceTree = "<group>";
@@ -1165,8 +1170,8 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ZB;
-				LastUpgradeCheck = 1250;
-				ORGANIZATIONNAME = "Wilson Styres";
+				LastUpgradeCheck = 1320;
+				ORGANIZATIONNAME = "Zebra Team";
 				TargetAttributes = {
 					89C5FDDC21B1B13700A10E58 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1352,6 +1357,7 @@
 				D1BF9C7122A826B300DD9266 /* ZBStoresListTableViewController.m in Sources */,
 				8900FA502201E9C200476310 /* ZBQueueViewController.m in Sources */,
 				36A1D904230A56A5002694BE /* ZBPurchaseInfo.m in Sources */,
+				4E413922278D98DC0006AB8B /* ZBAlternateIconCell.m in Sources */,
 				369F9EA322BC854100D6CCF3 /* ZBPackagesByAuthorTableViewController.m in Sources */,
 				899203B722490D4C0098AC7B /* dict.c in Sources */,
 				899229FD242815E90086E2F4 /* ZBSourceInfo.m in Sources */,

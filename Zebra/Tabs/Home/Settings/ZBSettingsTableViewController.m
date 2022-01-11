@@ -201,25 +201,9 @@ enum ZBMiscOrder {
                     cell.textLabel.text = NSLocalizedString(@"Language", @"");
                     break;
                 }
-                case ZBAppIcon: {
-                    cell.textLabel.text = NSLocalizedString(@"App Icon", @"");
-                    if (@available(iOS 10.3, *)) {
-                        NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
-                        
-                        cell.detailTextLabel.text = [icon objectForKey:@"shortName"];
-                        
-                        cell.imageView.image = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
-                        [cell.imageView resize:CGSizeMake(30, 30) applyRadius:YES];
-                        
-                        if ([[icon objectForKey:@"border"] boolValue]) {
-                            [cell.imageView applyBorder];
-                        }
-                        else {
-                            [cell.imageView removeBorder];
-                        }
-                    }
+                case ZBAppIcon:
+                    // Not used
                     break;
-                }
             }
             
             cell.textLabel.textColor = [UIColor primaryTextColor];
