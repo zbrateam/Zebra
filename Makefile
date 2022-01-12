@@ -1,41 +1,26 @@
+export ARCHS = armv7 arm64
+export TARGET = iphone::10.3:9.0
+
 INSTALL_TARGET_PROCESSES = Zebra
 
-# Force disable output synchronisation so xcodeproj can display progress. Remove this when we move
-# to xcodeproj.mk.
-MAKEFLAGS += -Onone
-
 include $(THEOS)/makefiles/common.mk
-include $(THEOS_MAKE_PATH)/null.mk
 
-all::
-	set -o pipefail && xcodebuild CLANG_WARN_STRICT_PROTOTYPES=NO CODE_SIGN_IDENTITY="" AD_HOC_CODE_SIGNING_ALLOWED=YES -scheme Zebra archive -archivePath Zebra.xcarchive PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' | xcpretty -c
+XCODEPROJ_NAME = Zebra
 
-after-stage::
-	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
-	rm -rf Zebra.xcarchive
-	$(MAKE) -C Supersling LEAN_AND_MEAN=1
-	mkdir -p $(THEOS_STAGING_DIR)/usr/libexec/zebra
-	mv $(THEOS_OBJ_DIR)/supersling $(THEOS_STAGING_DIR)/usr/libexec/zebra
-	$(MAKE) -C Firmware
-	mv $(THEOS_OBJ_DIR)/firmware $(THEOS_STAGING_DIR)/usr/libexec/zebra
-	mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections
-	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
-	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/Installed.pack
-	ldid -SZebra/Zebra.entitlements $(THEOS_STAGING_DIR)/Applications/Zebra.app
-	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/SDWebImage.framework/SDWebImage
-	ldid -S $(THEOS_STAGING_DIR)/Applications/Zebra.app/Frameworks/LNPopupController.framework/LNPopupController
+# CLANG_WARN_STRICT_PROTOTYPES=NO required to ignore a warning treated as error from LNPopupController
+Zebra_XCODEFLAGS = PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' \
+	CODE_SIGN_IDENTITY="" AD_HOC_CODE_SIGNING_ALLOWED=YES \
+	CLANG_WARN_STRICT_PROTOTYPES=NO
+Zebra_CODESIGN_FLAGS = -SZebra/Zebra.entitlements
 
-	$(FAKEROOT) chmod 6755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/supersling
-	$(FAKEROOT) chmod 755 $(THEOS_STAGING_DIR)/usr/libexec/zebra/firmware
+include $(THEOS_MAKE_PATH)/xcodeproj.mk
 
-ipa::
-	$(MAKE) all
-	mkdir -p $(THEOS_STAGING_DIR)/Payload
-	mv Zebra.xcarchive/Products/Applications/Zebra.app $(THEOS_STAGING_DIR)/Payload/Zebra.app
-	rm -rf Zebra.xcarchive
-	mkdir -p $(THEOS_STAGING_DIR)/Applications/Zebra.app/Sections
-	rm -rf $(THEOS_STAGING_DIR)/Applications/Zebra.app/embedded.mobileprovision
-	cd $(THEOS_STAGING_DIR) && zip -r Zebra.zip Payload
-	rm -rf $(THEOS_STAGING_DIR)/Payload
-	mkdir -p ipas
-	mv $(THEOS_STAGING_DIR)/Zebra.zip ipas/Zebra-$(THEOS_PACKAGE_VERSION).ipa
+SUBPROJECTS = Supersling Firmware
+
+include $(THEOS_MAKE_PATH)/aggregate.mk
+
+ipa:
+	+$(MAKE) PACKAGE_FORMAT=ipa package
+
+after-install::
+	install.exec 'uiopen zbra:'
