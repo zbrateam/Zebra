@@ -12,12 +12,15 @@
 #import "ZBDevice.h"
 #import "ZBSettings.h"
 #import "UIColor+GlobalColors.h"
+#import "ZBChangelogEntryCell.h"
 
 @interface ZBChangelogTableViewController ()
 
 @end
 
-@implementation ZBChangelogTableViewController
+@implementation ZBChangelogTableViewController {
+    NSMutableDictionary <NSNumber *, NSMutableAttributedString *> *_attributedStrings;
+}
 
 @synthesize releases;
 
@@ -31,6 +34,8 @@
     if (@available(iOS 11.0, *)) {
         self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
     }
+
+    [self.tableView registerClass:[ZBChangelogEntryCell class] forCellReuseIdentifier:@"changeLogCell"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,7 +50,8 @@
 - (void)fetchGithubReleases {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:@"https://api.github.com/repos/wstyres/Zebra/releases"]];
+    [request setURL:[NSURL URLWithString:@"https://api.github.com/repos/zbrateam/Zebra/releases"]];
+    [request setValue:@"application/vnd.github.v3.html" forHTTPHeaderField:@"Accept"];
     
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data && !error) {
@@ -75,6 +81,7 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            self->_attributedStrings = [NSMutableDictionary dictionary];
             [self.tableView reloadData];
             self.navigationItem.titleView = NULL;
             self.navigationItem.title = NSLocalizedString(@"Changelog", @"");
@@ -97,17 +104,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"changeLogCell";
     NSDictionary *dataDict = releases[indexPath.section];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+
+    ZBChangelogEntryCell *cell = (ZBChangelogEntryCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    NSMutableAttributedString *attributedString = _attributedStrings[@(indexPath.section)];
+    if (!attributedString) {
+        NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>"
+                          @"body { font: -apple-system-body; }"
+                          @"body > :last-child { margin-bottom: 0; }"
+                          @"</style></head><body>%@</body></html>",
+                          dataDict[@"body_html"] ?: @"Error"];
+        attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding] options:@{
+            NSDocumentTypeDocumentOption: NSHTMLTextDocumentType
+        } documentAttributes:nil error:nil];
+        _attributedStrings[@(indexPath.section)] = attributedString;
     }
-    if (dataDict[@"body"]) {
-        [cell.textLabel setText:dataDict[@"body"]];
-    }
-    cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [UIColor primaryTextColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [attributedString addAttributes:@{
+        NSForegroundColorAttributeName: [UIColor primaryTextColor]
+    } range:NSMakeRange(0, attributedString.length)];
+    cell.attributedString = attributedString;
     return cell;
 }
 
