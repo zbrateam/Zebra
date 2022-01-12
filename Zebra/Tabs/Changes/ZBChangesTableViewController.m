@@ -9,17 +9,17 @@
 #import "ZBChangesTableViewController.h"
 #import "ZBRedditPosts.h"
 
-#import <ZBLog.h>
-#import <ZBAppDelegate.h>
-#import <ZBSettings.h>
-#import <ZBDevice.h>
-#import <ZBPackagePartitioner.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBLog.h"
+#import "ZBAppDelegate.h"
+#import "ZBSettings.h"
+#import "ZBDevice.h"
+#import "ZBPackagePartitioner.h"
+#import "ZBDatabaseManager.h"
+#import "ZBPackage.h"
+#import "ZBPackageActions.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackageDepictionViewController.h"
+#import "UIColor+GlobalColors.h"
 
 @import SDWebImage;
 

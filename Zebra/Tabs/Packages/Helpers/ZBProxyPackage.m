@@ -9,8 +9,8 @@
 #import "ZBProxyPackage.h"
 #import "ZBPackage.h"
 
-#import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSource.h>
+#import "ZBDatabaseManager.h"
+#import "ZBSource.h"
 
 @import SDWebImage;
 

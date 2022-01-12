@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Extensions/ZBTableViewController.h>
+#import "ZBTableViewController.h"
 #import "ZBDevice.h"
 #import "ZBRefreshViewController.h"
 #import "ZBAppDelegate.h"

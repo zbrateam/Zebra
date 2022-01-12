@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBTableViewController.h"
 
 @interface ZBWishListTableViewController : ZBTableViewController <UIToolbarDelegate>
 @property NSMutableArray *wishedPackages;

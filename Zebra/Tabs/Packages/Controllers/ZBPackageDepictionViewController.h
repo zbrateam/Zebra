@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
-#import <Packages/Controllers/ZBPackagesByAuthorTableViewController.h>
+#import "ZBPackagesByAuthorTableViewController.h"
 #import "ZBInstalledFilesTableViewController.h"
-#import <Console/ZBConsoleCommandDelegate.h>
+#import "ZBConsoleCommandDelegate.h"
 
 @import SafariServices;
 

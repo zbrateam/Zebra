@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Database/ZBDatabaseDelegate.h>
+#import "ZBDatabaseDelegate.h"
 
 #ifndef _TABBAR_H_
 #define _TABBAR_H

@@ -10,13 +10,13 @@
 #import "ZBNewsCollectionViewCell.h"
 #import "ZBPackageDepictionViewController.h"
 
-#import <ZBSettings.h>
-#import <Tabs/Home/Credits/ZBCreditsTableViewController.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Community Sources/ZBCommunitySourcesTableViewController.h>
-#import <Changelog/ZBChangelogTableViewController.h>
-#import <Theme/ZBThemeManager.h>
-#import <ZBAppDelegate.h>
+#import "ZBSettings.h"
+#import "ZBCreditsTableViewController.h"
+#import "ZBPackage.h"
+#import "ZBCommunitySourcesTableViewController.h"
+#import "ZBChangelogTableViewController.h"
+#import "ZBThemeManager.h"
+#import "ZBAppDelegate.h"
 
 typedef enum ZBHomeOrder : NSUInteger {
     ZBWelcome,

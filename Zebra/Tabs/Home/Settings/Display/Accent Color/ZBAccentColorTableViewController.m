@@ -9,10 +9,10 @@
 #import "ZBAccentColorTableViewController.h"
 #import "UIImageView+Zebra.h"
 
-#import <ZBThemeManager.h>
-#import <ZBSettings.h>
-#import <ZBAppDelegate.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBThemeManager.h"
+#import "ZBSettings.h"
+#import "ZBAppDelegate.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBAccentColorTableViewController () {
     NSArray *colors;

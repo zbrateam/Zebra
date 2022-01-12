@@ -8,11 +8,11 @@
 
 #import "ZBSourceManager.h"
 #import <UIKit/UIDevice.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Database/ZBDatabaseManager.h>
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <ZBLog.h>
+#import "ZBSource.h"
+#import "ZBDatabaseManager.h"
+#import "ZBAppDelegate.h"
+#import "ZBDevice.h"
+#import "ZBLog.h"
 
 @interface ZBSourceManager () {
     NSMutableDictionary <NSNumber *, ZBSource *> *sources;

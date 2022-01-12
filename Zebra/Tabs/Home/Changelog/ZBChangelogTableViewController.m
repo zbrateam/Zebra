@@ -8,10 +8,10 @@
 
 #import "ZBChangelogTableViewController.h"
 
-#import <ZBLog.h>
-#import <ZBDevice.h>
-#import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBLog.h"
+#import "ZBDevice.h"
+#import "ZBSettings.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBChangelogTableViewController ()
 

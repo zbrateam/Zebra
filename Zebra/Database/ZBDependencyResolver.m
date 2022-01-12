@@ -8,12 +8,12 @@
 
 #import "ZBDependencyResolver.h"
 
-#import <ZBLog.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
+#import "ZBLog.h"
+#import "ZBPackage.h"
 
-#import <Database/ZBDatabaseManager.h>
-#import <Parsel/vercmp.h>
-#import <Queue/ZBQueue.h>
+#import "ZBDatabaseManager.h"
+#import "vercmp.h"
+#import "ZBQueue.h"
 
 @interface ZBDependencyResolver () {
     NSArray *installedPackagesList; //Packages that are installed on the device

@@ -10,10 +10,10 @@
 
 #import "ZBSettingsResetTableViewController.h"
 
-#import <UIColor+GlobalColors.h>
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <Database/ZBRefreshViewController.h>
+#import "UIColor+GlobalColors.h"
+#import "ZBAppDelegate.h"
+#import "ZBDevice.h"
+#import "ZBRefreshViewController.h"
 #import <WebKit/WebKit.h>
 
 @interface ZBSettingsResetTableViewController ()

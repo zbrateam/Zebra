@@ -6,9 +6,9 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBTableViewController.h"
 
-#import "../Helpers/ZBSourceVerificationDelegate.h"
+#import "ZBSourceVerificationDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

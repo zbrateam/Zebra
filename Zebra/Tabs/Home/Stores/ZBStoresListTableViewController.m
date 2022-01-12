@@ -9,14 +9,14 @@
 #import "ZBStoresListTableViewController.h"
 #import "UICKeyChainStore.h"
 
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <UIColor+GlobalColors.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Controllers/ZBSourceAccountTableViewController.h>
+#import "ZBAppDelegate.h"
+#import "ZBDevice.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBSource.h"
+#import "ZBSourceTableViewCell.h"
+#import "ZBDatabaseManager.h"
+#import "ZBSourceManager.h"
+#import "ZBSourceAccountTableViewController.h"
 
 @import SDWebImage;
 

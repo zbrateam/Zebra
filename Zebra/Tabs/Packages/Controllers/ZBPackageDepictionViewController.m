@@ -8,23 +8,23 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBLog.h>
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <ZBSettings.h>
+#import "ZBLog.h"
+#import "ZBAppDelegate.h"
+#import "ZBDevice.h"
+#import "ZBSettings.h"
 #import "ZBPackageDepictionViewController.h"
-#import <Keychain/UICKeyChainStore.h>
-#import <Queue/ZBQueue.h>
-#import <Database/ZBDatabaseManager.h>
+#import "UICKeyChainStore.h"
+#import "ZBQueue.h"
+#import "ZBDatabaseManager.h"
 #import <SafariServices/SafariServices.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <ZBTabBarController.h>
-#import <UIColor+GlobalColors.h>
+#import "ZBPackage.h"
+#import "ZBPackageActions.h"
+#import "ZBSource.h"
+#import "ZBTabBarController.h"
+#import "UIColor+GlobalColors.h"
 #import "ZBPurchaseInfo.h"
-#import <Packages/Helpers/ZBPackageActionType.h>
-#import <UIBarButtonItem+blocks.h>
+#import "ZBPackageActionType.h"
+#import "UIBarButtonItem+blocks.h"
 #import <objc/runtime.h>
 
 @import SDWebImage;

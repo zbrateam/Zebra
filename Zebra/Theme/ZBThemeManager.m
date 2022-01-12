@@ -8,8 +8,8 @@
 
 #import "ZBThemeManager.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Headers/UIImage+Private.h>
+#import "UIColor+GlobalColors.h"
+#import "UIImage+Private.h"
 #import <UIKit/UIKit.h>
 
 @import LNPopupController;

@@ -13,8 +13,8 @@
 
 #import <Foundation/Foundation.h>
 #import <sqlite3.h>
-#import <Downloads/ZBDownloadDelegate.h>
-#import <ZBDatabaseDelegate.h>
+#import "ZBDownloadDelegate.h"
+#import "ZBDatabaseDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

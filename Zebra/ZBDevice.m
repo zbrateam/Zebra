@@ -6,15 +6,15 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <ZBDevice.h>
-#import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBDevice.h"
+#import "ZBSettings.h"
+#import "UIColor+GlobalColors.h"
 #import <WebKit/WebKit.h>
-#import <Queue/ZBQueue.h>
+#import "ZBQueue.h"
 #import "ZBAppDelegate.h"
 #import "MobileGestalt.h"
 #import <UIKit/UIDevice.h>
-#import <NSTask.h>
+#import "NSTask.h"
 #import <sys/utsname.h>
 #import <sys/sysctl.h>
 #import <sys/types.h>

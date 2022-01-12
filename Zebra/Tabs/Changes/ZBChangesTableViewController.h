@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ZBRefreshableTableViewController.h>
+#import "ZBRefreshableTableViewController.h"
 #import "ZBNewsCollectionViewCell.h"
 @import SafariServices;
 @class ZBDatabaseManager;

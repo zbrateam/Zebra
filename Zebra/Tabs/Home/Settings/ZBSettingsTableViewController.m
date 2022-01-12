@@ -16,9 +16,9 @@
 #import "ZBLanguageSettingsTableViewController.h"
 #import "ZBSourceSelectTableViewController.h"
 
-#import <ZBSettings.h>
-#import <Queue/ZBQueue.h>
-#import <Sources/Helpers/ZBSource.h>
+#import "ZBSettings.h"
+#import "ZBQueue.h"
+#import "ZBSource.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBInterface,

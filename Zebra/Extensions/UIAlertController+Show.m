@@ -8,7 +8,7 @@
 
 #import "UIAlertController+Show.h"
 #import <objc/runtime.h>
-#import <Theme/ZBThemeManager.h>
+#import "ZBThemeManager.h"
 
 @interface ZBAlertViewController : UIViewController
 

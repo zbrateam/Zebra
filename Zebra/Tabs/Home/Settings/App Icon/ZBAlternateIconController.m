@@ -9,8 +9,8 @@
 #import "ZBAlternateIconController.h"
 #import "ZBAlternateIconCell.h"
 
-#import <ZBDevice.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBDevice.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBAlternateIconController () <ZBAlternateIconCellDelegate>
 

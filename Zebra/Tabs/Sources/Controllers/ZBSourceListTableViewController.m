@@ -9,20 +9,20 @@
 #import "ZBSourceImportTableViewController.h"
 #import "ZBSourceListTableViewController.h"
 
-#import <ZBDevice.h>
-#import <ZBAppDelegate.h>
-#import <ZBTabBarController.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBDevice.h"
+#import "ZBAppDelegate.h"
+#import "ZBTabBarController.h"
+#import "UIColor+GlobalColors.h"
 #import "ZBAddSourceViewController.h"
-#import <Database/ZBDatabaseManager.h>
-#import <Database/ZBRefreshViewController.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Queue/ZBQueue.h>
-#import <Theme/ZBThemeManager.h>
+#import "ZBDatabaseManager.h"
+#import "ZBRefreshViewController.h"
+#import "ZBSourceManager.h"
+#import "ZBSource.h"
+#import "ZBSourceTableViewCell.h"
+#import "ZBSourceSectionsListTableViewController.h"
+#import "ZBPackage.h"
+#import "ZBQueue.h"
+#import "ZBThemeManager.h"
 
 @import SDWebImage;
 
@@ -468,7 +468,7 @@
     error:nil];
     NSTextCheckingResult *isURL = [regex firstMatchInString:textField.text options:0 range:NSMakeRange(0, textField.text.length)];
     
-    [add setEnabled:isURL];
+    [add setEnabled:isURL != nil];
 }
 
 - (void)checkSourceURL:(NSURL *)sourceURL {

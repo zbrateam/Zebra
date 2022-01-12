@@ -11,8 +11,8 @@
 #import "ZBSourceVerificationDelegate.h"
 
 #import <UIKit/UIKit.h>
-#import <Database/ZBDatabaseDelegate.h>
-#import <ZBRefreshableTableViewController.h>
+#import "ZBDatabaseDelegate.h"
+#import "ZBRefreshableTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

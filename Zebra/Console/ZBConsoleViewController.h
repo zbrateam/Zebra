@@ -11,9 +11,9 @@
 @class ZBQueue;
 
 #import <UIKit/UIKit.h>
-#import <Downloads/ZBDownloadDelegate.h>
-#import <Database/ZBDatabaseDelegate.h>
-#import <ZBConsoleCommandDelegate.h>
+#import "ZBDownloadDelegate.h"
+#import "ZBDatabaseDelegate.h"
+#import "ZBConsoleCommandDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

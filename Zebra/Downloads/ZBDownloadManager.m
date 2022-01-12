@@ -9,14 +9,14 @@
 #import "ZBDownloadManager.h"
 #import "UICKeyChainStore.h"
 
-#import <ZBDevice.h>
-#import <ZBLog.h>
-#import <ZBSettings.h>
-#import <ZBAppDelegate.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Helpers/ZBSourceManager.h>
+#import "ZBDevice.h"
+#import "ZBLog.h"
+#import "ZBSettings.h"
+#import "ZBAppDelegate.h"
+#import "ZBPackage.h"
+#import "ZBBaseSource.h"
+#import "ZBSource.h"
+#import "ZBSourceManager.h"
 
 #import <bzlib.h>
 #import <zlib.h>

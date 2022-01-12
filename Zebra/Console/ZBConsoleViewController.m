@@ -9,18 +9,18 @@
 #import "ZBConsoleViewController.h"
 #import "ZBStage.h"
 
-#import <Database/ZBDatabaseManager.h>
-#import <Downloads/ZBDownloadManager.h>
-#import <Tabs/ZBTabBarController.h>
-#import <Tabs/Packages/Helpers/ZBPackage.h>
-#import <Queue/ZBQueue.h>
-#import <ZBAppDelegate.h>
-#import <ZBDevice.h>
-#import <ZBLog.h>
-#import <ZBSettings.h>
-#import <UIColor+GlobalColors.h>
-#import <ZBThemeManager.h>
-#import <Extensions/UIFont+Zebra.h>
+#import "ZBDatabaseManager.h"
+#import "ZBDownloadManager.h"
+#import "ZBTabBarController.h"
+#import "ZBPackage.h"
+#import "ZBQueue.h"
+#import "ZBAppDelegate.h"
+#import "ZBDevice.h"
+#import "ZBLog.h"
+#import "ZBSettings.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBThemeManager.h"
+#import "UIFont+Zebra.h"
 
 #include <sysexits.h>
 

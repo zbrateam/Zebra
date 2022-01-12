@@ -9,17 +9,17 @@
 #import "ZBPackageActions.h"
 #import "ZBPackage.h"
 
-#import <ZBDevice.h>
-#import <ZBAppDelegate.h>
-#import <Headers/UIAlertController+Private.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import <Queue/ZBQueue.h>
-#import <UIColor+GlobalColors.h>
-#import <Packages/Controllers/ZBPackageListTableViewController.h>
-#import <Extensions/UIAlertController+Show.h>
-#import <JSONParsing/ZBPurchaseInfo.h>
+#import "ZBDevice.h"
+#import "ZBAppDelegate.h"
+#import "UIAlertController+Private.h"
+#import "ZBSource.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackageDepictionViewController.h"
+#import "ZBQueue.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBPackageListTableViewController.h"
+#import "UIAlertController+Show.h"
+#import "ZBPurchaseInfo.h"
 
 @implementation ZBPackageActions
 

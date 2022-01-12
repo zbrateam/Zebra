@@ -9,13 +9,13 @@
 #import "ZBSearchResultsTableViewController.h"
 #import "ZBLiveSearchResultTableViewCell.h"
 
-#import <ZBAppDelegate.h>
-#import <Packages/Helpers/ZBProxyPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
-#import <Queue/ZBQueue.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBAppDelegate.h"
+#import "ZBProxyPackage.h"
+#import "ZBPackageActions.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackageDepictionViewController.h"
+#import "ZBQueue.h"
+#import "UIColor+GlobalColors.h"
 
 @import LNPopupController;
 

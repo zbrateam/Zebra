@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <ZBSettings.h>
+#import "ZBSettings.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -9,19 +9,19 @@
 #import "ZBDatabaseManager.h"
 #import "ZBDependencyResolver.h"
 
-#import <ZBLog.h>
-#import <ZBDevice.h>
-#import <ZBSettings.h>
-#import <Parsel/parsel.h>
-#import <Parsel/vercmp.h>
-#import <ZBAppDelegate.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Downloads/ZBDownloadManager.h>
-#import <Database/ZBColumn.h>
-#import <Queue/ZBQueue.h>
-#import <Packages/Helpers/ZBProxyPackage.h>
+#import "ZBLog.h"
+#import "ZBDevice.h"
+#import "ZBSettings.h"
+#import "parsel.h"
+#import "vercmp.h"
+#import "ZBAppDelegate.h"
+#import "ZBBaseSource.h"
+#import "ZBSource.h"
+#import "ZBPackage.h"
+#import "ZBDownloadManager.h"
+#import "ZBColumn.h"
+#import "ZBQueue.h"
+#import "ZBProxyPackage.h"
 
 @interface ZBDatabaseManager () {
     int numberOfDatabaseUsers;

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <NSTask.h>
-#import <Console/ZBConsoleCommandDelegate.h>
+#import "NSTask.h"
+#import "ZBConsoleCommandDelegate.h"
 
 @import SafariServices;
 

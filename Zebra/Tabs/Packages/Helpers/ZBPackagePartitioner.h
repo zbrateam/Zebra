@@ -10,7 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <ZBSettings.h>
+#import "ZBSettings.h"
 
 @interface ZBPackagePartitioner : NSObject
 + (NSArray *)partitionObjects:(NSArray *)array collationStringSelector:(SEL)selector sectionIndexTitles:(NSMutableArray *)sectionIndexTitles packages:(NSArray <ZBPackage *> *)packages type:(ZBSortingType)type;

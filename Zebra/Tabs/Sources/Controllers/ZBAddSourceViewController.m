@@ -11,8 +11,8 @@
 #import "ZBBaseSource.h"
 #import "ZBSourceManager.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Theme/ZBThemeManager.h>
+#import "UIColor+GlobalColors.h"
+#import "ZBThemeManager.h"
 
 @interface ZBAddSourceViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *addSourceTextView;

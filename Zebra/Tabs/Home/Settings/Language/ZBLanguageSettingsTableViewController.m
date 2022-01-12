@@ -8,9 +8,9 @@
 
 #import "ZBLanguageSettingsTableViewController.h"
 
-#import <ZBDevice.h>
-#import <ZBSettings.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBDevice.h"
+#import "ZBSettings.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBLanguageSettingsTableViewController () {
     BOOL useSystemLanguage;

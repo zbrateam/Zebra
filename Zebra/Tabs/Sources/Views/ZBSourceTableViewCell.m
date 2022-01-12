@@ -7,8 +7,8 @@
 //
 
 #import "ZBSourceTableViewCell.h"
-#import <UIColor+GlobalColors.h>
-#import <ZBBaseSource.h>
+#import "UIColor+GlobalColors.h"
+#import "ZBBaseSource.h"
 
 @interface ZBSourceTableViewCell () {
     UIActivityIndicatorView *spinner;

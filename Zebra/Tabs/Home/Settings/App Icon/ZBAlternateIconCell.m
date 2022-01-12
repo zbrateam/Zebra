@@ -8,7 +8,7 @@
 
 #import "ZBAlternateIconCell.h"
 
-#import <Extensions/UIImageView+Zebra.h>
+#import "UIImageView+Zebra.h"
 
 @implementation ZBAlternateIconCell {
     UIStackView *_stackView;

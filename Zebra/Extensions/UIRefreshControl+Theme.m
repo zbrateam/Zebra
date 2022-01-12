@@ -8,9 +8,9 @@
 
 #import "UIRefreshControl+Theme.h"
 
-#import <ZBDevice.h>
+#import "ZBDevice.h"
 #import <objc/runtime.h>
-#import <Theme/ZBThemeManager.h>
+#import "ZBThemeManager.h"
 
 @implementation UIRefreshControl (Theme)
 

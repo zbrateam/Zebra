@@ -8,14 +8,14 @@
 
 #import "ZBSearchTableViewController.h"
 
-#import <ZBDevice.h>
-#import <ZBAppDelegate.h>
-#import <Theme/ZBThemeManager.h>
-#import <Queue/ZBQueue.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Search/ZBSearchResultsTableViewController.h>
+#import "ZBDevice.h"
+#import "ZBAppDelegate.h"
+#import "ZBThemeManager.h"
+#import "ZBQueue.h"
+#import "ZBDatabaseManager.h"
+#import "ZBSearchResultsTableViewController.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import "UIColor+GlobalColors.h"
 
 @import LNPopupController;
 

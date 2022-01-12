@@ -7,9 +7,9 @@
 //
 
 #import "ZBSettingsSelectionTableViewController.h"
-#import <ZBSettings.h>
+#import "ZBSettings.h"
 #import "ZBDevice.h"
-#import <Extensions/UIColor+GlobalColors.h>
+#import "UIColor+GlobalColors.h"
 
 @interface ZBSettingsSelectionTableViewController () {
     NSString *selectedOption;

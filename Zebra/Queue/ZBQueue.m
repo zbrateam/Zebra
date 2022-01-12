@@ -7,14 +7,14 @@
 //
 
 #import "ZBQueue.h"
-#import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <ZBAppDelegate.h>
-#import <Database/ZBDependencyResolver.h>
-#import <Database/ZBDatabaseManager.h>
-#import <ZBDevice.h>
-#import <Console/ZBStage.h>
+#import "ZBPackage.h"
+#import "ZBSource.h"
+#import "ZBPackageActions.h"
+#import "ZBAppDelegate.h"
+#import "ZBDependencyResolver.h"
+#import "ZBDatabaseManager.h"
+#import "ZBDevice.h"
+#import "ZBStage.h"
 
 @interface ZBQueue ()
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray <ZBPackage *> *> *managedQueue;

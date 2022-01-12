@@ -11,12 +11,12 @@
 #import "ZBSourceImportTableViewController.h"
 #import "ZBAppDelegate.h"
 
-#import <Extensions/UINavigationBar+Progress.h>
-#import <Sources/Helpers/ZBBaseSource.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <UIColor+GlobalColors.h>
-#import <Database/ZBRefreshViewController.h>
+#import "UINavigationBar+Progress.h"
+#import "ZBBaseSource.h"
+#import "ZBSourceManager.h"
+#import "ZBSourceTableViewCell.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBRefreshViewController.h"
 
 @interface ZBSourceImportTableViewController () {
     double individualIncrement;

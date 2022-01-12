@@ -9,19 +9,19 @@
 #import "ZBPackage.h"
 #import "ZBPackageActions.h"
 
-#import <ZBLog.h>
-#import <ZBDevice.h>
-#import <ZBUtils.h>
-#import <Parsel/vercmp.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <ZBAppDelegate.h>
-#import <NSTask.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Database/ZBColumn.h>
+#import "ZBLog.h"
+#import "ZBDevice.h"
+#import "ZBUtils.h"
+#import "vercmp.h"
+#import "ZBSource.h"
+#import "ZBAppDelegate.h"
+#import "NSTask.h"
+#import "ZBDatabaseManager.h"
+#import "ZBColumn.h"
 #import "ZBPurchaseInfo.h"
 #import "UICKeyChainStore.h"
-#import <Queue/ZBQueue.h>
-#import <ZBSettings.h>
+#import "ZBQueue.h"
+#import "ZBSettings.h"
 
 @import SDWebImage;
 

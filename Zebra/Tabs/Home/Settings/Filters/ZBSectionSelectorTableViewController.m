@@ -8,11 +8,11 @@
 
 #import "ZBSectionSelectorTableViewController.h"
 
-#import <ZBSettings.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Extensions/UIImageView+Zebra.h>
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Sources/Helpers/ZBSource.h>
+#import "ZBSettings.h"
+#import "ZBDatabaseManager.h"
+#import "UIImageView+Zebra.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBSource.h"
 
 @interface ZBSectionSelectorTableViewController () {
     NSArray *sections;

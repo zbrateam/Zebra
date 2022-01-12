@@ -10,7 +10,7 @@
 
 #import "ZBSourceManager.h"
 
-#import <Extensions/ZBTableViewController.h>
+#import "ZBTableViewController.h"
 
 @interface ZBCommunitySourcesTableViewController : ZBTableViewController
 

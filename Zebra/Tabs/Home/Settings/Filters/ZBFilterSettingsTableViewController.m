@@ -12,16 +12,16 @@
 #import "ZBSectionSelectorTableViewController.h"
 #import "ZBAuthorSelectorTableViewController.h"
 
-#import <Database/ZBDatabaseManager.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Sources/Views/ZBSourceTableViewCell.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Sources/Controllers/ZBSourceSelectTableViewController.h>
-#import <Sources/Controllers/ZBSourceSectionsListTableViewController.h>
+#import "ZBDatabaseManager.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackage.h"
+#import "ZBSourceTableViewCell.h"
+#import "ZBSource.h"
+#import "ZBSourceSelectTableViewController.h"
+#import "ZBSourceSectionsListTableViewController.h"
 
-#import <UIColor+GlobalColors.h>
-#import <UIImageView+Zebra.h>
+#import "UIColor+GlobalColors.h"
+#import "UIImageView+Zebra.h"
 
 @interface ZBFilterSettingsTableViewController () {
     NSMutableArray <ZBSource *> *sources;

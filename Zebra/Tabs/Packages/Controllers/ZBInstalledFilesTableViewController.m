@@ -8,7 +8,7 @@
 
 #import "ZBInstalledFilesTableViewController.h"
 
-#import <Extensions/UIColor+GlobalColors.h>
+#import "UIColor+GlobalColors.h"
 
 @interface ZBInstalledFilesTableViewController ()
 

@@ -8,11 +8,11 @@
 
 #import "ZBAuthorSelectorTableViewController.h"
 
-#import <ZBSettings.h>
-#import <Theme/ZBThemeManager.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Extensions/UIImageView+Zebra.h>
-#import <Extensions/UIColor+GlobalColors.h>
+#import "ZBSettings.h"
+#import "ZBThemeManager.h"
+#import "ZBDatabaseManager.h"
+#import "UIImageView+Zebra.h"
+#import "UIColor+GlobalColors.h"
 
 @interface ZBAuthorSelectorTableViewController () {
     ZBDatabaseManager *databaseManager;

@@ -10,8 +10,8 @@
 #import "UIColor+GlobalColors.h"
 
 #import <objc/runtime.h>
-#import <ZBDevice.h>
-#import <Theme/ZBThemeManager.h>
+#import "ZBDevice.h"
+#import "ZBThemeManager.h"
 
 @implementation UIAlertController (Theme)
 

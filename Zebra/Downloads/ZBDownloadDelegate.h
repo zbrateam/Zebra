@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <Console/ZBLogLevel.h>
+#import "ZBLogLevel.h"
 
 @class ZBDownloadManager;
 @class ZBPackage;

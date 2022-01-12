@@ -6,7 +6,7 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Console/ZBLogLevel.h>
+#import "ZBLogLevel.h"
 
 #ifndef ZBDatabaseDelegate_h
 #define ZBDatabaseDelegate_h

@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ZBDatabaseDelegate.h>
+#import "ZBDatabaseDelegate.h"
 #import "UIColor+GlobalColors.h"
-#import <Sources/Helpers/ZBSourceVerificationDelegate.h>
+#import "ZBSourceVerificationDelegate.h"
 
 @class ZBBaseSource;
 

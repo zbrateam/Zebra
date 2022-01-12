@@ -8,10 +8,10 @@
 
 #import "ZBBaseSource.h"
 
-#import <ZBDevice.h>
-#import <Downloads/ZBDownloadManager.h>
-#import <Sources/Helpers/ZBSourceManager.h>
-#import <ZBAppDelegate.h>
+#import "ZBDevice.h"
+#import "ZBDownloadManager.h"
+#import "ZBSourceManager.h"
+#import "ZBAppDelegate.h"
 
 @implementation ZBBaseSource
 

@@ -8,12 +8,12 @@
 
 #import "ZBPackagesByAuthorTableViewController.h"
 
-#import <ZBAppDelegate.h>
-#import <Extensions/UIColor+GlobalColors.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackageActions.h>
-#import <Packages/Views/ZBPackageTableViewCell.h>
-#import <Packages/Controllers/ZBPackageDepictionViewController.h>
+#import "ZBAppDelegate.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBDatabaseManager.h"
+#import "ZBPackageActions.h"
+#import "ZBPackageTableViewCell.h"
+#import "ZBPackageDepictionViewController.h"
 
 @interface ZBPackagesByAuthorTableViewController () {
     NSArray *moreByAuthor;

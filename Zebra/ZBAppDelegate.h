@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <Tabs/ZBTabBarController.h>
+#import "ZBTabBarController.h"
 
 extern NSString * const ZBUserWillTakeScreenshotNotification;
 extern NSString * const ZBUserDidTakeScreenshotNotification;

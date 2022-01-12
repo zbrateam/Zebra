@@ -7,11 +7,11 @@
 //
 
 #import "ZBPackageTableViewCell.h"
-#import <UIColor+GlobalColors.h>
-#import <Packages/Helpers/ZBPackage.h>
-#import <Packages/Helpers/ZBPackageActions.h>
+#import "UIColor+GlobalColors.h"
+#import "ZBPackage.h"
+#import "ZBPackageActions.h"
 #import "ZBSource.h"
-#import <Queue/ZBQueue.h>
+#import "ZBQueue.h"
 @import SDWebImage;
 
 @implementation ZBPackageTableViewCell

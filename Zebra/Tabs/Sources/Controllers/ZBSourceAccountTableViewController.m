@@ -14,12 +14,12 @@
 #import "ZBPackageDepictionViewController.h"
 #import "ZBUserInfo.h"
 
-#import <ZBDevice.h>
-#import <ZBAppDelegate.h>
-#import <UIColor+GlobalColors.h>
-#import <Tabs/Sources/Helpers/ZBSource.h>
-#import <Database/ZBDatabaseManager.h>
-#import <Packages/Helpers/ZBPackageActions.h>
+#import "ZBDevice.h"
+#import "ZBAppDelegate.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBSource.h"
+#import "ZBDatabaseManager.h"
+#import "ZBPackageActions.h"
 
 @import SDWebImage;
 

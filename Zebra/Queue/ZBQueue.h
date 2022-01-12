@@ -10,7 +10,7 @@
 @class ZBPackage;
 
 #import <Foundation/Foundation.h>
-#import <Queue/ZBQueueType.h>
+#import "ZBQueueType.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

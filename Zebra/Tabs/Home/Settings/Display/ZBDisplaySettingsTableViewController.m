@@ -7,10 +7,10 @@
 //
 
 #import "ZBDisplaySettingsTableViewController.h"
-#import <ZBSettings.h>
-#import <UIColor+GlobalColors.h>
-#import <ZBThemeManager.h>
-#import "Accent Color/ZBAccentColorTableViewController.h"
+#import "ZBSettings.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBThemeManager.h"
+#import "ZBAccentColorTableViewController.h"
 
 typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBSectionAccentColor,

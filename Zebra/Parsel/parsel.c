@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <time.h>
-#include <Database/ZBColumn.h>
+#include "ZBColumn.h"
 
 #define LONG_DESCRIPTION_MAX_LENGTH 32768
 

@@ -8,9 +8,9 @@
 
 #import "UIVisualEffectView+Theme.h"
 #import "UIColor+GlobalColors.h"
-#import <ZBDevice.h>
+#import "ZBDevice.h"
 #import <objc/runtime.h>
-#import <Theme/ZBThemeManager.h>
+#import "ZBThemeManager.h"
 
 @implementation UIVisualEffectView (Theme)
 

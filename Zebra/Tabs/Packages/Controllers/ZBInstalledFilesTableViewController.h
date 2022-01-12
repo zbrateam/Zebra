@@ -6,8 +6,8 @@
 //  Copyright © 2019 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBTableViewController.h>
-#import <Packages/Helpers/ZBPackage.h>
+#import "ZBTableViewController.h"
+#import "ZBPackage.h"
 
 @interface ZBInstalledFilesTableViewController : ZBTableViewController
 @property ZBPackage *package;

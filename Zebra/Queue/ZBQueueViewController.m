@@ -7,14 +7,14 @@
 //
 
 #import "ZBQueueViewController.h"
-#import <ZBLog.h>
-#import <ZBAppDelegate.h>
+#import "ZBLog.h"
+#import "ZBAppDelegate.h"
 #import "ZBQueue.h"
-#import <Packages/Helpers/ZBPackage.h>
-#import <Console/ZBConsoleViewController.h>
-#import <UIColor+GlobalColors.h>
-#import <ZBDevice.h>
-#import <Theme/ZBThemeManager.h>
+#import "ZBPackage.h"
+#import "ZBConsoleViewController.h"
+#import "UIColor+GlobalColors.h"
+#import "ZBDevice.h"
+#import "ZBThemeManager.h"
 
 @import SDWebImage;
 @import LNPopupController;

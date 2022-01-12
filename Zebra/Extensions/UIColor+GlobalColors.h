@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ZBSettings.h>
+#import "ZBSettings.h"
 
 @interface UIColor (GlobalColors)
 + (UIColor *)accentColor;

@@ -11,8 +11,8 @@
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIWindow.h>
-#import <Sources/Helpers/ZBSource.h>
-#import <Packages/Helpers/ZBPackage.h>
+#import "ZBSource.h"
+#import "ZBPackage.h"
 
 @implementation ZBSettings
 
