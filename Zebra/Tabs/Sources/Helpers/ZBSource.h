@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL supportsFeaturedPackages;
 @property (nonatomic) BOOL checkedSupportFeaturedPackages;
+@property (nonatomic) BOOL supportsGETPackageInfo;
+@property (nonatomic) BOOL checkedSupportGETPackageInfo;
 @property (nonatomic) NSURL *iconURL;
 
 + (ZBSource *)sourceMatchingSourceID:(int)sourceID;

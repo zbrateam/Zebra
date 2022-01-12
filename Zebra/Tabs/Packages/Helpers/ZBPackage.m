@@ -495,38 +495,61 @@
         requestJSON = @{@"udid": [ZBDevice UDID], @"device": [ZBDevice deviceModelID]};
     }
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestJSON options:(NSJSONWritingOptions)0 error:nil];
-    
-    [request setHTTPMethod:@"POST"];
+
+    // Attempt GET when logged out. Helps the payment provider cache the unauthenticated response
+    // when the UDID/model are not needed.
+    BOOL attemptGET = !token && (!self.source.checkedSupportGETPackageInfo || self.source.supportsGETPackageInfo);
+    if (attemptGET) {
+        [request setHTTPMethod:@"GET"];
+    } else {
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+        [request setHTTPBody:requestData];
+    }
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setValue:[NSString stringWithFormat:@"Zebra/%@ (%@; iOS/%@)", PACKAGE_VERSION, [ZBDevice deviceType], [[UIDevice currentDevice] systemVersion]] forHTTPHeaderField:@"User-Agent"];
-    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:requestData];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         NSHTTPURLResponse *httpReponse = (NSHTTPURLResponse *)response;
         NSInteger statusCode = [httpReponse statusCode];
+
+        if (attemptGET) {
+            self.source.checkedSupportGETPackageInfo = YES;
+        }
         
-        if (statusCode == 200) {
-            NSError *error = NULL;
-//            NSString *repsonse = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//            NSLog(@"response %@", repsonse);
-            ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error];
-            
-            if (!error) {
-                completion(info);
-                
-                self->purchaseInfo = info;
-                self.requiresAuthorization = YES;
-                return;
+        if (error || data == nil || statusCode >= 300) {
+            if (attemptGET) {
+                // Retry as POST.
+                self.source.supportsGETPackageInfo = NO;
+                [self purchaseInfo:completion];
+            } else {
+                completion(NULL);
+                self->purchaseInfo = NULL;
+                self.requiresAuthorization = NO;
             }
-            
-            completion(NULL);
-            
-            self->purchaseInfo = NULL;
-            self.requiresAuthorization = NO;
             return;
         }
+
+        NSError *error2;
+        ZBPurchaseInfo *info = [ZBPurchaseInfo fromData:data error:&error2];
+        if (error2) {
+            if (attemptGET) {
+                // Retry as POST.
+                self.source.supportsGETPackageInfo = NO;
+                [self purchaseInfo:completion];
+            } else {
+                completion(NULL);
+                self->purchaseInfo = NULL;
+                self.requiresAuthorization = NO;
+            }
+            return;
+        }
+
+        completion(info);
+
+        self->purchaseInfo = info;
+        self.requiresAuthorization = YES;
     }];
     
     [task resume];
