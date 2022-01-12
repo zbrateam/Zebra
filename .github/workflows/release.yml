@@ -13,13 +13,12 @@ jobs:
         submodules: recursive
 
     - name: Install Dependencies
-      run: brew install ldid fakeroot dpkg
+      run: brew install ldid make dpkg
 
     - name: Setup Theos
       uses: actions/checkout@v2
       with:
         repository: theos/theos
-        ref: 8771215f765e774bfefdacc6ddf0e151c2973d49
         path: theos
         submodules: recursive
 
@@ -28,7 +27,7 @@ jobs:
       env:
         THEOS: theos
       run: |
-        make package FINALPACKAGE=1
+        gmake package FINALPACKAGE=1
         echo "::set-output name=package::$(ls -t packages | head -n1)"
 
     - name: Clone Safari
