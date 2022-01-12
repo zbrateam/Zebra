@@ -1,10 +1,14 @@
 INSTALL_TARGET_PROCESSES = Zebra
 
+# Force disable output synchronisation so xcodeproj can display progress. Remove this when we move
+# to xcodeproj.mk.
+MAKEFLAGS += -Onone
+
 include $(THEOS)/makefiles/common.mk
 include $(THEOS_MAKE_PATH)/null.mk
 
 all::
-	set -o pipefail && xcodebuild CLANG_WARN_STRICT_PROTOTYPES=NO CODE_SIGN_IDENTITY="" AD_HOC_CODE_SIGNING_ALLOWED=YES -scheme Zebra archive -archivePath Zebra.xcarchive PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' | xcpretty
+	set -o pipefail && xcodebuild CLANG_WARN_STRICT_PROTOTYPES=NO CODE_SIGN_IDENTITY="" AD_HOC_CODE_SIGNING_ALLOWED=YES -scheme Zebra archive -archivePath Zebra.xcarchive PACKAGE_VERSION='@\"$(THEOS_PACKAGE_BASE_VERSION)\"' | xcpretty -c
 
 after-stage::
 	mv Zebra.xcarchive/Products/Applications $(THEOS_STAGING_DIR)/Applications
