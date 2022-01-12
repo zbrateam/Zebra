@@ -15,8 +15,9 @@
         return;
     }
     for (NSString *key in properties.allKeys) {
-        id value = [values[key] isEqual:[NSNull null]] ? nil : values[key];
-        [self setValue:value forKey:properties[key]];
+        if (values[key] != nil && ![values[key] isEqual:[NSNull null]]) {
+            [self setValue:values[key] forKey:properties[key]];
+        }
     }
 }
 
