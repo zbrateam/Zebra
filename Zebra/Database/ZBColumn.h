@@ -20,6 +20,7 @@ typedef enum {
     ZBPackageColumnTag,
     ZBPackageColumnAuthorName,
     ZBPackageColumnAuthorEmail,
+    ZBPackageColumnSupport,
     ZBPackageColumnDepends,
     ZBPackageColumnConflicts,
     ZBPackageColumnProvides,

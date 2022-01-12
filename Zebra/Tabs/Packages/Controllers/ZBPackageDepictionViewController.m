@@ -504,6 +504,24 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
+- (void)showSupportSelection {
+    if (self.package.supportURL && self.package.authorEmail) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Email Author", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+            [self sendEmailToDeveloper];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"View Support Website", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
+            [self openSupportURL];
+        }]];
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else if (self.package.supportURL) {
+        [self openSupportURL];
+    } else if (self.package.authorEmail) {
+        [self sendEmailToDeveloper];
+    }
+}
+
 - (void)sendEmailToDeveloper {
     NSString *subject = [NSString stringWithFormat:@"Zebra: %@ (%@)", package.name, package.version];
     NSString *body = [NSString stringWithFormat:@"%@-%@: %@", [ZBDevice deviceModelID], [[UIDevice currentDevice] systemVersion], [ZBDevice UDID]];
@@ -517,15 +535,25 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         
         [self presentViewController:mail animated:YES completion:NULL];
     } else {
-        subject = [subject stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        body = [body stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-        NSString *url = [NSString stringWithFormat:@"mailto:%@?subject=%@&body=%@", self.package.authorEmail, subject, body];
+        NSURLComponents *url = [NSURLComponents componentsWithString:[NSString stringWithFormat:@"mailto:%@", self.package.authorEmail]];
+        url.queryItems = @[
+            [NSURLQueryItem queryItemWithName:@"subject" value:subject],
+            [NSURLQueryItem queryItemWithName:@"body" value:body]
+        ];
         if (@available(iOS 10.0, *)) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url] options:@{} completionHandler:nil];
+            [[UIApplication sharedApplication] openURL:url.URL options:@{} completionHandler:nil];
         } else {
-            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+            [[UIApplication sharedApplication] openURL:url.URL];
         }
     }
+}
+
+- (void)openSupportURL {
+    NSURL *supportURL = self.package.supportURL;
+    if (!supportURL || (![supportURL.scheme isEqualToString:@"http"] && ![supportURL.scheme isEqualToString:@"https"])) {
+        return;
+    }
+    [ZBDevice openURL:supportURL delegate:self];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
@@ -565,10 +593,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             cell.textLabel.text = value;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             break;
-        case ZBPackageInfoAuthor:
+        case ZBPackageInfoAuthor: {
             cell.textLabel.text = value;
-            cell.accessoryType = self.package.authorEmail ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            BOOL selectable = self.package.authorEmail || self.package.supportURL;
+            cell.accessoryType = selectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            cell.selectionStyle = selectable ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;
             break;
+        }
         case ZBPackageInfoVersion:
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.textLabel.text = NSLocalizedString(@"Version", @"");
@@ -643,9 +674,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         case ZBPackageInfoID:
             break;
         case ZBPackageInfoAuthor:
-            if (self.package.authorEmail) {
-                [self sendEmailToDeveloper];
-            }
+            [self showSupportSelection];
             break;
         case ZBPackageInfoVersion:
         case ZBPackageInfoSize:

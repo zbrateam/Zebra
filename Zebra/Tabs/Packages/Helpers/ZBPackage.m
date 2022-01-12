@@ -246,6 +246,7 @@
         const char *tagChars =              (const char *)sqlite3_column_text(statement, ZBPackageColumnTag);
         const char *authorNameChars =       (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorName);
         const char *authorEmailChars =      (const char *)sqlite3_column_text(statement, ZBPackageColumnAuthorEmail);
+        const char *supportChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnSupport);
         const char *dependsChars =          (const char *)sqlite3_column_text(statement, ZBPackageColumnDepends);
         const char *conflictsChars =        (const char *)sqlite3_column_text(statement, ZBPackageColumnConflicts);
         const char *providesChars =         (const char *)sqlite3_column_text(statement, ZBPackageColumnProvides);
@@ -268,6 +269,7 @@
         [self setDepictionURL:depictionChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:depictionChars]] : NULL];
         [self setAuthorName:authorNameChars != 0 ? [NSString stringWithUTF8String:authorNameChars] : NULL];
         [self setAuthorEmail:authorEmailChars != 0 ? [NSString stringWithUTF8String:authorEmailChars] : NULL];
+        [self setSupportURL:supportChars != 0 ? [NSURL URLWithString:[NSString stringWithUTF8String:supportChars]] : NULL];
         [self setFilename:filenameChars != 0 ? [NSString stringWithUTF8String:filenameChars] : NULL];
         [self setIconPath:iconChars != 0 ? [NSString stringWithUTF8String:iconChars] : NULL];
         

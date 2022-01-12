@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSArray <NSString *> *replaces;
 @property (nonatomic, strong) NSString *authorName;
 @property (nonatomic, strong) NSString *authorEmail;
+@property (nonatomic, strong) NSURL *supportURL;
 @property (nonatomic, strong) ZBSource *source;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *debPath;
