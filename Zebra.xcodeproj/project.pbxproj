@@ -61,6 +61,10 @@
 		499B9F3B248308C800358A84 /* zebrine~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 499B9F37248308C800358A84 /* zebrine~ipad@2x.png */; };
 		49E1304622715DB8006F450A /* ZBColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 49E1304522715DB8006F450A /* ZBColor.m */; };
 		49F217A7246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 49F217A6246CEF98000F08C0 /* ZBBoldTableViewHeaderView.xib */; };
+		4E9FC8742790555800934FFE /* Plains.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; };
+		4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC8732790555800934FFE /* Plains.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4E9FC87D2790569800934FFE /* DepictionKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC87C2790569800934FFE /* DepictionKit.framework */; };
+		4E9FC87E2790569800934FFE /* DepictionKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4E9FC87C2790569800934FFE /* DepictionKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		75823619249E7DCA003713DD /* ZBSettingsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */; };
 		75A918B324F2669B00216395 /* AUPM~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B124F2669B00216395 /* AUPM~ipad@2x.png */; };
 		75A918B424F2669B00216395 /* AUPM~ipad@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 75A918B224F2669B00216395 /* AUPM~ipad@3x.png */; };
@@ -137,8 +141,6 @@
 		E193C67C277A8E0100B2469E /* ZBPackageDepictionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C67B277A8E0100B2469E /* ZBPackageDepictionViewController.swift */; };
 		E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E193C67D277A91C900B2469E /* WebKit.framework */; };
 		E193C6A2277B93AA00B2469E /* HelionTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E193C6A1277B93AA00B2469E /* HelionTheme.swift */; };
-		E193C6AD277E488300B2469E /* Plains in Frameworks */ = {isa = PBXBuildFile; productRef = E193C6AC277E488300B2469E /* Plains */; };
-		E1A1472D277E4D6C003B78F1 /* DepictionKit in Frameworks */ = {isa = PBXBuildFile; productRef = E1A1472C277E4D6C003B78F1 /* DepictionKit */; };
 		E1A14730277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A1472F277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */; platformFilter = ios; };
 		E1A14732277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E1A14731277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd */; platformFilter = maccatalyst; };
 /* End PBXBuildFile section */
@@ -181,6 +183,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				4E9FC8752790555800934FFE /* Plains.framework in Embed Frameworks */,
+				4E9FC87E2790569800934FFE /* DepictionKit.framework in Embed Frameworks */,
 				893051F7260E72400017CC29 /* SDWebImage.framework in Embed Frameworks */,
 				893051F4260E723C0017CC29 /* LNPopupController.framework in Embed Frameworks */,
 			);
@@ -266,6 +270,8 @@
 		49FD260524707DDF00594D1A /* ZBPackageDepictionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackageDepictionViewController.h; sourceTree = "<group>"; };
 		49FD260624707DDF00594D1A /* ZBPackageDepictionViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZBPackageDepictionViewController.mm; sourceTree = "<group>"; };
 		49FD260724707DDF00594D1A /* ZBPackageDepictionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ZBPackageDepictionViewController.xib; sourceTree = "<group>"; };
+		4E9FC8732790555800934FFE /* Plains.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Plains.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E9FC87C2790569800934FFE /* DepictionKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DepictionKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75052D19249E3F2600C2F796 /* ZBSettingsTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettingsTableViewCell.h; sourceTree = "<group>"; };
 		75823618249E7DCA003713DD /* ZBSettingsTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettingsTableViewCell.m; sourceTree = "<group>"; };
 		75A918B124F2669B00216395 /* AUPM~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AUPM~ipad@2x.png"; sourceTree = "<group>"; };
@@ -457,14 +463,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1A14732277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd in Frameworks */,
+				4E9FC87D2790569800934FFE /* DepictionKit.framework in Frameworks */,
 				E1A14730277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd in Frameworks */,
 				E1428E7927794FC4005B0885 /* Evander in Frameworks */,
-				E1A1472D277E4D6C003B78F1 /* DepictionKit in Frameworks */,
 				895071992239E414004AE338 /* libMobileGestalt.tbd in Frameworks */,
 				898C50432649F9E0002CDC09 /* MessageUI.framework in Frameworks */,
-				E193C6AD277E488300B2469E /* Plains in Frameworks */,
 				E193C67E277A91CA00B2469E /* WebKit.framework in Frameworks */,
 				893051F6260E72400017CC29 /* SDWebImage.framework in Frameworks */,
+				4E9FC8742790555800934FFE /* Plains.framework in Frameworks */,
 				89051722237239A9000F0A32 /* libc++.tbd in Frameworks */,
 				893051F3260E723C0017CC29 /* LNPopupController.framework in Frameworks */,
 			);
@@ -891,6 +897,8 @@
 		89E8633B21D5A8C00081E485 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4E9FC87C2790569800934FFE /* DepictionKit.framework */,
+				4E9FC8732790555800934FFE /* Plains.framework */,
 				E1A14731277E5024003B78F1 /* libapt-pkg.6.0.0-macOS.tbd */,
 				E1A1472E277E4FF1003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */,
 				E1A1472F277E5015003B78F1 /* libapt-pkg.6.0.0-iOS.tbd */,
@@ -1047,8 +1055,6 @@
 			name = Zebra;
 			packageProductDependencies = (
 				E1428E7827794FC4005B0885 /* Evander */,
-				E193C6AC277E488300B2469E /* Plains */,
-				E1A1472C277E4D6C003B78F1 /* DepictionKit */,
 			);
 			productName = Zebra;
 			productReference = 89C5FDDD21B1B13700A10E58 /* Zebra.app */;
@@ -1122,7 +1128,6 @@
 			mainGroup = 89C5FDD421B1B13700A10E58;
 			packageReferences = (
 				E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */,
-				E193C6AB277E488300B2469E /* XCRemoteSwiftPackageReference "Plains" */,
 			);
 			productRefGroup = 89C5FDDE21B1B13700A10E58 /* Products */;
 			projectDirPath = "";
@@ -1662,14 +1667,6 @@
 				kind = branch;
 			};
 		};
-		E193C6AB277E488300B2469E /* XCRemoteSwiftPackageReference "Plains" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zbrateam/Plains";
-			requirement = {
-				branch = rewrite;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1677,15 +1674,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E1428E7727794FC4005B0885 /* XCRemoteSwiftPackageReference "Evander" */;
 			productName = Evander;
-		};
-		E193C6AC277E488300B2469E /* Plains */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E193C6AB277E488300B2469E /* XCRemoteSwiftPackageReference "Plains" */;
-			productName = Plains;
-		};
-		E1A1472C277E4D6C003B78F1 /* DepictionKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DepictionKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
