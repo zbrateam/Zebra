@@ -117,7 +117,7 @@
             }
             if (error) {
                 NSLog(@"[Zebra] Error retrieving news JSON %@", error);
-            } else {
+            } else if (self.redditPosts.count > 0) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self createHeader];
                 });
