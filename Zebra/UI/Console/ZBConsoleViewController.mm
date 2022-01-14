@@ -9,8 +9,7 @@
 #import "ZBConsoleViewController.h"
 
 #import <ZBDevice.h>
-#import <Extensions/UIFont+Zebra.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 #import <Plains/Managers/PLPackageManager.h>
 #import <Plains/Queue/PLQueue.h>
@@ -52,17 +51,17 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [ZBColor systemBackgroundColor];
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
     
     consoleView = [[UITextView alloc] initWithFrame:self.view.frame];
-    consoleView.font = [UIFont monospaceFont];
+    consoleView.font = [UIFont monospace];
     consoleView.contentInset = UIEdgeInsetsMake(8, 8, 8, 8);
     consoleView.editable = NO;
     
     [self.view addSubview:consoleView];
     
     completeButton = [[UIButton alloc] initWithFrame:CGRectZero];
-    completeButton.backgroundColor = [ZBColor accentColor];
+    completeButton.backgroundColor = [UIColor accentColor];
     completeButton.layer.cornerRadius = 10;
     completeButton.layer.masksToBounds = YES;
     completeButton.hidden = YES;
@@ -71,7 +70,7 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
     [self.view addSubview:completeButton];
     
     progressView = [[UIProgressView alloc] init];
-    progressView.tintColor = [ZBColor accentColor];
+    progressView.tintColor = [UIColor accentColor];
     
     [self.view addSubview:progressView];
     
@@ -120,20 +119,20 @@ typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
         UIFont *font;
         switch (level) {
             case PLLogLevelInfo:
-                color = [ZBColor labelColor];
-                font = UIFont.monospaceFont;
+                color = [UIColor labelColor];
+                font = UIFont.monospace;
                 break;
             case PLLogLevelStatus:
-                color = [ZBColor labelColor];
-                font = UIFont.boldMonospaceFont;
+                color = [UIColor labelColor];
+                font = UIFont.boldMonospace;
                 break;
             case PLLogLevelError:
-                color = [ZBColor redColor];
-                font = UIFont.boldMonospaceFont;
+                color = [UIColor redColor];
+                font = UIFont.boldMonospace;
                 break;
             case PLLogLevelWarning:
-                color = [ZBColor yellowColor];
-                font = UIFont.monospaceFont;
+                color = [UIColor yellowColor];
+                font = UIFont.monospace;
                 break;
         }
 

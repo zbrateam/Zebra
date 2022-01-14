@@ -7,7 +7,7 @@
 //
 
 #import "ZBSourceAccountBanner.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <JSONParsing/ZBSourceInfo.h>
 #import <JSONParsing/ZBUserInfo.h>
 #import <ZBAppDelegate.h>
@@ -103,14 +103,14 @@
 }
 
 - (void)applyStyle {
-    self.backgroundColor = [[ZBColor systemGroupedBackgroundColor] colorWithAlphaComponent:0.6];
+    self.backgroundColor = [[UIColor systemGroupedBackgroundColor] colorWithAlphaComponent:0.6];
     UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
     UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     blurEffectView.frame = self.bounds;
     blurEffectView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self insertSubview:blurEffectView atIndex:0];
-    self.descriptionLabel.textColor = [ZBColor labelColor];
-    self.button.tintColor = [ZBColor accentColor];
+    self.descriptionLabel.textColor = [UIColor labelColor];
+    self.button.tintColor = [UIColor accentColor];
     self.button.layer.cornerRadius = 14;
 }
 

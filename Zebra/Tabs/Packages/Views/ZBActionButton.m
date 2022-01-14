@@ -7,7 +7,7 @@
 //
 
 #import "ZBActionButton.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @interface ZBActionButton () {
     UIActivityIndicatorView *activityIndicatorView;
@@ -40,7 +40,7 @@
 }
 
 - (void)applyCustomizations {
-    UIColor *backgroundColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+    UIColor *backgroundColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     UIColor *legibleColor = [UIColor whiteColor]; // FIXME: not fully legible on some colors.
     [self setBackgroundColor:backgroundColor];
     [self setContentEdgeInsets:UIEdgeInsetsMake(6, 20, 6, 20)];
@@ -88,10 +88,10 @@
     
     if (highlighted) {
         CGFloat r, g, b, a;
-        [[ZBColor accentColor] ?: [UIColor systemBlueColor] getRed:&r green:&g blue:&b alpha:&a];
+        [[UIColor accentColor] ?: [UIColor systemBlueColor] getRed:&r green:&g blue:&b alpha:&a];
         self.backgroundColor = [UIColor colorWithRed:MAX(r - 0.04, 0.0) green:MAX(g - 0.04, 0.0) blue:MAX(b - 0.04, 0.0) alpha:a];
     } else {
-        self.backgroundColor = [ZBColor accentColor];
+        self.backgroundColor = [UIColor accentColor];
     }
 }
 

@@ -10,8 +10,7 @@
 
 #import <ZBLog.h>
 #import <ZBDevice.h>
-#import <ZBSettings.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBChangelogViewController
 
@@ -114,7 +113,7 @@
         cell.textLabel.attributedText = [[NSAttributedString alloc] initWithString:dataDict[@"body"]];
     }
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [ZBColor labelColor];
+    cell.textLabel.textColor = [UIColor labelColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -127,8 +126,8 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UITableViewHeaderFooterView *view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"alphabeticalReuse"];
     view.textLabel.font = [UIFont boldSystemFontOfSize:15];
-    view.textLabel.textColor = [ZBColor labelColor];
-    view.contentView.backgroundColor = [ZBColor systemGroupedBackgroundColor];
+    view.textLabel.textColor = [UIColor labelColor];
+    view.contentView.backgroundColor = [UIColor systemGroupedBackgroundColor];
         
     return view;
 }

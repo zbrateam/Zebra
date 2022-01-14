@@ -8,12 +8,11 @@
 
 #import "ZBDevice.h"
 
-#import <ZBSettings.h>
+#import "Zebra-Swift.h"
 #import <sys/stat.h>
 #import <sys/utsname.h>
 #import <sys/sysctl.h>
 #import <Headers/MobileGestalt.h>
-#import <Extensions/ZBColor.h>
 #import <Console/ZBCommand.h>
 
 @import UIKit.UISelectionFeedbackGenerator;
@@ -243,7 +242,7 @@
 + (void)openURL:(NSURL *)url sender:(UIViewController *)sender {
     SFSafariViewController *safariVC = [[SFSafariViewController alloc] initWithURL:url];
     
-    UIColor *tintColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+    UIColor *tintColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
     safariVC.preferredControlTintColor = tintColor;
     
     [sender presentViewController:safariVC animated:YES completion:nil];
@@ -279,7 +278,7 @@
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
-    NSString *tintColor = [ZBColor hexStringFromColor:[ZBColor accentColor]];
+	NSString *tintColor = [UIColor accentColor].hexString;
     
     return @{@"X-Cydia-ID": udid, @"X-Firmware": version, @"X-Unique-ID": udid, @"X-Machine": machineIdentifier, @"Payment-Provider": @"API", @"Tint-Color": tintColor, @"Accept-Language": [[NSLocale preferredLanguages] firstObject]};
 }

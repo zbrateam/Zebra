@@ -7,7 +7,7 @@
 //
 
 #import "ZBSourceFilter.h"
-#import <ZBSettings.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBSourceFilter
 

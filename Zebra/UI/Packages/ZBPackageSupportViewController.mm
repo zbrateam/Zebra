@@ -8,7 +8,7 @@
 
 #import "ZBPackageSupportViewController.h"
 #import <ZBDevice.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <Plains/Model/PLPackage.h>
 
 @interface ZBPackageSupportViewController ()
@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [ZBColor systemBackgroundColor];
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

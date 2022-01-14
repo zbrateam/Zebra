@@ -7,7 +7,7 @@
 //
 
 #import "ZBSettingsTableViewCell.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBSettingsTableViewCell
 

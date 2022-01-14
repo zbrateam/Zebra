@@ -15,7 +15,6 @@
 
 #import <ZBDevice.h>
 #import <ZBAppDelegate.h>
-#import <Extensions/ZBColor.h>
 #import <Tabs/Packages/Helpers/ZBPackageActions.h>
 #import <UI/ZBTabBarController.h>
 
@@ -168,11 +167,11 @@
 //            case 0: {
 //                ZBSourceTableViewCell *cell = (ZBSourceTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"sourceTableViewCell" forIndexPath:indexPath];
 //
-//                cell.sourceLabel.textColor = [ZBColor labelColor];
+//                cell.sourceLabel.textColor = [UIColor labelColor];
 //                cell.sourceLabel.text = [source label];
 //
 //                cell.urlLabel.text = [source sourceDescription];
-//                cell.urlLabel.textColor = [ZBColor secondaryLabelColor];
+//                cell.urlLabel.textColor = [UIColor secondaryLabelColor];
 //
 //                [cell.iconImageView sd_setImageWithURL:[source iconURL] placeholderImage:[UIImage imageNamed:@"Unknown"]];
 //
@@ -199,7 +198,7 @@
 //                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"buttonCell"];
 //
 //                cell.textLabel.text = NSLocalizedString(@"Sign Out", @"");
-//                cell.textLabel.textColor = [ZBColor accentColor] ?: [UIColor systemBlueColor];
+//                cell.textLabel.textColor = [UIColor accentColor] ?: [UIColor systemBlueColor];
 //                cell.selectionStyle = UITableViewCellSelectionStyleDefault;
 //
 //                return cell;

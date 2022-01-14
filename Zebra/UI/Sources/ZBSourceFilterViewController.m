@@ -9,7 +9,7 @@
 #import "ZBSourceFilterViewController.h"
 
 #import <Model/ZBSourceFilter.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @interface ZBSourceFilterViewController () {
     id <ZBFilterDelegate> delegate;
@@ -33,7 +33,7 @@
         self.filter = filter;
         
         self.title = NSLocalizedString(@"Filters", @"");
-        self.view.tintColor = [ZBColor accentColor];
+        self.view.tintColor = [UIColor accentColor];
     }
     
     return self;
@@ -43,7 +43,7 @@
 
 - (void)setTitle:(NSString *)title {
     UILabel *titleLabel = [UILabel new];
-    titleLabel.textColor = [ZBColor labelColor];
+    titleLabel.textColor = [UIColor labelColor];
     titleLabel.text = title;
     UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];

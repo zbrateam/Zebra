@@ -7,15 +7,15 @@
 //
 
 #import "ZBBoldTableViewHeaderView.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBBoldTableViewHeaderView
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.contentView.backgroundColor = [ZBColor systemBackgroundColor];
-    self.actionButton.tintColor = [ZBColor accentColor];
+    self.contentView.backgroundColor = [UIColor systemBackgroundColor];
+    self.actionButton.tintColor = [UIColor accentColor];
 }
 
 @end

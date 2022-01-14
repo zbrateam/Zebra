@@ -8,9 +8,8 @@
 
 #import "ZBCreditsViewController.h"
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <ZBDevice.h>
-#import <ZBSettings.h>
 
 @implementation ZBCreditsViewController
 
@@ -83,18 +82,18 @@
     if (indexPath.section == 3) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"libraryCreditTableViewCell"];
         [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
-        [cell.textLabel setTextColor:[ZBColor labelColor]];
+        [cell.textLabel setTextColor:[UIColor labelColor]];
     }
     else {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"personCreditTableViewCell"];
         if (item[@"link"]) {
-            [cell.textLabel setTextColor:[ZBColor accentColor] ?: [UIColor systemBlueColor]];
+            [cell.textLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
         }
         else {
-            [cell.textLabel setTextColor:[ZBColor labelColor]];
+            [cell.textLabel setTextColor:[UIColor labelColor]];
         }
     }
-    cell.detailTextLabel.textColor = [ZBColor secondaryLabelColor];
+    cell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
     
     cell.textLabel.text = item[@"name"];
     cell.detailTextLabel.text = item[@"subtitle"];

@@ -10,7 +10,7 @@
 
 #import "ZBResetViewController.h"
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <ZBAppDelegate.h>
 #import <ZBDevice.h>
 

@@ -8,7 +8,7 @@
 
 #import "ZBPackageFilesViewController.h"
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <Plains/Model/PLPackage.h>
 
 @interface ZBPackageFilesViewController () {
@@ -89,7 +89,7 @@
     }
     cell.textLabel.text = [files objectAtIndex:indexPath.row];
     cell.textLabel.numberOfLines = 0;
-    cell.textLabel.textColor = [ZBColor labelColor];
+    cell.textLabel.textColor = [UIColor labelColor];
     cell.textLabel.font = [UIFont systemFontOfSize:12];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;

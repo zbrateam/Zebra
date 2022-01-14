@@ -8,8 +8,7 @@
 
 #import "ZBDisplaySettingsViewController.h"
 
-#import <ZBSettings.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <Extensions/UIImageView+Zebra.h>
 
 @interface ZBDisplaySettingsViewController () {
@@ -40,10 +39,12 @@
         }
         
         NSMutableArray *tempImages = [NSMutableArray new];
+			UITraitCollection *lightTraitCollection = [UITraitCollection traitCollectionWithUserInterfaceStyle:UIUserInterfaceStyleLight];
+			UITraitCollection *darkTraitCollection = [UITraitCollection traitCollectionWithUserInterfaceStyle:UIUserInterfaceStyleLight];
         for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorStorm; color++) {
-            UIColor *leftColor = [ZBColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleLight];
-            UIColor *rightColor = [ZBColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleDark];
-            [tempImages addObject:[self imageWithLeftColor:leftColor rightColor:rightColor]];
+//            UIColor *leftColor = [UIColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleLight];
+//            UIColor *rightColor = [UIColor getAccentColor:color forInterfaceStyle:UIUserInterfaceStyleDark];
+//            [tempImages addObject:[self imageWithLeftColor:leftColor rightColor:rightColor]];
         }
         images = tempImages;
     }
@@ -81,7 +82,7 @@
     NSMutableArray *colors = [NSMutableArray new];
     for (ZBAccentColor color = ZBAccentColorAquaVelvet; color <= ZBAccentColorStorm; color++) {
         [colors addObject:@{
-            @"text": [ZBColor localizedNameForAccentColor:color],
+            @"text": @"",//TODO: [UIColor localizedNameForAccentColor:color],
             @"type": @(ZBPreferencesCellTypeSelection),
             @"action": @"selectAccentColor:",
             @"icon": images[color]
@@ -142,8 +143,8 @@
 
 - (void)selectStyle:(NSIndexPath *)newIndexPath {
     interfaceStyle = newIndexPath.row;
-    
-    [ZBSettings setInterfaceStyle:newIndexPath.row];
+
+	ZBSettings.interfaceStyle = newIndexPath.row;
 }
 
 - (void)selectAccentColor:(NSIndexPath *)newIndexPath {

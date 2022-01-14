@@ -6,13 +6,13 @@
 //  Copyright © 2020 Wilson Styres. All rights reserved.
 //
 
-#import <Extensions/ZBColor.h>
 #import "UIImageView+Zebra.h"
+#import "Zebra-Swift.h"
 
 @implementation UIImageView (Zebra)
 
 - (void)applyBorder {
-    self.layer.borderColor = [ZBColor imageBorderColor].CGColor;
+    self.layer.borderColor = [UIColor imageBorderColor].CGColor;
     self.layer.borderWidth = 0.5;
     self.clipsToBounds = YES;
 }

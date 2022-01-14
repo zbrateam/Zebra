@@ -7,7 +7,7 @@
 //
 
 #import "ZBLinkTableViewCell.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBLinkTableViewCell
 
@@ -17,9 +17,9 @@
 }
 
 - (void)applyCustomizations {
-    [self.nameLabel setTextColor:[ZBColor accentColor] ?: [UIColor systemBlueColor]];
-    [self.iconImageView setTintColor:[ZBColor accentColor] ?: [UIColor systemBlueColor]];
-    [self.contentView setBackgroundColor:[ZBColor systemBackgroundColor]];
+    [self.nameLabel setTextColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
+    [self.iconImageView setTintColor:[UIColor accentColor] ?: [UIColor systemBlueColor]];
+    [self.contentView setBackgroundColor:[UIColor systemBackgroundColor]];
 }
 
 @end

@@ -10,7 +10,7 @@
 
 #import <UI/Settings/Cells/ZBSettingsTableViewCell.h>
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBPreferencesViewController;
 
@@ -52,7 +52,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"preferencesCell" forIndexPath:indexPath];
     
-    UIColor *accentColor = [ZBColor accentColor];
+    UIColor *accentColor = [UIColor accentColor];
     cell.tintColor = accentColor;
     
     NSDictionary *specifier = self.specifiers[indexPath.section][indexPath.row];
@@ -63,25 +63,25 @@
     ZBPreferencesCellType cellType = [specifier[@"type"] unsignedIntValue];
     switch (cellType) {
         case ZBPreferencesCellTypeText: {
-            cell.textLabel.textColor = [ZBColor labelColor];
+            cell.textLabel.textColor = [UIColor labelColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
         case ZBPreferencesCellTypeDisclosure: {
-            cell.textLabel.textColor = [ZBColor labelColor];
+            cell.textLabel.textColor = [UIColor labelColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
         }
         case ZBPreferencesCellTypeButton: {
-            cell.textLabel.textColor = [ZBColor accentColor];
+            cell.textLabel.textColor = [UIColor accentColor];
             cell.accessoryView = NULL;
             cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
         case ZBPreferencesCellTypeSwitch: {
-            cell.textLabel.textColor = [ZBColor labelColor];
+            cell.textLabel.textColor = [UIColor labelColor];
             
             UISwitch *nx = [[UISwitch alloc] initWithFrame:CGRectZero];
             nx.on = [specifier[@"enabled"] boolValue];
@@ -93,7 +93,7 @@
             break;
         }
         case ZBPreferencesCellTypeSelection: {
-            cell.textLabel.textColor = [ZBColor labelColor];
+            cell.textLabel.textColor = [UIColor labelColor];
             cell.accessoryView = NULL;
             cell.accessoryType = [[self.selectedRows objectForKey:@(indexPath.section)] integerValue] == indexPath.row ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
             break;

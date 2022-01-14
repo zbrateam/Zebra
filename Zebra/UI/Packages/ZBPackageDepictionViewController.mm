@@ -10,7 +10,7 @@
 #import <ZBDevice.h>
 #import <Tabs/Packages/Controllers/ZBPackageChangelogTableViewController.h>
 #import "ZBScreenshotCollectionViewCell.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 #import <Plains/Model/PLPackage.h>
 
@@ -83,7 +83,7 @@
     self.webViewContainerStackView.hidden = YES;
     self.webView.hidden = YES;
     self.webView.scrollView.scrollEnabled = NO;
-    self.webView.backgroundColor = [ZBColor systemBackgroundColor];
+    self.webView.backgroundColor = [UIColor systemBackgroundColor];
 }
 
 - (void)setData {

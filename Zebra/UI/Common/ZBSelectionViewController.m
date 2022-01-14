@@ -8,7 +8,7 @@
 
 #import "ZBSelectionViewController.h"
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @interface ZBSelectionViewController () {
     id <ZBSelectionDelegate> delegate;
@@ -32,7 +32,7 @@
     
     if (self) {
         [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"selectionCell"];
-        self.view.tintColor = [ZBColor accentColor];
+        self.view.tintColor = [UIColor accentColor];
     }
     
     return self;

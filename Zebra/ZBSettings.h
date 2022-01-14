@@ -29,31 +29,7 @@
 #define finishAutomaticallyKey @"finishAutomatically"
 #define featuredBlacklistKey @"blackListedRepos"
 
-#pragma mark - Accent Colors
-
-typedef enum : NSUInteger {
-    ZBAccentColorAquaVelvet,
-    ZBAccentColorCornflowerBlue,
-    ZBAccentColorEmeraldCity,
-    ZBAccentColorGoldenTainoi,
-    ZBAccentColorIrisBlue,
-    ZBAccentColorLotusPink,
-    ZBAccentColorMonochrome,
-    ZBAccentColorMountainMeadow,
-    ZBAccentColorPastelRed,
-    ZBAccentColorPurpleHeart,
-    ZBAccentColorRoyalBlue,
-    ZBAccentColorShark,
-    ZBAccentColorStorm,
-} ZBAccentColor;
-
 #pragma mark - Interface Styles
-
-typedef enum : NSUInteger {
-    ZBInterfaceStyleLight,
-    ZBInterfaceStyleDark,
-//    ZBInterfaceStylePureBlack,
-} ZBInterfaceStyle;
 
 #pragma mark - Featured Type
 
@@ -83,31 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Theming
 
-+ (ZBAccentColor)accentColor;
-+ (void)setAccentColor:(ZBAccentColor)accentColor;
-
-+ (BOOL)usesSystemAccentColor;
-+ (void)setUsesSystemAccentColor:(BOOL)usesSystemAccentColor;
-
-+ (ZBInterfaceStyle)interfaceStyle;
-+ (void)setInterfaceStyle:(ZBInterfaceStyle)style;
-
-+ (BOOL)usesSystemAppearance;
-+ (void)setUsesSystemAppearance:(BOOL)usesSystemAppearance;
-
 + (BOOL)pureBlackMode;
 + (void)setPureBlackMode:(BOOL)pureBlackMode;
 
 + (NSString *_Nullable)appIconName;
 + (void)setAppIconName:(NSString *_Nullable)appIconName;
-
-#pragma mark - Language
-
-+ (BOOL)usesSystemLanguage;
-+ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage;
-
-+ (NSString *)selectedLanguage;
-+ (void)setSelectedLanguage:(NSString *_Nullable)languageCode;
 
 #pragma mark - Filters
 

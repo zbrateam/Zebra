@@ -8,7 +8,7 @@
 
 #import "ZBLoadingViewController.h"
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 
 @interface ZBLoadingViewController ()
 
@@ -19,7 +19,7 @@
 - (void)loadView {
     [super loadView];
     
-    self.view.backgroundColor = [ZBColor systemBackgroundColor];
+    self.view.backgroundColor = [UIColor systemBackgroundColor];
     
     UIActivityIndicatorView *spinner;
     if (@available(iOS 13.0, macCatalyst 13.0, *)) {
@@ -38,7 +38,7 @@
     UILabel *loadingLabel = [[UILabel alloc] init];
     loadingLabel.text = @"LOADING";
     loadingLabel.translatesAutoresizingMaskIntoConstraints = NO;
-    loadingLabel.textColor = [ZBColor secondaryLabelColor];
+    loadingLabel.textColor = [UIColor secondaryLabelColor];
     loadingLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightThin];
     
     [self.view addSubview:loadingLabel];

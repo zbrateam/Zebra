@@ -13,7 +13,7 @@
 #import "ZBBoldTableViewHeaderView.h"
 #import "ZBInfoTableViewCell.h"
 #import "ZBLinkTableViewCell.h"
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <Extensions/UINavigationBar+Extensions.h>
 #import <ZBDevice.h>
 #import "UIViewController+Extensions.h"
@@ -22,7 +22,6 @@
 #import <Model/PLPackage+Zebra.h>
 #import <Plains/Managers/PLPackageManager.h>
 #import <WebKit/WebKit.h>
-#import "Zebra-Swift.h"
 
 #import <SDWebImage/SDWebImage.h>
 
@@ -119,7 +118,7 @@
     [super viewWillDisappear:animated];
     
     [self.navigationController.navigationBar _setBackgroundOpacity:1];
-    [self.navigationController.navigationBar setTintColor:[ZBColor accentColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor accentColor]];
 }
 
 - (void)dealloc {
@@ -150,7 +149,7 @@
     // Package Icon
     self.iconImageView.layer.cornerRadius = 20;
     self.iconImageView.layer.borderWidth = 1;
-    self.iconImageView.layer.borderColor = [[ZBColor imageBorderColor] CGColor];
+    self.iconImageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
 
     // Buttons
     [self.moreButton setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; // We don't want this button to have the default contentEdgeInsets inherited by a ZBActionButton
@@ -164,7 +163,7 @@
     [self.headerImageGradientView.layer insertSublayer:self.headerImageGradientLayer atIndex:0];
     
     // Information Table View
-    [self.informationTableView setBackgroundColor:[ZBColor systemBackgroundColor]];
+    [self.informationTableView setBackgroundColor:[UIColor systemBackgroundColor]];
     [self.informationTableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
 }
 
@@ -289,7 +288,7 @@
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.layer.cornerRadius = imageView.frame.size.height * 0.2237;
     imageView.layer.borderWidth = 1;
-    imageView.layer.borderColor = [[ZBColor imageBorderColor] CGColor];
+    imageView.layer.borderColor = [[UIColor imageBorderColor] CGColor];
     imageView.layer.masksToBounds = YES;
     imageView.alpha = 0.0;
     [self.package setPackageIconForImageView:imageView];
@@ -323,7 +322,7 @@
         CGFloat percentageVerticalOffset = currentVerticalOffset / maximumVerticalOffsetForOpacity;
         CGFloat opacity = MAX(0, MIN(1, percentageVerticalOffset));
 
-        UIColor *blendedColor = [ZBColor blendColor:[UIColor whiteColor] WithColor:[ZBColor accentColor] progress:opacity];
+        UIColor *blendedColor = [[UIColor whiteColor] blendedWith:[UIColor accentColor] amount:opacity];
 
         self.navigationController.navigationBar.tintColor = blendedColor;
 

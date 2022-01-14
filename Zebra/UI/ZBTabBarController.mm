@@ -17,10 +17,9 @@
 //#import "Packages/Helpers/ZBPackage.h"
 #import <ZBAppDelegate.h>
 #import <Headers/UITabBarItem.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <UI/Queue/ZBQueueViewController.h>
 #import <ZBDevice.h>
-#import <ZBSettings.h>
 
 #import <Plains/Plains.h>
 
@@ -47,8 +46,8 @@
     self = [super init];
     
     if (self) {
-        UITabBar.appearance.tintColor = [ZBColor accentColor];
-        UITabBarItem.appearance.badgeColor = [ZBColor badgeColor];
+        UITabBar.appearance.tintColor = [UIColor accentColor];
+        UITabBarItem.appearance.badgeColor = [UIColor badgeColor];
         
         self.delegate = (ZBAppDelegate *)[[UIApplication sharedApplication] delegate];
         

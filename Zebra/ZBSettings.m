@@ -14,9 +14,6 @@
 
 @implementation ZBSettings
 
-NSString *const AccentColorKey = @"AccentColor";
-NSString *const UsesSystemAccentColorKey = @"UsesSystemAccentColor";
-NSString *const InterfaceStyleKey = @"InterfaceStyle";
 NSString *const UseSystemAppearanceKey = @"UseSystemAppearance";
 NSString *const PureBlackModeKey = @"PureBlackMode";
 
@@ -58,110 +55,6 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 
 #pragma mark - Theming
 
-+ (ZBAccentColor)accentColor {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:AccentColorKey]) {
-        [self setAccentColor:ZBAccentColorCornflowerBlue];
-        return ZBAccentColorCornflowerBlue;
-    }
-    return [defaults integerForKey:AccentColorKey];
-}
-
-+ (void)setAccentColor:(ZBAccentColor)accentColor {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setInteger:accentColor forKey:AccentColorKey];
-}
-
-+ (BOOL)usesSystemAccentColor {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:UsesSystemAccentColorKey]) {
-        [self setUsesSystemAccentColor:NO];
-        return NO;
-    }
-    return [defaults integerForKey:UsesSystemAccentColorKey];
-}
-
-+ (void)setUsesSystemAccentColor:(BOOL)usesSystemAccentColor {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setBool:usesSystemAccentColor forKey:UsesSystemAccentColorKey];
-}
-
-+ (ZBInterfaceStyle)interfaceStyle {
-    if ([self usesSystemAppearance]) {
-        #pragma clang diagnostic push
-        #pragma clang diagnostic ignored "-Wunguarded-availability"
-        
-        UIUserInterfaceStyle style = [[[UIScreen mainScreen] traitCollection] userInterfaceStyle];
-        switch (style) {
-            case UIUserInterfaceStyleUnspecified:
-            case UIUserInterfaceStyleLight:
-                return ZBInterfaceStyleLight;
-            case UIUserInterfaceStyleDark:
-//                return [self pureBlackMode] ? ZBInterfaceStylePureBlack : ZBInterfaceStyleDark;
-                return ZBInterfaceStyleDark;
-        }
-        
-        #pragma clang diagnostic pop
-    }
-    else {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        if (![defaults objectForKey:InterfaceStyleKey]) {
-            [self setInterfaceStyle:ZBInterfaceStyleLight];
-            return ZBInterfaceStyleLight;
-        }
-        ZBInterfaceStyle style = [defaults integerForKey:InterfaceStyleKey];
-//        return (style == ZBInterfaceStyleDark && [self pureBlackMode]) ? ZBInterfaceStylePureBlack : style;
-        return style;
-    }
-}
-
-+ (void)setInterfaceStyle:(ZBInterfaceStyle)style {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setInteger:style forKey:InterfaceStyleKey];
-    
-    if (style == ZBInterfaceStyleLight) {
-        [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-    } else {
-        [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-    }
-}
-
-+ (BOOL)usesSystemAppearance {
-    if (@available(iOS 13.0, *)) {
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        
-        if (![defaults objectForKey:UseSystemAppearanceKey]) {
-            [self setUsesSystemAppearance:YES];
-            return YES;
-        }
-        return [defaults boolForKey:UseSystemAppearanceKey];
-    }
-    return NO;
-}
-
-+ (void)setUsesSystemAppearance:(BOOL)usesSystemAppearance {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setBool:usesSystemAppearance forKey:UseSystemAppearanceKey];
-    
-    if (usesSystemAppearance) {
-        [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleUnspecified;
-    } else {
-        ZBInterfaceStyle style = [self interfaceStyle];
-        if (style == ZBInterfaceStyleLight) {
-            [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleLight;
-        } else {
-            [[UIApplication sharedApplication] windows].firstObject.overrideUserInterfaceStyle = UIUserInterfaceStyleDark;
-        }
-    }
-}
-
 + (BOOL)pureBlackMode {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -184,41 +77,6 @@ NSString *const AllowsCrashReportingKey = @"AllowsCrashReporting";
 
 + (void)setAppIconName:(NSString *_Nullable)appIconName {
     
-}
-
-#pragma mark - Language Settings
-
-+ (BOOL)usesSystemLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (![defaults objectForKey:UseSystemLanguageKey]) {
-        [self setUsesSystemLanguage:YES];
-        return YES;
-    }
-    return [defaults boolForKey:UseSystemLanguageKey];
-}
-
-+ (void)setUsesSystemLanguage:(BOOL)usesSystemLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    [defaults setBool:usesSystemLanguage forKey:UseSystemLanguageKey];
-}
-
-+ (NSString *)selectedLanguage {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    return [defaults arrayForKey:@"AppleLanguages"][0];
-}
-
-+ (void)setSelectedLanguage:(NSString *_Nullable)languageCode {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    if (languageCode) {
-        [defaults setObject:@[languageCode] forKey:@"AppleLanguages"];
-    }
-    else {
-        [defaults removeObjectForKey:@"AppleLanguages"];
-    }
 }
 
 #pragma mark - Filters

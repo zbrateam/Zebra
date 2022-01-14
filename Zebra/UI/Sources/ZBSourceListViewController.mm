@@ -14,7 +14,6 @@
 #import <UI/ZBSidebarController.h>
 #import <UI/Sources/ZBSourceAddViewController.h>
 #import <UI/Common/ZBErrorViewController.h>
-#import <Extensions/ZBColor.h>
 
 #import <Plains/Managers/PLSourceManager.h>
 #import <Plains/Model/PLSource.h>

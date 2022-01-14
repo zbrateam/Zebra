@@ -8,7 +8,7 @@
 
 #import "ZBPackageFilter.h"
 
-#import <ZBSettings.h>
+#import "Zebra-Swift.h"
 
 @implementation ZBPackageFilter
 

@@ -8,8 +8,7 @@
 
 #import "ZBPackageFilterViewController.h"
 
-#import <ZBSettings.h>
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <Model/ZBPackageFilter.h>
 #import <UI/Common/ZBSelectionViewController.h>
 
@@ -35,7 +34,7 @@
         self.filter = filter;
         
         self.title = NSLocalizedString(@"Filters", @"");
-        self.view.tintColor = [ZBColor accentColor];
+        self.view.tintColor = [UIColor accentColor];
     }
     
     return self;
@@ -45,7 +44,7 @@
 
 - (void)setTitle:(NSString *)title {
     UILabel *titleLabel = [UILabel new];
-    titleLabel.textColor = [ZBColor labelColor];
+    titleLabel.textColor = [UIColor labelColor];
     titleLabel.text = title;
     UIFont *titleFont = [UIFont preferredFontForTextStyle:UIFontTextStyleTitle2];
     UIFont *largeTitleFont = [UIFont fontWithDescriptor:[titleFont.fontDescriptor fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold] size:titleFont.pointSize];
@@ -59,7 +58,7 @@
     if (@available(iOS 13.0, *)) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"chevron.down.circle.fill"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
     }
-    self.navigationItem.rightBarButtonItem.tintColor = [ZBColor tertiaryLabelColor];
+    self.navigationItem.rightBarButtonItem.tintColor = [UIColor tertiaryLabelColor];
 }
 
 - (void)dismiss {

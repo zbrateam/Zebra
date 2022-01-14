@@ -26,9 +26,9 @@ import Evander
     }
     
     private func configureTheme() -> Theme {
-        Theme(text_color: ZBColor.label(),
+        Theme(text_color: .label,
               background_color: .clear,
-              tint_color: ZBColor.accentColor(),
+							tint_color: .accent ?? .systemBlue,
               separator_color: .separator,
               dark_mode: traitCollection.userInterfaceStyle == .dark)
     }

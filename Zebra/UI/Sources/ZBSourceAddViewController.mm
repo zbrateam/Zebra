@@ -14,12 +14,11 @@
 
 #import <Model/ZBDummySource.h>
 
-#import <Extensions/ZBColor.h>
+#import "Zebra-Swift.h"
 #import <ZBDevice.h>
 
 #import <Plains/Plains.h>
 #import <SDWebImage/SDWebImage.h>
-#import "Zebra-Swift.h"
 
 @interface ZBSourceAddViewController () {
     UISearchController *searchController;
@@ -146,7 +145,7 @@
     
     [self.tableView registerClass:[ZBSourceTableViewCell class] forCellReuseIdentifier:@"SourceTableViewCell"];
     
-    self.tableView.backgroundColor = [ZBColor systemBackgroundColor];
+    self.tableView.backgroundColor = [UIColor systemBackgroundColor];
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     [self checkPasteboard:NO];
@@ -290,7 +289,7 @@
             } else {
                 // FIXME: Fallback on earlier versions
             }
-            cell.accessoryView.tintColor = [ZBColor tertiaryLabelColor];
+            cell.accessoryView.tintColor = [UIColor tertiaryLabelColor];
             
             return cell;
         } else if (importExpanded) {

@@ -15,7 +15,6 @@
 #import <Extensions/UIViewController+Extensions.h>
 #import <WebKit/WebKit.h>
 #import "Zebra-Swift.h"
-#import <Extensions/ZBColor.h>
 
 #import <Plains/Model/PLSource.h>
 #import <Plains/Managers/PLSourceManager.h>
@@ -193,7 +192,7 @@
 
         cell.sourceLabel.alpha = 1.0;
         cell.urlLabel.alpha = 1.0;
-        cell.sourceLabel.textColor = [ZBColor labelColor];
+        cell.sourceLabel.textColor = [UIColor labelColor];
         [cell setSpinning:NO];
         switch (status) {
             case ZBSourceExists: {
@@ -237,7 +236,7 @@
         cell.textLabel.text = NSLocalizedString(@"No sources to import", @"");
         cell.backgroundColor = [UIColor clearColor];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        cell.textLabel.textColor = [ZBColor secondaryLabelColor];
+        cell.textLabel.textColor = [UIColor secondaryLabelColor];
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         

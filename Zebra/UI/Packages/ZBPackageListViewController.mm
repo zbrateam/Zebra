@@ -18,7 +18,7 @@
 #import <UI/Common/Views/ZBBoldTableViewHeaderView.h>
 #import <UI/Common/ZBPartialPresentationController.h>
 #import <UI/Packages/Views/Cells/ZBPackageTableViewCell.h>
-#import <ZBSettings.h>
+#import "Zebra-Swift.h"
 
 #import <Extensions/UIViewController+Extensions.h>
 

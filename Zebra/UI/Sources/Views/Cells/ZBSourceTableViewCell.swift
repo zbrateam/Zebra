@@ -24,7 +24,7 @@ import Evander
         imageView.layer.borderWidth = 1
         imageView.layer.cornerRadius = 34 * 0.2237
         imageView.layer.cornerCurve = .continuous
-        imageView.layer.borderColor = ZBColor.imageBorderColor().cgColor
+        imageView.layer.borderColor = UIColor.imageBorder.cgColor
         imageView.contentMode = .scaleAspectFit
         return imageView
     }()
@@ -33,7 +33,7 @@ import Evander
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.highlightedTextColor = .black
-        label.textColor = ZBColor.label()
+        label.textColor = .label
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -42,7 +42,7 @@ import Evander
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
         label.highlightedTextColor = .black
-        label.textColor = ZBColor.secondaryLabel()
+        label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -51,7 +51,7 @@ import Evander
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 13)
         label.highlightedTextColor = .black
-        label.textColor = ZBColor.secondaryLabel()
+        label.textColor = .secondaryLabel
         label.translatesAutoresizingMaskIntoConstraints = false
         label.isHidden = true
         return label
@@ -119,7 +119,7 @@ import Evander
             storeStackView.topAnchor.constraint(equalTo: sourceLabel.topAnchor)
         ])
         
-        tintColor = ZBColor.accentColor()
+        tintColor = .accent
     }
     
     required init?(coder: NSCoder) {
