@@ -99,7 +99,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.redditPosts removeAllObjects];
         NSMutableURLRequest *request = [NSMutableURLRequest new];
-        [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak/search.json?q=flair%3ARelease+OR+flair%3AUpdate+OR+flair%3AUpcoming+OR+flair%3ANews&restrict_sr=on&sort=relevance&t=month"]];
+        [request setURL:[NSURL URLWithString:@"https://www.reddit.com/r/jailbreak/search.json?q=subreddit:jailbreak%20%28flair%3ARelease+OR+flair%3AUpdate+OR+flair%3AUpcoming+OR+flair%3ANews%29&restrict_sr=on&sort=relevance&t=month"]];
         [request setHTTPMethod:@"GET"];
         [[[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
             if (data) {
