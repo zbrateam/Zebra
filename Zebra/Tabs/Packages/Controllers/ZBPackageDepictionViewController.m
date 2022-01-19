@@ -148,7 +148,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     
     webView.navigationDelegate = self;
     
-    if ([package depictionURL]) {
+    if (package.depictionURL && ([package.depictionURL.scheme isEqualToString:@"http"] || [package.depictionURL.scheme isEqualToString:@"https"])) {
         [self prepDepictionLoading:[package depictionURL]];
     } else {
         [self prepDepictionLoading:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]];
@@ -330,7 +330,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     
     WKNavigationType type = navigationAction.navigationType;
     
-    if ([navigationAction.request.URL isFileURL] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
+    if ([navigationAction.request.URL isEqual:[[NSBundle mainBundle] URLForResource:@"package_depiction" withExtension:@"html"]] || (type == -1 && [navigationAction.request.URL isEqual:[package depictionURL]])) {
         decisionHandler(WKNavigationActionPolicyAllow);
     } else if (![navigationAction.request.URL isEqual:[NSURL URLWithString:@"about:blank"]]) {
         if (type != -1 && ([[url scheme] isEqualToString:@"http"] || [[url scheme] isEqualToString:@"https"])) {
