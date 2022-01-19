@@ -504,7 +504,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
-- (void)showSupportSelection {
+- (void)showSupportSelection:(UIView *)sender {
     if (self.package.supportURL && self.package.authorEmail) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Email Author", @"") style:UIAlertActionStyleDefault handler:^(UIAlertAction *alertAction) {
@@ -514,6 +514,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
             [self openSupportURL];
         }]];
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel", @"") style:UIAlertActionStyleCancel handler:nil]];
+        alertController.popoverPresentationController.sourceView = sender;
         [self presentViewController:alertController animated:YES completion:nil];
     } else if (self.package.supportURL) {
         [self openSupportURL];
@@ -674,7 +675,7 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
         case ZBPackageInfoID:
             break;
         case ZBPackageInfoAuthor:
-            [self showSupportSelection];
+            [self showSupportSelection:[tableView cellForRowAtIndexPath:indexPath]];
             break;
         case ZBPackageInfoVersion:
         case ZBPackageInfoSize:
