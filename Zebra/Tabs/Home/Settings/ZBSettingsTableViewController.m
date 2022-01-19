@@ -159,7 +159,7 @@ enum ZBMiscOrder {
             cell.label.text = NSLocalizedString(@"App Icon", @"");
             
             NSDictionary *icon = [ZBAlternateIconController iconForName:[[UIApplication sharedApplication] alternateIconName]];
-            UIImage *iconImage = [UIImage imageNamed:[icon objectForKey:@"iconName"]];
+            UIImage *iconImage = [UIImage imageNamed:[icon[@"iconName"] stringByAppendingString:@"60x60"]];
             [cell setAppIcon:iconImage border:[[icon objectForKey:@"border"] boolValue]];
             
             return cell;

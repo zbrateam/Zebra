@@ -58,9 +58,10 @@
     NSInteger i = 0;
     for (NSDictionary <NSString *, id> *item in iconSet[@"icons"]) {
         // Nil selected icon means the default icon is currently active.
-        BOOL isSelected = [item[@"iconName"] isEqualToString:selectedIconName ?: @"AppIcon60x60"];
+        BOOL isSelected = [item[@"iconName"] isEqualToString:selectedIconName ?: @"AppIcon"];
         BOOL border = [item[@"border"] boolValue];
-        UIImage *image = [[UIImage imageNamed:item[@"iconName"]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        NSString *iconName = [item[@"iconName"] stringByAppendingString:@"60x60"];
+        UIImage *image = [[UIImage imageNamed:iconName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 
         UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
         button.translatesAutoresizingMaskIntoConstraints = NO;

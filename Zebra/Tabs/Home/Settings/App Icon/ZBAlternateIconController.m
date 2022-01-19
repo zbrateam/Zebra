@@ -26,7 +26,7 @@
             @"icons": @[
                     @{
                         @"name": @"Light",
-                        @"iconName": @"AppIcon60x60",
+                        @"iconName": @"AppIcon",
                         @"border": @YES
                     },
                     @{
@@ -168,12 +168,12 @@
 - (void)setIconWithName:(NSString *)name {
     if (@available(iOS 10.3, *)) {
         if ([[UIApplication sharedApplication] supportsAlternateIcons]) {
-            NSString *currentIcon = [UIApplication sharedApplication].alternateIconName ?: @"AppIcon60x60";
+            NSString *currentIcon = [UIApplication sharedApplication].alternateIconName ?: @"AppIcon";
             if ([currentIcon isEqualToString:name]) {
                 return;
             }
 
-            if ([name isEqualToString:@"AppIcon60x60"]) name = nil;
+            if ([name isEqualToString:@"AppIcon"]) name = nil;
 
             [[UIApplication sharedApplication] setAlternateIconName:name completionHandler:^(NSError * _Nullable error) {
                 if (error) {
