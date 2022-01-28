@@ -210,14 +210,19 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:NSStringFromSelector(@selector(estimatedProgress))] && object == webView) {
         progressView.alpha = 1.0;
-        [progressView setProgress:webView.estimatedProgress animated:YES];
         
         if (webView.estimatedProgress >= 1.0) {
-            [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+                [self->progressView setProgress:self->webView.estimatedProgress animated:YES];
+            } completion:nil];
+
+            [UIView animateWithDuration:0.3 delay:0.2 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 [self->progressView setAlpha:0.0];
             } completion:^(BOOL finished) {
                 [self->progressView setProgress:0.0 animated:NO];
             }];
+        } else {
+            [progressView setProgress:webView.estimatedProgress animated:YES];
         }
     } else if ([keyPath isEqualToString:NSStringFromSelector(@selector(contentSize))]) {
         CGFloat newSize = [(UIScrollView *)object contentSize].height;
