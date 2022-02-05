@@ -29,8 +29,7 @@ typedef NS_ENUM(NSInteger, ZBSectionOrder) {
     ZBPackages,
     ZBSearch,
     ZBConsole,
-    ZBMisc1,
-    ZBMisc2,
+    ZBMisc,
     ZBReset
 };
 
@@ -53,12 +52,8 @@ typedef NS_ENUM(NSUInteger, ZBAdvancedOrder) {
     ZBClearKeychain
 };
 
-enum ZBMisc1Order {
+enum ZBMiscOrder {
     ZBIconAction
-};
-
-enum ZBMisc2Order {
-    ZBDevicePrivacyAction
 };
 
 @interface ZBSettingsTableViewController () {
@@ -104,7 +99,7 @@ enum ZBMisc2Order {
             return NSLocalizedString(@"Changes", @"");
         case ZBSearch:
             return NSLocalizedString(@"Search", @"");
-        case ZBMisc1:
+        case ZBMisc:
             return NSLocalizedString(@"Miscellaneous", @"");
         case ZBConsole:
             return NSLocalizedString(@"Console", @"");
@@ -118,7 +113,7 @@ enum ZBMisc2Order {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 11;
+    return 10;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section_ {
@@ -126,8 +121,7 @@ enum ZBMisc2Order {
     switch (section) {
         case ZBFilters:
         case ZBChanges:
-        case ZBMisc1:
-        case ZBMisc2:
+        case ZBMisc:
         case ZBSearch:
         case ZBConsole:
         case ZBPackages:
@@ -171,7 +165,7 @@ enum ZBMisc2Order {
             return cell;
         }
     }
-    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc1 || (indexPath.section == ZBSources && indexPath.row == 1)) {
+    else if ((indexPath.section == ZBFeatured && indexPath.row == ZBFeatureOrRandomToggle) || indexPath.section == ZBMisc || (indexPath.section == ZBSources && indexPath.row == 1)) {
         static NSString *cellIdentifier = @"settingsRightDetailCell";
         cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil) {
@@ -312,7 +306,7 @@ enum ZBMisc2Order {
             cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
-        case ZBMisc1: {
+        case ZBMisc: {
             NSString *text = nil;
             if (indexPath.row == ZBIconAction) {
                 text = NSLocalizedString(@"Swipe Actions Display As", @"");
@@ -326,17 +320,6 @@ enum ZBMisc2Order {
                 cell.textLabel.textColor = [UIColor primaryTextColor];
             }
             cell.textLabel.text = text;
-            return cell;
-        }
-        case ZBMisc2: {
-            UISwitch *enableSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            enableSwitch.on = [ZBSettings depictionUDIDPrivacy];
-            [enableSwitch addTarget:self action:@selector(toggleDevicePrivacy:) forControlEvents:UIControlEventValueChanged];
-            [enableSwitch setOnTintColor:[UIColor accentColor]];
-            cell.accessoryView = enableSwitch;
-            cell.textLabel.text = NSLocalizedString(@"Reduce Device Tracking", @"");
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.textLabel.textColor = [UIColor primaryTextColor];
             return cell;
         }
         case ZBConsole: {
@@ -440,7 +423,7 @@ enum ZBMisc2Order {
             [self toggleLatest:switcher];
             break;
         }
-        case ZBMisc1: {
+        case ZBMisc: {
             [self misc];
             break;
         }
@@ -485,10 +468,8 @@ enum ZBMisc2Order {
             return NSLocalizedString(@"Display recent community posts from /r/jailbreak.", @"");
         case ZBSearch:
             return NSLocalizedString(@"Search packages while typing. Disabling this feature may reduce lag on older devices.", @"");
-        case ZBMisc1:
+        case ZBMisc:
             return NSLocalizedString(@"Configure the appearance of table view swipe actions.", @"");
-        case ZBMisc2:
-            return [NSString stringWithFormat:NSLocalizedString(@"To access sources that require access to your %@’s unique identifier (UDID) from their package description pages (depictions), turn off this setting.", @""), [UIDevice currentDevice].localizedModel];
         case ZBConsole:
             return NSLocalizedString(@"Automatically dismiss the Console when all of its tasks have been completed.", @"");
         case ZBPackages:
@@ -651,26 +632,13 @@ enum ZBMisc2Order {
 
 - (void)toggleFinishAutomatically:(id)sender {
     UISwitch *switcher = (UISwitch *)sender;
-
+    
     [ZBSettings setWantsFinishAutomatically:switcher.isOn];
     [ZBDevice hapticButton];
-
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView beginUpdates];
         [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBConsole] withRowAnimation:UITableViewRowAnimationFade];
-        [self.tableView endUpdates];
-    });
-}
-
-- (void)toggleDevicePrivacy:(id)sender {
-    UISwitch *switcher = (UISwitch *)sender;
-
-    [ZBSettings setDepictionUDIDPrivacy:switcher.isOn];
-    [ZBDevice hapticButton];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView beginUpdates];
-        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:ZBMisc2] withRowAnimation:UITableViewRowAnimationFade];
         [self.tableView endUpdates];
     });
 }

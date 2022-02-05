@@ -50,8 +50,6 @@ NSString *const WishlistKey = @"Wishlist";
 
 NSString *const PackageSortingTypeKey = @"PackageSortingType";
 
-NSString *const DepictionUDIDPrivacyKey = @"DepictionUDIDPrivacy";
-
 + (void)load {
     [super load];
     
@@ -591,24 +589,6 @@ NSString *const DepictionUDIDPrivacyKey = @"DepictionUDIDPrivacy";
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
     [defaults setInteger:sortingType forKey:PackageSortingTypeKey];
-}
-
-#pragma mark - Privacy Settings
-
-+ (BOOL)depictionUDIDPrivacy {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    if (![defaults objectForKey:DepictionUDIDPrivacyKey]) {
-        [self setDepictionUDIDPrivacy:YES];
-        return YES;
-    }
-    return [defaults boolForKey:DepictionUDIDPrivacyKey];
-}
-
-+ (void)setDepictionUDIDPrivacy:(BOOL)depictionUDIDPrivacy {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    [defaults setBool:depictionUDIDPrivacy forKey:DepictionUDIDPrivacyKey];
 }
 
 @end

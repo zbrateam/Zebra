@@ -171,12 +171,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     NSString *version = [[UIDevice currentDevice] systemVersion];
     NSString *machineIdentifier = [ZBDevice machineID];
-    
-    if (![ZBSettings depictionUDIDPrivacy]) {
-        NSString *udid = [ZBDevice UDID];
-        [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
-        [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
-    }
 
     //Set theme settings and user agent
     switch ([ZBSettings interfaceStyle]) {
