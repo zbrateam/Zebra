@@ -64,6 +64,24 @@
 				<key>UIPrerenderedIcon</key>
 				<true/>
 			</dict>
+			<key>alphastream-dark</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>alphastream-dark</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>alphastream-light</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>alphastream-light</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -105,24 +123,6 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>zWhite</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>alphastream-light</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>alphastream-light</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>alphastream-dark</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>alphastream-dark</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
@@ -142,6 +142,24 @@
 				<key>UIPrerenderedIcon</key>
 				<true/>
 			</dict>
+			<key>alphastream-dark</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>alphastream-dark</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
+			<key>alphastream-light</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>alphastream-light</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<true/>
+			</dict>
 			<key>darkZebraSkin</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
@@ -183,24 +201,6 @@
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>zWhite</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>alphastream-light</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>alphastream-light</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<true/>
-			</dict>
-			<key>alphastream-dark</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>alphastream-dark</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<true/>
