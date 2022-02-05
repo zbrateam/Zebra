@@ -201,6 +201,34 @@
     }
 }
 
++ (void)restartDevice {
+    if (![self needsSimulation]) {
+        if (@available(iOS 11.0, *)) {
+            //Try sbreload
+            NSLog(@"[Zebra] Trying ldrestart");
+            @try {
+                [self runCommandInPath:@"sync" asRoot:YES observer:nil];
+                [self runCommandInPath:@"ldrestart" asRoot:YES observer:nil];
+                return;
+            }
+            @catch (NSException *e) {
+                NSLog(@"[Zebra] Could not spawn ldrestart. %@: %@", e.name, e.reason);
+            }
+        }
+
+        NSLog(@"[Zebra] Trying reboot");
+        @try {
+           [self runCommandInPath:@"reboot" asRoot:YES observer:nil];
+           return;
+        }
+        @catch (NSException *e) {
+            NSLog(@"[Zebra] Could not spawn reboot. %@: %@", e.name, e.reason);
+        }
+
+        [ZBAppDelegate sendErrorToTabController:NSLocalizedString(@"Could not restart. Please restart manually.", @"")];
+    }
+}
+
 + (void)uicache:(NSArray *_Nullable)arguments observer:(NSObject <ZBConsoleCommandDelegate> * _Nullable)observer {
     if (!arguments || [arguments count] == 0) {
         NSString *command = @"uicache -a";
@@ -390,8 +418,16 @@
 }
 
 + (NSString * _Nonnull)deviceType {
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        return @"iPad"; /* Device is iPad */
+    NSString *model = [ZBDevice machineID];
+    if ([model hasPrefix:@"iPhone"]) {
+        return @"iPhone";
+    }
+    if ([model hasPrefix:@"iPad"]) {
+        return @"iPad";
+    }
+    if ([model hasPrefix:@"iPod"]) {
+        return @"iPod";
+    }
     return @"iPhone/iPod";
 }
 

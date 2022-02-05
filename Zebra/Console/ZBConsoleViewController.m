@@ -21,12 +21,22 @@
 #import "UIColor+GlobalColors.h"
 #import "ZBThemeManager.h"
 #import "UIFont+Zebra.h"
+#import "ZBCommand.h"
 
 #include <sysexits.h>
 
 @import LNPopupController;
 
-@interface ZBConsoleViewController () {
+typedef NS_ENUM(NSUInteger, ZBConsoleFinishOption) {
+    ZBConsoleFinishOptionClose,
+    ZBConsoleFinishOptionRefreshIconCache,
+    ZBConsoleFinishOptionReopen,
+    ZBConsoleFinishOptionRestartSpringBoard,
+    ZBConsoleFinishOptionReload,
+    ZBConsoleFinishOptionRebootDevice
+};
+
+@interface ZBConsoleViewController () <ZBCommandDelegate> {
     NSMutableArray *applicationBundlePaths;
     NSMutableArray *installedPackageIdentifiers;
     NSMutableDictionary <NSString *, NSNumber *> *downloadMap;
@@ -35,12 +45,12 @@
     ZBQueue *queue;
     ZBStage currentStage;
     BOOL downloadFailed;
-    BOOL respringRequired;
     BOOL suppressCancel;
     BOOL updateIconCache;
     BOOL zebraRestartRequired;
     int autoFinishDelay;
     BOOL blockDatabaseMessages;
+    ZBConsoleFinishOption finishOption;
 }
 @property (strong, nonatomic) IBOutlet UIButton *completeButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *cancelOrCloseButton;
@@ -73,7 +83,6 @@
             downloadMap = [NSMutableDictionary new];
         }
         installedPackageIdentifiers = [NSMutableArray new];
-        respringRequired = NO;
         updateIconCache = NO;
         blockDatabaseMessages = NO;
         autoFinishDelay = 3;
@@ -121,12 +130,12 @@
     currentStage = -1;
     downloadFailed = NO;
     updateIconCache = NO;
-    respringRequired = NO;
     suppressCancel = NO;
     zebraRestartRequired = NO;
     installedPackageIdentifiers = [NSMutableArray new];
     applicationBundlePaths = [NSMutableArray new];
     downloadMap = [NSMutableDictionary new];
+    finishOption = ZBConsoleFinishOptionClose;
     
     [self updateProgress:0.0];
     progressTextView.layer.cornerRadius = 3.0;
@@ -202,7 +211,7 @@
                 [installedPackageIdentifiers addObject:[package identifier]];
             }
             
-            for (NSArray *command in actions) {
+            for (NSArray <NSString *> *command in actions) {
                 if ([command count] == 1) {
                     [self updateStage:(ZBStage)[command[0] intValue]];
                 }
@@ -219,56 +228,16 @@
                                 [applicationBundlePaths addObject:bundlePath];
                             }
 
-                            if (!respringRequired) {
-                                respringRequired = [ZBPackage respringRequiredFor:packageID];
-                                ZBLog(@"[Zebra] Respring Required? %@", respringRequired ? @"Yes" : @"No");
+                            if (finishOption < ZBConsoleFinishOptionRestartSpringBoard && [ZBPackage respringRequiredFor:packageID]) {
+                                finishOption = ZBConsoleFinishOptionRestartSpringBoard;
+                                ZBLog(@"[Zebra] Respring Required");
                             }
                         }
                     }
                     
                     if (![ZBDevice needsSimulation]) {
                         ZBLog(@"[Zebra] Executing commands...");
-                        NSTask *task = [[NSTask alloc] init];
-                        [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-                        [task setArguments:command];
-                        
-                        NSPipe *outputPipe = [[NSPipe alloc] init];
-                        NSFileHandle *output = [outputPipe fileHandleForReading];
-                        [output waitForDataInBackgroundAndNotify];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                        
-                        NSPipe *errorPipe = [[NSPipe alloc] init];
-                        NSFileHandle *error = [errorPipe fileHandleForReading];
-                        [error waitForDataInBackgroundAndNotify];
-                        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                        
-                        [task setStandardOutput:outputPipe];
-                        [task setStandardError:errorPipe];
-                        
-                        @try {
-                            [task launch];
-                            [task waitUntilExit];
-                            
-                            int terminationStatus = [task terminationStatus];
-                            switch (terminationStatus) {
-                                case EX_NOPERM:
-                                    [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                                case EDEADLK:
-                                    [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                                case 85: //ERESTART apparently
-                                    [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } @catch (NSException *e) {
-                            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
-                            
-                            NSLog(@"[Zebra] %@", message);
-                            [self writeToConsole:message atLevel:ZBLogLevelError];
-                        }
+                        [self _runSuperslingCommand:command];
                     }
                     else {
                         [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
@@ -288,9 +257,9 @@
                     updateIconCache = YES;
                     [applicationBundlePaths addObject:bundlePath];
                 }
-                
-                if (!respringRequired) {
-                    respringRequired  = [ZBPackage respringRequiredFor:packageIdentifier];
+
+                if (finishOption < ZBConsoleFinishOptionRestartSpringBoard && [ZBPackage respringRequiredFor:packageIdentifier]) {
+                    finishOption = ZBConsoleFinishOptionRestartSpringBoard;
                 }
             }
             
@@ -301,7 +270,11 @@
                         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
                     });
                 }
+
                 zebraRestartRequired = YES;
+                if (finishOption < ZBConsoleFinishOptionReopen) {
+                    finishOption = ZBConsoleFinishOptionReopen;
+                }
                 
                 ZBLog(@"[Zebra] modifying zebra...");
                 if (queue.removingZebra) {
@@ -323,48 +296,7 @@
                 }
                 
                 if (![ZBDevice needsSimulation]) {
-                    NSTask *task = [[NSTask alloc] init];
-                    [task setLaunchPath:@"/usr/libexec/zebra/supersling"];
-                    [task setArguments:baseCommand];
-                    
-                    NSPipe *outputPipe = [[NSPipe alloc] init];
-                    NSFileHandle *output = [outputPipe fileHandleForReading];
-                    [output waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedData:) name:NSFileHandleDataAvailableNotification object:output];
-                    
-                    NSPipe *errorPipe = [[NSPipe alloc] init];
-                    NSFileHandle *error = [errorPipe fileHandleForReading];
-                    [error waitForDataInBackgroundAndNotify];
-                    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receivedErrorData:) name:NSFileHandleDataAvailableNotification object:error];
-                    
-                    [task setStandardOutput:outputPipe];
-                    [task setStandardError:errorPipe];
-                    
-                    @try {
-                        [task launch];
-                        [task waitUntilExit];
-                        
-                        int terminationStatus = [task terminationStatus];
-                        switch (terminationStatus) {
-                            case EX_NOPERM:
-                                [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
-                                break;
-                            case EDEADLK:
-                                [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
-                                break;
-                            case 85: //ERESTART apparently
-                                [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
-                                    break;
-                            default:
-                                break;
-                        }
-                    } @catch (NSException *e) {
-                        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %@.", @""), [ZBDevice packageManagementBinary], e.reason];
-                        
-                        NSLog(@"[Zebra] %@", message);
-                        [self writeToConsole:message atLevel:ZBLogLevelError];
-                        [self writeToConsole:NSLocalizedString(@"Please restart Zebra and see if the issue still persists. If so, please file an issue on GitHub.", @"") atLevel:ZBLogLevelInfo];
-                    }
+                    [self _runSuperslingCommand:baseCommand];
                 }
                 else {
                     [self writeToConsole:NSLocalizedString(@"This device is simulated, here are the packages that would be modified in this stage:", @"") atLevel:ZBLogLevelWarning];
@@ -381,6 +313,33 @@
         [self refreshLocalPackages];
         [self removeAllDebs];
         [self finishTasks];
+    }
+}
+
+- (void)_runSuperslingCommand:(NSArray <NSString *> *)arguments {
+    ZBCommand *command = [[ZBCommand alloc] initWithCommand:arguments[0] arguments:arguments root:YES delegate:self];
+    command.useFinishFd = YES;
+    int status = [command execute];
+    if (status < 0) {
+        NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Could not complete %@ process. Reason: %s.", @""), [ZBDevice packageManagementBinary], strerror(status)];
+
+        NSLog(@"[Zebra] %@", message);
+        [self writeToConsole:message atLevel:ZBLogLevelError];
+    } else {
+        // Handle specific error states
+        switch (status) {
+        case EX_NOPERM:
+            [self writeToConsole:NSLocalizedString(@"Zebra was unable to complete this command because it does not have the proper permissions. Please verify the permissions located at /usr/libexec/zebra/supersling and report this issue on GitHub.", @"") atLevel:ZBLogLevelError];
+            break;
+        case EDEADLK:
+            [self writeToConsole:NSLocalizedString(@"ERROR: Unable to lock status file. Please try again.", @"") atLevel:ZBLogLevelError];
+            break;
+        case 85: //ERESTART apparently
+            [self writeToConsole:NSLocalizedString(@"ERROR: Process must be restarted. Please try again.", @"") atLevel:ZBLogLevelError];
+            break;
+        default:
+            break;
+        }
     }
 }
 
@@ -448,6 +407,14 @@
 - (void)restartSpringBoard {
     if (![ZBDevice needsSimulation]) {
         [ZBDevice restartSpringBoard];
+    } else {
+        [self close];
+    }
+}
+
+- (void)restartDevice {
+    if (![ZBDevice needsSimulation]) {
+        [ZBDevice restartDevice];
     } else {
         [self close];
     }
@@ -643,7 +610,7 @@
 }
 
 - (void)updateCompleteButton {
-    ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), respringRequired(%d), zebraRestartRequired(%d)", downloadFailed, respringRequired, zebraRestartRequired);
+    ZBLog(@"[Zebra] Final statuses: downloadFailed(%d), finishOption(%lu), zebraRestartRequired(%d)", downloadFailed, (unsigned long)finishOption, zebraRestartRequired);
     if ([ZBSettings wantsFinishAutomatically]) { // automatically finish after 3 secs
         dispatch_block_t finishBlock = nil;
 
@@ -654,26 +621,47 @@
                 [self returnToQueue];
             };
         }
-        else if (self->respringRequired) {
-            [self updateProgressText:NSLocalizedString(@"Restarting SpringBoard...", @"")];
-            finishBlock = ^{
-                [self updateProgressText:nil];
-                [self restartSpringBoard];
-            };
-        }
-        else if (self->zebraRestartRequired) {
-            [self updateProgressText:NSLocalizedString(@"Closing Zebra...", @"")];
-            finishBlock = ^{
-                [self updateProgressText:nil];
-                [self closeZebra];
-            };
-        }
         else {
-            [self updateProgressText:NSLocalizedString(@"Done...", @"")];
-            finishBlock = ^{
-                [self updateProgressText:nil];
-                [self close];
-            };
+            switch (self->finishOption) {
+            case ZBConsoleFinishOptionClose:
+            case ZBConsoleFinishOptionRefreshIconCache: {
+                // RefreshIconCache is redundant; we’re just treating it the same as Close.
+                [self updateProgressText:NSLocalizedString(@"Done...", @"")];
+                finishBlock = ^{
+                    [self updateProgressText:nil];
+                    [self close];
+                };
+                break;
+            }
+
+            case ZBConsoleFinishOptionReopen: {
+                [self updateProgressText:NSLocalizedString(@"Closing Zebra...", @"")];
+                finishBlock = ^{
+                    [self updateProgressText:nil];
+                    [self closeZebra];
+                };
+                break;
+            }
+
+            case ZBConsoleFinishOptionRestartSpringBoard:
+            case ZBConsoleFinishOptionReload: {
+                [self updateProgressText:NSLocalizedString(@"Restarting SpringBoard...", @"")];
+                finishBlock = ^{
+                    [self updateProgressText:nil];
+                    [self restartSpringBoard];
+                };
+                break;
+            }
+
+            case ZBConsoleFinishOptionRebootDevice: {
+                [self updateProgressText:[NSString stringWithFormat:NSLocalizedString(@"Restarting %@...", @""), [UIDevice currentDevice].localizedModel]];
+                finishBlock = ^{
+                    [self updateProgressText:nil];
+                    [self restartDevice];
+                };
+                break;
+            }
+            }
         }
 
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self->autoFinishDelay * NSEC_PER_SEC));
@@ -686,17 +674,32 @@
                 [self->completeButton setTitle:NSLocalizedString(@"Return to Queue", @"") forState:UIControlStateNormal];
                 [self->completeButton addTarget:self action:@selector(returnToQueue) forControlEvents:UIControlEventTouchUpInside];
             }
-            else if (self->respringRequired) {
-                [self->completeButton setTitle:NSLocalizedString(@"Restart SpringBoard", @"") forState:UIControlStateNormal];
-                [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
-            }
-            else if (self->zebraRestartRequired) {
-                [self->completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
-                [self->completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
-            }
             else {
-                [self->completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
-                [self->completeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+                switch (self->finishOption) {
+                case ZBConsoleFinishOptionClose:
+                case ZBConsoleFinishOptionRefreshIconCache:
+                    // RefreshIconCache is redundant since we handle this automatically; we’re just
+                    // treating it the same as Close.
+                    [self->completeButton setTitle:NSLocalizedString(@"Done", @"") forState:UIControlStateNormal];
+                    [self->completeButton addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+
+                case ZBConsoleFinishOptionReopen:
+                    [self->completeButton setTitle:NSLocalizedString(@"Close Zebra", @"") forState:UIControlStateNormal];
+                    [self->completeButton addTarget:self action:@selector(closeZebra) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+
+                case ZBConsoleFinishOptionRestartSpringBoard:
+                case ZBConsoleFinishOptionReload:
+                    [self->completeButton setTitle:NSLocalizedString(@"Restart SpringBoard", @"") forState:UIControlStateNormal];
+                    [self->completeButton addTarget:self action:@selector(restartSpringBoard) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+
+                case ZBConsoleFinishOptionRebootDevice:
+                    [self->completeButton setTitle:[NSString stringWithFormat:NSLocalizedString(@"Restart %@", @""), [UIDevice currentDevice].localizedModel] forState:UIControlStateNormal];
+                    [self->completeButton addTarget:self action:@selector(restartDevice) forControlEvents:UIControlEventTouchUpInside];
+                    break;
+                }
             }
         });
     }
@@ -704,30 +707,31 @@
 
 #pragma mark - Command Delegate
 
-- (void)receivedData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
+- (void)receivedData:(NSString *)str {
+    [self writeToConsole:str atLevel:ZBLogLevelDescript];
+}
 
-    if (data.length) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [self writeToConsole:str atLevel:ZBLogLevelDescript];
+- (void)receivedErrorData:(NSString *)str {
+    if ([str containsString:@"stable CLI interface"]) return;
+    if ([str containsString:@"postinst"]) return;
+    if ([str rangeOfString:@"warning"].location != NSNotFound || [str hasPrefix:@"W:"]) {
+        [self writeToConsole:str atLevel:ZBLogLevelWarning];
+    } else {
+        [self writeToConsole:str atLevel:ZBLogLevelError];
     }
 }
 
-- (void)receivedErrorData:(NSNotification *)notif {
-    NSFileHandle *fh = [notif object];
-    NSData *data = [fh availableData];
+- (void)receivedFinishData:(NSString *)str {
+    if ([str hasPrefix:@"finish:"]) {
+        NSArray *components = [str componentsSeparatedByString:@":"];
+        if (components.count == 2) {
+            NSString *option = [components[1] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            NSArray *options = @[@"return", @"uicache", @"reopen", @"restart", @"reload", @"reboot"];
+            NSUInteger index = [options indexOfObject:option];
 
-    if (data.length) {
-        [fh waitForDataInBackgroundAndNotify];
-        NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        if ([str containsString:@"stable CLI interface"]) return;
-        if ([str containsString:@"postinst"]) return;
-        if ([str rangeOfString:@"warning"].location != NSNotFound || [str hasPrefix:@"W:"]) {
-            [self writeToConsole:str atLevel:ZBLogLevelWarning];
-        } else {
-            [self writeToConsole:str atLevel:ZBLogLevelError];
+            if (index != NSNotFound && index > finishOption) {
+                finishOption = (ZBConsoleFinishOption)index;
+            }
         }
     }
 }
