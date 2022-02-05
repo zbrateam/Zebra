@@ -177,6 +177,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (ZBSortingType)packageSortingType;
 + (void)setPackageSortingType:(ZBSortingType)sortingType;
 
+#pragma mark - Privacy Settings
+
+@property (class) BOOL depictionUDIDPrivacy;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -1,5 +1,3 @@
-
-
 //
 //  ZBPackageDepictionViewController.m
 //  Zebra
@@ -172,10 +170,13 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
 - (void)prepDepictionLoading:(NSURL *)url {
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url];
     NSString *version = [[UIDevice currentDevice] systemVersion];
-    NSString *udid = [ZBDevice UDID];
     NSString *machineIdentifier = [ZBDevice machineID];
     
-    [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
+    if (![ZBSettings depictionUDIDPrivacy]) {
+        NSString *udid = [ZBDevice UDID];
+        [request setValue:udid forHTTPHeaderField:@"X-Cydia-ID"];
+        [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
+    }
 
     //Set theme settings and user agent
     switch ([ZBSettings interfaceStyle]) {
@@ -197,7 +198,6 @@ typedef NS_ENUM(NSUInteger, ZBPackageInfoOrder) {
     }
     
     [request setValue:version forHTTPHeaderField:@"X-Firmware"];
-    [request setValue:udid forHTTPHeaderField:@"X-Unique-ID"];
     [request setValue:machineIdentifier forHTTPHeaderField:@"X-Machine"];
     [request setValue:@"API" forHTTPHeaderField:@"Payment-Provider"];
     [request setValue:[UIColor hexStringFromColor:[UIColor accentColor]] forHTTPHeaderField:@"Tint-Color"];
