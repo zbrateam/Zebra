@@ -13,11 +13,10 @@
 #import <UIKit/UIKit.h>
 #import "ZBDownloadDelegate.h"
 #import "ZBDatabaseDelegate.h"
-#import "ZBConsoleCommandDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate, ZBConsoleCommandDelegate, UIGestureRecognizerDelegate>
+@interface ZBConsoleViewController : UIViewController <ZBDownloadDelegate, ZBDatabaseDelegate, UIGestureRecognizerDelegate>
 @end
 
 NS_ASSUME_NONNULL_END

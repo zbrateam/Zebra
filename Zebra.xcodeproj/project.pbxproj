@@ -362,7 +362,6 @@
 		89AD450223CA4F010008831F /* UIImageView+Zebra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Zebra.h"; sourceTree = "<group>"; };
 		89AD450323CA4F010008831F /* UIImageView+Zebra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Zebra.m"; sourceTree = "<group>"; };
 		89AD450E23CA6D260008831F /* ZBSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBSettings.m; sourceTree = "<group>"; };
-		89B20FD121B7635300F7EEFE /* NSTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSTask.h; sourceTree = "<group>"; };
 		89B76A51235F8FF6006900FE /* ZBStage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBStage.h; sourceTree = "<group>"; };
 		89C112A12400E7A200854713 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		89C4244B24411C1100FE5ED8 /* UIAlertController+Show.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIAlertController+Show.h"; sourceTree = "<group>"; };
@@ -422,7 +421,6 @@
 		9E2B413F22C87074009BC12B /* UIAlertController+Theme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIAlertController+Theme.m"; sourceTree = "<group>"; };
 		9E54915422B7D2EA006FEA25 /* ZBRefreshableTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBRefreshableTableViewController.h; sourceTree = "<group>"; };
 		9E54915522B7D2EA006FEA25 /* ZBRefreshableTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBRefreshableTableViewController.m; sourceTree = "<group>"; };
-		9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBConsoleCommandDelegate.h; sourceTree = "<group>"; };
 		9E87F358231A20350043E7F2 /* ZBSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBSettings.h; sourceTree = "<group>"; };
 		9E9D312E236D52BF00880215 /* ZBPackagePartitioner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBPackagePartitioner.h; sourceTree = "<group>"; };
 		9E9D312F236D52BF00880215 /* ZBPackagePartitioner.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZBPackagePartitioner.m; sourceTree = "<group>"; };
@@ -650,7 +648,6 @@
 		893952FC220B5CE400995109 /* Console */ = {
 			isa = PBXGroup;
 			children = (
-				9E70E8E522B93B8400406D26 /* ZBConsoleCommandDelegate.h */,
 				89B76A51235F8FF6006900FE /* ZBStage.h */,
 				89FEA4132264BF68002647A2 /* ZBLogLevel.h */,
 				893952FD220B5D0100995109 /* ZBConsoleViewController.h */,
@@ -675,7 +672,6 @@
 			isa = PBXGroup;
 			children = (
 				9ECE3B9222D9C32F00F48A0E /* UITabBarItem.h */,
-				89B20FD121B7635300F7EEFE /* NSTask.h */,
 				895071972239E2FD004AE338 /* MobileGestalt.h */,
 				A59E32832434E7DE00077D6E /* AccessibilityUtilities.h */,
 				A57BC3EA245D13F200D1687D /* UIAlertController+Private.h */,
