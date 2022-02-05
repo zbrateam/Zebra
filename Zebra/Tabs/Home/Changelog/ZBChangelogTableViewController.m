@@ -36,6 +36,10 @@
     }
 
     [self.tableView registerClass:[ZBChangelogEntryCell class] forCellReuseIdentifier:@"changeLogCell"];
+
+    // Prevent additional separator lines from being displayed, especially while loading.
+    self.tableView.tableHeaderView = [[UIView alloc] init];
+    self.tableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -111,7 +115,9 @@
         NSString *html = [NSString stringWithFormat:@"<!DOCTYPE html><html><head><meta charset=\"utf-8\"><style>"
                           @"body { font: -apple-system-body; }"
                           @"body > :last-child { margin-bottom: 0; }"
+                          @"a { text-decoration: %@; }"
                           @"</style></head><body>%@</body></html>",
+                          [ZBDevice buttonShapesEnabled] ? @"underline" : @"none",
                           dataDict[@"body_html"] ?: @"Error"];
         attributedString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUTF8StringEncoding] options:@{
             NSDocumentTypeDocumentOption: NSHTMLTextDocumentType

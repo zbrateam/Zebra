@@ -20,6 +20,7 @@
 #import <sys/types.h>
 #import <sys/stat.h>
 #import <unistd.h>
+#import <dlfcn.h>
 @import SafariServices;
 @import LNPopupController;
 
@@ -289,6 +290,23 @@ static BOOL hasProcursus;
 
 + (BOOL)darkModeEnabled {
     return [ZBSettings interfaceStyle] >= ZBInterfaceStyleDark;
+}
+
++ (BOOL)buttonShapesEnabled {
+    if (@available(iOS 14, *)) {
+        return UIAccessibilityButtonShapesEnabled();
+    }
+
+    // Use the old private function for this. Its implementation is identical to the public one.
+    static BOOL (*_UIAccessibilityButtonShapesEnabled)(void);
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        void *uikit = dlopen("/System/Library/Frameworks/UIKit.framework/UIKit", RTLD_LAZY);
+        if (uikit) {
+            _UIAccessibilityButtonShapesEnabled = dlsym(uikit, "_UIAccessibilityButtonShapesEnabled");
+        }
+    });
+    return _UIAccessibilityButtonShapesEnabled ? _UIAccessibilityButtonShapesEnabled() : NO;
 }
 
 @end

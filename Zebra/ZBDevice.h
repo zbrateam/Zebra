@@ -48,4 +48,6 @@
 
 + (BOOL)darkModeEnabled; //Only provided for legacy tweak support
 
++ (BOOL)buttonShapesEnabled;
+
 @end
