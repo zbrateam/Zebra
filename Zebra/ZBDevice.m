@@ -23,6 +23,14 @@
 @import SafariServices;
 @import LNPopupController;
 
+static BOOL isCheckrain;
+static BOOL isChimera;
+static BOOL isElectra;
+static BOOL isUncover;
+static BOOL isOdyssey;
+static BOOL isTaurine;
+static BOOL hasProcursus;
+
 @implementation ZBDevice
 
 + (BOOL)needsSimulation {
@@ -199,68 +207,27 @@
     return exists && isDir;
 }
 
-+ (BOOL)isCheckrain {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.bootstrapped"];
-    });
-    return value;
++ (void)load {
+    [super load];
+
+    if (![self needsSimulation]) {
+        isCheckrain  = [self _isRegularFile:@"/.bootstrapped"];
+        isChimera    = [self _isRegularDirectory:@"/chimera"];
+        isElectra    = [self _isRegularDirectory:@"/electra"];
+        isUncover    = [self _isRegularFile:@"/.installed_unc0ver"];
+        isOdyssey    = [self _isRegularFile:@"/.installed_odyssey"];
+        isTaurine    = [self _isRegularFile:@"/.installed_taurine"];
+        hasProcursus = [self _isRegularFile:@"/.procursus_strapped"];
+    }
 }
 
-+ (BOOL)isChimera {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularDirectory:@"/chimera"];
-    });
-    return value;
-}
-
-+ (BOOL)isElectra {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularDirectory:@"/electra"];
-    });
-    return value;
-}
-
-+ (BOOL)isUncover {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_unc0ver"];
-    });
-    return value;
-}
-
-+ (BOOL)isOdyssey {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.installed_odyssey"];
-    });
-    return value;
-}
-
-+ (BOOL)isTaurine {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? YES : [self _isRegularFile:@"/.installed_taurine"];
-    });
-    return value;
-}
-
-+ (BOOL)hasProcursus {
-    static BOOL value = NO;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        value = [self needsSimulation] ? NO : [self _isRegularFile:@"/.procursus_strapped"];
-    });
-    return value;
-}
++ (BOOL)isCheckrain  { return isCheckrain; }
++ (BOOL)isChimera    { return isChimera; }
++ (BOOL)isElectra    { return isElectra; }
++ (BOOL)isUncover    { return isUncover; }
++ (BOOL)isOdyssey    { return isOdyssey; }
++ (BOOL)isTaurine    { return isTaurine; }
++ (BOOL)hasProcursus { return hasProcursus; }
 
 + (NSString *)packageManagementBinary {
     static NSString *packageManagementBinary = nil;
