@@ -155,7 +155,7 @@
     if ([baseSource isKindOfClass:[ZBSource class]]) {
         ZBSource *source = (ZBSource *)baseSource;
         if ([source canDelete]) {
-            NSString *title = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
+            NSString *title = [ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Remove", @"");
             UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 [self->sources removeObject:source];
                 [self->sourceManager deleteSource:source];
@@ -164,7 +164,7 @@
             [actions addObject:deleteAction];
         }
         if (![self.databaseManager isDatabaseBeingUpdated]) {
-            NSString *title = [ZBDevice useIcon] ? @"↺" : NSLocalizedString(@"Refresh", @"");
+            NSString *title = [ZBDevice useIcon] ? @"↻" : NSLocalizedString(@"Refresh", @"");
             UITableViewRowAction *refreshAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:title handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
                 [self.databaseManager updateSource:source useCaching:YES];
             }];

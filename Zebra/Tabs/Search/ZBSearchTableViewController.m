@@ -271,7 +271,7 @@
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSMutableArray *actions = [NSMutableArray array];
-    NSString *remove = [ZBDevice useIcon] ? @"X" : NSLocalizedString(@"Remove", @"");
+    NSString *remove = [ZBDevice useIcon] ? @"✗" : NSLocalizedString(@"Remove", @"");
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:remove handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         [self->recentSearches removeObjectAtIndex:(long)indexPath.row];
         [[NSUserDefaults standardUserDefaults] setObject:self->recentSearches forKey:@"recentSearches"];

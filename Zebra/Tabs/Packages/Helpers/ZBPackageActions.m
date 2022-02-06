@@ -470,15 +470,15 @@
     switch (action) {
         case ZBPackageActionInstall:
         case ZBPackageActionSelectVersion:
-            return useIcon ? @"⇩" : NSLocalizedString(@"Install", @"");
+            return useIcon ? @"↓" : NSLocalizedString(@"Install", @"");
         case ZBPackageActionRemove:
-            return useIcon ? @"╳" : NSLocalizedString(@"Remove", @"");
+            return useIcon ? @"✗" : NSLocalizedString(@"Remove", @"");
         case ZBPackageActionReinstall:
-            return useIcon ? @"↺" : NSLocalizedString(@"Reinstall", @"");
+            return useIcon ? @"↻" : NSLocalizedString(@"Reinstall", @"");
         case ZBPackageActionUpgrade:
             return useIcon ? @"↑" : NSLocalizedString(@"Upgrade", @"");
         case ZBPackageActionDowngrade:
-            return useIcon ? @"↓" : NSLocalizedString(@"Downgrade", @"");
+            return useIcon ? @"⋯" : NSLocalizedString(@"Downgrade", @"");
         case ZBPackageActionShowUpdates:
             return NSLocalizedString(@"Show Updates", @"");
         case ZBPackageActionHideUpdates:
