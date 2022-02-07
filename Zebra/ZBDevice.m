@@ -244,6 +244,21 @@ static BOOL hasProcursus;
     return packageManagementBinary;
 }
 
++ (NSString *)path {
+    // Construct a safe PATH. This will be set app-wide.
+    // There is some commented code here for Procursus prefixed “rootless” bootstrap in future.
+//    NSString *prefix = @"/";
+    NSArray <NSString *> *path = @[@"/usr/sbin", @"/usr/bin", @"/sbin", @"/bin"];
+//    if ([[NSURL fileURLWithPath:prefix isDirectory:YES] checkResourceIsReachableAndReturnError:nil]) {
+//        NSMutableArray <NSString *> *prefixedPath = [NSMutableArray array];
+//        for (NSString *item in path) {
+//            [prefixedPath addObject:[prefix stringByAppendingPathComponent:item]];
+//        }
+//        path = [prefixedPath arrayByAddingObjectsFromArray:path];
+//    }
+    return [path componentsJoinedByString:@":"];
+}
+
 + (NSString * _Nonnull)deviceType {
     NSString *model = [ZBDevice machineID];
     if ([model hasPrefix:@"iPhone"]) {

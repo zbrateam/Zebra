@@ -7,6 +7,7 @@
 //
 
 #import "ZBCommand.h"
+#import "ZBDevice.h"
 #import <spawn.h>
 
 typedef struct ZBCommandFds {
@@ -119,6 +120,7 @@ static const int ZBCommandFinishFileno = 3;
 
     // Construct environment vars
     NSMutableArray <NSString *> *environmentVars = [NSMutableArray array];
+    [environmentVars addObject:[NSString stringWithFormat:@"PATH=%@", [ZBDevice path]]];
     if (_useFinishFd) {
         // $CYDIA enables maintenance scripts to send “finish” messages to the
         // package manager. Contains two integers. First is the fd to write to,

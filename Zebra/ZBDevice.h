@@ -24,6 +24,7 @@
 + (NSString *_Nonnull)deviceType;
 + (NSString *_Nonnull)debianArchitecture;
 + (NSString *_Nullable)packageManagementBinary;
++ (NSString *_Nonnull)path;
 
 + (void)hapticButton;
 
