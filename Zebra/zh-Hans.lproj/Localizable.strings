@@ -157,7 +157,7 @@
 "Add" = "添加";
 "View" = "查看";
 "Add Sources" = "添加软件源";
-"Add Multiple" = "批量添加";
+"Add Multiple…" = "批量添加";
 "Enter Source URL" = "输入软件源地址";
 "Would you like to add the URL from your clipboard?" = "是否添加剪贴板中的软件源链接？";
 

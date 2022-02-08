@@ -157,7 +157,7 @@
 "Add" = "Lägg till";
 "View" = "Visa";
 "Add Sources" = "Lägg till källor";
-"Add Multiple" = "Lägg till flera";
+"Add Multiple…" = "Lägg till flera";
 "Enter Source URL" = "Ange käll-URL";
 "Would you like to add the URL from your clipboard?" = "Vill du lägga till URL:en från ditt urklipp?";
 

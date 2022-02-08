@@ -157,7 +157,7 @@
 "Add" = "Ekle";
 "View" = "Görüntüle";
 "Add Sources" = "Kaynakları Ekle";
-"Add Multiple" = "Birden Fazla Ekle";
+"Add Multiple…" = "Birden Fazla Ekle";
 "Enter Source URL" = "Kaynak URL'sini Gir";
 "Would you like to add the URL from your clipboard?" = "Kopyalamış olduğunuz Linki kaynak olarak eklemek ister misiniz?";
 

@@ -157,7 +157,7 @@
 "Add" = "Pievienot";
 "View" = "Skatīties";
 "Add Sources" = "Pievienot Avotus";
-"Add Multiple" = "Pievienot vairākus";
+"Add Multiple…" = "Pievienot vairākus";
 "Enter Source URL" = "Ievadi Avota URL";
 "Would you like to add the URL from your clipboard?" = "Vai vēlies pievienot URL no starpliktuves?";
 

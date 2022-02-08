@@ -157,7 +157,7 @@
 "Add" = "Добавить";
 "View" = "Просмотр";
 "Add Sources" = "Добавить источники";
-"Add Multiple" = "Добавить несколько";
+"Add Multiple…" = "Добавить несколько";
 "Enter Source URL" = "Введите URL источника";
 "Would you like to add the URL from your clipboard?" = "Добавить URL из вашего буфера обмена?";
 

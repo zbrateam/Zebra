@@ -157,7 +157,7 @@
 "Add" = "Добавяне";
 "View" = "View";
 "Add Sources" = "Добавяне на източници";
-"Add Multiple" = "Add Multiple";
+"Add Multiple…" = "Add Multiple…";
 "Enter Source URL" = "Въведете URL адрес на източника";
 "Would you like to add the URL from your clipboard?" = "Бихте ли желали да добавите URL адрес от буферната си памет?";
 

@@ -157,7 +157,7 @@
 "Add" = "Dodaj";
 "View" = "Pregled";
 "Add Sources" = "Dodaj Repo";
-"Add Multiple" = "Dodaj više";
+"Add Multiple…" = "Dodaj više";
 "Enter Source URL" = "Unesite URL Repoa";
 "Would you like to add the URL from your clipboard?" = "Da li želite da dodate Repo iz clipborda?";
 

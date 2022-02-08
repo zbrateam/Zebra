@@ -157,7 +157,7 @@
 "Add" = "Ajouter";
 "View" = "Afficher";
 "Add Sources" = "Ajouter des Sources";
-"Add Multiple" = "Ajouter plusieurs";
+"Add Multiple…" = "Ajouter plusieurs";
 "Enter Source URL" = "Entrer l'URL de la source";
 "Would you like to add the URL from your clipboard?" = "Souhaitez-vous ajouter l'URL de votre presse-papiers ?";
 

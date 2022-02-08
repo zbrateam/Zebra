@@ -157,7 +157,7 @@
 "Add" = "Tilføj";
 "View" = "View";
 "Add Sources" = "Tilføj kilder";
-"Add Multiple" = "Tilføj Flere";
+"Add Multiple…" = "Tilføj Flere";
 "Enter Source URL" = "Angiv URL for kilde";
 "Would you like to add the URL from your clipboard?" = "Vil du gerne tilføje webadressen fra dit udklipsholder?";
 

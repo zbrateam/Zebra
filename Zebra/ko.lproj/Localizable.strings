@@ -157,7 +157,7 @@
 "Add" = "추가";
 "View" = "보기";
 "Add Sources" = "소스 추가";
-"Add Multiple" = "여러개 추가";
+"Add Multiple…" = "여러개 추가";
 "Enter Source URL" = "소스 URL 입력";
 "Would you like to add the URL from your clipboard?" = "클립보드에서 가져온 URL을 추가할까요?";
 

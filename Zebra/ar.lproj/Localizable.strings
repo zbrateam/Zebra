@@ -157,7 +157,7 @@
 "Add" = "إضافة";
 "View" = "عرض";
 "Add Sources" = "إضافة مصادر";
-"Add Multiple" = "إضافة متعددة";
+"Add Multiple…" = "إضافة متعددة";
 "Enter Source URL" = "أدخل عنوان URL المصدر";
 "Would you like to add the URL from your clipboard?" = "هل تريد إضافة عنوان الـ URL من الحافظة؟";
 

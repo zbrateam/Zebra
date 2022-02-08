@@ -157,7 +157,7 @@
 "Add" = "Adicionar";
 "View" = "Ver";
 "Add Sources" = "Adicionar Fontes";
-"Add Multiple" = "Adicionar Multiplos";
+"Add Multiple…" = "Adicionar Multiplos";
 "Enter Source URL" = "Digite a URL da Fonte";
 "Would you like to add the URL from your clipboard?" = "Queres adicionar o Repo no clipboard?";
 

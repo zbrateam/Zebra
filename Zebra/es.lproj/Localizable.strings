@@ -157,7 +157,7 @@
 "Add" = "Añadir";
 "View" = "Ver";
 "Add Sources" = "Añadir Fuentes";
-"Add Multiple" = "Añadir múltiples";
+"Add Multiple…" = "Añadir múltiples";
 "Enter Source URL" = "Introduce la Fuente URL";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
 

@@ -157,7 +157,7 @@
 "Add" = "追加";
 "View" = "表示";
 "Add Sources" = "リポジトリを追加";
-"Add Multiple" = "複数追加";
+"Add Multiple…" = "複数追加";
 "Enter Source URL" = "リポジトリ URL を入力する";
 "Would you like to add the URL from your clipboard?" = "クリップボードからURLを追加しますか？";
 

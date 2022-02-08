@@ -157,7 +157,7 @@
 "Add" = "新增";
 "View" = "查看";
 "Add Sources" = "新增來源";
-"Add Multiple" = "新增多個";
+"Add Multiple…" = "新增多個";
 "Enter Source URL" = "輸入來源網址";
 "Would you like to add the URL from your clipboard?" = "是否要新增剪貼簿中的網址？";
 

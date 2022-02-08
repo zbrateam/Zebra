@@ -103,7 +103,7 @@
 "Enter URL" = "Ingresa dirección URL";
 "Add Repo(s)" = "Añadir repositorio(s)";
 "Add" = "Añadir";
-"Add Multiple" = "Añadir múltiples";
+"Add Multiple…" = "Añadir múltiples";
 "Would you like to add the URL from your clipboard?" = "¿Te gustaría añadir la dirección URL del portapapeles?";
 "Please Wait..." = "Por favor espere...";
 "Verifying Source(s)" = "Verificando fuente(s)";
